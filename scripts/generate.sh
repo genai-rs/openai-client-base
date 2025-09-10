@@ -148,12 +148,17 @@ else
     deactivate
 fi
 
-# Step 7: Format the generated code
+# Step 7: Fix clippy warnings in generated code
+echo ""
+echo "🔧 Fixing clippy warnings..."
+python scripts/fix_clippy_warnings.py
+
+# Step 8: Format the generated code
 echo ""
 echo "🎨 Formatting generated code..."
 cargo fmt --all
 
-# Step 8: Build the crate
+# Step 9: Build the crate
 echo ""
 echo "🔨 Building crate..."
 echo "  Cleaning build cache to avoid corruption issues..."
@@ -169,4 +174,5 @@ echo "Note: The following post-generation fixes were applied:"
 echo "  - Fixed recursive types and compilation issues"
 echo "  - Fixed empty enums and acronym casing (MCP -> Mcp, etc.)"
 echo "  - Added bon::Builder derives to all structs"
+echo "  - Fixed clippy warnings with appropriate allow attributes"
 echo "  - Applied cargo fmt for consistent formatting"
