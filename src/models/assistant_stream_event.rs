@@ -15,5 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "event")]
 pub enum AssistantStreamEvent {
+    #[serde(rename = "threadstreamevent")]
+    ThreadStreamEvent(Box<models::ThreadStreamEvent>),
+    #[serde(rename = "runstreamevent")]
+    RunStreamEvent(Box<models::RunStreamEvent>),
+    #[serde(rename = "runstepstreamevent")]
+    RunStepStreamEvent(Box<models::RunStepStreamEvent>),
+    #[serde(rename = "messagestreamevent")]
+    MessageStreamEvent(Box<models::MessageStreamEvent>),
+    #[serde(rename = "error")]
+    ErrorEvent(Box<models::ErrorEvent>),
 }
 

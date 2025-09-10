@@ -15,5 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum ChunkingStrategyResponse {
+    #[serde(rename = "static")]
+    StaticChunkingStrategyResponseParam(Box<models::StaticChunkingStrategyResponseParam>),
+    #[serde(rename = "other")]
+    OtherChunkingStrategyResponseParam(Box<models::OtherChunkingStrategyResponseParam>),
 }
 

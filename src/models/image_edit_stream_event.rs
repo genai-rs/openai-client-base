@@ -14,6 +14,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum ImageEditStreamEvent {
+    #[serde(rename = "image_edit.partial_image")]
+    ImageEditPartialImageEvent(Box<models::ImageEditPartialImageEvent>),
+    #[serde(rename = "image_edit.completed")]
+    ImageEditCompletedEvent(Box<models::ImageEditCompletedEvent>),
 }
 
 /// The size of the edited image. 

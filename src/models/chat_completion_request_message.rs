@@ -14,5 +14,17 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "role")]
 pub enum ChatCompletionRequestMessage {
+    #[serde(rename = "developer")]
+    ChatCompletionRequestDeveloperMessage(Box<models::ChatCompletionRequestDeveloperMessage>),
+    #[serde(rename = "system")]
+    ChatCompletionRequestSystemMessage(Box<models::ChatCompletionRequestSystemMessage>),
+    #[serde(rename = "user")]
+    ChatCompletionRequestUserMessage(Box<models::ChatCompletionRequestUserMessage>),
+    #[serde(rename = "assistant")]
+    ChatCompletionRequestAssistantMessage(Box<models::ChatCompletionRequestAssistantMessage>),
+    #[serde(rename = "tool")]
+    ChatCompletionRequestToolMessage(Box<models::ChatCompletionRequestToolMessage>),
+    #[serde(rename = "function")]
+    ChatCompletionRequestFunctionMessage(Box<models::ChatCompletionRequestFunctionMessage>),
 }
 
