@@ -1,4 +1,4 @@
-acname: Generate Client
+name: Generate Client
 
 on:
   schedule:
