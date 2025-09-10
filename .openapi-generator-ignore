@@ -22,5 +22,28 @@
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
 
-# Preserve our custom README
+# Preserve our custom files from being overwritten
+
+# Documentation and project info
 README.md
+CONTRIBUTING.md
+SECURITY.md
+LICENSE-APACHE
+LICENSE-MIT
+
+# Build configuration
+Cargo.toml
+deny.toml
+.clippy.toml
+
+# CI/CD configuration
+.github/
+.gitignore
+.gitleaks.toml
+
+# Don't generate these files
+.travis.yml
+git_push.sh
+
+# Keep our custom lib.rs if it exists
+src/lib.rs
