@@ -1,0 +1,12 @@
+# EvalJsonlFileIdSource
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**r#type** | **String** | The type of jsonl source. Always `file_id`. | 
+**id** | **String** | The identifier of the file. | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

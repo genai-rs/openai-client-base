@@ -1,0 +1,5 @@
+# Clippy configuration for generated code
+
+# Allow generated code to have more relaxed linting rules
+allow-dbg-in-tests = true
+too-many-arguments-threshold = 10
