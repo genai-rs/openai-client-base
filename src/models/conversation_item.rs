@@ -40,13 +40,13 @@ pub enum ConversationItem {
     #[serde(rename = "local_shell_call_output")]
     LocalShellToolCallOutput(Box<models::LocalShellToolCallOutput>),
     #[serde(rename = "mcp_list_tools")]
-    MCPListTools(Box<models::McpListTools>),
+    McpListTools(Box<models::McpListTools>),
     #[serde(rename = "mcp_approval_request")]
-    MCPApprovalRequest(Box<models::McpApprovalRequest>),
+    McpApprovalRequest(Box<models::McpApprovalRequest>),
     #[serde(rename = "mcp_approval_response")]
-    MCPApprovalResponseResource(Box<models::McpApprovalResponseResource>),
+    McpApprovalResponseResource(Box<models::McpApprovalResponseResource>),
     #[serde(rename = "mcp_call")]
-    MCPToolCall(Box<models::McpToolCall>),
+    McpToolCall(Box<models::McpToolCall>),
     #[serde(rename = "custom_tool_call")]
     CustomToolCall(Box<models::CustomToolCall>),
     #[serde(rename = "custom_tool_call_output")]
