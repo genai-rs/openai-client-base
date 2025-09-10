@@ -1,0 +1,31 @@
+# Gitleaks configuration
+# https://github.com/gitleaks/gitleaks
+
+[extend]
+# Extend the base configuration
+useDefault = true
+
+[[rules]]
+description = "OpenAI API Key"
+id = "openai-api-key"
+regex = '''sk-[a-zA-Z0-9]{48}'''
+tags = ["key", "openai"]
+
+[[rules]]
+description = "OpenAI Organization ID"
+id = "openai-org-id"
+regex = '''org-[a-zA-Z0-9]{24}'''
+tags = ["org", "openai"]
+
+# Allow certain patterns in specific files
+[allowlist]
+description = "Allow example keys in documentation"
+paths = [
+    '''README\.md''',
+    '''.*\.example''',
+    '''docs/.*'''
+]
+regexes = [
+    '''sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX''',
+    '''org-XXXXXXXXXXXXXXXXXXXXXXXX'''
+]

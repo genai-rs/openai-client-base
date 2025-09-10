@@ -1,0 +1,24 @@
+# Cargo build artifacts
+/target
+target/
+**/target/
+
+# Editors
+.idea/
+.code/
+
+.venv/
+
+# Browser data (contains cookies and sessions)
+browser-data/
+
+# Test files
+test_fetch.html
+test_*.html
+
+# OpenAPI Generator
+.openapi-generator/
+**/.openapi-generator/
+
+# Playwright MCP
+.playwright-mcp/

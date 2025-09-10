@@ -1,0 +1,97 @@
+acname: Generate Client
+
+on:
+  schedule:
+    # Run every night at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Python dependencies
+        run: pip install pyyaml
+
+      - name: Generate client
+        run: |
+          # The script handles everything internally:
+          # - Downloads latest Stainless OpenAPI spec
+          # - Runs 2-layer patching pipeline
+          # - Generates using Docker
+          # - Applies post-generation patches
+          chmod +x ./scripts/generate.sh
+          ./scripts/generate.sh
+
+      - name: Verify generation succeeded
+        run: |
+          # Ensure critical files exist
+          test -f src/lib.rs || (echo "Error: src/lib.rs not found after generation" && exit 1)
+          test -f Cargo.toml || (echo "Error: Cargo.toml not found after generation" && exit 1)
+          
+          # Verify the code compiles and passes checks
+          echo "🔨 Building..."
+          cargo build --all-features
+          
+          echo "📋 Running clippy..."
+          cargo clippy --all-features --all-targets -- -D warnings
+          
+          echo "🧪 Running tests..."
+          cargo test --all-features
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update generated client from latest OpenAPI spec"
+          title: "chore: update generated client"
+          body: |
+            ## 🤖 Automated Client Update
+            
+            This PR updates the generated client based on the latest Stainless OpenAPI specification.
+            
+            ### Changes
+            - Downloaded latest spec from Stainless API
+            - Applied Layer 1 patches (model field fixes)
+            - Applied Layer 2 patches (Rust compatibility)
+            - Generated new client code
+            - Applied post-generation patches
+            
+            ### Verification
+            ✅ Code compiles successfully
+            ✅ All tests pass
+            ✅ Clippy checks pass
+            
+            Please review the changes and merge if everything looks correct.
+          branch: auto-update/client-generation
+          delete-branch: true
+          labels: |
+            automated
+            dependencies
