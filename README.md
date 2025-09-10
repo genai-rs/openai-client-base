@@ -48,7 +48,10 @@ The client is generated through a streamlined pipeline using Stainless as the si
 2. **Fix Models**: Handle allOf inheritance and field type resolution
 3. **Rust Patches**: Add experimental fields as `Option<T>` and apply compatibility fixes  
 4. **Generate**: Use OpenAPI Generator to create Rust code
-5. **Post-process**: Apply final code patches for edge cases
+5. **Post-process**: Apply final code patches:
+   - Fix empty enums for discriminated unions
+   - Automatically convert acronyms to Rust naming conventions (MCP → Mcp, HTTP → Http, etc.)
+   - Remove Default implementations from empty enums
 
 ## Usage
 
