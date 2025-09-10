@@ -1,10 +1,15 @@
 [package]
 name = "openai_client_base"
 version = "0.1.0"
-authors = ["OpenAPI Generator team and contributors"]
-description = "The OpenAI REST API. Please see https://platform.openai.com/docs/api-reference for more details."
-license = "MIT"
+authors = ["genai-rs contributors"]
+description = "Auto-generated Rust client for the OpenAI API"
+license = "MIT OR Apache-2.0"
 edition = "2021"
+repository = "https://github.com/genai-rs/openai-client-base"
+homepage = "https://github.com/genai-rs/openai-client-base"
+readme = "README.md"
+keywords = ["openai", "api", "client", "generated"]
+categories = ["api-bindings"]
 
 [dependencies]
 bon = "3"
