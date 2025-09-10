@@ -124,6 +124,8 @@ python3 scripts/fix_generated_code.py
 # Step 6: Build the crate
 echo ""
 echo "🔨 Building crate..."
+echo "  Cleaning build cache to avoid corruption issues..."
+cargo clean
 cargo build
 
 echo ""
