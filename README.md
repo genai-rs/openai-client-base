@@ -74,9 +74,16 @@ To regenerate the client with the latest OpenAPI spec:
 USE_CACHED_SPEC=1 ./scripts/generate.sh
 ```
 
+The generation script automatically:
+- Downloads the latest OpenAPI spec from Stainless
+- Fixes model inheritance and field types
+- Generates Rust code using OpenAPI Generator
+- Applies post-processing fixes (empty enums, acronym casing)
+- Formats code with `cargo fmt` for consistency
+
 ## Requirements
 
-- Rust 1.82+
+- Rust 1.82+ (stable toolchain recommended for consistent formatting)
 - Docker (for OpenAPI Generator)
 - Python 3.8+ with PyYAML (or `uv` tool)
 
