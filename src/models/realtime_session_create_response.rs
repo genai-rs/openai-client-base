@@ -11,90 +11,66 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeSessionCreateResponse : A new Realtime session configuration, with an ephemeral key. Default TTL for keys is one minute. 
+/// RealtimeSessionCreateResponse : A Realtime session configuration object. 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateResponse {
-    #[serde(rename = "client_secret", skip_serializing_if = "Option::is_none")]
-    pub client_secret: Option<Box<models::RealtimeSessionCreateResponseClientSecret>>,
-    /// The type of session to create. Always `realtime` for the Realtime API. 
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Type>,
-    /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time. 
-    #[serde(rename = "output_modalities", skip_serializing_if = "Option::is_none")]
-    pub output_modalities: Option<Vec<OutputModalities>>,
-    /// The Realtime model used for this session. 
+    /// Unique identifier for the session that looks like `sess_1234567890abcdef`. 
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    /// The object type. Always `realtime.session`.
+    #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
+    pub object: Option<String>,
+    /// Expiration timestamp for the session, in seconds since epoch.
+    #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
+    pub expires_at: Option<i32>,
+    /// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription. 
+    #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
+    pub include: Option<Vec<Include>>,
+    /// The Realtime model used for this session.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
+    #[serde(rename = "output_modalities", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub output_modalities: Option<Option<serde_json::Value>>,
     /// The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. \"be extremely succinct\", \"act friendly\", \"here are examples of good responses\") and on audio behavior (e.g. \"talk quickly\", \"inject emotion into your voice\", \"laugh frequently\"). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior.  Note that the server sets default instructions which will be used if this field is not set and are visible in the `session.created` event at the start of the session. 
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::RealtimeSessionCreateRequestGaAudio>>,
-    /// Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription. 
-    #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
-    pub include: Option<Vec<Include>>,
+    pub audio: Option<Box<models::RealtimeSessionCreateResponseAudio>>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<Box<models::TracingConfiguration2>>,
-    /// Tools available to the model.
+    pub tracing: Option<Box<models::TracingConfiguration1>>,
+    #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
+    pub turn_detection: Option<Box<models::RealtimeSessionCreateRequestTurnDetection>>,
+    /// Tools (functions) available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<models::RealtimeResponseCreateParamsToolsInner>>,
+    pub tools: Option<Vec<models::RealtimeFunctionTool>>,
+    /// How the model chooses tools. Options are `auto`, `none`, `required`, or specify a function. 
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
-    pub tool_choice: Option<Box<models::RealtimeBetaResponseCreateParamsToolChoice>>,
+    pub tool_choice: Option<String>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
     pub max_output_tokens: Option<Box<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>>,
-    #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
-    pub truncation: Option<Box<models::RealtimeTruncation>>,
-    #[serde(rename = "prompt", skip_serializing_if = "Option::is_none")]
-    pub prompt: Option<Box<models::Prompt>>,
 }
 
 impl RealtimeSessionCreateResponse {
-    /// A new Realtime session configuration, with an ephemeral key. Default TTL for keys is one minute. 
+    /// A Realtime session configuration object. 
     pub fn new() -> RealtimeSessionCreateResponse {
         RealtimeSessionCreateResponse {
-            client_secret: None,
-            r#type: None,
-            output_modalities: None,
+            id: None,
+            object: None,
+            expires_at: None,
+            include: None,
             model: None,
+            output_modalities: None,
             instructions: None,
             audio: None,
-            include: None,
             tracing: None,
+            turn_detection: None,
             tools: None,
             tool_choice: None,
             max_output_tokens: None,
-            truncation: None,
-            prompt: None,
         }
     }
 }
-/// The type of session to create. Always `realtime` for the Realtime API. 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "realtime")]
-    Realtime,
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::Realtime
-    }
-}
-/// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time. 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum OutputModalities {
-    #[serde(rename = "text")]
-    Text,
-    #[serde(rename = "audio")]
-    Audio,
-}
-
-impl Default for OutputModalities {
-    fn default() -> OutputModalities {
-        Self::Text
-    }
-}
-/// Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription. 
+/// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription. 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Include {
     #[serde(rename = "item.input_audio_transcription.logprobs")]

@@ -26,7 +26,7 @@ pub enum OutputModalities {
     Audio,
 }
 
-/// Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription. 
+/// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription. 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Include {
     #[serde(rename = "item.input_audio_transcription.logprobs")]
