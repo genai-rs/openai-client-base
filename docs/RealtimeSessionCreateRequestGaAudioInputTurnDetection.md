@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **silence_duration_ms** | Option<**i32**> | Used only for `server_vad` mode. Duration of silence to detect speech stop (in milliseconds). Defaults to 500ms. With shorter values the model will respond more quickly, but may jump in on short pauses from the user.  | [optional]
 **create_response** | Option<**bool**> | Whether or not to automatically generate a response when a VAD stop event occurs.  | [optional]
 **interrupt_response** | Option<**bool**> | Whether or not to automatically interrupt any ongoing response with output to the default conversation (i.e. `conversation` of `auto`) when a VAD start event occurs.  | [optional]
-**idle_timeout_ms** | Option<**i32**> | Optional idle timeout after which turn detection will auto-timeout when no additional audio is received.  | [optional]
+**idle_timeout_ms** | Option<**i32**> | Optional idle timeout after which turn detection will auto-timeout when no additional audio is received and emits a `timeout_triggered` event.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

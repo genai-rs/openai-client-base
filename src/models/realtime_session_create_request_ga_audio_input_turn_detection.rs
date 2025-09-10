@@ -35,7 +35,7 @@ pub struct RealtimeSessionCreateRequestGaAudioInputTurnDetection {
     /// Whether or not to automatically interrupt any ongoing response with output to the default conversation (i.e. `conversation` of `auto`) when a VAD start event occurs. 
     #[serde(rename = "interrupt_response", skip_serializing_if = "Option::is_none")]
     pub interrupt_response: Option<bool>,
-    /// Optional idle timeout after which turn detection will auto-timeout when no additional audio is received. 
+    /// Optional idle timeout after which turn detection will auto-timeout when no additional audio is received and emits a `timeout_triggered` event. 
     #[serde(rename = "idle_timeout_ms", skip_serializing_if = "Option::is_none")]
     pub idle_timeout_ms: Option<i32>,
 }
