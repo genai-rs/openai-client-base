@@ -41,8 +41,18 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-# Use uv for Python dependencies if available, otherwise fallback to venv
-if command -v uv &> /dev/null; then
+# Detect CI environment (GitHub Actions sets CI=true)
+if [ "${CI:-false}" = "true" ]; then
+    echo "Running in CI environment, using system Python"
+    
+    # Layer 1: Fix model field types (handle allOf inheritance)
+    echo "  Layer 1: Fixing model field types..."
+    python3 "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_IN" "$SPEC_MODEL_FIXED"
+    
+    # Layer 2: Apply Rust compatibility patches
+    echo "  Layer 2: Applying Rust compatibility patches..."
+    python3 "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL_FIXED" "$SPEC_OUT"
+elif command -v uv &> /dev/null; then
     echo "Using uv for Python dependencies"
     
     # Layer 1: Fix model field types (handle allOf inheritance)
