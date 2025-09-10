@@ -148,7 +148,12 @@ else
     deactivate
 fi
 
-# Step 7: Build the crate
+# Step 7: Format the generated code
+echo ""
+echo "🎨 Formatting generated code..."
+cargo fmt --all
+
+# Step 8: Build the crate
 echo ""
 echo "🔨 Building crate..."
 echo "  Cleaning build cache to avoid corruption issues..."
@@ -162,5 +167,6 @@ echo "   Patched spec at: $SPEC_OUT"
 echo ""
 echo "Note: The following post-generation fixes were applied:"
 echo "  - Fixed recursive types and compilation issues"
-echo "  - Fixed empty enums (AssistantTool, ChatCompletionRequestUserMessageContentPart, etc.)"
+echo "  - Fixed empty enums and acronym casing (MCP -> Mcp, etc.)"
 echo "  - Added bon::Builder derives to all structs"
+echo "  - Applied cargo fmt for consistent formatting"
