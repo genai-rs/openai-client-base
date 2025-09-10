@@ -20,11 +20,13 @@ pub fn file_part_from_path(path: &Path) -> Result<multipart::Part, std::io::Erro
 }
 
 /// Create a multipart Part from a PathBuf
+#[allow(dead_code)]
 pub fn file_part_from_pathbuf(path: PathBuf) -> Result<multipart::Part, std::io::Error> {
     file_part_from_path(&path)
 }
 
 /// Create a multipart Part from bytes with a filename
+#[allow(dead_code)]
 pub fn file_part_from_bytes(bytes: Vec<u8>, filename: String) -> multipart::Part {
     multipart::Part::bytes(bytes)
         .file_name(filename)
@@ -38,6 +40,7 @@ pub fn add_file_to_form(form: multipart::Form, path: &Path, field_name: &str) ->
 }
 
 /// Add a PathBuf file to a multipart form
+#[allow(dead_code)]
 pub fn add_pathbuf_to_form(form: multipart::Form, path: PathBuf, field_name: &str) -> Result<multipart::Form, std::io::Error> {
     add_file_to_form(form, &path, field_name)
 }
