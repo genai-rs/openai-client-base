@@ -13,6 +13,45 @@ def snake_to_pascal(name):
     """Convert snake_case to PascalCase."""
     return ''.join(word.capitalize() for word in name.split('_'))
 
+def convert_to_rust_type_name(name):
+    """Convert type names to follow Rust naming conventions.
+    Automatically detects and converts acronyms (consecutive uppercase letters) to PascalCase.
+    Examples: MCP -> Mcp, HTTP -> Http, URL -> Url, API -> Api, MCPTool -> McpTool, etc.
+    """
+    result = []
+    i = 0
+    
+    while i < len(name):
+        # Check if we're at the start of an acronym (2+ consecutive uppercase letters)
+        if i < len(name) - 1 and name[i].isupper() and name[i+1].isupper():
+            # Found start of acronym, collect all uppercase letters
+            acronym_start = i
+            while i < len(name) and name[i].isupper():
+                i += 1
+            
+            acronym = name[acronym_start:i]
+            
+            # Check what comes after the acronym
+            if i < len(name) and name[i].islower():
+                # Acronym is followed by lowercase (e.g., "MCPtool" or "HTTPServer")
+                # The last uppercase letter is actually the start of the next word
+                if len(acronym) > 1:
+                    # Convert the acronym part (excluding last letter)
+                    result.append(acronym[0] + acronym[1:-1].lower())
+                    # Back up one position to reprocess the last uppercase letter
+                    i -= 1
+                else:
+                    result.append(acronym)
+            else:
+                # Acronym is at the end or followed by another capital/nothing
+                result.append(acronym[0] + acronym[1:].lower())
+        else:
+            # Regular character, just append it
+            result.append(name[i])
+            i += 1
+    
+    return ''.join(result)
+
 def detect_empty_tagged_enums(spec_path):
     """
     Detect all schemas with discriminators that will result in empty enums.
@@ -76,6 +115,34 @@ def detect_empty_tagged_enums(spec_path):
     
     return empty_enums
 
+def fix_case_sensitivity_in_enum(enum_file, enum_name, enum_info, content):
+    """Fix case sensitivity issues in existing enum variants."""
+    original_content = content
+    fixed_any = False
+    
+    # Find all Box<models::TypeName> patterns and fix any with incorrect acronym casing
+    pattern = r'Box<models::([A-Za-z]+)>'
+    
+    def fix_type_name(match):
+        type_name = match.group(1)
+        fixed_name = convert_to_rust_type_name(type_name)
+        if type_name != fixed_name:
+            nonlocal fixed_any
+            fixed_any = True
+            print(f"  Fixed: Box<models::{type_name}> -> Box<models::{fixed_name}>")
+            return f'Box<models::{fixed_name}>'
+        return match.group(0)
+    
+    content = re.sub(pattern, fix_type_name, content)
+    
+    if fixed_any:
+        with open(enum_file, 'w') as f:
+            f.write(content)
+        print(f"Fixed case sensitivity in {enum_name}")
+        return True
+    
+    return False
+
 def fix_empty_enum(models_dir, enum_name, enum_info):
     """Fix a single empty enum by adding proper variants."""
     # Convert to snake_case for the file name
@@ -90,15 +157,20 @@ def fix_empty_enum(models_dir, enum_name, enum_info):
         content = f.read()
     
     # Check if enum is empty
-    if not re.search(rf'pub enum {enum_name} \{{\s*\}}', content):
-        print(f"Enum {enum_name} is not empty, skipping")
-        return False
+    is_empty = bool(re.search(rf'pub enum {enum_name} \{{\s*\}}', content))
+    if not is_empty:
+        # Even if not empty, fix case sensitivity issues in existing variants
+        return fix_case_sensitivity_in_enum(enum_file, enum_name, enum_info, content)
     
     # Build the new enum with variants
     variants = []
     for variant in enum_info['variants']:
         schema_name = variant['schema']
         discriminator_value = variant['discriminator_value']
+        
+        # Convert schema name to proper Rust type name
+        # Handle special cases like MCP -> Mcp
+        rust_type_name = convert_to_rust_type_name(schema_name)
         
         # Generate a variant name (remove common prefix if it exists)
         variant_name = schema_name
@@ -107,12 +179,15 @@ def fix_empty_enum(models_dir, enum_name, enum_info):
         if not variant_name:
             variant_name = schema_name
         
+        # Apply the same conversion rules to the variant name
+        variant_name = convert_to_rust_type_name(variant_name)
+        
         # Ensure variant name starts with uppercase
         if variant_name and variant_name[0].islower():
             variant_name = variant_name[0].upper() + variant_name[1:]
         
         variants.append(f'''    #[serde(rename = "{discriminator_value}")]
-    {variant_name}(Box<models::{schema_name}>),''')
+    {variant_name}(Box<models::{rust_type_name}>),''')
     
     if not variants:
         print(f"No variants found for {enum_name}")

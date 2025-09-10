@@ -26,13 +26,13 @@ pub enum RealtimeConversationItem {
     #[serde(rename = "function_call_output")]
     FunctionCallOutput(Box<models::RealtimeConversationItemFunctionCallOutput>),
     #[serde(rename = "mcp_approval_response")]
-    RealtimeMCPApprovalResponse(Box<models::RealtimeMCPApprovalResponse>),
+    RealtimeMCPApprovalResponse(Box<models::RealtimeMcpApprovalResponse>),
     #[serde(rename = "mcp_list_tools")]
-    RealtimeMCPListTools(Box<models::RealtimeMCPListTools>),
+    RealtimeMCPListTools(Box<models::RealtimeMcpListTools>),
     #[serde(rename = "mcp_tool_call")]
-    RealtimeMCPToolCall(Box<models::RealtimeMCPToolCall>),
+    RealtimeMCPToolCall(Box<models::RealtimeMcpToolCall>),
     #[serde(rename = "mcp_approval_request")]
-    RealtimeMCPApprovalRequest(Box<models::RealtimeMCPApprovalRequest>),
+    RealtimeMCPApprovalRequest(Box<models::RealtimeMcpApprovalRequest>),
 }
 
 /// Identifier for the API object being returned - always `realtime.item`. Optional when creating a new item.
