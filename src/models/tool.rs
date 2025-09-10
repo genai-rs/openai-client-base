@@ -24,7 +24,7 @@ pub enum Tool {
     #[serde(rename = "websearchtool")]
     WebSearchTool(Box<models::WebSearchTool>),
     #[serde(rename = "mcp")]
-    MCPTool(Box<models::MCPTool>),
+    MCPTool(Box<models::McpTool>),
     #[serde(rename = "code_interpreter")]
     CodeInterpreterTool(Box<models::CodeInterpreterTool>),
     #[serde(rename = "image_generation")]

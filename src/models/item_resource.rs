@@ -40,13 +40,13 @@ pub enum ItemResource {
     #[serde(rename = "local_shell_call_output")]
     LocalShellToolCallOutput(Box<models::LocalShellToolCallOutput>),
     #[serde(rename = "mcp_list_tools")]
-    MCPListTools(Box<models::MCPListTools>),
+    MCPListTools(Box<models::McpListTools>),
     #[serde(rename = "mcp_approval_request")]
-    MCPApprovalRequest(Box<models::MCPApprovalRequest>),
+    MCPApprovalRequest(Box<models::McpApprovalRequest>),
     #[serde(rename = "mcp_approval_response")]
-    MCPApprovalResponseResource(Box<models::MCPApprovalResponseResource>),
+    MCPApprovalResponseResource(Box<models::McpApprovalResponseResource>),
     #[serde(rename = "mcp_call")]
-    MCPToolCall(Box<models::MCPToolCall>),
+    MCPToolCall(Box<models::McpToolCall>),
 }
 
 /// The role of the output message. Always `assistant`. 

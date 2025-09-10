@@ -42,13 +42,13 @@ pub enum Item {
     #[serde(rename = "local_shell_call_output")]
     LocalShellToolCallOutput(Box<models::LocalShellToolCallOutput>),
     #[serde(rename = "mcp_list_tools")]
-    MCPListTools(Box<models::MCPListTools>),
+    MCPListTools(Box<models::McpListTools>),
     #[serde(rename = "mcp_approval_request")]
-    MCPApprovalRequest(Box<models::MCPApprovalRequest>),
+    MCPApprovalRequest(Box<models::McpApprovalRequest>),
     #[serde(rename = "mcp_approval_response")]
-    MCPApprovalResponse(Box<models::MCPApprovalResponse>),
+    MCPApprovalResponse(Box<models::McpApprovalResponse>),
     #[serde(rename = "mcp_call")]
-    MCPToolCall(Box<models::MCPToolCall>),
+    MCPToolCall(Box<models::McpToolCall>),
     #[serde(rename = "custom_tool_call_output")]
     CustomToolCallOutput(Box<models::CustomToolCallOutput>),
     #[serde(rename = "custom_tool_call")]
