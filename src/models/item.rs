@@ -15,6 +15,44 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Item {
+    #[serde(rename = "message")]
+    InputMessage(Box<models::InputMessage>),
+    #[serde(rename = "message")]
+    OutputMessage(Box<models::OutputMessage>),
+    #[serde(rename = "file_search_call")]
+    FileSearchToolCall(Box<models::FileSearchToolCall>),
+    #[serde(rename = "computer_call")]
+    ComputerToolCall(Box<models::ComputerToolCall>),
+    #[serde(rename = "computer_call_output")]
+    ComputerCallOutputItemParam(Box<models::ComputerCallOutputItemParam>),
+    #[serde(rename = "web_search_call")]
+    WebSearchToolCall(Box<models::WebSearchToolCall>),
+    #[serde(rename = "function_call")]
+    FunctionToolCall(Box<models::FunctionToolCall>),
+    #[serde(rename = "function_call_output")]
+    FunctionCallOutputItemParam(Box<models::FunctionCallOutputItemParam>),
+    #[serde(rename = "reasoning")]
+    ReasoningItem(Box<models::ReasoningItem>),
+    #[serde(rename = "image_generation_call")]
+    ImageGenToolCall(Box<models::ImageGenToolCall>),
+    #[serde(rename = "code_interpreter_call")]
+    CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),
+    #[serde(rename = "local_shell_call")]
+    LocalShellToolCall(Box<models::LocalShellToolCall>),
+    #[serde(rename = "local_shell_call_output")]
+    LocalShellToolCallOutput(Box<models::LocalShellToolCallOutput>),
+    #[serde(rename = "mcp_list_tools")]
+    MCPListTools(Box<models::MCPListTools>),
+    #[serde(rename = "mcp_approval_request")]
+    MCPApprovalRequest(Box<models::MCPApprovalRequest>),
+    #[serde(rename = "mcp_approval_response")]
+    MCPApprovalResponse(Box<models::MCPApprovalResponse>),
+    #[serde(rename = "mcp_call")]
+    MCPToolCall(Box<models::MCPToolCall>),
+    #[serde(rename = "custom_tool_call_output")]
+    CustomToolCallOutput(Box<models::CustomToolCallOutput>),
+    #[serde(rename = "custom_tool_call")]
+    CustomToolCall(Box<models::CustomToolCall>),
 }
 
 /// The role of the output message. Always `assistant`. 

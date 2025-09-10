@@ -14,6 +14,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum InputContent {
+    #[serde(rename = "input_text")]
+    InputTextContent(Box<models::InputTextContent>),
+    #[serde(rename = "input_image")]
+    InputImageContent(Box<models::InputImageContent>),
+    #[serde(rename = "input_file")]
+    InputFileContent(Box<models::InputFileContent>),
+    #[serde(rename = "input_audio")]
+    InputAudio(Box<models::InputAudio>),
 }
 
 /// The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.

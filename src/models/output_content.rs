@@ -14,5 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum OutputContent {
+    #[serde(rename = "output_text")]
+    OutputTextContent(Box<models::OutputTextContent>),
+    #[serde(rename = "refusal")]
+    RefusalContent(Box<models::RefusalContent>),
 }
 

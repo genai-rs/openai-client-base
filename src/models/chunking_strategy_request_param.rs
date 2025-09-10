@@ -15,5 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum ChunkingStrategyRequestParam {
+    #[serde(rename = "auto")]
+    AutoChunkingStrategyRequestParam(Box<models::AutoChunkingStrategyRequestParam>),
+    #[serde(rename = "static")]
+    StaticChunkingStrategyRequestParam(Box<models::StaticChunkingStrategyRequestParam>),
 }
 

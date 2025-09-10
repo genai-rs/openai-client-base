@@ -1,157 +1,172 @@
 #!/usr/bin/env python3
 """
 Fix empty enums in OpenAPI Generator output by adding proper variants.
-This script specifically handles tagged enums that the generator leaves empty.
+This script handles tagged enums (with discriminator) that the generator leaves empty.
 """
 
 import os
 import re
+import yaml
 from pathlib import Path
 
-def fix_assistant_tool_enum(models_dir):
-    """Add proper variants to the AssistantTool enum."""
-    assistant_tool_file = models_dir / "assistant_tool.rs"
-    if assistant_tool_file.exists():
-        # Read the current content
-        with open(assistant_tool_file, 'r') as f:
-            content = f.read()
-        
-        # Check if enum is empty
-        if re.search(r'pub enum AssistantTool \{\s*\}', content):
-            # Replace empty enum with proper variants
-            new_enum = '''#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum AssistantTool {
-    #[serde(rename = "code_interpreter")]
-    AssistantToolsCode(Box<models::AssistantToolsCode>),
-    #[serde(rename = "file_search")]
-    AssistantToolsFileSearch(Box<models::AssistantToolsFileSearch>),
-    #[serde(rename = "function")]
-    AssistantToolsFunction(Box<models::AssistantToolsFunction>),
-}'''
-            
-            content = re.sub(
-                r'#\[derive\([^)]*\)\]\s*#\[serde\(tag = "type"\)\]\s*pub enum AssistantTool \{\s*\}',
-                new_enum,
-                content
-            )
-            
-            with open(assistant_tool_file, 'w') as f:
-                f.write(content)
-            print(f"Fixed AssistantTool enum with proper variants")
+def snake_to_pascal(name):
+    """Convert snake_case to PascalCase."""
+    return ''.join(word.capitalize() for word in name.split('_'))
 
-def fix_chat_completion_message_content_part_enum(models_dir):
-    """Add proper variants to ChatCompletionRequestUserMessageContentPart enum."""
-    content_part_file = models_dir / "chat_completion_request_user_message_content_part.rs"
-    if content_part_file.exists():
-        with open(content_part_file, 'r') as f:
-            content = f.read()
-        
-        # Check if enum is empty
-        if re.search(r'pub enum ChatCompletionRequestUserMessageContentPart \{\s*\}', content):
-            # Replace empty enum with proper variants
-            new_enum = '''#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum ChatCompletionRequestUserMessageContentPart {
-    #[serde(rename = "text")]
-    Text(Box<models::ChatCompletionRequestMessageContentPartText>),
-    #[serde(rename = "image_url")]
-    ImageUrl(Box<models::ChatCompletionRequestMessageContentPartImage>),
-    #[serde(rename = "input_audio")]
-    InputAudio(Box<models::ChatCompletionRequestMessageContentPartAudio>),
-}'''
+def detect_empty_tagged_enums(spec_path):
+    """
+    Detect all schemas with discriminators that will result in empty enums.
+    Returns a dict mapping enum names to their variant information.
+    """
+    with open(spec_path, 'r') as f:
+        spec = yaml.safe_load(f)
+    
+    empty_enums = {}
+    schemas = spec.get('components', {}).get('schemas', {})
+    
+    for schema_name, schema_def in schemas.items():
+        # Check if this schema uses anyOf/oneOf with a discriminator
+        if 'discriminator' in schema_def and ('anyOf' in schema_def or 'oneOf' in schema_def):
+            discriminator = schema_def['discriminator']
+            property_name = discriminator.get('propertyName', 'type')
             
-            content = re.sub(
-                r'#\[derive\([^)]*\)\]\s*#\[serde\(tag = "type"\)\]\s*pub enum ChatCompletionRequestUserMessageContentPart \{\s*\}',
-                new_enum,
-                content
-            )
+            # Get the variants
+            variants = schema_def.get('anyOf', schema_def.get('oneOf', []))
+            variant_info = []
             
-            with open(content_part_file, 'w') as f:
-                f.write(content)
-            print(f"Fixed ChatCompletionRequestUserMessageContentPart enum with proper variants")
+            for variant in variants:
+                if '$ref' in variant:
+                    # Extract the schema name from the reference
+                    ref_name = variant['$ref'].split('/')[-1]
+                    
+                    # Get the discriminator value for this variant
+                    ref_schema = schemas.get(ref_name, {})
+                    properties = ref_schema.get('properties', {})
+                    
+                    # Try to determine the discriminator value
+                    discriminator_value = None
+                    if property_name in properties:
+                        prop_def = properties[property_name]
+                        if 'const' in prop_def:
+                            discriminator_value = prop_def['const']
+                        elif 'enum' in prop_def and len(prop_def['enum']) == 1:
+                            discriminator_value = prop_def['enum'][0]
+                    
+                    # If we can't find the discriminator value, use a heuristic
+                    if not discriminator_value:
+                        # Try to extract from the schema name
+                        # e.g., AssistantToolsCode -> code_interpreter
+                        if ref_name.startswith(schema_name):
+                            suffix = ref_name[len(schema_name):]
+                            if suffix:
+                                discriminator_value = suffix.lower()
+                        else:
+                            discriminator_value = ref_name.lower()
+                    
+                    variant_info.append({
+                        'schema': ref_name,
+                        'discriminator_value': discriminator_value
+                    })
+            
+            if variant_info:
+                empty_enums[schema_name] = {
+                    'property_name': property_name,
+                    'variants': variant_info
+                }
+    
+    return empty_enums
 
-def fix_message_delta_content_inner_enum(models_dir):
-    """Add proper variants to MessageDeltaObjectDeltaContentInner enum if it exists."""
-    content_inner_file = models_dir / "message_delta_object_delta_content_inner.rs"
-    if content_inner_file.exists():
-        with open(content_inner_file, 'r') as f:
-            content = f.read()
+def fix_empty_enum(models_dir, enum_name, enum_info):
+    """Fix a single empty enum by adding proper variants."""
+    # Convert to snake_case for the file name
+    file_name = re.sub(r'(?<!^)(?=[A-Z])', '_', enum_name).lower() + '.rs'
+    enum_file = models_dir / file_name
+    
+    if not enum_file.exists():
+        print(f"Warning: File {enum_file} not found for enum {enum_name}")
+        return False
+    
+    with open(enum_file, 'r') as f:
+        content = f.read()
+    
+    # Check if enum is empty
+    if not re.search(rf'pub enum {enum_name} \{{\s*\}}', content):
+        print(f"Enum {enum_name} is not empty, skipping")
+        return False
+    
+    # Build the new enum with variants
+    variants = []
+    for variant in enum_info['variants']:
+        schema_name = variant['schema']
+        discriminator_value = variant['discriminator_value']
         
-        # Check if enum is empty
-        if re.search(r'pub enum MessageDeltaObjectDeltaContentInner \{\s*\}', content):
-            # Replace empty enum with proper variants
-            new_enum = '''#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum MessageDeltaObjectDeltaContentInner {
-    #[serde(rename = "text")]
-    MessageDeltaContentTextObject(Box<models::MessageDeltaContentTextObject>),
-    #[serde(rename = "image_file")]
-    MessageDeltaContentImageFileObject(Box<models::MessageDeltaContentImageFileObject>),
-    #[serde(rename = "image_url")]
-    MessageDeltaContentImageUrlObject(Box<models::MessageDeltaContentImageUrlObject>),
-}'''
-            
-            content = re.sub(
-                r'#\[derive\([^)]*\)\]\s*#\[serde\(tag = "type"\)\]\s*pub enum MessageDeltaObjectDeltaContentInner \{\s*\}',
-                new_enum,
-                content
-            )
-            
-            with open(content_inner_file, 'w') as f:
-                f.write(content)
-            print(f"Fixed MessageDeltaObjectDeltaContentInner enum with proper variants")
-
-def fix_message_content_delta_enum(models_dir):
-    """Add proper variants to MessageContentDelta enum."""
-    content_delta_file = models_dir / "message_content_delta.rs"
-    if content_delta_file.exists():
-        with open(content_delta_file, 'r') as f:
-            content = f.read()
+        # Generate a variant name (remove common prefix if it exists)
+        variant_name = schema_name
+        if schema_name.startswith(enum_name):
+            variant_name = schema_name[len(enum_name):]
+        if not variant_name:
+            variant_name = schema_name
         
-        # Check if enum is empty
-        if re.search(r'pub enum MessageContentDelta \{\s*\}', content):
-            # Replace empty enum with proper variants
-            new_enum = '''#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum MessageContentDelta {
-    #[serde(rename = "text")]
-    MessageDeltaContentTextObject(Box<models::MessageDeltaContentTextObject>),
-    #[serde(rename = "image_file")]
-    MessageDeltaContentImageFileObject(Box<models::MessageDeltaContentImageFileObject>),
-    #[serde(rename = "image_url")]
-    MessageDeltaContentImageUrlObject(Box<models::MessageDeltaContentImageUrlObject>),
-    #[serde(rename = "refusal")]
-    MessageDeltaContentRefusalObject(Box<models::MessageDeltaContentRefusalObject>),
-}'''
-            
-            content = re.sub(
-                r'#\[derive\([^)]*\)\]\s*#\[serde\(tag = "type"\)\]\s*pub enum MessageContentDelta \{\s*\}',
-                new_enum,
-                content
-            )
-            
-            with open(content_delta_file, 'w') as f:
-                f.write(content)
-            print(f"Fixed MessageContentDelta enum with proper variants")
+        # Ensure variant name starts with uppercase
+        if variant_name and variant_name[0].islower():
+            variant_name = variant_name[0].upper() + variant_name[1:]
+        
+        variants.append(f'''    #[serde(rename = "{discriminator_value}")]
+    {variant_name}(Box<models::{schema_name}>),''')
+    
+    if not variants:
+        print(f"No variants found for {enum_name}")
+        return False
+    
+    # Build the complete enum
+    new_enum = f'''#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "{enum_info['property_name']}")]
+pub enum {enum_name} {{
+{chr(10).join(variants)}
+}}'''
+    
+    # Replace the empty enum
+    content = re.sub(
+        rf'#\[derive\([^)]*\)\]\s*(?:#\[serde\([^)]*\)\]\s*)*pub enum {enum_name} \{{\s*\}}',
+        new_enum,
+        content,
+        flags=re.MULTILINE | re.DOTALL
+    )
+    
+    with open(enum_file, 'w') as f:
+        f.write(content)
+    
+    print(f"Fixed {enum_name} enum with {len(variants)} variants")
+    return True
 
 def main():
     project_root = Path(__file__).parent.parent
     models_dir = project_root / "src" / "models"
+    spec_path = project_root / "stainless.yaml"
     
-    if not models_dir.exists():
-        print("No models directory found, skipping fixes")
+    if not spec_path.exists():
+        print(f"OpenAPI spec not found at {spec_path}")
         return
     
-    print("Fixing empty enums in generated Rust code...")
+    if not models_dir.exists():
+        print("No models directory found, skipping enum fixes")
+        return
     
-    # Apply fixes
-    fix_assistant_tool_enum(models_dir)
-    fix_chat_completion_message_content_part_enum(models_dir)
-    fix_message_delta_content_inner_enum(models_dir)
-    fix_message_content_delta_enum(models_dir)
+    print("Detecting empty tagged enums from OpenAPI spec...")
+    empty_enums = detect_empty_tagged_enums(spec_path)
     
-    print("\nEmpty enum fixes applied successfully!")
+    if not empty_enums:
+        print("No empty tagged enums detected")
+        return
+    
+    print(f"Found {len(empty_enums)} potentially empty tagged enums")
+    
+    fixed_count = 0
+    for enum_name, enum_info in empty_enums.items():
+        if fix_empty_enum(models_dir, enum_name, enum_info):
+            fixed_count += 1
+    
+    print(f"\nFixed {fixed_count} empty enums successfully!")
 
 if __name__ == "__main__":
     main()

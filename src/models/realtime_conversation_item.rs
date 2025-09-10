@@ -15,6 +15,24 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum RealtimeConversationItem {
+    #[serde(rename = "message")]
+    MessageSystem(Box<models::RealtimeConversationItemMessageSystem>),
+    #[serde(rename = "message")]
+    MessageUser(Box<models::RealtimeConversationItemMessageUser>),
+    #[serde(rename = "message")]
+    MessageAssistant(Box<models::RealtimeConversationItemMessageAssistant>),
+    #[serde(rename = "function_call")]
+    FunctionCall(Box<models::RealtimeConversationItemFunctionCall>),
+    #[serde(rename = "function_call_output")]
+    FunctionCallOutput(Box<models::RealtimeConversationItemFunctionCallOutput>),
+    #[serde(rename = "mcp_approval_response")]
+    RealtimeMCPApprovalResponse(Box<models::RealtimeMCPApprovalResponse>),
+    #[serde(rename = "mcp_list_tools")]
+    RealtimeMCPListTools(Box<models::RealtimeMCPListTools>),
+    #[serde(rename = "mcp_tool_call")]
+    RealtimeMCPToolCall(Box<models::RealtimeMCPToolCall>),
+    #[serde(rename = "mcp_approval_request")]
+    RealtimeMCPApprovalRequest(Box<models::RealtimeMCPApprovalRequest>),
 }
 
 /// Identifier for the API object being returned - always `realtime.item`. Optional when creating a new item.

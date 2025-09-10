@@ -15,5 +15,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum TextResponseFormatConfiguration {
+    #[serde(rename = "text")]
+    ResponseFormatText(Box<models::ResponseFormatText>),
+    #[serde(rename = "json_schema")]
+    TextResponseFormatJsonSchema(Box<models::TextResponseFormatJsonSchema>),
+    #[serde(rename = "json_object")]
+    ResponseFormatJsonObject(Box<models::ResponseFormatJsonObject>),
 }
 

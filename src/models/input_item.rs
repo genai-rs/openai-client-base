@@ -14,6 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum InputItem {
+    #[serde(rename = "message")]
+    EasyInputMessage(Box<models::EasyInputMessage>),
+    #[serde(rename = "item")]
+    Item(Box<models::Item>),
+    #[serde(rename = "itemreferenceparam")]
+    ItemReferenceParam(Box<models::ItemReferenceParam>),
 }
 
 /// The role of the output message. Always `assistant`. 

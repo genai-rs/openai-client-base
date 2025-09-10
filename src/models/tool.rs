@@ -15,6 +15,26 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Tool {
+    #[serde(rename = "function")]
+    FunctionTool(Box<models::FunctionTool>),
+    #[serde(rename = "file_search")]
+    FileSearchTool(Box<models::FileSearchTool>),
+    #[serde(rename = "computer_use_preview")]
+    ComputerUsePreviewTool(Box<models::ComputerUsePreviewTool>),
+    #[serde(rename = "websearchtool")]
+    WebSearchTool(Box<models::WebSearchTool>),
+    #[serde(rename = "mcp")]
+    MCPTool(Box<models::MCPTool>),
+    #[serde(rename = "code_interpreter")]
+    CodeInterpreterTool(Box<models::CodeInterpreterTool>),
+    #[serde(rename = "image_generation")]
+    ImageGenTool(Box<models::ImageGenTool>),
+    #[serde(rename = "local_shell")]
+    LocalShellTool(Box<models::LocalShellTool>),
+    #[serde(rename = "custom")]
+    CustomTool(Box<models::CustomTool>),
+    #[serde(rename = "websearchpreviewtool")]
+    WebSearchPreviewTool(Box<models::WebSearchPreviewTool>),
 }
 
 /// The type of computer environment to control.

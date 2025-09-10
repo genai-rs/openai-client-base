@@ -14,5 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum ChatCompletionRequestAssistantMessageContentPart {
+    #[serde(rename = "text")]
+    ChatCompletionRequestMessageContentPartText(Box<models::ChatCompletionRequestMessageContentPartText>),
+    #[serde(rename = "refusal")]
+    ChatCompletionRequestMessageContentPartRefusal(Box<models::ChatCompletionRequestMessageContentPartRefusal>),
 }
 
