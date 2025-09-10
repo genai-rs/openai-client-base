@@ -15,10 +15,12 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum ChatCompletionRequestUserMessageContentPart {
     #[serde(rename = "text")]
-    Text(Box<models::ChatCompletionRequestMessageContentPartText>),
+    ChatCompletionRequestMessageContentPartText(Box<models::ChatCompletionRequestMessageContentPartText>),
     #[serde(rename = "image_url")]
-    ImageUrl(Box<models::ChatCompletionRequestMessageContentPartImage>),
+    ChatCompletionRequestMessageContentPartImage(Box<models::ChatCompletionRequestMessageContentPartImage>),
     #[serde(rename = "input_audio")]
-    InputAudio(Box<models::ChatCompletionRequestMessageContentPartAudio>),
+    ChatCompletionRequestMessageContentPartAudio(Box<models::ChatCompletionRequestMessageContentPartAudio>),
+    #[serde(rename = "file")]
+    ChatCompletionRequestMessageContentPartFile(Box<models::ChatCompletionRequestMessageContentPartFile>),
 }
 
