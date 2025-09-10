@@ -131,7 +131,12 @@ echo ""
 echo "🔧 Fixing compilation issues..."
 python3 scripts/fix_generated_code.py
 
-# Step 6: Build the crate
+# Step 6: Fix empty enums that should have variants
+echo ""
+echo "🔧 Fixing empty enums..."
+python3 scripts/fix_empty_enums.py
+
+# Step 7: Build the crate
 echo ""
 echo "🔨 Building crate..."
 echo "  Cleaning build cache to avoid corruption issues..."
@@ -142,3 +147,8 @@ echo ""
 echo "✅ Generation complete!"
 echo "   Generated code in: $OUT_DIR"
 echo "   Patched spec at: $SPEC_OUT"
+echo ""
+echo "Note: The following post-generation fixes were applied:"
+echo "  - Fixed recursive types and compilation issues"
+echo "  - Fixed empty enums (AssistantTool, ChatCompletionRequestUserMessageContentPart, etc.)"
+echo "  - Added bon::Builder derives to all structs"
