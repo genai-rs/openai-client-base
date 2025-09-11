@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3](https://github.com/genai-rs/openai-client-base/compare/v0.1.2...v0.1.3) - 2025-09-11
+
+### Other
+
+- post-step to sync GitHub release notes from CHANGELOG.md (ensures populated notes)
+
 ## [0.1.2](https://github.com/genai-rs/openai-client-base/compare/v0.1.1...v0.1.2) - 2025-09-11
 
 ### Other
