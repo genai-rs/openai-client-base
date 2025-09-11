@@ -7,14 +7,7 @@ repository:
   name: openai-client-base
   description: Auto-generated Rust client for OpenAI API from OpenAPI specification
   homepage: https://docs.rs/openai-client-base
-  topics:
-    - openai
-    - openapi
-    - rust
-    - api-client
-    - llm
-    - ai
-    - gpt
+  topics: "openai, openapi, rust, api-client, llm, ai, gpt"
   
   # Repository features
   has_issues: true
@@ -31,7 +24,6 @@ repository:
   allow_rebase_merge: true
   allow_auto_merge: false
   delete_branch_on_merge: true
-  allow_update_branch: true
   
   # Security settings
   enable_automated_security_fixes: true
@@ -43,10 +35,12 @@ branches:
     protection:
       # Require PR reviews
       required_pull_request_reviews:
-        required_approving_review_count: 0  # Set to 1 or more for production
+        required_approving_review_count: 1
         dismiss_stale_reviews: true
         require_code_owner_reviews: false
-        dismissal_restrictions: {}
+        dismissal_restrictions:
+          users: []
+          teams: []
       
       # Require status checks
       required_status_checks:
@@ -65,12 +59,13 @@ branches:
       
       # Other settings
       required_linear_history: true
-      allow_force_pushes: false
-      allow_deletions: false
-      block_creations: false
-      required_conversation_resolution: false
-      lock_branch: false
-      allow_fork_syncing: false
+      # Keep extras minimal initially; add back after sync works
+      # allow_force_pushes: false
+      # allow_deletions: false
+      # required_conversation_resolution: false
+      # block_creations: false
+      # lock_branch: false
+      # allow_fork_syncing: false
 
 # Labels for issues and PRs
 labels:
