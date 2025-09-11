@@ -57,25 +57,56 @@ def fix_invalid_enum_variants(models_dir):
             print(f"Fixed enum variants in {file_path.name}")
 
 def add_display_impl_for_structs(models_dir):
-    """Add Display implementation for structs that need it for multipart forms."""
-    structs_needing_display = [
-        'TranscriptionChunkingStrategy',
+    """Add Display implementations for multipart-friendly stringification.
+
+    - For untagged unions like TranscriptionChunkingStrategy, render string
+      variants without quotes and struct variants as JSON.
+    - For simple structs/enums, fall back to serde_json stringification.
+    """
+    # Map of custom implementations keyed by struct name
+    custom_impls = {
+        'TranscriptionChunkingStrategy': r'''
+
+impl std::fmt::Display for TranscriptionChunkingStrategy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            TranscriptionChunkingStrategy::TextVariant(v) => match v {
+                TextVariantEnum::ItemReference => write!(f, "item_reference"),
+            },
+            TranscriptionChunkingStrategy::Vadconfig(cfg) => {
+                match serde_json::to_string(cfg) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+        }
+    }
+}
+''',
+    }
+
+    # Also add a generic list if needed in the future
+    generic_structs = [
         'FileExpirationAfter',
     ]
-    
-    for struct_name in structs_needing_display:
-        # Convert to snake_case filename
+
+    for struct_name, impl_body in custom_impls.items():
         file_name = re.sub(r'(?<!^)(?=[A-Z])', '_', struct_name).lower() + '.rs'
         file_path = models_dir / file_name
-        
         if file_path.exists():
-            with open(file_path, 'r') as f:
-                content = f.read()
-            
-            # Check if Display is already implemented
+            content = file_path.read_text()
             if 'impl std::fmt::Display' not in content:
-                # Add Display implementation using serde_json
-                display_impl = f'''
+                file_path.write_text(content + impl_body)
+                print(f"Added custom Display impl for {struct_name}")
+
+    # Fallback generic serde_json-based Display for simple cases
+    for struct_name in generic_structs:
+        file_name = re.sub(r'(?<!^)(?=[A-Z])', '_', struct_name).lower() + '.rs'
+        file_path = models_dir / file_name
+        if file_path.exists():
+            content = file_path.read_text()
+            if 'impl std::fmt::Display' not in content:
+                impl_body = f'''
 
 impl std::fmt::Display for {struct_name} {{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {{
@@ -83,10 +114,7 @@ impl std::fmt::Display for {struct_name} {{
     }}
 }}
 '''
-                content += display_impl
-                
-                with open(file_path, 'w') as f:
-                    f.write(content)
+                file_path.write_text(content + impl_body)
                 print(f"Added Display impl for {struct_name}")
 
 def remove_default_from_empty_enums(models_dir):

@@ -45,9 +45,10 @@ The pipeline fetches the latest OpenAPI specification from Stainless and generat
 - Adds #[serde(untagged)] attribute
 - Creates proper enum variants
 
-### 8. Fix Nullable Fields (`fix_boxed_nullable_fields.py`, `fix_constructor_signatures.py`)
+### 8. Fix Nullable Fields (`fix_boxed_nullable_fields.py`, `fix_constructor_signatures.py`, `fix_option_box_constructor_mismatches.py`)
 - Converts Box<T> to Option<Box<T>> for nullable fields
 - Updates constructor signatures to match
+- Normalizes constructors for Option<Box<T>> fields even when spec lacks `nullable`
 
 ### 9. Fix Default Trait Issues (`fix_default_issues.py`)
 - Removes Default derive from structs with non-Default fields
