@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunStreamEventAnyOf9 : Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) expires.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStreamEventAnyOf9 {
     #[serde(rename = "event")]
     pub event: Event,

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuneMethod : The method used for fine-tuning.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneMethod {
     /// The type of method. Is either `supervised`, `dpo`, or `reinforcement`.
     #[serde(rename = "type")]

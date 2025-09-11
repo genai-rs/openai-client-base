@@ -9,15 +9,15 @@ import re
 from pathlib import Path
 
 # Structs that have fields that don't implement Default
-# These need to have Default removed from their derive
+# These need to have Default removed from their derive (seed list)
 REMOVE_DEFAULT_FROM = [
-    'FineTuneReinforcementMethod',  # has grader: Box<FineTuneReinforcementMethodGrader>
-    'GraderMulti',  # has graders: Box<GraderMultiGraders>
-    'RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompleted',  # has usage
-    'RealtimeServerEventConversationItemInputAudioTranscriptionCompleted',  # has usage
-    'RunObject',  # has tool_choice: Box<AssistantsApiToolChoiceOption>
-    'ValidateGraderRequest',  # has grader field
-    # Stream events that contain RunObject
+    'FineTuneReinforcementMethod',
+    'GraderMulti',
+    'RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompleted',
+    'RealtimeServerEventConversationItemInputAudioTranscriptionCompleted',
+    'RunObject',
+    'ValidateGraderRequest',
+    # Stream events containing RunObject
     'RunStreamEventAnyOf',
     'RunStreamEventAnyOf1',
     'RunStreamEventAnyOf2',
@@ -77,21 +77,23 @@ def main():
     print("Fixing Default derive issues...")
     
     fixed_count = 0
+    # First, apply to the seed list
     for struct_name in REMOVE_DEFAULT_FROM:
-        # Convert struct name to file name
         file_name = re.sub(r'(?<!^)(?=[A-Z])', '_', struct_name).lower() + '.rs'
         file_path = models_dir / file_name
-        
-        if not file_path.exists():
-            print(f"Warning: File {file_path} not found")
-            continue
-        
-        print(f"Removing Default from {struct_name}...")
-        if remove_default_derive(file_path):
+        if file_path.exists() and remove_default_derive(file_path):
             fixed_count += 1
-            print(f"  Fixed {struct_name}")
-    
-    print(f"Fixed {fixed_count} structs")
+            print(f"  Removed Default from {struct_name}")
+
+    # Then, auto-detect any struct that has a field with Box<models::RunObject>
+    for file_path in models_dir.glob('*.rs'):
+        content = file_path.read_text()
+        if 'derive' in content and 'Default' in content and 'Box<models::RunObject>' in content:
+            if remove_default_derive(file_path):
+                fixed_count += 1
+                print(f"  Removed Default from {file_path.name} (RunObject field)")
+
+    print(f"Fixed Default derives in {fixed_count} files")
 
 if __name__ == '__main__':
     main()

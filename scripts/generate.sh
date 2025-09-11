@@ -127,6 +127,9 @@ fi
 if [ -f "$SCRIPT_DIR/fix_constructor_signatures.py" ]; then
     uv run --with pyyaml python scripts/fix_constructor_signatures.py "$PROJECT_ROOT"
 fi
+if [ -f "$SCRIPT_DIR/fix_option_box_constructor_mismatches.py" ]; then
+    uv run python scripts/fix_option_box_constructor_mismatches.py "$PROJECT_ROOT"
+fi
 
 # Step 9: Fix Default trait issues
 echo ""
@@ -134,6 +137,9 @@ echo "🔧 Fixing Default trait issues..."
 if [ -f "$SCRIPT_DIR/fix_default_issues.py" ]; then
     uv run python scripts/fix_default_issues.py "$PROJECT_ROOT"
 fi
+
+# Re-run general code fixes to ensure Display/Default adjustments are present
+uv run python scripts/fix_generated_code.py
 
 # Step 10: Fix clippy warnings in generated code
 echo ""
