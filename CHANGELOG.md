@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1](https://github.com/genai-rs/openai-client-base/compare/v0.1.0...v0.1.1) - 2025-09-11
+
+### Other
+
+- *(Cargo.toml)* add documentation link to docs.rs
+- *(release-plz)* fix GitHub release body template to use per-release changelog; remove workflow changelog patch step
+- release version 0.1.0
+
 ## [0.1.0](https://github.com/genai-rs/openai-client-base/releases/tag/v0.1.0) - 2025-09-11
 
 ### Added
