@@ -148,17 +148,22 @@ else
     deactivate
 fi
 
-# Step 7: Fix clippy warnings in generated code
+# Step 7: Fix untagged anyOf unions that generate as empty structs
+echo ""
+echo "🔧 Fixing untagged unions..."
+python3 scripts/fix_untagged_unions.py "$PROJECT_ROOT"
+
+# Step 8: Fix clippy warnings in generated code
 echo ""
 echo "🔧 Fixing clippy warnings..."
-python scripts/fix_clippy_warnings.py
+python3 scripts/fix_clippy_warnings.py
 
-# Step 8: Format the generated code
+# Step 9: Format the generated code
 echo ""
 echo "🎨 Formatting generated code..."
 cargo fmt --all
 
-# Step 9: Build the crate
+# Step 10: Build the crate
 echo ""
 echo "🔨 Building crate..."
 echo "  Cleaning build cache to avoid corruption issues..."
@@ -173,6 +178,7 @@ echo ""
 echo "Note: The following post-generation fixes were applied:"
 echo "  - Fixed recursive types and compilation issues"
 echo "  - Fixed empty enums and acronym casing (MCP -> Mcp, etc.)"
+echo "  - Fixed untagged anyOf unions (content types, tool choice, etc.)"
 echo "  - Added bon::Builder derives to all structs"
 echo "  - Fixed clippy warnings with appropriate allow attributes"
 echo "  - Applied cargo fmt for consistent formatting"
