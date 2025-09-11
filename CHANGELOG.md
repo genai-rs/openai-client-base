@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2](https://github.com/genai-rs/openai-client-base/compare/v0.1.1...v0.1.2) - 2025-09-11
+
+### Other
+
+- make sccache non-fatal and avoid GitHub artifact cache; enable only if server starts
+- allow optional PAT via GH_RELEASE_TOKEN to create tags/releases (work around 403 on protected tags)
+- add concurrency to generate-client and release-plz workflows (cancel older runs)
+- add concurrency to generate-client and release-plz workflows (cancel older runs)
+
 ## [0.1.1](https://github.com/genai-rs/openai-client-base/compare/v0.1.0...v0.1.1) - 2025-09-11
 
 ### Other
