@@ -61,6 +61,10 @@ jobs:
           echo "🧪 Running tests..."
           cargo test --all-features
 
+      - name: Cleanup transient files
+        run: |
+          rm -rf scripts/__pycache__ || true
+
       - name: Check for changes
         id: changes
         run: |

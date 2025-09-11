@@ -10,6 +10,9 @@ PKG_NAME="openai_client_base"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
+# Avoid writing Python bytecode (.pyc) / __pycache__ during CI/generation
+export PYTHONDONTWRITEBYTECODE=1
+
 # Paths
 GEN_SPEC_DIR="$PROJECT_ROOT/target/specs"
 SPEC_IN="$PROJECT_ROOT/stainless.yaml"
