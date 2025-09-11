@@ -63,7 +63,7 @@ branches:
       # Keep extras minimal initially; add back after sync works
       allow_deletions: false
       allow_force_pushes: false
-      # block_creations: false
+      block_creations: false
       # lock_branch: false
       # allow_fork_syncing: false
 
