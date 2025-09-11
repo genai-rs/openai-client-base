@@ -3,7 +3,7 @@
 [![CI](https://github.com/genai-rs/openai-client-base/workflows/CI/badge.svg)](https://github.com/genai-rs/openai-client-base/actions)
 [![Security](https://github.com/genai-rs/openai-client-base/workflows/Security/badge.svg)](https://github.com/genai-rs/openai-client-base/actions)
 [![MSRV](https://img.shields.io/badge/MSRV-1.82.0-blue)](https://releases.rs/docs/1.82.0/)
-[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)](./LICENSE-MIT)
+[![License](https://img.shields.io/github/license/genai-rs/openai-client-base)](./LICENSE-MIT)
 
 Auto-generated Rust client for the [OpenAI](https://openai.com) API, based on the Stainless OpenAPI specification.
 
