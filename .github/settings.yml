@@ -65,7 +65,7 @@ branches:
       allow_force_pushes: false
       block_creations: false
       lock_branch: false
-      # allow_fork_syncing: false
+      allow_fork_syncing: false
 
 # Labels for issues and PRs
 labels:
