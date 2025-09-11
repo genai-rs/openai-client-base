@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// GraderMulti : A MultiGrader object combines the output of multiple graders to produce a single score.
-#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct GraderMulti {
     /// The object type, which is always `multi`.
     #[serde(rename = "type")]
