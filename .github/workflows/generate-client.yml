@@ -68,7 +68,18 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          # Only consider generated outputs from the pipeline
+          ALLOWED_PATHS=(
+            src
+            docs
+            README.md
+            Cargo.toml
+            Cargo.lock
+            stainless.yaml
+            .openapi-generator
+            .openapi-generator-ignore
+          )
+          if [ -n "$(git status --porcelain -- "${ALLOWED_PATHS[@]}")" ]; then
             echo "changes=true" >> $GITHUB_OUTPUT
           else
             echo "changes=false" >> $GITHUB_OUTPUT
@@ -104,3 +115,12 @@ jobs:
           labels: |
             automated
             dependencies
+          add-paths: |
+            src/**
+            docs/**
+            README.md
+            Cargo.toml
+            Cargo.lock
+            stainless.yaml
+            .openapi-generator/**
+            .openapi-generator-ignore
