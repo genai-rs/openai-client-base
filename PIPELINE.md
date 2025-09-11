@@ -83,6 +83,9 @@ The pipeline fetches the latest OpenAPI specification from Stainless and generat
 
 # Use cached spec (skip download)
 USE_CACHED_SPEC=1 ./scripts/generate.sh
+
+# Control OpenAPI Generator verbosity (error|warn|info|debug|trace)
+OPENAPI_GENERATOR_LOG_LEVEL=error ./scripts/generate.sh
 ```
 
 ## Adding New Fixes

@@ -3,6 +3,8 @@ set -euo pipefail
 
 # Config
 OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.15.0}"
+# Control openapi-generator verbosity (values: error|warn|info|debug|trace)
+OPENAPI_GENERATOR_LOG_LEVEL="${OPENAPI_GENERATOR_LOG_LEVEL:-info}"
 PKG_NAME="openai_client_base"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -73,7 +75,7 @@ find "$OUT_DIR" -name "*.rs" -not -name "lib.rs" -delete 2>/dev/null || true
 rm -rf "$OUT_DIR/docs" 2>/dev/null || true
 
 # Run OpenAPI Generator via Docker
-GENERATOR_CMD="docker run --rm -v $PROJECT_ROOT:/local -u $(id -u):$(id -g) openapitools/openapi-generator-cli:v${OPENAPI_GENERATOR_VERSION}"
+GENERATOR_CMD="docker run --rm -v $PROJECT_ROOT:/local -u $(id -u):$(id -g) -e JAVA_OPTS=-Dlog.level=${OPENAPI_GENERATOR_LOG_LEVEL} openapitools/openapi-generator-cli:v${OPENAPI_GENERATOR_VERSION}"
 
 $GENERATOR_CMD generate \
     -i "/local/target/specs/l2_rust_compatible.yaml" \
