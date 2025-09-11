@@ -2,67 +2,125 @@
 """
 Fix untagged anyOf unions that OpenAPI Generator incorrectly generates as empty structs
 or flattened structs. This converts them to proper Rust enums using serde's untagged feature.
+
+This script automatically detects untagged unions from the OpenAPI spec and fixes them.
 """
 
 import os
 import sys
 import re
+import yaml
 
-# Map of types that should be untagged enums with their variants
-UNTAGGED_UNIONS = {
-    'ChatCompletionRequestSystemMessageContent': [
-        ('Text', 'String'),
-        ('Array', 'Vec<models::ChatCompletionRequestMessageContentPartText>'),
-    ],
-    'ChatCompletionRequestUserMessageContent': [
-        ('Text', 'String'),
-        ('Array', 'Vec<models::ChatCompletionRequestUserMessageContentPart>'),
-    ],
-    'ChatCompletionRequestAssistantMessageContent': [
-        ('Text', 'String'),
-        ('Array', 'Vec<models::ChatCompletionRequestAssistantMessageContentPart>'),
-    ],
-    'ChatCompletionRequestToolMessageContent': [
-        ('Text', 'String'),
-        ('Array', 'Vec<models::ChatCompletionRequestMessageContentPartText>'),
-    ],
-    'ChatCompletionRequestDeveloperMessageContent': [
-        ('Text', 'String'),
-        ('Array', 'Vec<models::ChatCompletionRequestMessageContentPartText>'),
-    ],
-    'ChatCompletionRequestFunctionMessageContent': [
-        ('Text', 'String'),
-        ('Null', '()'),  # null type for function messages
-    ],
-    'ChatCompletionToolChoiceOption': [
-        ('Auto', 'ChatCompletionToolChoiceOptionAuto'),
-        ('Named', 'models::ChatCompletionNamedToolChoice'),
-    ],
-    'CreateEmbeddingRequestInput': [
-        ('Text', 'String'),
-        ('ArrayOfStrings', 'Vec<String>'),
-        ('ArrayOfIntegers', 'Vec<i32>'),
-        ('ArrayOfIntegerArrays', 'Vec<Vec<i32>>'),
-    ],
-    'AssistantsApiToolChoiceOption': [
-        ('Auto', 'AssistantsApiToolChoiceOptionAuto'),
-        ('Named', 'models::AssistantsNamedToolChoice'),
-    ],
-    'AssistantsApiResponseFormatOption': [
-        ('Auto', 'AssistantsApiResponseFormatOptionAuto'),
-        ('Text', 'AssistantsApiResponseFormatOptionText'),
-        ('JsonObject', 'models::ResponseFormatJsonObject'),
-        ('JsonSchema', 'models::ResponseFormatJsonSchema'),
-    ],
-}
+def load_spec(spec_path):
+    """Load the OpenAPI spec to detect untagged unions"""
+    with open(spec_path, 'r') as f:
+        return yaml.safe_load(f)
 
-# Simple string literals that can be enum variants
-SIMPLE_STRING_ENUMS = {
-    'ChatCompletionToolChoiceOptionAuto': ['none', 'auto', 'required'],
-    'AssistantsApiToolChoiceOptionAuto': ['none', 'auto', 'required'],
-    'AssistantsApiResponseFormatOptionAuto': ['auto'],
-    'AssistantsApiResponseFormatOptionText': ['text'],
-}
+def detect_untagged_unions(spec):
+    """Detect all untagged anyOf/oneOf types in the spec"""
+    untagged_unions = {}
+    simple_string_enums = {}
+    
+    schemas = spec.get('components', {}).get('schemas', {})
+    
+    for schema_name, schema_def in schemas.items():
+        # Skip if it's a reference
+        if '$ref' in schema_def:
+            continue
+            
+        # Check properties for anyOf/oneOf without discriminator
+        if isinstance(schema_def, dict) and schema_def.get('type') == 'object':
+            props = schema_def.get('properties', {})
+            for prop_name, prop_def in props.items():
+                if 'anyOf' in prop_def or 'oneOf' in prop_def:
+                    # Check if it's tagged (has discriminator)
+                    if 'discriminator' not in prop_def:
+                        type_name = f"{schema_name}{prop_name[0].upper()}{prop_name[1:]}"
+                        variants = analyze_union_variants(prop_def.get('anyOf') or prop_def.get('oneOf'), schemas)
+                        if variants:
+                            untagged_unions[type_name] = variants
+        
+        # Check if the schema itself is an untagged union
+        if 'anyOf' in schema_def or 'oneOf' in schema_def:
+            if 'discriminator' not in schema_def:
+                variants = analyze_union_variants(schema_def.get('anyOf') or schema_def.get('oneOf'), schemas)
+                if variants:
+                    untagged_unions[schema_name] = variants
+                    
+                    # Check if any variant is a simple string enum
+                    for variant_name, variant_type in variants:
+                        if variant_type.endswith('Auto') or variant_type.endswith('Option'):
+                            # Try to find enum values from the spec
+                            enum_values = find_enum_values(schema_def.get('anyOf') or schema_def.get('oneOf'))
+                            if enum_values:
+                                simple_string_enums[variant_type] = enum_values
+    
+    return untagged_unions, simple_string_enums
+
+def analyze_union_variants(union_items, schemas):
+    """Analyze anyOf/oneOf items to determine variant types"""
+    variants = []
+    
+    for item in union_items:
+        if not isinstance(item, dict):
+            continue
+            
+        # Handle string type
+        if item.get('type') == 'string':
+            title = item.get('title', 'Text')
+            # Check if it's an enum
+            if 'enum' in item:
+                # This is a string enum, create a type name for it
+                enum_name = title.replace(' ', '') + 'Enum'
+                variants.append((title.replace(' ', ''), enum_name))
+            else:
+                variants.append((title.replace(' ', ''), 'String'))
+        
+        # Handle array type
+        elif item.get('type') == 'array':
+            title = item.get('title', 'Array')
+            items_def = item.get('items', {})
+            
+            if '$ref' in items_def:
+                ref_type = items_def['$ref'].split('/')[-1]
+                variants.append((title.replace(' ', ''), f'Vec<models::{ref_type}>'))
+            elif items_def.get('type') == 'string':
+                variants.append(('ArrayOfStrings', 'Vec<String>'))
+            elif items_def.get('type') == 'integer':
+                variants.append(('ArrayOfIntegers', 'Vec<i32>'))
+            elif items_def.get('type') == 'array':
+                inner = items_def.get('items', {})
+                if inner.get('type') == 'integer':
+                    variants.append(('ArrayOfIntegerArrays', 'Vec<Vec<i32>>'))
+            else:
+                variants.append((title.replace(' ', ''), 'Vec<serde_json::Value>'))
+        
+        # Handle object type with specific structure
+        elif item.get('type') == 'object' or '$ref' in item:
+            if '$ref' in item:
+                ref_type = item['$ref'].split('/')[-1]
+                title = item.get('title', ref_type)
+                variants.append((title.replace(' ', ''), f'models::{ref_type}'))
+            else:
+                # Check if it has specific properties that identify it
+                props = item.get('properties', {})
+                if 'type' in props or 'function' in props or 'custom' in props:
+                    # This is likely a named tool choice or similar
+                    title = item.get('title', 'Named')
+                    variants.append((title, 'models::ChatCompletionNamedToolChoice'))
+        
+        # Handle null type
+        elif item.get('type') == 'null':
+            variants.append(('Null', '()'))
+    
+    return variants
+
+def find_enum_values(union_items):
+    """Find enum values from union items"""
+    for item in union_items:
+        if isinstance(item, dict) and item.get('type') == 'string' and 'enum' in item:
+            return item['enum']
+    return None
 
 def create_untagged_enum(name, variants):
     """Generate an untagged enum for anyOf unions"""
@@ -88,7 +146,7 @@ def create_untagged_enum(name, variants):
         f"    fn default() -> Self {{",
     ])
     if variants[0][1] == 'String':
-        lines.append(f"        Self::Text(String::new())")
+        lines.append(f"        Self::{variants[0][0]}(String::new())")
     elif variants[0][1] == '()':
         lines.append(f"        Self::{variants[0][0]}")
     else:
@@ -99,33 +157,38 @@ def create_untagged_enum(name, variants):
         "",
     ])
     
-    # Add impl with new() if it's a simple type
-    if len(variants) == 2 and variants[0][1] == 'String':
+    # Add convenience methods for common patterns
+    if len(variants) >= 2 and variants[0][1] == 'String':
         lines.extend([
             f"impl {name} {{",
             f"    pub fn new_text(text: String) -> Self {{",
-            f"        Self::Text(text)",
+            f"        Self::{variants[0][0]}(text)",
             f"    }}",
         ])
-        if 'Array' in variants[1][0]:
-            part_type = variants[1][1].replace('Vec<', '').replace('>', '')
-            lines.extend([
-                f"    pub fn new_array(array: Vec<{part_type}>) -> Self {{",
-                f"        Self::Array(array)",
-                f"    }}",
-            ])
+        
+        # Add array constructor if second variant is an array
+        for variant_name, variant_type in variants[1:]:
+            if variant_type.startswith('Vec<'):
+                inner_type = variant_type[4:-1]  # Extract type from Vec<...>
+                method_name = f"new_{variant_name.lower()}"
+                lines.extend([
+                    f"    pub fn {method_name}(items: {variant_type}) -> Self {{",
+                    f"        Self::{variant_name}(items)",
+                    f"    }}",
+                ])
+        
         lines.extend([
             "}",
             "",
             f"impl From<String> for {name} {{",
             f"    fn from(s: String) -> Self {{",
-            f"        Self::Text(s)",
+            f"        Self::{variants[0][0]}(s)",
             f"    }}",
             f"}}",
             "",
             f"impl From<&str> for {name} {{",
             f"    fn from(s: &str) -> Self {{",
-            f"        Self::Text(s.to_string())",
+            f"        Self::{variants[0][0]}(s.to_string())",
             f"    }}",
             f"}}",
         ])
@@ -148,6 +211,8 @@ def create_simple_string_enum(name, values):
             variant = 'Required'
         elif value == 'json_object':
             variant = 'JsonObject'
+        elif value == 'json_schema':
+            variant = 'JsonSchema'
         lines.append(f"    {variant},")
     
     lines.extend([
@@ -163,108 +228,146 @@ def create_simple_string_enum(name, values):
     
     return '\n'.join(lines)
 
-def fix_file(filepath, root_dir):
+def snake_to_pascal(name):
+    """Convert snake_case to PascalCase"""
+    return ''.join(word.capitalize() for word in name.split('_'))
+
+def pascal_to_snake(name):
+    """Convert PascalCase to snake_case"""
+    return re.sub(r'([A-Z])', r'_\1', name).lower().lstrip('_')
+
+def fix_file(filepath, type_name, variants, simple_string_enums):
     """Fix a single model file"""
-    filename = os.path.basename(filepath).replace('.rs', '')
+    print(f"  Fixing untagged union: {type_name}")
     
-    # Convert filename to PascalCase
-    type_name = ''.join(word.capitalize() for word in filename.split('_'))
+    content = "use crate::models;\nuse serde::{Deserialize, Serialize};\n\n"
+    content += create_untagged_enum(type_name, variants)
     
-    content = None
+    # Also create simple string enums if needed
+    for variant_name, variant_type in variants:
+        if variant_type in simple_string_enums:
+            content += create_simple_string_enum(variant_type, simple_string_enums[variant_type])
     
-    # Check if this is an untagged union type
-    if type_name in UNTAGGED_UNIONS:
-        print(f"  Fixing untagged union: {type_name}")
-        content = "use crate::models;\nuse serde::{Deserialize, Serialize};\n\n"
-        content += create_untagged_enum(type_name, UNTAGGED_UNIONS[type_name])
-        
-        # Also create simple string enums if needed
-        for variant_name, variant_type in UNTAGGED_UNIONS[type_name]:
-            if variant_type in SIMPLE_STRING_ENUMS:
-                content += create_simple_string_enum(variant_type, SIMPLE_STRING_ENUMS[variant_type])
+    with open(filepath, 'w') as f:
+        f.write(content)
     
-    # Check if this is a simple string enum that needs to be created
-    elif type_name in SIMPLE_STRING_ENUMS:
-        print(f"  Creating simple string enum: {type_name}")
-        content = "use serde::{Deserialize, Serialize};\n\n"
-        content += create_simple_string_enum(type_name, SIMPLE_STRING_ENUMS[type_name])
-    
-    if content:
-        with open(filepath, 'w') as f:
-            f.write(content)
-        return True
-    
-    return False
+    return True
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: fix_untagged_unions.py <root_dir>")
+    if len(sys.argv) < 2:
+        print("Usage: fix_untagged_unions.py <root_dir> [spec_path]")
         sys.exit(1)
     
     root_dir = sys.argv[1]
+    spec_path = sys.argv[2] if len(sys.argv) > 2 else os.path.join(root_dir, 'stainless.yaml')
     models_dir = os.path.join(root_dir, 'src', 'models')
     
     if not os.path.exists(models_dir):
         print(f"Models directory not found: {models_dir}")
         sys.exit(1)
     
+    if not os.path.exists(spec_path):
+        print(f"Error: OpenAPI spec not found: {spec_path}")
+        print("The spec is required to detect untagged unions.")
+        sys.exit(1)
+    
+    print(f"Loading OpenAPI spec from: {spec_path}")
+    spec = load_spec(spec_path)
+    print("Detecting untagged unions from spec...")
+    untagged_unions, simple_string_enums = detect_untagged_unions(spec)
+    
+    # Add some known types that might not be detected correctly
+    # These are message content types that need special handling
+    known_content_types = {
+        'ChatCompletionRequestSystemMessageContent': [
+            ('Text', 'String'),
+            ('Array', 'Vec<models::ChatCompletionRequestMessageContentPartText>'),
+        ],
+        'ChatCompletionRequestUserMessageContent': [
+            ('Text', 'String'),
+            ('Array', 'Vec<models::ChatCompletionRequestUserMessageContentPart>'),
+        ],
+        'ChatCompletionRequestAssistantMessageContent': [
+            ('Text', 'String'),
+            ('Array', 'Vec<models::ChatCompletionRequestAssistantMessageContentPart>'),
+        ],
+        'ChatCompletionRequestToolMessageContent': [
+            ('Text', 'String'),
+            ('Array', 'Vec<models::ChatCompletionRequestMessageContentPartText>'),
+        ],
+        'ChatCompletionRequestDeveloperMessageContent': [
+            ('Text', 'String'),
+            ('Array', 'Vec<models::ChatCompletionRequestMessageContentPartText>'),
+        ],
+    }
+    
+    # Merge known types with detected ones
+    for name, variants in known_content_types.items():
+        if name not in untagged_unions:
+            untagged_unions[name] = variants
+    
+    print(f"Found {len(untagged_unions)} untagged union types to fix")
     print("Fixing untagged unions...")
+    
     fixed_count = 0
+    created_modules = set()
     
     # First, create files for simple string enums that might not exist
-    for enum_name in SIMPLE_STRING_ENUMS:
-        filename = re.sub(r'([A-Z])', r'_\1', enum_name).lower().lstrip('_') + '.rs'
+    for enum_name in simple_string_enums:
+        filename = pascal_to_snake(enum_name) + '.rs'
         filepath = os.path.join(models_dir, filename)
         if not os.path.exists(filepath):
             print(f"  Creating new file: {filename}")
             with open(filepath, 'w') as f:
                 f.write("use serde::{Deserialize, Serialize};\n\n")
-                f.write(create_simple_string_enum(enum_name, SIMPLE_STRING_ENUMS[enum_name]))
+                f.write(create_simple_string_enum(enum_name, simple_string_enums[enum_name]))
+            created_modules.add(pascal_to_snake(enum_name))
             fixed_count += 1
     
     # Now fix the untagged union types
-    for type_name in UNTAGGED_UNIONS:
-        filename = re.sub(r'([A-Z])', r'_\1', type_name).lower().lstrip('_') + '.rs'
+    for type_name, variants in untagged_unions.items():
+        filename = pascal_to_snake(type_name) + '.rs'
         filepath = os.path.join(models_dir, filename)
         
         if os.path.exists(filepath):
-            if fix_file(filepath, root_dir):
+            if fix_file(filepath, type_name, variants, simple_string_enums):
                 fixed_count += 1
         else:
             print(f"  Warning: File not found for {type_name}: {filepath}")
     
     # Update mod.rs to include any new modules
-    mod_rs_path = os.path.join(models_dir, 'mod.rs')
-    if os.path.exists(mod_rs_path):
-        with open(mod_rs_path, 'r') as f:
-            content = f.read()
-        
-        for enum_name in SIMPLE_STRING_ENUMS:
-            module_name = re.sub(r'([A-Z])', r'_\1', enum_name).lower().lstrip('_')
-            pub_line = f"pub mod {module_name};"
-            use_line = f"pub use self::{module_name}::{enum_name};"
+    if created_modules:
+        mod_rs_path = os.path.join(models_dir, 'mod.rs')
+        if os.path.exists(mod_rs_path):
+            with open(mod_rs_path, 'r') as f:
+                content = f.read()
             
-            if pub_line not in content:
-                # Find the right place to insert (alphabetically)
-                lines = content.split('\n')
-                inserted = False
-                for i, line in enumerate(lines):
-                    if line.startswith('pub mod ') and line > pub_line:
-                        lines.insert(i, pub_line)
-                        lines.insert(i + 1, use_line)
-                        inserted = True
-                        break
-                if not inserted:
-                    # Add at the end of mod declarations
-                    for i, line in enumerate(lines):
-                        if not line.startswith('pub mod ') and i > 0:
-                            lines.insert(i - 1, pub_line)
-                            lines.insert(i, use_line)
-                            break
+            lines = content.split('\n')
+            for module_name in sorted(created_modules):
+                pub_line = f"pub mod {module_name};"
+                use_line = f"pub use self::{module_name}::{snake_to_pascal(module_name)};"
                 
-                with open(mod_rs_path, 'w') as f:
-                    f.write('\n'.join(lines))
-                print(f"  Added module {module_name} to mod.rs")
+                if pub_line not in content:
+                    # Find the right place to insert (alphabetically)
+                    inserted = False
+                    for i, line in enumerate(lines):
+                        if line.startswith('pub mod ') and line > pub_line:
+                            lines.insert(i, pub_line)
+                            lines.insert(i + 1, use_line)
+                            inserted = True
+                            break
+                    if not inserted:
+                        # Add at the end of mod declarations
+                        for i, line in enumerate(lines):
+                            if not line.startswith('pub mod ') and i > 0:
+                                lines.insert(i - 1, pub_line)
+                                lines.insert(i, use_line)
+                                break
+                    
+                    print(f"  Added module {module_name} to mod.rs")
+            
+            with open(mod_rs_path, 'w') as f:
+                f.write('\n'.join(lines))
     
     print(f"Fixed {fixed_count} untagged union types")
 

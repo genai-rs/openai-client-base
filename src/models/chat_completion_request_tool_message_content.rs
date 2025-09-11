@@ -5,33 +5,33 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ChatCompletionRequestToolMessageContent {
-    Text(String),
-    Array(Vec<models::ChatCompletionRequestMessageContentPartText>),
+    Textcontent(String),
+    Arrayofcontentparts(Vec<models::ChatCompletionRequestToolMessageContentPart>),
 }
 
 impl Default for ChatCompletionRequestToolMessageContent {
     fn default() -> Self {
-        Self::Text(String::new())
+        Self::Textcontent(String::new())
     }
 }
 
 impl ChatCompletionRequestToolMessageContent {
     pub fn new_text(text: String) -> Self {
-        Self::Text(text)
+        Self::Textcontent(text)
     }
-    pub fn new_array(array: Vec<models::ChatCompletionRequestMessageContentPartText>) -> Self {
-        Self::Array(array)
+    pub fn new_arrayofcontentparts(items: Vec<models::ChatCompletionRequestToolMessageContentPart>) -> Self {
+        Self::Arrayofcontentparts(items)
     }
 }
 
 impl From<String> for ChatCompletionRequestToolMessageContent {
     fn from(s: String) -> Self {
-        Self::Text(s)
+        Self::Textcontent(s)
     }
 }
 
 impl From<&str> for ChatCompletionRequestToolMessageContent {
     fn from(s: &str) -> Self {
-        Self::Text(s.to_string())
+        Self::Textcontent(s.to_string())
     }
 }

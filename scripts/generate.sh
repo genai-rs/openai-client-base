@@ -163,15 +163,16 @@ fi
 echo ""
 echo "🔧 Fixing untagged unions..."
 if [ "${CI:-false}" = "true" ]; then
-    python3 scripts/fix_untagged_unions.py "$PROJECT_ROOT"
+    python3 scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
 elif command -v uv &> /dev/null; then
-    uv run python scripts/fix_untagged_unions.py "$PROJECT_ROOT"
+    uv run --with pyyaml python scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
 else
     if [ ! -d "$VENV_DIR" ]; then
         python3 -m venv "$VENV_DIR"
     fi
     source "$VENV_DIR/bin/activate"
-    python scripts/fix_untagged_unions.py "$PROJECT_ROOT"
+    pip install pyyaml >/dev/null 2>&1
+    python scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
     deactivate
 fi
 
