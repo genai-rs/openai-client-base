@@ -86,6 +86,13 @@ USE_CACHED_SPEC=1 ./scripts/generate.sh
 
 # Control OpenAPI Generator verbosity (error|warn|info|debug|trace)
 OPENAPI_GENERATOR_LOG_LEVEL=error ./scripts/generate.sh
+
+# Build strategy (default = light clean of build-script outputs only)
+# Default: fast, safe rebuild without full clean
+./scripts/generate.sh
+
+# Force full clean if you hit odd build issues
+FULL_CARGO_CLEAN=1 ./scripts/generate.sh
 ```
 
 ## Adding New Fixes
