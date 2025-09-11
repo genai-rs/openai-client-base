@@ -158,6 +158,9 @@ echo ""
 echo "🔨 Building crate..."
 if [ "${SKIP_CARGO_CLEAN:-0}" = "1" ]; then
     echo "  SKIP_CARGO_CLEAN=1 → skipping cargo clean"
+    # Light cleanup: remove build-script outputs to avoid stale OUT_DIR issues
+    echo "  Performing light clean: removing target/*/build to refresh build scripts"
+    rm -rf "$PROJECT_ROOT/target"/*/build 2>/dev/null || true
 else
     echo "  Cleaning build cache to avoid corruption issues..."
     cargo clean
