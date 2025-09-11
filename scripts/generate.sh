@@ -5,7 +5,7 @@ set -euo pipefail
 OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.15.0}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
 OPENAPI_GENERATOR_LOG_LEVEL="${OPENAPI_GENERATOR_LOG_LEVEL:-info}"
-PKG_NAME="openai_client_base"
+PKG_NAME="openai-client-base"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
