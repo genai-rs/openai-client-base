@@ -10,20 +10,10 @@ This script specifically handles the model field issue where:
 This runs AFTER reconciliation but BEFORE the main Rust compatibility patch.
 """
 
-import yaml
 import sys
 import os
 from typing import Dict, Any, Set
-
-def load_spec(path: str) -> Dict[str, Any]:
-    """Load OpenAPI spec from YAML file."""
-    with open(path, 'r', encoding='utf-8') as f:
-        return yaml.safe_load(f)
-
-def save_spec(spec: Dict[str, Any], path: str):
-    """Save OpenAPI spec to YAML file."""
-    with open(path, 'w', encoding='utf-8') as f:
-        yaml.dump(spec, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
+from utils import load_spec, save_spec
 
 def find_model_fields_in_allof(spec: Dict[str, Any]) -> Set[str]:
     """Find all schemas that have model fields inherited through allOf."""

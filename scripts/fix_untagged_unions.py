@@ -8,13 +8,13 @@ This script automatically detects untagged unions from the OpenAPI spec and fixe
 
 import os
 import sys
-import re
-import yaml
-
-def load_spec(spec_path):
-    """Load the OpenAPI spec to detect untagged unions"""
-    with open(spec_path, 'r') as f:
-        return yaml.safe_load(f)
+from utils import (
+    convert_to_rust_type_name,
+    snake_to_pascal,
+    pascal_to_snake,
+    load_spec,
+    sanitize_variant_name
+)
 
 def detect_untagged_unions(spec):
     """Detect all untagged anyOf/oneOf types in the spec"""
@@ -54,54 +54,6 @@ def detect_untagged_unions(spec):
                     simple_string_enums.update(enum_types)
     
     return untagged_unions, simple_string_enums
-
-def convert_to_rust_type_name(name):
-    """Convert type names to follow Rust naming conventions.
-    Automatically detects and converts acronyms (consecutive uppercase letters) to PascalCase.
-    Examples: MCP -> Mcp, HTTP -> Http, URL -> Url, API -> Api, MCPTool -> McpTool, etc.
-    """
-    result = []
-    i = 0
-    
-    while i < len(name):
-        # Check if we're at the start of an acronym (2+ consecutive uppercase letters)
-        if i < len(name) - 1 and name[i].isupper() and name[i+1].isupper():
-            # Found start of acronym, collect all uppercase letters
-            acronym_start = i
-            while i < len(name) and name[i].isupper():
-                i += 1
-            
-            acronym = name[acronym_start:i]
-            
-            # Check what comes after the acronym
-            if i < len(name) and name[i].islower():
-                # Acronym is followed by lowercase (e.g., "MCPtool" or "HTTPServer")
-                # The last uppercase letter is actually the start of the next word
-                if len(acronym) > 1:
-                    # Convert the acronym part (excluding last letter)
-                    result.append(acronym[0] + acronym[1:-1].lower())
-                    # Back up one position to reprocess the last uppercase letter
-                    i -= 1
-                else:
-                    result.append(acronym)
-            else:
-                # Acronym is at the end or followed by another capital/nothing
-                result.append(acronym[0] + acronym[1:].lower())
-        else:
-            # Regular character, just append it
-            result.append(name[i])
-            i += 1
-    
-    return ''.join(result)
-
-def sanitize_variant_name(name):
-    """Sanitize variant name to be valid Rust identifier"""
-    # Remove spaces and special characters, convert to PascalCase
-    name = name.replace(' ', '_').replace('-', '_').replace(',', '_').replace('.', '_')
-    name = name.replace('(', '').replace(')', '').replace('[', '').replace(']', '')
-    # Convert to PascalCase
-    parts = name.split('_')
-    return ''.join(part.capitalize() for part in parts if part)
 
 def analyze_union_variants(union_items, schemas, simple_string_enums=None):
     """Analyze anyOf/oneOf items to determine variant types"""
@@ -339,13 +291,6 @@ def create_simple_string_enum(name, values):
     
     return '\n'.join(lines)
 
-def snake_to_pascal(name):
-    """Convert snake_case to PascalCase"""
-    return ''.join(word.capitalize() for word in name.split('_'))
-
-def pascal_to_snake(name):
-    """Convert PascalCase to snake_case"""
-    return re.sub(r'([A-Z])', r'_\1', name).lower().lstrip('_')
 
 def fix_file(filepath, type_name, variants, simple_string_enums):
     """Fix a single model file"""
