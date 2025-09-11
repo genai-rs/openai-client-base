@@ -35,7 +35,9 @@ def detect_untagged_unions(spec):
                 if 'anyOf' in prop_def or 'oneOf' in prop_def:
                     # Check if it's tagged (has discriminator)
                     if 'discriminator' not in prop_def:
-                        type_name = f"{schema_name}{prop_name[0].upper()}{prop_name[1:]}"
+                        # Convert property name to PascalCase properly
+                        prop_pascal = ''.join(word.capitalize() for word in prop_name.replace('_', ' ').split())
+                        type_name = f"{schema_name}{prop_pascal}"
                         variants = analyze_union_variants(prop_def.get('anyOf') or prop_def.get('oneOf'), schemas)
                         if variants:
                             untagged_unions[type_name] = variants
@@ -57,6 +59,15 @@ def detect_untagged_unions(spec):
     
     return untagged_unions, simple_string_enums
 
+def sanitize_variant_name(name):
+    """Sanitize variant name to be valid Rust identifier"""
+    # Remove spaces and special characters, convert to PascalCase
+    name = name.replace(' ', '_').replace('-', '_').replace(',', '_').replace('.', '_')
+    name = name.replace('(', '').replace(')', '').replace('[', '').replace(']', '')
+    # Convert to PascalCase
+    parts = name.split('_')
+    return ''.join(part.capitalize() for part in parts if part)
+
 def analyze_union_variants(union_items, schemas):
     """Analyze anyOf/oneOf items to determine variant types"""
     variants = []
@@ -71,10 +82,10 @@ def analyze_union_variants(union_items, schemas):
             # Check if it's an enum
             if 'enum' in item:
                 # This is a string enum, create a type name for it
-                enum_name = title.replace(' ', '') + 'Enum'
-                variants.append((title.replace(' ', ''), enum_name))
+                enum_name = sanitize_variant_name(title) + 'Enum'
+                variants.append((sanitize_variant_name(title), enum_name))
             else:
-                variants.append((title.replace(' ', ''), 'String'))
+                variants.append((sanitize_variant_name(title), 'String'))
         
         # Handle array type
         elif item.get('type') == 'array':
@@ -83,7 +94,7 @@ def analyze_union_variants(union_items, schemas):
             
             if '$ref' in items_def:
                 ref_type = items_def['$ref'].split('/')[-1]
-                variants.append((title.replace(' ', ''), f'Vec<models::{ref_type}>'))
+                variants.append((sanitize_variant_name(title), f'Vec<models::{ref_type}>'))
             elif items_def.get('type') == 'string':
                 variants.append(('ArrayOfStrings', 'Vec<String>'))
             elif items_def.get('type') == 'integer':
@@ -93,21 +104,21 @@ def analyze_union_variants(union_items, schemas):
                 if inner.get('type') == 'integer':
                     variants.append(('ArrayOfIntegerArrays', 'Vec<Vec<i32>>'))
             else:
-                variants.append((title.replace(' ', ''), 'Vec<serde_json::Value>'))
+                variants.append((sanitize_variant_name(title), 'Vec<serde_json::Value>'))
         
         # Handle object type with specific structure
         elif item.get('type') == 'object' or '$ref' in item:
             if '$ref' in item:
                 ref_type = item['$ref'].split('/')[-1]
                 title = item.get('title', ref_type)
-                variants.append((title.replace(' ', ''), f'models::{ref_type}'))
+                variants.append((sanitize_variant_name(title), f'models::{ref_type}'))
             else:
                 # Check if it has specific properties that identify it
                 props = item.get('properties', {})
                 if 'type' in props or 'function' in props or 'custom' in props:
                     # This is likely a named tool choice or similar
                     title = item.get('title', 'Named')
-                    variants.append((title, 'models::ChatCompletionNamedToolChoice'))
+                    variants.append((sanitize_variant_name(title), 'models::ChatCompletionNamedToolChoice'))
         
         # Handle null type
         elif item.get('type') == 'null':
