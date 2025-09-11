@@ -75,7 +75,7 @@ impl FineTuningJob {
     pub fn new(
         id: String,
         created_at: i32,
-        error: Option<models::FineTuningJobError>,
+        error: models::FineTuningJobError,
         fine_tuned_model: String,
         finished_at: i32,
         hyperparameters: models::FineTuningJobHyperparameters,
@@ -92,7 +92,7 @@ impl FineTuningJob {
         FineTuningJob {
             id,
             created_at,
-            error: error.map(Box::new),
+            error: Box::new(error),
             fine_tuned_model,
             finished_at,
             hyperparameters: Box::new(hyperparameters),

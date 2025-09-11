@@ -86,7 +86,7 @@ pub struct RunObject {
     #[serde(rename = "parallel_tool_calls")]
     pub parallel_tool_calls: bool,
     #[serde(rename = "response_format")]
-    pub response_format: Option<Box<models::AssistantsApiResponseFormatOption>>,
+    pub response_format: Box<models::AssistantsApiResponseFormatOption>,
 }
 
 impl RunObject {
@@ -98,14 +98,14 @@ impl RunObject {
         thread_id: String,
         assistant_id: String,
         status: models::RunStatus,
-        required_action: Option<models::RunObjectRequiredAction>,
-        last_error: Option<models::RunObjectLastError>,
+        required_action: models::RunObjectRequiredAction,
+        last_error: models::RunObjectLastError,
         expires_at: i32,
         started_at: i32,
         cancelled_at: i32,
         failed_at: i32,
         completed_at: i32,
-        incomplete_details: Option<models::RunObjectIncompleteDetails>,
+        incomplete_details: models::RunObjectIncompleteDetails,
         model: String,
         instructions: String,
         tools: Vec<models::AssistantTool>,
@@ -116,7 +116,7 @@ impl RunObject {
         truncation_strategy: models::TruncationObject,
         tool_choice: models::AssistantsApiToolChoiceOption,
         parallel_tool_calls: bool,
-        response_format: Option<models::AssistantsApiResponseFormatOption>,
+        response_format: models::AssistantsApiResponseFormatOption,
     ) -> RunObject {
         RunObject {
             id,
@@ -125,14 +125,14 @@ impl RunObject {
             thread_id,
             assistant_id,
             status,
-            required_action: required_action.map(Box::new),
-            last_error: last_error.map(Box::new),
+            required_action: Box::new(required_action),
+            last_error: Box::new(last_error),
             expires_at,
             started_at,
             cancelled_at,
             failed_at,
             completed_at,
-            incomplete_details: incomplete_details.map(Box::new),
+            incomplete_details: Box::new(incomplete_details),
             model,
             instructions,
             tools,
@@ -145,7 +145,7 @@ impl RunObject {
             truncation_strategy: Box::new(truncation_strategy),
             tool_choice: Box::new(tool_choice),
             parallel_tool_calls,
-            response_format: response_format.map(Box::new),
+            response_format: Box::new(response_format),
         }
     }
 }

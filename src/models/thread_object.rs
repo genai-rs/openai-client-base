@@ -23,7 +23,7 @@ pub struct ThreadObject {
     /// The Unix timestamp (in seconds) for when the thread was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    #[serde(rename = "tool_resources", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "tool_resources")]
     pub tool_resources: Option<Box<models::ModifyThreadRequestToolResources>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata")]
@@ -36,14 +36,14 @@ impl ThreadObject {
         id: String,
         object: Object,
         created_at: i32,
-        tool_resources: Option<models::ModifyThreadRequestToolResources>,
+        tool_resources: models::ModifyThreadRequestToolResources,
         metadata: std::collections::HashMap<String, String>,
     ) -> ThreadObject {
         ThreadObject {
             id,
             object,
             created_at,
-            tool_resources: tool_resources.map(Box::new),
+            tool_resources: Box::new(tool_resources),
             metadata,
         }
     }

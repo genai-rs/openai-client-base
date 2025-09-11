@@ -5,7 +5,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Content {
-    InputContentTypes(models::InputContent),
-    OutputContentTypes(models::OutputContent),
+    Inputcontent(models::InputContent),
+    Outputcontent(models::OutputContent),
 }
-
