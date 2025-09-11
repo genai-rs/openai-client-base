@@ -118,17 +118,34 @@ echo ""
 echo "🔧 Fixing untagged unions..."
 uv run --with pyyaml python scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
 
-# Step 8: Fix clippy warnings in generated code
+# Step 8: Fix nullable fields and constructor signatures
+echo ""
+echo "🔧 Fixing nullable fields and constructors..."
+if [ -f "$SCRIPT_DIR/fix_boxed_nullable_fields.py" ]; then
+    uv run python scripts/fix_boxed_nullable_fields.py "$PROJECT_ROOT"
+fi
+if [ -f "$SCRIPT_DIR/fix_constructor_signatures.py" ]; then
+    uv run --with pyyaml python scripts/fix_constructor_signatures.py "$PROJECT_ROOT"
+fi
+
+# Step 9: Fix Default trait issues
+echo ""
+echo "🔧 Fixing Default trait issues..."
+if [ -f "$SCRIPT_DIR/fix_default_issues.py" ]; then
+    uv run python scripts/fix_default_issues.py "$PROJECT_ROOT"
+fi
+
+# Step 10: Fix clippy warnings in generated code
 echo ""
 echo "🔧 Fixing clippy warnings..."
 uv run python scripts/fix_clippy_warnings.py
 
-# Step 9: Format the generated code
+# Step 11: Format the generated code
 echo ""
 echo "🎨 Formatting generated code..."
 cargo fmt --all
 
-# Step 10: Build the crate
+# Step 12: Build the crate
 echo ""
 echo "🔨 Building crate..."
 echo "  Cleaning build cache to avoid corruption issues..."

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunObject : Represents an execution run on a [thread](https://platform.openai.com/docs/api-reference/threads).
-#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -32,9 +32,9 @@ pub struct RunObject {
     #[serde(rename = "status")]
     pub status: models::RunStatus,
     #[serde(rename = "required_action")]
-    pub required_action: Box<models::RunObjectRequiredAction>,
+    pub required_action: Option<Box<models::RunObjectRequiredAction>>,
     #[serde(rename = "last_error")]
-    pub last_error: Box<models::RunObjectLastError>,
+    pub last_error: Option<Box<models::RunObjectLastError>>,
     /// The Unix timestamp (in seconds) for when the run will expire.
     #[serde(rename = "expires_at")]
     pub expires_at: i32,
@@ -51,7 +51,7 @@ pub struct RunObject {
     #[serde(rename = "completed_at")]
     pub completed_at: i32,
     #[serde(rename = "incomplete_details")]
-    pub incomplete_details: Box<models::RunObjectIncompleteDetails>,
+    pub incomplete_details: Option<Box<models::RunObjectIncompleteDetails>>,
     /// The model that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
     #[serde(rename = "model")]
     pub model: String,
@@ -98,14 +98,14 @@ impl RunObject {
         thread_id: String,
         assistant_id: String,
         status: models::RunStatus,
-        required_action: models::RunObjectRequiredAction,
-        last_error: models::RunObjectLastError,
+        required_action: Option<models::RunObjectRequiredAction>,
+        last_error: Option<models::RunObjectLastError>,
         expires_at: i32,
         started_at: i32,
         cancelled_at: i32,
         failed_at: i32,
         completed_at: i32,
-        incomplete_details: models::RunObjectIncompleteDetails,
+        incomplete_details: Option<models::RunObjectIncompleteDetails>,
         model: String,
         instructions: String,
         tools: Vec<models::AssistantTool>,
@@ -116,7 +116,7 @@ impl RunObject {
         truncation_strategy: models::TruncationObject,
         tool_choice: models::AssistantsApiToolChoiceOption,
         parallel_tool_calls: bool,
-        response_format: models::AssistantsApiResponseFormatOption,
+        response_format: Option<models::AssistantsApiResponseFormatOption>,
     ) -> RunObject {
         RunObject {
             id,
@@ -125,14 +125,14 @@ impl RunObject {
             thread_id,
             assistant_id,
             status,
-            required_action: Some(Box::new(required_action)),
-            last_error: Some(Box::new(last_error)),
+            required_action: required_action.map(Box::new),
+            last_error: last_error.map(Box::new),
             expires_at,
             started_at,
             cancelled_at,
             failed_at,
             completed_at,
-            incomplete_details: Some(Box::new(incomplete_details)),
+            incomplete_details: incomplete_details.map(Box::new),
             model,
             instructions,
             tools,
@@ -145,7 +145,7 @@ impl RunObject {
             truncation_strategy: Box::new(truncation_strategy),
             tool_choice: Box::new(tool_choice),
             parallel_tool_calls,
-            response_format: Some(Box::new(response_format)),
+            response_format: response_format.map(Box::new),
         }
     }
 }

@@ -41,7 +41,7 @@ pub struct RunStepObject {
     #[serde(rename = "step_details")]
     pub step_details: Box<models::RunStepObjectStepDetails>,
     #[serde(rename = "last_error")]
-    pub last_error: Box<models::RunStepObjectLastError>,
+    pub last_error: Option<Box<models::RunStepObjectLastError>>,
     /// The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
     #[serde(rename = "expired_at")]
     pub expired_at: i32,
@@ -73,7 +73,7 @@ impl RunStepObject {
         r#type: Type,
         status: Status,
         step_details: models::RunStepObjectStepDetails,
-        last_error: models::RunStepObjectLastError,
+        last_error: Option<models::RunStepObjectLastError>,
         expired_at: i32,
         cancelled_at: i32,
         failed_at: i32,
@@ -91,7 +91,7 @@ impl RunStepObject {
             r#type,
             status,
             step_details: Box::new(step_details),
-            last_error: Some(Box::new(last_error)),
+            last_error: last_error.map(Box::new),
             expired_at,
             cancelled_at,
             failed_at,

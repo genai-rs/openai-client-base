@@ -30,7 +30,7 @@ pub struct MessageObject {
     #[serde(rename = "status")]
     pub status: Status,
     #[serde(rename = "incomplete_details")]
-    pub incomplete_details: Box<models::MessageObjectIncompleteDetails>,
+    pub incomplete_details: Option<Box<models::MessageObjectIncompleteDetails>>,
     /// The Unix timestamp (in seconds) for when the message was completed.
     #[serde(rename = "completed_at")]
     pub completed_at: i32,
@@ -65,7 +65,7 @@ impl MessageObject {
         created_at: i32,
         thread_id: String,
         status: Status,
-        incomplete_details: models::MessageObjectIncompleteDetails,
+        incomplete_details: Option<models::MessageObjectIncompleteDetails>,
         completed_at: i32,
         incomplete_at: i32,
         role: Role,
@@ -81,7 +81,7 @@ impl MessageObject {
             created_at,
             thread_id,
             status,
-            incomplete_details: Some(Box::new(incomplete_details)),
+            incomplete_details: incomplete_details.map(Box::new),
             completed_at,
             incomplete_at,
             role,

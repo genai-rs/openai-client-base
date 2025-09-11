@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunStreamEventAnyOf3 : Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) moves to a `requires_action` status.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone,  Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStreamEventAnyOf3 {
     #[serde(rename = "event")]
     pub event: Event,

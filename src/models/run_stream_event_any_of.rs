@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunStreamEventAnyOf : Occurs when a new [run](https://platform.openai.com/docs/api-reference/runs/object) is created.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStreamEventAnyOf {
     #[serde(rename = "event")]
     pub event: Event,

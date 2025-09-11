@@ -21,7 +21,7 @@ pub struct FineTuningJob {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "error")]
-    pub error: Box<models::FineTuningJobError>,
+    pub error: Option<Box<models::FineTuningJobError>>,
     /// The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "fine_tuned_model")]
     pub fine_tuned_model: String,
@@ -75,7 +75,7 @@ impl FineTuningJob {
     pub fn new(
         id: String,
         created_at: i32,
-        error: models::FineTuningJobError,
+        error: Option<models::FineTuningJobError>,
         fine_tuned_model: String,
         finished_at: i32,
         hyperparameters: models::FineTuningJobHyperparameters,
@@ -92,7 +92,7 @@ impl FineTuningJob {
         FineTuningJob {
             id,
             created_at,
-            error: Some(Box::new(error)),
+            error: error.map(Box::new),
             fine_tuned_model,
             finished_at,
             hyperparameters: Box::new(hyperparameters),
