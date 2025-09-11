@@ -1,6 +1,6 @@
 [package]
 name = "openai-client-base"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Tim Van Wassenhove <github@timvw.be>"]
 description = "Auto-generated Rust client for the OpenAI API"
 license = "MIT OR Apache-2.0"
