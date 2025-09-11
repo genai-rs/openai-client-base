@@ -296,8 +296,11 @@ def fix_file(filepath, type_name, variants, simple_string_enums):
     """Fix a single model file"""
     print(f"  Fixing untagged union: {type_name}")
     
+    # Apply proper Rust type name conversion
+    rust_type_name = convert_to_rust_type_name(type_name)
+    
     content = "use crate::models;\nuse serde::{Deserialize, Serialize};\n\n"
-    content += create_untagged_enum(type_name, variants)
+    content += create_untagged_enum(rust_type_name, variants)
     
     # Track which enum types we've already added
     added_enums = set()
