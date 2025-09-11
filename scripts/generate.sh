@@ -156,8 +156,12 @@ cargo fmt --all
 # Step 12: Build the crate
 echo ""
 echo "🔨 Building crate..."
-echo "  Cleaning build cache to avoid corruption issues..."
-cargo clean
+if [ "${SKIP_CARGO_CLEAN:-0}" = "1" ]; then
+    echo "  SKIP_CARGO_CLEAN=1 → skipping cargo clean"
+else
+    echo "  Cleaning build cache to avoid corruption issues..."
+    cargo clean
+fi
 cargo build
 
 echo ""
