@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CodeInterpreterToolContainer {
     Text(String),
-    CodeInterpreterToolAuto(models::CodeInterpreterToolAuto),
+    Codeinterpretertoolauto(models::CodeInterpreterToolAuto),
 }
 
 impl Default for CodeInterpreterToolContainer {

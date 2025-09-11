@@ -5,16 +5,16 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum FineTuneReinforcementMethodGrader {
-    GraderStringCheck(models::GraderStringCheck),
-    GraderTextSimilarity(models::GraderTextSimilarity),
-    GraderPython(models::GraderPython),
-    GraderScoreModel(models::GraderScoreModel),
-    GraderMulti(models::GraderMulti),
+    Graderstringcheck(models::GraderStringCheck),
+    Gradertextsimilarity(models::GraderTextSimilarity),
+    Graderpython(models::GraderPython),
+    Graderscoremodel(models::GraderScoreModel),
+    Gradermulti(models::GraderMulti),
 }
 
 impl Default for FineTuneReinforcementMethodGrader {
     fn default() -> Self {
-        Self::GraderStringCheck(Default::default())
+        Self::Graderstringcheck(Default::default())
     }
 }
 

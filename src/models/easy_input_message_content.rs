@@ -5,30 +5,30 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EasyInputMessageContent {
-    Textinput(String),
-    InputMessageContentList(models::InputMessageContentList),
+    TextInput(String),
+    Inputmessagecontentlist(models::InputMessageContentList),
 }
 
 impl Default for EasyInputMessageContent {
     fn default() -> Self {
-        Self::Textinput(String::new())
+        Self::TextInput(String::new())
     }
 }
 
 impl EasyInputMessageContent {
     pub fn new_text(text: String) -> Self {
-        Self::Textinput(text)
+        Self::TextInput(text)
     }
 }
 
 impl From<String> for EasyInputMessageContent {
     fn from(s: String) -> Self {
-        Self::Textinput(s)
+        Self::TextInput(s)
     }
 }
 
 impl From<&str> for EasyInputMessageContent {
     fn from(s: &str) -> Self {
-        Self::Textinput(s.to_string())
+        Self::TextInput(s.to_string())
     }
 }

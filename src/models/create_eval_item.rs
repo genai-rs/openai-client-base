@@ -5,12 +5,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateEvalItem {
-    EvalItem(models::EvalItem),
+    Evalitem(models::EvalItem),
 }
 
 impl Default for CreateEvalItem {
     fn default() -> Self {
-        Self::EvalItem(Default::default())
+        Self::Evalitem(Default::default())
     }
 }
 
