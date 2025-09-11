@@ -51,7 +51,7 @@ impl VectorStoreFileObject {
         created_at: i32,
         vector_store_id: String,
         status: Status,
-        last_error: models::VectorStoreFileObjectLastError,
+        last_error: Option<models::VectorStoreFileObjectLastError>,
     ) -> VectorStoreFileObject {
         VectorStoreFileObject {
             id,
@@ -60,7 +60,7 @@ impl VectorStoreFileObject {
             created_at,
             vector_store_id,
             status,
-            last_error: Box::new(last_error),
+            last_error: last_error.map(Box::new),
             chunking_strategy: None,
             attributes: None,
         }

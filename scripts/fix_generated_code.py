@@ -38,6 +38,24 @@ def fix_recursive_grammar_format(models_dir):
             f.write(content)
         print(f"Fixed recursive type in grammar_format_1.rs")
 
+def fix_invalid_enum_variants(models_dir):
+    """Fix enum variant names with dots (e.g., Gpt4.1 -> Gpt4_1)."""
+    for file_path in models_dir.glob("*.rs"):
+        with open(file_path, 'r') as f:
+            content = f.read()
+        
+        original_content = content
+        
+        # Fix dots in enum variant names
+        content = re.sub(r'\bGpt4\.1\b', 'Gpt4_1', content)
+        content = re.sub(r'\bGpt4\.5\b', 'Gpt4_5', content)
+        content = re.sub(r'\bGpt3\.5\b', 'Gpt3_5', content)
+        
+        if content != original_content:
+            with open(file_path, 'w') as f:
+                f.write(content)
+            print(f"Fixed enum variants in {file_path.name}")
+
 def add_display_impl_for_structs(models_dir):
     """Add Display implementation for structs that need it for multipart forms."""
     structs_needing_display = [
@@ -188,6 +206,7 @@ def main():
     print("Fixing generated Rust code...")
     
     # Apply fixes in order
+    fix_invalid_enum_variants(models_dir)
     fix_recursive_grammar_format(models_dir)
     add_display_impl_for_structs(models_dir)
     remove_default_from_empty_enums(models_dir)

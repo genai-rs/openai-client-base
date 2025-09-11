@@ -25,17 +25,17 @@ pub enum TextVariantEnum {
     #[serde(rename = "gpt-5-nano-2025-08-07")]
     Gpt5Nano20250807,
     #[serde(rename = "gpt-4.1")]
-    Gpt4.1,
+    Gpt4_1,
     #[serde(rename = "gpt-4.1-mini")]
-    Gpt4.1Mini,
+    Gpt4_1Mini,
     #[serde(rename = "gpt-4.1-nano")]
-    Gpt4.1Nano,
+    Gpt4_1Nano,
     #[serde(rename = "gpt-4.1-2025-04-14")]
-    Gpt4.120250414,
+    Gpt4_120250414,
     #[serde(rename = "gpt-4.1-mini-2025-04-14")]
-    Gpt4.1Mini20250414,
+    Gpt4_1Mini20250414,
     #[serde(rename = "gpt-4.1-nano-2025-04-14")]
-    Gpt4.1Nano20250414,
+    Gpt4_1Nano20250414,
     #[serde(rename = "gpt-4o")]
     Gpt4o,
     #[serde(rename = "gpt-4o-2024-11-20")]
@@ -49,9 +49,9 @@ pub enum TextVariantEnum {
     #[serde(rename = "gpt-4o-mini-2024-07-18")]
     Gpt4oMini20240718,
     #[serde(rename = "gpt-4.5-preview")]
-    Gpt4.5Preview,
+    Gpt4_5Preview,
     #[serde(rename = "gpt-4.5-preview-2025-02-27")]
-    Gpt4.5Preview20250227,
+    Gpt4_5Preview20250227,
     #[serde(rename = "gpt-4-turbo")]
     Gpt4Turbo,
     #[serde(rename = "gpt-4-turbo-2024-04-09")]
@@ -77,17 +77,17 @@ pub enum TextVariantEnum {
     #[serde(rename = "gpt-4-32k-0613")]
     Gpt432k0613,
     #[serde(rename = "gpt-3.5-turbo")]
-    Gpt3.5Turbo,
+    Gpt3_5Turbo,
     #[serde(rename = "gpt-3.5-turbo-16k")]
-    Gpt3.5Turbo16k,
+    Gpt3_5Turbo16k,
     #[serde(rename = "gpt-3.5-turbo-0613")]
-    Gpt3.5Turbo0613,
+    Gpt3_5Turbo0613,
     #[serde(rename = "gpt-3.5-turbo-1106")]
-    Gpt3.5Turbo1106,
+    Gpt3_5Turbo1106,
     #[serde(rename = "gpt-3.5-turbo-0125")]
-    Gpt3.5Turbo0125,
+    Gpt3_5Turbo0125,
     #[serde(rename = "gpt-3.5-turbo-16k-0613")]
-    Gpt3.5Turbo16k0613,
+    Gpt3_5Turbo16k0613,
 }
 
 impl Default for TextVariantEnum {

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunStreamEventAnyOf8 : Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) is cancelled.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone,  Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStreamEventAnyOf8 {
     #[serde(rename = "event")]
     pub event: Event,

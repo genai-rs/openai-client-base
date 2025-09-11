@@ -9,7 +9,7 @@ pub enum PresetEnum {
     #[serde(rename = "davinci-002")]
     Davinci002,
     #[serde(rename = "gpt-3.5-turbo")]
-    Gpt3.5Turbo,
+    Gpt3_5Turbo,
     #[serde(rename = "gpt-4o-mini")]
     Gpt4oMini,
 }

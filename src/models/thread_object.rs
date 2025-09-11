@@ -36,14 +36,14 @@ impl ThreadObject {
         id: String,
         object: Object,
         created_at: i32,
-        tool_resources: models::ModifyThreadRequestToolResources,
+        tool_resources: Option<models::ModifyThreadRequestToolResources>,
         metadata: std::collections::HashMap<String, String>,
     ) -> ThreadObject {
         ThreadObject {
             id,
             object,
             created_at,
-            tool_resources: Box::new(tool_resources),
+            tool_resources: tool_resources.map(Box::new),
             metadata,
         }
     }
