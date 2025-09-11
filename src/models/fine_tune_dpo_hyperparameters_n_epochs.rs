@@ -1,10 +1,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FineTuneDPOHyperparametersNEpochs - Untagged union type
+/// FineTuneDpoHyperparametersNEpochs - Untagged union type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum FineTuneDPOHyperparametersNEpochs {
+pub enum FineTuneDpoHyperparametersNEpochs {
     TextVariant(TextVariantEnum),
 }
 

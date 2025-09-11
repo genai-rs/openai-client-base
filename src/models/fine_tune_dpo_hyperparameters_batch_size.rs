@@ -1,10 +1,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FineTuneDPOHyperparametersBatchSize - Untagged union type
+/// FineTuneDpoHyperparametersBatchSize - Untagged union type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum FineTuneDPOHyperparametersBatchSize {
+pub enum FineTuneDpoHyperparametersBatchSize {
     TextVariant(TextVariantEnum),
 }
 

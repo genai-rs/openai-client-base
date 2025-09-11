@@ -1,10 +1,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// MCPToolRequireApproval - Untagged union type
+/// McpToolRequireApproval - Untagged union type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum MCPToolRequireApproval {
+pub enum McpToolRequireApproval {
     McpToolApprovalSetting(McpToolApprovalSettingEnum),
 }
 

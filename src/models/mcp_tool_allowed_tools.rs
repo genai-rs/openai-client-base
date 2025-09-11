@@ -1,15 +1,15 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// MCPToolAllowedTools - Untagged union type
+/// McpToolAllowedTools - Untagged union type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum MCPToolAllowedTools {
+pub enum McpToolAllowedTools {
     ArrayOfStrings(Vec<String>),
     Mcptoolfilter(models::McpToolFilter),
 }
 
-impl Default for MCPToolAllowedTools {
+impl Default for McpToolAllowedTools {
     fn default() -> Self {
         Self::ArrayOfStrings(Vec::new())
     }
