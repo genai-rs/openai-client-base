@@ -92,7 +92,7 @@ impl FineTuningJob {
         FineTuningJob {
             id,
             created_at,
-            error: Box::new(error),
+            error: Some(Box::new(error)),
             fine_tuned_model,
             finished_at,
             hyperparameters: Box::new(hyperparameters),

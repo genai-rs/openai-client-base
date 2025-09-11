@@ -91,7 +91,7 @@ impl RunStepObject {
             r#type,
             status,
             step_details: Box::new(step_details),
-            last_error: Box::new(last_error),
+            last_error: Some(Box::new(last_error)),
             expired_at,
             cancelled_at,
             failed_at,

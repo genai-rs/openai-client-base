@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuneReinforcementMethod : Configuration for the reinforcement fine-tuning method.
-#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneReinforcementMethod {
     #[serde(rename = "grader")]
     pub grader: Box<models::FineTuneReinforcementMethodGrader>,

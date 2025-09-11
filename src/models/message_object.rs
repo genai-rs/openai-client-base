@@ -81,7 +81,7 @@ impl MessageObject {
             created_at,
             thread_id,
             status,
-            incomplete_details: Box::new(incomplete_details),
+            incomplete_details: Some(Box::new(incomplete_details)),
             completed_at,
             incomplete_at,
             role,

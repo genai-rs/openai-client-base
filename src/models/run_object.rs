@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunObject : Represents an execution run on a [thread](https://platform.openai.com/docs/api-reference/threads).
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -86,7 +86,7 @@ pub struct RunObject {
     #[serde(rename = "parallel_tool_calls")]
     pub parallel_tool_calls: bool,
     #[serde(rename = "response_format")]
-    pub response_format: Box<models::AssistantsApiResponseFormatOption>,
+    pub response_format: Option<Box<models::AssistantsApiResponseFormatOption>>,
 }
 
 impl RunObject {
@@ -125,14 +125,14 @@ impl RunObject {
             thread_id,
             assistant_id,
             status,
-            required_action: Box::new(required_action),
-            last_error: Box::new(last_error),
+            required_action: Some(Box::new(required_action)),
+            last_error: Some(Box::new(last_error)),
             expires_at,
             started_at,
             cancelled_at,
             failed_at,
             completed_at,
-            incomplete_details: Box::new(incomplete_details),
+            incomplete_details: Some(Box::new(incomplete_details)),
             model,
             instructions,
             tools,
@@ -145,7 +145,7 @@ impl RunObject {
             truncation_strategy: Box::new(truncation_strategy),
             tool_choice: Box::new(tool_choice),
             parallel_tool_calls,
-            response_format: Box::new(response_format),
+            response_format: Some(Box::new(response_format)),
         }
     }
 }
