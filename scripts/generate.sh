@@ -41,46 +41,23 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-# Detect CI environment (GitHub Actions sets CI=true)
-if [ "${CI:-false}" = "true" ]; then
-    echo "Running in CI environment, using system Python"
-    
-    # Layer 1: Fix model field types (handle allOf inheritance)
-    echo "  Layer 1: Fixing model field types..."
-    python3 "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_IN" "$SPEC_MODEL_FIXED"
-    
-    # Layer 2: Apply Rust compatibility patches
-    echo "  Layer 2: Applying Rust compatibility patches..."
-    python3 "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL_FIXED" "$SPEC_OUT"
-elif command -v uv &> /dev/null; then
-    echo "Using uv for Python dependencies"
-    
-    # Layer 1: Fix model field types (handle allOf inheritance)
-    echo "  Layer 1: Fixing model field types..."
-    uv run --with pyyaml python "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_IN" "$SPEC_MODEL_FIXED"
-    
-    # Layer 2: Apply Rust compatibility patches
-    echo "  Layer 2: Applying Rust compatibility patches..."
-    uv run --with pyyaml python "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL_FIXED" "$SPEC_OUT"
-else
-    echo "Using Python venv for dependencies"
-    VENV_DIR="$PROJECT_ROOT/.venv"
-    if [ ! -d "$VENV_DIR" ]; then
-        python3 -m venv "$VENV_DIR"
-    fi
-    source "$VENV_DIR/bin/activate"
-    pip install pyyaml >/dev/null 2>&1
-    
-    # Layer 1: Fix model field types (handle allOf inheritance)
-    echo "  Layer 1: Fixing model field types..."
-    python "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_IN" "$SPEC_MODEL_FIXED"
-    
-    # Layer 2: Apply Rust compatibility patches
-    echo "  Layer 2: Applying Rust compatibility patches..."
-    python "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL_FIXED" "$SPEC_OUT"
-    
-    deactivate
+# Check if uv is available
+if ! command -v uv &> /dev/null; then
+    echo "❌ uv is not installed or not in PATH"
+    echo "Please install uv from https://docs.astral.sh/uv/getting-started/installation/"
+    echo "Quick install: curl -LsSf https://astral.sh/uv/install.sh | sh"
+    exit 1
 fi
+
+echo "Using uv for Python dependencies"
+
+# Layer 1: Fix model field types (handle allOf inheritance)
+echo "  Layer 1: Fixing model field types..."
+uv run --with pyyaml python "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_IN" "$SPEC_MODEL_FIXED"
+
+# Layer 2: Apply Rust compatibility patches
+echo "  Layer 2: Applying Rust compatibility patches..."
+uv run --with pyyaml python "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL_FIXED" "$SPEC_OUT"
 
 # Step 3: Generate Rust client
 echo ""
@@ -129,68 +106,22 @@ fi
 # Step 5: Fix compilation issues in generated code
 echo ""
 echo "🔧 Fixing compilation issues..."
-if [ "${CI:-false}" = "true" ]; then
-    python3 scripts/fix_generated_code.py
-elif command -v uv &> /dev/null; then
-    uv run python scripts/fix_generated_code.py
-else
-    if [ ! -d "$VENV_DIR" ]; then
-        python3 -m venv "$VENV_DIR"
-    fi
-    source "$VENV_DIR/bin/activate"
-    python scripts/fix_generated_code.py
-    deactivate
-fi
+uv run python scripts/fix_generated_code.py
 
 # Step 6: Fix empty enums that should have variants
 echo ""
 echo "🔧 Fixing empty enums..."
-if [ "${CI:-false}" = "true" ]; then
-    python3 scripts/fix_empty_enums.py
-elif command -v uv &> /dev/null; then
-    uv run --with pyyaml python scripts/fix_empty_enums.py
-else
-    if [ ! -d "$VENV_DIR" ]; then
-        python3 -m venv "$VENV_DIR"
-    fi
-    source "$VENV_DIR/bin/activate"
-    pip install pyyaml >/dev/null 2>&1
-    python scripts/fix_empty_enums.py
-    deactivate
-fi
+uv run --with pyyaml python scripts/fix_empty_enums.py
 
 # Step 7: Fix untagged anyOf unions that generate as empty structs
 echo ""
 echo "🔧 Fixing untagged unions..."
-if [ "${CI:-false}" = "true" ]; then
-    python3 scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
-elif command -v uv &> /dev/null; then
-    uv run --with pyyaml python scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
-else
-    if [ ! -d "$VENV_DIR" ]; then
-        python3 -m venv "$VENV_DIR"
-    fi
-    source "$VENV_DIR/bin/activate"
-    pip install pyyaml >/dev/null 2>&1
-    python scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
-    deactivate
-fi
+uv run --with pyyaml python scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
 
 # Step 8: Fix clippy warnings in generated code
 echo ""
 echo "🔧 Fixing clippy warnings..."
-if [ "${CI:-false}" = "true" ]; then
-    python3 scripts/fix_clippy_warnings.py
-elif command -v uv &> /dev/null; then
-    uv run python scripts/fix_clippy_warnings.py
-else
-    if [ ! -d "$VENV_DIR" ]; then
-        python3 -m venv "$VENV_DIR"
-    fi
-    source "$VENV_DIR/bin/activate"
-    python scripts/fix_clippy_warnings.py
-    deactivate
-fi
+uv run python scripts/fix_clippy_warnings.py
 
 # Step 9: Format the generated code
 echo ""
