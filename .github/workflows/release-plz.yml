@@ -33,7 +33,13 @@ jobs:
           
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
-      
+
+      - name: Prefer PAT for tagging (if provided)
+        if: env.GH_RELEASE_TOKEN != ''
+        run: echo "GITHUB_TOKEN=${{ secrets.GH_RELEASE_TOKEN }}" >> $GITHUB_ENV
+        env:
+          GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+
       - name: Cleanup Python caches
         run: |
           rm -rf scripts/__pycache__ || true
