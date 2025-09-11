@@ -7,6 +7,7 @@ license = "MIT OR Apache-2.0"
 edition = "2021"
 repository = "https://github.com/genai-rs/openai-client-base"
 homepage = "https://github.com/genai-rs/openai-client-base"
+documentation = "https://docs.rs/openai-client-base"
 readme = "README.md"
 keywords = ["openai", "api", "client", "generated"]
 categories = ["api-bindings"]
