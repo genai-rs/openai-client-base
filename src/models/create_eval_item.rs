@@ -8,9 +8,3 @@ pub enum CreateEvalItem {
     Evalitem(models::EvalItem),
 }
 
-impl Default for CreateEvalItem {
-    fn default() -> Self {
-        Self::Evalitem(Default::default())
-    }
-}
-

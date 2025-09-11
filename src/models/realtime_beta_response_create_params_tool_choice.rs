@@ -1,18 +1,12 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeBetaResponseCreateParamsTool_choice - Untagged union type
+/// RealtimeBetaResponseCreateParamsToolChoice - Untagged union type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum RealtimeBetaResponseCreateParamsTool_choice {
+pub enum RealtimeBetaResponseCreateParamsToolChoice {
     Toolchoiceoptions(models::ToolChoiceOptions),
     Toolchoicefunction(models::ToolChoiceFunction),
-    Toolchoicemcp(models::ToolChoiceMCP),
-}
-
-impl Default for RealtimeBetaResponseCreateParamsTool_choice {
-    fn default() -> Self {
-        Self::Toolchoiceoptions(Default::default())
-    }
+    Toolchoicemcp(models::ToolChoiceMcp),
 }
 

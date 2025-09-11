@@ -9,9 +9,3 @@ pub enum Content {
     OutputContentTypes(models::OutputContent),
 }
 
-impl Default for Content {
-    fn default() -> Self {
-        Self::InputContentTypes(Default::default())
-    }
-}
-
