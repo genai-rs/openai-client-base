@@ -31,9 +31,11 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y curl
+          sudo apt-get install -y curl ripgrep
 
       - name: Generate client
+        env:
+          OPENAPI_GENERATOR_LOG_LEVEL: error
         run: |
           # The script handles everything internally:
           # - Downloads latest Stainless OpenAPI spec
