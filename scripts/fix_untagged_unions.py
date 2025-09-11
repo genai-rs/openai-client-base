@@ -38,26 +38,61 @@ def detect_untagged_unions(spec):
                         # Convert property name to PascalCase properly
                         prop_pascal = ''.join(word.capitalize() for word in prop_name.replace('_', ' ').split())
                         type_name = f"{schema_name}{prop_pascal}"
-                        variants = analyze_union_variants(prop_def.get('anyOf') or prop_def.get('oneOf'), schemas)
+                        variants, enum_types = analyze_union_variants(prop_def.get('anyOf') or prop_def.get('oneOf'), schemas)
                         if variants:
                             untagged_unions[type_name] = variants
+                            # Merge enum types
+                            simple_string_enums.update(enum_types)
         
         # Check if the schema itself is an untagged union
         if 'anyOf' in schema_def or 'oneOf' in schema_def:
             if 'discriminator' not in schema_def:
-                variants = analyze_union_variants(schema_def.get('anyOf') or schema_def.get('oneOf'), schemas)
+                variants, enum_types = analyze_union_variants(schema_def.get('anyOf') or schema_def.get('oneOf'), schemas)
                 if variants:
                     untagged_unions[schema_name] = variants
-                    
-                    # Check if any variant is a simple string enum
-                    for variant_name, variant_type in variants:
-                        if variant_type.endswith('Auto') or variant_type.endswith('Option'):
-                            # Try to find enum values from the spec
-                            enum_values = find_enum_values(schema_def.get('anyOf') or schema_def.get('oneOf'))
-                            if enum_values:
-                                simple_string_enums[variant_type] = enum_values
+                    # Merge enum types
+                    simple_string_enums.update(enum_types)
     
     return untagged_unions, simple_string_enums
+
+def convert_to_rust_type_name(name):
+    """Convert type names to follow Rust naming conventions.
+    Automatically detects and converts acronyms (consecutive uppercase letters) to PascalCase.
+    Examples: MCP -> Mcp, HTTP -> Http, URL -> Url, API -> Api, MCPTool -> McpTool, etc.
+    """
+    result = []
+    i = 0
+    
+    while i < len(name):
+        # Check if we're at the start of an acronym (2+ consecutive uppercase letters)
+        if i < len(name) - 1 and name[i].isupper() and name[i+1].isupper():
+            # Found start of acronym, collect all uppercase letters
+            acronym_start = i
+            while i < len(name) and name[i].isupper():
+                i += 1
+            
+            acronym = name[acronym_start:i]
+            
+            # Check what comes after the acronym
+            if i < len(name) and name[i].islower():
+                # Acronym is followed by lowercase (e.g., "MCPtool" or "HTTPServer")
+                # The last uppercase letter is actually the start of the next word
+                if len(acronym) > 1:
+                    # Convert the acronym part (excluding last letter)
+                    result.append(acronym[0] + acronym[1:-1].lower())
+                    # Back up one position to reprocess the last uppercase letter
+                    i -= 1
+                else:
+                    result.append(acronym)
+            else:
+                # Acronym is at the end or followed by another capital/nothing
+                result.append(acronym[0] + acronym[1:].lower())
+        else:
+            # Regular character, just append it
+            result.append(name[i])
+            i += 1
+    
+    return ''.join(result)
 
 def sanitize_variant_name(name):
     """Sanitize variant name to be valid Rust identifier"""
@@ -68,9 +103,10 @@ def sanitize_variant_name(name):
     parts = name.split('_')
     return ''.join(part.capitalize() for part in parts if part)
 
-def analyze_union_variants(union_items, schemas):
+def analyze_union_variants(union_items, schemas, simple_string_enums=None):
     """Analyze anyOf/oneOf items to determine variant types"""
     variants = []
+    enum_types = {}  # Local tracking of enum types
     
     for item in union_items:
         if not isinstance(item, dict):
@@ -82,10 +118,23 @@ def analyze_union_variants(union_items, schemas):
             # Check if it's an enum
             if 'enum' in item:
                 # This is a string enum, create a type name for it
-                enum_name = sanitize_variant_name(title) + 'Enum'
-                variants.append((sanitize_variant_name(title), enum_name))
+                # Ensure unique variant names
+                variant_name = sanitize_variant_name(title)
+                # If the variant name would conflict, add a suffix
+                existing_names = [v[0] for v in variants]
+                if variant_name in existing_names or variant_name == 'Text':
+                    variant_name = variant_name + 'Variant'
+                enum_name = variant_name + 'Enum'
+                variants.append((variant_name, enum_name))
+                # Store the enum values for later creation
+                enum_types[enum_name] = item['enum']
             else:
-                variants.append((sanitize_variant_name(title), 'String'))
+                variant_name = sanitize_variant_name(title)
+                # Avoid duplicate 'Text' variants
+                existing_names = [v[0] for v in variants]
+                if variant_name in existing_names:
+                    variant_name = variant_name + 'String'
+                variants.append((variant_name, 'String'))
         
         # Handle array type
         elif item.get('type') == 'array':
@@ -94,6 +143,15 @@ def analyze_union_variants(union_items, schemas):
             
             if '$ref' in items_def:
                 ref_type = items_def['$ref'].split('/')[-1]
+                # Check if the referenced type actually generates a file or if it's a nested reference
+                # For ChatCompletionRequestSystemMessageContentPart, it's actually ChatCompletionRequestMessageContentPartText
+                if ref_type == 'ChatCompletionRequestSystemMessageContentPart':
+                    # This is a special case - the type is an anyOf with a single ref
+                    ref_type = 'ChatCompletionRequestMessageContentPartText'
+                elif ref_type == 'ChatCompletionRequestToolMessageContentPart':
+                    ref_type = 'ChatCompletionRequestMessageContentPartText'
+                elif ref_type == 'ChatCompletionRequestDeveloperMessageContentPart':
+                    ref_type = 'ChatCompletionRequestMessageContentPartText'
                 variants.append((sanitize_variant_name(title), f'Vec<models::{ref_type}>'))
             elif items_def.get('type') == 'string':
                 variants.append(('ArrayOfStrings', 'Vec<String>'))
@@ -109,9 +167,23 @@ def analyze_union_variants(union_items, schemas):
         # Handle object type with specific structure
         elif item.get('type') == 'object' or '$ref' in item:
             if '$ref' in item:
-                ref_type = item['$ref'].split('/')[-1]
-                title = item.get('title', ref_type)
-                variants.append((sanitize_variant_name(title), f'models::{ref_type}'))
+                ref_name = item['$ref'].split('/')[-1]
+                title = item.get('title', ref_name)
+                
+                # Check if the referenced schema is actually an array type
+                if ref_name in schemas and schemas[ref_name].get('type') == 'array':
+                    # This is a reference to an array schema, expand it inline
+                    array_items = schemas[ref_name].get('items', {})
+                    if '$ref' in array_items:
+                        inner_type = array_items['$ref'].split('/')[-1]
+                        variants.append((sanitize_variant_name(title), f'Vec<models::{inner_type}>'))
+                    else:
+                        # Unknown array item type
+                        variants.append((sanitize_variant_name(title), 'Vec<serde_json::Value>'))
+                else:
+                    # Regular object reference - apply proper Rust type name conversion
+                    ref_name = convert_to_rust_type_name(ref_name)
+                    variants.append((sanitize_variant_name(title), f'models::{ref_name}'))
             else:
                 # Check if it has specific properties that identify it
                 props = item.get('properties', {})
@@ -124,7 +196,7 @@ def analyze_union_variants(union_items, schemas):
         elif item.get('type') == 'null':
             variants.append(('Null', '()'))
     
-    return variants
+    return variants, enum_types
 
 def find_enum_values(union_items):
     """Find enum values from union items"""
@@ -151,22 +223,25 @@ def create_untagged_enum(name, variants):
     lines.append("}")
     lines.append("")
     
-    # Add Default implementation
-    lines.extend([
-        f"impl Default for {name} {{",
-        f"    fn default() -> Self {{",
-    ])
-    if variants[0][1] == 'String':
-        lines.append(f"        Self::{variants[0][0]}(String::new())")
-    elif variants[0][1] == '()':
-        lines.append(f"        Self::{variants[0][0]}")
-    else:
-        lines.append(f"        Self::{variants[0][0]}(Default::default())")
-    lines.extend([
-        "    }",
-        "}",
-        "",
-    ])
+    # Add Default implementation only for simple types that we know support it
+    first_variant_name, first_variant_type = variants[0] if variants else (None, None)
+    
+    if first_variant_type in ['String', '()', 'Vec<String>', 'Vec<i32>']:
+        lines.extend([
+            f"impl Default for {name} {{",
+            f"    fn default() -> Self {{",
+        ])
+        if first_variant_type == 'String':
+            lines.append(f"        Self::{first_variant_name}(String::new())")
+        elif first_variant_type == '()':
+            lines.append(f"        Self::{first_variant_name}")
+        elif first_variant_type.startswith('Vec<'):
+            lines.append(f"        Self::{first_variant_name}(Vec::new())")
+        lines.extend([
+            "    }",
+            "}",
+            "",
+        ])
     
     # Add convenience methods for common patterns
     if len(variants) >= 2 and variants[0][1] == 'String':
@@ -217,13 +292,24 @@ def create_simple_string_enum(name, values):
     ]
     
     for value in values:
-        variant = value.capitalize()
-        if value == 'required':
+        # Convert value to proper variant name
+        if value == 'none':
+            variant = 'None'
+        elif value == 'auto':
+            variant = 'Auto'
+        elif value == 'required':
             variant = 'Required'
         elif value == 'json_object':
             variant = 'JsonObject'
         elif value == 'json_schema':
             variant = 'JsonSchema'
+        else:
+            # General case: capitalize and handle underscores
+            variant = ''.join(word.capitalize() for word in value.replace('-', '_').split('_'))
+        
+        # Add serde rename if variant name differs from original value
+        if variant.lower() != value:
+            lines.append(f'    #[serde(rename = "{value}")]')
         lines.append(f"    {variant},")
     
     lines.extend([
@@ -231,7 +317,21 @@ def create_simple_string_enum(name, values):
         "",
         f"impl Default for {name} {{",
         f"    fn default() -> Self {{",
-        f"        Self::{values[0].capitalize()}",
+    ])
+    
+    # Get the first variant name properly
+    first_value = values[0]
+    if first_value == 'none':
+        first_variant = 'None'
+    elif first_value == 'auto':
+        first_variant = 'Auto'
+    elif first_value == 'required':
+        first_variant = 'Required'
+    else:
+        first_variant = ''.join(word.capitalize() for word in first_value.replace('-', '_').split('_'))
+    
+    lines.extend([
+        f"        Self::{first_variant}",
         f"    }}",
         f"}}",
         "",
@@ -254,10 +354,19 @@ def fix_file(filepath, type_name, variants, simple_string_enums):
     content = "use crate::models;\nuse serde::{Deserialize, Serialize};\n\n"
     content += create_untagged_enum(type_name, variants)
     
+    # Track which enum types we've already added
+    added_enums = set()
+    
     # Also create simple string enums if needed
     for variant_name, variant_type in variants:
-        if variant_type in simple_string_enums:
+        if variant_type in simple_string_enums and variant_type not in added_enums:
             content += create_simple_string_enum(variant_type, simple_string_enums[variant_type])
+            added_enums.add(variant_type)
+        elif variant_type.endswith('Enum') and variant_type not in added_enums:
+            # Check if it's a referenced enum that should exist
+            # For now, create a placeholder if we don't have the values
+            if variant_type not in simple_string_enums:
+                print(f"    Warning: Missing enum values for {variant_type}")
     
     with open(filepath, 'w') as f:
         f.write(content)
@@ -289,6 +398,7 @@ def main():
     
     # Add some known types that might not be detected correctly
     # These are message content types that need special handling
+    # Note: we use the actual types that exist after generation
     known_content_types = {
         'ChatCompletionRequestSystemMessageContent': [
             ('Text', 'String'),

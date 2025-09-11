@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ChatCompletionRequestToolMessageContent {
     TextContent(String),
-    ArrayOfContentParts(Vec<models::ChatCompletionRequestToolMessageContentPart>),
+    ArrayOfContentParts(Vec<models::ChatCompletionRequestMessageContentPartText>),
 }
 
 impl Default for ChatCompletionRequestToolMessageContent {
@@ -19,7 +19,7 @@ impl ChatCompletionRequestToolMessageContent {
     pub fn new_text(text: String) -> Self {
         Self::TextContent(text)
     }
-    pub fn new_arrayofcontentparts(items: Vec<models::ChatCompletionRequestToolMessageContentPart>) -> Self {
+    pub fn new_arrayofcontentparts(items: Vec<models::ChatCompletionRequestMessageContentPartText>) -> Self {
         Self::ArrayOfContentParts(items)
     }
 }

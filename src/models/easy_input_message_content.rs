@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum EasyInputMessageContent {
     TextInput(String),
-    Inputmessagecontentlist(models::InputMessageContentList),
+    Inputmessagecontentlist(Vec<models::InputContent>),
 }
 
 impl Default for EasyInputMessageContent {
@@ -18,6 +18,9 @@ impl Default for EasyInputMessageContent {
 impl EasyInputMessageContent {
     pub fn new_text(text: String) -> Self {
         Self::TextInput(text)
+    }
+    pub fn new_inputmessagecontentlist(items: Vec<models::InputContent>) -> Self {
+        Self::Inputmessagecontentlist(items)
     }
 }
 

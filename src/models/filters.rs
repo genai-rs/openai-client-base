@@ -9,9 +9,3 @@ pub enum Filters {
     Compoundfilter(models::CompoundFilter),
 }
 
-impl Default for Filters {
-    fn default() -> Self {
-        Self::Comparisonfilter(Default::default())
-    }
-}
-

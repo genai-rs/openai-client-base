@@ -12,9 +12,3 @@ pub enum FineTuneReinforcementMethodGrader {
     Gradermulti(models::GraderMulti),
 }
 
-impl Default for FineTuneReinforcementMethodGrader {
-    fn default() -> Self {
-        Self::Graderstringcheck(Default::default())
-    }
-}
-

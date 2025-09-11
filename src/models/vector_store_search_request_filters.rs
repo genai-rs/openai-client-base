@@ -9,9 +9,3 @@ pub enum VectorStoreSearchRequestFilters {
     Compoundfilter(models::CompoundFilter),
 }
 
-impl Default for VectorStoreSearchRequestFilters {
-    fn default() -> Self {
-        Self::Comparisonfilter(Default::default())
-    }
-}
-

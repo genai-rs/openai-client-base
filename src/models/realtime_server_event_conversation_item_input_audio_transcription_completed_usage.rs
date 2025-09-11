@@ -9,9 +9,3 @@ pub enum RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsag
     DurationUsage(models::TranscriptTextUsageDuration),
 }
 
-impl Default for RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsage {
-    fn default() -> Self {
-        Self::TokenUsage(Default::default())
-    }
-}
-

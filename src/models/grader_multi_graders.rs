@@ -12,9 +12,3 @@ pub enum GraderMultiGraders {
     Graderlabelmodel(models::GraderLabelModel),
 }
 
-impl Default for GraderMultiGraders {
-    fn default() -> Self {
-        Self::Graderstringcheck(Default::default())
-    }
-}
-

@@ -5,13 +5,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeClientEventSessionUpdateSession {
-    Realtimesessioncreaterequestga(models::RealtimeSessionCreateRequestGA),
-    Realtimetranscriptionsessioncreaterequestga(models::RealtimeTranscriptionSessionCreateRequestGA),
-}
-
-impl Default for RealtimeClientEventSessionUpdateSession {
-    fn default() -> Self {
-        Self::Realtimesessioncreaterequestga(Default::default())
-    }
+    Realtimesessioncreaterequestga(models::RealtimeSessionCreateRequestGa),
+    Realtimetranscriptionsessioncreaterequestga(models::RealtimeTranscriptionSessionCreateRequestGa),
 }
 
