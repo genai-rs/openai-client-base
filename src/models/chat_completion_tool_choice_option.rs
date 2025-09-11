@@ -5,8 +5,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ChatCompletionToolChoiceOption {
-    Auto(ChatCompletionToolChoiceOptionAuto),
-    Named(models::ChatCompletionNamedToolChoice),
+    Auto(AutoEnum),
+    ChatCompletionAllowedToolsChoice(models::ChatCompletionAllowedToolsChoice),
+    ChatCompletionNamedToolChoice(models::ChatCompletionNamedToolChoice),
+    ChatCompletionNamedToolChoiceCustom(models::ChatCompletionNamedToolChoiceCustom),
 }
 
 impl Default for ChatCompletionToolChoiceOption {
@@ -15,17 +17,3 @@ impl Default for ChatCompletionToolChoiceOption {
     }
 }
 
-/// ChatCompletionToolChoiceOptionAuto - String enum type
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum ChatCompletionToolChoiceOptionAuto {
-    None,
-    Auto,
-    Required,
-}
-
-impl Default for ChatCompletionToolChoiceOptionAuto {
-    fn default() -> Self {
-        Self::None
-    }
-}

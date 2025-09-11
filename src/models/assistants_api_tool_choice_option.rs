@@ -5,8 +5,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AssistantsApiToolChoiceOption {
-    Auto(AssistantsApiToolChoiceOptionAuto),
-    Named(models::AssistantsNamedToolChoice),
+    Auto(AutoEnum),
+    AssistantsNamedToolChoice(models::AssistantsNamedToolChoice),
 }
 
 impl Default for AssistantsApiToolChoiceOption {
@@ -15,17 +15,3 @@ impl Default for AssistantsApiToolChoiceOption {
     }
 }
 
-/// AssistantsApiToolChoiceOptionAuto - String enum type
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum AssistantsApiToolChoiceOptionAuto {
-    None,
-    Auto,
-    Required,
-}
-
-impl Default for AssistantsApiToolChoiceOptionAuto {
-    fn default() -> Self {
-        Self::None
-    }
-}
