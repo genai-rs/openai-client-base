@@ -6,59 +6,20 @@ This script handles tagged enums (with discriminator) that the generator leaves 
 
 import os
 import re
-import yaml
 from pathlib import Path
-
-def snake_to_pascal(name):
-    """Convert snake_case to PascalCase."""
-    return ''.join(word.capitalize() for word in name.split('_'))
-
-def convert_to_rust_type_name(name):
-    """Convert type names to follow Rust naming conventions.
-    Automatically detects and converts acronyms (consecutive uppercase letters) to PascalCase.
-    Examples: MCP -> Mcp, HTTP -> Http, URL -> Url, API -> Api, MCPTool -> McpTool, etc.
-    """
-    result = []
-    i = 0
-    
-    while i < len(name):
-        # Check if we're at the start of an acronym (2+ consecutive uppercase letters)
-        if i < len(name) - 1 and name[i].isupper() and name[i+1].isupper():
-            # Found start of acronym, collect all uppercase letters
-            acronym_start = i
-            while i < len(name) and name[i].isupper():
-                i += 1
-            
-            acronym = name[acronym_start:i]
-            
-            # Check what comes after the acronym
-            if i < len(name) and name[i].islower():
-                # Acronym is followed by lowercase (e.g., "MCPtool" or "HTTPServer")
-                # The last uppercase letter is actually the start of the next word
-                if len(acronym) > 1:
-                    # Convert the acronym part (excluding last letter)
-                    result.append(acronym[0] + acronym[1:-1].lower())
-                    # Back up one position to reprocess the last uppercase letter
-                    i -= 1
-                else:
-                    result.append(acronym)
-            else:
-                # Acronym is at the end or followed by another capital/nothing
-                result.append(acronym[0] + acronym[1:].lower())
-        else:
-            # Regular character, just append it
-            result.append(name[i])
-            i += 1
-    
-    return ''.join(result)
+from utils import (
+    convert_to_rust_type_name,
+    snake_to_pascal,
+    pascal_to_snake,
+    load_spec
+)
 
 def detect_empty_tagged_enums(spec_path):
     """
     Detect all schemas with discriminators that will result in empty enums.
     Returns a dict mapping enum names to their variant information.
     """
-    with open(spec_path, 'r') as f:
-        spec = yaml.safe_load(f)
+    spec = load_spec(spec_path)
     
     empty_enums = {}
     schemas = spec.get('components', {}).get('schemas', {})
@@ -146,7 +107,7 @@ def fix_case_sensitivity_in_enum(enum_file, enum_name, enum_info, content):
 def fix_empty_enum(models_dir, enum_name, enum_info):
     """Fix a single empty enum by adding proper variants."""
     # Convert to snake_case for the file name
-    file_name = re.sub(r'(?<!^)(?=[A-Z])', '_', enum_name).lower() + '.rs'
+    file_name = pascal_to_snake(enum_name) + '.rs'
     enum_file = models_dir / file_name
     
     if not enum_file.exists():
