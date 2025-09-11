@@ -18,14 +18,26 @@ pr_name = "chore: release version {{version}}"
 publish = true
 
 # GitHub release body template
+# Note: Use per-release changelog (like PR body) since top-level
+# `changelog` may be empty for GitHub releases.
 git_release_body = """
-## What's Changed
+{%- for release in releases -%}
+## 📦 {{ release.package }} {{ release.previous_version }} → {{ release.next_version }}
 
-{%- if changelog %}
-{{ changelog }}
+### 🔗 Compare Changes
+[**View all changes since v{{ release.previous_version }}**](https://github.com/genai-rs/openai-client-base/compare/v{{ release.previous_version }}...v{{ release.next_version }})
+
+{%- if release.changelog %}
+
+### 📋 Changelog
+
+{{ release.changelog }}
 {%- else %}
-_No changelog available_
+
+_No changelog available for this release_
 {%- endif %}
+
+{%- endfor %}
 """
 
 # PR body template  
