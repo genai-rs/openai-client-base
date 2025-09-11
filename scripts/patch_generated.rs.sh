@@ -68,4 +68,11 @@ for f in "$ROOT"/src/apis/*.rs; do
 done
 
 # 5) Add bon::Builder derive to ALL structs using Python script
-python3 scripts/add_bon_builders.py "$ROOT"
+# Check if uv is available
+if ! command -v uv &> /dev/null; then
+    echo "❌ uv is not installed or not in PATH"
+    echo "Please install uv from https://docs.astral.sh/uv/getting-started/installation/"
+    echo "Quick install: curl -LsSf https://astral.sh/uv/install.sh | sh"
+    exit 1
+fi
+uv run python scripts/add_bon_builders.py "$ROOT"
