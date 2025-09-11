@@ -129,7 +129,18 @@ fi
 # Step 5: Fix compilation issues in generated code
 echo ""
 echo "🔧 Fixing compilation issues..."
-python3 scripts/fix_generated_code.py
+if [ "${CI:-false}" = "true" ]; then
+    python3 scripts/fix_generated_code.py
+elif command -v uv &> /dev/null; then
+    uv run python scripts/fix_generated_code.py
+else
+    if [ ! -d "$VENV_DIR" ]; then
+        python3 -m venv "$VENV_DIR"
+    fi
+    source "$VENV_DIR/bin/activate"
+    python scripts/fix_generated_code.py
+    deactivate
+fi
 
 # Step 6: Fix empty enums that should have variants
 echo ""
@@ -151,12 +162,34 @@ fi
 # Step 7: Fix untagged anyOf unions that generate as empty structs
 echo ""
 echo "🔧 Fixing untagged unions..."
-python3 scripts/fix_untagged_unions.py "$PROJECT_ROOT"
+if [ "${CI:-false}" = "true" ]; then
+    python3 scripts/fix_untagged_unions.py "$PROJECT_ROOT"
+elif command -v uv &> /dev/null; then
+    uv run python scripts/fix_untagged_unions.py "$PROJECT_ROOT"
+else
+    if [ ! -d "$VENV_DIR" ]; then
+        python3 -m venv "$VENV_DIR"
+    fi
+    source "$VENV_DIR/bin/activate"
+    python scripts/fix_untagged_unions.py "$PROJECT_ROOT"
+    deactivate
+fi
 
 # Step 8: Fix clippy warnings in generated code
 echo ""
 echo "🔧 Fixing clippy warnings..."
-python3 scripts/fix_clippy_warnings.py
+if [ "${CI:-false}" = "true" ]; then
+    python3 scripts/fix_clippy_warnings.py
+elif command -v uv &> /dev/null; then
+    uv run python scripts/fix_clippy_warnings.py
+else
+    if [ ! -d "$VENV_DIR" ]; then
+        python3 -m venv "$VENV_DIR"
+    fi
+    source "$VENV_DIR/bin/activate"
+    python scripts/fix_clippy_warnings.py
+    deactivate
+fi
 
 # Step 9: Format the generated code
 echo ""
