@@ -20,6 +20,7 @@ jobs:
   release-plz:
     name: Release-plz
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     # Explicitly set permissions at job level too
     permissions:
       contents: write
