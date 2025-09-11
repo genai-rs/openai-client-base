@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AssistantsApiToolChoiceOption {
     Auto(AutoEnum),
-    AssistantsNamedToolChoice(models::AssistantsNamedToolChoice),
+    Assistantsnamedtoolchoice(models::AssistantsNamedToolChoice),
 }
 
 impl Default for AssistantsApiToolChoiceOption {

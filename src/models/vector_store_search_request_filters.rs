@@ -5,13 +5,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum VectorStoreSearchRequestFilters {
-    ComparisonFilter(models::ComparisonFilter),
-    CompoundFilter(models::CompoundFilter),
+    Comparisonfilter(models::ComparisonFilter),
+    Compoundfilter(models::CompoundFilter),
 }
 
 impl Default for VectorStoreSearchRequestFilters {
     fn default() -> Self {
-        Self::ComparisonFilter(Default::default())
+        Self::Comparisonfilter(Default::default())
     }
 }
 

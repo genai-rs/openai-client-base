@@ -5,13 +5,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Filters {
-    ComparisonFilter(models::ComparisonFilter),
-    CompoundFilter(models::CompoundFilter),
+    Comparisonfilter(models::ComparisonFilter),
+    Compoundfilter(models::CompoundFilter),
 }
 
 impl Default for Filters {
     fn default() -> Self {
-        Self::ComparisonFilter(Default::default())
+        Self::Comparisonfilter(Default::default())
     }
 }
 

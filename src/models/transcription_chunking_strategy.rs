@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum TranscriptionChunkingStrategy {
     Text(TextEnum),
-    VadConfig(models::VadConfig),
+    Vadconfig(models::VadConfig),
 }
 
 impl Default for TranscriptionChunkingStrategy {

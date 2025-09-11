@@ -6,9 +6,9 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ChatCompletionToolChoiceOption {
     Auto(AutoEnum),
-    ChatCompletionAllowedToolsChoice(models::ChatCompletionAllowedToolsChoice),
-    ChatCompletionNamedToolChoice(models::ChatCompletionNamedToolChoice),
-    ChatCompletionNamedToolChoiceCustom(models::ChatCompletionNamedToolChoiceCustom),
+    Chatcompletionallowedtoolschoice(models::ChatCompletionAllowedToolsChoice),
+    Chatcompletionnamedtoolchoice(models::ChatCompletionNamedToolChoice),
+    Chatcompletionnamedtoolchoicecustom(models::ChatCompletionNamedToolChoiceCustom),
 }
 
 impl Default for ChatCompletionToolChoiceOption {

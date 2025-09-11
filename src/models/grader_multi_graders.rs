@@ -5,16 +5,16 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GraderMultiGraders {
-    GraderStringCheck(models::GraderStringCheck),
-    GraderTextSimilarity(models::GraderTextSimilarity),
-    GraderPython(models::GraderPython),
-    GraderScoreModel(models::GraderScoreModel),
-    GraderLabelModel(models::GraderLabelModel),
+    Graderstringcheck(models::GraderStringCheck),
+    Gradertextsimilarity(models::GraderTextSimilarity),
+    Graderpython(models::GraderPython),
+    Graderscoremodel(models::GraderScoreModel),
+    Graderlabelmodel(models::GraderLabelModel),
 }
 
 impl Default for GraderMultiGraders {
     fn default() -> Self {
-        Self::GraderStringCheck(Default::default())
+        Self::Graderstringcheck(Default::default())
     }
 }
 

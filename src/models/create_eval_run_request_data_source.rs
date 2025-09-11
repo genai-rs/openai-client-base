@@ -5,14 +5,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateEvalRunRequestData_source {
-    CreateEvalJsonlRunDataSource(models::CreateEvalJsonlRunDataSource),
-    CreateEvalCompletionsRunDataSource(models::CreateEvalCompletionsRunDataSource),
-    CreateEvalResponsesRunDataSource(models::CreateEvalResponsesRunDataSource),
+    Createevaljsonlrundatasource(models::CreateEvalJsonlRunDataSource),
+    Createevalcompletionsrundatasource(models::CreateEvalCompletionsRunDataSource),
+    Createevalresponsesrundatasource(models::CreateEvalResponsesRunDataSource),
 }
 
 impl Default for CreateEvalRunRequestData_source {
     fn default() -> Self {
-        Self::CreateEvalJsonlRunDataSource(Default::default())
+        Self::Createevaljsonlrundatasource(Default::default())
     }
 }
 

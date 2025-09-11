@@ -5,13 +5,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Content {
-    Inputcontenttypes(models::InputContent),
-    Outputcontenttypes(models::OutputContent),
+    InputContentTypes(models::InputContent),
+    OutputContentTypes(models::OutputContent),
 }
 
 impl Default for Content {
     fn default() -> Self {
-        Self::Inputcontenttypes(Default::default())
+        Self::InputContentTypes(Default::default())
     }
 }
 

@@ -6,9 +6,9 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AssistantsApiResponseFormatOption {
     Text(TextEnum),
-    ResponseFormatText(models::ResponseFormatText),
-    ResponseFormatJsonObject(models::ResponseFormatJsonObject),
-    ResponseFormatJsonSchema(models::ResponseFormatJsonSchema),
+    Responseformattext(models::ResponseFormatText),
+    Responseformatjsonobject(models::ResponseFormatJsonObject),
+    Responseformatjsonschema(models::ResponseFormatJsonSchema),
 }
 
 impl Default for AssistantsApiResponseFormatOption {

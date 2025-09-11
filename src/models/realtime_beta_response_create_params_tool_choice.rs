@@ -5,14 +5,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeBetaResponseCreateParamsTool_choice {
-    ToolChoiceOptions(models::ToolChoiceOptions),
-    ToolChoiceFunction(models::ToolChoiceFunction),
-    ToolChoiceMCP(models::ToolChoiceMCP),
+    Toolchoiceoptions(models::ToolChoiceOptions),
+    Toolchoicefunction(models::ToolChoiceFunction),
+    Toolchoicemcp(models::ToolChoiceMCP),
 }
 
 impl Default for RealtimeBetaResponseCreateParamsTool_choice {
     fn default() -> Self {
-        Self::ToolChoiceOptions(Default::default())
+        Self::Toolchoiceoptions(Default::default())
     }
 }
 

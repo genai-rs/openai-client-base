@@ -5,13 +5,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeTruncation {
-    RealtimeTruncationStrategy(RealtimeTruncationStrategyEnum),
-    Retention ratio truncation(models::ChatCompletionNamedToolChoice),
+    Realtimetruncationstrategy(RealtimetruncationstrategyEnum),
+    RetentionRatioTruncation(models::ChatCompletionNamedToolChoice),
 }
 
 impl Default for RealtimeTruncation {
     fn default() -> Self {
-        Self::RealtimeTruncationStrategy(Default::default())
+        Self::Realtimetruncationstrategy(Default::default())
     }
 }
 
