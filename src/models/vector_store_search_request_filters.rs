@@ -8,4 +8,3 @@ pub enum VectorStoreSearchRequestFilters {
     Comparisonfilter(models::ComparisonFilter),
     Compoundfilter(models::CompoundFilter),
 }
-

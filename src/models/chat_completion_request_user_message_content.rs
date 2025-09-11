@@ -19,7 +19,9 @@ impl ChatCompletionRequestUserMessageContent {
     pub fn new_text(text: String) -> Self {
         Self::TextContent(text)
     }
-    pub fn new_arrayofcontentparts(items: Vec<models::ChatCompletionRequestUserMessageContentPart>) -> Self {
+    pub fn new_arrayofcontentparts(
+        items: Vec<models::ChatCompletionRequestUserMessageContentPart>,
+    ) -> Self {
         Self::ArrayOfContentParts(items)
     }
 }

@@ -5,7 +5,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompletedUsage {
-    TokenUsage(models::TranscriptTextUsageTokens),
-    DurationUsage(models::TranscriptTextUsageDuration),
+    Transcripttextusagetokens(models::TranscriptTextUsageTokens),
+    Transcripttextusageduration(models::TranscriptTextUsageDuration),
 }
-

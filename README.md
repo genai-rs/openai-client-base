@@ -40,18 +40,29 @@ This crate provides the foundational types and API client implementation for Ope
 
 ## Generation Pipeline
 
-The client is generated through a streamlined pipeline using Stainless as the single authoritative source:
+The client is generated through a comprehensive automated pipeline using Stainless as the single authoritative source:
 
-1. **Fetch**: Download the Stainless OpenAPI spec (authoritative source)
+1. **Fetch Specification** (`fetch_spec.sh`): Download the latest OpenAPI spec from Stainless
    - Source: `https://app.stainless.com/api/spec/documented/openai/openapi.documented.yml`
    - Contains complete definitions for all API endpoints
-2. **Fix Models**: Handle allOf inheritance and field type resolution
-3. **Rust Patches**: Add experimental fields as `Option<T>` and apply compatibility fixes  
-4. **Generate**: Use OpenAPI Generator to create Rust code
-5. **Post-process**: Apply final code patches:
-   - Fix empty enums for discriminated unions
-   - Automatically convert acronyms to Rust naming conventions (MCP → Mcp, HTTP → Http, etc.)
-   - Remove Default implementations from empty enums
+
+2. **Apply Spec Patches**:
+   - **Layer 1**: Fix model field types and handle allOf inheritance (`fix_model_fields.py`)
+   - **Layer 2**: Apply Rust compatibility patches (`patch_spec_rust_compat.py`)
+
+3. **Generate Rust Code**: Use OpenAPI Generator via Docker with reqwest library
+
+4. **Post-Generation Fixes**:
+   - Fix module paths and add bon builder support (`patch_generated.rs.sh`)
+   - Fix invalid enum variant names (e.g., Gpt4.1 → Gpt4_1)
+   - Add Display implementations for multipart types
+   - Fix empty enums with proper variants from spec
+   - Handle untagged unions (automatically detected from anyOf/oneOf)
+   - Fix nullable fields and constructor signatures
+   - Manage Default trait based on field types
+   - Apply clippy fixes and format code
+
+The pipeline automatically detects and fixes issues rather than hardcoding solutions, making it robust against API changes.
 
 ## Usage
 
@@ -76,16 +87,20 @@ USE_CACHED_SPEC=1 ./scripts/generate.sh
 
 The generation script automatically:
 - Downloads the latest OpenAPI spec from Stainless
-- Fixes model inheritance and field types
+- Applies spec-level patches for Rust compatibility
 - Generates Rust code using OpenAPI Generator
-- Applies post-processing fixes (empty enums, acronym casing)
+- Fixes compilation issues (untagged unions, nullable fields, enum variants)
+- Manages trait implementations (Default, Display)
 - Formats code with `cargo fmt` for consistency
+
+For detailed pipeline documentation, see [PIPELINE.md](PIPELINE.md)
 
 ## Requirements
 
 - Rust 1.82+ (stable toolchain recommended for consistent formatting)
 - Docker (for OpenAPI Generator)
-- Python 3.8+ with PyYAML (or `uv` tool)
+- `uv` (for Python dependency management) - [Install from here](https://docs.astral.sh/uv/getting-started/installation/)
+- ripgrep (`rg`) for post-processing scripts
 
 ## License
 
