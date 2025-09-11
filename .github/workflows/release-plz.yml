@@ -29,6 +29,12 @@ jobs:
           
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
+      
+      - name: Cleanup Python caches
+        run: |
+          rm -rf scripts/__pycache__ || true
+          find . -type d -name "__pycache__" -prune -exec rm -rf {} + || true
+          find . -type f -name "*.pyc" -delete || true
         
       - name: Run release-plz
         uses: MarcoIeni/release-plz-action@v0.5
