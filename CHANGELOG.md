@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0](https://github.com/genai-rs/openai-client-base/compare/v0.1.3...v0.2.0) - 2025-09-12
+
+### Added
+
+- auto-detect mixed tagged unions (string + object) as untagged enums
+
+### Fixed
+
+- correct acronym casing for mixed union variant types (MCP->Mcp) in untagged union synthesis
+- traverse property/array unions and generalize allOf aliasing; repair empty enums and mixed tool_choice union
+
+### Other
+
+- regenerate with mixed-union auto-detection; pipeline builds cleanly
+- explicitly set allow_fork_syncing=false on main
+- explicitly set lock_branch=false on main
+- explicitly block branch creations on main
+- explicitly disallow force pushes on main
+- explicitly disallow deletions on main
+- require conversation resolution on main
+- fix topics format and branch protection (min supported), enable admin override via enforce_admins=false
+- add job timeout (30m) to avoid indefinite hangs on crates.io wait
+
 ## [0.1.3](https://github.com/genai-rs/openai-client-base/compare/v0.1.2...v0.1.3) - 2025-09-11
 
 ### Other
