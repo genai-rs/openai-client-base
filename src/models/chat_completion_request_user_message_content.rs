@@ -3,16 +3,10 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestUserMessageContent - Untagged union type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum ChatCompletionRequestUserMessageContent {
-    #[serde(rename = "text")]
-    ChatCompletionRequestMessageContentPartText(Box<models::ChatCompletionRequestMessageContentPartText>),
-    #[serde(rename = "image_url")]
-    ChatCompletionRequestMessageContentPartImage(Box<models::ChatCompletionRequestMessageContentPartImage>),
-    #[serde(rename = "input_audio")]
-    ChatCompletionRequestMessageContentPartAudio(Box<models::ChatCompletionRequestMessageContentPartAudio>),
-    #[serde(rename = "file")]
-    ChatCompletionRequestMessageContentPartFile(Box<models::ChatCompletionRequestMessageContentPartFile>),
+    TextContent(String),
+    ArrayOfContentParts(Vec<models::ChatCompletionRequestUserMessageContentPart>),
 }
 
 impl Default for ChatCompletionRequestUserMessageContent {
