@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum AssistantTool {
     #[serde(rename = "code_interpreter")]
-    sCode(Box<models::AssistantToolsCode>),
+    SCode(Box<models::AssistantToolsCode>),
     #[serde(rename = "file_search")]
-    sFileSearch(Box<models::AssistantToolsFileSearch>),
+    SFileSearch(Box<models::AssistantToolsFileSearch>),
     #[serde(rename = "function")]
-    sFunction(Box<models::AssistantToolsFunction>),
+    SFunction(Box<models::AssistantToolsFunction>),
 }

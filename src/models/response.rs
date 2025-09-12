@@ -98,7 +98,7 @@ pub struct Response {
     #[serde(rename = "parallel_tool_calls")]
     pub parallel_tool_calls: bool,
     #[serde(rename = "conversation", skip_serializing_if = "Option::is_none")]
-    pub conversation: Option<serde_json::Value>,
+    pub conversation: Option<Box<models::Conversation2>>,
 }
 
 impl Response {

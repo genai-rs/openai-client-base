@@ -15,7 +15,11 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum TextAnnotation {
     #[serde(rename = "file_citation")]
-    MessageContentTextAnnotationsFileCitationObject(Box<models::MessageContentTextAnnotationsFileCitationObject>),
+    MessageContentTextAnnotationsFileCitationObject(
+        Box<models::MessageContentTextAnnotationsFileCitationObject>,
+    ),
     #[serde(rename = "file_path")]
-    MessageContentTextAnnotationsFilePathObject(Box<models::MessageContentTextAnnotationsFilePathObject>),
+    MessageContentTextAnnotationsFilePathObject(
+        Box<models::MessageContentTextAnnotationsFilePathObject>,
+    ),
 }

@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum RunStepDeltaStepDetailsToolCall {
     #[serde(rename = "code_interpreter")]
-    sCodeObject(Box<models::RunStepDeltaStepDetailsToolCallsCodeObject>),
+    SCodeObject(Box<models::RunStepDeltaStepDetailsToolCallsCodeObject>),
     #[serde(rename = "file_search")]
-    sFileSearchObject(Box<models::RunStepDeltaStepDetailsToolCallsFileSearchObject>),
+    SFileSearchObject(Box<models::RunStepDeltaStepDetailsToolCallsFileSearchObject>),
     #[serde(rename = "function")]
-    sFunctionObject(Box<models::RunStepDeltaStepDetailsToolCallsFunctionObject>),
+    SFunctionObject(Box<models::RunStepDeltaStepDetailsToolCallsFunctionObject>),
 }
