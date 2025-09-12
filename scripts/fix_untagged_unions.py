@@ -87,11 +87,11 @@ def detect_mixed_tagged_unions(spec):
                 # string enum schema
                 if ref_schema.get('type') == 'string':
                     # Use a generic variant name
-                    variants.append(('Options', f'models::{ref}'))
+                    variants.append(('Options', f'models::{convert_to_rust_type_name(ref)}'))
                     has_string = True
                 else:
                     # object or other types
-                    variants.append((sanitize_variant_name(ref), f'models::{ref}'))
+                    variants.append((sanitize_variant_name(ref), f'models::{convert_to_rust_type_name(ref)}'))
                 continue
             # inline string
             if it.get('type') == 'string':
