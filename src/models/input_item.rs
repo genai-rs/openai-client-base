@@ -15,43 +15,11 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum InputItem {
     #[serde(rename = "message")]
-    InputMessage(Box<models::InputMessage>),
-    #[serde(rename = "message")]
-    OutputMessage(Box<models::OutputMessage>),
-    #[serde(rename = "file_search_call")]
-    FileSearchToolCall(Box<models::FileSearchToolCall>),
-    #[serde(rename = "computer_call")]
-    ComputerToolCall(Box<models::ComputerToolCall>),
-    #[serde(rename = "computer_call_output")]
-    ComputerCallOutputItemParam(Box<models::ComputerCallOutputItemParam>),
-    #[serde(rename = "web_search_call")]
-    WebSearchToolCall(Box<models::WebSearchToolCall>),
-    #[serde(rename = "function_call")]
-    FunctionToolCall(Box<models::FunctionToolCall>),
-    #[serde(rename = "function_call_output")]
-    FunctionCallOutputItemParam(Box<models::FunctionCallOutputItemParam>),
-    #[serde(rename = "reasoning")]
-    ReasoningItem(Box<models::ReasoningItem>),
-    #[serde(rename = "image_generation_call")]
-    ImageGenToolCall(Box<models::ImageGenToolCall>),
-    #[serde(rename = "code_interpreter_call")]
-    CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),
-    #[serde(rename = "local_shell_call")]
-    LocalShellToolCall(Box<models::LocalShellToolCall>),
-    #[serde(rename = "local_shell_call_output")]
-    LocalShellToolCallOutput(Box<models::LocalShellToolCallOutput>),
-    #[serde(rename = "mcp_list_tools")]
-    McpListTools(Box<models::McpListTools>),
-    #[serde(rename = "mcp_approval_request")]
-    McpApprovalRequest(Box<models::McpApprovalRequest>),
-    #[serde(rename = "mcp_approval_response")]
-    McpApprovalResponse(Box<models::McpApprovalResponse>),
-    #[serde(rename = "mcp_call")]
-    McpToolCall(Box<models::McpToolCall>),
-    #[serde(rename = "custom_tool_call_output")]
-    CustomToolCallOutput(Box<models::CustomToolCallOutput>),
-    #[serde(rename = "custom_tool_call")]
-    CustomToolCall(Box<models::CustomToolCall>),
+    EasyInputMessage(Box<models::EasyInputMessage>),
+    #[serde(rename = "item")]
+    Item(Box<models::Item>),
+    #[serde(rename = "itemreferenceparam")]
+    ItemReferenceParam(Box<models::ItemReferenceParam>),
 }
 
 /// The role of the output message. Always `assistant`.

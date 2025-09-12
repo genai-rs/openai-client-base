@@ -13,4 +13,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "event")]
-pub enum MessageStreamEvent {}
+pub enum MessageStreamEvent {
+    #[serde(rename = "thread.message.created")]
+    AnyOf(Box<models::MessageStreamEventAnyOf>),
+    #[serde(rename = "thread.message.in_progress")]
+    AnyOf1(Box<models::MessageStreamEventAnyOf1>),
+    #[serde(rename = "thread.message.delta")]
+    AnyOf2(Box<models::MessageStreamEventAnyOf2>),
+    #[serde(rename = "thread.message.completed")]
+    AnyOf3(Box<models::MessageStreamEventAnyOf3>),
+    #[serde(rename = "thread.message.incomplete")]
+    AnyOf4(Box<models::MessageStreamEventAnyOf4>),
+}

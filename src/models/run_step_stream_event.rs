@@ -13,4 +13,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "event")]
-pub enum RunStepStreamEvent {}
+pub enum RunStepStreamEvent {
+    #[serde(rename = "thread.run.step.created")]
+    AnyOf(Box<models::RunStepStreamEventAnyOf>),
+    #[serde(rename = "thread.run.step.in_progress")]
+    AnyOf1(Box<models::RunStepStreamEventAnyOf1>),
+    #[serde(rename = "thread.run.step.delta")]
+    AnyOf2(Box<models::RunStepStreamEventAnyOf2>),
+    #[serde(rename = "thread.run.step.completed")]
+    AnyOf3(Box<models::RunStepStreamEventAnyOf3>),
+    #[serde(rename = "thread.run.step.failed")]
+    AnyOf4(Box<models::RunStepStreamEventAnyOf4>),
+    #[serde(rename = "thread.run.step.cancelled")]
+    AnyOf5(Box<models::RunStepStreamEventAnyOf5>),
+    #[serde(rename = "thread.run.step.expired")]
+    AnyOf6(Box<models::RunStepStreamEventAnyOf6>),
+}

@@ -14,4 +14,9 @@ use serde::{Deserialize, Serialize};
 /// CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategy : The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategy {}
+pub enum CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategy {
+    #[serde(rename = "auto")]
+    AnyOf(Box<models::CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyAnyOf>),
+    #[serde(rename = "static")]
+    AnyOf1(Box<models::CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyAnyOf1>),
+}

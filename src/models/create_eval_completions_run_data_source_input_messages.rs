@@ -14,4 +14,9 @@ use serde::{Deserialize, Serialize};
 /// CreateEvalCompletionsRunDataSourceInputMessages : Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input_trajectory`), or a template with variable references to the `item` namespace.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum CreateEvalCompletionsRunDataSourceInputMessages {}
+pub enum CreateEvalCompletionsRunDataSourceInputMessages {
+    #[serde(rename = "template")]
+    AnyOf(Box<models::CreateEvalCompletionsRunDataSourceInputMessagesAnyOf>),
+    #[serde(rename = "item_reference")]
+    AnyOf1(Box<models::CreateEvalCompletionsRunDataSourceInputMessagesAnyOf1>),
+}

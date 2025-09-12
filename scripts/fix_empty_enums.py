@@ -28,8 +28,17 @@ def _extract_discriminated_variants(
     union_schema: Dict[str, Any],
     schemas: Dict[str, Any],
     default_discriminator: str = 'type',
-) -> Optional[Tuple[str, List[Dict[str, str]]]]:
-    """Given a union schema that has anyOf/oneOf with a discriminator, return (property_name, variants)."""
+) -> Optional[Dict[str, Any]]:
+    """
+    Given a union schema that has anyOf/oneOf with a discriminator, return a dict with:
+      {
+        'property_name': <str>,
+        'variants': <list>,
+        'inline': <bool>,  # True when items are inline object variants
+      }
+    For '$ref' variants, items in 'variants' are dicts: { 'schema': <ref_name>, 'discriminator_value': <str> }
+    For inline variants, items are dicts: { 'index': <int>, 'discriminator_value': <str> }
+    """
     if not isinstance(union_schema, dict):
         return None
     if 'discriminator' not in union_schema:
@@ -41,33 +50,66 @@ def _extract_discriminated_variants(
     property_name = discriminator.get('propertyName', default_discriminator)
     items = union_schema.get('anyOf') or union_schema.get('oneOf') or []
 
-    # If union mixes non-$ref items (e.g., string enum) with refs, skip here (handled by untagged union fixer)
-    if any(not isinstance(it, dict) or ('$ref' not in it) for it in items):
-        return None
+    # Case 1: all variants are $ref schemas
+    if all(isinstance(it, dict) and ('$ref' in it) for it in items):
+        variant_info: List[Dict[str, str]] = []
+        for it in items:
+            ref_name = _get_ref_name(it)
+            if not ref_name:
+                continue
+            ref_schema = schemas.get(ref_name, {})
+            properties = ref_schema.get('properties', {})
+            discriminator_value = None
+            if property_name in properties:
+                prop_def = properties[property_name]
+                if isinstance(prop_def, dict):
+                    if 'const' in prop_def:
+                        discriminator_value = prop_def['const']
+                    elif 'enum' in prop_def and isinstance(prop_def['enum'], list) and len(prop_def['enum']) == 1:
+                        discriminator_value = prop_def['enum'][0]
+            if not discriminator_value:
+                # Fallback heuristic
+                discriminator_value = ref_name.lower()
+            variant_info.append({'schema': ref_name, 'discriminator_value': str(discriminator_value)})
 
-    variant_info: List[Dict[str, str]] = []
-    for it in items:
-        ref_name = _get_ref_name(it)
-        if not ref_name:
-            continue
-        ref_schema = schemas.get(ref_name, {})
-        properties = ref_schema.get('properties', {})
-        discriminator_value = None
-        if property_name in properties:
-            prop_def = properties[property_name]
-            if isinstance(prop_def, dict):
-                if 'const' in prop_def:
-                    discriminator_value = prop_def['const']
-                elif 'enum' in prop_def and isinstance(prop_def['enum'], list) and len(prop_def['enum']) == 1:
-                    discriminator_value = prop_def['enum'][0]
-        if not discriminator_value:
-            # Fallback heuristic
-            discriminator_value = ref_name.lower()
-        variant_info.append({'schema': ref_name, 'discriminator_value': str(discriminator_value)})
+        if not variant_info:
+            return None
+        return {
+            'property_name': property_name,
+            'variants': variant_info,
+            'inline': False,
+        }
 
-    if not variant_info:
-        return None
-    return property_name, variant_info
+    # Case 2: inline object variants with discriminator set via enum/const
+    inline_variants: List[Dict[str, Any]] = []
+    all_inline_objects = True
+    for idx, it in enumerate(items):
+        if not isinstance(it, dict) or it.get('type') != 'object':
+            all_inline_objects = False
+            break
+        props = it.get('properties', {}) or {}
+        disc = props.get(property_name)
+        disc_val = None
+        if isinstance(disc, dict):
+            if 'const' in disc:
+                disc_val = disc['const']
+            elif 'enum' in disc and isinstance(disc['enum'], list) and len(disc['enum']) == 1:
+                disc_val = disc['enum'][0]
+        if disc_val is None:
+            # If we cannot find a specific discriminator value, bail
+            all_inline_objects = False
+            break
+        inline_variants.append({'index': idx, 'discriminator_value': str(disc_val)})
+
+    if all_inline_objects and inline_variants:
+        return {
+            'property_name': property_name,
+            'variants': inline_variants,
+            'inline': True,
+        }
+
+    # Mixed or unsupported union shape; handled elsewhere
+    return None
 
 
 def _derive_enum_names(schema_name: str, path_steps: List[Tuple[str, Optional[str]]], *, root_has_allof: bool = False) -> List[str]:
@@ -140,17 +182,42 @@ def detect_empty_tagged_enums(spec_path: Path) -> Dict[str, Dict[str, Any]]:
         # Union at current node
         extracted = _extract_discriminated_variants(node, schemas)
         if extracted:
-            property_name, variants = extracted
-            for enum_name in _derive_enum_names(schema_name, path, root_has_allof=root_has_allof):
-                result[enum_name] = {
-                    'property_name': property_name,
-                    'variants': variants,
-                }
+            property_name = extracted['property_name']
+            if not extracted.get('inline'):
+                variants = extracted['variants']
+                for enum_name in _derive_enum_names(schema_name, path, root_has_allof=root_has_allof):
+                    result[enum_name] = {
+                        'property_name': property_name,
+                        'variants': variants,
+                    }
+            else:
+                # Inline object variants: map to generated struct names derived from the enum type name
+                for enum_name in _derive_enum_names(schema_name, path, root_has_allof=root_has_allof):
+                    built_variants: List[Dict[str, str]] = []
+                    for v in extracted['variants']:
+                        idx = v['index']
+                        # openapi-generator names: <EnumName>AnyOf, <EnumName>AnyOf1, ...
+                        suffix = '' if idx == 0 else str(idx)
+                        schema_ty = f"{enum_name}AnyOf{suffix}"
+                        built_variants.append({
+                            'schema': schema_ty,
+                            'discriminator_value': v['discriminator_value'],
+                        })
+                    result[enum_name] = {
+                        'property_name': property_name,
+                        'variants': built_variants,
+                    }
 
         # allOf/oneOf/anyOf branches might contain nested structures
         for key in ('allOf', 'oneOf', 'anyOf'):
             if key in node and isinstance(node[key], list):
                 for sub in node[key]:
+                    # If this branch is a $ref, treat it as switching context to that schema
+                    if isinstance(sub, dict) and '$ref' in sub:
+                        ref_name = _get_ref_name(sub)
+                        if ref_name:
+                            walk(ref_name, sub, path, root_has_allof=('allOf' in (schemas.get(ref_name, {}) or {})))
+                            continue
                     walk(schema_name, sub, path, root_has_allof=root_has_allof)
 
         # object properties
