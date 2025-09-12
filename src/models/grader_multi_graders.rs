@@ -11,4 +11,3 @@ pub enum GraderMultiGraders {
     Graderscoremodel(models::GraderScoreModel),
     Graderlabelmodel(models::GraderLabelModel),
 }
-
