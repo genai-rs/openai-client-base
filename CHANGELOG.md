@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0](https://github.com/genai-rs/openai-client-base/compare/v0.2.0...v0.3.0) - 2025-09-12
+
+### Fixed
+
+- populate streaming event enums from inline discriminated unions; correct Assistant/Run/RunStep/Message stream enums; fix ConversationItem derives
+
+### Other
+
+- make generation idempotent; commit updated untagged content enums and minor model normalizations
+- generic fixes for streaming + enums; targeted cleanups for chat content helpers; robust enum derive normalization; fallback serde_json::Value for missing inline anyOf variants; adjust constructors
+- re-run generation pipeline; apply generic enum/streaming fixes across models
+- add generic enum attribute fixer and integrate into generation pipeline; no more one-off edits
+
 ## [0.2.0](https://github.com/genai-rs/openai-client-base/compare/v0.1.3...v0.2.0) - 2025-09-12
 
 ### Added
