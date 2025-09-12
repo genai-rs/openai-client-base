@@ -14,7 +14,12 @@ use serde::{Deserialize, Serialize};
 /// RealtimeTurnDetection : Configuration for turn detection, ether Server VAD or Semantic VAD. This can be set to `null` to turn off, in which case the client must manually trigger model response.  Server VAD means that the model will detect the start and end of speech based on audio volume and respond at the end of user speech.  Semantic VAD is more advanced and uses a turn detection model (in conjunction with VAD) to semantically estimate whether the user has finished speaking, then dynamically sets a timeout based on this probability. For example, if user audio trails off with \"uhhm\", the model will score a low probability of turn end and wait longer for the user to continue speaking. This can be useful for more natural conversations, but may have a higher latency.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum RealtimeTurnDetection {}
+pub enum RealtimeTurnDetection {
+    #[serde(rename = "server_vad")]
+    AnyOf(Box<models::RealtimeTurnDetectionAnyOf>),
+    #[serde(rename = "semantic_vad")]
+    AnyOf1(Box<models::RealtimeTurnDetectionAnyOf1>),
+}
 
 /// Used only for `semantic_vad` mode. The eagerness of the model to respond. `low` will wait longer for the user to continue speaking, `high` will respond more quickly. `auto` is the default and is equivalent to `medium`. `low`, `medium`, and `high` have max timeouts of 8s, 4s, and 2s respectively.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]

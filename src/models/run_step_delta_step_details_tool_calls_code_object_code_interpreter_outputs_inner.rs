@@ -15,11 +15,7 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreterOutputsInner {
     #[serde(rename = "logs")]
-    RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject(
-        Box<models::RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject>,
-    ),
+    RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject(Box<models::RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject>),
     #[serde(rename = "image")]
-    RunStepDeltaStepDetailsToolCallsCodeOutputImageObject(
-        Box<models::RunStepDeltaStepDetailsToolCallsCodeOutputImageObject>,
-    ),
+    RunStepDeltaStepDetailsToolCallsCodeOutputImageObject(Box<models::RunStepDeltaStepDetailsToolCallsCodeOutputImageObject>),
 }

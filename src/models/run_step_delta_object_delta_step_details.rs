@@ -16,9 +16,7 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum RunStepDeltaObjectDeltaStepDetails {
     #[serde(rename = "message_creation")]
-    RunStepDeltaStepDetailsMessageCreationObject(
-        Box<models::RunStepDeltaStepDetailsMessageCreationObject>,
-    ),
+    RunStepDeltaStepDetailsMessageCreationObject(Box<models::RunStepDeltaStepDetailsMessageCreationObject>),
     #[serde(rename = "tool_calls")]
     RunStepDeltaStepDetailsToolCallsObject(Box<models::RunStepDeltaStepDetailsToolCallsObject>),
 }

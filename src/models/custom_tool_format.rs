@@ -14,7 +14,12 @@ use serde::{Deserialize, Serialize};
 /// CustomToolFormat : The input format for the custom tool. Default is unconstrained text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum CustomToolFormat {}
+pub enum CustomToolFormat {
+    #[serde(rename = "text")]
+    AnyOf(Box<models::CustomToolFormatAnyOf>),
+    #[serde(rename = "grammar")]
+    AnyOf1(Box<models::CustomToolFormatAnyOf1>),
+}
 
 /// The syntax of the grammar definition. One of `lark` or `regex`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
