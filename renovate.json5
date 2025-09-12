@@ -1,0 +1,45 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  // Base configuration
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommitTypeAll(chore)",
+    ":rebaseStalePrs",
+    ":prConcurrentLimit10"
+  ],
+
+  // Scheduling
+  "timezone": "UTC",
+  "schedule": ["after 2am and before 6am on monday"],
+
+  // Managers
+  "enabledManagers": ["cargo", "github-actions"],
+
+  // PR configuration
+  "branchPrefix": "automated/renovate/",
+  "labels": ["dependencies", "automated"],
+  "commitMessagePrefix": "chore(deps):",
+  "prBodyTemplate": "This PR updates dependencies. See the Dependency Dashboard for details.",
+  "rangeStrategy": "auto",
+
+  // Ignore generated paths
+  "ignorePaths": [
+    "src/**/*.rs",
+    "docs/**"
+  ],
+
+  // Package rules
+  "packageRules": [
+    { "description": "Group Rust patch updates", "matchManagers": ["cargo"], "matchUpdateTypes": ["patch"], "groupName": "rust patch updates", "automerge": true },
+    { "description": "Group Rust minor updates", "matchManagers": ["cargo"], "matchUpdateTypes": ["minor"], "groupName": "rust minor updates", "automerge": true },
+    { "description": "Rust major updates - manual review", "matchManagers": ["cargo"], "matchUpdateTypes": ["major"], "labels": ["dependencies", "breaking"], "automerge": false },
+    { "description": "Group GitHub Actions updates", "matchManagers": ["github-actions"], "groupName": "github-actions", "automerge": true },
+    { "description": "Security updates - merge immediately", "matchUpdateTypes": ["security"], "labels": ["security", "dependencies"], "automerge": true, "prPriority": 10, "schedule": ["at any time"], "minimumReleaseAge": "0 days" }
+  ],
+
+  // Vulnerability alerts
+  "vulnerabilityAlerts": { "enabled": true, "labels": ["security"], "prPriority": 100 }
+}
+
