@@ -11,3 +11,4 @@ pub enum FineTuneReinforcementMethodGrader {
     Graderscoremodel(models::GraderScoreModel),
     Gradermulti(models::GraderMulti),
 }
+

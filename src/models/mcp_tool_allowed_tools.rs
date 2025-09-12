@@ -14,3 +14,4 @@ impl Default for McpToolAllowedTools {
         Self::ArrayOfStrings(Vec::new())
     }
 }
+

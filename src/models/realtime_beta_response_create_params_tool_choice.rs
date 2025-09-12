@@ -9,3 +9,4 @@ pub enum RealtimeBetaResponseCreateParamsToolChoice {
     Toolchoicefunction(models::ToolChoiceFunction),
     Toolchoicemcp(models::ToolChoiceMcp),
 }
+
