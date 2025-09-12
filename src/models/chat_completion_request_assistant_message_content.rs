@@ -3,12 +3,10 @@ use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestAssistantMessageContent - Untagged union type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum ChatCompletionRequestAssistantMessageContent {
-    #[serde(rename = "text")]
-    ChatCompletionRequestMessageContentPartText(Box<models::ChatCompletionRequestMessageContentPartText>),
-    #[serde(rename = "refusal")]
-    ChatCompletionRequestMessageContentPartRefusal(Box<models::ChatCompletionRequestMessageContentPartRefusal>),
+    TextContent(String),
+    ArrayOfContentParts(Vec<models::ChatCompletionRequestAssistantMessageContentPart>),
 }
 
 impl Default for ChatCompletionRequestAssistantMessageContent {
