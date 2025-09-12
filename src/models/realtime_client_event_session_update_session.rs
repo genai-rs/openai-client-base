@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum RealtimeClientEventSessionUpdateSession {
     Realtimesessioncreaterequestga(models::RealtimeSessionCreateRequestGa),
-    Realtimetranscriptionsessioncreaterequestga(models::RealtimeTranscriptionSessionCreateRequestGa),
+    Realtimetranscriptionsessioncreaterequestga(
+        models::RealtimeTranscriptionSessionCreateRequestGa,
+    ),
 }
-

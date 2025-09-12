@@ -8,4 +8,3 @@ pub enum Filters {
     Comparisonfilter(models::ComparisonFilter),
     Compoundfilter(models::CompoundFilter),
 }
-

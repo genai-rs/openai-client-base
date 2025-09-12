@@ -9,4 +9,3 @@ pub enum CreateEvalRunRequestDataSource {
     Createevalcompletionsrundatasource(models::CreateEvalCompletionsRunDataSource),
     Createevalresponsesrundatasource(models::CreateEvalResponsesRunDataSource),
 }
-

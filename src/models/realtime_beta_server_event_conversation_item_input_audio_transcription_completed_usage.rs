@@ -8,4 +8,3 @@ pub enum RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompleted
     Transcripttextusagetokens(models::TranscriptTextUsageTokens),
     Transcripttextusageduration(models::TranscriptTextUsageDuration),
 }
-

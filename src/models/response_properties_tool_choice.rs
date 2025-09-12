@@ -12,4 +12,3 @@ pub enum ResponsePropertiesToolChoice {
     Toolchoicemcp(models::ToolChoiceMcp),
     Toolchoicecustom(models::ToolChoiceCustom),
 }
-
