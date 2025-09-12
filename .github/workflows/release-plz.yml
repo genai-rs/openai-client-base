@@ -12,15 +12,10 @@ on:
       - main
   workflow_dispatch: # Allow manual triggering
 
-concurrency:
-  group: release-plz
-  cancel-in-progress: true
-
 jobs:
   release-plz:
     name: Release-plz
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     # Explicitly set permissions at job level too
     permissions:
       contents: write
@@ -35,46 +30,23 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Prefer PAT for tagging (if provided)
-        if: env.GH_RELEASE_TOKEN != ''
-        run: echo "GITHUB_TOKEN=${{ secrets.GH_RELEASE_TOKEN }}" >> $GITHUB_ENV
-        env:
-          GH_RELEASE_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+      # Mint short-lived GitHub App token (ensures PR events trigger CI)
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
 
-      - name: Cleanup Python caches
-        run: |
-          rm -rf scripts/__pycache__ || true
-          find . -type d -name "__pycache__" -prune -exec rm -rf {} + || true
-          find . -type f -name "*.pyc" -delete || true
-        
       - name: Run release-plz
         uses: MarcoIeni/release-plz-action@v0.5
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
-      - name: Update GitHub Release notes from CHANGELOG.md
-        if: github.event_name == 'push'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Assert App token present
         run: |
-          set -euo pipefail
-          # Determine the current version from Cargo.toml
-          VERSION=$(grep -E '^version\s*=\s*"' Cargo.toml | head -n1 | sed -E 's/.*"([^"]+)".*/\1/')
-          TAG="v${VERSION}"
-          echo "Detected version ${VERSION} (tag ${TAG})"
-          # If release doesn't exist, skip gracefully
-          if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo "No GitHub Release found for ${TAG}; skipping notes update."
-            exit 0
+          if [ -z "${{ steps.app-token.outputs.token }}" ]; then
+            echo "GitHub App token missing. Ensure BOT_APP_ID and BOT_PRIVATE_KEY are configured." >&2
+            exit 1
           fi
-          # Extract the section for this version from CHANGELOG.md and update the notes
-          if [ ! -f CHANGELOG.md ]; then
-            echo "CHANGELOG.md not present; skipping notes update."
-            exit 0
-          fi
-          TMP=$(mktemp)
-          printf "%s\n" "## What's Changed" > "$TMP"
-          sed -n "/^## \[${VERSION//./\\.}\]/,/^## \[/p" CHANGELOG.md >> "$TMP" || true
-          gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --notes-file "$TMP"
-          rm -f "$TMP"

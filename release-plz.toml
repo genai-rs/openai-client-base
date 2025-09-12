@@ -8,9 +8,10 @@ changelog_update = true
 # Enable git releases and tags
 git_release_enable = true
 git_tag_enable = true
+pr_branch_prefix = "automated/release-plz/"
 
 # PR settings
-pr_labels = ["release"]
+pr_labels = ["release", "automated"]
 pr_draft = false
 pr_name = "chore: release version {{version}}"
 
