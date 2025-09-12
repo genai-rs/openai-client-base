@@ -403,6 +403,36 @@ def main():
                 fixed_count += 1
         else:
             print(f"  Warning: File not found for {type_name}: {filepath}")
+
+    # Targeted fix for mixed union ResponsePropertiesToolChoice:
+    # This union includes a string enum (ToolChoiceOptions) and tagged object variants.
+    rp_tc_file = os.path.join(models_dir, 'response_properties_tool_choice.rs')
+    if os.path.exists(rp_tc_file):
+        print('  Overriding mixed union: ResponsePropertiesToolChoice (untagged)')
+        new_content = (
+            'use crate::models;\n'
+            'use serde::{Deserialize, Serialize};\n\n'
+            '/// ResponsePropertiesToolChoice - Untagged union type\n'
+            '#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]\n'
+            '#[serde(untagged)]\n'
+            'pub enum ResponsePropertiesToolChoice {\n'
+            '    // String enum options: none | auto | required\n'
+            '    Options(models::ToolChoiceOptions),\n'
+            '    // Constrained allowed tools\n'
+            '    Toolchoiceallowed(models::ToolChoiceAllowed),\n'
+            '    // Hosted tool type selector\n'
+            '    Toolchoicetypes(models::ToolChoiceTypes),\n'
+            '    // Force function tool\n'
+            '    Toolchoicefunction(models::ToolChoiceFunction),\n'
+            '    // Force MCP tool\n'
+            '    Toolchoicemcp(models::ToolChoiceMcp),\n'
+            '    // Force custom tool\n'
+            '    Toolchoicecustom(models::ToolChoiceCustom),\n'
+            '}\n'
+        )
+        with open(rp_tc_file, 'w') as f:
+            f.write(new_content)
+        fixed_count += 1
     
     # Update mod.rs to include any new modules
     if created_modules:

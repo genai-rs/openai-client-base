@@ -13,7 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum CreateEvalRequestTestingCriteriaInner {}
+pub enum CreateEvalRequestTestingCriteriaInner {
+    #[serde(rename = "label_model")]
+    CreateEvalLabelModelGrader(Box<models::CreateEvalLabelModelGrader>),
+    #[serde(rename = "evalgraderstringcheck")]
+    EvalGraderStringCheck(Box<models::EvalGraderStringCheck>),
+    #[serde(rename = "evalgradertextsimilarity")]
+    EvalGraderTextSimilarity(Box<models::EvalGraderTextSimilarity>),
+    #[serde(rename = "evalgraderpython")]
+    EvalGraderPython(Box<models::EvalGraderPython>),
+    #[serde(rename = "evalgraderscoremodel")]
+    EvalGraderScoreModel(Box<models::EvalGraderScoreModel>),
+}
 
 /// The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]

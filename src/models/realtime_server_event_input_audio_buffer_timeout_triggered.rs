@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeServerEventInputAudioBufferTimeoutTriggered : Returned when the server VAD timeout is triggered for the input audio buffer.
+/// RealtimeServerEventInputAudioBufferTimeoutTriggered : Returned when the Server VAD timeout is triggered for the input audio buffer. This is configured with `idle_timeout_ms` in the `turn_detection` settings of the session, and it indicates that there hasn't been any speech detected for the configured duration.  The `audio_start_ms` and `audio_end_ms` fields indicate the segment of audio after the last model response up to the triggering time, as an offset from the beginning of audio written to the input audio buffer. This means it demarcates the segment of audio that was silent and the difference between the start and end values will roughly match the configured timeout.  The empty audio will be committed to the conversation as an `input_audio` item (there will be a `input_audio_buffer.committed` event) and a model response will be generated. There may be speech that didn't trigger VAD but is still detected by the model, so the model may respond with something relevant to the conversation or a prompt to continue speaking.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeServerEventInputAudioBufferTimeoutTriggered {
     /// The unique ID of the server event.
@@ -19,10 +19,10 @@ pub struct RealtimeServerEventInputAudioBufferTimeoutTriggered {
     pub event_id: String,
     #[serde(rename = "type", deserialize_with = "Option::deserialize")]
     pub r#type: Option<serde_json::Value>,
-    /// Millisecond offset where speech started within the buffered audio.
+    /// Millisecond offset of audio written to the input audio buffer that was after the playback time of the last model response.
     #[serde(rename = "audio_start_ms")]
     pub audio_start_ms: i32,
-    /// Millisecond offset where speech ended within the buffered audio.
+    /// Millisecond offset of audio written to the input audio buffer at the time the timeout was triggered.
     #[serde(rename = "audio_end_ms")]
     pub audio_end_ms: i32,
     /// The ID of the item associated with this segment.
@@ -31,7 +31,7 @@ pub struct RealtimeServerEventInputAudioBufferTimeoutTriggered {
 }
 
 impl RealtimeServerEventInputAudioBufferTimeoutTriggered {
-    /// Returned when the server VAD timeout is triggered for the input audio buffer.
+    /// Returned when the Server VAD timeout is triggered for the input audio buffer. This is configured with `idle_timeout_ms` in the `turn_detection` settings of the session, and it indicates that there hasn't been any speech detected for the configured duration.  The `audio_start_ms` and `audio_end_ms` fields indicate the segment of audio after the last model response up to the triggering time, as an offset from the beginning of audio written to the input audio buffer. This means it demarcates the segment of audio that was silent and the difference between the start and end values will roughly match the configured timeout.  The empty audio will be committed to the conversation as an `input_audio` item (there will be a `input_audio_buffer.committed` event) and a model response will be generated. There may be speech that didn't trigger VAD but is still detected by the model, so the model may respond with something relevant to the conversation or a prompt to continue speaking.
     pub fn new(
         event_id: String,
         r#type: Option<serde_json::Value>,

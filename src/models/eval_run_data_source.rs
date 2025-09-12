@@ -14,4 +14,11 @@ use serde::{Deserialize, Serialize};
 /// EvalRunDataSource : Information about the run's data source.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum EvalRunDataSource {}
+pub enum EvalRunDataSource {
+    #[serde(rename = "jsonl")]
+    CreateEvalJsonlRunDataSource(Box<models::CreateEvalJsonlRunDataSource>),
+    #[serde(rename = "completions")]
+    CreateEvalCompletionsRunDataSource(Box<models::CreateEvalCompletionsRunDataSource>),
+    #[serde(rename = "responses")]
+    CreateEvalResponsesRunDataSource(Box<models::CreateEvalResponsesRunDataSource>),
+}

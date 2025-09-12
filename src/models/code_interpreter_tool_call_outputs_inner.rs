@@ -13,4 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum CodeInterpreterToolCallOutputsInner {}
+pub enum CodeInterpreterToolCallOutputsInner {
+    #[serde(rename = "logs")]
+    CodeInterpreterOutputLogs(Box<models::CodeInterpreterOutputLogs>),
+    #[serde(rename = "image")]
+    CodeInterpreterOutputImage(Box<models::CodeInterpreterOutputImage>),
+}
