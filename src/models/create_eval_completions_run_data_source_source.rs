@@ -14,4 +14,11 @@ use serde::{Deserialize, Serialize};
 /// CreateEvalCompletionsRunDataSourceSource : Determines what populates the `item` namespace in this run's data source.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum CreateEvalCompletionsRunDataSourceSource {}
+pub enum CreateEvalCompletionsRunDataSourceSource {
+    #[serde(rename = "file_content")]
+    EvalJsonlFileContentSource(Box<models::EvalJsonlFileContentSource>),
+    #[serde(rename = "file_id")]
+    EvalJsonlFileIdSource(Box<models::EvalJsonlFileIdSource>),
+    #[serde(rename = "stored_completions")]
+    EvalStoredCompletionsSource(Box<models::EvalStoredCompletionsSource>),
+}

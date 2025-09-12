@@ -13,7 +13,24 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum MessageContentInner {}
+pub enum MessageContentInner {
+    #[serde(rename = "input_text")]
+    InputTextContent2(Box<models::InputTextContent2>),
+    #[serde(rename = "output_text")]
+    OutputTextContent2(Box<models::OutputTextContent2>),
+    #[serde(rename = "text")]
+    TextContent(Box<models::TextContent>),
+    #[serde(rename = "summary_text")]
+    SummaryTextContent(Box<models::SummaryTextContent>),
+    #[serde(rename = "refusal")]
+    RefusalContent2(Box<models::RefusalContent2>),
+    #[serde(rename = "input_image")]
+    InputImageContent2(Box<models::InputImageContent2>),
+    #[serde(rename = "computer_screenshot")]
+    ComputerScreenshotContent(Box<models::ComputerScreenshotContent>),
+    #[serde(rename = "input_file")]
+    InputFileContent2(Box<models::InputFileContent2>),
+}
 
 /// The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]

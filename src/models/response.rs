@@ -65,7 +65,7 @@ pub struct Response {
     pub tool_choice: Option<Box<models::ResponsePropertiesToolChoice>>,
     #[serde(rename = "prompt", skip_serializing_if = "Option::is_none")]
     pub prompt: Option<Box<models::Prompt>>,
-    /// The truncation strategy to use for the model response. - `auto`: If the context of this response and previous ones exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping input items in the   middle of the conversation. - `disabled` (default): If a model response will exceed the context window   size for a model, the request will fail with a 400 error.
+    /// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
     pub truncation: Option<Truncation>,
     /// Unique identifier for this Response.
@@ -148,7 +148,7 @@ impl Response {
         }
     }
 }
-/// The truncation strategy to use for the model response. - `auto`: If the context of this response and previous ones exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping input items in the   middle of the conversation. - `disabled` (default): If a model response will exceed the context window   size for a model, the request will fail with a 400 error.
+/// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Truncation {
     #[serde(rename = "auto")]

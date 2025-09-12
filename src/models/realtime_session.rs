@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeSession : Realtime session object.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// RealtimeSession : Realtime session object for the beta interface.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSession {
     /// Unique identifier for the session that looks like `sess_1234567890abcdef`.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -52,7 +52,7 @@ pub struct RealtimeSession {
     )]
     pub input_audio_transcription: Option<Box<models::AudioTranscription>>,
     #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
-    pub turn_detection: Option<Box<models::RealtimeSessionTurnDetection>>,
+    pub turn_detection: Option<Box<models::RealtimeTurnDetection>>,
     #[serde(
         rename = "input_audio_noise_reduction",
         skip_serializing_if = "Option::is_none"
@@ -89,7 +89,7 @@ pub struct RealtimeSession {
 }
 
 impl RealtimeSession {
-    /// Realtime session object.
+    /// Realtime session object for the beta interface.
     pub fn new() -> RealtimeSession {
         RealtimeSession {
             id: None,

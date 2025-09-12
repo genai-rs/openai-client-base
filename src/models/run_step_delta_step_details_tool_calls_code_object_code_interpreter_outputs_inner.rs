@@ -13,4 +13,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreterOutputsInner {}
+pub enum RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreterOutputsInner {
+    #[serde(rename = "logs")]
+    RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject(
+        Box<models::RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject>,
+    ),
+    #[serde(rename = "image")]
+    RunStepDeltaStepDetailsToolCallsCodeOutputImageObject(
+        Box<models::RunStepDeltaStepDetailsToolCallsCodeOutputImageObject>,
+    ),
+}

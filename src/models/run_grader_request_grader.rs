@@ -14,7 +14,18 @@ use serde::{Deserialize, Serialize};
 /// RunGraderRequestGrader : The grader used for the fine-tuning job.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum RunGraderRequestGrader {}
+pub enum RunGraderRequestGrader {
+    #[serde(rename = "string_check")]
+    GraderStringCheck(Box<models::GraderStringCheck>),
+    #[serde(rename = "text_similarity")]
+    GraderTextSimilarity(Box<models::GraderTextSimilarity>),
+    #[serde(rename = "python")]
+    GraderPython(Box<models::GraderPython>),
+    #[serde(rename = "score_model")]
+    GraderScoreModel(Box<models::GraderScoreModel>),
+    #[serde(rename = "multi")]
+    GraderMulti(Box<models::GraderMulti>),
+}
 
 /// The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
