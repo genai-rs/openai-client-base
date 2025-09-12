@@ -123,10 +123,20 @@ echo ""
 echo "🔧 Normalizing enum derives/attributes..."
 uv run python scripts/fix_enum_attributes.py
 
+# Step 6c: Fix Box<Value> constructor mismatches caused by generic fallbacks
+echo ""
+echo "🔧 Fixing Box<Value> constructor mismatches..."
+uv run python scripts/fix_box_value_constructor_mismatches.py
+
 # Step 7: Fix untagged anyOf unions that generate as empty structs
 echo ""
 echo "🔧 Fixing untagged unions..."
 uv run --with pyyaml python scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
+
+# Remove helper impls that reference nonexistent variants after all enum fixes
+echo ""
+echo "🔧 Removing mismatched enum helper impls..."
+uv run python scripts/fix_helper_impl_mismatches.py
 
 # Step 8: Fix nullable fields and constructor signatures
 echo ""

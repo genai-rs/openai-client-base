@@ -17,11 +17,11 @@ pub enum MessageStreamEvent {
     #[serde(rename = "thread.message.created")]
     AnyOf(Box<models::MessageStreamEventAnyOf>),
     #[serde(rename = "thread.message.in_progress")]
-    AnyOf1(Box<models::MessageStreamEventAnyOf1>),
+    AnyOf1(serde_json::Value),
     #[serde(rename = "thread.message.delta")]
-    AnyOf2(Box<models::MessageStreamEventAnyOf2>),
+    AnyOf2(serde_json::Value),
     #[serde(rename = "thread.message.completed")]
-    AnyOf3(Box<models::MessageStreamEventAnyOf3>),
+    AnyOf3(serde_json::Value),
     #[serde(rename = "thread.message.incomplete")]
-    AnyOf4(Box<models::MessageStreamEventAnyOf4>),
+    AnyOf4(serde_json::Value),
 }

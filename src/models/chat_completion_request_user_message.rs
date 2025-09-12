@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestUserMessage : Messages sent by an end user, containing prompts or additional context information.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestUserMessage {
     #[serde(rename = "content")]
     pub content: Box<models::ChatCompletionRequestUserMessageContent>,

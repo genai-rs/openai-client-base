@@ -17,21 +17,21 @@ pub enum RunStreamEvent {
     #[serde(rename = "thread.run.created")]
     AnyOf(Box<models::RunStreamEventAnyOf>),
     #[serde(rename = "thread.run.queued")]
-    AnyOf1(Box<models::RunStreamEventAnyOf1>),
+    AnyOf1(serde_json::Value),
     #[serde(rename = "thread.run.in_progress")]
-    AnyOf2(Box<models::RunStreamEventAnyOf2>),
+    AnyOf2(serde_json::Value),
     #[serde(rename = "thread.run.requires_action")]
-    AnyOf3(Box<models::RunStreamEventAnyOf3>),
+    AnyOf3(serde_json::Value),
     #[serde(rename = "thread.run.completed")]
-    AnyOf4(Box<models::RunStreamEventAnyOf4>),
+    AnyOf4(serde_json::Value),
     #[serde(rename = "thread.run.incomplete")]
-    AnyOf5(Box<models::RunStreamEventAnyOf5>),
+    AnyOf5(serde_json::Value),
     #[serde(rename = "thread.run.failed")]
-    AnyOf6(Box<models::RunStreamEventAnyOf6>),
+    AnyOf6(serde_json::Value),
     #[serde(rename = "thread.run.cancelling")]
-    AnyOf7(Box<models::RunStreamEventAnyOf7>),
+    AnyOf7(serde_json::Value),
     #[serde(rename = "thread.run.cancelled")]
-    AnyOf8(Box<models::RunStreamEventAnyOf8>),
+    AnyOf8(serde_json::Value),
     #[serde(rename = "thread.run.expired")]
-    AnyOf9(Box<models::RunStreamEventAnyOf9>),
+    AnyOf9(serde_json::Value),
 }

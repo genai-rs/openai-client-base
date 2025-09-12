@@ -21,7 +21,7 @@ pub struct RealtimeCreateClientSecretResponse {
     #[serde(rename = "expires_at")]
     pub expires_at: i32,
     #[serde(rename = "session")]
-    pub session: Box<models::SessionConfiguration1>,
+    pub session: serde_json::Value,
 }
 
 impl RealtimeCreateClientSecretResponse {
@@ -29,12 +29,12 @@ impl RealtimeCreateClientSecretResponse {
     pub fn new(
         value: String,
         expires_at: i32,
-        session: models::SessionConfiguration1,
+        session: serde_json::Value,
     ) -> RealtimeCreateClientSecretResponse {
         RealtimeCreateClientSecretResponse {
             value,
             expires_at,
-            session: Box::new(session),
+            session: session,
         }
     }
 }

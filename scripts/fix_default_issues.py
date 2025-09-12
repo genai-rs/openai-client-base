@@ -85,13 +85,14 @@ def main():
             fixed_count += 1
             print(f"  Removed Default from {struct_name}")
 
-    # Then, auto-detect any struct that has a field with Box<models::RunObject>
+    # Then, auto-detect any struct that has a field with Box<models::RunObject> or ChatCompletion*MessageContent
     for file_path in models_dir.glob('*.rs'):
         content = file_path.read_text()
-        if 'derive' in content and 'Default' in content and 'Box<models::RunObject>' in content:
-            if remove_default_derive(file_path):
-                fixed_count += 1
-                print(f"  Removed Default from {file_path.name} (RunObject field)")
+        if 'derive' in content and 'Default' in content:
+            if ('Box<models::RunObject>' in content or re.search(r'Box<models::ChatCompletionRequest\w*MessageContent>', content)):
+                if remove_default_derive(file_path):
+                    fixed_count += 1
+                    print(f"  Removed Default from {file_path.name} (non-Default boxed field)")
 
     print(f"Fixed Default derives in {fixed_count} files")
 

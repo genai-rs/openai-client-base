@@ -17,15 +17,15 @@ pub enum RunStepStreamEvent {
     #[serde(rename = "thread.run.step.created")]
     AnyOf(Box<models::RunStepStreamEventAnyOf>),
     #[serde(rename = "thread.run.step.in_progress")]
-    AnyOf1(Box<models::RunStepStreamEventAnyOf1>),
+    AnyOf1(serde_json::Value),
     #[serde(rename = "thread.run.step.delta")]
-    AnyOf2(Box<models::RunStepStreamEventAnyOf2>),
+    AnyOf2(serde_json::Value),
     #[serde(rename = "thread.run.step.completed")]
-    AnyOf3(Box<models::RunStepStreamEventAnyOf3>),
+    AnyOf3(serde_json::Value),
     #[serde(rename = "thread.run.step.failed")]
-    AnyOf4(Box<models::RunStepStreamEventAnyOf4>),
+    AnyOf4(serde_json::Value),
     #[serde(rename = "thread.run.step.cancelled")]
-    AnyOf5(Box<models::RunStepStreamEventAnyOf5>),
+    AnyOf5(serde_json::Value),
     #[serde(rename = "thread.run.step.expired")]
-    AnyOf6(Box<models::RunStepStreamEventAnyOf6>),
+    AnyOf6(serde_json::Value),
 }

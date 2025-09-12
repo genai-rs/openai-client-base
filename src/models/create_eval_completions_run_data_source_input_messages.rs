@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum CreateEvalCompletionsRunDataSourceInputMessages {
     #[serde(rename = "template")]
-    AnyOf(Box<models::CreateEvalCompletionsRunDataSourceInputMessagesAnyOf>),
+    AnyOf(serde_json::Value),
     #[serde(rename = "item_reference")]
-    AnyOf1(Box<models::CreateEvalCompletionsRunDataSourceInputMessagesAnyOf1>),
+    AnyOf1(serde_json::Value),
 }

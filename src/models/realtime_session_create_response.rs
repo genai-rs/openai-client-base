@@ -42,7 +42,7 @@ pub struct RealtimeSessionCreateResponse {
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
     pub audio: Option<Box<models::RealtimeSessionCreateResponseAudio>>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<Box<models::TracingConfiguration1>>,
+    pub tracing: Option<serde_json::Value>,
     #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
     pub turn_detection: Option<Box<models::RealtimeSessionCreateRequestTurnDetection>>,
     /// Tools (functions) available to the model.

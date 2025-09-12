@@ -15,11 +15,11 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum RealtimeAudioFormats {
     #[serde(rename = "audio/pcm")]
-    AnyOf(Box<models::RealtimeAudioFormatsAnyOf>),
+    AnyOf(serde_json::Value),
     #[serde(rename = "audio/pcmu")]
-    AnyOf1(Box<models::RealtimeAudioFormatsAnyOf1>),
+    AnyOf1(serde_json::Value),
     #[serde(rename = "audio/pcma")]
-    AnyOf2(Box<models::RealtimeAudioFormatsAnyOf2>),
+    AnyOf2(serde_json::Value),
 }
 
 /// The sample rate of the audio. Always `24000`.

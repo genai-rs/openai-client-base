@@ -16,9 +16,9 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum RealtimeTurnDetection {
     #[serde(rename = "server_vad")]
-    AnyOf(Box<models::RealtimeTurnDetectionAnyOf>),
+    AnyOf(serde_json::Value),
     #[serde(rename = "semantic_vad")]
-    AnyOf1(Box<models::RealtimeTurnDetectionAnyOf1>),
+    AnyOf1(serde_json::Value),
 }
 
 /// Used only for `semantic_vad` mode. The eagerness of the model to respond. `low` will wait longer for the user to continue speaking, `high` will respond more quickly. `auto` is the default and is equivalent to `medium`. `low`, `medium`, and `high` have max timeouts of 8s, 4s, and 2s respectively.

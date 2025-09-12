@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestAssistantMessage : Messages sent by the model in response to user messages.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestAssistantMessage {
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<Box<models::ChatCompletionRequestAssistantMessageContent>>,
