@@ -20,7 +20,5 @@ pub enum CreateEvalRequestDataSourceConfig {
     #[serde(rename = "logs")]
     CreateEvalLogsDataSourceConfig(Box<models::CreateEvalLogsDataSourceConfig>),
     #[serde(rename = "stored_completions")]
-    CreateEvalStoredCompletionsDataSourceConfig(
-        Box<models::CreateEvalStoredCompletionsDataSourceConfig>,
-    ),
+    CreateEvalStoredCompletionsDataSourceConfig(Box<models::CreateEvalStoredCompletionsDataSourceConfig>),
 }

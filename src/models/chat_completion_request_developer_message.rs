@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestDeveloperMessage : Developer-provided instructions that the model should follow, regardless of messages sent by the user. With o1 models and newer, `developer` messages replace the previous `system` messages.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestDeveloperMessage {
     #[serde(rename = "content")]
     pub content: Box<models::ChatCompletionRequestDeveloperMessageContent>,

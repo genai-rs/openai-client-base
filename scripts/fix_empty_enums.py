@@ -379,6 +379,54 @@ pub enum {enum_name} {{
     print(f"Fixed {enum_name} enum with {len(variants)} variants")
     return True
 
+def _type_file_exists(models_dir: Path, rust_type_name: str) -> bool:
+    from utils import pascal_to_snake
+    fname = pascal_to_snake(rust_type_name) + '.rs'
+    return (models_dir / fname).exists()
+
+def fallback_missing_variant_types(models_dir: Path) -> int:
+    """Replace enum variant payload types referring to missing generated structs with serde_json::Value.
+
+    This generically handles enums that reference `<EnumName>AnyOf*` structs which were not emitted
+    by the generator (common for inline object `anyOf` branches). We avoid compile errors by
+    deserializing those payloads as `serde_json::Value`.
+    """
+    import re
+    changed = 0
+    enum_block_re = re.compile(r"pub\s+enum\s+\w+\s*\{[\s\S]*?\}")
+    for file_path in models_dir.glob('*.rs'):
+        src = file_path.read_text()
+        original = src
+
+        def fix_block(block: str) -> str:
+            # Replace Box<models::TypeName> only within enum variant payloads when TypeName file is missing
+            def repl_box(m):
+                type_name = m.group(1)
+                return 'serde_json::Value' if not _type_file_exists(models_dir, type_name) else m.group(0)
+            block = re.sub(r'Box<models::([A-Za-z0-9_]+)>', repl_box, block)
+
+            # Replace bare models::TypeName similarly
+            def repl_bare(m):
+                type_name = m.group(1)
+                return 'serde_json::Value' if not _type_file_exists(models_dir, type_name) else m.group(0)
+            block = re.sub(r'\bmodels::([A-Za-z0-9_]+)\b', repl_bare, block)
+            return block
+
+        new_src = ''
+        last_end = 0
+        for m in enum_block_re.finditer(src):
+            new_src += src[last_end:m.start()]
+            new_src += fix_block(m.group(0))
+            last_end = m.end()
+        new_src += src[last_end:]
+
+        if new_src != original:
+            file_path.write_text(new_src)
+            changed += 1
+    if changed:
+        print(f"Applied serde_json::Value fallback for missing enum variant payload types in {changed} files")
+    return changed
+
 def main():
     project_root = Path(__file__).parent.parent
     models_dir = project_root / "src" / "models"
@@ -405,7 +453,9 @@ def main():
     for enum_name, enum_info in empty_enums.items():
         if fix_empty_enum(models_dir, enum_name, enum_info):
             fixed_count += 1
-    
+    # Second pass: fallback any missing variant payload types to serde_json::Value
+    fallback_missing_variant_types(models_dir)
+
     print(f"\nFixed {fixed_count} empty enums successfully!")
 
 if __name__ == "__main__":

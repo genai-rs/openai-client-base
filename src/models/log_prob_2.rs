@@ -20,7 +20,7 @@ pub struct LogProb2 {
     #[serde(rename = "bytes")]
     pub bytes: Vec<i32>,
     #[serde(rename = "top_logprobs")]
-    pub top_logprobs: Vec<models::TopLogProb2>,
+    pub top_logprobs: Vec<serde_json::Value>,
 }
 
 impl LogProb2 {
@@ -28,7 +28,7 @@ impl LogProb2 {
         token: String,
         logprob: f64,
         bytes: Vec<i32>,
-        top_logprobs: Vec<models::TopLogProb2>,
+        top_logprobs: Vec<serde_json::Value>,
     ) -> LogProb2 {
         LogProb2 {
             token,

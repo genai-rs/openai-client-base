@@ -16,9 +16,9 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum CustomToolFormat {
     #[serde(rename = "text")]
-    AnyOf(Box<models::CustomToolFormatAnyOf>),
+    AnyOf(serde_json::Value),
     #[serde(rename = "grammar")]
-    AnyOf1(Box<models::CustomToolFormatAnyOf1>),
+    AnyOf1(serde_json::Value),
 }
 
 /// The syntax of the grammar definition. One of `lark` or `regex`.

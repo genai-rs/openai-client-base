@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategy {
     #[serde(rename = "auto")]
-    AnyOf(Box<models::CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyAnyOf>),
+    AnyOf(serde_json::Value),
     #[serde(rename = "static")]
-    AnyOf1(Box<models::CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyAnyOf1>),
+    AnyOf1(serde_json::Value),
 }
