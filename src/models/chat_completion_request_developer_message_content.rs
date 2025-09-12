@@ -8,11 +8,3 @@ pub enum ChatCompletionRequestDeveloperMessageContent {
     TextContent(String),
     ArrayOfContentParts(Vec<models::ChatCompletionRequestMessageContentPartText>),
 }
-
-
-
-
-
-
-
-

@@ -32,7 +32,7 @@ pub struct RealtimeSessionCreateRequestGa {
     #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
     pub include: Option<Vec<Include>>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<serde_json::Value>,
+    pub tracing: Option<Box<models::TracingConfiguration2>>,
     /// Tools available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeSessionCreateRequestGaToolsInner>>,
