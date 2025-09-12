@@ -9,7 +9,7 @@ pub enum ResponsePropertiesToolChoice {
     Toolchoiceallowed(models::ToolChoiceAllowed),
     Toolchoicetypes(models::ToolChoiceTypes),
     Toolchoicefunction(models::ToolChoiceFunction),
-    Toolchoicemcp(models::ToolChoiceMCP),
+    Toolchoicemcp(models::ToolChoiceMcp),
     Toolchoicecustom(models::ToolChoiceCustom),
 }
 
