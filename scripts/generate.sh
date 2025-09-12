@@ -118,6 +118,11 @@ echo ""
 echo "🔧 Fixing empty enums..."
 uv run --with pyyaml python scripts/fix_empty_enums.py
 
+# Step 6b: Normalize enum derives and misplaced attributes
+echo ""
+echo "🔧 Normalizing enum derives/attributes..."
+uv run python scripts/fix_enum_attributes.py
+
 # Step 7: Fix untagged anyOf unions that generate as empty structs
 echo ""
 echo "🔧 Fixing untagged unions..."
