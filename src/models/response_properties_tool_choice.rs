@@ -5,16 +5,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ResponsePropertiesToolChoice {
-    // String enum options: none | auto | required
     Options(models::ToolChoiceOptions),
-    // Constrained allowed tools
     Toolchoiceallowed(models::ToolChoiceAllowed),
-    // Hosted tool type selector
     Toolchoicetypes(models::ToolChoiceTypes),
-    // Force function tool
     Toolchoicefunction(models::ToolChoiceFunction),
-    // Force MCP tool
-    Toolchoicemcp(models::ToolChoiceMcp),
-    // Force custom tool
+    Toolchoicemcp(models::ToolChoiceMCP),
     Toolchoicecustom(models::ToolChoiceCustom),
 }
+

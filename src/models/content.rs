@@ -8,3 +8,4 @@ pub enum Content {
     Inputcontent(models::InputContent),
     Outputcontent(models::OutputContent),
 }
+

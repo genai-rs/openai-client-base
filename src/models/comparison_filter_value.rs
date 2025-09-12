@@ -13,3 +13,4 @@ impl Default for ComparisonFilterValue {
         Self::Text(String::new())
     }
 }
+

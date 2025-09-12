@@ -19,9 +19,7 @@ impl ChatCompletionRequestAssistantMessageContent {
     pub fn new_text(text: String) -> Self {
         Self::TextContent(text)
     }
-    pub fn new_arrayofcontentparts(
-        items: Vec<models::ChatCompletionRequestAssistantMessageContentPart>,
-    ) -> Self {
+    pub fn new_arrayofcontentparts(items: Vec<models::ChatCompletionRequestAssistantMessageContentPart>) -> Self {
         Self::ArrayOfContentParts(items)
     }
 }

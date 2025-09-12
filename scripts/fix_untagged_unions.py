@@ -55,6 +55,88 @@ def detect_untagged_unions(spec):
     
     return untagged_unions, simple_string_enums
 
+
+def _get_ref_name(node):
+    if isinstance(node, dict) and '$ref' in node and isinstance(node['$ref'], str):
+        ref = node['$ref']
+        if ref.startswith('#/components/schemas/'):
+            return ref.split('/')[-1]
+    return None
+
+
+def detect_mixed_tagged_unions(spec):
+    """Detect unions that declare a discriminator but mix string (or string enum) with object refs.
+    Return mapping of type_name -> variants list [(VariantName, VariantType)].
+    """
+    schemas = spec.get('components', {}).get('schemas', {})
+    results = {}
+
+    def resolve_schema(ref_name):
+        return schemas.get(ref_name, {})
+
+    def analyze_union_items(items):
+        has_string = False
+        variants = []
+        for it in items:
+            if not isinstance(it, dict):
+                continue
+            # $ref
+            ref = _get_ref_name(it)
+            if ref:
+                ref_schema = resolve_schema(ref)
+                # string enum schema
+                if ref_schema.get('type') == 'string':
+                    # Use a generic variant name
+                    variants.append(('Options', f'models::{ref}'))
+                    has_string = True
+                else:
+                    # object or other types
+                    variants.append((sanitize_variant_name(ref), f'models::{ref}'))
+                continue
+            # inline string
+            if it.get('type') == 'string':
+                values = it.get('enum')
+                if values:
+                    # Synthesize a simple enum name from title or fallback
+                    title = it.get('title', 'OptionsEnum')
+                    enum_name = sanitize_variant_name(title) + 'Enum'
+                    variants.append(('Options', enum_name))
+                else:
+                    variants.append(('Text', 'String'))
+                has_string = True
+                continue
+        return has_string, variants
+
+    def add_result(type_name, variants):
+        # Ensure at least two variants
+        if len(variants) >= 2:
+            results[type_name] = variants
+
+    # Top-level schemas
+    for schema_name, schema_def in schemas.items():
+        if not isinstance(schema_def, dict):
+            continue
+        if 'discriminator' in schema_def and ('anyOf' in schema_def or 'oneOf' in schema_def):
+            items = schema_def.get('anyOf') or schema_def.get('oneOf') or []
+            has_string, variants = analyze_union_items(items)
+            # Mixed if includes string and object refs
+            if has_string and any(vt.startswith('models::') for _, vt in variants):
+                add_result(schema_name, variants)
+
+        # Properties
+        if schema_def.get('type') == 'object':
+            for prop_name, prop_def in (schema_def.get('properties') or {}).items():
+                if not isinstance(prop_def, dict):
+                    continue
+                if 'discriminator' in prop_def and ('anyOf' in prop_def or 'oneOf' in prop_def):
+                    items = prop_def.get('anyOf') or prop_def.get('oneOf') or []
+                    has_string, variants = analyze_union_items(items)
+                    if has_string and any(vt.startswith('models::') for _, vt in variants):
+                        type_name = f"{schema_name}{''.join(word.capitalize() for word in prop_name.replace('_',' ').split())}"
+                        add_result(type_name, variants)
+
+    return results
+
 def analyze_union_variants(union_items, schemas, simple_string_enums=None):
     """Analyze anyOf/oneOf items to determine variant types"""
     variants = []
@@ -343,6 +425,11 @@ def main():
     spec = load_spec(spec_path)
     print("Detecting untagged unions from spec...")
     untagged_unions, simple_string_enums = detect_untagged_unions(spec)
+    # Add mixed tagged unions (string + object variants) to be treated as untagged
+    mixed_unions = detect_mixed_tagged_unions(spec)
+    for k, v in mixed_unions.items():
+        if k not in untagged_unions:
+            untagged_unions[k] = v
     
     # Add some known types that might not be detected correctly
     # These are message content types that need special handling
@@ -406,33 +493,7 @@ def main():
 
     # Targeted fix for mixed union ResponsePropertiesToolChoice:
     # This union includes a string enum (ToolChoiceOptions) and tagged object variants.
-    rp_tc_file = os.path.join(models_dir, 'response_properties_tool_choice.rs')
-    if os.path.exists(rp_tc_file):
-        print('  Overriding mixed union: ResponsePropertiesToolChoice (untagged)')
-        new_content = (
-            'use crate::models;\n'
-            'use serde::{Deserialize, Serialize};\n\n'
-            '/// ResponsePropertiesToolChoice - Untagged union type\n'
-            '#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]\n'
-            '#[serde(untagged)]\n'
-            'pub enum ResponsePropertiesToolChoice {\n'
-            '    // String enum options: none | auto | required\n'
-            '    Options(models::ToolChoiceOptions),\n'
-            '    // Constrained allowed tools\n'
-            '    Toolchoiceallowed(models::ToolChoiceAllowed),\n'
-            '    // Hosted tool type selector\n'
-            '    Toolchoicetypes(models::ToolChoiceTypes),\n'
-            '    // Force function tool\n'
-            '    Toolchoicefunction(models::ToolChoiceFunction),\n'
-            '    // Force MCP tool\n'
-            '    Toolchoicemcp(models::ToolChoiceMcp),\n'
-            '    // Force custom tool\n'
-            '    Toolchoicecustom(models::ToolChoiceCustom),\n'
-            '}\n'
-        )
-        with open(rp_tc_file, 'w') as f:
-            f.write(new_content)
-        fixed_count += 1
+    # Note: ResponsePropertiesToolChoice will be handled by mixed union detection above.
     
     # Update mod.rs to include any new modules
     if created_modules:
