@@ -1,4 +1,4 @@
-didname: Security
+name: Security
 
 on:
   push:
