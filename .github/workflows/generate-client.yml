@@ -134,7 +134,6 @@ jobs:
             Cargo.toml
             Cargo.lock
             stainless.yaml
-            .openapi-generator/**
             .openapi-generator-ignore
 
       # No PAT fallback; fail early if token is missing
