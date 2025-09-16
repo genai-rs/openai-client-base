@@ -23,3 +23,12 @@ impl RunStepDetailsMessageCreationObjectMessageCreation {
         RunStepDetailsMessageCreationObjectMessageCreation { message_id }
     }
 }
+
+impl std::fmt::Display for RunStepDetailsMessageCreationObjectMessageCreation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match serde_json::to_string(self) {
+            Ok(s) => write!(f, "{}", s),
+            Err(_) => Err(std::fmt::Error),
+        }
+    }
+}

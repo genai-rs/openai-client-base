@@ -55,3 +55,12 @@ impl Default for Rate {
         Self::Variant24000
     }
 }
+
+impl std::fmt::Display for PcmAudioFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match serde_json::to_string(self) {
+            Ok(s) => write!(f, "{}", s),
+            Err(_) => Err(std::fmt::Error),
+        }
+    }
+}
