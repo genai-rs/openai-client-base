@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeSession : Realtime session object for the beta interface.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSession {
     /// Unique identifier for the session that looks like `sess_1234567890abcdef`.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -48,11 +48,18 @@ pub struct RealtimeSession {
     /// Configuration for input audio transcription, defaults to off and can be set to `null` to turn off once on. Input audio transcription is not native to the model, since the model consumes audio directly. Transcription runs asynchronously through [the /audio/transcriptions endpoint](https://platform.openai.com/docs/api-reference/audio/createTranscription) and should be treated as guidance of input audio content rather than precisely what the model heard. The client can optionally set the language and prompt for transcription, these offer additional guidance to the transcription service.
     #[serde(
         rename = "input_audio_transcription",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio_transcription: Option<Box<models::AudioTranscription>>,
-    #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
-    pub turn_detection: Option<Box<models::RealtimeTurnDetection>>,
+    pub input_audio_transcription: Option<Option<Box<models::AudioTranscription>>>,
+    #[serde(
+        rename = "turn_detection",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub turn_detection: Option<Option<Box<models::RealtimeTurnDetection>>>,
     #[serde(
         rename = "input_audio_noise_reduction",
         skip_serializing_if = "Option::is_none"
@@ -61,8 +68,13 @@ pub struct RealtimeSession {
     /// The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
-    #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<Box<models::TracingConfiguration>>,
+    #[serde(
+        rename = "tracing",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tracing: Option<Option<Box<models::TracingConfiguration>>>,
     /// Tools (functions) available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeFunctionTool>>,
@@ -81,11 +93,21 @@ pub struct RealtimeSession {
     /// Expiration timestamp for the session, in seconds since epoch.
     #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
     pub expires_at: Option<i32>,
-    #[serde(rename = "prompt", skip_serializing_if = "Option::is_none")]
-    pub prompt: Option<Box<models::Prompt>>,
+    #[serde(
+        rename = "prompt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt: Option<Option<Box<models::Prompt>>>,
     /// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
-    #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
-    pub include: Option<Vec<Include>>,
+    #[serde(
+        rename = "include",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub include: Option<Option<Vec<Include>>>,
 }
 
 impl RealtimeSession {

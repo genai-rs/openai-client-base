@@ -14,14 +14,29 @@ use serde::{Deserialize, Serialize};
 /// Reasoning : **gpt-5 and o-series models only**  Configuration options for [reasoning models](https://platform.openai.com/docs/guides/reasoning).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Reasoning {
-    #[serde(rename = "effort", skip_serializing_if = "Option::is_none")]
-    pub effort: Option<models::ReasoningEffort>,
+    #[serde(
+        rename = "effort",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub effort: Option<Option<models::ReasoningEffort>>,
     /// A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. One of `auto`, `concise`, or `detailed`.
-    #[serde(rename = "summary", skip_serializing_if = "Option::is_none")]
-    pub summary: Option<Summary>,
+    #[serde(
+        rename = "summary",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub summary: Option<Option<Summary>>,
     /// **Deprecated:** use `summary` instead.  A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. One of `auto`, `concise`, or `detailed`.
-    #[serde(rename = "generate_summary", skip_serializing_if = "Option::is_none")]
-    pub generate_summary: Option<GenerateSummary>,
+    #[serde(
+        rename = "generate_summary",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub generate_summary: Option<Option<GenerateSummary>>,
 }
 
 impl Reasoning {

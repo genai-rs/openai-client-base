@@ -27,8 +27,13 @@ pub struct McpListTools {
     #[serde(rename = "tools")]
     pub tools: Vec<models::McpListToolsTool>,
     /// Error message if the server could not list tools.
-    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<String>,
+    #[serde(
+        rename = "error",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error: Option<Option<String>>,
 }
 
 impl McpListTools {

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | The type of run data source. Always `responses`. | 
 **metadata** | Option<[**serde_json::Value**](.md)> | Metadata filter for the responses. This is a query parameter used to select responses. | [optional]
-**model** | Option<**String**> | The name of the model to find responses for. This is a query parameter used to select responses. | [optional]
+**model** | Option<**String**> | ID of the model to use | [optional]
 **instructions_search** | Option<**String**> | Optional string to search the 'instructions' field. This is a query parameter used to select responses. | [optional]
 **created_after** | Option<**i32**> | Only include items created after this timestamp (inclusive). This is a query parameter used to select responses. | [optional]
 **created_before** | Option<**i32**> | Only include items created before this timestamp (inclusive). This is a query parameter used to select responses. | [optional]

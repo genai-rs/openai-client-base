@@ -28,13 +28,13 @@ pub struct RealtimeResponseCreateParamsToolsInner {
     /// A label for this MCP server, used to identify it in tool calls.
     #[serde(rename = "server_label")]
     pub server_label: String,
-    /// The URL for the MCP server. One of `server_url` or `connector_id` must be  provided.
+    /// The URL for the MCP server. One of `server_url` or `connector_id` must be provided.
     #[serde(rename = "server_url", skip_serializing_if = "Option::is_none")]
     pub server_url: Option<String>,
     /// Identifier for service connectors, like those available in ChatGPT. One of `server_url` or `connector_id` must be provided. Learn more about service connectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
     #[serde(rename = "connector_id", skip_serializing_if = "Option::is_none")]
     pub connector_id: Option<ConnectorId>,
-    /// An OAuth access token that can be used with a remote MCP server, either  with a custom MCP server URL or a service connector. Your application must handle the OAuth authorization flow and provide the token here.
+    /// An OAuth access token that can be used with a remote MCP server, either with a custom MCP server URL or a service connector. Your application must handle the OAuth authorization flow and provide the token here.
     #[serde(rename = "authorization", skip_serializing_if = "Option::is_none")]
     pub authorization: Option<String>,
     /// Optional description of the MCP server, used to provide more context.
@@ -43,10 +43,20 @@ pub struct RealtimeResponseCreateParamsToolsInner {
     /// Optional HTTP headers to send to the MCP server. Use for authentication or other purposes.
     #[serde(rename = "headers", skip_serializing_if = "Option::is_none")]
     pub headers: Option<std::collections::HashMap<String, String>>,
-    #[serde(rename = "allowed_tools", skip_serializing_if = "Option::is_none")]
-    pub allowed_tools: Option<Box<models::McpToolAllowedTools>>,
-    #[serde(rename = "require_approval", skip_serializing_if = "Option::is_none")]
-    pub require_approval: Option<Box<models::McpToolRequireApproval>>,
+    #[serde(
+        rename = "allowed_tools",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_tools: Option<Option<Box<models::McpToolAllowedTools>>>,
+    #[serde(
+        rename = "require_approval",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_approval: Option<Option<Box<models::McpToolRequireApproval>>>,
 }
 
 impl RealtimeResponseCreateParamsToolsInner {

@@ -61,11 +61,11 @@ pub struct RunObject {
     /// The list of tools that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
     #[serde(rename = "tools")]
     pub tools: Vec<models::AssistantTool>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata")]
-    pub metadata: std::collections::HashMap<String, String>,
-    #[serde(rename = "usage")]
-    pub usage: Box<models::RunCompletionUsage>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
+    pub metadata: Option<std::collections::HashMap<String, String>>,
+    #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
+    pub usage: Option<Box<models::RunCompletionUsage>>,
     /// The sampling temperature used for this run. If not set, defaults to 1.
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
     pub temperature: Option<f64>,
@@ -109,8 +109,8 @@ impl RunObject {
         model: String,
         instructions: String,
         tools: Vec<models::AssistantTool>,
-        metadata: std::collections::HashMap<String, String>,
-        usage: models::RunCompletionUsage,
+        metadata: Option<std::collections::HashMap<String, String>>,
+        usage: Option<models::RunCompletionUsage>,
         max_prompt_tokens: i32,
         max_completion_tokens: i32,
         truncation_strategy: models::TruncationObject,
@@ -137,7 +137,7 @@ impl RunObject {
             instructions,
             tools,
             metadata,
-            usage: Box::new(usage),
+            usage: usage.map(Box::new),
             temperature: None,
             top_p: None,
             max_prompt_tokens,

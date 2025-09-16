@@ -16,6 +16,22 @@ from utils import (
     sanitize_variant_name
 )
 
+def _merge_simple_string_enums(target, new_entries):
+    for name, info in new_entries.items():
+        if name in target:
+            existing = target[name]
+            if existing.get('default') is None and info.get('default') is not None:
+                existing['default'] = info['default']
+            # Prefer existing values unless new info provides a larger set
+            if len(info.get('values', [])) > len(existing.get('values', [])):
+                existing['values'] = info['values']
+        else:
+            target[name] = {
+                'values': list(info.get('values', [])),
+                'default': info.get('default'),
+            }
+
+
 def detect_untagged_unions(spec):
     """Detect all untagged anyOf/oneOf types in the spec"""
     untagged_unions = {}
@@ -38,20 +54,26 @@ def detect_untagged_unions(spec):
                         # Convert property name to PascalCase properly
                         prop_pascal = ''.join(word.capitalize() for word in prop_name.replace('_', ' ').split())
                         type_name = f"{schema_name}{prop_pascal}"
-                        variants, enum_types = analyze_union_variants(prop_def.get('anyOf') or prop_def.get('oneOf'), schemas)
+                        variants, enum_types = analyze_union_variants(
+                            prop_def.get('anyOf') or prop_def.get('oneOf'),
+                            schemas,
+                            type_name
+                        )
                         if variants:
                             untagged_unions[type_name] = variants
-                            # Merge enum types
-                            simple_string_enums.update(enum_types)
+                            _merge_simple_string_enums(simple_string_enums, enum_types)
         
         # Check if the schema itself is an untagged union
         if 'anyOf' in schema_def or 'oneOf' in schema_def:
             if 'discriminator' not in schema_def:
-                variants, enum_types = analyze_union_variants(schema_def.get('anyOf') or schema_def.get('oneOf'), schemas)
+                variants, enum_types = analyze_union_variants(
+                    schema_def.get('anyOf') or schema_def.get('oneOf'),
+                    schemas,
+                    schema_name
+                )
                 if variants:
                     untagged_unions[schema_name] = variants
-                    # Merge enum types
-                    simple_string_enums.update(enum_types)
+                    _merge_simple_string_enums(simple_string_enums, enum_types)
     
     return untagged_unions, simple_string_enums
 
@@ -137,13 +159,23 @@ def detect_mixed_tagged_unions(spec):
 
     return results
 
-def analyze_union_variants(union_items, schemas, simple_string_enums=None):
+def analyze_union_variants(union_items, schemas, context_name=None, simple_string_enums=None):
     """Analyze anyOf/oneOf items to determine variant types"""
     variants = []
     enum_types = {}  # Local tracking of enum types
     
     for item in union_items:
         if not isinstance(item, dict):
+            continue
+
+        # Flatten nested anyOf/oneOf structures before handling concrete nodes
+        nested = item.get('anyOf') or item.get('oneOf')
+        if nested:
+            nested_variants, nested_enum_types = analyze_union_variants(nested, schemas, context_name)
+            for variant in nested_variants:
+                if variant not in variants:
+                    variants.append(variant)
+            enum_types.update(nested_enum_types)
             continue
             
         # Handle string type
@@ -158,10 +190,14 @@ def analyze_union_variants(union_items, schemas, simple_string_enums=None):
                 existing_names = [v[0] for v in variants]
                 if variant_name in existing_names or variant_name == 'Text':
                     variant_name = variant_name + 'Variant'
-                enum_name = variant_name + 'Enum'
+                base_name = convert_to_rust_type_name(context_name) if context_name else ''
+                enum_name = f"{base_name}{variant_name}Enum" if base_name else variant_name + 'Enum'
                 variants.append((variant_name, enum_name))
                 # Store the enum values for later creation
-                enum_types[enum_name] = item['enum']
+                enum_types[enum_name] = {
+                    'values': item['enum'],
+                    'default': item.get('default'),
+                }
             else:
                 variant_name = sanitize_variant_name(title)
                 # Avoid duplicate 'Text' variants
@@ -313,11 +349,42 @@ def create_untagged_enum(name, variants):
             f"}}",
         ])
     
+    # Add Display implementation that renders strings plainly and JSON serializes other variants
+    lines.extend([
+        f"impl std::fmt::Display for {name} {{",
+        "    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {",
+        "        match self {",
+    ])
+
+    for variant_name, variant_type in variants:
+        if variant_type == '()':
+            lines.append(f"            {name}::{variant_name} => write!(f, \"null\"),")
+        elif variant_type == 'String':
+            lines.append(f"            {name}::{variant_name}(value) => write!(f, \"{{}}\", value),")
+        elif variant_type.endswith('Enum'):
+            lines.append(f"            {name}::{variant_name}(value) => write!(f, \"{{}}\", value),")
+        else:
+            lines.extend([
+                f"            {name}::{variant_name}(value) => match serde_json::to_string(value) {{",
+                "                Ok(s) => write!(f, \"{}\", s),",
+                "                Err(_) => Err(std::fmt::Error),",
+                "            },",
+            ])
+
+    lines.extend([
+        "        }",
+        "    }",
+        "}",
+        "",
+    ])
+
     lines.append("")
     return '\n'.join(lines)
 
-def create_simple_string_enum(name, values):
+def create_simple_string_enum(name, enum_info):
     """Generate a simple string enum"""
+    values = enum_info['values']
+    default_value = enum_info.get('default')
     lines = [
         f"/// {name} - String enum type",
         "#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]",
@@ -325,26 +392,29 @@ def create_simple_string_enum(name, values):
         f"pub enum {name} {{",
     ]
     
+    variant_value_pairs = []
+
+    def to_variant(val: str) -> str:
+        if val == 'none':
+            return 'None'
+        if val == 'auto':
+            return 'Auto'
+        if val == 'required':
+            return 'Required'
+        if val == 'json_object':
+            return 'JsonObject'
+        if val == 'json_schema':
+            return 'JsonSchema'
+        return ''.join(word.capitalize() for word in val.replace('-', '_').split('_'))
+
     for value in values:
-        # Convert value to proper variant name
-        if value == 'none':
-            variant = 'None'
-        elif value == 'auto':
-            variant = 'Auto'
-        elif value == 'required':
-            variant = 'Required'
-        elif value == 'json_object':
-            variant = 'JsonObject'
-        elif value == 'json_schema':
-            variant = 'JsonSchema'
-        else:
-            # General case: capitalize and handle underscores
-            variant = ''.join(word.capitalize() for word in value.replace('-', '_').split('_'))
-        
+        variant = to_variant(value)
+
         # Add serde rename if variant name differs from original value
         if variant.lower() != value:
             lines.append(f'    #[serde(rename = "{value}")]')
         lines.append(f"    {variant},")
+        variant_value_pairs.append((variant, value))
     
     lines.extend([
         "}",
@@ -353,24 +423,41 @@ def create_simple_string_enum(name, values):
         f"    fn default() -> Self {{",
     ])
     
-    # Get the first variant name properly
-    first_value = values[0]
-    if first_value == 'none':
-        first_variant = 'None'
-    elif first_value == 'auto':
-        first_variant = 'Auto'
-    elif first_value == 'required':
-        first_variant = 'Required'
-    else:
-        first_variant = ''.join(word.capitalize() for word in first_value.replace('-', '_').split('_'))
-    
+    # Determine which variant should be default
+    first_value = default_value if default_value in values else values[0]
+    first_variant = None
+    for variant, value in variant_value_pairs:
+        if value == first_value:
+            first_variant = variant
+            break
+    if first_variant is None and variant_value_pairs:
+        first_variant = variant_value_pairs[0][0]
+
     lines.extend([
         f"        Self::{first_variant}",
         f"    }}",
         f"}}",
         "",
     ])
-    
+
+    # Implement Display so enums stringify to their wire representation
+    lines.extend([
+        f"impl std::fmt::Display for {name} {{",
+        f"    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {{",
+        "        let value = match self {",
+    ])
+
+    for variant, value in variant_value_pairs:
+        lines.append(f'            {name}::{variant} => "{value}",')
+
+    lines.extend([
+        "        };",
+        "        write!(f, \"{}\", value)",
+        "    }",
+        "}",
+        "",
+    ])
+
     return '\n'.join(lines)
 
 
@@ -469,16 +556,24 @@ def main():
     created_modules = set()
     
     # First, create files for simple string enums that might not exist
-    for enum_name in simple_string_enums:
+    for enum_name, enum_info in simple_string_enums.items():
         filename = pascal_to_snake(enum_name) + '.rs'
         filepath = os.path.join(models_dir, filename)
+        new_content = "use serde::{Deserialize, Serialize};\n\n" + create_simple_string_enum(enum_name, enum_info)
         if not os.path.exists(filepath):
             print(f"  Creating new file: {filename}")
             with open(filepath, 'w') as f:
-                f.write("use serde::{Deserialize, Serialize};\n\n")
-                f.write(create_simple_string_enum(enum_name, simple_string_enums[enum_name]))
+                f.write(new_content)
             created_modules.add(pascal_to_snake(enum_name))
             fixed_count += 1
+        else:
+            with open(filepath, 'r') as f:
+                current_content = f.read()
+            if current_content != new_content:
+                print(f"  Updating file: {filename}")
+                with open(filepath, 'w') as f:
+                    f.write(new_content)
+                fixed_count += 1
     
     # Now fix the untagged union types
     for type_name, variants in untagged_unions.items():

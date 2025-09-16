@@ -23,11 +23,11 @@ pub struct ThreadObject {
     /// The Unix timestamp (in seconds) for when the thread was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    #[serde(rename = "tool_resources")]
+    #[serde(rename = "tool_resources", deserialize_with = "Option::deserialize")]
     pub tool_resources: Option<Box<models::ModifyThreadRequestToolResources>>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata")]
-    pub metadata: std::collections::HashMap<String, String>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
+    pub metadata: Option<std::collections::HashMap<String, String>>,
 }
 
 impl ThreadObject {
@@ -37,7 +37,7 @@ impl ThreadObject {
         object: Object,
         created_at: i32,
         tool_resources: Option<models::ModifyThreadRequestToolResources>,
-        metadata: std::collections::HashMap<String, String>,
+        metadata: Option<std::collections::HashMap<String, String>>,
     ) -> ThreadObject {
         ThreadObject {
             id,

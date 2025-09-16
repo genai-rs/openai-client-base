@@ -19,10 +19,20 @@ pub struct BatchRequestOutput {
     /// A developer-provided per-request id that will be used to match outputs to inputs.
     #[serde(rename = "custom_id", skip_serializing_if = "Option::is_none")]
     pub custom_id: Option<String>,
-    #[serde(rename = "response", skip_serializing_if = "Option::is_none")]
-    pub response: Option<Box<models::BatchRequestOutputResponse>>,
-    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<Box<models::BatchRequestOutputError>>,
+    #[serde(
+        rename = "response",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub response: Option<Option<Box<models::BatchRequestOutputResponse>>>,
+    #[serde(
+        rename = "error",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error: Option<Option<Box<models::BatchRequestOutputError>>>,
 }
 
 impl BatchRequestOutput {

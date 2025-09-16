@@ -25,8 +25,8 @@ pub struct VectorStoreSearchResultsPage {
     #[serde(rename = "has_more")]
     pub has_more: bool,
     /// The token for the next page, if any.
-    #[serde(rename = "next_page")]
-    pub next_page: String,
+    #[serde(rename = "next_page", deserialize_with = "Option::deserialize")]
+    pub next_page: Option<String>,
 }
 
 impl VectorStoreSearchResultsPage {
@@ -35,7 +35,7 @@ impl VectorStoreSearchResultsPage {
         search_query: Vec<String>,
         data: Vec<models::VectorStoreSearchResultItem>,
         has_more: bool,
-        next_page: String,
+        next_page: Option<String>,
     ) -> VectorStoreSearchResultsPage {
         VectorStoreSearchResultsPage {
             object,

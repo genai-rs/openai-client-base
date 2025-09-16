@@ -30,8 +30,13 @@ pub struct RealtimeBetaServerEventConversationItemInputAudioTranscriptionComplet
     #[serde(rename = "transcript")]
     pub transcript: String,
     /// The log probabilities of the transcription.
-    #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
-    pub logprobs: Option<Vec<models::LogProbProperties>>,
+    #[serde(
+        rename = "logprobs",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub logprobs: Option<Option<Vec<models::LogProbProperties>>>,
     #[serde(rename = "usage")]
     pub usage:
         Box<models::RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompletedUsage>,

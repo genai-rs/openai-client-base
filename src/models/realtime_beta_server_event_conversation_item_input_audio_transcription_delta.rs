@@ -29,8 +29,13 @@ pub struct RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta {
     #[serde(rename = "delta", skip_serializing_if = "Option::is_none")]
     pub delta: Option<String>,
     /// The log probabilities of the transcription.
-    #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
-    pub logprobs: Option<Vec<models::LogProbProperties>>,
+    #[serde(
+        rename = "logprobs",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub logprobs: Option<Option<Vec<models::LogProbProperties>>>,
 }
 
 impl RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta {

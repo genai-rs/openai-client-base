@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventSessionCreated : Returned when a Session is created. Emitted automatically when a new  connection is established as the first server event. This event will contain  the default Session configuration.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeBetaServerEventSessionCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]

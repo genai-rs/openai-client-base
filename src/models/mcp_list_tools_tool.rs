@@ -18,14 +18,24 @@ pub struct McpListToolsTool {
     #[serde(rename = "name")]
     pub name: String,
     /// The description of the tool.
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
+    #[serde(
+        rename = "description",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<Option<String>>,
     /// The JSON schema describing the tool's input.
     #[serde(rename = "input_schema")]
     pub input_schema: serde_json::Value,
     /// Additional annotations about the tool.
-    #[serde(rename = "annotations", skip_serializing_if = "Option::is_none")]
-    pub annotations: Option<serde_json::Value>,
+    #[serde(
+        rename = "annotations",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub annotations: Option<Option<serde_json::Value>>,
 }
 
 impl McpListToolsTool {

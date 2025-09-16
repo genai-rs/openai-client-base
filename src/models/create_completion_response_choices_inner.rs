@@ -18,8 +18,8 @@ pub struct CreateCompletionResponseChoicesInner {
     pub finish_reason: FinishReason,
     #[serde(rename = "index")]
     pub index: i32,
-    #[serde(rename = "logprobs")]
-    pub logprobs: Box<models::CreateCompletionResponseChoicesInnerLogprobs>,
+    #[serde(rename = "logprobs", deserialize_with = "Option::deserialize")]
+    pub logprobs: Option<Box<models::CreateCompletionResponseChoicesInnerLogprobs>>,
     #[serde(rename = "text")]
     pub text: String,
 }
@@ -28,13 +28,13 @@ impl CreateCompletionResponseChoicesInner {
     pub fn new(
         finish_reason: FinishReason,
         index: i32,
-        logprobs: models::CreateCompletionResponseChoicesInnerLogprobs,
+        logprobs: Option<models::CreateCompletionResponseChoicesInnerLogprobs>,
         text: String,
     ) -> CreateCompletionResponseChoicesInner {
         CreateCompletionResponseChoicesInner {
             finish_reason,
             index,
-            logprobs: Box::new(logprobs),
+            logprobs: logprobs.map(Box::new),
             text,
         }
     }

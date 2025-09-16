@@ -8,3 +8,20 @@ pub enum RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsag
     Transcripttextusagetokens(models::TranscriptTextUsageTokens),
     Transcripttextusageduration(models::TranscriptTextUsageDuration),
 }
+
+impl std::fmt::Display
+    for RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsage
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsage::Transcripttextusagetokens(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsage::Transcripttextusageduration(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
+}

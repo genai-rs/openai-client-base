@@ -27,8 +27,13 @@ pub struct RealtimeMcpApprovalResponse {
     #[serde(rename = "approve")]
     pub approve: bool,
     /// Optional reason for the decision.
-    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
-    pub reason: Option<String>,
+    #[serde(
+        rename = "reason",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub reason: Option<Option<String>>,
 }
 
 impl RealtimeMcpApprovalResponse {

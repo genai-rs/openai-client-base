@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeServerEventInputAudioBufferCommitted : Returned when an input audio buffer is committed, either by the client or  automatically in server VAD mode. The `item_id` property is the ID of the user message item that will be created, thus a `conversation.item.created` event  will also be sent to the client.
+/// RealtimeServerEventInputAudioBufferCommitted : Returned when an input audio buffer is committed, either by the client or automatically in server VAD mode. The `item_id` property is the ID of the user message item that will be created, thus a `conversation.item.created` event will also be sent to the client.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeServerEventInputAudioBufferCommitted {
     /// The unique ID of the server event.
@@ -20,15 +20,20 @@ pub struct RealtimeServerEventInputAudioBufferCommitted {
     #[serde(rename = "type", deserialize_with = "Option::deserialize")]
     pub r#type: Option<serde_json::Value>,
     /// The ID of the preceding item after which the new item will be inserted. Can be `null` if the item has no predecessor.
-    #[serde(rename = "previous_item_id", skip_serializing_if = "Option::is_none")]
-    pub previous_item_id: Option<String>,
+    #[serde(
+        rename = "previous_item_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub previous_item_id: Option<Option<String>>,
     /// The ID of the user message item that will be created.
     #[serde(rename = "item_id")]
     pub item_id: String,
 }
 
 impl RealtimeServerEventInputAudioBufferCommitted {
-    /// Returned when an input audio buffer is committed, either by the client or  automatically in server VAD mode. The `item_id` property is the ID of the user message item that will be created, thus a `conversation.item.created` event  will also be sent to the client.
+    /// Returned when an input audio buffer is committed, either by the client or automatically in server VAD mode. The `item_id` property is the ID of the user message item that will be created, thus a `conversation.item.created` event will also be sent to the client.
     pub fn new(
         event_id: String,
         r#type: Option<serde_json::Value>,

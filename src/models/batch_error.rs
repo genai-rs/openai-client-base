@@ -20,11 +20,21 @@ pub struct BatchError {
     #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
     /// The name of the parameter that caused the error, if applicable.
-    #[serde(rename = "param", skip_serializing_if = "Option::is_none")]
-    pub param: Option<String>,
+    #[serde(
+        rename = "param",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub param: Option<Option<String>>,
     /// The line number of the input file where the error occurred, if applicable.
-    #[serde(rename = "line", skip_serializing_if = "Option::is_none")]
-    pub line: Option<i32>,
+    #[serde(
+        rename = "line",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub line: Option<Option<i32>>,
 }
 
 impl BatchError {

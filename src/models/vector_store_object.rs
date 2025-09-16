@@ -37,14 +37,19 @@ pub struct VectorStoreObject {
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<Box<models::VectorStoreExpirationAfter>>,
     /// The Unix timestamp (in seconds) for when the vector store will expire.
-    #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<i32>,
+    #[serde(
+        rename = "expires_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expires_at: Option<Option<i32>>,
     /// The Unix timestamp (in seconds) for when the vector store was last active.
-    #[serde(rename = "last_active_at")]
-    pub last_active_at: i32,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata")]
-    pub metadata: std::collections::HashMap<String, String>,
+    #[serde(rename = "last_active_at", deserialize_with = "Option::deserialize")]
+    pub last_active_at: Option<i32>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
+    pub metadata: Option<std::collections::HashMap<String, String>>,
 }
 
 impl VectorStoreObject {
@@ -57,8 +62,8 @@ impl VectorStoreObject {
         usage_bytes: i32,
         file_counts: models::VectorStoreObjectFileCounts,
         status: Status,
-        last_active_at: i32,
-        metadata: std::collections::HashMap<String, String>,
+        last_active_at: Option<i32>,
+        metadata: Option<std::collections::HashMap<String, String>>,
     ) -> VectorStoreObject {
         VectorStoreObject {
             id,

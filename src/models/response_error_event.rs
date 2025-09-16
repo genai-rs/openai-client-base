@@ -18,14 +18,14 @@ pub struct ResponseErrorEvent {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The error code.
-    #[serde(rename = "code")]
-    pub code: String,
+    #[serde(rename = "code", deserialize_with = "Option::deserialize")]
+    pub code: Option<String>,
     /// The error message.
     #[serde(rename = "message")]
     pub message: String,
     /// The error parameter.
-    #[serde(rename = "param")]
-    pub param: String,
+    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
+    pub param: Option<String>,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
@@ -35,9 +35,9 @@ impl ResponseErrorEvent {
     /// Emitted when an error occurs.
     pub fn new(
         r#type: Type,
-        code: String,
+        code: Option<String>,
         message: String,
-        param: String,
+        param: Option<String>,
         sequence_number: i32,
     ) -> ResponseErrorEvent {
         ResponseErrorEvent {

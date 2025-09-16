@@ -24,13 +24,18 @@ pub struct ImageGenToolCall {
     #[serde(rename = "status")]
     pub status: Status,
     /// The generated image encoded in base64.
-    #[serde(rename = "result")]
-    pub result: String,
+    #[serde(rename = "result", deserialize_with = "Option::deserialize")]
+    pub result: Option<String>,
 }
 
 impl ImageGenToolCall {
     /// An image generation request made by the model.
-    pub fn new(r#type: Type, id: String, status: Status, result: String) -> ImageGenToolCall {
+    pub fn new(
+        r#type: Type,
+        id: String,
+        status: Status,
+        result: Option<String>,
+    ) -> ImageGenToolCall {
         ImageGenToolCall {
             r#type,
             id,

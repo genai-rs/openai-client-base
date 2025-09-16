@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FileSearchToolCall : The results of a file search tool call. See the  [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
+/// FileSearchToolCall : The results of a file search tool call. See the [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FileSearchToolCall {
     /// The unique ID of the file search tool call.
@@ -20,19 +20,24 @@ pub struct FileSearchToolCall {
     /// The type of the file search tool call. Always `file_search_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The status of the file search tool call. One of `in_progress`,  `searching`, `incomplete` or `failed`,
+    /// The status of the file search tool call. One of `in_progress`, `searching`, `incomplete` or `failed`,
     #[serde(rename = "status")]
     pub status: Status,
     /// The queries used to search for files.
     #[serde(rename = "queries")]
     pub queries: Vec<String>,
     /// The results of the file search tool call.
-    #[serde(rename = "results", skip_serializing_if = "Option::is_none")]
-    pub results: Option<Vec<models::FileSearchToolCallResultsInner>>,
+    #[serde(
+        rename = "results",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub results: Option<Option<Vec<models::FileSearchToolCallResultsInner>>>,
 }
 
 impl FileSearchToolCall {
-    /// The results of a file search tool call. See the  [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
+    /// The results of a file search tool call. See the [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
     pub fn new(
         id: String,
         r#type: Type,
@@ -60,7 +65,7 @@ impl Default for Type {
         Self::FileSearchCall
     }
 }
-/// The status of the file search tool call. One of `in_progress`,  `searching`, `incomplete` or `failed`,
+/// The status of the file search tool call. One of `in_progress`, `searching`, `incomplete` or `failed`,
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "in_progress")]

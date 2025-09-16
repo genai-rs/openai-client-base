@@ -24,8 +24,13 @@ pub struct LocalShellToolCallOutput {
     #[serde(rename = "output")]
     pub output: String,
     /// The status of the item. One of `in_progress`, `completed`, or `incomplete`.
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    #[serde(
+        rename = "status",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub status: Option<Option<Status>>,
 }
 
 impl LocalShellToolCallOutput {

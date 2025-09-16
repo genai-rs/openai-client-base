@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **integrations** | Option<[**Vec<models::CreateFineTuningJobRequestIntegrationsInner>**](CreateFineTuningJobRequest_integrations_inner.md)> | A list of integrations to enable for your fine-tuning job. | [optional]
 **seed** | Option<**i32**> | The seed controls the reproducibility of the job. Passing in the same seed and job parameters should produce the same results, but may differ in rare cases. If a seed is not specified, one will be generated for you.  | [optional]
 **method** | Option<[**models::FineTuneMethod**](FineTuneMethod.md)> |  | [optional]
-**metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
+**metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

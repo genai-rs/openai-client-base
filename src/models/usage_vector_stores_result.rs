@@ -20,8 +20,13 @@ pub struct UsageVectorStoresResult {
     #[serde(rename = "usage_bytes")]
     pub usage_bytes: i32,
     /// When `group_by=project_id`, this field provides the project ID of the grouped usage result.
-    #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id: Option<String>,
+    #[serde(
+        rename = "project_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub project_id: Option<Option<String>>,
 }
 
 impl UsageVectorStoresResult {

@@ -63,41 +63,10 @@ def add_display_impl_for_structs(models_dir):
       variants without quotes and struct variants as JSON.
     - For simple structs/enums, fall back to serde_json stringification.
     """
-    # Map of custom implementations keyed by struct name
-    custom_impls = {
-        'TranscriptionChunkingStrategy': r'''
-
-impl std::fmt::Display for TranscriptionChunkingStrategy {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            TranscriptionChunkingStrategy::TextVariant(v) => match v {
-                TextVariantEnum::ItemReference => write!(f, "item_reference"),
-            },
-            TranscriptionChunkingStrategy::Vadconfig(cfg) => {
-                match serde_json::to_string(cfg) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
-        }
-    }
-}
-''',
-    }
-
-    # Also add a generic list if needed in the future
+    # Generic fallback list for serde_json based Display implementations if needed later
     generic_structs = [
         'FileExpirationAfter',
     ]
-
-    for struct_name, impl_body in custom_impls.items():
-        file_name = re.sub(r'(?<!^)(?=[A-Z])', '_', struct_name).lower() + '.rs'
-        file_path = models_dir / file_name
-        if file_path.exists():
-            content = file_path.read_text()
-            if 'impl std::fmt::Display' not in content:
-                file_path.write_text(content + impl_body)
-                print(f"Added custom Display impl for {struct_name}")
 
     # Fallback generic serde_json-based Display for simple cases
     for struct_name in generic_structs:
@@ -116,6 +85,26 @@ impl std::fmt::Display for {struct_name} {{
 '''
                 file_path.write_text(content + impl_body)
                 print(f"Added Display impl for {struct_name}")
+
+
+def fix_manual_option_box_map(models_dir):
+    """Replace verbose Option<Box<T>> patterns with map(Box::new)."""
+    pattern = re.compile(
+        r"if let Some\(x\) = (?P<var>[A-Za-z_][A-Za-z0-9_]*) \{\s*"
+        r"Some\(Box::new\(x\)\)\s*\}\s*else \{\s*None\s*\}",
+        re.DOTALL,
+    )
+
+    for file_path in models_dir.glob("*.rs"):
+        content = file_path.read_text()
+        new_content, count = pattern.subn(
+            lambda m: f"{m.group('var')}.map(Box::new)",
+            content,
+        )
+        if count > 0:
+            file_path.write_text(new_content)
+            print(f"Simplified Option::map pattern in {file_path.name} ({count} occurrences)")
+
 
 def remove_default_from_empty_enums(models_dir):
     """Remove Default impl from empty enums and fix double closing braces."""
@@ -237,6 +226,7 @@ def main():
     fix_invalid_enum_variants(models_dir)
     fix_recursive_grammar_format(models_dir)
     add_display_impl_for_structs(models_dir)
+    fix_manual_option_box_map(models_dir)
     remove_default_from_empty_enums(models_dir)
     remove_default_from_problematic_structs(models_dir)
     

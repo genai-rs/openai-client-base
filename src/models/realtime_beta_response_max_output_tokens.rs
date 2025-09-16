@@ -5,19 +5,35 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeBetaResponseMaxOutputTokens {
-    TextVariant(TextVariantEnum),
+    TextVariant(RealtimeBetaResponseMaxOutputTokensTextVariantEnum),
 }
 
-/// TextVariantEnum - String enum type
+impl std::fmt::Display for RealtimeBetaResponseMaxOutputTokens {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RealtimeBetaResponseMaxOutputTokens::TextVariant(value) => write!(f, "{}", value),
+        }
+    }
+}
+
+/// RealtimeBetaResponseMaxOutputTokensTextVariantEnum - String enum type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
-pub enum TextVariantEnum {
-    #[serde(rename = "item_reference")]
-    ItemReference,
+pub enum RealtimeBetaResponseMaxOutputTokensTextVariantEnum {
+    Inf,
 }
 
-impl Default for TextVariantEnum {
+impl Default for RealtimeBetaResponseMaxOutputTokensTextVariantEnum {
     fn default() -> Self {
-        Self::ItemReference
+        Self::Inf
+    }
+}
+
+impl std::fmt::Display for RealtimeBetaResponseMaxOutputTokensTextVariantEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let value = match self {
+            RealtimeBetaResponseMaxOutputTokensTextVariantEnum::Inf => "inf",
+        };
+        write!(f, "{}", value)
     }
 }

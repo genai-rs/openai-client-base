@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **function_call** | Option<[**models::ChatCompletionResponseMessageFunctionCall**](ChatCompletionResponseMessage_function_call.md)> |  | [optional]
 **audio** | Option<[**models::ChatCompletionResponseMessageAudio**](ChatCompletionResponseMessage_audio.md)> |  | [optional]
 **id** | **String** | The identifier of the chat message. | 
-**content_parts** | Option<[**Vec<models::ChatCompletionMessageListDataInnerAllOfContentPartsInner>**](ChatCompletionMessageList_data_inner_allOf_content_parts_inner.md)> | If a content parts array was provided, this is an array of `text` and `image_url` parts.  Otherwise, null.  | [optional]
+**content_parts** | Option<[**Vec<models::ChatCompletionMessageListDataInnerAllOfContentPartsInner>**](ChatCompletionMessageList_data_inner_allOf_content_parts_inner.md)> | If a content parts array was provided, this is an array of `text` and `image_url` parts. Otherwise, null.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -18,17 +18,32 @@ pub struct RealtimeBetaServerEventErrorError {
     #[serde(rename = "type")]
     pub r#type: String,
     /// Error code, if any.
-    #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
-    pub code: Option<String>,
+    #[serde(
+        rename = "code",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub code: Option<Option<String>>,
     /// A human-readable error message.
     #[serde(rename = "message")]
     pub message: String,
     /// Parameter related to the error, if any.
-    #[serde(rename = "param", skip_serializing_if = "Option::is_none")]
-    pub param: Option<String>,
+    #[serde(
+        rename = "param",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub param: Option<Option<String>>,
     /// The event_id of the client event that caused the error, if applicable.
-    #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
-    pub event_id: Option<String>,
+    #[serde(
+        rename = "event_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub event_id: Option<Option<String>>,
 }
 
 impl RealtimeBetaServerEventErrorError {

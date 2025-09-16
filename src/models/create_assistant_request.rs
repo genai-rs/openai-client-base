@@ -16,33 +16,38 @@ pub struct CreateAssistantRequest {
     /// ID of the model to use. You can use the [List models](https://platform.openai.com/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](https://platform.openai.com/docs/models) for descriptions of them.
     #[serde(rename = "model")]
     pub model: String,
-    /// The name of the assistant. The maximum length is 256 characters.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    /// The description of the assistant. The maximum length is 512 characters.
+    pub name: Option<Box<models::CreateAssistantRequestName>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
-    /// The system instructions that the assistant uses. The maximum length is 256,000 characters.
+    pub description: Option<Box<models::CreateAssistantRequestDescription>>,
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
-    pub instructions: Option<String>,
-    #[serde(rename = "reasoning_effort", skip_serializing_if = "Option::is_none")]
-    pub reasoning_effort: Option<models::ReasoningEffort>,
+    pub instructions: Option<Box<models::CreateAssistantRequestInstructions>>,
+    #[serde(
+        rename = "reasoning_effort",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub reasoning_effort: Option<Option<models::ReasoningEffort>>,
     /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::AssistantTool>>,
     #[serde(rename = "tool_resources", skip_serializing_if = "Option::is_none")]
     pub tool_resources: Option<Box<models::CreateAssistantRequestToolResources>>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
-    /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    #[serde(
+        rename = "metadata",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
-    pub temperature: Option<f64>,
-    /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or temperature but not both.
+    pub temperature: Option<Box<models::CreateAssistantRequestTemperature>>,
     #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
-    pub top_p: Option<f64>,
+    pub top_p: Option<Box<models::CreateAssistantRequestTopP>>,
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
-    pub response_format: Option<Box<models::AssistantsApiResponseFormatOption>>,
+    pub response_format: Option<Box<models::CreateAssistantRequestResponseFormat>>,
 }
 
 impl CreateAssistantRequest {
