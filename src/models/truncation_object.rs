@@ -18,8 +18,13 @@ pub struct TruncationObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The number of most recent messages from the thread when constructing the context for the run.
-    #[serde(rename = "last_messages", skip_serializing_if = "Option::is_none")]
-    pub last_messages: Option<i32>,
+    #[serde(
+        rename = "last_messages",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_messages: Option<Option<i32>>,
 }
 
 impl TruncationObject {

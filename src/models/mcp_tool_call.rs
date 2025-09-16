@@ -30,11 +30,21 @@ pub struct McpToolCall {
     #[serde(rename = "arguments")]
     pub arguments: String,
     /// The output from the tool call.
-    #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
-    pub output: Option<String>,
+    #[serde(
+        rename = "output",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub output: Option<Option<String>>,
     /// The error from the tool call, if any.
-    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<String>,
+    #[serde(
+        rename = "error",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error: Option<Option<String>>,
 }
 
 impl McpToolCall {

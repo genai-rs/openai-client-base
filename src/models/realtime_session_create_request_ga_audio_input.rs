@@ -19,8 +19,13 @@ pub struct RealtimeSessionCreateRequestGaAudioInput {
     pub transcription: Option<Box<models::AudioTranscription>>,
     #[serde(rename = "noise_reduction", skip_serializing_if = "Option::is_none")]
     pub noise_reduction: Option<Box<models::RealtimeSessionInputAudioNoiseReduction>>,
-    #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
-    pub turn_detection: Option<Box<models::RealtimeTurnDetection>>,
+    #[serde(
+        rename = "turn_detection",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub turn_detection: Option<Option<Box<models::RealtimeTurnDetection>>>,
 }
 
 impl RealtimeSessionCreateRequestGaAudioInput {

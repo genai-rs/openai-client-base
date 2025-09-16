@@ -5,19 +5,35 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum FineTuneDpoHyperparametersBatchSize {
-    TextVariant(TextVariantEnum),
+    TextVariant(FineTuneDpoHyperparametersBatchSizeTextVariantEnum),
 }
 
-/// TextVariantEnum - String enum type
+impl std::fmt::Display for FineTuneDpoHyperparametersBatchSize {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            FineTuneDpoHyperparametersBatchSize::TextVariant(value) => write!(f, "{}", value),
+        }
+    }
+}
+
+/// FineTuneDpoHyperparametersBatchSizeTextVariantEnum - String enum type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
-pub enum TextVariantEnum {
-    #[serde(rename = "item_reference")]
-    ItemReference,
+pub enum FineTuneDpoHyperparametersBatchSizeTextVariantEnum {
+    Auto,
 }
 
-impl Default for TextVariantEnum {
+impl Default for FineTuneDpoHyperparametersBatchSizeTextVariantEnum {
     fn default() -> Self {
-        Self::ItemReference
+        Self::Auto
+    }
+}
+
+impl std::fmt::Display for FineTuneDpoHyperparametersBatchSizeTextVariantEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let value = match self {
+            FineTuneDpoHyperparametersBatchSizeTextVariantEnum::Auto => "auto",
+        };
+        write!(f, "{}", value)
     }
 }

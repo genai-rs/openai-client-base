@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**batch_size** | Option<[**models::FineTuningJobHyperparametersBatchSize**](FineTuningJob_hyperparameters_batch_size.md)> |  | [optional]
+**batch_size** | Option<[**models::Auto**](Auto.md)> |  | [optional]
 **learning_rate_multiplier** | Option<[**models::CreateFineTuningJobRequestHyperparametersLearningRateMultiplier**](CreateFineTuningJobRequest_hyperparameters_learning_rate_multiplier.md)> |  | [optional]
 **n_epochs** | Option<[**models::CreateFineTuningJobRequestHyperparametersNEpochs**](CreateFineTuningJobRequest_hyperparameters_n_epochs.md)> |  | [optional]
 

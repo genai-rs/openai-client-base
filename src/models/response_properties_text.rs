@@ -16,8 +16,13 @@ use serde::{Deserialize, Serialize};
 pub struct ResponsePropertiesText {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<Box<models::TextResponseFormatConfiguration>>,
-    #[serde(rename = "verbosity", skip_serializing_if = "Option::is_none")]
-    pub verbosity: Option<models::Verbosity>,
+    #[serde(
+        rename = "verbosity",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub verbosity: Option<Option<models::Verbosity>>,
 }
 
 impl ResponsePropertiesText {

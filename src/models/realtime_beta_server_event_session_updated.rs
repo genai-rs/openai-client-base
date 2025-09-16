@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventSessionUpdated : Returned when a session is updated with a `session.update` event, unless there is an error.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeBetaServerEventSessionUpdated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]

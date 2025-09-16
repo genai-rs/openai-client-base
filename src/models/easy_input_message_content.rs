@@ -35,3 +35,16 @@ impl From<&str> for EasyInputMessageContent {
         Self::TextInput(s.to_string())
     }
 }
+impl std::fmt::Display for EasyInputMessageContent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            EasyInputMessageContent::TextInput(value) => write!(f, "{}", value),
+            EasyInputMessageContent::Inputmessagecontentlist(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+        }
+    }
+}

@@ -26,8 +26,13 @@ pub struct CreateChatCompletionStreamResponse {
     /// The model to generate the completion.
     #[serde(rename = "model")]
     pub model: String,
-    #[serde(rename = "service_tier", skip_serializing_if = "Option::is_none")]
-    pub service_tier: Option<models::ServiceTier>,
+    #[serde(
+        rename = "service_tier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub service_tier: Option<Option<models::ServiceTier>>,
     /// This fingerprint represents the backend configuration that the model runs with. Can be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism.
     #[serde(rename = "system_fingerprint", skip_serializing_if = "Option::is_none")]
     pub system_fingerprint: Option<String>,

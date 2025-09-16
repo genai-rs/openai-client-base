@@ -40,25 +40,25 @@ pub struct RunStepObject {
     pub status: Status,
     #[serde(rename = "step_details")]
     pub step_details: Box<models::RunStepObjectStepDetails>,
-    #[serde(rename = "last_error")]
+    #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
     pub last_error: Option<Box<models::RunStepObjectLastError>>,
     /// The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
-    #[serde(rename = "expired_at")]
-    pub expired_at: i32,
+    #[serde(rename = "expired_at", deserialize_with = "Option::deserialize")]
+    pub expired_at: Option<i32>,
     /// The Unix timestamp (in seconds) for when the run step was cancelled.
-    #[serde(rename = "cancelled_at")]
-    pub cancelled_at: i32,
+    #[serde(rename = "cancelled_at", deserialize_with = "Option::deserialize")]
+    pub cancelled_at: Option<i32>,
     /// The Unix timestamp (in seconds) for when the run step failed.
-    #[serde(rename = "failed_at")]
-    pub failed_at: i32,
+    #[serde(rename = "failed_at", deserialize_with = "Option::deserialize")]
+    pub failed_at: Option<i32>,
     /// The Unix timestamp (in seconds) for when the run step completed.
-    #[serde(rename = "completed_at")]
-    pub completed_at: i32,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata")]
-    pub metadata: std::collections::HashMap<String, String>,
-    #[serde(rename = "usage")]
-    pub usage: Box<models::RunStepCompletionUsage>,
+    #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
+    pub completed_at: Option<i32>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
+    pub metadata: Option<std::collections::HashMap<String, String>>,
+    #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
+    pub usage: Option<Box<models::RunStepCompletionUsage>>,
 }
 
 impl RunStepObject {
@@ -74,12 +74,12 @@ impl RunStepObject {
         status: Status,
         step_details: models::RunStepObjectStepDetails,
         last_error: Option<models::RunStepObjectLastError>,
-        expired_at: i32,
-        cancelled_at: i32,
-        failed_at: i32,
-        completed_at: i32,
-        metadata: std::collections::HashMap<String, String>,
-        usage: models::RunStepCompletionUsage,
+        expired_at: Option<i32>,
+        cancelled_at: Option<i32>,
+        failed_at: Option<i32>,
+        completed_at: Option<i32>,
+        metadata: Option<std::collections::HashMap<String, String>>,
+        usage: Option<models::RunStepCompletionUsage>,
     ) -> RunStepObject {
         RunStepObject {
             id,
@@ -97,7 +97,7 @@ impl RunStepObject {
             failed_at,
             completed_at,
             metadata,
-            usage: Box::new(usage),
+            usage: usage.map(Box::new),
         }
     }
 }

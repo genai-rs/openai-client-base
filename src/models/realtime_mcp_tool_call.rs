@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeMcpToolCall : A Realtime item representing an invocation of a tool on an MCP server.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeMcpToolCall {
     /// The type of the item. Always `mcp_tool_call`.
     #[serde(rename = "type")]
@@ -32,14 +32,26 @@ pub struct RealtimeMcpToolCall {
     /// The ID of an associated approval request, if any.
     #[serde(
         rename = "approval_request_id",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub approval_request_id: Option<String>,
+    pub approval_request_id: Option<Option<String>>,
     /// The output from the tool call.
-    #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
-    pub output: Option<String>,
-    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<Box<models::RealtimeMcpToolCallError>>,
+    #[serde(
+        rename = "output",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub output: Option<Option<String>>,
+    #[serde(
+        rename = "error",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error: Option<Option<Box<models::RealtimeMcpToolCallError>>>,
 }
 
 impl RealtimeMcpToolCall {

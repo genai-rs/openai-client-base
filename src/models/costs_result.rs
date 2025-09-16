@@ -19,11 +19,21 @@ pub struct CostsResult {
     #[serde(rename = "amount", skip_serializing_if = "Option::is_none")]
     pub amount: Option<Box<models::CostsResultAmount>>,
     /// When `group_by=line_item`, this field provides the line item of the grouped costs result.
-    #[serde(rename = "line_item", skip_serializing_if = "Option::is_none")]
-    pub line_item: Option<String>,
+    #[serde(
+        rename = "line_item",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub line_item: Option<Option<String>>,
     /// When `group_by=project_id`, this field provides the project ID of the grouped costs result.
-    #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id: Option<String>,
+    #[serde(
+        rename = "project_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub project_id: Option<Option<String>>,
 }
 
 impl CostsResult {

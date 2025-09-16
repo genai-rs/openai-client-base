@@ -5,19 +5,39 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum McpToolRequireApproval {
-    McpToolApprovalSetting(McpToolApprovalSettingEnum),
+    McpToolApprovalSetting(McpToolRequireApprovalMcpToolApprovalSettingEnum),
+    Null,
 }
 
-/// McpToolApprovalSettingEnum - String enum type
+impl std::fmt::Display for McpToolRequireApproval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            McpToolRequireApproval::McpToolApprovalSetting(value) => write!(f, "{}", value),
+            McpToolRequireApproval::Null => write!(f, "null"),
+        }
+    }
+}
+
+/// McpToolRequireApprovalMcpToolApprovalSettingEnum - String enum type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
-pub enum McpToolApprovalSettingEnum {
+pub enum McpToolRequireApprovalMcpToolApprovalSettingEnum {
     Always,
     Never,
 }
 
-impl Default for McpToolApprovalSettingEnum {
+impl Default for McpToolRequireApprovalMcpToolApprovalSettingEnum {
     fn default() -> Self {
         Self::Always
+    }
+}
+
+impl std::fmt::Display for McpToolRequireApprovalMcpToolApprovalSettingEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let value = match self {
+            McpToolRequireApprovalMcpToolApprovalSettingEnum::Always => "always",
+            McpToolRequireApprovalMcpToolApprovalSettingEnum::Never => "never",
+        };
+        write!(f, "{}", value)
     }
 }

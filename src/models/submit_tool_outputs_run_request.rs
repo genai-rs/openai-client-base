@@ -17,8 +17,13 @@ pub struct SubmitToolOutputsRunRequest {
     #[serde(rename = "tool_outputs")]
     pub tool_outputs: Vec<models::SubmitToolOutputsRunRequestToolOutputsInner>,
     /// If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message.
-    #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
-    pub stream: Option<bool>,
+    #[serde(
+        rename = "stream",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub stream: Option<Option<bool>>,
 }
 
 impl SubmitToolOutputsRunRequest {

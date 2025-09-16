@@ -14,8 +14,13 @@ use serde::{Deserialize, Serialize};
 /// FineTuningJobHyperparameters : The hyperparameters used for the fine-tuning job. This value will only be returned when running `supervised` jobs.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuningJobHyperparameters {
-    #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
-    pub batch_size: Option<Box<models::FineTuningJobHyperparametersBatchSize>>,
+    #[serde(
+        rename = "batch_size",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub batch_size: Option<Option<Box<models::Auto>>>,
     #[serde(
         rename = "learning_rate_multiplier",
         skip_serializing_if = "Option::is_none"

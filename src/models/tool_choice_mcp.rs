@@ -21,8 +21,13 @@ pub struct ToolChoiceMcp {
     #[serde(rename = "server_label")]
     pub server_label: String,
     /// The name of the tool to call on the server.
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
 }
 
 impl ToolChoiceMcp {

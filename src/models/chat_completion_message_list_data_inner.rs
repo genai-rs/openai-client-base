@@ -30,15 +30,25 @@ pub struct ChatCompletionMessageListDataInner {
     pub role: Role,
     #[serde(rename = "function_call", skip_serializing_if = "Option::is_none")]
     pub function_call: Option<Box<models::ChatCompletionResponseMessageFunctionCall>>,
-    #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::ChatCompletionResponseMessageAudio>>,
+    #[serde(
+        rename = "audio",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub audio: Option<Option<Box<models::ChatCompletionResponseMessageAudio>>>,
     /// The identifier of the chat message.
     #[serde(rename = "id")]
     pub id: String,
-    /// If a content parts array was provided, this is an array of `text` and `image_url` parts.  Otherwise, null.
-    #[serde(rename = "content_parts", skip_serializing_if = "Option::is_none")]
+    /// If a content parts array was provided, this is an array of `text` and `image_url` parts. Otherwise, null.
+    #[serde(
+        rename = "content_parts",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub content_parts:
-        Option<Vec<models::ChatCompletionMessageListDataInnerAllOfContentPartsInner>>,
+        Option<Option<Vec<models::ChatCompletionMessageListDataInnerAllOfContentPartsInner>>>,
 }
 
 impl ChatCompletionMessageListDataInner {

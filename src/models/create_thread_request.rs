@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateThreadRequest : Options to create a new thread. If no thread is provided when running a  request, an empty thread will be created.
+/// CreateThreadRequest : Options to create a new thread. If no thread is provided when running a request, an empty thread will be created.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateThreadRequest {
     /// A list of [messages](https://platform.openai.com/docs/api-reference/messages) to start the thread with.
@@ -19,13 +19,18 @@ pub struct CreateThreadRequest {
     pub messages: Option<Vec<models::CreateMessageRequest>>,
     #[serde(rename = "tool_resources", skip_serializing_if = "Option::is_none")]
     pub tool_resources: Option<Box<models::CreateThreadRequestToolResources>>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    #[serde(
+        rename = "metadata",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
 }
 
 impl CreateThreadRequest {
-    /// Options to create a new thread. If no thread is provided when running a  request, an empty thread will be created.
+    /// Options to create a new thread. If no thread is provided when running a request, an empty thread will be created.
     pub fn new() -> CreateThreadRequest {
         CreateThreadRequest {
             messages: None,

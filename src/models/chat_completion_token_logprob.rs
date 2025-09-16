@@ -20,8 +20,8 @@ pub struct ChatCompletionTokenLogprob {
     #[serde(rename = "logprob")]
     pub logprob: f64,
     /// A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be `null` if there is no bytes representation for the token.
-    #[serde(rename = "bytes")]
-    pub bytes: Vec<i32>,
+    #[serde(rename = "bytes", deserialize_with = "Option::deserialize")]
+    pub bytes: Option<Vec<i32>>,
     /// List of the most likely tokens and their log probability, at this token position. In rare cases, there may be fewer than the number of requested `top_logprobs` returned.
     #[serde(rename = "top_logprobs")]
     pub top_logprobs: Vec<models::ChatCompletionTokenLogprobTopLogprobsInner>,
@@ -31,7 +31,7 @@ impl ChatCompletionTokenLogprob {
     pub fn new(
         token: String,
         logprob: f64,
-        bytes: Vec<i32>,
+        bytes: Option<Vec<i32>>,
         top_logprobs: Vec<models::ChatCompletionTokenLogprobTopLogprobsInner>,
     ) -> ChatCompletionTokenLogprob {
         ChatCompletionTokenLogprob {

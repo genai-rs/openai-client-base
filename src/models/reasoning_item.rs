@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ReasoningItem : A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually  [managing context](https://platform.openai.com/docs/guides/conversation-state).
+/// ReasoningItem : A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually [managing context](https://platform.openai.com/docs/guides/conversation-state).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ReasoningItem {
     /// The type of the object. Always `reasoning`.
@@ -21,8 +21,13 @@ pub struct ReasoningItem {
     #[serde(rename = "id")]
     pub id: String,
     /// The encrypted content of the reasoning item - populated when a response is generated with `reasoning.encrypted_content` in the `include` parameter.
-    #[serde(rename = "encrypted_content", skip_serializing_if = "Option::is_none")]
-    pub encrypted_content: Option<String>,
+    #[serde(
+        rename = "encrypted_content",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub encrypted_content: Option<Option<String>>,
     /// Reasoning summary content.
     #[serde(rename = "summary")]
     pub summary: Vec<models::ReasoningItemSummaryInner>,
@@ -35,7 +40,7 @@ pub struct ReasoningItem {
 }
 
 impl ReasoningItem {
-    /// A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually  [managing context](https://platform.openai.com/docs/guides/conversation-state).
+    /// A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually [managing context](https://platform.openai.com/docs/guides/conversation-state).
     pub fn new(
         r#type: Type,
         id: String,

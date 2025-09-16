@@ -42,8 +42,13 @@ pub struct RealtimeSessionCreateRequestGa {
     pub max_output_tokens: Option<Box<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>>,
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
     pub truncation: Option<Box<models::RealtimeTruncation>>,
-    #[serde(rename = "prompt", skip_serializing_if = "Option::is_none")]
-    pub prompt: Option<Box<models::Prompt>>,
+    #[serde(
+        rename = "prompt",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt: Option<Option<Box<models::Prompt>>>,
 }
 
 impl RealtimeSessionCreateRequestGa {

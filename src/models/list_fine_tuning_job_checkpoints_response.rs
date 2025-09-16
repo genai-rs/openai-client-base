@@ -17,10 +17,20 @@ pub struct ListFineTuningJobCheckpointsResponse {
     pub data: Vec<models::FineTuningJobCheckpoint>,
     #[serde(rename = "object")]
     pub object: Object,
-    #[serde(rename = "first_id", skip_serializing_if = "Option::is_none")]
-    pub first_id: Option<String>,
-    #[serde(rename = "last_id", skip_serializing_if = "Option::is_none")]
-    pub last_id: Option<String>,
+    #[serde(
+        rename = "first_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub first_id: Option<Option<String>>,
+    #[serde(
+        rename = "last_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_id: Option<Option<String>>,
     #[serde(rename = "has_more")]
     pub has_more: bool,
 }

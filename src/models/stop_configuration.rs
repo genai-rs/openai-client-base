@@ -35,3 +35,14 @@ impl From<&str> for StopConfiguration {
         Self::Text(s.to_string())
     }
 }
+impl std::fmt::Display for StopConfiguration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            StopConfiguration::Text(value) => write!(f, "{}", value),
+            StopConfiguration::ArrayOfStrings(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
+}

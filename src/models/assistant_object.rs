@@ -24,33 +24,53 @@ pub struct AssistantObject {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     /// The name of the assistant. The maximum length is 256 characters.
-    #[serde(rename = "name")]
-    pub name: String,
+    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    pub name: Option<String>,
     /// The description of the assistant. The maximum length is 512 characters.
-    #[serde(rename = "description")]
-    pub description: String,
+    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    pub description: Option<String>,
     /// ID of the model to use. You can use the [List models](https://platform.openai.com/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](https://platform.openai.com/docs/models) for descriptions of them.
     #[serde(rename = "model")]
     pub model: String,
     /// The system instructions that the assistant uses. The maximum length is 256,000 characters.
-    #[serde(rename = "instructions")]
-    pub instructions: String,
+    #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
+    pub instructions: Option<String>,
     /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
     #[serde(rename = "tools")]
     pub tools: Vec<models::AssistantTool>,
-    #[serde(rename = "tool_resources", skip_serializing_if = "Option::is_none")]
-    pub tool_resources: Option<Box<models::AssistantObjectToolResources>>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata")]
-    pub metadata: std::collections::HashMap<String, String>,
+    #[serde(
+        rename = "tool_resources",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tool_resources: Option<Option<Box<models::AssistantObjectToolResources>>>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
+    pub metadata: Option<std::collections::HashMap<String, String>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
-    #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
-    pub temperature: Option<f64>,
+    #[serde(
+        rename = "temperature",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub temperature: Option<Option<f64>>,
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or temperature but not both.
-    #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
-    pub top_p: Option<f64>,
-    #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
-    pub response_format: Option<Box<models::AssistantsApiResponseFormatOption>>,
+    #[serde(
+        rename = "top_p",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub top_p: Option<Option<f64>>,
+    #[serde(
+        rename = "response_format",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub response_format: Option<Option<Box<models::AssistantsApiResponseFormatOption>>>,
 }
 
 impl AssistantObject {
@@ -59,12 +79,12 @@ impl AssistantObject {
         id: String,
         object: Object,
         created_at: i32,
-        name: String,
-        description: String,
+        name: Option<String>,
+        description: Option<String>,
         model: String,
-        instructions: String,
+        instructions: Option<String>,
         tools: Vec<models::AssistantTool>,
-        metadata: std::collections::HashMap<String, String>,
+        metadata: Option<std::collections::HashMap<String, String>>,
     ) -> AssistantObject {
         AssistantObject {
             id,

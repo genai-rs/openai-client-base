@@ -32,8 +32,13 @@ pub struct RealtimeServerEventResponseMcpCallArgumentsDelta {
     #[serde(rename = "delta")]
     pub delta: String,
     /// If present, indicates the delta text was obfuscated.
-    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
-    pub obfuscation: Option<String>,
+    #[serde(
+        rename = "obfuscation",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub obfuscation: Option<Option<String>>,
 }
 
 impl RealtimeServerEventResponseMcpCallArgumentsDelta {

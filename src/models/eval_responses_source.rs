@@ -18,37 +18,79 @@ pub struct EvalResponsesSource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Metadata filter for the responses. This is a query parameter used to select responses.
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<serde_json::Value>,
-    /// The name of the model to find responses for. This is a query parameter used to select responses.
+    #[serde(
+        rename = "metadata",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub metadata: Option<Option<serde_json::Value>>,
+    /// ID of the model to use
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Optional string to search the 'instructions' field. This is a query parameter used to select responses.
     #[serde(
         rename = "instructions_search",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub instructions_search: Option<String>,
+    pub instructions_search: Option<Option<String>>,
     /// Only include items created after this timestamp (inclusive). This is a query parameter used to select responses.
-    #[serde(rename = "created_after", skip_serializing_if = "Option::is_none")]
-    pub created_after: Option<i32>,
+    #[serde(
+        rename = "created_after",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_after: Option<Option<i32>>,
     /// Only include items created before this timestamp (inclusive). This is a query parameter used to select responses.
-    #[serde(rename = "created_before", skip_serializing_if = "Option::is_none")]
-    pub created_before: Option<i32>,
-    #[serde(rename = "reasoning_effort", skip_serializing_if = "Option::is_none")]
-    pub reasoning_effort: Option<models::ReasoningEffort>,
+    #[serde(
+        rename = "created_before",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created_before: Option<Option<i32>>,
+    #[serde(
+        rename = "reasoning_effort",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub reasoning_effort: Option<Option<models::ReasoningEffort>>,
     /// Sampling temperature. This is a query parameter used to select responses.
-    #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
-    pub temperature: Option<f64>,
+    #[serde(
+        rename = "temperature",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub temperature: Option<Option<f64>>,
     /// Nucleus sampling parameter. This is a query parameter used to select responses.
-    #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
-    pub top_p: Option<f64>,
+    #[serde(
+        rename = "top_p",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub top_p: Option<Option<f64>>,
     /// List of user identifiers. This is a query parameter used to select responses.
-    #[serde(rename = "users", skip_serializing_if = "Option::is_none")]
-    pub users: Option<Vec<String>>,
+    #[serde(
+        rename = "users",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub users: Option<Option<Vec<String>>>,
     /// List of tool names. This is a query parameter used to select responses.
-    #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<String>>,
+    #[serde(
+        rename = "tools",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tools: Option<Option<Vec<String>>>,
 }
 
 impl EvalResponsesSource {

@@ -27,20 +27,29 @@ pub struct RunGraderResponseMetadataErrors {
     pub other_error: bool,
     #[serde(rename = "python_grader_server_error")]
     pub python_grader_server_error: bool,
-    #[serde(rename = "python_grader_server_error_type")]
-    pub python_grader_server_error_type: String,
+    #[serde(
+        rename = "python_grader_server_error_type",
+        deserialize_with = "Option::deserialize"
+    )]
+    pub python_grader_server_error_type: Option<String>,
     #[serde(rename = "python_grader_runtime_error")]
     pub python_grader_runtime_error: bool,
-    #[serde(rename = "python_grader_runtime_error_details")]
-    pub python_grader_runtime_error_details: String,
+    #[serde(
+        rename = "python_grader_runtime_error_details",
+        deserialize_with = "Option::deserialize"
+    )]
+    pub python_grader_runtime_error_details: Option<String>,
     #[serde(rename = "model_grader_server_error")]
     pub model_grader_server_error: bool,
     #[serde(rename = "model_grader_refusal_error")]
     pub model_grader_refusal_error: bool,
     #[serde(rename = "model_grader_parse_error")]
     pub model_grader_parse_error: bool,
-    #[serde(rename = "model_grader_server_error_details")]
-    pub model_grader_server_error_details: String,
+    #[serde(
+        rename = "model_grader_server_error_details",
+        deserialize_with = "Option::deserialize"
+    )]
+    pub model_grader_server_error_details: Option<String>,
 }
 
 impl RunGraderResponseMetadataErrors {
@@ -52,13 +61,13 @@ impl RunGraderResponseMetadataErrors {
         invalid_variable_error: bool,
         other_error: bool,
         python_grader_server_error: bool,
-        python_grader_server_error_type: String,
+        python_grader_server_error_type: Option<String>,
         python_grader_runtime_error: bool,
-        python_grader_runtime_error_details: String,
+        python_grader_runtime_error_details: Option<String>,
         model_grader_server_error: bool,
         model_grader_refusal_error: bool,
         model_grader_parse_error: bool,
-        model_grader_server_error_details: String,
+        model_grader_server_error_details: Option<String>,
     ) -> RunGraderResponseMetadataErrors {
         RunGraderResponseMetadataErrors {
             formula_parse_error,

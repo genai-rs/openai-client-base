@@ -29,14 +29,17 @@ pub struct MessageObject {
     /// The status of the message, which can be either `in_progress`, `incomplete`, or `completed`.
     #[serde(rename = "status")]
     pub status: Status,
-    #[serde(rename = "incomplete_details")]
+    #[serde(
+        rename = "incomplete_details",
+        deserialize_with = "Option::deserialize"
+    )]
     pub incomplete_details: Option<Box<models::MessageObjectIncompleteDetails>>,
     /// The Unix timestamp (in seconds) for when the message was completed.
-    #[serde(rename = "completed_at")]
-    pub completed_at: i32,
+    #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
+    pub completed_at: Option<i32>,
     /// The Unix timestamp (in seconds) for when the message was marked as incomplete.
-    #[serde(rename = "incomplete_at")]
-    pub incomplete_at: i32,
+    #[serde(rename = "incomplete_at", deserialize_with = "Option::deserialize")]
+    pub incomplete_at: Option<i32>,
     /// The entity that produced the message. One of `user` or `assistant`.
     #[serde(rename = "role")]
     pub role: Role,
@@ -44,17 +47,17 @@ pub struct MessageObject {
     #[serde(rename = "content")]
     pub content: Vec<models::MessageContent>,
     /// If applicable, the ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) that authored this message.
-    #[serde(rename = "assistant_id")]
-    pub assistant_id: String,
+    #[serde(rename = "assistant_id", deserialize_with = "Option::deserialize")]
+    pub assistant_id: Option<String>,
     /// The ID of the [run](https://platform.openai.com/docs/api-reference/runs) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints.
-    #[serde(rename = "run_id")]
-    pub run_id: String,
+    #[serde(rename = "run_id", deserialize_with = "Option::deserialize")]
+    pub run_id: Option<String>,
     /// A list of files attached to the message, and the tools they were added to.
-    #[serde(rename = "attachments")]
-    pub attachments: Vec<models::MessageObjectAttachmentsInner>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata")]
-    pub metadata: std::collections::HashMap<String, String>,
+    #[serde(rename = "attachments", deserialize_with = "Option::deserialize")]
+    pub attachments: Option<Vec<models::MessageObjectAttachmentsInner>>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
+    pub metadata: Option<std::collections::HashMap<String, String>>,
 }
 
 impl MessageObject {
@@ -66,14 +69,14 @@ impl MessageObject {
         thread_id: String,
         status: Status,
         incomplete_details: Option<models::MessageObjectIncompleteDetails>,
-        completed_at: i32,
-        incomplete_at: i32,
+        completed_at: Option<i32>,
+        incomplete_at: Option<i32>,
         role: Role,
         content: Vec<models::MessageContent>,
-        assistant_id: String,
-        run_id: String,
-        attachments: Vec<models::MessageObjectAttachmentsInner>,
-        metadata: std::collections::HashMap<String, String>,
+        assistant_id: Option<String>,
+        run_id: Option<String>,
+        attachments: Option<Vec<models::MessageObjectAttachmentsInner>>,
+        metadata: Option<std::collections::HashMap<String, String>>,
     ) -> MessageObject {
         MessageObject {
             id,

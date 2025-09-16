@@ -22,9 +22,10 @@ pub struct VectorStoreSearchResultItem {
     /// The similarity score for the result.
     #[serde(rename = "score")]
     pub score: f64,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be  useful for storing additional information about the object in a structured  format, and querying for objects via API or the dashboard. Keys are strings  with a maximum length of 64 characters. Values are strings with a maximum  length of 512 characters, booleans, or numbers.
-    #[serde(rename = "attributes")]
-    pub attributes: std::collections::HashMap<String, models::VectorStoreFileAttributesValue>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard. Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters, booleans, or numbers.
+    #[serde(rename = "attributes", deserialize_with = "Option::deserialize")]
+    pub attributes:
+        Option<std::collections::HashMap<String, models::VectorStoreFileAttributesValue>>,
     /// Content chunks from the file.
     #[serde(rename = "content")]
     pub content: Vec<models::VectorStoreSearchResultContentObject>,
@@ -35,7 +36,9 @@ impl VectorStoreSearchResultItem {
         file_id: String,
         filename: String,
         score: f64,
-        attributes: std::collections::HashMap<String, models::VectorStoreFileAttributesValue>,
+        attributes: Option<
+            std::collections::HashMap<String, models::VectorStoreFileAttributesValue>,
+        >,
         content: Vec<models::VectorStoreSearchResultContentObject>,
     ) -> VectorStoreSearchResultItem {
         VectorStoreSearchResultItem {

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **redacted_value** | **String** | The redacted value of the API key | 
 **value** | Option<**String**> | The value of the API key. Only shown on create. | [optional]
 **created_at** | **i64** | The Unix timestamp (in seconds) of when the API key was created | 
-**last_used_at** | **i64** | The Unix timestamp (in seconds) of when the API key was last used | 
+**last_used_at** | Option<**i64**> | The Unix timestamp (in seconds) of when the API key was last used | 
 **owner** | [**models::AdminApiKeyOwner**](AdminApiKey_owner.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -11,16 +11,26 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebSearchTool : Search the Internet for sources related to the prompt. Learn more about the  [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+/// WebSearchTool : Search the Internet for sources related to the prompt. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchTool {
     /// The type of the web search tool. One of `web_search` or `web_search_2025_08_26`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    #[serde(rename = "filters", skip_serializing_if = "Option::is_none")]
-    pub filters: Option<Box<models::WebSearchToolFilters>>,
-    #[serde(rename = "user_location", skip_serializing_if = "Option::is_none")]
-    pub user_location: Option<Box<models::WebSearchApproximateLocation>>,
+    #[serde(
+        rename = "filters",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub filters: Option<Option<Box<models::WebSearchToolFilters>>>,
+    #[serde(
+        rename = "user_location",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub user_location: Option<Option<Box<models::WebSearchApproximateLocation>>>,
     /// High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
     #[serde(
         rename = "search_context_size",
@@ -30,7 +40,7 @@ pub struct WebSearchTool {
 }
 
 impl WebSearchTool {
-    /// Search the Internet for sources related to the prompt. Learn more about the  [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+    /// Search the Internet for sources related to the prompt. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
     pub fn new(r#type: Type) -> WebSearchTool {
         WebSearchTool {
             r#type,

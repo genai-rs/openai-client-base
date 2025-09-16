@@ -20,14 +20,14 @@ pub struct FineTuningJob {
     /// The Unix timestamp (in seconds) for when the fine-tuning job was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    #[serde(rename = "error")]
+    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<Box<models::FineTuningJobError>>,
     /// The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
-    #[serde(rename = "fine_tuned_model")]
-    pub fine_tuned_model: String,
+    #[serde(rename = "fine_tuned_model", deserialize_with = "Option::deserialize")]
+    pub fine_tuned_model: Option<String>,
     /// The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
-    #[serde(rename = "finished_at")]
-    pub finished_at: i32,
+    #[serde(rename = "finished_at", deserialize_with = "Option::deserialize")]
+    pub finished_at: Option<i32>,
     #[serde(rename = "hyperparameters")]
     pub hyperparameters: Box<models::FineTuningJobHyperparameters>,
     /// The base model that is being fine-tuned.
@@ -46,28 +46,43 @@ pub struct FineTuningJob {
     #[serde(rename = "status")]
     pub status: Status,
     /// The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
-    #[serde(rename = "trained_tokens")]
-    pub trained_tokens: i32,
+    #[serde(rename = "trained_tokens", deserialize_with = "Option::deserialize")]
+    pub trained_tokens: Option<i32>,
     /// The file ID used for training. You can retrieve the training data with the [Files API](https://platform.openai.com/docs/api-reference/files/retrieve-contents).
     #[serde(rename = "training_file")]
     pub training_file: String,
     /// The file ID used for validation. You can retrieve the validation results with the [Files API](https://platform.openai.com/docs/api-reference/files/retrieve-contents).
-    #[serde(rename = "validation_file")]
-    pub validation_file: String,
+    #[serde(rename = "validation_file", deserialize_with = "Option::deserialize")]
+    pub validation_file: Option<String>,
     /// A list of integrations to enable for this fine-tuning job.
-    #[serde(rename = "integrations", skip_serializing_if = "Option::is_none")]
-    pub integrations: Option<Vec<models::FineTuningIntegration>>,
+    #[serde(
+        rename = "integrations",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub integrations: Option<Option<Vec<models::FineTuningIntegration>>>,
     /// The seed used for the fine-tuning job.
     #[serde(rename = "seed")]
     pub seed: i32,
     /// The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running.
-    #[serde(rename = "estimated_finish", skip_serializing_if = "Option::is_none")]
-    pub estimated_finish: Option<i32>,
+    #[serde(
+        rename = "estimated_finish",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub estimated_finish: Option<Option<i32>>,
     #[serde(rename = "method", skip_serializing_if = "Option::is_none")]
     pub method: Option<Box<models::FineTuneMethod>>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    #[serde(
+        rename = "metadata",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
 }
 
 impl FineTuningJob {
@@ -76,17 +91,17 @@ impl FineTuningJob {
         id: String,
         created_at: i32,
         error: Option<models::FineTuningJobError>,
-        fine_tuned_model: String,
-        finished_at: i32,
+        fine_tuned_model: Option<String>,
+        finished_at: Option<i32>,
         hyperparameters: models::FineTuningJobHyperparameters,
         model: String,
         object: Object,
         organization_id: String,
         result_files: Vec<String>,
         status: Status,
-        trained_tokens: i32,
+        trained_tokens: Option<i32>,
         training_file: String,
-        validation_file: String,
+        validation_file: Option<String>,
         seed: i32,
     ) -> FineTuningJob {
         FineTuningJob {

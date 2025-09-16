@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum RealtimeBetaResponseCreateParamsConversation {
     Text(String),
-    TextVariant(TextVariantEnum),
+    TextVariant(RealtimeBetaResponseCreateParamsConversationTextVariantEnum),
 }
 
 impl Default for RealtimeBetaResponseCreateParamsConversation {
@@ -32,16 +32,37 @@ impl From<&str> for RealtimeBetaResponseCreateParamsConversation {
         Self::Text(s.to_string())
     }
 }
-/// TextVariantEnum - String enum type
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum TextVariantEnum {
-    #[serde(rename = "item_reference")]
-    ItemReference,
+impl std::fmt::Display for RealtimeBetaResponseCreateParamsConversation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            RealtimeBetaResponseCreateParamsConversation::Text(value) => write!(f, "{}", value),
+            RealtimeBetaResponseCreateParamsConversation::TextVariant(value) => {
+                write!(f, "{}", value)
+            }
+        }
+    }
 }
 
-impl Default for TextVariantEnum {
+/// RealtimeBetaResponseCreateParamsConversationTextVariantEnum - String enum type
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum RealtimeBetaResponseCreateParamsConversationTextVariantEnum {
+    Auto,
+    None,
+}
+
+impl Default for RealtimeBetaResponseCreateParamsConversationTextVariantEnum {
     fn default() -> Self {
-        Self::ItemReference
+        Self::Auto
+    }
+}
+
+impl std::fmt::Display for RealtimeBetaResponseCreateParamsConversationTextVariantEnum {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let value = match self {
+            RealtimeBetaResponseCreateParamsConversationTextVariantEnum::Auto => "auto",
+            RealtimeBetaResponseCreateParamsConversationTextVariantEnum::None => "none",
+        };
+        write!(f, "{}", value)
     }
 }

@@ -22,10 +22,15 @@ pub struct FileSearchToolCallResultsInner {
     /// The name of the file.
     #[serde(rename = "filename", skip_serializing_if = "Option::is_none")]
     pub filename: Option<String>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be  useful for storing additional information about the object in a structured  format, and querying for objects via API or the dashboard. Keys are strings  with a maximum length of 64 characters. Values are strings with a maximum  length of 512 characters, booleans, or numbers.
-    #[serde(rename = "attributes", skip_serializing_if = "Option::is_none")]
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard. Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters, booleans, or numbers.
+    #[serde(
+        rename = "attributes",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub attributes:
-        Option<std::collections::HashMap<String, models::VectorStoreFileAttributesValue>>,
+        Option<Option<std::collections::HashMap<String, models::VectorStoreFileAttributesValue>>>,
     /// The relevance score of the file - a value between 0 and 1.
     #[serde(rename = "score", skip_serializing_if = "Option::is_none")]
     pub score: Option<f32>,

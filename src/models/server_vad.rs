@@ -36,8 +36,13 @@ pub struct ServerVad {
     #[serde(rename = "interrupt_response", skip_serializing_if = "Option::is_none")]
     pub interrupt_response: Option<bool>,
     /// Optional timeout after which a model response will be triggered automatically. This is useful for situations in which a long pause from the user is unexpected, such as a phone call. The model will effectively prompt the user to continue the conversation based on the current context.  The timeout value will be applied after the last model response's audio has finished playing, i.e. it's set to the `response.done` time plus audio playback duration.  An `input_audio_buffer.timeout_triggered` event (plus events associated with the Response) will be emitted when the timeout is reached. Idle timeout is currently only supported for `server_vad` mode.
-    #[serde(rename = "idle_timeout_ms", skip_serializing_if = "Option::is_none")]
-    pub idle_timeout_ms: Option<i32>,
+    #[serde(
+        rename = "idle_timeout_ms",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub idle_timeout_ms: Option<Option<i32>>,
 }
 
 impl ServerVad {

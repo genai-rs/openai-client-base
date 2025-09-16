@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeBetaServerEventError : Returned when an error occurs, which could be a client problem or a server  problem. Most errors are recoverable and the session will stay open, we  recommend to implementors to monitor and log error messages by default.
+/// RealtimeBetaServerEventError : Returned when an error occurs, which could be a client problem or a server problem. Most errors are recoverable and the session will stay open, we recommend to implementors to monitor and log error messages by default.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeBetaServerEventError {
     /// The unique ID of the server event.
@@ -24,7 +24,7 @@ pub struct RealtimeBetaServerEventError {
 }
 
 impl RealtimeBetaServerEventError {
-    /// Returned when an error occurs, which could be a client problem or a server  problem. Most errors are recoverable and the session will stay open, we  recommend to implementors to monitor and log error messages by default.
+    /// Returned when an error occurs, which could be a client problem or a server problem. Most errors are recoverable and the session will stay open, we recommend to implementors to monitor and log error messages by default.
     pub fn new(
         event_id: String,
         r#type: Option<serde_json::Value>,

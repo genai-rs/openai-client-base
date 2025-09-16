@@ -18,8 +18,13 @@ pub struct McpApprovalResponse {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the approval response
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    #[serde(
+        rename = "id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub id: Option<Option<String>>,
     /// The ID of the approval request being answered.
     #[serde(rename = "approval_request_id")]
     pub approval_request_id: String,
@@ -27,8 +32,13 @@ pub struct McpApprovalResponse {
     #[serde(rename = "approve")]
     pub approve: bool,
     /// Optional reason for the decision.
-    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
-    pub reason: Option<String>,
+    #[serde(
+        rename = "reason",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub reason: Option<Option<String>>,
 }
 
 impl McpApprovalResponse {

@@ -21,17 +21,32 @@ pub struct LocalShellExecAction {
     #[serde(rename = "command")]
     pub command: Vec<String>,
     /// Optional timeout in milliseconds for the command.
-    #[serde(rename = "timeout_ms", skip_serializing_if = "Option::is_none")]
-    pub timeout_ms: Option<i32>,
+    #[serde(
+        rename = "timeout_ms",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub timeout_ms: Option<Option<i32>>,
     /// Optional working directory to run the command in.
-    #[serde(rename = "working_directory", skip_serializing_if = "Option::is_none")]
-    pub working_directory: Option<String>,
+    #[serde(
+        rename = "working_directory",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub working_directory: Option<Option<String>>,
     /// Environment variables to set for the command.
     #[serde(rename = "env")]
     pub env: std::collections::HashMap<String, String>,
     /// Optional user to run the command as.
-    #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
-    pub user: Option<String>,
+    #[serde(
+        rename = "user",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub user: Option<Option<String>>,
 }
 
 impl LocalShellExecAction {

@@ -36,9 +36,14 @@ pub struct CreateImageRequest {
     /// Generate the image in streaming mode. Defaults to `false`. See the  [Image generation guide](https://platform.openai.com/docs/guides/image-generation) for more information. This parameter is only supported for `gpt-image-1`.
     #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
     pub stream: Option<bool>,
-    /// The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images  are generated if the full image is generated more quickly.
-    #[serde(rename = "partial_images", skip_serializing_if = "Option::is_none")]
-    pub partial_images: Option<i32>,
+    /// The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.
+    #[serde(
+        rename = "partial_images",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub partial_images: Option<Option<i32>>,
     /// The size of the generated images. Must be one of `1024x1024`, `1536x1024` (landscape), `1024x1536` (portrait), or `auto` (default value) for `gpt-image-1`, one of `256x256`, `512x512`, or `1024x1024` for `dall-e-2`, and one of `1024x1024`, `1792x1024`, or `1024x1792` for `dall-e-3`.
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<Size>,

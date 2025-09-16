@@ -21,8 +21,13 @@ pub struct RunStepDeltaStepDetailsToolCallsFunctionObjectFunction {
     #[serde(rename = "arguments", skip_serializing_if = "Option::is_none")]
     pub arguments: Option<String>,
     /// The output of the function. This will be `null` if the outputs have not been [submitted](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) yet.
-    #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
-    pub output: Option<String>,
+    #[serde(
+        rename = "output",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub output: Option<Option<String>>,
 }
 
 impl RunStepDeltaStepDetailsToolCallsFunctionObjectFunction {

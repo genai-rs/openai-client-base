@@ -20,8 +20,13 @@ pub struct RealtimeServerEventConversationItemDone {
     #[serde(rename = "type", deserialize_with = "Option::deserialize")]
     pub r#type: Option<serde_json::Value>,
     /// The ID of the item that precedes this one, if any. This is used to maintain ordering when items are inserted.
-    #[serde(rename = "previous_item_id", skip_serializing_if = "Option::is_none")]
-    pub previous_item_id: Option<String>,
+    #[serde(
+        rename = "previous_item_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub previous_item_id: Option<Option<String>>,
     #[serde(rename = "item")]
     pub item: Box<models::RealtimeConversationItem>,
 }

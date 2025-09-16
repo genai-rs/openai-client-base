@@ -39,3 +39,32 @@ impl From<&str> for EvalItemContent {
         Self::TextInput(s.to_string())
     }
 }
+impl std::fmt::Display for EvalItemContent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            EvalItemContent::TextInput(value) => write!(f, "{}", value),
+            EvalItemContent::Inputtextcontent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            EvalItemContent::OutputText(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            EvalItemContent::InputImage(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            EvalItemContent::Inputaudio(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            EvalItemContent::AnArrayOfInputTextInputImageAndInputAudio(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+        }
+    }
+}

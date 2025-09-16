@@ -24,8 +24,8 @@ pub struct VectorStoreFileContentResponse {
     #[serde(rename = "has_more")]
     pub has_more: bool,
     /// The token for the next page, if any.
-    #[serde(rename = "next_page")]
-    pub next_page: String,
+    #[serde(rename = "next_page", deserialize_with = "Option::deserialize")]
+    pub next_page: Option<String>,
 }
 
 impl VectorStoreFileContentResponse {
@@ -34,7 +34,7 @@ impl VectorStoreFileContentResponse {
         object: Object,
         data: Vec<models::VectorStoreFileContentResponseDataInner>,
         has_more: bool,
-        next_page: String,
+        next_page: Option<String>,
     ) -> VectorStoreFileContentResponse {
         VectorStoreFileContentResponse {
             object,

@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **status** | **String** | The status of the vector store, which can be either `expired`, `in_progress`, or `completed`. A status of `completed` indicates that the vector store is ready for use. | 
 **expires_after** | Option<[**models::VectorStoreExpirationAfter**](VectorStoreExpirationAfter.md)> |  | [optional]
 **expires_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the vector store will expire. | [optional]
-**last_active_at** | **i32** | The Unix timestamp (in seconds) for when the vector store was last active. | 
-**metadata** | **std::collections::HashMap<String, String>** | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | 
+**last_active_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the vector store was last active. | 
+**metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

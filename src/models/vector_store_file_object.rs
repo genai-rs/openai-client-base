@@ -32,14 +32,19 @@ pub struct VectorStoreFileObject {
     /// The status of the vector store file, which can be either `in_progress`, `completed`, `cancelled`, or `failed`. The status `completed` indicates that the vector store file is ready for use.
     #[serde(rename = "status")]
     pub status: Status,
-    #[serde(rename = "last_error")]
+    #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
     pub last_error: Option<Box<models::VectorStoreFileObjectLastError>>,
     #[serde(rename = "chunking_strategy", skip_serializing_if = "Option::is_none")]
     pub chunking_strategy: Option<Box<models::ChunkingStrategyResponse>>,
-    /// Set of 16 key-value pairs that can be attached to an object. This can be  useful for storing additional information about the object in a structured  format, and querying for objects via API or the dashboard. Keys are strings  with a maximum length of 64 characters. Values are strings with a maximum  length of 512 characters, booleans, or numbers.
-    #[serde(rename = "attributes", skip_serializing_if = "Option::is_none")]
+    /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard. Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters, booleans, or numbers.
+    #[serde(
+        rename = "attributes",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub attributes:
-        Option<std::collections::HashMap<String, models::VectorStoreFileAttributesValue>>,
+        Option<Option<std::collections::HashMap<String, models::VectorStoreFileAttributesValue>>>,
 }
 
 impl VectorStoreFileObject {

@@ -17,15 +17,19 @@ pub struct ChatCompletionRequestFunctionMessage {
     #[serde(rename = "role")]
     pub role: Role,
     /// The contents of the function message.
-    #[serde(rename = "content")]
-    pub content: String,
+    #[serde(rename = "content", deserialize_with = "Option::deserialize")]
+    pub content: Option<String>,
     /// The name of the function to call.
     #[serde(rename = "name")]
     pub name: String,
 }
 
 impl ChatCompletionRequestFunctionMessage {
-    pub fn new(role: Role, content: String, name: String) -> ChatCompletionRequestFunctionMessage {
+    pub fn new(
+        role: Role,
+        content: Option<String>,
+        name: String,
+    ) -> ChatCompletionRequestFunctionMessage {
         ChatCompletionRequestFunctionMessage {
             role,
             content,

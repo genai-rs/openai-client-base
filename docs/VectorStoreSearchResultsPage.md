@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **search_query** | **Vec<String>** |  | 
 **data** | [**Vec<models::VectorStoreSearchResultItem>**](VectorStoreSearchResultItem.md) | The list of search result items. | 
 **has_more** | **bool** | Indicates if there are more results to fetch. | 
-**next_page** | **String** | The token for the next page, if any. | 
+**next_page** | Option<**String**> | The token for the next page, if any. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -27,8 +27,13 @@ pub struct Project {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     /// The Unix timestamp (in seconds) of when the project was archived or `null`.
-    #[serde(rename = "archived_at", skip_serializing_if = "Option::is_none")]
-    pub archived_at: Option<i32>,
+    #[serde(
+        rename = "archived_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub archived_at: Option<Option<i32>>,
     /// `active` or `archived`
     #[serde(rename = "status")]
     pub status: Status,

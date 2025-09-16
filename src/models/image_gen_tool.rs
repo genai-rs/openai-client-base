@@ -38,8 +38,13 @@ pub struct ImageGenTool {
     /// Background type for the generated image. One of `transparent`,  `opaque`, or `auto`. Default: `auto`.
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<Background>,
-    #[serde(rename = "input_fidelity", skip_serializing_if = "Option::is_none")]
-    pub input_fidelity: Option<models::ImageInputFidelity>,
+    #[serde(
+        rename = "input_fidelity",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub input_fidelity: Option<Option<models::ImageInputFidelity>>,
     #[serde(rename = "input_image_mask", skip_serializing_if = "Option::is_none")]
     pub input_image_mask: Option<models::ImageGenToolInputImageMask>,
     /// Number of partial images to generate in streaming mode, from 0 (default value) to 3.

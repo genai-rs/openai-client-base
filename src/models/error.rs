@@ -13,18 +13,23 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Error {
-    #[serde(rename = "code")]
-    pub code: String,
+    #[serde(rename = "code", deserialize_with = "Option::deserialize")]
+    pub code: Option<String>,
     #[serde(rename = "message")]
     pub message: String,
-    #[serde(rename = "param")]
-    pub param: String,
+    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
+    pub param: Option<String>,
     #[serde(rename = "type")]
     pub r#type: String,
 }
 
 impl Error {
-    pub fn new(code: String, message: String, param: String, r#type: String) -> Error {
+    pub fn new(
+        code: Option<String>,
+        message: String,
+        param: Option<String>,
+        r#type: String,
+    ) -> Error {
         Error {
             code,
             message,
