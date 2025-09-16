@@ -71,3 +71,12 @@ impl Default for Role {
         Self::Member
     }
 }
+
+impl std::fmt::Display for ProjectServiceAccountCreateResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match serde_json::to_string(self) {
+            Ok(s) => write!(f, "{}", s),
+            Err(_) => Err(std::fmt::Error),
+        }
+    }
+}

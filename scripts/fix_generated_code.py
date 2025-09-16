@@ -57,34 +57,56 @@ def fix_invalid_enum_variants(models_dir):
             print(f"Fixed enum variants in {file_path.name}")
 
 def add_display_impl_for_structs(models_dir):
-    """Add Display implementations for multipart-friendly stringification.
+    """Ensure all serializable structs have a Display impl that JSON-encodes the value.
 
-    - For untagged unions like TranscriptionChunkingStrategy, render string
-      variants without quotes and struct variants as JSON.
-    - For simple structs/enums, fall back to serde_json stringification.
+    This keeps multipart form parameters and other to_string() usages working automatically
+    for any new struct emitted by the generator without manual curation.
     """
-    # Generic fallback list for serde_json based Display implementations if needed later
-    generic_structs = [
-        'FileExpirationAfter',
-    ]
 
-    # Fallback generic serde_json-based Display for simple cases
-    for struct_name in generic_structs:
-        file_name = re.sub(r'(?<!^)(?=[A-Z])', '_', struct_name).lower() + '.rs'
-        file_path = models_dir / file_name
-        if file_path.exists():
-            content = file_path.read_text()
-            if 'impl std::fmt::Display' not in content:
-                impl_body = f'''
+    struct_pattern = re.compile(r'pub struct (\w+)')
+
+    for file_path in models_dir.glob('*.rs'):
+        content = file_path.read_text()
+
+        if 'pub struct ' not in content:
+            continue
+
+        # Skip files that already implement Display for all structs
+        structs = struct_pattern.findall(content)
+        if not structs:
+            continue
+
+        added = []
+        for struct_name in structs:
+            # Only add Display if struct derives Serialize
+            derive_regex = re.compile(rf'#\[derive\(([^)]*?)\)\]\s*pub struct {struct_name}\b', re.DOTALL)
+            derive_match = derive_regex.search(content)
+            if derive_match:
+                derive_clause = derive_match.group(1)
+                if 'Serialize' not in derive_clause:
+                    continue
+            else:
+                continue
+
+            if f"impl std::fmt::Display for {struct_name}" in content:
+                continue
+
+            impl_body = f'''
 
 impl std::fmt::Display for {struct_name} {{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {{
-        write!(f, "{{}}", serde_json::to_string(self).unwrap())
+        match serde_json::to_string(self) {{
+            Ok(s) => write!(f, "{{}}", s),
+            Err(_) => Err(std::fmt::Error),
+        }}
     }}
 }}
 '''
-                file_path.write_text(content + impl_body)
-                print(f"Added Display impl for {struct_name}")
+            added.append(impl_body)
+
+        if added:
+            file_path.write_text(content + ''.join(added))
+            print(f"Added JSON Display impls in {file_path.name}")
 
 
 def fix_manual_option_box_map(models_dir):

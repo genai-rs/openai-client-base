@@ -74,3 +74,12 @@ impl Default for Include {
         Self::ItemInputAudioTranscriptionLogprobs
     }
 }
+
+impl std::fmt::Display for RealtimeTranscriptionSessionCreateResponseGa {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match serde_json::to_string(self) {
+            Ok(s) => write!(f, "{}", s),
+            Err(_) => Err(std::fmt::Error),
+        }
+    }
+}

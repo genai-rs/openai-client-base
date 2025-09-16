@@ -42,3 +42,12 @@ impl ListAssistantsResponse {
         }
     }
 }
+
+impl std::fmt::Display for ListAssistantsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match serde_json::to_string(self) {
+            Ok(s) => write!(f, "{}", s),
+            Err(_) => Err(std::fmt::Error),
+        }
+    }
+}
