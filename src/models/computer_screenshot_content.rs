@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// ComputerScreenshotContent : A screenshot of a computer.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerScreenshotContent {
     /// Specifies the event type. For a computer screenshot, this property is always set to `computer_screenshot`.
@@ -25,6 +26,7 @@ pub struct ComputerScreenshotContent {
 }
 
 impl ComputerScreenshotContent {
+    /// A screenshot of a computer.
     pub fn new(
         r#type: Type,
         image_url: Option<String>,

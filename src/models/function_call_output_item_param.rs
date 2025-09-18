@@ -31,14 +31,13 @@ pub struct FunctionCallOutputItemParam {
     /// A JSON string of the output of the function tool call.
     #[serde(rename = "output")]
     pub output: String,
-    /// The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
     #[serde(
         rename = "status",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub status: Option<Option<Status>>,
+    pub status: Option<Option<models::FunctionCallItemStatus>>,
 }
 
 impl FunctionCallOutputItemParam {
@@ -63,22 +62,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::FunctionCallOutput
-    }
-}
-/// The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "in_progress")]
-    InProgress,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "incomplete")]
-    Incomplete,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::InProgress
     }
 }
 

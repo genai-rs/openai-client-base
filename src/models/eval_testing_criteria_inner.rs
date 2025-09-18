@@ -49,9 +49,8 @@ pub struct EvalTestingCriteriaInner {
     /// The image tag to use for the python script.
     #[serde(rename = "image_tag", skip_serializing_if = "Option::is_none")]
     pub image_tag: Option<String>,
-    /// The sampling parameters for the model.
     #[serde(rename = "sampling_params", skip_serializing_if = "Option::is_none")]
-    pub sampling_params: Option<serde_json::Value>,
+    pub sampling_params: Option<Box<models::GraderScoreModelSamplingParams>>,
     /// The range of the score. Defaults to `[0, 1]`.
     #[serde(rename = "range", skip_serializing_if = "Option::is_none")]
     pub range: Option<Vec<f64>>,

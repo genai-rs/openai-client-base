@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **status** | **String** | The status of the evaluation run. | 
 **datasource_item_id** | **i32** | The identifier for the data source item. | 
 **datasource_item** | [**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md) | Details of the input data source item. | 
-**results** | [**Vec<std::collections::HashMap<String, serde_json::Value>>**](std::collections::HashMap.md) | A list of results from the evaluation run. | 
+**results** | [**Vec<models::EvalRunOutputItemResult>**](EvalRunOutputItemResult.md) | A list of grader results for this output item. | 
 **sample** | [**models::EvalRunOutputItemSample**](EvalRunOutputItem_sample.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

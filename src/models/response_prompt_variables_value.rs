@@ -25,9 +25,8 @@ pub struct ResponsePromptVariablesValue {
     /// The ID of the file to be sent to the model.
     #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
     pub file_id: Option<String>,
-    /// The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
     #[serde(rename = "detail")]
-    pub detail: Detail,
+    pub detail: models::ImageDetail,
     /// The name of the file to be sent to the model.
     #[serde(rename = "filename", skip_serializing_if = "Option::is_none")]
     pub filename: Option<String>,
@@ -40,7 +39,11 @@ pub struct ResponsePromptVariablesValue {
 }
 
 impl ResponsePromptVariablesValue {
-    pub fn new(r#type: Type, text: String, detail: Detail) -> ResponsePromptVariablesValue {
+    pub fn new(
+        r#type: Type,
+        text: String,
+        detail: models::ImageDetail,
+    ) -> ResponsePromptVariablesValue {
         ResponsePromptVariablesValue {
             r#type,
             text,
@@ -67,22 +70,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::InputText
-    }
-}
-/// The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Detail {
-    #[serde(rename = "low")]
-    Low,
-    #[serde(rename = "high")]
-    High,
-    #[serde(rename = "auto")]
-    Auto,
-}
-
-impl Default for Detail {
-    fn default() -> Detail {
-        Self::Low
     }
 }
 

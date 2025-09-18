@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// TextContent : A text content.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TextContent {
     #[serde(rename = "type")]
@@ -20,6 +21,7 @@ pub struct TextContent {
 }
 
 impl TextContent {
+    /// A text content.
     pub fn new(r#type: Type, text: String) -> TextContent {
         TextContent { r#type, text }
     }

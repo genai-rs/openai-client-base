@@ -33,14 +33,13 @@ pub struct InputImageContent {
         skip_serializing_if = "Option::is_none"
     )]
     pub file_id: Option<Option<String>>,
-    /// The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
     #[serde(rename = "detail")]
-    pub detail: Detail,
+    pub detail: models::ImageDetail,
 }
 
 impl InputImageContent {
     /// An image input to the model. Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
-    pub fn new(r#type: Type, detail: Detail) -> InputImageContent {
+    pub fn new(r#type: Type, detail: models::ImageDetail) -> InputImageContent {
         InputImageContent {
             r#type,
             image_url: None,
@@ -59,22 +58,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::InputImage
-    }
-}
-/// The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Detail {
-    #[serde(rename = "low")]
-    Low,
-    #[serde(rename = "high")]
-    High,
-    #[serde(rename = "auto")]
-    Auto,
-}
-
-impl Default for Detail {
-    fn default() -> Detail {
-        Self::Low
     }
 }
 
