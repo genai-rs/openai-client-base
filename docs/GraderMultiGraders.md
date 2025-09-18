@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **source** | **String** | The source code of the python script. | 
 **image_tag** | Option<**String**> | The image tag to use for the python script. | [optional]
 **model** | **String** | The model to use for the evaluation. Must support structured outputs. | 
-**sampling_params** | Option<[**serde_json::Value**](.md)> | The sampling parameters for the model. | [optional]
+**sampling_params** | Option<[**models::GraderScoreModelSamplingParams**](GraderScoreModel_sampling_params.md)> |  | [optional]
 **range** | Option<**Vec<f64>**> | The range of the score. Defaults to `[0, 1]`. | [optional]
 **labels** | **Vec<String>** | The labels to assign to each item in the evaluation. | 
 **passing_labels** | **Vec<String>** | The labels that indicate a passing result. Must be a subset of labels. | 

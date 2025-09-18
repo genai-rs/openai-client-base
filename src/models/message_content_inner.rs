@@ -15,30 +15,19 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum MessageContentInner {
     #[serde(rename = "input_text")]
-    InputTextContent2(serde_json::Value),
+    InputTextContent(Box<models::InputTextContent>),
     #[serde(rename = "output_text")]
-    OutputTextContent2(serde_json::Value),
+    OutputTextContent(Box<models::OutputTextContent>),
     #[serde(rename = "text")]
     TextContent(Box<models::TextContent>),
     #[serde(rename = "summary_text")]
     SummaryTextContent(Box<models::SummaryTextContent>),
     #[serde(rename = "refusal")]
-    RefusalContent2(serde_json::Value),
+    RefusalContent(Box<models::RefusalContent>),
     #[serde(rename = "input_image")]
-    InputImageContent2(serde_json::Value),
+    InputImageContent(Box<models::InputImageContent>),
     #[serde(rename = "computer_screenshot")]
     ComputerScreenshotContent(Box<models::ComputerScreenshotContent>),
     #[serde(rename = "input_file")]
-    InputFileContent2(serde_json::Value),
-}
-
-/// The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Detail {
-    #[serde(rename = "low")]
-    Low,
-    #[serde(rename = "high")]
-    High,
-    #[serde(rename = "auto")]
-    Auto,
+    InputFileContent(Box<models::InputFileContent>),
 }

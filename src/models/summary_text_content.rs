@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// SummaryTextContent : A summary text from the model.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SummaryTextContent {
     #[serde(rename = "type")]
@@ -20,6 +21,7 @@ pub struct SummaryTextContent {
 }
 
 impl SummaryTextContent {
+    /// A summary text from the model.
     pub fn new(r#type: Type, text: String) -> SummaryTextContent {
         SummaryTextContent { r#type, text }
     }

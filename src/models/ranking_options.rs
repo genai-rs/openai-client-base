@@ -13,9 +13,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RankingOptions {
-    /// The ranker to use for the file search.
     #[serde(rename = "ranker", skip_serializing_if = "Option::is_none")]
-    pub ranker: Option<Ranker>,
+    pub ranker: Option<models::RankerVersionType>,
     /// The score threshold for the file search, a number between 0 and 1. Numbers closer to 1 will attempt to return only the most relevant results, but may return fewer results.
     #[serde(rename = "score_threshold", skip_serializing_if = "Option::is_none")]
     pub score_threshold: Option<f64>,
@@ -27,20 +26,6 @@ impl RankingOptions {
             ranker: None,
             score_threshold: None,
         }
-    }
-}
-/// The ranker to use for the file search.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Ranker {
-    #[serde(rename = "auto")]
-    Auto,
-    #[serde(rename = "default-2024-11-15")]
-    Default20241115,
-}
-
-impl Default for Ranker {
-    fn default() -> Ranker {
-        Self::Auto
     }
 }
 

@@ -13,6 +13,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEvalResponsesRunDataSourceSamplingParams {
+    #[serde(
+        rename = "reasoning_effort",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub reasoning_effort: Option<Option<models::ReasoningEffort>>,
     /// A higher temperature increases randomness in the outputs.
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
     pub temperature: Option<f64>,
@@ -38,6 +45,7 @@ pub struct CreateEvalResponsesRunDataSourceSamplingParams {
 impl CreateEvalResponsesRunDataSourceSamplingParams {
     pub fn new() -> CreateEvalResponsesRunDataSourceSamplingParams {
         CreateEvalResponsesRunDataSourceSamplingParams {
+            reasoning_effort: None,
             temperature: None,
             max_completion_tokens: None,
             top_p: None,

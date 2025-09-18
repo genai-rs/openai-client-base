@@ -24,12 +24,11 @@ pub struct WebSearchPreviewTool {
         skip_serializing_if = "Option::is_none"
     )]
     pub user_location: Option<Option<Box<models::ApproximateLocation>>>,
-    /// High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
     #[serde(
         rename = "search_context_size",
         skip_serializing_if = "Option::is_none"
     )]
-    pub search_context_size: Option<SearchContextSize>,
+    pub search_context_size: Option<models::SearchContextSize>,
 }
 
 impl WebSearchPreviewTool {
@@ -54,22 +53,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::WebSearchPreview
-    }
-}
-/// High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum SearchContextSize {
-    #[serde(rename = "low")]
-    Low,
-    #[serde(rename = "medium")]
-    Medium,
-    #[serde(rename = "high")]
-    High,
-}
-
-impl Default for SearchContextSize {
-    fn default() -> SearchContextSize {
-        Self::Low
     }
 }
 

@@ -38,9 +38,9 @@ pub struct EvalRunOutputItem {
     /// Details of the input data source item.
     #[serde(rename = "datasource_item")]
     pub datasource_item: std::collections::HashMap<String, serde_json::Value>,
-    /// A list of results from the evaluation run.
+    /// A list of grader results for this output item.
     #[serde(rename = "results")]
-    pub results: Vec<std::collections::HashMap<String, serde_json::Value>>,
+    pub results: Vec<models::EvalRunOutputItemResult>,
     #[serde(rename = "sample")]
     pub sample: Box<models::EvalRunOutputItemSample>,
 }
@@ -56,7 +56,7 @@ impl EvalRunOutputItem {
         status: String,
         datasource_item_id: i32,
         datasource_item: std::collections::HashMap<String, serde_json::Value>,
-        results: Vec<std::collections::HashMap<String, serde_json::Value>>,
+        results: Vec<models::EvalRunOutputItemResult>,
         sample: models::EvalRunOutputItemSample,
     ) -> EvalRunOutputItem {
         EvalRunOutputItem {

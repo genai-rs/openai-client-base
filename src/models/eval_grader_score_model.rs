@@ -22,9 +22,8 @@ pub struct EvalGraderScoreModel {
     /// ID of the model to use
     #[serde(rename = "model")]
     pub model: String,
-    /// The sampling parameters for the model.
     #[serde(rename = "sampling_params", skip_serializing_if = "Option::is_none")]
-    pub sampling_params: Option<serde_json::Value>,
+    pub sampling_params: Option<Box<models::GraderScoreModelSamplingParams>>,
     /// The input text. This may include template strings.
     #[serde(rename = "input")]
     pub input: Vec<models::EvalItem>,

@@ -17,9 +17,8 @@ pub struct ComputerUsePreviewTool {
     /// The type of the computer use tool. Always `computer_use_preview`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The type of computer environment to control.
     #[serde(rename = "environment")]
-    pub environment: Environment,
+    pub environment: models::ComputerEnvironment1,
     /// The width of the computer display.
     #[serde(rename = "display_width")]
     pub display_width: i32,
@@ -32,7 +31,7 @@ impl ComputerUsePreviewTool {
     /// A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
     pub fn new(
         r#type: Type,
-        environment: Environment,
+        environment: models::ComputerEnvironment1,
         display_width: i32,
         display_height: i32,
     ) -> ComputerUsePreviewTool {
@@ -54,26 +53,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::ComputerUsePreview
-    }
-}
-/// The type of computer environment to control.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Environment {
-    #[serde(rename = "windows")]
-    Windows,
-    #[serde(rename = "mac")]
-    Mac,
-    #[serde(rename = "linux")]
-    Linux,
-    #[serde(rename = "ubuntu")]
-    Ubuntu,
-    #[serde(rename = "browser")]
-    Browser,
-}
-
-impl Default for Environment {
-    fn default() -> Environment {
-        Self::Windows
     }
 }
 
