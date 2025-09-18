@@ -32203,6 +32203,8 @@ components:
         sampling_params:
           type: object
           properties:
+            reasoning_effort:
+              $ref: '#/components/schemas/ReasoningEffort'
             temperature:
               type: number
               description: A higher temperature increases randomness in the outputs.
@@ -32580,6 +32582,8 @@ components:
         sampling_params:
           type: object
           properties:
+            reasoning_effort:
+              $ref: '#/components/schemas/ReasoningEffort'
             temperature:
               type: number
               description: A higher temperature increases randomness in the outputs.
@@ -36413,11 +36417,9 @@ components:
           additionalProperties: true
         results:
           type: array
-          description: A list of results from the evaluation run.
+          description: A list of grader results for this output item.
           items:
-            type: object
-            description: A result object.
-            additionalProperties: true
+            $ref: '#/components/schemas/EvalRunOutputItemResult'
         sample:
           type: object
           description: A sample containing the input and output of the evaluation run.
@@ -36668,6 +36670,35 @@ components:
             "last_id": "outputitem_67abd55eb6548190bb580745d5644a33",
             "has_more": false
           }
+    EvalRunOutputItemResult:
+      type: object
+      title: EvalRunOutputItemResult
+      description: |
+        A single grader result for an evaluation run output item.
+      properties:
+        name:
+          type: string
+          description: The name of the grader.
+        type:
+          type: string
+          description: The grader type (for example, "string-check-grader").
+        score:
+          type: number
+          description: The numeric score produced by the grader.
+        passed:
+          type: boolean
+          description: Whether the grader considered the output a pass.
+        sample:
+          anyOf:
+            - type: object
+              additionalProperties: true
+            - type: 'null'
+          description: Optional sample or intermediate data produced by the grader.
+      additionalProperties: true
+      required:
+        - name
+        - score
+        - passed
     EvalStoredCompletionsDataSourceConfig:
       type: object
       title: StoredCompletionsDataSourceConfig
@@ -38124,6 +38155,36 @@ components:
         sampling_params:
           type: object
           description: The sampling parameters for the model.
+          properties:
+            seed:
+              anyOf:
+                - type: integer
+                  description: |
+                    A seed value to initialize the randomness, during sampling.
+                - type: 'null'
+            top_p:
+              anyOf:
+                - type: number
+                  default: 1
+                  example: 1
+                  description: |
+                    An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+                - type: 'null'
+            temperature:
+              anyOf:
+                - type: number
+                  description: |
+                    A higher temperature increases randomness in the outputs.
+                - type: 'null'
+            max_completions_tokens:
+              anyOf:
+                - type: integer
+                  minimum: 1
+                  description: |
+                    The maximum number of tokens the grader model may generate in its response.
+                - type: 'null'
+            reasoning_effort:
+              $ref: '#/components/schemas/ReasoningEffort'
         input:
           type: array
           items:
@@ -38159,11 +38220,13 @@ components:
                       ),
                   }
               ],
-              "model": "gpt-4o-2024-08-06",
+              "model": "o4-mini-2025-04-16",
               "sampling_params": {
                   "temperature": 1,
                   "top_p": 1,
                   "seed": 42,
+                  "max_completions_tokens": 32768,
+                  "reasoning_effort": "medium"
               },
           }
     GraderStringCheck:
@@ -58013,6 +58076,12 @@ components:
         - text
       title: Input text
       description: A text input to the model.
+    ImageDetail:
+      type: string
+      enum:
+        - low
+        - high
+        - auto
     InputImageContent:
       properties:
         type:
@@ -58035,11 +58104,7 @@ components:
               description: The ID of the file to be sent to the model.
             - type: 'null'
         detail:
-          type: string
-          enum:
-            - low
-            - high
-            - auto
+          $ref: '#/components/schemas/ImageDetail'
           description: >-
             The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults
             to `auto`.
@@ -58263,6 +58328,12 @@ components:
         - refusal
       title: Refusal
       description: A refusal from the model.
+    DetailEnum:
+      type: string
+      enum:
+        - low
+        - high
+        - auto
     ComputerCallSafetyCheckParam:
       properties:
         id:
@@ -58282,6 +58353,12 @@ components:
       required:
         - id
       description: A pending safety check for the computer call.
+    FunctionCallItemStatus:
+      type: string
+      enum:
+        - in_progress
+        - completed
+        - incomplete
     ComputerCallOutputItemParam:
       properties:
         id:
@@ -58312,11 +58389,7 @@ components:
             - type: 'null'
         status:
           anyOf:
-            - type: string
-              enum:
-                - in_progress
-                - completed
-                - incomplete
+            - $ref: '#/components/schemas/FunctionCallItemStatus'
               description: >-
                 The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated
                 when input items are returned via API.
@@ -58353,11 +58426,7 @@ components:
           description: A JSON string of the output of the function tool call.
         status:
           anyOf:
-            - type: string
-              enum:
-                - in_progress
-                - completed
-                - incomplete
+            - $ref: '#/components/schemas/FunctionCallItemStatus'
               description: >-
                 The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when
                 items are returned via API.
@@ -58421,6 +58490,11 @@ components:
         maxLength: 512
       type: object
       maxProperties: 16
+      description: >-
+        Set of 16 key-value pairs that can be attached to an object. This can be         useful for storing
+        additional information about the object in a structured         format, and querying for objects via
+        API or the dashboard.
+                Keys are strings with a maximum length of 64 characters. Values are strings         with a maximum length of 512 characters.
     UpdateConversationBody:
       properties:
         metadata:
@@ -58450,181 +58524,23 @@ components:
         - object
         - deleted
         - id
-    InputTextContent-2:
-      properties:
-        type:
-          type: string
-          enum:
-            - input_text
-          description: The type of the input item. Always `input_text`.
-          default: input_text
-          x-stainless-const: true
-        text:
-          type: string
-          description: The text input to the model.
-      type: object
-      required:
-        - type
-        - text
-      title: Input text
-    FileCitationBody-2:
-      properties:
-        type:
-          type: string
-          enum:
-            - file_citation
-          description: The type of the file citation. Always `file_citation`.
-          default: file_citation
-          x-stainless-const: true
-        file_id:
-          type: string
-          description: The ID of the file.
-        index:
-          type: integer
-          description: The index of the file in the list of files.
-        filename:
-          type: string
-          description: The filename of the file cited.
-      type: object
-      required:
-        - type
-        - file_id
-        - index
-        - filename
-      title: File citation
-    UrlCitationBody-2:
-      properties:
-        type:
-          type: string
-          enum:
-            - url_citation
-          description: The type of the URL citation. Always `url_citation`.
-          default: url_citation
-          x-stainless-const: true
-        url:
-          type: string
-          description: The URL of the web resource.
-        start_index:
-          type: integer
-          description: The index of the first character of the URL citation in the message.
-        end_index:
-          type: integer
-          description: The index of the last character of the URL citation in the message.
-        title:
-          type: string
-          description: The title of the web resource.
-      type: object
-      required:
-        - type
-        - url
-        - start_index
-        - end_index
-        - title
-      title: URL citation
-    ContainerFileCitationBody-2:
-      properties:
-        type:
-          type: string
-          enum:
-            - container_file_citation
-          description: The type of the container file citation. Always `container_file_citation`.
-          default: container_file_citation
-          x-stainless-const: true
-        container_id:
-          type: string
-          description: The ID of the container file.
-        file_id:
-          type: string
-          description: The ID of the file.
-        start_index:
-          type: integer
-          description: The index of the first character of the container file citation in the message.
-        end_index:
-          type: integer
-          description: The index of the last character of the container file citation in the message.
-        filename:
-          type: string
-          description: The filename of the container file cited.
-      type: object
-      required:
-        - type
-        - container_id
-        - file_id
-        - start_index
-        - end_index
-        - filename
-      title: Container file citation
-    Annotation-2:
-      discriminator:
-        propertyName: type
-      anyOf:
-        - $ref: '#/components/schemas/FileCitationBody-2'
-        - $ref: '#/components/schemas/UrlCitationBody-2'
-        - $ref: '#/components/schemas/ContainerFileCitationBody-2'
-    TopLogProb-2:
-      properties:
-        token:
-          type: string
-        logprob:
-          type: number
-        bytes:
-          items:
-            type: integer
-          type: array
-      type: object
-      required:
-        - token
-        - logprob
-        - bytes
-      title: Top log probability
-    LogProb-2:
-      properties:
-        token:
-          type: string
-        logprob:
-          type: number
-        bytes:
-          items:
-            type: integer
-          type: array
-        top_logprobs:
-          items:
-            $ref: '#/components/schemas/TopLogProb-2'
-          type: array
-      type: object
-      required:
-        - token
-        - logprob
-        - bytes
-        - top_logprobs
-      title: Log probability
-    OutputTextContent-2:
-      properties:
-        type:
-          type: string
-          enum:
-            - output_text
-          description: The type of the output text. Always `output_text`.
-          default: output_text
-          x-stainless-const: true
-        text:
-          type: string
-          description: The text output from the model.
-        annotations:
-          items:
-            $ref: '#/components/schemas/Annotation-2'
-          type: array
-          description: The annotations of the text output.
-        logprobs:
-          items:
-            $ref: '#/components/schemas/LogProb-2'
-          type: array
-      type: object
-      required:
-        - type
-        - text
-        - annotations
-      title: Output text
+    MessageStatus:
+      type: string
+      enum:
+        - in_progress
+        - completed
+        - incomplete
+    MessageRole:
+      type: string
+      enum:
+        - unknown
+        - user
+        - assistant
+        - system
+        - critic
+        - discriminator
+        - developer
+        - tool
     TextContent:
       properties:
         type:
@@ -58640,6 +58556,7 @@ components:
         - type
         - text
       title: Text Content
+      description: A text content.
     SummaryTextContent:
       properties:
         type:
@@ -58655,60 +58572,7 @@ components:
         - type
         - text
       title: Summary text
-    RefusalContent-2:
-      properties:
-        type:
-          type: string
-          enum:
-            - refusal
-          description: The type of the refusal. Always `refusal`.
-          default: refusal
-          x-stainless-const: true
-        refusal:
-          type: string
-          description: The refusal explanation from the model.
-      type: object
-      required:
-        - type
-        - refusal
-      title: Refusal
-    InputImageContent-2:
-      properties:
-        type:
-          type: string
-          enum:
-            - input_image
-          description: The type of the input item. Always `input_image`.
-          default: input_image
-          x-stainless-const: true
-        image_url:
-          anyOf:
-            - type: string
-              description: >-
-                The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in
-                a data URL.
-            - type: 'null'
-        file_id:
-          anyOf:
-            - type: string
-              description: The ID of the file to be sent to the model.
-            - type: 'null'
-        detail:
-          type: string
-          enum:
-            - low
-            - high
-            - auto
-          description: >-
-            The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults
-            to `auto`.
-      type: object
-      required:
-        - type
-        - image_url
-        - file_id
-        - detail
-      title: Input image
+      description: A summary text from the model.
     ComputerScreenshotContent:
       properties:
         type:
@@ -58736,31 +58600,7 @@ components:
         - image_url
         - file_id
       title: Computer screenshot
-    InputFileContent-2:
-      properties:
-        type:
-          type: string
-          enum:
-            - input_file
-          description: The type of the input item. Always `input_file`.
-          default: input_file
-          x-stainless-const: true
-        file_id:
-          anyOf:
-            - type: string
-              description: The ID of the file to be sent to the model.
-            - type: 'null'
-        filename:
-          type: string
-          description: The name of the file to be sent to the model.
-        file_url:
-          type: string
-          description: The URL of the file to be sent to the model.
-      type: object
-      required:
-        - type
-        - file_id
-      title: Input file
+      description: A screenshot of a computer.
     Message:
       properties:
         type:
@@ -58774,25 +58614,12 @@ components:
           type: string
           description: The unique ID of the message.
         status:
-          type: string
-          enum:
-            - in_progress
-            - completed
-            - incomplete
+          $ref: '#/components/schemas/MessageStatus'
           description: >-
             The status of item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are
             returned via API.
         role:
-          type: string
-          enum:
-            - unknown
-            - user
-            - assistant
-            - system
-            - critic
-            - discriminator
-            - developer
-            - tool
+          $ref: '#/components/schemas/MessageRole'
           description: >-
             The role of the message. One of `unknown`, `user`, `assistant`, `system`, `critic`,
             `discriminator`, `developer`, or `tool`.
@@ -58801,14 +58628,14 @@ components:
             discriminator:
               propertyName: type
             anyOf:
-              - $ref: '#/components/schemas/InputTextContent-2'
-              - $ref: '#/components/schemas/OutputTextContent-2'
+              - $ref: '#/components/schemas/InputTextContent'
+              - $ref: '#/components/schemas/OutputTextContent'
               - $ref: '#/components/schemas/TextContent'
               - $ref: '#/components/schemas/SummaryTextContent'
-              - $ref: '#/components/schemas/RefusalContent-2'
-              - $ref: '#/components/schemas/InputImageContent-2'
+              - $ref: '#/components/schemas/RefusalContent'
+              - $ref: '#/components/schemas/InputImageContent'
               - $ref: '#/components/schemas/ComputerScreenshotContent'
-              - $ref: '#/components/schemas/InputFileContent-2'
+              - $ref: '#/components/schemas/InputFileContent'
           type: array
           description: The content of the message
       type: object
@@ -58819,6 +58646,7 @@ components:
         - role
         - content
       title: Message
+      description: A message to or from the model.
     FunctionTool:
       properties:
         type:
@@ -58859,13 +58687,15 @@ components:
       description: >-
         Defines a function in your own code the model can choose to call. Learn more about [function
         calling](https://platform.openai.com/docs/guides/function-calling).
+    RankerVersionType:
+      type: string
+      enum:
+        - auto
+        - default-2024-11-15
     RankingOptions:
       properties:
         ranker:
-          type: string
-          enum:
-            - auto
-            - default-2024-11-15
+          $ref: '#/components/schemas/RankerVersionType'
           description: The ranker to use for the file search.
         score_threshold:
           type: number
@@ -58911,6 +58741,14 @@ components:
       description: >-
         A tool that searches for relevant content from uploaded files. Learn more about the [file search
         tool](https://platform.openai.com/docs/guides/tools-file-search).
+    ComputerEnvironment1:
+      type: string
+      enum:
+        - windows
+        - mac
+        - linux
+        - ubuntu
+        - browser
     ComputerUsePreviewTool:
       properties:
         type:
@@ -58921,13 +58759,7 @@ components:
           default: computer_use_preview
           x-stainless-const: true
         environment:
-          type: string
-          enum:
-            - windows
-            - mac
-            - linux
-            - ubuntu
-            - browser
+          $ref: '#/components/schemas/ComputerEnvironment1'
           description: The type of computer environment to control.
         display_width:
           type: integer
@@ -58981,6 +58813,12 @@ components:
       type: object
       required:
         - type
+    SearchContextSize:
+      type: string
+      enum:
+        - low
+        - medium
+        - high
     WebSearchPreviewTool:
       properties:
         type:
@@ -58997,11 +58835,7 @@ components:
               description: The user's location.
             - type: 'null'
         search_context_size:
-          type: string
-          enum:
-            - low
-            - medium
-            - high
+          $ref: '#/components/schemas/SearchContextSize'
           description: >-
             High level guidance for the amount of context window space to use for the search. One of `low`,
             `medium`, or `high`. `medium` is the default.

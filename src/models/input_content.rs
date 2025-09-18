@@ -23,14 +23,3 @@ pub enum InputContent {
     #[serde(rename = "input_audio")]
     InputAudio(Box<models::InputAudio>),
 }
-
-/// The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Detail {
-    #[serde(rename = "low")]
-    Low,
-    #[serde(rename = "high")]
-    High,
-    #[serde(rename = "auto")]
-    Auto,
-}

@@ -63,24 +63,3 @@ pub enum Status {
     #[serde(rename = "incomplete")]
     Incomplete,
 }
-
-/// The role of the message. One of `unknown`, `user`, `assistant`, `system`, `critic`, `discriminator`, `developer`, or `tool`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    #[serde(rename = "unknown")]
-    Unknown,
-    #[serde(rename = "user")]
-    User,
-    #[serde(rename = "assistant")]
-    Assistant,
-    #[serde(rename = "system")]
-    System,
-    #[serde(rename = "critic")]
-    Critic,
-    #[serde(rename = "discriminator")]
-    Discriminator,
-    #[serde(rename = "developer")]
-    Developer,
-    #[serde(rename = "tool")]
-    Tool,
-}

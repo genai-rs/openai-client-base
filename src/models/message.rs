@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// Message : A message to or from the model.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Message {
     /// The type of the message. Always set to `message`.
@@ -19,23 +20,22 @@ pub struct Message {
     /// The unique ID of the message.
     #[serde(rename = "id")]
     pub id: String,
-    /// The status of item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
     #[serde(rename = "status")]
-    pub status: Status,
-    /// The role of the message. One of `unknown`, `user`, `assistant`, `system`, `critic`, `discriminator`, `developer`, or `tool`.
+    pub status: models::MessageStatus,
     #[serde(rename = "role")]
-    pub role: Role,
+    pub role: models::MessageRole,
     /// The content of the message
     #[serde(rename = "content")]
     pub content: Vec<models::MessageContentInner>,
 }
 
 impl Message {
+    /// A message to or from the model.
     pub fn new(
         r#type: Type,
         id: String,
-        status: Status,
-        role: Role,
+        status: models::MessageStatus,
+        role: models::MessageRole,
         content: Vec<models::MessageContentInner>,
     ) -> Message {
         Message {
@@ -57,48 +57,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Message
-    }
-}
-/// The status of item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "in_progress")]
-    InProgress,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "incomplete")]
-    Incomplete,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::InProgress
-    }
-}
-/// The role of the message. One of `unknown`, `user`, `assistant`, `system`, `critic`, `discriminator`, `developer`, or `tool`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    #[serde(rename = "unknown")]
-    Unknown,
-    #[serde(rename = "user")]
-    User,
-    #[serde(rename = "assistant")]
-    Assistant,
-    #[serde(rename = "system")]
-    System,
-    #[serde(rename = "critic")]
-    Critic,
-    #[serde(rename = "discriminator")]
-    Discriminator,
-    #[serde(rename = "developer")]
-    Developer,
-    #[serde(rename = "tool")]
-    Tool,
-}
-
-impl Default for Role {
-    fn default() -> Role {
-        Self::Unknown
     }
 }
 

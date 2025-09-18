@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **pass_threshold** | **f64** | The threshold for the score. | 
 **source** | **String** | The source code of the python script. | 
 **image_tag** | Option<**String**> | The image tag to use for the python script. | [optional]
-**sampling_params** | Option<[**serde_json::Value**](.md)> | The sampling parameters for the model. | [optional]
+**sampling_params** | Option<[**models::GraderScoreModelSamplingParams**](GraderScoreModel_sampling_params.md)> |  | [optional]
 **range** | Option<**Vec<f64>**> | The range of the score. Defaults to `[0, 1]`. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
