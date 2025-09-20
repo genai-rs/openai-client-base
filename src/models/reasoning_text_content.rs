@@ -11,22 +11,24 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// ReasoningTextContent : Reasoning text from the model.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct ReasoningItemContentInner {
-    /// The type of the object. Always `reasoning_text`.
+pub struct ReasoningTextContent {
+    /// The type of the reasoning text. Always `reasoning_text`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// Reasoning text output from the model.
+    /// The reasoning text from the model.
     #[serde(rename = "text")]
     pub text: String,
 }
 
-impl ReasoningItemContentInner {
-    pub fn new(r#type: Type, text: String) -> ReasoningItemContentInner {
-        ReasoningItemContentInner { r#type, text }
+impl ReasoningTextContent {
+    /// Reasoning text from the model.
+    pub fn new(r#type: Type, text: String) -> ReasoningTextContent {
+        ReasoningTextContent { r#type, text }
     }
 }
-/// The type of the object. Always `reasoning_text`.
+/// The type of the reasoning text. Always `reasoning_text`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "reasoning_text")]
@@ -39,7 +41,7 @@ impl Default for Type {
     }
 }
 
-impl std::fmt::Display for ReasoningItemContentInner {
+impl std::fmt::Display for ReasoningTextContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

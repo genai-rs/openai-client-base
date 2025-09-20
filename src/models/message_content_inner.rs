@@ -22,6 +22,8 @@ pub enum MessageContentInner {
     TextContent(Box<models::TextContent>),
     #[serde(rename = "summary_text")]
     SummaryTextContent(Box<models::SummaryTextContent>),
+    #[serde(rename = "reasoning_text")]
+    ReasoningTextContent(Box<models::ReasoningTextContent>),
     #[serde(rename = "refusal")]
     RefusalContent(Box<models::RefusalContent>),
     #[serde(rename = "input_image")]
