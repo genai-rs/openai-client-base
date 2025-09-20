@@ -11,8 +11,9 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// Summary : A summary text from the model.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct ReasoningItemSummaryInner {
+pub struct Summary {
     /// The type of the object. Always `summary_text`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -21,9 +22,10 @@ pub struct ReasoningItemSummaryInner {
     pub text: String,
 }
 
-impl ReasoningItemSummaryInner {
-    pub fn new(r#type: Type, text: String) -> ReasoningItemSummaryInner {
-        ReasoningItemSummaryInner { r#type, text }
+impl Summary {
+    /// A summary text from the model.
+    pub fn new(r#type: Type, text: String) -> Summary {
+        Summary { r#type, text }
     }
 }
 /// The type of the object. Always `summary_text`.
@@ -39,7 +41,7 @@ impl Default for Type {
     }
 }
 
-impl std::fmt::Display for ReasoningItemSummaryInner {
+impl std::fmt::Display for Summary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
