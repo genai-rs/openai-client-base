@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// RealtimeMcpToolCall : A Realtime item representing an invocation of a tool on an MCP server.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeMcpToolCall {
-    /// The type of the item. Always `mcp_tool_call`.
+    /// The type of the item. Always `mcp_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the tool call.
@@ -75,16 +75,16 @@ impl RealtimeMcpToolCall {
         }
     }
 }
-/// The type of the item. Always `mcp_tool_call`.
+/// The type of the item. Always `mcp_call`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "mcp_tool_call")]
-    McpToolCall,
+    #[serde(rename = "mcp_call")]
+    McpCall,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::McpToolCall
+        Self::McpCall
     }
 }
 

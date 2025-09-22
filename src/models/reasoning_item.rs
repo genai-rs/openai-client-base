@@ -30,10 +30,10 @@ pub struct ReasoningItem {
     pub encrypted_content: Option<Option<String>>,
     /// Reasoning summary content.
     #[serde(rename = "summary")]
-    pub summary: Vec<models::ReasoningItemSummaryInner>,
+    pub summary: Vec<models::Summary>,
     /// Reasoning text content.
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
-    pub content: Option<Vec<models::ReasoningItemContentInner>>,
+    pub content: Option<Vec<models::ReasoningTextContent>>,
     /// The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -41,11 +41,7 @@ pub struct ReasoningItem {
 
 impl ReasoningItem {
     /// A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually [managing context](https://platform.openai.com/docs/guides/conversation-state).
-    pub fn new(
-        r#type: Type,
-        id: String,
-        summary: Vec<models::ReasoningItemSummaryInner>,
-    ) -> ReasoningItem {
+    pub fn new(r#type: Type, id: String, summary: Vec<models::Summary>) -> ReasoningItem {
         ReasoningItem {
             r#type,
             id,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the item. Always `mcp_tool_call`. | 
+**r#type** | **String** | The type of the item. Always `mcp_call`. | 
 **id** | **String** | The unique ID of the tool call. | 
 **server_label** | **String** | The label of the MCP server running the tool. | 
 **name** | **String** | The name of the tool that was run. | 
