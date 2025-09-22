@@ -30,7 +30,7 @@ pub enum RealtimeConversationItem {
     RealtimeMcpApprovalResponse(Box<models::RealtimeMcpApprovalResponse>),
     #[serde(rename = "mcp_list_tools")]
     RealtimeMcpListTools(Box<models::RealtimeMcpListTools>),
-    #[serde(rename = "mcp_tool_call")]
+    #[serde(rename = "mcp_call")]
     RealtimeMcpToolCall(Box<models::RealtimeMcpToolCall>),
     #[serde(rename = "mcp_approval_request")]
     RealtimeMcpApprovalRequest(Box<models::RealtimeMcpApprovalRequest>),

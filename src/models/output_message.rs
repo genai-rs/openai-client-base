@@ -25,7 +25,7 @@ pub struct OutputMessage {
     pub role: Role,
     /// The content of the output message.
     #[serde(rename = "content")]
-    pub content: Vec<models::OutputContent>,
+    pub content: Vec<models::OutputMessageContent>,
     /// The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.
     #[serde(rename = "status")]
     pub status: Status,
@@ -37,7 +37,7 @@ impl OutputMessage {
         id: String,
         r#type: Type,
         role: Role,
-        content: Vec<models::OutputContent>,
+        content: Vec<models::OutputMessageContent>,
         status: Status,
     ) -> OutputMessage {
         OutputMessage {
