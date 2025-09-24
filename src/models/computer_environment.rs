@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ComputerEnvironment1 {
+pub enum ComputerEnvironment {
     #[serde(rename = "windows")]
     Windows,
     #[serde(rename = "mac")]
@@ -26,7 +26,7 @@ pub enum ComputerEnvironment1 {
     Browser,
 }
 
-impl std::fmt::Display for ComputerEnvironment1 {
+impl std::fmt::Display for ComputerEnvironment {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::Windows => write!(f, "windows"),
@@ -38,8 +38,8 @@ impl std::fmt::Display for ComputerEnvironment1 {
     }
 }
 
-impl Default for ComputerEnvironment1 {
-    fn default() -> ComputerEnvironment1 {
+impl Default for ComputerEnvironment {
+    fn default() -> ComputerEnvironment {
         Self::Windows
     }
 }

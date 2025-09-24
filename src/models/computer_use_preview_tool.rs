@@ -18,7 +18,7 @@ pub struct ComputerUsePreviewTool {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "environment")]
-    pub environment: models::ComputerEnvironment1,
+    pub environment: models::ComputerEnvironment,
     /// The width of the computer display.
     #[serde(rename = "display_width")]
     pub display_width: i32,
@@ -31,7 +31,7 @@ impl ComputerUsePreviewTool {
     /// A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
     pub fn new(
         r#type: Type,
-        environment: models::ComputerEnvironment1,
+        environment: models::ComputerEnvironment,
         display_width: i32,
         display_height: i32,
     ) -> ComputerUsePreviewTool {

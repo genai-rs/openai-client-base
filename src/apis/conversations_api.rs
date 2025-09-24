@@ -75,10 +75,10 @@ pub enum UpdateConversationError {
 #[bon::builder]
 pub async fn create_conversation(
     configuration: &configuration::Configuration,
-    create_conversation_request: models::CreateConversationRequest,
+    create_conversation_body: Option<models::CreateConversationBody>,
 ) -> Result<models::ConversationResource, Error<CreateConversationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_conversation_request = create_conversation_request;
+    let p_body_create_conversation_body = create_conversation_body;
 
     let uri_str = format!("{}/conversations", configuration.base_path);
     let mut req_builder = configuration
@@ -91,7 +91,7 @@ pub async fn create_conversation(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_create_conversation_request);
+    req_builder = req_builder.json(&p_body_create_conversation_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -200,7 +200,7 @@ pub async fn create_conversation_items(
     }
 }
 
-/// Delete a conversation with the given ID.
+/// Delete a conversation. Items in the conversation will not be deleted.
 #[bon::builder]
 pub async fn delete_conversation(
     configuration: &configuration::Configuration,
@@ -311,7 +311,7 @@ pub async fn delete_conversation_item(
     }
 }
 
-/// Get a conversation with the given ID.
+/// Get a conversation
 #[bon::builder]
 pub async fn get_conversation(
     configuration: &configuration::Configuration,
@@ -527,12 +527,12 @@ pub async fn list_conversation_items(
     }
 }
 
-/// Update a conversation's metadata with the given ID.
+/// Update a conversation
 #[bon::builder]
 pub async fn update_conversation(
     configuration: &configuration::Configuration,
     conversation_id: &str,
-    update_conversation_body: models::UpdateConversationBody,
+    update_conversation_body: Option<models::UpdateConversationBody>,
 ) -> Result<models::ConversationResource, Error<UpdateConversationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;

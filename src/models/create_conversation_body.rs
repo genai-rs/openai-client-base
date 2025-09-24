@@ -11,9 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateConversationRequest : Create a conversation
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateConversationRequest {
+pub struct CreateConversationBody {
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",
@@ -32,17 +31,16 @@ pub struct CreateConversationRequest {
     pub items: Option<Option<Vec<models::InputItem>>>,
 }
 
-impl CreateConversationRequest {
-    /// Create a conversation
-    pub fn new() -> CreateConversationRequest {
-        CreateConversationRequest {
+impl CreateConversationBody {
+    pub fn new() -> CreateConversationBody {
+        CreateConversationBody {
             metadata: None,
             items: None,
         }
     }
 }
 
-impl std::fmt::Display for CreateConversationRequest {
+impl std::fmt::Display for CreateConversationBody {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
