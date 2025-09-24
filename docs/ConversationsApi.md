@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## create_conversation
 
-> models::ConversationResource create_conversation(create_conversation_request)
+> models::ConversationResource create_conversation(create_conversation_body)
 Create a conversation
 
 Create a conversation.
@@ -27,7 +27,7 @@ Create a conversation.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**create_conversation_request** | [**CreateConversationRequest**](CreateConversationRequest.md) |  | [required] |
+**create_conversation_body** | Option<[**CreateConversationBody**](CreateConversationBody.md)> |  |  |
 
 ### Return type
 
@@ -82,7 +82,7 @@ Name | Type | Description  | Required | Notes
 > models::DeletedConversationResource delete_conversation(conversation_id)
 Delete a conversation
 
-Delete a conversation with the given ID.
+Delete a conversation. Items in the conversation will not be deleted.
 
 ### Parameters
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Required | Notes
 > models::ConversationResource get_conversation(conversation_id)
 Retrieve a conversation
 
-Get a conversation with the given ID.
+Get a conversation
 
 ### Parameters
 
@@ -239,7 +239,7 @@ Name | Type | Description  | Required | Notes
 > models::ConversationResource update_conversation(conversation_id, update_conversation_body)
 Update a conversation
 
-Update a conversation's metadata with the given ID.
+Update a conversation
 
 ### Parameters
 
@@ -247,7 +247,7 @@ Update a conversation's metadata with the given ID.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **conversation_id** | **String** | The ID of the conversation to update. | [required] |
-**update_conversation_body** | [**UpdateConversationBody**](UpdateConversationBody.md) |  | [required] |
+**update_conversation_body** | Option<[**UpdateConversationBody**](UpdateConversationBody.md)> |  |  |
 
 ### Return type
 
