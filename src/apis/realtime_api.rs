@@ -15,6 +15,20 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`accept_realtime_call`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AcceptRealtimeCallError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_realtime_call`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateRealtimeCallError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_realtime_client_secret`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -34,6 +48,129 @@ pub enum CreateRealtimeSessionError {
 #[serde(untagged)]
 pub enum CreateRealtimeTranscriptionSessionError {
     UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`hangup_realtime_call`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum HangupRealtimeCallError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`refer_realtime_call`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ReferRealtimeCallError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`reject_realtime_call`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RejectRealtimeCallError {
+    UnknownValue(serde_json::Value),
+}
+
+/// Accept an incoming SIP call and configure the realtime session that will handle it.
+#[bon::builder]
+pub async fn accept_realtime_call(
+    configuration: &configuration::Configuration,
+    call_id: &str,
+    realtime_session_create_request_ga: models::RealtimeSessionCreateRequestGa,
+) -> Result<(), Error<AcceptRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_call_id = call_id;
+    let p_body_realtime_session_create_request_ga = realtime_session_create_request_ga;
+
+    let uri_str = format!(
+        "{}/realtime/calls/{call_id}/accept",
+        configuration.base_path,
+        call_id = crate::apis::urlencode(p_path_call_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_realtime_session_create_request_ga);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AcceptRealtimeCallError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
+#[bon::builder]
+pub async fn create_realtime_call(
+    configuration: &configuration::Configuration,
+    sdp: &str,
+    session: models::RealtimeSessionCreateRequestGa,
+) -> Result<String, Error<CreateRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_sdp = sdp;
+    let p_form_session = session;
+
+    let uri_str = format!("{}/realtime/calls", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    multipart_form = multipart_form.text("sdp", p_form_sdp.to_string());
+    multipart_form = multipart_form.text("session", p_form_session.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `String`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateRealtimeCallError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 /// Create a Realtime client secret with an associated session configuration.
@@ -189,6 +326,141 @@ pub async fn create_realtime_transcription_session(
         let content = resp.text().await?;
         let entity: Option<CreateRealtimeTranscriptionSessionError> =
             serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// End an active Realtime API call, whether it was initiated over SIP or WebRTC.
+#[bon::builder]
+pub async fn hangup_realtime_call(
+    configuration: &configuration::Configuration,
+    call_id: &str,
+) -> Result<(), Error<HangupRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_call_id = call_id;
+
+    let uri_str = format!(
+        "{}/realtime/calls/{call_id}/hangup",
+        configuration.base_path,
+        call_id = crate::apis::urlencode(p_path_call_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<HangupRealtimeCallError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Transfer an active SIP call to a new destination using the SIP REFER verb.
+#[bon::builder]
+pub async fn refer_realtime_call(
+    configuration: &configuration::Configuration,
+    call_id: &str,
+    realtime_call_refer_request: models::RealtimeCallReferRequest,
+) -> Result<(), Error<ReferRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_call_id = call_id;
+    let p_body_realtime_call_refer_request = realtime_call_refer_request;
+
+    let uri_str = format!(
+        "{}/realtime/calls/{call_id}/refer",
+        configuration.base_path,
+        call_id = crate::apis::urlencode(p_path_call_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_realtime_call_refer_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ReferRealtimeCallError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Decline an incoming SIP call by returning a SIP status code to the caller.
+#[bon::builder]
+pub async fn reject_realtime_call(
+    configuration: &configuration::Configuration,
+    call_id: &str,
+    realtime_call_reject_request: Option<models::RealtimeCallRejectRequest>,
+) -> Result<(), Error<RejectRealtimeCallError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_call_id = call_id;
+    let p_body_realtime_call_reject_request = realtime_call_reject_request;
+
+    let uri_str = format!(
+        "{}/realtime/calls/{call_id}/reject",
+        configuration.base_path,
+        call_id = crate::apis::urlencode(p_path_call_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_realtime_call_reject_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RejectRealtimeCallError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

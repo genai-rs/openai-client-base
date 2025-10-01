@@ -28,9 +28,8 @@ pub struct FunctionCallOutputItemParam {
     /// The type of the function tool call output. Always `function_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// A JSON string of the output of the function tool call.
     #[serde(rename = "output")]
-    pub output: String,
+    pub output: Box<models::FunctionCallOutputItemParamOutput>,
     #[serde(
         rename = "status",
         default,
@@ -42,12 +41,16 @@ pub struct FunctionCallOutputItemParam {
 
 impl FunctionCallOutputItemParam {
     /// The output of a function tool call.
-    pub fn new(call_id: String, r#type: Type, output: String) -> FunctionCallOutputItemParam {
+    pub fn new(
+        call_id: String,
+        r#type: Type,
+        output: models::FunctionCallOutputItemParamOutput,
+    ) -> FunctionCallOutputItemParam {
         FunctionCallOutputItemParam {
             id: None,
             call_id,
             r#type,
-            output,
+            output: Box::new(output),
             status: None,
         }
     }
