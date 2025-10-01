@@ -19,6 +19,9 @@ pub struct ResponseFunctionCallArgumentsDoneEvent {
     /// The ID of the item.
     #[serde(rename = "item_id")]
     pub item_id: String,
+    /// The name of the function that was called.
+    #[serde(rename = "name")]
+    pub name: String,
     /// The index of the output item.
     #[serde(rename = "output_index")]
     pub output_index: i32,
@@ -35,6 +38,7 @@ impl ResponseFunctionCallArgumentsDoneEvent {
     pub fn new(
         r#type: Type,
         item_id: String,
+        name: String,
         output_index: i32,
         sequence_number: i32,
         arguments: String,
@@ -42,6 +46,7 @@ impl ResponseFunctionCallArgumentsDoneEvent {
         ResponseFunctionCallArgumentsDoneEvent {
             r#type,
             item_id,
+            name,
             output_index,
             sequence_number,
             arguments,

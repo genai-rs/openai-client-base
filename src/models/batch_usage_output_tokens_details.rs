@@ -11,22 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ResponseUsageOutputTokensDetails : A detailed breakdown of the output tokens.
+/// BatchUsageOutputTokensDetails : A detailed breakdown of the output tokens.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct ResponseUsageOutputTokensDetails {
+pub struct BatchUsageOutputTokensDetails {
     /// The number of reasoning tokens.
     #[serde(rename = "reasoning_tokens")]
     pub reasoning_tokens: i32,
 }
 
-impl ResponseUsageOutputTokensDetails {
+impl BatchUsageOutputTokensDetails {
     /// A detailed breakdown of the output tokens.
-    pub fn new(reasoning_tokens: i32) -> ResponseUsageOutputTokensDetails {
-        ResponseUsageOutputTokensDetails { reasoning_tokens }
+    pub fn new(reasoning_tokens: i32) -> BatchUsageOutputTokensDetails {
+        BatchUsageOutputTokensDetails { reasoning_tokens }
     }
 }
 
-impl std::fmt::Display for ResponseUsageOutputTokensDetails {
+impl std::fmt::Display for BatchUsageOutputTokensDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
