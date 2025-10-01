@@ -21,6 +21,9 @@ pub struct Batch {
     /// The OpenAI API endpoint used by the batch.
     #[serde(rename = "endpoint")]
     pub endpoint: String,
+    /// Model ID used to process the batch, like `gpt-5-2025-08-07`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://platform.openai.com/docs/models) to browse and compare available models.
+    #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
+    pub model: Option<String>,
     #[serde(rename = "errors", skip_serializing_if = "Option::is_none")]
     pub errors: Option<Box<models::BatchErrors>>,
     /// The ID of the input file for the batch.
@@ -67,6 +70,8 @@ pub struct Batch {
     pub cancelled_at: Option<i32>,
     #[serde(rename = "request_counts", skip_serializing_if = "Option::is_none")]
     pub request_counts: Option<Box<models::BatchRequestCounts>>,
+    #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
+    pub usage: Option<Box<models::BatchUsage>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",
@@ -91,6 +96,7 @@ impl Batch {
             id,
             object,
             endpoint,
+            model: None,
             errors: None,
             input_file_id,
             completion_window,
@@ -107,6 +113,7 @@ impl Batch {
             cancelling_at: None,
             cancelled_at: None,
             request_counts: None,
+            usage: None,
             metadata: None,
         }
     }

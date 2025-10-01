@@ -11,14 +11,14 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ResponseUsage : Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
+/// BatchUsage : Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used. Only populated on batches created after September 7, 2025.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct ResponseUsage {
+pub struct BatchUsage {
     /// The number of input tokens.
     #[serde(rename = "input_tokens")]
     pub input_tokens: i32,
     #[serde(rename = "input_tokens_details")]
-    pub input_tokens_details: Box<models::ResponseUsageInputTokensDetails>,
+    pub input_tokens_details: Box<models::BatchUsageInputTokensDetails>,
     /// The number of output tokens.
     #[serde(rename = "output_tokens")]
     pub output_tokens: i32,
@@ -29,16 +29,16 @@ pub struct ResponseUsage {
     pub total_tokens: i32,
 }
 
-impl ResponseUsage {
-    /// Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
+impl BatchUsage {
+    /// Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used. Only populated on batches created after September 7, 2025.
     pub fn new(
         input_tokens: i32,
-        input_tokens_details: models::ResponseUsageInputTokensDetails,
+        input_tokens_details: models::BatchUsageInputTokensDetails,
         output_tokens: i32,
         output_tokens_details: models::BatchUsageOutputTokensDetails,
         total_tokens: i32,
-    ) -> ResponseUsage {
-        ResponseUsage {
+    ) -> BatchUsage {
+        BatchUsage {
             input_tokens,
             input_tokens_details: Box::new(input_tokens_details),
             output_tokens,
@@ -48,7 +48,7 @@ impl ResponseUsage {
     }
 }
 
-impl std::fmt::Display for ResponseUsage {
+impl std::fmt::Display for BatchUsage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
