@@ -8,16 +8,16 @@
 Auto-generated Rust client for the [OpenAI](https://openai.com) API, based on the Stainless OpenAPI specification.
 
 > [!WARNING]
-> **🚀 This is a low-level, auto-generated client library.**
+> **Important:** this is a low-level, auto-generated client library.
 > 
 > This crate provides raw bindings to the OpenAI API, automatically generated from the OpenAPI specification.
 > It is intended as a foundation for building higher-level, more ergonomic client libraries.
 >
 > **Most users should consider using a higher-level wrapper that provides:**
-> - ✅ Simplified API with builder patterns
-> - ✅ Better error handling and retries
-> - ✅ Automatic rate limiting
-> - ✅ More idiomatic Rust interfaces
+> - Simplified APIs with builder patterns
+> - Better error handling and retries
+> - Automatic rate limiting
+> - Idiomatic Rust interfaces
 >
 > **Only use this crate directly if you need:**
 > - Raw access to all OpenAPI endpoints
@@ -31,12 +31,12 @@ This crate provides the foundational types and API client implementation for Ope
 
 ## Features
 
-- 🤖 **Complete API Coverage**: All OpenAI endpoints from the official spec
-- 📦 **Auto-generated**: Always up-to-date with the latest API changes
-- 🦀 **Pure Rust**: Type-safe bindings with serde serialization
-- ⚡ **Async/Await**: Full async support with tokio and reqwest
-- 🔄 **Streaming Support**: Server-sent events for compatible endpoints
-- 🛠️ **Customizable**: Use as a foundation for your own client
+- **Complete API coverage**: all OpenAI endpoints from the official spec
+- **Auto-generated**: always up-to-date with the latest API changes
+- **Pure Rust**: type-safe bindings with serde serialization
+- **Async/await**: full async support with tokio and reqwest
+- **Streaming support**: server-sent events for compatible endpoints
+- **Customisable**: use as a foundation for your own client
 
 ## Generation Pipeline
 
@@ -54,7 +54,7 @@ The client is generated through a comprehensive automated pipeline using Stainle
 
 4. **Post-Generation Fixes**:
    - Fix module paths and add bon builder support (`patch_generated.rs.sh`)
-   - Fix invalid enum variant names (e.g., Gpt4.1 → Gpt4_1)
+   - Fix invalid enum variant names (e.g., Gpt4.1 -> Gpt4_1)
    - Add Display implementations for multipart types
    - Fix empty enums with proper variants from spec
    - Handle untagged unions (automatically detected from anyOf/oneOf)
