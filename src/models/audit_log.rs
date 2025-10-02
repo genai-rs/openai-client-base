@@ -33,23 +33,74 @@ pub struct AuditLog {
     #[serde(rename = "api_key.deleted", skip_serializing_if = "Option::is_none")]
     pub api_key_deleted: Option<Box<models::AuditLogApiKeyDeleted>>,
     #[serde(
-        rename = "checkpoint_permission.created",
+        rename = "checkpoint.permission.created",
         skip_serializing_if = "Option::is_none"
     )]
     pub checkpoint_permission_created: Option<Box<models::AuditLogCheckpointPermissionCreated>>,
     #[serde(
-        rename = "checkpoint_permission.deleted",
+        rename = "checkpoint.permission.deleted",
         skip_serializing_if = "Option::is_none"
     )]
     pub checkpoint_permission_deleted: Option<Box<models::AuditLogCheckpointPermissionDeleted>>,
+    #[serde(
+        rename = "external_key.registered",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub external_key_registered: Option<Box<models::AuditLogExternalKeyRegistered>>,
+    #[serde(
+        rename = "external_key.removed",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub external_key_removed: Option<Box<models::AuditLogExternalKeyRemoved>>,
+    #[serde(rename = "group.created", skip_serializing_if = "Option::is_none")]
+    pub group_created: Option<Box<models::AuditLogGroupCreated>>,
+    #[serde(rename = "group.updated", skip_serializing_if = "Option::is_none")]
+    pub group_updated: Option<Box<models::AuditLogGroupUpdated>>,
+    #[serde(rename = "group.deleted", skip_serializing_if = "Option::is_none")]
+    pub group_deleted: Option<Box<models::AuditLogGroupDeleted>>,
+    #[serde(rename = "scim.enabled", skip_serializing_if = "Option::is_none")]
+    pub scim_enabled: Option<Box<models::AuditLogScimEnabled>>,
+    #[serde(rename = "scim.disabled", skip_serializing_if = "Option::is_none")]
+    pub scim_disabled: Option<Box<models::AuditLogScimDisabled>>,
     #[serde(rename = "invite.sent", skip_serializing_if = "Option::is_none")]
     pub invite_sent: Option<Box<models::AuditLogInviteSent>>,
     #[serde(rename = "invite.accepted", skip_serializing_if = "Option::is_none")]
     pub invite_accepted: Option<Box<models::AuditLogInviteAccepted>>,
     #[serde(rename = "invite.deleted", skip_serializing_if = "Option::is_none")]
     pub invite_deleted: Option<Box<models::AuditLogInviteAccepted>>,
+    #[serde(
+        rename = "ip_allowlist.created",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ip_allowlist_created: Option<Box<models::AuditLogIpAllowlistCreated>>,
+    #[serde(
+        rename = "ip_allowlist.updated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ip_allowlist_updated: Option<Box<models::AuditLogIpAllowlistUpdated>>,
+    #[serde(
+        rename = "ip_allowlist.deleted",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ip_allowlist_deleted: Option<Box<models::AuditLogIpAllowlistDeleted>>,
+    #[serde(
+        rename = "ip_allowlist.config.activated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ip_allowlist_config_activated: Option<Box<models::AuditLogIpAllowlistConfigActivated>>,
+    #[serde(
+        rename = "ip_allowlist.config.deactivated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ip_allowlist_config_deactivated: Option<Box<models::AuditLogIpAllowlistConfigDeactivated>>,
+    /// This event has no additional fields beyond the standard audit log attributes.
+    #[serde(rename = "login.succeeded", skip_serializing_if = "Option::is_none")]
+    pub login_succeeded: Option<serde_json::Value>,
     #[serde(rename = "login.failed", skip_serializing_if = "Option::is_none")]
     pub login_failed: Option<Box<models::AuditLogLoginFailed>>,
+    /// This event has no additional fields beyond the standard audit log attributes.
+    #[serde(rename = "logout.succeeded", skip_serializing_if = "Option::is_none")]
+    pub logout_succeeded: Option<serde_json::Value>,
     #[serde(rename = "logout.failed", skip_serializing_if = "Option::is_none")]
     pub logout_failed: Option<Box<models::AuditLogLoginFailed>>,
     #[serde(
@@ -63,10 +114,28 @@ pub struct AuditLog {
     pub project_updated: Option<Box<models::AuditLogProjectUpdated>>,
     #[serde(rename = "project.archived", skip_serializing_if = "Option::is_none")]
     pub project_archived: Option<Box<models::AuditLogProjectArchived>>,
+    #[serde(rename = "project.deleted", skip_serializing_if = "Option::is_none")]
+    pub project_deleted: Option<Box<models::AuditLogProjectArchived>>,
     #[serde(rename = "rate_limit.updated", skip_serializing_if = "Option::is_none")]
     pub rate_limit_updated: Option<Box<models::AuditLogRateLimitUpdated>>,
     #[serde(rename = "rate_limit.deleted", skip_serializing_if = "Option::is_none")]
     pub rate_limit_deleted: Option<Box<models::AuditLogRateLimitDeleted>>,
+    #[serde(rename = "role.created", skip_serializing_if = "Option::is_none")]
+    pub role_created: Option<Box<models::AuditLogRoleCreated>>,
+    #[serde(rename = "role.updated", skip_serializing_if = "Option::is_none")]
+    pub role_updated: Option<Box<models::AuditLogRoleUpdated>>,
+    #[serde(rename = "role.deleted", skip_serializing_if = "Option::is_none")]
+    pub role_deleted: Option<Box<models::AuditLogRoleDeleted>>,
+    #[serde(
+        rename = "role.assignment.created",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub role_assignment_created: Option<Box<models::AuditLogRoleAssignmentCreated>>,
+    #[serde(
+        rename = "role.assignment.deleted",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub role_assignment_deleted: Option<Box<models::AuditLogRoleAssignmentDeleted>>,
     #[serde(
         rename = "service_account.created",
         skip_serializing_if = "Option::is_none"
@@ -134,17 +203,37 @@ impl AuditLog {
             api_key_deleted: None,
             checkpoint_permission_created: None,
             checkpoint_permission_deleted: None,
+            external_key_registered: None,
+            external_key_removed: None,
+            group_created: None,
+            group_updated: None,
+            group_deleted: None,
+            scim_enabled: None,
+            scim_disabled: None,
             invite_sent: None,
             invite_accepted: None,
             invite_deleted: None,
+            ip_allowlist_created: None,
+            ip_allowlist_updated: None,
+            ip_allowlist_deleted: None,
+            ip_allowlist_config_activated: None,
+            ip_allowlist_config_deactivated: None,
+            login_succeeded: None,
             login_failed: None,
+            logout_succeeded: None,
             logout_failed: None,
             organization_updated: None,
             project_created: None,
             project_updated: None,
             project_archived: None,
+            project_deleted: None,
             rate_limit_updated: None,
             rate_limit_deleted: None,
+            role_created: None,
+            role_updated: None,
+            role_deleted: None,
+            role_assignment_created: None,
+            role_assignment_deleted: None,
             service_account_created: None,
             service_account_updated: None,
             service_account_deleted: None,

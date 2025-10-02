@@ -62,14 +62,3 @@ pub enum Role {
     #[serde(rename = "assistant")]
     Assistant,
 }
-
-/// The status of the item. One of `in_progress`, `completed`, or `incomplete`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "in_progress")]
-    InProgress,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "incomplete")]
-    Incomplete,
-}

@@ -52,14 +52,3 @@ pub enum ConversationItem {
     #[serde(rename = "custom_tool_call_output")]
     CustomToolCallOutput(Box<models::CustomToolCallOutput>),
 }
-
-/// The status of the item. One of `in_progress`, `completed`, or `incomplete`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "in_progress")]
-    InProgress,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "incomplete")]
-    Incomplete,
-}
