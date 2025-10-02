@@ -21,16 +21,46 @@ pub enum AuditLogEventType {
     ApiKeyUpdated,
     #[serde(rename = "api_key.deleted")]
     ApiKeyDeleted,
-    #[serde(rename = "checkpoint_permission.created")]
+    #[serde(rename = "certificate.created")]
+    CertificateCreated,
+    #[serde(rename = "certificate.updated")]
+    CertificateUpdated,
+    #[serde(rename = "certificate.deleted")]
+    CertificateDeleted,
+    #[serde(rename = "certificates.activated")]
+    CertificatesActivated,
+    #[serde(rename = "certificates.deactivated")]
+    CertificatesDeactivated,
+    #[serde(rename = "checkpoint.permission.created")]
     CheckpointPermissionCreated,
-    #[serde(rename = "checkpoint_permission.deleted")]
+    #[serde(rename = "checkpoint.permission.deleted")]
     CheckpointPermissionDeleted,
+    #[serde(rename = "external_key.registered")]
+    ExternalKeyRegistered,
+    #[serde(rename = "external_key.removed")]
+    ExternalKeyRemoved,
+    #[serde(rename = "group.created")]
+    GroupCreated,
+    #[serde(rename = "group.updated")]
+    GroupUpdated,
+    #[serde(rename = "group.deleted")]
+    GroupDeleted,
     #[serde(rename = "invite.sent")]
     InviteSent,
     #[serde(rename = "invite.accepted")]
     InviteAccepted,
     #[serde(rename = "invite.deleted")]
     InviteDeleted,
+    #[serde(rename = "ip_allowlist.created")]
+    IpAllowlistCreated,
+    #[serde(rename = "ip_allowlist.updated")]
+    IpAllowlistUpdated,
+    #[serde(rename = "ip_allowlist.deleted")]
+    IpAllowlistDeleted,
+    #[serde(rename = "ip_allowlist.config.activated")]
+    IpAllowlistConfigActivated,
+    #[serde(rename = "ip_allowlist.config.deactivated")]
+    IpAllowlistConfigDeactivated,
     #[serde(rename = "login.succeeded")]
     LoginSucceeded,
     #[serde(rename = "login.failed")]
@@ -47,16 +77,34 @@ pub enum AuditLogEventType {
     ProjectUpdated,
     #[serde(rename = "project.archived")]
     ProjectArchived,
+    #[serde(rename = "project.deleted")]
+    ProjectDeleted,
+    #[serde(rename = "rate_limit.updated")]
+    RateLimitUpdated,
+    #[serde(rename = "rate_limit.deleted")]
+    RateLimitDeleted,
+    #[serde(rename = "resource.deleted")]
+    ResourceDeleted,
+    #[serde(rename = "role.created")]
+    RoleCreated,
+    #[serde(rename = "role.updated")]
+    RoleUpdated,
+    #[serde(rename = "role.deleted")]
+    RoleDeleted,
+    #[serde(rename = "role.assignment.created")]
+    RoleAssignmentCreated,
+    #[serde(rename = "role.assignment.deleted")]
+    RoleAssignmentDeleted,
+    #[serde(rename = "scim.enabled")]
+    ScimEnabled,
+    #[serde(rename = "scim.disabled")]
+    ScimDisabled,
     #[serde(rename = "service_account.created")]
     ServiceAccountCreated,
     #[serde(rename = "service_account.updated")]
     ServiceAccountUpdated,
     #[serde(rename = "service_account.deleted")]
     ServiceAccountDeleted,
-    #[serde(rename = "rate_limit.updated")]
-    RateLimitUpdated,
-    #[serde(rename = "rate_limit.deleted")]
-    RateLimitDeleted,
     #[serde(rename = "user.added")]
     UserAdded,
     #[serde(rename = "user.updated")]
@@ -71,11 +119,26 @@ impl std::fmt::Display for AuditLogEventType {
             Self::ApiKeyCreated => write!(f, "api_key.created"),
             Self::ApiKeyUpdated => write!(f, "api_key.updated"),
             Self::ApiKeyDeleted => write!(f, "api_key.deleted"),
-            Self::CheckpointPermissionCreated => write!(f, "checkpoint_permission.created"),
-            Self::CheckpointPermissionDeleted => write!(f, "checkpoint_permission.deleted"),
+            Self::CertificateCreated => write!(f, "certificate.created"),
+            Self::CertificateUpdated => write!(f, "certificate.updated"),
+            Self::CertificateDeleted => write!(f, "certificate.deleted"),
+            Self::CertificatesActivated => write!(f, "certificates.activated"),
+            Self::CertificatesDeactivated => write!(f, "certificates.deactivated"),
+            Self::CheckpointPermissionCreated => write!(f, "checkpoint.permission.created"),
+            Self::CheckpointPermissionDeleted => write!(f, "checkpoint.permission.deleted"),
+            Self::ExternalKeyRegistered => write!(f, "external_key.registered"),
+            Self::ExternalKeyRemoved => write!(f, "external_key.removed"),
+            Self::GroupCreated => write!(f, "group.created"),
+            Self::GroupUpdated => write!(f, "group.updated"),
+            Self::GroupDeleted => write!(f, "group.deleted"),
             Self::InviteSent => write!(f, "invite.sent"),
             Self::InviteAccepted => write!(f, "invite.accepted"),
             Self::InviteDeleted => write!(f, "invite.deleted"),
+            Self::IpAllowlistCreated => write!(f, "ip_allowlist.created"),
+            Self::IpAllowlistUpdated => write!(f, "ip_allowlist.updated"),
+            Self::IpAllowlistDeleted => write!(f, "ip_allowlist.deleted"),
+            Self::IpAllowlistConfigActivated => write!(f, "ip_allowlist.config.activated"),
+            Self::IpAllowlistConfigDeactivated => write!(f, "ip_allowlist.config.deactivated"),
             Self::LoginSucceeded => write!(f, "login.succeeded"),
             Self::LoginFailed => write!(f, "login.failed"),
             Self::LogoutSucceeded => write!(f, "logout.succeeded"),
@@ -84,11 +147,20 @@ impl std::fmt::Display for AuditLogEventType {
             Self::ProjectCreated => write!(f, "project.created"),
             Self::ProjectUpdated => write!(f, "project.updated"),
             Self::ProjectArchived => write!(f, "project.archived"),
+            Self::ProjectDeleted => write!(f, "project.deleted"),
+            Self::RateLimitUpdated => write!(f, "rate_limit.updated"),
+            Self::RateLimitDeleted => write!(f, "rate_limit.deleted"),
+            Self::ResourceDeleted => write!(f, "resource.deleted"),
+            Self::RoleCreated => write!(f, "role.created"),
+            Self::RoleUpdated => write!(f, "role.updated"),
+            Self::RoleDeleted => write!(f, "role.deleted"),
+            Self::RoleAssignmentCreated => write!(f, "role.assignment.created"),
+            Self::RoleAssignmentDeleted => write!(f, "role.assignment.deleted"),
+            Self::ScimEnabled => write!(f, "scim.enabled"),
+            Self::ScimDisabled => write!(f, "scim.disabled"),
             Self::ServiceAccountCreated => write!(f, "service_account.created"),
             Self::ServiceAccountUpdated => write!(f, "service_account.updated"),
             Self::ServiceAccountDeleted => write!(f, "service_account.deleted"),
-            Self::RateLimitUpdated => write!(f, "rate_limit.updated"),
-            Self::RateLimitDeleted => write!(f, "rate_limit.deleted"),
             Self::UserAdded => write!(f, "user.added"),
             Self::UserUpdated => write!(f, "user.updated"),
             Self::UserDeleted => write!(f, "user.deleted"),
