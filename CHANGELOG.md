@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0](https://github.com/genai-rs/openai-client-base/compare/v0.3.0...v0.4.0) - 2025-10-02
+
+### Other
+
+- disable PR review requirement
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- install rustfmt/clippy for generator
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+
 ## [0.3.0](https://github.com/genai-rs/openai-client-base/compare/v0.2.0...v0.3.0) - 2025-09-18
 
 ### Added
