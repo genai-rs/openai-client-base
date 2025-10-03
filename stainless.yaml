@@ -17381,12 +17381,6 @@ paths:
           `Location` response header includes the call ID for follow-up requests,
           e.g., establishing a monitoring WebSocket or hanging up the call.
         examples:
-          request:
-            curl: |-
-              curl -X POST https://api.openai.com/v1/realtime/calls \
-                -H "Authorization: Bearer $OPENAI_API_KEY" \
-                -F "sdp=<offer.sdp;type=application/sdp" \
-                -F 'session={"type":"realtime","model":"gpt-realtime"};type=application/json'
           response: >-
             v=0
 
@@ -17429,6 +17423,24 @@ paths:
             a=mid:1
 
             a=sctp-port:5000
+          request:
+            curl: |-
+              curl -X POST https://api.openai.com/v1/realtime/calls \
+                -H "Authorization: Bearer $OPENAI_API_KEY" \
+                -F "sdp=<offer.sdp;type=application/sdp" \
+                -F 'session={"type":"realtime","model":"gpt-realtime"};type=application/json'
+            python: |-
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key="My API Key",
+              )
+              call = client.realtime.calls.create(
+                  sdp="sdp",
+              )
+              print(call)
+              content = call.read()
+              print(content)
       description: |-
         Create a new Realtime API call over WebRTC and receive the SDP answer needed
         to complete the peer connection.
@@ -17467,6 +17479,7 @@ paths:
           Returns `200 OK` once OpenAI starts ringing the SIP leg with the supplied
           session configuration.
         examples:
+          response: ''
           request:
             curl: |-
               curl -X POST https://api.openai.com/v1/realtime/calls/$CALL_ID/accept \
@@ -17477,6 +17490,81 @@ paths:
                       "model": "gpt-realtime",
                       "instructions": "You are Alex, a friendly concierge for Example Corp.",
                     }'
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: 'My API Key',
+              });
+
+              await client.realtime.calls.accept('call_id', { type: 'realtime' });
+            python: |-
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key="My API Key",
+              )
+              client.realtime.calls.accept(
+                  call_id="call_id",
+                  type="realtime",
+              )
+            go: |
+              package main
+
+              import (
+                "context"
+
+                "github.com/openai/openai-go"
+                "github.com/openai/openai-go/option"
+                "github.com/openai/openai-go/realtime"
+              )
+
+              func main() {
+                client := openai.NewClient(
+                  option.WithAPIKey("My API Key"),
+                )
+                err := client.Realtime.Calls.Accept(
+                  context.TODO(),
+                  "call_id",
+                  realtime.CallAcceptParams{
+                    RealtimeSessionCreateRequest: realtime.RealtimeSessionCreateRequestParam{
+
+                    },
+                  },
+                )
+                if err != nil {
+                  panic(err.Error())
+                }
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.realtime.RealtimeSessionCreateRequest;
+              import com.openai.models.realtime.calls.CallAcceptParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      CallAcceptParams params = CallAcceptParams.builder()
+                          .callId("call_id")
+                          .realtimeSessionCreateRequest(RealtimeSessionCreateRequest.builder().build())
+                          .build();
+                      client.realtime().calls().accept(params);
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              result = openai.realtime.calls.accept("call_id", type: :realtime)
+
+              puts(result)
       description: |-
         Accept an incoming SIP call and configure the realtime session that will
         handle it.
@@ -17510,10 +17598,71 @@ paths:
         group: realtime-calls
         returns: Returns `200 OK` when OpenAI begins terminating the realtime call.
         examples:
+          response: ''
           request:
             curl: |-
               curl -X POST https://api.openai.com/v1/realtime/calls/$CALL_ID/hangup \
                 -H "Authorization: Bearer $OPENAI_API_KEY"
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: 'My API Key',
+              });
+
+              await client.realtime.calls.hangup('call_id');
+            python: |-
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key="My API Key",
+              )
+              client.realtime.calls.hangup(
+                  "call_id",
+              )
+            go: |
+              package main
+
+              import (
+                "context"
+
+                "github.com/openai/openai-go"
+                "github.com/openai/openai-go/option"
+              )
+
+              func main() {
+                client := openai.NewClient(
+                  option.WithAPIKey("My API Key"),
+                )
+                err := client.Realtime.Calls.Hangup(context.TODO(), "call_id")
+                if err != nil {
+                  panic(err.Error())
+                }
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.realtime.calls.CallHangupParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      client.realtime().calls().hangup("call_id");
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              result = openai.realtime.calls.hangup("call_id")
+
+              puts(result)
       description: |-
         End an active Realtime API call, whether it was initiated over SIP or
         WebRTC.
@@ -17550,12 +17699,85 @@ paths:
         group: realtime-calls
         returns: Returns `200 OK` once the REFER is handed off to your SIP provider.
         examples:
+          response: ''
           request:
             curl: |-
               curl -X POST https://api.openai.com/v1/realtime/calls/$CALL_ID/refer \
                 -H "Authorization: Bearer $OPENAI_API_KEY" \
                 -H "Content-Type: application/json" \
                 -d '{"target_uri": "tel:+14155550123"}'
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: 'My API Key',
+              });
+
+              await client.realtime.calls.refer('call_id', { target_uri: 'tel:+14155550123' });
+            python: |-
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key="My API Key",
+              )
+              client.realtime.calls.refer(
+                  call_id="call_id",
+                  target_uri="tel:+14155550123",
+              )
+            go: |
+              package main
+
+              import (
+                "context"
+
+                "github.com/openai/openai-go"
+                "github.com/openai/openai-go/option"
+                "github.com/openai/openai-go/realtime"
+              )
+
+              func main() {
+                client := openai.NewClient(
+                  option.WithAPIKey("My API Key"),
+                )
+                err := client.Realtime.Calls.Refer(
+                  context.TODO(),
+                  "call_id",
+                  realtime.CallReferParams{
+                    TargetUri: "tel:+14155550123",
+                  },
+                )
+                if err != nil {
+                  panic(err.Error())
+                }
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.realtime.calls.CallReferParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      CallReferParams params = CallReferParams.builder()
+                          .callId("call_id")
+                          .targetUri("tel:+14155550123")
+                          .build();
+                      client.realtime().calls().refer(params);
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              result = openai.realtime.calls.refer("call_id", target_uri: "tel:+14155550123")
+
+              puts(result)
       description: Transfer an active SIP call to a new destination using the SIP REFER verb.
   /realtime/calls/{call_id}/reject:
     post:
@@ -17592,12 +17814,80 @@ paths:
         group: realtime-calls
         returns: Returns `200 OK` after OpenAI sends the SIP status code to the caller.
         examples:
+          response: ''
           request:
             curl: |-
               curl -X POST https://api.openai.com/v1/realtime/calls/$CALL_ID/reject \
                 -H "Authorization: Bearer $OPENAI_API_KEY" \
                 -H "Content-Type: application/json" \
                 -d '{"status_code": 486}'
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: 'My API Key',
+              });
+
+              await client.realtime.calls.reject('call_id');
+            python: |-
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key="My API Key",
+              )
+              client.realtime.calls.reject(
+                  call_id="call_id",
+              )
+            go: |
+              package main
+
+              import (
+                "context"
+
+                "github.com/openai/openai-go"
+                "github.com/openai/openai-go/option"
+                "github.com/openai/openai-go/realtime"
+              )
+
+              func main() {
+                client := openai.NewClient(
+                  option.WithAPIKey("My API Key"),
+                )
+                err := client.Realtime.Calls.Reject(
+                  context.TODO(),
+                  "call_id",
+                  realtime.CallRejectParams{
+
+                  },
+                )
+                if err != nil {
+                  panic(err.Error())
+                }
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.realtime.calls.CallRejectParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      client.realtime().calls().reject("call_id");
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              result = openai.realtime.calls.reject("call_id")
+
+              puts(result)
       description: Decline an incoming SIP call by returning a SIP status code to the caller.
   /realtime/client_secrets:
     post:
@@ -45477,13 +45767,14 @@ components:
         by your client and optionally configure the session that will answer the call.
       required:
         - sdp
-        - session
       properties:
         sdp:
           type: string
           description: WebRTC Session Description Protocol (SDP) offer generated by the caller.
         session:
           title: Session configuration
+          allOf:
+            - $ref: '#/components/schemas/RealtimeSessionCreateRequestGA'
           description: >-
             Optional session configuration to apply before the realtime session is
 
@@ -45491,8 +45782,6 @@ components:
             secret`](https://platform.openai.com/docs/api-reference/realtime-sessions/create-realtime-client-secret)
 
             request.
-          allOf:
-            - $ref: '#/components/schemas/RealtimeSessionCreateRequestGA'
       additionalProperties: false
     RealtimeCallReferRequest:
       title: Realtime call refer request
@@ -59742,8 +60031,8 @@ components:
       properties:
         model:
           type: string
-      required:
-        - model
+        call_id:
+          type: string
     ModerationImageURLInput:
       type: object
       description: An object describing an image to classify.
