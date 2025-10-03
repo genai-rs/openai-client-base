@@ -122,7 +122,7 @@ pub async fn accept_realtime_call(
 pub async fn create_realtime_call(
     configuration: &configuration::Configuration,
     sdp: &str,
-    session: models::RealtimeSessionCreateRequestGa,
+    session: Option<models::RealtimeSessionCreateRequestGa>,
 ) -> Result<String, Error<CreateRealtimeCallError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_sdp = sdp;
@@ -141,7 +141,9 @@ pub async fn create_realtime_call(
     };
     let mut multipart_form = reqwest::multipart::Form::new();
     multipart_form = multipart_form.text("sdp", p_form_sdp.to_string());
-    multipart_form = multipart_form.text("session", p_form_session.to_string());
+    if let Some(param_value) = p_form_session {
+        multipart_form = multipart_form.text("session", param_value.to_string());
+    }
     req_builder = req_builder.multipart(multipart_form);
 
     let req = req_builder.build()?;

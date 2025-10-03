@@ -13,13 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeConnectParams {
-    #[serde(rename = "model")]
-    pub model: String,
+    #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
+    pub model: Option<String>,
+    #[serde(rename = "call_id", skip_serializing_if = "Option::is_none")]
+    pub call_id: Option<String>,
 }
 
 impl RealtimeConnectParams {
-    pub fn new(model: String) -> RealtimeConnectParams {
-        RealtimeConnectParams { model }
+    pub fn new() -> RealtimeConnectParams {
+        RealtimeConnectParams {
+            model: None,
+            call_id: None,
+        }
     }
 }
 
