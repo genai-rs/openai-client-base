@@ -40,6 +40,7 @@ repository:
 branches:
   - name: main
     protection:
+      required_pull_request_reviews: null
       # Require status checks
       required_status_checks:
         strict: true  # Require branches to be up to date
@@ -49,7 +50,7 @@ branches:
           - "Test (1.82.0)"
           - "Cargo Audit"
           - "Check Unused Dependencies"
-      
+
       # Enforce for admins
       enforce_admins: false
       
