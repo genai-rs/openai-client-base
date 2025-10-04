@@ -15,10 +15,8 @@
     'cargo',
     'github-actions',
   ],
-  branchPrefix: 'automated/renovate/',
   labels: [
     'dependencies',
-    'automated',
   ],
   commitMessagePrefix: 'chore(deps):',
   prBodyTemplate: 'This PR updates dependencies. See the Dependency Dashboard for details.',
