@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/genai-rs/openai-client-base/compare/v0.4.0...v0.5.0) - 2025-10-04
+
+### Fixed
+
+- add rust-version to avoid Renovate Rust 1.90 compatibility issue
+- remove custom branchPrefix from renovate config
+
+### Other
+
+- Disable required PR reviews in branch protection
+- update generated client from latest OpenAPI spec
+- remove decorative emoji from README
+- *(deps)* migrate config renovate.json5
+- *(deps)* Update mozilla-actions/sccache-action action to v0.0.9
+- *(deps)* Update github-actions
+- align renovate config with library defaults
+
 ## [0.4.0](https://github.com/genai-rs/openai-client-base/compare/v0.3.0...v0.4.0) - 2025-10-02
 
 ### Other
