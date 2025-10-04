@@ -11,6 +11,7 @@ documentation = "https://docs.rs/openai-client-base"
 readme = "README.md"
 keywords = ["openai", "api", "client", "generated"]
 categories = ["api-bindings"]
+rust-version = "1.82"
 
 [dependencies]
 bon = "3"
