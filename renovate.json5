@@ -7,7 +7,6 @@
     ':rebaseStalePrs',
     ':prConcurrentLimit10',
   ],
-  renovateVersion: '41.124.1',
   timezone: 'UTC',
   schedule: [
     'after 2am and before 6am on monday',
