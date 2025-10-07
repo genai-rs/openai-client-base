@@ -11,7 +11,9 @@ pub enum FineTuneReinforcementHyperparametersComputeMultiplier {
 impl std::fmt::Display for FineTuneReinforcementHyperparametersComputeMultiplier {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            FineTuneReinforcementHyperparametersComputeMultiplier::TextVariant(value) => write!(f, "{}", value),
+            FineTuneReinforcementHyperparametersComputeMultiplier::TextVariant(value) => {
+                write!(f, "{}", value)
+            }
         }
     }
 }

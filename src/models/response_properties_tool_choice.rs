@@ -20,27 +20,36 @@ impl std::fmt::Display for ResponsePropertiesToolChoice {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
-            ResponsePropertiesToolChoice::Toolchoiceallowed(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
-            ResponsePropertiesToolChoice::Toolchoicetypes(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
-            ResponsePropertiesToolChoice::Toolchoicefunction(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
-            ResponsePropertiesToolChoice::Toolchoicemcp(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
-            ResponsePropertiesToolChoice::Toolchoicecustom(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
+            ResponsePropertiesToolChoice::Toolchoiceallowed(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            ResponsePropertiesToolChoice::Toolchoicetypes(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            ResponsePropertiesToolChoice::Toolchoicefunction(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            ResponsePropertiesToolChoice::Toolchoicemcp(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            ResponsePropertiesToolChoice::Toolchoicecustom(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
         }
     }
 }
-

@@ -13,10 +13,14 @@ impl Default for FineTuneReinforcementHyperparametersLearningRateMultiplierTextV
     }
 }
 
-impl std::fmt::Display for FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum {
+impl std::fmt::Display
+    for FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum
+{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
-            FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum::Auto => "auto",
+            FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum::Auto => {
+                "auto"
+            }
         };
         write!(f, "{}", value)
     }

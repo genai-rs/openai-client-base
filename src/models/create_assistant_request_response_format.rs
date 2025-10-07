@@ -12,12 +12,13 @@ pub enum CreateAssistantRequestResponseFormat {
 impl std::fmt::Display for CreateAssistantRequestResponseFormat {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            CreateAssistantRequestResponseFormat::Assistantsapiresponseformatoption(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
+            CreateAssistantRequestResponseFormat::Assistantsapiresponseformatoption(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
             CreateAssistantRequestResponseFormat::Null => write!(f, "null"),
         }
     }
 }
-

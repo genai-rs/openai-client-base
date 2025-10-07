@@ -12,12 +12,13 @@ pub enum WebSearchApproximateLocation {
 impl std::fmt::Display for WebSearchApproximateLocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            WebSearchApproximateLocation::WebSearchApproximateLocation(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
+            WebSearchApproximateLocation::WebSearchApproximateLocation(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
             WebSearchApproximateLocation::Null => write!(f, "null"),
         }
     }
 }
-

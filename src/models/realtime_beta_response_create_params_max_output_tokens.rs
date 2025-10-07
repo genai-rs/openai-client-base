@@ -11,7 +11,9 @@ pub enum RealtimeBetaResponseCreateParamsMaxOutputTokens {
 impl std::fmt::Display for RealtimeBetaResponseCreateParamsMaxOutputTokens {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            RealtimeBetaResponseCreateParamsMaxOutputTokens::TextVariant(value) => write!(f, "{}", value),
+            RealtimeBetaResponseCreateParamsMaxOutputTokens::TextVariant(value) => {
+                write!(f, "{}", value)
+            }
         }
     }
 }
