@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ImageGenToolInputImageMask : Optional mask for inpainting. Contains `image_url`  (string, optional) and `file_id` (string, optional).
+/// ImageGenToolInputImageMask : Optional mask for inpainting. Contains `image_url` (string, optional) and `file_id` (string, optional).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenToolInputImageMask {
     /// Base64-encoded mask image.
@@ -23,7 +23,7 @@ pub struct ImageGenToolInputImageMask {
 }
 
 impl ImageGenToolInputImageMask {
-    /// Optional mask for inpainting. Contains `image_url`  (string, optional) and `file_id` (string, optional).
+    /// Optional mask for inpainting. Contains `image_url` (string, optional) and `file_id` (string, optional).
     pub fn new() -> ImageGenToolInputImageMask {
         ImageGenToolInputImageMask {
             image_url: None,

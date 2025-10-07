@@ -20,13 +20,13 @@ pub struct ImageGenTool {
     /// The image generation model to use. Default: `gpt-image-1`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<Model>,
-    /// The quality of the generated image. One of `low`, `medium`, `high`,  or `auto`. Default: `auto`.
+    /// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
-    /// The size of the generated image. One of `1024x1024`, `1024x1536`,  `1536x1024`, or `auto`. Default: `auto`.
+    /// The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<Size>,
-    /// The output format of the generated image. One of `png`, `webp`, or  `jpeg`. Default: `png`.
+    /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
     #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
     pub output_format: Option<OutputFormat>,
     /// Compression level for the output image. Default: 100.
@@ -35,7 +35,7 @@ pub struct ImageGenTool {
     /// Moderation level for the generated image. Default: `auto`.
     #[serde(rename = "moderation", skip_serializing_if = "Option::is_none")]
     pub moderation: Option<Moderation>,
-    /// Background type for the generated image. One of `transparent`,  `opaque`, or `auto`. Default: `auto`.
+    /// Background type for the generated image. One of `transparent`, `opaque`, or `auto`. Default: `auto`.
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<Background>,
     #[serde(
@@ -87,6 +87,8 @@ impl Default for Type {
 pub enum Model {
     #[serde(rename = "gpt-image-1")]
     GptImage1,
+    #[serde(rename = "gpt-image-1-mini")]
+    GptImage1Mini,
 }
 
 impl Default for Model {
@@ -94,7 +96,7 @@ impl Default for Model {
         Self::GptImage1
     }
 }
-/// The quality of the generated image. One of `low`, `medium`, `high`,  or `auto`. Default: `auto`.
+/// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
     #[serde(rename = "low")]
@@ -112,7 +114,7 @@ impl Default for Quality {
         Self::Low
     }
 }
-/// The size of the generated image. One of `1024x1024`, `1024x1536`,  `1536x1024`, or `auto`. Default: `auto`.
+/// The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Size {
     #[serde(rename = "1024x1024")]
@@ -130,7 +132,7 @@ impl Default for Size {
         Self::Variant1024x1024
     }
 }
-/// The output format of the generated image. One of `png`, `webp`, or  `jpeg`. Default: `png`.
+/// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputFormat {
     #[serde(rename = "png")]
@@ -160,7 +162,7 @@ impl Default for Moderation {
         Self::Auto
     }
 }
-/// Background type for the generated image. One of `transparent`,  `opaque`, or `auto`. Default: `auto`.
+/// Background type for the generated image. One of `transparent`, `opaque`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Background {
     #[serde(rename = "transparent")]

@@ -63,9 +63,11 @@ pub enum ConnectorId {
 pub enum Model {
     #[serde(rename = "gpt-image-1")]
     GptImage1,
+    #[serde(rename = "gpt-image-1-mini")]
+    GptImage1Mini,
 }
 
-/// The quality of the generated image. One of `low`, `medium`, `high`,  or `auto`. Default: `auto`.
+/// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
     #[serde(rename = "low")]
@@ -78,7 +80,7 @@ pub enum Quality {
     Auto,
 }
 
-/// The size of the generated image. One of `1024x1024`, `1024x1536`,  `1536x1024`, or `auto`. Default: `auto`.
+/// The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Size {
     #[serde(rename = "1024x1024")]
@@ -91,7 +93,7 @@ pub enum Size {
     Auto,
 }
 
-/// The output format of the generated image. One of `png`, `webp`, or  `jpeg`. Default: `png`.
+/// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputFormat {
     #[serde(rename = "png")]
@@ -111,7 +113,7 @@ pub enum Moderation {
     Low,
 }
 
-/// Background type for the generated image. One of `transparent`,  `opaque`, or `auto`. Default: `auto`.
+/// Background type for the generated image. One of `transparent`, `opaque`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Background {
     #[serde(rename = "transparent")]

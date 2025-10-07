@@ -146,6 +146,7 @@ pub mod uploads_api;
 pub mod usage_api;
 pub mod users_api;
 pub mod vector_stores_api;
+pub mod videos_api;
 
 pub mod configuration;
 
