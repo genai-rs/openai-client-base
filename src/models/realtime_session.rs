@@ -168,6 +168,14 @@ pub enum Model {
     Gpt4oMiniRealtimePreview,
     #[serde(rename = "gpt-4o-mini-realtime-preview-2024-12-17")]
     Gpt4oMiniRealtimePreview20241217,
+    #[serde(rename = "gpt-realtime-mini")]
+    GptRealtimeMini,
+    #[serde(rename = "gpt-realtime-mini-2025-10-06")]
+    GptRealtimeMini20251006,
+    #[serde(rename = "gpt-audio-mini")]
+    GptAudioMini,
+    #[serde(rename = "gpt-audio-mini-2025-10-06")]
+    GptAudioMini20251006,
 }
 
 impl Default for Model {
