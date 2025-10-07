@@ -15,18 +15,24 @@ impl std::fmt::Display for ChatCompletionToolChoiceOption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             ChatCompletionToolChoiceOption::Auto(value) => write!(f, "{}", value),
-            ChatCompletionToolChoiceOption::Chatcompletionallowedtoolschoice(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
-            ChatCompletionToolChoiceOption::Chatcompletionnamedtoolchoice(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
-            ChatCompletionToolChoiceOption::Chatcompletionnamedtoolchoicecustom(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
+            ChatCompletionToolChoiceOption::Chatcompletionallowedtoolschoice(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            ChatCompletionToolChoiceOption::Chatcompletionnamedtoolchoice(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            ChatCompletionToolChoiceOption::Chatcompletionnamedtoolchoicecustom(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
         }
     }
 }

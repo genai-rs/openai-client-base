@@ -25,4 +25,3 @@ impl std::fmt::Display for RealtimeTurnDetection {
         }
     }
 }
-

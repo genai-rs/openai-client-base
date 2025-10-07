@@ -21,4 +21,3 @@ impl std::fmt::Display for RunStepCompletionUsage {
         }
     }
 }
-
