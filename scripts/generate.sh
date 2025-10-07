@@ -108,7 +108,7 @@ if [ -f "$OUT_DIR/lib.rs.backup" ]; then
     fi
 fi
 
-# Step 4b: Fix file upload TODOs (binary format parameters without x-oaiTypeLabel)
+# Step 4b: Fix file upload TODOs (optional binary parameters)
 echo ""
 echo "🔧 Fixing file upload TODOs..."
 uv run python scripts/fix_file_upload_todos.py

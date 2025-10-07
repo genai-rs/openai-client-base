@@ -13,24 +13,19 @@ pub enum RealtimeBetaResponseCreateParamsToolChoice {
 impl std::fmt::Display for RealtimeBetaResponseCreateParamsToolChoice {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            RealtimeBetaResponseCreateParamsToolChoice::Toolchoiceoptions(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
-            RealtimeBetaResponseCreateParamsToolChoice::Toolchoicefunction(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
-            RealtimeBetaResponseCreateParamsToolChoice::Toolchoicemcp(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
+            RealtimeBetaResponseCreateParamsToolChoice::Toolchoiceoptions(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            RealtimeBetaResponseCreateParamsToolChoice::Toolchoicefunction(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            RealtimeBetaResponseCreateParamsToolChoice::Toolchoicemcp(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
     }
 }
+

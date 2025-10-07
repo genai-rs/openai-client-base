@@ -31,3 +31,4 @@ impl std::fmt::Display for McpToolAllowedTools {
         }
     }
 }
+

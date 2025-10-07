@@ -11,9 +11,7 @@ pub enum FineTuneReinforcementHyperparametersEvalSamples {
 impl std::fmt::Display for FineTuneReinforcementHyperparametersEvalSamples {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            FineTuneReinforcementHyperparametersEvalSamples::TextVariant(value) => {
-                write!(f, "{}", value)
-            }
+            FineTuneReinforcementHyperparametersEvalSamples::TextVariant(value) => write!(f, "{}", value),
         }
     }
 }

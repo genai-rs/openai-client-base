@@ -40,3 +40,4 @@ impl std::fmt::Display for CreateAssistantRequestInstructions {
         }
     }
 }
+

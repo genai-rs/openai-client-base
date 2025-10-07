@@ -13,12 +13,10 @@ impl std::fmt::Display for AssistantsApiToolChoiceOption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             AssistantsApiToolChoiceOption::Auto(value) => write!(f, "{}", value),
-            AssistantsApiToolChoiceOption::Assistantsnamedtoolchoice(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
+            AssistantsApiToolChoiceOption::Assistantsnamedtoolchoice(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
     }
 }
