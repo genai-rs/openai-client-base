@@ -39,12 +39,11 @@ impl std::fmt::Display for CustomToolCallOutputOutput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             CustomToolCallOutputOutput::StringOutput(value) => write!(f, "{}", value),
-            CustomToolCallOutputOutput::OutputContentList(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
+            CustomToolCallOutputOutput::OutputContentList(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
     }
 }
+

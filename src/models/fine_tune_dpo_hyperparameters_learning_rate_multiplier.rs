@@ -11,9 +11,7 @@ pub enum FineTuneDpoHyperparametersLearningRateMultiplier {
 impl std::fmt::Display for FineTuneDpoHyperparametersLearningRateMultiplier {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            FineTuneDpoHyperparametersLearningRateMultiplier::TextVariant(value) => {
-                write!(f, "{}", value)
-            }
+            FineTuneDpoHyperparametersLearningRateMultiplier::TextVariant(value) => write!(f, "{}", value),
         }
     }
 }
