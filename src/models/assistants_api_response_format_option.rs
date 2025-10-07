@@ -15,24 +15,18 @@ impl std::fmt::Display for AssistantsApiResponseFormatOption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             AssistantsApiResponseFormatOption::TextVariant(value) => write!(f, "{}", value),
-            AssistantsApiResponseFormatOption::Responseformattext(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
-            AssistantsApiResponseFormatOption::Responseformatjsonobject(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
-            AssistantsApiResponseFormatOption::Responseformatjsonschema(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
+            AssistantsApiResponseFormatOption::Responseformattext(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            AssistantsApiResponseFormatOption::Responseformatjsonobject(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            AssistantsApiResponseFormatOption::Responseformatjsonschema(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
     }
 }

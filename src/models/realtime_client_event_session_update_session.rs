@@ -6,9 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum RealtimeClientEventSessionUpdateSession {
     Realtimesessioncreaterequestga(models::RealtimeSessionCreateRequestGa),
-    Realtimetranscriptionsessioncreaterequestga(
-        models::RealtimeTranscriptionSessionCreateRequestGa,
-    ),
+    Realtimetranscriptionsessioncreaterequestga(models::RealtimeTranscriptionSessionCreateRequestGa),
 }
 
 impl std::fmt::Display for RealtimeClientEventSessionUpdateSession {
@@ -25,3 +23,4 @@ impl std::fmt::Display for RealtimeClientEventSessionUpdateSession {
         }
     }
 }
+

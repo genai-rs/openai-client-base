@@ -13,12 +13,10 @@ impl std::fmt::Display for RealtimeTruncation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             RealtimeTruncation::Realtimetruncationstrategy(value) => write!(f, "{}", value),
-            RealtimeTruncation::RetentionRatioTruncation(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
+            RealtimeTruncation::RetentionRatioTruncation(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
     }
 }

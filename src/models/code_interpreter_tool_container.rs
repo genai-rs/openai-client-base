@@ -36,12 +36,11 @@ impl std::fmt::Display for CodeInterpreterToolContainer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             CodeInterpreterToolContainer::Text(value) => write!(f, "{}", value),
-            CodeInterpreterToolContainer::Codeinterpretertoolauto(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
+            CodeInterpreterToolContainer::Codeinterpretertoolauto(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
     }
 }
+
