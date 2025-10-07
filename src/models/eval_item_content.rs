@@ -59,12 +59,11 @@ impl std::fmt::Display for EvalItemContent {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
-            EvalItemContent::AnArrayOfInputTextInputImageAndInputAudio(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
+            EvalItemContent::AnArrayOfInputTextInputImageAndInputAudio(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
     }
 }
+

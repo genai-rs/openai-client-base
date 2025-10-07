@@ -9,16 +9,22 @@ pub enum ChatCompletionRequestSystemMessageContent {
     ArrayOfContentParts(Vec<models::ChatCompletionRequestMessageContentPartText>),
 }
 
+
+
+
+
+
+
+
 impl std::fmt::Display for ChatCompletionRequestSystemMessageContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             ChatCompletionRequestSystemMessageContent::TextContent(value) => write!(f, "{}", value),
-            ChatCompletionRequestSystemMessageContent::ArrayOfContentParts(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
-            }
+            ChatCompletionRequestSystemMessageContent::ArrayOfContentParts(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
     }
 }
+
