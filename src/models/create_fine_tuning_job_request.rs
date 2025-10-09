@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateFineTuningJobRequest {
     /// The name of the model to fine-tune. You can select one of the [supported models](https://platform.openai.com/docs/guides/fine-tuning#which-models-can-be-fine-tuned).
     #[serde(rename = "model")]

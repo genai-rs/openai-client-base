@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// Item : Content item used to generate a response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
+#[allow(unreachable_patterns)]
 pub enum Item {
     #[serde(rename = "message")]
     InputMessage(Box<models::InputMessage>),
