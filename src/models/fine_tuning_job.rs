@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuningJob : The `fine_tuning.job` object represents a fine-tuning job that has been created through the API.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuningJob {
     /// The object identifier, which can be referenced in the API endpoints.
     #[serde(rename = "id")]
