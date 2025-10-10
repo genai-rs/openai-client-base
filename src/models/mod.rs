@@ -404,6 +404,8 @@ pub mod comparison_filter;
 pub use self::comparison_filter::ComparisonFilter;
 pub mod comparison_filter_value;
 pub use self::comparison_filter_value::ComparisonFilterValue;
+pub mod comparison_filter_value_items;
+pub use self::comparison_filter_value_items::ComparisonFilterValueItems;
 pub mod complete_upload_request;
 pub use self::complete_upload_request::CompleteUploadRequest;
 pub mod completion_usage;

@@ -49,7 +49,7 @@ Name | Type | Description  | Required | Notes
 > models::DeleteFileResponse delete_file(file_id)
 Delete file
 
-Delete a file.
+Delete a file and remove it from all vector stores.
 
 ### Parameters
 

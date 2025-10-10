@@ -114,7 +114,7 @@ pub async fn create_file(
     }
 }
 
-/// Delete a file.
+/// Delete a file and remove it from all vector stores.
 #[bon::builder]
 pub async fn delete_file(
     configuration: &configuration::Configuration,
