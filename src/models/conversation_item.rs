@@ -13,42 +13,24 @@ use serde::{Deserialize, Serialize};
 
 /// ConversationItem : A single item within a conversation. The set of possible types are the same as the `output` type of a [Response object](https://platform.openai.com/docs/api-reference/responses/object#responses/object-output).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum ConversationItem {
-    #[serde(rename = "message")]
     Message(Box<models::Message>),
-    #[serde(rename = "functiontoolcallresource")]
     FunctionToolCallResource(Box<models::FunctionToolCallResource>),
-    #[serde(rename = "functiontoolcalloutputresource")]
     FunctionToolCallOutputResource(Box<models::FunctionToolCallOutputResource>),
-    #[serde(rename = "file_search_call")]
     FileSearchToolCall(Box<models::FileSearchToolCall>),
-    #[serde(rename = "web_search_call")]
     WebSearchToolCall(Box<models::WebSearchToolCall>),
-    #[serde(rename = "image_generation_call")]
     ImageGenToolCall(Box<models::ImageGenToolCall>),
-    #[serde(rename = "computer_call")]
     ComputerToolCall(Box<models::ComputerToolCall>),
-    #[serde(rename = "computertoolcalloutputresource")]
     ComputerToolCallOutputResource(Box<models::ComputerToolCallOutputResource>),
-    #[serde(rename = "reasoning")]
     ReasoningItem(Box<models::ReasoningItem>),
-    #[serde(rename = "code_interpreter_call")]
     CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),
-    #[serde(rename = "local_shell_call")]
     LocalShellToolCall(Box<models::LocalShellToolCall>),
-    #[serde(rename = "local_shell_call_output")]
     LocalShellToolCallOutput(Box<models::LocalShellToolCallOutput>),
-    #[serde(rename = "mcp_list_tools")]
     McpListTools(Box<models::McpListTools>),
-    #[serde(rename = "mcp_approval_request")]
     McpApprovalRequest(Box<models::McpApprovalRequest>),
-    #[serde(rename = "mcp_approval_response")]
     McpApprovalResponseResource(Box<models::McpApprovalResponseResource>),
-    #[serde(rename = "mcp_call")]
     McpToolCall(Box<models::McpToolCall>),
-    #[serde(rename = "custom_tool_call")]
     CustomToolCall(Box<models::CustomToolCall>),
-    #[serde(rename = "custom_tool_call_output")]
     CustomToolCallOutput(Box<models::CustomToolCallOutput>),
 }

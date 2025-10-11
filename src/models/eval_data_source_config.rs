@@ -13,12 +13,9 @@ use serde::{Deserialize, Serialize};
 
 /// EvalDataSourceConfig : Configuration of data sources used in runs of the evaluation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum EvalDataSourceConfig {
-    #[serde(rename = "custom")]
     EvalCustomDataSourceConfig(Box<models::EvalCustomDataSourceConfig>),
-    #[serde(rename = "logs")]
     EvalLogsDataSourceConfig(Box<models::EvalLogsDataSourceConfig>),
-    #[serde(rename = "stored_completions")]
     EvalStoredCompletionsDataSourceConfig(Box<models::EvalStoredCompletionsDataSourceConfig>),
 }
