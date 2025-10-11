@@ -12,25 +12,18 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum ThreadItem {
-    #[serde(rename = "chatkit.user_message")]
     UserMessageItem(Box<models::UserMessageItem>),
-    #[serde(rename = "chatkit.assistant_message")]
     AssistantMessageItem(Box<models::AssistantMessageItem>),
-    #[serde(rename = "chatkit.widget")]
     WidgetMessageItem(Box<models::WidgetMessageItem>),
-    #[serde(rename = "chatkit.client_tool_call")]
     ClientToolCallItem(Box<models::ClientToolCallItem>),
-    #[serde(rename = "chatkit.task")]
     TaskItem(Box<models::TaskItem>),
-    #[serde(rename = "chatkit.task_group")]
     TaskGroupItem(Box<models::TaskGroupItem>),
 }
 
 /// Type discriminator that is always `chatkit.thread_item`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
-    #[serde(rename = "chatkit.thread_item")]
     ChatkitThreadItem,
 }

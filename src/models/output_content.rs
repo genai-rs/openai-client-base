@@ -12,12 +12,9 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum OutputContent {
-    #[serde(rename = "output_text")]
     OutputTextContent(Box<models::OutputTextContent>),
-    #[serde(rename = "refusal")]
     RefusalContent(Box<models::RefusalContent>),
-    #[serde(rename = "reasoning_text")]
     ReasoningTextContent(Box<models::ReasoningTextContent>),
 }
