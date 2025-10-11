@@ -12,12 +12,9 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum AssistantTool {
-    #[serde(rename = "code_interpreter")]
     SCode(Box<models::AssistantToolsCode>),
-    #[serde(rename = "file_search")]
     SFileSearch(Box<models::AssistantToolsFileSearch>),
-    #[serde(rename = "function")]
     SFunction(Box<models::AssistantToolsFunction>),
 }

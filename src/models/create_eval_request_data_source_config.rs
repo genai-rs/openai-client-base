@@ -13,13 +13,10 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalRequestDataSourceConfig : The configuration for the data source used for the evaluation runs. Dictates the schema of the data used in the evaluation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum CreateEvalRequestDataSourceConfig {
-    #[serde(rename = "custom")]
     CreateEvalCustomDataSourceConfig(Box<models::CreateEvalCustomDataSourceConfig>),
-    #[serde(rename = "logs")]
     CreateEvalLogsDataSourceConfig(Box<models::CreateEvalLogsDataSourceConfig>),
-    #[serde(rename = "stored_completions")]
     CreateEvalStoredCompletionsDataSourceConfig(
         Box<models::CreateEvalStoredCompletionsDataSourceConfig>,
     ),

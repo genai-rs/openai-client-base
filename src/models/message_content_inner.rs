@@ -12,24 +12,15 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum MessageContentInner {
-    #[serde(rename = "input_text")]
     InputTextContent(Box<models::InputTextContent>),
-    #[serde(rename = "output_text")]
     OutputTextContent(Box<models::OutputTextContent>),
-    #[serde(rename = "text")]
     TextContent(Box<models::TextContent>),
-    #[serde(rename = "summary_text")]
     SummaryTextContent(Box<models::SummaryTextContent>),
-    #[serde(rename = "reasoning_text")]
     ReasoningTextContent(Box<models::ReasoningTextContent>),
-    #[serde(rename = "refusal")]
     RefusalContent(Box<models::RefusalContent>),
-    #[serde(rename = "input_image")]
     InputImageContent(Box<models::InputImageContent>),
-    #[serde(rename = "computer_screenshot")]
     ComputerScreenshotContent(Box<models::ComputerScreenshotContent>),
-    #[serde(rename = "input_file")]
     InputFileContent(Box<models::InputFileContent>),
 }

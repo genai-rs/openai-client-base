@@ -13,50 +13,36 @@ use serde::{Deserialize, Serialize};
 
 /// RealtimeConversationItem : A single item within a Realtime conversation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 #[allow(unreachable_patterns)]
 pub enum RealtimeConversationItem {
-    #[serde(rename = "message")]
     MessageSystem(Box<models::RealtimeConversationItemMessageSystem>),
-    #[serde(rename = "message")]
     MessageUser(Box<models::RealtimeConversationItemMessageUser>),
-    #[serde(rename = "message")]
     MessageAssistant(Box<models::RealtimeConversationItemMessageAssistant>),
-    #[serde(rename = "function_call")]
     FunctionCall(Box<models::RealtimeConversationItemFunctionCall>),
-    #[serde(rename = "function_call_output")]
     FunctionCallOutput(Box<models::RealtimeConversationItemFunctionCallOutput>),
-    #[serde(rename = "mcp_approval_response")]
     RealtimeMcpApprovalResponse(Box<models::RealtimeMcpApprovalResponse>),
-    #[serde(rename = "mcp_list_tools")]
     RealtimeMcpListTools(Box<models::RealtimeMcpListTools>),
-    #[serde(rename = "mcp_call")]
     RealtimeMcpToolCall(Box<models::RealtimeMcpToolCall>),
-    #[serde(rename = "mcp_approval_request")]
     RealtimeMcpApprovalRequest(Box<models::RealtimeMcpApprovalRequest>),
 }
 
 /// Identifier for the API object being returned - always `realtime.item`. Optional when creating a new item.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
-    #[serde(rename = "realtime.item")]
     RealtimeItem,
 }
 
 /// The status of the item. Has no effect on the conversation.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
-    #[serde(rename = "completed")]
     Completed,
-    #[serde(rename = "incomplete")]
     Incomplete,
-    #[serde(rename = "in_progress")]
     InProgress,
 }
 
 /// The role of the message sender. Always `assistant`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
-    #[serde(rename = "assistant")]
     Assistant,
 }

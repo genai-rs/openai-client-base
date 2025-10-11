@@ -13,10 +13,8 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepObjectStepDetails : The details of the run step.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum RunStepObjectStepDetails {
-    #[serde(rename = "message_creation")]
     RunStepDetailsMessageCreationObject(Box<models::RunStepDetailsMessageCreationObject>),
-    #[serde(rename = "tool_calls")]
     RunStepDetailsToolCallsObject(Box<models::RunStepDetailsToolCallsObject>),
 }

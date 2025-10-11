@@ -12,14 +12,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum Annotation {
-    #[serde(rename = "file_citation")]
     FileCitationBody(Box<models::FileCitationBody>),
-    #[serde(rename = "url_citation")]
     UrlCitationBody(Box<models::UrlCitationBody>),
-    #[serde(rename = "container_file_citation")]
     ContainerFileCitationBody(Box<models::ContainerFileCitationBody>),
-    #[serde(rename = "file_path")]
     FilePath(Box<models::FilePath>),
 }

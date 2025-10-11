@@ -76,3 +76,6 @@ if ! command -v uv &> /dev/null; then
     exit 1
 fi
 uv run python scripts/add_bon_builders.py "$ROOT"
+
+# 6) Fix tool-related enums that have conflicting internal tagging
+uv run python scripts/fix_tool_enum_tagging.py "$ROOT"

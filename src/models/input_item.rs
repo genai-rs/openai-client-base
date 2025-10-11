@@ -12,19 +12,15 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum InputItem {
-    #[serde(rename = "message")]
     EasyInputMessage(Box<models::EasyInputMessage>),
-    #[serde(rename = "item")]
     Item(Box<models::Item>),
-    #[serde(rename = "itemreferenceparam")]
     ItemReferenceParam(Box<models::ItemReferenceParam>),
 }
 
 /// The role of the output message. Always `assistant`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
-    #[serde(rename = "assistant")]
     Assistant,
 }

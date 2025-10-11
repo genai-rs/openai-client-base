@@ -13,113 +13,77 @@ use serde::{Deserialize, Serialize};
 
 /// Tool : A tool that can be used to generate a response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum Tool {
-    #[serde(rename = "function")]
     FunctionTool(Box<models::FunctionTool>),
-    #[serde(rename = "file_search")]
     FileSearchTool(Box<models::FileSearchTool>),
-    #[serde(rename = "computer_use_preview")]
     ComputerUsePreviewTool(Box<models::ComputerUsePreviewTool>),
-    #[serde(rename = "websearchtool")]
     WebSearchTool(Box<models::WebSearchTool>),
-    #[serde(rename = "mcp")]
     McpTool(Box<models::McpTool>),
-    #[serde(rename = "code_interpreter")]
     CodeInterpreterTool(Box<models::CodeInterpreterTool>),
-    #[serde(rename = "image_generation")]
     ImageGenTool(Box<models::ImageGenTool>),
-    #[serde(rename = "local_shell")]
     LocalShellTool(Box<models::LocalShellTool>),
-    #[serde(rename = "custom")]
     CustomTool(Box<models::CustomTool>),
-    #[serde(rename = "websearchpreviewtool")]
     WebSearchPreviewTool(Box<models::WebSearchPreviewTool>),
 }
 
 /// Identifier for service connectors, like those available in ChatGPT. One of `server_url` or `connector_id` must be provided. Learn more about service connectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ConnectorId {
-    #[serde(rename = "connector_dropbox")]
     ConnectorDropbox,
-    #[serde(rename = "connector_gmail")]
     ConnectorGmail,
-    #[serde(rename = "connector_googlecalendar")]
     ConnectorGooglecalendar,
-    #[serde(rename = "connector_googledrive")]
     ConnectorGoogledrive,
-    #[serde(rename = "connector_microsoftteams")]
     ConnectorMicrosoftteams,
-    #[serde(rename = "connector_outlookcalendar")]
     ConnectorOutlookcalendar,
-    #[serde(rename = "connector_outlookemail")]
     ConnectorOutlookemail,
-    #[serde(rename = "connector_sharepoint")]
     ConnectorSharepoint,
 }
 
 /// The image generation model to use. Default: `gpt-image-1`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Model {
-    #[serde(rename = "gpt-image-1")]
     GptImage1,
-    #[serde(rename = "gpt-image-1-mini")]
     GptImage1Mini,
 }
 
 /// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
-    #[serde(rename = "low")]
     Low,
-    #[serde(rename = "medium")]
     Medium,
-    #[serde(rename = "high")]
     High,
-    #[serde(rename = "auto")]
     Auto,
 }
 
 /// The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Size {
-    #[serde(rename = "1024x1024")]
     Variant1024x1024,
-    #[serde(rename = "1024x1536")]
     Variant1024x1536,
-    #[serde(rename = "1536x1024")]
     Variant1536x1024,
-    #[serde(rename = "auto")]
     Auto,
 }
 
 /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputFormat {
-    #[serde(rename = "png")]
     Png,
-    #[serde(rename = "webp")]
     Webp,
-    #[serde(rename = "jpeg")]
     Jpeg,
 }
 
 /// Moderation level for the generated image. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Moderation {
-    #[serde(rename = "auto")]
     Auto,
-    #[serde(rename = "low")]
     Low,
 }
 
 /// Background type for the generated image. One of `transparent`, `opaque`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Background {
-    #[serde(rename = "transparent")]
     Transparent,
-    #[serde(rename = "opaque")]
     Opaque,
-    #[serde(rename = "auto")]
     Auto,
 }

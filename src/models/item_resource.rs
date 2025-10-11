@@ -13,45 +13,28 @@ use serde::{Deserialize, Serialize};
 
 /// ItemResource : Content item used to generate a response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum ItemResource {
-    #[serde(rename = "inputmessageresource")]
     InputMessageResource(Box<models::InputMessageResource>),
-    #[serde(rename = "message")]
     OutputMessage(Box<models::OutputMessage>),
-    #[serde(rename = "file_search_call")]
     FileSearchToolCall(Box<models::FileSearchToolCall>),
-    #[serde(rename = "computer_call")]
     ComputerToolCall(Box<models::ComputerToolCall>),
-    #[serde(rename = "computertoolcalloutputresource")]
     ComputerToolCallOutputResource(Box<models::ComputerToolCallOutputResource>),
-    #[serde(rename = "web_search_call")]
     WebSearchToolCall(Box<models::WebSearchToolCall>),
-    #[serde(rename = "functiontoolcallresource")]
     FunctionToolCallResource(Box<models::FunctionToolCallResource>),
-    #[serde(rename = "functiontoolcalloutputresource")]
     FunctionToolCallOutputResource(Box<models::FunctionToolCallOutputResource>),
-    #[serde(rename = "image_generation_call")]
     ImageGenToolCall(Box<models::ImageGenToolCall>),
-    #[serde(rename = "code_interpreter_call")]
     CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),
-    #[serde(rename = "local_shell_call")]
     LocalShellToolCall(Box<models::LocalShellToolCall>),
-    #[serde(rename = "local_shell_call_output")]
     LocalShellToolCallOutput(Box<models::LocalShellToolCallOutput>),
-    #[serde(rename = "mcp_list_tools")]
     McpListTools(Box<models::McpListTools>),
-    #[serde(rename = "mcp_approval_request")]
     McpApprovalRequest(Box<models::McpApprovalRequest>),
-    #[serde(rename = "mcp_approval_response")]
     McpApprovalResponseResource(Box<models::McpApprovalResponseResource>),
-    #[serde(rename = "mcp_call")]
     McpToolCall(Box<models::McpToolCall>),
 }
 
 /// The role of the output message. Always `assistant`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
-    #[serde(rename = "assistant")]
     Assistant,
 }

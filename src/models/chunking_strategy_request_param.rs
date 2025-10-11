@@ -13,10 +13,8 @@ use serde::{Deserialize, Serialize};
 
 /// ChunkingStrategyRequestParam : The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy. Only applicable if `file_ids` is non-empty.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum ChunkingStrategyRequestParam {
-    #[serde(rename = "auto")]
     AutoChunkingStrategyRequestParam(Box<models::AutoChunkingStrategyRequestParam>),
-    #[serde(rename = "static")]
     StaticChunkingStrategyRequestParam(Box<models::StaticChunkingStrategyRequestParam>),
 }
