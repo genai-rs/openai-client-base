@@ -13,9 +13,12 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalResponsesRunDataSourceSource : Determines what populates the `item` namespace in this run's data source.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum CreateEvalResponsesRunDataSourceSource {
+    #[serde(rename = "file_content")]
     EvalJsonlFileContentSource(Box<models::EvalJsonlFileContentSource>),
+    #[serde(rename = "file_id")]
     EvalJsonlFileIdSource(Box<models::EvalJsonlFileIdSource>),
+    #[serde(rename = "responses")]
     EvalResponsesSource(Box<models::EvalResponsesSource>),
 }
