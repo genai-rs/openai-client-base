@@ -12,10 +12,14 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum InputContent {
+    #[serde(rename = "input_text")]
     InputTextContent(Box<models::InputTextContent>),
+    #[serde(rename = "input_image")]
     InputImageContent(Box<models::InputImageContent>),
+    #[serde(rename = "input_file")]
     InputFileContent(Box<models::InputFileContent>),
+    #[serde(rename = "input_audio")]
     InputAudio(Box<models::InputAudio>),
 }

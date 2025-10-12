@@ -13,36 +13,56 @@ use serde::{Deserialize, Serialize};
 
 /// RunGraderRequestGrader : The grader used for the fine-tuning job.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum RunGraderRequestGrader {
+    #[serde(rename = "string_check")]
     GraderStringCheck(Box<models::GraderStringCheck>),
+    #[serde(rename = "text_similarity")]
     GraderTextSimilarity(Box<models::GraderTextSimilarity>),
+    #[serde(rename = "python")]
     GraderPython(Box<models::GraderPython>),
+    #[serde(rename = "score_model")]
     GraderScoreModel(Box<models::GraderScoreModel>),
+    #[serde(rename = "multi")]
     GraderMulti(Box<models::GraderMulti>),
 }
 
 /// The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Operation {
+    #[serde(rename = "eq")]
     Eq,
+    #[serde(rename = "ne")]
     Ne,
+    #[serde(rename = "like")]
     Like,
+    #[serde(rename = "ilike")]
     Ilike,
 }
 
 /// The evaluation metric to use. One of `cosine`, `fuzzy_match`, `bleu`,  `gleu`, `meteor`, `rouge_1`, `rouge_2`, `rouge_3`, `rouge_4`, `rouge_5`,  or `rouge_l`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum EvaluationMetric {
+    #[serde(rename = "cosine")]
     Cosine,
+    #[serde(rename = "fuzzy_match")]
     FuzzyMatch,
+    #[serde(rename = "bleu")]
     Bleu,
+    #[serde(rename = "gleu")]
     Gleu,
+    #[serde(rename = "meteor")]
     Meteor,
+    #[serde(rename = "rouge_1")]
     Rouge1,
+    #[serde(rename = "rouge_2")]
     Rouge2,
+    #[serde(rename = "rouge_3")]
     Rouge3,
+    #[serde(rename = "rouge_4")]
     Rouge4,
+    #[serde(rename = "rouge_5")]
     Rouge5,
+    #[serde(rename = "rouge_l")]
     RougeL,
 }
