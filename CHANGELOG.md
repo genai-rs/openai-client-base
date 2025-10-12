@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1](https://github.com/genai-rs/openai-client-base/compare/v0.5.0...v0.5.1) - 2025-10-12
+
+### Fixed
+
+- Apply enum tagging fixes to 43 model files - fixes tool calling and many other API features by changing conflicting `#[serde(tag = "type")]` to `#[serde(untagged)]`
+
 ## [0.5.0](https://github.com/genai-rs/openai-client-base/compare/v0.4.0...v0.5.0) - 2025-10-12
 
 ### Fixed
