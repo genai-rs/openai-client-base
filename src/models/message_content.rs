@@ -12,14 +12,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum MessageContent {
-    #[serde(rename = "image_file")]
     ImageFileObject(Box<models::MessageContentImageFileObject>),
-    #[serde(rename = "image_url")]
     ImageUrlObject(Box<models::MessageContentImageUrlObject>),
-    #[serde(rename = "text")]
     TextObject(Box<models::MessageContentTextObject>),
-    #[serde(rename = "refusal")]
     RefusalObject(Box<models::MessageContentRefusalObject>),
 }
