@@ -12,10 +12,8 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum CreateChatCompletionRequestAllOfTools {
-    #[serde(rename = "function")]
     ChatCompletionTool(Box<models::ChatCompletionTool>),
-    #[serde(rename = "custom")]
     CustomToolChatCompletions(Box<models::CustomToolChatCompletions>),
 }
