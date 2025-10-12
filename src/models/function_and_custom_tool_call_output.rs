@@ -12,12 +12,9 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum FunctionAndCustomToolCallOutput {
-    #[serde(rename = "input_text")]
     InputTextContent(Box<models::InputTextContent>),
-    #[serde(rename = "input_image")]
     InputImageContent(Box<models::InputImageContent>),
-    #[serde(rename = "input_file")]
     InputFileContent(Box<models::InputFileContent>),
 }

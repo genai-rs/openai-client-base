@@ -13,12 +13,9 @@ use serde::{Deserialize, Serialize};
 
 /// ThreadResourceStatus : Current status for the thread. Defaults to `active` for newly created threads.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum ThreadResourceStatus {
-    #[serde(rename = "active")]
     ActiveStatus(Box<models::ActiveStatus>),
-    #[serde(rename = "locked")]
     LockedStatus(Box<models::LockedStatus>),
-    #[serde(rename = "closed")]
     ClosedStatus(Box<models::ClosedStatus>),
 }
