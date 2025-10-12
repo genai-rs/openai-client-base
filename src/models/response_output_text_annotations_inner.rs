@@ -13,8 +13,10 @@ use serde::{Deserialize, Serialize};
 
 /// ResponseOutputTextAnnotationsInner : Annotation object describing a cited source.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum ResponseOutputTextAnnotationsInner {
+    #[serde(rename = "file")]
     FileAnnotation(Box<models::FileAnnotation>),
+    #[serde(rename = "url")]
     UrlAnnotation(Box<models::UrlAnnotation>),
 }

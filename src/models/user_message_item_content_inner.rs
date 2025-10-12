@@ -13,8 +13,10 @@ use serde::{Deserialize, Serialize};
 
 /// UserMessageItemContentInner : Content blocks that comprise a user message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum UserMessageItemContentInner {
+    #[serde(rename = "input_text")]
     UserMessageInputText(Box<models::UserMessageInputText>),
+    #[serde(rename = "quoted_text")]
     UserMessageQuotedText(Box<models::UserMessageQuotedText>),
 }

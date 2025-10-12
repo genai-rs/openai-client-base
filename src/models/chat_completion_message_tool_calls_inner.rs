@@ -12,8 +12,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum ChatCompletionMessageToolCallsInner {
+    #[serde(rename = "function")]
     ChatCompletionMessageToolCall(Box<models::ChatCompletionMessageToolCall>),
+    #[serde(rename = "custom")]
     ChatCompletionMessageCustomToolCall(Box<models::ChatCompletionMessageCustomToolCall>),
 }
