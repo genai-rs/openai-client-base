@@ -13,12 +13,9 @@ use serde::{Deserialize, Serialize};
 
 /// WebSearchToolCallAction : An object describing the specific action taken in this web search call. Includes details on how the model used the web (search, open_page, find).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum WebSearchToolCallAction {
-    #[serde(rename = "search")]
     WebSearchActionSearch(Box<models::WebSearchActionSearch>),
-    #[serde(rename = "open_page")]
     WebSearchActionOpenPage(Box<models::WebSearchActionOpenPage>),
-    #[serde(rename = "find")]
     WebSearchActionFind(Box<models::WebSearchActionFind>),
 }
