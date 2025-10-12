@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/genai-rs/openai-client-base/compare/v0.4.0...v0.5.0) - 2025-10-12
+
+### Fixed
+
+- implement file upload handling for optional binary parameters
+- simplify git_release_body template to use changelog variable
+- *(renovate)* remove invalid renovateVersion config option
+- *(renovate)* pin to v41.124.1 to avoid Cargo artifact update issue
+- add rust-version to avoid Renovate Rust 1.90 compatibility issue
+- remove custom branchPrefix from renovate config
+
+### Other
+
+- update generated client from latest OpenAPI spec
+- Fix tool and union enum serialization conflicts (43 files)
+- *(deps)* Update rust minor updates
+- *(deps)* Update rust patch updates
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- *(deps)* Update astral-sh/setup-uv action to v7
+- Apply cargo fmt to all generated code
+- Revert to code patching approach for optional file uploads
+- Disable required PR reviews in branch protection
+- update generated client from latest OpenAPI spec
+- remove decorative emoji from README
+- *(deps)* migrate config renovate.json5
+- *(deps)* Update mozilla-actions/sccache-action action to v0.0.9
+- *(deps)* Update github-actions
+- align renovate config with library defaults
+
 ## [0.4.0](https://github.com/genai-rs/openai-client-base/compare/v0.3.0...v0.4.0) - 2025-10-02
 
 ### Other
