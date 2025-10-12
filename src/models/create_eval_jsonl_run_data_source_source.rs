@@ -13,8 +13,10 @@ use serde::{Deserialize, Serialize};
 
 /// CreateEvalJsonlRunDataSourceSource : Determines what populates the `item` namespace in the data source.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum CreateEvalJsonlRunDataSourceSource {
+    #[serde(rename = "file_content")]
     EvalJsonlFileContentSource(Box<models::EvalJsonlFileContentSource>),
+    #[serde(rename = "file_id")]
     EvalJsonlFileIdSource(Box<models::EvalJsonlFileIdSource>),
 }

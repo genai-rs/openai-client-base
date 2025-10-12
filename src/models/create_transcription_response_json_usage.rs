@@ -13,8 +13,10 @@ use serde::{Deserialize, Serialize};
 
 /// CreateTranscriptionResponseJsonUsage : Token usage statistics for the request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum CreateTranscriptionResponseJsonUsage {
+    #[serde(rename = "tokens")]
     TranscriptTextUsageTokens(Box<models::TranscriptTextUsageTokens>),
+    #[serde(rename = "duration")]
     TranscriptTextUsageDuration(Box<models::TranscriptTextUsageDuration>),
 }
