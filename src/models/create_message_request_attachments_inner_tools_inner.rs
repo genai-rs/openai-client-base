@@ -12,8 +12,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum CreateMessageRequestAttachmentsInnerToolsInner {
+    #[serde(rename = "code_interpreter")]
     AssistantToolsCode(Box<models::AssistantToolsCode>),
+    #[serde(rename = "file_search")]
     AssistantToolsFileSearchTypeOnly(Box<models::AssistantToolsFileSearchTypeOnly>),
 }
