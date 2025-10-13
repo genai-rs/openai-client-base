@@ -12,21 +12,17 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum ChatCompletionRequestUserMessageContentPart {
-    #[serde(rename = "text")]
     ChatCompletionRequestMessageContentPartText(
         Box<models::ChatCompletionRequestMessageContentPartText>,
     ),
-    #[serde(rename = "image_url")]
     ChatCompletionRequestMessageContentPartImage(
         Box<models::ChatCompletionRequestMessageContentPartImage>,
     ),
-    #[serde(rename = "input_audio")]
     ChatCompletionRequestMessageContentPartAudio(
         Box<models::ChatCompletionRequestMessageContentPartAudio>,
     ),
-    #[serde(rename = "file")]
     ChatCompletionRequestMessageContentPartFile(
         Box<models::ChatCompletionRequestMessageContentPartFile>,
     ),

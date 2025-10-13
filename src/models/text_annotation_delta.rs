@@ -12,13 +12,11 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum TextAnnotationDelta {
-    #[serde(rename = "file_citation")]
     MessageDeltaContentTextAnnotationsFileCitationObject(
         Box<models::MessageDeltaContentTextAnnotationsFileCitationObject>,
     ),
-    #[serde(rename = "file_path")]
     MessageDeltaContentTextAnnotationsFilePathObject(
         Box<models::MessageDeltaContentTextAnnotationsFilePathObject>,
     ),
