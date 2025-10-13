@@ -13,8 +13,10 @@ use serde::{Deserialize, Serialize};
 
 /// ChunkingStrategyResponse : The strategy used to chunk the file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum ChunkingStrategyResponse {
+    #[serde(rename = "static")]
     StaticChunkingStrategyResponseParam(Box<models::StaticChunkingStrategyResponseParam>),
+    #[serde(rename = "other")]
     OtherChunkingStrategyResponseParam(Box<models::OtherChunkingStrategyResponseParam>),
 }

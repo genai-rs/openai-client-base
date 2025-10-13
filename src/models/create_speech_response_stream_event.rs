@@ -12,8 +12,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum CreateSpeechResponseStreamEvent {
+    #[serde(rename = "speech.audio.delta")]
     SpeechAudioDeltaEvent(Box<models::SpeechAudioDeltaEvent>),
+    #[serde(rename = "speech.audio.done")]
     SpeechAudioDoneEvent(Box<models::SpeechAudioDoneEvent>),
 }

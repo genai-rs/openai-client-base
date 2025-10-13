@@ -12,42 +12,58 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum ImageEditStreamEvent {
+    #[serde(rename = "image_edit.partial_image")]
     ImageEditPartialImageEvent(Box<models::ImageEditPartialImageEvent>),
+    #[serde(rename = "image_edit.completed")]
     ImageEditCompletedEvent(Box<models::ImageEditCompletedEvent>),
 }
 
 /// The size of the edited image.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Size {
+    #[serde(rename = "1024x1024")]
     Variant1024x1024,
+    #[serde(rename = "1024x1536")]
     Variant1024x1536,
+    #[serde(rename = "1536x1024")]
     Variant1536x1024,
+    #[serde(rename = "auto")]
     Auto,
 }
 
 /// The quality setting for the edited image.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
+    #[serde(rename = "low")]
     Low,
+    #[serde(rename = "medium")]
     Medium,
+    #[serde(rename = "high")]
     High,
+    #[serde(rename = "auto")]
     Auto,
 }
 
 /// The background setting for the edited image.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Background {
+    #[serde(rename = "transparent")]
     Transparent,
+    #[serde(rename = "opaque")]
     Opaque,
+    #[serde(rename = "auto")]
     Auto,
 }
 
 /// The output format for the edited image.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputFormat {
+    #[serde(rename = "png")]
     Png,
+    #[serde(rename = "webp")]
     Webp,
+    #[serde(rename = "jpeg")]
     Jpeg,
 }

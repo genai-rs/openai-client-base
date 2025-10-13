@@ -13,10 +13,12 @@ use serde::{Deserialize, Serialize};
 
 /// RunStepDeltaObjectDeltaStepDetails : The details of the run step.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
+#[serde(tag = "type")]
 pub enum RunStepDeltaObjectDeltaStepDetails {
+    #[serde(rename = "message_creation")]
     RunStepDeltaStepDetailsMessageCreationObject(
         Box<models::RunStepDeltaStepDetailsMessageCreationObject>,
     ),
+    #[serde(rename = "tool_calls")]
     RunStepDeltaStepDetailsToolCallsObject(Box<models::RunStepDeltaStepDetailsToolCallsObject>),
 }
