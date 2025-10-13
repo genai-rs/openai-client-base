@@ -12,13 +12,11 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreterOutputsInner {
-    #[serde(rename = "logs")]
     RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject(
         Box<models::RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject>,
     ),
-    #[serde(rename = "image")]
     RunStepDeltaStepDetailsToolCallsCodeOutputImageObject(
         Box<models::RunStepDeltaStepDetailsToolCallsCodeOutputImageObject>,
     ),
