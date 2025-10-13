@@ -512,11 +512,17 @@ def main():
     spec = load_spec(spec_path)
     print("Detecting untagged unions from spec...")
     untagged_unions, simple_string_enums = detect_untagged_unions(spec)
-    # Add mixed tagged unions (string + object variants) to be treated as untagged
-    mixed_unions = detect_mixed_tagged_unions(spec)
-    for k, v in mixed_unions.items():
-        if k not in untagged_unions:
-            untagged_unions[k] = v
+
+    # NOTE: We do NOT add mixed_unions or any types with discriminators here.
+    # Types with discriminators (even if they have conflicts) should be handled by
+    # fix_tool_enum_tagging.py which runs earlier in the pipeline and checks for
+    # field conflicts. This script ONLY handles true untagged unions (no discriminator).
+    #
+    # Previous code that caused conflicts:
+    #   mixed_unions = detect_mixed_tagged_unions(spec)
+    #   for k, v in mixed_unions.items():
+    #       if k not in untagged_unions:
+    #           untagged_unions[k] = v
     
     # Add some known types that might not be detected correctly
     # These are message content types that need special handling
