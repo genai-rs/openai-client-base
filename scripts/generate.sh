@@ -133,6 +133,12 @@ echo ""
 echo "🔧 Fixing Box<Value> constructor mismatches..."
 uv run python scripts/fix_box_value_constructor_mismatches.py
 
+# Step 6d: Fix tool-related enums with conflicting tagged serialization
+# This must run BEFORE fix_untagged_unions.py to handle discriminated unions with field conflicts
+echo ""
+echo "🔧 Fixing tool-related enum tagging conflicts..."
+uv run python scripts/fix_tool_enum_tagging.py "$PROJECT_ROOT"
+
 # Step 7: Fix untagged anyOf unions that generate as empty structs
 echo ""
 echo "🔧 Fixing untagged unions..."
