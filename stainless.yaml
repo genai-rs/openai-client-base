@@ -30161,7 +30161,7 @@ components:
         - type
     AssistantToolsFileSearchTypeOnly:
       type: object
-      title: FileSearch tool
+      title: AssistantToolsFileSearchTypeOnly
       properties:
         type:
           type: string
@@ -32802,7 +32802,7 @@ components:
         - container
     CodeInterpreterToolAuto:
       type: object
-      title: CodeInterpreterContainerAuto
+      title: CodeInterpreterToolAuto
       description: |
         Configuration for a code interpreter container. Optionally specify the IDs
         of the files to run the code on.
@@ -35126,7 +35126,7 @@ components:
         - testing_criteria
     CreateEvalResponsesRunDataSource:
       type: object
-      title: ResponsesRunDataSource
+      title: CreateEvalResponsesRunDataSource
       description: |
         A ResponsesRunDataSource object describing a model sampling configuration.
       properties:
@@ -38183,7 +38183,7 @@ components:
         - $ref: '#/components/schemas/GraderLabelModel'
     EvalGraderPython:
       type: object
-      title: PythonGrader
+      title: EvalGraderPython
       allOf:
         - $ref: '#/components/schemas/GraderPython'
         - type: object
@@ -38212,7 +38212,7 @@ components:
               }
     EvalGraderScoreModel:
       type: object
-      title: ScoreModelGrader
+      title: EvalGraderScoreModel
       allOf:
         - $ref: '#/components/schemas/GraderScoreModel'
         - type: object
@@ -38227,7 +38227,7 @@ components:
         - $ref: '#/components/schemas/GraderStringCheck'
     EvalGraderTextSimilarity:
       type: object
-      title: TextSimilarityGrader
+      title: EvalGraderTextSimilarity
       allOf:
         - $ref: '#/components/schemas/GraderTextSimilarity'
         - type: object
@@ -38251,7 +38251,7 @@ components:
               }
     EvalItem:
       type: object
-      title: Eval message object
+      title: EvalItem
       description: |
         A message input to the model with a role indicating instruction following
         hierarchy. Instructions given with the `developer` or `system` role take
@@ -49454,9 +49454,9 @@ components:
             than the realtime model's pricing.
           anyOf:
             - $ref: '#/components/schemas/TranscriptTextUsageTokens'
-              title: Token Usage
+              title: TranscriptTextUsageTokens
             - $ref: '#/components/schemas/TranscriptTextUsageDuration'
-              title: Duration Usage
+              title: TranscriptTextUsageDuration
       required:
         - event_id
         - type
@@ -58186,7 +58186,7 @@ components:
           }
     TranscriptTextUsageDuration:
       type: object
-      title: Duration Usage
+      title: TranscriptTextUsageDuration
       description: Usage statistics for models billed by audio input duration.
       properties:
         type:
@@ -58203,7 +58203,7 @@ components:
         - seconds
     TranscriptTextUsageTokens:
       type: object
-      title: Token Usage
+      title: TranscriptTextUsageTokens
       description: Usage statistics for models billed by token usage.
       properties:
         type:
@@ -61035,7 +61035,7 @@ components:
       required:
         - type
         - text
-      title: Reasoning text
+      title: ReasoningTextContent
       description: Reasoning text from the model.
     RefusalContent:
       properties:
