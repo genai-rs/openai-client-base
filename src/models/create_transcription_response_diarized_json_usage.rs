@@ -11,6 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// CreateTranscriptionResponseDiarizedJsonUsage : Token or duration usage statistics for the request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "task")]
-pub enum CreateTranscription200Response {}
+#[serde(untagged)]
+pub enum CreateTranscriptionResponseDiarizedJsonUsage {
+    TranscriptTextUsageTokens(Box<models::TranscriptTextUsageTokens>),
+    TranscriptTextUsageDuration(Box<models::TranscriptTextUsageDuration>),
+}

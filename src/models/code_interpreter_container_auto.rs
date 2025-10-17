@@ -11,9 +11,9 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CodeInterpreterToolAuto : Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
+/// CodeInterpreterContainerAuto : Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CodeInterpreterToolAuto {
+pub struct CodeInterpreterContainerAuto {
     /// Always `auto`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -22,10 +22,10 @@ pub struct CodeInterpreterToolAuto {
     pub file_ids: Option<Vec<String>>,
 }
 
-impl CodeInterpreterToolAuto {
+impl CodeInterpreterContainerAuto {
     /// Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
-    pub fn new(r#type: Type) -> CodeInterpreterToolAuto {
-        CodeInterpreterToolAuto {
+    pub fn new(r#type: Type) -> CodeInterpreterContainerAuto {
+        CodeInterpreterContainerAuto {
             r#type,
             file_ids: None,
         }
@@ -44,7 +44,7 @@ impl Default for Type {
     }
 }
 
-impl std::fmt::Display for CodeInterpreterToolAuto {
+impl std::fmt::Display for CodeInterpreterContainerAuto {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
