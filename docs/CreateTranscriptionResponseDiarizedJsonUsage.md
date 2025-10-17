@@ -1,4 +1,4 @@
-# CreateTranscription200Response
+# CreateTranscriptionResponseDiarizedJsonUsage
 
 ## Enum Variants
 

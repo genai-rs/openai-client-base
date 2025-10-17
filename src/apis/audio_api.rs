@@ -88,10 +88,12 @@ pub async fn create_transcription(
     prompt: Option<&str>,
     response_format: Option<models::AudioResponseFormat>,
     temperature: Option<f64>,
+    include: Option<Vec<models::TranscriptionInclude>>,
+    timestamp_granularities: Option<Vec<String>>,
     stream: Option<bool>,
     chunking_strategy: Option<models::TranscriptionChunkingStrategy>,
-    timestamp_granularities: Option<Vec<String>>,
-    include: Option<Vec<models::TranscriptionInclude>>,
+    known_speaker_names: Option<Vec<String>>,
+    known_speaker_references: Option<Vec<String>>,
 ) -> Result<models::CreateTranscription200Response, Error<CreateTranscriptionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_file = file;
@@ -100,10 +102,12 @@ pub async fn create_transcription(
     let p_form_prompt = prompt;
     let p_form_response_format = response_format;
     let p_form_temperature = temperature;
+    let p_form_include = include;
+    let p_form_timestamp_granularities = timestamp_granularities;
     let p_form_stream = stream;
     let p_form_chunking_strategy = chunking_strategy;
-    let p_form_timestamp_granularities = timestamp_granularities;
-    let p_form_include = include;
+    let p_form_known_speaker_names = known_speaker_names;
+    let p_form_known_speaker_references = known_speaker_references;
 
     let uri_str = format!("{}/audio/transcriptions", configuration.base_path);
     let mut req_builder = configuration
@@ -132,11 +136,16 @@ pub async fn create_transcription(
     if let Some(param_value) = p_form_temperature {
         multipart_form = multipart_form.text("temperature", param_value.to_string());
     }
-    if let Some(param_value) = p_form_stream {
-        multipart_form = multipart_form.text("stream", param_value.to_string());
-    }
-    if let Some(param_value) = p_form_chunking_strategy {
-        multipart_form = multipart_form.text("chunking_strategy", param_value.to_string());
+    if let Some(param_value) = p_form_include {
+        multipart_form = multipart_form.text(
+            "include",
+            param_value
+                .into_iter()
+                .map(|p| p.to_string())
+                .collect::<Vec<String>>()
+                .join(",")
+                .to_string(),
+        );
     }
     if let Some(param_value) = p_form_timestamp_granularities {
         multipart_form = multipart_form.text(
@@ -149,9 +158,26 @@ pub async fn create_transcription(
                 .to_string(),
         );
     }
-    if let Some(param_value) = p_form_include {
+    if let Some(param_value) = p_form_stream {
+        multipart_form = multipart_form.text("stream", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_chunking_strategy {
+        multipart_form = multipart_form.text("chunking_strategy", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_known_speaker_names {
         multipart_form = multipart_form.text(
-            "include",
+            "known_speaker_names",
+            param_value
+                .into_iter()
+                .map(|p| p.to_string())
+                .collect::<Vec<String>>()
+                .join(",")
+                .to_string(),
+        );
+    }
+    if let Some(param_value) = p_form_known_speaker_references {
+        multipart_form = multipart_form.text(
+            "known_speaker_references",
             param_value
                 .into_iter()
                 .map(|p| p.to_string())

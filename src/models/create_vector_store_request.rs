@@ -19,6 +19,9 @@ pub struct CreateVectorStoreRequest {
     /// The name of the vector store.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    /// A description for the vector store. Can be used to describe the vector store's purpose.
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<Box<models::VectorStoreExpirationAfter>>,
     #[serde(rename = "chunking_strategy", skip_serializing_if = "Option::is_none")]
@@ -38,6 +41,7 @@ impl CreateVectorStoreRequest {
         CreateVectorStoreRequest {
             file_ids: None,
             name: None,
+            description: None,
             expires_after: None,
             chunking_strategy: None,
             metadata: None,

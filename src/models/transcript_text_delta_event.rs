@@ -23,6 +23,9 @@ pub struct TranscriptTextDeltaEvent {
     /// The log probabilities of the delta. Only included if you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
     pub logprobs: Option<Vec<models::TranscriptTextDeltaEventLogprobsInner>>,
+    /// Identifier of the diarized segment that this delta belongs to. Only present when using `gpt-4o-transcribe-diarize`.
+    #[serde(rename = "segment_id", skip_serializing_if = "Option::is_none")]
+    pub segment_id: Option<String>,
 }
 
 impl TranscriptTextDeltaEvent {
@@ -32,6 +35,7 @@ impl TranscriptTextDeltaEvent {
             r#type,
             delta,
             logprobs: None,
+            segment_id: None,
         }
     }
 }
