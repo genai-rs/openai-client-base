@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0](https://github.com/genai-rs/openai-client-base/compare/v0.7.0...v0.8.0) - 2025-10-22
+
+### Other
+
+- improve dependency version clarity (genai-rs-13)
+- *(deps)* Update rust patch updates
+- update generated client from latest OpenAPI spec
+- *(deps)* disable Cargo.lock-only updates from Renovate
+- *(deps)* Update Rust crate tokio to v1.48.0
+- *(deps)* Update Rust crate reqwest to v0.12.24
+
 ## [0.7.0](https://github.com/genai-rs/openai-client-base/compare/v0.6.0...v0.7.0) - 2025-10-13
 
 ### Fixed
