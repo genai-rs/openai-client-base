@@ -12,7 +12,8 @@
     clippy::enum_variant_names,
     clippy::redundant_field_names,
     clippy::missing_errors_doc,
-    clippy::module_name_repetitions
+    clippy::module_name_repetitions,
+    clippy::derivable_impls  // Rust 1.91.0 new lint - generated code has manual Default impls
 )]
 
 extern crate reqwest;
