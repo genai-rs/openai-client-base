@@ -12,7 +12,7 @@ This script handles Rust/generator-specific issues:
 4. Removing generator-hostile constructs
 """
 
-import sys, copy, os
+import sys, copy, os, re
 import yaml
 
 # This now takes the model fixed spec as input
@@ -191,6 +191,22 @@ if 'Type' in schemas:
     schemas['TypeAction'] = schemas.pop('Type')
     replace_refs(doc, '#/components/schemas/Type', '#/components/schemas/TypeAction')
     note('Renamed schema Type -> TypeAction and updated refs')
+
+# 4b) Normalize schema names with hyphens to valid Rust identifiers
+# Find all schemas with hyphens and rename them
+hyphenated_schemas = [name for name in schemas.keys() if '-' in name]
+for old_name in hyphenated_schemas:
+    # Replace hyphens with underscores or remove them for numbers
+    # e.g., "ConversationParam-2" -> "ConversationParam2"
+    new_name = re.sub(r'-(\d+)', r'\1', old_name)  # Remove hyphen before digits
+    new_name = new_name.replace('-', '_')  # Replace remaining hyphens with underscores
+
+    if new_name != old_name:
+        schemas[new_name] = schemas.pop(old_name)
+        old_ref = f'#/components/schemas/{old_name}'
+        new_ref = f'#/components/schemas/{new_name}'
+        replace_refs(doc, old_ref, new_ref)
+        note(f'Normalized schema name: {old_name} -> {new_name}')
 
 # Also neutralize ComputerAction
 if 'ComputerAction' in schemas:
