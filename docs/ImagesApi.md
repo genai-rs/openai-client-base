@@ -63,7 +63,7 @@ Name | Type | Description  | Required | Notes
 **output_format** | Option<**String**> | The format in which the generated images are returned. This parameter is only supported for `gpt-image-1`. Must be one of `png`, `jpeg`, or `webp`. The default value is `png`.  |  |
 **output_compression** | Option<**i32**> | The compression level (0-100%) for the generated images. This parameter is only supported for `gpt-image-1` with the `webp` or `jpeg` output formats, and defaults to 100.  |  |
 **user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).  |  |
-**input_fidelity** | Option<[**models::ImageInputFidelity**](ImageInputFidelity.md)> |  |  |
+**input_fidelity** | Option<[**models::InputFidelity**](InputFidelity.md)> |  |  |
 **stream** | Option<**bool**> | Edit the image in streaming mode. Defaults to `false`. See the [Image generation guide](https://platform.openai.com/docs/guides/image-generation) for more information.  |  |
 **partial_images** | Option<**i32**> | The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.  |  |
 **quality** | Option<**String**> | The quality of the image that will be generated. `high`, `medium` and `low` are only supported for `gpt-image-1`. `dall-e-2` only supports `standard` quality. Defaults to `auto`.  |  |

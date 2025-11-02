@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebSearchToolCall : The results of a web search tool call. See the  [web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
+/// WebSearchToolCall : The results of a web search tool call. See the [web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchToolCall {
     /// The unique ID of the web search tool call.
@@ -28,7 +28,7 @@ pub struct WebSearchToolCall {
 }
 
 impl WebSearchToolCall {
-    /// The results of a web search tool call. See the  [web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
+    /// The results of a web search tool call. See the [web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
     pub fn new(
         id: String,
         r#type: Type,

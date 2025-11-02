@@ -21,7 +21,7 @@ pub struct Reasoning {
         skip_serializing_if = "Option::is_none"
     )]
     pub effort: Option<Option<models::ReasoningEffort>>,
-    /// A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. One of `auto`, `concise`, or `detailed`.
+    /// A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. One of `auto`, `concise`, or `detailed`.  `concise` is only supported for `computer-use-preview` models.
     #[serde(
         rename = "summary",
         default,
@@ -49,7 +49,7 @@ impl Reasoning {
         }
     }
 }
-/// A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. One of `auto`, `concise`, or `detailed`.
+/// A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. One of `auto`, `concise`, or `detailed`.  `concise` is only supported for `computer-use-preview` models.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Summary {
     #[serde(rename = "auto")]

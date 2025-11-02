@@ -44,7 +44,7 @@ pub struct ImageGenTool {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_fidelity: Option<Option<models::ImageInputFidelity>>,
+    pub input_fidelity: Option<Option<models::InputFidelity>>,
     #[serde(rename = "input_image_mask", skip_serializing_if = "Option::is_none")]
     pub input_image_mask: Option<models::ImageGenToolInputImageMask>,
     /// Number of partial images to generate in streaming mode, from 0 (default value) to 3.

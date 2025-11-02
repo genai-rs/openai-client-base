@@ -128,7 +128,7 @@ pub async fn create_conversation_items(
     configuration: &configuration::Configuration,
     conversation_id: &str,
     create_conversation_items_request: models::CreateConversationItemsRequest,
-    include: Option<Vec<models::Includable>>,
+    include: Option<Vec<models::IncludeEnum>>,
 ) -> Result<models::ConversationItemList, Error<CreateConversationItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
@@ -369,7 +369,7 @@ pub async fn get_conversation_item(
     configuration: &configuration::Configuration,
     conversation_id: &str,
     item_id: &str,
-    include: Option<Vec<models::Includable>>,
+    include: Option<Vec<models::IncludeEnum>>,
 ) -> Result<models::ConversationItem, Error<GetConversationItemError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
@@ -447,7 +447,7 @@ pub async fn list_conversation_items(
     limit: Option<i32>,
     order: Option<&str>,
     after: Option<&str>,
-    include: Option<Vec<models::Includable>>,
+    include: Option<Vec<models::IncludeEnum>>,
 ) -> Result<models::ConversationItemList, Error<ListConversationItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;

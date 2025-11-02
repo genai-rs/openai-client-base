@@ -19,12 +19,12 @@ pub struct Drag {
     pub r#type: Type,
     /// An array of coordinates representing the path of the drag action. Coordinates will appear as an array of objects, eg ``` [   { x: 100, y: 200 },   { x: 200, y: 300 } ] ```
     #[serde(rename = "path")]
-    pub path: Vec<models::Coordinate>,
+    pub path: Vec<models::DragPoint>,
 }
 
 impl Drag {
     /// A drag action.
-    pub fn new(r#type: Type, path: Vec<models::Coordinate>) -> Drag {
+    pub fn new(r#type: Type, path: Vec<models::DragPoint>) -> Drag {
         Drag { r#type, path }
     }
 }

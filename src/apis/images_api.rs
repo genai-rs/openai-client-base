@@ -104,7 +104,7 @@ pub async fn create_image_edit(
     output_format: Option<&str>,
     output_compression: Option<i32>,
     user: Option<&str>,
-    input_fidelity: Option<models::ImageInputFidelity>,
+    input_fidelity: Option<models::InputFidelity>,
     stream: Option<bool>,
     partial_images: Option<i32>,
     quality: Option<&str>,

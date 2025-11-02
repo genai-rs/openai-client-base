@@ -75,6 +75,14 @@ pub struct UsageCompletionsResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub batch: Option<Option<bool>>,
+    /// When `group_by=service_tier`, this field provides the service tier of the grouped usage result.
+    #[serde(
+        rename = "service_tier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub service_tier: Option<Option<String>>,
 }
 
 impl UsageCompletionsResult {
@@ -98,6 +106,7 @@ impl UsageCompletionsResult {
             api_key_id: None,
             model: None,
             batch: None,
+            service_tier: None,
         }
     }
 }

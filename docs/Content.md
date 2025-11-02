@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the input item. Always `input_audio`.  | 
+**r#type** | **String** | The type of the input item. Always `input_file`. | 
 **text** | **String** | The reasoning text from the model. | 
 **image_url** | Option<**String**> | The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL. | [optional]
 **file_id** | Option<**String**> | The ID of the file to be sent to the model. | [optional]
@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **filename** | Option<**String**> | The name of the file to be sent to the model. | [optional]
 **file_url** | Option<**String**> | The URL of the file to be sent to the model. | [optional]
 **file_data** | Option<**String**> | The content of the file to be sent to the model.  | [optional]
-**input_audio** | [**models::InputAudioInputAudio**](InputAudio_input_audio.md) |  | 
 **annotations** | [**Vec<models::Annotation>**](Annotation.md) | The annotations of the text output. | 
 **logprobs** | Option<[**Vec<models::LogProb>**](LogProb.md)> |  | [optional]
 **refusal** | **String** | The refusal explanation from the model. | 

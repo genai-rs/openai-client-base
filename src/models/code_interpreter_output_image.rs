@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// CodeInterpreterOutputImage : The image output from the code interpreter.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CodeInterpreterOutputImage {
-    /// The type of the output. Always 'image'.
+    /// The type of the output. Always `image`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the image output from the code interpreter.
@@ -28,7 +28,7 @@ impl CodeInterpreterOutputImage {
         CodeInterpreterOutputImage { r#type, url }
     }
 }
-/// The type of the output. Always 'image'.
+/// The type of the output. Always `image`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "image")]

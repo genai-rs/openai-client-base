@@ -6227,7 +6227,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Includable'
+              $ref: '#/components/schemas/IncludeEnum'
           description: >
             Additional fields to include in the response. See the `include`
 
@@ -6520,23 +6520,27 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Includable'
-          description: |
-            Specify additional output data to include in the model response. Currently
-            supported values are:
+              $ref: '#/components/schemas/IncludeEnum'
+          description: >-
+            Specify additional output data to include in the model response. Currently supported values are:
+
             - `web_search_call.action.sources`: Include the sources of the web search tool call.
-            - `code_interpreter_call.outputs`: Includes the outputs of python code execution
-              in code interpreter tool call items.
+
+            - `code_interpreter_call.outputs`: Includes the outputs of python code execution in code
+            interpreter tool call items.
+
             - `computer_call_output.output.image_url`: Include image urls from the computer call output.
-            - `file_search_call.results`: Include the search results of
-              the file search tool call.
+
+            - `file_search_call.results`: Include the search results of the file search tool call.
+
             - `message.input_image.image_url`: Include image urls from the input message.
+
             - `message.output_text.logprobs`: Include logprobs with assistant messages.
-            - `reasoning.encrypted_content`: Includes an encrypted version of reasoning
-              tokens in reasoning item outputs. This enables reasoning items to be used in
-              multi-turn conversations when using the Responses API statelessly (like
-              when the `store` parameter is set to `false`, or when an organization is
-              enrolled in the zero data retention program).
+
+            - `reasoning.encrypted_content`: Includes an encrypted version of reasoning tokens in reasoning
+            item outputs. This enables reasoning items to be used in multi-turn conversations when using the
+            Responses API statelessly (like when the `store` parameter is set to `false`, or when an
+            organization is enrolled in the zero data retention program).
       responses:
         '200':
           description: OK
@@ -6698,7 +6702,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Includable'
+              $ref: '#/components/schemas/IncludeEnum'
           description: >
             Additional fields to include in the response. See the `include`
 
@@ -9560,25 +9564,24 @@ paths:
               file_object = openai.files.create(file: Pathname(__FILE__), purpose: :assistants)
 
               puts(file_object)
-      description: >
-        Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and the
-        size of all files uploaded by one organization can be up to 1 TB.
+      description: |
+        Upload a file that can be used across various endpoints. Individual files
+        can be up to 512 MB, and the size of all files uploaded by one organization
+        can be up to 1 TB.
 
+        - The Assistants API supports files up to 2 million tokens and of specific
+          file types. See the [Assistants Tools guide](https://platform.openai.com/docs/assistants/tools) for
+          details.
+        - The Fine-tuning API only supports `.jsonl` files. The input also has
+          certain required formats for fine-tuning
+          [chat](https://platform.openai.com/docs/api-reference/fine-tuning/chat-input) or
+          [completions](https://platform.openai.com/docs/api-reference/fine-tuning/completions-input) models.
+        - The Batch API only supports `.jsonl` files up to 200 MB in size. The input
+          also has a specific required
+          [format](https://platform.openai.com/docs/api-reference/batch/request-input).
 
-        The Assistants API supports files up to 2 million tokens and of specific file types. See the
-        [Assistants Tools guide](https://platform.openai.com/docs/assistants/tools) for details.
-
-
-        The Fine-tuning API only supports `.jsonl` files. The input also has certain required formats for
-        fine-tuning [chat](https://platform.openai.com/docs/api-reference/fine-tuning/chat-input) or
-        [completions](https://platform.openai.com/docs/api-reference/fine-tuning/completions-input) models.
-
-
-        The Batch API only supports `.jsonl` files up to 200 MB in size. The input also has a specific
-        required [format](https://platform.openai.com/docs/api-reference/batch/request-input).
-
-
-        Please [contact us](https://help.openai.com/) if you need to increase these storage limits.
+        Please [contact us](https://help.openai.com/) if you need to increase these
+        storage limits.
   /files/{file_id}:
     delete:
       operationId: deleteFile
@@ -16666,7 +16669,7 @@ paths:
           in: query
           description: >-
             Group the usage data by the specified fields. Support fields include `project_id`, `user_id`,
-            `api_key_id`, `model`, `batch` or any combination of them.
+            `api_key_id`, `model`, `batch`, `service_tier` or any combination of them.
           required: false
           schema:
             type: array
@@ -16678,6 +16681,7 @@ paths:
                 - api_key_id
                 - model
                 - batch
+                - service_tier
         - name: limit
           in: query
           description: |
@@ -16728,7 +16732,8 @@ paths:
                                 "user_id": null,
                                 "api_key_id": null,
                                 "model": null,
-                                "batch": null
+                                "batch": null,
+                                "service_tier": null
                             }
                         ]
                     }
@@ -20002,7 +20007,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Includable'
+              $ref: '#/components/schemas/IncludeEnum'
           description: |
             Additional fields to include in the response. See the `include`
             parameter for Response creation above for more information.
@@ -20517,7 +20522,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Includable'
+              $ref: '#/components/schemas/IncludeEnum'
           description: |
             Additional fields to include in the response. See the `include`
             parameter for Response creation above for more information.
@@ -28717,146 +28722,120 @@ paths:
                 "seconds": "8",
                 "remixed_from_video_id": "video_123"
               }
-  /chatkit/files:
+  /responses/input_tokens:
     post:
-      summary: Upload file to ChatKit
-      description: Upload a ChatKit file
-      operationId: UploadFileMethod
+      summary: Get input token counts
+      description: Get input token counts
+      operationId: Getinputtokencounts
       parameters: []
       requestBody:
         content:
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/UploadFileBody'
           application/json:
             schema:
-              $ref: '#/components/schemas/UploadFileBody'
+              $ref: '#/components/schemas/TokenCountsBody'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenCountsBody'
       responses:
         '200':
           description: Success
           content:
             application/json:
               schema:
-                description: Represents either a file or image attachment.
-                anyOf:
-                  - $ref: '#/components/schemas/FilePartResource'
-                  - $ref: '#/components/schemas/ImagePartResource'
-                discriminator:
-                  propertyName: type
+                $ref: '#/components/schemas/TokenCountsResource'
       x-oaiMeta:
-        name: Upload file to ChatKit
-        group: chatkit
-        beta: true
-        path: upload-file
-        returns: Returns metadata for the uploaded file part that can be attached to ChatKit threads.
+        name: Get input token counts
+        group: responses
+        returns: |
+          The input token counts.
+          ```json
+          {
+            object: "response.input_tokens"
+            input_tokens: 123
+          }
+          ```
         examples:
-          - title: Upload a PDF transcript
-            request:
-              curl: |
-                curl https://api.openai.com/v1/chatkit/files \
+          response: |
+            {
+              "object": "response.input_tokens",
+              "input_tokens": 11
+            }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/responses/input_tokens \
+                  -H "Content-Type: application/json" \
                   -H "Authorization: Bearer $OPENAI_API_KEY" \
-                  -H "OpenAI-Beta: chatkit_beta=v1" \
-                  -F "file=@transcript.pdf" \
-                  -F "fileId=file-abc123"
-              javascript: >
-                import OpenAI from 'openai';
+                  -d '{
+                    "model": "gpt-5",
+                    "input": "Tell me a joke."
+                  }'
+            node.js: |-
+              import OpenAI from 'openai';
 
+              const client = new OpenAI({
+                apiKey: 'My API Key',
+              });
 
-                const client = new OpenAI();
+              const response = await client.responses.inputTokens.count();
 
+              console.log(response.input_tokens);
+            python: |-
+              from openai import OpenAI
 
-                const response = await client.beta.chatkit.uploadFile({ file:
-                fs.createReadStream('path/to/file') });
+              client = OpenAI(
+                  api_key="My API Key",
+              )
+              response = client.responses.input_tokens.count()
+              print(response.input_tokens)
+            go: |
+              package main
 
+              import (
+                "context"
+                "fmt"
 
-                console.log(response);
-              python: |-
-                from openai import OpenAI
+                "github.com/openai/openai-go"
+                "github.com/openai/openai-go/option"
+                "github.com/openai/openai-go/responses"
+              )
 
-                client = OpenAI(
-                    api_key="My API Key",
+              func main() {
+                client := openai.NewClient(
+                  option.WithAPIKey("My API Key"),
                 )
-                response = client.beta.chatkit.upload_file(
-                    file=b"raw file contents",
-                )
-                print(response)
-              go: |
-                package main
+                response, err := client.Responses.InputTokens.Count(context.TODO(), responses.InputTokenCountParams{
 
-                import (
-                  "bytes"
-                  "context"
-                  "fmt"
-                  "io"
-
-                  "github.com/openai/openai-go"
-                  "github.com/openai/openai-go/option"
-                )
-
-                func main() {
-                  client := openai.NewClient(
-                    option.WithAPIKey("My API Key"),
-                  )
-                  response, err := client.Beta.ChatKit.UploadFile(context.TODO(), openai.BetaChatKitUploadFileParams{
-                    File: io.Reader(bytes.NewBuffer([]byte("some file contents"))),
-                  })
-                  if err != nil {
-                    panic(err.Error())
-                  }
-                  fmt.Printf("%+v\n", response)
+                })
+                if err != nil {
+                  panic(err.Error())
                 }
-              java: |-
-                package com.openai.example;
-
-                import com.openai.client.OpenAIClient;
-                import com.openai.client.okhttp.OpenAIOkHttpClient;
-                import com.openai.models.beta.chatkit.ChatKitUploadFileParams;
-                import com.openai.models.beta.chatkit.ChatKitUploadFileResponse;
-                import java.io.ByteArrayInputStream;
-
-                public final class Main {
-                    private Main() {}
-
-                    public static void main(String[] args) {
-                        OpenAIClient client = OpenAIOkHttpClient.fromEnv();
-
-                        ChatKitUploadFileParams params = ChatKitUploadFileParams.builder()
-                            .file(ByteArrayInputStream("some content".getBytes()))
-                            .build();
-                        ChatKitUploadFileResponse response = client.beta().chatkit().uploadFile(params);
-                    }
-                }
-              ruby: |-
-                require "openai"
-
-                openai = OpenAI::Client.new(api_key: "My API Key")
-
-                response = openai.beta.chatkit.upload_file(file: Pathname(__FILE__))
-
-                puts(response)
-              node.js: >-
-                import OpenAI from 'openai';
-
-
-                const client = new OpenAI({
-                  apiKey: 'My API Key',
-                });
-
-
-                const response = await client.beta.chatkit.uploadFile({ file:
-                fs.createReadStream('path/to/file') });
-
-
-                console.log(response);
-            response: |
-              {
-                "file": {
-                  "id": "file-abc123",
-                  "type": "file",
-                  "name": "transcript.pdf",
-                  "mimeType": "application/pdf"
-                }
+                fmt.Printf("%+v\n", response.InputTokens)
               }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.responses.inputtokens.InputTokenCountParams;
+              import com.openai.models.responses.inputtokens.InputTokenCountResponse;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      InputTokenCountResponse response = client.responses().inputTokens().count();
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              response = openai.responses.input_tokens.count
+
+              puts(response)
   /chatkit/sessions/{session_id}/cancel:
     post:
       summary: Cancel chat session
@@ -31982,6 +31961,8 @@ components:
       type: array
       description: The tool calls generated by the model, such as function calls.
       items:
+        discriminator:
+          propertyName: type
         anyOf:
           - $ref: '#/components/schemas/ChatCompletionMessageToolCall'
           - $ref: '#/components/schemas/ChatCompletionMessageCustomToolCall'
@@ -31989,8 +31970,6 @@ components:
           python:
             model_name: chat_completion_message_tool_call_union
             param_model_name: chat_completion_message_tool_call_union_param
-        discriminator:
-          propertyName: type
         x-stainless-go-variant-constructor: skip
     ChatCompletionModalities:
       anyOf:
@@ -32146,11 +32125,11 @@ components:
       x-stainless-soft-required:
         - content
     ChatCompletionRequestAssistantMessageContentPart:
+      discriminator:
+        propertyName: type
       anyOf:
         - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartText'
         - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartRefusal'
-      discriminator:
-        propertyName: type
     ChatCompletionRequestDeveloperMessage:
       type: object
       title: Developer message
@@ -32214,6 +32193,8 @@ components:
         - content
         - name
     ChatCompletionRequestMessage:
+      discriminator:
+        propertyName: role
       anyOf:
         - $ref: '#/components/schemas/ChatCompletionRequestDeveloperMessage'
         - $ref: '#/components/schemas/ChatCompletionRequestSystemMessage'
@@ -32221,8 +32202,6 @@ components:
         - $ref: '#/components/schemas/ChatCompletionRequestAssistantMessage'
         - $ref: '#/components/schemas/ChatCompletionRequestToolMessage'
         - $ref: '#/components/schemas/ChatCompletionRequestFunctionMessage'
-      discriminator:
-        propertyName: role
     ChatCompletionRequestMessageContentPartAudio:
       type: object
       title: Audio content part
@@ -32812,45 +32791,6 @@ components:
         - $ref: '#/components/schemas/StaticChunkingStrategyRequestParam'
       discriminator:
         propertyName: type
-    Click:
-      type: object
-      title: Click
-      description: |
-        A click action.
-      properties:
-        type:
-          type: string
-          enum:
-            - click
-          default: click
-          description: |
-            Specifies the event type. For a click action, this property is 
-            always set to `click`.
-          x-stainless-const: true
-        button:
-          type: string
-          enum:
-            - left
-            - right
-            - wheel
-            - back
-            - forward
-          description: >
-            Indicates which mouse button was pressed during the click. One of `left`, `right`, `wheel`,
-            `back`, or `forward`.
-        x:
-          type: integer
-          description: |
-            The x-coordinate where the click occurred.
-        'y':
-          type: integer
-          description: |
-            The y-coordinate where the click occurred.
-      required:
-        - type
-        - button
-        - x
-        - 'y'
     CodeInterpreterFileOutput:
       type: object
       title: Code interpreter file output
@@ -32883,44 +32823,6 @@ components:
       required:
         - type
         - files
-    CodeInterpreterOutputImage:
-      type: object
-      title: Code interpreter output image
-      description: |
-        The image output from the code interpreter.
-      properties:
-        type:
-          type: string
-          enum:
-            - image
-          default: image
-          x-stainless-const: true
-          description: The type of the output. Always 'image'.
-        url:
-          type: string
-          description: The URL of the image output from the code interpreter.
-      required:
-        - type
-        - url
-    CodeInterpreterOutputLogs:
-      type: object
-      title: Code interpreter output logs
-      description: |
-        The logs output from the code interpreter.
-      properties:
-        type:
-          type: string
-          enum:
-            - logs
-          default: logs
-          x-stainless-const: true
-          description: The type of the output. Always 'logs'.
-        logs:
-          type: string
-          description: The logs output from the code interpreter.
-      required:
-        - type
-        - logs
     CodeInterpreterTextOutput:
       type: object
       title: Code interpreter text output
@@ -33008,11 +32910,11 @@ components:
           anyOf:
             - type: array
               items:
+                discriminator:
+                  propertyName: type
                 anyOf:
                   - $ref: '#/components/schemas/CodeInterpreterOutputLogs'
                   - $ref: '#/components/schemas/CodeInterpreterOutputImage'
-                discriminator:
-                  propertyName: type
               discriminator:
                 propertyName: type
               description: |
@@ -33165,6 +33067,8 @@ components:
           type: array
           description: Array of filters to combine. Items can be `ComparisonFilter` or `CompoundFilter`.
           items:
+            discriminator:
+              propertyName: type
             anyOf:
               - $ref: '#/components/schemas/ComparisonFilter'
               - $recursiveRef: '#'
@@ -33174,18 +33078,18 @@ components:
       x-oaiMeta:
         name: CompoundFilter
     ComputerAction:
+      discriminator:
+        propertyName: type
       anyOf:
-        - $ref: '#/components/schemas/Click'
-        - $ref: '#/components/schemas/DoubleClick'
+        - $ref: '#/components/schemas/ClickParam'
+        - $ref: '#/components/schemas/DoubleClickAction'
         - $ref: '#/components/schemas/Drag'
-        - $ref: '#/components/schemas/KeyPress'
+        - $ref: '#/components/schemas/KeyPressAction'
         - $ref: '#/components/schemas/Move'
         - $ref: '#/components/schemas/Screenshot'
         - $ref: '#/components/schemas/Scroll'
         - $ref: '#/components/schemas/Type'
         - $ref: '#/components/schemas/Wait'
-      discriminator:
-        propertyName: type
     ComputerScreenshotImage:
       type: object
       description: |
@@ -33212,7 +33116,7 @@ components:
       type: object
       title: Computer tool call
       description: |
-        A tool call to a computer use tool. See the 
+        A tool call to a computer use tool. See the
         [computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
       properties:
         type:
@@ -33233,7 +33137,7 @@ components:
         pending_safety_checks:
           type: array
           items:
-            $ref: '#/components/schemas/ComputerToolCallSafetyCheck'
+            $ref: '#/components/schemas/ComputerCallSafetyCheckParam'
           description: |
             The pending safety checks for the computer call.
         status:
@@ -33277,10 +33181,10 @@ components:
         acknowledged_safety_checks:
           type: array
           description: |
-            The safety checks reported by the API that have been acknowledged by the 
+            The safety checks reported by the API that have been acknowledged by the
             developer.
           items:
-            $ref: '#/components/schemas/ComputerToolCallSafetyCheck'
+            $ref: '#/components/schemas/ComputerCallSafetyCheckParam'
         output:
           $ref: '#/components/schemas/ComputerScreenshotImage'
         status:
@@ -33307,24 +33211,6 @@ components:
                 The unique ID of the computer call tool output.
           required:
             - id
-    ComputerToolCallSafetyCheck:
-      type: object
-      description: |
-        A pending safety check for the computer call.
-      properties:
-        id:
-          type: string
-          description: The ID of the pending safety check.
-        code:
-          type: string
-          description: The type of the pending safety check.
-        message:
-          type: string
-          description: Details about the pending safety check.
-      required:
-        - id
-        - code
-        - message
     ContainerFileListResource:
       type: object
       properties:
@@ -33556,23 +33442,19 @@ components:
       x-oaiMeta:
         name: The item list
         group: conversations
-    Coordinate:
-      type: object
-      title: Coordinate
-      description: |
-        An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
-      properties:
-        x:
-          type: integer
+    ConversationParam:
+      description: >
+        The conversation that this response belongs to. Items from this conversation are prepended to
+        `input_items` for this response request.
+
+        Input items and output items from this response are automatically added to this conversation after
+        this response completes.
+      anyOf:
+        - type: string
+          title: Conversation ID
           description: |
-            The x-coordinate.
-        'y':
-          type: integer
-          description: |
-            The y-coordinate.
-      required:
-        - x
-        - 'y'
+            The unique ID of the conversation.
+        - $ref: '#/components/schemas/ConversationParam-2'
     CostsResult:
       type: object
       description: The aggregated costs details of the specific time bucket.
@@ -33931,6 +33813,8 @@ components:
                 Setting to `{ "type": "json_object" }` enables the older JSON mode, which
                 ensures the message the model generates is valid JSON. Using `json_schema`
                 is preferred for models that support it.
+              discriminator:
+                propertyName: type
               anyOf:
                 - $ref: '#/components/schemas/ResponseFormatText'
                 - $ref: '#/components/schemas/ResponseFormatJsonSchema'
@@ -35832,7 +35716,9 @@ components:
             A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
             [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
         input_fidelity:
-          $ref: '#/components/schemas/ImageInputFidelity'
+          anyOf:
+            - $ref: '#/components/schemas/InputFidelity'
+            - type: 'null'
         stream:
           type: boolean
           default: false
@@ -36590,56 +36476,34 @@ components:
         - type: object
           properties:
             input:
-              description: |
-                Text, image, or file inputs to the model, used to generate a response.
-
-                Learn more:
-                - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-                - [Image inputs](https://platform.openai.com/docs/guides/images)
-                - [File inputs](https://platform.openai.com/docs/guides/pdf-files)
-                - [Conversation state](https://platform.openai.com/docs/guides/conversation-state)
-                - [Function calling](https://platform.openai.com/docs/guides/function-calling)
-              anyOf:
-                - type: string
-                  title: Text input
-                  description: |
-                    A text input to the model, equivalent to a text input with the
-                    `user` role.
-                - type: array
-                  title: Input item list
-                  description: |
-                    A list of one or many input items to the model, containing
-                    different content types.
-                  items:
-                    $ref: '#/components/schemas/InputItem'
+              $ref: '#/components/schemas/InputParam'
             include:
               anyOf:
                 - type: array
-                  description: >
-                    Specify additional output data to include in the model response. Currently
-
-                    supported values are:
+                  description: >-
+                    Specify additional output data to include in the model response. Currently supported
+                    values are:
 
                     - `web_search_call.action.sources`: Include the sources of the web search tool call.
 
-                    - `code_interpreter_call.outputs`: Includes the outputs of python code execution
-                      in code interpreter tool call items.
+                    - `code_interpreter_call.outputs`: Includes the outputs of python code execution in code
+                    interpreter tool call items.
+
                     - `computer_call_output.output.image_url`: Include image urls from the computer call
                     output.
 
-                    - `file_search_call.results`: Include the search results of
-                      the file search tool call.
+                    - `file_search_call.results`: Include the search results of the file search tool call.
+
                     - `message.input_image.image_url`: Include image urls from the input message.
 
                     - `message.output_text.logprobs`: Include logprobs with assistant messages.
 
-                    - `reasoning.encrypted_content`: Includes an encrypted version of reasoning
-                      tokens in reasoning item outputs. This enables reasoning items to be used in
-                      multi-turn conversations when using the Responses API statelessly (like
-                      when the `store` parameter is set to `false`, or when an organization is
-                      enrolled in the zero data retention program).
+                    - `reasoning.encrypted_content`: Includes an encrypted version of reasoning tokens in
+                    reasoning item outputs. This enables reasoning items to be used in multi-turn
+                    conversations when using the Responses API statelessly (like when the `store` parameter is
+                    set to `false`, or when an organization is enrolled in the zero data retention program).
                   items:
-                    $ref: '#/components/schemas/Includable'
+                    $ref: '#/components/schemas/IncludeEnum'
                 - type: 'null'
             parallel_tool_calls:
               anyOf:
@@ -36685,18 +36549,7 @@ components:
               $ref: '#/components/schemas/ResponseStreamOptions'
             conversation:
               anyOf:
-                - description: >
-                    The conversation that this response belongs to. Items from this conversation are prepended
-                    to `input_items` for this response request.
-
-                    Input items and output items from this response are automatically added to this
-                    conversation after this response completes.
-                  anyOf:
-                    - type: string
-                      title: Conversation ID
-                      description: |
-                        The unique ID of the conversation.
-                    - $ref: '#/components/schemas/ConversationParam'
+                - $ref: '#/components/schemas/ConversationParam'
                 - type: 'null'
     CreateRunRequest:
       type: object
@@ -37685,72 +37538,6 @@ components:
           $ref: '#/components/schemas/ChunkingStrategyRequestParam'
         metadata:
           $ref: '#/components/schemas/Metadata'
-    CustomTool:
-      type: object
-      title: Custom tool
-      description: |
-        A custom tool that processes input using a specified format. Learn more about
-        [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools).
-      properties:
-        type:
-          type: string
-          enum:
-            - custom
-          description: The type of the custom tool. Always `custom`.
-          x-stainless-const: true
-        name:
-          type: string
-          description: The name of the custom tool, used to identify it in tool calls.
-        description:
-          type: string
-          description: |
-            Optional description of the custom tool, used to provide more context.
-        format:
-          description: |
-            The input format for the custom tool. Default is unconstrained text.
-          anyOf:
-            - type: object
-              title: Text format
-              description: Unconstrained free-form text.
-              properties:
-                type:
-                  type: string
-                  enum:
-                    - text
-                  description: Unconstrained text format. Always `text`.
-                  x-stainless-const: true
-              required:
-                - type
-              additionalProperties: false
-            - type: object
-              title: Grammar format
-              description: A grammar defined by the user.
-              properties:
-                type:
-                  type: string
-                  enum:
-                    - grammar
-                  description: Grammar format. Always `grammar`.
-                  x-stainless-const: true
-                definition:
-                  type: string
-                  description: The grammar definition.
-                syntax:
-                  type: string
-                  description: The syntax of the grammar definition. One of `lark` or `regex`.
-                  enum:
-                    - lark
-                    - regex
-              required:
-                - type
-                - definition
-                - syntax
-              additionalProperties: false
-          discriminator:
-            propertyName: type
-      required:
-        - type
-        - name
     CustomToolCall:
       type: object
       title: Custom tool call
@@ -38072,33 +37859,6 @@ components:
       description: Occurs when a stream ends.
       x-oaiMeta:
         dataDescription: '`data` is `[DONE]`'
-    DoubleClick:
-      type: object
-      title: DoubleClick
-      description: |
-        A double click action.
-      properties:
-        type:
-          type: string
-          enum:
-            - double_click
-          default: double_click
-          description: |
-            Specifies the event type. For a double click action, this property is 
-            always set to `double_click`.
-          x-stainless-const: true
-        x:
-          type: integer
-          description: |
-            The x-coordinate where the double click occurred.
-        'y':
-          type: integer
-          description: |
-            The y-coordinate where the double click occurred.
-      required:
-        - type
-        - x
-        - 'y'
     Drag:
       type: object
       title: Drag
@@ -38131,10 +37891,7 @@ components:
 
             ```
           items:
-            title: Drag path coordinates
-            description: |
-              A series of x/y coordinate pairs in the drag path.
-            $ref: '#/components/schemas/Coordinate'
+            $ref: '#/components/schemas/DragPoint'
       required:
         - type
         - path
@@ -41662,7 +41419,9 @@ components:
             `opaque`, or `auto`. Default: `auto`.
           default: auto
         input_fidelity:
-          $ref: '#/components/schemas/ImageInputFidelity'
+          anyOf:
+            - $ref: '#/components/schemas/InputFidelity'
+            - type: 'null'
         input_image_mask:
           type: object
           description: |
@@ -41725,21 +41484,6 @@ components:
         - id
         - status
         - result
-    ImageInputFidelity:
-      anyOf:
-        - type: string
-          enum:
-            - high
-            - low
-          default: low
-          description: >
-            Control how much effort the model will exert to match the style and features,
-
-            especially facial features, of input images. This parameter is only supported
-
-            for `gpt-image-1`. Unsupported for `gpt-image-1-mini`. Supports `high` and `low`. Defaults to
-            `low`.
-        - type: 'null'
     ImagesResponse:
       type: object
       title: Image generation response
@@ -41842,31 +41586,6 @@ components:
             image_tokens:
               type: integer
               description: The number of image tokens in the input prompt.
-    Includable:
-      type: string
-      description: |
-        Specify additional output data to include in the model response. Currently
-        supported values are:
-        - `web_search_call.action.sources`: Include the sources of the web search tool call.
-        - `code_interpreter_call.outputs`: Includes the outputs of python code execution
-          in code interpreter tool call items.
-        - `computer_call_output.output.image_url`: Include image urls from the computer call output.
-        - `file_search_call.results`: Include the search results of
-          the file search tool call.
-        - `message.input_image.image_url`: Include image urls from the input message.
-        - `message.output_text.logprobs`: Include logprobs with assistant messages.
-        - `reasoning.encrypted_content`: Includes an encrypted version of reasoning
-          tokens in reasoning item outputs. This enables reasoning items to be used in
-          multi-turn conversations when using the Responses API statelessly (like
-          when the `store` parameter is set to `false`, or when an organization is
-          enrolled in the zero data retention program).
-      enum:
-        - code_interpreter_call.outputs
-        - computer_call_output.output.image_url
-        - file_search_call.results
-        - message.input_image.image_url
-        - message.output_text.logprobs
-        - reasoning.encrypted_content
     InputAudio:
       type: object
       title: Input audio
@@ -41902,13 +41621,12 @@ components:
         - type
         - input_audio
     InputContent:
+      discriminator:
+        propertyName: type
       anyOf:
         - $ref: '#/components/schemas/InputTextContent'
         - $ref: '#/components/schemas/InputImageContent'
         - $ref: '#/components/schemas/InputFileContent'
-        - $ref: '#/components/schemas/InputAudio'
-      discriminator:
-        propertyName: type
     InputItem:
       discriminator:
         propertyName: type
@@ -41978,6 +41696,29 @@ components:
                 The unique ID of the message input.
           required:
             - id
+    InputParam:
+      description: |
+        Text, image, or file inputs to the model, used to generate a response.
+
+        Learn more:
+        - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
+        - [Image inputs](https://platform.openai.com/docs/guides/images)
+        - [File inputs](https://platform.openai.com/docs/guides/pdf-files)
+        - [Conversation state](https://platform.openai.com/docs/guides/conversation-state)
+        - [Function calling](https://platform.openai.com/docs/guides/function-calling)
+      anyOf:
+        - type: string
+          title: Text input
+          description: |
+            A text input to the model, equivalent to a text input with the
+            `user` role.
+        - type: array
+          title: Input item list
+          description: |
+            A list of one or many input items to the model, containing
+            different content types.
+          items:
+            $ref: '#/components/schemas/InputItem'
     Invite:
       type: object
       description: Represents an individual `invite` to the organization.
@@ -42184,33 +41925,6 @@ components:
         - $ref: '#/components/schemas/MCPApprovalRequest'
         - $ref: '#/components/schemas/MCPApprovalResponseResource'
         - $ref: '#/components/schemas/MCPToolCall'
-    KeyPress:
-      type: object
-      title: KeyPress
-      description: |
-        A collection of keypresses the model would like to perform.
-      properties:
-        type:
-          type: string
-          enum:
-            - keypress
-          default: keypress
-          description: |
-            Specifies the event type. For a keypress action, this property is 
-            always set to `keypress`.
-          x-stainless-const: true
-        keys:
-          type: array
-          items:
-            type: string
-            description: |
-              One of the keys the model is requesting to be pressed.
-          description: |
-            The combination of keys the model is requesting to be pressed. This is an
-            array of strings, each representing a key.
-      required:
-        - type
-        - keys
     ListAssistantsResponse:
       type: object
       properties:
@@ -42616,67 +42330,6 @@ components:
         - first_id
         - last_id
         - has_more
-    LocalShellExecAction:
-      type: object
-      title: Local shell exec action
-      description: |
-        Execute a shell command on the server.
-      properties:
-        type:
-          type: string
-          enum:
-            - exec
-          description: |
-            The type of the local shell action. Always `exec`.
-          x-stainless-const: true
-        command:
-          type: array
-          items:
-            type: string
-          description: |
-            The command to run.
-        timeout_ms:
-          anyOf:
-            - type: integer
-              description: |
-                Optional timeout in milliseconds for the command.
-            - type: 'null'
-        working_directory:
-          anyOf:
-            - type: string
-              description: |
-                Optional working directory to run the command in.
-            - type: 'null'
-        env:
-          type: object
-          additionalProperties:
-            type: string
-          description: |
-            Environment variables to set for the command.
-        user:
-          anyOf:
-            - type: string
-              description: |
-                Optional user to run the command as.
-            - type: 'null'
-      required:
-        - type
-        - command
-        - env
-    LocalShellTool:
-      type: object
-      title: Local shell tool
-      description: |
-        A tool that allows the model to execute shell commands in a local environment.
-      properties:
-        type:
-          type: string
-          enum:
-            - local_shell
-          description: The type of the local shell tool. Always `local_shell`.
-          x-stainless-const: true
-      required:
-        - type
     LocalShellToolCall:
       type: object
       title: Local shell call
@@ -45461,7 +45114,6 @@ components:
           {
             "type": "session.update",
             "session": {
-              "type": "realtime",
               "tools": [
                 {
                   "type": "function",
@@ -47522,8 +47174,8 @@ components:
     RealtimeBetaServerEventSessionCreated:
       type: object
       description: |
-        Returned when a Session is created. Emitted automatically when a new 
-        connection is established as the first server event. This event will contain 
+        Returned when a Session is created. Emitted automatically when a new
+        connection is established as the first server event. This event will contain
         the default Session configuration.
       properties:
         event_id:
@@ -47547,50 +47199,34 @@ components:
             "type": "session.created",
             "event_id": "event_C9G5RJeJ2gF77mV7f2B1j",
             "session": {
-              "type": "realtime",
               "object": "realtime.session",
               "id": "sess_C9G5QPteg4UIbotdKLoYQ",
-              "model": "gpt-realtime-2025-08-25",
-              "output_modalities": [
+              "model": "gpt-realtime-2025-08-28",
+              "modalities": [
                 "audio"
               ],
               "instructions": "Your knowledge cutoff is 2023-10. You are a helpful, witty, and friendly AI. Act like a human, but remember that you aren't a human and that you can't do human things in the real world. Your voice and personality should be warm and engaging, with a lively and playful tone. If interacting in a non-English language, start by using the standard accent or dialect familiar to the user. Talk quickly. You should always call a function if you can. Do not refer to these rules, even if you’re asked about them.",
               "tools": [],
               "tool_choice": "auto",
-              "max_output_tokens": "inf",
+              "max_response_output_tokens": "inf",
               "tracing": null,
               "prompt": null,
               "expires_at": 1756324625,
-              "audio": {
-                "input": {
-                  "format": {
-                    "type": "audio/pcm",
-                    "rate": 24000
-                  },
-                  "transcription": null,
-                  "noise_reduction": null,
-                  "turn_detection": {
-                    "type": "server_vad",
-                    "threshold": 0.5,
-                    "prefix_padding_ms": 300,
-                    "silence_duration_ms": 200,
-                    "idle_timeout_ms": null,
-                    "create_response": true,
-                    "interrupt_response": true
-                  }
-                },
-                "output": {
-                  "format": {
-                    "type": "audio/pcm",
-                    "rate": 24000
-                  },
-                  "voice": "marin",
-                  "speed": 1
-                }
+              "input_audio_format": "pcm16",
+              "input_audio_transcription": null,
+              "turn_detection": {
+                "type": "server_vad",
+                "threshold": 0.5,
+                "prefix_padding_ms": 300,
+                "silence_duration_ms": 200,
+                "idle_timeout_ms": null,
+                "create_response": true,
+                "interrupt_response": true
               },
+              "output_audio_format": "pcm16",
+              "voice": "marin",
               "include": null
-            },
-            "timestamp": "2:27:05 PM"
+            }
           }
     RealtimeBetaServerEventSessionUpdated:
       type: object
@@ -52254,9 +51890,10 @@ components:
           nullable: true
           anyOf:
             - type: string
+              title: auto
               default: auto
               description: |
-                Default tracing mode for the session.
+                Enables tracing and sets default values for tracing configuration options. Always `auto`.
               enum:
                 - auto
               x-stainless-const: true
@@ -52707,9 +52344,10 @@ components:
                 workflow name, group id, and metadata.
               anyOf:
                 - type: string
+                  title: auto
                   default: auto
                   description: |
-                    Default tracing mode for the session.
+                    Enables tracing and sets default values for tracing configuration options. Always `auto`.
                   enum:
                     - auto
                   x-stainless-const: true
@@ -53309,6 +52947,8 @@ components:
                 A summary of the reasoning performed by the model. This can be
                 useful for debugging and understanding the model's reasoning process.
                 One of `auto`, `concise`, or `detailed`.
+
+                `concise` is only supported for `computer-use-preview` models.
               enum:
                 - auto
                 - concise
@@ -55520,52 +55160,11 @@ components:
               type: integer
             - type: 'null'
         text:
-          type: object
-          description: |
-            Configuration options for a text response from the model. Can be plain
-            text or structured JSON data. Learn more:
-            - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-            - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
-          properties:
-            format:
-              $ref: '#/components/schemas/TextResponseFormatConfiguration'
-            verbosity:
-              $ref: '#/components/schemas/Verbosity'
+          $ref: '#/components/schemas/ResponseTextParam'
         tools:
-          type: array
-          description: |
-            An array of tools the model may call while generating a response. You
-            can specify which tool to use by setting the `tool_choice` parameter.
-
-            We support the following categories of tools:
-            - **Built-in tools**: Tools that are provided by OpenAI that extend the
-              model's capabilities, like [web search](https://platform.openai.com/docs/guides/tools-web-search)
-              or [file search](https://platform.openai.com/docs/guides/tools-file-search). Learn more about
-              [built-in tools](https://platform.openai.com/docs/guides/tools).
-            - **MCP Tools**: Integrations with third-party systems via custom MCP servers
-              or predefined connectors such as Google Drive and SharePoint. Learn more about
-              [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp).
-            - **Function calls (custom tools)**: Functions that are defined by you,
-              enabling the model to call your own code with strongly typed arguments
-              and outputs. Learn more about
-              [function calling](https://platform.openai.com/docs/guides/function-calling). You can also use
-              custom tools to call your own code.
-          items:
-            $ref: '#/components/schemas/Tool'
+          $ref: '#/components/schemas/ToolsArray'
         tool_choice:
-          description: |
-            How the model should select which tool (or tools) to use when generating
-            a response. See the `tools` parameter to see how to specify which tools
-            the model can call.
-          anyOf:
-            - $ref: '#/components/schemas/ToolChoiceOptions'
-            - $ref: '#/components/schemas/ToolChoiceAllowed'
-            - $ref: '#/components/schemas/ToolChoiceTypes'
-            - $ref: '#/components/schemas/ToolChoiceFunction'
-            - $ref: '#/components/schemas/ToolChoiceMCP'
-            - $ref: '#/components/schemas/ToolChoiceCustom'
-          discriminator:
-            propertyName: type
+          $ref: '#/components/schemas/ToolChoiceParam'
         prompt:
           $ref: '#/components/schemas/Prompt'
         truncation:
@@ -56237,6 +55836,18 @@ components:
             "text": "In a shimmering forest under a sky full of stars, a lonely unicorn named Lila discovered a hidden pond that glowed with moonlight. Every night, she would leave sparkling, magical flowers by the water's edge, hoping to share her beauty with others. One enchanting evening, she woke to find a group of friendly animals gathered around, eager to be friends and share in her magic.",
             "sequence_number": 1
           }
+    ResponseTextParam:
+      type: object
+      description: |
+        Configuration options for a text response from the model. Can be plain
+        text or structured JSON data. Learn more:
+        - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
+        - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+      properties:
+        format:
+          $ref: '#/components/schemas/TextResponseFormatConfiguration'
+        verbosity:
+          $ref: '#/components/schemas/Verbosity'
     ResponseUsage:
       type: object
       description: |
@@ -58155,8 +57766,8 @@ components:
         - $ref: '#/components/schemas/MCPTool'
         - $ref: '#/components/schemas/CodeInterpreterTool'
         - $ref: '#/components/schemas/ImageGenTool'
-        - $ref: '#/components/schemas/LocalShellTool'
-        - $ref: '#/components/schemas/CustomTool'
+        - $ref: '#/components/schemas/LocalShellToolParam'
+        - $ref: '#/components/schemas/CustomToolParam'
         - $ref: '#/components/schemas/WebSearchPreviewTool'
     ToolChoiceAllowed:
       type: object
@@ -58282,6 +57893,20 @@ components:
         - none
         - auto
         - required
+    ToolChoiceParam:
+      description: |
+        How the model should select which tool (or tools) to use when generating
+        a response. See the `tools` parameter to see how to specify which tools
+        the model can call.
+      anyOf:
+        - $ref: '#/components/schemas/ToolChoiceOptions'
+        - $ref: '#/components/schemas/ToolChoiceAllowed'
+        - $ref: '#/components/schemas/ToolChoiceTypes'
+        - $ref: '#/components/schemas/ToolChoiceFunction'
+        - $ref: '#/components/schemas/ToolChoiceMCP'
+        - $ref: '#/components/schemas/ToolChoiceCustom'
+      discriminator:
+        propertyName: type
     ToolChoiceTypes:
       type: object
       title: Hosted tool
@@ -58310,6 +57935,27 @@ components:
             - code_interpreter
       required:
         - type
+    ToolsArray:
+      type: array
+      description: |
+        An array of tools the model may call while generating a response. You
+        can specify which tool to use by setting the `tool_choice` parameter.
+
+        We support the following categories of tools:
+        - **Built-in tools**: Tools that are provided by OpenAI that extend the
+          model's capabilities, like [web search](https://platform.openai.com/docs/guides/tools-web-search)
+          or [file search](https://platform.openai.com/docs/guides/tools-file-search). Learn more about
+          [built-in tools](https://platform.openai.com/docs/guides/tools).
+        - **MCP Tools**: Integrations with third-party systems via custom MCP servers
+          or predefined connectors such as Google Drive and SharePoint. Learn more about
+          [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp).
+        - **Function calls (custom tools)**: Functions that are defined by you,
+          enabling the model to call your own code with strongly typed arguments
+          and outputs. Learn more about
+          [function calling](https://platform.openai.com/docs/guides/function-calling). You can also use
+          custom tools to call your own code.
+      items:
+        $ref: '#/components/schemas/Tool'
     TranscriptTextDeltaEvent:
       type: object
       description: >-
@@ -59051,6 +58697,13 @@ components:
             - type: boolean
               description: When `group_by=batch`, this field tells whether the grouped usage result is batch or not.
             - type: 'null'
+        service_tier:
+          anyOf:
+            - type: string
+              description: >-
+                When `group_by=service_tier`, this field provides the service tier of the grouped usage
+                result.
+            - type: 'null'
       required:
         - object
         - input_tokens
@@ -59071,7 +58724,8 @@ components:
               "user_id": "user-abc",
               "api_key_id": "key_abc",
               "model": "gpt-4o-mini-2024-07-18",
-              "batch": false
+              "batch": false,
+              "service_tier": "default"
           }
     UsageEmbeddingsResult:
       type: object
@@ -60219,7 +59873,7 @@ components:
       type: object
       title: Web search tool call
       description: |
-        The results of a web search tool call. See the 
+        The results of a web search tool call. See the
         [web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
       properties:
         id:
@@ -60247,12 +59901,12 @@ components:
           description: |
             An object describing the specific action taken in this web search call.
             Includes details on how the model used the web (search, open_page, find).
+          discriminator:
+            propertyName: type
           anyOf:
             - $ref: '#/components/schemas/WebSearchActionSearch'
             - $ref: '#/components/schemas/WebSearchActionOpenPage'
             - $ref: '#/components/schemas/WebSearchActionFind'
-          discriminator:
-            propertyName: type
       required:
         - id
         - type
@@ -61124,6 +60778,37 @@ components:
               "id": "resp_abc123"
             }
           }
+    IncludeEnum:
+      type: string
+      enum:
+        - file_search_call.results
+        - web_search_call.results
+        - web_search_call.action.sources
+        - message.input_image.image_url
+        - computer_call_output.output.image_url
+        - code_interpreter_call.outputs
+        - reasoning.encrypted_content
+        - message.output_text.logprobs
+      description: >-
+        Specify additional output data to include in the model response. Currently supported values are:
+
+        - `web_search_call.action.sources`: Include the sources of the web search tool call.
+
+        - `code_interpreter_call.outputs`: Includes the outputs of python code execution in code interpreter
+        tool call items.
+
+        - `computer_call_output.output.image_url`: Include image urls from the computer call output.
+
+        - `file_search_call.results`: Include the search results of the file search tool call.
+
+        - `message.input_image.image_url`: Include image urls from the input message.
+
+        - `message.output_text.logprobs`: Include logprobs with assistant messages.
+
+        - `reasoning.encrypted_content`: Includes an encrypted version of reasoning tokens in reasoning item
+        outputs. This enables reasoning items to be used in multi-turn conversations when using the Responses
+        API statelessly (like when the `store` parameter is set to `false`, or when an organization is
+        enrolled in the zero data retention program).
     MessageStatus:
       type: string
       enum:
@@ -61538,20 +61223,103 @@ components:
         - content
       title: Message
       description: A message to or from the model.
-    MCPToolCallStatus:
+    ClickButtonType:
       type: string
       enum:
-        - in_progress
-        - completed
-        - incomplete
-        - calling
-        - failed
-    DetailEnum:
-      type: string
-      enum:
-        - low
-        - high
-        - auto
+        - left
+        - right
+        - wheel
+        - back
+        - forward
+    ClickParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - click
+          description: Specifies the event type. For a click action, this property is always `click`.
+          default: click
+          x-stainless-const: true
+        button:
+          $ref: '#/components/schemas/ClickButtonType'
+          description: >-
+            Indicates which mouse button was pressed during the click. One of `left`, `right`, `wheel`,
+            `back`, or `forward`.
+        x:
+          type: integer
+          description: The x-coordinate where the click occurred.
+        'y':
+          type: integer
+          description: The y-coordinate where the click occurred.
+      type: object
+      required:
+        - type
+        - button
+        - x
+        - 'y'
+      title: Click
+      description: A click action.
+    DoubleClickAction:
+      properties:
+        type:
+          type: string
+          enum:
+            - double_click
+          description: >-
+            Specifies the event type. For a double click action, this property is always set to
+            `double_click`.
+          default: double_click
+          x-stainless-const: true
+        x:
+          type: integer
+          description: The x-coordinate where the double click occurred.
+        'y':
+          type: integer
+          description: The y-coordinate where the double click occurred.
+      type: object
+      required:
+        - type
+        - x
+        - 'y'
+      title: DoubleClick
+      description: A double click action.
+    DragPoint:
+      properties:
+        x:
+          type: integer
+          description: The x-coordinate.
+        'y':
+          type: integer
+          description: The y-coordinate.
+      type: object
+      required:
+        - x
+        - 'y'
+      title: Coordinate
+      description: 'An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.'
+    KeyPressAction:
+      properties:
+        type:
+          type: string
+          enum:
+            - keypress
+          description: Specifies the event type. For a keypress action, this property is always set to `keypress`.
+          default: keypress
+          x-stainless-const: true
+        keys:
+          items:
+            type: string
+            description: One of the keys the model is requesting to be pressed.
+          type: array
+          description: >-
+            The combination of keys the model is requesting to be pressed. This is an array of strings, each
+            representing a key.
+      type: object
+      required:
+        - type
+        - keys
+      title: KeyPress
+      description: A collection of keypresses the model would like to perform.
     ComputerCallSafetyCheckParam:
       properties:
         id:
@@ -61571,6 +61339,98 @@ components:
       required:
         - id
       description: A pending safety check for the computer call.
+    CodeInterpreterOutputLogs:
+      properties:
+        type:
+          type: string
+          enum:
+            - logs
+          description: The type of the output. Always `logs`.
+          default: logs
+          x-stainless-const: true
+        logs:
+          type: string
+          description: The logs output from the code interpreter.
+      type: object
+      required:
+        - type
+        - logs
+      title: Code interpreter output logs
+      description: The logs output from the code interpreter.
+    CodeInterpreterOutputImage:
+      properties:
+        type:
+          type: string
+          enum:
+            - image
+          description: The type of the output. Always `image`.
+          default: image
+          x-stainless-const: true
+        url:
+          type: string
+          description: The URL of the image output from the code interpreter.
+      type: object
+      required:
+        - type
+        - url
+      title: Code interpreter output image
+      description: The image output from the code interpreter.
+    LocalShellExecAction:
+      properties:
+        type:
+          type: string
+          enum:
+            - exec
+          description: The type of the local shell action. Always `exec`.
+          default: exec
+          x-stainless-const: true
+        command:
+          items:
+            type: string
+          type: array
+          description: The command to run.
+        timeout_ms:
+          anyOf:
+            - type: integer
+              description: Optional timeout in milliseconds for the command.
+            - type: 'null'
+        working_directory:
+          anyOf:
+            - type: string
+              description: Optional working directory to run the command in.
+            - type: 'null'
+        env:
+          additionalProperties:
+            type: string
+          type: object
+          description: Environment variables to set for the command.
+          x-oaiTypeLabel: map
+        user:
+          anyOf:
+            - type: string
+              description: Optional user to run the command as.
+            - type: 'null'
+      type: object
+      required:
+        - type
+        - command
+        - env
+      title: Local shell exec action
+      description: Execute a shell command on the server.
+    MCPToolCallStatus:
+      type: string
+      enum:
+        - in_progress
+        - completed
+        - incomplete
+        - calling
+        - failed
+    DetailEnum:
+      type: string
+      enum:
+        - low
+        - high
+        - auto
     FunctionCallItemStatus:
       type: string
       enum:
@@ -61830,6 +61690,7 @@ components:
             - additionalProperties: {}
               type: object
               description: A JSON schema object describing the parameters of the function.
+              x-oaiTypeLabel: map
             - type: 'null'
         strict:
           anyOf:
@@ -61936,6 +61797,95 @@ components:
       description: >-
         A tool that controls a virtual computer. Learn more about the [computer
         tool](https://platform.openai.com/docs/guides/tools-computer-use).
+    InputFidelity:
+      type: string
+      enum:
+        - high
+        - low
+      description: |2-
+
+                    Control how much effort the model will exert to match the style and features, especially facial features, of input images. This parameter is only supported for `gpt-image-1`. Unsupported for `gpt-image-1-mini`. Supports `high` and `low`. Defaults to `low`.
+    LocalShellToolParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - local_shell
+          description: The type of the local shell tool. Always `local_shell`.
+          default: local_shell
+          x-stainless-const: true
+      type: object
+      required:
+        - type
+      title: Local shell tool
+      description: A tool that allows the model to execute shell commands in a local environment.
+    CustomTextFormatParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - text
+          description: Unconstrained text format. Always `text`.
+          default: text
+          x-stainless-const: true
+      type: object
+      required:
+        - type
+    GrammarSyntax1:
+      type: string
+      enum:
+        - lark
+        - regex
+    CustomGrammarFormatParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - grammar
+          description: Grammar format. Always `grammar`.
+          default: grammar
+          x-stainless-const: true
+        syntax:
+          $ref: '#/components/schemas/GrammarSyntax1'
+          description: The syntax of the grammar definition. One of `lark` or `regex`.
+        definition:
+          type: string
+          description: The grammar definition.
+      type: object
+      required:
+        - type
+        - syntax
+        - definition
+    CustomToolParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - custom
+          description: The type of the custom tool. Always `custom`.
+          default: custom
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the custom tool, used to identify it in tool calls.
+        description:
+          type: string
+          description: Optional description of the custom tool, used to provide more context.
+        format:
+          description: The input format for the custom tool. Default is unconstrained text.
+          discriminator:
+            propertyName: type
+          anyOf:
+            - $ref: '#/components/schemas/CustomTextFormatParam'
+            - $ref: '#/components/schemas/CustomGrammarFormatParam'
+      type: object
+      required:
+        - type
+        - name
+      title: Custom tool
+      description: >-
+        A custom tool that processes input using a specified format. Learn more about   [custom
+        tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
     ApproximateLocation:
       properties:
         type:
@@ -62040,7 +61990,7 @@ components:
         - input_tokens_details
       title: Image generation usage
       description: For `gpt-image-1` only, the token usage information for the image generation.
-    ConversationParam:
+    ConversationParam-2:
       properties:
         id:
           type: string
@@ -62316,97 +62266,114 @@ components:
         - prompt
       title: Create video remix request
       description: Parameters for remixing an existing generated video.
-    UploadFileBody:
+    TruncationEnum:
+      type: string
+      enum:
+        - auto
+        - disabled
+    TokenCountsBody:
       properties:
-        file:
-          type: string
-          format: binary
+        model:
+          anyOf:
+            - type: string
+              description: >-
+                Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a wide range of
+                models with different capabilities, performance characteristics, and price points. Refer to
+                the [model guide](https://platform.openai.com/docs/models) to browse and compare available
+                models.
+            - type: 'null'
+        input:
+          anyOf:
+            - description: Text, image, or file inputs to the model, used to generate a response
+              anyOf:
+                - type: string
+                  maxLength: 10485760
+                  description: A text input to the model, equivalent to a text input with the `user` role.
+                - items:
+                    $ref: '#/components/schemas/InputItem'
+                  type: array
+            - type: 'null'
+        previous_response_id:
+          anyOf:
+            - type: string
+              description: >-
+                The unique ID of the previous response to the model. Use this to create multi-turn
+                conversations. Learn more about [conversation
+                state](https://platform.openai.com/docs/guides/conversation-state). Cannot be used in
+                conjunction with `conversation`.
+              example: resp_123
+            - type: 'null'
+        tools:
+          anyOf:
+            - items:
+                $ref: '#/components/schemas/Tool'
+              type: array
+              description: >-
+                An array of tools the model may call while generating a response. You can specify which tool
+                to use by setting the `tool_choice` parameter.
+            - type: 'null'
+        text:
+          anyOf:
+            - $ref: '#/components/schemas/ResponseTextParam'
+            - type: 'null'
+        reasoning:
+          anyOf:
+            - $ref: '#/components/schemas/Reasoning'
+              description: >-
+                **gpt-5 and o-series models only** Configuration options for [reasoning
+                models](https://platform.openai.com/docs/guides/reasoning).
+            - type: 'null'
+        truncation:
+          $ref: '#/components/schemas/TruncationEnum'
           description: >-
-            Binary file contents to store with the ChatKit session. Supports PDFs and PNG, JPG, JPEG, GIF, or
-            WEBP images.
-      type: object
-      required:
-        - file
-      title: Upload file request
-      description: Parameters for uploading an attachment to the active ChatKit session.
-    FilePartResource:
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the uploaded file.
-        type:
-          type: string
-          enum:
-            - file
-          description: Type discriminator that is always `file`.
-          default: file
-          x-stainless-const: true
-        name:
-          anyOf:
-            - type: string
-              description: Original filename supplied by the uploader. Defaults to null when unnamed.
-            - type: 'null'
-        mime_type:
-          anyOf:
-            - type: string
-              description: MIME type reported for the uploaded file. Defaults to null when unknown.
-            - type: 'null'
-        upload_url:
+            The truncation strategy to use for the model response. - `auto`: If the input to this Response
+            exceeds the model's context window size, the model will truncate the response to fit the context
+            window by dropping items from the beginning of the conversation. - `disabled` (default): If the
+            input size will exceed the context window size for a model, the request will fail with a 400
+            error.
+        instructions:
           anyOf:
             - type: string
               description: >-
-                Signed URL for downloading the uploaded file. Defaults to null when no download link is
-                available.
+                A system (or developer) message inserted into the model's context.
+
+                When used along with `previous_response_id`, the instructions from a previous response will
+                not be carried over to the next response. This makes it simple to swap out system (or
+                developer) messages in new responses.
+            - type: 'null'
+        conversation:
+          anyOf:
+            - $ref: '#/components/schemas/ConversationParam'
+            - type: 'null'
+        tool_choice:
+          anyOf:
+            - $ref: '#/components/schemas/ToolChoiceParam'
+            - type: 'null'
+        parallel_tool_calls:
+          anyOf:
+            - type: boolean
+              description: Whether to allow the model to run tool calls in parallel.
             - type: 'null'
       type: object
-      required:
-        - id
-        - type
-        - name
-        - mime_type
-        - upload_url
-      title: Uploaded file
-      description: Metadata for a non-image file uploaded through ChatKit.
-    ImagePartResource:
+      required: []
+    TokenCountsResource:
       properties:
-        id:
-          type: string
-          description: Unique identifier for the uploaded image.
-        type:
+        object:
           type: string
           enum:
-            - image
-          description: Type discriminator that is always `image`.
-          default: image
+            - response.input_tokens
+          default: response.input_tokens
           x-stainless-const: true
-        mime_type:
-          type: string
-          description: MIME type of the uploaded image.
-        name:
-          anyOf:
-            - type: string
-              description: Original filename for the uploaded image. Defaults to null when unnamed.
-            - type: 'null'
-        preview_url:
-          type: string
-          description: Preview URL that can be rendered inline for the image.
-        upload_url:
-          anyOf:
-            - type: string
-              description: >-
-                Signed URL for downloading the uploaded image. Defaults to null when no download link is
-                available.
-            - type: 'null'
+        input_tokens:
+          type: integer
       type: object
       required:
-        - id
-        - type
-        - mime_type
-        - name
-        - preview_url
-        - upload_url
-      title: Uploaded image
-      description: Metadata for an image uploaded through ChatKit.
+        - object
+        - input_tokens
+      title: Token counts
+      example:
+        object: response.input_tokens
+        input_tokens: 123
     ChatkitWorkflowTracing:
       properties:
         enabled:
@@ -62441,6 +62408,7 @@ components:
               description: >-
                 State variable key-value pairs applied when invoking the workflow. Defaults to null when no
                 overrides were provided.
+              x-oaiTypeLabel: map
             - type: 'null'
         tracing:
           $ref: '#/components/schemas/ChatkitWorkflowTracing'
@@ -62617,6 +62585,7 @@ components:
           description: >-
             State variables forwarded to the workflow. Keys may be up to 64 characters, values must be
             primitive types, and the map defaults to an empty object.
+          x-oaiTypeLabel: map
         tracing:
           $ref: '#/components/schemas/WorkflowTracingParam'
           description: >-
@@ -64025,26 +63994,28 @@ components:
           discriminator:
             propertyName: type
     CodeInterpreterContainerAuto:
-      type: object
-      title: CodeInterpreterToolAuto
-      description: |
-        Configuration for a code interpreter container. Optionally specify the IDs
-        of the files to run the code on.
-      required:
-        - type
       properties:
         type:
           type: string
           enum:
             - auto
           description: Always `auto`.
+          default: auto
           x-stainless-const: true
         file_ids:
-          type: array
           items:
             type: string
-          description: |
-            An optional list of uploaded files to make available to your code.
+            example: file-123
+          type: array
+          maxItems: 50
+          description: An optional list of uploaded files to make available to your code.
+      type: object
+      required:
+        - type
+      title: CodeInterpreterToolAuto
+      description: >-
+        Configuration for a code interpreter container. Optionally specify the IDs of the files to run the
+        code on.
       x-stainless-naming:
         go:
           type_name: ToolCodeInterpreterContainerCodeInterpreterContainerAuto
@@ -64114,6 +64085,9 @@ x-oaiMeta:
         - type: endpoint
           key: listInputItems
           path: input-items
+        - type: endpoint
+          key: Getinputtokencounts
+          path: input-tokens
         - type: object
           key: Response
           path: object
@@ -64509,10 +64483,6 @@ x-oaiMeta:
           key: CancelChatSessionMethod
           beta: true
           path: sessions/cancel
-        - type: endpoint
-          key: UploadFileMethod
-          beta: true
-          path: files/upload
         - type: endpoint
           key: ListThreadsMethod
           beta: true

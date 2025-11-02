@@ -115,7 +115,7 @@ Retrieves a model response with the given ID.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to retrieve. | [required] |
-**include** | Option<[**Vec<models::Includable>**](models::Includable.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**include** | Option<[**Vec<models::IncludeEnum>**](models::IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
 **stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming) for more information.  |  |
 **starting_after** | Option<**i32**> | The sequence number of the event after which to start streaming.  |  |
 **include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
@@ -152,7 +152,7 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i32**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
 **order** | Option<**String**> | The order to return the input items in. Default is `desc`. - `asc`: Return the input items in ascending order. - `desc`: Return the input items in descending order.  |  |
 **after** | Option<**String**> | An item ID to list items after, used in pagination.  |  |
-**include** | Option<[**Vec<models::Includable>**](models::Includable.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**include** | Option<[**Vec<models::IncludeEnum>**](models::IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
 
 ### Return type
 

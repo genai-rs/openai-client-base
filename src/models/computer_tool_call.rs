@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ComputerToolCall : A tool call to a computer use tool. See the  [computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
+/// ComputerToolCall : A tool call to a computer use tool. See the [computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerToolCall {
     /// The type of the computer call. Always `computer_call`.
@@ -27,20 +27,20 @@ pub struct ComputerToolCall {
     pub action: serde_json::Value,
     /// The pending safety checks for the computer call.
     #[serde(rename = "pending_safety_checks")]
-    pub pending_safety_checks: Vec<models::ComputerToolCallSafetyCheck>,
+    pub pending_safety_checks: Vec<models::ComputerCallSafetyCheckParam>,
     /// The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
     #[serde(rename = "status")]
     pub status: Status,
 }
 
 impl ComputerToolCall {
-    /// A tool call to a computer use tool. See the  [computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
+    /// A tool call to a computer use tool. See the [computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
     pub fn new(
         r#type: Type,
         id: String,
         call_id: String,
         action: serde_json::Value,
-        pending_safety_checks: Vec<models::ComputerToolCallSafetyCheck>,
+        pending_safety_checks: Vec<models::ComputerCallSafetyCheckParam>,
         status: Status,
     ) -> ComputerToolCall {
         ComputerToolCall {

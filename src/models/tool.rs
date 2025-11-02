@@ -22,8 +22,8 @@ pub enum Tool {
     McpTool(Box<models::McpTool>),
     CodeInterpreterTool(Box<models::CodeInterpreterTool>),
     ImageGenTool(Box<models::ImageGenTool>),
-    LocalShellTool(Box<models::LocalShellTool>),
-    CustomTool(Box<models::CustomTool>),
+    LocalShellToolParam(Box<models::LocalShellToolParam>),
+    CustomToolParam(Box<models::CustomToolParam>),
     WebSearchPreviewTool(Box<models::WebSearchPreviewTool>),
 }
 

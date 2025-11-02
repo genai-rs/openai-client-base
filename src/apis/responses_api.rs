@@ -205,7 +205,7 @@ pub async fn delete_response(
 pub async fn get_response(
     configuration: &configuration::Configuration,
     response_id: &str,
-    include: Option<Vec<models::Includable>>,
+    include: Option<Vec<models::IncludeEnum>>,
     stream: Option<bool>,
     starting_after: Option<i32>,
     include_obfuscation: Option<bool>,
@@ -296,7 +296,7 @@ pub async fn list_input_items(
     limit: Option<i32>,
     order: Option<&str>,
     after: Option<&str>,
-    include: Option<Vec<models::Includable>>,
+    include: Option<Vec<models::IncludeEnum>>,
 ) -> Result<models::ResponseItemList, Error<ListInputItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
