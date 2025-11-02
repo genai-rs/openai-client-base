@@ -9,48 +9,81 @@ import re
 from pathlib import Path
 
 def fix_recursive_grammar_format(models_dir):
-    """Fix the recursive GrammarFormat1 type by using GrammarFormat instead."""
-    grammar_file = models_dir / "grammar_format_1.rs"
-    if grammar_file.exists():
+    """Fix recursive GrammarFormat types by using Box for indirection."""
+    # Handle both grammar_format.rs and grammar_format_1.rs
+    for filename in ["grammar_format.rs", "grammar_format_1.rs"]:
+        grammar_file = models_dir / filename
+        if not grammar_file.exists():
+            continue
+
         with open(grammar_file, 'r') as f:
             content = f.read()
-        
-        # Fix the recursive field
+
+        original_content = content
+
+        # Fix direct recursion: GrammarFormat containing GrammarFormat
+        content = re.sub(
+            r'pub grammar: models::GrammarFormat,',
+            r'pub grammar: Box<models::GrammarFormat>,',
+            content
+        )
+
+        # Fix GrammarFormat1 -> GrammarFormat reference
         content = re.sub(
             r'pub grammar: models::GrammarFormat1,',
             r'pub grammar: Box<models::GrammarFormat>,',
             content
         )
-        
-        # Fix the constructor
+
+        # Fix constructor parameter types
         content = re.sub(
-            r'pub fn new\(r#type: Type, grammar: models::GrammarFormat1\) -> GrammarFormat1 \{',
-            r'pub fn new(r#type: Type, grammar: models::GrammarFormat) -> GrammarFormat1 {',
+            r'pub fn new\(r#type: Type, grammar: models::GrammarFormat1\)',
+            r'pub fn new(r#type: Type, grammar: models::GrammarFormat)',
             content
         )
         content = re.sub(
-            r'(\s+)grammar,',
-            r'\1grammar: Box::new(grammar),',
+            r'pub fn new\(r#type: Type, grammar: models::GrammarFormat\) -> (GrammarFormat1?)\s*\{',
+            r'pub fn new(r#type: Type, grammar: models::GrammarFormat) -> \1 {',
             content
         )
-        
-        with open(grammar_file, 'w') as f:
-            f.write(content)
-        print(f"Fixed recursive type in grammar_format_1.rs")
+
+        # Fix constructor body to Box::new the grammar
+        if 'pub grammar: Box<models::GrammarFormat>' in content:
+            content = re.sub(
+                r'(\s+)(r#type,\s+grammar),',
+                r'\1r#type,\n\1grammar: Box::new(grammar),',
+                content
+            )
+            content = re.sub(
+                r'(\s+grammar:) grammar,',
+                r'\1 Box::new(grammar),',
+                content
+            )
+
+        if content != original_content:
+            with open(grammar_file, 'w') as f:
+                f.write(content)
+            print(f"Fixed recursive type in {filename}")
 
 def fix_invalid_enum_variants(models_dir):
-    """Fix enum variant names with dots (e.g., Gpt4.1 -> Gpt4_1)."""
+    """Fix enum variant names with dots (e.g., Gpt4.1 -> Gpt4_1) and hyphens (e.g., Param-2 -> Param2)."""
     for file_path in models_dir.glob("*.rs"):
         with open(file_path, 'r') as f:
             content = f.read()
-        
+
         original_content = content
-        
+
         # Fix dots in enum variant names
         content = re.sub(r'\bGpt4\.1\b', 'Gpt4_1', content)
         content = re.sub(r'\bGpt4\.5\b', 'Gpt4_5', content)
         content = re.sub(r'\bGpt3\.5\b', 'Gpt3_5', content)
-        
+
+        # Fix hyphens in type names (e.g., models::ConversationParam-2 -> models::ConversationParam2)
+        # Only match in type contexts (after models::, after Box<, in enum variants, field types)
+        # This prevents changing unrelated hyphens like in comments or strings
+        content = re.sub(r'(models::)([A-Z]\w+)-(\d+)', r'\1\2\3', content)
+        content = re.sub(r'(Box<models::)([A-Z]\w+)-(\d+)', r'\1\2\3', content)
+
         if content != original_content:
             with open(file_path, 'w') as f:
                 f.write(content)
