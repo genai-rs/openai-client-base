@@ -9,19 +9,7 @@ from pathlib import Path
 
 def add_clippy_allows_to_lib(lib_file):
     """Add clippy allow attributes to lib.rs"""
-    with open(lib_file, 'r') as f:
-        content = f.read()
-    
-    # Remove old simple allows if they exist
-    content = content.replace('#![allow(unused_imports)]', '')
-    content = content.replace('#![allow(clippy::too_many_arguments)]', '')
-    
-    # Check if already has comprehensive allows
-    if 'unreachable_patterns,' in content:
-        print(f"  {lib_file} already has comprehensive clippy allows, skipping")
-        return
-    
-    # Add comprehensive allows at the top of the file
+    # Define the comprehensive allows first
     allows = """#![allow(
     unused_imports,
     unreachable_patterns,
@@ -36,10 +24,38 @@ def add_clippy_allows_to_lib(lib_file):
     clippy::enum_variant_names,
     clippy::redundant_field_names,
     clippy::missing_errors_doc,
-    clippy::module_name_repetitions
+    clippy::module_name_repetitions,
+    clippy::derivable_impls  // Rust 1.91.0 new lint - generated code has manual Default impls
 )]
 
 """
+
+    with open(lib_file, 'r') as f:
+        content = f.read()
+
+    # Remove old simple allows if they exist
+    content = content.replace('#![allow(unused_imports)]', '')
+    content = content.replace('#![allow(clippy::too_many_arguments)]', '')
+
+    # Check if already has comprehensive allows including the latest lints
+    if 'unreachable_patterns,' in content and 'clippy::derivable_impls' in content:
+        print(f"  {lib_file} already has comprehensive clippy allows, skipping")
+        return
+
+    # If we have the old allows but not the new lint, we need to update
+    if 'unreachable_patterns,' in content and 'clippy::derivable_impls' not in content:
+        # Replace the old allow block with the new one
+        import re
+        content = re.sub(
+            r'#!\[allow\([^]]+\)\]',
+            allows.strip(),
+            content,
+            count=1
+        )
+        with open(lib_file, 'w') as f:
+            f.write(content)
+        print(f"  Updated clippy allows in {lib_file} to include new lints")
+        return
     
     # Find where to insert (after existing #![...] attributes if any)
     lines = content.split('\n')
