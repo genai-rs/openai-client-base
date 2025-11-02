@@ -17,5 +17,4 @@ pub enum InputContent {
     InputTextContent(Box<models::InputTextContent>),
     InputImageContent(Box<models::InputImageContent>),
     InputFileContent(Box<models::InputFileContent>),
-    InputAudio(Box<models::InputAudio>),
 }

@@ -17,21 +17,17 @@ pub struct GrammarFormat {
     /// Grammar format. Always `grammar`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The grammar definition.
-    #[serde(rename = "definition")]
-    pub definition: String,
-    /// The syntax of the grammar definition. One of `lark` or `regex`.
-    #[serde(rename = "syntax")]
-    pub syntax: Syntax,
+    #[serde(rename = "grammar")]
+    pub grammar: Box<models::GrammarFormat>,
 }
 
 impl GrammarFormat {
     /// A grammar defined by the user.
-    pub fn new(r#type: Type, definition: String, syntax: Syntax) -> GrammarFormat {
+    pub fn new(r#type: Type, grammar: models::GrammarFormat) -> GrammarFormat {
         GrammarFormat {
             r#type,
-            definition,
-            syntax,
+
+            grammar: Box::new(grammar),
         }
     }
 }
@@ -45,20 +41,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Grammar
-    }
-}
-/// The syntax of the grammar definition. One of `lark` or `regex`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Syntax {
-    #[serde(rename = "lark")]
-    Lark,
-    #[serde(rename = "regex")]
-    Regex,
-}
-
-impl Default for Syntax {
-    fn default() -> Syntax {
-        Self::Lark
     }
 }
 

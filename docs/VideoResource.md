@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **size** | [**models::VideoSize**](VideoSize.md) |  | 
 **seconds** | [**models::VideoSeconds**](VideoSeconds.md) |  | 
 **remixed_from_video_id** | Option<**String**> | Identifier of the source video if this video is a remix. | 
-**error** | Option<[**models::Error2**](Error-2.md)> |  | 
+**error** | Option<[**models::Error2**](Error2.md)> |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -22,12 +22,12 @@ pub struct ComputerToolCallOutputResource {
     /// The ID of the computer tool call that produced the output.
     #[serde(rename = "call_id")]
     pub call_id: String,
-    /// The safety checks reported by the API that have been acknowledged by the  developer.
+    /// The safety checks reported by the API that have been acknowledged by the developer.
     #[serde(
         rename = "acknowledged_safety_checks",
         skip_serializing_if = "Option::is_none"
     )]
-    pub acknowledged_safety_checks: Option<Vec<models::ComputerToolCallSafetyCheck>>,
+    pub acknowledged_safety_checks: Option<Vec<models::ComputerCallSafetyCheckParam>>,
     #[serde(rename = "output")]
     pub output: Box<models::ComputerScreenshotImage>,
     /// The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.

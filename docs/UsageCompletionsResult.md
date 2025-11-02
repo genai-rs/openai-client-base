@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **api_key_id** | Option<**String**> | When `group_by=api_key_id`, this field provides the API key ID of the grouped usage result. | [optional]
 **model** | Option<**String**> | ID of the model to use | [optional]
 **batch** | Option<**bool**> | When `group_by=batch`, this field tells whether the grouped usage result is batch or not. | [optional]
+**service_tier** | Option<**String**> | When `group_by=service_tier`, this field provides the service tier of the grouped usage result. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

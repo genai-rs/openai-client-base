@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **output_compression** | Option<**i32**> | Compression level for the output image. Default: 100.  | [optional]
 **moderation** | Option<**String**> | Moderation level for the generated image. Default: `auto`.  | [optional]
 **background** | Option<**String**> | Background type for the generated image. One of `transparent`, `opaque`, or `auto`. Default: `auto`.  | [optional]
-**input_fidelity** | Option<[**models::ImageInputFidelity**](ImageInputFidelity.md)> |  | [optional]
+**input_fidelity** | Option<[**models::InputFidelity**](InputFidelity.md)> |  | [optional]
 **input_image_mask** | Option<[**models::ImageGenToolInputImageMask**](ImageGenTool_input_image_mask.md)> |  | [optional]
 **partial_images** | Option<**i32**> | Number of partial images to generate in streaming mode, from 0 (default value) to 3.  | [optional]
 

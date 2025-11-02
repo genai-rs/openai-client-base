@@ -66,12 +66,12 @@ pub struct CreateResponse {
     #[serde(rename = "max_tool_calls", skip_serializing_if = "Option::is_none")]
     pub max_tool_calls: Option<i32>,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<Box<models::ResponsePropertiesText>>,
+    pub text: Option<Box<models::ResponseTextParam>>,
     /// An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  We support the following categories of tools: - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](https://platform.openai.com/docs/guides/tools-web-search)   or [file search](https://platform.openai.com/docs/guides/tools-file-search). Learn more about   [built-in tools](https://platform.openai.com/docs/guides/tools). - **MCP Tools**: Integrations with third-party systems via custom MCP servers   or predefined connectors such as Google Drive and SharePoint. Learn more about   [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code with strongly typed arguments   and outputs. Learn more about   [function calling](https://platform.openai.com/docs/guides/function-calling). You can also use   custom tools to call your own code.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::Tool>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
-    pub tool_choice: Option<Box<models::ResponsePropertiesToolChoice>>,
+    pub tool_choice: Option<Box<models::ToolChoiceParam>>,
     #[serde(
         rename = "prompt",
         default,
@@ -84,14 +84,14 @@ pub struct CreateResponse {
     pub truncation: Option<Truncation>,
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
     pub input: Option<String>,
-    /// Specify additional output data to include in the model response. Currently supported values are: - `web_search_call.action.sources`: Include the sources of the web search tool call. - `code_interpreter_call.outputs`: Includes the outputs of python code execution   in code interpreter tool call items. - `computer_call_output.output.image_url`: Include image urls from the computer call output. - `file_search_call.results`: Include the search results of   the file search tool call. - `message.input_image.image_url`: Include image urls from the input message. - `message.output_text.logprobs`: Include logprobs with assistant messages. - `reasoning.encrypted_content`: Includes an encrypted version of reasoning   tokens in reasoning item outputs. This enables reasoning items to be used in   multi-turn conversations when using the Responses API statelessly (like   when the `store` parameter is set to `false`, or when an organization is   enrolled in the zero data retention program).
+    /// Specify additional output data to include in the model response. Currently supported values are: - `web_search_call.action.sources`: Include the sources of the web search tool call. - `code_interpreter_call.outputs`: Includes the outputs of python code execution in code interpreter tool call items. - `computer_call_output.output.image_url`: Include image urls from the computer call output. - `file_search_call.results`: Include the search results of the file search tool call. - `message.input_image.image_url`: Include image urls from the input message. - `message.output_text.logprobs`: Include logprobs with assistant messages. - `reasoning.encrypted_content`: Includes an encrypted version of reasoning tokens in reasoning item outputs. This enables reasoning items to be used in multi-turn conversations when using the Responses API statelessly (like when the `store` parameter is set to `false`, or when an organization is enrolled in the zero data retention program).
     #[serde(
         rename = "include",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub include: Option<Option<Vec<models::Includable>>>,
+    pub include: Option<Option<Vec<models::IncludeEnum>>>,
     /// Whether to allow the model to run tool calls in parallel.
     #[serde(
         rename = "parallel_tool_calls",
@@ -137,7 +137,7 @@ pub struct CreateResponse {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub conversation: Option<Option<Box<models::CreateResponseAllOfConversation>>>,
+    pub conversation: Option<Option<Box<models::ConversationParam>>>,
 }
 
 impl CreateResponse {

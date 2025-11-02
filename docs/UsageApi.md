@@ -150,7 +150,7 @@ Name | Type | Description  | Required | Notes
 **api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
 **models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
 **batch** | Option<**bool**> | If `true`, return batch jobs only. If `false`, return non-batch jobs only. By default, return both.  |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch` or any combination of them. |  |
+**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier` or any combination of them. |  |
 **limit** | Option<**i32**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 

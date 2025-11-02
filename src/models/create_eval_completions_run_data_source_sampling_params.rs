@@ -36,7 +36,8 @@ pub struct CreateEvalCompletionsRunDataSourceSamplingParams {
     #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
     pub seed: Option<i32>,
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
-    pub response_format: Option<Box<models::CreateChatCompletionRequestAllOfResponseFormat>>,
+    pub response_format:
+        Option<Box<models::CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat>>,
     /// A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for. A max of 128 functions are supported.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::ChatCompletionTool>>,

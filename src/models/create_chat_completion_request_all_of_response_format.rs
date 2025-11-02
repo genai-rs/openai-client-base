@@ -12,49 +12,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionRequestAllOfResponseFormat : An object specifying the format that the model must output.  Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).  Setting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateChatCompletionRequestAllOfResponseFormat {
-    /// The type of response format being defined. Always `text`.
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    #[serde(rename = "json_schema")]
-    pub json_schema: Box<models::JsonSchema>,
-}
-
-impl CreateChatCompletionRequestAllOfResponseFormat {
-    /// An object specifying the format that the model must output.  Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).  Setting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
-    pub fn new(
-        r#type: Type,
-        json_schema: models::JsonSchema,
-    ) -> CreateChatCompletionRequestAllOfResponseFormat {
-        CreateChatCompletionRequestAllOfResponseFormat {
-            r#type,
-            json_schema: Box::new(json_schema),
-        }
-    }
-}
-/// The type of response format being defined. Always `text`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "text")]
-    Text,
-    #[serde(rename = "json_schema")]
-    JsonSchema,
-    #[serde(rename = "json_object")]
-    JsonObject,
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::Text
-    }
-}
-
-impl std::fmt::Display for CreateChatCompletionRequestAllOfResponseFormat {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
-    }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateChatCompletionRequestAllOfResponseFormat {
+    ResponseFormatText(Box<models::ResponseFormatText>),
+    ResponseFormatJsonSchema(Box<models::ResponseFormatJsonSchema>),
+    ResponseFormatJsonObject(Box<models::ResponseFormatJsonObject>),
 }
