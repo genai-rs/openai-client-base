@@ -98,6 +98,10 @@ echo ""
 echo "🔨 Applying post-generation patches..."
 bash "$SCRIPT_DIR/patch_generated.rs.sh" "$PROJECT_ROOT"
 
+echo ""
+echo "📦 Normalizing Cargo dependency versions..."
+python3 "$SCRIPT_DIR/normalize_cargo_versions.py" "$PROJECT_ROOT/Cargo.toml"
+
 # Restore lib.rs if needed
 if [ -f "$OUT_DIR/lib.rs.backup" ]; then
     # Check if lib.rs was regenerated
