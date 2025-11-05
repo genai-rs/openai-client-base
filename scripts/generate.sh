@@ -68,6 +68,11 @@ uv run --with pyyaml python "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL
 echo ""
 echo "🦀 Generating Rust client..."
 
+# Backup existing manifest so we can preserve curated dependency ranges
+if [ -f "$OUT_DIR/Cargo.toml" ]; then
+    cp "$OUT_DIR/Cargo.toml" "$OUT_DIR/Cargo.toml.original"
+fi
+
 # Clean previous generated code (preserve lib.rs if it has custom code)
 if [ -f "$OUT_DIR/lib.rs" ]; then
     cp "$OUT_DIR/lib.rs" "$OUT_DIR/lib.rs.backup"
@@ -92,6 +97,22 @@ $GENERATOR_CMD generate \
     --additional-properties=supportMiddleware=true \
     --additional-properties=preferUnsignedInt=false \
     --additional-properties=useSingleRequestParameter=false
+
+echo ""
+echo "📝 Merging Cargo.toml dependency updates..."
+if [ -f "$OUT_DIR/Cargo.toml.original" ]; then
+    mv "$OUT_DIR/Cargo.toml" "$OUT_DIR/Cargo.toml.generated"
+    mv "$OUT_DIR/Cargo.toml.original" "$OUT_DIR/Cargo.toml"
+
+    python3 "$SCRIPT_DIR/merge_cargo_dependencies.py" \
+        "$OUT_DIR/Cargo.toml" \
+        "$OUT_DIR/Cargo.toml.generated"
+
+    rm -f "$OUT_DIR/Cargo.toml.generated"
+fi
+
+# Ensure no backups linger if the generator didn't touch the manifest
+rm -f "$OUT_DIR/Cargo.toml.original"
 
 # Step 4: Apply post-generation patches
 echo ""
