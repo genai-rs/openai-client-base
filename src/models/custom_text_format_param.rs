@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// CustomTextFormatParam : Unconstrained free-form text.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CustomTextFormatParam {
     /// Unconstrained text format. Always `text`.
@@ -19,6 +20,7 @@ pub struct CustomTextFormatParam {
 }
 
 impl CustomTextFormatParam {
+    /// Unconstrained free-form text.
     pub fn new(r#type: Type) -> CustomTextFormatParam {
         CustomTextFormatParam { r#type }
     }

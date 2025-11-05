@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// CustomGrammarFormatParam : A grammar defined by the user.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CustomGrammarFormatParam {
     /// Grammar format. Always `grammar`.
@@ -24,6 +25,7 @@ pub struct CustomGrammarFormatParam {
 }
 
 impl CustomGrammarFormatParam {
+    /// A grammar defined by the user.
     pub fn new(
         r#type: Type,
         syntax: models::GrammarSyntax1,

@@ -27,7 +27,7 @@ Accept an incoming SIP call and configure the realtime session that will handle 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook_events/realtime/call/incoming) webhook. | [required] |
+**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming) webhook. | [required] |
 **realtime_session_create_request_ga** | [**RealtimeSessionCreateRequestGa**](RealtimeSessionCreateRequestGa.md) | Session configuration to apply before the caller is bridged to the model. | [required] |
 
 ### Return type
@@ -179,7 +179,7 @@ End an active Realtime API call, whether it was initiated over SIP or WebRTC.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** | The identifier for the call. For SIP calls, use the value provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook_events/realtime/call/incoming) webhook. For WebRTC sessions, reuse the call ID returned in the `Location` header when creating the call with [`POST /v1/realtime/calls`](https://platform.openai.com/docs/api-reference/realtime/create-call). | [required] |
+**call_id** | **String** | The identifier for the call. For SIP calls, use the value provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming) webhook. For WebRTC sessions, reuse the call ID returned in the `Location` header when creating the call with [`POST /v1/realtime/calls`](https://platform.openai.com/docs/api-reference/realtime/create-call). | [required] |
 
 ### Return type
 
@@ -209,7 +209,7 @@ Transfer an active SIP call to a new destination using the SIP REFER verb.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook_events/realtime/call/incoming) webhook. | [required] |
+**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming) webhook. | [required] |
 **realtime_call_refer_request** | [**RealtimeCallReferRequest**](RealtimeCallReferRequest.md) | Destination URI for the REFER request. | [required] |
 
 ### Return type
@@ -240,7 +240,7 @@ Decline an incoming SIP call by returning a SIP status code to the caller.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook_events/realtime/call/incoming) webhook. | [required] |
+**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming) webhook. | [required] |
 **realtime_call_reject_request** | Option<[**RealtimeCallRejectRequest**](RealtimeCallRejectRequest.md)> | Provide an optional SIP status code. When omitted the API responds with `603 Decline`. |  |
 
 ### Return type

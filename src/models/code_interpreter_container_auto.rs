@@ -20,6 +20,13 @@ pub struct CodeInterpreterContainerAuto {
     /// An optional list of uploaded files to make available to your code.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
+    #[serde(
+        rename = "memory_limit",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub memory_limit: Option<Option<models::ContainerMemoryLimit>>,
 }
 
 impl CodeInterpreterContainerAuto {
@@ -28,6 +35,7 @@ impl CodeInterpreterContainerAuto {
         CodeInterpreterContainerAuto {
             r#type,
             file_ids: None,
+            memory_limit: None,
         }
     }
 }

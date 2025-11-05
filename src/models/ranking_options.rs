@@ -18,6 +18,8 @@ pub struct RankingOptions {
     /// The score threshold for the file search, a number between 0 and 1. Numbers closer to 1 will attempt to return only the most relevant results, but may return fewer results.
     #[serde(rename = "score_threshold", skip_serializing_if = "Option::is_none")]
     pub score_threshold: Option<f64>,
+    #[serde(rename = "hybrid_search", skip_serializing_if = "Option::is_none")]
+    pub hybrid_search: Option<Box<models::HybridSearchOptions>>,
 }
 
 impl RankingOptions {
@@ -25,6 +27,7 @@ impl RankingOptions {
         RankingOptions {
             ranker: None,
             score_threshold: None,
+            hybrid_search: None,
         }
     }
 }
