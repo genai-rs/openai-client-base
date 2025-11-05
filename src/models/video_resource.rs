@@ -36,6 +36,9 @@ pub struct VideoResource {
     /// Unix timestamp (seconds) for when the downloadable assets expire, if set.
     #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
     pub expires_at: Option<i32>,
+    /// The prompt that was used to generate the video.
+    #[serde(rename = "prompt", deserialize_with = "Option::deserialize")]
+    pub prompt: Option<String>,
     #[serde(rename = "size")]
     pub size: models::VideoSize,
     #[serde(rename = "seconds")]
@@ -61,6 +64,7 @@ impl VideoResource {
         created_at: i32,
         completed_at: Option<i32>,
         expires_at: Option<i32>,
+        prompt: Option<String>,
         size: models::VideoSize,
         seconds: models::VideoSeconds,
         remixed_from_video_id: Option<String>,
@@ -75,6 +79,7 @@ impl VideoResource {
             created_at,
             completed_at,
             expires_at,
+            prompt,
             size,
             seconds,
             remixed_from_video_id,

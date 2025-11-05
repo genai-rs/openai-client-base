@@ -17,9 +17,11 @@ pub struct RetentionRatioTruncation {
     /// Use retention ratio truncation.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// Fraction of post-instruction conversation tokens to retain (0.0 - 1.0) when the conversation exceeds the input token limit.
+    /// Fraction of post-instruction conversation tokens to retain (`0.0` - `1.0`) when the conversation exceeds the input token limit. Setting this to `0.8` means that messages will be dropped until 80% of the maximum allowed tokens are used. This helps reduce the frequency of truncations and improve cache rates.
     #[serde(rename = "retention_ratio")]
     pub retention_ratio: f64,
+    #[serde(rename = "token_limits", skip_serializing_if = "Option::is_none")]
+    pub token_limits: Option<Box<models::RetentionRatioTruncationTokenLimits>>,
 }
 
 impl RetentionRatioTruncation {
@@ -28,6 +30,7 @@ impl RetentionRatioTruncation {
         RetentionRatioTruncation {
             r#type,
             retention_ratio,
+            token_limits: None,
         }
     }
 }

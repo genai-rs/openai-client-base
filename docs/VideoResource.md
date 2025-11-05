@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **created_at** | **i32** | Unix timestamp (seconds) for when the job was created. | 
 **completed_at** | Option<**i32**> | Unix timestamp (seconds) for when the job completed, if finished. | 
 **expires_at** | Option<**i32**> | Unix timestamp (seconds) for when the downloadable assets expire, if set. | 
+**prompt** | Option<**String**> | The prompt that was used to generate the video. | 
 **size** | [**models::VideoSize**](VideoSize.md) |  | 
 **seconds** | [**models::VideoSeconds**](VideoSeconds.md) |  | 
 **remixed_from_video_id** | Option<**String**> | Identifier of the source video if this video is a remix. | 

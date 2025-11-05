@@ -13,9 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVectorStoreFileBatchRequest {
-    /// A list of [File](https://platform.openai.com/docs/api-reference/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files.
-    #[serde(rename = "file_ids")]
-    pub file_ids: Vec<String>,
+    /// A list of [File](https://platform.openai.com/docs/api-reference/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files.  If `attributes` or `chunking_strategy` are provided, they will be  applied to all files in the batch. Mutually exclusive with `files`.
+    #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
+    pub file_ids: Option<Vec<String>>,
+    /// A list of objects that each include a `file_id` plus optional `attributes` or `chunking_strategy`. Use this when you need to override metadata for specific files. The global `attributes` or `chunking_strategy` will be ignored and must be specified for each file. Mutually exclusive with `file_ids`.
+    #[serde(rename = "files", skip_serializing_if = "Option::is_none")]
+    pub files: Option<Vec<models::CreateVectorStoreFileRequest>>,
     #[serde(rename = "chunking_strategy", skip_serializing_if = "Option::is_none")]
     pub chunking_strategy: Option<Box<models::ChunkingStrategyRequestParam>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard. Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters, booleans, or numbers.
@@ -30,9 +33,10 @@ pub struct CreateVectorStoreFileBatchRequest {
 }
 
 impl CreateVectorStoreFileBatchRequest {
-    pub fn new(file_ids: Vec<String>) -> CreateVectorStoreFileBatchRequest {
+    pub fn new() -> CreateVectorStoreFileBatchRequest {
         CreateVectorStoreFileBatchRequest {
-            file_ids,
+            file_ids: None,
+            files: None,
             chunking_strategy: None,
             attributes: None,
         }
