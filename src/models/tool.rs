@@ -23,8 +23,10 @@ pub enum Tool {
     CodeInterpreterTool(Box<models::CodeInterpreterTool>),
     ImageGenTool(Box<models::ImageGenTool>),
     LocalShellToolParam(Box<models::LocalShellToolParam>),
+    FunctionShellToolParam(Box<models::FunctionShellToolParam>),
     CustomToolParam(Box<models::CustomToolParam>),
     WebSearchPreviewTool(Box<models::WebSearchPreviewTool>),
+    ApplyPatchToolParam(Box<models::ApplyPatchToolParam>),
 }
 
 /// Identifier for service connectors, like those available in ChatGPT. One of `server_url` or `connector_id` must be provided. Learn more about service connectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`

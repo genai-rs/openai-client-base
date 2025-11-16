@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **safety_identifier** | Option<**String**> | A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies. The IDs should be a string that uniquely identifies each user. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).  | [optional]
 **prompt_cache_key** | Option<**String**> | Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the `user` field. [Learn more](https://platform.openai.com/docs/guides/prompt-caching).  | [optional]
 **service_tier** | Option<[**models::ServiceTier**](ServiceTier.md)> |  | [optional]
+**prompt_cache_retention** | Option<**String**> | The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).  | [optional]
 **previous_response_id** | Option<**String**> | The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://platform.openai.com/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.  | [optional]
 **model** | **String** | ID of the model to use | 
 **reasoning** | Option<[**models::Reasoning**](Reasoning.md)> |  | [optional]

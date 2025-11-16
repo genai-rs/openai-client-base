@@ -61,6 +61,14 @@ pub struct ModelResponseProperties {
         skip_serializing_if = "Option::is_none"
     )]
     pub service_tier: Option<Option<models::ServiceTier>>,
+    /// The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+    #[serde(
+        rename = "prompt_cache_retention",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_retention: Option<Option<PromptCacheRetention>>,
 }
 
 impl ModelResponseProperties {
@@ -74,7 +82,22 @@ impl ModelResponseProperties {
             safety_identifier: None,
             prompt_cache_key: None,
             service_tier: None,
+            prompt_cache_retention: None,
         }
+    }
+}
+/// The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum PromptCacheRetention {
+    #[serde(rename = "in-memory")]
+    InMemory,
+    #[serde(rename = "24h")]
+    Variant24h,
+}
+
+impl Default for PromptCacheRetention {
+    fn default() -> PromptCacheRetention {
+        Self::InMemory
     }
 }
 

@@ -21,6 +21,8 @@ pub enum ToolChoiceParam {
     ToolChoiceFunction(Box<models::ToolChoiceFunction>),
     ToolChoiceMcp(Box<models::ToolChoiceMcp>),
     ToolChoiceCustom(Box<models::ToolChoiceCustom>),
+    SpecificApplyPatchParam(Box<models::SpecificApplyPatchParam>),
+    SpecificFunctionShellParam(Box<models::SpecificFunctionShellParam>),
 }
 
 /// Constrains the tools available to the model to a pre-defined set.  `auto` allows the model to pick from among the allowed tools and generate a message.  `required` requires the model to call one or more of the allowed tools.

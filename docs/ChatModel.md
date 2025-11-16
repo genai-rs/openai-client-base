@@ -4,6 +4,11 @@
 
 | Name | Value |
 |---- | -----|
+| Gpt51 | gpt-5.1 |
+| Gpt5120251113 | gpt-5.1-2025-11-13 |
+| Gpt51Codex | gpt-5.1-codex |
+| Gpt51Mini | gpt-5.1-mini |
+| Gpt51ChatLatest | gpt-5.1-chat-latest |
 | Gpt5 | gpt-5 |
 | Gpt5Mini | gpt-5-mini |
 | Gpt5Nano | gpt-5-nano |
