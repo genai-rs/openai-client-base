@@ -4,6 +4,7 @@
 
 | Name | Value |
 |---- | -----|
+| None | none |
 | Minimal | minimal |
 | Low | low |
 | Medium | medium |

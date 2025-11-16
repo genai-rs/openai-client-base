@@ -66,7 +66,7 @@ def fix_recursive_grammar_format(models_dir):
             print(f"Fixed recursive type in {filename}")
 
 def fix_invalid_enum_variants(models_dir):
-    """Fix enum variant names with dots (e.g., Gpt4.1 -> Gpt4_1) and hyphens (e.g., Param-2 -> Param2)."""
+    """Fix enum variant names with dots/hyphens and leading digits (e.g., Gpt4.1 -> Gpt4_1, 24h -> Variant24h)."""
     for file_path in models_dir.glob("*.rs"):
         with open(file_path, 'r') as f:
             content = f.read()
@@ -83,6 +83,29 @@ def fix_invalid_enum_variants(models_dir):
         # This prevents changing unrelated hyphens like in comments or strings
         content = re.sub(r'(models::)([A-Z]\w+)-(\d+)', r'\1\2\3', content)
         content = re.sub(r'(Box<models::)([A-Z]\w+)-(\d+)', r'\1\2\3', content)
+
+        # Fix enum variants that start with a digit (invalid Rust identifiers)
+        numeric_variant_pattern = re.compile(r'(?m)^(\s*)(\d[\w]*)\s*,\s*$')
+        matches = list(numeric_variant_pattern.finditer(content))
+        if matches:
+            for match in reversed(matches):
+                indent, raw_name = match.groups()
+                sanitized = f"Variant{re.sub(r'[^A-Za-z0-9_]', '_', raw_name)}"
+
+                # Skip if we've already rewritten this variant
+                existing_pattern = rf'^{indent}(?:#\[serde\(rename = "{re.escape(raw_name)}"\)\]\n{indent})?{re.escape(sanitized)}\s*,'
+                if re.search(existing_pattern, content, re.MULTILINE):
+                    continue
+
+                replacement = f'{indent}#[serde(rename = "{raw_name}")]\n{indent}{sanitized},'
+                content = content[:match.start()] + replacement + content[match.end():]
+
+                # Update references to the old variant name within the file
+                content = re.sub(
+                    rf'(::|Self::){re.escape(raw_name)}\b',
+                    rf'\1{sanitized}',
+                    content,
+                )
 
         if content != original_content:
             with open(file_path, 'w') as f:

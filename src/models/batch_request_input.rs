@@ -20,7 +20,7 @@ pub struct BatchRequestInput {
     /// The HTTP method to be used for the request. Currently only `POST` is supported.
     #[serde(rename = "method", skip_serializing_if = "Option::is_none")]
     pub method: Option<Method>,
-    /// The OpenAI API relative URL to be used for the request. Currently `/v1/chat/completions`, `/v1/embeddings`, and `/v1/completions` are supported.
+    /// The OpenAI API relative URL to be used for the request. Currently `/v1/responses`, `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`, and `/v1/moderations` are supported.
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
 }

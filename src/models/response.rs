@@ -41,6 +41,12 @@ pub struct Response {
         skip_serializing_if = "Option::is_none"
     )]
     pub service_tier: Option<Option<models::ServiceTier>>,
+    /// The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+    #[serde(
+        rename = "prompt_cache_retention",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_retention: Option<PromptCacheRetention>,
     /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://platform.openai.com/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
@@ -145,6 +151,7 @@ impl Response {
             safety_identifier: None,
             prompt_cache_key: None,
             service_tier: None,
+            prompt_cache_retention: None,
             previous_response_id: None,
             model,
             reasoning: None,
@@ -169,6 +176,20 @@ impl Response {
             parallel_tool_calls,
             conversation: None,
         }
+    }
+}
+/// The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum PromptCacheRetention {
+    #[serde(rename = "in-memory")]
+    InMemory,
+    #[serde(rename = "24h")]
+    Variant24h,
+}
+
+impl Default for PromptCacheRetention {
+    fn default() -> PromptCacheRetention {
+        Self::InMemory
     }
 }
 /// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
