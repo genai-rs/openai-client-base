@@ -1,11 +1,11 @@
-# EvalJsonlFileContentSourceContentInner
+# ProjectGroupDeletedResource
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**item** | Option<[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)> |  | 
-**sample** | Option<[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)> |  | [optional]
+**object** | **String** | Always `project.group.deleted`. | 
+**deleted** | **bool** | Whether the group membership in the project was removed. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
