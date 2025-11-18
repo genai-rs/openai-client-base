@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.1](https://github.com/genai-rs/openai-client-base/compare/v0.8.0...v0.8.1) - 2025-11-18
+
+### Other
+
+- update generated client from latest OpenAPI spec
+- *(deps)* Update Rust crate serde_with to ^3.16.0
+- handle numeric enum variants in generator
+- preserve deps during client generation (genai-79a0)
+- update generated client from latest OpenAPI spec
+- *(deps)* Update Rust crate tokio-util to ^0.7.17
+
 ## [0.8.0](https://github.com/genai-rs/openai-client-base/compare/v0.7.0...v0.8.0) - 2025-11-02
 
 ### Fixed
