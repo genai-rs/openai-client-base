@@ -17,18 +17,24 @@ pub struct RunGraderResponse {
     pub reward: f64,
     #[serde(rename = "metadata")]
     pub metadata: Box<models::RunGraderResponseMetadata>,
-    #[serde(rename = "sub_rewards")]
-    pub sub_rewards: std::collections::HashMap<String, serde_json::Value>,
-    #[serde(rename = "model_grader_token_usage_per_model")]
-    pub model_grader_token_usage_per_model: std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "sub_rewards", deserialize_with = "Option::deserialize")]
+    pub sub_rewards: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(
+        rename = "model_grader_token_usage_per_model",
+        deserialize_with = "Option::deserialize"
+    )]
+    pub model_grader_token_usage_per_model:
+        Option<std::collections::HashMap<String, serde_json::Value>>,
 }
 
 impl RunGraderResponse {
     pub fn new(
         reward: f64,
         metadata: models::RunGraderResponseMetadata,
-        sub_rewards: std::collections::HashMap<String, serde_json::Value>,
-        model_grader_token_usage_per_model: std::collections::HashMap<String, serde_json::Value>,
+        sub_rewards: Option<std::collections::HashMap<String, serde_json::Value>>,
+        model_grader_token_usage_per_model: Option<
+            std::collections::HashMap<String, serde_json::Value>,
+        >,
     ) -> RunGraderResponse {
         RunGraderResponse {
             reward,

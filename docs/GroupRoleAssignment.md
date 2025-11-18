@@ -1,11 +1,12 @@
-# EvalJsonlFileContentSourceContentInner
+# GroupRoleAssignment
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**item** | Option<[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)> |  | 
-**sample** | Option<[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)> |  | [optional]
+**object** | **String** | Always `group.role`. | 
+**group** | [**models::Group**](Group.md) |  | 
+**role** | [**models::Role**](Role.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

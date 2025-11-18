@@ -25,8 +25,8 @@ pub struct ApplyPatchToolCall {
     pub call_id: String,
     #[serde(rename = "status")]
     pub status: models::ApplyPatchCallStatus,
-    #[serde(rename = "operation", skip_serializing_if = "Option::is_none")]
-    pub operation: Option<Box<models::ApplyPatchOperation>>,
+    #[serde(rename = "operation")]
+    pub operation: Box<models::ApplyPatchOperation>,
     /// The ID of the entity that created this tool call.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -39,13 +39,14 @@ impl ApplyPatchToolCall {
         id: String,
         call_id: String,
         status: models::ApplyPatchCallStatus,
+        operation: models::ApplyPatchOperation,
     ) -> ApplyPatchToolCall {
         ApplyPatchToolCall {
             r#type,
             id,
             call_id,
             status,
-            operation: None,
+            operation: Box::new(operation),
             created_by: None,
         }
     }

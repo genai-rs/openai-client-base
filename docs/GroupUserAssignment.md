@@ -1,11 +1,12 @@
-# EvalJsonlFileContentSourceContentInner
+# GroupUserAssignment
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**item** | Option<[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)> |  | 
-**sample** | Option<[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)> |  | [optional]
+**object** | **String** | Always `group.user`. | 
+**user_id** | **String** | Identifier of the user that was added. | 
+**group_id** | **String** | Identifier of the group the user was added to. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

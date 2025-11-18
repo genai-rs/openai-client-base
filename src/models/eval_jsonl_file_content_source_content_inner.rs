@@ -13,15 +13,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalJsonlFileContentSourceContentInner {
-    #[serde(rename = "item")]
-    pub item: std::collections::HashMap<String, serde_json::Value>,
-    #[serde(rename = "sample", skip_serializing_if = "Option::is_none")]
-    pub sample: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "item", deserialize_with = "Option::deserialize")]
+    pub item: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(
+        rename = "sample",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sample: Option<Option<std::collections::HashMap<String, serde_json::Value>>>,
 }
 
 impl EvalJsonlFileContentSourceContentInner {
     pub fn new(
-        item: std::collections::HashMap<String, serde_json::Value>,
+        item: Option<std::collections::HashMap<String, serde_json::Value>>,
     ) -> EvalJsonlFileContentSourceContentInner {
         EvalJsonlFileContentSourceContentInner { item, sample: None }
     }

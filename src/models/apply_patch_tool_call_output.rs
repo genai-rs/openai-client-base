@@ -26,8 +26,13 @@ pub struct ApplyPatchToolCallOutput {
     #[serde(rename = "status")]
     pub status: models::ApplyPatchCallOutputStatus,
     /// Optional textual output returned by the apply patch tool.
-    #[serde(rename = "output", deserialize_with = "Option::deserialize")]
-    pub output: Option<String>,
+    #[serde(
+        rename = "output",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub output: Option<Option<String>>,
     /// The ID of the entity that created this tool call output.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -40,14 +45,13 @@ impl ApplyPatchToolCallOutput {
         id: String,
         call_id: String,
         status: models::ApplyPatchCallOutputStatus,
-        output: Option<String>,
     ) -> ApplyPatchToolCallOutput {
         ApplyPatchToolCallOutput {
             r#type,
             id,
             call_id,
             status,
-            output,
+            output: None,
             created_by: None,
         }
     }

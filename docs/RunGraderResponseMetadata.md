@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **r#type** | **String** |  | 
 **errors** | [**models::RunGraderResponseMetadataErrors**](RunGraderResponse_metadata_errors.md) |  | 
 **execution_time** | **f64** |  | 
-**scores** | [**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md) |  | 
+**scores** | Option<[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)> |  | 
 **token_usage** | Option<**i32**> |  | 
 **sampled_model_name** | Option<**String**> |  | 
 
