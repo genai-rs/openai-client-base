@@ -170,6 +170,12 @@ echo ""
 echo "🔧 Removing mismatched enum helper impls..."
 uv run python scripts/fix_helper_impl_mismatches.py
 
+# Fix enum variants that reference types simplified to strings (generic solution)
+# This handles ModelIdsResponses, VoiceIdsShared, and all other simplified types
+echo ""
+echo "🔧 Fixing enum variants referencing simplified types..."
+uv run python scripts/fix_simplified_type_references.py
+
 # Step 8: Fix nullable fields and constructor signatures
 echo ""
 echo "🔧 Fixing nullable fields and constructors..."
