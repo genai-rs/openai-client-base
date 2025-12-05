@@ -27,6 +27,7 @@ pub enum ReasoningEffortTextVariantEnum {
     Low,
     Medium,
     High,
+    Xhigh,
 }
 
 impl Default for ReasoningEffortTextVariantEnum {
@@ -43,6 +44,7 @@ impl std::fmt::Display for ReasoningEffortTextVariantEnum {
             ReasoningEffortTextVariantEnum::Low => "low",
             ReasoningEffortTextVariantEnum::Medium => "medium",
             ReasoningEffortTextVariantEnum::High => "high",
+            ReasoningEffortTextVariantEnum::Xhigh => "xhigh",
         };
         write!(f, "{}", value)
     }

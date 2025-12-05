@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FunctionShellActionParam : Commands and limits describing how to run the function shell tool call.
+/// FunctionShellActionParam : Commands and limits describing how to run the shell tool call.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionShellActionParam {
     /// Ordered shell commands for the execution environment to run.
@@ -36,7 +36,7 @@ pub struct FunctionShellActionParam {
 }
 
 impl FunctionShellActionParam {
-    /// Commands and limits describing how to run the function shell tool call.
+    /// Commands and limits describing how to run the shell tool call.
     pub fn new(commands: Vec<String>) -> FunctionShellActionParam {
         FunctionShellActionParam {
             commands,

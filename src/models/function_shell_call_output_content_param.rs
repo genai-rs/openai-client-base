@@ -11,13 +11,13 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FunctionShellCallOutputContentParam : Captured stdout and stderr for a portion of a function shell tool call output.
+/// FunctionShellCallOutputContentParam : Captured stdout and stderr for a portion of a shell tool call output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionShellCallOutputContentParam {
-    /// Captured stdout output for this chunk of the shell call.
+    /// Captured stdout output for the shell call.
     #[serde(rename = "stdout")]
     pub stdout: String,
-    /// Captured stderr output for this chunk of the shell call.
+    /// Captured stderr output for the shell call.
     #[serde(rename = "stderr")]
     pub stderr: String,
     #[serde(rename = "outcome")]
@@ -25,7 +25,7 @@ pub struct FunctionShellCallOutputContentParam {
 }
 
 impl FunctionShellCallOutputContentParam {
-    /// Captured stdout and stderr for a portion of a function shell tool call output.
+    /// Captured stdout and stderr for a portion of a shell tool call output.
     pub fn new(
         stdout: String,
         stderr: String,

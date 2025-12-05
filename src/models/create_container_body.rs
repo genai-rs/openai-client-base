@@ -21,6 +21,9 @@ pub struct CreateContainerBody {
     pub file_ids: Option<Vec<String>>,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<Box<models::CreateContainerBodyExpiresAfter>>,
+    /// Optional memory limit for the container. Defaults to \"1g\".
+    #[serde(rename = "memory_limit", skip_serializing_if = "Option::is_none")]
+    pub memory_limit: Option<MemoryLimit>,
 }
 
 impl CreateContainerBody {
@@ -29,7 +32,26 @@ impl CreateContainerBody {
             name,
             file_ids: None,
             expires_after: None,
+            memory_limit: None,
         }
+    }
+}
+/// Optional memory limit for the container. Defaults to \"1g\".
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum MemoryLimit {
+    #[serde(rename = "1g")]
+    Variant1g,
+    #[serde(rename = "4g")]
+    Variant4g,
+    #[serde(rename = "16g")]
+    Variant16g,
+    #[serde(rename = "64g")]
+    Variant64g,
+}
+
+impl Default for MemoryLimit {
+    fn default() -> MemoryLimit {
+        Self::Variant1g
     }
 }
 

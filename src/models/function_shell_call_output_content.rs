@@ -19,7 +19,7 @@ pub struct FunctionShellCallOutputContent {
     #[serde(rename = "stderr")]
     pub stderr: String,
     #[serde(rename = "outcome")]
-    pub outcome: Box<models::FunctionShellCallOutcome>,
+    pub outcome: Box<models::ShellCallOutcome>,
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
 }
@@ -29,7 +29,7 @@ impl FunctionShellCallOutputContent {
     pub fn new(
         stdout: String,
         stderr: String,
-        outcome: models::FunctionShellCallOutcome,
+        outcome: models::ShellCallOutcome,
     ) -> FunctionShellCallOutputContent {
         FunctionShellCallOutputContent {
             stdout,

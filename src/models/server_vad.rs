@@ -29,10 +29,10 @@ pub struct ServerVad {
         skip_serializing_if = "Option::is_none"
     )]
     pub silence_duration_ms: Option<i32>,
-    /// Whether or not to automatically generate a response when a VAD stop event occurs.
+    /// Whether or not to automatically generate a response when a VAD stop event occurs. If `interrupt_response` is set to `false` this may fail to create a response if the model is already responding.  If both `create_response` and `interrupt_response` are set to `false`, the model will never respond automatically but VAD events will still be emitted.
     #[serde(rename = "create_response", skip_serializing_if = "Option::is_none")]
     pub create_response: Option<bool>,
-    /// Whether or not to automatically interrupt any ongoing response with output to the default conversation (i.e. `conversation` of `auto`) when a VAD start event occurs.
+    /// Whether or not to automatically interrupt (cancel) any ongoing response with output to the default conversation (i.e. `conversation` of `auto`) when a VAD start event occurs. If `true` then the response will be cancelled, otherwise it will continue until complete.  If both `create_response` and `interrupt_response` are set to `false`, the model will never respond automatically but VAD events will still be emitted.
     #[serde(rename = "interrupt_response", skip_serializing_if = "Option::is_none")]
     pub interrupt_response: Option<bool>,
     /// Optional timeout after which a model response will be triggered automatically. This is useful for situations in which a long pause from the user is unexpected, such as a phone call. The model will effectively prompt the user to continue the conversation based on the current context.  The timeout value will be applied after the last model response's audio has finished playing, i.e. it's set to the `response.done` time plus audio playback duration.  An `input_audio_buffer.timeout_triggered` event (plus events associated with the Response) will be emitted when the timeout is reached. Idle timeout is currently only supported for `server_vad` mode.

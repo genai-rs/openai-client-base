@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FunctionShellCallOutcome : Represents either an exit outcome (with an exit code) or a timeout outcome for a shell call output chunk.
+/// ShellCallOutcome : Represents either an exit outcome (with an exit code) or a timeout outcome for a shell call output chunk.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum FunctionShellCallOutcome {}
+pub enum ShellCallOutcome {}

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SpecificFunctionShellParam : Forces the model to call the function shell tool when a tool call is required.
+/// SpecificFunctionShellParam : Forces the model to call the shell tool when a tool call is required.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SpecificFunctionShellParam {
     /// The tool to call. Always `shell`.
@@ -20,7 +20,7 @@ pub struct SpecificFunctionShellParam {
 }
 
 impl SpecificFunctionShellParam {
-    /// Forces the model to call the function shell tool when a tool call is required.
+    /// Forces the model to call the shell tool when a tool call is required.
     pub fn new(r#type: Type) -> SpecificFunctionShellParam {
         SpecificFunctionShellParam { r#type }
     }
