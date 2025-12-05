@@ -14,11 +14,16 @@ import sys
 import os
 from pathlib import Path
 from typing import Dict, Any, Set
+
+SCRIPT_DIR = Path(__file__).parent
+PROJECT_ROOT = SCRIPT_DIR.parent
+
+# Ensure local helper modules are importable even when uv strips CWD from sys.path
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
 from utils import load_spec, save_spec
 from simplified_schemas import SIMPLIFIED_SCHEMAS
-
-# Project root is parent of scripts directory
-PROJECT_ROOT = Path(__file__).parent.parent
 
 def find_model_fields_in_allof(spec: Dict[str, Any]) -> Set[str]:
     """Find all schemas that have model fields inherited through allOf."""
