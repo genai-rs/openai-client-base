@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FunctionShellCallOutputTimeoutOutcome : Indicates that the function shell call exceeded its configured time limit.
+/// FunctionShellCallOutputTimeoutOutcome : Indicates that the shell call exceeded its configured time limit.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionShellCallOutputTimeoutOutcome {
     /// The outcome type. Always `timeout`.
@@ -20,7 +20,7 @@ pub struct FunctionShellCallOutputTimeoutOutcome {
 }
 
 impl FunctionShellCallOutputTimeoutOutcome {
-    /// Indicates that the function shell call exceeded its configured time limit.
+    /// Indicates that the shell call exceeded its configured time limit.
     pub fn new(r#type: Type) -> FunctionShellCallOutputTimeoutOutcome {
         FunctionShellCallOutputTimeoutOutcome { r#type }
     }

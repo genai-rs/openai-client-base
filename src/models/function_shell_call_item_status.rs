@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FunctionShellCallItemStatus : Status values reported for function shell tool calls.
-/// Status values reported for function shell tool calls.
+/// FunctionShellCallItemStatus : Status values reported for shell tool calls.
+/// Status values reported for shell tool calls.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum FunctionShellCallItemStatus {
     #[serde(rename = "in_progress")]

@@ -28,8 +28,14 @@ pub struct ContainerResource {
     /// Status of the container (e.g., active, deleted).
     #[serde(rename = "status")]
     pub status: String,
+    /// Unix timestamp (in seconds) when the container was last active.
+    #[serde(rename = "last_active_at", skip_serializing_if = "Option::is_none")]
+    pub last_active_at: Option<i32>,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<Box<models::ContainerResourceExpiresAfter>>,
+    /// The memory limit configured for the container.
+    #[serde(rename = "memory_limit", skip_serializing_if = "Option::is_none")]
+    pub memory_limit: Option<MemoryLimit>,
 }
 
 impl ContainerResource {
@@ -46,8 +52,28 @@ impl ContainerResource {
             name,
             created_at,
             status,
+            last_active_at: None,
             expires_after: None,
+            memory_limit: None,
         }
+    }
+}
+/// The memory limit configured for the container.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum MemoryLimit {
+    #[serde(rename = "1g")]
+    Variant1g,
+    #[serde(rename = "4g")]
+    Variant4g,
+    #[serde(rename = "16g")]
+    Variant16g,
+    #[serde(rename = "64g")]
+    Variant64g,
+}
+
+impl Default for MemoryLimit {
+    fn default() -> MemoryLimit {
+        Self::Variant1g
     }
 }
 

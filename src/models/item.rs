@@ -25,6 +25,7 @@ pub enum Item {
     FunctionToolCall(Box<models::FunctionToolCall>),
     FunctionCallOutputItemParam(Box<models::FunctionCallOutputItemParam>),
     ReasoningItem(Box<models::ReasoningItem>),
+    CompactionSummaryItemParam(Box<models::CompactionSummaryItemParam>),
     ImageGenToolCall(Box<models::ImageGenToolCall>),
     CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),
     LocalShellToolCall(Box<models::LocalShellToolCall>),
