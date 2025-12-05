@@ -18,10 +18,65 @@ No manual configuration needed - it discovers simplified types at runtime.
 import re
 import sys
 from pathlib import Path
-from typing import Set
+from typing import Set, Tuple
 
 ROOT = Path(__file__).parent.parent
 MODELS = ROOT / 'src' / 'models'
+
+
+def schema_name_to_variant(schema_name: str) -> str:
+    """
+    OpenAPI generator flattens schema references into enum variants by taking the
+    schema identifier, stripping punctuation, uppercasing the first character, and
+    lowercasing the remainder. Recreate that logic so we can find leftover match arms.
+    """
+    cleaned = re.sub(r'[^A-Za-z0-9]', '', schema_name)
+    if not cleaned:
+        return ""
+    return cleaned[0].upper() + cleaned[1:].lower()
+
+
+def remove_variant_match_arms(content: str, variant_name: str) -> Tuple[str, int]:
+    """
+    Remove match arms like `Enum::Variant(value) => { ... },` or single-line matches that still
+    reference the simplified variant.
+    """
+    if not variant_name:
+        return content, 0
+
+    lines = content.splitlines(keepends=True)
+    output_lines = []
+    removed = 0
+    skipping = False
+    indent_level = 0
+    brace_balance = 0
+
+    for line in lines:
+        if not skipping and f"::{variant_name}" in line:
+            skipping = True
+            indent_level = len(line) - len(line.lstrip())
+            brace_balance = line.count('{') - line.count('}')
+
+            line_ends_arm = brace_balance <= 0 and line.rstrip().endswith(',')
+            if line_ends_arm:
+                skipping = False
+                removed += 1
+            continue
+
+        if skipping:
+            brace_balance += line.count('{') - line.count('}')
+            if (
+                brace_balance <= 0
+                and line.rstrip().endswith(',')
+                and len(line) - len(line.lstrip()) == indent_level
+            ):
+                skipping = False
+                removed += 1
+            continue
+
+        output_lines.append(line)
+
+    return ''.join(output_lines), removed
 
 
 def load_simplified_schemas_from_tracking_file(tracking_file: Path) -> Set[str]:
@@ -53,6 +108,10 @@ def fix_enum_variants_in_file(file_path: Path, simplified_types: Set[str]) -> bo
     # Build pattern for any of the simplified types
     # Match variants like: Variantname(models::SimplifiedType),
     for type_name in simplified_types:
+        variant_name = schema_name_to_variant(type_name)
+        if not variant_name:
+            continue
+
         pattern = rf'^\s*([A-Z][a-z0-9_]*)\(models::{type_name}\),?\s*$'
 
         if re.search(pattern, content, re.MULTILINE):
@@ -64,6 +123,12 @@ def fix_enum_variants_in_file(file_path: Path, simplified_types: Set[str]) -> bo
             # Pattern: pub fn variant_name(...) -> Self { Self::VariantName(...) }
             variant_fn_pattern = rf'pub\s+fn\s+[a-z][a-z0-9_]*\([^)]*\)\s*->\s*Self\s*\{{[^}}]*Self::[A-Z][a-z0-9_]*\(models::{type_name}\([^)]*\)\)[^}}]*\}}'
             content = re.sub(variant_fn_pattern, '', content, flags=re.DOTALL)
+
+        # Clean up match arms (e.g., Display impls) referencing removed variants
+        content, removed = remove_variant_match_arms(content, variant_name)
+        if removed:
+            print(f"  Removed match arm for simplified variant {variant_name}")
+            changes_made = True
 
     # Clean up excessive empty lines
     if changes_made:
