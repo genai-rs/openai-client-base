@@ -12,8 +12,13 @@ This runs AFTER reconciliation but BEFORE the main Rust compatibility patch.
 
 import sys
 import os
+from pathlib import Path
 from typing import Dict, Any, Set
 from utils import load_spec, save_spec
+from simplified_schemas import SIMPLIFIED_SCHEMAS
+
+# Project root is parent of scripts directory
+PROJECT_ROOT = Path(__file__).parent.parent
 
 def find_model_fields_in_allof(spec: Dict[str, Any]) -> Set[str]:
     """Find all schemas that have model fields inherited through allOf."""
@@ -46,27 +51,9 @@ def flatten_model_fields(spec: Dict[str, Any]) -> Dict[str, Any]:
     schemas = spec.get('components', {}).get('schemas', {})
     changes = []
     
-    # Step 1: Replace all ModelIds* and VoiceIds* schemas with simple string schemas
-    model_id_schemas = [
-        'ModelIds',
-        'ModelIdsShared', 
-        'ModelIdsResponses',
-        'CreateCompletionRequestModel',
-        'CreateAssistantRequestModel',
-        'CreateThreadAndRunRequestModel',
-        'CreateImageRequestModel',
-        'CreateEmbeddingRequestModel',
-        'CreateSpeechRequestModel',
-        'CreateFineTuningJobRequestModel',
-        'CreateTranscriptionRequestModel',
-        'CreateTranslationRequestModel',
-        'CreateModerationRequestModel',
-        'CreateImageEditRequestModel',
-        'CreateImageVariationRequestModel',
-        'VoiceIdsShared'
-    ]
-    
-    for schema_name in model_id_schemas:
+    # Step 1: Replace all simplified schemas with simple string schemas
+    # Import from simplified_schemas.py for single source of truth
+    for schema_name in SIMPLIFIED_SCHEMAS:
         if schema_name in schemas:
             old_schema = schemas[schema_name]
             # Replace with a simple string schema
@@ -112,7 +99,7 @@ def flatten_model_fields(spec: Dict[str, Any]) -> Dict[str, Any]:
                 # Check if it's a reference to a complex type
                 if '$ref' in model_prop:
                     ref_name = model_prop['$ref'].split('/')[-1]
-                    if ref_name in model_id_schemas:
+                    if ref_name in SIMPLIFIED_SCHEMAS:
                         props['model'] = {
                             'type': 'string',
                             'description': model_prop.get('description', 'ID of the model to use')
@@ -182,9 +169,19 @@ def main():
     
     print(f"\nSaving fixed spec to {output_path}")
     save_spec(spec, output_path)
-    
+
+    # Track which schemas were simplified (for post-generation Rust fixes)
+    simplified_schemas_list = list(SIMPLIFIED_SCHEMAS)
+    tracking_path = PROJECT_ROOT / 'target' / 'reports' / 'simplified_schemas.txt'
+    tracking_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(tracking_path, 'w') as f:
+        for schema in sorted(simplified_schemas_list):
+            f.write(f"{schema}\n")
+
+    print(f"Tracking file saved to {tracking_path}")
+
     # Write a report
-    report_path = 'target/reports/l1_model_fields_fix_report.md'
+    report_path = PROJECT_ROOT / 'target' / 'reports' / 'l1_model_fields_fix_report.md'
     with open(report_path, 'w') as f:
         f.write("# Model Fields Fix Report\n\n")
         f.write(f"- Input: {os.path.relpath(input_path)}\n")
@@ -193,7 +190,7 @@ def main():
         f.write("## Changes Applied\n\n")
         for change in changes:
             f.write(f"- {change}\n")
-    
+
     print(f"Report saved to {report_path}")
     print(f"\nTotal changes: {len(changes)}")
 
