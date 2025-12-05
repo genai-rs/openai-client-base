@@ -18,12 +18,10 @@ No manual configuration needed - it discovers simplified types at runtime.
 import re
 import sys
 from pathlib import Path
-from typing import Set, Dict, Any
-from utils import load_spec
+from typing import Set
 
 ROOT = Path(__file__).parent.parent
 MODELS = ROOT / 'src' / 'models'
-SPEC_DIR = ROOT / 'target' / 'specs'
 
 
 def load_simplified_schemas_from_tracking_file(tracking_file: Path) -> Set[str]:
