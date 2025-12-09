@@ -1184,6 +1184,8 @@ pub mod invite_request_projects_inner;
 pub use self::invite_request_projects_inner::InviteRequestProjectsInner;
 pub mod item;
 pub use self::item::Item;
+pub mod item_field;
+pub use self::item_field::ItemField;
 pub mod item_reference_input_messages;
 pub use self::item_reference_input_messages::ItemReferenceInputMessages;
 pub mod item_reference_param;

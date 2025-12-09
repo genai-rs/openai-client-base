@@ -13,13 +13,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompactResponseMethodPublicBody {
-    #[serde(
-        rename = "model",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub model: Option<Option<Box<models::ModelIdsCompaction>>>,
+    #[serde(rename = "model", deserialize_with = "Option::deserialize")]
+    pub model: Option<Box<models::ModelIdsCompaction>>,
     #[serde(
         rename = "input",
         default,
@@ -46,9 +41,9 @@ pub struct CompactResponseMethodPublicBody {
 }
 
 impl CompactResponseMethodPublicBody {
-    pub fn new() -> CompactResponseMethodPublicBody {
+    pub fn new(model: Option<models::ModelIdsCompaction>) -> CompactResponseMethodPublicBody {
         CompactResponseMethodPublicBody {
-            model: None,
+            model: model.map(Box::new),
             input: None,
             previous_response_id: None,
             instructions: None,
