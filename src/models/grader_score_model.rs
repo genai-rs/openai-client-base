@@ -25,7 +25,7 @@ pub struct GraderScoreModel {
     pub model: String,
     #[serde(rename = "sampling_params", skip_serializing_if = "Option::is_none")]
     pub sampling_params: Option<Box<models::GraderScoreModelSamplingParams>>,
-    /// The input text. This may include template strings.
+    /// The input messages evaluated by the grader. Supports text, output text, input image, and input audio content blocks, and may include template strings.
     #[serde(rename = "input")]
     pub input: Vec<models::EvalItem>,
     /// The range of the score. Defaults to `[0, 1]`.

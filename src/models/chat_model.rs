@@ -14,6 +14,16 @@ use serde::{Deserialize, Serialize};
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ChatModel {
+    #[serde(rename = "gpt-5.2")]
+    Gpt52,
+    #[serde(rename = "gpt-5.2-2025-12-11")]
+    Gpt5220251211,
+    #[serde(rename = "gpt-5.2-chat-latest")]
+    Gpt52ChatLatest,
+    #[serde(rename = "gpt-5.2-pro")]
+    Gpt52Pro,
+    #[serde(rename = "gpt-5.2-pro-2025-12-11")]
+    Gpt52Pro20251211,
     #[serde(rename = "gpt-5.1")]
     Gpt51,
     #[serde(rename = "gpt-5.1-2025-11-13")]
@@ -153,6 +163,11 @@ pub enum ChatModel {
 impl std::fmt::Display for ChatModel {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
+            Self::Gpt52 => write!(f, "gpt-5.2"),
+            Self::Gpt5220251211 => write!(f, "gpt-5.2-2025-12-11"),
+            Self::Gpt52ChatLatest => write!(f, "gpt-5.2-chat-latest"),
+            Self::Gpt52Pro => write!(f, "gpt-5.2-pro"),
+            Self::Gpt52Pro20251211 => write!(f, "gpt-5.2-pro-2025-12-11"),
             Self::Gpt51 => write!(f, "gpt-5.1"),
             Self::Gpt5120251113 => write!(f, "gpt-5.1-2025-11-13"),
             Self::Gpt51Codex => write!(f, "gpt-5.1-codex"),
@@ -230,6 +245,6 @@ impl std::fmt::Display for ChatModel {
 
 impl Default for ChatModel {
     fn default() -> ChatModel {
-        Self::Gpt51
+        Self::Gpt52
     }
 }

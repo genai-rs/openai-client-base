@@ -4,6 +4,11 @@
 
 | Name | Value |
 |---- | -----|
+| Gpt52 | gpt-5.2 |
+| Gpt5220251211 | gpt-5.2-2025-12-11 |
+| Gpt52ChatLatest | gpt-5.2-chat-latest |
+| Gpt52Pro | gpt-5.2-pro |
+| Gpt52Pro20251211 | gpt-5.2-pro-2025-12-11 |
 | Gpt51 | gpt-5.1 |
 | Gpt5120251113 | gpt-5.1-2025-11-13 |
 | Gpt51Codex | gpt-5.1-codex |

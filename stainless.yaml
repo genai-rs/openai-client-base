@@ -313,7 +313,7 @@ paths:
                     option.WithAPIKey("My API Key"),
                   )
                   assistant, err := client.Beta.Assistants.New(context.TODO(), openai.BetaAssistantNewParams{
-                    Model: shared.ChatModelGPT5_1,
+                    Model: shared.ChatModelGPT5_2,
                   })
                   if err != nil {
                     panic(err.Error())
@@ -336,7 +336,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         AssistantCreateParams params = AssistantCreateParams.builder()
-                            .model(ChatModel.GPT_5_1)
+                            .model(ChatModel.GPT_5_2)
                             .build();
                         Assistant assistant = client.beta().assistants().create(params);
                     }
@@ -346,7 +346,7 @@ paths:
 
                 openai = OpenAI::Client.new(api_key: "My API Key")
 
-                assistant = openai.beta.assistants.create(model: :"gpt-5.1")
+                assistant = openai.beta.assistants.create(model: :"gpt-5.2")
 
                 puts(assistant)
             response: |
@@ -419,7 +419,7 @@ paths:
                     option.WithAPIKey("My API Key"),
                   )
                   assistant, err := client.Beta.Assistants.New(context.TODO(), openai.BetaAssistantNewParams{
-                    Model: shared.ChatModelGPT5_1,
+                    Model: shared.ChatModelGPT5_2,
                   })
                   if err != nil {
                     panic(err.Error())
@@ -442,7 +442,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         AssistantCreateParams params = AssistantCreateParams.builder()
-                            .model(ChatModel.GPT_5_1)
+                            .model(ChatModel.GPT_5_2)
                             .build();
                         Assistant assistant = client.beta().assistants().create(params);
                     }
@@ -452,7 +452,7 @@ paths:
 
                 openai = OpenAI::Client.new(api_key: "My API Key")
 
-                assistant = openai.beta.assistants.create(model: :"gpt-5.1")
+                assistant = openai.beta.assistants.create(model: :"gpt-5.2")
 
                 puts(assistant)
             response: |
@@ -3329,7 +3329,7 @@ paths:
                         },
                       },
                     }},
-                    Model: shared.ChatModelGPT5_1,
+                    Model: shared.ChatModelGPT5_2,
                   })
                   if err != nil {
                     panic(err.Error())
@@ -3353,7 +3353,7 @@ paths:
 
                         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
                             .addDeveloperMessage("string")
-                            .model(ChatModel.GPT_5_1)
+                            .model(ChatModel.GPT_5_2)
                             .build();
                         ChatCompletion chatCompletion = client.chat().completions().create(params);
                     }
@@ -3366,7 +3366,7 @@ paths:
 
 
                 chat_completion = openai.chat.completions.create(messages: [{content: "string", role:
-                :developer}], model: :"gpt-5.1")
+                :developer}], model: :"gpt-5.2")
 
 
                 puts(chat_completion)
@@ -3508,7 +3508,7 @@ paths:
                         },
                       },
                     }},
-                    Model: shared.ChatModelGPT5_1,
+                    Model: shared.ChatModelGPT5_2,
                   })
                   if err != nil {
                     panic(err.Error())
@@ -3532,7 +3532,7 @@ paths:
 
                         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
                             .addDeveloperMessage("string")
-                            .model(ChatModel.GPT_5_1)
+                            .model(ChatModel.GPT_5_2)
                             .build();
                         ChatCompletion chatCompletion = client.chat().completions().create(params);
                     }
@@ -3545,7 +3545,7 @@ paths:
 
 
                 chat_completion = openai.chat.completions.create(messages: [{content: "string", role:
-                :developer}], model: :"gpt-5.1")
+                :developer}], model: :"gpt-5.2")
 
 
                 puts(chat_completion)
@@ -3696,7 +3696,7 @@ paths:
                         },
                       },
                     }},
-                    Model: shared.ChatModelGPT5_1,
+                    Model: shared.ChatModelGPT5_2,
                   })
                   if err != nil {
                     panic(err.Error())
@@ -3720,7 +3720,7 @@ paths:
 
                         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
                             .addDeveloperMessage("string")
-                            .model(ChatModel.GPT_5_1)
+                            .model(ChatModel.GPT_5_2)
                             .build();
                         ChatCompletion chatCompletion = client.chat().completions().create(params);
                     }
@@ -3733,7 +3733,7 @@ paths:
 
 
                 chat_completion = openai.chat.completions.create(messages: [{content: "string", role:
-                :developer}], model: :"gpt-5.1")
+                :developer}], model: :"gpt-5.2")
 
 
                 puts(chat_completion)
@@ -3892,7 +3892,7 @@ paths:
                         },
                       },
                     }},
-                    Model: shared.ChatModelGPT5_1,
+                    Model: shared.ChatModelGPT5_2,
                   })
                   if err != nil {
                     panic(err.Error())
@@ -3916,7 +3916,7 @@ paths:
 
                         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
                             .addDeveloperMessage("string")
-                            .model(ChatModel.GPT_5_1)
+                            .model(ChatModel.GPT_5_2)
                             .build();
                         ChatCompletion chatCompletion = client.chat().completions().create(params);
                     }
@@ -3929,7 +3929,7 @@ paths:
 
 
                 chat_completion = openai.chat.completions.create(messages: [{content: "string", role:
-                :developer}], model: :"gpt-5.1")
+                :developer}], model: :"gpt-5.2")
 
 
                 puts(chat_completion)
@@ -4065,7 +4065,7 @@ paths:
                         },
                       },
                     }},
-                    Model: shared.ChatModelGPT5_1,
+                    Model: shared.ChatModelGPT5_2,
                   })
                   if err != nil {
                     panic(err.Error())
@@ -4089,7 +4089,7 @@ paths:
 
                         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
                             .addDeveloperMessage("string")
-                            .model(ChatModel.GPT_5_1)
+                            .model(ChatModel.GPT_5_2)
                             .build();
                         ChatCompletion chatCompletion = client.chat().completions().create(params);
                     }
@@ -4102,7 +4102,7 @@ paths:
 
 
                 chat_completion = openai.chat.completions.create(messages: [{content: "string", role:
-                :developer}], model: :"gpt-5.1")
+                :developer}], model: :"gpt-5.2")
 
 
                 puts(chat_completion)
@@ -9986,178 +9986,459 @@ paths:
         group: graders
         returns: The results from the grader run.
         examples:
-          response: |
-            {
-              "reward": 1.0,
-              "metadata": {
-                "name": "Example score model grader",
-                "type": "score_model",
-                "errors": {
-                  "formula_parse_error": false,
-                  "sample_parse_error": false,
-                  "truncated_observation_error": false,
-                  "unresponsive_reward_error": false,
-                  "invalid_variable_error": false,
-                  "other_error": false,
-                  "python_grader_server_error": false,
-                  "python_grader_server_error_type": null,
-                  "python_grader_runtime_error": false,
-                  "python_grader_runtime_error_details": null,
-                  "model_grader_server_error": false,
-                  "model_grader_refusal_error": false,
-                  "model_grader_parse_error": false,
-                  "model_grader_server_error_details": null
-                },
-                "execution_time": 4.365238428115845,
-                "scores": {},
-                "token_usage": {
-                  "prompt_tokens": 190,
-                  "total_tokens": 324,
-                  "completion_tokens": 134,
-                  "cached_tokens": 0
-                },
-                "sampled_model_name": "gpt-4o-2024-08-06"
-              },
-              "sub_rewards": {},
-              "model_grader_token_usage_per_model": {
-                "gpt-4o-2024-08-06": {
-                  "prompt_tokens": 190,
-                  "total_tokens": 324,
-                  "completion_tokens": 134,
-                  "cached_tokens": 0
-                }
-              }
-            }
-          request:
-            curl: >
-              curl -X POST https://api.openai.com/v1/fine_tuning/alpha/graders/run \
-                -H "Content-Type: application/json" \
-                -H "Authorization: Bearer $OPENAI_API_KEY" \
-                -d '{
-                  "grader": {
-                    "type": "score_model",
-                    "name": "Example score model grader",
-                    "input": [
-                      {
-                        "role": "user",
-                        "content": "Score how close the reference answer is to the model
-              answer. Score 1.0 if they are the same and 0.0 if they are different. Return just a floating
-              point score\n\nReference answer: {{item.reference_answer}}\n\nModel answer:
-              {{sample.output_text}}"
+          - title: Score text alignment
+            request:
+              curl: |
+                curl -X POST https://api.openai.com/v1/fine_tuning/alpha/graders/run \
+                  -H "Content-Type: application/json" \
+                  -H "Authorization: Bearer $OPENAI_API_KEY" \
+                  -d '{
+                    "grader": {
+                      "type": "score_model",
+                      "name": "Example score model grader",
+                      "input": [
+                        {
+                          "role": "user",
+                          "content": [
+                            {
+                              "type": "input_text",
+                              "text": "Score how close the reference answer is to the model answer on a 0-1 scale. Return only the score.\n\nReference answer: {{item.reference_answer}}\n\nModel answer: {{sample.output_text}}"
+                            }
+                          ]
+                        }
+                      ],
+                      "model": "gpt-5-mini",
+                      "sampling_params": {
+                        "temperature": 1,
+                        "top_p": 1,
+                        "seed": 42
                       }
-                    ],
-                    "model": "gpt-4o-2024-08-06",
-                    "sampling_params": {
-                      "temperature": 1,
-                      "top_p": 1,
-                      "seed": 42
-                    }
-                  },
-                  "item": {
-                    "reference_answer": "fuzzy wuzzy was a bear"
-                  },
-                  "model_sample": "fuzzy wuzzy was a bear"
-                }'
-            node.js: |-
-              import OpenAI from 'openai';
-
-              const client = new OpenAI({
-                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
-              });
-
-              const response = await client.fineTuning.alpha.graders.run({
-                grader: { input: 'input', name: 'name', operation: 'eq', reference: 'reference', type: 'string_check' },
-                model_sample: 'model_sample',
-              });
-
-              console.log(response.metadata);
-            python: |-
-              import os
-              from openai import OpenAI
-
-              client = OpenAI(
-                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
-              )
-              response = client.fine_tuning.alpha.graders.run(
-                  grader={
-                      "input": "input",
-                      "name": "name",
-                      "operation": "eq",
-                      "reference": "reference",
-                      "type": "string_check",
-                  },
-                  model_sample="model_sample",
-              )
-              print(response.metadata)
-            go: |
-              package main
-
-              import (
-                "context"
-                "fmt"
-
-                "github.com/openai/openai-go"
-                "github.com/openai/openai-go/option"
-              )
-
-              func main() {
-                client := openai.NewClient(
-                  option.WithAPIKey("My API Key"),
-                )
-                response, err := client.FineTuning.Alpha.Graders.Run(context.TODO(), openai.FineTuningAlphaGraderRunParams{
-                  Grader: openai.FineTuningAlphaGraderRunParamsGraderUnion{
-                    OfStringCheck: &openai.StringCheckGraderParam{
-                      Input: "input",
-                      Name: "name",
-                      Operation: openai.StringCheckGraderOperationEq,
-                      Reference: "reference",
                     },
-                  },
-                  ModelSample: "model_sample",
-                })
-                if err != nil {
-                  panic(err.Error())
-                }
-                fmt.Printf("%+v\n", response.Metadata)
-              }
-            java: |-
-              package com.openai.example;
+                    "item": {
+                      "reference_answer": "fuzzy wuzzy was a bear"
+                    },
+                    "model_sample": "fuzzy wuzzy was a bear"
+                  }'
+              python: |-
+                import os
+                from openai import OpenAI
 
-              import com.openai.client.OpenAIClient;
-              import com.openai.client.okhttp.OpenAIOkHttpClient;
-              import com.openai.models.finetuning.alpha.graders.GraderRunParams;
-              import com.openai.models.finetuning.alpha.graders.GraderRunResponse;
-              import com.openai.models.graders.gradermodels.StringCheckGrader;
+                client = OpenAI(
+                    api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+                )
+                response = client.fine_tuning.alpha.graders.run(
+                    grader={
+                        "input": "input",
+                        "name": "name",
+                        "operation": "eq",
+                        "reference": "reference",
+                        "type": "string_check",
+                    },
+                    model_sample="model_sample",
+                )
+                print(response.metadata)
+              node.js: |-
+                import OpenAI from 'openai';
 
-              public final class Main {
-                  private Main() {}
+                const client = new OpenAI({
+                  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+                });
 
-                  public static void main(String[] args) {
-                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+                const response = await client.fineTuning.alpha.graders.run({
+                  grader: { input: 'input', name: 'name', operation: 'eq', reference: 'reference', type: 'string_check' },
+                  model_sample: 'model_sample',
+                });
 
-                      GraderRunParams params = GraderRunParams.builder()
-                          .grader(StringCheckGrader.builder()
-                              .input("input")
-                              .name("name")
-                              .operation(StringCheckGrader.Operation.EQ)
-                              .reference("reference")
-                              .build())
-                          .modelSample("model_sample")
-                          .build();
-                      GraderRunResponse response = client.fineTuning().alpha().graders().run(params);
+                console.log(response.metadata);
+              go: |
+                package main
+
+                import (
+                  "context"
+                  "fmt"
+
+                  "github.com/openai/openai-go"
+                  "github.com/openai/openai-go/option"
+                )
+
+                func main() {
+                  client := openai.NewClient(
+                    option.WithAPIKey("My API Key"),
+                  )
+                  response, err := client.FineTuning.Alpha.Graders.Run(context.TODO(), openai.FineTuningAlphaGraderRunParams{
+                    Grader: openai.FineTuningAlphaGraderRunParamsGraderUnion{
+                      OfStringCheck: &openai.StringCheckGraderParam{
+                        Input: "input",
+                        Name: "name",
+                        Operation: openai.StringCheckGraderOperationEq,
+                        Reference: "reference",
+                      },
+                    },
+                    ModelSample: "model_sample",
+                  })
+                  if err != nil {
+                    panic(err.Error())
                   }
+                  fmt.Printf("%+v\n", response.Metadata)
+                }
+              java: |-
+                package com.openai.example;
+
+                import com.openai.client.OpenAIClient;
+                import com.openai.client.okhttp.OpenAIOkHttpClient;
+                import com.openai.models.finetuning.alpha.graders.GraderRunParams;
+                import com.openai.models.finetuning.alpha.graders.GraderRunResponse;
+                import com.openai.models.graders.gradermodels.StringCheckGrader;
+
+                public final class Main {
+                    private Main() {}
+
+                    public static void main(String[] args) {
+                        OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                        GraderRunParams params = GraderRunParams.builder()
+                            .grader(StringCheckGrader.builder()
+                                .input("input")
+                                .name("name")
+                                .operation(StringCheckGrader.Operation.EQ)
+                                .reference("reference")
+                                .build())
+                            .modelSample("model_sample")
+                            .build();
+                        GraderRunResponse response = client.fineTuning().alpha().graders().run(params);
+                    }
+                }
+              ruby: |-
+                require "openai"
+
+                openai = OpenAI::Client.new(api_key: "My API Key")
+
+                response = openai.fine_tuning.alpha.graders.run(
+                  grader: {input: "input", name: "name", operation: :eq, reference: "reference", type: :string_check},
+                  model_sample: "model_sample"
+                )
+
+                puts(response)
+            response: |
+              {
+                "reward": 1.0,
+                "metadata": {
+                  "name": "Example score model grader",
+                  "type": "score_model",
+                  "errors": {
+                    "formula_parse_error": false,
+                    "sample_parse_error": false,
+                    "truncated_observation_error": false,
+                    "unresponsive_reward_error": false,
+                    "invalid_variable_error": false,
+                    "other_error": false,
+                    "python_grader_server_error": false,
+                    "python_grader_server_error_type": null,
+                    "python_grader_runtime_error": false,
+                    "python_grader_runtime_error_details": null,
+                    "model_grader_server_error": false,
+                    "model_grader_refusal_error": false,
+                    "model_grader_parse_error": false,
+                    "model_grader_server_error_details": null
+                  },
+                  "execution_time": 4.365238428115845,
+                  "scores": {},
+                  "token_usage": {
+                    "prompt_tokens": 190,
+                    "total_tokens": 324,
+                    "completion_tokens": 134,
+                    "cached_tokens": 0
+                  },
+                  "sampled_model_name": "gpt-4o-2024-08-06"
+                },
+                "sub_rewards": {},
+                "model_grader_token_usage_per_model": {
+                  "gpt-4o-2024-08-06": {
+                    "prompt_tokens": 190,
+                    "total_tokens": 324,
+                    "completion_tokens": 134,
+                    "cached_tokens": 0
+                  }
+                }
               }
-            ruby: |-
-              require "openai"
+          - title: Score an image caption
+            request:
+              curl: |
+                curl -X POST https://api.openai.com/v1/fine_tuning/alpha/graders/run \
+                  -H "Content-Type: application/json" \
+                  -H "Authorization: Bearer $OPENAI_API_KEY" \
+                  -d '{
+                    "grader": {
+                      "type": "score_model",
+                      "name": "Image caption grader",
+                      "input": [
+                        {
+                          "role": "user",
+                          "content": [
+                            {
+                              "type": "input_text",
+                              "text": "Score how well the provided caption matches the image on a 0-1 scale. Only return the score.\n\nCaption: {{sample.output_text}}"
+                            },
+                            {
+                              "type": "input_image",
+                              "image_url": "https://example.com/dog-catching-ball.png",
+                              "file_id": null,
+                              "detail": "high"
+                            }
+                          ]
+                        }
+                      ],
+                      "model": "gpt-5-mini",
+                      "sampling_params": {
+                        "temperature": 0.2
+                      }
+                    },
+                    "item": {
+                      "expected_caption": "A golden retriever jumps to catch a tennis ball"
+                    },
+                    "model_sample": "A dog leaps to grab a tennis ball mid-air"
+                  }'
+              node.js: |-
+                import OpenAI from 'openai';
 
-              openai = OpenAI::Client.new(api_key: "My API Key")
+                const client = new OpenAI({
+                  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+                });
 
-              response = openai.fine_tuning.alpha.graders.run(
-                grader: {input: "input", name: "name", operation: :eq, reference: "reference", type: :string_check},
-                model_sample: "model_sample"
-              )
+                const response = await client.fineTuning.alpha.graders.run({
+                  grader: { input: 'input', name: 'name', operation: 'eq', reference: 'reference', type: 'string_check' },
+                  model_sample: 'model_sample',
+                });
 
-              puts(response)
+                console.log(response.metadata);
+              python: |-
+                import os
+                from openai import OpenAI
+
+                client = OpenAI(
+                    api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+                )
+                response = client.fine_tuning.alpha.graders.run(
+                    grader={
+                        "input": "input",
+                        "name": "name",
+                        "operation": "eq",
+                        "reference": "reference",
+                        "type": "string_check",
+                    },
+                    model_sample="model_sample",
+                )
+                print(response.metadata)
+              go: |
+                package main
+
+                import (
+                  "context"
+                  "fmt"
+
+                  "github.com/openai/openai-go"
+                  "github.com/openai/openai-go/option"
+                )
+
+                func main() {
+                  client := openai.NewClient(
+                    option.WithAPIKey("My API Key"),
+                  )
+                  response, err := client.FineTuning.Alpha.Graders.Run(context.TODO(), openai.FineTuningAlphaGraderRunParams{
+                    Grader: openai.FineTuningAlphaGraderRunParamsGraderUnion{
+                      OfStringCheck: &openai.StringCheckGraderParam{
+                        Input: "input",
+                        Name: "name",
+                        Operation: openai.StringCheckGraderOperationEq,
+                        Reference: "reference",
+                      },
+                    },
+                    ModelSample: "model_sample",
+                  })
+                  if err != nil {
+                    panic(err.Error())
+                  }
+                  fmt.Printf("%+v\n", response.Metadata)
+                }
+              java: |-
+                package com.openai.example;
+
+                import com.openai.client.OpenAIClient;
+                import com.openai.client.okhttp.OpenAIOkHttpClient;
+                import com.openai.models.finetuning.alpha.graders.GraderRunParams;
+                import com.openai.models.finetuning.alpha.graders.GraderRunResponse;
+                import com.openai.models.graders.gradermodels.StringCheckGrader;
+
+                public final class Main {
+                    private Main() {}
+
+                    public static void main(String[] args) {
+                        OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                        GraderRunParams params = GraderRunParams.builder()
+                            .grader(StringCheckGrader.builder()
+                                .input("input")
+                                .name("name")
+                                .operation(StringCheckGrader.Operation.EQ)
+                                .reference("reference")
+                                .build())
+                            .modelSample("model_sample")
+                            .build();
+                        GraderRunResponse response = client.fineTuning().alpha().graders().run(params);
+                    }
+                }
+              ruby: |-
+                require "openai"
+
+                openai = OpenAI::Client.new(api_key: "My API Key")
+
+                response = openai.fine_tuning.alpha.graders.run(
+                  grader: {input: "input", name: "name", operation: :eq, reference: "reference", type: :string_check},
+                  model_sample: "model_sample"
+                )
+
+                puts(response)
+          - title: Score an audio response
+            request:
+              curl: |
+                curl -X POST https://api.openai.com/v1/fine_tuning/alpha/graders/run \
+                  -H "Content-Type: application/json" \
+                  -H "Authorization: Bearer $OPENAI_API_KEY" \
+                  -d '{
+                    "grader": {
+                      "type": "score_model",
+                      "name": "Audio clarity grader",
+                      "input": [
+                        {
+                          "role": "user",
+                          "content": [
+                            {
+                              "type": "input_text",
+                              "text": "Listen to the clip and return a confidence score from 0 to 1 that the speaker said: {{item.target_phrase}}"
+                            },
+                            {
+                              "type": "input_audio",
+                              "input_audio": {
+                                "data": "{{item.audio_clip_b64}}",
+                                "format": "mp3"
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "model": "gpt-audio",
+                      "sampling_params": {
+                        "temperature": 0.2,
+                        "top_p": 1,
+                        "seed": 123
+                      }
+                    },
+                    "item": {
+                      "target_phrase": "Please deliver the package on Tuesday",
+                      "audio_clip_b64": "<base64-encoded mp3>"
+                    },
+                    "model_sample": "Please deliver the package on Tuesday"
+                  }'
+              node.js: |-
+                import OpenAI from 'openai';
+
+                const client = new OpenAI({
+                  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+                });
+
+                const response = await client.fineTuning.alpha.graders.run({
+                  grader: { input: 'input', name: 'name', operation: 'eq', reference: 'reference', type: 'string_check' },
+                  model_sample: 'model_sample',
+                });
+
+                console.log(response.metadata);
+              python: |-
+                import os
+                from openai import OpenAI
+
+                client = OpenAI(
+                    api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+                )
+                response = client.fine_tuning.alpha.graders.run(
+                    grader={
+                        "input": "input",
+                        "name": "name",
+                        "operation": "eq",
+                        "reference": "reference",
+                        "type": "string_check",
+                    },
+                    model_sample="model_sample",
+                )
+                print(response.metadata)
+              go: |
+                package main
+
+                import (
+                  "context"
+                  "fmt"
+
+                  "github.com/openai/openai-go"
+                  "github.com/openai/openai-go/option"
+                )
+
+                func main() {
+                  client := openai.NewClient(
+                    option.WithAPIKey("My API Key"),
+                  )
+                  response, err := client.FineTuning.Alpha.Graders.Run(context.TODO(), openai.FineTuningAlphaGraderRunParams{
+                    Grader: openai.FineTuningAlphaGraderRunParamsGraderUnion{
+                      OfStringCheck: &openai.StringCheckGraderParam{
+                        Input: "input",
+                        Name: "name",
+                        Operation: openai.StringCheckGraderOperationEq,
+                        Reference: "reference",
+                      },
+                    },
+                    ModelSample: "model_sample",
+                  })
+                  if err != nil {
+                    panic(err.Error())
+                  }
+                  fmt.Printf("%+v\n", response.Metadata)
+                }
+              java: |-
+                package com.openai.example;
+
+                import com.openai.client.OpenAIClient;
+                import com.openai.client.okhttp.OpenAIOkHttpClient;
+                import com.openai.models.finetuning.alpha.graders.GraderRunParams;
+                import com.openai.models.finetuning.alpha.graders.GraderRunResponse;
+                import com.openai.models.graders.gradermodels.StringCheckGrader;
+
+                public final class Main {
+                    private Main() {}
+
+                    public static void main(String[] args) {
+                        OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                        GraderRunParams params = GraderRunParams.builder()
+                            .grader(StringCheckGrader.builder()
+                                .input("input")
+                                .name("name")
+                                .operation(StringCheckGrader.Operation.EQ)
+                                .reference("reference")
+                                .build())
+                            .modelSample("model_sample")
+                            .build();
+                        GraderRunResponse response = client.fineTuning().alpha().graders().run(params);
+                    }
+                }
+              ruby: |-
+                require "openai"
+
+                openai = OpenAI::Client.new(api_key: "My API Key")
+
+                response = openai.fine_tuning.alpha.graders.run(
+                  grader: {input: "input", name: "name", operation: :eq, reference: "reference", type: :string_check},
+                  model_sample: "model_sample"
+                )
+
+                puts(response)
       description: |
         Run a grader.
   /fine_tuning/alpha/graders/validate:
@@ -30916,7 +31197,7 @@ paths:
                 apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
               });
 
-              const compactedResponse = await client.responses.compact({ model: 'gpt-5.1' });
+              const compactedResponse = await client.responses.compact({ model: 'gpt-5.2' });
 
               console.log(compactedResponse.id);
             python: |-
@@ -30927,7 +31208,7 @@ paths:
                   api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
               )
               compacted_response = client.responses.compact(
-                  model="gpt-5.1",
+                  model="gpt-5.2",
               )
               print(compacted_response.id)
             go: |
@@ -30947,7 +31228,7 @@ paths:
                   option.WithAPIKey("My API Key"),
                 )
                 compactedResponse, err := client.Responses.Compact(context.TODO(), responses.ResponseCompactParams{
-                  Model: responses.ResponseCompactParamsModelGPT5_1,
+                  Model: responses.ResponseCompactParamsModelGPT5_2,
                 })
                 if err != nil {
                   panic(err.Error())
@@ -30969,7 +31250,7 @@ paths:
                       OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                       ResponseCompactParams params = ResponseCompactParams.builder()
-                          .model(ResponseCompactParams.Model.GPT_5_1)
+                          .model(ResponseCompactParams.Model.GPT_5_2)
                           .build();
                       CompactedResponse compactedResponse = client.responses().compact(params);
                   }
@@ -30979,7 +31260,7 @@ paths:
 
               openai = OpenAI::Client.new(api_key: "My API Key")
 
-              compacted_response = openai.responses.compact(model: :"gpt-5.1")
+              compacted_response = openai.responses.compact(model: :"gpt-5.2")
 
               puts(compacted_response)
   /chatkit/sessions/{session_id}/cancel:
@@ -43136,7 +43417,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EvalItem'
-          description: The input text. This may include template strings.
+          description: >
+            The input messages evaluated by the grader. Supports text, output text, input image, and input
+            audio content blocks, and may include template strings.
         range:
           type: array
           items:
@@ -43159,15 +43442,26 @@ components:
               "input": [
                   {
                       "role": "user",
-                      "content": (
-                          "Score how close the reference answer is to the model answer. Score 1.0 if they are the same and 0.0 if they are different."
-                          " Return just a floating point score\n\n"
-                          " Reference answer: {{item.label}}\n\n"
-                          " Model answer: {{sample.output_text}}"
-                      ),
+                      "content": [
+                          {
+                              "type": "input_text",
+                              "text": (
+                                  "Score how close the reference answer is to the model answer. Score 1.0 if they are the same and 0.0 if they are different."
+                                  " Return just a floating point score\n\n"
+                                  " Reference answer: {{item.label}}\n\n"
+                                  " Model answer: {{sample.output_text}}"
+                              )
+                          },
+                          {
+                              "type": "input_image",
+                              "image_url": "https://example.com/reference.png",
+                              "file_id": null,
+                              "detail": "auto"
+                          }
+                      ],
                   }
               ],
-              "model": "o4-mini-2025-04-16",
+              "model": "gpt-5-mini",
               "sampling_params": {
                   "temperature": 1,
                   "top_p": 1,
@@ -55878,12 +56172,16 @@ components:
         summary:
           anyOf:
             - type: string
-              description: |
+              description: >
                 A summary of the reasoning performed by the model. This can be
+
                 useful for debugging and understanding the model's reasoning process.
+
                 One of `auto`, `concise`, or `detailed`.
 
-                `concise` is only supported for `computer-use-preview` models.
+
+                `concise` is supported for `computer-use-preview` models and all reasoning models after
+                `gpt-5`.
               enum:
                 - auto
                 - concise
@@ -55935,7 +56233,7 @@ components:
 
             - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
 
-            - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+            - `xhigh` is supported for all models after `gpt-5.1-codex-max`.
         - type: 'null'
     ReasoningItem:
       type: object
@@ -67662,6 +67960,11 @@ components:
     ChatModel:
       type: string
       enum:
+        - gpt-5.2
+        - gpt-5.2-2025-12-11
+        - gpt-5.2-chat-latest
+        - gpt-5.2-pro
+        - gpt-5.2-pro-2025-12-11
         - gpt-5.1
         - gpt-5.1-2025-11-13
         - gpt-5.1-codex
