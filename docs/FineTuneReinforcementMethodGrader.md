@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | The object type, which is always `string_check`. | 
 **name** | **String** | The name of the grader. | 
-**input** | [**Vec<models::EvalItem>**](EvalItem.md) | The input text. This may include template strings. | 
+**input** | [**Vec<models::EvalItem>**](EvalItem.md) | The input messages evaluated by the grader. Supports text, output text, input image, and input audio content blocks, and may include template strings.  | 
 **reference** | **String** | The text being graded against. | 
 **operation** | **String** | The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`. | 
 **evaluation_metric** | **String** | The evaluation metric to use. One of `cosine`, `fuzzy_match`, `bleu`,  `gleu`, `meteor`, `rouge_1`, `rouge_2`, `rouge_3`, `rouge_4`, `rouge_5`,  or `rouge_l`.  | 

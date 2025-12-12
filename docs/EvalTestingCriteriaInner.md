@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **r#type** | **String** | The object type, which is always `label_model`. | 
 **name** | **String** | The name of the grader. | 
 **model** | **String** | ID of the model to use | 
-**input** | [**Vec<models::EvalItem>**](EvalItem.md) | The input text. This may include template strings. | 
+**input** | [**Vec<models::EvalItem>**](EvalItem.md) | The input messages evaluated by the grader. Supports text, output text, input image, and input audio content blocks, and may include template strings.  | 
 **labels** | **Vec<String>** | The labels to assign to each item in the evaluation. | 
 **passing_labels** | **Vec<String>** | The labels that indicate a passing result. Must be a subset of labels. | 
 **reference** | **String** | The text being graded against. | 

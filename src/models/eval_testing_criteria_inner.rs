@@ -22,7 +22,7 @@ pub struct EvalTestingCriteriaInner {
     /// ID of the model to use
     #[serde(rename = "model")]
     pub model: String,
-    /// The input text. This may include template strings.
+    /// The input messages evaluated by the grader. Supports text, output text, input image, and input audio content blocks, and may include template strings.
     #[serde(rename = "input")]
     pub input: Vec<models::EvalItem>,
     /// The labels to assign to each item in the evaluation.
