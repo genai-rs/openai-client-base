@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// MessageStreamEventAnyOf : Occurs when a [message](https://platform.openai.com/docs/api-reference/messages/object) is created.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageStreamEventAnyOf {
     #[serde(rename = "event")]
     pub event: Event,

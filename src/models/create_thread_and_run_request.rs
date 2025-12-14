@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateThreadAndRunRequest {
     /// The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run.
     #[serde(rename = "assistant_id", skip_serializing_if = "Option::is_none")]

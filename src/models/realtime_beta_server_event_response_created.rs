@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventResponseCreated : Returned when a new Response is created. The first event of response creation, where the response is in an initial state of `in_progress`.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeBetaServerEventResponseCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]

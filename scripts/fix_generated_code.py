@@ -220,6 +220,18 @@ def remove_default_from_problematic_structs(models_dir):
     
     # List of types that no longer have Default
     non_default_types = set()
+
+    # Add enums that do not derive Default
+    for file_path in models_dir.glob("*.rs"):
+        with open(file_path, 'r') as f:
+            content = f.read()
+        enum_match = re.search(r'pub enum (\w+)', content)
+        if not enum_match:
+            continue
+        name = enum_match.group(1)
+        has_default = bool(re.search(r'#\[derive\([^)]*Default[^)]*\)\]', content))
+        if not has_default:
+            non_default_types.add(name)
     
     # First pass: identify empty enums
     for file_path in models_dir.glob("*.rs"):

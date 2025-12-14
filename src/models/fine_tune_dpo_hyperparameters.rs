@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuneDpoHyperparameters : The hyperparameters used for the DPO fine-tuning job.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneDpoHyperparameters {
     #[serde(rename = "beta", skip_serializing_if = "Option::is_none")]
     pub beta: Option<Box<models::FineTuneDpoHyperparametersBeta>>,

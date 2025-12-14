@@ -85,6 +85,12 @@ pub enum AuditLogEventType {
     RateLimitDeleted,
     #[serde(rename = "resource.deleted")]
     ResourceDeleted,
+    #[serde(rename = "tunnel.created")]
+    TunnelCreated,
+    #[serde(rename = "tunnel.updated")]
+    TunnelUpdated,
+    #[serde(rename = "tunnel.deleted")]
+    TunnelDeleted,
     #[serde(rename = "role.created")]
     RoleCreated,
     #[serde(rename = "role.updated")]
@@ -151,6 +157,9 @@ impl std::fmt::Display for AuditLogEventType {
             Self::RateLimitUpdated => write!(f, "rate_limit.updated"),
             Self::RateLimitDeleted => write!(f, "rate_limit.deleted"),
             Self::ResourceDeleted => write!(f, "resource.deleted"),
+            Self::TunnelCreated => write!(f, "tunnel.created"),
+            Self::TunnelUpdated => write!(f, "tunnel.updated"),
+            Self::TunnelDeleted => write!(f, "tunnel.deleted"),
             Self::RoleCreated => write!(f, "role.created"),
             Self::RoleUpdated => write!(f, "role.updated"),
             Self::RoleDeleted => write!(f, "role.deleted"),

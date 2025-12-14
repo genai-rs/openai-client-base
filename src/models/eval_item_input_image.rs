@@ -11,9 +11,9 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// InputImage : An image input to the model.
+/// EvalItemInputImage : An image input block used within EvalItem content arrays.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct InputImage {
+pub struct EvalItemInputImage {
     /// The type of the image input. Always `input_image`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -25,10 +25,10 @@ pub struct InputImage {
     pub detail: Option<String>,
 }
 
-impl InputImage {
-    /// An image input to the model.
-    pub fn new(r#type: Type, image_url: String) -> InputImage {
-        InputImage {
+impl EvalItemInputImage {
+    /// An image input block used within EvalItem content arrays.
+    pub fn new(r#type: Type, image_url: String) -> EvalItemInputImage {
+        EvalItemInputImage {
             r#type,
             image_url,
             detail: None,
@@ -48,7 +48,7 @@ impl Default for Type {
     }
 }
 
-impl std::fmt::Display for InputImage {
+impl std::fmt::Display for EvalItemInputImage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

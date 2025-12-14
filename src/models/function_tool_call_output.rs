@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FunctionToolCallOutput : The output of a function tool call.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionToolCallOutput {
     /// The unique ID of the function tool call output. Populated when this item is returned via API.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]

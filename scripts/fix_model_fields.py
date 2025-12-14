@@ -25,6 +25,52 @@ if str(SCRIPT_DIR) not in sys.path:
 from utils import load_spec, save_spec
 from simplified_schemas import SIMPLIFIED_SCHEMAS
 
+def find_string_schemas(spec: Dict[str, Any]) -> Set[str]:
+    """Return schema names that are simple type:string (no object/enum)."""
+    schemas = spec.get('components', {}).get('schemas', {})
+    string_schemas = set()
+    for name, schema in schemas.items():
+        if isinstance(schema, dict) and schema.get('type') == 'string':
+            # Ignore enums so we don't inline intended enums
+            if 'enum' not in schema:
+                string_schemas.add(name)
+    return string_schemas
+
+def inline_string_refs_in_untagged_unions(spec: Dict[str, Any], string_schemas: Set[str]) -> int:
+    """
+    Replace $ref branches to string-only schemas inside untagged unions (anyOf/oneOf/allOf)
+    with inline {type: string}, avoiding missing generated types like EvalItemContentText.
+    """
+    schemas = spec.get('components', {}).get('schemas', {})
+    changes = 0
+
+    def rewrite_branches(branches: list):
+        nonlocal changes
+        for i, branch in enumerate(branches):
+            if not isinstance(branch, dict):
+                continue
+            ref = branch.get('$ref')
+            if ref and ref.startswith('#/components/schemas/'):
+                name = ref.split('/')[-1]
+                if name in string_schemas:
+                    # Inline as a string schema; preserve description/title if present
+                    replacement = {'type': 'string'}
+                    if 'description' in branch:
+                        replacement['description'] = branch['description']
+                    if 'title' in branch:
+                        replacement['title'] = branch['title']
+                    branches[i] = replacement
+                    changes += 1
+
+    for schema in schemas.values():
+        if not isinstance(schema, dict):
+            continue
+        for key in ('anyOf', 'oneOf', 'allOf'):
+            if key in schema and isinstance(schema[key], list):
+                rewrite_branches(schema[key])
+
+    return changes
+
 def find_model_fields_in_allof(spec: Dict[str, Any]) -> Set[str]:
     """Find all schemas that have model fields inherited through allOf."""
     schemas = spec.get('components', {}).get('schemas', {})
@@ -150,7 +196,7 @@ def flatten_model_fields(spec: Dict[str, Any]) -> Dict[str, Any]:
                 'description': 'ID of the model to use'
             }
             changes.append("Fixed ModelResponseProperties.model to be string")
-    
+
     return changes
 
 def main():
@@ -160,14 +206,20 @@ def main():
     
     print(f"Loading spec from {input_path}")
     spec = load_spec(input_path)
-    
+
     print("\nFinding model fields in allOf inheritance...")
     model_schemas = find_model_fields_in_allof(spec)
     print(f"Found {len(model_schemas)} schemas with inherited model fields")
-    
+
     print("\nFlattening model field definitions...")
     changes = flatten_model_fields(spec)
-    
+
+    print("\nInlining string-only schemas in untagged unions...")
+    string_schemas = find_string_schemas(spec)
+    inlined = inline_string_refs_in_untagged_unions(spec, string_schemas)
+    if inlined:
+        changes.append(f"Inlined {inlined} string schema references inside unions")
+
     print("\nChanges made:")
     for change in changes:
         print(f"  - {change}")

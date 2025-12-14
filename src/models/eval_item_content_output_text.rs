@@ -11,9 +11,9 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// OutputText : A text output from the model.
+/// EvalItemContentOutputText : A text output from the model.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct OutputText {
+pub struct EvalItemContentOutputText {
     /// The type of the output text. Always `output_text`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -22,10 +22,10 @@ pub struct OutputText {
     pub text: String,
 }
 
-impl OutputText {
+impl EvalItemContentOutputText {
     /// A text output from the model.
-    pub fn new(r#type: Type, text: String) -> OutputText {
-        OutputText { r#type, text }
+    pub fn new(r#type: Type, text: String) -> EvalItemContentOutputText {
+        EvalItemContentOutputText { r#type, text }
     }
 }
 /// The type of the output text. Always `output_text`.
@@ -41,7 +41,7 @@ impl Default for Type {
     }
 }
 
-impl std::fmt::Display for OutputText {
+impl std::fmt::Display for EvalItemContentOutputText {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
