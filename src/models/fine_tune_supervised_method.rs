@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuneSupervisedMethod : Configuration for the supervised fine-tuning method.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneSupervisedMethod {
     #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
     pub hyperparameters: Option<Box<models::FineTuneSupervisedHyperparameters>>,

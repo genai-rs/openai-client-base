@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CustomToolCallOutput : The output of a custom tool call from your code, being sent back to the model.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CustomToolCallOutput {
     /// The type of the custom tool call output. Always `custom_tool_call_output`.
     #[serde(rename = "type")]

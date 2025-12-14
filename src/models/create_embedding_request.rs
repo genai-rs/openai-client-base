@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEmbeddingRequest {
     #[serde(rename = "input")]
     pub input: Box<models::CreateEmbeddingRequestInput>,

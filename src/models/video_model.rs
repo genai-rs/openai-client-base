@@ -18,6 +18,12 @@ pub enum VideoModel {
     Sora2,
     #[serde(rename = "sora-2-pro")]
     Sora2Pro,
+    #[serde(rename = "sora-2-2025-10-06")]
+    Sora220251006,
+    #[serde(rename = "sora-2-pro-2025-10-06")]
+    Sora2Pro20251006,
+    #[serde(rename = "sora-2-2025-12-08")]
+    Sora220251208,
 }
 
 impl std::fmt::Display for VideoModel {
@@ -25,6 +31,9 @@ impl std::fmt::Display for VideoModel {
         match self {
             Self::Sora2 => write!(f, "sora-2"),
             Self::Sora2Pro => write!(f, "sora-2-pro"),
+            Self::Sora220251006 => write!(f, "sora-2-2025-10-06"),
+            Self::Sora2Pro20251006 => write!(f, "sora-2-pro-2025-10-06"),
+            Self::Sora220251208 => write!(f, "sora-2-2025-12-08"),
         }
     }
 }

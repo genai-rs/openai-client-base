@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// UserRoleAssignment : Role assignment linking a user to a role.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UserRoleAssignment {
     /// Always `user.role`.
     #[serde(rename = "object")]

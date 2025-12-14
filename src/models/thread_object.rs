@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ThreadObject : Represents a thread that contains [messages](https://platform.openai.com/docs/api-reference/messages).
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ThreadObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]

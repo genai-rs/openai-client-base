@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaResponseCreateParams : Create a new Realtime response with these parameters
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeBetaResponseCreateParams {
     /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
     #[serde(rename = "modalities", skip_serializing_if = "Option::is_none")]

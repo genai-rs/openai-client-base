@@ -39,6 +39,9 @@
 | RateLimitUpdated | rate_limit.updated |
 | RateLimitDeleted | rate_limit.deleted |
 | ResourceDeleted | resource.deleted |
+| TunnelCreated | tunnel.created |
+| TunnelUpdated | tunnel.updated |
+| TunnelDeleted | tunnel.deleted |
 | RoleCreated | role.created |
 | RoleUpdated | role.updated |
 | RoleDeleted | role.deleted |

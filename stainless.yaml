@@ -31125,6 +31125,10 @@ paths:
         returns: >
           A [compacted response
           object](https://platform.openai.com/docs/api-reference/responses/compacted-object).
+
+
+          Learn when and how to compact long-running conversations in the [conversation state
+          guide](https://platform.openai.com/docs/guides/conversation-state#managing-the-context-window).
         examples:
           response: |
             {
@@ -33717,6 +33721,9 @@ components:
         - rate_limit.updated
         - rate_limit.deleted
         - resource.deleted
+        - tunnel.created
+        - tunnel.updated
+        - tunnel.deleted
         - role.created
         - role.updated
         - role.deleted
@@ -40857,63 +40864,7 @@ components:
             - system
             - developer
         content:
-          description: |
-            Inputs to the model - can contain template strings.
-          anyOf:
-            - type: string
-              title: Text input
-              description: |
-                A text input to the model.
-            - $ref: '#/components/schemas/InputTextContent'
-            - type: object
-              title: Output text
-              description: |
-                A text output from the model.
-              properties:
-                type:
-                  type: string
-                  description: |
-                    The type of the output text. Always `output_text`.
-                  enum:
-                    - output_text
-                  x-stainless-const: true
-                text:
-                  type: string
-                  description: |
-                    The text output from the model.
-              required:
-                - type
-                - text
-            - type: object
-              title: Input image
-              description: |
-                An image input to the model.
-              properties:
-                type:
-                  type: string
-                  description: |
-                    The type of the image input. Always `input_image`.
-                  enum:
-                    - input_image
-                  x-stainless-const: true
-                image_url:
-                  type: string
-                  description: |
-                    The URL of the image input.
-                detail:
-                  type: string
-                  description: >
-                    The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`.
-                    Defaults to `auto`.
-              required:
-                - type
-                - image_url
-            - $ref: '#/components/schemas/InputAudio'
-            - type: array
-              title: An array of Input text, Input image, and Input audio
-              description: >
-                A list of inputs, each of which may be either an input text, input image, or input audio
-                object.
+          $ref: '#/components/schemas/EvalItemContent'
         type:
           type: string
           description: |
@@ -40924,6 +40875,81 @@ components:
       required:
         - role
         - content
+    EvalItemContent:
+      title: Eval content
+      description: >
+        Inputs to the model - can contain template strings. Supports text, output text, input images, and
+        input audio, either as a single item or an array of items.
+      anyOf:
+        - $ref: '#/components/schemas/EvalItemContentItem'
+        - $ref: '#/components/schemas/EvalItemContentArray'
+    EvalItemContentArray:
+      type: array
+      title: An array of Input text, Output text, Input image, and Input audio
+      description: |
+        A list of inputs, each of which may be either an input text, output text, input
+        image, or input audio object.
+      items:
+        $ref: '#/components/schemas/EvalItemContentItem'
+    EvalItemContentItem:
+      title: Eval content item
+      description: |
+        A single content item: input text, output text, input image, or input audio.
+      anyOf:
+        - $ref: '#/components/schemas/EvalItemContentText'
+        - $ref: '#/components/schemas/InputTextContent'
+        - $ref: '#/components/schemas/EvalItemContentOutputText'
+        - $ref: '#/components/schemas/EvalItemInputImage'
+        - $ref: '#/components/schemas/InputAudio'
+    EvalItemContentOutputText:
+      type: object
+      title: Output text
+      description: |
+        A text output from the model.
+      properties:
+        type:
+          type: string
+          description: |
+            The type of the output text. Always `output_text`.
+          enum:
+            - output_text
+          x-stainless-const: true
+        text:
+          type: string
+          description: |
+            The text output from the model.
+      required:
+        - type
+        - text
+    EvalItemContentText:
+      type: string
+      title: Text input
+      description: |
+        A text input to the model.
+    EvalItemInputImage:
+      title: Input image
+      description: An image input block used within EvalItem content arrays.
+      type: object
+      properties:
+        type:
+          type: string
+          description: |
+            The type of the image input. Always `input_image`.
+          enum:
+            - input_image
+          x-stainless-const: true
+        image_url:
+          type: string
+          description: |
+            The URL of the image input.
+        detail:
+          type: string
+          description: >
+            The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults
+            to `auto`.
+      required:
+        - type
+        - image_url
     EvalJsonlFileContentSource:
       type: object
       title: EvalJsonlFileContentSource
@@ -66335,6 +66361,9 @@ components:
       enum:
         - sora-2
         - sora-2-pro
+        - sora-2-2025-10-06
+        - sora-2-pro-2025-10-06
+        - sora-2-2025-12-08
     VideoStatus:
       type: string
       enum:

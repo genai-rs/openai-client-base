@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InputMessagesTemplateTemplateInner {
     /// The role of the message input. One of `user`, `assistant`, `system`, or `developer`.
     #[serde(rename = "role")]

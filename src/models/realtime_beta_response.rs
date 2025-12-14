@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaResponse : The response resource.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeBetaResponse {
     /// The unique ID of the response.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]

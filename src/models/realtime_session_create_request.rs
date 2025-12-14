@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateRequest : A new Realtime session configuration, with an ephemeral key. Default TTL for keys is one minute.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateRequest {
     #[serde(rename = "client_secret")]
     pub client_secret: Box<models::RealtimeSessionCreateRequestClientSecret>,
