@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0](https://github.com/genai-rs/openai-client-base/compare/v0.8.1...v0.9.0) - 2025-12-15
+
+### Fixed
+
+- automatically track and handle simplified type references
+
+### Other
+
+- Fix generation for string union variants
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- *(deps)* Update Rust crate serde_with to ^3.16.1
+- update generated client from latest OpenAPI spec
+- Strip match arms for simplified schema variants
+- Stop requiring yaml in fix_simplified_type_references
+- Fix simplified schema tracking for generator
+- *(deps)* Update actions/checkout action to v6
+
 ## [0.8.1](https://github.com/genai-rs/openai-client-base/compare/v0.8.0...v0.8.1) - 2025-11-18
 
 ### Other
