@@ -11,15 +11,15 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ImageGenTool : A tool that generates images using a model like `gpt-image-1`.
+/// ImageGenTool : A tool that generates images using the GPT image models.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenTool {
     /// The type of the image generation tool. Always `image_generation`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The image generation model to use. Default: `gpt-image-1`.
+    /// ID of the model to use
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
-    pub model: Option<Model>,
+    pub model: Option<String>,
     /// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
@@ -53,7 +53,7 @@ pub struct ImageGenTool {
 }
 
 impl ImageGenTool {
-    /// A tool that generates images using a model like `gpt-image-1`.
+    /// A tool that generates images using the GPT image models.
     pub fn new(r#type: Type) -> ImageGenTool {
         ImageGenTool {
             r#type,
@@ -80,20 +80,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::ImageGeneration
-    }
-}
-/// The image generation model to use. Default: `gpt-image-1`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Model {
-    #[serde(rename = "gpt-image-1")]
-    GptImage1,
-    #[serde(rename = "gpt-image-1-mini")]
-    GptImage1Mini,
-}
-
-impl Default for Model {
-    fn default() -> Model {
-        Self::GptImage1
     }
 }
 /// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.

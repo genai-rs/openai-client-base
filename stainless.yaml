@@ -2361,6 +2361,219 @@ paths:
 
               puts(translation)
       description: Translates audio into English.
+  /audio/voice_consents:
+    post:
+      operationId: createVoiceConsent
+      tags:
+        - Audio
+      summary: Create voice consent
+      description: Upload a voice consent recording.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateVoiceConsentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceConsentResource'
+      x-oaiMeta:
+        name: Create voice consent
+        group: audio
+        returns: The created voice consent recording metadata.
+        examples:
+          - title: Default
+            request:
+              curl: |
+                curl https://api.openai.com/v1/audio/voice_consents \
+                  -X POST \
+                  -H "Authorization: Bearer $OPENAI_API_KEY" \
+                  -F "name=John Doe" \
+                  -F "language=en-US" \
+                  -F "recording=@$HOME/consent_recording.wav;type=audio/x-wav"
+    get:
+      operationId: listVoiceConsents
+      tags:
+        - Audio
+      summary: List voice consents
+      description: Returns a list of voice consent recordings.
+      parameters:
+        - in: query
+          name: after
+          required: false
+          schema:
+            type: string
+          description: >
+            A cursor for use in pagination. `after` is an object ID that defines your place in the list. For
+            instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent
+            call can include after=obj_foo in order to fetch the next page of the list.
+        - name: limit
+          in: query
+          description: >
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the
+            default is 20.
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceConsentListResource'
+      x-oaiMeta:
+        name: List voice consents
+        group: audio
+        returns: A paginated list of voice consent recordings.
+        examples:
+          - title: Default
+            request:
+              curl: |
+                curl https://api.openai.com/v1/audio/voice_consents?limit=20 \
+                  -H "Authorization: Bearer $OPENAI_API_KEY"
+  /audio/voice_consents/{consent_id}:
+    get:
+      operationId: getVoiceConsent
+      tags:
+        - Audio
+      summary: Retrieve voice consent
+      description: Retrieves a voice consent recording.
+      parameters:
+        - in: path
+          name: consent_id
+          required: true
+          schema:
+            type: string
+          description: The ID of the consent recording to retrieve.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceConsentResource'
+      x-oaiMeta:
+        name: Retrieve voice consent
+        group: audio
+        returns: The voice consent recording metadata.
+        examples:
+          - title: Default
+            request:
+              curl: |
+                curl https://api.openai.com/v1/audio/voice_consents/cons_1234 \
+                  -H "Authorization: Bearer $OPENAI_API_KEY"
+    post:
+      operationId: updateVoiceConsent
+      tags:
+        - Audio
+      summary: Update voice consent
+      description: Updates a voice consent recording (metadata only).
+      parameters:
+        - in: path
+          name: consent_id
+          required: true
+          schema:
+            type: string
+          description: The ID of the consent recording to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVoiceConsentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceConsentResource'
+      x-oaiMeta:
+        name: Update voice consent
+        group: audio
+        returns: The updated voice consent recording metadata.
+        examples:
+          - title: Default
+            request:
+              curl: |
+                curl https://api.openai.com/v1/audio/voice_consents/cons_1234 \
+                  -X POST \
+                  -H "Authorization: Bearer $OPENAI_API_KEY" \
+                  -H "Content-Type: application/json" \
+                  -d '{
+                    "name": "John Doe"
+                  }'
+    delete:
+      operationId: deleteVoiceConsent
+      tags:
+        - Audio
+      summary: Delete voice consent
+      description: Deletes a voice consent recording.
+      parameters:
+        - in: path
+          name: consent_id
+          required: true
+          schema:
+            type: string
+          description: The ID of the consent recording to delete.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceConsentDeletedResource'
+      x-oaiMeta:
+        name: Delete voice consent
+        group: audio
+        returns: A deletion confirmation.
+        examples:
+          - title: Default
+            request:
+              curl: |
+                curl https://api.openai.com/v1/audio/voice_consents/cons_1234 \
+                  -X DELETE \
+                  -H "Authorization: Bearer $OPENAI_API_KEY"
+  /audio/voices:
+    post:
+      operationId: createVoice
+      tags:
+        - Audio
+      summary: Create voice
+      description: Creates a custom voice.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateVoiceRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceResource'
+      x-oaiMeta:
+        name: Create voice
+        group: audio
+        returns: The created voice.
+        examples:
+          - title: Default
+            request:
+              curl: |
+                curl https://api.openai.com/v1/audio/voices \
+                  -X POST \
+                  -H "Authorization: Bearer $OPENAI_API_KEY" \
+                  -F "name=My new voice" \
+                  -F "consent=cons_1234" \
+                  -F "audio_sample=@$HOME/audio_sample.wav;type=audio/x-wav"
   /batches:
     post:
       summary: Create batch
@@ -12863,7 +13076,7 @@ paths:
                   -o >(jq -r '.data[0].b64_json' | base64 --decode > gift-basket.png) \
                   -X POST "https://api.openai.com/v1/images/edits" \
                   -H "Authorization: Bearer $OPENAI_API_KEY" \
-                  -F "model=gpt-image-1" \
+                  -F "model=gpt-image-1.5" \
                   -F "image[]=@body-lotion.png" \
                   -F "image[]=@bath-bomb.png" \
                   -F "image[]=@incense-kit.png" \
@@ -12962,7 +13175,7 @@ paths:
               curl: |
                 curl -s -N -X POST "https://api.openai.com/v1/images/edits" \
                   -H "Authorization: Bearer $OPENAI_API_KEY" \
-                  -F "model=gpt-image-1" \
+                  -F "model=gpt-image-1.5" \
                   -F "image[]=@body-lotion.png" \
                   -F "image[]=@bath-bomb.png" \
                   -F "image[]=@incense-kit.png" \
@@ -13104,7 +13317,7 @@ paths:
                   -H "Content-Type: application/json" \
                   -H "Authorization: Bearer $OPENAI_API_KEY" \
                   -d '{
-                    "model": "gpt-image-1",
+                    "model": "gpt-image-1.5",
                     "prompt": "A cute baby sea otter",
                     "n": 1,
                     "size": "1024x1024"
@@ -13206,7 +13419,7 @@ paths:
                   -H "Content-Type: application/json" \
                   -H "Authorization: Bearer $OPENAI_API_KEY" \
                   -d '{
-                    "model": "gpt-image-1",
+                    "model": "gpt-image-1.5",
                     "prompt": "A cute baby sea otter",
                     "n": 1,
                     "size": "1024x1024",
@@ -38157,20 +38370,25 @@ components:
               items:
                 type: string
                 format: binary
-          description: |
+          description: >
             The image(s) to edit. Must be a supported image file or an array of images.
 
-            For `gpt-image-1`, each image should be a `png`, `webp`, or `jpg` file less
-            than 50MB. You can provide up to 16 images.
+
+            For the GPT image models (`gpt-image-1`, `gpt-image-1-mini`, and `gpt-image-1.5`), each image
+            should be a `png`, `webp`, or `jpg`
+
+            file less than 50MB. You can provide up to 16 images.
+
 
             For `dall-e-2`, you can only provide one image, and it should be a square
+
             `png` file less than 4MB.
           x-oaiMeta:
             exampleFilePath: otter.png
         prompt:
           description: >-
             A text description of the desired image(s). The maximum length is 1000 characters for `dall-e-2`,
-            and 32000 characters for `gpt-image-1`.
+            and 32000 characters for the GPT image models.
           type: string
           example: A cute baby sea otter wearing a beret
         mask:
@@ -38193,7 +38411,7 @@ components:
           nullable: true
           description: |
             Allows to set transparency for the background of the generated image(s).
-            This parameter is only supported for `gpt-image-1`. Must be one of
+            This parameter is only supported for the GPT image models. Must be one of
             `transparent`, `opaque` or `auto` (default value). When `auto` is used, the
             model will automatically determine the best background for the image.
 
@@ -38204,6 +38422,7 @@ components:
             - type: string
             - type: string
               enum:
+                - gpt-image-1.5
                 - dall-e-2
                 - gpt-image-1
                 - gpt-image-1-mini
@@ -38211,8 +38430,8 @@ components:
           x-oaiTypeLabel: string
           nullable: true
           description: >-
-            The model to use for image generation. Only `dall-e-2` and `gpt-image-1` are supported. Defaults
-            to `dall-e-2` unless a parameter specific to `gpt-image-1` is used.
+            The model to use for image generation. Only `dall-e-2` and the GPT image models are supported.
+            Defaults to `dall-e-2` unless a parameter specific to the GPT image models is used.
         'n':
           type: integer
           minimum: 1
@@ -38235,8 +38454,8 @@ components:
           nullable: true
           description: >-
             The size of the generated images. Must be one of `1024x1024`, `1536x1024` (landscape), `1024x1536`
-            (portrait), or `auto` (default value) for `gpt-image-1`, and one of `256x256`, `512x512`, or
-            `1024x1024` for `dall-e-2`.
+            (portrait), or `auto` (default value) for the GPT image models, and one of `256x256`, `512x512`,
+            or `1024x1024` for `dall-e-2`.
         response_format:
           type: string
           enum:
@@ -38248,7 +38467,7 @@ components:
           description: >-
             The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs
             are only valid for 60 minutes after the image has been generated. This parameter is only supported
-            for `dall-e-2`, as `gpt-image-1` will always return base64-encoded images.
+            for `dall-e-2`, as the GPT image models always return base64-encoded images.
         output_format:
           type: string
           enum:
@@ -38260,7 +38479,7 @@ components:
           nullable: true
           description: |
             The format in which the generated images are returned. This parameter is
-            only supported for `gpt-image-1`. Must be one of `png`, `jpeg`, or `webp`.
+            only supported for the GPT image models. Must be one of `png`, `jpeg`, or `webp`.
             The default value is `png`.
         output_compression:
           type: integer
@@ -38269,7 +38488,7 @@ components:
           nullable: true
           description: |
             The compression level (0-100%) for the generated images. This parameter
-            is only supported for `gpt-image-1` with the `webp` or `jpeg` output
+            is only supported for the GPT image models with the `webp` or `jpeg` output
             formats, and defaults to 100.
         user:
           type: string
@@ -38306,7 +38525,7 @@ components:
           nullable: true
           description: >
             The quality of the image that will be generated. `high`, `medium` and `low` are only supported for
-            `gpt-image-1`. `dall-e-2` only supports `standard` quality. Defaults to `auto`.
+            the GPT image models. `dall-e-2` only supports `standard` quality. Defaults to `auto`.
       required:
         - prompt
         - image
@@ -38315,8 +38534,8 @@ components:
       properties:
         prompt:
           description: >-
-            A text description of the desired image(s). The maximum length is 32000 characters for
-            `gpt-image-1`, 1000 characters for `dall-e-2` and 4000 characters for `dall-e-3`.
+            A text description of the desired image(s). The maximum length is 32000 characters for the GPT
+            image models, 1000 characters for `dall-e-2` and 4000 characters for `dall-e-3`.
           type: string
           example: A cute baby sea otter
         model:
@@ -38324,6 +38543,7 @@ components:
             - type: string
             - type: string
               enum:
+                - gpt-image-1.5
                 - dall-e-2
                 - dall-e-3
                 - gpt-image-1
@@ -38332,8 +38552,9 @@ components:
           x-oaiTypeLabel: string
           nullable: true
           description: >-
-            The model to use for image generation. One of `dall-e-2`, `dall-e-3`, or `gpt-image-1`. Defaults
-            to `dall-e-2` unless a parameter specific to `gpt-image-1` is used.
+            The model to use for image generation. One of `dall-e-2`, `dall-e-3`, or a GPT image model
+            (`gpt-image-1`, `gpt-image-1-mini`, `gpt-image-1.5`). Defaults to `dall-e-2` unless a parameter
+            specific to the GPT image models is used.
         'n':
           type: integer
           minimum: 1
@@ -38360,7 +38581,7 @@ components:
             The quality of the image that will be generated.
 
             - `auto` (default value) will automatically select the best quality for the given model.
-            - `high`, `medium` and `low` are supported for `gpt-image-1`.
+            - `high`, `medium` and `low` are supported for the GPT image models.
             - `hd` and `standard` are supported for `dall-e-3`.
             - `standard` is the only option for `dall-e-2`.
         response_format:
@@ -38374,7 +38595,7 @@ components:
           description: >-
             The format in which generated images with `dall-e-2` and `dall-e-3` are returned. Must be one of
             `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. This
-            parameter isn't supported for `gpt-image-1` which will always return base64-encoded images.
+            parameter isn't supported for the GPT image models, which always return base64-encoded images.
         output_format:
           type: string
           enum:
@@ -38385,16 +38606,16 @@ components:
           example: png
           nullable: true
           description: >-
-            The format in which the generated images are returned. This parameter is only supported for
-            `gpt-image-1`. Must be one of `png`, `jpeg`, or `webp`.
+            The format in which the generated images are returned. This parameter is only supported for the
+            GPT image models. Must be one of `png`, `jpeg`, or `webp`.
         output_compression:
           type: integer
           default: 100
           example: 100
           nullable: true
           description: >-
-            The compression level (0-100%) for the generated images. This parameter is only supported for
-            `gpt-image-1` with the `webp` or `jpeg` output formats, and defaults to 100.
+            The compression level (0-100%) for the generated images. This parameter is only supported for the
+            GPT image models with the `webp` or `jpeg` output formats, and defaults to 100.
         stream:
           type: boolean
           default: false
@@ -38406,7 +38627,7 @@ components:
             [Image generation guide](https://platform.openai.com/docs/guides/image-generation) for more
             information.
 
-            This parameter is only supported for `gpt-image-1`.
+            This parameter is only supported for the GPT image models.
         partial_images:
           $ref: '#/components/schemas/PartialImages'
         size:
@@ -38425,7 +38646,7 @@ components:
           nullable: true
           description: >-
             The size of the generated images. Must be one of `1024x1024`, `1536x1024` (landscape), `1024x1536`
-            (portrait), or `auto` (default value) for `gpt-image-1`, one of `256x256`, `512x512`, or
+            (portrait), or `auto` (default value) for the GPT image models, one of `256x256`, `512x512`, or
             `1024x1024` for `dall-e-2`, and one of `1024x1024`, `1792x1024`, or `1024x1792` for `dall-e-3`.
         moderation:
           type: string
@@ -38436,8 +38657,8 @@ components:
           example: low
           nullable: true
           description: >-
-            Control the content-moderation level for images generated by `gpt-image-1`. Must be either `low`
-            for less restrictive filtering or `auto` (default value).
+            Control the content-moderation level for images generated by the GPT image models. Must be either
+            `low` for less restrictive filtering or `auto` (default value).
         background:
           type: string
           enum:
@@ -38449,7 +38670,7 @@ components:
           nullable: true
           description: |
             Allows to set transparency for the background of the generated image(s).
-            This parameter is only supported for `gpt-image-1`. Must be one of
+            This parameter is only supported for the GPT image models. Must be one of
             `transparent`, `opaque` or `auto` (default value). When `auto` is used, the
             model will automatically determine the best background for the image.
 
@@ -40111,6 +40332,58 @@ components:
           $ref: '#/components/schemas/ChunkingStrategyRequestParam'
         metadata:
           $ref: '#/components/schemas/Metadata'
+    CreateVoiceConsentRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          description: The label to use for this consent recording.
+        recording:
+          type: string
+          format: binary
+          x-oaiTypeLabel: file
+          description: >
+            The consent audio recording file. Maximum size is 10 MiB.
+
+
+            Supported MIME types:
+
+            `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`,
+            `audio/mp4`.
+        language:
+          type: string
+          description: The BCP 47 language tag for the consent phrase (for example, `en-US`).
+      required:
+        - name
+        - recording
+        - language
+    CreateVoiceRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          description: The name of the new voice.
+        audio_sample:
+          type: string
+          format: binary
+          x-oaiTypeLabel: file
+          description: >
+            The sample audio recording file. Maximum size is 10 MiB.
+
+
+            Supported MIME types:
+
+            `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`,
+            `audio/mp4`.
+        consent:
+          type: string
+          description: The consent recording ID (for example, `cons_1234`).
+      required:
+        - name
+        - audio_sample
+        - consent
     CustomToolCall:
       type: object
       title: Custom tool call
@@ -40901,6 +41174,9 @@ components:
         - $ref: '#/components/schemas/EvalItemContentOutputText'
         - $ref: '#/components/schemas/EvalItemInputImage'
         - $ref: '#/components/schemas/InputAudio'
+      x-stainless-naming:
+        ruby:
+          model_name: GraderInputItem
     EvalItemContentOutputText:
       type: object
       title: Output text
@@ -43878,13 +44154,13 @@ components:
         b64_json:
           type: string
           description: >-
-            The base64-encoded JSON of the generated image. Default value for `gpt-image-1`, and only present
-            if `response_format` is set to `b64_json` for `dall-e-2` and `dall-e-3`.
+            The base64-encoded JSON of the generated image. Returned by default for the GPT image models, and
+            only present if `response_format` is set to `b64_json` for `dall-e-2` and `dall-e-3`.
         url:
           type: string
           description: >-
             When using `dall-e-2` or `dall-e-3`, the URL of the generated image if `response_format` is set to
-            `url` (default value). Unsupported for `gpt-image-1`.
+            `url` (default value). Unsupported for the GPT image models.
         revised_prompt:
           type: string
           description: For `dall-e-3` only, the revised prompt that was used to generate the image.
@@ -44240,7 +44516,7 @@ components:
       type: object
       title: Image generation tool
       description: |
-        A tool that generates images using a model like `gpt-image-1`.
+        A tool that generates images using the GPT image models.
       properties:
         type:
           type: string
@@ -44250,13 +44526,15 @@ components:
             The type of the image generation tool. Always `image_generation`.
           x-stainless-const: true
         model:
-          type: string
-          enum:
-            - gpt-image-1
-            - gpt-image-1-mini
-          description: |
-            The image generation model to use. Default: `gpt-image-1`.
-          default: gpt-image-1
+          anyOf:
+            - type: string
+            - type: string
+              enum:
+                - gpt-image-1
+                - gpt-image-1-mini
+              description: |
+                The image generation model to use. Default: `gpt-image-1`.
+              default: gpt-image-1
         quality:
           type: string
           enum:
@@ -44452,7 +44730,7 @@ components:
     ImagesUsage:
       type: object
       description: |
-        For `gpt-image-1` only, the token usage information for the image generation.
+        For the GPT image models only, the token usage information for the image generation.
       required:
         - total_tokens
         - input_tokens
@@ -61822,6 +62100,15 @@ components:
             - nullable: true
         metadata:
           $ref: '#/components/schemas/Metadata'
+    UpdateVoiceConsentRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          description: The updated label for this consent recording.
+      required:
+        - name
     Upload:
       type: object
       title: Upload
@@ -63147,6 +63434,119 @@ components:
             more concise responses, while higher values will result in more verbose responses.
             Currently supported values are `low`, `medium`, and `high`.
         - type: 'null'
+    VoiceConsentDeletedResource:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          description: The consent recording identifier.
+          example: cons_1234
+        object:
+          type: string
+          enum:
+            - audio.voice_consent
+          x-stainless-const: true
+        deleted:
+          type: boolean
+      required:
+        - id
+        - object
+        - deleted
+      x-oaiMeta:
+        name: The voice consent deletion object
+        example: |
+          {
+            "object": "audio.voice_consent",
+            "id": "cons_1234",
+            "deleted": true
+          }
+    VoiceConsentListResource:
+      type: object
+      additionalProperties: false
+      properties:
+        object:
+          type: string
+          enum:
+            - list
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VoiceConsentResource'
+        first_id:
+          anyOf:
+            - type: string
+            - type: 'null'
+        last_id:
+          anyOf:
+            - type: string
+            - type: 'null'
+        has_more:
+          type: boolean
+      required:
+        - object
+        - data
+        - has_more
+      x-oaiMeta:
+        name: The voice consent list object
+        example: |
+          {
+            "object": "list",
+            "data": [
+              {
+                "object": "audio.voice_consent",
+                "id": "cons_1234",
+                "name": "John Doe",
+                "language": "en-US",
+                "created_at": 1734220800
+              }
+            ],
+            "first_id": "cons_1234",
+            "last_id": "cons_1234",
+            "has_more": false
+          }
+    VoiceConsentResource:
+      type: object
+      title: Voice consent
+      description: A consent recording used to authorize creation of a custom voice.
+      additionalProperties: false
+      properties:
+        object:
+          type: string
+          description: The object type, which is always `audio.voice_consent`.
+          enum:
+            - audio.voice_consent
+          x-stainless-const: true
+        id:
+          type: string
+          description: The consent recording identifier.
+          example: cons_1234
+        name:
+          type: string
+          description: The label provided when the consent recording was uploaded.
+        language:
+          type: string
+          description: The BCP 47 language tag for the consent phrase (for example, `en-US`).
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the consent recording was created.
+      required:
+        - object
+        - id
+        - name
+        - language
+        - created_at
+      x-oaiMeta:
+        name: The voice consent object
+        example: |
+          {
+            "object": "audio.voice_consent",
+            "id": "cons_1234",
+            "name": "John Doe",
+            "language": "en-US",
+            "created_at": 1734220800
+          }
     VoiceIdsShared:
       example: ash
       anyOf:
@@ -63163,6 +63563,41 @@ components:
             - verse
             - marin
             - cedar
+    VoiceResource:
+      type: object
+      title: Voice
+      description: A custom voice that can be used for audio output.
+      additionalProperties: false
+      properties:
+        object:
+          type: string
+          description: The object type, which is always `audio.voice`.
+          enum:
+            - audio.voice
+          x-stainless-const: true
+        id:
+          type: string
+          description: The voice identifier, which can be referenced in API endpoints.
+        name:
+          type: string
+          description: The name of the voice.
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the voice was created.
+      required:
+        - object
+        - id
+        - name
+        - created_at
+      x-oaiMeta:
+        name: The voice object
+        example: |
+          {
+            "object": "audio.voice",
+            "id": "voice_123abc",
+            "name": "My new voice",
+            "created_at": 1734220800
+          }
     Wait:
       type: object
       title: Wait
@@ -66190,6 +66625,20 @@ components:
         - type
       title: Apply patch tool
       description: Allows the assistant to create, delete, or update files using unified diffs.
+    ImageGenOutputTokensDetails:
+      properties:
+        image_tokens:
+          type: integer
+          description: The number of image output tokens generated by the model.
+        text_tokens:
+          type: integer
+          description: The number of text output tokens generated by the model.
+      type: object
+      required:
+        - image_tokens
+        - text_tokens
+      title: Image generation output token details
+      description: The output token details for the image generation.
     ImageGenInputUsageDetails:
       properties:
         text_tokens:
@@ -66215,6 +66664,8 @@ components:
         output_tokens:
           type: integer
           description: The number of output tokens generated by the model.
+        output_tokens_details:
+          $ref: '#/components/schemas/ImageGenOutputTokensDetails'
         input_tokens_details:
           $ref: '#/components/schemas/ImageGenInputUsageDetails'
       type: object
@@ -68776,11 +69227,41 @@ x-oaiMeta:
           key: createSpeech
           path: createSpeech
         - type: endpoint
+          key: createVoice
+          path: createVoice
+        - type: endpoint
+          key: createVoiceConsent
+          path: createVoiceConsent
+        - type: endpoint
+          key: listVoiceConsents
+          path: listVoiceConsents
+        - type: endpoint
+          key: getVoiceConsent
+          path: getVoiceConsent
+        - type: endpoint
+          key: updateVoiceConsent
+          path: updateVoiceConsent
+        - type: endpoint
+          key: deleteVoiceConsent
+          path: deleteVoiceConsent
+        - type: endpoint
           key: createTranscription
           path: createTranscription
         - type: endpoint
           key: createTranslation
           path: createTranslation
+        - type: object
+          key: VoiceResource
+          path: voice-object
+        - type: object
+          key: VoiceConsentResource
+          path: voice-consent-object
+        - type: object
+          key: VoiceConsentListResource
+          path: voice-consent-list
+        - type: object
+          key: VoiceConsentDeletedResource
+          path: voice-consent-deleted
         - type: object
           key: CreateTranscriptionResponseJson
           path: json-object

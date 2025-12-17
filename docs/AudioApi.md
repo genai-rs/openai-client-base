@@ -7,6 +7,12 @@ Method | HTTP request | Description
 [**create_speech**](AudioApi.md#create_speech) | **POST** /audio/speech | Create speech
 [**create_transcription**](AudioApi.md#create_transcription) | **POST** /audio/transcriptions | Create transcription
 [**create_translation**](AudioApi.md#create_translation) | **POST** /audio/translations | Create translation
+[**create_voice**](AudioApi.md#create_voice) | **POST** /audio/voices | Create voice
+[**create_voice_consent**](AudioApi.md#create_voice_consent) | **POST** /audio/voice_consents | Create voice consent
+[**delete_voice_consent**](AudioApi.md#delete_voice_consent) | **DELETE** /audio/voice_consents/{consent_id} | Delete voice consent
+[**get_voice_consent**](AudioApi.md#get_voice_consent) | **GET** /audio/voice_consents/{consent_id} | Retrieve voice consent
+[**list_voice_consents**](AudioApi.md#list_voice_consents) | **GET** /audio/voice_consents | List voice consents
+[**update_voice_consent**](AudioApi.md#update_voice_consent) | **POST** /audio/voice_consents/{consent_id} | Update voice consent
 
 
 
@@ -110,6 +116,192 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_voice
+
+> models::VoiceResource create_voice(name, audio_sample, consent)
+Create voice
+
+Creates a custom voice.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**name** | **String** | The name of the new voice. | [required] |
+**audio_sample** | **std::path::PathBuf** | The sample audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  | [required] |
+**consent** | **String** | The consent recording ID (for example, `cons_1234`). | [required] |
+
+### Return type
+
+[**models::VoiceResource**](VoiceResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_voice_consent
+
+> models::VoiceConsentResource create_voice_consent(name, recording, language)
+Create voice consent
+
+Upload a voice consent recording.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**name** | **String** | The label to use for this consent recording. | [required] |
+**recording** | **std::path::PathBuf** | The consent audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  | [required] |
+**language** | **String** | The BCP 47 language tag for the consent phrase (for example, `en-US`). | [required] |
+
+### Return type
+
+[**models::VoiceConsentResource**](VoiceConsentResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_voice_consent
+
+> models::VoiceConsentDeletedResource delete_voice_consent(consent_id)
+Delete voice consent
+
+Deletes a voice consent recording.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**consent_id** | **String** | The ID of the consent recording to delete. | [required] |
+
+### Return type
+
+[**models::VoiceConsentDeletedResource**](VoiceConsentDeletedResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_voice_consent
+
+> models::VoiceConsentResource get_voice_consent(consent_id)
+Retrieve voice consent
+
+Retrieves a voice consent recording.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**consent_id** | **String** | The ID of the consent recording to retrieve. | [required] |
+
+### Return type
+
+[**models::VoiceConsentResource**](VoiceConsentResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_voice_consents
+
+> models::VoiceConsentListResource list_voice_consents(after, limit)
+List voice consents
+
+Returns a list of voice consent recordings.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
+**limit** | Option<**i32**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
+
+### Return type
+
+[**models::VoiceConsentListResource**](VoiceConsentListResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_voice_consent
+
+> models::VoiceConsentResource update_voice_consent(consent_id, update_voice_consent_request)
+Update voice consent
+
+Updates a voice consent recording (metadata only).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**consent_id** | **String** | The ID of the consent recording to update. | [required] |
+**update_voice_consent_request** | [**UpdateVoiceConsentRequest**](UpdateVoiceConsentRequest.md) |  | [required] |
+
+### Return type
+
+[**models::VoiceConsentResource**](VoiceConsentResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

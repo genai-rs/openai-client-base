@@ -42,13 +42,6 @@ pub enum ConnectorId {
     ConnectorSharepoint,
 }
 
-/// The image generation model to use. Default: `gpt-image-1`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Model {
-    GptImage1,
-    GptImage1Mini,
-}
-
 /// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
