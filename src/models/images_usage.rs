@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ImagesUsage : For `gpt-image-1` only, the token usage information for the image generation.
+/// ImagesUsage : For the GPT image models only, the token usage information for the image generation.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImagesUsage {
     /// The total number of tokens (images and text) used for the image generation.
@@ -28,7 +28,7 @@ pub struct ImagesUsage {
 }
 
 impl ImagesUsage {
-    /// For `gpt-image-1` only, the token usage information for the image generation.
+    /// For the GPT image models only, the token usage information for the image generation.
     pub fn new(
         total_tokens: i32,
         input_tokens: i32,

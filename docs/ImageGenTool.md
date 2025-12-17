@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | The type of the image generation tool. Always `image_generation`.  | 
-**model** | Option<**String**> | The image generation model to use. Default: `gpt-image-1`.  | [optional]
+**model** | Option<**String**> | ID of the model to use | [optional]
 **quality** | Option<**String**> | The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.  | [optional]
 **size** | Option<**String**> | The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.  | [optional]
 **output_format** | Option<**String**> | The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.  | [optional]

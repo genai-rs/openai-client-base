@@ -38,6 +38,48 @@ pub enum CreateTranslationError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_voice`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateVoiceError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_voice_consent`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateVoiceConsentError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_voice_consent`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteVoiceConsentError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_voice_consent`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetVoiceConsentError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_voice_consents`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListVoiceConsentsError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_voice_consent`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateVoiceConsentError {
+    UnknownValue(serde_json::Value),
+}
+
 /// Generates audio from the input text.
 #[bon::builder]
 pub async fn create_speech(
@@ -281,6 +323,345 @@ pub async fn create_translation(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateTranslationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Creates a custom voice.
+#[bon::builder]
+pub async fn create_voice(
+    configuration: &configuration::Configuration,
+    name: &str,
+    audio_sample: std::path::PathBuf,
+    consent: &str,
+) -> Result<models::VoiceResource, Error<CreateVoiceError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_name = name;
+    let p_form_audio_sample = audio_sample;
+    let p_form_consent = consent;
+
+    let uri_str = format!("{}/audio/voices", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    multipart_form = multipart_form.text("name", p_form_name.to_string());
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_audio_sample, "audio_sample")?;
+    multipart_form = multipart_form.text("consent", p_form_consent.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVoiceError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Upload a voice consent recording.
+#[bon::builder]
+pub async fn create_voice_consent(
+    configuration: &configuration::Configuration,
+    name: &str,
+    recording: std::path::PathBuf,
+    language: &str,
+) -> Result<models::VoiceConsentResource, Error<CreateVoiceConsentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_name = name;
+    let p_form_recording = recording;
+    let p_form_language = language;
+
+    let uri_str = format!("{}/audio/voice_consents", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    multipart_form = multipart_form.text("name", p_form_name.to_string());
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_recording, "recording")?;
+    multipart_form = multipart_form.text("language", p_form_language.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceConsentResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceConsentResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVoiceConsentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Deletes a voice consent recording.
+#[bon::builder]
+pub async fn delete_voice_consent(
+    configuration: &configuration::Configuration,
+    consent_id: &str,
+) -> Result<models::VoiceConsentDeletedResource, Error<DeleteVoiceConsentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_consent_id = consent_id;
+
+    let uri_str = format!(
+        "{}/audio/voice_consents/{consent_id}",
+        configuration.base_path,
+        consent_id = crate::apis::urlencode(p_path_consent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceConsentDeletedResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceConsentDeletedResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteVoiceConsentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Retrieves a voice consent recording.
+#[bon::builder]
+pub async fn get_voice_consent(
+    configuration: &configuration::Configuration,
+    consent_id: &str,
+) -> Result<models::VoiceConsentResource, Error<GetVoiceConsentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_consent_id = consent_id;
+
+    let uri_str = format!(
+        "{}/audio/voice_consents/{consent_id}",
+        configuration.base_path,
+        consent_id = crate::apis::urlencode(p_path_consent_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceConsentResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceConsentResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetVoiceConsentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Returns a list of voice consent recordings.
+#[bon::builder]
+pub async fn list_voice_consents(
+    configuration: &configuration::Configuration,
+    after: Option<&str>,
+    limit: Option<i32>,
+) -> Result<models::VoiceConsentListResource, Error<ListVoiceConsentsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_after = after;
+    let p_query_limit = limit;
+
+    let uri_str = format!("{}/audio/voice_consents", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceConsentListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceConsentListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListVoiceConsentsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Updates a voice consent recording (metadata only).
+#[bon::builder]
+pub async fn update_voice_consent(
+    configuration: &configuration::Configuration,
+    consent_id: &str,
+    update_voice_consent_request: models::UpdateVoiceConsentRequest,
+) -> Result<models::VoiceConsentResource, Error<UpdateVoiceConsentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_consent_id = consent_id;
+    let p_body_update_voice_consent_request = update_voice_consent_request;
+
+    let uri_str = format!(
+        "{}/audio/voice_consents/{consent_id}",
+        configuration.base_path,
+        consent_id = crate::apis::urlencode(p_path_consent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_voice_consent_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceConsentResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceConsentResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateVoiceConsentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
