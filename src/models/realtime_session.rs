@@ -29,7 +29,7 @@ pub struct RealtimeSession {
     pub modalities: Option<Option<serde_json::Value>>,
     /// The Realtime model used for this session.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
-    pub model: Option<Model>,
+    pub model: Option<String>,
     /// The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. \"be extremely succinct\", \"act friendly\", \"here are examples of good responses\") and on audio behavior (e.g. \"talk quickly\", \"inject emotion into your voice\", \"laugh frequently\"). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior.   Note that the server sets default instructions which will be used if this field is not set and are visible in the `session.created` event at the start of the session.
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
@@ -147,40 +147,6 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::RealtimeSession
-    }
-}
-/// The Realtime model used for this session.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Model {
-    #[serde(rename = "gpt-realtime")]
-    GptRealtime,
-    #[serde(rename = "gpt-realtime-2025-08-28")]
-    GptRealtime20250828,
-    #[serde(rename = "gpt-4o-realtime-preview")]
-    Gpt4oRealtimePreview,
-    #[serde(rename = "gpt-4o-realtime-preview-2024-10-01")]
-    Gpt4oRealtimePreview20241001,
-    #[serde(rename = "gpt-4o-realtime-preview-2024-12-17")]
-    Gpt4oRealtimePreview20241217,
-    #[serde(rename = "gpt-4o-realtime-preview-2025-06-03")]
-    Gpt4oRealtimePreview20250603,
-    #[serde(rename = "gpt-4o-mini-realtime-preview")]
-    Gpt4oMiniRealtimePreview,
-    #[serde(rename = "gpt-4o-mini-realtime-preview-2024-12-17")]
-    Gpt4oMiniRealtimePreview20241217,
-    #[serde(rename = "gpt-realtime-mini")]
-    GptRealtimeMini,
-    #[serde(rename = "gpt-realtime-mini-2025-10-06")]
-    GptRealtimeMini20251006,
-    #[serde(rename = "gpt-audio-mini")]
-    GptAudioMini,
-    #[serde(rename = "gpt-audio-mini-2025-10-06")]
-    GptAudioMini20251006,
-}
-
-impl Default for Model {
-    fn default() -> Model {
-        Self::GptRealtime
     }
 }
 /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.

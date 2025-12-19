@@ -2522,6 +2522,8 @@ pub mod video_list_resource;
 pub use self::video_list_resource::VideoListResource;
 pub mod video_model;
 pub use self::video_model::VideoModel;
+pub mod video_model_text_variant_enum;
+pub use self::video_model_text_variant_enum::VideoModelTextVariantEnum;
 pub mod video_resource;
 pub use self::video_resource::VideoResource;
 pub mod video_seconds;
