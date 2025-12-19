@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// VideoResource : Structured information describing a generated video job.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VideoResource {
     /// Unique identifier for the video job.
     #[serde(rename = "id")]
@@ -21,7 +21,7 @@ pub struct VideoResource {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "model")]
-    pub model: models::VideoModel,
+    pub model: Box<models::VideoModel>,
     #[serde(rename = "status")]
     pub status: models::VideoStatus,
     /// Approximate completion percentage for the generation task.
@@ -73,7 +73,7 @@ impl VideoResource {
         VideoResource {
             id,
             object,
-            model,
+            model: Box::new(model),
             status,
             progress,
             created_at,

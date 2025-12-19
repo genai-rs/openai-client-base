@@ -31755,7 +31755,7 @@ paths:
             response: |
               {
                 "client_secret": "chatkit_token_123",
-                "expires_after": 1800,
+                "expires_at": 1735689600,
                 "workflow": {
                   "id": "workflow_alpha",
                   "version": "2024-10-01"
@@ -33140,16 +33140,19 @@ components:
       type: object
       properties:
         model:
-          type: string
           description: >
             The model to use for transcription. Current options are `whisper-1`, `gpt-4o-mini-transcribe`,
-            `gpt-4o-transcribe`, and `gpt-4o-transcribe-diarize`. Use `gpt-4o-transcribe-diarize` when you
-            need diarization with speaker labels.
-          enum:
-            - whisper-1
-            - gpt-4o-mini-transcribe
-            - gpt-4o-transcribe
-            - gpt-4o-transcribe-diarize
+            `gpt-4o-mini-transcribe-2025-12-15`, `gpt-4o-transcribe`, and `gpt-4o-transcribe-diarize`. Use
+            `gpt-4o-transcribe-diarize` when you need diarization with speaker labels.
+          anyOf:
+            - type: string
+            - type: string
+              enum:
+                - whisper-1
+                - gpt-4o-mini-transcribe
+                - gpt-4o-mini-transcribe-2025-12-15
+                - gpt-4o-transcribe
+                - gpt-4o-transcribe-diarize
         language:
           type: string
           description: |
@@ -39455,7 +39458,7 @@ components:
         model:
           description: >
             One of the available [TTS models](https://platform.openai.com/docs/models#tts): `tts-1`,
-            `tts-1-hd` or `gpt-4o-mini-tts`.
+            `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`.
           anyOf:
             - type: string
             - type: string
@@ -39463,6 +39466,7 @@ components:
                 - tts-1
                 - tts-1-hd
                 - gpt-4o-mini-tts
+                - gpt-4o-mini-tts-2025-12-15
               x-stainless-nominal: false
           x-oaiTypeLabel: string
         input:
@@ -39841,8 +39845,9 @@ components:
             exampleFilePath: speech.mp3
         model:
           description: >
-            ID of the model to use. The options are `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, `whisper-1`
-            (which is powered by our open source Whisper V2 model), and `gpt-4o-transcribe-diarize`.
+            ID of the model to use. The options are `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`,
+            `gpt-4o-mini-transcribe-2025-12-15`, `whisper-1` (which is powered by our open source Whisper V2
+            model), and `gpt-4o-transcribe-diarize`.
           example: gpt-4o-transcribe
           anyOf:
             - type: string
@@ -39851,6 +39856,7 @@ components:
                 - whisper-1
                 - gpt-4o-transcribe
                 - gpt-4o-mini-transcribe
+                - gpt-4o-mini-transcribe-2025-12-15
                 - gpt-4o-transcribe-diarize
               x-stainless-const: true
               x-stainless-nominal: false
@@ -39887,8 +39893,8 @@ components:
 
             `logprobs` only works with response_format set to `json` and only with
 
-            the models `gpt-4o-transcribe` and `gpt-4o-mini-transcribe`. This field is not supported when
-            using `gpt-4o-transcribe-diarize`.
+            the models `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, and `gpt-4o-mini-transcribe-2025-12-15`.
+            This field is not supported when using `gpt-4o-transcribe-diarize`.
           type: array
           items:
             $ref: '#/components/schemas/TranscriptionInclude'
@@ -54816,22 +54822,26 @@ components:
               - text
               - audio
         model:
-          type: string
           description: |
             The Realtime model used for this session.
-          enum:
-            - gpt-realtime
-            - gpt-realtime-2025-08-28
-            - gpt-4o-realtime-preview
-            - gpt-4o-realtime-preview-2024-10-01
-            - gpt-4o-realtime-preview-2024-12-17
-            - gpt-4o-realtime-preview-2025-06-03
-            - gpt-4o-mini-realtime-preview
-            - gpt-4o-mini-realtime-preview-2024-12-17
-            - gpt-realtime-mini
-            - gpt-realtime-mini-2025-10-06
-            - gpt-audio-mini
-            - gpt-audio-mini-2025-10-06
+          anyOf:
+            - type: string
+            - type: string
+              enum:
+                - gpt-realtime
+                - gpt-realtime-2025-08-28
+                - gpt-4o-realtime-preview
+                - gpt-4o-realtime-preview-2024-10-01
+                - gpt-4o-realtime-preview-2024-12-17
+                - gpt-4o-realtime-preview-2025-06-03
+                - gpt-4o-mini-realtime-preview
+                - gpt-4o-mini-realtime-preview-2024-12-17
+                - gpt-realtime-mini
+                - gpt-realtime-mini-2025-10-06
+                - gpt-realtime-mini-2025-12-15
+                - gpt-audio-mini
+                - gpt-audio-mini-2025-10-06
+                - gpt-audio-mini-2025-12-15
         instructions:
           type: string
           description: |
@@ -55268,8 +55278,10 @@ components:
                 - gpt-4o-mini-realtime-preview-2024-12-17
                 - gpt-realtime-mini
                 - gpt-realtime-mini-2025-10-06
+                - gpt-realtime-mini-2025-12-15
                 - gpt-audio-mini
                 - gpt-audio-mini-2025-10-06
+                - gpt-audio-mini-2025-12-15
               x-stainless-nominal: false
           description: |
             The Realtime model used for this session.
@@ -55723,8 +55735,10 @@ components:
                 - gpt-4o-mini-realtime-preview-2024-12-17
                 - gpt-realtime-mini
                 - gpt-realtime-mini-2025-10-06
+                - gpt-realtime-mini-2025-12-15
                 - gpt-audio-mini
                 - gpt-audio-mini-2025-10-06
+                - gpt-audio-mini-2025-12-15
           description: |
             The Realtime model used for this session.
         instructions:
@@ -66808,13 +66822,15 @@ components:
         - asc
         - desc
     VideoModel:
-      type: string
-      enum:
-        - sora-2
-        - sora-2-pro
-        - sora-2-2025-10-06
-        - sora-2-pro-2025-10-06
-        - sora-2-2025-12-08
+      anyOf:
+        - type: string
+        - type: string
+          enum:
+            - sora-2
+            - sora-2-pro
+            - sora-2-2025-10-06
+            - sora-2-pro-2025-10-06
+            - sora-2-2025-12-08
     VideoStatus:
       type: string
       enum:
