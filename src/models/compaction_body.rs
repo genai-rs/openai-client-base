@@ -20,8 +20,10 @@ pub struct CompactionBody {
     /// The unique ID of the compaction item.
     #[serde(rename = "id")]
     pub id: String,
+    /// The encrypted content that was produced by compaction.
     #[serde(rename = "encrypted_content")]
     pub encrypted_content: String,
+    /// The identifier of the actor that created the item.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
 }

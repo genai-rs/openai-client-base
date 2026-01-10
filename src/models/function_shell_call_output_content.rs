@@ -11,21 +11,24 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FunctionShellCallOutputContent : The content of a shell call output.
+/// FunctionShellCallOutputContent : The content of a shell tool call output that was emitted.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionShellCallOutputContent {
+    /// The standard output that was captured.
     #[serde(rename = "stdout")]
     pub stdout: String,
+    /// The standard error output that was captured.
     #[serde(rename = "stderr")]
     pub stderr: String,
     #[serde(rename = "outcome")]
     pub outcome: Box<models::ShellCallOutcome>,
+    /// The identifier of the actor that created the item.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
 }
 
 impl FunctionShellCallOutputContent {
-    /// The content of a shell call output.
+    /// The content of a shell tool call output that was emitted.
     pub fn new(
         stdout: String,
         stderr: String,

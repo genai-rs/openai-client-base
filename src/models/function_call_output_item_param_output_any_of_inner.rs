@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// FunctionCallOutputItemParamOutputAnyOfInner : A piece of message content, such as text, an image, or a file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum FunctionCallOutputItemParamOutputAnyOfInner {}

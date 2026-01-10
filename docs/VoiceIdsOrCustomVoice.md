@@ -1,11 +1,10 @@
-# Error2
+# VoiceIdsOrCustomVoice
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**code** | **String** | A machine-readable error code that was returned. | 
-**message** | **String** | A human-readable description of the error that was returned. | 
+**id** | **String** | The custom voice ID, e.g. `voice_1234`. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
