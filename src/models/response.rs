@@ -96,6 +96,14 @@ pub struct Response {
     /// Unix timestamp (in seconds) of when this Response was created.
     #[serde(rename = "created_at")]
     pub created_at: f64,
+    /// Unix timestamp (in seconds) of when this Response was completed. Only present when the status is `completed`.
+    #[serde(
+        rename = "completed_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub completed_at: Option<Option<f64>>,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<Box<models::ResponseError>>,
     #[serde(
@@ -167,6 +175,7 @@ impl Response {
             object,
             status: None,
             created_at,
+            completed_at: None,
             error: error.map(Box::new),
             incomplete_details: incomplete_details.map(Box::new),
             output,

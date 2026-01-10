@@ -11,15 +11,19 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// Error2 : An error that occurred while generating the response.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Error2 {
+    /// A machine-readable error code that was returned.
     #[serde(rename = "code")]
     pub code: String,
+    /// A human-readable description of the error that was returned.
     #[serde(rename = "message")]
     pub message: String,
 }
 
 impl Error2 {
+    /// An error that occurred while generating the response.
     pub fn new(code: String, message: String) -> Error2 {
         Error2 { code, message }
     }

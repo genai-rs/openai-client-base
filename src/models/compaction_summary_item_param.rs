@@ -25,6 +25,7 @@ pub struct CompactionSummaryItemParam {
     /// The type of the item. Always `compaction`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// The encrypted content of the compaction summary.
     #[serde(rename = "encrypted_content")]
     pub encrypted_content: String,
 }

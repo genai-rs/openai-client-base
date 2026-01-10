@@ -11,22 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Conversation2 : The conversation that this response belonged to. Input items and output items from this response were automatically added to this conversation.
+/// VoiceIdsOrCustomVoiceAnyOf : Custom voice reference.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Conversation2 {
-    /// The unique ID of the conversation that this response was associated with.
+pub struct VoiceIdsOrCustomVoiceAnyOf {
+    /// The custom voice ID, e.g. `voice_1234`.
     #[serde(rename = "id")]
     pub id: String,
 }
 
-impl Conversation2 {
-    /// The conversation that this response belonged to. Input items and output items from this response were automatically added to this conversation.
-    pub fn new(id: String) -> Conversation2 {
-        Conversation2 { id }
+impl VoiceIdsOrCustomVoiceAnyOf {
+    /// Custom voice reference.
+    pub fn new(id: String) -> VoiceIdsOrCustomVoiceAnyOf {
+        VoiceIdsOrCustomVoiceAnyOf { id }
     }
 }
 
-impl std::fmt::Display for Conversation2 {
+impl std::fmt::Display for VoiceIdsOrCustomVoiceAnyOf {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

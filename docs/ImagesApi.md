@@ -45,7 +45,7 @@ Name | Type | Description  | Required | Notes
 > models::ImagesResponse create_image_edit(image, prompt, mask, background, model, n, size, response_format, output_format, output_compression, user, input_fidelity, stream, partial_images, quality)
 Create image edit
 
-Creates an edited or extended image given one or more source images and a prompt. This endpoint only supports `gpt-image-1` and `dall-e-2`.
+Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, and `gpt-image-1-mini`) and `dall-e-2`.
 
 ### Parameters
 
