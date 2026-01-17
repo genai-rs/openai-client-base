@@ -35,6 +35,10 @@ else
     bash "$SCRIPT_DIR/fetch_spec.sh"
 fi
 
+# Step 1b: Backfill missing schemas referenced by the spec
+echo "  Backfilling missing schemas in base spec..."
+uv run --with pyyaml python "$SCRIPT_DIR/patch_missing_schemas.py" "$SPEC_IN" "$SCRIPT_DIR/spec_overrides/missing_schemas.yaml"
+
 # Step 2: Apply patching pipeline
 echo ""
 echo "🔧 Applying spec patches..."
@@ -63,6 +67,10 @@ uv run --with pyyaml python "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_IN" "$SPEC_
 # Layer 2: Apply Rust compatibility patches
 echo "  Layer 2: Applying Rust compatibility patches..."
 uv run --with pyyaml python "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL_FIXED" "$SPEC_OUT"
+
+# Layer 2b: Restore missing schemas that are still referenced by the spec
+echo "  Layer 2b: Backfilling missing schemas..."
+uv run --with pyyaml python "$SCRIPT_DIR/patch_missing_schemas.py" "$SPEC_OUT" "$SCRIPT_DIR/spec_overrides/missing_schemas.yaml"
 
 # Step 3: Generate Rust client
 echo ""
