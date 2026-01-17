@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ChunkingStrategyRequestParam : The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy. Only applicable if `file_ids` is non-empty.
+/// ChunkingStrategyRequestParam : The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ChunkingStrategyRequestParam {
