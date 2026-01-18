@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunStepDeltaObject : Represents a run step delta i.e. any changed fields on a run step during streaming.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDeltaObject {
     /// The identifier of the run step, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -20,22 +20,15 @@ pub struct RunStepDeltaObject {
     /// The object type, which is always `thread.run.step.delta`.
     #[serde(rename = "object")]
     pub object: Object,
+    /// Upstream schema 'RunStepDeltaObjectDelta' was referenced but not defined; replaced with free-form object to avoid backfilling local definitions.
     #[serde(rename = "delta")]
-    pub delta: Box<models::RunStepDeltaObjectDelta>,
+    pub delta: serde_json::Value,
 }
 
 impl RunStepDeltaObject {
     /// Represents a run step delta i.e. any changed fields on a run step during streaming.
-    pub fn new(
-        id: String,
-        object: Object,
-        delta: models::RunStepDeltaObjectDelta,
-    ) -> RunStepDeltaObject {
-        RunStepDeltaObject {
-            id,
-            object,
-            delta: Box::new(delta),
-        }
+    pub fn new(id: String, object: Object, delta: serde_json::Value) -> RunStepDeltaObject {
+        RunStepDeltaObject { id, object, delta }
     }
 }
 /// The object type, which is always `thread.run.step.delta`.

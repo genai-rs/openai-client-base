@@ -17,7 +17,7 @@ pub struct BatchErrors {
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<String>,
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
-    pub data: Option<Vec<models::BatchError>>,
+    pub data: Option<Vec<serde_json::Value>>,
 }
 
 impl BatchErrors {

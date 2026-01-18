@@ -57,7 +57,7 @@ pub enum RetrieveFileError {
 pub async fn create_file(
     configuration: &configuration::Configuration,
     file: std::path::PathBuf,
-    purpose: models::FilePurpose,
+    purpose: serde_json::Value,
     expires_after: Option<models::FileExpirationAfter>,
 ) -> Result<models::OpenAiFile, Error<CreateFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **completed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the message was completed. | 
 **incomplete_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the message was marked as incomplete. | 
 **role** | **String** | The entity that produced the message. One of `user` or `assistant`. | 
-**content** | [**Vec<models::MessageContent>**](MessageContent.md) | The content of the message in array of text and/or images. | 
+**content** | [**Vec<serde_json::Value>**](serde_json::Value.md) | The content of the message in array of text and/or images. | 
 **assistant_id** | Option<**String**> | If applicable, the ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) that authored this message. | 
 **run_id** | Option<**String**> | The ID of the [run](https://platform.openai.com/docs/api-reference/runs) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints. | 
 **attachments** | Option<[**Vec<models::MessageObjectAttachmentsInner>**](MessageObject_attachments_inner.md)> | A list of files attached to the message, and the tools they were added to. | 

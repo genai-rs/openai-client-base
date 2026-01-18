@@ -19,7 +19,7 @@ pub struct MessageDeltaObjectDelta {
     pub role: Option<Role>,
     /// The content of the message in array of text and/or images.
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
-    pub content: Option<Vec<models::MessageContentDelta>>,
+    pub content: Option<Vec<serde_json::Value>>,
 }
 
 impl MessageDeltaObjectDelta {

@@ -11,37 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Summary : A summary text from the model.
+/// AutoChunkingStrategy1 : The default strategy. This strategy currently uses a `max_chunk_size_tokens` of `800` and `chunk_overlap_tokens` of `400`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Summary {
-    /// The type of the object. Always `summary_text`.
+pub struct AutoChunkingStrategy1 {
+    /// Always `auto`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// A summary of the reasoning output from the model so far.
-    #[serde(rename = "text")]
-    pub text: String,
 }
 
-impl Summary {
-    /// A summary text from the model.
-    pub fn new(r#type: Type, text: String) -> Summary {
-        Summary { r#type, text }
+impl AutoChunkingStrategy1 {
+    /// The default strategy. This strategy currently uses a `max_chunk_size_tokens` of `800` and `chunk_overlap_tokens` of `400`.
+    pub fn new(r#type: Type) -> AutoChunkingStrategy1 {
+        AutoChunkingStrategy1 { r#type }
     }
 }
-/// The type of the object. Always `summary_text`.
+/// Always `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "summary_text")]
-    SummaryText,
+    #[serde(rename = "auto")]
+    Auto,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::SummaryText
+        Self::Auto
     }
 }
 
-impl std::fmt::Display for Summary {
+impl std::fmt::Display for AutoChunkingStrategy1 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

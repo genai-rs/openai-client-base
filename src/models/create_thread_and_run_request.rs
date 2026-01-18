@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateThreadAndRunRequest {
     /// The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run.
-    #[serde(rename = "assistant_id", skip_serializing_if = "Option::is_none")]
-    pub assistant_id: Option<String>,
+    #[serde(rename = "assistant_id")]
+    pub assistant_id: String,
     #[serde(rename = "thread", skip_serializing_if = "Option::is_none")]
     pub thread: Option<models::CreateThreadRequest>,
     /// The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
@@ -26,7 +26,7 @@ pub struct CreateThreadAndRunRequest {
     pub instructions: Option<String>,
     /// Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<models::AssistantTool>>,
+    pub tools: Option<Vec<serde_json::Value>>,
     #[serde(rename = "tool_resources", skip_serializing_if = "Option::is_none")]
     pub tool_resources: Option<Box<models::CreateThreadAndRunRequestToolResources>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
@@ -73,9 +73,9 @@ pub struct CreateThreadAndRunRequest {
 }
 
 impl CreateThreadAndRunRequest {
-    pub fn new() -> CreateThreadAndRunRequest {
+    pub fn new(assistant_id: String) -> CreateThreadAndRunRequest {
         CreateThreadAndRunRequest {
-            assistant_id: None,
+            assistant_id,
             thread: None,
             model: None,
             instructions: None,
