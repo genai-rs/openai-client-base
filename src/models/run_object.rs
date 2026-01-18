@@ -29,8 +29,9 @@ pub struct RunObject {
     /// The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for execution of this run.
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
+    /// Upstream schema 'RunStatus' was referenced but not defined; replaced with free-form object to avoid backfilling local definitions.
     #[serde(rename = "status")]
-    pub status: models::RunStatus,
+    pub status: serde_json::Value,
     #[serde(rename = "required_action")]
     pub required_action: Option<Box<models::RunObjectRequiredAction>>,
     #[serde(rename = "last_error")]
@@ -60,7 +61,7 @@ pub struct RunObject {
     pub instructions: String,
     /// The list of tools that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
     #[serde(rename = "tools")]
-    pub tools: Vec<models::AssistantTool>,
+    pub tools: Vec<serde_json::Value>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -97,7 +98,7 @@ impl RunObject {
         created_at: i32,
         thread_id: String,
         assistant_id: String,
-        status: models::RunStatus,
+        status: serde_json::Value,
         required_action: Option<models::RunObjectRequiredAction>,
         last_error: Option<models::RunObjectLastError>,
         expires_at: i32,
@@ -108,7 +109,7 @@ impl RunObject {
         incomplete_details: Option<models::RunObjectIncompleteDetails>,
         model: String,
         instructions: String,
-        tools: Vec<models::AssistantTool>,
+        tools: Vec<serde_json::Value>,
         metadata: Option<std::collections::HashMap<String, String>>,
         usage: Option<models::RunCompletionUsage>,
         max_prompt_tokens: i32,

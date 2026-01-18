@@ -37,7 +37,7 @@ pub struct AssistantObject {
     pub instructions: Option<String>,
     /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
     #[serde(rename = "tools")]
-    pub tools: Vec<models::AssistantTool>,
+    pub tools: Vec<serde_json::Value>,
     #[serde(
         rename = "tool_resources",
         default,
@@ -83,7 +83,7 @@ impl AssistantObject {
         description: Option<String>,
         model: String,
         instructions: Option<String>,
-        tools: Vec<models::AssistantTool>,
+        tools: Vec<serde_json::Value>,
         metadata: Option<std::collections::HashMap<String, String>>,
     ) -> AssistantObject {
         AssistantObject {

@@ -35,10 +35,6 @@ else
     bash "$SCRIPT_DIR/fetch_spec.sh"
 fi
 
-# Step 1b: Backfill missing schemas referenced by the spec
-echo "  Backfilling missing schemas in base spec..."
-uv run --with pyyaml python "$SCRIPT_DIR/patch_missing_schemas.py" "$SPEC_IN" "$SCRIPT_DIR/spec_overrides/missing_schemas.yaml"
-
 # Step 2: Apply patching pipeline
 echo ""
 echo "🔧 Applying spec patches..."
@@ -67,10 +63,9 @@ uv run --with pyyaml python "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_IN" "$SPEC_
 # Layer 2: Apply Rust compatibility patches
 echo "  Layer 2: Applying Rust compatibility patches..."
 uv run --with pyyaml python "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL_FIXED" "$SPEC_OUT"
-
-# Layer 2b: Restore missing schemas that are still referenced by the spec
-echo "  Layer 2b: Backfilling missing schemas..."
-uv run --with pyyaml python "$SCRIPT_DIR/patch_missing_schemas.py" "$SPEC_OUT" "$SCRIPT_DIR/spec_overrides/missing_schemas.yaml"
+# Layer 2b: Replace references to missing schemas with free-form objects (no backfills)
+echo "  Layer 2b: Replacing missing schema references with free-form objects..."
+uv run --with pyyaml python "$SCRIPT_DIR/replace_missing_schema_refs.py" "$SPEC_OUT"
 
 # Step 3: Generate Rust client
 echo ""
@@ -202,6 +197,22 @@ echo ""
 echo "🔧 Fixing Default trait issues..."
 if [ -f "$SCRIPT_DIR/fix_default_issues.py" ]; then
     uv run python scripts/fix_default_issues.py "$PROJECT_ROOT"
+fi
+
+# Step 9b: Normalize placeholder Value paths after missing-schema replacements
+echo ""
+echo "🔧 Normalizing placeholder Value paths..."
+FILES_WITH_SERDE_JSON=$(rg -l "models::serde_json::Value" src || true)
+if [ -n "$FILES_WITH_SERDE_JSON" ]; then
+    echo "$FILES_WITH_SERDE_JSON" | while read -r file; do
+        python3 - "$file" <<'PY'
+import sys, pathlib
+path = pathlib.Path(sys.argv[1])
+text = path.read_text()
+text = text.replace("models::serde_json::Value", "serde_json::Value")
+path.write_text(text)
+PY
+    done
 fi
 
 # Re-run general code fixes to ensure Display/Default adjustments are present

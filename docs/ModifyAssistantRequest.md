@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **name** | Option<**String**> | The name of the assistant. The maximum length is 256 characters.  | [optional]
 **description** | Option<**String**> | The description of the assistant. The maximum length is 512 characters.  | [optional]
 **instructions** | Option<**String**> | The system instructions that the assistant uses. The maximum length is 256,000 characters.  | [optional]
-**tools** | Option<[**Vec<models::AssistantTool>**](AssistantTool.md)> | A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.  | [optional]
+**tools** | Option<[**Vec<serde_json::Value>**](serde_json::Value.md)> | A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.  | [optional]
 **tool_resources** | Option<[**models::ModifyAssistantRequestToolResources**](ModifyAssistantRequest_tool_resources.md)> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
 **temperature** | Option<**f64**> | What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.  | [optional]

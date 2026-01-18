@@ -19,7 +19,7 @@ pub struct CreateThreadRequestToolResourcesAnyOfFileSearch {
     /// A helper to create a [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) with file_ids and attach it to this thread. There can be a maximum of 1 vector store attached to the thread.
     #[serde(rename = "vector_stores", skip_serializing_if = "Option::is_none")]
     pub vector_stores:
-        Option<Vec<models::CreateAssistantRequestToolResourcesAnyOfFileSearchVectorStoresInner>>,
+        Option<Vec<models::CreateThreadRequestToolResourcesAnyOfFileSearchVectorStoresInner>>,
 }
 
 impl CreateThreadRequestToolResourcesAnyOfFileSearch {

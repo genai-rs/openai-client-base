@@ -19,15 +19,12 @@ pub struct RunStepDetailsToolCallsObject {
     pub r#type: Type,
     /// An array of tool calls the run step was involved in. These can be associated with one of three types of tools: `code_interpreter`, `file_search`, or `function`.
     #[serde(rename = "tool_calls")]
-    pub tool_calls: Vec<models::RunStepDetailsToolCall>,
+    pub tool_calls: Vec<serde_json::Value>,
 }
 
 impl RunStepDetailsToolCallsObject {
     /// Details of the tool call.
-    pub fn new(
-        r#type: Type,
-        tool_calls: Vec<models::RunStepDetailsToolCall>,
-    ) -> RunStepDetailsToolCallsObject {
+    pub fn new(r#type: Type, tool_calls: Vec<serde_json::Value>) -> RunStepDetailsToolCallsObject {
         RunStepDetailsToolCallsObject { r#type, tool_calls }
     }
 }

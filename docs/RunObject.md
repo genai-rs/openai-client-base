@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the run was created. | 
 **thread_id** | **String** | The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was executed on as a part of this run. | 
 **assistant_id** | **String** | The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for execution of this run. | 
-**status** | [**models::RunStatus**](RunStatus.md) |  | 
+**status** | [**serde_json::Value**](.md) | Upstream schema 'RunStatus' was referenced but not defined; replaced with free-form object to avoid backfilling local definitions. | 
 **required_action** | [**models::RunObjectRequiredAction**](RunObject_required_action.md) |  | 
 **last_error** | [**models::RunObjectLastError**](RunObject_last_error.md) |  | 
 **expires_at** | **i32** | The Unix timestamp (in seconds) for when the run will expire. | 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **incomplete_details** | [**models::RunObjectIncompleteDetails**](RunObject_incomplete_details.md) |  | 
 **model** | **String** | The model that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run. | 
 **instructions** | **String** | The instructions that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run. | 
-**tools** | [**Vec<models::AssistantTool>**](AssistantTool.md) | The list of tools that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run. | 
+**tools** | [**Vec<serde_json::Value>**](serde_json::Value.md) | The list of tools that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run. | 
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | 
 **usage** | Option<[**models::RunCompletionUsage**](RunCompletionUsage.md)> |  | 
 **temperature** | Option<**f64**> | The sampling temperature used for this run. If not set, defaults to 1. | [optional]
