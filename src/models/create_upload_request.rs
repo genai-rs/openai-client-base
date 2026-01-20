@@ -22,7 +22,7 @@ pub struct CreateUploadRequest {
     /// The number of bytes in the file you are uploading.
     #[serde(rename = "bytes")]
     pub bytes: i32,
-    /// The MIME type of the file.  This must fall within the supported MIME types for your file purpose. See the supported MIME types for assistants and vision.
+    /// The MIME type of the file.   This must fall within the supported MIME types for your file purpose. See the supported MIME types for assistants and vision.
     #[serde(rename = "mime_type")]
     pub mime_type: String,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
