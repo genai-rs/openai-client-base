@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancel_batch**](BatchApi.md#cancel_batch) | **POST** /batches/{batch_id}/cancel | Cancel batch
 [**create_batch**](BatchApi.md#create_batch) | **POST** /batches | Create batch
-[**list_batches**](BatchApi.md#list_batches) | **GET** /batches | List batch
+[**list_batches**](BatchApi.md#list_batches) | **GET** /batches | List batches
 [**retrieve_batch**](BatchApi.md#retrieve_batch) | **GET** /batches/{batch_id} | Retrieve batch
 
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Required | Notes
 ## list_batches
 
 > models::ListBatchesResponse list_batches(after, limit)
-List batch
+List batches
 
 List your organization's batches.
 

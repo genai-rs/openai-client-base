@@ -2403,7 +2403,7 @@ paths:
       operationId: listBatches
       tags:
         - Batch
-      summary: List batch
+      summary: List batches
       parameters:
         - in: query
           name: after
@@ -2431,7 +2431,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ListBatchesResponse'
       x-oaiMeta:
-        name: List batch
+        name: List batches
         group: batch
         returns: A list of paginated [Batch](https://platform.openai.com/docs/api-reference/batch/object) objects.
         examples:
@@ -27672,6 +27672,9 @@ paths:
 
           Learn when and how to compact long-running conversations in the [conversation state
           guide](https://platform.openai.com/docs/guides/conversation-state#managing-the-context-window).
+
+          For ZDR-compatible compaction details, see [Compaction
+          (advanced)](https://platform.openai.com/docs/guides/conversation-state#compaction-advanced).
         examples:
           response: |
             {
@@ -36410,9 +36413,8 @@ components:
             The name of the file to upload.
           type: string
         purpose:
-          description: >
+          description: |
             The intended purpose of the uploaded file.
-
 
             See the [documentation on File
             purposes](https://platform.openai.com/docs/api-reference/files/create#files-create-purpose).
@@ -36427,12 +36429,12 @@ components:
             The number of bytes in the file you are uploading.
           type: integer
         mime_type:
-          description: >
+          description: |
             The MIME type of the file.
 
 
-            This must fall within the supported MIME types for your file purpose. See the supported MIME types
-            for assistants and vision.
+            This must fall within the supported MIME types for your file purpose. See
+            the supported MIME types for assistants and vision.
           type: string
         expires_after:
           $ref: '#/components/schemas/FileExpirationAfter'
@@ -47097,12 +47099,16 @@ components:
           const: conversation.item.create
         previous_item_id:
           type: string
-          description: |
-            The ID of the preceding item after which the new item will be inserted. 
-            If not set, the new item will be appended to the end of the conversation.
+          description: >
+            The ID of the preceding item after which the new item will be inserted. If not set, the new item
+            will be appended to the end of the conversation.
+
+
             If set to `root`, the new item will be added to the beginning of the conversation.
-            If set to an existing ID, it allows an item to be inserted mid-conversation. If the
-            ID cannot be found, an error will be returned and the item will not be added.
+
+
+            If set to an existing ID, it allows an item to be inserted mid-conversation. If the ID cannot be
+            found, an error will be returned and the item will not be added.
         item:
           $ref: '#/components/schemas/RealtimeConversationItem'
       required:
@@ -47123,8 +47129,7 @@ components:
                   "text": "hi"
                 }
               ]
-            },
-            "event_id": "b904fba0-0ec4-40af-8bbb-f908a9b26793",
+            }
           }
     RealtimeClientEventConversationItemDelete:
       type: object
@@ -47403,8 +47408,8 @@ components:
         group: realtime
         example: |
           {
-              "type": "response.cancel"
-              "response_id": "resp_12345",
+              "type": "response.cancel",
+              "response_id": "resp_12345"
           }
     RealtimeClientEventResponseCreate:
       type: object
@@ -47470,7 +47475,7 @@ components:
               "input": [
                 {
                   "type": "item_reference",
-                  "id": "item_12345",
+                  "id": "item_12345"
                 },
                 {
                   "type": "message",
@@ -47482,7 +47487,7 @@ components:
                     }
                   ]
                 }
-              ],
+              ]
             }
           }
     RealtimeClientEventSessionUpdate:

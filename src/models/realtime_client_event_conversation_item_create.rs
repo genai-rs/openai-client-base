@@ -19,7 +19,7 @@ pub struct RealtimeClientEventConversationItemCreate {
     pub event_id: Option<String>,
     #[serde(rename = "type", deserialize_with = "Option::deserialize")]
     pub r#type: Option<serde_json::Value>,
-    /// The ID of the preceding item after which the new item will be inserted.  If not set, the new item will be appended to the end of the conversation. If set to `root`, the new item will be added to the beginning of the conversation. If set to an existing ID, it allows an item to be inserted mid-conversation. If the ID cannot be found, an error will be returned and the item will not be added.
+    /// The ID of the preceding item after which the new item will be inserted. If not set, the new item will be appended to the end of the conversation.  If set to `root`, the new item will be added to the beginning of the conversation.  If set to an existing ID, it allows an item to be inserted mid-conversation. If the ID cannot be found, an error will be returned and the item will not be added.
     #[serde(rename = "previous_item_id", skip_serializing_if = "Option::is_none")]
     pub previous_item_id: Option<String>,
     #[serde(rename = "item")]
