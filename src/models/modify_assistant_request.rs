@@ -49,7 +49,7 @@ pub struct ModifyAssistantRequest {
     pub instructions: Option<Option<String>>,
     /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<serde_json::Value>>,
+    pub tools: Option<Vec<models::AssistantTool>>,
     #[serde(
         rename = "tool_resources",
         default,

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **description** | Option<[**models::CreateAssistantRequestDescription**](CreateAssistantRequest_description.md)> |  | [optional]
 **instructions** | Option<[**models::CreateAssistantRequestInstructions**](CreateAssistantRequest_instructions.md)> |  | [optional]
 **reasoning_effort** | Option<[**models::ReasoningEffort**](ReasoningEffort.md)> |  | [optional]
-**tools** | Option<[**Vec<serde_json::Value>**](serde_json::Value.md)> | A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.  | [optional]
+**tools** | Option<[**Vec<models::AssistantTool>**](AssistantTool.md)> | A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.  | [optional]
 **tool_resources** | Option<[**models::CreateAssistantRequestToolResources**](CreateAssistantRequest_tool_resources.md)> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
 **temperature** | Option<[**models::CreateAssistantRequestTemperature**](CreateAssistantRequest_temperature.md)> |  | [optional]

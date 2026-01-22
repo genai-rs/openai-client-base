@@ -1,4 +1,4 @@
-# CreateThreadRequestToolResourcesAnyOfFileSearchVectorStoresInnerChunkingStrategy
+# TextAnnotation
 
 ## Enum Variants
 

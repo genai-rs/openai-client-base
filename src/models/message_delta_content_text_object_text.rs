@@ -17,7 +17,7 @@ pub struct MessageDeltaContentTextObjectText {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
     #[serde(rename = "annotations", skip_serializing_if = "Option::is_none")]
-    pub annotations: Option<Vec<serde_json::Value>>,
+    pub annotations: Option<Vec<models::TextAnnotationDelta>>,
 }
 
 impl MessageDeltaContentTextObjectText {

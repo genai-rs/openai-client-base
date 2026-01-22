@@ -11,34 +11,42 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// AutoChunkingStrategy1 : The default strategy. This strategy currently uses a `max_chunk_size_tokens` of `800` and `chunk_overlap_tokens` of `400`.
+/// ModerationImageUrlInput : An object describing an image to classify.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct AutoChunkingStrategy1 {
-    /// Always `auto`.
+pub struct ModerationImageUrlInput {
+    /// Always `image_url`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    #[serde(rename = "image_url")]
+    pub image_url: Box<models::ModerationImageUrlInputImageUrl>,
 }
 
-impl AutoChunkingStrategy1 {
-    /// The default strategy. This strategy currently uses a `max_chunk_size_tokens` of `800` and `chunk_overlap_tokens` of `400`.
-    pub fn new(r#type: Type) -> AutoChunkingStrategy1 {
-        AutoChunkingStrategy1 { r#type }
+impl ModerationImageUrlInput {
+    /// An object describing an image to classify.
+    pub fn new(
+        r#type: Type,
+        image_url: models::ModerationImageUrlInputImageUrl,
+    ) -> ModerationImageUrlInput {
+        ModerationImageUrlInput {
+            r#type,
+            image_url: Box::new(image_url),
+        }
     }
 }
-/// Always `auto`.
+/// Always `image_url`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "auto")]
-    Auto,
+    #[serde(rename = "image_url")]
+    ImageUrl,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Auto
+        Self::ImageUrl
     }
 }
 
-impl std::fmt::Display for AutoChunkingStrategy1 {
+impl std::fmt::Display for ModerationImageUrlInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

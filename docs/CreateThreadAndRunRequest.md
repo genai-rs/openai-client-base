@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**assistant_id** | **String** | The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run. | 
+**assistant_id** | Option<**String**> | The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run. | [optional]
 **thread** | Option<[**models::CreateThreadRequest**](CreateThreadRequest.md)> |  | [optional]
 **model** | Option<**String**> | The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used. | [optional]
 **instructions** | Option<**String**> | Override the default system message of the assistant. This is useful for modifying the behavior on a per-run basis. | [optional]
-**tools** | Option<[**Vec<serde_json::Value>**](serde_json::Value.md)> | Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis. | [optional]
+**tools** | Option<[**Vec<models::AssistantTool>**](AssistantTool.md)> | Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis. | [optional]
 **tool_resources** | Option<[**models::CreateThreadAndRunRequestToolResources**](CreateThreadAndRunRequest_tool_resources.md)> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
 **temperature** | Option<**f64**> | What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.  | [optional]

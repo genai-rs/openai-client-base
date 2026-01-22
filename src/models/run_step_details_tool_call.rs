@@ -11,7 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateThreadRequestToolResourcesAnyOfFileSearchVectorStoresInnerChunkingStrategy : The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum CreateThreadRequestToolResourcesAnyOfFileSearchVectorStoresInnerChunkingStrategy {}
+#[serde(untagged)]
+pub enum RunStepDetailsToolCall {
+    SCodeObject(Box<models::RunStepDetailsToolCallsCodeObject>),
+    SFileSearchObject(Box<models::RunStepDetailsToolCallsFileSearchObject>),
+    SFunctionObject(Box<models::RunStepDetailsToolCallsFunctionObject>),
+}

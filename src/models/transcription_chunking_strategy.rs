@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 pub enum TranscriptionChunkingStrategy {
     TextVariant(TranscriptionChunkingStrategyTextVariantEnum),
     Vadconfig(models::VadConfig),
+    Null,
 }
 
 impl std::fmt::Display for TranscriptionChunkingStrategy {
@@ -17,6 +18,7 @@ impl std::fmt::Display for TranscriptionChunkingStrategy {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            TranscriptionChunkingStrategy::Null => write!(f, "null"),
         }
     }
 }
