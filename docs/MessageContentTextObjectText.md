@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **value** | **String** | The data that makes up the text. | 
-**annotations** | [**Vec<serde_json::Value>**](serde_json::Value.md) |  | 
+**annotations** | [**Vec<models::TextAnnotation>**](TextAnnotation.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

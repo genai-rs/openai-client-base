@@ -25,7 +25,7 @@ Upload a file that can be used across various endpoints. Individual files can be
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file** | **std::path::PathBuf** | The File object (not file name) to be uploaded.  | [required] |
-**purpose** | [**serde_json::Value**](serde_json::Value.md) | Upstream schema 'FilePurpose' was referenced but not defined; replaced with free-form object to avoid backfilling local definitions. | [required] |
+**purpose** | [**models::FilePurpose**](FilePurpose.md) |  | [required] |
 **expires_after** | Option<[**models::FileExpirationAfter**](FileExpirationAfter.md)> |  |  |
 
 ### Return type

@@ -45,7 +45,7 @@ pub struct MessageObject {
     pub role: Role,
     /// The content of the message in array of text and/or images.
     #[serde(rename = "content")]
-    pub content: Vec<serde_json::Value>,
+    pub content: Vec<models::MessageContent>,
     /// If applicable, the ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) that authored this message.
     #[serde(rename = "assistant_id", deserialize_with = "Option::deserialize")]
     pub assistant_id: Option<String>,
@@ -72,7 +72,7 @@ impl MessageObject {
         completed_at: Option<i32>,
         incomplete_at: Option<i32>,
         role: Role,
-        content: Vec<serde_json::Value>,
+        content: Vec<models::MessageContent>,
         assistant_id: Option<String>,
         run_id: Option<String>,
         attachments: Option<Vec<models::MessageObjectAttachmentsInner>>,
