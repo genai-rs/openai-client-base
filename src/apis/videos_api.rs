@@ -68,6 +68,7 @@ pub async fn create_video(
     input_reference: Option<std::path::PathBuf>,
     seconds: Option<models::VideoSeconds>,
     size: Option<models::VideoSize>,
+    character_ids: Option<Vec<String>>,
 ) -> Result<models::VideoResource, Error<CreateVideoError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_prompt = prompt;
@@ -75,6 +76,7 @@ pub async fn create_video(
     let p_form_input_reference = input_reference;
     let p_form_seconds = seconds;
     let p_form_size = size;
+    let p_form_character_ids = character_ids;
 
     let uri_str = format!("{}/videos", configuration.base_path);
     let mut req_builder = configuration
@@ -101,6 +103,17 @@ pub async fn create_video(
     }
     if let Some(param_value) = p_form_size {
         multipart_form = multipart_form.text("size", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_character_ids {
+        multipart_form = multipart_form.text(
+            "character_ids",
+            param_value
+                .into_iter()
+                .map(|p| p.to_string())
+                .collect::<Vec<String>>()
+                .join(",")
+                .to_string(),
+        );
     }
     req_builder = req_builder.multipart(multipart_form);
 
