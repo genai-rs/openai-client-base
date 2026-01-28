@@ -11,40 +11,37 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Move : A mouse move action.
+/// DragParam : A drag action.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Move {
-    /// Specifies the event type. For a move action, this property is  always set to `move`.
+pub struct DragParam {
+    /// Specifies the event type. For a drag action, this property is always set to `drag`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The x-coordinate to move to.
-    #[serde(rename = "x")]
-    pub x: i32,
-    /// The y-coordinate to move to.
-    #[serde(rename = "y")]
-    pub y: i32,
+    /// An array of coordinates representing the path of the drag action. Coordinates will appear as an array of objects, eg ``` [   { x: 100, y: 200 },   { x: 200, y: 300 } ] ```
+    #[serde(rename = "path")]
+    pub path: Vec<models::CoordParam>,
 }
 
-impl Move {
-    /// A mouse move action.
-    pub fn new(r#type: Type, x: i32, y: i32) -> Move {
-        Move { r#type, x, y }
+impl DragParam {
+    /// A drag action.
+    pub fn new(r#type: Type, path: Vec<models::CoordParam>) -> DragParam {
+        DragParam { r#type, path }
     }
 }
-/// Specifies the event type. For a move action, this property is  always set to `move`.
+/// Specifies the event type. For a drag action, this property is always set to `drag`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "move")]
-    Move,
+    #[serde(rename = "drag")]
+    Drag,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Move
+        Self::Drag
     }
 }
 
-impl std::fmt::Display for Move {
+impl std::fmt::Display for DragParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

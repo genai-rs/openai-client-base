@@ -11,34 +11,37 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Wait : A wait action.
+/// TypeParam : An action to type in text.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Wait {
-    /// Specifies the event type. For a wait action, this property is  always set to `wait`.
+pub struct TypeParam {
+    /// Specifies the event type. For a type action, this property is always set to `type`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// The text to type.
+    #[serde(rename = "text")]
+    pub text: String,
 }
 
-impl Wait {
-    /// A wait action.
-    pub fn new(r#type: Type) -> Wait {
-        Wait { r#type }
+impl TypeParam {
+    /// An action to type in text.
+    pub fn new(r#type: Type, text: String) -> TypeParam {
+        TypeParam { r#type, text }
     }
 }
-/// Specifies the event type. For a wait action, this property is  always set to `wait`.
+/// Specifies the event type. For a type action, this property is always set to `type`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "wait")]
-    Wait,
+    #[serde(rename = "type")]
+    Type,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Wait
+        Self::Type
     }
 }
 
-impl std::fmt::Display for Wait {
+impl std::fmt::Display for TypeParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

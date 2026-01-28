@@ -11,37 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Drag : A drag action.
+/// ScreenshotParam : A screenshot action.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Drag {
-    /// Specifies the event type. For a drag action, this property is  always set to `drag`.
+pub struct ScreenshotParam {
+    /// Specifies the event type. For a screenshot action, this property is always set to `screenshot`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// An array of coordinates representing the path of the drag action. Coordinates will appear as an array of objects, eg ``` [   { x: 100, y: 200 },   { x: 200, y: 300 } ] ```
-    #[serde(rename = "path")]
-    pub path: Vec<models::DragPoint>,
 }
 
-impl Drag {
-    /// A drag action.
-    pub fn new(r#type: Type, path: Vec<models::DragPoint>) -> Drag {
-        Drag { r#type, path }
+impl ScreenshotParam {
+    /// A screenshot action.
+    pub fn new(r#type: Type) -> ScreenshotParam {
+        ScreenshotParam { r#type }
     }
 }
-/// Specifies the event type. For a drag action, this property is  always set to `drag`.
+/// Specifies the event type. For a screenshot action, this property is always set to `screenshot`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "drag")]
-    Drag,
+    #[serde(rename = "screenshot")]
+    Screenshot,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Drag
+        Self::Screenshot
     }
 }
 
-impl std::fmt::Display for Drag {
+impl std::fmt::Display for ScreenshotParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

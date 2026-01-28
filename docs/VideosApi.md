@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## create_video
 
-> models::VideoResource create_video(prompt, model, input_reference, seconds, size, character_ids)
+> models::VideoResource create_video(prompt, model, input_reference, seconds, size)
 Create video
 
 Create a video
@@ -30,7 +30,6 @@ Name | Type | Description  | Required | Notes
 **input_reference** | Option<**std::path::PathBuf**> | Optional image reference that guides generation. |  |
 **seconds** | Option<[**models::VideoSeconds**](VideoSeconds.md)> |  |  |
 **size** | Option<[**models::VideoSize**](VideoSize.md)> |  |  |
-**character_ids** | Option<[**Vec<String>**](String.md)> | Character IDs to include in the generation. |  |
 
 ### Return type
 

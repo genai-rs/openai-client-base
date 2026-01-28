@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Scroll : A scroll action.
+/// ScrollParam : A scroll action.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Scroll {
-    /// Specifies the event type. For a scroll action, this property is  always set to `scroll`.
+pub struct ScrollParam {
+    /// Specifies the event type. For a scroll action, this property is always set to `scroll`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The x-coordinate where the scroll occurred.
@@ -31,10 +31,10 @@ pub struct Scroll {
     pub scroll_y: i32,
 }
 
-impl Scroll {
+impl ScrollParam {
     /// A scroll action.
-    pub fn new(r#type: Type, x: i32, y: i32, scroll_x: i32, scroll_y: i32) -> Scroll {
-        Scroll {
+    pub fn new(r#type: Type, x: i32, y: i32, scroll_x: i32, scroll_y: i32) -> ScrollParam {
+        ScrollParam {
             r#type,
             x,
             y,
@@ -43,7 +43,7 @@ impl Scroll {
         }
     }
 }
-/// Specifies the event type. For a scroll action, this property is  always set to `scroll`.
+/// Specifies the event type. For a scroll action, this property is always set to `scroll`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "scroll")]
@@ -56,7 +56,7 @@ impl Default for Type {
     }
 }
 
-impl std::fmt::Display for Scroll {
+impl std::fmt::Display for ScrollParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
