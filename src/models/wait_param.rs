@@ -11,34 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Screenshot : A screenshot action.
+/// WaitParam : A wait action.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Screenshot {
-    /// Specifies the event type. For a screenshot action, this property is  always set to `screenshot`.
+pub struct WaitParam {
+    /// Specifies the event type. For a wait action, this property is always set to `wait`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
 
-impl Screenshot {
-    /// A screenshot action.
-    pub fn new(r#type: Type) -> Screenshot {
-        Screenshot { r#type }
+impl WaitParam {
+    /// A wait action.
+    pub fn new(r#type: Type) -> WaitParam {
+        WaitParam { r#type }
     }
 }
-/// Specifies the event type. For a screenshot action, this property is  always set to `screenshot`.
+/// Specifies the event type. For a wait action, this property is always set to `wait`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "screenshot")]
-    Screenshot,
+    #[serde(rename = "wait")]
+    Wait,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Screenshot
+        Self::Wait
     }
 }
 
-impl std::fmt::Display for Screenshot {
+impl std::fmt::Display for WaitParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

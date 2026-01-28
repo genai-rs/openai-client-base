@@ -35804,13 +35804,13 @@ components:
       anyOf:
         - $ref: '#/components/schemas/ClickParam'
         - $ref: '#/components/schemas/DoubleClickAction'
-        - $ref: '#/components/schemas/Drag'
+        - $ref: '#/components/schemas/DragParam'
         - $ref: '#/components/schemas/KeyPressAction'
-        - $ref: '#/components/schemas/Move'
-        - $ref: '#/components/schemas/Screenshot'
-        - $ref: '#/components/schemas/Scroll'
-        - $ref: '#/components/schemas/Type'
-        - $ref: '#/components/schemas/Wait'
+        - $ref: '#/components/schemas/MoveParam'
+        - $ref: '#/components/schemas/ScreenshotParam'
+        - $ref: '#/components/schemas/ScrollParam'
+        - $ref: '#/components/schemas/TypeParam'
+        - $ref: '#/components/schemas/WaitParam'
     ComputerScreenshotImage:
       type: object
       description: |
@@ -40728,42 +40728,6 @@ components:
       description: Occurs when a stream ends.
       x-oaiMeta:
         dataDescription: '`data` is `[DONE]`'
-    Drag:
-      type: object
-      title: Drag
-      description: |
-        A drag action.
-      properties:
-        type:
-          type: string
-          enum:
-            - drag
-          default: drag
-          description: |
-            Specifies the event type. For a drag action, this property is 
-            always set to `drag`.
-          x-stainless-const: true
-        path:
-          type: array
-          description: >
-            An array of coordinates representing the path of the drag action. Coordinates will appear as an
-            array
-
-            of objects, eg
-
-            ```
-
-            [
-              { x: 100, y: 200 },
-              { x: 200, y: 300 }
-            ]
-
-            ```
-          items:
-            $ref: '#/components/schemas/DragPoint'
-      required:
-        - type
-        - path
     EasyInputMessage:
       type: object
       title: Input message
@@ -47014,33 +46978,6 @@ components:
             - type: 'null'
         metadata:
           $ref: '#/components/schemas/Metadata'
-    Move:
-      type: object
-      title: Move
-      description: |
-        A mouse move action.
-      properties:
-        type:
-          type: string
-          enum:
-            - move
-          default: move
-          description: |
-            Specifies the event type. For a move action, this property is 
-            always set to `move`.
-          x-stainless-const: true
-        x:
-          type: integer
-          description: |
-            The x-coordinate to move to.
-        'y':
-          type: integer
-          description: |
-            The y-coordinate to move to.
-      required:
-        - type
-        - x
-        - 'y'
     NoiseReductionType:
       type: string
       enum:
@@ -61059,60 +60996,6 @@ components:
         - id
         - type
         - function
-    Screenshot:
-      type: object
-      title: Screenshot
-      description: |
-        A screenshot action.
-      properties:
-        type:
-          type: string
-          enum:
-            - screenshot
-          default: screenshot
-          description: |
-            Specifies the event type. For a screenshot action, this property is 
-            always set to `screenshot`.
-          x-stainless-const: true
-      required:
-        - type
-    Scroll:
-      type: object
-      title: Scroll
-      description: |
-        A scroll action.
-      properties:
-        type:
-          type: string
-          enum:
-            - scroll
-          default: scroll
-          description: |
-            Specifies the event type. For a scroll action, this property is 
-            always set to `scroll`.
-          x-stainless-const: true
-        x:
-          type: integer
-          description: |
-            The x-coordinate where the scroll occurred.
-        'y':
-          type: integer
-          description: |
-            The y-coordinate where the scroll occurred.
-        scroll_x:
-          type: integer
-          description: |
-            The horizontal scroll distance.
-        scroll_y:
-          type: integer
-          description: |
-            The vertical scroll distance.
-      required:
-        - type
-        - x
-        - 'y'
-        - scroll_x
-        - scroll_y
     ServiceTier:
       anyOf:
         - type: string
@@ -62059,28 +61942,6 @@ components:
             - type: 'null'
       required:
         - type
-    Type:
-      type: object
-      title: Type
-      description: |
-        An action to type in text.
-      properties:
-        type:
-          type: string
-          enum:
-            - type
-          default: type
-          description: |
-            Specifies the event type. For a type action, this property is 
-            always set to `type`.
-          x-stainless-const: true
-        text:
-          type: string
-          description: |
-            The text to type.
-      required:
-        - type
-        - text
     UpdateGroupBody:
       type: object
       description: Request payload for updating the details of an existing group.
@@ -63637,23 +63498,6 @@ components:
             "name": "My new voice",
             "created_at": 1734220800
           }
-    Wait:
-      type: object
-      title: Wait
-      description: |
-        A wait action.
-      properties:
-        type:
-          type: string
-          enum:
-            - wait
-          default: wait
-          description: |
-            Specifies the event type. For a wait action, this property is 
-            always set to `wait`.
-          x-stainless-const: true
-      required:
-        - type
     WebSearchActionFind:
       type: object
       title: Find action
@@ -65293,7 +65137,7 @@ components:
         - 'y'
       title: DoubleClick
       description: A double click action.
-    DragPoint:
+    CoordParam:
       properties:
         x:
           type: integer
@@ -65307,6 +65151,37 @@ components:
         - 'y'
       title: Coordinate
       description: 'An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.'
+    DragParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - drag
+          description: Specifies the event type. For a drag action, this property is always set to `drag`.
+          default: drag
+          x-stainless-const: true
+        path:
+          items:
+            $ref: '#/components/schemas/CoordParam'
+          type: array
+          description: >-
+            An array of coordinates representing the path of the drag action. Coordinates will appear as an
+            array of objects, eg
+
+            ```
+
+            [
+              { x: 100, y: 200 },
+              { x: 200, y: 300 }
+            ]
+
+            ```
+      type: object
+      required:
+        - type
+        - path
+      title: Drag
+      description: A drag action.
     KeyPressAction:
       properties:
         type:
@@ -65330,6 +65205,104 @@ components:
         - keys
       title: KeyPress
       description: A collection of keypresses the model would like to perform.
+    MoveParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - move
+          description: Specifies the event type. For a move action, this property is always set to `move`.
+          default: move
+          x-stainless-const: true
+        x:
+          type: integer
+          description: The x-coordinate to move to.
+        'y':
+          type: integer
+          description: The y-coordinate to move to.
+      type: object
+      required:
+        - type
+        - x
+        - 'y'
+      title: Move
+      description: A mouse move action.
+    ScreenshotParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - screenshot
+          description: Specifies the event type. For a screenshot action, this property is always set to `screenshot`.
+          default: screenshot
+          x-stainless-const: true
+      type: object
+      required:
+        - type
+      title: Screenshot
+      description: A screenshot action.
+    ScrollParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - scroll
+          description: Specifies the event type. For a scroll action, this property is always set to `scroll`.
+          default: scroll
+          x-stainless-const: true
+        x:
+          type: integer
+          description: The x-coordinate where the scroll occurred.
+        'y':
+          type: integer
+          description: The y-coordinate where the scroll occurred.
+        scroll_x:
+          type: integer
+          description: The horizontal scroll distance.
+        scroll_y:
+          type: integer
+          description: The vertical scroll distance.
+      type: object
+      required:
+        - type
+        - x
+        - 'y'
+        - scroll_x
+        - scroll_y
+      title: Scroll
+      description: A scroll action.
+    TypeParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - type
+          description: Specifies the event type. For a type action, this property is always set to `type`.
+          default: type
+          x-stainless-const: true
+        text:
+          type: string
+          description: The text to type.
+      type: object
+      required:
+        - type
+        - text
+      title: Type
+      description: An action to type in text.
+    WaitParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - wait
+          description: Specifies the event type. For a wait action, this property is always set to `wait`.
+          default: wait
+          x-stainless-const: true
+      type: object
+      required:
+        - type
+      title: Wait
+      description: A wait action.
     ComputerCallSafetyCheckParam:
       properties:
         id:
@@ -65490,6 +65463,12 @@ components:
         - status
       title: Shell tool call
       description: A tool call that executes one or more shell commands in a managed environment.
+    LocalShellCallOutputStatusEnum:
+      type: string
+      enum:
+        - in_progress
+        - completed
+        - incomplete
     FunctionShellCallOutputTimeoutOutcome:
       properties:
         type:
@@ -65565,6 +65544,9 @@ components:
         call_id:
           type: string
           description: The unique ID of the shell tool call generated by the model.
+        status:
+          $ref: '#/components/schemas/LocalShellCallOutputStatusEnum'
+          description: The status of the shell call output. One of `in_progress`, `completed`, or `incomplete`.
         output:
           items:
             $ref: '#/components/schemas/FunctionShellCallOutputContent'
@@ -65585,6 +65567,7 @@ components:
         - type
         - id
         - call_id
+        - status
         - output
         - max_output_length
       title: Shell call output
@@ -67036,13 +67019,6 @@ components:
           description: >-
             Output resolution formatted as width x height (allowed values: 720x1280, 1280x720, 1024x1792,
             1792x1024). Defaults to 720x1280.
-        character_ids:
-          items:
-            type: string
-            example: char_123
-          type: array
-          maxItems: 64
-          description: Character IDs to include in the generation.
       type: object
       required:
         - prompt
@@ -68355,6 +68331,20 @@ components:
         - has_more
       title: Threads
       description: A paginated list of ChatKit threads.
+    DragPoint:
+      properties:
+        x:
+          type: integer
+          description: The x-coordinate.
+        'y':
+          type: integer
+          description: The y-coordinate.
+      type: object
+      required:
+        - x
+        - 'y'
+      title: Coordinate
+      description: 'An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.'
     RealtimeConnectParams:
       type: object
       properties:

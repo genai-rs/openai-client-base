@@ -26,9 +26,6 @@ pub struct CreateVideoBody {
     pub seconds: Option<models::VideoSeconds>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<models::VideoSize>,
-    /// Character IDs to include in the generation.
-    #[serde(rename = "character_ids", skip_serializing_if = "Option::is_none")]
-    pub character_ids: Option<Vec<String>>,
 }
 
 impl CreateVideoBody {
@@ -40,7 +37,6 @@ impl CreateVideoBody {
             input_reference: None,
             seconds: None,
             size: None,
-            character_ids: None,
         }
     }
 }

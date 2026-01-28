@@ -11,37 +11,40 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// TypeAction : An action to type in text.
+/// MoveParam : A mouse move action.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct TypeAction {
-    /// Specifies the event type. For a type action, this property is  always set to `type`.
+pub struct MoveParam {
+    /// Specifies the event type. For a move action, this property is always set to `move`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The text to type.
-    #[serde(rename = "text")]
-    pub text: String,
+    /// The x-coordinate to move to.
+    #[serde(rename = "x")]
+    pub x: i32,
+    /// The y-coordinate to move to.
+    #[serde(rename = "y")]
+    pub y: i32,
 }
 
-impl TypeAction {
-    /// An action to type in text.
-    pub fn new(r#type: Type, text: String) -> TypeAction {
-        TypeAction { r#type, text }
+impl MoveParam {
+    /// A mouse move action.
+    pub fn new(r#type: Type, x: i32, y: i32) -> MoveParam {
+        MoveParam { r#type, x, y }
     }
 }
-/// Specifies the event type. For a type action, this property is  always set to `type`.
+/// Specifies the event type. For a move action, this property is always set to `move`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "type")]
-    Type,
+    #[serde(rename = "move")]
+    Move,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Type
+        Self::Move
     }
 }
 
-impl std::fmt::Display for TypeAction {
+impl std::fmt::Display for MoveParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
