@@ -31,6 +31,13 @@ pub struct FunctionShellCallOutputItemParam {
     /// Captured chunks of stdout and stderr output, along with their associated outcomes.
     #[serde(rename = "output")]
     pub output: Vec<models::FunctionShellCallOutputContentParam>,
+    #[serde(
+        rename = "status",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub status: Option<Option<models::FunctionShellCallItemStatus>>,
     /// The maximum number of UTF-8 characters captured for this shell call's combined output.
     #[serde(
         rename = "max_output_length",
@@ -53,6 +60,7 @@ impl FunctionShellCallOutputItemParam {
             call_id,
             r#type,
             output,
+            status: None,
             max_output_length: None,
         }
     }
