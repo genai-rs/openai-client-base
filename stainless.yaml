@@ -981,7 +981,7 @@ paths:
                   )
                   speech, err := client.Audio.Speech.New(context.TODO(), openai.AudioSpeechNewParams{
                     Input: "input",
-                    Model: openai.SpeechModel("string"),
+                    Model: openai.SpeechModelTTS1,
                     Voice: openai.AudioSpeechNewParamsVoiceAsh,
                   })
                   if err != nil {
@@ -1006,7 +1006,7 @@ paths:
 
                         SpeechCreateParams params = SpeechCreateParams.builder()
                             .input("input")
-                            .model(SpeechModel.of("string"))
+                            .model(SpeechModel.TTS_1)
                             .voice(SpeechCreateParams.Voice.ASH)
                             .build();
                         HttpResponse speech = client.audio().speech().create(params);
@@ -1017,7 +1017,7 @@ paths:
 
                 openai = OpenAI::Client.new(api_key: "My API Key")
 
-                speech = openai.audio.speech.create(input: "input", model: :string, voice: :ash)
+                speech = openai.audio.speech.create(input: "input", model: :"tts-1", voice: :ash)
 
                 puts(speech)
           - title: SSE Stream Format
@@ -1081,7 +1081,7 @@ paths:
                   )
                   speech, err := client.Audio.Speech.New(context.TODO(), openai.AudioSpeechNewParams{
                     Input: "input",
-                    Model: openai.SpeechModel("string"),
+                    Model: openai.SpeechModelTTS1,
                     Voice: openai.AudioSpeechNewParamsVoiceAsh,
                   })
                   if err != nil {
@@ -1106,7 +1106,7 @@ paths:
 
                         SpeechCreateParams params = SpeechCreateParams.builder()
                             .input("input")
-                            .model(SpeechModel.of("string"))
+                            .model(SpeechModel.TTS_1)
                             .voice(SpeechCreateParams.Voice.ASH)
                             .build();
                         HttpResponse speech = client.audio().speech().create(params);
@@ -1117,7 +1117,7 @@ paths:
 
                 openai = OpenAI::Client.new(api_key: "My API Key")
 
-                speech = openai.audio.speech.create(input: "input", model: :string, voice: :ash)
+                speech = openai.audio.speech.create(input: "input", model: :"tts-1", voice: :ash)
 
                 puts(speech)
       description: Generates audio from the input text.
@@ -5190,7 +5190,7 @@ paths:
                     option.WithAPIKey("My API Key"),
                   )
                   completion, err := client.Completions.New(context.TODO(), openai.CompletionNewParams{
-                    Model: openai.CompletionNewParamsModel("string"),
+                    Model: openai.CompletionNewParamsModelGPT3_5TurboInstruct,
                     Prompt: openai.CompletionNewParamsPromptUnion{
                       OfString: openai.String("This is a test."),
                     },
@@ -5215,18 +5215,22 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         CompletionCreateParams params = CompletionCreateParams.builder()
-                            .model(CompletionCreateParams.Model.of("string"))
+                            .model(CompletionCreateParams.Model.GPT_3_5_TURBO_INSTRUCT)
                             .prompt("This is a test.")
                             .build();
                         Completion completion = client.completions().create(params);
                     }
                 }
-              ruby: |-
+              ruby: >-
                 require "openai"
+
 
                 openai = OpenAI::Client.new(api_key: "My API Key")
 
-                completion = openai.completions.create(model: :string, prompt: "This is a test.")
+
+                completion = openai.completions.create(model: :"gpt-3.5-turbo-instruct", prompt: "This is a
+                test.")
+
 
                 puts(completion)
             response: |
@@ -5305,7 +5309,7 @@ paths:
                     option.WithAPIKey("My API Key"),
                   )
                   completion, err := client.Completions.New(context.TODO(), openai.CompletionNewParams{
-                    Model: openai.CompletionNewParamsModel("string"),
+                    Model: openai.CompletionNewParamsModelGPT3_5TurboInstruct,
                     Prompt: openai.CompletionNewParamsPromptUnion{
                       OfString: openai.String("This is a test."),
                     },
@@ -5330,18 +5334,22 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         CompletionCreateParams params = CompletionCreateParams.builder()
-                            .model(CompletionCreateParams.Model.of("string"))
+                            .model(CompletionCreateParams.Model.GPT_3_5_TURBO_INSTRUCT)
                             .prompt("This is a test.")
                             .build();
                         Completion completion = client.completions().create(params);
                     }
                 }
-              ruby: |-
+              ruby: >-
                 require "openai"
+
 
                 openai = OpenAI::Client.new(api_key: "My API Key")
 
-                completion = openai.completions.create(model: :string, prompt: "This is a test.")
+
+                completion = openai.completions.create(model: :"gpt-3.5-turbo-instruct", prompt: "This is a
+                test.")
+
 
                 puts(completion)
             response: |
@@ -15298,11 +15306,6 @@ paths:
         group: administration
         returns: A list of [group objects](https://platform.openai.com/docs/api-reference/groups/object).
         examples:
-          request:
-            curl: |
-              curl https://api.openai.com/v1/organization/groups?limit=20&order=asc \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "list",
@@ -15318,6 +15321,11 @@ paths:
                 "has_more": false,
                 "next": null
             }
+          request:
+            curl: |
+              curl https://api.openai.com/v1/organization/groups?limit=20&order=asc \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Lists all groups in the organization.
     post:
       summary: Create group
@@ -15343,14 +15351,6 @@ paths:
         group: administration
         returns: The created [group object](https://platform.openai.com/docs/api-reference/groups/object).
         examples:
-          request:
-            curl: |
-              curl -X POST https://api.openai.com/v1/organization/groups \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "name": "Support Team"
-                }'
           response: |
             {
                 "object": "group",
@@ -15359,6 +15359,14 @@ paths:
                 "created_at": 1711471533,
                 "is_scim_managed": false
             }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/organization/groups \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "name": "Support Team"
+                }'
       description: Creates a new group in the organization.
   /organization/groups/{group_id}:
     post:
@@ -15392,6 +15400,13 @@ paths:
         group: administration
         returns: The updated [group object](https://platform.openai.com/docs/api-reference/groups/object).
         examples:
+          response: |
+            {
+                "id": "group_01J1F8ABCDXYZ",
+                "name": "Escalations",
+                "created_at": 1711471533,
+                "is_scim_managed": false
+            }
           request:
             curl: |
               curl -X POST https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ \
@@ -15400,13 +15415,6 @@ paths:
                 -d '{
                     "name": "Escalations"
                 }'
-          response: |
-            {
-                "id": "group_01J1F8ABCDXYZ",
-                "name": "Escalations",
-                "created_at": 1711471533,
-                "is_scim_managed": false
-            }
       description: Updates a group's information.
     delete:
       summary: Delete group
@@ -15432,17 +15440,17 @@ paths:
         group: administration
         returns: Confirmation of the deleted group.
         examples:
-          request:
-            curl: |
-              curl -X DELETE https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "group.deleted",
                 "id": "group_01J1F8ABCDXYZ",
                 "deleted": true
             }
+          request:
+            curl: |
+              curl -X DELETE https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Deletes a group from the organization.
   /organization/groups/{group_id}/roles:
     get:
@@ -15494,11 +15502,6 @@ paths:
         group: administration
         returns: A list of [role objects](https://platform.openai.com/docs/api-reference/roles/object).
         examples:
-          request:
-            curl: |
-              curl https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "list",
@@ -15527,6 +15530,11 @@ paths:
                 "has_more": false,
                 "next": null
             }
+          request:
+            curl: |
+              curl https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Lists the organization roles assigned to a group within the organization.
     post:
       summary: Assign organization role to group
@@ -15561,14 +15569,6 @@ paths:
           The created [group role
           object](https://platform.openai.com/docs/api-reference/role-assignments/objects/group).
         examples:
-          request:
-            curl: |
-              curl -X POST https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "role_id": "role_01J1F8ROLE01"
-                }'
           response: |
             {
                 "object": "group.role",
@@ -15592,6 +15592,14 @@ paths:
                     "predefined_role": false
                 }
             }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "role_id": "role_01J1F8ROLE01"
+                }'
       description: Assigns an organization role to a group within the organization.
   /organization/groups/{group_id}/roles/{role_id}:
     delete:
@@ -15626,17 +15634,17 @@ paths:
           Confirmation of the deleted [group role
           object](https://platform.openai.com/docs/api-reference/role-assignments/objects/group).
         examples:
+          response: |
+            {
+                "object": "group.role.deleted",
+                "deleted": true
+            }
           request:
             curl: >
               curl -X DELETE
               https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/roles/role_01J1F8ROLE01 \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response: |
-            {
-                "object": "group.role.deleted",
-                "deleted": true
-            }
       description: Unassigns an organization role from a group within the organization.
   /organization/groups/{group_id}/users:
     get:
@@ -15692,11 +15700,6 @@ paths:
         group: administration
         returns: A list of [user objects](https://platform.openai.com/docs/api-reference/users/object).
         examples:
-          request:
-            curl: |
-              curl https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/users?limit=20 \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "list",
@@ -15713,6 +15716,11 @@ paths:
                 "has_more": false,
                 "next": null
             }
+          request:
+            curl: |
+              curl https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/users?limit=20 \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Lists the users assigned to a group.
     post:
       summary: Add group user
@@ -15747,6 +15755,12 @@ paths:
           The created [group user
           object](https://platform.openai.com/docs/api-reference/groups/users/assignment-object).
         examples:
+          response: |
+            {
+                "object": "group.user",
+                "user_id": "user_abc123",
+                "group_id": "group_01J1F8ABCDXYZ"
+            }
           request:
             curl: |
               curl -X POST https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/users \
@@ -15755,12 +15769,6 @@ paths:
                 -d '{
                     "user_id": "user_abc123"
                 }'
-          response: |
-            {
-                "object": "group.user",
-                "user_id": "user_abc123",
-                "group_id": "group_01J1F8ABCDXYZ"
-            }
       description: Adds a user to a group.
   /organization/groups/{group_id}/users/{user_id}:
     delete:
@@ -15795,17 +15803,17 @@ paths:
           Confirmation of the deleted [group user
           object](https://platform.openai.com/docs/api-reference/groups/users/assignment-object).
         examples:
+          response: |
+            {
+                "object": "group.user.deleted",
+                "deleted": true
+            }
           request:
             curl: >
               curl -X DELETE
               https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/users/user_abc123 \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response: |
-            {
-                "object": "group.user.deleted",
-                "deleted": true
-            }
       description: Removes a user from a group.
   /organization/invites:
     get:
@@ -16723,11 +16731,6 @@ paths:
           A list of [project group
           objects](https://platform.openai.com/docs/api-reference/project-groups/object).
         examples:
-          request:
-            curl: |
-              curl https://api.openai.com/v1/organization/projects/proj_abc123/groups?limit=20 \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "list",
@@ -16743,6 +16746,11 @@ paths:
                 "has_more": false,
                 "next": null
             }
+          request:
+            curl: |
+              curl https://api.openai.com/v1/organization/projects/proj_abc123/groups?limit=20 \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Lists the groups that have access to a project.
     post:
       summary: Add project group
@@ -16777,6 +16785,14 @@ paths:
           The created [project group
           object](https://platform.openai.com/docs/api-reference/project-groups/object).
         examples:
+          response: |
+            {
+                "object": "project.group",
+                "project_id": "proj_abc123",
+                "group_id": "group_01J1F8ABCDXYZ",
+                "group_name": "Support Team",
+                "created_at": 1711471533
+            }
           request:
             curl: |
               curl -X POST https://api.openai.com/v1/organization/projects/proj_abc123/groups \
@@ -16786,14 +16802,6 @@ paths:
                     "group_id": "group_01J1F8ABCDXYZ",
                     "role": "role_01J1F8PROJ"
                 }'
-          response: |
-            {
-                "object": "project.group",
-                "project_id": "proj_abc123",
-                "group_id": "group_01J1F8ABCDXYZ",
-                "group_name": "Support Team",
-                "created_at": 1711471533
-            }
       description: Grants a group access to a project.
   /organization/projects/{project_id}/groups/{group_id}:
     delete:
@@ -16826,17 +16834,17 @@ paths:
         group: administration
         returns: Confirmation of the deleted project group.
         examples:
+          response: |
+            {
+                "object": "project.group.deleted",
+                "deleted": true
+            }
           request:
             curl: >
               curl -X DELETE
               https://api.openai.com/v1/organization/projects/proj_abc123/groups/group_01J1F8ABCDXYZ \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response: |
-            {
-                "object": "project.group.deleted",
-                "deleted": true
-            }
       description: Revokes a group's access to a project.
   /organization/projects/{project_id}/rate_limits:
     get:
@@ -17566,11 +17574,6 @@ paths:
         group: administration
         returns: A list of [role objects](https://platform.openai.com/docs/api-reference/roles/object).
         examples:
-          request:
-            curl: |
-              curl https://api.openai.com/v1/organization/roles?limit=20 \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "list",
@@ -17591,6 +17594,11 @@ paths:
                 "has_more": false,
                 "next": null
             }
+          request:
+            curl: |
+              curl https://api.openai.com/v1/organization/roles?limit=20 \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Lists the roles configured for the organization.
     post:
       summary: Create organization role
@@ -17616,19 +17624,6 @@ paths:
         group: administration
         returns: The created [role object](https://platform.openai.com/docs/api-reference/roles/object).
         examples:
-          request:
-            curl: |
-              curl -X POST https://api.openai.com/v1/organization/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "role_name": "API Group Manager",
-                    "permissions": [
-                        "api.groups.read",
-                        "api.groups.write"
-                    ],
-                    "description": "Allows managing organization groups"
-                }'
           response: |
             {
                 "object": "role",
@@ -17642,6 +17637,19 @@ paths:
                 "resource_type": "api.organization",
                 "predefined_role": false
             }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/organization/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "role_name": "API Group Manager",
+                    "permissions": [
+                        "api.groups.read",
+                        "api.groups.write"
+                    ],
+                    "description": "Allows managing organization groups"
+                }'
       description: Creates a custom role for the organization.
   /organization/roles/{role_id}:
     post:
@@ -17675,19 +17683,6 @@ paths:
         group: administration
         returns: The updated [role object](https://platform.openai.com/docs/api-reference/roles/object).
         examples:
-          request:
-            curl: |
-              curl -X POST https://api.openai.com/v1/organization/roles/role_01J1F8ROLE01 \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "role_name": "API Group Manager",
-                    "permissions": [
-                        "api.groups.read",
-                        "api.groups.write"
-                    ],
-                    "description": "Allows managing organization groups"
-                }'
           response: |
             {
                 "object": "role",
@@ -17701,6 +17696,19 @@ paths:
                 "resource_type": "api.organization",
                 "predefined_role": false
             }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/organization/roles/role_01J1F8ROLE01 \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "role_name": "API Group Manager",
+                    "permissions": [
+                        "api.groups.read",
+                        "api.groups.write"
+                    ],
+                    "description": "Allows managing organization groups"
+                }'
       description: Updates an existing organization role.
     delete:
       summary: Delete organization role
@@ -17726,17 +17734,17 @@ paths:
         group: administration
         returns: Confirmation of the deleted role.
         examples:
-          request:
-            curl: |
-              curl -X DELETE https://api.openai.com/v1/organization/roles/role_01J1F8ROLE01 \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "role.deleted",
                 "id": "role_01J1F8ROLE01",
                 "deleted": true
             }
+          request:
+            curl: |
+              curl -X DELETE https://api.openai.com/v1/organization/roles/role_01J1F8ROLE01 \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Deletes a custom role from the organization.
   /organization/usage/audio_speeches:
     get:
@@ -19086,11 +19094,6 @@ paths:
         group: administration
         returns: A list of [role objects](https://platform.openai.com/docs/api-reference/roles/object).
         examples:
-          request:
-            curl: |
-              curl https://api.openai.com/v1/organization/users/user_abc123/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "list",
@@ -19119,6 +19122,11 @@ paths:
                 "has_more": false,
                 "next": null
             }
+          request:
+            curl: |
+              curl https://api.openai.com/v1/organization/users/user_abc123/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Lists the organization roles assigned to a user within the organization.
     post:
       summary: Assign organization role to user
@@ -19153,14 +19161,6 @@ paths:
           The created [user role
           object](https://platform.openai.com/docs/api-reference/role-assignments/objects/user).
         examples:
-          request:
-            curl: |
-              curl -X POST https://api.openai.com/v1/organization/users/user_abc123/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "role_id": "role_01J1F8ROLE01"
-                }'
           response: |
             {
                 "object": "user.role",
@@ -19185,6 +19185,14 @@ paths:
                     "predefined_role": false
                 }
             }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/organization/users/user_abc123/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "role_id": "role_01J1F8ROLE01"
+                }'
       description: Assigns an organization role to a user within the organization.
   /organization/users/{user_id}/roles/{role_id}:
     delete:
@@ -19219,17 +19227,17 @@ paths:
           Confirmation of the deleted [user role
           object](https://platform.openai.com/docs/api-reference/role-assignments/objects/user).
         examples:
+          response: |
+            {
+                "object": "user.role.deleted",
+                "deleted": true
+            }
           request:
             curl: >
               curl -X DELETE https://api.openai.com/v1/organization/users/user_abc123/roles/role_01J1F8ROLE01
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response: |
-            {
-                "object": "user.role.deleted",
-                "deleted": true
-            }
       description: Unassigns an organization role from a user within the organization.
   /projects/{project_id}/groups/{group_id}/roles:
     get:
@@ -19287,11 +19295,6 @@ paths:
         group: administration
         returns: A list of [role objects](https://platform.openai.com/docs/api-reference/roles/object).
         examples:
-          request:
-            curl: |
-              curl https://api.openai.com/v1/projects/proj_abc123/groups/group_01J1F8ABCDXYZ/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "list",
@@ -19320,6 +19323,11 @@ paths:
                 "has_more": false,
                 "next": null
             }
+          request:
+            curl: |
+              curl https://api.openai.com/v1/projects/proj_abc123/groups/group_01J1F8ABCDXYZ/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Lists the project roles assigned to a group within a project.
     post:
       summary: Assign project role to group
@@ -19360,14 +19368,6 @@ paths:
           The created [group role
           object](https://platform.openai.com/docs/api-reference/role-assignments/objects/group).
         examples:
-          request:
-            curl: |
-              curl -X POST https://api.openai.com/v1/projects/proj_abc123/groups/group_01J1F8ABCDXYZ/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "role_id": "role_01J1F8PROJ"
-                }'
           response: |
             {
                 "object": "group.role",
@@ -19391,6 +19391,14 @@ paths:
                     "predefined_role": false
                 }
             }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/projects/proj_abc123/groups/group_01J1F8ABCDXYZ/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "role_id": "role_01J1F8PROJ"
+                }'
       description: Assigns a project role to a group within a project.
   /projects/{project_id}/groups/{group_id}/roles/{role_id}:
     delete:
@@ -19431,6 +19439,11 @@ paths:
           Confirmation of the deleted [group role
           object](https://platform.openai.com/docs/api-reference/role-assignments/objects/group).
         examples:
+          response: |
+            {
+                "object": "group.role.deleted",
+                "deleted": true
+            }
           request:
             curl: >
               curl -X DELETE
@@ -19438,11 +19451,6 @@ paths:
               \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response: |
-            {
-                "object": "group.role.deleted",
-                "deleted": true
-            }
       description: Unassigns a project role from a group within a project.
   /projects/{project_id}/roles:
     get:
@@ -19498,11 +19506,6 @@ paths:
           A list of [role objects](https://platform.openai.com/docs/api-reference/roles/object) configured on
           the project.
         examples:
-          request:
-            curl: |
-              curl https://api.openai.com/v1/projects/proj_abc123/roles?limit=20 \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "list",
@@ -19523,6 +19526,11 @@ paths:
                 "has_more": false,
                 "next": null
             }
+          request:
+            curl: |
+              curl https://api.openai.com/v1/projects/proj_abc123/roles?limit=20 \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Lists the roles configured for a project.
     post:
       summary: Create project role
@@ -19555,19 +19563,6 @@ paths:
         group: administration
         returns: The created [role object](https://platform.openai.com/docs/api-reference/roles/object).
         examples:
-          request:
-            curl: |
-              curl -X POST https://api.openai.com/v1/projects/proj_abc123/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "role_name": "API Project Key Manager",
-                    "permissions": [
-                        "api.organization.projects.api_keys.read",
-                        "api.organization.projects.api_keys.write"
-                    ],
-                    "description": "Allows managing API keys for the project"
-                }'
           response: |
             {
                 "object": "role",
@@ -19581,6 +19576,19 @@ paths:
                 "resource_type": "api.project",
                 "predefined_role": false
             }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/projects/proj_abc123/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "role_name": "API Project Key Manager",
+                    "permissions": [
+                        "api.organization.projects.api_keys.read",
+                        "api.organization.projects.api_keys.write"
+                    ],
+                    "description": "Allows managing API keys for the project"
+                }'
       description: Creates a custom role for a project.
   /projects/{project_id}/roles/{role_id}:
     post:
@@ -19620,19 +19628,6 @@ paths:
         group: administration
         returns: The updated [role object](https://platform.openai.com/docs/api-reference/roles/object).
         examples:
-          request:
-            curl: |
-              curl -X POST https://api.openai.com/v1/projects/proj_abc123/roles/role_01J1F8PROJ \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "role_name": "API Project Key Manager",
-                    "permissions": [
-                        "api.organization.projects.api_keys.read",
-                        "api.organization.projects.api_keys.write"
-                    ],
-                    "description": "Allows managing API keys for the project"
-                }'
           response: |
             {
                 "object": "role",
@@ -19646,6 +19641,19 @@ paths:
                 "resource_type": "api.project",
                 "predefined_role": false
             }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/projects/proj_abc123/roles/role_01J1F8PROJ \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "role_name": "API Project Key Manager",
+                    "permissions": [
+                        "api.organization.projects.api_keys.read",
+                        "api.organization.projects.api_keys.write"
+                    ],
+                    "description": "Allows managing API keys for the project"
+                }'
       description: Updates an existing project role.
     delete:
       summary: Delete project role
@@ -19677,17 +19685,17 @@ paths:
         group: administration
         returns: Confirmation of the deleted role.
         examples:
-          request:
-            curl: |
-              curl -X DELETE https://api.openai.com/v1/projects/proj_abc123/roles/role_01J1F8PROJ \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "role.deleted",
                 "id": "role_01J1F8PROJ",
                 "deleted": true
             }
+          request:
+            curl: |
+              curl -X DELETE https://api.openai.com/v1/projects/proj_abc123/roles/role_01J1F8PROJ \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Deletes a custom role from a project.
   /projects/{project_id}/users/{user_id}/roles:
     get:
@@ -19745,11 +19753,6 @@ paths:
         group: administration
         returns: A list of [role objects](https://platform.openai.com/docs/api-reference/roles/object).
         examples:
-          request:
-            curl: |
-              curl https://api.openai.com/v1/projects/proj_abc123/users/user_abc123/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json"
           response: |
             {
                 "object": "list",
@@ -19778,6 +19781,11 @@ paths:
                 "has_more": false,
                 "next": null
             }
+          request:
+            curl: |
+              curl https://api.openai.com/v1/projects/proj_abc123/users/user_abc123/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json"
       description: Lists the project roles assigned to a user within a project.
     post:
       summary: Assign project role to user
@@ -19818,14 +19826,6 @@ paths:
           The created [user role
           object](https://platform.openai.com/docs/api-reference/role-assignments/objects/user).
         examples:
-          request:
-            curl: |
-              curl -X POST https://api.openai.com/v1/projects/proj_abc123/users/user_abc123/roles \
-                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
-                -H "Content-Type: application/json" \
-                -d '{
-                    "role_id": "role_01J1F8PROJ"
-                }'
           response: |
             {
                 "object": "user.role",
@@ -19850,6 +19850,14 @@ paths:
                     "predefined_role": false
                 }
             }
+          request:
+            curl: |
+              curl -X POST https://api.openai.com/v1/projects/proj_abc123/users/user_abc123/roles \
+                -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
+                -H "Content-Type: application/json" \
+                -d '{
+                    "role_id": "role_01J1F8PROJ"
+                }'
       description: Assigns a project role to a user within a project.
   /projects/{project_id}/users/{user_id}/roles/{role_id}:
     delete:
@@ -19890,17 +19898,17 @@ paths:
           Confirmation of the deleted [user role
           object](https://platform.openai.com/docs/api-reference/role-assignments/objects/user).
         examples:
+          response: |
+            {
+                "object": "user.role.deleted",
+                "deleted": true
+            }
           request:
             curl: >
               curl -X DELETE
               https://api.openai.com/v1/projects/proj_abc123/users/user_abc123/roles/role_01J1F8PROJ \
                 -H "Authorization: Bearer $OPENAI_ADMIN_KEY" \
                 -H "Content-Type: application/json"
-          response: |
-            {
-                "object": "user.role.deleted",
-                "deleted": true
-            }
       description: Unassigns a project role from a user within a project.
   /realtime/calls:
     post:
@@ -66099,6 +66107,11 @@ components:
             $ref: '#/components/schemas/FunctionShellCallOutputContentParam'
           type: array
           description: Captured chunks of stdout and stderr output, along with their associated outcomes.
+        status:
+          anyOf:
+            - $ref: '#/components/schemas/FunctionShellCallItemStatus'
+              description: The status of the shell call output.
+            - type: 'null'
         max_output_length:
           anyOf:
             - type: integer
