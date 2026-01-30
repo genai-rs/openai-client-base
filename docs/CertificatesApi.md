@@ -151,7 +151,7 @@ Delete a certificate from the organization.  The certificate must be inactive fo
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**certificate_id** | **String** |  | [required] |
+**certificate_id** | **String** | Unique ID of the certificate to delete. | [required] |
 
 ### Return type
 
@@ -277,7 +277,7 @@ Modify a certificate. Note that only the name can be modified.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**certificate_id** | **String** |  | [required] |
+**certificate_id** | **String** | Unique ID of the certificate to modify. | [required] |
 **modify_certificate_request** | [**ModifyCertificateRequest**](ModifyCertificateRequest.md) | The certificate modification payload. | [required] |
 
 ### Return type
