@@ -193,8 +193,21 @@ def hoist_inline_unions(schemas):
                 if has_null_variant:
                     continue
 
+                # Only hoist unions containing at least one complex type (array
+                # or object).  Simple unions like string_enum("auto") | number
+                # work fine inline with titles -- hoisting them creates named
+                # schemas the generator doesn't produce model files for.
+                complex_types = {"array", "object"}
+                has_complex = any(
+                    isinstance(item, dict) and item.get("type") in complex_types
+                    for item in items
+                )
+                if not has_complex:
+                    continue
+
                 # Build a CamelCase name: SchemaName + PropertyName
-                camel_prop = prop_name[0].upper() + prop_name[1:]
+                # Convert snake_case property names to CamelCase
+                camel_prop = "".join(part.capitalize() for part in prop_name.split("_"))
                 new_name = f"{schema_name}{camel_prop}"
 
                 # Build the new top-level schema
