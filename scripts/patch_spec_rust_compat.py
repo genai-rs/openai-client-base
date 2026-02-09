@@ -146,6 +146,67 @@ def add_titles_to_unnamed_union_variants(node, path=""):
             add_titles_to_unnamed_union_variants(v, path=f"{path}[{i}]")
 
 
+def hoist_inline_unions(schemas):
+    """Extract inline oneOf/anyOf from schema properties into named top-level schemas.
+
+    When a property contains an inline oneOf/anyOf where ALL variants are non-$ref
+    (i.e. primitive or inline types), openapi-generator's flattening creates a derived
+    model name like ``SchemaName_propertyName`` but then fails with a
+    NullPointerException because the individual variants lack names.
+
+    Adding titles to the variants is not sufficient -- the generator still crashes
+    when processing the flattened composed model.  The robust fix is to hoist the
+    inline union into a named top-level schema and replace the property with a ``$ref``.
+    """
+    new_schemas = {}
+
+    for schema_name, schema in list(schemas.items()):
+        if not isinstance(schema, dict):
+            continue
+        props = schema.get("properties")
+        if not isinstance(props, dict):
+            continue
+
+        for prop_name, prop_schema in list(props.items()):
+            if not isinstance(prop_schema, dict):
+                continue
+
+            for keyword in ("oneOf", "anyOf"):
+                items = prop_schema.get(keyword)
+                if not isinstance(items, list) or len(items) == 0:
+                    continue
+
+                # Only hoist when every variant is an inline type (no $ref).
+                # Unions that mix $ref and inline types work fine with titles.
+                has_ref = any(
+                    isinstance(item, dict) and "$ref" in item for item in items
+                )
+                if has_ref:
+                    continue
+
+                # Build a CamelCase name: SchemaName + PropertyName
+                camel_prop = prop_name[0].upper() + prop_name[1:]
+                new_name = f"{schema_name}{camel_prop}"
+
+                # Build the new top-level schema
+                hoisted = {keyword: items, "title": new_name}
+                desc = prop_schema.get("description")
+                if desc:
+                    hoisted["description"] = desc
+
+                new_schemas[new_name] = hoisted
+
+                # Replace the inline union with a plain $ref.
+                # Description is already on the hoisted schema.
+                props[prop_name] = {"$ref": f"#/components/schemas/{new_name}"}
+                note(
+                    f"Hoisted inline {keyword} {schema_name}.{prop_name} -> {new_name}"
+                )
+                break  # only one keyword per property
+
+    schemas.update(new_schemas)
+
+
 # 1) Remove all defaults under components.schemas
 schemas = doc.get("components", {}).get("schemas", {})
 walk_and_prune(schemas)
@@ -155,6 +216,8 @@ strip_ref_siblings(doc)
 collapse_required_only_unions(doc)
 # Auto-title unnamed union variants so the generator can derive model names
 add_titles_to_unnamed_union_variants(doc)
+# Hoist inline unions (all-primitive oneOf/anyOf) from properties into named schemas
+hoist_inline_unions(schemas)
 
 
 # 2) Simplify union-heavy properties
