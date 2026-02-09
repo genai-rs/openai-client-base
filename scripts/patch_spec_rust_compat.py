@@ -292,6 +292,16 @@ if isinstance(cr, dict) and isinstance(cr.get("allOf"), list):
                 props["model"] = {"type": "string"}
 set_prop("CreateTranslationRequest", "model", {"type": "string"})
 
+# Response schema also uses allOf; simplify instructions to string
+# The spec has a broken nested anyOf-inside-anyOf that produces an empty enum
+resp = schemas.get("Response")
+if isinstance(resp, dict) and isinstance(resp.get("allOf"), list):
+    for comp in resp["allOf"]:
+        if isinstance(comp, dict) and comp.get("type") == "object":
+            props = comp.setdefault("properties", {})
+            if "instructions" in props:
+                props["instructions"] = {"type": "string"}
+                note("Simplified Response.instructions -> string")
 
 # 3) Coerce problematic event/union models to simple object
 for key in [
