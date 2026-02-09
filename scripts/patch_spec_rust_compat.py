@@ -103,6 +103,49 @@ def collapse_required_only_unions(node):
             collapse_required_only_unions(v)
 
 
+def add_titles_to_unnamed_union_variants(node, path=""):
+    """Add titles to oneOf/anyOf variants that have a type but no title.
+
+    openapi-generator needs titles to derive Rust enum variant names.
+    Without titles, it passes null to sanitizeIdentifier() and crashes
+    with a NullPointerException.
+    """
+    if isinstance(node, dict):
+        for keyword in ("oneOf", "anyOf"):
+            items = node.get(keyword)
+            if isinstance(items, list):
+                for i, item in enumerate(items):
+                    if (
+                        isinstance(item, dict)
+                        and "title" not in item
+                        and "$ref" not in item
+                    ):
+                        t = item.get("type")
+                        if t == "string":
+                            item["title"] = "Text"
+                        elif t == "integer":
+                            item["title"] = "Integer"
+                        elif t == "number":
+                            item["title"] = "Number"
+                        elif t == "boolean":
+                            item["title"] = "Boolean"
+                        elif t == "array":
+                            items_schema = item.get("items", {})
+                            inner_type = items_schema.get("type", "item").capitalize()
+                            item["title"] = f"ArrayOf{inner_type}s"
+                        elif t == "object":
+                            item["title"] = f"Object{i}"
+                        if "title" in item:
+                            note(
+                                f"Auto-titled {keyword}[{i}] as '{item['title']}' at {path}"
+                            )
+        for k, v in node.items():
+            add_titles_to_unnamed_union_variants(v, path=f"{path}.{k}")
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            add_titles_to_unnamed_union_variants(v, path=f"{path}[{i}]")
+
+
 # 1) Remove all defaults under components.schemas
 schemas = doc.get("components", {}).get("schemas", {})
 walk_and_prune(schemas)
@@ -110,6 +153,8 @@ walk_and_prune(schemas)
 strip_ref_siblings(doc)
 # Remove oneOf/anyOf entries that only express required-field constraints
 collapse_required_only_unions(doc)
+# Auto-title unnamed union variants so the generator can derive model names
+add_titles_to_unnamed_union_variants(doc)
 
 
 # 2) Simplify union-heavy properties
@@ -162,61 +207,6 @@ if isinstance(cr, dict) and isinstance(cr.get("allOf"), list):
                 props["model"] = {"type": "string"}
 set_prop("CreateTranslationRequest", "model", {"type": "string"})
 
-
-# 2b) Normalize chat content union variant titles to code-safe names for Rust enums
-def normalize_chat_content_titles(schema_name: str):
-    s = schemas.get(schema_name)
-    if not isinstance(s, dict):
-        return
-    props = s.get("properties", {})
-    c = props.get("content")
-    if (
-        isinstance(c, dict)
-        and isinstance(c.get("oneOf"), list)
-        and len(c["oneOf"]) == 2
-    ):
-        # First is string → "Text", second is array → "ArrayOfContentParts"
-        if isinstance(c["oneOf"][0], dict) and c["oneOf"][0].get("type") == "string":
-            c["oneOf"][0]["title"] = "Text"
-        if isinstance(c["oneOf"][1], dict) and c["oneOf"][1].get("type") == "array":
-            c["oneOf"][1]["title"] = "ArrayOfContentParts"
-        note(
-            f"Normalized {schema_name}.content.oneOf titles -> Text / ArrayOfContentParts"
-        )
-
-
-for name in [
-    "ChatCompletionRequestSystemMessage",
-    "ChatCompletionRequestUserMessage",
-    "ChatCompletionRequestAssistantMessage",
-    "ChatCompletionRequestToolMessage",
-    "ChatCompletionRequestDeveloperMessage",
-]:
-    normalize_chat_content_titles(name)
-
-# Normalize CreateEmbeddingRequest.input oneOf titles for Rust enum generation
-cer = schemas.get("CreateEmbeddingRequest")
-if isinstance(cer, dict):
-    props = cer.get("properties", {})
-    inp = props.get("input")
-    if isinstance(inp, dict) and isinstance(inp.get("oneOf"), list):
-        for item in inp["oneOf"]:
-            if not isinstance(item, dict):
-                continue
-            t = item.get("type")
-            if t == "string":
-                item["title"] = "Text"
-            elif t == "array":
-                it = item.get("items")
-                if isinstance(it, dict) and it.get("type") == "string":
-                    item["title"] = "ArrayOfStrings"
-                elif isinstance(it, dict) and it.get("type") == "integer":
-                    item["title"] = "ArrayOfIntegers"
-                elif isinstance(it, dict) and it.get("type") == "array":
-                    inner = it.get("items")
-                    if isinstance(inner, dict) and inner.get("type") == "integer":
-                        item["title"] = "ArrayOfIntegerArrays"
-        note("Normalized CreateEmbeddingRequest.input.oneOf titles")
 
 # 3) Coerce problematic event/union models to simple object
 for key in [
