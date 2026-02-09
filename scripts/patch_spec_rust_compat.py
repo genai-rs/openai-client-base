@@ -184,6 +184,15 @@ def hoist_inline_unions(schemas):
                 if has_ref:
                     continue
 
+                # Skip nullable wrappers: anyOf/oneOf [SomeType, {type: null}]
+                # These are just Option<T> and the generator handles them fine inline.
+                has_null_variant = any(
+                    isinstance(item, dict) and item.get("type") == "null"
+                    for item in items
+                )
+                if has_null_variant:
+                    continue
+
                 # Build a CamelCase name: SchemaName + PropertyName
                 camel_prop = prop_name[0].upper() + prop_name[1:]
                 new_name = f"{schema_name}{camel_prop}"
