@@ -229,17 +229,19 @@ def remove_default_from_problematic_structs(models_dir):
     # List of types that no longer have Default
     non_default_types = set()
 
-    # Add enums that do not derive Default
+    # Add enums that do not derive Default (neither via #[derive] nor impl Default)
     for file_path in models_dir.glob("*.rs"):
         with open(file_path, "r") as f:
             content = f.read()
-        enum_match = re.search(r"pub enum (\w+)", content)
-        if not enum_match:
-            continue
-        name = enum_match.group(1)
-        has_default = bool(re.search(r"#\[derive\([^)]*Default[^)]*\)\]", content))
-        if not has_default:
-            non_default_types.add(name)
+        for enum_match in re.finditer(r"pub enum (\w+)", content):
+            name = enum_match.group(1)
+            # Check if this specific enum has Default via derive
+            derive_pattern = rf"#\[derive\([^)]*Default[^)]*\)\]\s*(?:#\[[^\]]*\]\s*)*pub enum {name}\b"
+            has_derive_default = bool(re.search(derive_pattern, content))
+            # Check if this specific enum has a manual impl Default
+            has_impl_default = bool(re.search(rf"impl Default for {name}\b", content))
+            if not has_derive_default and not has_impl_default:
+                non_default_types.add(name)
 
     # First pass: identify empty enums
     for file_path in models_dir.glob("*.rs"):
@@ -312,6 +314,47 @@ def remove_default_from_problematic_structs(models_dir):
                         f.write(new_content)
                     print(f"Removed Default derive from {file_path.name}")
                     non_default_types.add(struct_name)
+                    changes = True
+
+        # Also handle enums with manual `impl Default` that reference non-Default types
+        for file_path in models_dir.glob("*.rs"):
+            with open(file_path, "r") as f:
+                content = f.read()
+
+            # Find enums with a manual impl Default block
+            impl_match = re.search(r"impl Default for (\w+)\s*\{", content)
+            if not impl_match:
+                continue
+            enum_name = impl_match.group(1)
+
+            if enum_name in non_default_types:
+                continue
+
+            # Check if any enum variant references a non-Default type
+            should_remove = False
+            for type_name in non_default_types:
+                variant_pattern = rf"\w+\((?:Box<)?(?:models::)?{type_name}>?\)"
+                if re.search(variant_pattern, content):
+                    should_remove = True
+                    break
+
+            if should_remove:
+                # Remove the entire impl Default block
+                new_content = re.sub(
+                    r"impl Default for "
+                    + re.escape(enum_name)
+                    + r"\s*\{[^}]*\{[^}]*\}[^}]*\}",
+                    "",
+                    content,
+                    flags=re.DOTALL,
+                )
+                if new_content != content:
+                    with open(file_path, "w") as f:
+                        f.write(new_content)
+                    print(
+                        f"Removed impl Default from enum {enum_name} in {file_path.name}"
+                    )
+                    non_default_types.add(enum_name)
                     changes = True
 
 
