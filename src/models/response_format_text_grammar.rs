@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ResponseFormatTextGrammar : A custom grammar for the model to follow when generating text. Learn more in the [custom grammars guide](https://platform.openai.com/docs/guides/custom-grammars).
+/// ResponseFormatTextGrammar : A custom grammar for the model to follow when generating text. Learn more in the [custom grammars guide](/docs/guides/custom-grammars).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseFormatTextGrammar {
     /// The type of response format being defined. Always `grammar`.
@@ -23,7 +23,7 @@ pub struct ResponseFormatTextGrammar {
 }
 
 impl ResponseFormatTextGrammar {
-    /// A custom grammar for the model to follow when generating text. Learn more in the [custom grammars guide](https://platform.openai.com/docs/guides/custom-grammars).
+    /// A custom grammar for the model to follow when generating text. Learn more in the [custom grammars guide](/docs/guides/custom-grammars).
     pub fn new(r#type: Type, grammar: String) -> ResponseFormatTextGrammar {
         ResponseFormatTextGrammar { r#type, grammar }
     }

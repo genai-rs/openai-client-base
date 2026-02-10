@@ -43,7 +43,6 @@ pub enum UpdateGroupError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates a new group in the organization.
 #[bon::builder]
 pub async fn create_group(
     configuration: &configuration::Configuration,
@@ -94,7 +93,6 @@ pub async fn create_group(
     }
 }
 
-/// Deletes a group from the organization.
 #[bon::builder]
 pub async fn delete_group(
     configuration: &configuration::Configuration,
@@ -148,7 +146,6 @@ pub async fn delete_group(
     }
 }
 
-/// Lists all groups in the organization.
 #[bon::builder]
 pub async fn list_groups(
     configuration: &configuration::Configuration,
@@ -209,7 +206,6 @@ pub async fn list_groups(
     }
 }
 
-/// Updates a group's information.
 #[bon::builder]
 pub async fn update_group(
     configuration: &configuration::Configuration,

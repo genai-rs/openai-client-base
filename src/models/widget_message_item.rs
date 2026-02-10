@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WidgetMessageItem : Thread item that renders a widget payload.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WidgetMessageItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ComputerToolCallOutput : The output of a computer tool call.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerToolCallOutput {
     /// The type of the computer tool call output. Always `computer_call_output`.
     #[serde(rename = "type")]

@@ -17,8 +17,9 @@ pub struct RealtimeServerEventConversationItemRetrieved {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `conversation.item.retrieved`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     #[serde(rename = "item")]
     pub item: Box<models::RealtimeConversationItem>,
 }
@@ -27,7 +28,7 @@ impl RealtimeServerEventConversationItemRetrieved {
     /// Returned when a conversation item is retrieved with `conversation.item.retrieve`. This is provided as a way to fetch the server's representation of an item, for example to get access to the post-processed audio data after noise cancellation and VAD. It includes the full content of the Item, including audio data.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         item: models::RealtimeConversationItem,
     ) -> RealtimeServerEventConversationItemRetrieved {
         RealtimeServerEventConversationItemRetrieved {
@@ -35,6 +36,18 @@ impl RealtimeServerEventConversationItemRetrieved {
             r#type,
             item: Box::new(item),
         }
+    }
+}
+/// The event type, must be `conversation.item.retrieved`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "conversation.item.retrieved")]
+    ConversationItemRetrieved,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ConversationItemRetrieved
     }
 }
 

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// Model : Describes an OpenAI model offering that can be used with the API.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Model {
     /// The model identifier, which can be referenced in the API endpoints.
     #[serde(rename = "id")]

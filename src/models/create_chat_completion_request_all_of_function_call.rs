@@ -12,25 +12,17 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionRequestAllOfFunctionCall : Deprecated in favor of `tool_choice`.  Controls which (if any) function is called by the model.  `none` means the model will not call a function and instead generates a message.  `auto` means the model can pick between generating a message or calling a function.  Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.  `none` is the default when no functions are present. `auto` is the default if functions are present.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateChatCompletionRequestAllOfFunctionCall {
-    /// The name of the function to call.
-    #[serde(rename = "name")]
-    pub name: String,
+/// Deprecated in favor of `tool_choice`.  Controls which (if any) function is called by the model.  `none` means the model will not call a function and instead generates a message.  `auto` means the model can pick between generating a message or calling a function.  Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.  `none` is the default when no functions are present. `auto` is the default if functions are present.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateChatCompletionRequestAllOfFunctionCall {
+    /// `none` means the model will not call a function and instead generates a message. `auto` means the model can pick between generating a message or calling a function.
+    Text(String),
+    ChatCompletionFunctionCallOption(Box<models::ChatCompletionFunctionCallOption>),
 }
 
-impl CreateChatCompletionRequestAllOfFunctionCall {
-    /// Deprecated in favor of `tool_choice`.  Controls which (if any) function is called by the model.  `none` means the model will not call a function and instead generates a message.  `auto` means the model can pick between generating a message or calling a function.  Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.  `none` is the default when no functions are present. `auto` is the default if functions are present.
-    pub fn new(name: String) -> CreateChatCompletionRequestAllOfFunctionCall {
-        CreateChatCompletionRequestAllOfFunctionCall { name }
-    }
-}
-
-impl std::fmt::Display for CreateChatCompletionRequestAllOfFunctionCall {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
+impl Default for CreateChatCompletionRequestAllOfFunctionCall {
+    fn default() -> Self {
+        Self::Text(Default::default())
     }
 }

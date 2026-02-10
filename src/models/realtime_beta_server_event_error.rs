@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventError {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `error`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     #[serde(rename = "error")]
     pub error: Box<models::RealtimeBetaServerEventErrorError>,
 }
@@ -27,7 +28,7 @@ impl RealtimeBetaServerEventError {
     /// Returned when an error occurs, which could be a client problem or a server problem. Most errors are recoverable and the session will stay open, we recommend to implementors to monitor and log error messages by default.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         error: models::RealtimeBetaServerEventErrorError,
     ) -> RealtimeBetaServerEventError {
         RealtimeBetaServerEventError {
@@ -35,6 +36,18 @@ impl RealtimeBetaServerEventError {
             r#type,
             error: Box::new(error),
         }
+    }
+}
+/// The event type, must be `error`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "error")]
+    Error,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Error
     }
 }
 

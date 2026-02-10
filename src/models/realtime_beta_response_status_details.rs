@@ -41,10 +41,10 @@ pub enum Type {
     Completed,
     #[serde(rename = "cancelled")]
     Cancelled,
-    #[serde(rename = "incomplete")]
-    Incomplete,
     #[serde(rename = "failed")]
     Failed,
+    #[serde(rename = "incomplete")]
+    Incomplete,
 }
 
 impl Default for Type {

@@ -36,7 +36,6 @@ pub enum RemoveProjectGroupError {
     UnknownValue(serde_json::Value),
 }
 
-/// Grants a group access to a project.
 #[bon::builder]
 pub async fn add_project_group(
     configuration: &configuration::Configuration,
@@ -93,7 +92,6 @@ pub async fn add_project_group(
     }
 }
 
-/// Lists the groups that have access to a project.
 #[bon::builder]
 pub async fn list_project_groups(
     configuration: &configuration::Configuration,
@@ -160,7 +158,6 @@ pub async fn list_project_groups(
     }
 }
 
-/// Revokes a group's access to a project.
 #[bon::builder]
 pub async fn remove_project_group(
     configuration: &configuration::Configuration,

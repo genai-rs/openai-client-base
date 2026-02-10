@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebSearchTool : Search the Internet for sources related to the prompt. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+/// WebSearchTool : Search the Internet for sources related to the prompt. Learn more about the [web search tool](/docs/guides/tools-web-search).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchTool {
     /// The type of the web search tool. One of `web_search` or `web_search_2025_08_26`.
@@ -23,7 +23,7 @@ pub struct WebSearchTool {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub filters: Option<Option<Box<models::WebSearchToolFilters>>>,
+    pub filters: Option<Option<Box<models::Object020>>>,
     #[serde(
         rename = "user_location",
         default,
@@ -40,7 +40,7 @@ pub struct WebSearchTool {
 }
 
 impl WebSearchTool {
-    /// Search the Internet for sources related to the prompt. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+    /// Search the Internet for sources related to the prompt. Learn more about the [web search tool](/docs/guides/tools-web-search).
     pub fn new(r#type: Type) -> WebSearchTool {
         WebSearchTool {
             r#type,

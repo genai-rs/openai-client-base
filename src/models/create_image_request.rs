@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateImageRequest {
     /// A text description of the desired image(s). The maximum length is 32000 characters for the GPT image models, 1000 characters for `dall-e-2` and 4000 characters for `dall-e-3`.
     #[serde(rename = "prompt")]
@@ -33,7 +33,7 @@ pub struct CreateImageRequest {
     /// The compression level (0-100%) for the generated images. This parameter is only supported for the GPT image models with the `webp` or `jpeg` output formats, and defaults to 100.
     #[serde(rename = "output_compression", skip_serializing_if = "Option::is_none")]
     pub output_compression: Option<i32>,
-    /// Generate the image in streaming mode. Defaults to `false`. See the [Image generation guide](https://platform.openai.com/docs/guides/image-generation) for more information. This parameter is only supported for the GPT image models.
+    /// Generate the image in streaming mode. Defaults to `false`. See the [Image generation guide](/docs/guides/image-generation) for more information. This parameter is only supported for the GPT image models.
     #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
     pub stream: Option<bool>,
     /// The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.
@@ -56,7 +56,7 @@ pub struct CreateImageRequest {
     /// The style of the generated images. This parameter is only supported for `dall-e-3`. Must be one of `vivid` or `natural`. Vivid causes the model to lean towards generating hyper-real and dramatic images. Natural causes the model to produce more natural, less hyper-real looking images.
     #[serde(rename = "style", skip_serializing_if = "Option::is_none")]
     pub style: Option<Style>,
-    /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
+    /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](/docs/guides/safety-best-practices#end-user-ids).
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
 }

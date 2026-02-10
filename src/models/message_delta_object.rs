@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// MessageDeltaObject : Represents a message delta i.e. any changed fields on a message during streaming.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageDeltaObject {
     /// The identifier of the message, which can be referenced in API endpoints.
     #[serde(rename = "id")]

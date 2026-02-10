@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ImageGenCompletedEvent : Emitted when image generation has completed and the final image is available.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenCompletedEvent {
     /// The type of the event. Always `image_generation.completed`.
     #[serde(rename = "type")]

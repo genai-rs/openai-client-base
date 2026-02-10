@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the server event. | 
-**r#type** | Option<[**serde_json::Value**](.md)> |  | 
+**r#type** | **String** | The event type, must be `input_audio_buffer.committed`. | 
 **previous_item_id** | Option<**String**> | The ID of the preceding item after which the new item will be inserted. Can be `null` if the item has no predecessor.  | [optional]
 **item_id** | **String** | The ID of the user message item that will be created. | 
 

@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FileSearchToolCall : The results of a file search tool call. See the [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// FileSearchToolCall : The results of a file search tool call. See the [file search guide](/docs/guides/tools-file-search) for more information.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FileSearchToolCall {
     /// The unique ID of the file search tool call.
     #[serde(rename = "id")]
@@ -37,7 +37,7 @@ pub struct FileSearchToolCall {
 }
 
 impl FileSearchToolCall {
-    /// The results of a file search tool call. See the [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
+    /// The results of a file search tool call. See the [file search guide](/docs/guides/tools-file-search) for more information.
     pub fn new(
         id: String,
         r#type: Type,

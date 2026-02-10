@@ -80,7 +80,6 @@ pub enum UpdateVoiceConsentError {
     UnknownValue(serde_json::Value),
 }
 
-/// Generates audio from the input text.
 #[bon::builder]
 pub async fn create_speech(
     configuration: &configuration::Configuration,
@@ -120,7 +119,6 @@ pub async fn create_speech(
     }
 }
 
-/// Transcribes audio into the input language.
 #[bon::builder]
 pub async fn create_transcription(
     configuration: &configuration::Configuration,
@@ -133,7 +131,7 @@ pub async fn create_transcription(
     include: Option<Vec<models::TranscriptionInclude>>,
     timestamp_granularities: Option<Vec<String>>,
     stream: Option<bool>,
-    chunking_strategy: Option<models::TranscriptionChunkingStrategy>,
+    chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>,
     known_speaker_names: Option<Vec<String>>,
     known_speaker_references: Option<Vec<String>>,
 ) -> Result<models::CreateTranscription200Response, Error<CreateTranscriptionError>> {
@@ -259,7 +257,6 @@ pub async fn create_transcription(
     }
 }
 
-/// Translates audio into English.
 #[bon::builder]
 pub async fn create_translation(
     configuration: &configuration::Configuration,
@@ -331,7 +328,7 @@ pub async fn create_translation(
     }
 }
 
-/// Creates a custom voice.
+/// Create a custom voice you can use for audio output (for example, in Text-to-Speech and the Realtime API). This requires an audio sample and a previously uploaded consent recording.  See the [custom voices guide](/docs/guides/text-to-speech#custom-voices) for requirements and best practices. Custom voices are limited to eligible customers.
 #[bon::builder]
 pub async fn create_voice(
     configuration: &configuration::Configuration,
@@ -391,7 +388,7 @@ pub async fn create_voice(
     }
 }
 
-/// Upload a voice consent recording.
+/// Upload a consent recording that authorizes creation of a custom voice.  See the [custom voices guide](/docs/guides/text-to-speech#custom-voices) for requirements and best practices. Custom voices are limited to eligible customers.
 #[bon::builder]
 pub async fn create_voice_consent(
     configuration: &configuration::Configuration,
@@ -451,7 +448,7 @@ pub async fn create_voice_consent(
     }
 }
 
-/// Deletes a voice consent recording.
+/// Delete a consent recording that was uploaded for creating custom voices.  See the [custom voices guide](/docs/guides/text-to-speech#custom-voices). Custom voices are limited to eligible customers.
 #[bon::builder]
 pub async fn delete_voice_consent(
     configuration: &configuration::Configuration,
@@ -505,7 +502,7 @@ pub async fn delete_voice_consent(
     }
 }
 
-/// Retrieves a voice consent recording.
+/// Retrieve consent recording metadata used for creating custom voices.  See the [custom voices guide](/docs/guides/text-to-speech#custom-voices). Custom voices are limited to eligible customers.
 #[bon::builder]
 pub async fn get_voice_consent(
     configuration: &configuration::Configuration,
@@ -557,7 +554,7 @@ pub async fn get_voice_consent(
     }
 }
 
-/// Returns a list of voice consent recordings.
+/// List consent recordings available to your organization for creating custom voices.  See the [custom voices guide](/docs/guides/text-to-speech#custom-voices). Custom voices are limited to eligible customers.
 #[bon::builder]
 pub async fn list_voice_consents(
     configuration: &configuration::Configuration,
@@ -613,7 +610,7 @@ pub async fn list_voice_consents(
     }
 }
 
-/// Updates a voice consent recording (metadata only).
+/// Update consent recording metadata used for creating custom voices. This endpoint updates metadata only and does not replace the underlying audio.  See the [custom voices guide](/docs/guides/text-to-speech#custom-voices). Custom voices are limited to eligible customers.
 #[bon::builder]
 pub async fn update_voice_consent(
     configuration: &configuration::Configuration,

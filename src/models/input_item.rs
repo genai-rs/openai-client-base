@@ -24,3 +24,9 @@ pub enum InputItem {
 pub enum Role {
     Assistant,
 }
+
+impl Default for Role {
+    fn default() -> Role {
+        Self::Assistant
+    }
+}

@@ -11,38 +11,15 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateTranslation200Response {
-    /// The translated text.
-    #[serde(rename = "text")]
-    pub text: String,
-    /// The language of the output translation (always `english`).
-    #[serde(rename = "language")]
-    pub language: String,
-    /// The duration of the input audio.
-    #[serde(rename = "duration")]
-    pub duration: f64,
-    /// Segments of the translated text and their corresponding details.
-    #[serde(rename = "segments", skip_serializing_if = "Option::is_none")]
-    pub segments: Option<Vec<models::TranscriptionSegment>>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateTranslation200Response {
+    CreateTranslationResponseJson(Box<models::CreateTranslationResponseJson>),
+    CreateTranslationResponseVerboseJson(Box<models::CreateTranslationResponseVerboseJson>),
 }
 
-impl CreateTranslation200Response {
-    pub fn new(text: String, language: String, duration: f64) -> CreateTranslation200Response {
-        CreateTranslation200Response {
-            text,
-            language,
-            duration,
-            segments: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateTranslation200Response {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
+impl Default for CreateTranslation200Response {
+    fn default() -> Self {
+        Self::CreateTranslationResponseJson(Default::default())
     }
 }

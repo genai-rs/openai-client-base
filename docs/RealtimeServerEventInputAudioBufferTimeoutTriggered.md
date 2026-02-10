@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the server event. | 
-**r#type** | Option<[**serde_json::Value**](.md)> |  | 
+**r#type** | **String** | The event type, must be `input_audio_buffer.timeout_triggered`. | 
 **audio_start_ms** | **i32** | Millisecond offset of audio written to the input audio buffer that was after the playback time of the last model response. | 
 **audio_end_ms** | **i32** | Millisecond offset of audio written to the input audio buffer at the time the timeout was triggered. | 
 **item_id** | **String** | The ID of the item associated with this segment. | 

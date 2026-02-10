@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateEvalResponsesRunDataSourceSamplingParamsText : Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://platform.openai.com/docs/guides/text) - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+/// CreateEvalResponsesRunDataSourceSamplingParamsText : Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](/docs/guides/text) - [Structured Outputs](/docs/guides/structured-outputs)
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEvalResponsesRunDataSourceSamplingParamsText {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
@@ -19,7 +19,7 @@ pub struct CreateEvalResponsesRunDataSourceSamplingParamsText {
 }
 
 impl CreateEvalResponsesRunDataSourceSamplingParamsText {
-    /// Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://platform.openai.com/docs/guides/text) - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+    /// Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](/docs/guides/text) - [Structured Outputs](/docs/guides/structured-outputs)
     pub fn new() -> CreateEvalResponsesRunDataSourceSamplingParamsText {
         CreateEvalResponsesRunDataSourceSamplingParamsText { format: None }
     }

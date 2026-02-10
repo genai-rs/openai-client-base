@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookBatchCancelled : Sent when a batch API request has been cancelled.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookBatchCancelled {
     /// The Unix timestamp (in seconds) of when the batch API request was cancelled.
     #[serde(rename = "created_at")]

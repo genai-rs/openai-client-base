@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ResponseFormatTextPython : Configure the model to generate valid Python code. See the [custom grammars guide](https://platform.openai.com/docs/guides/custom-grammars) for more details.
+/// ResponseFormatTextPython : Configure the model to generate valid Python code. See the [custom grammars guide](/docs/guides/custom-grammars) for more details.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseFormatTextPython {
     /// The type of response format being defined. Always `python`.
@@ -20,7 +20,7 @@ pub struct ResponseFormatTextPython {
 }
 
 impl ResponseFormatTextPython {
-    /// Configure the model to generate valid Python code. See the [custom grammars guide](https://platform.openai.com/docs/guides/custom-grammars) for more details.
+    /// Configure the model to generate valid Python code. See the [custom grammars guide](/docs/guides/custom-grammars) for more details.
     pub fn new(r#type: Type) -> ResponseFormatTextPython {
         ResponseFormatTextPython { r#type }
     }

@@ -12,16 +12,24 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "event")]
+#[serde(untagged)]
 pub enum MessageStreamEvent {
-    #[serde(rename = "thread.message.created")]
-    AnyOf(Box<models::MessageStreamEventAnyOf>),
-    #[serde(rename = "thread.message.in_progress")]
-    AnyOf1(serde_json::Value),
-    #[serde(rename = "thread.message.delta")]
-    AnyOf2(serde_json::Value),
-    #[serde(rename = "thread.message.completed")]
-    AnyOf3(serde_json::Value),
+    Object012(serde_json::Value),
+    Object1(Box<models::Object1>),
+    Object2(Box<models::Object2>),
+    Object3(Box<models::Object3>),
+    Object4(Box<models::Object4>),
+}
+
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Event {
     #[serde(rename = "thread.message.incomplete")]
-    AnyOf4(serde_json::Value),
+    ThreadMessageIncomplete,
+}
+
+impl Default for Event {
+    fn default() -> Event {
+        Self::ThreadMessageIncomplete
+    }
 }

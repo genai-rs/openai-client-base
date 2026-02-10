@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ResponseFormatJsonSchema : JSON Schema response format. Used to generate structured JSON responses. Learn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
+/// ResponseFormatJsonSchema : JSON Schema response format. Used to generate structured JSON responses. Learn more about [Structured Outputs](/docs/guides/structured-outputs).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseFormatJsonSchema {
     /// The type of response format being defined. Always `json_schema`.
@@ -22,7 +22,7 @@ pub struct ResponseFormatJsonSchema {
 }
 
 impl ResponseFormatJsonSchema {
-    /// JSON Schema response format. Used to generate structured JSON responses. Learn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
+    /// JSON Schema response format. Used to generate structured JSON responses. Learn more about [Structured Outputs](/docs/guides/structured-outputs).
     pub fn new(r#type: Type, json_schema: models::JsonSchema) -> ResponseFormatJsonSchema {
         ResponseFormatJsonSchema {
             r#type,

@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FunctionToolCall : A tool call to run a function. See the  [function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// FunctionToolCall : A tool call to run a function. See the  [function calling guide](/docs/guides/function-calling) for more information.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionToolCall {
     /// The unique ID of the function tool call.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -35,7 +35,7 @@ pub struct FunctionToolCall {
 }
 
 impl FunctionToolCall {
-    /// A tool call to run a function. See the  [function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
+    /// A tool call to run a function. See the  [function calling guide](/docs/guides/function-calling) for more information.
     pub fn new(r#type: Type, call_id: String, name: String, arguments: String) -> FunctionToolCall {
         FunctionToolCall {
             id: None,

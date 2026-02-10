@@ -17,8 +17,9 @@ pub struct RealtimeServerEventMcpListToolsCompleted {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `mcp_list_tools.completed`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the MCP list tools item.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -28,7 +29,7 @@ impl RealtimeServerEventMcpListToolsCompleted {
     /// Returned when listing MCP tools has completed for an item.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         item_id: String,
     ) -> RealtimeServerEventMcpListToolsCompleted {
         RealtimeServerEventMcpListToolsCompleted {
@@ -36,6 +37,18 @@ impl RealtimeServerEventMcpListToolsCompleted {
             r#type,
             item_id,
         }
+    }
+}
+/// The event type, must be `mcp_list_tools.completed`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "mcp_list_tools.completed")]
+    McpListToolsCompleted,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::McpListToolsCompleted
     }
 }
 

@@ -18,3 +18,9 @@ pub enum ResponseOutputTextAnnotationsInner {
     FileAnnotation(Box<models::FileAnnotation>),
     UrlAnnotation(Box<models::UrlAnnotation>),
 }
+
+impl Default for ResponseOutputTextAnnotationsInner {
+    fn default() -> Self {
+        Self::FileAnnotation(Default::default())
+    }
+}

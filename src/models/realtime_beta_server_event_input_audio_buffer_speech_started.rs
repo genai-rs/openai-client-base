@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventInputAudioBufferSpeechStarted {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `input_audio_buffer.speech_started`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// Milliseconds from the start of all audio written to the buffer during the  session when speech was first detected. This will correspond to the  beginning of audio sent to the model, and thus includes the  `prefix_padding_ms` configured in the Session.
     #[serde(rename = "audio_start_ms")]
     pub audio_start_ms: i32,
@@ -31,7 +32,7 @@ impl RealtimeBetaServerEventInputAudioBufferSpeechStarted {
     /// Sent by the server when in `server_vad` mode to indicate that speech has been  detected in the audio buffer. This can happen any time audio is added to the  buffer (unless speech is already detected). The client may want to use this  event to interrupt audio playback or provide visual feedback to the user.   The client should expect to receive a `input_audio_buffer.speech_stopped` event  when speech stops. The `item_id` property is the ID of the user message item  that will be created when speech stops and will also be included in the  `input_audio_buffer.speech_stopped` event (unless the client manually commits  the audio buffer during VAD activation).
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         audio_start_ms: i32,
         item_id: String,
     ) -> RealtimeBetaServerEventInputAudioBufferSpeechStarted {
@@ -41,6 +42,18 @@ impl RealtimeBetaServerEventInputAudioBufferSpeechStarted {
             audio_start_ms,
             item_id,
         }
+    }
+}
+/// The event type, must be `input_audio_buffer.speech_started`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "input_audio_buffer.speech_started")]
+    InputAudioBufferSpeechStarted,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::InputAudioBufferSpeechStarted
     }
 }
 

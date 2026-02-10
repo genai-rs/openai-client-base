@@ -23,13 +23,13 @@ pub struct RunStepObject {
     /// The Unix timestamp (in seconds) for when the run step was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) associated with the run step.
+    /// The ID of the [assistant](/docs/api-reference/assistants) associated with the run step.
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
-    /// The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was run.
+    /// The ID of the [thread](/docs/api-reference/threads) that was run.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
-    /// The ID of the [run](https://platform.openai.com/docs/api-reference/runs) that this run step is a part of.
+    /// The ID of the [run](/docs/api-reference/runs) that this run step is a part of.
     #[serde(rename = "run_id")]
     pub run_id: String,
     /// The type of run step, which can be either `message_creation` or `tool_calls`.
@@ -41,7 +41,7 @@ pub struct RunStepObject {
     #[serde(rename = "step_details")]
     pub step_details: Box<models::RunStepObjectStepDetails>,
     #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
-    pub last_error: Option<Box<models::RunStepObjectLastError>>,
+    pub last_error: Option<Box<models::Object016>>,
     /// The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
     #[serde(rename = "expired_at", deserialize_with = "Option::deserialize")]
     pub expired_at: Option<i32>,
@@ -73,7 +73,7 @@ impl RunStepObject {
         r#type: Type,
         status: Status,
         step_details: models::RunStepObjectStepDetails,
-        last_error: Option<models::RunStepObjectLastError>,
+        last_error: Option<models::Object016>,
         expired_at: Option<i32>,
         cancelled_at: Option<i32>,
         failed_at: Option<i32>,

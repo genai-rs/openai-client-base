@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// VectorStoreObject : A vector store is a collection of processed files can be used by the `file_search` tool.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VectorStoreObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]

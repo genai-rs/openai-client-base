@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookBatchCompleted : Sent when a batch API request has been completed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookBatchCompleted {
     /// The Unix timestamp (in seconds) of when the batch API request was completed.
     #[serde(rename = "created_at")]

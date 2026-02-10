@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | Option<**String**> | Optional client-generated ID used to identify this event. | [optional]
-**r#type** | Option<[**serde_json::Value**](.md)> |  | 
+**r#type** | **String** | The event type, must be `conversation.item.create`. | 
 **previous_item_id** | Option<**String**> | The ID of the preceding item after which the new item will be inserted. If not set, the new item will be appended to the end of the conversation.  If set to `root`, the new item will be added to the beginning of the conversation.  If set to an existing ID, it allows an item to be inserted mid-conversation. If the ID cannot be found, an error will be returned and the item will not be added.  | [optional]
 **item** | [**models::RealtimeConversationItem**](RealtimeConversationItem.md) |  | 
 

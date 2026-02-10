@@ -4,18 +4,16 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_group**](GroupsApi.md#create_group) | **POST** /organization/groups | Create group
-[**delete_group**](GroupsApi.md#delete_group) | **DELETE** /organization/groups/{group_id} | Delete group
-[**list_groups**](GroupsApi.md#list_groups) | **GET** /organization/groups | List groups
-[**update_group**](GroupsApi.md#update_group) | **POST** /organization/groups/{group_id} | Update group
+[**create_group**](GroupsApi.md#create_group) | **POST** /organization/groups | Creates a new group in the organization.
+[**delete_group**](GroupsApi.md#delete_group) | **DELETE** /organization/groups/{group_id} | Deletes a group from the organization.
+[**list_groups**](GroupsApi.md#list_groups) | **GET** /organization/groups | Lists all groups in the organization.
+[**update_group**](GroupsApi.md#update_group) | **POST** /organization/groups/{group_id} | Updates a group's information.
 
 
 
 ## create_group
 
 > models::GroupResponse create_group(create_group_body)
-Create group
-
 Creates a new group in the organization.
 
 ### Parameters
@@ -44,8 +42,6 @@ Name | Type | Description  | Required | Notes
 ## delete_group
 
 > models::GroupDeletedResource delete_group(group_id)
-Delete group
-
 Deletes a group from the organization.
 
 ### Parameters
@@ -74,8 +70,6 @@ Name | Type | Description  | Required | Notes
 ## list_groups
 
 > models::GroupListResource list_groups(limit, after, order)
-List groups
-
 Lists all groups in the organization.
 
 ### Parameters
@@ -106,8 +100,6 @@ Name | Type | Description  | Required | Notes
 ## update_group
 
 > models::GroupResourceWithSuccess update_group(group_id, update_group_body)
-Update group
-
 Updates a group's information.
 
 ### Parameters

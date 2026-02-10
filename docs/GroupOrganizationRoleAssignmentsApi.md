@@ -4,17 +4,15 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assign_group_role**](GroupOrganizationRoleAssignmentsApi.md#assign_group_role) | **POST** /organization/groups/{group_id}/roles | Assign organization role to group
-[**list_group_role_assignments**](GroupOrganizationRoleAssignmentsApi.md#list_group_role_assignments) | **GET** /organization/groups/{group_id}/roles | List group organization role assignments
-[**unassign_group_role**](GroupOrganizationRoleAssignmentsApi.md#unassign_group_role) | **DELETE** /organization/groups/{group_id}/roles/{role_id} | Unassign organization role from group
+[**assign_group_role**](GroupOrganizationRoleAssignmentsApi.md#assign_group_role) | **POST** /organization/groups/{group_id}/roles | Assigns an organization role to a group within the organization.
+[**list_group_role_assignments**](GroupOrganizationRoleAssignmentsApi.md#list_group_role_assignments) | **GET** /organization/groups/{group_id}/roles | Lists the organization roles assigned to a group within the organization.
+[**unassign_group_role**](GroupOrganizationRoleAssignmentsApi.md#unassign_group_role) | **DELETE** /organization/groups/{group_id}/roles/{role_id} | Unassigns an organization role from a group within the organization.
 
 
 
 ## assign_group_role
 
 > models::GroupRoleAssignment assign_group_role(group_id, public_assign_organization_group_role_body)
-Assign organization role to group
-
 Assigns an organization role to a group within the organization.
 
 ### Parameters
@@ -44,8 +42,6 @@ Name | Type | Description  | Required | Notes
 ## list_group_role_assignments
 
 > models::RoleListResource list_group_role_assignments(group_id, limit, after, order)
-List group organization role assignments
-
 Lists the organization roles assigned to a group within the organization.
 
 ### Parameters
@@ -77,8 +73,6 @@ Name | Type | Description  | Required | Notes
 ## unassign_group_role
 
 > models::DeletedRoleAssignmentResource unassign_group_role(group_id, role_id)
-Unassign organization role from group
-
 Unassigns an organization role from a group within the organization.
 
 ### Parameters

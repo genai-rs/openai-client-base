@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompactResponseMethodPublicBody {
     #[serde(rename = "model", deserialize_with = "Option::deserialize")]
     pub model: Option<Box<models::ModelIdsCompaction>>,
@@ -22,7 +22,7 @@ pub struct CompactResponseMethodPublicBody {
         skip_serializing_if = "Option::is_none"
     )]
     pub input: Option<Option<Box<models::TokenCountsBodyInput>>>,
-    /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://platform.openai.com/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
+    /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
         default,

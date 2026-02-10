@@ -47,3 +47,9 @@ pub enum Item {
 pub enum Role {
     Assistant,
 }
+
+impl Default for Role {
+    fn default() -> Role {
+        Self::Assistant
+    }
+}

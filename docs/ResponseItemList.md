@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | Option<[**serde_json::Value**](.md)> |  | 
+**object** | **String** | The type of object returned, must be `list`. | 
 **data** | [**Vec<models::ItemResource>**](ItemResource.md) | A list of items used to generate this response. | 
 **has_more** | **bool** | Whether there are more items available. | 
 **first_id** | **String** | The ID of the first item in the list. | 

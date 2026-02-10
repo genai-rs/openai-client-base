@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ClientToolCallItem : Record of a client side tool invocation initiated by the assistant.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ClientToolCallItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]

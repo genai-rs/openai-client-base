@@ -4,17 +4,15 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assign_project_group_role**](ProjectGroupRoleAssignmentsApi.md#assign_project_group_role) | **POST** /projects/{project_id}/groups/{group_id}/roles | Assign project role to group
-[**list_project_group_role_assignments**](ProjectGroupRoleAssignmentsApi.md#list_project_group_role_assignments) | **GET** /projects/{project_id}/groups/{group_id}/roles | List project group role assignments
-[**unassign_project_group_role**](ProjectGroupRoleAssignmentsApi.md#unassign_project_group_role) | **DELETE** /projects/{project_id}/groups/{group_id}/roles/{role_id} | Unassign project role from group
+[**assign_project_group_role**](ProjectGroupRoleAssignmentsApi.md#assign_project_group_role) | **POST** /projects/{project_id}/groups/{group_id}/roles | Assigns a project role to a group within a project.
+[**list_project_group_role_assignments**](ProjectGroupRoleAssignmentsApi.md#list_project_group_role_assignments) | **GET** /projects/{project_id}/groups/{group_id}/roles | Lists the project roles assigned to a group within a project.
+[**unassign_project_group_role**](ProjectGroupRoleAssignmentsApi.md#unassign_project_group_role) | **DELETE** /projects/{project_id}/groups/{group_id}/roles/{role_id} | Unassigns a project role from a group within a project.
 
 
 
 ## assign_project_group_role
 
 > models::GroupRoleAssignment assign_project_group_role(project_id, group_id, public_assign_organization_group_role_body)
-Assign project role to group
-
 Assigns a project role to a group within a project.
 
 ### Parameters
@@ -45,8 +43,6 @@ Name | Type | Description  | Required | Notes
 ## list_project_group_role_assignments
 
 > models::RoleListResource list_project_group_role_assignments(project_id, group_id, limit, after, order)
-List project group role assignments
-
 Lists the project roles assigned to a group within a project.
 
 ### Parameters
@@ -79,8 +75,6 @@ Name | Type | Description  | Required | Notes
 ## unassign_project_group_role
 
 > models::DeletedRoleAssignmentResource unassign_project_group_role(project_id, group_id, role_id)
-Unassign project role from group
-
 Unassigns a project role from a group within a project.
 
 ### Parameters

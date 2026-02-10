@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// RunToolCallObject : Tool call objects
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunToolCallObject {
-    /// The ID of the tool call. This ID must be referenced when you submit the tool outputs in using the [Submit tool outputs to run](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) endpoint.
+    /// The ID of the tool call. This ID must be referenced when you submit the tool outputs in using the [Submit tool outputs to run](/docs/api-reference/runs/submitToolOutputs) endpoint.
     #[serde(rename = "id")]
     pub id: String,
     /// The type of tool call the output is required for. For now, this is always `function`.

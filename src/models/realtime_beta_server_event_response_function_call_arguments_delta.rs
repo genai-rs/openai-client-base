@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventResponseFunctionCallArgumentsDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.function_call_arguments.delta`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the response.
     #[serde(rename = "response_id")]
     pub response_id: String,
@@ -40,7 +41,7 @@ impl RealtimeBetaServerEventResponseFunctionCallArgumentsDelta {
     /// Returned when the model-generated function call arguments are updated.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         response_id: String,
         item_id: String,
         output_index: i32,
@@ -56,6 +57,18 @@ impl RealtimeBetaServerEventResponseFunctionCallArgumentsDelta {
             call_id,
             delta,
         }
+    }
+}
+/// The event type, must be `response.function_call_arguments.delta`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.function_call_arguments.delta")]
+    ResponseFunctionCallArgumentsDelta,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseFunctionCallArgumentsDelta
     }
 }
 

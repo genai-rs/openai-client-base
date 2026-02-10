@@ -57,7 +57,6 @@ pub enum UpdateChatCompletionError {
     UnknownValue(serde_json::Value),
 }
 
-/// **Starting a new project?** We recommend trying [Responses](https://platform.openai.com/docs/api-reference/responses)  to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://platform.openai.com/docs/guides/responses-vs-chat-completions?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://platform.openai.com/docs/guides/text-generation), [vision](https://platform.openai.com/docs/guides/vision), and [audio](https://platform.openai.com/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of  unsupported parameters in reasoning models,  [refer to the reasoning guide](https://platform.openai.com/docs/guides/reasoning).
 #[bon::builder]
 pub async fn create_chat_completion(
     configuration: &configuration::Configuration,
@@ -108,7 +107,6 @@ pub async fn create_chat_completion(
     }
 }
 
-/// Delete a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be deleted.
 #[bon::builder]
 pub async fn delete_chat_completion(
     configuration: &configuration::Configuration,
@@ -162,7 +160,6 @@ pub async fn delete_chat_completion(
     }
 }
 
-/// Get a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned.
 #[bon::builder]
 pub async fn get_chat_completion(
     configuration: &configuration::Configuration,
@@ -214,7 +211,6 @@ pub async fn get_chat_completion(
     }
 }
 
-/// Get the messages in a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned.
 #[bon::builder]
 pub async fn get_chat_completion_messages(
     configuration: &configuration::Configuration,
@@ -281,7 +277,6 @@ pub async fn get_chat_completion_messages(
     }
 }
 
-/// List stored Chat Completions. Only Chat Completions that have been stored with the `store` parameter set to `true` will be returned.
 #[bon::builder]
 pub async fn list_chat_completions(
     configuration: &configuration::Configuration,
@@ -352,7 +347,6 @@ pub async fn list_chat_completions(
     }
 }
 
-/// Modify a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be modified. Currently, the only supported modification is to update the `metadata` field.
 #[bon::builder]
 pub async fn update_chat_completion(
     configuration: &configuration::Configuration,

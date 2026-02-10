@@ -4,26 +4,24 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancel_eval_run**](EvalsApi.md#cancel_eval_run) | **POST** /evals/{eval_id}/runs/{run_id} | Cancel eval run
-[**create_eval**](EvalsApi.md#create_eval) | **POST** /evals | Create eval
-[**create_eval_run**](EvalsApi.md#create_eval_run) | **POST** /evals/{eval_id}/runs | Create eval run
-[**delete_eval**](EvalsApi.md#delete_eval) | **DELETE** /evals/{eval_id} | Delete an eval
-[**delete_eval_run**](EvalsApi.md#delete_eval_run) | **DELETE** /evals/{eval_id}/runs/{run_id} | Delete eval run
-[**get_eval**](EvalsApi.md#get_eval) | **GET** /evals/{eval_id} | Get an eval
-[**get_eval_run**](EvalsApi.md#get_eval_run) | **GET** /evals/{eval_id}/runs/{run_id} | Get an eval run
-[**get_eval_run_output_item**](EvalsApi.md#get_eval_run_output_item) | **GET** /evals/{eval_id}/runs/{run_id}/output_items/{output_item_id} | Get an output item of an eval run
-[**get_eval_run_output_items**](EvalsApi.md#get_eval_run_output_items) | **GET** /evals/{eval_id}/runs/{run_id}/output_items | Get eval run output items
-[**get_eval_runs**](EvalsApi.md#get_eval_runs) | **GET** /evals/{eval_id}/runs | Get eval runs
-[**list_evals**](EvalsApi.md#list_evals) | **GET** /evals | List evals
-[**update_eval**](EvalsApi.md#update_eval) | **POST** /evals/{eval_id} | Update an eval
+[**cancel_eval_run**](EvalsApi.md#cancel_eval_run) | **POST** /evals/{eval_id}/runs/{run_id} | Cancel an ongoing evaluation run. 
+[**create_eval**](EvalsApi.md#create_eval) | **POST** /evals | Create the structure of an evaluation that can be used to test a model's performance. An evaluation is a set of testing criteria and the config for a data source, which dictates the schema of the data used in the evaluation. After creating an evaluation, you can run it on different models and model parameters. We support several types of graders and datasources. For more information, see the [Evals guide](/docs/guides/evals). 
+[**create_eval_run**](EvalsApi.md#create_eval_run) | **POST** /evals/{eval_id}/runs | Kicks off a new run for a given evaluation, specifying the data source, and what model configuration to use to test. The datasource will be validated against the schema specified in the config of the evaluation. 
+[**delete_eval**](EvalsApi.md#delete_eval) | **DELETE** /evals/{eval_id} | Delete an evaluation. 
+[**delete_eval_run**](EvalsApi.md#delete_eval_run) | **DELETE** /evals/{eval_id}/runs/{run_id} | Delete an eval run. 
+[**get_eval**](EvalsApi.md#get_eval) | **GET** /evals/{eval_id} | Get an evaluation by ID. 
+[**get_eval_run**](EvalsApi.md#get_eval_run) | **GET** /evals/{eval_id}/runs/{run_id} | Get an evaluation run by ID. 
+[**get_eval_run_output_item**](EvalsApi.md#get_eval_run_output_item) | **GET** /evals/{eval_id}/runs/{run_id}/output_items/{output_item_id} | Get an evaluation run output item by ID. 
+[**get_eval_run_output_items**](EvalsApi.md#get_eval_run_output_items) | **GET** /evals/{eval_id}/runs/{run_id}/output_items | Get a list of output items for an evaluation run. 
+[**get_eval_runs**](EvalsApi.md#get_eval_runs) | **GET** /evals/{eval_id}/runs | Get a list of runs for an evaluation. 
+[**list_evals**](EvalsApi.md#list_evals) | **GET** /evals | List evaluations for a project. 
+[**update_eval**](EvalsApi.md#update_eval) | **POST** /evals/{eval_id} | Update certain properties of an evaluation. 
 
 
 
 ## cancel_eval_run
 
 > models::EvalRun cancel_eval_run(eval_id, run_id)
-Cancel eval run
-
 Cancel an ongoing evaluation run. 
 
 ### Parameters
@@ -53,9 +51,7 @@ Name | Type | Description  | Required | Notes
 ## create_eval
 
 > models::Eval create_eval(create_eval_request)
-Create eval
-
-Create the structure of an evaluation that can be used to test a model's performance. An evaluation is a set of testing criteria and the config for a data source, which dictates the schema of the data used in the evaluation. After creating an evaluation, you can run it on different models and model parameters. We support several types of graders and datasources. For more information, see the [Evals guide](https://platform.openai.com/docs/guides/evals). 
+Create the structure of an evaluation that can be used to test a model's performance. An evaluation is a set of testing criteria and the config for a data source, which dictates the schema of the data used in the evaluation. After creating an evaluation, you can run it on different models and model parameters. We support several types of graders and datasources. For more information, see the [Evals guide](/docs/guides/evals). 
 
 ### Parameters
 
@@ -83,8 +79,6 @@ Name | Type | Description  | Required | Notes
 ## create_eval_run
 
 > models::EvalRun create_eval_run(eval_id, create_eval_run_request)
-Create eval run
-
 Kicks off a new run for a given evaluation, specifying the data source, and what model configuration to use to test. The datasource will be validated against the schema specified in the config of the evaluation. 
 
 ### Parameters
@@ -114,8 +108,6 @@ Name | Type | Description  | Required | Notes
 ## delete_eval
 
 > models::DeleteEval200Response delete_eval(eval_id)
-Delete an eval
-
 Delete an evaluation. 
 
 ### Parameters
@@ -144,8 +136,6 @@ Name | Type | Description  | Required | Notes
 ## delete_eval_run
 
 > models::DeleteEvalRun200Response delete_eval_run(eval_id, run_id)
-Delete eval run
-
 Delete an eval run. 
 
 ### Parameters
@@ -175,8 +165,6 @@ Name | Type | Description  | Required | Notes
 ## get_eval
 
 > models::Eval get_eval(eval_id)
-Get an eval
-
 Get an evaluation by ID. 
 
 ### Parameters
@@ -205,8 +193,6 @@ Name | Type | Description  | Required | Notes
 ## get_eval_run
 
 > models::EvalRun get_eval_run(eval_id, run_id)
-Get an eval run
-
 Get an evaluation run by ID. 
 
 ### Parameters
@@ -236,8 +222,6 @@ Name | Type | Description  | Required | Notes
 ## get_eval_run_output_item
 
 > models::EvalRunOutputItem get_eval_run_output_item(eval_id, run_id, output_item_id)
-Get an output item of an eval run
-
 Get an evaluation run output item by ID. 
 
 ### Parameters
@@ -268,8 +252,6 @@ Name | Type | Description  | Required | Notes
 ## get_eval_run_output_items
 
 > models::EvalRunOutputItemList get_eval_run_output_items(eval_id, run_id, after, limit, status, order)
-Get eval run output items
-
 Get a list of output items for an evaluation run. 
 
 ### Parameters
@@ -303,8 +285,6 @@ Name | Type | Description  | Required | Notes
 ## get_eval_runs
 
 > models::EvalRunList get_eval_runs(eval_id, after, limit, order, status)
-Get eval runs
-
 Get a list of runs for an evaluation. 
 
 ### Parameters
@@ -337,8 +317,6 @@ Name | Type | Description  | Required | Notes
 ## list_evals
 
 > models::EvalList list_evals(after, limit, order, order_by)
-List evals
-
 List evaluations for a project. 
 
 ### Parameters
@@ -370,8 +348,6 @@ Name | Type | Description  | Required | Notes
 ## update_eval
 
 > models::Eval update_eval(eval_id, update_eval_request)
-Update an eval
-
 Update certain properties of an evaluation. 
 
 ### Parameters

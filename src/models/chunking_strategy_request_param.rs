@@ -11,10 +11,16 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ChunkingStrategyRequestParam : The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy. Only applicable if `file_ids` is non-empty.
+/// ChunkingStrategyRequestParam : The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ChunkingStrategyRequestParam {
     AutoChunkingStrategyRequestParam(Box<models::AutoChunkingStrategyRequestParam>),
     StaticChunkingStrategyRequestParam(Box<models::StaticChunkingStrategyRequestParam>),
+}
+
+impl Default for ChunkingStrategyRequestParam {
+    fn default() -> Self {
+        Self::AutoChunkingStrategyRequestParam(Default::default())
+    }
 }

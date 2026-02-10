@@ -1,13 +1,11 @@
 # CreateTranslation200Response
 
-## Properties
+## Enum Variants
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**text** | **String** | The translated text. | 
-**language** | **String** | The language of the output translation (always `english`). | 
-**duration** | **f64** | The duration of the input audio. | 
-**segments** | Option<[**Vec<models::TranscriptionSegment>**](TranscriptionSegment.md)> | Segments of the translated text and their corresponding details. | [optional]
+| Name | Description |
+|---- | -----|
+| CreateTranslationResponseJson |  |
+| CreateTranslationResponseVerboseJson |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

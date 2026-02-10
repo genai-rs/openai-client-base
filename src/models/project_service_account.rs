@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ProjectServiceAccount : Represents an individual service account in a project.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectServiceAccount {
     /// The object type, which is always `organization.project.service_account`
     #[serde(rename = "object")]

@@ -12,10 +12,11 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ThreadListResource : A paginated list of ChatKit threads.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ThreadListResource {
-    #[serde(rename = "object", deserialize_with = "Option::deserialize")]
-    pub object: Option<serde_json::Value>,
+    /// The type of object returned, must be `list`.
+    #[serde(rename = "object")]
+    pub object: Object,
     /// A list of items
     #[serde(rename = "data")]
     pub data: Vec<models::ThreadResource>,
@@ -33,7 +34,7 @@ pub struct ThreadListResource {
 impl ThreadListResource {
     /// A paginated list of ChatKit threads.
     pub fn new(
-        object: Option<serde_json::Value>,
+        object: Object,
         data: Vec<models::ThreadResource>,
         first_id: Option<String>,
         last_id: Option<String>,
@@ -46,6 +47,18 @@ impl ThreadListResource {
             last_id,
             has_more,
         }
+    }
+}
+/// The type of object returned, must be `list`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Object {
+    #[serde(rename = "list")]
+    List,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::List
     }
 }
 

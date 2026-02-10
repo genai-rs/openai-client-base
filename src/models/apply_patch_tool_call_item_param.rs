@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ApplyPatchToolCallItemParam : A tool call representing a request to create, delete, or update files using diff patches.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApplyPatchToolCallItemParam {
     /// The type of the item. Always `apply_patch_call`.
     #[serde(rename = "type")]

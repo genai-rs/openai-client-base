@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CodeInterpreterTool : A tool that runs Python code to help generate a response to a prompt.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CodeInterpreterTool {
     /// The type of the code interpreter tool. Always `code_interpreter`.
     #[serde(rename = "type")]

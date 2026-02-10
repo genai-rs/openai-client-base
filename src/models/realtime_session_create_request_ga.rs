@@ -32,10 +32,10 @@ pub struct RealtimeSessionCreateRequestGa {
     #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
     pub include: Option<Vec<Include>>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<Box<models::TracingConfiguration2>>,
+    pub tracing: Option<Box<models::RealtimeSessionCreateRequestGaTracing>>,
     /// Tools available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<models::RealtimeSessionCreateRequestGaToolsInner>>,
+    pub tools: Option<Vec<models::RealtimeResponseCreateParamsToolsInner>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<Box<models::RealtimeBetaResponseCreateParamsToolChoice>>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]

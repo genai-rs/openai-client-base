@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeResponseCreateParamsAudio {
     #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
-    pub output: Option<Box<models::RealtimeResponseAudioOutput>>,
+    pub output: Option<Box<models::RealtimeResponseCreateParamsAudioOutput>>,
 }
 
 impl RealtimeResponseCreateParamsAudio {

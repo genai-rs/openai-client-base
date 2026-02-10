@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// PublicRoleListResource : Paginated list of roles available on an organization or project.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PublicRoleListResource {
     /// Always `list`.
     #[serde(rename = "object")]

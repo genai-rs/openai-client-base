@@ -17,13 +17,9 @@ pub struct RealtimeServerEventConversationCreatedConversation {
     /// The unique ID of the conversation.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[serde(
-        rename = "object",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub object: Option<Option<serde_json::Value>>,
+    /// The object type, must be `realtime.conversation`.
+    #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
+    pub object: Option<String>,
 }
 
 impl RealtimeServerEventConversationCreatedConversation {

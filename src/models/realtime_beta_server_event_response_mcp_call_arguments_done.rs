@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventResponseMcpCallArgumentsDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.mcp_call_arguments.done`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the response.
     #[serde(rename = "response_id")]
     pub response_id: String,
@@ -37,7 +38,7 @@ impl RealtimeBetaServerEventResponseMcpCallArgumentsDone {
     /// Returned when MCP tool call arguments are finalized during response generation.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         response_id: String,
         item_id: String,
         output_index: i32,
@@ -51,6 +52,18 @@ impl RealtimeBetaServerEventResponseMcpCallArgumentsDone {
             output_index,
             arguments,
         }
+    }
+}
+/// The event type, must be `response.mcp_call_arguments.done`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.mcp_call_arguments.done")]
+    ResponseMcpCallArgumentsDone,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseMcpCallArgumentsDone
     }
 }
 

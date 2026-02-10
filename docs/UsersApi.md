@@ -4,18 +4,16 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_user**](UsersApi.md#delete_user) | **DELETE** /organization/users/{user_id} | Delete user
-[**list_users**](UsersApi.md#list_users) | **GET** /organization/users | List users
-[**modify_user**](UsersApi.md#modify_user) | **POST** /organization/users/{user_id} | Modify user
-[**retrieve_user**](UsersApi.md#retrieve_user) | **GET** /organization/users/{user_id} | Retrieve user
+[**delete_user**](UsersApi.md#delete_user) | **DELETE** /organization/users/{user_id} | Deletes a user from the organization.
+[**list_users**](UsersApi.md#list_users) | **GET** /organization/users | Lists all of the users in the organization.
+[**modify_user**](UsersApi.md#modify_user) | **POST** /organization/users/{user_id} | Modifies a user's role in the organization.
+[**retrieve_user**](UsersApi.md#retrieve_user) | **GET** /organization/users/{user_id} | Retrieves a user by their identifier.
 
 
 
 ## delete_user
 
 > models::UserDeleteResponse delete_user(user_id)
-Delete user
-
 Deletes a user from the organization.
 
 ### Parameters
@@ -44,8 +42,6 @@ Name | Type | Description  | Required | Notes
 ## list_users
 
 > models::UserListResponse list_users(limit, after, emails)
-List users
-
 Lists all of the users in the organization.
 
 ### Parameters
@@ -76,8 +72,6 @@ Name | Type | Description  | Required | Notes
 ## modify_user
 
 > models::User modify_user(user_id, user_role_update_request)
-Modify user
-
 Modifies a user's role in the organization.
 
 ### Parameters
@@ -107,8 +101,6 @@ Name | Type | Description  | Required | Notes
 ## retrieve_user
 
 > models::User retrieve_user(user_id)
-Retrieve user
-
 Retrieves a user by their identifier.
 
 ### Parameters

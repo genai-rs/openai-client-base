@@ -12,21 +12,16 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateFineTuningJobRequestHyperparametersBatchSize : Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateFineTuningJobRequestHyperparametersBatchSize {}
-
-impl CreateFineTuningJobRequestHyperparametersBatchSize {
-    /// Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance.
-    pub fn new() -> CreateFineTuningJobRequestHyperparametersBatchSize {
-        CreateFineTuningJobRequestHyperparametersBatchSize {}
-    }
+/// Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateFineTuningJobRequestHyperparametersBatchSize {
+    Text(String),
+    Integer(i32),
 }
 
-impl std::fmt::Display for CreateFineTuningJobRequestHyperparametersBatchSize {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
+impl Default for CreateFineTuningJobRequestHyperparametersBatchSize {
+    fn default() -> Self {
+        Self::Text(Default::default())
     }
 }

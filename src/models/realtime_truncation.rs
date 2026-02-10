@@ -5,14 +5,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeTruncation {
-    Realtimetruncationstrategy(RealtimeTruncationRealtimetruncationstrategyEnum),
+    TextVariant(RealtimeTruncationTextVariantEnum),
     RetentionRatioTruncation(models::ChatCompletionNamedToolChoice),
 }
 
 impl std::fmt::Display for RealtimeTruncation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            RealtimeTruncation::Realtimetruncationstrategy(value) => write!(f, "{}", value),
+            RealtimeTruncation::TextVariant(value) => write!(f, "{}", value),
             RealtimeTruncation::RetentionRatioTruncation(value) => {
                 match serde_json::to_string(value) {
                     Ok(s) => write!(f, "{}", s),
@@ -23,25 +23,25 @@ impl std::fmt::Display for RealtimeTruncation {
     }
 }
 
-/// RealtimeTruncationRealtimetruncationstrategyEnum - String enum type
+/// RealtimeTruncationTextVariantEnum - String enum type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
-pub enum RealtimeTruncationRealtimetruncationstrategyEnum {
+pub enum RealtimeTruncationTextVariantEnum {
     Auto,
     Disabled,
 }
 
-impl Default for RealtimeTruncationRealtimetruncationstrategyEnum {
+impl Default for RealtimeTruncationTextVariantEnum {
     fn default() -> Self {
         Self::Auto
     }
 }
 
-impl std::fmt::Display for RealtimeTruncationRealtimetruncationstrategyEnum {
+impl std::fmt::Display for RealtimeTruncationTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
-            RealtimeTruncationRealtimetruncationstrategyEnum::Auto => "auto",
-            RealtimeTruncationRealtimetruncationstrategyEnum::Disabled => "disabled",
+            RealtimeTruncationTextVariantEnum::Auto => "auto",
+            RealtimeTruncationTextVariantEnum::Disabled => "disabled",
         };
         write!(f, "{}", value)
     }

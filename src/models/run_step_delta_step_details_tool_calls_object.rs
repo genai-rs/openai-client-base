@@ -19,7 +19,7 @@ pub struct RunStepDeltaStepDetailsToolCallsObject {
     pub r#type: Type,
     /// An array of tool calls the run step was involved in. These can be associated with one of three types of tools: `code_interpreter`, `file_search`, or `function`.
     #[serde(rename = "tool_calls", skip_serializing_if = "Option::is_none")]
-    pub tool_calls: Option<Vec<models::RunStepDeltaStepDetailsToolCall>>,
+    pub tool_calls: Option<Vec<models::RunStepDeltaStepDetailsToolCallsObjectToolCallsInner>>,
 }
 
 impl RunStepDeltaStepDetailsToolCallsObject {

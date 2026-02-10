@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// LocalShellToolCall : A tool call to run a command on the local shell.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LocalShellToolCall {
     /// The type of the local shell call. Always `local_shell_call`.
     #[serde(rename = "type")]

@@ -42,15 +42,15 @@ impl RealtimeBetaServerEventResponseContentPartAddedPart {
 /// The content type (\"text\", \"audio\").
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "text")]
-    Text,
     #[serde(rename = "audio")]
     Audio,
+    #[serde(rename = "text")]
+    Text,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Text
+        Self::Audio
     }
 }
 

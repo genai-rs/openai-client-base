@@ -52,7 +52,6 @@ pub enum ListInputItemsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled.  [Learn more](https://platform.openai.com/docs/guides/background).
 #[bon::builder]
 pub async fn cancel_response(
     configuration: &configuration::Configuration,
@@ -106,7 +105,6 @@ pub async fn cancel_response(
     }
 }
 
-/// Creates a model response. Provide [text](https://platform.openai.com/docs/guides/text) or [image](https://platform.openai.com/docs/guides/images) inputs to generate [text](https://platform.openai.com/docs/guides/text) or [JSON](https://platform.openai.com/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://platform.openai.com/docs/guides/function-calling) or use built-in [tools](https://platform.openai.com/docs/guides/tools) like [web search](https://platform.openai.com/docs/guides/tools-web-search) or [file search](https://platform.openai.com/docs/guides/tools-file-search) to use your own data as input for the model's response.
 #[bon::builder]
 pub async fn create_response(
     configuration: &configuration::Configuration,
@@ -157,7 +155,6 @@ pub async fn create_response(
     }
 }
 
-/// Deletes a model response with the given ID.
 #[bon::builder]
 pub async fn delete_response(
     configuration: &configuration::Configuration,
@@ -200,7 +197,6 @@ pub async fn delete_response(
     }
 }
 
-/// Retrieves a model response with the given ID.
 #[bon::builder]
 pub async fn get_response(
     configuration: &configuration::Configuration,
@@ -288,7 +284,6 @@ pub async fn get_response(
     }
 }
 
-/// Returns a list of input items for a given response.
 #[bon::builder]
 pub async fn list_input_items(
     configuration: &configuration::Configuration,

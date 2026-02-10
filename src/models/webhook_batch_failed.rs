@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookBatchFailed : Sent when a batch API request has failed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookBatchFailed {
     /// The Unix timestamp (in seconds) of when the batch API request failed.
     #[serde(rename = "created_at")]

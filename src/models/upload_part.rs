@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// UploadPart : The upload Part represents a chunk of bytes we can add to an Upload object.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UploadPart {
     /// The upload Part unique identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]

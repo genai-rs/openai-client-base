@@ -29,7 +29,7 @@ pub enum Tool {
     ApplyPatchToolParam(Box<models::ApplyPatchToolParam>),
 }
 
-/// Identifier for service connectors, like those available in ChatGPT. One of `server_url` or `connector_id` must be provided. Learn more about service connectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
+/// Identifier for service connectors, like those available in ChatGPT. One of `server_url` or `connector_id` must be provided. Learn more about service connectors [here](/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ConnectorId {
     ConnectorDropbox,
@@ -51,6 +51,11 @@ pub enum Quality {
     Auto,
 }
 
+impl Default for Quality {
+    fn default() -> Quality {
+        Self::Low
+    }
+}
 /// The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Size {
@@ -60,6 +65,11 @@ pub enum Size {
     Auto,
 }
 
+impl Default for Size {
+    fn default() -> Size {
+        Self::Variant1024x1024
+    }
+}
 /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputFormat {
@@ -68,6 +78,11 @@ pub enum OutputFormat {
     Jpeg,
 }
 
+impl Default for OutputFormat {
+    fn default() -> OutputFormat {
+        Self::Png
+    }
+}
 /// Moderation level for the generated image. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Moderation {
@@ -75,10 +90,21 @@ pub enum Moderation {
     Low,
 }
 
+impl Default for Moderation {
+    fn default() -> Moderation {
+        Self::Auto
+    }
+}
 /// Background type for the generated image. One of `transparent`, `opaque`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Background {
     Transparent,
     Opaque,
     Auto,
+}
+
+impl Default for Background {
+    fn default() -> Background {
+        Self::Transparent
+    }
 }

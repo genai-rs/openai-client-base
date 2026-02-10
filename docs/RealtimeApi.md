@@ -4,22 +4,20 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**accept_realtime_call**](RealtimeApi.md#accept_realtime_call) | **POST** /realtime/calls/{call_id}/accept | Accept call
-[**create_realtime_call**](RealtimeApi.md#create_realtime_call) | **POST** /realtime/calls | Create call
-[**create_realtime_client_secret**](RealtimeApi.md#create_realtime_client_secret) | **POST** /realtime/client_secrets | Create client secret
-[**create_realtime_session**](RealtimeApi.md#create_realtime_session) | **POST** /realtime/sessions | Create session
-[**create_realtime_transcription_session**](RealtimeApi.md#create_realtime_transcription_session) | **POST** /realtime/transcription_sessions | Create transcription session
-[**hangup_realtime_call**](RealtimeApi.md#hangup_realtime_call) | **POST** /realtime/calls/{call_id}/hangup | Hang up call
-[**refer_realtime_call**](RealtimeApi.md#refer_realtime_call) | **POST** /realtime/calls/{call_id}/refer | Refer call
-[**reject_realtime_call**](RealtimeApi.md#reject_realtime_call) | **POST** /realtime/calls/{call_id}/reject | Reject call
+[**accept_realtime_call**](RealtimeApi.md#accept_realtime_call) | **POST** /realtime/calls/{call_id}/accept | Accept an incoming SIP call and configure the realtime session that will handle it.
+[**create_realtime_call**](RealtimeApi.md#create_realtime_call) | **POST** /realtime/calls | Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
+[**create_realtime_client_secret**](RealtimeApi.md#create_realtime_client_secret) | **POST** /realtime/client_secrets | Create a Realtime client secret with an associated session configuration. 
+[**create_realtime_session**](RealtimeApi.md#create_realtime_session) | **POST** /realtime/sessions | Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API. 
+[**create_realtime_transcription_session**](RealtimeApi.md#create_realtime_transcription_session) | **POST** /realtime/transcription_sessions | Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API. 
+[**hangup_realtime_call**](RealtimeApi.md#hangup_realtime_call) | **POST** /realtime/calls/{call_id}/hangup | End an active Realtime API call, whether it was initiated over SIP or WebRTC.
+[**refer_realtime_call**](RealtimeApi.md#refer_realtime_call) | **POST** /realtime/calls/{call_id}/refer | Transfer an active SIP call to a new destination using the SIP REFER verb.
+[**reject_realtime_call**](RealtimeApi.md#reject_realtime_call) | **POST** /realtime/calls/{call_id}/reject | Decline an incoming SIP call by returning a SIP status code to the caller.
 
 
 
 ## accept_realtime_call
 
 > accept_realtime_call(call_id, realtime_session_create_request_ga)
-Accept call
-
 Accept an incoming SIP call and configure the realtime session that will handle it.
 
 ### Parameters
@@ -27,7 +25,7 @@ Accept an incoming SIP call and configure the realtime session that will handle 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming) webhook. | [required] |
+**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](/docs/api-reference/webhook-events/realtime/call/incoming) webhook. | [required] |
 **realtime_session_create_request_ga** | [**RealtimeSessionCreateRequestGa**](RealtimeSessionCreateRequestGa.md) | Session configuration to apply before the caller is bridged to the model. | [required] |
 
 ### Return type
@@ -49,8 +47,6 @@ Name | Type | Description  | Required | Notes
 ## create_realtime_call
 
 > String create_realtime_call(sdp, session)
-Create call
-
 Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
 
 ### Parameters
@@ -59,7 +55,7 @@ Create a new Realtime API call over WebRTC and receive the SDP answer needed to 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **sdp** | **String** | WebRTC Session Description Protocol (SDP) offer generated by the caller. | [required] |
-**session** | Option<[**models::RealtimeSessionCreateRequestGa**](RealtimeSessionCreateRequestGA.md)> | Optional session configuration to apply before the realtime session is created. Use the same parameters you would send in a [`create client secret`](https://platform.openai.com/docs/api-reference/realtime-sessions/create-realtime-client-secret) request. |  |
+**session** | Option<[**models::RealtimeSessionCreateRequestGa**](RealtimeSessionCreateRequestGA.md)> | Optional session configuration to apply before the realtime session is created. Use the same parameters you would send in a [`create client secret`](/docs/api-reference/realtime-sessions/create-realtime-client-secret) request. |  |
 
 ### Return type
 
@@ -80,8 +76,6 @@ Name | Type | Description  | Required | Notes
 ## create_realtime_client_secret
 
 > models::RealtimeCreateClientSecretResponse create_realtime_client_secret(realtime_create_client_secret_request)
-Create client secret
-
 Create a Realtime client secret with an associated session configuration. 
 
 ### Parameters
@@ -110,8 +104,6 @@ Name | Type | Description  | Required | Notes
 ## create_realtime_session
 
 > models::RealtimeSessionCreateResponse create_realtime_session(realtime_session_create_request)
-Create session
-
 Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API. 
 
 ### Parameters
@@ -140,8 +132,6 @@ Name | Type | Description  | Required | Notes
 ## create_realtime_transcription_session
 
 > models::RealtimeTranscriptionSessionCreateResponse create_realtime_transcription_session(realtime_transcription_session_create_request)
-Create transcription session
-
 Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API. 
 
 ### Parameters
@@ -170,8 +160,6 @@ Name | Type | Description  | Required | Notes
 ## hangup_realtime_call
 
 > hangup_realtime_call(call_id)
-Hang up call
-
 End an active Realtime API call, whether it was initiated over SIP or WebRTC.
 
 ### Parameters
@@ -179,7 +167,7 @@ End an active Realtime API call, whether it was initiated over SIP or WebRTC.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** | The identifier for the call. For SIP calls, use the value provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming) webhook. For WebRTC sessions, reuse the call ID returned in the `Location` header when creating the call with [`POST /v1/realtime/calls`](https://platform.openai.com/docs/api-reference/realtime/create-call). | [required] |
+**call_id** | **String** | The identifier for the call. For SIP calls, use the value provided in the [`realtime.call.incoming`](/docs/api-reference/webhook-events/realtime/call/incoming) webhook. For WebRTC sessions, reuse the call ID returned in the `Location` header when creating the call with [`POST /v1/realtime/calls`](/docs/api-reference/realtime/create-call). | [required] |
 
 ### Return type
 
@@ -200,8 +188,6 @@ Name | Type | Description  | Required | Notes
 ## refer_realtime_call
 
 > refer_realtime_call(call_id, realtime_call_refer_request)
-Refer call
-
 Transfer an active SIP call to a new destination using the SIP REFER verb.
 
 ### Parameters
@@ -209,7 +195,7 @@ Transfer an active SIP call to a new destination using the SIP REFER verb.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming) webhook. | [required] |
+**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](/docs/api-reference/webhook-events/realtime/call/incoming) webhook. | [required] |
 **realtime_call_refer_request** | [**RealtimeCallReferRequest**](RealtimeCallReferRequest.md) | Destination URI for the REFER request. | [required] |
 
 ### Return type
@@ -231,8 +217,6 @@ Name | Type | Description  | Required | Notes
 ## reject_realtime_call
 
 > reject_realtime_call(call_id, realtime_call_reject_request)
-Reject call
-
 Decline an incoming SIP call by returning a SIP status code to the caller.
 
 ### Parameters
@@ -240,7 +224,7 @@ Decline an incoming SIP call by returning a SIP status code to the caller.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming) webhook. | [required] |
+**call_id** | **String** | The identifier for the call provided in the [`realtime.call.incoming`](/docs/api-reference/webhook-events/realtime/call/incoming) webhook. | [required] |
 **realtime_call_reject_request** | Option<[**RealtimeCallRejectRequest**](RealtimeCallRejectRequest.md)> | Provide an optional SIP status code. When omitted the API responds with `603 Decline`. |  |
 
 ### Return type

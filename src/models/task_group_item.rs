@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// TaskGroupItem : Collection of workflow tasks grouped together in the thread.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TaskGroupItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]

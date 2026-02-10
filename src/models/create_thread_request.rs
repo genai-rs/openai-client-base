@@ -12,9 +12,9 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateThreadRequest : Options to create a new thread. If no thread is provided when running a request, an empty thread will be created.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateThreadRequest {
-    /// A list of [messages](https://platform.openai.com/docs/api-reference/messages) to start the thread with.
+    /// A list of [messages](/docs/api-reference/messages) to start the thread with.
     #[serde(rename = "messages", skip_serializing_if = "Option::is_none")]
     pub messages: Option<Vec<models::CreateMessageRequest>>,
     #[serde(rename = "tool_resources", skip_serializing_if = "Option::is_none")]

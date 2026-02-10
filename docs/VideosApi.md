@@ -4,21 +4,21 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_video**](VideosApi.md#create_video) | **POST** /videos | Create video
-[**create_video_remix**](VideosApi.md#create_video_remix) | **POST** /videos/{video_id}/remix | Remix video
-[**delete_video**](VideosApi.md#delete_video) | **DELETE** /videos/{video_id} | Delete video
-[**get_video**](VideosApi.md#get_video) | **GET** /videos/{video_id} | Retrieve video
+[**create_video**](VideosApi.md#create_video) | **POST** /videos | Create a video
+[**create_video_remix**](VideosApi.md#create_video_remix) | **POST** /videos/{video_id}/remix | Create a video remix
+[**delete_video**](VideosApi.md#delete_video) | **DELETE** /videos/{video_id} | Delete a video
+[**get_video**](VideosApi.md#get_video) | **GET** /videos/{video_id} | Retrieve a video
 [**list_videos**](VideosApi.md#list_videos) | **GET** /videos | List videos
-[**retrieve_video_content**](VideosApi.md#retrieve_video_content) | **GET** /videos/{video_id}/content | Retrieve video content
+[**retrieve_video_content**](VideosApi.md#retrieve_video_content) | **GET** /videos/{video_id}/content | Download video content
 
 
 
 ## create_video
 
 > models::VideoResource create_video(prompt, model, input_reference, seconds, size)
-Create video
-
 Create a video
+
+Create a new video generation job from a prompt and optional reference assets.
 
 ### Parameters
 
@@ -50,9 +50,9 @@ Name | Type | Description  | Required | Notes
 ## create_video_remix
 
 > models::VideoResource create_video_remix(video_id, prompt)
-Remix video
-
 Create a video remix
+
+Create a remix of a completed video using a refreshed prompt.
 
 ### Parameters
 
@@ -81,9 +81,9 @@ Name | Type | Description  | Required | Notes
 ## delete_video
 
 > models::DeletedVideoResource delete_video(video_id)
-Delete video
-
 Delete a video
+
+Permanently delete a completed or failed video and its stored assets.
 
 ### Parameters
 
@@ -111,9 +111,9 @@ Name | Type | Description  | Required | Notes
 ## get_video
 
 > models::VideoResource get_video(video_id)
-Retrieve video
-
 Retrieve a video
+
+Fetch the latest metadata for a generated video.
 
 ### Parameters
 
@@ -143,7 +143,7 @@ Name | Type | Description  | Required | Notes
 > models::VideoListResource list_videos(limit, order, after)
 List videos
 
-List videos
+List recently generated videos for the current project.
 
 ### Parameters
 
@@ -173,9 +173,9 @@ Name | Type | Description  | Required | Notes
 ## retrieve_video_content
 
 > std::path::PathBuf retrieve_video_content(video_id, variant)
-Retrieve video content
-
 Download video content
+
+Download the generated video bytes or a derived preview asset.
 
 ### Parameters
 

@@ -17,8 +17,9 @@ pub struct RealtimeServerEventConversationCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `conversation.created`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     #[serde(rename = "conversation")]
     pub conversation: Box<models::RealtimeServerEventConversationCreatedConversation>,
 }
@@ -27,7 +28,7 @@ impl RealtimeServerEventConversationCreated {
     /// Returned when a conversation is created. Emitted right after session creation.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         conversation: models::RealtimeServerEventConversationCreatedConversation,
     ) -> RealtimeServerEventConversationCreated {
         RealtimeServerEventConversationCreated {
@@ -35,6 +36,18 @@ impl RealtimeServerEventConversationCreated {
             r#type,
             conversation: Box::new(conversation),
         }
+    }
+}
+/// The event type, must be `conversation.created`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "conversation.created")]
+    ConversationCreated,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ConversationCreated
     }
 }
 

@@ -12,21 +12,16 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateFineTuningJobRequestHyperparametersNEpochs : The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateFineTuningJobRequestHyperparametersNEpochs {}
-
-impl CreateFineTuningJobRequestHyperparametersNEpochs {
-    /// The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
-    pub fn new() -> CreateFineTuningJobRequestHyperparametersNEpochs {
-        CreateFineTuningJobRequestHyperparametersNEpochs {}
-    }
+/// The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateFineTuningJobRequestHyperparametersNEpochs {
+    Text(String),
+    Integer(i32),
 }
 
-impl std::fmt::Display for CreateFineTuningJobRequestHyperparametersNEpochs {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
+impl Default for CreateFineTuningJobRequestHyperparametersNEpochs {
+    fn default() -> Self {
+        Self::Text(Default::default())
     }
 }

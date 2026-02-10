@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CustomToolChatCompletions : A custom tool that processes input using a specified format.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CustomToolChatCompletions {
     /// The type of the custom tool. Always `custom`.
     #[serde(rename = "type")]

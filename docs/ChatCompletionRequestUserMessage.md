@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | [**models::ChatCompletionRequestUserMessageContent**](ChatCompletionRequestUserMessage_content.md) |  | 
+**content** | [**models::ChatCompletionRequestUserMessageContent**](ChatCompletionRequestUserMessageContent.md) |  | 
 **role** | **String** | The role of the messages author, in this case `user`. | 
 **name** | Option<**String**> | An optional name for the participant. Provides the model information to differentiate between participants of the same role. | [optional]
 

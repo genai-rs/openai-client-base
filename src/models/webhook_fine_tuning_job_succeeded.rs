@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookFineTuningJobSucceeded : Sent when a fine-tuning job has succeeded.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookFineTuningJobSucceeded {
     /// The Unix timestamp (in seconds) of when the fine-tuning job succeeded.
     #[serde(rename = "created_at")]

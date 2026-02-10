@@ -17,8 +17,9 @@ pub struct RealtimeServerEventResponseAudioTranscriptDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.output_audio_transcript.delta`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the response.
     #[serde(rename = "response_id")]
     pub response_id: String,
@@ -40,7 +41,7 @@ impl RealtimeServerEventResponseAudioTranscriptDelta {
     /// Returned when the model-generated transcription of audio output is updated.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         response_id: String,
         item_id: String,
         output_index: i32,
@@ -56,6 +57,18 @@ impl RealtimeServerEventResponseAudioTranscriptDelta {
             content_index,
             delta,
         }
+    }
+}
+/// The event type, must be `response.output_audio_transcript.delta`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.output_audio_transcript.delta")]
+    ResponseOutputAudioTranscriptDelta,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseOutputAudioTranscriptDelta
     }
 }
 

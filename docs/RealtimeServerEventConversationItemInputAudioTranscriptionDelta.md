@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the server event. | 
-**r#type** | Option<[**serde_json::Value**](.md)> |  | 
+**r#type** | **String** | The event type, must be `conversation.item.input_audio_transcription.delta`. | 
 **item_id** | **String** | The ID of the item containing the audio that is being transcribed. | 
 **content_index** | Option<**i32**> | The index of the content part in the item's content array. | [optional]
 **delta** | Option<**String**> | The text delta. | [optional]

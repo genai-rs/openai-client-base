@@ -18,3 +18,9 @@ pub enum CustomToolParamFormat {
     CustomTextFormatParam(Box<models::CustomTextFormatParam>),
     CustomGrammarFormatParam(Box<models::CustomGrammarFormatParam>),
 }
+
+impl Default for CustomToolParamFormat {
+    fn default() -> Self {
+        Self::CustomTextFormatParam(Default::default())
+    }
+}

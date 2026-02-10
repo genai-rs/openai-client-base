@@ -18,7 +18,7 @@ pub struct CreateThreadAndRunRequestToolResources {
     pub code_interpreter:
         Option<Box<models::CreateThreadAndRunRequestToolResourcesCodeInterpreter>>,
     #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
-    pub file_search: Option<Box<models::AssistantObjectToolResourcesFileSearch>>,
+    pub file_search: Option<Box<models::Object0FileSearch>>,
 }
 
 impl CreateThreadAndRunRequestToolResources {

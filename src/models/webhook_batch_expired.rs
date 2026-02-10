@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookBatchExpired : Sent when a batch API request has expired.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookBatchExpired {
     /// The Unix timestamp (in seconds) of when the batch API request expired.
     #[serde(rename = "created_at")]

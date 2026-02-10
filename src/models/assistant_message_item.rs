@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// AssistantMessageItem : Assistant-authored message within a thread.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AssistantMessageItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// TaskItem : Task emitted by the workflow to show progress and status updates.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TaskItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]

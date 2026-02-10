@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventResponseOutputItemDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.output_item.done`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the Response to which the item belongs.
     #[serde(rename = "response_id")]
     pub response_id: String,
@@ -33,7 +34,7 @@ impl RealtimeBetaServerEventResponseOutputItemDone {
     /// Returned when an Item is done streaming. Also emitted when a Response is  interrupted, incomplete, or cancelled.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         response_id: String,
         output_index: i32,
         item: models::RealtimeConversationItem,
@@ -45,6 +46,18 @@ impl RealtimeBetaServerEventResponseOutputItemDone {
             output_index,
             item: Box::new(item),
         }
+    }
+}
+/// The event type, must be `response.output_item.done`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.output_item.done")]
+    ResponseOutputItemDone,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseOutputItemDone
     }
 }
 

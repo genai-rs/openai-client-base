@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateChatCompletionStreamResponse : Represents a streamed chunk of a chat completion response returned by the model, based on the provided input.  [Learn more](https://platform.openai.com/docs/guides/streaming-responses).
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// CreateChatCompletionStreamResponse : Represents a streamed chunk of a chat completion response returned by the model, based on the provided input.  [Learn more](/docs/guides/streaming-responses).
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionStreamResponse {
     /// A unique identifier for the chat completion. Each chunk has the same ID.
     #[serde(rename = "id")]
@@ -44,7 +44,7 @@ pub struct CreateChatCompletionStreamResponse {
 }
 
 impl CreateChatCompletionStreamResponse {
-    /// Represents a streamed chunk of a chat completion response returned by the model, based on the provided input.  [Learn more](https://platform.openai.com/docs/guides/streaming-responses).
+    /// Represents a streamed chunk of a chat completion response returned by the model, based on the provided input.  [Learn more](/docs/guides/streaming-responses).
     pub fn new(
         id: String,
         choices: Vec<models::CreateChatCompletionStreamResponseChoicesInner>,

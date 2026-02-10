@@ -20,3 +20,9 @@ pub enum FunctionShellCallOutputOutcomeParam {
     ),
     FunctionShellCallOutputExitOutcomeParam(Box<models::FunctionShellCallOutputExitOutcomeParam>),
 }
+
+impl Default for FunctionShellCallOutputOutcomeParam {
+    fn default() -> Self {
+        Self::FunctionShellCallOutputTimeoutOutcomeParam(Default::default())
+    }
+}

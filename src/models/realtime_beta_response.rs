@@ -17,13 +17,9 @@ pub struct RealtimeBetaResponse {
     /// The unique ID of the response.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[serde(
-        rename = "object",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub object: Option<Option<serde_json::Value>>,
+    /// The object type, must be `realtime.response`.
+    #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
+    pub object: Option<Object>,
     /// The final status of the response (`completed`, `cancelled`, `failed`, or  `incomplete`, `in_progress`).
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -82,6 +78,18 @@ impl RealtimeBetaResponse {
             temperature: None,
             max_output_tokens: None,
         }
+    }
+}
+/// The object type, must be `realtime.response`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Object {
+    #[serde(rename = "realtime.response")]
+    RealtimeResponse,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::RealtimeResponse
     }
 }
 /// The final status of the response (`completed`, `cancelled`, `failed`, or  `incomplete`, `in_progress`).

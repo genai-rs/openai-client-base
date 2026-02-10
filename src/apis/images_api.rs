@@ -38,7 +38,6 @@ pub enum CreateImageVariationError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates an image given a prompt. [Learn more](https://platform.openai.com/docs/guides/images).
 #[bon::builder]
 pub async fn create_image(
     configuration: &configuration::Configuration,
@@ -89,7 +88,7 @@ pub async fn create_image(
     }
 }
 
-/// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, and `gpt-image-1-mini`) and `dall-e-2`.
+/// You can call this endpoint with either:  - `multipart/form-data`: use binary uploads via `image` (and optional `mask`). - `application/json`: use `images` (and optional `mask`) as references with either `image_url` or `file_id`.  Note that JSON requests use `images` (array) instead of the multipart `image` field.
 #[bon::builder]
 pub async fn create_image_edit(
     configuration: &configuration::Configuration,
@@ -212,7 +211,6 @@ pub async fn create_image_edit(
     }
 }
 
-/// Creates a variation of a given image. This endpoint only supports `dall-e-2`.
 #[bon::builder]
 pub async fn create_image_variation(
     configuration: &configuration::Configuration,

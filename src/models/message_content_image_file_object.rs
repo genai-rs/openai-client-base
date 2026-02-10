@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// MessageContentImageFileObject : References an image [File](https://platform.openai.com/docs/api-reference/files) in the content of a message.
+/// MessageContentImageFileObject : References an image [File](/docs/api-reference/files) in the content of a message.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageContentImageFileObject {
     /// Always `image_file`.
@@ -22,7 +22,7 @@ pub struct MessageContentImageFileObject {
 }
 
 impl MessageContentImageFileObject {
-    /// References an image [File](https://platform.openai.com/docs/api-reference/files) in the content of a message.
+    /// References an image [File](/docs/api-reference/files) in the content of a message.
     pub fn new(
         r#type: Type,
         image_file: models::MessageContentImageFileObjectImageFile,

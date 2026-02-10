@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventConversationItemTruncated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `conversation.item.truncated`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the assistant message item that was truncated.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -34,7 +35,7 @@ impl RealtimeBetaServerEventConversationItemTruncated {
     /// Returned when an earlier assistant audio message item is truncated by the  client with a `conversation.item.truncate` event. This event is used to  synchronize the server's understanding of the audio with the client's playback.  This action will truncate the audio and remove the server-side text transcript  to ensure there is no text in the context that hasn't been heard by the user.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         item_id: String,
         content_index: i32,
         audio_end_ms: i32,
@@ -46,6 +47,18 @@ impl RealtimeBetaServerEventConversationItemTruncated {
             content_index,
             audio_end_ms,
         }
+    }
+}
+/// The event type, must be `conversation.item.truncated`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "conversation.item.truncated")]
+    ConversationItemTruncated,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ConversationItemTruncated
     }
 }
 

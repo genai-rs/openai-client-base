@@ -12,24 +12,28 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "object")]
+#[serde(untagged)]
 pub enum UsageTimeBucketResultInner {
-    #[serde(rename = "organization.usage.completions.result")]
     UsageCompletionsResult(Box<models::UsageCompletionsResult>),
-    #[serde(rename = "organization.usage.embeddings.result")]
     UsageEmbeddingsResult(Box<models::UsageEmbeddingsResult>),
-    #[serde(rename = "organization.usage.moderations.result")]
     UsageModerationsResult(Box<models::UsageModerationsResult>),
-    #[serde(rename = "organization.usage.images.result")]
     UsageImagesResult(Box<models::UsageImagesResult>),
-    #[serde(rename = "organization.usage.audio_speeches.result")]
     UsageAudioSpeechesResult(Box<models::UsageAudioSpeechesResult>),
-    #[serde(rename = "organization.usage.audio_transcriptions.result")]
     UsageAudioTranscriptionsResult(Box<models::UsageAudioTranscriptionsResult>),
-    #[serde(rename = "organization.usage.vector_stores.result")]
     UsageVectorStoresResult(Box<models::UsageVectorStoresResult>),
-    #[serde(rename = "organization.usage.code_interpreter_sessions.result")]
     UsageCodeInterpreterSessionsResult(Box<models::UsageCodeInterpreterSessionsResult>),
-    #[serde(rename = "organization.costs.result")]
     CostsResult(Box<models::CostsResult>),
+}
+
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Object {
+    #[serde(rename = "organization.costs.result")]
+    OrganizationCostsResult,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::OrganizationCostsResult
+    }
 }

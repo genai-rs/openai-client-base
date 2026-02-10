@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionResponseChoicesInner {
     /// The reason the model stopped generating tokens. This will be `stop` if the model hit a natural stop point or a provided stop sequence, `length` if the maximum number of tokens specified in the request was reached, `content_filter` if content was omitted due to a flag from our content filters, `tool_calls` if the model called a tool, or `function_call` (deprecated) if the model called a function.
     #[serde(rename = "finish_reason")]
@@ -22,7 +22,7 @@ pub struct CreateChatCompletionResponseChoicesInner {
     #[serde(rename = "message")]
     pub message: Box<models::ChatCompletionResponseMessage>,
     #[serde(rename = "logprobs", deserialize_with = "Option::deserialize")]
-    pub logprobs: Option<Box<models::CreateChatCompletionResponseChoicesInnerLogprobs>>,
+    pub logprobs: Option<Box<models::Object07>>,
 }
 
 impl CreateChatCompletionResponseChoicesInner {
@@ -30,7 +30,7 @@ impl CreateChatCompletionResponseChoicesInner {
         finish_reason: FinishReason,
         index: i32,
         message: models::ChatCompletionResponseMessage,
-        logprobs: Option<models::CreateChatCompletionResponseChoicesInnerLogprobs>,
+        logprobs: Option<models::Object07>,
     ) -> CreateChatCompletionResponseChoicesInner {
         CreateChatCompletionResponseChoicesInner {
             finish_reason,

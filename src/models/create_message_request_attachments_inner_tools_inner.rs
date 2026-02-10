@@ -17,3 +17,23 @@ pub enum CreateMessageRequestAttachmentsInnerToolsInner {
     AssistantToolsCode(Box<models::AssistantToolsCode>),
     AssistantToolsFileSearchTypeOnly(Box<models::AssistantToolsFileSearchTypeOnly>),
 }
+
+impl Default for CreateMessageRequestAttachmentsInnerToolsInner {
+    fn default() -> Self {
+        Self::AssistantToolsCode(Default::default())
+    }
+}
+/// The type of tool being defined: `code_interpreter`
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "code_interpreter")]
+    CodeInterpreter,
+    #[serde(rename = "file_search")]
+    FileSearch,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::CodeInterpreter
+    }
+}

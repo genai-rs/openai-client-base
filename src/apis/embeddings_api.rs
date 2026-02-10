@@ -22,7 +22,6 @@ pub enum CreateEmbeddingError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates an embedding vector representing the input text.
 #[bon::builder]
 pub async fn create_embedding(
     configuration: &configuration::Configuration,

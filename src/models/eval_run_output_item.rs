@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// EvalRunOutputItem : A schema representing an evaluation run output item.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalRunOutputItem {
     /// The type of the object. Always \"eval.run.output_item\".
     #[serde(rename = "object")]

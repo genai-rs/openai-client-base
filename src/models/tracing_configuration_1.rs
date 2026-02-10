@@ -11,22 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// TracingConfiguration1 : Configuration options for tracing. Set to null to disable tracing. Once tracing is enabled for a session, the configuration cannot be modified.  `auto` will create a trace for the session with default values for the workflow name, group id, and metadata.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct TracingConfiguration1 {}
-
-impl TracingConfiguration1 {
-    /// Configuration options for tracing. Set to null to disable tracing. Once tracing is enabled for a session, the configuration cannot be modified.  `auto` will create a trace for the session with default values for the workflow name, group id, and metadata.
-    pub fn new() -> TracingConfiguration1 {
-        TracingConfiguration1 {}
-    }
+/// TracingConfiguration1 : Realtime API can write session traces to the [Traces Dashboard](/logs?api=traces). Set to null to disable tracing. Once tracing is enabled for a session, the configuration cannot be modified.  `auto` will create a trace for the session with default values for the workflow name, group id, and metadata.
+/// Realtime API can write session traces to the [Traces Dashboard](/logs?api=traces). Set to null to disable tracing. Once tracing is enabled for a session, the configuration cannot be modified.  `auto` will create a trace for the session with default values for the workflow name, group id, and metadata.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum TracingConfiguration1 {
+    /// Enables tracing and sets default values for tracing configuration options. Always `auto`.
+    Auto(String),
+    TracingConfiguration1(serde_json::Value),
 }
 
-impl std::fmt::Display for TracingConfiguration1 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
+impl Default for TracingConfiguration1 {
+    fn default() -> Self {
+        Self::Auto(Default::default())
     }
 }

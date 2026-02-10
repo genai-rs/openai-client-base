@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookEvalRunCanceled : Sent when an eval run has been canceled.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookEvalRunCanceled {
     /// The Unix timestamp (in seconds) of when the eval run was canceled.
     #[serde(rename = "created_at")]

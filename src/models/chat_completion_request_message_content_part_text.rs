@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ChatCompletionRequestMessageContentPartText : Learn about [text inputs](https://platform.openai.com/docs/guides/text-generation).
+/// ChatCompletionRequestMessageContentPartText : Learn about [text inputs](/docs/guides/text-generation).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestMessageContentPartText {
     /// The type of the content part.
@@ -23,7 +23,7 @@ pub struct ChatCompletionRequestMessageContentPartText {
 }
 
 impl ChatCompletionRequestMessageContentPartText {
-    /// Learn about [text inputs](https://platform.openai.com/docs/guides/text-generation).
+    /// Learn about [text inputs](/docs/guides/text-generation).
     pub fn new(r#type: Type, text: String) -> ChatCompletionRequestMessageContentPartText {
         ChatCompletionRequestMessageContentPartText { r#type, text }
     }

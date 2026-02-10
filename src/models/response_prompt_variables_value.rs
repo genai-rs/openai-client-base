@@ -11,49 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct ResponsePromptVariablesValue {
-    /// The type of the input item. Always `input_text`.
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    /// The text input to the model.
-    #[serde(rename = "text")]
-    pub text: String,
-    /// The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
-    #[serde(rename = "image_url", skip_serializing_if = "Option::is_none")]
-    pub image_url: Option<String>,
-    /// The ID of the file to be sent to the model.
-    #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
-    pub file_id: Option<String>,
-    #[serde(rename = "detail")]
-    pub detail: models::ImageDetail,
-    /// The name of the file to be sent to the model.
-    #[serde(rename = "filename", skip_serializing_if = "Option::is_none")]
-    pub filename: Option<String>,
-    /// The URL of the file to be sent to the model.
-    #[serde(rename = "file_url", skip_serializing_if = "Option::is_none")]
-    pub file_url: Option<String>,
-    /// The content of the file to be sent to the model.
-    #[serde(rename = "file_data", skip_serializing_if = "Option::is_none")]
-    pub file_data: Option<String>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ResponsePromptVariablesValue {
+    Text(String),
+    InputTextContent(Box<models::InputTextContent>),
+    InputImageContent(Box<models::InputImageContent>),
+    InputFileContent(Box<models::InputFileContent>),
 }
 
-impl ResponsePromptVariablesValue {
-    pub fn new(
-        r#type: Type,
-        text: String,
-        detail: models::ImageDetail,
-    ) -> ResponsePromptVariablesValue {
-        ResponsePromptVariablesValue {
-            r#type,
-            text,
-            image_url: None,
-            file_id: None,
-            detail,
-            filename: None,
-            file_url: None,
-            file_data: None,
-        }
+impl Default for ResponsePromptVariablesValue {
+    fn default() -> Self {
+        Self::Text(Default::default())
     }
 }
 /// The type of the input item. Always `input_text`.
@@ -70,14 +39,5 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::InputText
-    }
-}
-
-impl std::fmt::Display for ResponsePromptVariablesValue {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

@@ -13,5 +13,18 @@ use serde::{Deserialize, Serialize};
 
 /// ApplyPatchOperation : One of the create_file, delete_file, or update_file operations applied via apply_patch.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum ApplyPatchOperation {}
+#[serde(untagged)]
+pub enum ApplyPatchOperation {
+    #[serde(rename = "ApplyPatchCreateFileOperation")]
+    ApplyPatchCreateFileOperation(Box<models::ApplyPatchCreateFileOperation>),
+    #[serde(rename = "ApplyPatchDeleteFileOperation")]
+    ApplyPatchDeleteFileOperation(Box<models::ApplyPatchDeleteFileOperation>),
+    #[serde(rename = "ApplyPatchUpdateFileOperation")]
+    ApplyPatchUpdateFileOperation(Box<models::ApplyPatchUpdateFileOperation>),
+}
+
+impl Default for ApplyPatchOperation {
+    fn default() -> Self {
+        Self::ApplyPatchCreateFileOperation(Default::default())
+    }
+}

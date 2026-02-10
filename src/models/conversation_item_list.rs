@@ -12,10 +12,11 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ConversationItemList : A list of Conversation items.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ConversationItemList {
-    #[serde(rename = "object", deserialize_with = "Option::deserialize")]
-    pub object: Option<serde_json::Value>,
+    /// The type of object returned, must be `list`.
+    #[serde(rename = "object")]
+    pub object: Object,
     /// A list of conversation items.
     #[serde(rename = "data")]
     pub data: Vec<models::ConversationItem>,
@@ -33,7 +34,7 @@ pub struct ConversationItemList {
 impl ConversationItemList {
     /// A list of Conversation items.
     pub fn new(
-        object: Option<serde_json::Value>,
+        object: Object,
         data: Vec<models::ConversationItem>,
         has_more: bool,
         first_id: String,
@@ -46,6 +47,18 @@ impl ConversationItemList {
             first_id,
             last_id,
         }
+    }
+}
+/// The type of object returned, must be `list`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Object {
+    #[serde(rename = "list")]
+    List,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::List
     }
 }
 

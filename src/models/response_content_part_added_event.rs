@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ResponseContentPartAddedEvent : Emitted when a new content part is added.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseContentPartAddedEvent {
     /// The type of the event. Always `response.content_part.added`.
     #[serde(rename = "type")]

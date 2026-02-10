@@ -102,7 +102,6 @@ pub enum UpdateEvalError {
     UnknownValue(serde_json::Value),
 }
 
-/// Cancel an ongoing evaluation run.
 #[bon::builder]
 pub async fn cancel_eval_run(
     configuration: &configuration::Configuration,
@@ -159,7 +158,6 @@ pub async fn cancel_eval_run(
     }
 }
 
-/// Create the structure of an evaluation that can be used to test a model's performance. An evaluation is a set of testing criteria and the config for a data source, which dictates the schema of the data used in the evaluation. After creating an evaluation, you can run it on different models and model parameters. We support several types of graders and datasources. For more information, see the [Evals guide](https://platform.openai.com/docs/guides/evals).
 #[bon::builder]
 pub async fn create_eval(
     configuration: &configuration::Configuration,
@@ -210,7 +208,6 @@ pub async fn create_eval(
     }
 }
 
-/// Kicks off a new run for a given evaluation, specifying the data source, and what model configuration to use to test. The datasource will be validated against the schema specified in the config of the evaluation.
 #[bon::builder]
 pub async fn create_eval_run(
     configuration: &configuration::Configuration,
@@ -267,7 +264,6 @@ pub async fn create_eval_run(
     }
 }
 
-/// Delete an evaluation.
 #[bon::builder]
 pub async fn delete_eval(
     configuration: &configuration::Configuration,
@@ -321,7 +317,6 @@ pub async fn delete_eval(
     }
 }
 
-/// Delete an eval run.
 #[bon::builder]
 pub async fn delete_eval_run(
     configuration: &configuration::Configuration,
@@ -378,7 +373,6 @@ pub async fn delete_eval_run(
     }
 }
 
-/// Get an evaluation by ID.
 #[bon::builder]
 pub async fn get_eval(
     configuration: &configuration::Configuration,
@@ -430,7 +424,6 @@ pub async fn get_eval(
     }
 }
 
-/// Get an evaluation run by ID.
 #[bon::builder]
 pub async fn get_eval_run(
     configuration: &configuration::Configuration,
@@ -485,7 +478,6 @@ pub async fn get_eval_run(
     }
 }
 
-/// Get an evaluation run output item by ID.
 #[bon::builder]
 pub async fn get_eval_run_output_item(
     configuration: &configuration::Configuration,
@@ -543,7 +535,6 @@ pub async fn get_eval_run_output_item(
     }
 }
 
-/// Get a list of output items for an evaluation run.
 #[bon::builder]
 pub async fn get_eval_run_output_items(
     configuration: &configuration::Configuration,
@@ -618,7 +609,6 @@ pub async fn get_eval_run_output_items(
     }
 }
 
-/// Get a list of runs for an evaluation.
 #[bon::builder]
 pub async fn get_eval_runs(
     configuration: &configuration::Configuration,
@@ -690,7 +680,6 @@ pub async fn get_eval_runs(
     }
 }
 
-/// List evaluations for a project.
 #[bon::builder]
 pub async fn list_evals(
     configuration: &configuration::Configuration,
@@ -756,7 +745,6 @@ pub async fn list_evals(
     }
 }
 
-/// Update certain properties of an evaluation.
 #[bon::builder]
 pub async fn update_eval(
     configuration: &configuration::Configuration,

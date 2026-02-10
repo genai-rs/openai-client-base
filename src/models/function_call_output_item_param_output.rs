@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum FunctionCallOutputItemParamOutput {
     Text(String),
-    Array(Vec<serde_json::Value>),
+    Arrayofitems(Vec<serde_json::Value>),
 }
 
 impl Default for FunctionCallOutputItemParamOutput {
@@ -19,8 +19,8 @@ impl FunctionCallOutputItemParamOutput {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)
     }
-    pub fn new_array(items: Vec<serde_json::Value>) -> Self {
-        Self::Array(items)
+    pub fn new_arrayofitems(items: Vec<serde_json::Value>) -> Self {
+        Self::Arrayofitems(items)
     }
 }
 
@@ -39,10 +39,12 @@ impl std::fmt::Display for FunctionCallOutputItemParamOutput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             FunctionCallOutputItemParamOutput::Text(value) => write!(f, "{}", value),
-            FunctionCallOutputItemParamOutput::Array(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
+            FunctionCallOutputItemParamOutput::Arrayofitems(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
         }
     }
 }

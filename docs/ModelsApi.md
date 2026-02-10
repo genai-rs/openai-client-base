@@ -4,17 +4,15 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_model**](ModelsApi.md#delete_model) | **DELETE** /models/{model} | Delete a fine-tuned model
-[**list_models**](ModelsApi.md#list_models) | **GET** /models | List models
-[**retrieve_model**](ModelsApi.md#retrieve_model) | **GET** /models/{model} | Retrieve model
+[**delete_model**](ModelsApi.md#delete_model) | **DELETE** /models/{model} | Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
+[**list_models**](ModelsApi.md#list_models) | **GET** /models | Lists the currently available models, and provides basic information about each one such as the owner and availability.
+[**retrieve_model**](ModelsApi.md#retrieve_model) | **GET** /models/{model} | Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
 
 
 
 ## delete_model
 
 > models::DeleteModelResponse delete_model(model)
-Delete a fine-tuned model
-
 Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
 
 ### Parameters
@@ -43,8 +41,6 @@ Name | Type | Description  | Required | Notes
 ## list_models
 
 > models::ListModelsResponse list_models()
-List models
-
 Lists the currently available models, and provides basic information about each one such as the owner and availability.
 
 ### Parameters
@@ -70,8 +66,6 @@ This endpoint does not need any parameter.
 ## retrieve_model
 
 > models::Model retrieve_model(model)
-Retrieve model
-
 Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
 
 ### Parameters

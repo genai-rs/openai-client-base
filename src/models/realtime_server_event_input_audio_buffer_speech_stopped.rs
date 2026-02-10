@@ -17,8 +17,9 @@ pub struct RealtimeServerEventInputAudioBufferSpeechStopped {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `input_audio_buffer.speech_stopped`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// Milliseconds since the session started when speech stopped. This will  correspond to the end of audio sent to the model, and thus includes the  `min_silence_duration_ms` configured in the Session.
     #[serde(rename = "audio_end_ms")]
     pub audio_end_ms: i32,
@@ -31,7 +32,7 @@ impl RealtimeServerEventInputAudioBufferSpeechStopped {
     /// Returned in `server_vad` mode when the server detects the end of speech in  the audio buffer. The server will also send an `conversation.item.created`  event with the user message item that is created from the audio buffer.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         audio_end_ms: i32,
         item_id: String,
     ) -> RealtimeServerEventInputAudioBufferSpeechStopped {
@@ -41,6 +42,18 @@ impl RealtimeServerEventInputAudioBufferSpeechStopped {
             audio_end_ms,
             item_id,
         }
+    }
+}
+/// The event type, must be `input_audio_buffer.speech_stopped`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "input_audio_buffer.speech_stopped")]
+    InputAudioBufferSpeechStopped,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::InputAudioBufferSpeechStopped
     }
 }
 

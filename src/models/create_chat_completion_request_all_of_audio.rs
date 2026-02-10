@@ -11,21 +11,26 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateChatCompletionRequestAllOfAudio : Parameters for audio output. Required when audio output is requested with `modalities: [\"audio\"]`. [Learn more](https://platform.openai.com/docs/guides/audio).
+/// CreateChatCompletionRequestAllOfAudio : Parameters for audio output. Required when audio output is requested with `modalities: [\"audio\"]`. [Learn more](/docs/guides/audio).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionRequestAllOfAudio {
-    /// Model identifier as string
     #[serde(rename = "voice")]
-    pub voice: String,
+    pub voice: Box<models::VoiceIdsOrCustomVoice>,
     /// Specifies the output audio format. Must be one of `wav`, `mp3`, `flac`, `opus`, or `pcm16`.
     #[serde(rename = "format")]
     pub format: Format,
 }
 
 impl CreateChatCompletionRequestAllOfAudio {
-    /// Parameters for audio output. Required when audio output is requested with `modalities: [\"audio\"]`. [Learn more](https://platform.openai.com/docs/guides/audio).
-    pub fn new(voice: String, format: Format) -> CreateChatCompletionRequestAllOfAudio {
-        CreateChatCompletionRequestAllOfAudio { voice, format }
+    /// Parameters for audio output. Required when audio output is requested with `modalities: [\"audio\"]`. [Learn more](/docs/guides/audio).
+    pub fn new(
+        voice: models::VoiceIdsOrCustomVoice,
+        format: Format,
+    ) -> CreateChatCompletionRequestAllOfAudio {
+        CreateChatCompletionRequestAllOfAudio {
+            voice: Box::new(voice),
+            format,
+        }
     }
 }
 /// Specifies the output audio format. Must be one of `wav`, `mp3`, `flac`, `opus`, or `pcm16`.

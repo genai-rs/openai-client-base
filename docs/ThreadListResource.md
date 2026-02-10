@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | Option<[**serde_json::Value**](.md)> |  | 
+**object** | **String** | The type of object returned, must be `list`. | 
 **data** | [**Vec<models::ThreadResource>**](ThreadResource.md) | A list of items | 
 **first_id** | Option<**String**> | The ID of the first item in the list. | 
 **last_id** | Option<**String**> | The ID of the last item in the list. | 

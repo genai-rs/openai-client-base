@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookFineTuningJobCancelled : Sent when a fine-tuning job has been cancelled.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookFineTuningJobCancelled {
     /// The Unix timestamp (in seconds) of when the fine-tuning job was cancelled.
     #[serde(rename = "created_at")]

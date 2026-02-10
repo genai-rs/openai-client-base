@@ -12,20 +12,20 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "event")]
+#[serde(untagged)]
 pub enum RunStepStreamEvent {
-    #[serde(rename = "thread.run.step.created")]
-    AnyOf(Box<models::RunStepStreamEventAnyOf>),
-    #[serde(rename = "thread.run.step.in_progress")]
-    AnyOf1(serde_json::Value),
-    #[serde(rename = "thread.run.step.delta")]
-    AnyOf2(serde_json::Value),
-    #[serde(rename = "thread.run.step.completed")]
-    AnyOf3(serde_json::Value),
-    #[serde(rename = "thread.run.step.failed")]
-    AnyOf4(serde_json::Value),
-    #[serde(rename = "thread.run.step.cancelled")]
-    AnyOf5(serde_json::Value),
+    Object017(serde_json::Value),
+    Object11(serde_json::Value),
+    Object21(serde_json::Value),
+    Object31(serde_json::Value),
+    Object41(serde_json::Value),
+    Object5(Box<models::Object5>),
+    Object6(Box<models::Object6>),
+}
+
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Event {
     #[serde(rename = "thread.run.step.expired")]
-    AnyOf6(serde_json::Value),
+    ThreadRunStepExpired,
 }

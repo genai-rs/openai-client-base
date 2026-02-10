@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// UsageAudioTranscriptionsResult : The aggregated audio transcriptions usage details of the specific time bucket.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UsageAudioTranscriptionsResult {
     #[serde(rename = "object")]
     pub object: Object,

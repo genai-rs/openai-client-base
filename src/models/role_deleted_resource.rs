@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RoleDeletedResource : Confirmation payload returned after deleting a role.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RoleDeletedResource {
     /// Always `role.deleted`.
     #[serde(rename = "object")]

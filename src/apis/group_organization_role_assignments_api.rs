@@ -36,7 +36,6 @@ pub enum UnassignGroupRoleError {
     UnknownValue(serde_json::Value),
 }
 
-/// Assigns an organization role to a group within the organization.
 #[bon::builder]
 pub async fn assign_group_role(
     configuration: &configuration::Configuration,
@@ -94,7 +93,6 @@ pub async fn assign_group_role(
     }
 }
 
-/// Lists the organization roles assigned to a group within the organization.
 #[bon::builder]
 pub async fn list_group_role_assignments(
     configuration: &configuration::Configuration,
@@ -161,7 +159,6 @@ pub async fn list_group_role_assignments(
     }
 }
 
-/// Unassigns an organization role from a group within the organization.
 #[bon::builder]
 pub async fn unassign_group_role(
     configuration: &configuration::Configuration,

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ImageGenTool : A tool that generates images using the GPT image models.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenTool {
     /// The type of the image generation tool. Always `image_generation`.
     #[serde(rename = "type")]
@@ -50,6 +50,8 @@ pub struct ImageGenTool {
     /// Number of partial images to generate in streaming mode, from 0 (default value) to 3.
     #[serde(rename = "partial_images", skip_serializing_if = "Option::is_none")]
     pub partial_images: Option<i32>,
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    pub action: Option<models::ImageGenActionEnum>,
 }
 
 impl ImageGenTool {
@@ -67,6 +69,7 @@ impl ImageGenTool {
             input_fidelity: None,
             input_image_mask: None,
             partial_images: None,
+            action: None,
         }
     }
 }

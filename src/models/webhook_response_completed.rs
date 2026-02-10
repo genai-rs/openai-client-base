@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookResponseCompleted : Sent when a background response has been completed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookResponseCompleted {
     /// The Unix timestamp (in seconds) of when the model response was completed.
     #[serde(rename = "created_at")]

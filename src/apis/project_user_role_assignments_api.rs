@@ -36,7 +36,6 @@ pub enum UnassignProjectUserRoleError {
     UnknownValue(serde_json::Value),
 }
 
-/// Assigns a project role to a user within a project.
 #[bon::builder]
 pub async fn assign_project_user_role(
     configuration: &configuration::Configuration,
@@ -97,7 +96,6 @@ pub async fn assign_project_user_role(
     }
 }
 
-/// Lists the project roles assigned to a user within a project.
 #[bon::builder]
 pub async fn list_project_user_role_assignments(
     configuration: &configuration::Configuration,
@@ -168,7 +166,6 @@ pub async fn list_project_user_role_assignments(
     }
 }
 
-/// Unassigns a project role from a user within a project.
 #[bon::builder]
 pub async fn unassign_project_user_role(
     configuration: &configuration::Configuration,

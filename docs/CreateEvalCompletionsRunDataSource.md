@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | The type of run data source. Always `completions`. | 
-**input_messages** | Option<[**models::CreateEvalCompletionsRunDataSourceInputMessages**](CreateEvalCompletionsRunDataSource_input_messages.md)> |  | [optional]
+**input_messages** | Option<[**models::CreateEvalCompletionsRunDataSourceInputMessages**](CreateEvalCompletionsRunDataSourceInputMessages.md)> |  | [optional]
 **sampling_params** | Option<[**models::CreateEvalCompletionsRunDataSourceSamplingParams**](CreateEvalCompletionsRunDataSource_sampling_params.md)> |  | [optional]
 **model** | Option<**String**> | The name of the model to use for generating completions (e.g. \"o3-mini\"). | [optional]
 **source** | [**models::CreateEvalCompletionsRunDataSourceSource**](CreateEvalCompletionsRunDataSource_source.md) |  | 

@@ -12,6 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunStepDeltaObjectDeltaStepDetails : The details of the run step.
+/// The details of the run step.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RunStepDeltaObjectDeltaStepDetails {
@@ -19,4 +20,24 @@ pub enum RunStepDeltaObjectDeltaStepDetails {
         Box<models::RunStepDeltaStepDetailsMessageCreationObject>,
     ),
     RunStepDeltaStepDetailsToolCallsObject(Box<models::RunStepDeltaStepDetailsToolCallsObject>),
+}
+
+impl Default for RunStepDeltaObjectDeltaStepDetails {
+    fn default() -> Self {
+        Self::RunStepDeltaStepDetailsMessageCreationObject(Default::default())
+    }
+}
+/// Always `message_creation`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "message_creation")]
+    MessageCreation,
+    #[serde(rename = "tool_calls")]
+    ToolCalls,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::MessageCreation
+    }
 }

@@ -71,7 +71,6 @@ pub enum UpdateRoleError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates a custom role for a project.
 #[bon::builder]
 pub async fn create_project_role(
     configuration: &configuration::Configuration,
@@ -128,7 +127,6 @@ pub async fn create_project_role(
     }
 }
 
-/// Creates a custom role for the organization.
 #[bon::builder]
 pub async fn create_role(
     configuration: &configuration::Configuration,
@@ -179,7 +177,6 @@ pub async fn create_role(
     }
 }
 
-/// Deletes a custom role from a project.
 #[bon::builder]
 pub async fn delete_project_role(
     configuration: &configuration::Configuration,
@@ -236,7 +233,6 @@ pub async fn delete_project_role(
     }
 }
 
-/// Deletes a custom role from the organization.
 #[bon::builder]
 pub async fn delete_role(
     configuration: &configuration::Configuration,
@@ -290,7 +286,6 @@ pub async fn delete_role(
     }
 }
 
-/// Lists the roles configured for a project.
 #[bon::builder]
 pub async fn list_project_roles(
     configuration: &configuration::Configuration,
@@ -357,7 +352,6 @@ pub async fn list_project_roles(
     }
 }
 
-/// Lists the roles configured for the organization.
 #[bon::builder]
 pub async fn list_roles(
     configuration: &configuration::Configuration,
@@ -418,7 +412,6 @@ pub async fn list_roles(
     }
 }
 
-/// Updates an existing project role.
 #[bon::builder]
 pub async fn update_project_role(
     configuration: &configuration::Configuration,
@@ -478,7 +471,6 @@ pub async fn update_project_role(
     }
 }
 
-/// Updates an existing organization role.
 #[bon::builder]
 pub async fn update_role(
     configuration: &configuration::Configuration,

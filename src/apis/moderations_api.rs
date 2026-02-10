@@ -22,7 +22,6 @@ pub enum CreateModerationError {
     UnknownValue(serde_json::Value),
 }
 
-/// Classifies if text and/or image inputs are potentially harmful. Learn more in the [moderation guide](https://platform.openai.com/docs/guides/moderation).
 #[bon::builder]
 pub async fn create_moderation(
     configuration: &configuration::Configuration,

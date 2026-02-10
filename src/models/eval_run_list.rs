@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// EvalRunList : An object representing a list of runs for an evaluation.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalRunList {
     /// The type of this object. It is always set to \"list\".
     #[serde(rename = "object")]

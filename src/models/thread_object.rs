@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ThreadObject : Represents a thread that contains [messages](https://platform.openai.com/docs/api-reference/messages).
+/// ThreadObject : Represents a thread that contains [messages](/docs/api-reference/messages).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ThreadObject {
     /// The identifier, which can be referenced in API endpoints.
@@ -24,19 +24,19 @@ pub struct ThreadObject {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "tool_resources", deserialize_with = "Option::deserialize")]
-    pub tool_resources: Option<Box<models::ModifyThreadRequestToolResources>>,
+    pub tool_resources: Option<Box<models::Object014>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
 }
 
 impl ThreadObject {
-    /// Represents a thread that contains [messages](https://platform.openai.com/docs/api-reference/messages).
+    /// Represents a thread that contains [messages](/docs/api-reference/messages).
     pub fn new(
         id: String,
         object: Object,
         created_at: i32,
-        tool_resources: Option<models::ModifyThreadRequestToolResources>,
+        tool_resources: Option<models::Object014>,
         metadata: Option<std::collections::HashMap<String, String>>,
     ) -> ThreadObject {
         ThreadObject {

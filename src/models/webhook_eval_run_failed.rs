@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookEvalRunFailed : Sent when an eval run has failed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookEvalRunFailed {
     /// The Unix timestamp (in seconds) of when the eval run failed.
     #[serde(rename = "created_at")]

@@ -1,11 +1,11 @@
 # McpToolRequireApproval
 
-## Properties
+## Enum Variants
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**always** | Option<[**models::McpToolFilter**](MCPToolFilter.md)> |  | [optional]
-**never** | Option<[**models::McpToolFilter**](MCPToolFilter.md)> |  | [optional]
+| Name | Description |
+|---- | -----|
+| McpToolApprovalFilter | Specify which of the MCP server&#39;s tools require approval. |
+| String | Specify which of the MCP server&#39;s tools require approval. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -43,7 +43,6 @@ pub enum RetrieveBatchError {
     UnknownValue(serde_json::Value),
 }
 
-/// Cancels an in-progress batch. The batch will be in status `cancelling` for up to 10 minutes, before changing to `cancelled`, where it will have partial results (if any) available in the output file.
 #[bon::builder]
 pub async fn cancel_batch(
     configuration: &configuration::Configuration,
@@ -97,7 +96,6 @@ pub async fn cancel_batch(
     }
 }
 
-/// Creates and executes a batch from an uploaded file of requests
 #[bon::builder]
 pub async fn create_batch(
     configuration: &configuration::Configuration,
@@ -148,7 +146,6 @@ pub async fn create_batch(
     }
 }
 
-/// List your organization's batches.
 #[bon::builder]
 pub async fn list_batches(
     configuration: &configuration::Configuration,
@@ -204,7 +201,6 @@ pub async fn list_batches(
     }
 }
 
-/// Retrieves a batch.
 #[bon::builder]
 pub async fn retrieve_batch(
     configuration: &configuration::Configuration,

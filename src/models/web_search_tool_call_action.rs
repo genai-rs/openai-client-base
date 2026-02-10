@@ -11,11 +11,17 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebSearchToolCallAction : An object describing the specific action taken in this web search call. Includes details on how the model used the web (search, open_page, find).
+/// WebSearchToolCallAction : An object describing the specific action taken in this web search call. Includes details on how the model used the web (search, open_page, find_in_page).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum WebSearchToolCallAction {
     WebSearchActionSearch(Box<models::WebSearchActionSearch>),
     WebSearchActionOpenPage(Box<models::WebSearchActionOpenPage>),
     WebSearchActionFind(Box<models::WebSearchActionFind>),
+}
+
+impl Default for WebSearchToolCallAction {
+    fn default() -> Self {
+        Self::WebSearchActionSearch(Default::default())
+    }
 }

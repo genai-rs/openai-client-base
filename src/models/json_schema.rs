@@ -23,7 +23,7 @@ pub struct JsonSchema {
     /// The schema for the response format, described as a JSON Schema object. Learn how to build JSON schemas [here](https://json-schema.org/).
     #[serde(rename = "schema", skip_serializing_if = "Option::is_none")]
     pub schema: Option<std::collections::HashMap<String, serde_json::Value>>,
-    /// Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. To learn more, read the [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+    /// Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. To learn more, read the [Structured Outputs guide](/docs/guides/structured-outputs).
     #[serde(
         rename = "strict",
         default,

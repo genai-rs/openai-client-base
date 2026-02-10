@@ -5,14 +5,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AssistantsApiToolChoiceOption {
-    Auto(AssistantsApiToolChoiceOptionAutoEnum),
+    TextVariant(AssistantsApiToolChoiceOptionTextVariantEnum),
     Assistantsnamedtoolchoice(models::AssistantsNamedToolChoice),
 }
 
 impl std::fmt::Display for AssistantsApiToolChoiceOption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            AssistantsApiToolChoiceOption::Auto(value) => write!(f, "{}", value),
+            AssistantsApiToolChoiceOption::TextVariant(value) => write!(f, "{}", value),
             AssistantsApiToolChoiceOption::Assistantsnamedtoolchoice(value) => {
                 match serde_json::to_string(value) {
                     Ok(s) => write!(f, "{}", s),
@@ -23,27 +23,27 @@ impl std::fmt::Display for AssistantsApiToolChoiceOption {
     }
 }
 
-/// AssistantsApiToolChoiceOptionAutoEnum - String enum type
+/// AssistantsApiToolChoiceOptionTextVariantEnum - String enum type
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
-pub enum AssistantsApiToolChoiceOptionAutoEnum {
+pub enum AssistantsApiToolChoiceOptionTextVariantEnum {
     None,
     Auto,
     Required,
 }
 
-impl Default for AssistantsApiToolChoiceOptionAutoEnum {
+impl Default for AssistantsApiToolChoiceOptionTextVariantEnum {
     fn default() -> Self {
         Self::None
     }
 }
 
-impl std::fmt::Display for AssistantsApiToolChoiceOptionAutoEnum {
+impl std::fmt::Display for AssistantsApiToolChoiceOptionTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
-            AssistantsApiToolChoiceOptionAutoEnum::None => "none",
-            AssistantsApiToolChoiceOptionAutoEnum::Auto => "auto",
-            AssistantsApiToolChoiceOptionAutoEnum::Required => "required",
+            AssistantsApiToolChoiceOptionTextVariantEnum::None => "none",
+            AssistantsApiToolChoiceOptionTextVariantEnum::Auto => "auto",
+            AssistantsApiToolChoiceOptionTextVariantEnum::Required => "required",
         };
         write!(f, "{}", value)
     }

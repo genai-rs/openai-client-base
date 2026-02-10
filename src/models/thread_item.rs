@@ -27,3 +27,9 @@ pub enum ThreadItem {
 pub enum Object {
     ChatkitThreadItem,
 }
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::ChatkitThreadItem
+    }
+}

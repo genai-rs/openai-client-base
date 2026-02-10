@@ -27,6 +27,8 @@ Method | HTTP request | Description
 > batch_cancelled_post(webhook_batch_cancelled)
 
 
+Sent when a batch has been cancelled. 
+
 ### Parameters
 
 
@@ -54,6 +56,8 @@ Name | Type | Description  | Required | Notes
 
 > batch_completed_post(webhook_batch_completed)
 
+
+Sent when a batch has completed processing. 
 
 ### Parameters
 
@@ -83,6 +87,8 @@ Name | Type | Description  | Required | Notes
 > batch_expired_post(webhook_batch_expired)
 
 
+Sent when a batch has expired before completion. 
+
 ### Parameters
 
 
@@ -110,6 +116,8 @@ Name | Type | Description  | Required | Notes
 
 > batch_failed_post(webhook_batch_failed)
 
+
+Sent when a batch has failed. 
 
 ### Parameters
 
@@ -139,6 +147,8 @@ Name | Type | Description  | Required | Notes
 > eval_run_canceled_post(webhook_eval_run_canceled)
 
 
+Sent when an eval run has been canceled. 
+
 ### Parameters
 
 
@@ -166,6 +176,8 @@ Name | Type | Description  | Required | Notes
 
 > eval_run_failed_post(webhook_eval_run_failed)
 
+
+Sent when an eval run has failed. 
 
 ### Parameters
 
@@ -195,6 +207,8 @@ Name | Type | Description  | Required | Notes
 > eval_run_succeeded_post(webhook_eval_run_succeeded)
 
 
+Sent when an eval run has succeeded. 
+
 ### Parameters
 
 
@@ -222,6 +236,8 @@ Name | Type | Description  | Required | Notes
 
 > fine_tuning_job_cancelled_post(webhook_fine_tuning_job_cancelled)
 
+
+Sent when a fine-tuning job has been cancelled. 
 
 ### Parameters
 
@@ -251,6 +267,8 @@ Name | Type | Description  | Required | Notes
 > fine_tuning_job_failed_post(webhook_fine_tuning_job_failed)
 
 
+Sent when a fine-tuning job has failed. 
+
 ### Parameters
 
 
@@ -278,6 +296,8 @@ Name | Type | Description  | Required | Notes
 
 > fine_tuning_job_succeeded_post(webhook_fine_tuning_job_succeeded)
 
+
+Sent when a fine-tuning job has succeeded. 
 
 ### Parameters
 
@@ -307,6 +327,8 @@ Name | Type | Description  | Required | Notes
 > realtime_call_incoming_post(webhook_realtime_call_incoming)
 
 
+Sent when Realtime API Receives a incoming SIP call. 
+
 ### Parameters
 
 
@@ -334,6 +356,8 @@ Name | Type | Description  | Required | Notes
 
 > response_cancelled_post(webhook_response_cancelled)
 
+
+Sent when a background response has been cancelled. 
 
 ### Parameters
 
@@ -363,6 +387,8 @@ Name | Type | Description  | Required | Notes
 > response_completed_post(webhook_response_completed)
 
 
+Sent when a background response has completed successfully. 
+
 ### Parameters
 
 
@@ -391,6 +417,8 @@ Name | Type | Description  | Required | Notes
 > response_failed_post(webhook_response_failed)
 
 
+Sent when a background response has failed. 
+
 ### Parameters
 
 
@@ -418,6 +446,8 @@ Name | Type | Description  | Required | Notes
 
 > response_incomplete_post(webhook_response_incomplete)
 
+
+Sent when a background response is incomplete. 
 
 ### Parameters
 

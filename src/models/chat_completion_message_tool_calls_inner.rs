@@ -17,3 +17,9 @@ pub enum ChatCompletionMessageToolCallsInner {
     ChatCompletionMessageToolCall(Box<models::ChatCompletionMessageToolCall>),
     ChatCompletionMessageCustomToolCall(Box<models::ChatCompletionMessageCustomToolCall>),
 }
+
+impl Default for ChatCompletionMessageToolCallsInner {
+    fn default() -> Self {
+        Self::ChatCompletionMessageToolCall(Default::default())
+    }
+}

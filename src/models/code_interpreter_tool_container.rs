@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CodeInterpreterToolContainer {
     Text(String),
-    Codeinterpretercontainerauto(models::CodeInterpreterContainerAuto),
+    Autocodeinterpretertoolparam(models::AutoCodeInterpreterToolParam),
 }
 
 impl Default for CodeInterpreterToolContainer {
@@ -36,7 +36,7 @@ impl std::fmt::Display for CodeInterpreterToolContainer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             CodeInterpreterToolContainer::Text(value) => write!(f, "{}", value),
-            CodeInterpreterToolContainer::Codeinterpretercontainerauto(value) => {
+            CodeInterpreterToolContainer::Autocodeinterpretertoolparam(value) => {
                 match serde_json::to_string(value) {
                     Ok(s) => write!(f, "{}", s),
                     Err(_) => Err(std::fmt::Error),

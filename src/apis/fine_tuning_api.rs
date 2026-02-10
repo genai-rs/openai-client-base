@@ -106,7 +106,6 @@ pub enum ValidateGraderError {
     UnknownValue(serde_json::Value),
 }
 
-/// Immediately cancel a fine-tune job.
 #[bon::builder]
 pub async fn cancel_fine_tuning_job(
     configuration: &configuration::Configuration,
@@ -160,7 +159,6 @@ pub async fn cancel_fine_tuning_job(
     }
 }
 
-/// **NOTE:** Calling this endpoint requires an [admin API key](../admin-api-keys).  This enables organization owners to share fine-tuned models with other projects in their organization.
 #[bon::builder]
 pub async fn create_fine_tuning_checkpoint_permission(
     configuration: &configuration::Configuration,
@@ -222,7 +220,6 @@ pub async fn create_fine_tuning_checkpoint_permission(
     }
 }
 
-/// Creates a fine-tuning job which begins the process of creating a new model from a given dataset.  Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.  [Learn more about fine-tuning](https://platform.openai.com/docs/guides/model-optimization)
 #[bon::builder]
 pub async fn create_fine_tuning_job(
     configuration: &configuration::Configuration,
@@ -273,7 +270,6 @@ pub async fn create_fine_tuning_job(
     }
 }
 
-/// **NOTE:** This endpoint requires an [admin API key](../admin-api-keys).  Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint.
 #[bon::builder]
 pub async fn delete_fine_tuning_checkpoint_permission(
     configuration: &configuration::Configuration,
@@ -334,7 +330,6 @@ pub async fn delete_fine_tuning_checkpoint_permission(
     }
 }
 
-/// **NOTE:** This endpoint requires an [admin API key](../admin-api-keys).  Organization owners can use this endpoint to view all permissions for a fine-tuned model checkpoint.
 #[bon::builder]
 pub async fn list_fine_tuning_checkpoint_permissions(
     configuration: &configuration::Configuration,
@@ -410,7 +405,6 @@ pub async fn list_fine_tuning_checkpoint_permissions(
     }
 }
 
-/// Get status updates for a fine-tuning job.
 #[bon::builder]
 pub async fn list_fine_tuning_events(
     configuration: &configuration::Configuration,
@@ -472,7 +466,6 @@ pub async fn list_fine_tuning_events(
     }
 }
 
-/// List checkpoints for a fine-tuning job.
 #[bon::builder]
 pub async fn list_fine_tuning_job_checkpoints(
     configuration: &configuration::Configuration,
@@ -535,7 +528,6 @@ pub async fn list_fine_tuning_job_checkpoints(
     }
 }
 
-/// List your organization's fine-tuning jobs
 #[bon::builder]
 pub async fn list_paginated_fine_tuning_jobs(
     configuration: &configuration::Configuration,
@@ -600,7 +592,6 @@ pub async fn list_paginated_fine_tuning_jobs(
     }
 }
 
-/// Pause a fine-tune job.
 #[bon::builder]
 pub async fn pause_fine_tuning_job(
     configuration: &configuration::Configuration,
@@ -654,7 +645,6 @@ pub async fn pause_fine_tuning_job(
     }
 }
 
-/// Resume a fine-tune job.
 #[bon::builder]
 pub async fn resume_fine_tuning_job(
     configuration: &configuration::Configuration,
@@ -708,7 +698,6 @@ pub async fn resume_fine_tuning_job(
     }
 }
 
-/// Get info about a fine-tuning job.  [Learn more about fine-tuning](https://platform.openai.com/docs/guides/model-optimization)
 #[bon::builder]
 pub async fn retrieve_fine_tuning_job(
     configuration: &configuration::Configuration,
@@ -760,7 +749,6 @@ pub async fn retrieve_fine_tuning_job(
     }
 }
 
-/// Run a grader.
 #[bon::builder]
 pub async fn run_grader(
     configuration: &configuration::Configuration,
@@ -811,7 +799,6 @@ pub async fn run_grader(
     }
 }
 
-/// Validate a grader.
 #[bon::builder]
 pub async fn validate_grader(
     configuration: &configuration::Configuration,

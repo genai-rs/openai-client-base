@@ -23,8 +23,8 @@ pub struct OutputTextContent {
     /// The annotations of the text output.
     #[serde(rename = "annotations")]
     pub annotations: Vec<models::Annotation>,
-    #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
-    pub logprobs: Option<Vec<models::LogProb>>,
+    #[serde(rename = "logprobs")]
+    pub logprobs: Vec<models::LogProb>,
 }
 
 impl OutputTextContent {
@@ -33,12 +33,13 @@ impl OutputTextContent {
         r#type: Type,
         text: String,
         annotations: Vec<models::Annotation>,
+        logprobs: Vec<models::LogProb>,
     ) -> OutputTextContent {
         OutputTextContent {
             r#type,
             text,
             annotations,
-            logprobs: None,
+            logprobs,
         }
     }
 }

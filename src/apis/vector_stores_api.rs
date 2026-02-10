@@ -127,7 +127,6 @@ pub enum UpdateVectorStoreFileAttributesError {
     UnknownValue(serde_json::Value),
 }
 
-/// Cancel a vector store file batch. This attempts to cancel the processing of files in this batch as soon as possible.
 #[bon::builder]
 pub async fn cancel_vector_store_file_batch(
     configuration: &configuration::Configuration,
@@ -184,7 +183,6 @@ pub async fn cancel_vector_store_file_batch(
     }
 }
 
-/// Create a vector store.
 #[bon::builder]
 pub async fn create_vector_store(
     configuration: &configuration::Configuration,
@@ -235,7 +233,6 @@ pub async fn create_vector_store(
     }
 }
 
-/// Create a vector store file by attaching a [File](https://platform.openai.com/docs/api-reference/files) to a [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object).
 #[bon::builder]
 pub async fn create_vector_store_file(
     configuration: &configuration::Configuration,
@@ -292,7 +289,6 @@ pub async fn create_vector_store_file(
     }
 }
 
-/// Create a vector store file batch.
 #[bon::builder]
 pub async fn create_vector_store_file_batch(
     configuration: &configuration::Configuration,
@@ -349,7 +345,6 @@ pub async fn create_vector_store_file_batch(
     }
 }
 
-/// Delete a vector store.
 #[bon::builder]
 pub async fn delete_vector_store(
     configuration: &configuration::Configuration,
@@ -403,7 +398,6 @@ pub async fn delete_vector_store(
     }
 }
 
-/// Delete a vector store file. This will remove the file from the vector store but the file itself will not be deleted. To delete the file, use the [delete file](https://platform.openai.com/docs/api-reference/files/delete) endpoint.
 #[bon::builder]
 pub async fn delete_vector_store_file(
     configuration: &configuration::Configuration,
@@ -460,7 +454,6 @@ pub async fn delete_vector_store_file(
     }
 }
 
-/// Retrieves a vector store.
 #[bon::builder]
 pub async fn get_vector_store(
     configuration: &configuration::Configuration,
@@ -512,7 +505,6 @@ pub async fn get_vector_store(
     }
 }
 
-/// Retrieves a vector store file.
 #[bon::builder]
 pub async fn get_vector_store_file(
     configuration: &configuration::Configuration,
@@ -567,7 +559,6 @@ pub async fn get_vector_store_file(
     }
 }
 
-/// Retrieves a vector store file batch.
 #[bon::builder]
 pub async fn get_vector_store_file_batch(
     configuration: &configuration::Configuration,
@@ -622,7 +613,6 @@ pub async fn get_vector_store_file_batch(
     }
 }
 
-/// Returns a list of vector store files in a batch.
 #[bon::builder]
 pub async fn list_files_in_vector_store_batch(
     configuration: &configuration::Configuration,
@@ -702,7 +692,6 @@ pub async fn list_files_in_vector_store_batch(
     }
 }
 
-/// Returns a list of vector store files.
 #[bon::builder]
 pub async fn list_vector_store_files(
     configuration: &configuration::Configuration,
@@ -779,7 +768,6 @@ pub async fn list_vector_store_files(
     }
 }
 
-/// Returns a list of vector stores.
 #[bon::builder]
 pub async fn list_vector_stores(
     configuration: &configuration::Configuration,
@@ -845,7 +833,6 @@ pub async fn list_vector_stores(
     }
 }
 
-/// Modifies a vector store.
 #[bon::builder]
 pub async fn modify_vector_store(
     configuration: &configuration::Configuration,
@@ -902,7 +889,6 @@ pub async fn modify_vector_store(
     }
 }
 
-/// Retrieve the parsed contents of a vector store file.
 #[bon::builder]
 pub async fn retrieve_vector_store_file_content(
     configuration: &configuration::Configuration,
@@ -958,7 +944,6 @@ pub async fn retrieve_vector_store_file_content(
     }
 }
 
-/// Search a vector store for relevant chunks based on a query and file attributes filter.
 #[bon::builder]
 pub async fn search_vector_store(
     configuration: &configuration::Configuration,
@@ -1015,7 +1000,6 @@ pub async fn search_vector_store(
     }
 }
 
-/// Update attributes on a vector store file.
 #[bon::builder]
 pub async fn update_vector_store_file_attributes(
     configuration: &configuration::Configuration,

@@ -22,7 +22,6 @@ pub enum ListAuditLogsError {
     UnknownValue(serde_json::Value),
 }
 
-/// List user actions and configuration changes within this organization.
 #[bon::builder]
 pub async fn list_audit_logs(
     configuration: &configuration::Configuration,

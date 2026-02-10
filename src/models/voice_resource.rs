@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// VoiceResource : A custom voice that can be used for audio output.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VoiceResource {
     /// The object type, which is always `audio.voice`.
     #[serde(rename = "object")]

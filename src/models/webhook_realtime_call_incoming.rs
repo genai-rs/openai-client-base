@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookRealtimeCallIncoming : Sent when Realtime API Receives a incoming SIP call.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookRealtimeCallIncoming {
     /// The Unix timestamp (in seconds) of when the model response was completed.
     #[serde(rename = "created_at")]

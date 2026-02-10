@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// VoiceConsentResource : A consent recording used to authorize creation of a custom voice.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VoiceConsentResource {
     /// The object type, which is always `audio.voice_consent`.
     #[serde(rename = "object")]

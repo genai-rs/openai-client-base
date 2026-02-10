@@ -12,6 +12,30 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CustomToolPropertiesFormat : The input format for the custom tool. Default is unconstrained text.
+/// The input format for the custom tool. Default is unconstrained text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum CustomToolPropertiesFormat {}
+#[serde(untagged)]
+pub enum CustomToolPropertiesFormat {
+    TextFormat(models::TextFormat),
+    GrammarFormat(models::GrammarFormat),
+}
+
+impl Default for CustomToolPropertiesFormat {
+    fn default() -> Self {
+        Self::TextFormat(Default::default())
+    }
+}
+/// Unconstrained text format. Always `text`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "text")]
+    Text,
+    #[serde(rename = "grammar")]
+    Grammar,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Text
+    }
+}

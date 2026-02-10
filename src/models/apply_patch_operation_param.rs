@@ -19,3 +19,9 @@ pub enum ApplyPatchOperationParam {
     ApplyPatchDeleteFileOperationParam(Box<models::ApplyPatchDeleteFileOperationParam>),
     ApplyPatchUpdateFileOperationParam(Box<models::ApplyPatchUpdateFileOperationParam>),
 }
+
+impl Default for ApplyPatchOperationParam {
+    fn default() -> Self {
+        Self::ApplyPatchCreateFileOperationParam(Default::default())
+    }
+}

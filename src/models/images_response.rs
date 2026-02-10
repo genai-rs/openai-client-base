@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ImagesResponse : The response from the image generation endpoint.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImagesResponse {
     /// The Unix timestamp (in seconds) of when the image was created.
     #[serde(rename = "created")]

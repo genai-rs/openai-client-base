@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ReasoningItem : A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually [managing context](https://platform.openai.com/docs/guides/conversation-state).
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// ReasoningItem : A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually [managing context](/docs/guides/conversation-state).
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ReasoningItem {
     /// The type of the object. Always `reasoning`.
     #[serde(rename = "type")]
@@ -30,7 +30,7 @@ pub struct ReasoningItem {
     pub encrypted_content: Option<Option<String>>,
     /// Reasoning summary content.
     #[serde(rename = "summary")]
-    pub summary: Vec<models::Summary>,
+    pub summary: Vec<models::SummaryTextContent>,
     /// Reasoning text content.
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<Vec<models::ReasoningTextContent>>,
@@ -40,8 +40,12 @@ pub struct ReasoningItem {
 }
 
 impl ReasoningItem {
-    /// A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually [managing context](https://platform.openai.com/docs/guides/conversation-state).
-    pub fn new(r#type: Type, id: String, summary: Vec<models::Summary>) -> ReasoningItem {
+    /// A description of the chain of thought used by a reasoning model while generating a response. Be sure to include these items in your `input` to the Responses API for subsequent turns of a conversation if you are manually [managing context](/docs/guides/conversation-state).
+    pub fn new(
+        r#type: Type,
+        id: String,
+        summary: Vec<models::SummaryTextContent>,
+    ) -> ReasoningItem {
         ReasoningItem {
             r#type,
             id,

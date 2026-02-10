@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeConversationItemWithReference : The item to add to the conversation.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeConversationItemWithReference {
     /// For an item of type (`message` | `function_call` | `function_call_output`) this field allows the client to assign the unique ID of the item. It is not required because the server will generate one if not provided.  For an item of type `item_reference`, this field is required and is a reference to any item that has previously existed in the conversation.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -72,8 +72,6 @@ pub enum Type {
     FunctionCall,
     #[serde(rename = "function_call_output")]
     FunctionCallOutput,
-    #[serde(rename = "item_reference")]
-    ItemReference,
 }
 
 impl Default for Type {

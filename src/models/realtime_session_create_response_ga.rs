@@ -29,7 +29,7 @@ pub struct RealtimeSessionCreateResponseGa {
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::RealtimeSessionCreateRequestGaAudio>>,
+    pub audio: Option<Box<models::RealtimeSessionCreateResponseGaAudio>>,
     /// Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
     #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
     pub include: Option<Vec<Include>>,
@@ -39,7 +39,7 @@ pub struct RealtimeSessionCreateResponseGa {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tracing: Option<Option<Box<models::TracingConfiguration3>>>,
+    pub tracing: Option<Option<Box<models::TracingConfiguration1>>>,
     /// Tools available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeResponseCreateParamsToolsInner>>,

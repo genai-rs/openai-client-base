@@ -78,7 +78,6 @@ pub enum UsageVectorStoresError {
     UnknownValue(serde_json::Value),
 }
 
-/// Get audio speeches usage details for the organization.
 #[bon::builder]
 pub async fn usage_audio_speeches(
     configuration: &configuration::Configuration,
@@ -255,7 +254,6 @@ pub async fn usage_audio_speeches(
     }
 }
 
-/// Get audio transcriptions usage details for the organization.
 #[bon::builder]
 pub async fn usage_audio_transcriptions(
     configuration: &configuration::Configuration,
@@ -432,7 +430,6 @@ pub async fn usage_audio_transcriptions(
     }
 }
 
-/// Get code interpreter sessions usage details for the organization.
 #[bon::builder]
 pub async fn usage_code_interpreter_sessions(
     configuration: &configuration::Configuration,
@@ -546,7 +543,6 @@ pub async fn usage_code_interpreter_sessions(
     }
 }
 
-/// Get completions usage details for the organization.
 #[bon::builder]
 pub async fn usage_completions(
     configuration: &configuration::Configuration,
@@ -725,7 +721,6 @@ pub async fn usage_completions(
     }
 }
 
-/// Get costs details for the organization.
 #[bon::builder]
 pub async fn usage_costs(
     configuration: &configuration::Configuration,
@@ -836,7 +831,6 @@ pub async fn usage_costs(
     }
 }
 
-/// Get embeddings usage details for the organization.
 #[bon::builder]
 pub async fn usage_embeddings(
     configuration: &configuration::Configuration,
@@ -1010,7 +1004,6 @@ pub async fn usage_embeddings(
     }
 }
 
-/// Get images usage details for the organization.
 #[bon::builder]
 pub async fn usage_images(
     configuration: &configuration::Configuration,
@@ -1226,7 +1219,6 @@ pub async fn usage_images(
     }
 }
 
-/// Get moderations usage details for the organization.
 #[bon::builder]
 pub async fn usage_moderations(
     configuration: &configuration::Configuration,
@@ -1400,7 +1392,6 @@ pub async fn usage_moderations(
     }
 }
 
-/// Get vector stores usage details for the organization.
 #[bon::builder]
 pub async fn usage_vector_stores(
     configuration: &configuration::Configuration,

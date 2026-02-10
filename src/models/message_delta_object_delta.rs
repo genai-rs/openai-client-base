@@ -12,14 +12,14 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// MessageDeltaObjectDelta : The delta containing the fields that have changed on the Message.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageDeltaObjectDelta {
     /// The entity that produced the message. One of `user` or `assistant`.
     #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
     pub role: Option<Role>,
     /// The content of the message in array of text and/or images.
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
-    pub content: Option<Vec<models::MessageContentDelta>>,
+    pub content: Option<Vec<models::MessageDeltaObjectDeltaContentInner>>,
 }
 
 impl MessageDeltaObjectDelta {

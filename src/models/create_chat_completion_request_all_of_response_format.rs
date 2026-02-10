@@ -11,11 +11,17 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateChatCompletionRequestAllOfResponseFormat : An object specifying the format that the model must output.  Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).  Setting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
+/// CreateChatCompletionRequestAllOfResponseFormat : An object specifying the format that the model must output.  Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](/docs/guides/structured-outputs).  Setting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateChatCompletionRequestAllOfResponseFormat {
     ResponseFormatText(Box<models::ResponseFormatText>),
     ResponseFormatJsonSchema(Box<models::ResponseFormatJsonSchema>),
     ResponseFormatJsonObject(Box<models::ResponseFormatJsonObject>),
+}
+
+impl Default for CreateChatCompletionRequestAllOfResponseFormat {
+    fn default() -> Self {
+        Self::ResponseFormatText(Default::default())
+    }
 }
