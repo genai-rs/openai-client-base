@@ -11,20 +11,17 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct WorkflowParamStateVariablesValue {}
-
-impl WorkflowParamStateVariablesValue {
-    pub fn new() -> WorkflowParamStateVariablesValue {
-        WorkflowParamStateVariablesValue {}
-    }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum WorkflowParamStateVariablesValue {
+    Text(String),
+    Integer(i32),
+    Boolean(bool),
+    Number(f64),
 }
 
-impl std::fmt::Display for WorkflowParamStateVariablesValue {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
+impl Default for WorkflowParamStateVariablesValue {
+    fn default() -> Self {
+        Self::Text(Default::default())
     }
 }

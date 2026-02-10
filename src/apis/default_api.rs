@@ -120,6 +120,7 @@ pub enum ResponseIncompletePostError {
     UnknownValue(serde_json::Value),
 }
 
+/// Sent when a batch has been cancelled.
 #[bon::builder]
 pub async fn batch_cancelled_post(
     configuration: &configuration::Configuration,
@@ -159,6 +160,7 @@ pub async fn batch_cancelled_post(
     }
 }
 
+/// Sent when a batch has completed processing.
 #[bon::builder]
 pub async fn batch_completed_post(
     configuration: &configuration::Configuration,
@@ -198,6 +200,7 @@ pub async fn batch_completed_post(
     }
 }
 
+/// Sent when a batch has expired before completion.
 #[bon::builder]
 pub async fn batch_expired_post(
     configuration: &configuration::Configuration,
@@ -237,6 +240,7 @@ pub async fn batch_expired_post(
     }
 }
 
+/// Sent when a batch has failed.
 #[bon::builder]
 pub async fn batch_failed_post(
     configuration: &configuration::Configuration,
@@ -276,6 +280,7 @@ pub async fn batch_failed_post(
     }
 }
 
+/// Sent when an eval run has been canceled.
 #[bon::builder]
 pub async fn eval_run_canceled_post(
     configuration: &configuration::Configuration,
@@ -315,6 +320,7 @@ pub async fn eval_run_canceled_post(
     }
 }
 
+/// Sent when an eval run has failed.
 #[bon::builder]
 pub async fn eval_run_failed_post(
     configuration: &configuration::Configuration,
@@ -354,6 +360,7 @@ pub async fn eval_run_failed_post(
     }
 }
 
+/// Sent when an eval run has succeeded.
 #[bon::builder]
 pub async fn eval_run_succeeded_post(
     configuration: &configuration::Configuration,
@@ -393,6 +400,7 @@ pub async fn eval_run_succeeded_post(
     }
 }
 
+/// Sent when a fine-tuning job has been cancelled.
 #[bon::builder]
 pub async fn fine_tuning_job_cancelled_post(
     configuration: &configuration::Configuration,
@@ -432,6 +440,7 @@ pub async fn fine_tuning_job_cancelled_post(
     }
 }
 
+/// Sent when a fine-tuning job has failed.
 #[bon::builder]
 pub async fn fine_tuning_job_failed_post(
     configuration: &configuration::Configuration,
@@ -471,6 +480,7 @@ pub async fn fine_tuning_job_failed_post(
     }
 }
 
+/// Sent when a fine-tuning job has succeeded.
 #[bon::builder]
 pub async fn fine_tuning_job_succeeded_post(
     configuration: &configuration::Configuration,
@@ -510,6 +520,7 @@ pub async fn fine_tuning_job_succeeded_post(
     }
 }
 
+/// Sent when Realtime API Receives a incoming SIP call.
 #[bon::builder]
 pub async fn realtime_call_incoming_post(
     configuration: &configuration::Configuration,
@@ -549,6 +560,7 @@ pub async fn realtime_call_incoming_post(
     }
 }
 
+/// Sent when a background response has been cancelled.
 #[bon::builder]
 pub async fn response_cancelled_post(
     configuration: &configuration::Configuration,
@@ -588,6 +600,7 @@ pub async fn response_cancelled_post(
     }
 }
 
+/// Sent when a background response has completed successfully.
 #[bon::builder]
 pub async fn response_completed_post(
     configuration: &configuration::Configuration,
@@ -627,6 +640,7 @@ pub async fn response_completed_post(
     }
 }
 
+/// Sent when a background response has failed.
 #[bon::builder]
 pub async fn response_failed_post(
     configuration: &configuration::Configuration,
@@ -666,6 +680,7 @@ pub async fn response_failed_post(
     }
 }
 
+/// Sent when a background response is incomplete.
 #[bon::builder]
 pub async fn response_incomplete_post(
     configuration: &configuration::Configuration,

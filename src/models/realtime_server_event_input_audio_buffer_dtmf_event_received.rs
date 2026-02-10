@@ -14,8 +14,9 @@ use serde::{Deserialize, Serialize};
 /// RealtimeServerEventInputAudioBufferDtmfEventReceived : **SIP Only:** Returned when an DTMF event is received. A DTMF event is a message that represents a telephone keypad press (0–9, *, #, A–D). The `event` property is the keypad that the user press. The `received_at` is the UTC Unix Timestamp that the server received the event.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeServerEventInputAudioBufferDtmfEventReceived {
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `input_audio_buffer.dtmf_event_received`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The telephone keypad that was pressed by the user.
     #[serde(rename = "event")]
     pub event: String,
@@ -27,7 +28,7 @@ pub struct RealtimeServerEventInputAudioBufferDtmfEventReceived {
 impl RealtimeServerEventInputAudioBufferDtmfEventReceived {
     /// **SIP Only:** Returned when an DTMF event is received. A DTMF event is a message that represents a telephone keypad press (0–9, *, #, A–D). The `event` property is the keypad that the user press. The `received_at` is the UTC Unix Timestamp that the server received the event.
     pub fn new(
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         event: String,
         received_at: i32,
     ) -> RealtimeServerEventInputAudioBufferDtmfEventReceived {
@@ -36,6 +37,18 @@ impl RealtimeServerEventInputAudioBufferDtmfEventReceived {
             event,
             received_at,
         }
+    }
+}
+/// The event type, must be `input_audio_buffer.dtmf_event_received`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "input_audio_buffer.dtmf_event_received")]
+    InputAudioBufferDtmfEventReceived,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::InputAudioBufferDtmfEventReceived
     }
 }
 

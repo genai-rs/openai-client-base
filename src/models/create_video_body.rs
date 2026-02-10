@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateVideoBody : Parameters for creating a new video generation job.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVideoBody {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<Box<models::VideoModel>>,

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// MessageDeltaContentImageFileObject : References an image [File](https://platform.openai.com/docs/api-reference/files) in the content of a message.
+/// MessageDeltaContentImageFileObject : References an image [File](/docs/api-reference/files) in the content of a message.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageDeltaContentImageFileObject {
     /// The index of the content part in the message.
@@ -25,7 +25,7 @@ pub struct MessageDeltaContentImageFileObject {
 }
 
 impl MessageDeltaContentImageFileObject {
-    /// References an image [File](https://platform.openai.com/docs/api-reference/files) in the content of a message.
+    /// References an image [File](/docs/api-reference/files) in the content of a message.
     pub fn new(index: i32, r#type: Type) -> MessageDeltaContentImageFileObject {
         MessageDeltaContentImageFileObject {
             index,

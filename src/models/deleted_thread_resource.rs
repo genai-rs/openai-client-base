@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// DeletedThreadResource : Confirmation payload returned after deleting a thread.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DeletedThreadResource {
     /// Identifier of the deleted thread.
     #[serde(rename = "id")]

@@ -14,17 +14,20 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunGraderRequest {
     #[serde(rename = "grader")]
-    pub grader: Box<models::RunGraderRequestGrader>,
-    /// The dataset item provided to the grader. This will be used to populate  the `item` namespace. See [the guide](https://platform.openai.com/docs/guides/graders) for more details.  
+    pub grader: Box<models::FineTuneReinforcementMethodGrader>,
+    /// The dataset item provided to the grader. This will be used to populate  the `item` namespace. See [the guide](/docs/guides/graders) for more details.  
     #[serde(rename = "item", skip_serializing_if = "Option::is_none")]
     pub item: Option<serde_json::Value>,
-    /// The model sample to be evaluated. This value will be used to populate  the `sample` namespace. See [the guide](https://platform.openai.com/docs/guides/graders) for more details. The `output_json` variable will be populated if the model sample is a  valid JSON string.   
+    /// The model sample to be evaluated. This value will be used to populate  the `sample` namespace. See [the guide](/docs/guides/graders) for more details. The `output_json` variable will be populated if the model sample is a  valid JSON string.   
     #[serde(rename = "model_sample")]
     pub model_sample: String,
 }
 
 impl RunGraderRequest {
-    pub fn new(grader: models::RunGraderRequestGrader, model_sample: String) -> RunGraderRequest {
+    pub fn new(
+        grader: models::FineTuneReinforcementMethodGrader,
+        model_sample: String,
+    ) -> RunGraderRequest {
         RunGraderRequest {
             grader: Box::new(grader),
             item: None,

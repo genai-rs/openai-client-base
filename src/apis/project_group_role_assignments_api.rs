@@ -36,7 +36,6 @@ pub enum UnassignProjectGroupRoleError {
     UnknownValue(serde_json::Value),
 }
 
-/// Assigns a project role to a group within a project.
 #[bon::builder]
 pub async fn assign_project_group_role(
     configuration: &configuration::Configuration,
@@ -97,7 +96,6 @@ pub async fn assign_project_group_role(
     }
 }
 
-/// Lists the project roles assigned to a group within a project.
 #[bon::builder]
 pub async fn list_project_group_role_assignments(
     configuration: &configuration::Configuration,
@@ -168,7 +166,6 @@ pub async fn list_project_group_role_assignments(
     }
 }
 
-/// Unassigns a project role from a group within a project.
 #[bon::builder]
 pub async fn unassign_project_group_role(
     configuration: &configuration::Configuration,

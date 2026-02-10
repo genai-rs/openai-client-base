@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventRateLimitsUpdated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `rate_limits.updated`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// List of rate limit information.
     #[serde(rename = "rate_limits")]
     pub rate_limits: Vec<models::RealtimeBetaServerEventRateLimitsUpdatedRateLimitsInner>,
@@ -28,7 +29,7 @@ impl RealtimeBetaServerEventRateLimitsUpdated {
     /// Emitted at the beginning of a Response to indicate the updated rate limits.  When a Response is created some tokens will be \"reserved\" for the output  tokens, the rate limits shown here reflect that reservation, which is then  adjusted accordingly once the Response is completed.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         rate_limits: Vec<models::RealtimeBetaServerEventRateLimitsUpdatedRateLimitsInner>,
     ) -> RealtimeBetaServerEventRateLimitsUpdated {
         RealtimeBetaServerEventRateLimitsUpdated {
@@ -36,6 +37,18 @@ impl RealtimeBetaServerEventRateLimitsUpdated {
             r#type,
             rate_limits,
         }
+    }
+}
+/// The event type, must be `rate_limits.updated`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "rate_limits.updated")]
+    RateLimitsUpdated,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::RateLimitsUpdated
     }
 }
 

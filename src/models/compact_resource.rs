@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompactResource {
     /// The unique identifier for the compacted response.
     #[serde(rename = "id")]
@@ -19,9 +19,9 @@ pub struct CompactResource {
     /// The object type. Always `response.compaction`.
     #[serde(rename = "object")]
     pub object: Object,
-    /// The compacted list of output items. This is a list of all user messages, followed by a single compaction item.
+    /// The compacted list of output items.
     #[serde(rename = "output")]
-    pub output: Vec<serde_json::Value>,
+    pub output: Vec<models::ItemField>,
     /// Unix timestamp (in seconds) when the compacted conversation was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
@@ -33,7 +33,7 @@ impl CompactResource {
     pub fn new(
         id: String,
         object: Object,
-        output: Vec<serde_json::Value>,
+        output: Vec<models::ItemField>,
         created_at: i32,
         usage: models::ResponseUsage,
     ) -> CompactResource {

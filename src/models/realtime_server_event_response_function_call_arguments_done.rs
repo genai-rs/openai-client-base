@@ -17,8 +17,9 @@ pub struct RealtimeServerEventResponseFunctionCallArgumentsDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.function_call_arguments.done`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the response.
     #[serde(rename = "response_id")]
     pub response_id: String,
@@ -31,6 +32,9 @@ pub struct RealtimeServerEventResponseFunctionCallArgumentsDone {
     /// The ID of the function call.
     #[serde(rename = "call_id")]
     pub call_id: String,
+    /// The name of the function that was called.
+    #[serde(rename = "name")]
+    pub name: String,
     /// The final arguments as a JSON string.
     #[serde(rename = "arguments")]
     pub arguments: String,
@@ -40,11 +44,12 @@ impl RealtimeServerEventResponseFunctionCallArgumentsDone {
     /// Returned when the model-generated function call arguments are done streaming. Also emitted when a Response is interrupted, incomplete, or cancelled.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         response_id: String,
         item_id: String,
         output_index: i32,
         call_id: String,
+        name: String,
         arguments: String,
     ) -> RealtimeServerEventResponseFunctionCallArgumentsDone {
         RealtimeServerEventResponseFunctionCallArgumentsDone {
@@ -54,8 +59,21 @@ impl RealtimeServerEventResponseFunctionCallArgumentsDone {
             item_id,
             output_index,
             call_id,
+            name,
             arguments,
         }
+    }
+}
+/// The event type, must be `response.function_call_arguments.done`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.function_call_arguments.done")]
+    ResponseFunctionCallArgumentsDone,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseFunctionCallArgumentsDone
     }
 }
 

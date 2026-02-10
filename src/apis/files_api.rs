@@ -52,12 +52,11 @@ pub enum RetrieveFileError {
     UnknownValue(serde_json::Value),
 }
 
-/// Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](https://platform.openai.com/docs/assistants/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](https://platform.openai.com/docs/api-reference/fine-tuning/chat-input) or   [completions](https://platform.openai.com/docs/api-reference/fine-tuning/completions-input) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](https://platform.openai.com/docs/api-reference/batch/request-input).  Please [contact us](https://help.openai.com/) if you need to increase these storage limits.
 #[bon::builder]
 pub async fn create_file(
     configuration: &configuration::Configuration,
     file: std::path::PathBuf,
-    purpose: models::FilePurpose,
+    purpose: &str,
     expires_after: Option<models::FileExpirationAfter>,
 ) -> Result<models::OpenAiFile, Error<CreateFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -114,7 +113,6 @@ pub async fn create_file(
     }
 }
 
-/// Delete a file and remove it from all vector stores.
 #[bon::builder]
 pub async fn delete_file(
     configuration: &configuration::Configuration,
@@ -168,7 +166,6 @@ pub async fn delete_file(
     }
 }
 
-/// Returns the contents of the specified file.
 #[bon::builder]
 pub async fn download_file(
     configuration: &configuration::Configuration,
@@ -220,7 +217,6 @@ pub async fn download_file(
     }
 }
 
-/// Returns a list of files.
 #[bon::builder]
 pub async fn list_files(
     configuration: &configuration::Configuration,
@@ -286,7 +282,6 @@ pub async fn list_files(
     }
 }
 
-/// Returns information about a specific file.
 #[bon::builder]
 pub async fn retrieve_file(
     configuration: &configuration::Configuration,

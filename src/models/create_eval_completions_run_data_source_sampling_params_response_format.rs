@@ -11,26 +11,19 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat : An object specifying the format that the model must output.  Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).  Setting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
-    /// The type of response format being defined. Always `text`.
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    #[serde(rename = "json_schema")]
-    pub json_schema: Box<models::JsonSchema>,
+/// CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat : An object specifying the format that the model must output.  Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](/docs/guides/structured-outputs).  Setting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
+/// An object specifying the format that the model must output.  Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](/docs/guides/structured-outputs).  Setting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
+    ResponseFormatText(Box<models::ResponseFormatText>),
+    ResponseFormatJsonSchema(Box<models::ResponseFormatJsonSchema>),
+    ResponseFormatJsonObject(Box<models::ResponseFormatJsonObject>),
 }
 
-impl CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
-    /// An object specifying the format that the model must output.  Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).  Setting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
-    pub fn new(
-        r#type: Type,
-        json_schema: models::JsonSchema,
-    ) -> CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
-        CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
-            r#type,
-            json_schema: Box::new(json_schema),
-        }
+impl Default for CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
+    fn default() -> Self {
+        Self::ResponseFormatText(Default::default())
     }
 }
 /// The type of response format being defined. Always `text`.
@@ -47,14 +40,5 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Text
-    }
-}
-
-impl std::fmt::Display for CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

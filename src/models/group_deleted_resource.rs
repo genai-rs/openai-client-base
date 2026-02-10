@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// GroupDeletedResource : Confirmation payload returned after deleting a group.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct GroupDeletedResource {
     /// Always `group.deleted`.
     #[serde(rename = "object")]

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CustomToolProperties : Properties of the custom tool.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CustomToolProperties {
     /// The name of the custom tool, used to identify it in tool calls.
     #[serde(rename = "name")]

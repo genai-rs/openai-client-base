@@ -20,7 +20,7 @@ pub struct FineTuningJobHyperparameters {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub batch_size: Option<Option<Box<models::Auto>>>,
+    pub batch_size: Option<Option<Box<models::FineTuningJobHyperparametersBatchSize>>>,
     #[serde(
         rename = "learning_rate_multiplier",
         skip_serializing_if = "Option::is_none"

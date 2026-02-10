@@ -4,15 +4,13 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_embedding**](EmbeddingsApi.md#create_embedding) | **POST** /embeddings | Create embeddings
+[**create_embedding**](EmbeddingsApi.md#create_embedding) | **POST** /embeddings | Creates an embedding vector representing the input text.
 
 
 
 ## create_embedding
 
 > models::CreateEmbeddingResponse create_embedding(create_embedding_request)
-Create embeddings
-
 Creates an embedding vector representing the input text.
 
 ### Parameters

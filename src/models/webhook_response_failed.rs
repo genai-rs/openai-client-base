@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookResponseFailed : Sent when a background response has failed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookResponseFailed {
     /// The Unix timestamp (in seconds) of when the model response failed.
     #[serde(rename = "created_at")]

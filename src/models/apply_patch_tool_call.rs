@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ApplyPatchToolCall : A tool call that applies file diffs by creating, deleting, or updating files.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApplyPatchToolCall {
     /// The type of the item. Always `apply_patch_call`.
     #[serde(rename = "type")]

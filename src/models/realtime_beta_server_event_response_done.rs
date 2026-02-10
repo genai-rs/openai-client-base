@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventResponseDone {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.done`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     #[serde(rename = "response")]
     pub response: Box<models::RealtimeBetaResponse>,
 }
@@ -27,7 +28,7 @@ impl RealtimeBetaServerEventResponseDone {
     /// Returned when a Response is done streaming. Always emitted, no matter the  final state. The Response object included in the `response.done` event will  include all output Items in the Response but will omit the raw audio data.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         response: models::RealtimeBetaResponse,
     ) -> RealtimeBetaServerEventResponseDone {
         RealtimeBetaServerEventResponseDone {
@@ -35,6 +36,18 @@ impl RealtimeBetaServerEventResponseDone {
             r#type,
             response: Box::new(response),
         }
+    }
+}
+/// The event type, must be `response.done`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.done")]
+    ResponseDone,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseDone
     }
 }
 

@@ -17,8 +17,9 @@ pub struct RealtimeBetaClientEventConversationItemCreate {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
     pub event_id: Option<String>,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `conversation.item.create`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the preceding item after which the new item will be inserted.  If not set, the new item will be appended to the end of the conversation. If set to `root`, the new item will be added to the beginning of the conversation. If set to an existing ID, it allows an item to be inserted mid-conversation. If the ID cannot be found, an error will be returned and the item will not be added.
     #[serde(rename = "previous_item_id", skip_serializing_if = "Option::is_none")]
     pub previous_item_id: Option<String>,
@@ -29,7 +30,7 @@ pub struct RealtimeBetaClientEventConversationItemCreate {
 impl RealtimeBetaClientEventConversationItemCreate {
     /// Add a new Item to the Conversation's context, including messages, function  calls, and function call responses. This event can be used both to populate a  \"history\" of the conversation and to add new items mid-stream, but has the  current limitation that it cannot populate assistant audio messages.  If successful, the server will respond with a `conversation.item.created`  event, otherwise an `error` event will be sent.
     pub fn new(
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         item: models::RealtimeConversationItem,
     ) -> RealtimeBetaClientEventConversationItemCreate {
         RealtimeBetaClientEventConversationItemCreate {
@@ -38,6 +39,18 @@ impl RealtimeBetaClientEventConversationItemCreate {
             previous_item_id: None,
             item: Box::new(item),
         }
+    }
+}
+/// The event type, must be `conversation.item.create`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "conversation.item.create")]
+    ConversationItemCreate,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ConversationItemCreate
     }
 }
 

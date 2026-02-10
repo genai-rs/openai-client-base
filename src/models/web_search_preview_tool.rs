@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchPreviewTool {
     /// The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`.
-    #[serde(rename = "type")]
-    pub r#type: Type,
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<Type>,
     #[serde(
         rename = "user_location",
         default,
@@ -33,9 +33,9 @@ pub struct WebSearchPreviewTool {
 
 impl WebSearchPreviewTool {
     /// This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
-    pub fn new(r#type: Type) -> WebSearchPreviewTool {
+    pub fn new() -> WebSearchPreviewTool {
         WebSearchPreviewTool {
-            r#type,
+            r#type: None,
             user_location: None,
             search_context_size: None,
         }

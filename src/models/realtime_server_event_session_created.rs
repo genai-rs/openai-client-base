@@ -17,8 +17,9 @@ pub struct RealtimeServerEventSessionCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `session.created`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     #[serde(rename = "session")]
     pub session: Box<models::RealtimeServerEventSessionCreatedSession>,
 }
@@ -27,7 +28,7 @@ impl RealtimeServerEventSessionCreated {
     /// Returned when a Session is created. Emitted automatically when a new connection is established as the first server event. This event will contain the default Session configuration.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         session: models::RealtimeServerEventSessionCreatedSession,
     ) -> RealtimeServerEventSessionCreated {
         RealtimeServerEventSessionCreated {
@@ -35,6 +36,18 @@ impl RealtimeServerEventSessionCreated {
             r#type,
             session: Box::new(session),
         }
+    }
+}
+/// The event type, must be `session.created`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "session.created")]
+    SessionCreated,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::SessionCreated
     }
 }
 

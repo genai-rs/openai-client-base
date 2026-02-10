@@ -11,21 +11,21 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ToolChoiceTypes : Indicates that the model should use a built-in tool to generate a response. [Learn more about built-in tools](https://platform.openai.com/docs/guides/tools).
+/// ToolChoiceTypes : Indicates that the model should use a built-in tool to generate a response. [Learn more about built-in tools](/docs/guides/tools).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ToolChoiceTypes {
-    /// The type of hosted tool the model should to use. Learn more about [built-in tools](https://platform.openai.com/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer_use_preview` - `code_interpreter` - `image_generation`
+    /// The type of hosted tool the model should to use. Learn more about [built-in tools](/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer_use_preview` - `code_interpreter` - `image_generation`
     #[serde(rename = "type")]
     pub r#type: Type,
 }
 
 impl ToolChoiceTypes {
-    /// Indicates that the model should use a built-in tool to generate a response. [Learn more about built-in tools](https://platform.openai.com/docs/guides/tools).
+    /// Indicates that the model should use a built-in tool to generate a response. [Learn more about built-in tools](/docs/guides/tools).
     pub fn new(r#type: Type) -> ToolChoiceTypes {
         ToolChoiceTypes { r#type }
     }
 }
-/// The type of hosted tool the model should to use. Learn more about [built-in tools](https://platform.openai.com/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer_use_preview` - `code_interpreter` - `image_generation`
+/// The type of hosted tool the model should to use. Learn more about [built-in tools](/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer_use_preview` - `code_interpreter` - `image_generation`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "file_search")]

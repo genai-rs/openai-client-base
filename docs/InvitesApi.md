@@ -4,18 +4,16 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_invite**](InvitesApi.md#delete_invite) | **DELETE** /organization/invites/{invite_id} | Delete invite
-[**invite_user**](InvitesApi.md#invite_user) | **POST** /organization/invites | Create invite
-[**list_invites**](InvitesApi.md#list_invites) | **GET** /organization/invites | List invites
-[**retrieve_invite**](InvitesApi.md#retrieve_invite) | **GET** /organization/invites/{invite_id} | Retrieve invite
+[**delete_invite**](InvitesApi.md#delete_invite) | **DELETE** /organization/invites/{invite_id} | Delete an invite. If the invite has already been accepted, it cannot be deleted.
+[**invite_user**](InvitesApi.md#invite_user) | **POST** /organization/invites | Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
+[**list_invites**](InvitesApi.md#list_invites) | **GET** /organization/invites | Returns a list of invites in the organization.
+[**retrieve_invite**](InvitesApi.md#retrieve_invite) | **GET** /organization/invites/{invite_id} | Retrieves an invite.
 
 
 
 ## delete_invite
 
 > models::InviteDeleteResponse delete_invite(invite_id)
-Delete invite
-
 Delete an invite. If the invite has already been accepted, it cannot be deleted.
 
 ### Parameters
@@ -44,8 +42,6 @@ Name | Type | Description  | Required | Notes
 ## invite_user
 
 > models::Invite invite_user(invite_request)
-Create invite
-
 Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
 
 ### Parameters
@@ -74,8 +70,6 @@ Name | Type | Description  | Required | Notes
 ## list_invites
 
 > models::InviteListResponse list_invites(limit, after)
-List invites
-
 Returns a list of invites in the organization.
 
 ### Parameters
@@ -105,8 +99,6 @@ Name | Type | Description  | Required | Notes
 ## retrieve_invite
 
 > models::Invite retrieve_invite(invite_id)
-Retrieve invite
-
 Retrieves an invite.
 
 ### Parameters

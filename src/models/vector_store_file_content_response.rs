@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// VectorStoreFileContentResponse : Represents the parsed content of a vector store file.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VectorStoreFileContentResponse {
     /// The object type, which is always `vector_store.file_content.page`
     #[serde(rename = "object")]

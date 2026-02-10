@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ChatCompletionRequestMessageContentPartFile : Learn about [file inputs](https://platform.openai.com/docs/guides/text) for text generation.
+/// ChatCompletionRequestMessageContentPartFile : Learn about [file inputs](/docs/guides/text) for text generation.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestMessageContentPartFile {
     /// The type of the content part. Always `file`.
@@ -22,7 +22,7 @@ pub struct ChatCompletionRequestMessageContentPartFile {
 }
 
 impl ChatCompletionRequestMessageContentPartFile {
-    /// Learn about [file inputs](https://platform.openai.com/docs/guides/text) for text generation.
+    /// Learn about [file inputs](/docs/guides/text) for text generation.
     pub fn new(
         r#type: Type,
         file: models::ChatCompletionRequestMessageContentPartFileFile,

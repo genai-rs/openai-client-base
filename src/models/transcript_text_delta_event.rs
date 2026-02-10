@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// TranscriptTextDeltaEvent : Emitted when there is an additional text delta. This is also the first event emitted when the transcription starts. Only emitted when you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.
+/// TranscriptTextDeltaEvent : Emitted when there is an additional text delta. This is also the first event emitted when the transcription starts. Only emitted when you [create a transcription](/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TranscriptTextDeltaEvent {
     /// The type of the event. Always `transcript.text.delta`.
@@ -20,7 +20,7 @@ pub struct TranscriptTextDeltaEvent {
     /// The text delta that was additionally transcribed.
     #[serde(rename = "delta")]
     pub delta: String,
-    /// The log probabilities of the delta. Only included if you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.
+    /// The log probabilities of the delta. Only included if you [create a transcription](/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
     pub logprobs: Option<Vec<models::TranscriptTextDeltaEventLogprobsInner>>,
     /// Identifier of the diarized segment that this delta belongs to. Only present when using `gpt-4o-transcribe-diarize`.
@@ -29,7 +29,7 @@ pub struct TranscriptTextDeltaEvent {
 }
 
 impl TranscriptTextDeltaEvent {
-    /// Emitted when there is an additional text delta. This is also the first event emitted when the transcription starts. Only emitted when you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.
+    /// Emitted when there is an additional text delta. This is also the first event emitted when the transcription starts. Only emitted when you [create a transcription](/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.
     pub fn new(r#type: Type, delta: String) -> TranscriptTextDeltaEvent {
         TranscriptTextDeltaEvent {
             r#type,

@@ -17,20 +17,33 @@ pub struct RealtimeClientEventResponseCreate {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
     pub event_id: Option<String>,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.create`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     #[serde(rename = "response", skip_serializing_if = "Option::is_none")]
     pub response: Option<Box<models::RealtimeResponseCreateParams>>,
 }
 
 impl RealtimeClientEventResponseCreate {
     /// This event instructs the server to create a Response, which means triggering  model inference. When in Server VAD mode, the server will create Responses  automatically.  A Response will include at least one Item, and may have two, in which case  the second will be a function call. These Items will be appended to the  conversation history by default.  The server will respond with a `response.created` event, events for Items  and content created, and finally a `response.done` event to indicate the  Response is complete.  The `response.create` event includes inference configuration like  `instructions` and `tools`. If these are set, they will override the Session's  configuration for this Response only.  Responses can be created out-of-band of the default Conversation, meaning that they can have arbitrary input, and it's possible to disable writing the output to the Conversation. Only one Response can write to the default Conversation at a time, but otherwise multiple Responses can be created in parallel. The `metadata` field is a good way to disambiguate multiple simultaneous Responses.  Clients can set `conversation` to `none` to create a Response that does not write to the default Conversation. Arbitrary input can be provided with the `input` field, which is an array accepting raw Items and references to existing Items.
-    pub fn new(r#type: Option<serde_json::Value>) -> RealtimeClientEventResponseCreate {
+    pub fn new(r#type: Type) -> RealtimeClientEventResponseCreate {
         RealtimeClientEventResponseCreate {
             event_id: None,
             r#type,
             response: None,
         }
+    }
+}
+/// The event type, must be `response.create`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.create")]
+    ResponseCreate,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseCreate
     }
 }
 

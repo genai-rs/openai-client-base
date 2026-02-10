@@ -36,7 +36,6 @@ pub enum RetrieveModelError {
     UnknownValue(serde_json::Value),
 }
 
-/// Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
 #[bon::builder]
 pub async fn delete_model(
     configuration: &configuration::Configuration,
@@ -90,7 +89,6 @@ pub async fn delete_model(
     }
 }
 
-/// Lists the currently available models, and provides basic information about each one such as the owner and availability.
 #[bon::builder]
 pub async fn list_models(
     configuration: &configuration::Configuration,
@@ -134,7 +132,6 @@ pub async fn list_models(
     }
 }
 
-/// Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
 #[bon::builder]
 pub async fn retrieve_model(
     configuration: &configuration::Configuration,

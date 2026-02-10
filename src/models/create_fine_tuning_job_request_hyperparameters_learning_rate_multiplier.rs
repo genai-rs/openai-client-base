@@ -12,21 +12,16 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateFineTuningJobRequestHyperparametersLearningRateMultiplier : Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateFineTuningJobRequestHyperparametersLearningRateMultiplier {}
-
-impl CreateFineTuningJobRequestHyperparametersLearningRateMultiplier {
-    /// Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting.
-    pub fn new() -> CreateFineTuningJobRequestHyperparametersLearningRateMultiplier {
-        CreateFineTuningJobRequestHyperparametersLearningRateMultiplier {}
-    }
+/// Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateFineTuningJobRequestHyperparametersLearningRateMultiplier {
+    Text(String),
+    Number(f64),
 }
 
-impl std::fmt::Display for CreateFineTuningJobRequestHyperparametersLearningRateMultiplier {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
+impl Default for CreateFineTuningJobRequestHyperparametersLearningRateMultiplier {
+    fn default() -> Self {
+        Self::Text(Default::default())
     }
 }

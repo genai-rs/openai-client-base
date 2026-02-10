@@ -12,26 +12,29 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "event")]
+#[serde(untagged)]
 pub enum RunStreamEvent {
-    #[serde(rename = "thread.run.created")]
-    AnyOf(Box<models::RunStreamEventAnyOf>),
-    #[serde(rename = "thread.run.queued")]
-    AnyOf1(serde_json::Value),
-    #[serde(rename = "thread.run.in_progress")]
-    AnyOf2(serde_json::Value),
-    #[serde(rename = "thread.run.requires_action")]
-    AnyOf3(serde_json::Value),
-    #[serde(rename = "thread.run.completed")]
-    AnyOf4(serde_json::Value),
-    #[serde(rename = "thread.run.incomplete")]
-    AnyOf5(serde_json::Value),
-    #[serde(rename = "thread.run.failed")]
-    AnyOf6(serde_json::Value),
-    #[serde(rename = "thread.run.cancelling")]
-    AnyOf7(serde_json::Value),
-    #[serde(rename = "thread.run.cancelled")]
-    AnyOf8(serde_json::Value),
+    Object018(serde_json::Value),
+    Object12(serde_json::Value),
+    Object22(serde_json::Value),
+    Object32(serde_json::Value),
+    Object42(serde_json::Value),
+    Object51(serde_json::Value),
+    Object61(serde_json::Value),
+    Object7(Box<models::Object7>),
+    Object8(Box<models::Object8>),
+    Object9(Box<models::Object9>),
+}
+
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Event {
     #[serde(rename = "thread.run.expired")]
-    AnyOf9(serde_json::Value),
+    ThreadRunExpired,
+}
+
+impl Default for Event {
+    fn default() -> Event {
+        Self::ThreadRunExpired
+    }
 }

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuningCheckpointPermission : The `checkpoint.permission` object represents a permission for a fine-tuned model checkpoint.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuningCheckpointPermission {
     /// The permission identifier, which can be referenced in the API endpoints.
     #[serde(rename = "id")]

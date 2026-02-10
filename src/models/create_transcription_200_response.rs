@@ -12,5 +12,16 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "task")]
-pub enum CreateTranscription200Response {}
+#[serde(untagged)]
+pub enum CreateTranscription200Response {
+    CreateTranscriptionResponseJson(Box<models::CreateTranscriptionResponseJson>),
+    CreateTranscriptionResponseDiarizedJson(Box<models::CreateTranscriptionResponseDiarizedJson>),
+    CreateTranscriptionResponseVerboseJson(Box<models::CreateTranscriptionResponseVerboseJson>),
+}
+
+/// The type of task that was run. Always `transcribe`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Task {
+    #[serde(rename = "transcribe")]
+    Transcribe,
+}

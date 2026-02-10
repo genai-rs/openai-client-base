@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// UsageEmbeddingsResult : The aggregated embeddings usage details of the specific time bucket.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UsageEmbeddingsResult {
     #[serde(rename = "object")]
     pub object: Object,

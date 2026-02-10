@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **input_fidelity** | Option<[**models::InputFidelity**](InputFidelity.md)> |  | [optional]
 **input_image_mask** | Option<[**models::ImageGenToolInputImageMask**](ImageGenTool_input_image_mask.md)> |  | [optional]
 **partial_images** | Option<**i32**> | Number of partial images to generate in streaming mode, from 0 (default value) to 3.  | [optional]
+**action** | Option<[**models::ImageGenActionEnum**](ImageGenActionEnum.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

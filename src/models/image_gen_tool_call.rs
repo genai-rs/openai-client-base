@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ImageGenToolCall : An image generation request made by the model.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenToolCall {
     /// The type of the image generation call. Always `image_generation_call`.
     #[serde(rename = "type")]

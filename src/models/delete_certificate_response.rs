@@ -11,18 +11,31 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DeleteCertificateResponse {
-    #[serde(rename = "object", deserialize_with = "Option::deserialize")]
-    pub object: Option<serde_json::Value>,
+    /// The object type, must be `certificate.deleted`.
+    #[serde(rename = "object")]
+    pub object: Object,
     /// The ID of the certificate that was deleted.
     #[serde(rename = "id")]
     pub id: String,
 }
 
 impl DeleteCertificateResponse {
-    pub fn new(object: Option<serde_json::Value>, id: String) -> DeleteCertificateResponse {
+    pub fn new(object: Object, id: String) -> DeleteCertificateResponse {
         DeleteCertificateResponse { object, id }
+    }
+}
+/// The object type, must be `certificate.deleted`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Object {
+    #[serde(rename = "certificate.deleted")]
+    CertificateDeleted,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::CertificateDeleted
     }
 }
 

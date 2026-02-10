@@ -17,8 +17,9 @@ pub struct RealtimeServerEventResponseContentPartAdded {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.content_part.added`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the response.
     #[serde(rename = "response_id")]
     pub response_id: String,
@@ -39,7 +40,7 @@ impl RealtimeServerEventResponseContentPartAdded {
     /// Returned when a new content part is added to an assistant message item during response generation.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         response_id: String,
         item_id: String,
         output_index: i32,
@@ -55,6 +56,18 @@ impl RealtimeServerEventResponseContentPartAdded {
             content_index,
             part: Box::new(part),
         }
+    }
+}
+/// The event type, must be `response.content_part.added`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.content_part.added")]
+    ResponseContentPartAdded,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseContentPartAdded
     }
 }
 

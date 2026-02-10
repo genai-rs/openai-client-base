@@ -13,5 +13,16 @@ use serde::{Deserialize, Serialize};
 
 /// ShellCallOutcome : Represents either an exit outcome (with an exit code) or a timeout outcome for a shell call output chunk.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum ShellCallOutcome {}
+#[serde(untagged)]
+pub enum ShellCallOutcome {
+    #[serde(rename = "FunctionShellCallOutputTimeoutOutcome")]
+    FunctionShellCallOutputTimeoutOutcome(Box<models::FunctionShellCallOutputTimeoutOutcome>),
+    #[serde(rename = "FunctionShellCallOutputExitOutcome")]
+    FunctionShellCallOutputExitOutcome(Box<models::FunctionShellCallOutputExitOutcome>),
+}
+
+impl Default for ShellCallOutcome {
+    fn default() -> Self {
+        Self::FunctionShellCallOutputTimeoutOutcome(Default::default())
+    }
+}

@@ -21,3 +21,9 @@ pub enum ChatCompletionRequestAssistantMessageContentPart {
         Box<models::ChatCompletionRequestMessageContentPartRefusal>,
     ),
 }
+
+impl Default for ChatCompletionRequestAssistantMessageContentPart {
+    fn default() -> Self {
+        Self::ChatCompletionRequestMessageContentPartText(Default::default())
+    }
+}

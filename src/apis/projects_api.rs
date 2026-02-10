@@ -157,7 +157,6 @@ pub enum UpdateProjectRateLimitsError {
     UnknownValue(serde_json::Value),
 }
 
-/// Archives a project in the organization. Archived projects cannot be used or updated.
 #[bon::builder]
 pub async fn archive_project(
     configuration: &configuration::Configuration,
@@ -211,7 +210,6 @@ pub async fn archive_project(
     }
 }
 
-/// Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
 #[bon::builder]
 pub async fn create_project(
     configuration: &configuration::Configuration,
@@ -262,7 +260,6 @@ pub async fn create_project(
     }
 }
 
-/// Creates a new service account in the project. This also returns an unredacted API key for the service account.
 #[bon::builder]
 pub async fn create_project_service_account(
     configuration: &configuration::Configuration,
@@ -319,7 +316,6 @@ pub async fn create_project_service_account(
     }
 }
 
-/// Adds a user to the project. Users must already be members of the organization to be added to a project.
 #[bon::builder]
 pub async fn create_project_user(
     configuration: &configuration::Configuration,
@@ -376,7 +372,6 @@ pub async fn create_project_user(
     }
 }
 
-/// Deletes an API key from the project.
 #[bon::builder]
 pub async fn delete_project_api_key(
     configuration: &configuration::Configuration,
@@ -433,7 +428,6 @@ pub async fn delete_project_api_key(
     }
 }
 
-/// Deletes a service account from the project.
 #[bon::builder]
 pub async fn delete_project_service_account(
     configuration: &configuration::Configuration,
@@ -490,7 +484,6 @@ pub async fn delete_project_service_account(
     }
 }
 
-/// Deletes a user from the project.
 #[bon::builder]
 pub async fn delete_project_user(
     configuration: &configuration::Configuration,
@@ -547,7 +540,6 @@ pub async fn delete_project_user(
     }
 }
 
-/// Returns a list of API keys in the project.
 #[bon::builder]
 pub async fn list_project_api_keys(
     configuration: &configuration::Configuration,
@@ -609,7 +601,6 @@ pub async fn list_project_api_keys(
     }
 }
 
-/// Returns the rate limits per model for a project.
 #[bon::builder]
 pub async fn list_project_rate_limits(
     configuration: &configuration::Configuration,
@@ -676,7 +667,6 @@ pub async fn list_project_rate_limits(
     }
 }
 
-/// Returns a list of service accounts in the project.
 #[bon::builder]
 pub async fn list_project_service_accounts(
     configuration: &configuration::Configuration,
@@ -738,7 +728,6 @@ pub async fn list_project_service_accounts(
     }
 }
 
-/// Returns a list of users in the project.
 #[bon::builder]
 pub async fn list_project_users(
     configuration: &configuration::Configuration,
@@ -800,7 +789,6 @@ pub async fn list_project_users(
     }
 }
 
-/// Returns a list of projects.
 #[bon::builder]
 pub async fn list_projects(
     configuration: &configuration::Configuration,
@@ -861,7 +849,6 @@ pub async fn list_projects(
     }
 }
 
-/// Modifies a project in the organization.
 #[bon::builder]
 pub async fn modify_project(
     configuration: &configuration::Configuration,
@@ -918,7 +905,6 @@ pub async fn modify_project(
     }
 }
 
-/// Modifies a user's role in the project.
 #[bon::builder]
 pub async fn modify_project_user(
     configuration: &configuration::Configuration,
@@ -978,7 +964,6 @@ pub async fn modify_project_user(
     }
 }
 
-/// Retrieves a project.
 #[bon::builder]
 pub async fn retrieve_project(
     configuration: &configuration::Configuration,
@@ -1030,7 +1015,6 @@ pub async fn retrieve_project(
     }
 }
 
-/// Retrieves an API key in the project.
 #[bon::builder]
 pub async fn retrieve_project_api_key(
     configuration: &configuration::Configuration,
@@ -1085,7 +1069,6 @@ pub async fn retrieve_project_api_key(
     }
 }
 
-/// Retrieves a service account in the project.
 #[bon::builder]
 pub async fn retrieve_project_service_account(
     configuration: &configuration::Configuration,
@@ -1141,7 +1124,6 @@ pub async fn retrieve_project_service_account(
     }
 }
 
-/// Retrieves a user in the project.
 #[bon::builder]
 pub async fn retrieve_project_user(
     configuration: &configuration::Configuration,
@@ -1196,7 +1178,6 @@ pub async fn retrieve_project_user(
     }
 }
 
-/// Updates a project rate limit.
 #[bon::builder]
 pub async fn update_project_rate_limits(
     configuration: &configuration::Configuration,

@@ -27,7 +27,8 @@ pub struct RealtimeServerEventConversationItemInputAudioTranscriptionFailed {
     #[serde(rename = "content_index")]
     pub content_index: i32,
     #[serde(rename = "error")]
-    pub error: Box<models::RealtimeServerEventConversationItemInputAudioTranscriptionFailedError>,
+    pub error:
+        Box<models::RealtimeBetaServerEventConversationItemInputAudioTranscriptionFailedError>,
 }
 
 impl RealtimeServerEventConversationItemInputAudioTranscriptionFailed {
@@ -37,7 +38,7 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionFailed {
         r#type: Type,
         item_id: String,
         content_index: i32,
-        error: models::RealtimeServerEventConversationItemInputAudioTranscriptionFailedError,
+        error: models::RealtimeBetaServerEventConversationItemInputAudioTranscriptionFailedError,
     ) -> RealtimeServerEventConversationItemInputAudioTranscriptionFailed {
         RealtimeServerEventConversationItemInputAudioTranscriptionFailed {
             event_id,

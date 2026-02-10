@@ -18,3 +18,9 @@ pub enum CreateTranscriptionResponseDiarizedJsonUsage {
     TranscriptTextUsageTokens(Box<models::TranscriptTextUsageTokens>),
     TranscriptTextUsageDuration(Box<models::TranscriptTextUsageDuration>),
 }
+
+impl Default for CreateTranscriptionResponseDiarizedJsonUsage {
+    fn default() -> Self {
+        Self::TranscriptTextUsageTokens(Default::default())
+    }
+}

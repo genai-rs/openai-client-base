@@ -44,10 +44,10 @@ impl RealtimeConversationItemWithReferenceContentInner {
 /// The content type (`input_text`, `input_audio`, `item_reference`, `text`).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "input_text")]
-    InputText,
     #[serde(rename = "input_audio")]
     InputAudio,
+    #[serde(rename = "input_text")]
+    InputText,
     #[serde(rename = "item_reference")]
     ItemReference,
     #[serde(rename = "text")]
@@ -56,7 +56,7 @@ pub enum Type {
 
 impl Default for Type {
     fn default() -> Type {
-        Self::InputText
+        Self::InputAudio
     }
 }
 

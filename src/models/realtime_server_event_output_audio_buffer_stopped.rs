@@ -11,24 +11,25 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeServerEventOutputAudioBufferStopped : **WebRTC/SIP Only:** Emitted when the output audio buffer has been completely drained on the server, and no more audio is forthcoming. This event is emitted after the full response data has been sent to the client (`response.done`). [Learn more](https://platform.openai.com/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
+/// RealtimeServerEventOutputAudioBufferStopped : **WebRTC/SIP Only:** Emitted when the output audio buffer has been completely drained on the server, and no more audio is forthcoming. This event is emitted after the full response data has been sent to the client (`response.done`). [Learn more](/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeServerEventOutputAudioBufferStopped {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `output_audio_buffer.stopped`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The unique ID of the response that produced the audio.
     #[serde(rename = "response_id")]
     pub response_id: String,
 }
 
 impl RealtimeServerEventOutputAudioBufferStopped {
-    /// **WebRTC/SIP Only:** Emitted when the output audio buffer has been completely drained on the server, and no more audio is forthcoming. This event is emitted after the full response data has been sent to the client (`response.done`). [Learn more](https://platform.openai.com/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
+    /// **WebRTC/SIP Only:** Emitted when the output audio buffer has been completely drained on the server, and no more audio is forthcoming. This event is emitted after the full response data has been sent to the client (`response.done`). [Learn more](/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         response_id: String,
     ) -> RealtimeServerEventOutputAudioBufferStopped {
         RealtimeServerEventOutputAudioBufferStopped {
@@ -36,6 +37,18 @@ impl RealtimeServerEventOutputAudioBufferStopped {
             r#type,
             response_id,
         }
+    }
+}
+/// The event type, must be `output_audio_buffer.stopped`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "output_audio_buffer.stopped")]
+    OutputAudioBufferStopped,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::OutputAudioBufferStopped
     }
 }
 

@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CustomToolParam : A custom tool that processes input using a specified format. Learn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// CustomToolParam : A custom tool that processes input using a specified format. Learn more about   [custom tools](/docs/guides/function-calling#custom-tools)
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CustomToolParam {
     /// The type of the custom tool. Always `custom`.
     #[serde(rename = "type")]
@@ -28,7 +28,7 @@ pub struct CustomToolParam {
 }
 
 impl CustomToolParam {
-    /// A custom tool that processes input using a specified format. Learn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+    /// A custom tool that processes input using a specified format. Learn more about   [custom tools](/docs/guides/function-calling#custom-tools)
     pub fn new(r#type: Type, name: String) -> CustomToolParam {
         CustomToolParam {
             r#type,

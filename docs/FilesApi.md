@@ -4,20 +4,18 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_file**](FilesApi.md#create_file) | **POST** /files | Upload file
-[**delete_file**](FilesApi.md#delete_file) | **DELETE** /files/{file_id} | Delete file
-[**download_file**](FilesApi.md#download_file) | **GET** /files/{file_id}/content | Retrieve file content
-[**list_files**](FilesApi.md#list_files) | **GET** /files | List files
-[**retrieve_file**](FilesApi.md#retrieve_file) | **GET** /files/{file_id} | Retrieve file
+[**create_file**](FilesApi.md#create_file) | **POST** /files | Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](/docs/assistants/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](/docs/api-reference/fine-tuning/chat-input) or   [completions](/docs/api-reference/fine-tuning/completions-input) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](/docs/api-reference/batch/request-input).  Please [contact us](https://help.openai.com/) if you need to increase these storage limits. 
+[**delete_file**](FilesApi.md#delete_file) | **DELETE** /files/{file_id} | Delete a file and remove it from all vector stores.
+[**download_file**](FilesApi.md#download_file) | **GET** /files/{file_id}/content | Returns the contents of the specified file.
+[**list_files**](FilesApi.md#list_files) | **GET** /files | Returns a list of files.
+[**retrieve_file**](FilesApi.md#retrieve_file) | **GET** /files/{file_id} | Returns information about a specific file.
 
 
 
 ## create_file
 
 > models::OpenAiFile create_file(file, purpose, expires_after)
-Upload file
-
-Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](https://platform.openai.com/docs/assistants/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](https://platform.openai.com/docs/api-reference/fine-tuning/chat-input) or   [completions](https://platform.openai.com/docs/api-reference/fine-tuning/completions-input) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](https://platform.openai.com/docs/api-reference/batch/request-input).  Please [contact us](https://help.openai.com/) if you need to increase these storage limits. 
+Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](/docs/assistants/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](/docs/api-reference/fine-tuning/chat-input) or   [completions](/docs/api-reference/fine-tuning/completions-input) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](/docs/api-reference/batch/request-input).  Please [contact us](https://help.openai.com/) if you need to increase these storage limits. 
 
 ### Parameters
 
@@ -25,7 +23,7 @@ Upload a file that can be used across various endpoints. Individual files can be
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file** | **std::path::PathBuf** | The File object (not file name) to be uploaded.  | [required] |
-**purpose** | [**models::FilePurpose**](FilePurpose.md) |  | [required] |
+**purpose** | **String** | The intended purpose of the uploaded file. One of: - `assistants`: Used in the Assistants API - `batch`: Used in the Batch API - `fine-tune`: Used for fine-tuning - `vision`: Images used for vision fine-tuning - `user_data`: Flexible file type for any purpose - `evals`: Used for eval data sets  | [required] |
 **expires_after** | Option<[**models::FileExpirationAfter**](FileExpirationAfter.md)> |  |  |
 
 ### Return type
@@ -47,8 +45,6 @@ Name | Type | Description  | Required | Notes
 ## delete_file
 
 > models::DeleteFileResponse delete_file(file_id)
-Delete file
-
 Delete a file and remove it from all vector stores.
 
 ### Parameters
@@ -77,8 +73,6 @@ Name | Type | Description  | Required | Notes
 ## download_file
 
 > String download_file(file_id)
-Retrieve file content
-
 Returns the contents of the specified file.
 
 ### Parameters
@@ -107,8 +101,6 @@ Name | Type | Description  | Required | Notes
 ## list_files
 
 > models::ListFilesResponse list_files(purpose, limit, order, after)
-List files
-
 Returns a list of files.
 
 ### Parameters
@@ -140,8 +132,6 @@ Name | Type | Description  | Required | Notes
 ## retrieve_file
 
 > models::OpenAiFile retrieve_file(file_id)
-Retrieve file
-
 Returns information about a specific file.
 
 ### Parameters

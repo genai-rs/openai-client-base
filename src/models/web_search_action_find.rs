@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebSearchActionFind : Action type \"find\": Searches for a pattern within a loaded page.
+/// WebSearchActionFind : Action type \"find_in_page\": Searches for a pattern within a loaded page.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchActionFind {
     /// The action type.
@@ -26,7 +26,7 @@ pub struct WebSearchActionFind {
 }
 
 impl WebSearchActionFind {
-    /// Action type \"find\": Searches for a pattern within a loaded page.
+    /// Action type \"find_in_page\": Searches for a pattern within a loaded page.
     pub fn new(r#type: Type, url: String, pattern: String) -> WebSearchActionFind {
         WebSearchActionFind {
             r#type,
@@ -38,13 +38,13 @@ impl WebSearchActionFind {
 /// The action type.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "find")]
-    Find,
+    #[serde(rename = "find_in_page")]
+    FindInPage,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Find
+        Self::FindInPage
     }
 }
 

@@ -12,10 +12,11 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ResponseItemList : A list of Response items.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseItemList {
-    #[serde(rename = "object", deserialize_with = "Option::deserialize")]
-    pub object: Option<serde_json::Value>,
+    /// The type of object returned, must be `list`.
+    #[serde(rename = "object")]
+    pub object: Object,
     /// A list of items used to generate this response.
     #[serde(rename = "data")]
     pub data: Vec<models::ItemResource>,
@@ -33,7 +34,7 @@ pub struct ResponseItemList {
 impl ResponseItemList {
     /// A list of Response items.
     pub fn new(
-        object: Option<serde_json::Value>,
+        object: Object,
         data: Vec<models::ItemResource>,
         has_more: bool,
         first_id: String,
@@ -46,6 +47,18 @@ impl ResponseItemList {
             first_id,
             last_id,
         }
+    }
+}
+/// The type of object returned, must be `list`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Object {
+    #[serde(rename = "list")]
+    List,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::List
     }
 }
 

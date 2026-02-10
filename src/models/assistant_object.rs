@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// AssistantObject : Represents an `assistant` that can call the model and use tools.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AssistantObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -29,7 +29,7 @@ pub struct AssistantObject {
     /// The description of the assistant. The maximum length is 512 characters.
     #[serde(rename = "description", deserialize_with = "Option::deserialize")]
     pub description: Option<String>,
-    /// ID of the model to use. You can use the [List models](https://platform.openai.com/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](https://platform.openai.com/docs/models) for descriptions of them.
+    /// ID of the model to use. You can use the [List models](/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](/docs/models) for descriptions of them.
     #[serde(rename = "model")]
     pub model: String,
     /// The system instructions that the assistant uses. The maximum length is 256,000 characters.
@@ -37,14 +37,14 @@ pub struct AssistantObject {
     pub instructions: Option<String>,
     /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
     #[serde(rename = "tools")]
-    pub tools: Vec<models::AssistantTool>,
+    pub tools: Vec<models::AssistantObjectToolsInner>,
     #[serde(
         rename = "tool_resources",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tool_resources: Option<Option<Box<models::AssistantObjectToolResources>>>,
+    pub tool_resources: Option<Option<Box<models::Object0>>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -83,7 +83,7 @@ impl AssistantObject {
         description: Option<String>,
         model: String,
         instructions: Option<String>,
-        tools: Vec<models::AssistantTool>,
+        tools: Vec<models::AssistantObjectToolsInner>,
         metadata: Option<std::collections::HashMap<String, String>>,
     ) -> AssistantObject {
         AssistantObject {

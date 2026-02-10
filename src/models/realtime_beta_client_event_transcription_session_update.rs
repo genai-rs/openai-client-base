@@ -17,8 +17,9 @@ pub struct RealtimeBetaClientEventTranscriptionSessionUpdate {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
     pub event_id: Option<String>,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `transcription_session.update`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     #[serde(rename = "session")]
     pub session: Box<models::RealtimeTranscriptionSessionCreateRequest>,
 }
@@ -26,7 +27,7 @@ pub struct RealtimeBetaClientEventTranscriptionSessionUpdate {
 impl RealtimeBetaClientEventTranscriptionSessionUpdate {
     /// Send this event to update a transcription session.
     pub fn new(
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         session: models::RealtimeTranscriptionSessionCreateRequest,
     ) -> RealtimeBetaClientEventTranscriptionSessionUpdate {
         RealtimeBetaClientEventTranscriptionSessionUpdate {
@@ -34,6 +35,18 @@ impl RealtimeBetaClientEventTranscriptionSessionUpdate {
             r#type,
             session: Box::new(session),
         }
+    }
+}
+/// The event type, must be `transcription_session.update`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "transcription_session.update")]
+    TranscriptionSessionUpdate,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::TranscriptionSessionUpdate
     }
 }
 

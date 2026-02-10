@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the server event. | 
-**r#type** | Option<[**serde_json::Value**](.md)> |  | 
+**r#type** | **String** | The event type, must be `conversation.item.created`. | 
 **previous_item_id** | Option<**String**> | The ID of the preceding item in the Conversation context, allows the client to understand the order of the conversation. Can be `null` if the item has no predecessor.  | [optional]
 **item** | [**models::RealtimeConversationItem**](RealtimeConversationItem.md) |  | 
 

@@ -25,14 +25,14 @@ pub struct BatchRequestOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub response: Option<Option<Box<models::BatchRequestOutputResponse>>>,
+    pub response: Option<Option<Box<models::Object01>>>,
     #[serde(
         rename = "error",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub error: Option<Option<Box<models::BatchRequestOutputError>>>,
+    pub error: Option<Option<Box<models::Object02>>>,
 }
 
 impl BatchRequestOutput {

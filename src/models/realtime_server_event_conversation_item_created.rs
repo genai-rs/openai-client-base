@@ -17,8 +17,9 @@ pub struct RealtimeServerEventConversationItemCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `conversation.item.created`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the preceding item in the Conversation context, allows the client to understand the order of the conversation. Can be `null` if the item has no predecessor.
     #[serde(
         rename = "previous_item_id",
@@ -35,7 +36,7 @@ impl RealtimeServerEventConversationItemCreated {
     /// Returned when a conversation item is created. There are several scenarios that produce this event:   - The server is generating a Response, which if successful will produce     either one or two Items, which will be of type `message`     (role `assistant`) or type `function_call`.   - The input audio buffer has been committed, either by the client or the     server (in `server_vad` mode). The server will take the content of the     input audio buffer and add it to a new user message Item.   - The client has sent a `conversation.item.create` event to add a new Item     to the Conversation.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         item: models::RealtimeConversationItem,
     ) -> RealtimeServerEventConversationItemCreated {
         RealtimeServerEventConversationItemCreated {
@@ -44,6 +45,18 @@ impl RealtimeServerEventConversationItemCreated {
             previous_item_id: None,
             item: Box::new(item),
         }
+    }
+}
+/// The event type, must be `conversation.item.created`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "conversation.item.created")]
+    ConversationItemCreated,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ConversationItemCreated
     }
 }
 

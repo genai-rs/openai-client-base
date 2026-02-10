@@ -16,7 +16,7 @@ pub struct CreateUploadRequest {
     /// The name of the file to upload.
     #[serde(rename = "filename")]
     pub filename: String,
-    /// The intended purpose of the uploaded file.  See the [documentation on File purposes](https://platform.openai.com/docs/api-reference/files/create#files-create-purpose).
+    /// The intended purpose of the uploaded file.  See the [documentation on File purposes](/docs/api-reference/files/create#files-create-purpose).
     #[serde(rename = "purpose")]
     pub purpose: Purpose,
     /// The number of bytes in the file you are uploading.
@@ -45,7 +45,7 @@ impl CreateUploadRequest {
         }
     }
 }
-/// The intended purpose of the uploaded file.  See the [documentation on File purposes](https://platform.openai.com/docs/api-reference/files/create#files-create-purpose).
+/// The intended purpose of the uploaded file.  See the [documentation on File purposes](/docs/api-reference/files/create#files-create-purpose).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Purpose {
     #[serde(rename = "assistants")]

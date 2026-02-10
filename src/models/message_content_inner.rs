@@ -25,3 +25,9 @@ pub enum MessageContentInner {
     ComputerScreenshotContent(Box<models::ComputerScreenshotContent>),
     InputFileContent(Box<models::InputFileContent>),
 }
+
+impl Default for MessageContentInner {
+    fn default() -> Self {
+        Self::InputTextContent(Default::default())
+    }
+}

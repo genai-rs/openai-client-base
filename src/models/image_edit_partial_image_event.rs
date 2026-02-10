@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ImageEditPartialImageEvent : Emitted when a partial image is available during image editing streaming.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageEditPartialImageEvent {
     /// The type of the event. Always `image_edit.partial_image`.
     #[serde(rename = "type")]

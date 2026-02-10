@@ -18,3 +18,9 @@ pub enum UserMessageItemContentInner {
     UserMessageInputText(Box<models::UserMessageInputText>),
     UserMessageQuotedText(Box<models::UserMessageQuotedText>),
 }
+
+impl Default for UserMessageItemContentInner {
+    fn default() -> Self {
+        Self::UserMessageInputText(Default::default())
+    }
+}

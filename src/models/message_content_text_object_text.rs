@@ -17,13 +17,13 @@ pub struct MessageContentTextObjectText {
     #[serde(rename = "value")]
     pub value: String,
     #[serde(rename = "annotations")]
-    pub annotations: Vec<models::TextAnnotation>,
+    pub annotations: Vec<models::MessageContentTextObjectTextAnnotationsInner>,
 }
 
 impl MessageContentTextObjectText {
     pub fn new(
         value: String,
-        annotations: Vec<models::TextAnnotation>,
+        annotations: Vec<models::MessageContentTextObjectTextAnnotationsInner>,
     ) -> MessageContentTextObjectText {
         MessageContentTextObjectText { value, annotations }
     }

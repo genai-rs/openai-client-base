@@ -17,15 +17,19 @@ pub struct WebSearchActionOpenPage {
     /// The action type.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The URL opened by the model.
-    #[serde(rename = "url")]
-    pub url: String,
+    #[serde(
+        rename = "url",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub url: Option<Option<String>>,
 }
 
 impl WebSearchActionOpenPage {
     /// Action type \"open_page\" - Opens a specific URL from search results.
-    pub fn new(r#type: Type, url: String) -> WebSearchActionOpenPage {
-        WebSearchActionOpenPage { r#type, url }
+    pub fn new(r#type: Type) -> WebSearchActionOpenPage {
+        WebSearchActionOpenPage { r#type, url: None }
     }
 }
 /// The action type.

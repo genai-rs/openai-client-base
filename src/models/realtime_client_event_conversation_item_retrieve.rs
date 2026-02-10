@@ -17,8 +17,9 @@ pub struct RealtimeClientEventConversationItemRetrieve {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
     pub event_id: Option<String>,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `conversation.item.retrieve`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the item to retrieve.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -26,15 +27,24 @@ pub struct RealtimeClientEventConversationItemRetrieve {
 
 impl RealtimeClientEventConversationItemRetrieve {
     /// Send this event when you want to retrieve the server's representation of a specific item in the conversation history. This is useful, for example, to inspect user audio after noise cancellation and VAD. The server will respond with a `conversation.item.retrieved` event,  unless the item does not exist in the conversation history, in which case the  server will respond with an error.
-    pub fn new(
-        r#type: Option<serde_json::Value>,
-        item_id: String,
-    ) -> RealtimeClientEventConversationItemRetrieve {
+    pub fn new(r#type: Type, item_id: String) -> RealtimeClientEventConversationItemRetrieve {
         RealtimeClientEventConversationItemRetrieve {
             event_id: None,
             r#type,
             item_id,
         }
+    }
+}
+/// The event type, must be `conversation.item.retrieve`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "conversation.item.retrieve")]
+    ConversationItemRetrieve,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ConversationItemRetrieve
     }
 }
 

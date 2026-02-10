@@ -11,81 +11,19 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct EvalTestingCriteriaInner {
-    /// The object type, which is always `label_model`.
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    /// The name of the grader.
-    #[serde(rename = "name")]
-    pub name: String,
-    /// ID of the model to use
-    #[serde(rename = "model")]
-    pub model: String,
-    /// The input messages evaluated by the grader. Supports text, output text, input image, and input audio content blocks, and may include template strings.
-    #[serde(rename = "input")]
-    pub input: Vec<models::EvalItem>,
-    /// The labels to assign to each item in the evaluation.
-    #[serde(rename = "labels")]
-    pub labels: Vec<String>,
-    /// The labels that indicate a passing result. Must be a subset of labels.
-    #[serde(rename = "passing_labels")]
-    pub passing_labels: Vec<String>,
-    /// The text being graded against.
-    #[serde(rename = "reference")]
-    pub reference: String,
-    /// The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
-    #[serde(rename = "operation")]
-    pub operation: Operation,
-    /// The evaluation metric to use. One of `cosine`, `fuzzy_match`, `bleu`,  `gleu`, `meteor`, `rouge_1`, `rouge_2`, `rouge_3`, `rouge_4`, `rouge_5`,  or `rouge_l`.
-    #[serde(rename = "evaluation_metric")]
-    pub evaluation_metric: EvaluationMetric,
-    /// The threshold for the score.
-    #[serde(rename = "pass_threshold")]
-    pub pass_threshold: f64,
-    /// The source code of the python script.
-    #[serde(rename = "source")]
-    pub source: String,
-    /// The image tag to use for the python script.
-    #[serde(rename = "image_tag", skip_serializing_if = "Option::is_none")]
-    pub image_tag: Option<String>,
-    #[serde(rename = "sampling_params", skip_serializing_if = "Option::is_none")]
-    pub sampling_params: Option<Box<models::GraderScoreModelSamplingParams>>,
-    /// The range of the score. Defaults to `[0, 1]`.
-    #[serde(rename = "range", skip_serializing_if = "Option::is_none")]
-    pub range: Option<Vec<f64>>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum EvalTestingCriteriaInner {
+    EvalGraderLabelModel(Box<models::EvalGraderLabelModel>),
+    EvalGraderStringCheck(Box<models::EvalGraderStringCheck>),
+    EvalGraderTextSimilarity(Box<models::EvalGraderTextSimilarity>),
+    EvalGraderPython(Box<models::EvalGraderPython>),
+    EvalGraderScoreModel(Box<models::EvalGraderScoreModel>),
 }
 
-impl EvalTestingCriteriaInner {
-    pub fn new(
-        r#type: Type,
-        name: String,
-        model: String,
-        input: Vec<models::EvalItem>,
-        labels: Vec<String>,
-        passing_labels: Vec<String>,
-        reference: String,
-        operation: Operation,
-        evaluation_metric: EvaluationMetric,
-        pass_threshold: f64,
-        source: String,
-    ) -> EvalTestingCriteriaInner {
-        EvalTestingCriteriaInner {
-            r#type,
-            name,
-            model,
-            input,
-            labels,
-            passing_labels,
-            reference,
-            operation,
-            evaluation_metric,
-            pass_threshold,
-            source,
-            image_tag: None,
-            sampling_params: None,
-            range: None,
-        }
+impl Default for EvalTestingCriteriaInner {
+    fn default() -> Self {
+        Self::EvalGraderLabelModel(Default::default())
     }
 }
 /// The object type, which is always `label_model`.
@@ -156,14 +94,5 @@ pub enum EvaluationMetric {
 impl Default for EvaluationMetric {
     fn default() -> EvaluationMetric {
         Self::Cosine
-    }
-}
-
-impl std::fmt::Display for EvalTestingCriteriaInner {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

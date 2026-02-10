@@ -12,21 +12,17 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// TracingConfiguration : Configuration options for tracing. Set to null to disable tracing. Once tracing is enabled for a session, the configuration cannot be modified.  `auto` will create a trace for the session with default values for the workflow name, group id, and metadata.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct TracingConfiguration {}
-
-impl TracingConfiguration {
-    /// Configuration options for tracing. Set to null to disable tracing. Once tracing is enabled for a session, the configuration cannot be modified.  `auto` will create a trace for the session with default values for the workflow name, group id, and metadata.
-    pub fn new() -> TracingConfiguration {
-        TracingConfiguration {}
-    }
+/// Configuration options for tracing. Set to null to disable tracing. Once tracing is enabled for a session, the configuration cannot be modified.  `auto` will create a trace for the session with default values for the workflow name, group id, and metadata.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum TracingConfiguration {
+    /// Default tracing mode for the session.
+    Text(String),
+    TracingConfiguration(Box<models::TracingConfiguration>),
 }
 
-impl std::fmt::Display for TracingConfiguration {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
+impl Default for TracingConfiguration {
+    fn default() -> Self {
+        Self::Text(Default::default())
     }
 }

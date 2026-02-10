@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RunObject : Represents an execution run on a [thread](https://platform.openai.com/docs/api-reference/threads).
+/// RunObject : Represents an execution run on a [thread](/docs/api-reference/threads).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunObject {
     /// The identifier, which can be referenced in API endpoints.
@@ -23,14 +23,15 @@ pub struct RunObject {
     /// The Unix timestamp (in seconds) for when the run was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was executed on as a part of this run.
+    /// The ID of the [thread](/docs/api-reference/threads) that was executed on as a part of this run.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
-    /// The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for execution of this run.
+    /// The ID of the [assistant](/docs/api-reference/assistants) used for execution of this run.
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
+    /// The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.
     #[serde(rename = "status")]
-    pub status: models::RunStatus,
+    pub status: Status,
     #[serde(rename = "required_action")]
     pub required_action: Option<Box<models::RunObjectRequiredAction>>,
     #[serde(rename = "last_error")]
@@ -52,15 +53,15 @@ pub struct RunObject {
     pub completed_at: i32,
     #[serde(rename = "incomplete_details")]
     pub incomplete_details: Option<Box<models::RunObjectIncompleteDetails>>,
-    /// The model that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
+    /// The model that the [assistant](/docs/api-reference/assistants) used for this run.
     #[serde(rename = "model")]
     pub model: String,
-    /// The instructions that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
+    /// The instructions that the [assistant](/docs/api-reference/assistants) used for this run.
     #[serde(rename = "instructions")]
     pub instructions: String,
-    /// The list of tools that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
+    /// The list of tools that the [assistant](/docs/api-reference/assistants) used for this run.
     #[serde(rename = "tools")]
-    pub tools: Vec<models::AssistantTool>,
+    pub tools: Vec<models::AssistantObjectToolsInner>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -82,7 +83,7 @@ pub struct RunObject {
     pub truncation_strategy: Box<models::TruncationObject>,
     #[serde(rename = "tool_choice")]
     pub tool_choice: Box<models::AssistantsApiToolChoiceOption>,
-    /// Whether to enable [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
+    /// Whether to enable [parallel function calling](/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
     #[serde(rename = "parallel_tool_calls")]
     pub parallel_tool_calls: bool,
     #[serde(rename = "response_format")]
@@ -90,14 +91,14 @@ pub struct RunObject {
 }
 
 impl RunObject {
-    /// Represents an execution run on a [thread](https://platform.openai.com/docs/api-reference/threads).
+    /// Represents an execution run on a [thread](/docs/api-reference/threads).
     pub fn new(
         id: String,
         object: Object,
         created_at: i32,
         thread_id: String,
         assistant_id: String,
-        status: models::RunStatus,
+        status: Status,
         required_action: Option<models::RunObjectRequiredAction>,
         last_error: Option<models::RunObjectLastError>,
         expires_at: i32,
@@ -108,7 +109,7 @@ impl RunObject {
         incomplete_details: Option<models::RunObjectIncompleteDetails>,
         model: String,
         instructions: String,
-        tools: Vec<models::AssistantTool>,
+        tools: Vec<models::AssistantObjectToolsInner>,
         metadata: Option<std::collections::HashMap<String, String>>,
         usage: Option<models::RunCompletionUsage>,
         max_prompt_tokens: i32,
@@ -159,6 +160,34 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::ThreadRun
+    }
+}
+/// The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "queued")]
+    Queued,
+    #[serde(rename = "in_progress")]
+    InProgress,
+    #[serde(rename = "requires_action")]
+    RequiresAction,
+    #[serde(rename = "cancelling")]
+    Cancelling,
+    #[serde(rename = "cancelled")]
+    Cancelled,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "completed")]
+    Completed,
+    #[serde(rename = "incomplete")]
+    Incomplete,
+    #[serde(rename = "expired")]
+    Expired,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Queued
     }
 }
 

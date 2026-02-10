@@ -36,7 +36,6 @@ pub enum UnassignUserRoleError {
     UnknownValue(serde_json::Value),
 }
 
-/// Assigns an organization role to a user within the organization.
 #[bon::builder]
 pub async fn assign_user_role(
     configuration: &configuration::Configuration,
@@ -94,7 +93,6 @@ pub async fn assign_user_role(
     }
 }
 
-/// Lists the organization roles assigned to a user within the organization.
 #[bon::builder]
 pub async fn list_user_role_assignments(
     configuration: &configuration::Configuration,
@@ -161,7 +159,6 @@ pub async fn list_user_role_assignments(
     }
 }
 
-/// Unassigns an organization role from a user within the organization.
 #[bon::builder]
 pub async fn unassign_user_role(
     configuration: &configuration::Configuration,

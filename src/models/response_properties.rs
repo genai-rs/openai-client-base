@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseProperties {
-    /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://platform.openai.com/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
+    /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
         default,
@@ -21,7 +21,7 @@ pub struct ResponseProperties {
         skip_serializing_if = "Option::is_none"
     )]
     pub previous_response_id: Option<Option<String>>,
-    /// Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://platform.openai.com/docs/models) to browse and compare available models.
+    /// Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](/docs/models) to browse and compare available models.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     #[serde(
@@ -31,7 +31,7 @@ pub struct ResponseProperties {
         skip_serializing_if = "Option::is_none"
     )]
     pub reasoning: Option<Option<Box<models::Reasoning>>>,
-    /// Whether to run the model response in the background. [Learn more](https://platform.openai.com/docs/guides/background).
+    /// Whether to run the model response in the background. [Learn more](/docs/guides/background).
     #[serde(
         rename = "background",
         default,
@@ -39,7 +39,7 @@ pub struct ResponseProperties {
         skip_serializing_if = "Option::is_none"
     )]
     pub background: Option<Option<bool>>,
-    /// An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](https://platform.openai.com/docs/guides/reasoning).
+    /// An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).
     #[serde(
         rename = "max_output_tokens",
         default,
@@ -57,7 +57,7 @@ pub struct ResponseProperties {
     pub max_tool_calls: Option<Option<i32>>,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<Box<models::ResponseTextParam>>,
-    /// An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  We support the following categories of tools: - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](https://platform.openai.com/docs/guides/tools-web-search)   or [file search](https://platform.openai.com/docs/guides/tools-file-search). Learn more about   [built-in tools](https://platform.openai.com/docs/guides/tools). - **MCP Tools**: Integrations with third-party systems via custom MCP servers   or predefined connectors such as Google Drive and SharePoint. Learn more about   [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code with strongly typed arguments   and outputs. Learn more about   [function calling](https://platform.openai.com/docs/guides/function-calling). You can also use   custom tools to call your own code.
+    /// An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  We support the following categories of tools: - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](/docs/guides/tools-web-search)   or [file search](/docs/guides/tools-file-search). Learn more about   [built-in tools](/docs/guides/tools). - **MCP Tools**: Integrations with third-party systems via custom MCP servers   or predefined connectors such as Google Drive and SharePoint. Learn more about   [MCP Tools](/docs/guides/tools-connectors-mcp). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code with strongly typed arguments   and outputs. Learn more about   [function calling](/docs/guides/function-calling). You can also use   custom tools to call your own code.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::Tool>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]

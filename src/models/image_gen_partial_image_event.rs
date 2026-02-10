@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ImageGenPartialImageEvent : Emitted when a partial image is available during image generation streaming.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenPartialImageEvent {
     /// The type of the event. Always `image_generation.partial_image`.
     #[serde(rename = "type")]

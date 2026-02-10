@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CodeInterpreterToolCall : A tool call to run code.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CodeInterpreterToolCall {
     /// The type of the code interpreter tool call. Always `code_interpreter_call`.
     #[serde(rename = "type")]

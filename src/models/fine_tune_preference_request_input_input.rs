@@ -18,7 +18,7 @@ pub struct FineTunePreferenceRequestInputInput {
     /// A list of tools the model may generate JSON inputs for.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::ChatCompletionTool>>,
-    /// Whether to enable [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
+    /// Whether to enable [parallel function calling](/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
     #[serde(
         rename = "parallel_tool_calls",
         skip_serializing_if = "Option::is_none"

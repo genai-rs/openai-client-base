@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// MessageObject : Represents a message within a [thread](https://platform.openai.com/docs/api-reference/threads).
+/// MessageObject : Represents a message within a [thread](/docs/api-reference/threads).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageObject {
     /// The identifier, which can be referenced in API endpoints.
@@ -23,7 +23,7 @@ pub struct MessageObject {
     /// The Unix timestamp (in seconds) for when the message was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The [thread](https://platform.openai.com/docs/api-reference/threads) ID that this message belongs to.
+    /// The [thread](/docs/api-reference/threads) ID that this message belongs to.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
     /// The status of the message, which can be either `in_progress`, `incomplete`, or `completed`.
@@ -33,7 +33,7 @@ pub struct MessageObject {
         rename = "incomplete_details",
         deserialize_with = "Option::deserialize"
     )]
-    pub incomplete_details: Option<Box<models::MessageObjectIncompleteDetails>>,
+    pub incomplete_details: Option<Box<models::Object011>>,
     /// The Unix timestamp (in seconds) for when the message was completed.
     #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
     pub completed_at: Option<i32>,
@@ -45,37 +45,37 @@ pub struct MessageObject {
     pub role: Role,
     /// The content of the message in array of text and/or images.
     #[serde(rename = "content")]
-    pub content: Vec<models::MessageContent>,
-    /// If applicable, the ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) that authored this message.
+    pub content: Vec<models::MessageObjectContentInner>,
+    /// If applicable, the ID of the [assistant](/docs/api-reference/assistants) that authored this message.
     #[serde(rename = "assistant_id", deserialize_with = "Option::deserialize")]
     pub assistant_id: Option<String>,
-    /// The ID of the [run](https://platform.openai.com/docs/api-reference/runs) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints.
+    /// The ID of the [run](/docs/api-reference/runs) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints.
     #[serde(rename = "run_id", deserialize_with = "Option::deserialize")]
     pub run_id: Option<String>,
     /// A list of files attached to the message, and the tools they were added to.
     #[serde(rename = "attachments", deserialize_with = "Option::deserialize")]
-    pub attachments: Option<Vec<models::MessageObjectAttachmentsInner>>,
+    pub attachments: Option<Vec<models::CreateMessageRequestAttachmentsInner>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
 }
 
 impl MessageObject {
-    /// Represents a message within a [thread](https://platform.openai.com/docs/api-reference/threads).
+    /// Represents a message within a [thread](/docs/api-reference/threads).
     pub fn new(
         id: String,
         object: Object,
         created_at: i32,
         thread_id: String,
         status: Status,
-        incomplete_details: Option<models::MessageObjectIncompleteDetails>,
+        incomplete_details: Option<models::Object011>,
         completed_at: Option<i32>,
         incomplete_at: Option<i32>,
         role: Role,
-        content: Vec<models::MessageContent>,
+        content: Vec<models::MessageObjectContentInner>,
         assistant_id: Option<String>,
         run_id: Option<String>,
-        attachments: Option<Vec<models::MessageObjectAttachmentsInner>>,
+        attachments: Option<Vec<models::CreateMessageRequestAttachmentsInner>>,
         metadata: Option<std::collections::HashMap<String, String>>,
     ) -> MessageObject {
         MessageObject {

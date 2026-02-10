@@ -17,8 +17,9 @@ pub struct RealtimeServerEventSessionUpdated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `session.updated`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     #[serde(rename = "session")]
     pub session: Box<models::RealtimeServerEventSessionCreatedSession>,
 }
@@ -27,7 +28,7 @@ impl RealtimeServerEventSessionUpdated {
     /// Returned when a session is updated with a `session.update` event, unless there is an error.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         session: models::RealtimeServerEventSessionCreatedSession,
     ) -> RealtimeServerEventSessionUpdated {
         RealtimeServerEventSessionUpdated {
@@ -35,6 +36,18 @@ impl RealtimeServerEventSessionUpdated {
             r#type,
             session: Box::new(session),
         }
+    }
+}
+/// The event type, must be `session.updated`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "session.updated")]
+    SessionUpdated,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::SessionUpdated
     }
 }
 

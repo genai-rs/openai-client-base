@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// Upload : The Upload object can accept byte chunks in the form of Parts.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Upload {
     /// The Upload unique identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -26,7 +26,7 @@ pub struct Upload {
     /// The intended number of bytes to be uploaded.
     #[serde(rename = "bytes")]
     pub bytes: i32,
-    /// The intended purpose of the file. [Please refer here](https://platform.openai.com/docs/api-reference/files/object#files/object-purpose) for acceptable values.
+    /// The intended purpose of the file. [Please refer here](/docs/api-reference/files/object#files/object-purpose) for acceptable values.
     #[serde(rename = "purpose")]
     pub purpose: String,
     /// The status of the Upload.
@@ -36,8 +36,8 @@ pub struct Upload {
     #[serde(rename = "expires_at")]
     pub expires_at: i32,
     /// The object type, which is always \"upload\".
-    #[serde(rename = "object")]
-    pub object: Object,
+    #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
+    pub object: Option<Object>,
     /// The ready File object after the Upload is completed.
     #[serde(rename = "file", skip_serializing_if = "Option::is_none")]
     pub file: Option<Box<models::OpenAiFile>>,
@@ -53,7 +53,6 @@ impl Upload {
         purpose: String,
         status: Status,
         expires_at: i32,
-        object: Object,
     ) -> Upload {
         Upload {
             id,
@@ -63,7 +62,7 @@ impl Upload {
             purpose,
             status,
             expires_at,
-            object,
+            object: None,
             file: None,
         }
     }

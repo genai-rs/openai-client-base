@@ -122,7 +122,6 @@ pub async fn create_conversation(
     }
 }
 
-/// Create items in a conversation with the given ID.
 #[bon::builder]
 pub async fn create_conversation_items(
     configuration: &configuration::Configuration,
@@ -254,7 +253,6 @@ pub async fn delete_conversation(
     }
 }
 
-/// Delete an item from a conversation with the given IDs.
 #[bon::builder]
 pub async fn delete_conversation_item(
     configuration: &configuration::Configuration,
@@ -363,7 +361,6 @@ pub async fn get_conversation(
     }
 }
 
-/// Get a single item from a conversation with the given IDs.
 #[bon::builder]
 pub async fn get_conversation_item(
     configuration: &configuration::Configuration,
@@ -439,7 +436,6 @@ pub async fn get_conversation_item(
     }
 }
 
-/// List all items for a conversation with the given ID.
 #[bon::builder]
 pub async fn list_conversation_items(
     configuration: &configuration::Configuration,

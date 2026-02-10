@@ -4,22 +4,20 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_project_role**](RolesApi.md#create_project_role) | **POST** /projects/{project_id}/roles | Create project role
-[**create_role**](RolesApi.md#create_role) | **POST** /organization/roles | Create organization role
-[**delete_project_role**](RolesApi.md#delete_project_role) | **DELETE** /projects/{project_id}/roles/{role_id} | Delete project role
-[**delete_role**](RolesApi.md#delete_role) | **DELETE** /organization/roles/{role_id} | Delete organization role
-[**list_project_roles**](RolesApi.md#list_project_roles) | **GET** /projects/{project_id}/roles | List project roles
-[**list_roles**](RolesApi.md#list_roles) | **GET** /organization/roles | List organization roles
-[**update_project_role**](RolesApi.md#update_project_role) | **POST** /projects/{project_id}/roles/{role_id} | Update project role
-[**update_role**](RolesApi.md#update_role) | **POST** /organization/roles/{role_id} | Update organization role
+[**create_project_role**](RolesApi.md#create_project_role) | **POST** /projects/{project_id}/roles | Creates a custom role for a project.
+[**create_role**](RolesApi.md#create_role) | **POST** /organization/roles | Creates a custom role for the organization.
+[**delete_project_role**](RolesApi.md#delete_project_role) | **DELETE** /projects/{project_id}/roles/{role_id} | Deletes a custom role from a project.
+[**delete_role**](RolesApi.md#delete_role) | **DELETE** /organization/roles/{role_id} | Deletes a custom role from the organization.
+[**list_project_roles**](RolesApi.md#list_project_roles) | **GET** /projects/{project_id}/roles | Lists the roles configured for a project.
+[**list_roles**](RolesApi.md#list_roles) | **GET** /organization/roles | Lists the roles configured for the organization.
+[**update_project_role**](RolesApi.md#update_project_role) | **POST** /projects/{project_id}/roles/{role_id} | Updates an existing project role.
+[**update_role**](RolesApi.md#update_role) | **POST** /organization/roles/{role_id} | Updates an existing organization role.
 
 
 
 ## create_project_role
 
 > models::Role create_project_role(project_id, public_create_organization_role_body)
-Create project role
-
 Creates a custom role for a project.
 
 ### Parameters
@@ -49,8 +47,6 @@ Name | Type | Description  | Required | Notes
 ## create_role
 
 > models::Role create_role(public_create_organization_role_body)
-Create organization role
-
 Creates a custom role for the organization.
 
 ### Parameters
@@ -79,8 +75,6 @@ Name | Type | Description  | Required | Notes
 ## delete_project_role
 
 > models::RoleDeletedResource delete_project_role(project_id, role_id)
-Delete project role
-
 Deletes a custom role from a project.
 
 ### Parameters
@@ -110,8 +104,6 @@ Name | Type | Description  | Required | Notes
 ## delete_role
 
 > models::RoleDeletedResource delete_role(role_id)
-Delete organization role
-
 Deletes a custom role from the organization.
 
 ### Parameters
@@ -140,8 +132,6 @@ Name | Type | Description  | Required | Notes
 ## list_project_roles
 
 > models::PublicRoleListResource list_project_roles(project_id, limit, after, order)
-List project roles
-
 Lists the roles configured for a project.
 
 ### Parameters
@@ -173,8 +163,6 @@ Name | Type | Description  | Required | Notes
 ## list_roles
 
 > models::PublicRoleListResource list_roles(limit, after, order)
-List organization roles
-
 Lists the roles configured for the organization.
 
 ### Parameters
@@ -205,8 +193,6 @@ Name | Type | Description  | Required | Notes
 ## update_project_role
 
 > models::Role update_project_role(project_id, role_id, public_update_organization_role_body)
-Update project role
-
 Updates an existing project role.
 
 ### Parameters
@@ -237,8 +223,6 @@ Name | Type | Description  | Required | Notes
 ## update_role
 
 > models::Role update_role(role_id, public_update_organization_role_body)
-Update organization role
-
 Updates an existing organization role.
 
 ### Parameters

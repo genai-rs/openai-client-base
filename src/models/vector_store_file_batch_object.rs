@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// VectorStoreFileBatchObject : A batch of files attached to a vector store.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VectorStoreFileBatchObject {
     /// The identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
@@ -23,7 +23,7 @@ pub struct VectorStoreFileBatchObject {
     /// The Unix timestamp (in seconds) for when the vector store files batch was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The ID of the [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) that the [File](https://platform.openai.com/docs/api-reference/files) is attached to.
+    /// The ID of the [vector store](/docs/api-reference/vector-stores/object) that the [File](/docs/api-reference/files) is attached to.
     #[serde(rename = "vector_store_id")]
     pub vector_store_id: String,
     /// The status of the vector store files batch, which can be either `in_progress`, `completed`, `cancelled` or `failed`.

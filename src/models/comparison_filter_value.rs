@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ComparisonFilterValue {
     Text(String),
-    Array(Vec<models::ComparisonFilterValueItems>),
+    Arrayofitems(Vec<serde_json::Value>),
 }
 
 impl Default for ComparisonFilterValue {
@@ -19,8 +19,8 @@ impl ComparisonFilterValue {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)
     }
-    pub fn new_array(items: Vec<models::ComparisonFilterValueItems>) -> Self {
-        Self::Array(items)
+    pub fn new_arrayofitems(items: Vec<serde_json::Value>) -> Self {
+        Self::Arrayofitems(items)
     }
 }
 
@@ -39,7 +39,7 @@ impl std::fmt::Display for ComparisonFilterValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             ComparisonFilterValue::Text(value) => write!(f, "{}", value),
-            ComparisonFilterValue::Array(value) => match serde_json::to_string(value) {
+            ComparisonFilterValue::Arrayofitems(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },

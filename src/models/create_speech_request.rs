@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSpeechRequest {
-    /// One of the available [TTS models](https://platform.openai.com/docs/models#tts): `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`.
+    /// One of the available [TTS models](/docs/models#tts): `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`.
     #[serde(rename = "model")]
     pub model: String,
     /// The text to generate audio for. The maximum length is 4096 characters.
@@ -22,9 +22,8 @@ pub struct CreateSpeechRequest {
     /// Control the voice of your generated audio with additional instructions. Does not work with `tts-1` or `tts-1-hd`.
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
-    /// The voice to use when generating the audio. Supported built-in voices are `alloy`, `ash`, `ballad`, `coral`, `echo`, `fable`, `onyx`, `nova`, `sage`, `shimmer`, `verse`, `marin`, and `cedar`. Previews of the voices are available in the [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech#voice-options).
     #[serde(rename = "voice")]
-    pub voice: String,
+    pub voice: Box<models::VoiceIdsOrCustomVoice>,
     /// The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`.
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
     pub response_format: Option<ResponseFormat>,
@@ -37,12 +36,16 @@ pub struct CreateSpeechRequest {
 }
 
 impl CreateSpeechRequest {
-    pub fn new(model: String, input: String, voice: String) -> CreateSpeechRequest {
+    pub fn new(
+        model: String,
+        input: String,
+        voice: models::VoiceIdsOrCustomVoice,
+    ) -> CreateSpeechRequest {
         CreateSpeechRequest {
             model,
             input,
             instructions: None,
-            voice,
+            voice: Box::new(voice),
             response_format: None,
             speed: None,
             stream_format: None,

@@ -1,15 +1,11 @@
 # RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsage
 
-## Properties
+## Enum Variants
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the usage object. Always `tokens` for this variant. | 
-**input_tokens** | **i32** | Number of input tokens billed for this request. | 
-**input_token_details** | Option<[**models::TranscriptTextUsageTokensInputTokenDetails**](TranscriptTextUsageTokens_input_token_details.md)> |  | [optional]
-**output_tokens** | **i32** | Number of output tokens generated. | 
-**total_tokens** | **i32** | Total number of tokens used (input + output). | 
-**seconds** | **f64** | Duration of the input audio in seconds. | 
+| Name | Description |
+|---- | -----|
+| TranscriptTextUsageDuration | Usage statistics for the transcription, this is billed according to the ASR model&#39;s pricing rather than the realtime model&#39;s pricing. |
+| TranscriptTextUsageTokens | Usage statistics for the transcription, this is billed according to the ASR model&#39;s pricing rather than the realtime model&#39;s pricing. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

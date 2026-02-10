@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventResponseCreated {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.created`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     #[serde(rename = "response")]
     pub response: Box<models::RealtimeBetaResponse>,
 }
@@ -27,7 +28,7 @@ impl RealtimeBetaServerEventResponseCreated {
     /// Returned when a new Response is created. The first event of response creation, where the response is in an initial state of `in_progress`.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         response: models::RealtimeBetaResponse,
     ) -> RealtimeBetaServerEventResponseCreated {
         RealtimeBetaServerEventResponseCreated {
@@ -35,6 +36,18 @@ impl RealtimeBetaServerEventResponseCreated {
             r#type,
             response: Box::new(response),
         }
+    }
+}
+/// The event type, must be `response.created`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.created")]
+    ResponseCreated,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseCreated
     }
 }
 

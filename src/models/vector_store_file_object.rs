@@ -26,16 +26,16 @@ pub struct VectorStoreFileObject {
     /// The Unix timestamp (in seconds) for when the vector store file was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The ID of the [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) that the [File](https://platform.openai.com/docs/api-reference/files) is attached to.
+    /// The ID of the [vector store](/docs/api-reference/vector-stores/object) that the [File](/docs/api-reference/files) is attached to.
     #[serde(rename = "vector_store_id")]
     pub vector_store_id: String,
     /// The status of the vector store file, which can be either `in_progress`, `completed`, `cancelled`, or `failed`. The status `completed` indicates that the vector store file is ready for use.
     #[serde(rename = "status")]
     pub status: Status,
     #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
-    pub last_error: Option<Box<models::VectorStoreFileObjectLastError>>,
+    pub last_error: Option<Box<models::Object019>>,
     #[serde(rename = "chunking_strategy", skip_serializing_if = "Option::is_none")]
-    pub chunking_strategy: Option<Box<models::ChunkingStrategyResponse>>,
+    pub chunking_strategy: Option<Box<models::VectorStoreFileObjectChunkingStrategy>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard. Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters, booleans, or numbers.
     #[serde(
         rename = "attributes",
@@ -56,7 +56,7 @@ impl VectorStoreFileObject {
         created_at: i32,
         vector_store_id: String,
         status: Status,
-        last_error: Option<models::VectorStoreFileObjectLastError>,
+        last_error: Option<models::Object019>,
     ) -> VectorStoreFileObject {
         VectorStoreFileObject {
             id,

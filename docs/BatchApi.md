@@ -4,18 +4,16 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancel_batch**](BatchApi.md#cancel_batch) | **POST** /batches/{batch_id}/cancel | Cancel batch
-[**create_batch**](BatchApi.md#create_batch) | **POST** /batches | Create batch
-[**list_batches**](BatchApi.md#list_batches) | **GET** /batches | List batches
-[**retrieve_batch**](BatchApi.md#retrieve_batch) | **GET** /batches/{batch_id} | Retrieve batch
+[**cancel_batch**](BatchApi.md#cancel_batch) | **POST** /batches/{batch_id}/cancel | Cancels an in-progress batch. The batch will be in status `cancelling` for up to 10 minutes, before changing to `cancelled`, where it will have partial results (if any) available in the output file.
+[**create_batch**](BatchApi.md#create_batch) | **POST** /batches | Creates and executes a batch from an uploaded file of requests
+[**list_batches**](BatchApi.md#list_batches) | **GET** /batches | List your organization's batches.
+[**retrieve_batch**](BatchApi.md#retrieve_batch) | **GET** /batches/{batch_id} | Retrieves a batch.
 
 
 
 ## cancel_batch
 
 > models::Batch cancel_batch(batch_id)
-Cancel batch
-
 Cancels an in-progress batch. The batch will be in status `cancelling` for up to 10 minutes, before changing to `cancelled`, where it will have partial results (if any) available in the output file.
 
 ### Parameters
@@ -44,8 +42,6 @@ Name | Type | Description  | Required | Notes
 ## create_batch
 
 > models::Batch create_batch(create_batch_request)
-Create batch
-
 Creates and executes a batch from an uploaded file of requests
 
 ### Parameters
@@ -74,8 +70,6 @@ Name | Type | Description  | Required | Notes
 ## list_batches
 
 > models::ListBatchesResponse list_batches(after, limit)
-List batches
-
 List your organization's batches.
 
 ### Parameters
@@ -105,8 +99,6 @@ Name | Type | Description  | Required | Notes
 ## retrieve_batch
 
 > models::Batch retrieve_batch(batch_id)
-Retrieve batch
-
 Retrieves a batch.
 
 ### Parameters

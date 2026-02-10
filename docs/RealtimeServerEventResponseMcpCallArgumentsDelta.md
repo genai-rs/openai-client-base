@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the server event. | 
-**r#type** | Option<[**serde_json::Value**](.md)> |  | 
+**r#type** | **String** | The event type, must be `response.mcp_call_arguments.delta`. | 
 **response_id** | **String** | The ID of the response. | 
 **item_id** | **String** | The ID of the MCP tool call item. | 
 **output_index** | **i32** | The index of the output item in the response. | 

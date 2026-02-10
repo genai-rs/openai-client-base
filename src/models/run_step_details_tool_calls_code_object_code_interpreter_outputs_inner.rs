@@ -21,3 +21,23 @@ pub enum RunStepDetailsToolCallsCodeObjectCodeInterpreterOutputsInner {
         Box<models::RunStepDetailsToolCallsCodeOutputImageObject>,
     ),
 }
+
+impl Default for RunStepDetailsToolCallsCodeObjectCodeInterpreterOutputsInner {
+    fn default() -> Self {
+        Self::RunStepDetailsToolCallsCodeOutputLogsObject(Default::default())
+    }
+}
+/// Always `logs`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "logs")]
+    Logs,
+    #[serde(rename = "image")]
+    Image,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Logs
+    }
+}

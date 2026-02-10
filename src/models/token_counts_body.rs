@@ -23,7 +23,7 @@ pub struct TokenCountsBody {
         skip_serializing_if = "Option::is_none"
     )]
     pub input: Option<Option<Box<models::TokenCountsBodyInput>>>,
-    /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://platform.openai.com/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
+    /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
         default,

@@ -43,7 +43,6 @@ pub enum RetrieveUserError {
     UnknownValue(serde_json::Value),
 }
 
-/// Deletes a user from the organization.
 #[bon::builder]
 pub async fn delete_user(
     configuration: &configuration::Configuration,
@@ -97,7 +96,6 @@ pub async fn delete_user(
     }
 }
 
-/// Lists all of the users in the organization.
 #[bon::builder]
 pub async fn list_users(
     configuration: &configuration::Configuration,
@@ -174,7 +172,6 @@ pub async fn list_users(
     }
 }
 
-/// Modifies a user's role in the organization.
 #[bon::builder]
 pub async fn modify_user(
     configuration: &configuration::Configuration,
@@ -231,7 +228,6 @@ pub async fn modify_user(
     }
 }
 
-/// Retrieves a user by their identifier.
 #[bon::builder]
 pub async fn retrieve_user(
     configuration: &configuration::Configuration,

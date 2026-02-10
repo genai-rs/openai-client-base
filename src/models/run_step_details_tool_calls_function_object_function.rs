@@ -20,7 +20,7 @@ pub struct RunStepDetailsToolCallsFunctionObjectFunction {
     /// The arguments passed to the function.
     #[serde(rename = "arguments")]
     pub arguments: String,
-    /// The output of the function. This will be `null` if the outputs have not been [submitted](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) yet.
+    /// The output of the function. This will be `null` if the outputs have not been [submitted](/docs/api-reference/runs/submitToolOutputs) yet.
     #[serde(rename = "output", deserialize_with = "Option::deserialize")]
     pub output: Option<String>,
 }

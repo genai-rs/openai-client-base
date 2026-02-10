@@ -11,29 +11,20 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct ChatCompletionMessageListDataInnerAllOfContentPartsInner {
-    /// The type of the content part.
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    /// The text content.
-    #[serde(rename = "text")]
-    pub text: String,
-    #[serde(rename = "image_url")]
-    pub image_url: Box<models::ChatCompletionRequestMessageContentPartImageImageUrl>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ChatCompletionMessageListDataInnerAllOfContentPartsInner {
+    ChatCompletionRequestMessageContentPartText(
+        Box<models::ChatCompletionRequestMessageContentPartText>,
+    ),
+    ChatCompletionRequestMessageContentPartImage(
+        Box<models::ChatCompletionRequestMessageContentPartImage>,
+    ),
 }
 
-impl ChatCompletionMessageListDataInnerAllOfContentPartsInner {
-    pub fn new(
-        r#type: Type,
-        text: String,
-        image_url: models::ChatCompletionRequestMessageContentPartImageImageUrl,
-    ) -> ChatCompletionMessageListDataInnerAllOfContentPartsInner {
-        ChatCompletionMessageListDataInnerAllOfContentPartsInner {
-            r#type,
-            text,
-            image_url: Box::new(image_url),
-        }
+impl Default for ChatCompletionMessageListDataInnerAllOfContentPartsInner {
+    fn default() -> Self {
+        Self::ChatCompletionRequestMessageContentPartText(Default::default())
     }
 }
 /// The type of the content part.
@@ -48,14 +39,5 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Text
-    }
-}
-
-impl std::fmt::Display for ChatCompletionMessageListDataInnerAllOfContentPartsInner {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

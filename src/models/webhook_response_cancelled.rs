@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookResponseCancelled : Sent when a background response has been cancelled.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookResponseCancelled {
     /// The Unix timestamp (in seconds) of when the model response was cancelled.
     #[serde(rename = "created_at")]

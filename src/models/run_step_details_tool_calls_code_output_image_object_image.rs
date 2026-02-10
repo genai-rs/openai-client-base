@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDetailsToolCallsCodeOutputImageObjectImage {
-    /// The [file](https://platform.openai.com/docs/api-reference/files) ID of the image.
+    /// The [file](/docs/api-reference/files) ID of the image.
     #[serde(rename = "file_id")]
     pub file_id: String,
 }

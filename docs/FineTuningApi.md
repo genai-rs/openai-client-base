@@ -4,27 +4,25 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancel_fine_tuning_job**](FineTuningApi.md#cancel_fine_tuning_job) | **POST** /fine_tuning/jobs/{fine_tuning_job_id}/cancel | Cancel fine-tuning
-[**create_fine_tuning_checkpoint_permission**](FineTuningApi.md#create_fine_tuning_checkpoint_permission) | **POST** /fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions | Create checkpoint permissions
-[**create_fine_tuning_job**](FineTuningApi.md#create_fine_tuning_job) | **POST** /fine_tuning/jobs | Create fine-tuning job
-[**delete_fine_tuning_checkpoint_permission**](FineTuningApi.md#delete_fine_tuning_checkpoint_permission) | **DELETE** /fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions/{permission_id} | Delete checkpoint permission
-[**list_fine_tuning_checkpoint_permissions**](FineTuningApi.md#list_fine_tuning_checkpoint_permissions) | **GET** /fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions | List checkpoint permissions
-[**list_fine_tuning_events**](FineTuningApi.md#list_fine_tuning_events) | **GET** /fine_tuning/jobs/{fine_tuning_job_id}/events | List fine-tuning events
-[**list_fine_tuning_job_checkpoints**](FineTuningApi.md#list_fine_tuning_job_checkpoints) | **GET** /fine_tuning/jobs/{fine_tuning_job_id}/checkpoints | List fine-tuning checkpoints
-[**list_paginated_fine_tuning_jobs**](FineTuningApi.md#list_paginated_fine_tuning_jobs) | **GET** /fine_tuning/jobs | List fine-tuning jobs
-[**pause_fine_tuning_job**](FineTuningApi.md#pause_fine_tuning_job) | **POST** /fine_tuning/jobs/{fine_tuning_job_id}/pause | Pause fine-tuning
-[**resume_fine_tuning_job**](FineTuningApi.md#resume_fine_tuning_job) | **POST** /fine_tuning/jobs/{fine_tuning_job_id}/resume | Resume fine-tuning
-[**retrieve_fine_tuning_job**](FineTuningApi.md#retrieve_fine_tuning_job) | **GET** /fine_tuning/jobs/{fine_tuning_job_id} | Retrieve fine-tuning job
-[**run_grader**](FineTuningApi.md#run_grader) | **POST** /fine_tuning/alpha/graders/run | Run grader
-[**validate_grader**](FineTuningApi.md#validate_grader) | **POST** /fine_tuning/alpha/graders/validate | Validate grader
+[**cancel_fine_tuning_job**](FineTuningApi.md#cancel_fine_tuning_job) | **POST** /fine_tuning/jobs/{fine_tuning_job_id}/cancel | Immediately cancel a fine-tune job. 
+[**create_fine_tuning_checkpoint_permission**](FineTuningApi.md#create_fine_tuning_checkpoint_permission) | **POST** /fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions | **NOTE:** Calling this endpoint requires an [admin API key](../admin-api-keys).  This enables organization owners to share fine-tuned models with other projects in their organization. 
+[**create_fine_tuning_job**](FineTuningApi.md#create_fine_tuning_job) | **POST** /fine_tuning/jobs | Creates a fine-tuning job which begins the process of creating a new model from a given dataset.  Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.  [Learn more about fine-tuning](/docs/guides/model-optimization) 
+[**delete_fine_tuning_checkpoint_permission**](FineTuningApi.md#delete_fine_tuning_checkpoint_permission) | **DELETE** /fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions/{permission_id} | **NOTE:** This endpoint requires an [admin API key](../admin-api-keys).  Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint. 
+[**list_fine_tuning_checkpoint_permissions**](FineTuningApi.md#list_fine_tuning_checkpoint_permissions) | **GET** /fine_tuning/checkpoints/{fine_tuned_model_checkpoint}/permissions | **NOTE:** This endpoint requires an [admin API key](../admin-api-keys).  Organization owners can use this endpoint to view all permissions for a fine-tuned model checkpoint. 
+[**list_fine_tuning_events**](FineTuningApi.md#list_fine_tuning_events) | **GET** /fine_tuning/jobs/{fine_tuning_job_id}/events | Get status updates for a fine-tuning job. 
+[**list_fine_tuning_job_checkpoints**](FineTuningApi.md#list_fine_tuning_job_checkpoints) | **GET** /fine_tuning/jobs/{fine_tuning_job_id}/checkpoints | List checkpoints for a fine-tuning job. 
+[**list_paginated_fine_tuning_jobs**](FineTuningApi.md#list_paginated_fine_tuning_jobs) | **GET** /fine_tuning/jobs | List your organization's fine-tuning jobs 
+[**pause_fine_tuning_job**](FineTuningApi.md#pause_fine_tuning_job) | **POST** /fine_tuning/jobs/{fine_tuning_job_id}/pause | Pause a fine-tune job. 
+[**resume_fine_tuning_job**](FineTuningApi.md#resume_fine_tuning_job) | **POST** /fine_tuning/jobs/{fine_tuning_job_id}/resume | Resume a fine-tune job. 
+[**retrieve_fine_tuning_job**](FineTuningApi.md#retrieve_fine_tuning_job) | **GET** /fine_tuning/jobs/{fine_tuning_job_id} | Get info about a fine-tuning job.  [Learn more about fine-tuning](/docs/guides/model-optimization) 
+[**run_grader**](FineTuningApi.md#run_grader) | **POST** /fine_tuning/alpha/graders/run | Run a grader. 
+[**validate_grader**](FineTuningApi.md#validate_grader) | **POST** /fine_tuning/alpha/graders/validate | Validate a grader. 
 
 
 
 ## cancel_fine_tuning_job
 
 > models::FineTuningJob cancel_fine_tuning_job(fine_tuning_job_id)
-Cancel fine-tuning
-
 Immediately cancel a fine-tune job. 
 
 ### Parameters
@@ -53,8 +51,6 @@ Name | Type | Description  | Required | Notes
 ## create_fine_tuning_checkpoint_permission
 
 > models::ListFineTuningCheckpointPermissionResponse create_fine_tuning_checkpoint_permission(fine_tuned_model_checkpoint, create_fine_tuning_checkpoint_permission_request)
-Create checkpoint permissions
-
 **NOTE:** Calling this endpoint requires an [admin API key](../admin-api-keys).  This enables organization owners to share fine-tuned models with other projects in their organization. 
 
 ### Parameters
@@ -84,9 +80,7 @@ Name | Type | Description  | Required | Notes
 ## create_fine_tuning_job
 
 > models::FineTuningJob create_fine_tuning_job(create_fine_tuning_job_request)
-Create fine-tuning job
-
-Creates a fine-tuning job which begins the process of creating a new model from a given dataset.  Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.  [Learn more about fine-tuning](https://platform.openai.com/docs/guides/model-optimization) 
+Creates a fine-tuning job which begins the process of creating a new model from a given dataset.  Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.  [Learn more about fine-tuning](/docs/guides/model-optimization) 
 
 ### Parameters
 
@@ -114,8 +108,6 @@ Name | Type | Description  | Required | Notes
 ## delete_fine_tuning_checkpoint_permission
 
 > models::DeleteFineTuningCheckpointPermissionResponse delete_fine_tuning_checkpoint_permission(fine_tuned_model_checkpoint, permission_id)
-Delete checkpoint permission
-
 **NOTE:** This endpoint requires an [admin API key](../admin-api-keys).  Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint. 
 
 ### Parameters
@@ -145,8 +137,6 @@ Name | Type | Description  | Required | Notes
 ## list_fine_tuning_checkpoint_permissions
 
 > models::ListFineTuningCheckpointPermissionResponse list_fine_tuning_checkpoint_permissions(fine_tuned_model_checkpoint, project_id, after, limit, order)
-List checkpoint permissions
-
 **NOTE:** This endpoint requires an [admin API key](../admin-api-keys).  Organization owners can use this endpoint to view all permissions for a fine-tuned model checkpoint. 
 
 ### Parameters
@@ -179,8 +169,6 @@ Name | Type | Description  | Required | Notes
 ## list_fine_tuning_events
 
 > models::ListFineTuningJobEventsResponse list_fine_tuning_events(fine_tuning_job_id, after, limit)
-List fine-tuning events
-
 Get status updates for a fine-tuning job. 
 
 ### Parameters
@@ -211,8 +199,6 @@ Name | Type | Description  | Required | Notes
 ## list_fine_tuning_job_checkpoints
 
 > models::ListFineTuningJobCheckpointsResponse list_fine_tuning_job_checkpoints(fine_tuning_job_id, after, limit)
-List fine-tuning checkpoints
-
 List checkpoints for a fine-tuning job. 
 
 ### Parameters
@@ -243,8 +229,6 @@ Name | Type | Description  | Required | Notes
 ## list_paginated_fine_tuning_jobs
 
 > models::ListPaginatedFineTuningJobsResponse list_paginated_fine_tuning_jobs(after, limit, metadata)
-List fine-tuning jobs
-
 List your organization's fine-tuning jobs 
 
 ### Parameters
@@ -275,8 +259,6 @@ Name | Type | Description  | Required | Notes
 ## pause_fine_tuning_job
 
 > models::FineTuningJob pause_fine_tuning_job(fine_tuning_job_id)
-Pause fine-tuning
-
 Pause a fine-tune job. 
 
 ### Parameters
@@ -305,8 +287,6 @@ Name | Type | Description  | Required | Notes
 ## resume_fine_tuning_job
 
 > models::FineTuningJob resume_fine_tuning_job(fine_tuning_job_id)
-Resume fine-tuning
-
 Resume a fine-tune job. 
 
 ### Parameters
@@ -335,9 +315,7 @@ Name | Type | Description  | Required | Notes
 ## retrieve_fine_tuning_job
 
 > models::FineTuningJob retrieve_fine_tuning_job(fine_tuning_job_id)
-Retrieve fine-tuning job
-
-Get info about a fine-tuning job.  [Learn more about fine-tuning](https://platform.openai.com/docs/guides/model-optimization) 
+Get info about a fine-tuning job.  [Learn more about fine-tuning](/docs/guides/model-optimization) 
 
 ### Parameters
 
@@ -365,8 +343,6 @@ Name | Type | Description  | Required | Notes
 ## run_grader
 
 > models::RunGraderResponse run_grader(run_grader_request)
-Run grader
-
 Run a grader. 
 
 ### Parameters
@@ -395,8 +371,6 @@ Name | Type | Description  | Required | Notes
 ## validate_grader
 
 > models::ValidateGraderResponse validate_grader(validate_grader_request)
-Validate grader
-
 Validate a grader. 
 
 ### Parameters

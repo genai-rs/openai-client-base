@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuningJobEvent : Fine-tuning job event object
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuningJobEvent {
     /// The object type, which is always \"fine_tuning.job.event\".
     #[serde(rename = "object")]

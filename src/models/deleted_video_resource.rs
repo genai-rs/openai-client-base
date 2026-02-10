@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// DeletedVideoResource : Confirmation payload returned after deleting a video.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DeletedVideoResource {
     /// The object type that signals the deletion response.
     #[serde(rename = "object")]

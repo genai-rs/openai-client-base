@@ -17,8 +17,9 @@ pub struct RealtimeServerEventConversationItemDeleted {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `conversation.item.deleted`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the item that was deleted.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -28,7 +29,7 @@ impl RealtimeServerEventConversationItemDeleted {
     /// Returned when an item in the conversation is deleted by the client with a  `conversation.item.delete` event. This event is used to synchronize the  server's understanding of the conversation history with the client's view.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         item_id: String,
     ) -> RealtimeServerEventConversationItemDeleted {
         RealtimeServerEventConversationItemDeleted {
@@ -36,6 +37,18 @@ impl RealtimeServerEventConversationItemDeleted {
             r#type,
             item_id,
         }
+    }
+}
+/// The event type, must be `conversation.item.deleted`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "conversation.item.deleted")]
+    ConversationItemDeleted,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ConversationItemDeleted
     }
 }
 

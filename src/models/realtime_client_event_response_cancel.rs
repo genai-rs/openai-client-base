@@ -17,8 +17,9 @@ pub struct RealtimeClientEventResponseCancel {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
     pub event_id: Option<String>,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.cancel`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// A specific response ID to cancel - if not provided, will cancel an  in-progress response in the default conversation.
     #[serde(rename = "response_id", skip_serializing_if = "Option::is_none")]
     pub response_id: Option<String>,
@@ -26,12 +27,24 @@ pub struct RealtimeClientEventResponseCancel {
 
 impl RealtimeClientEventResponseCancel {
     /// Send this event to cancel an in-progress response. The server will respond  with a `response.done` event with a status of `response.status=cancelled`. If  there is no response to cancel, the server will respond with an error. It's safe to call `response.cancel` even if no response is in progress, an error will be returned the session will remain unaffected.
-    pub fn new(r#type: Option<serde_json::Value>) -> RealtimeClientEventResponseCancel {
+    pub fn new(r#type: Type) -> RealtimeClientEventResponseCancel {
         RealtimeClientEventResponseCancel {
             event_id: None,
             r#type,
             response_id: None,
         }
+    }
+}
+/// The event type, must be `response.cancel`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.cancel")]
+    ResponseCancel,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseCancel
     }
 }
 

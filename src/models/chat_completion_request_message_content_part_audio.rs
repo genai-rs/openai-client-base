@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ChatCompletionRequestMessageContentPartAudio : Learn about [audio inputs](https://platform.openai.com/docs/guides/audio).
+/// ChatCompletionRequestMessageContentPartAudio : Learn about [audio inputs](/docs/guides/audio).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestMessageContentPartAudio {
     /// The type of the content part. Always `input_audio`.
@@ -22,7 +22,7 @@ pub struct ChatCompletionRequestMessageContentPartAudio {
 }
 
 impl ChatCompletionRequestMessageContentPartAudio {
-    /// Learn about [audio inputs](https://platform.openai.com/docs/guides/audio).
+    /// Learn about [audio inputs](/docs/guides/audio).
     pub fn new(
         r#type: Type,
         input_audio: models::ChatCompletionRequestMessageContentPartAudioInputAudio,

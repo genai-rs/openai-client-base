@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ImageEditCompletedEvent : Emitted when image editing has completed and the final image is available.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageEditCompletedEvent {
     /// The type of the event. Always `image_edit.completed`.
     #[serde(rename = "type")]

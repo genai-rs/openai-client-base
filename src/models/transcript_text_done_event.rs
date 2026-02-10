@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// TranscriptTextDoneEvent : Emitted when the transcription is complete. Contains the complete transcription text. Only emitted when you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.
+/// TranscriptTextDoneEvent : Emitted when the transcription is complete. Contains the complete transcription text. Only emitted when you [create a transcription](/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TranscriptTextDoneEvent {
     /// The type of the event. Always `transcript.text.done`.
@@ -20,7 +20,7 @@ pub struct TranscriptTextDoneEvent {
     /// The text that was transcribed.
     #[serde(rename = "text")]
     pub text: String,
-    /// The log probabilities of the individual tokens in the transcription. Only included if you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.
+    /// The log probabilities of the individual tokens in the transcription. Only included if you [create a transcription](/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
     pub logprobs: Option<Vec<models::TranscriptTextDeltaEventLogprobsInner>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
@@ -28,7 +28,7 @@ pub struct TranscriptTextDoneEvent {
 }
 
 impl TranscriptTextDoneEvent {
-    /// Emitted when the transcription is complete. Contains the complete transcription text. Only emitted when you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.
+    /// Emitted when the transcription is complete. Contains the complete transcription text. Only emitted when you [create a transcription](/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.
     pub fn new(r#type: Type, text: String) -> TranscriptTextDoneEvent {
         TranscriptTextDoneEvent {
             r#type,

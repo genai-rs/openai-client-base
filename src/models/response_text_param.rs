@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ResponseTextParam : Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://platform.openai.com/docs/guides/text) - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+/// ResponseTextParam : Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](/docs/guides/text) - [Structured Outputs](/docs/guides/structured-outputs)
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseTextParam {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
@@ -26,7 +26,7 @@ pub struct ResponseTextParam {
 }
 
 impl ResponseTextParam {
-    /// Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://platform.openai.com/docs/guides/text) - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+    /// Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](/docs/guides/text) - [Structured Outputs](/docs/guides/structured-outputs)
     pub fn new() -> ResponseTextParam {
         ResponseTextParam {
             format: None,

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **output_modalities** | Option<[**serde_json::Value**](.md)> |  | [optional]
 **instructions** | Option<**String**> | The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. \"be extremely succinct\", \"act friendly\", \"here are examples of good responses\") and on audio behavior (e.g. \"talk quickly\", \"inject emotion into your voice\", \"laugh frequently\"). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior.  Note that the server sets default instructions which will be used if this field is not set and are visible in the `session.created` event at the start of the session.  | [optional]
 **audio** | Option<[**models::RealtimeSessionCreateResponseAudio**](RealtimeSessionCreateResponse_audio.md)> |  | [optional]
-**tracing** | Option<[**models::TracingConfiguration1**](Tracing_Configuration_1.md)> |  | [optional]
+**tracing** | Option<[**models::RealtimeSessionCreateResponseTracing**](RealtimeSessionCreateResponseTracing.md)> |  | [optional]
 **turn_detection** | Option<[**models::RealtimeSessionCreateRequestTurnDetection**](RealtimeSessionCreateRequest_turn_detection.md)> |  | [optional]
 **tools** | Option<[**Vec<models::RealtimeFunctionTool>**](RealtimeFunctionTool.md)> | Tools (functions) available to the model. | [optional]
 **tool_choice** | Option<**String**> | How the model chooses tools. Options are `auto`, `none`, `required`, or specify a function.  | [optional]

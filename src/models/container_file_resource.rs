@@ -18,7 +18,7 @@ pub struct ContainerFileResource {
     pub id: String,
     /// The type of this object (`container.file`).
     #[serde(rename = "object")]
-    pub object: Object,
+    pub object: String,
     /// The container this file belongs to.
     #[serde(rename = "container_id")]
     pub container_id: String,
@@ -39,7 +39,7 @@ pub struct ContainerFileResource {
 impl ContainerFileResource {
     pub fn new(
         id: String,
-        object: Object,
+        object: String,
         container_id: String,
         created_at: i32,
         bytes: i32,
@@ -55,18 +55,6 @@ impl ContainerFileResource {
             path,
             source,
         }
-    }
-}
-/// The type of this object (`container.file`).
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Object {
-    #[serde(rename = "container.file")]
-    ContainerFile,
-}
-
-impl Default for Object {
-    fn default() -> Object {
-        Self::ContainerFile
     }
 }
 

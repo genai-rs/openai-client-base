@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionResponse : Represents a chat completion response returned by model, based on the provided input.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionResponse {
     /// A unique identifier for the chat completion.
     #[serde(rename = "id")]

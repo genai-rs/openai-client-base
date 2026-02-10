@@ -17,8 +17,9 @@ pub struct RealtimeServerEventResponseMcpCallInProgress {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `response.mcp_call.in_progress`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The index of the output item in the response.
     #[serde(rename = "output_index")]
     pub output_index: i32,
@@ -31,7 +32,7 @@ impl RealtimeServerEventResponseMcpCallInProgress {
     /// Returned when an MCP tool call has started and is in progress.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         output_index: i32,
         item_id: String,
     ) -> RealtimeServerEventResponseMcpCallInProgress {
@@ -41,6 +42,18 @@ impl RealtimeServerEventResponseMcpCallInProgress {
             output_index,
             item_id,
         }
+    }
+}
+/// The event type, must be `response.mcp_call.in_progress`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "response.mcp_call.in_progress")]
+    ResponseMcpCallInProgress,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ResponseMcpCallInProgress
     }
 }
 

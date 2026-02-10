@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuningJobCheckpoint : The `fine_tuning.job.checkpoint` object represents a model checkpoint for a fine-tuning job that is ready to use.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuningJobCheckpoint {
     /// The checkpoint identifier, which can be referenced in the API endpoints.
     #[serde(rename = "id")]

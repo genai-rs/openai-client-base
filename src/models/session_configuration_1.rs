@@ -13,21 +13,25 @@ use serde::{Deserialize, Serialize};
 
 /// SessionConfiguration1 : The session configuration for either a realtime or transcription session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum SessionConfiguration1 {}
+#[serde(untagged)]
+pub enum SessionConfiguration1 {
+    #[serde(rename = "RealtimeSessionCreateResponseGA")]
+    RealtimeSessionCreateResponseGa(Box<models::RealtimeSessionCreateResponseGa>),
+    #[serde(rename = "RealtimeTranscriptionSessionCreateResponseGA")]
+    RealtimeTranscriptionSessionCreateResponseGa(
+        Box<models::RealtimeTranscriptionSessionCreateResponseGa>,
+    ),
+}
 
 /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputModalities {
-    #[serde(rename = "text")]
     Text,
-    #[serde(rename = "audio")]
     Audio,
 }
 
 /// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Include {
-    #[serde(rename = "item.input_audio_transcription.logprobs")]
     ItemInputAudioTranscriptionLogprobs,
 }

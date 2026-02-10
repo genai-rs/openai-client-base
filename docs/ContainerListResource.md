@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | Option<[**serde_json::Value**](.md)> |  | 
+**object** | **String** | The type of object returned, must be 'list'. | 
 **data** | [**Vec<models::ContainerResource>**](ContainerResource.md) | A list of containers. | 
 **first_id** | **String** | The ID of the first container in the list. | 
 **last_id** | **String** | The ID of the last container in the list. | 

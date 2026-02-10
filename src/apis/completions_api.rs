@@ -22,7 +22,6 @@ pub enum CreateCompletionError {
     UnknownValue(serde_json::Value),
 }
 
-/// Creates a completion for the provided prompt and parameters.
 #[bon::builder]
 pub async fn create_completion(
     configuration: &configuration::Configuration,

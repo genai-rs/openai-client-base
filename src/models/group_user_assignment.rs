@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// GroupUserAssignment : Confirmation payload returned after adding a user to a group.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct GroupUserAssignment {
     /// Always `group.user`.
     #[serde(rename = "object")]

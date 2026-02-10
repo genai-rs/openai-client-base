@@ -17,17 +17,27 @@ pub struct RealtimeServerEventInputAudioBufferCleared {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `input_audio_buffer.cleared`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
 }
 
 impl RealtimeServerEventInputAudioBufferCleared {
     /// Returned when the input audio buffer is cleared by the client with a  `input_audio_buffer.clear` event.
-    pub fn new(
-        event_id: String,
-        r#type: Option<serde_json::Value>,
-    ) -> RealtimeServerEventInputAudioBufferCleared {
+    pub fn new(event_id: String, r#type: Type) -> RealtimeServerEventInputAudioBufferCleared {
         RealtimeServerEventInputAudioBufferCleared { event_id, r#type }
+    }
+}
+/// The event type, must be `input_audio_buffer.cleared`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "input_audio_buffer.cleared")]
+    InputAudioBufferCleared,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::InputAudioBufferCleared
     }
 }
 

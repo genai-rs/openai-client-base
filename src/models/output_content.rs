@@ -18,3 +18,9 @@ pub enum OutputContent {
     RefusalContent(Box<models::RefusalContent>),
     ReasoningTextContent(Box<models::ReasoningTextContent>),
 }
+
+impl Default for OutputContent {
+    fn default() -> Self {
+        Self::OutputTextContent(Default::default())
+    }
+}

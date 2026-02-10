@@ -17,8 +17,9 @@ pub struct RealtimeServerEventConversationItemInputAudioTranscriptionDelta {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `conversation.item.input_audio_transcription.delta`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the item containing the audio that is being transcribed.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -42,7 +43,7 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionDelta {
     /// Returned when the text value of an input audio transcription content part is updated with incremental transcription results.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         item_id: String,
     ) -> RealtimeServerEventConversationItemInputAudioTranscriptionDelta {
         RealtimeServerEventConversationItemInputAudioTranscriptionDelta {
@@ -53,6 +54,18 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionDelta {
             delta: None,
             logprobs: None,
         }
+    }
+}
+/// The event type, must be `conversation.item.input_audio_transcription.delta`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "conversation.item.input_audio_transcription.delta")]
+    ConversationItemInputAudioTranscriptionDelta,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::ConversationItemInputAudioTranscriptionDelta
     }
 }
 

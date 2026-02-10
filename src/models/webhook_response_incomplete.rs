@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookResponseIncomplete : Sent when a background response has been interrupted.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookResponseIncomplete {
     /// The Unix timestamp (in seconds) of when the model response was interrupted.
     #[serde(rename = "created_at")]

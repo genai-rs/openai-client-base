@@ -17,8 +17,9 @@ pub struct RealtimeBetaServerEventInputAudioBufferCommitted {
     /// The unique ID of the server event.
     #[serde(rename = "event_id")]
     pub event_id: String,
-    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
-    pub r#type: Option<serde_json::Value>,
+    /// The event type, must be `input_audio_buffer.committed`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The ID of the preceding item after which the new item will be inserted. Can be `null` if the item has no predecessor.
     #[serde(
         rename = "previous_item_id",
@@ -36,7 +37,7 @@ impl RealtimeBetaServerEventInputAudioBufferCommitted {
     /// Returned when an input audio buffer is committed, either by the client or automatically in server VAD mode. The `item_id` property is the ID of the user message item that will be created, thus a `conversation.item.created` event will also be sent to the client.
     pub fn new(
         event_id: String,
-        r#type: Option<serde_json::Value>,
+        r#type: Type,
         item_id: String,
     ) -> RealtimeBetaServerEventInputAudioBufferCommitted {
         RealtimeBetaServerEventInputAudioBufferCommitted {
@@ -45,6 +46,18 @@ impl RealtimeBetaServerEventInputAudioBufferCommitted {
             previous_item_id: None,
             item_id,
         }
+    }
+}
+/// The event type, must be `input_audio_buffer.committed`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "input_audio_buffer.committed")]
+    InputAudioBufferCommitted,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::InputAudioBufferCommitted
     }
 }
 

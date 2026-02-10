@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ChatSessionResource : Represents a ChatKit session and its resolved configuration.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatSessionResource {
     /// Identifier for the ChatKit session.
     #[serde(rename = "id")]

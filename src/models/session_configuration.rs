@@ -12,10 +12,30 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// SessionConfiguration : Session configuration to use for the client secret. Choose either a realtime session or a transcription session.
+/// Session configuration to use for the client secret. Choose either a realtime session or a transcription session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum SessionConfiguration {}
+#[serde(untagged)]
+pub enum SessionConfiguration {
+    RealtimeSessionCreateRequestGa(Box<models::RealtimeSessionCreateRequestGa>),
+    RealtimeTranscriptionSessionCreateRequestGa(
+        Box<models::RealtimeTranscriptionSessionCreateRequestGa>,
+    ),
+}
 
+/// The type of session to create. Always `realtime` for the Realtime API.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "realtime")]
+    Realtime,
+    #[serde(rename = "transcription")]
+    Transcription,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Realtime
+    }
+}
 /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputModalities {
@@ -25,9 +45,20 @@ pub enum OutputModalities {
     Audio,
 }
 
+impl Default for OutputModalities {
+    fn default() -> OutputModalities {
+        Self::Text
+    }
+}
 /// Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Include {
     #[serde(rename = "item.input_audio_transcription.logprobs")]
     ItemInputAudioTranscriptionLogprobs,
+}
+
+impl Default for Include {
+    fn default() -> Include {
+        Self::ItemInputAudioTranscriptionLogprobs
+    }
 }

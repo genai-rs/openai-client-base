@@ -17,3 +17,23 @@ pub enum CreateChatCompletionRequestAllOfTools {
     ChatCompletionTool(Box<models::ChatCompletionTool>),
     CustomToolChatCompletions(Box<models::CustomToolChatCompletions>),
 }
+
+impl Default for CreateChatCompletionRequestAllOfTools {
+    fn default() -> Self {
+        Self::ChatCompletionTool(Default::default())
+    }
+}
+/// The type of the tool. Currently, only `function` is supported.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "function")]
+    Function,
+    #[serde(rename = "custom")]
+    Custom,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Function
+    }
+}

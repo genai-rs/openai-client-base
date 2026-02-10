@@ -21,27 +21,78 @@ pub enum CreateEvalRequestTestingCriteriaInner {
     EvalGraderScoreModel(Box<models::EvalGraderScoreModel>),
 }
 
+impl Default for CreateEvalRequestTestingCriteriaInner {
+    fn default() -> Self {
+        Self::CreateEvalLabelModelGrader(Default::default())
+    }
+}
+/// The object type, which is always `label_model`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "label_model")]
+    LabelModel,
+    #[serde(rename = "string_check")]
+    StringCheck,
+    #[serde(rename = "text_similarity")]
+    TextSimilarity,
+    #[serde(rename = "python")]
+    Python,
+    #[serde(rename = "score_model")]
+    ScoreModel,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::LabelModel
+    }
+}
 /// The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Operation {
+    #[serde(rename = "eq")]
     Eq,
+    #[serde(rename = "ne")]
     Ne,
+    #[serde(rename = "like")]
     Like,
+    #[serde(rename = "ilike")]
     Ilike,
 }
 
+impl Default for Operation {
+    fn default() -> Operation {
+        Self::Eq
+    }
+}
 /// The evaluation metric to use. One of `cosine`, `fuzzy_match`, `bleu`,  `gleu`, `meteor`, `rouge_1`, `rouge_2`, `rouge_3`, `rouge_4`, `rouge_5`,  or `rouge_l`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum EvaluationMetric {
+    #[serde(rename = "cosine")]
     Cosine,
+    #[serde(rename = "fuzzy_match")]
     FuzzyMatch,
+    #[serde(rename = "bleu")]
     Bleu,
+    #[serde(rename = "gleu")]
     Gleu,
+    #[serde(rename = "meteor")]
     Meteor,
+    #[serde(rename = "rouge_1")]
     Rouge1,
+    #[serde(rename = "rouge_2")]
     Rouge2,
+    #[serde(rename = "rouge_3")]
     Rouge3,
+    #[serde(rename = "rouge_4")]
     Rouge4,
+    #[serde(rename = "rouge_5")]
     Rouge5,
+    #[serde(rename = "rouge_l")]
     RougeL,
+}
+
+impl Default for EvaluationMetric {
+    fn default() -> EvaluationMetric {
+        Self::Cosine
+    }
 }

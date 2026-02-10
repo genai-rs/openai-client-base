@@ -36,7 +36,6 @@ pub enum RemoveGroupUserError {
     UnknownValue(serde_json::Value),
 }
 
-/// Adds a user to a group.
 #[bon::builder]
 pub async fn add_group_user(
     configuration: &configuration::Configuration,
@@ -93,7 +92,6 @@ pub async fn add_group_user(
     }
 }
 
-/// Lists the users assigned to a group.
 #[bon::builder]
 pub async fn list_group_users(
     configuration: &configuration::Configuration,
@@ -160,7 +158,6 @@ pub async fn list_group_users(
     }
 }
 
-/// Removes a user from a group.
 #[bon::builder]
 pub async fn remove_group_user(
     configuration: &configuration::Configuration,

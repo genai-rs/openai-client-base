@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ResponseContentPartDoneEvent : Emitted when a content part is done.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseContentPartDoneEvent {
     /// The type of the event. Always `response.content_part.done`.
     #[serde(rename = "type")]

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeCreateClientSecretRequest : Create a session and client secret for the Realtime API. The request can specify either a realtime or a transcription session configuration. [Learn more about the Realtime API](https://platform.openai.com/docs/guides/realtime).
+/// RealtimeCreateClientSecretRequest : Create a session and client secret for the Realtime API. The request can specify either a realtime or a transcription session configuration. [Learn more about the Realtime API](/docs/guides/realtime).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeCreateClientSecretRequest {
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
@@ -21,7 +21,7 @@ pub struct RealtimeCreateClientSecretRequest {
 }
 
 impl RealtimeCreateClientSecretRequest {
-    /// Create a session and client secret for the Realtime API. The request can specify either a realtime or a transcription session configuration. [Learn more about the Realtime API](https://platform.openai.com/docs/guides/realtime).
+    /// Create a session and client secret for the Realtime API. The request can specify either a realtime or a transcription session configuration. [Learn more about the Realtime API](/docs/guides/realtime).
     pub fn new() -> RealtimeCreateClientSecretRequest {
         RealtimeCreateClientSecretRequest {
             expires_after: None,

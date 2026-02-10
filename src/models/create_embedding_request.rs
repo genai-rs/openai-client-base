@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEmbeddingRequest {
     #[serde(rename = "input")]
     pub input: Box<models::CreateEmbeddingRequestInput>,
@@ -23,7 +23,7 @@ pub struct CreateEmbeddingRequest {
     /// The number of dimensions the resulting output embeddings should have. Only supported in `text-embedding-3` and later models.
     #[serde(rename = "dimensions", skip_serializing_if = "Option::is_none")]
     pub dimensions: Option<i32>,
-    /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
+    /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](/docs/guides/safety-best-practices#end-user-ids).
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
 }

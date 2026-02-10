@@ -11,27 +11,13 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct InputMessagesTemplateTemplateInner {
-    /// The role of the message input. One of `user`, `assistant`, `system`, or `developer`.
-    #[serde(rename = "role")]
-    pub role: Role,
-    #[serde(rename = "content")]
-    pub content: Box<models::EvalItemContent>,
-    /// The type of the message input. Always `message`.
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Type>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum InputMessagesTemplateTemplateInner {
+    ChatMessage(Box<models::ChatMessage>),
+    EvalItem(Box<models::EvalItem>),
 }
 
-impl InputMessagesTemplateTemplateInner {
-    pub fn new(role: Role, content: models::EvalItemContent) -> InputMessagesTemplateTemplateInner {
-        InputMessagesTemplateTemplateInner {
-            role,
-            content: Box::new(content),
-            r#type: None,
-        }
-    }
-}
 /// The role of the message input. One of `user`, `assistant`, `system`, or `developer`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
@@ -60,14 +46,5 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Message
-    }
-}
-
-impl std::fmt::Display for InputMessagesTemplateTemplateInner {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }
