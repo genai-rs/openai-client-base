@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// EditImageBodyJsonParam : JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs.
+/// EditImageBodyJsonParam : JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models only; DALL-E edits require multipart (`dall-e-2` only).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EditImageBodyJsonParam {
     /// The model to use for image editing.
@@ -102,7 +102,7 @@ pub struct EditImageBodyJsonParam {
 }
 
 impl EditImageBodyJsonParam {
-    /// JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs.
+    /// JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models only; DALL-E edits require multipart (`dall-e-2` only).
     pub fn new(images: Vec<models::ImageRefParam>, prompt: String) -> EditImageBodyJsonParam {
         EditImageBodyJsonParam {
             model: None,
@@ -126,8 +126,6 @@ impl EditImageBodyJsonParam {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
-    #[serde(rename = "standard")]
-    Standard,
     #[serde(rename = "low")]
     Low,
     #[serde(rename = "medium")]
@@ -140,7 +138,7 @@ pub enum Quality {
 
 impl Default for Quality {
     fn default() -> Quality {
-        Self::Standard
+        Self::Low
     }
 }
 ///
@@ -162,10 +160,6 @@ impl Default for InputFidelity {
 pub enum Size {
     #[serde(rename = "auto")]
     Auto,
-    #[serde(rename = "256x256")]
-    Variant256x256,
-    #[serde(rename = "512x512")]
-    Variant512x512,
     #[serde(rename = "1024x1024")]
     Variant1024x1024,
     #[serde(rename = "1536x1024")]

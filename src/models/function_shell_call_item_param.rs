@@ -37,6 +37,13 @@ pub struct FunctionShellCallItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub status: Option<Option<models::FunctionShellCallItemStatus>>,
+    #[serde(
+        rename = "environment",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub environment: Option<Option<Box<models::FunctionShellCallItemParamEnvironment>>>,
 }
 
 impl FunctionShellCallItemParam {
@@ -52,6 +59,7 @@ impl FunctionShellCallItemParam {
             r#type,
             action: Box::new(action),
             status: None,
+            environment: None,
         }
     }
 }

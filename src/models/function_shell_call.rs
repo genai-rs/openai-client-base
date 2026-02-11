@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FunctionShellCall : A tool call that executes one or more shell commands in a managed environment.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionShellCall {
     /// The type of the item. Always `shell_call`.
     #[serde(rename = "type")]
@@ -27,6 +27,8 @@ pub struct FunctionShellCall {
     pub action: Box<models::FunctionShellAction>,
     #[serde(rename = "status")]
     pub status: models::LocalShellCallStatus,
+    #[serde(rename = "environment", deserialize_with = "Option::deserialize")]
+    pub environment: Option<Box<models::FunctionShellCallEnvironment>>,
     /// The ID of the entity that created this tool call.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -40,6 +42,7 @@ impl FunctionShellCall {
         call_id: String,
         action: models::FunctionShellAction,
         status: models::LocalShellCallStatus,
+        environment: Option<models::FunctionShellCallEnvironment>,
     ) -> FunctionShellCall {
         FunctionShellCall {
             r#type,
@@ -47,6 +50,7 @@ impl FunctionShellCall {
             call_id,
             action: Box::new(action),
             status,
+            environment: environment.map(Box::new),
             created_by: None,
         }
     }

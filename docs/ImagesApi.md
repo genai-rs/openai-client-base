@@ -5,7 +5,7 @@ All URIs are relative to *https://api.openai.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_image**](ImagesApi.md#create_image) | **POST** /images/generations | Creates an image given a prompt. [Learn more](/docs/guides/images). 
-[**create_image_edit**](ImagesApi.md#create_image_edit) | **POST** /images/edits | Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, and `gpt-image-1-mini`) and `dall-e-2`.
+[**create_image_edit**](ImagesApi.md#create_image_edit) | **POST** /images/edits | Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, `gpt-image-1-mini`, and `chatgpt-image-latest`) and `dall-e-2`.
 [**create_image_variation**](ImagesApi.md#create_image_variation) | **POST** /images/variations | Creates a variation of a given image. This endpoint only supports `dall-e-2`.
 
 
@@ -41,7 +41,7 @@ Name | Type | Description  | Required | Notes
 ## create_image_edit
 
 > models::ImagesResponse create_image_edit(image, prompt, mask, background, model, n, size, response_format, output_format, output_compression, user, input_fidelity, stream, partial_images, quality)
-Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, and `gpt-image-1-mini`) and `dall-e-2`.
+Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, `gpt-image-1-mini`, and `chatgpt-image-latest`) and `dall-e-2`.
 
 You can call this endpoint with either:  - `multipart/form-data`: use binary uploads via `image` (and optional `mask`). - `application/json`: use `images` (and optional `mask`) as references with either `image_url` or `file_id`.  Note that JSON requests use `images` (array) instead of the multipart `image` field. 
 
@@ -57,14 +57,14 @@ Name | Type | Description  | Required | Notes
 **model** | Option<**String**> |  |  |
 **n** | Option<**i32**> | The number of images to generate. Must be between 1 and 10. |  |
 **size** | Option<**String**> | The size of the generated images. Must be one of `1024x1024`, `1536x1024` (landscape), `1024x1536` (portrait), or `auto` (default value) for the GPT image models, and one of `256x256`, `512x512`, or `1024x1024` for `dall-e-2`. |  |
-**response_format** | Option<**String**> | The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. This parameter is only supported for `dall-e-2`, as the GPT image models always return base64-encoded images. |  |
+**response_format** | Option<**String**> | The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. This parameter is only supported for `dall-e-2` (default is `url` for `dall-e-2`), as GPT image models always return base64-encoded images. |  |
 **output_format** | Option<**String**> | The format in which the generated images are returned. This parameter is only supported for the GPT image models. Must be one of `png`, `jpeg`, or `webp`. The default value is `png`.  |  |
 **output_compression** | Option<**i32**> | The compression level (0-100%) for the generated images. This parameter is only supported for the GPT image models with the `webp` or `jpeg` output formats, and defaults to 100.  |  |
 **user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](/docs/guides/safety-best-practices#end-user-ids).  |  |
 **input_fidelity** | Option<[**models::InputFidelity**](InputFidelity.md)> |  |  |
 **stream** | Option<**bool**> | Edit the image in streaming mode. Defaults to `false`. See the [Image generation guide](/docs/guides/image-generation) for more information.  |  |
 **partial_images** | Option<**i32**> | The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.  |  |
-**quality** | Option<**String**> | The quality of the image that will be generated. `high`, `medium` and `low` are only supported for the GPT image models. `dall-e-2` only supports `standard` quality. Defaults to `auto`.  |  |
+**quality** | Option<**String**> | The quality of the image that will be generated for GPT image models. Defaults to `auto`.  |  |
 
 ### Return type
 

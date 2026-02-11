@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **r#type** | **String** | The type of the item. Always `shell_call`. | 
 **action** | [**models::FunctionShellActionParam**](FunctionShellActionParam.md) |  | 
 **status** | Option<[**models::FunctionShellCallItemStatus**](FunctionShellCallItemStatus.md)> |  | [optional]
+**environment** | Option<[**models::FunctionShellCallItemParamEnvironment**](FunctionShellCallItemParam_environment.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
