@@ -27,6 +27,8 @@ pub struct AutoCodeInterpreterToolParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub memory_limit: Option<Option<models::ContainerMemoryLimit>>,
+    #[serde(rename = "network_policy", skip_serializing_if = "Option::is_none")]
+    pub network_policy: Option<Box<models::AutoCodeInterpreterToolParamNetworkPolicy>>,
 }
 
 impl AutoCodeInterpreterToolParam {
@@ -36,6 +38,7 @@ impl AutoCodeInterpreterToolParam {
             r#type,
             file_ids: None,
             memory_limit: None,
+            network_policy: None,
         }
     }
 }

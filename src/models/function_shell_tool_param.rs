@@ -17,12 +17,22 @@ pub struct FunctionShellToolParam {
     /// The type of the shell tool. Always `shell`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    #[serde(
+        rename = "environment",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub environment: Option<Option<Box<models::FunctionShellToolParamEnvironment>>>,
 }
 
 impl FunctionShellToolParam {
     /// A tool that allows the model to execute shell commands.
     pub fn new(r#type: Type) -> FunctionShellToolParam {
-        FunctionShellToolParam { r#type }
+        FunctionShellToolParam {
+            r#type,
+            environment: None,
+        }
     }
 }
 /// The type of the shell tool. Always `shell`.

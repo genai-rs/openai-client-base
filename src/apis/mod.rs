@@ -149,6 +149,7 @@ pub mod projects_api;
 pub mod realtime_api;
 pub mod responses_api;
 pub mod roles_api;
+pub mod skills_api;
 pub mod uploads_api;
 pub mod usage_api;
 pub mod user_organization_role_assignments_api;

@@ -2566,7 +2566,9 @@ paths:
                     - /v1/embeddings
                     - /v1/completions
                     - /v1/moderations
-                  description: The endpoint to be used for all requests in the batch. Currently `/v1/responses`, `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`, and `/v1/moderations` are supported. Note that `/v1/embeddings` batches are also restricted to a maximum of 50,000 embedding inputs across all requests in the batch.
+                    - /v1/images/generations
+                    - /v1/images/edits
+                  description: The endpoint to be used for all requests in the batch. Currently `/v1/responses`, `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`, `/v1/moderations`, `/v1/images/generations`, and `/v1/images/edits` are supported. Note that `/v1/embeddings` batches are also restricted to a maximum of 50,000 embedding inputs across all requests in the batch.
                 completion_window:
                   type: string
                   enum:
@@ -12851,7 +12853,7 @@ paths:
       operationId: createImageEdit
       tags:
         - Images
-      summary: Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, and `gpt-image-1-mini`) and `dall-e-2`.
+      summary: Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, `gpt-image-1-mini`, and `chatgpt-image-latest`) and `dall-e-2`.
       description: >
         You can call this endpoint with either:
 
@@ -12875,7 +12877,7 @@ paths:
               multipart_edit:
                 summary: Multipart form upload (binary image + prompt)
                 value:
-                  model: gpt-image-1
+                  model: gpt-image-1.5
                   prompt: Add a watercolor effect to this image
                   image: <binary image file>
                   size: 1024x1024
@@ -12887,7 +12889,7 @@ paths:
               json_with_url:
                 summary: JSON request with image URL
                 value:
-                  model: gpt-image-1
+                  model: gpt-image-1.5
                   prompt: Add a watercolor effect to this image
                   images:
                     - image_url: https://example.com/source-image.png
@@ -30686,6 +30688,1163 @@ paths:
                 "total_tokens": 577
               }
             }
+  /skills:
+    post:
+      tags:
+        - Skills
+      summary: Create Skill
+      description: Create a new skill.
+      operationId: CreateSkill
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/CreateSkillBody"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSkillBody"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkillResource"
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              const skill = await client.skills.create();
+
+              console.log(skill.id);
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              skill = client.skills.create()
+              print(skill.id)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	skill, err := client.Skills.New(context.TODO(), openai.SkillNewParams{})
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", skill.ID)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.skills.Skill;
+              import com.openai.models.skills.SkillCreateParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      Skill skill = client.skills().create();
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              skill = openai.skills.create
+
+              puts(skill)
+    get:
+      tags:
+        - Skills
+      summary: List Skills
+      description: List all skills for the current project.
+      operationId: ListSkills
+      parameters:
+        - name: limit
+          in: query
+          description: Number of items to retrieve
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+        - name: order
+          in: query
+          description: Sort order of results by timestamp. Use `asc` for ascending order or `desc` for descending order.
+          required: false
+          schema:
+            $ref: "#/components/schemas/OrderEnum"
+        - name: after
+          in: query
+          description: Identifier for the last item from the previous pagination request
+          required: false
+          schema:
+            description: Identifier for the last item from the previous pagination request
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkillListResource"
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              // Automatically fetches more pages as needed.
+              for await (const skill of client.skills.list()) {
+                console.log(skill.id);
+              }
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              page = client.skills.list()
+              page = page.data[0]
+              print(page.id)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	page, err := client.Skills.List(context.TODO(), openai.SkillListParams{})
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", page)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.skills.SkillListPage;
+              import com.openai.models.skills.SkillListParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      SkillListPage page = client.skills().list();
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              page = openai.skills.list
+
+              puts(page)
+  /skills/{skill_id}:
+    delete:
+      tags:
+        - Skills
+      summary: Delete Skill
+      description: Delete a skill by its ID.
+      operationId: DeleteSkill
+      parameters:
+        - name: skill_id
+          in: path
+          description: The identifier of the skill to delete.
+          required: true
+          schema:
+            example: skill_123
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeletedSkillResource"
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              const deletedSkill = await client.skills.delete('skill_123');
+
+              console.log(deletedSkill.id);
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              deleted_skill = client.skills.delete(
+                  "skill_123",
+              )
+              print(deleted_skill.id)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	deletedSkill, err := client.Skills.Delete(context.TODO(), "skill_123")
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", deletedSkill.ID)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.skills.DeletedSkill;
+              import com.openai.models.skills.SkillDeleteParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      DeletedSkill deletedSkill = client.skills().delete("skill_123");
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              deleted_skill = openai.skills.delete("skill_123")
+
+              puts(deleted_skill)
+    get:
+      tags:
+        - Skills
+      summary: Get Skill
+      description: Get a skill by its ID.
+      operationId: GetSkill
+      parameters:
+        - name: skill_id
+          in: path
+          description: The identifier of the skill to retrieve.
+          required: true
+          schema:
+            example: skill_123
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkillResource"
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              const skill = await client.skills.retrieve('skill_123');
+
+              console.log(skill.id);
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              skill = client.skills.retrieve(
+                  "skill_123",
+              )
+              print(skill.id)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	skill, err := client.Skills.Get(context.TODO(), "skill_123")
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", skill.ID)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.skills.Skill;
+              import com.openai.models.skills.SkillRetrieveParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      Skill skill = client.skills().retrieve("skill_123");
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              skill = openai.skills.retrieve("skill_123")
+
+              puts(skill)
+    post:
+      tags:
+        - Skills
+      summary: Update Skill Default Version
+      description: Update the default version pointer for a skill.
+      operationId: UpdateSkillDefaultVersion
+      parameters:
+        - name: skill_id
+          in: path
+          description: The identifier of the skill.
+          required: true
+          schema:
+            example: skill_123
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetDefaultSkillVersionBody"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/SetDefaultSkillVersionBody"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkillResource"
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              const skill = await client.skills.update('skill_123', { default_version: 'default_version' });
+
+              console.log(skill.id);
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              skill = client.skills.update(
+                  skill_id="skill_123",
+                  default_version="default_version",
+              )
+              print(skill.id)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	skill, err := client.Skills.Update(
+              		context.TODO(),
+              		"skill_123",
+              		openai.SkillUpdateParams{
+              			DefaultVersion: "default_version",
+              		},
+              	)
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", skill.ID)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.skills.Skill;
+              import com.openai.models.skills.SkillUpdateParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      SkillUpdateParams params = SkillUpdateParams.builder()
+                          .skillId("skill_123")
+                          .defaultVersion("default_version")
+                          .build();
+                      Skill skill = client.skills().update(params);
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              skill = openai.skills.update("skill_123", default_version: "default_version")
+
+              puts(skill)
+  /skills/{skill_id}/content:
+    get:
+      tags:
+        - Skills
+      summary: Get Skill Content
+      description: Download a skill zip bundle by its ID.
+      operationId: GetSkillContent
+      parameters:
+        - name: skill_id
+          in: path
+          description: The identifier of the skill to download.
+          required: true
+          schema:
+            example: skill_123
+            type: string
+      responses:
+        "200":
+          description: The skill zip bundle.
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                type: string
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              const content = await client.skills.content.retrieve('skill_123');
+
+              console.log(content);
+
+              const data = await content.blob();
+              console.log(data);
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              content = client.skills.content.retrieve(
+                  "skill_123",
+              )
+              print(content)
+              data = content.read()
+              print(data)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	content, err := client.Skills.Content.Get(context.TODO(), "skill_123")
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", content)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.core.http.HttpResponse;
+              import com.openai.models.skills.content.ContentRetrieveParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      HttpResponse content = client.skills().content().retrieve("skill_123");
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              content = openai.skills.content.retrieve("skill_123")
+
+              puts(content)
+  /skills/{skill_id}/versions:
+    post:
+      tags:
+        - Skills
+      summary: Create Skill Version
+      description: Create a new immutable skill version.
+      operationId: CreateSkillVersion
+      parameters:
+        - name: skill_id
+          in: path
+          description: The identifier of the skill to version.
+          required: true
+          schema:
+            example: skill_123
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/CreateSkillVersionBody"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSkillVersionBody"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkillVersionResource"
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              const skillVersion = await client.skills.versions.create('skill_123');
+
+              console.log(skillVersion.id);
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              skill_version = client.skills.versions.create(
+                  skill_id="skill_123",
+              )
+              print(skill_version.id)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	skillVersion, err := client.Skills.Versions.New(
+              		context.TODO(),
+              		"skill_123",
+              		openai.SkillVersionNewParams{},
+              	)
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", skillVersion.ID)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.skills.versions.SkillVersion;
+              import com.openai.models.skills.versions.VersionCreateParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      SkillVersion skillVersion = client.skills().versions().create("skill_123");
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              skill_version = openai.skills.versions.create("skill_123")
+
+              puts(skill_version)
+    get:
+      tags:
+        - Skills
+      summary: List Skill Versions
+      description: List skill versions for a skill.
+      operationId: ListSkillVersions
+      parameters:
+        - name: skill_id
+          in: path
+          description: The identifier of the skill.
+          required: true
+          schema:
+            example: skill_123
+            type: string
+        - name: limit
+          in: query
+          description: Number of versions to retrieve.
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+        - name: order
+          in: query
+          description: Sort order of results by version number.
+          required: false
+          schema:
+            $ref: "#/components/schemas/OrderEnum"
+        - name: after
+          in: query
+          description: The skill version ID to start after.
+          required: false
+          schema:
+            example: skillver_123
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkillVersionListResource"
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              // Automatically fetches more pages as needed.
+              for await (const skillVersion of client.skills.versions.list('skill_123')) {
+                console.log(skillVersion.id);
+              }
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              page = client.skills.versions.list(
+                  skill_id="skill_123",
+              )
+              page = page.data[0]
+              print(page.id)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	page, err := client.Skills.Versions.List(
+              		context.TODO(),
+              		"skill_123",
+              		openai.SkillVersionListParams{},
+              	)
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", page)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.skills.versions.VersionListPage;
+              import com.openai.models.skills.versions.VersionListParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      VersionListPage page = client.skills().versions().list("skill_123");
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              page = openai.skills.versions.list("skill_123")
+
+              puts(page)
+  /skills/{skill_id}/versions/{version}:
+    get:
+      tags:
+        - Skills
+      summary: Get Skill Version
+      description: Get a specific skill version.
+      operationId: GetSkillVersion
+      parameters:
+        - name: skill_id
+          in: path
+          description: The identifier of the skill.
+          required: true
+          schema:
+            example: skill_123
+            type: string
+        - name: version
+          in: path
+          description: The version number to retrieve.
+          required: true
+          schema:
+            description: The version number to retrieve.
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SkillVersionResource"
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              const skillVersion = await client.skills.versions.retrieve('version', { skill_id: 'skill_123' });
+
+              console.log(skillVersion.id);
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              skill_version = client.skills.versions.retrieve(
+                  version="version",
+                  skill_id="skill_123",
+              )
+              print(skill_version.id)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	skillVersion, err := client.Skills.Versions.Get(
+              		context.TODO(),
+              		"skill_123",
+              		"version",
+              	)
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", skillVersion.ID)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.skills.versions.SkillVersion;
+              import com.openai.models.skills.versions.VersionRetrieveParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      VersionRetrieveParams params = VersionRetrieveParams.builder()
+                          .skillId("skill_123")
+                          .version("version")
+                          .build();
+                      SkillVersion skillVersion = client.skills().versions().retrieve(params);
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              skill_version = openai.skills.versions.retrieve("version", skill_id: "skill_123")
+
+              puts(skill_version)
+    delete:
+      tags:
+        - Skills
+      summary: Delete Skill Version
+      description: Delete a skill version.
+      operationId: DeleteSkillVersion
+      parameters:
+        - name: skill_id
+          in: path
+          description: The identifier of the skill.
+          required: true
+          schema:
+            example: skill_123
+            type: string
+        - name: version
+          in: path
+          description: The skill version number.
+          required: true
+          schema:
+            description: The skill version number.
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeletedSkillVersionResource"
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              const deletedSkillVersion = await client.skills.versions.delete('version', {
+                skill_id: 'skill_123',
+              });
+
+              console.log(deletedSkillVersion.id);
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              deleted_skill_version = client.skills.versions.delete(
+                  version="version",
+                  skill_id="skill_123",
+              )
+              print(deleted_skill_version.id)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	deletedSkillVersion, err := client.Skills.Versions.Delete(
+              		context.TODO(),
+              		"skill_123",
+              		"version",
+              	)
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", deletedSkillVersion.ID)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.models.skills.versions.DeletedSkillVersion;
+              import com.openai.models.skills.versions.VersionDeleteParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      VersionDeleteParams params = VersionDeleteParams.builder()
+                          .skillId("skill_123")
+                          .version("version")
+                          .build();
+                      DeletedSkillVersion deletedSkillVersion = client.skills().versions().delete(params);
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              deleted_skill_version = openai.skills.versions.delete("version", skill_id: "skill_123")
+
+              puts(deleted_skill_version)
+  /skills/{skill_id}/versions/{version}/content:
+    get:
+      tags:
+        - Skills
+      summary: Get Skill Version Content
+      description: Download a skill version zip bundle.
+      operationId: GetSkillVersionContent
+      parameters:
+        - name: skill_id
+          in: path
+          description: The identifier of the skill.
+          required: true
+          schema:
+            example: skill_123
+            type: string
+        - name: version
+          in: path
+          description: The skill version number.
+          required: true
+          schema:
+            description: The skill version number.
+            type: string
+      responses:
+        "200":
+          description: The skill zip bundle.
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                type: string
+      x-oaiMeta:
+        examples:
+          response: ""
+          request:
+            node.js: |-
+              import OpenAI from 'openai';
+
+              const client = new OpenAI({
+                apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+              });
+
+              const content = await client.skills.versions.content.retrieve('version', { skill_id: 'skill_123' });
+
+              console.log(content);
+
+              const data = await content.blob();
+              console.log(data);
+            python: |-
+              import os
+              from openai import OpenAI
+
+              client = OpenAI(
+                  api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+              )
+              content = client.skills.versions.content.retrieve(
+                  version="version",
+                  skill_id="skill_123",
+              )
+              print(content)
+              data = content.read()
+              print(data)
+            go: |
+              package main
+
+              import (
+              	"context"
+              	"fmt"
+
+              	"github.com/openai/openai-go"
+              	"github.com/openai/openai-go/option"
+              )
+
+              func main() {
+              	client := openai.NewClient(
+              		option.WithAPIKey("My API Key"),
+              	)
+              	content, err := client.Skills.Versions.Content.Get(
+              		context.TODO(),
+              		"skill_123",
+              		"version",
+              	)
+              	if err != nil {
+              		panic(err.Error())
+              	}
+              	fmt.Printf("%+v\n", content)
+              }
+            java: |-
+              package com.openai.example;
+
+              import com.openai.client.OpenAIClient;
+              import com.openai.client.okhttp.OpenAIOkHttpClient;
+              import com.openai.core.http.HttpResponse;
+              import com.openai.models.skills.versions.content.ContentRetrieveParams;
+
+              public final class Main {
+                  private Main() {}
+
+                  public static void main(String[] args) {
+                      OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+                      ContentRetrieveParams params = ContentRetrieveParams.builder()
+                          .skillId("skill_123")
+                          .version("version")
+                          .build();
+                      HttpResponse content = client.skills().versions().content().retrieve(params);
+                  }
+              }
+            ruby: |-
+              require "openai"
+
+              openai = OpenAI::Client.new(api_key: "My API Key")
+
+              content = openai.skills.versions.content.retrieve("version", skill_id: "skill_123")
+
+              puts(content)
   /chatkit/sessions/{session_id}/cancel:
     post:
       summary: Cancel a ChatKit session
@@ -33513,7 +34672,7 @@ components:
           x-stainless-const: true
         url:
           type: string
-          description: The OpenAI API relative URL to be used for the request. Currently `/v1/responses`, `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`, and `/v1/moderations` are supported.
+          description: The OpenAI API relative URL to be used for the request. Currently `/v1/responses`, `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`, `/v1/moderations`, `/v1/images/generations`, and `/v1/images/edits` are supported.
       x-oaiMeta:
         name: The request input object
         example: >
@@ -37830,6 +38989,9 @@ components:
 
             file less than 50MB. You can provide up to 16 images.
 
+            `chatgpt-image-latest` follows the same input constraints as GPT
+            image models.
+
 
             For `dall-e-2`, you can only provide one image, and it should be a
             square
@@ -37879,12 +39041,13 @@ components:
                 - dall-e-2
                 - gpt-image-1
                 - gpt-image-1-mini
+                - chatgpt-image-latest
               x-stainless-const: true
           x-oaiTypeLabel: string
-          default: dall-e-2
+          default: gpt-image-1.5
           example: gpt-image-1.5
           nullable: true
-          description: The model to use for image generation. Only `dall-e-2` and the GPT image models are supported. Defaults to `dall-e-2` unless a parameter specific to the GPT image models is used.
+          description: The model to use for image generation. Defaults to `gpt-image-1.5`.
         n:
           type: integer
           minimum: 1
@@ -37911,10 +39074,9 @@ components:
           enum:
             - url
             - b64_json
-          default: url
           example: url
           nullable: true
-          description: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. This parameter is only supported for `dall-e-2`, as the GPT image models always return base64-encoded images.
+          description: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. This parameter is only supported for `dall-e-2` (default is `url` for `dall-e-2`), as GPT image models always return base64-encoded images.
         output_format:
           type: string
           enum:
@@ -37980,9 +39142,8 @@ components:
           example: high
           nullable: true
           description: >
-            The quality of the image that will be generated. `high`, `medium`
-            and `low` are only supported for the GPT image models. `dall-e-2`
-            only supports `standard` quality. Defaults to `auto`.
+            The quality of the image that will be generated for GPT image
+            models. Defaults to `auto`.
       required:
         - prompt
         - image
@@ -40276,6 +41437,9 @@ components:
 
         You can reference images via external URLs, data URLs, or uploaded file
         IDs.
+
+        JSON edits support GPT image models only; DALL-E edits require multipart
+        (`dall-e-2` only).
       properties:
         model:
           anyOf:
@@ -40285,7 +41449,7 @@ components:
                 - gpt-image-1.5
                 - gpt-image-1
                 - gpt-image-1-mini
-                - dall-e-2
+                - chatgpt-image-latest
             - type: "null"
           x-oaiTypeLabel: string
           default: gpt-image-1.5
@@ -40321,7 +41485,6 @@ components:
           anyOf:
             - type: string
               enum:
-                - standard
                 - low
                 - medium
                 - high
@@ -40329,11 +41492,8 @@ components:
             - type: "null"
           default: auto
           example: high
-          description: >
-            Output quality. `high`, `medium`, and `low` are only supported for
-            GPT image models.
-
-            `dall-e-2` supports `standard`.
+          description: |
+            Output quality for GPT image models.
         input_fidelity:
           anyOf:
             - type: string
@@ -40347,8 +41507,6 @@ components:
             - type: string
               enum:
                 - auto
-                - 256x256
-                - 512x512
                 - 1024x1024
                 - 1536x1024
                 - 1024x1536
@@ -66517,6 +67675,37 @@ components:
         - in_progress
         - completed
         - incomplete
+    LocalEnvironmentResource:
+      properties:
+        type:
+          type: string
+          enum:
+            - local
+          description: The environment type. Always `local`.
+          default: local
+          x-stainless-const: true
+      type: object
+      required:
+        - type
+      title: Local Environment
+      description: Represents the use of a local environment to perform shell actions.
+    ContainerReferenceResource:
+      properties:
+        type:
+          type: string
+          enum:
+            - container_reference
+          description: The environment type. Always `container_reference`.
+          default: container_reference
+          x-stainless-const: true
+        container_id:
+          type: string
+      type: object
+      required:
+        - type
+        - container_id
+      title: Container Reference
+      description: Represents a container created with /v1/containers.
     FunctionShellCall:
       properties:
         type:
@@ -66538,6 +67727,14 @@ components:
         status:
           $ref: "#/components/schemas/LocalShellCallStatus"
           description: The status of the shell call. One of `in_progress`, `completed`, or `incomplete`.
+        environment:
+          anyOf:
+            - oneOf:
+                - $ref: "#/components/schemas/LocalEnvironmentResource"
+                - $ref: "#/components/schemas/ContainerReferenceResource"
+              discriminator:
+                propertyName: type
+            - type: "null"
         created_by:
           type: string
           description: The ID of the entity that created this tool call.
@@ -66548,6 +67745,7 @@ components:
         - call_id
         - action
         - status
+        - environment
       title: Shell tool call
       description: A tool call that executes one or more shell commands in a managed environment.
     LocalShellCallOutputStatusEnum:
@@ -67050,6 +68248,57 @@ components:
         - incomplete
       title: Shell call status
       description: Status values reported for shell tool calls.
+    LocalSkillParam:
+      properties:
+        name:
+          type: string
+          description: The name of the skill.
+        description:
+          type: string
+          description: The description of the skill.
+        path:
+          type: string
+          description: The path to the directory containing the skill.
+      type: object
+      required:
+        - name
+        - description
+        - path
+    LocalEnvironmentParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - local
+          description: Use a local computer environment.
+          default: local
+          x-stainless-const: true
+        skills:
+          items:
+            $ref: "#/components/schemas/LocalSkillParam"
+          type: array
+          maxItems: 200
+          description: An optional list of skills.
+      type: object
+      required:
+        - type
+    ContainerReferenceParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - container_reference
+          description: References a container created with the /v1/containers endpoint
+          default: container_reference
+          x-stainless-const: true
+        container_id:
+          type: string
+          description: The ID of the referenced container.
+          example: cntr_123
+      type: object
+      required:
+        - type
+        - container_id
     FunctionShellCallItemParam:
       properties:
         id:
@@ -67077,6 +68326,15 @@ components:
           anyOf:
             - $ref: "#/components/schemas/FunctionShellCallItemStatus"
               description: The status of the shell call. One of `in_progress`, `completed`, or `incomplete`.
+            - type: "null"
+        environment:
+          anyOf:
+            - oneOf:
+                - $ref: "#/components/schemas/LocalEnvironmentParam"
+                - $ref: "#/components/schemas/ContainerReferenceParam"
+              description: The environment to execute the shell commands in.
+              discriminator:
+                propertyName: type
             - type: "null"
       type: object
       required:
@@ -67537,6 +68795,63 @@ components:
         - 4g
         - 16g
         - 64g
+    ContainerNetworkPolicyDisabledParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - disabled
+          description: Disable outbound network access. Always `disabled`.
+          default: disabled
+          x-stainless-const: true
+      type: object
+      required:
+        - type
+    ContainerNetworkPolicyDomainSecretParam:
+      properties:
+        domain:
+          type: string
+          minLength: 1
+          description: The domain associated with the secret.
+        name:
+          type: string
+          minLength: 1
+          description: The name of the secret to inject for the domain.
+        value:
+          type: string
+          maxLength: 10485760
+          minLength: 1
+          description: The secret value to inject for the domain.
+      type: object
+      required:
+        - domain
+        - name
+        - value
+    ContainerNetworkPolicyAllowlistParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - allowlist
+          description: Allow outbound network access only to specified domains. Always `allowlist`.
+          default: allowlist
+          x-stainless-const: true
+        allowed_domains:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          description: A list of allowed domains when type is `allowlist`.
+        domain_secrets:
+          items:
+            $ref: "#/components/schemas/ContainerNetworkPolicyDomainSecretParam"
+          type: array
+          minItems: 1
+          description: Optional domain-scoped secrets for allowlisted domains.
+      type: object
+      required:
+        - type
+        - allowed_domains
     AutoCodeInterpreterToolParam:
       properties:
         type:
@@ -67558,6 +68873,13 @@ components:
             - $ref: "#/components/schemas/ContainerMemoryLimit"
               description: The memory limit for the code interpreter container.
             - type: "null"
+        network_policy:
+          oneOf:
+            - $ref: "#/components/schemas/ContainerNetworkPolicyDisabledParam"
+            - $ref: "#/components/schemas/ContainerNetworkPolicyAllowlistParam"
+          description: Network access policy for the container.
+          discriminator:
+            propertyName: type
       type: object
       required:
         - type
@@ -67589,6 +68911,119 @@ components:
         - type
       title: Local shell tool
       description: A tool that allows the model to execute shell commands in a local environment.
+    SkillReferenceParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - skill_reference
+          description: References a skill created with the /v1/skills endpoint.
+          default: skill_reference
+          x-stainless-const: true
+        skill_id:
+          type: string
+          maxLength: 64
+          minLength: 1
+          description: The ID of the referenced skill.
+        version:
+          type: string
+          description: Optional skill version. Use a positive integer or 'latest'. Omit for default.
+      type: object
+      required:
+        - type
+        - skill_id
+    InlineSkillSourceParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - base64
+          description: The type of the inline skill source. Must be `base64`.
+          default: base64
+          x-stainless-const: true
+        media_type:
+          type: string
+          enum:
+            - application/zip
+          description: The media type of the inline skill payload. Must be `application/zip`.
+          default: application/zip
+          x-stainless-const: true
+        data:
+          type: string
+          maxLength: 70254592
+          minLength: 1
+          description: Base64-encoded skill zip bundle.
+      type: object
+      required:
+        - type
+        - media_type
+        - data
+      description: Inline skill payload
+    InlineSkillParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - inline
+          description: Defines an inline skill for this request.
+          default: inline
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the skill.
+        description:
+          type: string
+          description: The description of the skill.
+        source:
+          $ref: "#/components/schemas/InlineSkillSourceParam"
+          description: Inline skill payload
+      type: object
+      required:
+        - type
+        - name
+        - description
+        - source
+    ContainerAutoParam:
+      properties:
+        type:
+          type: string
+          enum:
+            - container_auto
+          description: Automatically creates a container for this request
+          default: container_auto
+          x-stainless-const: true
+        file_ids:
+          items:
+            type: string
+            example: file-123
+          type: array
+          maxItems: 50
+          description: An optional list of uploaded files to make available to your code.
+        memory_limit:
+          anyOf:
+            - $ref: "#/components/schemas/ContainerMemoryLimit"
+              description: The memory limit for the container.
+            - type: "null"
+        network_policy:
+          oneOf:
+            - $ref: "#/components/schemas/ContainerNetworkPolicyDisabledParam"
+            - $ref: "#/components/schemas/ContainerNetworkPolicyAllowlistParam"
+          description: Network access policy for the container.
+          discriminator:
+            propertyName: type
+        skills:
+          items:
+            oneOf:
+              - $ref: "#/components/schemas/SkillReferenceParam"
+              - $ref: "#/components/schemas/InlineSkillParam"
+            discriminator:
+              propertyName: type
+          type: array
+          maxItems: 200
+          description: An optional list of skills referenced by id or inline data.
+      type: object
+      required:
+        - type
     FunctionShellToolParam:
       properties:
         type:
@@ -67598,6 +69033,15 @@ components:
           description: The type of the shell tool. Always `shell`.
           default: shell
           x-stainless-const: true
+        environment:
+          anyOf:
+            - oneOf:
+                - $ref: "#/components/schemas/ContainerAutoParam"
+                - $ref: "#/components/schemas/LocalEnvironmentParam"
+                - $ref: "#/components/schemas/ContainerReferenceParam"
+              discriminator:
+                propertyName: type
+            - type: "null"
       type: object
       required:
         - type
@@ -68369,6 +69813,233 @@ components:
           input_tokens: 42897
           output_tokens: 12000
           total_tokens: 54912
+    SkillResource:
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the skill.
+        object:
+          type: string
+          enum:
+            - skill
+          description: The object type, which is `skill`.
+          default: skill
+          x-stainless-const: true
+        name:
+          type: string
+          description: Name of the skill.
+        description:
+          type: string
+          description: Description of the skill.
+        created_at:
+          type: integer
+          description: Unix timestamp (seconds) for when the skill was created.
+        default_version:
+          type: string
+          description: Default version for the skill.
+        latest_version:
+          type: string
+          description: Latest version for the skill.
+      type: object
+      required:
+        - id
+        - object
+        - name
+        - description
+        - created_at
+        - default_version
+        - latest_version
+    SkillListResource:
+      properties:
+        object:
+          type: string
+          enum:
+            - list
+          description: The type of object returned, must be `list`.
+          default: list
+          x-stainless-const: true
+        data:
+          items:
+            $ref: "#/components/schemas/SkillResource"
+          type: array
+          description: A list of items
+        first_id:
+          anyOf:
+            - type: string
+              description: The ID of the first item in the list.
+            - type: "null"
+        last_id:
+          anyOf:
+            - type: string
+              description: The ID of the last item in the list.
+            - type: "null"
+        has_more:
+          type: boolean
+          description: Whether there are more items available.
+      type: object
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+    CreateSkillBody:
+      properties:
+        files:
+          oneOf:
+            - items:
+                type: string
+                format: binary
+              type: array
+              maxItems: 500
+              description: Skill files to upload (directory upload) or a single zip file.
+            - type: string
+              format: binary
+              description: Skill zip file to upload.
+      type: object
+      required:
+        - files
+      title: Create skill request
+      description: Uploads a skill either as a directory (multipart `files[]`) or as a single zip file.
+    SetDefaultSkillVersionBody:
+      properties:
+        default_version:
+          type: string
+          description: The skill version number to set as default.
+      type: object
+      required:
+        - default_version
+      title: Update skill request
+      description: Updates the default version pointer for a skill.
+    DeletedSkillResource:
+      properties:
+        object:
+          type: string
+          enum:
+            - skill.deleted
+          default: skill.deleted
+          x-stainless-const: true
+        deleted:
+          type: boolean
+        id:
+          type: string
+      type: object
+      required:
+        - object
+        - deleted
+        - id
+    SkillVersionResource:
+      properties:
+        object:
+          type: string
+          enum:
+            - skill.version
+          description: The object type, which is `skill.version`.
+          default: skill.version
+          x-stainless-const: true
+        id:
+          type: string
+          description: Unique identifier for the skill version.
+        skill_id:
+          type: string
+          description: Identifier of the skill for this version.
+        version:
+          type: string
+          description: Version number for this skill.
+        created_at:
+          type: integer
+          description: Unix timestamp (seconds) for when the version was created.
+        name:
+          type: string
+          description: Name of the skill version.
+        description:
+          type: string
+          description: Description of the skill version.
+      type: object
+      required:
+        - object
+        - id
+        - skill_id
+        - version
+        - created_at
+        - name
+        - description
+    SkillVersionListResource:
+      properties:
+        object:
+          type: string
+          enum:
+            - list
+          description: The type of object returned, must be `list`.
+          default: list
+          x-stainless-const: true
+        data:
+          items:
+            $ref: "#/components/schemas/SkillVersionResource"
+          type: array
+          description: A list of items
+        first_id:
+          anyOf:
+            - type: string
+              description: The ID of the first item in the list.
+            - type: "null"
+        last_id:
+          anyOf:
+            - type: string
+              description: The ID of the last item in the list.
+            - type: "null"
+        has_more:
+          type: boolean
+          description: Whether there are more items available.
+      type: object
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+    CreateSkillVersionBody:
+      properties:
+        files:
+          oneOf:
+            - items:
+                type: string
+                format: binary
+              type: array
+              maxItems: 500
+              description: Skill files to upload (directory upload) or a single zip file.
+            - type: string
+              format: binary
+              description: Skill zip file to upload.
+        default:
+          type: boolean
+          description: Whether to set this version as the default.
+      type: object
+      required:
+        - files
+      title: Create skill version request
+      description: Uploads a new immutable version of a skill.
+    DeletedSkillVersionResource:
+      properties:
+        object:
+          type: string
+          enum:
+            - skill.version.deleted
+          default: skill.version.deleted
+          x-stainless-const: true
+        deleted:
+          type: boolean
+        id:
+          type: string
+        version:
+          type: string
+          description: The deleted skill version.
+      type: object
+      required:
+        - object
+        - deleted
+        - id
+        - version
     ChatkitWorkflowTracing:
       properties:
         enabled:
@@ -70149,7 +71820,10 @@ x-oaiMeta:
       title: Batch
       description: >
         Create large batches of API requests for asynchronous processing. The
-        Batch API returns completions within 24 hours for a 50% discount.
+        Batch API supports `/v1/responses`, `/v1/chat/completions`,
+        `/v1/embeddings`, `/v1/completions`, `/v1/moderations`,
+        `/v1/images/generations`, and `/v1/images/edits`, and returns
+        completions within 24 hours for a 50% discount.
 
         Related guide: [Batch](/docs/guides/batch)
       navigationGroup: endpoints
