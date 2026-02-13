@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.0](https://github.com/genai-rs/openai-client-base/compare/v0.10.1...v0.11.0) - 2026-02-13
+
+### Fixed
+
+- remove impl Default from enums referencing non-Default types
+- resolve 9 compilation errors in Generate Client workflow
+- only hoist unions with complex types and use CamelCase names
+- skip hoisting nullable wrapper unions (anyOf with null variant)
+- hoist inline oneOf/anyOf into named schemas to prevent generator NPE
+- auto-title unnamed oneOf/anyOf variants to prevent generator NullPointerException
+
+### Other
+
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- *(deps)* Update rust patch updates
+
 ## [0.10.1](https://github.com/genai-rs/openai-client-base/compare/v0.10.0...v0.10.1) - 2026-02-08
 
 ### Other
