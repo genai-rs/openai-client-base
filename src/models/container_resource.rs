@@ -36,6 +36,8 @@ pub struct ContainerResource {
     /// The memory limit configured for the container.
     #[serde(rename = "memory_limit", skip_serializing_if = "Option::is_none")]
     pub memory_limit: Option<MemoryLimit>,
+    #[serde(rename = "network_policy", skip_serializing_if = "Option::is_none")]
+    pub network_policy: Option<Box<models::ContainerResourceNetworkPolicy>>,
 }
 
 impl ContainerResource {
@@ -55,6 +57,7 @@ impl ContainerResource {
             last_active_at: None,
             expires_after: None,
             memory_limit: None,
+            network_policy: None,
         }
     }
 }
