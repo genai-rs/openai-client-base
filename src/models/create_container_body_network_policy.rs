@@ -11,15 +11,15 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// AutoCodeInterpreterToolParamNetworkPolicy : Network access policy for the container.
+/// CreateContainerBodyNetworkPolicy : Network access policy for the container.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AutoCodeInterpreterToolParamNetworkPolicy {
+pub enum CreateContainerBodyNetworkPolicy {
     ContainerNetworkPolicyDisabledParam(Box<models::ContainerNetworkPolicyDisabledParam>),
     ContainerNetworkPolicyAllowlistParam(Box<models::ContainerNetworkPolicyAllowlistParam>),
 }
 
-impl Default for AutoCodeInterpreterToolParamNetworkPolicy {
+impl Default for CreateContainerBodyNetworkPolicy {
     fn default() -> Self {
         Self::ContainerNetworkPolicyDisabledParam(Default::default())
     }

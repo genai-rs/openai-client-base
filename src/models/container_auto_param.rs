@@ -27,10 +27,10 @@ pub struct ContainerAutoParam {
     )]
     pub memory_limit: Option<Option<models::ContainerMemoryLimit>>,
     #[serde(rename = "network_policy", skip_serializing_if = "Option::is_none")]
-    pub network_policy: Option<Box<models::AutoCodeInterpreterToolParamNetworkPolicy>>,
+    pub network_policy: Option<Box<models::CreateContainerBodyNetworkPolicy>>,
     /// An optional list of skills referenced by id or inline data.
     #[serde(rename = "skills", skip_serializing_if = "Option::is_none")]
-    pub skills: Option<Vec<models::ContainerAutoParamSkillsInner>>,
+    pub skills: Option<Vec<models::CreateContainerBodySkillsInner>>,
 }
 
 impl ContainerAutoParam {

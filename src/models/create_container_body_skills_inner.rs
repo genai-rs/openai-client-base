@@ -13,12 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum ContainerAutoParamSkillsInner {
+pub enum CreateContainerBodySkillsInner {
     SkillReferenceParam(Box<models::SkillReferenceParam>),
     InlineSkillParam(Box<models::InlineSkillParam>),
 }
 
-impl Default for ContainerAutoParamSkillsInner {
+impl Default for CreateContainerBodySkillsInner {
     fn default() -> Self {
         Self::SkillReferenceParam(Default::default())
     }
