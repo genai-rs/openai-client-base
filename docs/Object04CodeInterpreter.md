@@ -1,10 +1,10 @@
-# Object020
+# Object04CodeInterpreter
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**allowed_domains** | Option<**Vec<String>**> | Allowed domains for the search. If not provided, all domains are allowed. Subdomains of the provided domains are allowed as well.  Example: `[\"pubmed.ncbi.nlm.nih.gov\"]`  | [optional]
+**file_ids** | Option<**Vec<String>**> | A list of [file](/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

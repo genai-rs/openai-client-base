@@ -11,34 +11,23 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object012 : Occurs when a [message](/docs/api-reference/messages/object) is created.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object012 : A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object012 {
-    #[serde(rename = "event")]
-    pub event: Event,
-    #[serde(rename = "data")]
-    pub data: Box<models::MessageObject>,
+    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
+    pub code_interpreter:
+        Option<Box<models::CreateThreadAndRunRequestToolResourcesCodeInterpreter>>,
+    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
+    pub file_search: Option<Box<models::Object012FileSearch>>,
 }
 
 impl Object012 {
-    /// Occurs when a [message](/docs/api-reference/messages/object) is created.
-    pub fn new(event: Event, data: models::MessageObject) -> Object012 {
+    /// A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+    pub fn new() -> Object012 {
         Object012 {
-            event,
-            data: Box::new(data),
+            code_interpreter: None,
+            file_search: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.message.created")]
-    ThreadMessageCreated,
-}
-
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadMessageCreated
     }
 }
 

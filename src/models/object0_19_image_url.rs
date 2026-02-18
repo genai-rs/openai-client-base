@@ -11,22 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object021ImageUrl : Contains either an image URL or a data URL for a base64 encoded image.
+/// Object019ImageUrl : Contains either an image URL or a data URL for a base64 encoded image.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Object021ImageUrl {
+pub struct Object019ImageUrl {
     /// Either a URL of the image or the base64 encoded image data.
     #[serde(rename = "url")]
     pub url: String,
 }
 
-impl Object021ImageUrl {
+impl Object019ImageUrl {
     /// Contains either an image URL or a data URL for a base64 encoded image.
-    pub fn new(url: String) -> Object021ImageUrl {
-        Object021ImageUrl { url }
+    pub fn new(url: String) -> Object019ImageUrl {
+        Object019ImageUrl { url }
     }
 }
 
-impl std::fmt::Display for Object021ImageUrl {
+impl std::fmt::Display for Object019ImageUrl {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

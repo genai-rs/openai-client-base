@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The object identifier, which can be referenced in the API endpoints. | 
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the fine-tuning job was created. | 
-**error** | Option<[**models::Object010**](Object0_10.md)> |  | 
+**error** | Option<[**models::Object08**](Object0_8.md)> |  | 
 **fine_tuned_model** | Option<**String**> | The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running. | 
 **finished_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running. | 
 **hyperparameters** | [**models::FineTuningJobHyperparameters**](FineTuningJob_hyperparameters.md) |  | 

@@ -11,23 +11,35 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object014 : A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+/// Object014 : The last error associated with this run step. Will be `null` if there are no errors.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object014 {
-    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
-    pub code_interpreter:
-        Option<Box<models::CreateThreadAndRunRequestToolResourcesCodeInterpreter>>,
-    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
-    pub file_search: Option<Box<models::Object014FileSearch>>,
+    /// One of `server_error` or `rate_limit_exceeded`.
+    #[serde(rename = "code")]
+    pub code: Code,
+    /// A human-readable description of the error.
+    #[serde(rename = "message")]
+    pub message: String,
 }
 
 impl Object014 {
-    /// A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
-    pub fn new() -> Object014 {
-        Object014 {
-            code_interpreter: None,
-            file_search: None,
-        }
+    /// The last error associated with this run step. Will be `null` if there are no errors.
+    pub fn new(code: Code, message: String) -> Object014 {
+        Object014 { code, message }
+    }
+}
+/// One of `server_error` or `rate_limit_exceeded`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Code {
+    #[serde(rename = "server_error")]
+    ServerError,
+    #[serde(rename = "rate_limit_exceeded")]
+    RateLimitExceeded,
+}
+
+impl Default for Code {
+    fn default() -> Code {
+        Self::ServerError
     }
 }
 

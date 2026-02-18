@@ -6,9 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accept_realtime_call**](RealtimeApi.md#accept_realtime_call) | **POST** /realtime/calls/{call_id}/accept | Accept an incoming SIP call and configure the realtime session that will handle it.
 [**create_realtime_call**](RealtimeApi.md#create_realtime_call) | **POST** /realtime/calls | Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
-[**create_realtime_client_secret**](RealtimeApi.md#create_realtime_client_secret) | **POST** /realtime/client_secrets | Create a Realtime client secret with an associated session configuration. 
-[**create_realtime_session**](RealtimeApi.md#create_realtime_session) | **POST** /realtime/sessions | Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API. 
-[**create_realtime_transcription_session**](RealtimeApi.md#create_realtime_transcription_session) | **POST** /realtime/transcription_sessions | Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API. 
+[**create_realtime_client_secret**](RealtimeApi.md#create_realtime_client_secret) | **POST** /realtime/client_secrets | Create a Realtime client secret with an associated session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime API without leaking your main API key. You can configure a custom TTL for each client secret.  You can also attach session configuration options to the client secret, which will be applied to any sessions created using that client secret, but these can also be overridden by the client connection.  [Learn more about authentication with client secrets over WebRTC](/docs/guides/realtime-webrtc).  Returns the created client secret and the effective session object. The client secret is a string that looks like `ek_1234`. 
+[**create_realtime_session**](RealtimeApi.md#create_realtime_session) | **POST** /realtime/sessions | Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime session object, plus an ephemeral key. 
+[**create_realtime_transcription_session**](RealtimeApi.md#create_realtime_transcription_session) | **POST** /realtime/transcription_sessions | Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime transcription session object, plus an ephemeral key. 
 [**hangup_realtime_call**](RealtimeApi.md#hangup_realtime_call) | **POST** /realtime/calls/{call_id}/hangup | End an active Realtime API call, whether it was initiated over SIP or WebRTC.
 [**refer_realtime_call**](RealtimeApi.md#refer_realtime_call) | **POST** /realtime/calls/{call_id}/refer | Transfer an active SIP call to a new destination using the SIP REFER verb.
 [**reject_realtime_call**](RealtimeApi.md#reject_realtime_call) | **POST** /realtime/calls/{call_id}/reject | Decline an incoming SIP call by returning a SIP status code to the caller.
@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 ## create_realtime_client_secret
 
 > models::RealtimeCreateClientSecretResponse create_realtime_client_secret(realtime_create_client_secret_request)
-Create a Realtime client secret with an associated session configuration. 
+Create a Realtime client secret with an associated session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime API without leaking your main API key. You can configure a custom TTL for each client secret.  You can also attach session configuration options to the client secret, which will be applied to any sessions created using that client secret, but these can also be overridden by the client connection.  [Learn more about authentication with client secrets over WebRTC](/docs/guides/realtime-webrtc).  Returns the created client secret and the effective session object. The client secret is a string that looks like `ek_1234`. 
 
 ### Parameters
 
@@ -104,7 +104,7 @@ Name | Type | Description  | Required | Notes
 ## create_realtime_session
 
 > models::RealtimeSessionCreateResponse create_realtime_session(realtime_session_create_request)
-Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API. 
+Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime session object, plus an ephemeral key. 
 
 ### Parameters
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Required | Notes
 ## create_realtime_transcription_session
 
 > models::RealtimeTranscriptionSessionCreateResponse create_realtime_transcription_session(realtime_transcription_session_create_request)
-Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API. 
+Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime transcription session object, plus an ephemeral key. 
 
 ### Parameters
 

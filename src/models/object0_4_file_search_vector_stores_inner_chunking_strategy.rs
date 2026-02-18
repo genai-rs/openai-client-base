@@ -11,16 +11,16 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object06FileSearchVectorStoresInnerChunkingStrategy : The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.
+/// Object04FileSearchVectorStoresInnerChunkingStrategy : The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.
 /// The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum Object06FileSearchVectorStoresInnerChunkingStrategy {
+pub enum Object04FileSearchVectorStoresInnerChunkingStrategy {
     AutoChunkingStrategy(models::AutoChunkingStrategy),
     StaticChunkingStrategy(models::StaticChunkingStrategy),
 }
 
-impl Default for Object06FileSearchVectorStoresInnerChunkingStrategy {
+impl Default for Object04FileSearchVectorStoresInnerChunkingStrategy {
     fn default() -> Self {
         Self::AutoChunkingStrategy(Default::default())
     }

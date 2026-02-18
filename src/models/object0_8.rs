@@ -11,25 +11,27 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// Object08 : For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object08 {
-    #[serde(rename = "text_offset", skip_serializing_if = "Option::is_none")]
-    pub text_offset: Option<Vec<i32>>,
-    #[serde(rename = "token_logprobs", skip_serializing_if = "Option::is_none")]
-    pub token_logprobs: Option<Vec<f64>>,
-    #[serde(rename = "tokens", skip_serializing_if = "Option::is_none")]
-    pub tokens: Option<Vec<String>>,
-    #[serde(rename = "top_logprobs", skip_serializing_if = "Option::is_none")]
-    pub top_logprobs: Option<Vec<std::collections::HashMap<String, f64>>>,
+    /// A machine-readable error code.
+    #[serde(rename = "code")]
+    pub code: String,
+    /// A human-readable error message.
+    #[serde(rename = "message")]
+    pub message: String,
+    /// The parameter that was invalid, usually `training_file` or `validation_file`. This field will be null if the failure was not parameter-specific.
+    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
+    pub param: Option<String>,
 }
 
 impl Object08 {
-    pub fn new() -> Object08 {
+    /// For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
+    pub fn new(code: String, message: String, param: Option<String>) -> Object08 {
         Object08 {
-            text_offset: None,
-            token_logprobs: None,
-            tokens: None,
-            top_logprobs: None,
+            code,
+            message,
+            param,
         }
     }
 }

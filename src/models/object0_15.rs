@@ -11,32 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object015 : Details about why the response is incomplete.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object015 : Occurs when a [run step](/docs/api-reference/run-steps/step-object) is created.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object015 {
-    /// The reason why the response is incomplete.
-    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
-    pub reason: Option<Reason>,
+    #[serde(rename = "event")]
+    pub event: Event,
+    #[serde(rename = "data")]
+    pub data: Box<models::RunStepObject>,
 }
 
 impl Object015 {
-    /// Details about why the response is incomplete.
-    pub fn new() -> Object015 {
-        Object015 { reason: None }
+    /// Occurs when a [run step](/docs/api-reference/run-steps/step-object) is created.
+    pub fn new(event: Event, data: models::RunStepObject) -> Object015 {
+        Object015 {
+            event,
+            data: Box::new(data),
+        }
     }
 }
-/// The reason why the response is incomplete.
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Reason {
-    #[serde(rename = "max_output_tokens")]
-    MaxOutputTokens,
-    #[serde(rename = "content_filter")]
-    ContentFilter,
+pub enum Event {
+    #[serde(rename = "thread.run.step.created")]
+    ThreadRunStepCreated,
 }
 
-impl Default for Reason {
-    fn default() -> Reason {
-        Self::MaxOutputTokens
+impl Default for Event {
+    fn default() -> Event {
+        Self::ThreadRunStepCreated
     }
 }
 

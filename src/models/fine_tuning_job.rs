@@ -21,7 +21,7 @@ pub struct FineTuningJob {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
-    pub error: Option<Box<models::Object010>>,
+    pub error: Option<Box<models::Object08>>,
     /// The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "fine_tuned_model", deserialize_with = "Option::deserialize")]
     pub fine_tuned_model: Option<String>,
@@ -90,7 +90,7 @@ impl FineTuningJob {
     pub fn new(
         id: String,
         created_at: i32,
-        error: Option<models::Object010>,
+        error: Option<models::Object08>,
         fine_tuned_model: Option<String>,
         finished_at: Option<i32>,
         hyperparameters: models::FineTuningJobHyperparameters,

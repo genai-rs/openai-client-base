@@ -11,21 +11,25 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object06 : A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object06 {
-    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
-    pub code_interpreter: Option<Box<models::Object06CodeInterpreter>>,
-    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
-    pub file_search: Option<Box<models::Object06FileSearch>>,
+    #[serde(rename = "text_offset", skip_serializing_if = "Option::is_none")]
+    pub text_offset: Option<Vec<i32>>,
+    #[serde(rename = "token_logprobs", skip_serializing_if = "Option::is_none")]
+    pub token_logprobs: Option<Vec<f64>>,
+    #[serde(rename = "tokens", skip_serializing_if = "Option::is_none")]
+    pub tokens: Option<Vec<String>>,
+    #[serde(rename = "top_logprobs", skip_serializing_if = "Option::is_none")]
+    pub top_logprobs: Option<Vec<std::collections::HashMap<String, f64>>>,
 }
 
 impl Object06 {
-    /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
     pub fn new() -> Object06 {
         Object06 {
-            code_interpreter: None,
-            file_search: None,
+            text_offset: None,
+            token_logprobs: None,
+            tokens: None,
+            top_logprobs: None,
         }
     }
 }

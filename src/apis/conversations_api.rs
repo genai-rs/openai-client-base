@@ -71,7 +71,6 @@ pub enum UpdateConversationError {
     UnknownValue(serde_json::Value),
 }
 
-/// Create a conversation.
 #[bon::builder]
 pub async fn create_conversation(
     configuration: &configuration::Configuration,
@@ -199,7 +198,6 @@ pub async fn create_conversation_items(
     }
 }
 
-/// Delete a conversation. Items in the conversation will not be deleted.
 #[bon::builder]
 pub async fn delete_conversation(
     configuration: &configuration::Configuration,
@@ -309,7 +307,6 @@ pub async fn delete_conversation_item(
     }
 }
 
-/// Get a conversation
 #[bon::builder]
 pub async fn get_conversation(
     configuration: &configuration::Configuration,
@@ -523,7 +520,6 @@ pub async fn list_conversation_items(
     }
 }
 
-/// Update a conversation
 #[bon::builder]
 pub async fn update_conversation(
     configuration: &configuration::Configuration,

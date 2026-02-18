@@ -12,25 +12,25 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Object09FileSearch {
-    /// The [vector store](/docs/api-reference/vector-stores/object) attached to this thread. There can be a maximum of 1 vector store attached to the thread.
+pub struct Object04FileSearch {
+    /// The [vector store](/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
     #[serde(rename = "vector_store_ids", skip_serializing_if = "Option::is_none")]
     pub vector_store_ids: Option<Vec<String>>,
-    /// A helper to create a [vector store](/docs/api-reference/vector-stores/object) with file_ids and attach it to this thread. There can be a maximum of 1 vector store attached to the thread.
+    /// A helper to create a [vector store](/docs/api-reference/vector-stores/object) with file_ids and attach it to this assistant. There can be a maximum of 1 vector store attached to the assistant.
     #[serde(rename = "vector_stores", skip_serializing_if = "Option::is_none")]
-    pub vector_stores: Option<Vec<models::Object06FileSearchVectorStoresInner>>,
+    pub vector_stores: Option<Vec<models::Object04FileSearchVectorStoresInner>>,
 }
 
-impl Object09FileSearch {
-    pub fn new() -> Object09FileSearch {
-        Object09FileSearch {
+impl Object04FileSearch {
+    pub fn new() -> Object04FileSearch {
+        Object04FileSearch {
             vector_store_ids: None,
             vector_stores: None,
         }
     }
 }
 
-impl std::fmt::Display for Object09FileSearch {
+impl std::fmt::Display for Object04FileSearch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

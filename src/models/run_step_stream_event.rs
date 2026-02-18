@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RunStepStreamEvent {
-    Object017(serde_json::Value),
+    Object015(serde_json::Value),
     Object11(serde_json::Value),
     Object21(serde_json::Value),
     Object31(serde_json::Value),

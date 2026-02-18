@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**code_interpreter** | Option<[**models::CreateThreadAndRunRequestToolResourcesCodeInterpreter**](CreateThreadAndRunRequest_tool_resources_code_interpreter.md)> |  | [optional]
-**file_search** | Option<[**models::Object014FileSearch**](Object0_14_file_search.md)> |  | [optional]
+**code** | **String** | One of `server_error` or `rate_limit_exceeded`. | 
+**message** | **String** | A human-readable description of the error. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -11,28 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object010 : For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object010 : Occurs when a [message](/docs/api-reference/messages/object) is created.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object010 {
-    /// A machine-readable error code.
-    #[serde(rename = "code")]
-    pub code: String,
-    /// A human-readable error message.
-    #[serde(rename = "message")]
-    pub message: String,
-    /// The parameter that was invalid, usually `training_file` or `validation_file`. This field will be null if the failure was not parameter-specific.
-    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
-    pub param: Option<String>,
+    #[serde(rename = "event")]
+    pub event: Event,
+    #[serde(rename = "data")]
+    pub data: Box<models::MessageObject>,
 }
 
 impl Object010 {
-    /// For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
-    pub fn new(code: String, message: String, param: Option<String>) -> Object010 {
+    /// Occurs when a [message](/docs/api-reference/messages/object) is created.
+    pub fn new(event: Event, data: models::MessageObject) -> Object010 {
         Object010 {
-            code,
-            message,
-            param,
+            event,
+            data: Box::new(data),
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Event {
+    #[serde(rename = "thread.message.created")]
+    ThreadMessageCreated,
+}
+
+impl Default for Event {
+    fn default() -> Event {
+        Self::ThreadMessageCreated
     }
 }
 

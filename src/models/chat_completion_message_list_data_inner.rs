@@ -36,7 +36,7 @@ pub struct ChatCompletionMessageListDataInner {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub audio: Option<Option<Box<models::Object05>>>,
+    pub audio: Option<Option<Box<models::Object03>>>,
     /// The identifier of the chat message.
     #[serde(rename = "id")]
     pub id: String,

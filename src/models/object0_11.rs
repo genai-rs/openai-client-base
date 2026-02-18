@@ -11,38 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object011 : On an incomplete message, details about why the message is incomplete.
+/// Object011 : A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object011 {
-    /// The reason the message is incomplete.
-    #[serde(rename = "reason")]
-    pub reason: Reason,
+    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
+    pub code_interpreter: Option<Box<models::Object011CodeInterpreter>>,
+    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
+    pub file_search: Option<Box<models::Object011FileSearch>>,
 }
 
 impl Object011 {
-    /// On an incomplete message, details about why the message is incomplete.
-    pub fn new(reason: Reason) -> Object011 {
-        Object011 { reason }
-    }
-}
-/// The reason the message is incomplete.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Reason {
-    #[serde(rename = "content_filter")]
-    ContentFilter,
-    #[serde(rename = "max_tokens")]
-    MaxTokens,
-    #[serde(rename = "run_cancelled")]
-    RunCancelled,
-    #[serde(rename = "run_expired")]
-    RunExpired,
-    #[serde(rename = "run_failed")]
-    RunFailed,
-}
-
-impl Default for Reason {
-    fn default() -> Reason {
-        Self::ContentFilter
+    /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+    pub fn new() -> Object011 {
+        Object011 {
+            code_interpreter: None,
+            file_search: None,
+        }
     }
 }
 

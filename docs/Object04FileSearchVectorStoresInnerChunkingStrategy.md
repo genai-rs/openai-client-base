@@ -1,4 +1,4 @@
-# Object06FileSearchVectorStoresInnerChunkingStrategy
+# Object04FileSearchVectorStoresInnerChunkingStrategy
 
 ## Enum Variants
 

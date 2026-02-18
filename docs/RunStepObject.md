@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **r#type** | **String** | The type of run step, which can be either `message_creation` or `tool_calls`. | 
 **status** | **String** | The status of the run step, which can be either `in_progress`, `cancelled`, `failed`, `completed`, or `expired`. | 
 **step_details** | [**models::RunStepObjectStepDetails**](RunStepObject_step_details.md) |  | 
-**last_error** | Option<[**models::Object016**](Object0_16.md)> |  | 
+**last_error** | Option<[**models::Object014**](Object0_14.md)> |  | 
 **expired_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired. | 
 **cancelled_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step was cancelled. | 
 **failed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step failed. | 
