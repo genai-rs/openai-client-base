@@ -4,8 +4,8 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_speech**](AudioApi.md#create_speech) | **POST** /audio/speech | Generates audio from the input text.
-[**create_transcription**](AudioApi.md#create_transcription) | **POST** /audio/transcriptions | Transcribes audio into the input language.
+[**create_speech**](AudioApi.md#create_speech) | **POST** /audio/speech | Generates audio from the input text.  Returns the audio file content, or a stream of audio events. 
+[**create_transcription**](AudioApi.md#create_transcription) | **POST** /audio/transcriptions | Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, or a stream of transcript events. 
 [**create_translation**](AudioApi.md#create_translation) | **POST** /audio/translations | Translates audio into English.
 [**create_voice**](AudioApi.md#create_voice) | **POST** /audio/voices | Creates a custom voice.
 [**create_voice_consent**](AudioApi.md#create_voice_consent) | **POST** /audio/voice_consents | Upload a voice consent recording.
@@ -19,7 +19,7 @@ Method | HTTP request | Description
 ## create_speech
 
 > std::path::PathBuf create_speech(create_speech_request)
-Generates audio from the input text.
+Generates audio from the input text.  Returns the audio file content, or a stream of audio events. 
 
 ### Parameters
 
@@ -47,7 +47,7 @@ Name | Type | Description  | Required | Notes
 ## create_transcription
 
 > models::CreateTranscription200Response create_transcription(file, model, language, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references)
-Transcribes audio into the input language.
+Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, or a stream of transcript events. 
 
 ### Parameters
 

@@ -14,13 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateModerationRequestInputOneOfInner {
-    Object021(serde_json::Value),
+    Object019(serde_json::Value),
     Object14(serde_json::Value),
 }
 
 impl Default for CreateModerationRequestInputOneOfInner {
     fn default() -> Self {
-        Self::Object021(Default::default())
+        Self::Object019(Default::default())
     }
 }
 /// Always `image_url`.

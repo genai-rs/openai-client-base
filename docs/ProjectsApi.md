@@ -8,9 +8,9 @@ Method | HTTP request | Description
 [**create_project**](ProjectsApi.md#create_project) | **POST** /organization/projects | Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
 [**create_project_service_account**](ProjectsApi.md#create_project_service_account) | **POST** /organization/projects/{project_id}/service_accounts | Creates a new service account in the project. This also returns an unredacted API key for the service account.
 [**create_project_user**](ProjectsApi.md#create_project_user) | **POST** /organization/projects/{project_id}/users | Adds a user to the project. Users must already be members of the organization to be added to a project.
-[**delete_project_api_key**](ProjectsApi.md#delete_project_api_key) | **DELETE** /organization/projects/{project_id}/api_keys/{key_id} | Deletes an API key from the project.
-[**delete_project_service_account**](ProjectsApi.md#delete_project_service_account) | **DELETE** /organization/projects/{project_id}/service_accounts/{service_account_id} | Deletes a service account from the project.
-[**delete_project_user**](ProjectsApi.md#delete_project_user) | **DELETE** /organization/projects/{project_id}/users/{user_id} | Deletes a user from the project.
+[**delete_project_api_key**](ProjectsApi.md#delete_project_api_key) | **DELETE** /organization/projects/{project_id}/api_keys/{key_id} | Deletes an API key from the project.  Returns confirmation of the key deletion, or an error if the key belonged to a service account. 
+[**delete_project_service_account**](ProjectsApi.md#delete_project_service_account) | **DELETE** /organization/projects/{project_id}/service_accounts/{service_account_id} | Deletes a service account from the project.  Returns confirmation of service account deletion, or an error if the project is archived (archived projects have no service accounts). 
+[**delete_project_user**](ProjectsApi.md#delete_project_user) | **DELETE** /organization/projects/{project_id}/users/{user_id} | Deletes a user from the project.  Returns confirmation of project user deletion, or an error if the project is archived (archived projects have no users). 
 [**list_project_api_keys**](ProjectsApi.md#list_project_api_keys) | **GET** /organization/projects/{project_id}/api_keys | Returns a list of API keys in the project.
 [**list_project_rate_limits**](ProjectsApi.md#list_project_rate_limits) | **GET** /organization/projects/{project_id}/rate_limits | Returns the rate limits per model for a project.
 [**list_project_service_accounts**](ProjectsApi.md#list_project_service_accounts) | **GET** /organization/projects/{project_id}/service_accounts | Returns a list of service accounts in the project.
@@ -143,7 +143,7 @@ Name | Type | Description  | Required | Notes
 ## delete_project_api_key
 
 > models::ProjectApiKeyDeleteResponse delete_project_api_key(project_id, key_id)
-Deletes an API key from the project.
+Deletes an API key from the project.  Returns confirmation of the key deletion, or an error if the key belonged to a service account. 
 
 ### Parameters
 
@@ -172,7 +172,7 @@ Name | Type | Description  | Required | Notes
 ## delete_project_service_account
 
 > models::ProjectServiceAccountDeleteResponse delete_project_service_account(project_id, service_account_id)
-Deletes a service account from the project.
+Deletes a service account from the project.  Returns confirmation of service account deletion, or an error if the project is archived (archived projects have no service accounts). 
 
 ### Parameters
 
@@ -201,7 +201,7 @@ Name | Type | Description  | Required | Notes
 ## delete_project_user
 
 > models::ProjectUserDeleteResponse delete_project_user(project_id, user_id)
-Deletes a user from the project.
+Deletes a user from the project.  Returns confirmation of project user deletion, or an error if the project is archived (archived projects have no users). 
 
 ### Parameters
 

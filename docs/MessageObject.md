@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the message was created. | 
 **thread_id** | **String** | The [thread](/docs/api-reference/threads) ID that this message belongs to. | 
 **status** | **String** | The status of the message, which can be either `in_progress`, `incomplete`, or `completed`. | 
-**incomplete_details** | Option<[**models::Object011**](Object0_11.md)> |  | 
+**incomplete_details** | Option<[**models::Object09**](Object0_9.md)> |  | 
 **completed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the message was completed. | 
 **incomplete_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the message was marked as incomplete. | 
 **role** | **String** | The entity that produced the message. One of `user` or `assistant`. | 

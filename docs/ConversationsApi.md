@@ -20,8 +20,6 @@ Method | HTTP request | Description
 > models::ConversationResource create_conversation(create_conversation_body)
 Create a conversation.
 
-Create a conversation.
-
 ### Parameters
 
 
@@ -80,8 +78,6 @@ Name | Type | Description  | Required | Notes
 > models::DeletedConversationResource delete_conversation(conversation_id)
 Delete a conversation. Items in the conversation will not be deleted.
 
-Delete a conversation. Items in the conversation will not be deleted.
-
 ### Parameters
 
 
@@ -137,8 +133,6 @@ Name | Type | Description  | Required | Notes
 ## get_conversation
 
 > models::ConversationResource get_conversation(conversation_id)
-Get a conversation
-
 Get a conversation
 
 ### Parameters
@@ -229,8 +223,6 @@ Name | Type | Description  | Required | Notes
 ## update_conversation
 
 > models::ConversationResource update_conversation(conversation_id, update_conversation_body)
-Update a conversation
-
 Update a conversation
 
 ### Parameters

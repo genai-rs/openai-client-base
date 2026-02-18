@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **annotations** | Option<[**Vec<models::ChatCompletionResponseMessageAnnotationsInner>**](ChatCompletionResponseMessage_annotations_inner.md)> | Annotations for the message, when applicable, as when using the [web search tool](/docs/guides/tools-web-search?api-mode=chat).  | [optional]
 **role** | **String** | The role of the author of this message. | 
 **function_call** | Option<[**models::ChatCompletionResponseMessageFunctionCall**](ChatCompletionResponseMessage_function_call.md)> |  | [optional]
-**audio** | Option<[**models::Object05**](Object0_5.md)> |  | [optional]
+**audio** | Option<[**models::Object03**](Object0_3.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

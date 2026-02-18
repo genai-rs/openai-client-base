@@ -11,24 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object07 : Log probability information for the choice.
+/// Object07 : A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object07 {
-    /// A list of message content tokens with log probability information.
-    #[serde(rename = "content", deserialize_with = "Option::deserialize")]
-    pub content: Option<Vec<models::ChatCompletionTokenLogprob>>,
-    /// A list of message refusal tokens with log probability information.
-    #[serde(rename = "refusal", deserialize_with = "Option::deserialize")]
-    pub refusal: Option<Vec<models::ChatCompletionTokenLogprob>>,
+    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
+    pub code_interpreter: Option<Box<models::Object04CodeInterpreter>>,
+    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
+    pub file_search: Option<Box<models::Object07FileSearch>>,
 }
 
 impl Object07 {
-    /// Log probability information for the choice.
-    pub fn new(
-        content: Option<Vec<models::ChatCompletionTokenLogprob>>,
-        refusal: Option<Vec<models::ChatCompletionTokenLogprob>>,
-    ) -> Object07 {
-        Object07 { content, refusal }
+    /// A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+    pub fn new() -> Object07 {
+        Object07 {
+            code_interpreter: None,
+            file_search: None,
+        }
     }
 }
 

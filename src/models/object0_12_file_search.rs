@@ -12,21 +12,21 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Object014FileSearch {
+pub struct Object012FileSearch {
     /// The [vector store](/docs/api-reference/vector-stores/object) attached to this thread. There can be a maximum of 1 vector store attached to the thread.
     #[serde(rename = "vector_store_ids", skip_serializing_if = "Option::is_none")]
     pub vector_store_ids: Option<Vec<String>>,
 }
 
-impl Object014FileSearch {
-    pub fn new() -> Object014FileSearch {
-        Object014FileSearch {
+impl Object012FileSearch {
+    pub fn new() -> Object012FileSearch {
+        Object012FileSearch {
             vector_store_ids: None,
         }
     }
 }
 
-impl std::fmt::Display for Object014FileSearch {
+impl std::fmt::Display for Object012FileSearch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

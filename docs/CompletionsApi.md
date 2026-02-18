@@ -4,14 +4,14 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_completion**](CompletionsApi.md#create_completion) | **POST** /completions | Creates a completion for the provided prompt and parameters.
+[**create_completion**](CompletionsApi.md#create_completion) | **POST** /completions | Creates a completion for the provided prompt and parameters.  Returns a completion object, or a sequence of completion objects if the request is streamed. 
 
 
 
 ## create_completion
 
 > models::CreateCompletionResponse create_completion(create_completion_request)
-Creates a completion for the provided prompt and parameters.
+Creates a completion for the provided prompt and parameters.  Returns a completion object, or a sequence of completion objects if the request is streamed. 
 
 ### Parameters
 

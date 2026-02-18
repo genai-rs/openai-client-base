@@ -12,21 +12,19 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Object013FileSearch {
-    /// Overrides the [vector store](/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
-    #[serde(rename = "vector_store_ids", skip_serializing_if = "Option::is_none")]
-    pub vector_store_ids: Option<Vec<String>>,
+pub struct Object011CodeInterpreter {
+    /// Overrides the list of [file](/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.
+    #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
+    pub file_ids: Option<Vec<String>>,
 }
 
-impl Object013FileSearch {
-    pub fn new() -> Object013FileSearch {
-        Object013FileSearch {
-            vector_store_ids: None,
-        }
+impl Object011CodeInterpreter {
+    pub fn new() -> Object011CodeInterpreter {
+        Object011CodeInterpreter { file_ids: None }
     }
 }
 
-impl std::fmt::Display for Object013FileSearch {
+impl std::fmt::Display for Object011CodeInterpreter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

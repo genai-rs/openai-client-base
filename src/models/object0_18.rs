@@ -11,34 +11,25 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object018 : Occurs when a new [run](/docs/api-reference/runs/object) is created.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object018 : Filters for the search.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object018 {
-    #[serde(rename = "event")]
-    pub event: Event,
-    #[serde(rename = "data")]
-    pub data: Box<models::RunObject>,
+    /// Allowed domains for the search. If not provided, all domains are allowed. Subdomains of the provided domains are allowed as well.  Example: `[\"pubmed.ncbi.nlm.nih.gov\"]`
+    #[serde(
+        rename = "allowed_domains",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_domains: Option<Option<Vec<String>>>,
 }
 
 impl Object018 {
-    /// Occurs when a new [run](/docs/api-reference/runs/object) is created.
-    pub fn new(event: Event, data: models::RunObject) -> Object018 {
+    /// Filters for the search.
+    pub fn new() -> Object018 {
         Object018 {
-            event,
-            data: Box::new(data),
+            allowed_domains: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.run.created")]
-    ThreadRunCreated,
-}
-
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunCreated
     }
 }
 

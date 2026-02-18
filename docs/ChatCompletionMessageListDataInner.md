@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **annotations** | Option<[**Vec<models::ChatCompletionResponseMessageAnnotationsInner>**](ChatCompletionResponseMessage_annotations_inner.md)> | Annotations for the message, when applicable, as when using the [web search tool](/docs/guides/tools-web-search?api-mode=chat).  | [optional]
 **role** | **String** | The role of the author of this message. | 
 **function_call** | Option<[**models::ChatCompletionResponseMessageFunctionCall**](ChatCompletionResponseMessage_function_call.md)> |  | [optional]
-**audio** | Option<[**models::Object05**](Object0_5.md)> |  | [optional]
+**audio** | Option<[**models::Object03**](Object0_3.md)> |  | [optional]
 **id** | **String** | The identifier of the chat message. | 
 **content_parts** | Option<[**Vec<models::ChatCompletionMessageListDataInnerAllOfContentPartsInner>**](ChatCompletionMessageList_data_inner_allOf_content_parts_inner.md)> | If a content parts array was provided, this is an array of `text` and `image_url` parts. Otherwise, null.  | [optional]
 

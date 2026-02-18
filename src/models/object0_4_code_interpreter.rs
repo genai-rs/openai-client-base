@@ -12,19 +12,19 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Object06CodeInterpreter {
+pub struct Object04CodeInterpreter {
     /// A list of [file](/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
 }
 
-impl Object06CodeInterpreter {
-    pub fn new() -> Object06CodeInterpreter {
-        Object06CodeInterpreter { file_ids: None }
+impl Object04CodeInterpreter {
+    pub fn new() -> Object04CodeInterpreter {
+        Object04CodeInterpreter { file_ids: None }
     }
 }
 
-impl std::fmt::Display for Object06CodeInterpreter {
+impl std::fmt::Display for Object04CodeInterpreter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

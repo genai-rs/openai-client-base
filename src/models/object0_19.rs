@@ -11,37 +11,35 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object019 : The last error associated with this vector store file. Will be `null` if there are no errors.
+/// Object019 : An object describing an image to classify.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object019 {
-    /// One of `server_error`, `unsupported_file`, or `invalid_file`.
-    #[serde(rename = "code")]
-    pub code: Code,
-    /// A human-readable description of the error.
-    #[serde(rename = "message")]
-    pub message: String,
+    /// Always `image_url`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
+    #[serde(rename = "image_url")]
+    pub image_url: Box<models::Object019ImageUrl>,
 }
 
 impl Object019 {
-    /// The last error associated with this vector store file. Will be `null` if there are no errors.
-    pub fn new(code: Code, message: String) -> Object019 {
-        Object019 { code, message }
+    /// An object describing an image to classify.
+    pub fn new(r#type: Type, image_url: models::Object019ImageUrl) -> Object019 {
+        Object019 {
+            r#type,
+            image_url: Box::new(image_url),
+        }
     }
 }
-/// One of `server_error`, `unsupported_file`, or `invalid_file`.
+/// Always `image_url`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Code {
-    #[serde(rename = "server_error")]
-    ServerError,
-    #[serde(rename = "unsupported_file")]
-    UnsupportedFile,
-    #[serde(rename = "invalid_file")]
-    InvalidFile,
+pub enum Type {
+    #[serde(rename = "image_url")]
+    ImageUrl,
 }
 
-impl Default for Code {
-    fn default() -> Code {
-        Self::ServerError
+impl Default for Type {
+    fn default() -> Type {
+        Self::ImageUrl
     }
 }
 

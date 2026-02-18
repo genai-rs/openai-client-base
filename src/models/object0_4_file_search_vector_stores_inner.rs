@@ -12,12 +12,12 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Object06FileSearchVectorStoresInner {
+pub struct Object04FileSearchVectorStoresInner {
     /// A list of [file](/docs/api-reference/files) IDs to add to the vector store. There can be a maximum of 10000 files in a vector store.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
     #[serde(rename = "chunking_strategy", skip_serializing_if = "Option::is_none")]
-    pub chunking_strategy: Option<Box<models::Object06FileSearchVectorStoresInnerChunkingStrategy>>,
+    pub chunking_strategy: Option<Box<models::Object04FileSearchVectorStoresInnerChunkingStrategy>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",
@@ -28,9 +28,9 @@ pub struct Object06FileSearchVectorStoresInner {
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
 }
 
-impl Object06FileSearchVectorStoresInner {
-    pub fn new() -> Object06FileSearchVectorStoresInner {
-        Object06FileSearchVectorStoresInner {
+impl Object04FileSearchVectorStoresInner {
+    pub fn new() -> Object04FileSearchVectorStoresInner {
+        Object04FileSearchVectorStoresInner {
             file_ids: None,
             chunking_strategy: None,
             metadata: None,
@@ -38,7 +38,7 @@ impl Object06FileSearchVectorStoresInner {
     }
 }
 
-impl std::fmt::Display for Object06FileSearchVectorStoresInner {
+impl std::fmt::Display for Object04FileSearchVectorStoresInner {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

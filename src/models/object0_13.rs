@@ -11,22 +11,32 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object013 : A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+/// Object013 : Details about why the response is incomplete.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object013 {
-    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
-    pub code_interpreter: Option<Box<models::Object013CodeInterpreter>>,
-    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
-    pub file_search: Option<Box<models::Object013FileSearch>>,
+    /// The reason why the response is incomplete.
+    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
+    pub reason: Option<Reason>,
 }
 
 impl Object013 {
-    /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+    /// Details about why the response is incomplete.
     pub fn new() -> Object013 {
-        Object013 {
-            code_interpreter: None,
-            file_search: None,
-        }
+        Object013 { reason: None }
+    }
+}
+/// The reason why the response is incomplete.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Reason {
+    #[serde(rename = "max_output_tokens")]
+    MaxOutputTokens,
+    #[serde(rename = "content_filter")]
+    ContentFilter,
+}
+
+impl Default for Reason {
+    fn default() -> Reason {
+        Self::MaxOutputTokens
     }
 }
 

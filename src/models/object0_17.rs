@@ -11,34 +11,37 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object017 : Occurs when a [run step](/docs/api-reference/run-steps/step-object) is created.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object017 : The last error associated with this vector store file. Will be `null` if there are no errors.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object017 {
-    #[serde(rename = "event")]
-    pub event: Event,
-    #[serde(rename = "data")]
-    pub data: Box<models::RunStepObject>,
+    /// One of `server_error`, `unsupported_file`, or `invalid_file`.
+    #[serde(rename = "code")]
+    pub code: Code,
+    /// A human-readable description of the error.
+    #[serde(rename = "message")]
+    pub message: String,
 }
 
 impl Object017 {
-    /// Occurs when a [run step](/docs/api-reference/run-steps/step-object) is created.
-    pub fn new(event: Event, data: models::RunStepObject) -> Object017 {
-        Object017 {
-            event,
-            data: Box::new(data),
-        }
+    /// The last error associated with this vector store file. Will be `null` if there are no errors.
+    pub fn new(code: Code, message: String) -> Object017 {
+        Object017 { code, message }
     }
 }
-///
+/// One of `server_error`, `unsupported_file`, or `invalid_file`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.run.step.created")]
-    ThreadRunStepCreated,
+pub enum Code {
+    #[serde(rename = "server_error")]
+    ServerError,
+    #[serde(rename = "unsupported_file")]
+    UnsupportedFile,
+    #[serde(rename = "invalid_file")]
+    InvalidFile,
 }
 
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunStepCreated
+impl Default for Code {
+    fn default() -> Code {
+        Self::ServerError
     }
 }
 

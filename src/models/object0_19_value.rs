@@ -13,14 +13,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum Object021Value {
+pub enum Object019Value {
     Text(String),
     Integer(i32),
     Boolean(bool),
     Number(f64),
 }
 
-impl Default for Object021Value {
+impl Default for Object019Value {
     fn default() -> Self {
         Self::Text(Default::default())
     }

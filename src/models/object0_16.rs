@@ -11,35 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object016 : The last error associated with this run step. Will be `null` if there are no errors.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object016 : Occurs when a new [run](/docs/api-reference/runs/object) is created.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object016 {
-    /// One of `server_error` or `rate_limit_exceeded`.
-    #[serde(rename = "code")]
-    pub code: Code,
-    /// A human-readable description of the error.
-    #[serde(rename = "message")]
-    pub message: String,
+    #[serde(rename = "event")]
+    pub event: Event,
+    #[serde(rename = "data")]
+    pub data: Box<models::RunObject>,
 }
 
 impl Object016 {
-    /// The last error associated with this run step. Will be `null` if there are no errors.
-    pub fn new(code: Code, message: String) -> Object016 {
-        Object016 { code, message }
+    /// Occurs when a new [run](/docs/api-reference/runs/object) is created.
+    pub fn new(event: Event, data: models::RunObject) -> Object016 {
+        Object016 {
+            event,
+            data: Box::new(data),
+        }
     }
 }
-/// One of `server_error` or `rate_limit_exceeded`.
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Code {
-    #[serde(rename = "server_error")]
-    ServerError,
-    #[serde(rename = "rate_limit_exceeded")]
-    RateLimitExceeded,
+pub enum Event {
+    #[serde(rename = "thread.run.created")]
+    ThreadRunCreated,
 }
 
-impl Default for Code {
-    fn default() -> Code {
-        Self::ServerError
+impl Default for Event {
+    fn default() -> Event {
+        Self::ThreadRunCreated
     }
 }
 
