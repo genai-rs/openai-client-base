@@ -289,6 +289,7 @@ pub async fn create_vector_store_file(
     }
 }
 
+/// The maximum number of files in a single batch request is 2000.
 #[bon::builder]
 pub async fn create_vector_store_file_batch(
     configuration: &configuration::Configuration,
