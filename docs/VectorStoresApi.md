@@ -114,6 +114,8 @@ Name | Type | Description  | Required | Notes
 > models::VectorStoreFileBatchObject create_vector_store_file_batch(vector_store_id, create_vector_store_file_batch_request)
 Create a vector store file batch.
 
+The maximum number of files in a single batch request is 2000.
+
 ### Parameters
 
 
