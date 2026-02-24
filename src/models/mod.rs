@@ -2190,6 +2190,8 @@ pub mod response_web_search_call_in_progress_event;
 pub use self::response_web_search_call_in_progress_event::ResponseWebSearchCallInProgressEvent;
 pub mod response_web_search_call_searching_event;
 pub use self::response_web_search_call_searching_event::ResponseWebSearchCallSearchingEvent;
+pub mod responses_client_event_response_create;
+pub use self::responses_client_event_response_create::ResponsesClientEventResponseCreate;
 pub mod retention_ratio_truncation;
 pub use self::retention_ratio_truncation::RetentionRatioTruncation;
 pub mod retention_ratio_truncation_token_limits;
