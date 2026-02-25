@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **r#type** | **String** | The type of the output message. Always `message`.  | 
 **role** | **String** | The role of the output message. Always `assistant`.  | 
 **content** | [**Vec<models::OutputMessageContent>**](OutputMessageContent.md) | The content of the output message.  | 
+**phase** | Option<[**models::MessagePhase**](MessagePhase.md)> |  | [optional]
 **status** | **String** | The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

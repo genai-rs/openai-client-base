@@ -26,6 +26,13 @@ pub struct OutputMessage {
     /// The content of the output message.
     #[serde(rename = "content")]
     pub content: Vec<models::OutputMessageContent>,
+    #[serde(
+        rename = "phase",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub phase: Option<Option<models::MessagePhase>>,
     /// The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.
     #[serde(rename = "status")]
     pub status: Status,
@@ -45,6 +52,7 @@ impl OutputMessage {
             r#type,
             role,
             content,
+            phase: None,
             status,
         }
     }

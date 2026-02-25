@@ -19,6 +19,13 @@ pub struct EasyInputMessage {
     pub role: Role,
     #[serde(rename = "content")]
     pub content: Box<models::EasyInputMessageContent>,
+    #[serde(
+        rename = "phase",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub phase: Option<Option<models::MessagePhase>>,
     /// The type of the message input. Always `message`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
@@ -30,6 +37,7 @@ impl EasyInputMessage {
         EasyInputMessage {
             role,
             content: Box::new(content),
+            phase: None,
             r#type: None,
         }
     }

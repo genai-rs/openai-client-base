@@ -38,6 +38,14 @@ pub struct CompactResponseMethodPublicBody {
         skip_serializing_if = "Option::is_none"
     )]
     pub instructions: Option<Option<String>>,
+    /// A key to use when reading from or writing to the prompt cache.
+    #[serde(
+        rename = "prompt_cache_key",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_key: Option<Option<String>>,
 }
 
 impl CompactResponseMethodPublicBody {
@@ -47,6 +55,7 @@ impl CompactResponseMethodPublicBody {
             input: None,
             previous_response_id: None,
             instructions: None,
+            prompt_cache_key: None,
         }
     }
 }
