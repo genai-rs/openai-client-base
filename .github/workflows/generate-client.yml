@@ -100,6 +100,7 @@ jobs:
           fi
 
       - name: Create Pull Request
+        id: cpr
         if: steps.changes.outputs.changes == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
@@ -129,6 +130,7 @@ jobs:
           labels: |
             automated
             dependencies
+            automerge
           add-paths: |
             src/**
             docs/**
@@ -137,6 +139,13 @@ jobs:
             Cargo.lock
             stainless.yaml
             .openapi-generator-ignore
+
+      - name: Enable auto-merge for generated PR
+        if: steps.changes.outputs.changes == 'true' && steps.cpr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh pr merge "${{ steps.cpr.outputs.pull-request-number }}" --auto --rebase --delete-branch
 
       # No PAT fallback; fail early if token is missing
       - name: Assert App token present
