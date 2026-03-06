@@ -23,8 +23,11 @@ pub struct ComputerToolCall {
     /// An identifier used when responding to the tool call with output.
     #[serde(rename = "call_id")]
     pub call_id: String,
-    #[serde(rename = "action")]
-    pub action: serde_json::Value,
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    pub action: Option<serde_json::Value>,
+    /// Flattened batched actions for `computer_use`. Each action includes an `type` discriminator and action-specific fields.
+    #[serde(rename = "actions", skip_serializing_if = "Option::is_none")]
+    pub actions: Option<Vec<serde_json::Value>>,
     /// The pending safety checks for the computer call.
     #[serde(rename = "pending_safety_checks")]
     pub pending_safety_checks: Vec<models::ComputerCallSafetyCheckParam>,
@@ -39,7 +42,6 @@ impl ComputerToolCall {
         r#type: Type,
         id: String,
         call_id: String,
-        action: serde_json::Value,
         pending_safety_checks: Vec<models::ComputerCallSafetyCheckParam>,
         status: Status,
     ) -> ComputerToolCall {
@@ -47,7 +49,8 @@ impl ComputerToolCall {
             r#type,
             id,
             call_id,
-            action,
+            action: None,
+            actions: None,
             pending_safety_checks,
             status,
         }

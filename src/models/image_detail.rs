@@ -20,6 +20,8 @@ pub enum ImageDetail {
     High,
     #[serde(rename = "auto")]
     Auto,
+    #[serde(rename = "original")]
+    Original,
 }
 
 impl std::fmt::Display for ImageDetail {
@@ -28,6 +30,7 @@ impl std::fmt::Display for ImageDetail {
             Self::Low => write!(f, "low"),
             Self::High => write!(f, "high"),
             Self::Auto => write!(f, "auto"),
+            Self::Original => write!(f, "original"),
         }
     }
 }

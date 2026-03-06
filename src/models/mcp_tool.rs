@@ -54,6 +54,9 @@ pub struct McpTool {
         skip_serializing_if = "Option::is_none"
     )]
     pub require_approval: Option<Option<Box<models::McpToolRequireApproval>>>,
+    /// Whether this MCP tool is deferred and discovered via tool search.
+    #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
+    pub defer_loading: Option<bool>,
 }
 
 impl McpTool {
@@ -69,6 +72,7 @@ impl McpTool {
             headers: None,
             allowed_tools: None,
             require_approval: None,
+            defer_loading: None,
         }
     }
 }

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **headers** | Option<**std::collections::HashMap<String, String>**> | Optional HTTP headers to send to the MCP server. Use for authentication or other purposes.  | [optional]
 **allowed_tools** | Option<[**models::McpToolAllowedTools**](MCPTool_allowed_tools.md)> |  | [optional]
 **require_approval** | Option<[**models::McpToolRequireApproval**](MCPTool_require_approval.md)> |  | [optional]
+**defer_loading** | Option<**bool**> | Whether this MCP tool is deferred and discovered via tool search.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

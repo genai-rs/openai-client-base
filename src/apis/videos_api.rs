@@ -65,6 +65,7 @@ pub async fn create_video(
     prompt: &str,
     model: Option<models::VideoModel>,
     input_reference: Option<std::path::PathBuf>,
+    image_reference: Option<models::ImageRefParam2>,
     seconds: Option<models::VideoSeconds>,
     size: Option<models::VideoSize>,
 ) -> Result<models::VideoResource, Error<CreateVideoError>> {
@@ -72,6 +73,7 @@ pub async fn create_video(
     let p_form_prompt = prompt;
     let p_form_model = model;
     let p_form_input_reference = input_reference;
+    let p_form_image_reference = image_reference;
     let p_form_seconds = seconds;
     let p_form_size = size;
 
@@ -94,6 +96,9 @@ pub async fn create_video(
     if let Some(file_path) = p_form_input_reference {
         multipart_form =
             multipart_helper::add_file_to_form(multipart_form, &file_path, "input_reference")?;
+    }
+    if let Some(param_value) = p_form_image_reference {
+        multipart_form = multipart_form.text("image_reference", param_value.to_string());
     }
     if let Some(param_value) = p_form_seconds {
         multipart_form = multipart_form.text("seconds", param_value.to_string());

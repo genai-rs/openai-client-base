@@ -28,12 +28,14 @@ pub struct InputFileContent {
     /// The name of the file to be sent to the model.
     #[serde(rename = "filename", skip_serializing_if = "Option::is_none")]
     pub filename: Option<String>,
-    /// The URL of the file to be sent to the model.
-    #[serde(rename = "file_url", skip_serializing_if = "Option::is_none")]
-    pub file_url: Option<String>,
     /// The content of the file to be sent to the model.
     #[serde(rename = "file_data", skip_serializing_if = "Option::is_none")]
     pub file_data: Option<String>,
+    /// The URL of the file to be sent to the model.
+    #[serde(rename = "file_url", skip_serializing_if = "Option::is_none")]
+    pub file_url: Option<String>,
+    #[serde(rename = "detail", skip_serializing_if = "Option::is_none")]
+    pub detail: Option<models::FileInputDetail>,
 }
 
 impl InputFileContent {
@@ -43,8 +45,9 @@ impl InputFileContent {
             r#type,
             file_id: None,
             filename: None,
-            file_url: None,
             file_data: None,
+            file_url: None,
+            detail: None,
         }
     }
 }
