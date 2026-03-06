@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **expires_at** | Option<**i32**> | Unix timestamp (seconds) for when the downloadable assets expire, if set. | 
 **prompt** | Option<**String**> | The prompt that was used to generate the video. | 
 **size** | [**models::VideoSize**](VideoSize.md) |  | 
-**seconds** | [**models::VideoSeconds**](VideoSeconds.md) |  | 
+**seconds** | **String** | Duration of the generated clip in seconds. For extensions, this is the stitched total duration. | 
 **remixed_from_video_id** | Option<**String**> | Identifier of the source video if this video is a remix. | 
 **error** | Option<[**models::Error2**](Error2.md)> |  | 
 

@@ -23,6 +23,8 @@ pub struct ComputerScreenshotContent {
     /// The identifier of an uploaded file that contains the screenshot.
     #[serde(rename = "file_id", deserialize_with = "Option::deserialize")]
     pub file_id: Option<String>,
+    #[serde(rename = "detail")]
+    pub detail: models::ImageDetail,
 }
 
 impl ComputerScreenshotContent {
@@ -31,11 +33,13 @@ impl ComputerScreenshotContent {
         r#type: Type,
         image_url: Option<String>,
         file_id: Option<String>,
+        detail: models::ImageDetail,
     ) -> ComputerScreenshotContent {
         ComputerScreenshotContent {
             r#type,
             image_url,
             file_id,
+            detail,
         }
     }
 }

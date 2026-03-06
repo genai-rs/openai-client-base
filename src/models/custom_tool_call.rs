@@ -23,6 +23,9 @@ pub struct CustomToolCall {
     /// An identifier used to map this custom tool call to a tool call output.
     #[serde(rename = "call_id")]
     pub call_id: String,
+    /// The namespace of the custom tool being called.
+    #[serde(rename = "namespace", skip_serializing_if = "Option::is_none")]
+    pub namespace: Option<String>,
     /// The name of the custom tool being called.
     #[serde(rename = "name")]
     pub name: String,
@@ -38,6 +41,7 @@ impl CustomToolCall {
             r#type,
             id: None,
             call_id,
+            namespace: None,
             name,
             input,
         }

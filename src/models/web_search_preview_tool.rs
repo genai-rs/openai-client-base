@@ -29,6 +29,11 @@ pub struct WebSearchPreviewTool {
         skip_serializing_if = "Option::is_none"
     )]
     pub search_context_size: Option<models::SearchContextSize>,
+    #[serde(
+        rename = "search_content_types",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub search_content_types: Option<Vec<models::SearchContentType>>,
 }
 
 impl WebSearchPreviewTool {
@@ -38,6 +43,7 @@ impl WebSearchPreviewTool {
             r#type: None,
             user_location: None,
             search_context_size: None,
+            search_content_types: None,
         }
     }
 }

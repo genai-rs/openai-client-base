@@ -23,6 +23,8 @@ pub enum ItemResource {
     WebSearchToolCall(Box<models::WebSearchToolCall>),
     FunctionToolCallResource(Box<models::FunctionToolCallResource>),
     FunctionToolCallOutputResource(Box<models::FunctionToolCallOutputResource>),
+    ToolSearchCall(Box<models::ToolSearchCall>),
+    ToolSearchOutput(Box<models::ToolSearchOutput>),
     ImageGenToolCall(Box<models::ImageGenToolCall>),
     CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),
     LocalShellToolCall(Box<models::LocalShellToolCall>),

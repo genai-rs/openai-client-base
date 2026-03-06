@@ -19,9 +19,11 @@ pub struct CreateVideoBody {
     /// Text prompt that describes the video to generate.
     #[serde(rename = "prompt")]
     pub prompt: String,
-    /// Optional image reference that guides generation.
+    /// Optional multipart reference asset that guides generation.
     #[serde(rename = "input_reference", skip_serializing_if = "Option::is_none")]
     pub input_reference: Option<std::path::PathBuf>,
+    #[serde(rename = "image_reference", skip_serializing_if = "Option::is_none")]
+    pub image_reference: Option<Box<models::ImageRefParam2>>,
     #[serde(rename = "seconds", skip_serializing_if = "Option::is_none")]
     pub seconds: Option<models::VideoSeconds>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
@@ -35,6 +37,7 @@ impl CreateVideoBody {
             model: None,
             prompt,
             input_reference: None,
+            image_reference: None,
             seconds: None,
             size: None,
         }

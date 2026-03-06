@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ToolChoiceTypes : Indicates that the model should use a built-in tool to generate a response. [Learn more about built-in tools](/docs/guides/tools).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ToolChoiceTypes {
-    /// The type of hosted tool the model should to use. Learn more about [built-in tools](/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer_use_preview` - `code_interpreter` - `image_generation`
+    /// The type of hosted tool the model should to use. Learn more about [built-in tools](/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer` - `computer_use_preview` - `computer_use` - `code_interpreter` - `image_generation`
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -25,15 +25,19 @@ impl ToolChoiceTypes {
         ToolChoiceTypes { r#type }
     }
 }
-/// The type of hosted tool the model should to use. Learn more about [built-in tools](/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer_use_preview` - `code_interpreter` - `image_generation`
+/// The type of hosted tool the model should to use. Learn more about [built-in tools](/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer` - `computer_use_preview` - `computer_use` - `code_interpreter` - `image_generation`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "file_search")]
     FileSearch,
     #[serde(rename = "web_search_preview")]
     WebSearchPreview,
+    #[serde(rename = "computer")]
+    Computer,
     #[serde(rename = "computer_use_preview")]
     ComputerUsePreview,
+    #[serde(rename = "computer_use")]
+    ComputerUse,
     #[serde(rename = "web_search_preview_2025_03_11")]
     WebSearchPreview20250311,
     #[serde(rename = "image_generation")]

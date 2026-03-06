@@ -17,6 +17,7 @@ use serde::{Deserialize, Serialize};
 pub enum Tool {
     FunctionTool(Box<models::FunctionTool>),
     FileSearchTool(Box<models::FileSearchTool>),
+    ComputerTool(Box<models::ComputerTool>),
     ComputerUsePreviewTool(Box<models::ComputerUsePreviewTool>),
     WebSearchTool(Box<models::WebSearchTool>),
     McpTool(Box<models::McpTool>),
@@ -25,6 +26,8 @@ pub enum Tool {
     LocalShellToolParam(Box<models::LocalShellToolParam>),
     FunctionShellToolParam(Box<models::FunctionShellToolParam>),
     CustomToolParam(Box<models::CustomToolParam>),
+    NamespaceToolParam(Box<models::NamespaceToolParam>),
+    SearchToolParam(Box<models::ToolSearchToolParam>),
     WebSearchPreviewTool(Box<models::WebSearchPreviewTool>),
     ApplyPatchToolParam(Box<models::ApplyPatchToolParam>),
 }

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## create_video
 
-> models::VideoResource create_video(prompt, model, input_reference, seconds, size)
+> models::VideoResource create_video(prompt, model, input_reference, image_reference, seconds, size)
 Create a new video generation job from a prompt and optional reference assets.
 
 ### Parameters
@@ -25,7 +25,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **prompt** | **String** | Text prompt that describes the video to generate. | [required] |
 **model** | Option<[**models::VideoModel**](VideoModel.md)> |  |  |
-**input_reference** | Option<**std::path::PathBuf**> | Optional image reference that guides generation. |  |
+**input_reference** | Option<**std::path::PathBuf**> | Optional multipart reference asset that guides generation. |  |
+**image_reference** | Option<[**models::ImageRefParam2**](ImageRefParam2.md)> |  |  |
 **seconds** | Option<[**models::VideoSeconds**](VideoSeconds.md)> |  |  |
 **size** | Option<[**models::VideoSize**](VideoSize.md)> |  |  |
 

@@ -41,8 +41,9 @@ pub struct VideoResource {
     pub prompt: Option<String>,
     #[serde(rename = "size")]
     pub size: models::VideoSize,
+    /// Duration of the generated clip in seconds. For extensions, this is the stitched total duration.
     #[serde(rename = "seconds")]
-    pub seconds: models::VideoSeconds,
+    pub seconds: String,
     /// Identifier of the source video if this video is a remix.
     #[serde(
         rename = "remixed_from_video_id",
@@ -66,7 +67,7 @@ impl VideoResource {
         expires_at: Option<i32>,
         prompt: Option<String>,
         size: models::VideoSize,
-        seconds: models::VideoSeconds,
+        seconds: String,
         remixed_from_video_id: Option<String>,
         error: Option<models::Error2>,
     ) -> VideoResource {

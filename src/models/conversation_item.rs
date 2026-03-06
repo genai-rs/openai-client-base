@@ -23,6 +23,8 @@ pub enum ConversationItem {
     ImageGenToolCall(Box<models::ImageGenToolCall>),
     ComputerToolCall(Box<models::ComputerToolCall>),
     ComputerToolCallOutputResource(Box<models::ComputerToolCallOutputResource>),
+    ToolSearchCall(Box<models::ToolSearchCall>),
+    ToolSearchOutput(Box<models::ToolSearchOutput>),
     ReasoningItem(Box<models::ReasoningItem>),
     CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),
     LocalShellToolCall(Box<models::LocalShellToolCall>),

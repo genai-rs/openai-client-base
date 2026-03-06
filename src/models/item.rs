@@ -24,6 +24,8 @@ pub enum Item {
     WebSearchToolCall(Box<models::WebSearchToolCall>),
     FunctionToolCall(Box<models::FunctionToolCall>),
     FunctionCallOutputItemParam(Box<models::FunctionCallOutputItemParam>),
+    ToolSearchCallItemParam(Box<models::ToolSearchCallItemParam>),
+    ToolSearchOutputItemParam(Box<models::ToolSearchOutputItemParam>),
     ReasoningItem(Box<models::ReasoningItem>),
     CompactionSummaryItemParam(Box<models::CompactionSummaryItemParam>),
     ImageGenToolCall(Box<models::ImageGenToolCall>),

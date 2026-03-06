@@ -34,6 +34,9 @@ pub struct FunctionTool {
     /// Whether to enforce strict parameter validation. Default `true`.
     #[serde(rename = "strict", deserialize_with = "Option::deserialize")]
     pub strict: Option<bool>,
+    /// Whether this function is deferred and loaded via tool search.
+    #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
+    pub defer_loading: Option<bool>,
 }
 
 impl FunctionTool {
@@ -50,6 +53,7 @@ impl FunctionTool {
             description: None,
             parameters,
             strict,
+            defer_loading: None,
         }
     }
 }
