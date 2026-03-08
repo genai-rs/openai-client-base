@@ -1122,7 +1122,7 @@ paths:
                     api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
                 )
                 for transcription in client.audio.transcriptions.create(
-                    file=b"raw file contents",
+                    file=b"Example data",
                     model="gpt-4o-transcribe",
                 ):
                   print(transcription)
@@ -1174,7 +1174,7 @@ paths:
                 });
 
                 console.log(transcription);
-              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
+              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
               java: >-
                 package com.openai.example;
 
@@ -1201,7 +1201,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         TranscriptionCreateParams params = TranscriptionCreateParams.builder()
-                            .file(ByteArrayInputStream("some content".getBytes()))
+                            .file(ByteArrayInputStream("Example data".getBytes()))
                             .model(AudioModel.GPT_4O_TRANSCRIBE)
                             .build();
                         TranscriptionCreateResponse transcription = client.audio().transcriptions().create(params);
@@ -1215,7 +1215,7 @@ paths:
 
 
                 transcription = openai.audio.transcriptions.create(file:
-                Pathname(__FILE__), model: :"gpt-4o-transcribe")
+                StringIO.new("Example data"), model: :"gpt-4o-transcribe")
 
 
                 puts(transcription)
@@ -1253,7 +1253,7 @@ paths:
                     api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
                 )
                 for transcription in client.audio.transcriptions.create(
-                    file=b"raw file contents",
+                    file=b"Example data",
                     model="gpt-4o-transcribe",
                 ):
                   print(transcription)
@@ -1296,7 +1296,7 @@ paths:
                 });
 
                 console.log(transcription);
-              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
+              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
               java: >-
                 package com.openai.example;
 
@@ -1323,7 +1323,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         TranscriptionCreateParams params = TranscriptionCreateParams.builder()
-                            .file(ByteArrayInputStream("some content".getBytes()))
+                            .file(ByteArrayInputStream("Example data".getBytes()))
                             .model(AudioModel.GPT_4O_TRANSCRIBE)
                             .build();
                         TranscriptionCreateResponse transcription = client.audio().transcriptions().create(params);
@@ -1337,7 +1337,7 @@ paths:
 
 
                 transcription = openai.audio.transcriptions.create(file:
-                Pathname(__FILE__), model: :"gpt-4o-transcribe")
+                StringIO.new("Example data"), model: :"gpt-4o-transcribe")
 
 
                 puts(transcription)
@@ -1394,7 +1394,7 @@ paths:
                     api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
                 )
                 for transcription in client.audio.transcriptions.create(
-                    file=b"raw file contents",
+                    file=b"Example data",
                     model="gpt-4o-transcribe",
                 ):
                   print(transcription)
@@ -1426,7 +1426,7 @@ paths:
                 });
 
                 console.log(transcription);
-              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
+              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
               java: >-
                 package com.openai.example;
 
@@ -1453,7 +1453,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         TranscriptionCreateParams params = TranscriptionCreateParams.builder()
-                            .file(ByteArrayInputStream("some content".getBytes()))
+                            .file(ByteArrayInputStream("Example data".getBytes()))
                             .model(AudioModel.GPT_4O_TRANSCRIBE)
                             .build();
                         TranscriptionCreateResponse transcription = client.audio().transcriptions().create(params);
@@ -1467,7 +1467,7 @@ paths:
 
 
                 transcription = openai.audio.transcriptions.create(file:
-                Pathname(__FILE__), model: :"gpt-4o-transcribe")
+                StringIO.new("Example data"), model: :"gpt-4o-transcribe")
 
 
                 puts(transcription)
@@ -1668,7 +1668,7 @@ paths:
                     api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
                 )
                 for transcription in client.audio.transcriptions.create(
-                    file=b"raw file contents",
+                    file=b"Example data",
                     model="gpt-4o-transcribe",
                 ):
                   print(transcription)
@@ -1702,7 +1702,7 @@ paths:
                 });
 
                 console.log(transcription);
-              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
+              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
               java: >-
                 package com.openai.example;
 
@@ -1729,7 +1729,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         TranscriptionCreateParams params = TranscriptionCreateParams.builder()
-                            .file(ByteArrayInputStream("some content".getBytes()))
+                            .file(ByteArrayInputStream("Example data".getBytes()))
                             .model(AudioModel.GPT_4O_TRANSCRIBE)
                             .build();
                         TranscriptionCreateResponse transcription = client.audio().transcriptions().create(params);
@@ -1743,7 +1743,7 @@ paths:
 
 
                 transcription = openai.audio.transcriptions.create(file:
-                Pathname(__FILE__), model: :"gpt-4o-transcribe")
+                StringIO.new("Example data"), model: :"gpt-4o-transcribe")
 
 
                 puts(transcription)
@@ -1821,7 +1821,7 @@ paths:
                     api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
                 )
                 for transcription in client.audio.transcriptions.create(
-                    file=b"raw file contents",
+                    file=b"Example data",
                     model="gpt-4o-transcribe",
                 ):
                   print(transcription)
@@ -1884,7 +1884,7 @@ paths:
                 });
 
                 console.log(transcription);
-              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
+              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
               java: >-
                 package com.openai.example;
 
@@ -1911,7 +1911,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         TranscriptionCreateParams params = TranscriptionCreateParams.builder()
-                            .file(ByteArrayInputStream("some content".getBytes()))
+                            .file(ByteArrayInputStream("Example data".getBytes()))
                             .model(AudioModel.GPT_4O_TRANSCRIBE)
                             .build();
                         TranscriptionCreateResponse transcription = client.audio().transcriptions().create(params);
@@ -1925,7 +1925,7 @@ paths:
 
 
                 transcription = openai.audio.transcriptions.create(file:
-                Pathname(__FILE__), model: :"gpt-4o-transcribe")
+                StringIO.new("Example data"), model: :"gpt-4o-transcribe")
 
 
                 puts(transcription)
@@ -1971,7 +1971,7 @@ paths:
                     api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
                 )
                 for transcription in client.audio.transcriptions.create(
-                    file=b"raw file contents",
+                    file=b"Example data",
                     model="gpt-4o-transcribe",
                 ):
                   print(transcription)
@@ -2034,7 +2034,7 @@ paths:
                 });
 
                 console.log(transcription);
-              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
+              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranscription, err := client.Audio.Transcriptions.New(context.TODO(), openai.AudioTranscriptionNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\tModel: openai.AudioModelGPT4oTranscribe,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", transcription)\n}\n"
               java: >-
                 package com.openai.example;
 
@@ -2061,7 +2061,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         TranscriptionCreateParams params = TranscriptionCreateParams.builder()
-                            .file(ByteArrayInputStream("some content".getBytes()))
+                            .file(ByteArrayInputStream("Example data".getBytes()))
                             .model(AudioModel.GPT_4O_TRANSCRIBE)
                             .build();
                         TranscriptionCreateResponse transcription = client.audio().transcriptions().create(params);
@@ -2075,7 +2075,7 @@ paths:
 
 
                 transcription = openai.audio.transcriptions.create(file:
-                Pathname(__FILE__), model: :"gpt-4o-transcribe")
+                StringIO.new("Example data"), model: :"gpt-4o-transcribe")
 
 
                 puts(transcription)
@@ -2147,7 +2147,7 @@ paths:
                   api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
               )
               translation = client.audio.translations.create(
-                  file=b"raw file contents",
+                  file=b"Example data",
                   model="whisper-1",
               )
               print(translation)
@@ -2200,7 +2200,7 @@ paths:
               });
 
               console.log(translation);
-            go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranslation, err := client.Audio.Translations.New(context.TODO(), openai.AudioTranslationNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\tModel: openai.AudioModelWhisper1,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", translation)\n}\n"
+            go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\ttranslation, err := client.Audio.Translations.New(context.TODO(), openai.AudioTranslationNewParams{\n\t\tFile:  io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\tModel: openai.AudioModelWhisper1,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", translation)\n}\n"
             java: >-
               package com.openai.example;
 
@@ -2227,7 +2227,7 @@ paths:
                       OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                       TranslationCreateParams params = TranslationCreateParams.builder()
-                          .file(ByteArrayInputStream("some content".getBytes()))
+                          .file(ByteArrayInputStream("Example data".getBytes()))
                           .model(AudioModel.WHISPER_1)
                           .build();
                       TranslationCreateResponse translation = client.audio().translations().create(params);
@@ -2241,7 +2241,7 @@ paths:
 
 
               translation = openai.audio.translations.create(file:
-              Pathname(__FILE__), model: :"whisper-1")
+              StringIO.new("Example data"), model: :"whisper-1")
 
 
               puts(translation)
@@ -9513,7 +9513,7 @@ paths:
                   api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
               )
               file_object = client.files.create(
-                  file=b"raw file contents",
+                  file=b"Example data",
                   purpose="assistants",
               )
               print(file_object.id)
@@ -9550,7 +9550,7 @@ paths:
               });
 
               console.log(fileObject.id);
-            go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\tfileObject, err := client.Files.New(context.TODO(), openai.FileNewParams{\n\t\tFile:    io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\tPurpose: openai.FilePurposeAssistants,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", fileObject.ID)\n}\n"
+            go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\tfileObject, err := client.Files.New(context.TODO(), openai.FileNewParams{\n\t\tFile:    io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\tPurpose: openai.FilePurposeAssistants,\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", fileObject.ID)\n}\n"
             java: |-
               package com.openai.example;
 
@@ -9568,7 +9568,7 @@ paths:
                       OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                       FileCreateParams params = FileCreateParams.builder()
-                          .file(ByteArrayInputStream("some content".getBytes()))
+                          .file(ByteArrayInputStream("Example data".getBytes()))
                           .purpose(FilePurpose.ASSISTANTS)
                           .build();
                       FileObject fileObject = client.files().create(params);
@@ -9581,8 +9581,8 @@ paths:
               openai = OpenAI::Client.new(api_key: "My API Key")
 
 
-              file_object = openai.files.create(file: Pathname(__FILE__),
-              purpose: :assistants)
+              file_object = openai.files.create(file: StringIO.new("Example
+              data"), purpose: :assistants)
 
 
               puts(file_object)
@@ -12627,7 +12627,7 @@ paths:
                     api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
                 )
                 for image in client.images.edit(
-                    image=b"raw file contents",
+                    image=b"Example data",
                     prompt="A cute baby sea otter wearing a beret",
                 ):
                   print(image)
@@ -12675,7 +12675,7 @@ paths:
                 });
 
                 console.log(imagesResponse);
-              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\timagesResponse, err := client.Images.Edit(context.TODO(), openai.ImageEditParams{\n\t\tImage: openai.ImageEditParamsImageUnion{\n\t\t\tOfFile: io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\t},\n\t\tPrompt: \"A cute baby sea otter wearing a beret\",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", imagesResponse)\n}\n"
+              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\timagesResponse, err := client.Images.Edit(context.TODO(), openai.ImageEditParams{\n\t\tImage: openai.ImageEditParamsImageUnion{\n\t\t\tOfFile: io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\t},\n\t\tPrompt: \"A cute baby sea otter wearing a beret\",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", imagesResponse)\n}\n"
               java: |-
                 package com.openai.example;
 
@@ -12693,7 +12693,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         ImageEditParams params = ImageEditParams.builder()
-                            .image(ByteArrayInputStream("some content".getBytes()))
+                            .image(ByteArrayInputStream("Example data".getBytes()))
                             .prompt("A cute baby sea otter wearing a beret")
                             .build();
                         ImagesResponse imagesResponse = client.images().edit(params);
@@ -12706,8 +12706,9 @@ paths:
                 openai = OpenAI::Client.new(api_key: "My API Key")
 
 
-                images_response = openai.images.edit(image: Pathname(__FILE__),
-                prompt: "A cute baby sea otter wearing a beret")
+                images_response = openai.images.edit(image:
+                StringIO.new("Example data"), prompt: "A cute baby sea otter
+                wearing a beret")
 
 
                 puts(images_response)
@@ -12731,7 +12732,7 @@ paths:
                     api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
                 )
                 for image in client.images.edit(
-                    image=b"raw file contents",
+                    image=b"Example data",
                     prompt="A cute baby sea otter wearing a beret",
                 ):
                   print(image)
@@ -12779,7 +12780,7 @@ paths:
                 });
 
                 console.log(imagesResponse);
-              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\timagesResponse, err := client.Images.Edit(context.TODO(), openai.ImageEditParams{\n\t\tImage: openai.ImageEditParamsImageUnion{\n\t\t\tOfFile: io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\t},\n\t\tPrompt: \"A cute baby sea otter wearing a beret\",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", imagesResponse)\n}\n"
+              go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\timagesResponse, err := client.Images.Edit(context.TODO(), openai.ImageEditParams{\n\t\tImage: openai.ImageEditParamsImageUnion{\n\t\t\tOfFile: io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\t},\n\t\tPrompt: \"A cute baby sea otter wearing a beret\",\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", imagesResponse)\n}\n"
               java: |-
                 package com.openai.example;
 
@@ -12797,7 +12798,7 @@ paths:
                         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                         ImageEditParams params = ImageEditParams.builder()
-                            .image(ByteArrayInputStream("some content".getBytes()))
+                            .image(ByteArrayInputStream("Example data".getBytes()))
                             .prompt("A cute baby sea otter wearing a beret")
                             .build();
                         ImagesResponse imagesResponse = client.images().edit(params);
@@ -12810,8 +12811,9 @@ paths:
                 openai = OpenAI::Client.new(api_key: "My API Key")
 
 
-                images_response = openai.images.edit(image: Pathname(__FILE__),
-                prompt: "A cute baby sea otter wearing a beret")
+                images_response = openai.images.edit(image:
+                StringIO.new("Example data"), prompt: "A cute baby sea otter
+                wearing a beret")
 
 
                 puts(images_response)
@@ -13095,7 +13097,7 @@ paths:
                   api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
               )
               images_response = client.images.create_variation(
-                  image=b"raw file contents",
+                  image=b"Example data",
               )
               print(images_response.created)
             javascript: |-
@@ -13142,7 +13144,7 @@ paths:
               });
 
               console.log(imagesResponse.created);
-            go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\timagesResponse, err := client.Images.NewVariation(context.TODO(), openai.ImageNewVariationParams{\n\t\tImage: io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", imagesResponse.Created)\n}\n"
+            go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\timagesResponse, err := client.Images.NewVariation(context.TODO(), openai.ImageNewVariationParams{\n\t\tImage: io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", imagesResponse.Created)\n}\n"
             java: |-
               package com.openai.example;
 
@@ -13159,7 +13161,7 @@ paths:
                       OpenAIClient client = OpenAIOkHttpClient.fromEnv();
 
                       ImageCreateVariationParams params = ImageCreateVariationParams.builder()
-                          .image(ByteArrayInputStream("some content".getBytes()))
+                          .image(ByteArrayInputStream("Example data".getBytes()))
                           .build();
                       ImagesResponse imagesResponse = client.images().createVariation(params);
                   }
@@ -13172,7 +13174,7 @@ paths:
 
 
               images_response = openai.images.create_variation(image:
-              Pathname(__FILE__))
+              StringIO.new("Example data"))
 
 
               puts(images_response)
@@ -26749,10 +26751,10 @@ paths:
               )
               upload_part = client.uploads.parts.create(
                   upload_id="upload_abc123",
-                  data=b"raw file contents",
+                  data=b"Example data",
               )
               print(upload_part.id)
-            go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\tuploadPart, err := client.Uploads.Parts.New(\n\t\tcontext.TODO(),\n\t\t\"upload_abc123\",\n\t\topenai.UploadPartNewParams{\n\t\t\tData: io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", uploadPart.ID)\n}\n"
+            go: "package main\n\nimport (\n\t\"bytes\"\n\t\"context\"\n\t\"fmt\"\n\t\"io\"\n\n\t\"github.com/openai/openai-go\"\n\t\"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n\tclient := openai.NewClient(\n\t\toption.WithAPIKey(\"My API Key\"),\n\t)\n\tuploadPart, err := client.Uploads.Parts.New(\n\t\tcontext.TODO(),\n\t\t\"upload_abc123\",\n\t\topenai.UploadPartNewParams{\n\t\t\tData: io.Reader(bytes.NewBuffer([]byte(\"Example data\"))),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf(\"%+v\\n\", uploadPart.ID)\n}\n"
             java: |-
               package com.openai.example;
 
@@ -26770,7 +26772,7 @@ paths:
 
                       PartCreateParams params = PartCreateParams.builder()
                           .uploadId("upload_abc123")
-                          .data(ByteArrayInputStream("some content".getBytes()))
+                          .data(ByteArrayInputStream("Example data".getBytes()))
                           .build();
                       UploadPart uploadPart = client.uploads().parts().create(params);
                   }
@@ -26783,7 +26785,7 @@ paths:
 
 
               upload_part = openai.uploads.parts.create("upload_abc123", data:
-              Pathname(__FILE__))
+              StringIO.new("Example data"))
 
 
               puts(upload_part)
