@@ -68084,11 +68084,6 @@ components:
         - detail
       title: Computer screenshot
       description: A screenshot of a computer.
-    FileInputDetail:
-      type: string
-      enum:
-        - low
-        - high
     InputFileContent:
       properties:
         type:
@@ -68113,11 +68108,6 @@ components:
         file_url:
           type: string
           description: The URL of the file to be sent to the model.
-        detail:
-          $ref: '#/components/schemas/FileInputDetail'
-          description: >-
-            The detail level of the file to be sent to the model. One of `high`
-            or `low`. Defaults to `high`.
       type: object
       required: &ref_0
         - type
@@ -69746,11 +69736,6 @@ components:
       description: >-
         An image input to the model. Learn about [image
         inputs](/docs/guides/vision)
-    FileDetailEnum:
-      type: string
-      enum:
-        - high
-        - low
     InputFileContentParam:
       properties:
         type:
@@ -69782,11 +69767,6 @@ components:
             - type: string
               description: The URL of the file to be sent to the model.
             - type: 'null'
-        detail:
-          $ref: '#/components/schemas/FileDetailEnum'
-          description: >-
-            The detail level of the file to be sent to the model. One of `high`
-            or `low`. Defaults to `high`.
       type: object
       required:
         - type
