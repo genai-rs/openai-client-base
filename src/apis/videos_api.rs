@@ -24,6 +24,27 @@ pub enum CreateVideoError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_video_character`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateVideoCharacterError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_video_edit`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateVideoEditError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_video_extend`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateVideoExtendError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_video_remix`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -42,6 +63,13 @@ pub enum DeleteVideoError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVideoError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_video_character`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetVideoCharacterError {
     UnknownValue(serde_json::Value),
 }
 
@@ -64,8 +92,7 @@ pub async fn create_video(
     configuration: &configuration::Configuration,
     prompt: &str,
     model: Option<models::VideoModel>,
-    input_reference: Option<std::path::PathBuf>,
-    image_reference: Option<models::ImageRefParam2>,
+    input_reference: Option<models::CreateVideoMultipartBodyInputReference>,
     seconds: Option<models::VideoSeconds>,
     size: Option<models::VideoSize>,
 ) -> Result<models::VideoResource, Error<CreateVideoError>> {
@@ -73,7 +100,6 @@ pub async fn create_video(
     let p_form_prompt = prompt;
     let p_form_model = model;
     let p_form_input_reference = input_reference;
-    let p_form_image_reference = image_reference;
     let p_form_seconds = seconds;
     let p_form_size = size;
 
@@ -93,12 +119,8 @@ pub async fn create_video(
         multipart_form = multipart_form.text("model", param_value.to_string());
     }
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
-    if let Some(file_path) = p_form_input_reference {
-        multipart_form =
-            multipart_helper::add_file_to_form(multipart_form, &file_path, "input_reference")?;
-    }
-    if let Some(param_value) = p_form_image_reference {
-        multipart_form = multipart_form.text("image_reference", param_value.to_string());
+    if let Some(param_value) = p_form_input_reference {
+        multipart_form = multipart_form.text("input_reference", param_value.to_string());
     }
     if let Some(param_value) = p_form_seconds {
         multipart_form = multipart_form.text("seconds", param_value.to_string());
@@ -129,6 +151,174 @@ pub async fn create_video(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVideoError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn create_video_character(
+    configuration: &configuration::Configuration,
+    video: std::path::PathBuf,
+    name: &str,
+) -> Result<models::VideoCharacterResource, Error<CreateVideoCharacterError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_video = video;
+    let p_form_name = name;
+
+    let uri_str = format!("{}/videos/characters", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_video, "video")?;
+    multipart_form = multipart_form.text("name", p_form_name.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoCharacterResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoCharacterResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoCharacterError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn create_video_edit(
+    configuration: &configuration::Configuration,
+    video: models::CreateVideoEditMultipartBodyVideo,
+    prompt: &str,
+) -> Result<models::VideoResource, Error<CreateVideoEditError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_video = video;
+    let p_form_prompt = prompt;
+
+    let uri_str = format!("{}/videos/edits", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    multipart_form = multipart_form.text("video", p_form_video.to_string());
+    multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoEditError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn create_video_extend(
+    configuration: &configuration::Configuration,
+    video: models::CreateVideoExtendMultipartBodyVideo,
+    prompt: &str,
+    seconds: models::VideoSeconds,
+) -> Result<models::VideoResource, Error<CreateVideoExtendError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_video = video;
+    let p_form_prompt = prompt;
+    let p_form_seconds = seconds;
+
+    let uri_str = format!("{}/videos/extensions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    multipart_form = multipart_form.text("video", p_form_video.to_string());
+    multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
+    multipart_form = multipart_form.text("seconds", p_form_seconds.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoExtendError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -291,6 +481,57 @@ pub async fn get_video(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetVideoError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn get_video_character(
+    configuration: &configuration::Configuration,
+    character_id: &str,
+) -> Result<models::VideoCharacterResource, Error<GetVideoCharacterError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_character_id = character_id;
+
+    let uri_str = format!(
+        "{}/videos/characters/{character_id}",
+        configuration.base_path,
+        character_id = crate::apis::urlencode(p_path_character_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoCharacterResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoCharacterResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetVideoCharacterError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

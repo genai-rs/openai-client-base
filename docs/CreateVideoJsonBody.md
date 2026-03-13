@@ -1,4 +1,4 @@
-# CreateVideoBody
+# CreateVideoJsonBody
 
 ## Properties
 
@@ -6,8 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **model** | Option<[**models::VideoModel**](VideoModel.md)> |  | [optional]
 **prompt** | **String** | Text prompt that describes the video to generate. | 
-**input_reference** | Option<[**std::path::PathBuf**](std::path::PathBuf.md)> | Optional multipart reference asset that guides generation. | [optional]
-**image_reference** | Option<[**models::ImageRefParam2**](ImageRefParam2.md)> |  | [optional]
+**input_reference** | Option<[**models::ImageRefParam2**](ImageRefParam2.md)> |  | [optional]
 **seconds** | Option<[**models::VideoSeconds**](VideoSeconds.md)> |  | [optional]
 **size** | Option<[**models::VideoSize**](VideoSize.md)> |  | [optional]
 

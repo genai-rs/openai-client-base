@@ -11,40 +11,36 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateVideoBody : Parameters for creating a new video generation job.
+/// CreateVideoJsonBody : JSON parameters for creating a new video generation job.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateVideoBody {
+pub struct CreateVideoJsonBody {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<Box<models::VideoModel>>,
     /// Text prompt that describes the video to generate.
     #[serde(rename = "prompt")]
     pub prompt: String,
-    /// Optional multipart reference asset that guides generation.
     #[serde(rename = "input_reference", skip_serializing_if = "Option::is_none")]
-    pub input_reference: Option<std::path::PathBuf>,
-    #[serde(rename = "image_reference", skip_serializing_if = "Option::is_none")]
-    pub image_reference: Option<Box<models::ImageRefParam2>>,
+    pub input_reference: Option<Box<models::ImageRefParam2>>,
     #[serde(rename = "seconds", skip_serializing_if = "Option::is_none")]
     pub seconds: Option<models::VideoSeconds>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<models::VideoSize>,
 }
 
-impl CreateVideoBody {
-    /// Parameters for creating a new video generation job.
-    pub fn new(prompt: String) -> CreateVideoBody {
-        CreateVideoBody {
+impl CreateVideoJsonBody {
+    /// JSON parameters for creating a new video generation job.
+    pub fn new(prompt: String) -> CreateVideoJsonBody {
+        CreateVideoJsonBody {
             model: None,
             prompt,
             input_reference: None,
-            image_reference: None,
             seconds: None,
             size: None,
         }
     }
 }
 
-impl std::fmt::Display for CreateVideoBody {
+impl std::fmt::Display for CreateVideoJsonBody {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
