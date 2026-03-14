@@ -33,6 +33,9 @@ pub struct FunctionToolParam {
     pub strict: Option<Option<bool>>,
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Whether this function should be deferred and discovered via tool search.
+    #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
+    pub defer_loading: Option<bool>,
 }
 
 impl FunctionToolParam {
@@ -43,6 +46,7 @@ impl FunctionToolParam {
             parameters: None,
             strict: None,
             r#type,
+            defer_loading: None,
         }
     }
 }
