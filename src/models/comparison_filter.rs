@@ -53,6 +53,10 @@ pub enum Type {
     Lt,
     #[serde(rename = "lte")]
     Lte,
+    #[serde(rename = "in")]
+    In,
+    #[serde(rename = "nin")]
+    Nin,
 }
 
 impl Default for Type {
