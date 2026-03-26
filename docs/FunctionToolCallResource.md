@@ -10,7 +10,8 @@ Name | Type | Description | Notes
 **namespace** | Option<**String**> | The namespace of the function to run.  | [optional]
 **name** | **String** | The name of the function to run.  | 
 **arguments** | **String** | A JSON string of the arguments to pass to the function.  | 
-**status** | Option<**String**> | The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.  | [optional]
+**status** | [**models::FunctionCallStatus**](FunctionCallStatus.md) |  | 
+**created_by** | Option<**String**> | The identifier of the actor that created the item.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

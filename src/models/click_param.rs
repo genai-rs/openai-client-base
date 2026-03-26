@@ -25,6 +25,14 @@ pub struct ClickParam {
     /// The y-coordinate where the click occurred.
     #[serde(rename = "y")]
     pub y: i32,
+    /// The keys being held while clicking.
+    #[serde(
+        rename = "keys",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub keys: Option<Option<Vec<String>>>,
 }
 
 impl ClickParam {
@@ -35,6 +43,7 @@ impl ClickParam {
             button,
             x,
             y,
+            keys: None,
         }
     }
 }

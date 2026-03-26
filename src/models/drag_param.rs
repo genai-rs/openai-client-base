@@ -20,12 +20,24 @@ pub struct DragParam {
     /// An array of coordinates representing the path of the drag action. Coordinates will appear as an array of objects, eg ``` [   { x: 100, y: 200 },   { x: 200, y: 300 } ] ```
     #[serde(rename = "path")]
     pub path: Vec<models::CoordParam>,
+    /// The keys being held while dragging the mouse.
+    #[serde(
+        rename = "keys",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub keys: Option<Option<Vec<String>>>,
 }
 
 impl DragParam {
     /// A drag action.
     pub fn new(r#type: Type, path: Vec<models::CoordParam>) -> DragParam {
-        DragParam { r#type, path }
+        DragParam {
+            r#type,
+            path,
+            keys: None,
+        }
     }
 }
 /// Specifies the event type. For a drag action, this property is always set to `drag`.
