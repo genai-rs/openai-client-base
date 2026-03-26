@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **y** | **i32** | The y-coordinate where the scroll occurred. | 
 **scroll_x** | **i32** | The horizontal scroll distance. | 
 **scroll_y** | **i32** | The vertical scroll distance. | 
+**keys** | Option<**Vec<String>**> | The keys being held while scrolling. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

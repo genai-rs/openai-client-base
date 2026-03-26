@@ -29,6 +29,14 @@ pub struct ScrollParam {
     /// The vertical scroll distance.
     #[serde(rename = "scroll_y")]
     pub scroll_y: i32,
+    /// The keys being held while scrolling.
+    #[serde(
+        rename = "keys",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub keys: Option<Option<Vec<String>>>,
 }
 
 impl ScrollParam {
@@ -40,6 +48,7 @@ impl ScrollParam {
             y,
             scroll_x,
             scroll_y,
+            keys: None,
         }
     }
 }

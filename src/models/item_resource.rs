@@ -25,6 +25,8 @@ pub enum ItemResource {
     FunctionToolCallOutputResource(Box<models::FunctionToolCallOutputResource>),
     ToolSearchCall(Box<models::ToolSearchCall>),
     ToolSearchOutput(Box<models::ToolSearchOutput>),
+    ReasoningItem(Box<models::ReasoningItem>),
+    CompactionBody(Box<models::CompactionBody>),
     ImageGenToolCall(Box<models::ImageGenToolCall>),
     CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),
     LocalShellToolCall(Box<models::LocalShellToolCall>),
@@ -37,6 +39,8 @@ pub enum ItemResource {
     McpApprovalRequest(Box<models::McpApprovalRequest>),
     McpApprovalResponseResource(Box<models::McpApprovalResponseResource>),
     McpToolCall(Box<models::McpToolCall>),
+    CustomToolCallResource(Box<models::CustomToolCallResource>),
+    CustomToolCallOutputResource(Box<models::CustomToolCallOutputResource>),
 }
 
 /// The role of the output message. Always `assistant`.

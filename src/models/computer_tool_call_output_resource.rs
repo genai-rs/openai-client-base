@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerToolCallOutputResource {
     /// The type of the computer tool call output. Always `computer_call_output`.
     #[serde(rename = "type")]
@@ -30,9 +30,11 @@ pub struct ComputerToolCallOutputResource {
     pub acknowledged_safety_checks: Option<Vec<models::ComputerCallSafetyCheckParam>>,
     #[serde(rename = "output")]
     pub output: Box<models::ComputerScreenshotImage>,
-    /// The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    #[serde(rename = "status")]
+    pub status: models::ComputerCallOutputStatus,
+    /// The identifier of the actor that created the item.
+    #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
+    pub created_by: Option<String>,
 }
 
 impl ComputerToolCallOutputResource {
@@ -41,6 +43,7 @@ impl ComputerToolCallOutputResource {
         id: String,
         call_id: String,
         output: models::ComputerScreenshotImage,
+        status: models::ComputerCallOutputStatus,
     ) -> ComputerToolCallOutputResource {
         ComputerToolCallOutputResource {
             r#type,
@@ -48,7 +51,8 @@ impl ComputerToolCallOutputResource {
             call_id,
             acknowledged_safety_checks: None,
             output: Box::new(output),
-            status: None,
+            status,
+            created_by: None,
         }
     }
 }
@@ -62,22 +66,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::ComputerCallOutput
-    }
-}
-/// The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "in_progress")]
-    InProgress,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "incomplete")]
-    Incomplete,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::InProgress
     }
 }
 

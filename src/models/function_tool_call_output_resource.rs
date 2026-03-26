@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionToolCallOutputResource {
     /// The unique ID of the function call tool output.
     #[serde(rename = "id")]
@@ -24,9 +24,11 @@ pub struct FunctionToolCallOutputResource {
     pub call_id: String,
     #[serde(rename = "output")]
     pub output: Box<models::FunctionToolCallOutputOutput>,
-    /// The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    #[serde(rename = "status")]
+    pub status: models::FunctionCallOutputStatusEnum,
+    /// The identifier of the actor that created the item.
+    #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
+    pub created_by: Option<String>,
 }
 
 impl FunctionToolCallOutputResource {
@@ -35,13 +37,15 @@ impl FunctionToolCallOutputResource {
         r#type: Type,
         call_id: String,
         output: models::FunctionToolCallOutputOutput,
+        status: models::FunctionCallOutputStatusEnum,
     ) -> FunctionToolCallOutputResource {
         FunctionToolCallOutputResource {
             id,
             r#type,
             call_id,
             output: Box::new(output),
-            status: None,
+            status,
+            created_by: None,
         }
     }
 }
@@ -55,22 +59,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::FunctionCallOutput
-    }
-}
-/// The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "in_progress")]
-    InProgress,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "incomplete")]
-    Incomplete,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::InProgress
     }
 }
 

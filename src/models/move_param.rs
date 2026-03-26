@@ -23,12 +23,25 @@ pub struct MoveParam {
     /// The y-coordinate to move to.
     #[serde(rename = "y")]
     pub y: i32,
+    /// The keys being held while moving the mouse.
+    #[serde(
+        rename = "keys",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub keys: Option<Option<Vec<String>>>,
 }
 
 impl MoveParam {
     /// A mouse move action.
     pub fn new(r#type: Type, x: i32, y: i32) -> MoveParam {
-        MoveParam { r#type, x, y }
+        MoveParam {
+            r#type,
+            x,
+            y,
+            keys: None,
+        }
     }
 }
 /// Specifies the event type. For a move action, this property is always set to `move`.
