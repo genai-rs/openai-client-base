@@ -233,6 +233,7 @@ pub async fn create_vector_store(
     }
 }
 
+/// This endpoint is subject to a per-vector-store write rate limit of 300 requests per minute, shared with `/vector_stores/{vector_store_id}/file_batches`. For uploading multiple files to the same vector store, use the file batches endpoint to reduce request volume.
 #[bon::builder]
 pub async fn create_vector_store_file(
     configuration: &configuration::Configuration,
@@ -289,7 +290,7 @@ pub async fn create_vector_store_file(
     }
 }
 
-/// The maximum number of files in a single batch request is 2000.
+/// The maximum number of files in a single batch request is 2000. Vector store file attach requests are rate limited per vector store (300 requests per minute across both this endpoint and `/vector_stores/{vector_store_id}/files`). For ingesting multiple files into the same vector store, this batch endpoint is recommended.
 #[bon::builder]
 pub async fn create_vector_store_file_batch(
     configuration: &configuration::Configuration,

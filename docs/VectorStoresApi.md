@@ -85,6 +85,8 @@ Name | Type | Description  | Required | Notes
 > models::VectorStoreFileObject create_vector_store_file(vector_store_id, create_vector_store_file_request)
 Create a vector store file by attaching a [File](/docs/api-reference/files) to a [vector store](/docs/api-reference/vector-stores/object).
 
+This endpoint is subject to a per-vector-store write rate limit of 300 requests per minute, shared with `/vector_stores/{vector_store_id}/file_batches`. For uploading multiple files to the same vector store, use the file batches endpoint to reduce request volume.
+
 ### Parameters
 
 
@@ -114,7 +116,7 @@ Name | Type | Description  | Required | Notes
 > models::VectorStoreFileBatchObject create_vector_store_file_batch(vector_store_id, create_vector_store_file_batch_request)
 Create a vector store file batch.
 
-The maximum number of files in a single batch request is 2000.
+The maximum number of files in a single batch request is 2000. Vector store file attach requests are rate limited per vector store (300 requests per minute across both this endpoint and `/vector_stores/{vector_store_id}/files`). For ingesting multiple files into the same vector store, this batch endpoint is recommended. 
 
 ### Parameters
 
