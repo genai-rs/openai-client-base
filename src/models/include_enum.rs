@@ -17,8 +17,6 @@ use serde::{Deserialize, Serialize};
 pub enum IncludeEnum {
     #[serde(rename = "file_search_call.results")]
     FileSearchCallResults,
-    #[serde(rename = "web_search_call.results")]
-    WebSearchCallResults,
     #[serde(rename = "web_search_call.action.sources")]
     WebSearchCallActionSources,
     #[serde(rename = "message.input_image.image_url")]
@@ -37,7 +35,6 @@ impl std::fmt::Display for IncludeEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::FileSearchCallResults => write!(f, "file_search_call.results"),
-            Self::WebSearchCallResults => write!(f, "web_search_call.results"),
             Self::WebSearchCallActionSources => write!(f, "web_search_call.action.sources"),
             Self::MessageInputImageImageUrl => write!(f, "message.input_image.image_url"),
             Self::ComputerCallOutputOutputImageUrl => {
