@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **status** | [**models::MessageStatus**](MessageStatus.md) |  | 
 **role** | [**models::MessageRole**](MessageRole.md) |  | 
 **content** | [**Vec<models::MessageContentInner>**](Message_content_inner.md) | The content of the message | 
+**phase** | Option<[**models::MessagePhase2**](MessagePhase2.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

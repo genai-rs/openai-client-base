@@ -27,6 +27,13 @@ pub struct Message {
     /// The content of the message
     #[serde(rename = "content")]
     pub content: Vec<models::MessageContentInner>,
+    #[serde(
+        rename = "phase",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub phase: Option<Option<models::MessagePhase2>>,
 }
 
 impl Message {
@@ -44,6 +51,7 @@ impl Message {
             status,
             role,
             content,
+            phase: None,
         }
     }
 }
