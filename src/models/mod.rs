@@ -1384,6 +1384,8 @@ pub mod message_object_content_inner;
 pub use self::message_object_content_inner::MessageObjectContentInner;
 pub mod message_phase;
 pub use self::message_phase::MessagePhase;
+pub mod message_phase2;
+pub use self::message_phase2::MessagePhase2;
 pub mod message_request_content_text_object;
 pub use self::message_request_content_text_object::MessageRequestContentTextObject;
 pub mod message_role;
