@@ -5,6 +5,7 @@
 | Name | Value |
 |---- | -----|
 | FileSearchCallResults | file_search_call.results |
+| WebSearchCallResults | web_search_call.results |
 | WebSearchCallActionSources | web_search_call.action.sources |
 | MessageInputImageImageUrl | message.input_image.image_url |
 | ComputerCallOutputOutputImageUrl | computer_call_output.output.image_url |
