@@ -39,14 +39,6 @@ pub struct ResponseProperties {
         skip_serializing_if = "Option::is_none"
     )]
     pub background: Option<Option<bool>>,
-    /// An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).
-    #[serde(
-        rename = "max_output_tokens",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub max_output_tokens: Option<Option<i32>>,
     /// The maximum number of total calls to built-in tools that can be processed in a response. This maximum number applies across all built-in tool calls, not per individual tool. Any further attempts to call a tool by the model will be ignored.
     #[serde(
         rename = "max_tool_calls",
@@ -86,7 +78,6 @@ impl ResponseProperties {
             model: None,
             reasoning: None,
             background: None,
-            max_output_tokens: None,
             max_tool_calls: None,
             text: None,
             tools: None,

@@ -65,9 +65,6 @@ pub struct CreateResponse {
     /// Whether to run the model response in the background. [Learn more](/docs/guides/background).
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<bool>,
-    /// An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).
-    #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_output_tokens: Option<i32>,
     /// The maximum number of total calls to built-in tools that can be processed in a response. This maximum number applies across all built-in tool calls, not per individual tool. Any further attempts to call a tool by the model will be ignored.
     #[serde(rename = "max_tool_calls", skip_serializing_if = "Option::is_none")]
     pub max_tool_calls: Option<i32>,
@@ -152,6 +149,14 @@ pub struct CreateResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub context_management: Option<Option<Vec<models::ContextManagementParam>>>,
+    /// An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).
+    #[serde(
+        rename = "max_output_tokens",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_output_tokens: Option<Option<i32>>,
 }
 
 impl CreateResponse {
@@ -170,7 +175,6 @@ impl CreateResponse {
             model: None,
             reasoning: None,
             background: None,
-            max_output_tokens: None,
             max_tool_calls: None,
             text: None,
             tools: None,
@@ -186,6 +190,7 @@ impl CreateResponse {
             stream_options: None,
             conversation: None,
             context_management: None,
+            max_output_tokens: None,
         }
     }
 }
