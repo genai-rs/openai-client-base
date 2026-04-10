@@ -17,7 +17,6 @@ Name | Type | Description | Notes
 **model** | Option<**String**> |  | [optional]
 **reasoning** | Option<[**models::Reasoning**](Reasoning.md)> |  | [optional]
 **background** | Option<**bool**> | Whether to run the model response in the background. [Learn more](/docs/guides/background).  | [optional]
-**max_output_tokens** | Option<**i32**> | An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).  | [optional]
 **max_tool_calls** | Option<**i32**> | The maximum number of total calls to built-in tools that can be processed in a response. This maximum number applies across all built-in tool calls, not per individual tool. Any further attempts to call a tool by the model will be ignored.  | [optional]
 **text** | Option<[**models::ResponseTextParam**](ResponseTextParam.md)> |  | [optional]
 **tools** | Option<[**Vec<models::Tool>**](Tool.md)> | An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  We support the following categories of tools: - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](/docs/guides/tools-web-search)   or [file search](/docs/guides/tools-file-search). Learn more about   [built-in tools](/docs/guides/tools). - **MCP Tools**: Integrations with third-party systems via custom MCP servers   or predefined connectors such as Google Drive and SharePoint. Learn more about   [MCP Tools](/docs/guides/tools-connectors-mcp). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code with strongly typed arguments   and outputs. Learn more about   [function calling](/docs/guides/function-calling). You can also use   custom tools to call your own code.  | [optional]
@@ -33,6 +32,7 @@ Name | Type | Description | Notes
 **stream_options** | Option<[**models::ResponseStreamOptions**](ResponseStreamOptions.md)> |  | [optional]
 **conversation** | Option<[**models::ConversationParam**](ConversationParam.md)> |  | [optional]
 **context_management** | Option<[**Vec<models::ContextManagementParam>**](ContextManagementParam.md)> | Context management configuration for this request.  | [optional]
+**max_output_tokens** | Option<**i32**> | An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
