@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.0](https://github.com/genai-rs/openai-client-base/compare/v0.11.1...v0.12.0) - 2026-04-10
+
+### Other
+
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- *(deps)* Update Rust crate tokio to ^1.51.0
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- *(deps)* Update actions/create-github-app-token action to v3
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- *(deps)* Update Rust crate bon to ^3.9.1
+- *(deps)* Update Rust crate serde_with to ^3.18.0
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- *(deps)* Update rust minor updates
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- enable bot-driven auto-merge for generated PRs
+- update generated client from latest OpenAPI spec
+
 ## [0.11.1](https://github.com/genai-rs/openai-client-base/compare/v0.11.0...v0.11.1) - 2026-02-24
 
 ### Other
