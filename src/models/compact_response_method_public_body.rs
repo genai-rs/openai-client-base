@@ -46,6 +46,13 @@ pub struct CompactResponseMethodPublicBody {
         skip_serializing_if = "Option::is_none"
     )]
     pub prompt_cache_key: Option<Option<String>>,
+    #[serde(
+        rename = "prompt_cache_retention",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_retention: Option<Option<models::PromptCacheRetentionEnum>>,
 }
 
 impl CompactResponseMethodPublicBody {
@@ -56,6 +63,7 @@ impl CompactResponseMethodPublicBody {
             previous_response_id: None,
             instructions: None,
             prompt_cache_key: None,
+            prompt_cache_retention: None,
         }
     }
 }

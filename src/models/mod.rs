@@ -1608,6 +1608,8 @@ pub mod project_user_update_request;
 pub use self::project_user_update_request::ProjectUserUpdateRequest;
 pub mod prompt;
 pub use self::prompt::Prompt;
+pub mod prompt_cache_retention_enum;
+pub use self::prompt_cache_retention_enum::PromptCacheRetentionEnum;
 pub mod public_assign_organization_group_role_body;
 pub use self::public_assign_organization_group_role_body::PublicAssignOrganizationGroupRoleBody;
 pub mod public_create_organization_role_body;
