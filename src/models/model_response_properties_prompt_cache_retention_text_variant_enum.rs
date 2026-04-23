@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum ModelResponsePropertiesPromptCacheRetentionTextVariantEnum {
-    #[serde(rename = "in-memory")]
+    #[serde(rename = "in_memory")]
     InMemory,
     #[serde(rename = "24h")]
     Variant24h,
@@ -19,7 +19,7 @@ impl Default for ModelResponsePropertiesPromptCacheRetentionTextVariantEnum {
 impl std::fmt::Display for ModelResponsePropertiesPromptCacheRetentionTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
-            ModelResponsePropertiesPromptCacheRetentionTextVariantEnum::InMemory => "in-memory",
+            ModelResponsePropertiesPromptCacheRetentionTextVariantEnum::InMemory => "in_memory",
             ModelResponsePropertiesPromptCacheRetentionTextVariantEnum::Variant24h => "24h",
         };
         write!(f, "{}", value)
