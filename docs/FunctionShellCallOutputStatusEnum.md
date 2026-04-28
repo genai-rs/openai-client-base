@@ -1,4 +1,4 @@
-# LocalShellCallOutputStatusEnum
+# FunctionShellCallOutputStatusEnum
 
 ## Enum Variants
 

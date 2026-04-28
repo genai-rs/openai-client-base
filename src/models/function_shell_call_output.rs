@@ -24,7 +24,7 @@ pub struct FunctionShellCallOutput {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "status")]
-    pub status: models::LocalShellCallOutputStatusEnum,
+    pub status: models::FunctionShellCallOutputStatusEnum,
     /// An array of shell call output contents
     #[serde(rename = "output")]
     pub output: Vec<models::FunctionShellCallOutputContent>,
@@ -42,7 +42,7 @@ impl FunctionShellCallOutput {
         r#type: Type,
         id: String,
         call_id: String,
-        status: models::LocalShellCallOutputStatusEnum,
+        status: models::FunctionShellCallOutputStatusEnum,
         output: Vec<models::FunctionShellCallOutputContent>,
         max_output_length: Option<i32>,
     ) -> FunctionShellCallOutput {
