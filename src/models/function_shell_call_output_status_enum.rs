@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum LocalShellCallStatus {
+pub enum FunctionShellCallOutputStatusEnum {
     #[serde(rename = "in_progress")]
     InProgress,
     #[serde(rename = "completed")]
@@ -22,7 +22,7 @@ pub enum LocalShellCallStatus {
     Incomplete,
 }
 
-impl std::fmt::Display for LocalShellCallStatus {
+impl std::fmt::Display for FunctionShellCallOutputStatusEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::InProgress => write!(f, "in_progress"),
@@ -32,8 +32,8 @@ impl std::fmt::Display for LocalShellCallStatus {
     }
 }
 
-impl Default for LocalShellCallStatus {
-    fn default() -> LocalShellCallStatus {
+impl Default for FunctionShellCallOutputStatusEnum {
+    fn default() -> FunctionShellCallOutputStatusEnum {
         Self::InProgress
     }
 }

@@ -26,7 +26,7 @@ pub struct FunctionShellCall {
     #[serde(rename = "action")]
     pub action: Box<models::FunctionShellAction>,
     #[serde(rename = "status")]
-    pub status: models::LocalShellCallStatus,
+    pub status: models::FunctionShellCallStatus,
     #[serde(rename = "environment", deserialize_with = "Option::deserialize")]
     pub environment: Option<Box<models::FunctionShellCallEnvironment>>,
     /// The ID of the entity that created this tool call.
@@ -41,7 +41,7 @@ impl FunctionShellCall {
         id: String,
         call_id: String,
         action: models::FunctionShellAction,
-        status: models::LocalShellCallStatus,
+        status: models::FunctionShellCallStatus,
         environment: Option<models::FunctionShellCallEnvironment>,
     ) -> FunctionShellCall {
         FunctionShellCall {
