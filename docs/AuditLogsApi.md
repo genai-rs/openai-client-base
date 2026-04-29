@@ -34,7 +34,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
