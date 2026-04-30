@@ -164,7 +164,7 @@ Name | Type | Description  | Required | Notes
 
 ## usage_costs
 
-> models::UsageResponse usage_costs(start_time, end_time, bucket_width, project_ids, group_by, limit, page)
+> models::UsageResponse usage_costs(start_time, end_time, bucket_width, project_ids, api_key_ids, group_by, limit, page)
 Get costs details for the organization.
 
 ### Parameters
@@ -176,7 +176,8 @@ Name | Type | Description  | Required | Notes
 **end_time** | Option<**i32**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently only `1d` is supported, default to `1d`. |  |[default to 1d]
 **project_ids** | Option<[**Vec<String>**](String.md)> | Return only costs for these projects. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the costs by the specified fields. Support fields include `project_id`, `line_item` and any combination of them. |  |
+**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only costs for these API keys. |  |
+**group_by** | Option<[**Vec<String>**](String.md)> | Group the costs by the specified fields. Support fields include `project_id`, `line_item`, `api_key_id` and any combination of them. |  |
 **limit** | Option<**i32**> | A limit on the number of buckets to be returned. Limit can range between 1 and 180, and the default is 7.  |  |[default to 7]
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 

@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **text** | **String** | The text for this segment. | 
 **id** | **String** | The segment identifier. | 
 **speaker** | **String** | The detected speaker label for this segment. | 
-**start** | **f32** | Start time of the segment in seconds. | 
-**end** | **f32** | End time of the segment in seconds. | 
+**start** | **f64** | Start time of the segment in seconds. | 
+**end** | **f64** | End time of the segment in seconds. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

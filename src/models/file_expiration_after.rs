@@ -19,12 +19,12 @@ pub struct FileExpirationAfter {
     pub anchor: Anchor,
     /// The number of seconds after the anchor time that the file will expire. Must be between 3600 (1 hour) and 2592000 (30 days).
     #[serde(rename = "seconds")]
-    pub seconds: i32,
+    pub seconds: i64,
 }
 
 impl FileExpirationAfter {
     /// The expiration policy for a file. By default, files with `purpose=batch` expire after 30 days and all other files are persisted until they are manually deleted.
-    pub fn new(anchor: Anchor, seconds: i32) -> FileExpirationAfter {
+    pub fn new(anchor: Anchor, seconds: i64) -> FileExpirationAfter {
         FileExpirationAfter { anchor, seconds }
     }
 }

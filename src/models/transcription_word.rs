@@ -18,14 +18,14 @@ pub struct TranscriptionWord {
     pub word: String,
     /// Start time of the word in seconds.
     #[serde(rename = "start")]
-    pub start: f32,
+    pub start: f64,
     /// End time of the word in seconds.
     #[serde(rename = "end")]
-    pub end: f32,
+    pub end: f64,
 }
 
 impl TranscriptionWord {
-    pub fn new(word: String, start: f32, end: f32) -> TranscriptionWord {
+    pub fn new(word: String, start: f64, end: f64) -> TranscriptionWord {
         TranscriptionWord { word, start, end }
     }
 }

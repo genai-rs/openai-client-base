@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **i32** | Unique identifier of the segment. | 
 **seek** | **i32** | Seek offset of the segment. | 
-**start** | **f32** | Start time of the segment in seconds. | 
-**end** | **f32** | End time of the segment in seconds. | 
+**start** | **f64** | Start time of the segment in seconds. | 
+**end** | **f64** | End time of the segment in seconds. | 
 **text** | **String** | Text content of the segment. | 
 **tokens** | **Vec<i32>** | Array of token IDs for the text content. | 
 **temperature** | **f32** | Temperature parameter used for generating the segment. | 

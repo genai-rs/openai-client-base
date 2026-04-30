@@ -37,10 +37,10 @@ pub struct RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
     pub speaker: String,
     /// Start time of the segment in seconds.
     #[serde(rename = "start")]
-    pub start: f32,
+    pub start: f64,
     /// End time of the segment in seconds.
     #[serde(rename = "end")]
-    pub end: f32,
+    pub end: f64,
 }
 
 impl RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
@@ -53,8 +53,8 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
         text: String,
         id: String,
         speaker: String,
-        start: f32,
-        end: f32,
+        start: f64,
+        end: f64,
     ) -> RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
         RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
             event_id,

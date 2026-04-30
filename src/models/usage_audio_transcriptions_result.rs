@@ -18,7 +18,7 @@ pub struct UsageAudioTranscriptionsResult {
     pub object: Object,
     /// The number of seconds processed.
     #[serde(rename = "seconds")]
-    pub seconds: i32,
+    pub seconds: i64,
     /// The count of requests made to the model.
     #[serde(rename = "num_model_requests")]
     pub num_model_requests: i32,
@@ -55,7 +55,7 @@ impl UsageAudioTranscriptionsResult {
     /// The aggregated audio transcriptions usage details of the specific time bucket.
     pub fn new(
         object: Object,
-        seconds: i32,
+        seconds: i64,
         num_model_requests: i32,
     ) -> UsageAudioTranscriptionsResult {
         UsageAudioTranscriptionsResult {

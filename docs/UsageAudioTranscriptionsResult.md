@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **object** | **String** |  | 
-**seconds** | **i32** | The number of seconds processed. | 
+**seconds** | **i64** | The number of seconds processed. | 
 **num_model_requests** | **i32** | The count of requests made to the model. | 
 **project_id** | Option<**String**> | When `group_by=project_id`, this field provides the project ID of the grouped usage result. | [optional]
 **user_id** | Option<**String**> | When `group_by=user_id`, this field provides the user ID of the grouped usage result. | [optional]

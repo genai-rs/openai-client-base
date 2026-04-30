@@ -19,7 +19,7 @@ pub struct ClientSecretExpiration {
     pub anchor: Option<Anchor>,
     /// The number of seconds from the anchor point to the expiration. Select a value between `10` and `7200` (2 hours). This default to 600 seconds (10 minutes) if not specified.
     #[serde(rename = "seconds", skip_serializing_if = "Option::is_none")]
-    pub seconds: Option<i32>,
+    pub seconds: Option<i64>,
 }
 
 impl ClientSecretExpiration {

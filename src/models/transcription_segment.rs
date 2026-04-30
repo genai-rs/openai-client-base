@@ -21,10 +21,10 @@ pub struct TranscriptionSegment {
     pub seek: i32,
     /// Start time of the segment in seconds.
     #[serde(rename = "start")]
-    pub start: f32,
+    pub start: f64,
     /// End time of the segment in seconds.
     #[serde(rename = "end")]
-    pub end: f32,
+    pub end: f64,
     /// Text content of the segment.
     #[serde(rename = "text")]
     pub text: String,
@@ -49,8 +49,8 @@ impl TranscriptionSegment {
     pub fn new(
         id: i32,
         seek: i32,
-        start: f32,
-        end: f32,
+        start: f64,
+        end: f64,
         text: String,
         tokens: Vec<i32>,
         temperature: f32,

@@ -34,6 +34,14 @@ pub struct CostsResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub project_id: Option<Option<String>>,
+    /// When `group_by=api_key_id`, this field provides the API Key ID of the grouped costs result.
+    #[serde(
+        rename = "api_key_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub api_key_id: Option<Option<String>>,
 }
 
 impl CostsResult {
@@ -44,6 +52,7 @@ impl CostsResult {
             amount: None,
             line_item: None,
             project_id: None,
+            api_key_id: None,
         }
     }
 }

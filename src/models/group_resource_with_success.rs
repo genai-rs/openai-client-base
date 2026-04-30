@@ -22,7 +22,7 @@ pub struct GroupResourceWithSuccess {
     pub name: String,
     /// Unix timestamp (in seconds) when the group was created.
     #[serde(rename = "created_at")]
-    pub created_at: i64,
+    pub created_at: i32,
     /// Whether the group is managed through SCIM and controlled by your identity provider.
     #[serde(rename = "is_scim_managed")]
     pub is_scim_managed: bool,
@@ -33,7 +33,7 @@ impl GroupResourceWithSuccess {
     pub fn new(
         id: String,
         name: String,
-        created_at: i64,
+        created_at: i32,
         is_scim_managed: bool,
     ) -> GroupResourceWithSuccess {
         GroupResourceWithSuccess {
