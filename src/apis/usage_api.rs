@@ -728,6 +728,7 @@ pub async fn usage_costs(
     end_time: Option<i32>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
     limit: Option<i32>,
     page: Option<&str>,
@@ -737,6 +738,7 @@ pub async fn usage_costs(
     let p_query_end_time = end_time;
     let p_query_bucket_width = bucket_width;
     let p_query_project_ids = project_ids;
+    let p_query_api_key_ids = api_key_ids;
     let p_query_group_by = group_by;
     let p_query_limit = limit;
     let p_query_page = page;
@@ -761,6 +763,25 @@ pub async fn usage_costs(
             ),
             _ => req_builder.query(&[(
                 "project_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("api_key_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "api_key_ids",
                 &param_value
                     .into_iter()
                     .map(|p| p.to_string())

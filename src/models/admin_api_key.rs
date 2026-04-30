@@ -31,10 +31,10 @@ pub struct AdminApiKey {
     pub value: Option<String>,
     /// The Unix timestamp (in seconds) of when the API key was created
     #[serde(rename = "created_at")]
-    pub created_at: i64,
+    pub created_at: i32,
     /// The Unix timestamp (in seconds) of when the API key was last used
     #[serde(rename = "last_used_at", deserialize_with = "Option::deserialize")]
-    pub last_used_at: Option<i64>,
+    pub last_used_at: Option<i32>,
     #[serde(rename = "owner")]
     pub owner: Box<models::AdminApiKeyOwner>,
 }
@@ -46,8 +46,8 @@ impl AdminApiKey {
         id: String,
         name: String,
         redacted_value: String,
-        created_at: i64,
-        last_used_at: Option<i64>,
+        created_at: i32,
+        last_used_at: Option<i32>,
         owner: models::AdminApiKeyOwner,
     ) -> AdminApiKey {
         AdminApiKey {

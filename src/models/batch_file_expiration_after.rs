@@ -19,12 +19,12 @@ pub struct BatchFileExpirationAfter {
     pub anchor: Anchor,
     /// The number of seconds after the anchor time that the file will expire. Must be between 3600 (1 hour) and 2592000 (30 days).
     #[serde(rename = "seconds")]
-    pub seconds: i32,
+    pub seconds: i64,
 }
 
 impl BatchFileExpirationAfter {
     /// The expiration policy for the output and/or error file that are generated for a batch.
-    pub fn new(anchor: Anchor, seconds: i32) -> BatchFileExpirationAfter {
+    pub fn new(anchor: Anchor, seconds: i64) -> BatchFileExpirationAfter {
         BatchFileExpirationAfter { anchor, seconds }
     }
 }

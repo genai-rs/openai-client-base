@@ -22,10 +22,10 @@ pub struct TranscriptTextSegmentEvent {
     pub id: String,
     /// Start timestamp of the segment in seconds.
     #[serde(rename = "start")]
-    pub start: f32,
+    pub start: f64,
     /// End timestamp of the segment in seconds.
     #[serde(rename = "end")]
-    pub end: f32,
+    pub end: f64,
     /// Transcript text for this segment.
     #[serde(rename = "text")]
     pub text: String,
@@ -39,8 +39,8 @@ impl TranscriptTextSegmentEvent {
     pub fn new(
         r#type: Type,
         id: String,
-        start: f32,
-        end: f32,
+        start: f64,
+        end: f64,
         text: String,
         speaker: String,
     ) -> TranscriptTextSegmentEvent {

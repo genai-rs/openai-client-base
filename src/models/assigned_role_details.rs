@@ -32,7 +32,7 @@ pub struct AssignedRoleDetails {
     #[serde(rename = "description", deserialize_with = "Option::deserialize")]
     pub description: Option<String>,
     #[serde(rename = "created_at", deserialize_with = "Option::deserialize")]
-    pub created_at: Option<i64>,
+    pub created_at: Option<i32>,
     #[serde(rename = "updated_at", deserialize_with = "Option::deserialize")]
     pub updated_at: Option<i64>,
     #[serde(rename = "created_by", deserialize_with = "Option::deserialize")]
@@ -55,7 +55,7 @@ impl AssignedRoleDetails {
         resource_type: String,
         predefined_role: bool,
         description: Option<String>,
-        created_at: Option<i64>,
+        created_at: Option<i32>,
         updated_at: Option<i64>,
         created_by: Option<String>,
         created_by_user_obj: Option<std::collections::HashMap<String, serde_json::Value>>,
