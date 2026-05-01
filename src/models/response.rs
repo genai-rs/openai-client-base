@@ -92,7 +92,7 @@ pub struct Response {
     pub status: Option<Status>,
     /// Unix timestamp (in seconds) of when this Response was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: f64,
     /// Unix timestamp (in seconds) of when this Response was completed. Only present when the status is `completed`.
     #[serde(
         rename = "completed_at",
@@ -100,7 +100,7 @@ pub struct Response {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub completed_at: Option<Option<i32>>,
+    pub completed_at: Option<Option<f64>>,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<Box<models::ResponseError>>,
     #[serde(
@@ -148,7 +148,7 @@ impl Response {
         model: String,
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: f64,
         error: Option<models::ResponseError>,
         incomplete_details: Option<models::Object013>,
         output: Vec<serde_json::Value>,
