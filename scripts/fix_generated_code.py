@@ -4,65 +4,57 @@ Fix common issues in OpenAPI Generator output for Rust.
 This script is run after code generation to make the code compile.
 """
 
-import os
 import re
 from pathlib import Path
 
 
-def fix_recursive_grammar_format(models_dir):
-    """Fix recursive GrammarFormat types by using Box for indirection."""
-    # Handle both grammar_format.rs and grammar_format_1.rs
-    for filename in ["grammar_format.rs", "grammar_format_1.rs"]:
-        grammar_file = models_dir / filename
-        if not grammar_file.exists():
-            continue
-
-        with open(grammar_file, "r") as f:
-            content = f.read()
-
+def fix_recursive_types(models_dir):
+    """Detect and fix all recursive types by wrapping self-references in Box<>."""
+    for file_path in models_dir.glob("*.rs"):
+        content = file_path.read_text()
         original_content = content
 
-        # Fix direct recursion: GrammarFormat containing GrammarFormat
-        content = re.sub(
-            r"pub grammar: models::GrammarFormat,",
-            r"pub grammar: Box<models::GrammarFormat>,",
-            content,
-        )
+        # Find all type definitions (enums and structs) in this file
+        for type_match in re.finditer(r"pub (enum|struct) (\w+)", content):
+            type_name = type_match.group(2)
 
-        # Fix GrammarFormat1 -> GrammarFormat reference
-        content = re.sub(
-            r"pub grammar: models::GrammarFormat1,",
-            r"pub grammar: Box<models::GrammarFormat>,",
-            content,
-        )
-
-        # Fix constructor parameter types
-        content = re.sub(
-            r"pub fn new\(r#type: Type, grammar: models::GrammarFormat1\)",
-            r"pub fn new(r#type: Type, grammar: models::GrammarFormat)",
-            content,
-        )
-        content = re.sub(
-            r"pub fn new\(r#type: Type, grammar: models::GrammarFormat\) -> (GrammarFormat1?)\s*\{",
-            r"pub fn new(r#type: Type, grammar: models::GrammarFormat) -> \1 {",
-            content,
-        )
-
-        # Fix constructor body to Box::new the grammar
-        if "pub grammar: Box<models::GrammarFormat>" in content:
+            # Fix enum variants: VariantName(models::TypeName) -> VariantName(Box<models::TypeName>)
             content = re.sub(
-                r"(\s+)(r#type,\s+grammar),",
-                r"\1r#type,\n\1grammar: Box::new(grammar),",
+                rf"(\w+)\(models::{re.escape(type_name)}\)",
+                rf"\1(Box<models::{type_name}>)",
                 content,
             )
+
+            # Fix struct fields: pub field: models::TypeName, -> pub field: Box<models::TypeName>,
             content = re.sub(
-                r"(\s+grammar:) grammar,", r"\1 Box::new(grammar),", content
+                rf"(pub \w+: )models::{re.escape(type_name)},",
+                rf"\1Box<models::{type_name}>,",
+                content,
             )
 
+            # Fix constructor bodies that now need Box::new wrapping.
+            for field_match in re.finditer(
+                rf"pub (\w+): Box<models::{re.escape(type_name)}>", content
+            ):
+                field_name = field_match.group(1)
+                raw_name = field_name.removeprefix("r#")
+                # Explicit assignment: `field: value,`
+                content = re.sub(
+                    rf"(\s+){re.escape(field_name)}:\s+{re.escape(raw_name)},",
+                    rf"\1{field_name}: Box::new({raw_name}),",
+                    content,
+                )
+                # Shorthand field init: bare `field` in struct literal
+                # Match `, field }` or `, field,` or `{ field,` or `{ field }`
+                content = re.sub(
+                    rf"(?<=[{{,])\s*{re.escape(raw_name)}\s*(?=[}},])",
+                    rf" {field_name}: Box::new({raw_name})",
+                    content,
+                )
+
         if content != original_content:
-            with open(grammar_file, "w") as f:
-                f.write(content)
-            print(f"Fixed recursive type in {filename}")
+            file_path.write_text(content)
+            print(f"Fixed recursive types in {file_path.name}")
 
 
 def fix_invalid_enum_variants(models_dir):
@@ -370,7 +362,7 @@ def main():
 
     # Apply fixes in order
     fix_invalid_enum_variants(models_dir)
-    fix_recursive_grammar_format(models_dir)
+    fix_recursive_types(models_dir)
     add_display_impl_for_structs(models_dir)
     fix_manual_option_box_map(models_dir)
     remove_default_from_empty_enums(models_dir)
