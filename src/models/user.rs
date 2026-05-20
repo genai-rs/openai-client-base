@@ -20,37 +20,101 @@ pub struct User {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
-    /// The name of the user
-    #[serde(rename = "name")]
-    pub name: String,
-    /// The email address of the user
-    #[serde(rename = "email")]
-    pub email: String,
-    /// `owner` or `reader`
-    #[serde(rename = "role")]
-    pub role: Role,
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
+    #[serde(
+        rename = "email",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub email: Option<Option<String>>,
+    #[serde(
+        rename = "role",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub role: Option<Option<String>>,
     /// The Unix timestamp (in seconds) of when the user was added.
     #[serde(rename = "added_at")]
     pub added_at: i32,
+    /// Whether this is the organization's default user.
+    #[serde(rename = "is_default", skip_serializing_if = "Option::is_none")]
+    pub is_default: Option<bool>,
+    /// The Unix timestamp (in seconds) of when the user was created.
+    #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+    pub created: Option<i32>,
+    #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
+    pub user: Option<Box<models::UserUser>>,
+    /// Whether the user is a service account.
+    #[serde(rename = "is_service_account", skip_serializing_if = "Option::is_none")]
+    pub is_service_account: Option<bool>,
+    #[serde(
+        rename = "is_scale_tier_authorized_purchaser",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_scale_tier_authorized_purchaser: Option<Option<bool>>,
+    /// Whether the user is managed through SCIM.
+    #[serde(rename = "is_scim_managed", skip_serializing_if = "Option::is_none")]
+    pub is_scim_managed: Option<bool>,
+    #[serde(
+        rename = "api_key_last_used_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub api_key_last_used_at: Option<Option<i32>>,
+    #[serde(
+        rename = "technical_level",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub technical_level: Option<Option<String>>,
+    #[serde(
+        rename = "developer_persona",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub developer_persona: Option<Option<String>>,
+    #[serde(
+        rename = "projects",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub projects: Option<Option<Box<models::Object022>>>,
 }
 
 impl User {
     /// Represents an individual `user` within an organization.
-    pub fn new(
-        object: Object,
-        id: String,
-        name: String,
-        email: String,
-        role: Role,
-        added_at: i32,
-    ) -> User {
+    pub fn new(object: Object, id: String, added_at: i32) -> User {
         User {
             object,
             id,
-            name,
-            email,
-            role,
+            name: None,
+            email: None,
+            role: None,
             added_at,
+            is_default: None,
+            created: None,
+            user: None,
+            is_service_account: None,
+            is_scale_tier_authorized_purchaser: None,
+            is_scim_managed: None,
+            api_key_last_used_at: None,
+            technical_level: None,
+            developer_persona: None,
+            projects: None,
         }
     }
 }
@@ -64,20 +128,6 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::OrganizationUser
-    }
-}
-/// `owner` or `reader`
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    #[serde(rename = "owner")]
-    Owner,
-    #[serde(rename = "reader")]
-    Reader,
-}
-
-impl Default for Role {
-    fn default() -> Role {
-        Self::Owner
     }
 }
 

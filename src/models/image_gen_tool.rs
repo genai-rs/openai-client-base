@@ -23,9 +23,8 @@ pub struct ImageGenTool {
     /// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
-    /// The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
-    pub size: Option<Size>,
+    pub size: Option<Box<models::ImageGenToolSize>>,
     /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
     #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
     pub output_format: Option<OutputFormat>,
@@ -101,24 +100,6 @@ pub enum Quality {
 impl Default for Quality {
     fn default() -> Quality {
         Self::Low
-    }
-}
-/// The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Size {
-    #[serde(rename = "1024x1024")]
-    Variant1024x1024,
-    #[serde(rename = "1024x1536")]
-    Variant1024x1536,
-    #[serde(rename = "1536x1024")]
-    Variant1536x1024,
-    #[serde(rename = "auto")]
-    Auto,
-}
-
-impl Default for Size {
-    fn default() -> Size {
-        Self::Variant1024x1024
     }
 }
 /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.

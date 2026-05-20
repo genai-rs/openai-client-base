@@ -42,6 +42,14 @@ pub struct CostsResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub api_key_id: Option<Option<String>>,
+    /// When `group_by=line_item`, this field provides the quantity of the grouped costs result.
+    #[serde(
+        rename = "quantity",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub quantity: Option<Option<f64>>,
 }
 
 impl CostsResult {
@@ -53,6 +61,7 @@ impl CostsResult {
             line_item: None,
             project_id: None,
             api_key_id: None,
+            quantity: None,
         }
     }
 }

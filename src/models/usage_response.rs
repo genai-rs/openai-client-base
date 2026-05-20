@@ -19,8 +19,8 @@ pub struct UsageResponse {
     pub data: Vec<models::UsageTimeBucket>,
     #[serde(rename = "has_more")]
     pub has_more: bool,
-    #[serde(rename = "next_page")]
-    pub next_page: String,
+    #[serde(rename = "next_page", deserialize_with = "Option::deserialize")]
+    pub next_page: Option<String>,
 }
 
 impl UsageResponse {
@@ -28,7 +28,7 @@ impl UsageResponse {
         object: Object,
         data: Vec<models::UsageTimeBucket>,
         has_more: bool,
-        next_page: String,
+        next_page: Option<String>,
     ) -> UsageResponse {
         UsageResponse {
             object,

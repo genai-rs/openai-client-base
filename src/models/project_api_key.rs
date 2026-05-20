@@ -26,9 +26,8 @@ pub struct ProjectApiKey {
     /// The Unix timestamp (in seconds) of when the API key was created
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The Unix timestamp (in seconds) of when the API key was last used.
-    #[serde(rename = "last_used_at")]
-    pub last_used_at: i32,
+    #[serde(rename = "last_used_at", deserialize_with = "Option::deserialize")]
+    pub last_used_at: Option<i32>,
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
@@ -43,7 +42,7 @@ impl ProjectApiKey {
         redacted_value: String,
         name: String,
         created_at: i32,
-        last_used_at: i32,
+        last_used_at: Option<i32>,
         id: String,
         owner: models::ProjectApiKeyOwner,
     ) -> ProjectApiKey {

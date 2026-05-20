@@ -11,23 +11,35 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AdminApiKeysDelete200Response {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
-    pub object: Option<String>,
-    #[serde(rename = "deleted", skip_serializing_if = "Option::is_none")]
-    pub deleted: Option<bool>,
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "object")]
+    pub object: Object,
+    #[serde(rename = "deleted")]
+    pub deleted: bool,
 }
 
 impl AdminApiKeysDelete200Response {
-    pub fn new() -> AdminApiKeysDelete200Response {
+    pub fn new(id: String, object: Object, deleted: bool) -> AdminApiKeysDelete200Response {
         AdminApiKeysDelete200Response {
-            id: None,
-            object: None,
-            deleted: None,
+            id,
+            object,
+            deleted,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Object {
+    #[serde(rename = "organization.admin_api_key.deleted")]
+    OrganizationAdminApiKeyDeleted,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::OrganizationAdminApiKeyDeleted
     }
 }
 

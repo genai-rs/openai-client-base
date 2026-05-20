@@ -13,14 +13,36 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectUpdateRequest {
-    /// The updated name of the project, this name appears in reports.
-    #[serde(rename = "name")]
-    pub name: String,
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
+    #[serde(
+        rename = "external_key_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub external_key_id: Option<Option<String>>,
+    #[serde(
+        rename = "geography",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub geography: Option<Option<String>>,
 }
 
 impl ProjectUpdateRequest {
-    pub fn new(name: String) -> ProjectUpdateRequest {
-        ProjectUpdateRequest { name }
+    pub fn new() -> ProjectUpdateRequest {
+        ProjectUpdateRequest {
+            name: None,
+            external_key_id: None,
+            geography: None,
+        }
     }
 }
 

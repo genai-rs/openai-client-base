@@ -26,7 +26,6 @@ impl GrammarFormat {
     pub fn new(r#type: Type, grammar: models::GrammarFormat) -> GrammarFormat {
         GrammarFormat {
             r#type,
-
             grammar: Box::new(grammar),
         }
     }

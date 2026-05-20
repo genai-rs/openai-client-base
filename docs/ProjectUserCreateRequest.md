@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_id** | **String** | The ID of the user. | 
+**user_id** | Option<**String**> |  | [optional]
+**email** | Option<**String**> |  | [optional]
 **role** | **String** | `owner` or `member` | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

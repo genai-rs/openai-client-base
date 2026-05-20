@@ -19,12 +19,12 @@ pub struct ExpiresAfterParam {
     pub anchor: Anchor,
     /// Number of seconds after the anchor when the session expires.
     #[serde(rename = "seconds")]
-    pub seconds: i32,
+    pub seconds: i64,
 }
 
 impl ExpiresAfterParam {
     /// Controls when the session expires relative to an anchor timestamp.
-    pub fn new(anchor: Anchor, seconds: i32) -> ExpiresAfterParam {
+    pub fn new(anchor: Anchor, seconds: i64) -> ExpiresAfterParam {
         ExpiresAfterParam { anchor, seconds }
     }
 }

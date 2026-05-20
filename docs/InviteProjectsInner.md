@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | Option<**String**> | Project's public ID | [optional]
-**role** | Option<**String**> | Project membership role | [optional]
+**id** | **String** | Project's public ID | 
+**role** | **String** | Project membership role | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

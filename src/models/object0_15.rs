@@ -11,34 +11,17 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object015 : Occurs when a [run step](/docs/api-reference/run-steps/step-object) is created.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object015 : Optional input noise reduction.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object015 {
-    #[serde(rename = "event")]
-    pub event: Event,
-    #[serde(rename = "data")]
-    pub data: Box<models::RunStepObject>,
+    #[serde(rename = "type")]
+    pub r#type: models::NoiseReductionType,
 }
 
 impl Object015 {
-    /// Occurs when a [run step](/docs/api-reference/run-steps/step-object) is created.
-    pub fn new(event: Event, data: models::RunStepObject) -> Object015 {
-        Object015 {
-            event,
-            data: Box::new(data),
-        }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.run.step.created")]
-    ThreadRunStepCreated,
-}
-
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunStepCreated
+    /// Optional input noise reduction.
+    pub fn new(r#type: models::NoiseReductionType) -> Object015 {
+        Object015 { r#type }
     }
 }
 

@@ -11,25 +11,32 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object018 : Filters for the search.
+/// Object018 : Details about why the response is incomplete.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object018 {
-    /// Allowed domains for the search. If not provided, all domains are allowed. Subdomains of the provided domains are allowed as well.  Example: `[\"pubmed.ncbi.nlm.nih.gov\"]`
-    #[serde(
-        rename = "allowed_domains",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub allowed_domains: Option<Option<Vec<String>>>,
+    /// The reason why the response is incomplete.
+    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
+    pub reason: Option<Reason>,
 }
 
 impl Object018 {
-    /// Filters for the search.
+    /// Details about why the response is incomplete.
     pub fn new() -> Object018 {
-        Object018 {
-            allowed_domains: None,
-        }
+        Object018 { reason: None }
+    }
+}
+/// The reason why the response is incomplete.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Reason {
+    #[serde(rename = "max_output_tokens")]
+    MaxOutputTokens,
+    #[serde(rename = "content_filter")]
+    ContentFilter,
+}
+
+impl Default for Reason {
+    fn default() -> Reason {
+        Self::MaxOutputTokens
     }
 }
 

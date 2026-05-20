@@ -11,34 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object016 : Occurs when a new [run](/docs/api-reference/runs/object) is created.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object016 : Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object016 {
-    #[serde(rename = "event")]
-    pub event: Event,
-    #[serde(rename = "data")]
-    pub data: Box<models::RunObject>,
+    /// The transcription model to use for source transcript deltas.
+    #[serde(rename = "model")]
+    pub model: String,
 }
 
 impl Object016 {
-    /// Occurs when a new [run](/docs/api-reference/runs/object) is created.
-    pub fn new(event: Event, data: models::RunObject) -> Object016 {
-        Object016 {
-            event,
-            data: Box::new(data),
-        }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.run.created")]
-    ThreadRunCreated,
-}
-
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunCreated
+    /// Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
+    pub fn new(model: String) -> Object016 {
+        Object016 { model }
     }
 }
 

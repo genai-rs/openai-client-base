@@ -30,17 +30,25 @@ pub struct Invite {
     #[serde(rename = "status")]
     pub status: Status,
     /// The Unix timestamp (in seconds) of when the invite was sent.
-    #[serde(rename = "invited_at")]
-    pub invited_at: i32,
-    /// The Unix timestamp (in seconds) of when the invite expires.
-    #[serde(rename = "expires_at")]
-    pub expires_at: i32,
-    /// The Unix timestamp (in seconds) of when the invite was accepted.
-    #[serde(rename = "accepted_at", skip_serializing_if = "Option::is_none")]
-    pub accepted_at: Option<i32>,
+    #[serde(rename = "created_at")]
+    pub created_at: i32,
+    #[serde(
+        rename = "expires_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expires_at: Option<Option<i32>>,
+    #[serde(
+        rename = "accepted_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub accepted_at: Option<Option<i32>>,
     /// The projects that were granted membership upon acceptance of the invite.
-    #[serde(rename = "projects", skip_serializing_if = "Option::is_none")]
-    pub projects: Option<Vec<models::InviteProjectsInner>>,
+    #[serde(rename = "projects")]
+    pub projects: Vec<models::InviteProjectsInner>,
 }
 
 impl Invite {
@@ -51,8 +59,8 @@ impl Invite {
         email: String,
         role: Role,
         status: Status,
-        invited_at: i32,
-        expires_at: i32,
+        created_at: i32,
+        projects: Vec<models::InviteProjectsInner>,
     ) -> Invite {
         Invite {
             object,
@@ -60,10 +68,10 @@ impl Invite {
             email,
             role,
             status,
-            invited_at,
-            expires_at,
+            created_at,
+            expires_at: None,
             accepted_at: None,
-            projects: None,
+            projects,
         }
     }
 }

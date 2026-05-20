@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **audio** | Option<[**models::RealtimeResponseCreateParamsAudio**](RealtimeResponseCreateParams_audio.md)> |  | [optional]
 **tools** | Option<[**Vec<models::RealtimeResponseCreateParamsToolsInner>**](RealtimeResponseCreateParams_tools_inner.md)> | Tools available to the model. | [optional]
 **tool_choice** | Option<[**models::RealtimeBetaResponseCreateParamsToolChoice**](RealtimeBetaResponseCreateParams_tool_choice.md)> |  | [optional]
+**parallel_tool_calls** | Option<**bool**> | Whether the model may call multiple tools in parallel. Only supported by reasoning Realtime models such as `gpt-realtime-2`.  | [optional]
+**reasoning** | Option<[**models::RealtimeReasoning**](RealtimeReasoning.md)> |  | [optional]
 **max_output_tokens** | Option<[**models::RealtimeBetaResponseCreateParamsMaxOutputTokens**](RealtimeBetaResponseCreateParams_max_output_tokens.md)> |  | [optional]
 **conversation** | Option<**String**> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]

@@ -14,13 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ModifyCertificateRequest {
     /// The updated name for the certificate
-    #[serde(rename = "name")]
-    pub name: String,
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
 }
 
 impl ModifyCertificateRequest {
-    pub fn new(name: String) -> ModifyCertificateRequest {
-        ModifyCertificateRequest { name }
+    pub fn new() -> ModifyCertificateRequest {
+        ModifyCertificateRequest { name: None }
     }
 }
 

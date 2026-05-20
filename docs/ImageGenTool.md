@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **r#type** | **String** | The type of the image generation tool. Always `image_generation`.  | 
 **model** | Option<**String**> | ID of the model to use | [optional]
 **quality** | Option<**String**> | The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.  | [optional]
-**size** | Option<**String**> | The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.  | [optional]
+**size** | Option<[**models::ImageGenToolSize**](ImageGenTool_size.md)> |  | [optional]
 **output_format** | Option<**String**> | The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.  | [optional]
 **output_compression** | Option<**i32**> | Compression level for the output image. Default: 100.  | [optional]
 **moderation** | Option<**String**> | Moderation level for the generated image. Default: `auto`.  | [optional]

@@ -11,33 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectUserCreateRequest {
-    /// The ID of the user.
-    #[serde(rename = "user_id")]
-    pub user_id: String,
+    #[serde(
+        rename = "user_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub user_id: Option<Option<String>>,
+    #[serde(
+        rename = "email",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub email: Option<Option<String>>,
     /// `owner` or `member`
     #[serde(rename = "role")]
-    pub role: Role,
+    pub role: String,
 }
 
 impl ProjectUserCreateRequest {
-    pub fn new(user_id: String, role: Role) -> ProjectUserCreateRequest {
-        ProjectUserCreateRequest { user_id, role }
-    }
-}
-/// `owner` or `member`
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    #[serde(rename = "owner")]
-    Owner,
-    #[serde(rename = "member")]
-    Member,
-}
-
-impl Default for Role {
-    fn default() -> Role {
-        Self::Owner
+    pub fn new(role: String) -> ProjectUserCreateRequest {
+        ProjectUserCreateRequest {
+            user_id: None,
+            email: None,
+            role,
+        }
     }
 }
 

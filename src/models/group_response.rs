@@ -26,16 +26,26 @@ pub struct GroupResponse {
     /// Whether the group is managed through SCIM and controlled by your identity provider.
     #[serde(rename = "is_scim_managed")]
     pub is_scim_managed: bool,
+    /// The type of the group.
+    #[serde(rename = "group_type")]
+    pub group_type: String,
 }
 
 impl GroupResponse {
     /// Details about an organization group.
-    pub fn new(id: String, name: String, created_at: i32, is_scim_managed: bool) -> GroupResponse {
+    pub fn new(
+        id: String,
+        name: String,
+        created_at: i32,
+        is_scim_managed: bool,
+        group_type: String,
+    ) -> GroupResponse {
         GroupResponse {
             id,
             name,
             created_at,
             is_scim_managed,
+            group_type,
         }
     }
 }

@@ -16,11 +16,16 @@ pub struct RealtimeTranscriptionSessionCreateResponseGaAudioInput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<Box<models::RealtimeAudioFormats>>,
     #[serde(rename = "transcription", skip_serializing_if = "Option::is_none")]
-    pub transcription: Option<Box<models::AudioTranscription>>,
+    pub transcription: Option<Box<models::AudioTranscriptionResponse>>,
     #[serde(rename = "noise_reduction", skip_serializing_if = "Option::is_none")]
     pub noise_reduction: Option<Box<models::RealtimeSessionCreateResponseAudioInputNoiseReduction>>,
-    #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
-    pub turn_detection: Option<Box<models::RealtimeSessionCreateRequestTurnDetection>>,
+    #[serde(
+        rename = "turn_detection",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub turn_detection: Option<Option<Box<models::Object013>>>,
 }
 
 impl RealtimeTranscriptionSessionCreateResponseGaAudioInput {

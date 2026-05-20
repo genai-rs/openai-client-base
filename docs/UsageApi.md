@@ -10,9 +10,11 @@ Method | HTTP request | Description
 [**usage_completions**](UsageApi.md#usage_completions) | **GET** /organization/usage/completions | Get completions usage details for the organization.
 [**usage_costs**](UsageApi.md#usage_costs) | **GET** /organization/costs | Get costs details for the organization.
 [**usage_embeddings**](UsageApi.md#usage_embeddings) | **GET** /organization/usage/embeddings | Get embeddings usage details for the organization.
+[**usage_file_search_calls**](UsageApi.md#usage_file_search_calls) | **GET** /organization/usage/file_search_calls | Get file search calls usage details for the organization.
 [**usage_images**](UsageApi.md#usage_images) | **GET** /organization/usage/images | Get images usage details for the organization.
 [**usage_moderations**](UsageApi.md#usage_moderations) | **GET** /organization/usage/moderations | Get moderations usage details for the organization.
 [**usage_vector_stores**](UsageApi.md#usage_vector_stores) | **GET** /organization/usage/vector_stores | Get vector stores usage details for the organization.
+[**usage_web_search_calls**](UsageApi.md#usage_web_search_calls) | **GET** /organization/usage/web_search_calls | Get web search calls usage details for the organization.
 
 
 
@@ -234,6 +236,43 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## usage_file_search_calls
+
+> models::UsageResponse usage_file_search_calls(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, vector_store_ids, group_by, limit, page)
+Get file search calls usage details for the organization.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**start_time** | **i32** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
+**end_time** | Option<**i32**> | End time (Unix seconds) of the query time range, exclusive. |  |
+**bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |[default to 1d]
+**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
+**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
+**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
+**vector_store_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these vector stores. |  |
+**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `vector_store_id` or any combination of them. |  |
+**limit** | Option<**i32**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
+**page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+
+### Return type
+
+[**models::UsageResponse**](UsageResponse.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## usage_images
 
 > models::UsageResponse usage_images(start_time, end_time, bucket_width, sources, sizes, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
@@ -325,6 +364,44 @@ Name | Type | Description  | Required | Notes
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |[default to 1d]
 **project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
 **group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`. |  |
+**limit** | Option<**i32**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
+**page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+
+### Return type
+
+[**models::UsageResponse**](UsageResponse.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## usage_web_search_calls
+
+> models::UsageResponse usage_web_search_calls(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, context_levels, group_by, limit, page)
+Get web search calls usage details for the organization.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**start_time** | **i32** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
+**end_time** | Option<**i32**> | End time (Unix seconds) of the query time range, exclusive. |  |
+**bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |[default to 1d]
+**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
+**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
+**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
+**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
+**context_levels** | Option<[**Vec<String>**](String.md)> | Return only web search usage for these context levels. |  |
+**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `context_level` or any combination of them. |  |
 **limit** | Option<**i32**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 

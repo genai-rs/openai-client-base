@@ -26,6 +26,9 @@ pub struct ProjectGroup {
     /// Display name of the group.
     #[serde(rename = "group_name")]
     pub group_name: String,
+    /// The type of the group.
+    #[serde(rename = "group_type")]
+    pub group_type: String,
     /// Unix timestamp (in seconds) when the group was granted project access.
     #[serde(rename = "created_at")]
     pub created_at: i32,
@@ -38,6 +41,7 @@ impl ProjectGroup {
         project_id: String,
         group_id: String,
         group_name: String,
+        group_type: String,
         created_at: i32,
     ) -> ProjectGroup {
         ProjectGroup {
@@ -45,6 +49,7 @@ impl ProjectGroup {
             project_id,
             group_id,
             group_name,
+            group_type,
             created_at,
         }
     }

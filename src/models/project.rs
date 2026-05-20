@@ -20,9 +20,13 @@ pub struct Project {
     /// The object type, which is always `organization.project`
     #[serde(rename = "object")]
     pub object: Object,
-    /// The name of the project. This appears in reporting.
-    #[serde(rename = "name")]
-    pub name: String,
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
     /// The Unix timestamp (in seconds) of when the project was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
@@ -34,27 +38,33 @@ pub struct Project {
         skip_serializing_if = "Option::is_none"
     )]
     pub archived_at: Option<Option<i32>>,
-    /// `active` or `archived`
-    #[serde(rename = "status")]
-    pub status: Status,
+    #[serde(
+        rename = "status",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub status: Option<Option<String>>,
+    #[serde(
+        rename = "external_key_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub external_key_id: Option<Option<String>>,
 }
 
 impl Project {
     /// Represents an individual project.
-    pub fn new(
-        id: String,
-        object: Object,
-        name: String,
-        created_at: i32,
-        status: Status,
-    ) -> Project {
+    pub fn new(id: String, object: Object, created_at: i32) -> Project {
         Project {
             id,
             object,
-            name,
+            name: None,
             created_at,
             archived_at: None,
-            status,
+            status: None,
+            external_key_id: None,
         }
     }
 }
@@ -68,20 +78,6 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::OrganizationProject
-    }
-}
-/// `active` or `archived`
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "archived")]
-    Archived,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Active
     }
 }
 

@@ -20,9 +20,8 @@ pub struct Certificate {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
-    /// The name of the certificate.
-    #[serde(rename = "name")]
-    pub name: String,
+    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    pub name: Option<String>,
     /// The Unix timestamp (in seconds) of when the certificate was uploaded.
     #[serde(rename = "created_at")]
     pub created_at: i32,
@@ -38,7 +37,7 @@ impl Certificate {
     pub fn new(
         object: Object,
         id: String,
-        name: String,
+        name: Option<String>,
         created_at: i32,
         certificate_details: models::CertificateCertificateDetails,
     ) -> Certificate {

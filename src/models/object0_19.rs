@@ -11,35 +11,35 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object019 : An object describing an image to classify.
+/// Object019 : The last error associated with this run step. Will be `null` if there are no errors.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object019 {
-    /// Always `image_url`.
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    #[serde(rename = "image_url")]
-    pub image_url: Box<models::Object019ImageUrl>,
+    /// One of `server_error` or `rate_limit_exceeded`.
+    #[serde(rename = "code")]
+    pub code: Code,
+    /// A human-readable description of the error.
+    #[serde(rename = "message")]
+    pub message: String,
 }
 
 impl Object019 {
-    /// An object describing an image to classify.
-    pub fn new(r#type: Type, image_url: models::Object019ImageUrl) -> Object019 {
-        Object019 {
-            r#type,
-            image_url: Box::new(image_url),
-        }
+    /// The last error associated with this run step. Will be `null` if there are no errors.
+    pub fn new(code: Code, message: String) -> Object019 {
+        Object019 { code, message }
     }
 }
-/// Always `image_url`.
+/// One of `server_error` or `rate_limit_exceeded`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "image_url")]
-    ImageUrl,
+pub enum Code {
+    #[serde(rename = "server_error")]
+    ServerError,
+    #[serde(rename = "rate_limit_exceeded")]
+    RateLimitExceeded,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::ImageUrl
+impl Default for Code {
+    fn default() -> Code {
+        Self::ServerError
     }
 }
 

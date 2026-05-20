@@ -11,14 +11,21 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeSessionCreateResponseGa : A new Realtime session configuration, with an ephemeral key. Default TTL for keys is one minute.
+/// RealtimeSessionCreateResponseGa : A Realtime session configuration object.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateResponseGa {
-    #[serde(rename = "client_secret")]
-    pub client_secret: Box<models::RealtimeSessionCreateResponseGaClientSecret>,
     /// The type of session to create. Always `realtime` for the Realtime API.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Unique identifier for the session that looks like `sess_1234567890abcdef`.
+    #[serde(rename = "id")]
+    pub id: String,
+    /// The object type. Always `realtime.session`.
+    #[serde(rename = "object")]
+    pub object: Object,
+    /// Expiration timestamp for the session, in seconds since epoch.
+    #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
+    pub expires_at: Option<i32>,
     /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.
     #[serde(rename = "output_modalities", skip_serializing_if = "Option::is_none")]
     pub output_modalities: Option<Vec<OutputModalities>>,
@@ -45,6 +52,8 @@ pub struct RealtimeSessionCreateResponseGa {
     pub tools: Option<Vec<models::RealtimeResponseCreateParamsToolsInner>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<Box<models::RealtimeBetaResponseCreateParamsToolChoice>>,
+    #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
+    pub reasoning: Option<Box<models::RealtimeReasoning>>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
     pub max_output_tokens: Option<Box<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>>,
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
@@ -59,14 +68,13 @@ pub struct RealtimeSessionCreateResponseGa {
 }
 
 impl RealtimeSessionCreateResponseGa {
-    /// A new Realtime session configuration, with an ephemeral key. Default TTL for keys is one minute.
-    pub fn new(
-        client_secret: models::RealtimeSessionCreateResponseGaClientSecret,
-        r#type: Type,
-    ) -> RealtimeSessionCreateResponseGa {
+    /// A Realtime session configuration object.
+    pub fn new(r#type: Type, id: String, object: Object) -> RealtimeSessionCreateResponseGa {
         RealtimeSessionCreateResponseGa {
-            client_secret: Box::new(client_secret),
             r#type,
+            id,
+            object,
+            expires_at: None,
             output_modalities: None,
             model: None,
             instructions: None,
@@ -75,6 +83,7 @@ impl RealtimeSessionCreateResponseGa {
             tracing: None,
             tools: None,
             tool_choice: None,
+            reasoning: None,
             max_output_tokens: None,
             truncation: None,
             prompt: None,
@@ -91,6 +100,18 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Realtime
+    }
+}
+/// The object type. Always `realtime.session`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Object {
+    #[serde(rename = "realtime.session")]
+    RealtimeSession,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::RealtimeSession
     }
 }
 /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.

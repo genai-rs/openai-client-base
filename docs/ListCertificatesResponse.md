@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**Vec<models::Certificate>**](Certificate.md) |  | 
-**first_id** | Option<**String**> |  | [optional]
-**last_id** | Option<**String**> |  | [optional]
+**data** | [**Vec<models::OrganizationCertificate>**](OrganizationCertificate.md) |  | 
+**first_id** | Option<**String**> |  | 
+**last_id** | Option<**String**> |  | 
 **has_more** | **bool** |  | 
 **object** | **String** |  | 
 

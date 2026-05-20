@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ChatCompletionRequestMessageContentPartAudio : Learn about [audio inputs](/docs/guides/audio).
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestMessageContentPartAudio {
     /// The type of the content part. Always `input_audio`.
     #[serde(rename = "type")]

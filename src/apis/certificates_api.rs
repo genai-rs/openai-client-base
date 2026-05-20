@@ -89,7 +89,10 @@ pub enum UploadCertificateError {
 pub async fn activate_organization_certificates(
     configuration: &configuration::Configuration,
     toggle_certificates_request: models::ToggleCertificatesRequest,
-) -> Result<models::ListCertificatesResponse, Error<ActivateOrganizationCertificatesError>> {
+) -> Result<
+    models::OrganizationCertificateActivationResponse,
+    Error<ActivateOrganizationCertificatesError>,
+> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_toggle_certificates_request = toggle_certificates_request;
 
@@ -124,8 +127,8 @@ pub async fn activate_organization_certificates(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCertificatesResponse`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCertificatesResponse`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationCertificateActivationResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationCertificateActivationResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -144,7 +147,10 @@ pub async fn activate_project_certificates(
     configuration: &configuration::Configuration,
     project_id: &str,
     toggle_certificates_request: models::ToggleCertificatesRequest,
-) -> Result<models::ListCertificatesResponse, Error<ActivateProjectCertificatesError>> {
+) -> Result<
+    models::OrganizationProjectCertificateActivationResponse,
+    Error<ActivateProjectCertificatesError>,
+> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
     let p_body_toggle_certificates_request = toggle_certificates_request;
@@ -181,8 +187,8 @@ pub async fn activate_project_certificates(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCertificatesResponse`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCertificatesResponse`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationProjectCertificateActivationResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationProjectCertificateActivationResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -199,7 +205,10 @@ pub async fn activate_project_certificates(
 pub async fn deactivate_organization_certificates(
     configuration: &configuration::Configuration,
     toggle_certificates_request: models::ToggleCertificatesRequest,
-) -> Result<models::ListCertificatesResponse, Error<DeactivateOrganizationCertificatesError>> {
+) -> Result<
+    models::OrganizationCertificateDeactivationResponse,
+    Error<DeactivateOrganizationCertificatesError>,
+> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_toggle_certificates_request = toggle_certificates_request;
 
@@ -234,8 +243,8 @@ pub async fn deactivate_organization_certificates(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCertificatesResponse`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCertificatesResponse`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationCertificateDeactivationResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationCertificateDeactivationResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -254,7 +263,10 @@ pub async fn deactivate_project_certificates(
     configuration: &configuration::Configuration,
     project_id: &str,
     toggle_certificates_request: models::ToggleCertificatesRequest,
-) -> Result<models::ListCertificatesResponse, Error<DeactivateProjectCertificatesError>> {
+) -> Result<
+    models::OrganizationProjectCertificateDeactivationResponse,
+    Error<DeactivateProjectCertificatesError>,
+> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
     let p_body_toggle_certificates_request = toggle_certificates_request;
@@ -291,8 +303,8 @@ pub async fn deactivate_project_certificates(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCertificatesResponse`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCertificatesResponse`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationProjectCertificateDeactivationResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationProjectCertificateDeactivationResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -498,7 +510,7 @@ pub async fn list_project_certificates(
     limit: Option<i32>,
     after: Option<&str>,
     order: Option<&str>,
-) -> Result<models::ListCertificatesResponse, Error<ListProjectCertificatesError>> {
+) -> Result<models::ListProjectCertificatesResponse, Error<ListProjectCertificatesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
     let p_query_limit = limit;
@@ -543,8 +555,8 @@ pub async fn list_project_certificates(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListCertificatesResponse`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListCertificatesResponse`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListProjectCertificatesResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListProjectCertificatesResponse`")))),
         }
     } else {
         let content = resp.text().await?;

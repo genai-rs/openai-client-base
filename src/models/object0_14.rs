@@ -11,35 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object014 : The last error associated with this run step. Will be `null` if there are no errors.
+/// Object014 : Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object014 {
-    /// One of `server_error` or `rate_limit_exceeded`.
-    #[serde(rename = "code")]
-    pub code: Code,
-    /// A human-readable description of the error.
-    #[serde(rename = "message")]
-    pub message: String,
+    /// The transcription model used for source transcript deltas.
+    #[serde(rename = "model")]
+    pub model: String,
 }
 
 impl Object014 {
-    /// The last error associated with this run step. Will be `null` if there are no errors.
-    pub fn new(code: Code, message: String) -> Object014 {
-        Object014 { code, message }
-    }
-}
-/// One of `server_error` or `rate_limit_exceeded`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Code {
-    #[serde(rename = "server_error")]
-    ServerError,
-    #[serde(rename = "rate_limit_exceeded")]
-    RateLimitExceeded,
-}
-
-impl Default for Code {
-    fn default() -> Code {
-        Self::ServerError
+    /// Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
+    pub fn new(model: String) -> Object014 {
+        Object014 { model }
     }
 }
 

@@ -11,30 +11,46 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UserRoleUpdateRequest {
-    /// `owner` or `reader`
-    #[serde(rename = "role")]
-    pub role: Role,
+    #[serde(
+        rename = "role",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub role: Option<Option<String>>,
+    #[serde(
+        rename = "role_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub role_id: Option<Option<String>>,
+    #[serde(
+        rename = "technical_level",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub technical_level: Option<Option<String>>,
+    #[serde(
+        rename = "developer_persona",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub developer_persona: Option<Option<String>>,
 }
 
 impl UserRoleUpdateRequest {
-    pub fn new(role: Role) -> UserRoleUpdateRequest {
-        UserRoleUpdateRequest { role }
-    }
-}
-/// `owner` or `reader`
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    #[serde(rename = "owner")]
-    Owner,
-    #[serde(rename = "reader")]
-    Reader,
-}
-
-impl Default for Role {
-    fn default() -> Role {
-        Self::Owner
+    pub fn new() -> UserRoleUpdateRequest {
+        UserRoleUpdateRequest {
+            role: None,
+            role_id: None,
+            technical_level: None,
+            developer_persona: None,
+        }
     }
 }
 

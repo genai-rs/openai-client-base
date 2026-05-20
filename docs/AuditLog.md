@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **r#type** | [**models::AuditLogEventType**](AuditLogEventType.md) |  | 
 **effective_at** | **i32** | The Unix timestamp (in seconds) of the event. | 
 **project** | Option<[**models::AuditLogProject**](AuditLog_project.md)> |  | [optional]
-**actor** | [**models::AuditLogActor**](AuditLogActor.md) |  | 
+**actor** | Option<[**models::AuditLogActor**](AuditLogActor.md)> |  | [optional]
 **api_key_created** | Option<[**models::AuditLogApiKeyCreated**](AuditLog_api_key_created.md)> |  | [optional]
 **api_key_updated** | Option<[**models::AuditLogApiKeyUpdated**](AuditLog_api_key_updated.md)> |  | [optional]
 **api_key_deleted** | Option<[**models::AuditLogApiKeyDeleted**](AuditLog_api_key_deleted.md)> |  | [optional]

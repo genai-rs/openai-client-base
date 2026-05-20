@@ -11,37 +11,17 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object017 : The last error associated with this vector store file. Will be `null` if there are no errors.
+/// Object017 : Optional input noise reduction. Set to `null` to disable it.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object017 {
-    /// One of `server_error`, `unsupported_file`, or `invalid_file`.
-    #[serde(rename = "code")]
-    pub code: Code,
-    /// A human-readable description of the error.
-    #[serde(rename = "message")]
-    pub message: String,
+    #[serde(rename = "type")]
+    pub r#type: models::NoiseReductionType,
 }
 
 impl Object017 {
-    /// The last error associated with this vector store file. Will be `null` if there are no errors.
-    pub fn new(code: Code, message: String) -> Object017 {
-        Object017 { code, message }
-    }
-}
-/// One of `server_error`, `unsupported_file`, or `invalid_file`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Code {
-    #[serde(rename = "server_error")]
-    ServerError,
-    #[serde(rename = "unsupported_file")]
-    UnsupportedFile,
-    #[serde(rename = "invalid_file")]
-    InvalidFile,
-}
-
-impl Default for Code {
-    fn default() -> Code {
-        Self::ServerError
+    /// Optional input noise reduction. Set to `null` to disable it.
+    pub fn new(r#type: models::NoiseReductionType) -> Object017 {
+        Object017 { r#type }
     }
 }
 

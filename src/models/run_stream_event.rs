@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RunStreamEvent {
-    Object016(serde_json::Value),
+    Object021(serde_json::Value),
     Object12(serde_json::Value),
     Object22(serde_json::Value),
     Object32(serde_json::Value),
@@ -31,10 +31,4 @@ pub enum RunStreamEvent {
 pub enum Event {
     #[serde(rename = "thread.run.expired")]
     ThreadRunExpired,
-}
-
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunExpired
-    }
 }

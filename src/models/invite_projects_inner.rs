@@ -14,19 +14,16 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InviteProjectsInner {
     /// Project's public ID
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    #[serde(rename = "id")]
+    pub id: String,
     /// Project membership role
-    #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
-    pub role: Option<Role>,
+    #[serde(rename = "role")]
+    pub role: Role,
 }
 
 impl InviteProjectsInner {
-    pub fn new() -> InviteProjectsInner {
-        InviteProjectsInner {
-            id: None,
-            role: None,
-        }
+    pub fn new(id: String, role: Role) -> InviteProjectsInner {
+        InviteProjectsInner { id, role }
     }
 }
 /// Project membership role

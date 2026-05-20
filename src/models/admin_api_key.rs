@@ -12,29 +12,35 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// AdminApiKey : Represents an individual Admin API key in an org.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AdminApiKey {
     /// The object type, which is always `organization.admin_api_key`
     #[serde(rename = "object")]
-    pub object: String,
+    pub object: Object,
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
-    /// The name of the API key
-    #[serde(rename = "name")]
-    pub name: String,
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
     /// The redacted value of the API key
     #[serde(rename = "redacted_value")]
     pub redacted_value: String,
-    /// The value of the API key. Only shown on create.
-    #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
     /// The Unix timestamp (in seconds) of when the API key was created
     #[serde(rename = "created_at")]
     pub created_at: i32,
     /// The Unix timestamp (in seconds) of when the API key was last used
-    #[serde(rename = "last_used_at", deserialize_with = "Option::deserialize")]
-    pub last_used_at: Option<i32>,
+    #[serde(
+        rename = "last_used_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_used_at: Option<Option<i32>>,
     #[serde(rename = "owner")]
     pub owner: Box<models::AdminApiKeyOwner>,
 }
@@ -42,24 +48,33 @@ pub struct AdminApiKey {
 impl AdminApiKey {
     /// Represents an individual Admin API key in an org.
     pub fn new(
-        object: String,
+        object: Object,
         id: String,
-        name: String,
         redacted_value: String,
         created_at: i32,
-        last_used_at: Option<i32>,
         owner: models::AdminApiKeyOwner,
     ) -> AdminApiKey {
         AdminApiKey {
             object,
             id,
-            name,
+            name: None,
             redacted_value,
-            value: None,
             created_at,
-            last_used_at,
+            last_used_at: None,
             owner: Box::new(owner),
         }
+    }
+}
+/// The object type, which is always `organization.admin_api_key`
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Object {
+    #[serde(rename = "organization.admin_api_key")]
+    OrganizationAdminApiKey,
+}
+
+impl Default for Object {
+    fn default() -> Object {
+        Self::OrganizationAdminApiKey
     }
 }
 

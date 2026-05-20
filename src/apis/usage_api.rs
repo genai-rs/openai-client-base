@@ -57,6 +57,13 @@ pub enum UsageEmbeddingsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`usage_file_search_calls`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UsageFileSearchCallsError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`usage_images`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -75,6 +82,13 @@ pub enum UsageModerationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageVectorStoresError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`usage_web_search_calls`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UsageWebSearchCallsError {
     UnknownValue(serde_json::Value),
 }
 
@@ -1026,6 +1040,182 @@ pub async fn usage_embeddings(
 }
 
 #[bon::builder]
+pub async fn usage_file_search_calls(
+    configuration: &configuration::Configuration,
+    start_time: i32,
+    end_time: Option<i32>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    vector_store_ids: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i32>,
+    page: Option<&str>,
+) -> Result<models::UsageResponse, Error<UsageFileSearchCallsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_vector_store_ids = vector_store_ids;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!(
+        "{}/organization/usage/file_search_calls",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("project_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "project_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("user_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "user_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("api_key_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "api_key_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_vector_store_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("vector_store_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "vector_store_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("group_by".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "group_by",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UsageResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UsageResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UsageFileSearchCallsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
 pub async fn usage_images(
     configuration: &configuration::Configuration,
     start_time: i32,
@@ -1518,6 +1708,203 @@ pub async fn usage_vector_stores(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageVectorStoresError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn usage_web_search_calls(
+    configuration: &configuration::Configuration,
+    start_time: i32,
+    end_time: Option<i32>,
+    bucket_width: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    context_levels: Option<Vec<String>>,
+    group_by: Option<Vec<String>>,
+    limit: Option<i32>,
+    page: Option<&str>,
+) -> Result<models::UsageResponse, Error<UsageWebSearchCallsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_project_ids = project_ids;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_context_levels = context_levels;
+    let p_query_group_by = group_by;
+    let p_query_limit = limit;
+    let p_query_page = page;
+
+    let uri_str = format!(
+        "{}/organization/usage/web_search_calls",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("project_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "project_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("user_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "user_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("api_key_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "api_key_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_models {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("models".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "models",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_context_levels {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("context_levels".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "context_levels",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("group_by".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "group_by",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UsageResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UsageResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UsageWebSearchCallsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

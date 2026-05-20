@@ -12,12 +12,6 @@ pub enum EvalItemContentItem {
     Inputaudio(models::InputAudio),
 }
 
-impl Default for EvalItemContentItem {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl EvalItemContentItem {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

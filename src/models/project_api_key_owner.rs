@@ -11,15 +11,15 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectApiKeyOwner {
     /// `user` or `service_account`
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
-    pub user: Option<Box<models::ProjectUser>>,
+    pub user: Option<Box<models::ProjectApiKeyOwnerUser>>,
     #[serde(rename = "service_account", skip_serializing_if = "Option::is_none")]
-    pub service_account: Option<Box<models::ProjectServiceAccount>>,
+    pub service_account: Option<Box<models::ProjectApiKeyOwnerServiceAccount>>,
 }
 
 impl ProjectApiKeyOwner {
