@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **format** | Option<[**models::RealtimeAudioFormats**](RealtimeAudioFormats.md)> |  | [optional]
-**transcription** | Option<[**models::AudioTranscription**](AudioTranscription.md)> |  | [optional]
+**transcription** | Option<[**models::AudioTranscriptionResponse**](AudioTranscriptionResponse.md)> |  | [optional]
 **noise_reduction** | Option<[**models::RealtimeSessionCreateResponseAudioInputNoiseReduction**](RealtimeSessionCreateResponse_audio_input_noise_reduction.md)> |  | [optional]
 **turn_detection** | Option<[**models::RealtimeSessionCreateResponseAudioInputTurnDetection**](RealtimeSessionCreateResponse_audio_input_turn_detection.md)> |  | [optional]
 

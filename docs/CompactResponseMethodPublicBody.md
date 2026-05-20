@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **instructions** | Option<**String**> | A system (or developer) message inserted into the model's context. When used along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses. | [optional]
 **prompt_cache_key** | Option<**String**> | A key to use when reading from or writing to the prompt cache. | [optional]
 **prompt_cache_retention** | Option<[**models::PromptCacheRetentionEnum**](PromptCacheRetentionEnum.md)> |  | [optional]
+**service_tier** | Option<[**models::ServiceTierEnum**](ServiceTierEnum.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

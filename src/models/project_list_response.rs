@@ -17,27 +17,31 @@ pub struct ProjectListResponse {
     pub object: Object,
     #[serde(rename = "data")]
     pub data: Vec<models::Project>,
-    #[serde(rename = "first_id")]
-    pub first_id: String,
-    #[serde(rename = "last_id")]
-    pub last_id: String,
+    #[serde(
+        rename = "first_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub first_id: Option<Option<String>>,
+    #[serde(
+        rename = "last_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_id: Option<Option<String>>,
     #[serde(rename = "has_more")]
     pub has_more: bool,
 }
 
 impl ProjectListResponse {
-    pub fn new(
-        object: Object,
-        data: Vec<models::Project>,
-        first_id: String,
-        last_id: String,
-        has_more: bool,
-    ) -> ProjectListResponse {
+    pub fn new(object: Object, data: Vec<models::Project>, has_more: bool) -> ProjectListResponse {
         ProjectListResponse {
             object,
             data,
-            first_id,
-            last_id,
+            first_id: None,
+            last_id: None,
             has_more,
         }
     }

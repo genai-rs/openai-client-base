@@ -8,7 +8,8 @@ Method | HTTP request | Description
 [**create_project**](ProjectsApi.md#create_project) | **POST** /organization/projects | Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
 [**create_project_service_account**](ProjectsApi.md#create_project_service_account) | **POST** /organization/projects/{project_id}/service_accounts | Creates a new service account in the project. This also returns an unredacted API key for the service account.
 [**create_project_user**](ProjectsApi.md#create_project_user) | **POST** /organization/projects/{project_id}/users | Adds a user to the project. Users must already be members of the organization to be added to a project.
-[**delete_project_api_key**](ProjectsApi.md#delete_project_api_key) | **DELETE** /organization/projects/{project_id}/api_keys/{key_id} | Deletes an API key from the project.  Returns confirmation of the key deletion, or an error if the key belonged to a service account. 
+[**delete_project_api_key**](ProjectsApi.md#delete_project_api_key) | **DELETE** /organization/projects/{project_id}/api_keys/{api_key_id} | Deletes an API key from the project.  Returns confirmation of the key deletion, or an error if the key belonged to a service account. 
+[**delete_project_model_permissions**](ProjectsApi.md#delete_project_model_permissions) | **DELETE** /organization/projects/{project_id}/model_permissions | Deletes model permissions for a project.
 [**delete_project_service_account**](ProjectsApi.md#delete_project_service_account) | **DELETE** /organization/projects/{project_id}/service_accounts/{service_account_id} | Deletes a service account from the project.  Returns confirmation of service account deletion, or an error if the project is archived (archived projects have no service accounts). 
 [**delete_project_user**](ProjectsApi.md#delete_project_user) | **DELETE** /organization/projects/{project_id}/users/{user_id} | Deletes a user from the project.  Returns confirmation of project user deletion, or an error if the project is archived (archived projects have no users). 
 [**list_project_api_keys**](ProjectsApi.md#list_project_api_keys) | **GET** /organization/projects/{project_id}/api_keys | Returns a list of API keys in the project.
@@ -19,9 +20,11 @@ Method | HTTP request | Description
 [**modify_project**](ProjectsApi.md#modify_project) | **POST** /organization/projects/{project_id} | Modifies a project in the organization.
 [**modify_project_user**](ProjectsApi.md#modify_project_user) | **POST** /organization/projects/{project_id}/users/{user_id} | Modifies a user's role in the project.
 [**retrieve_project**](ProjectsApi.md#retrieve_project) | **GET** /organization/projects/{project_id} | Retrieves a project.
-[**retrieve_project_api_key**](ProjectsApi.md#retrieve_project_api_key) | **GET** /organization/projects/{project_id}/api_keys/{key_id} | Retrieves an API key in the project.
+[**retrieve_project_api_key**](ProjectsApi.md#retrieve_project_api_key) | **GET** /organization/projects/{project_id}/api_keys/{api_key_id} | Retrieves an API key in the project.
+[**retrieve_project_model_permissions**](ProjectsApi.md#retrieve_project_model_permissions) | **GET** /organization/projects/{project_id}/model_permissions | Returns model permissions for a project.
 [**retrieve_project_service_account**](ProjectsApi.md#retrieve_project_service_account) | **GET** /organization/projects/{project_id}/service_accounts/{service_account_id} | Retrieves a service account in the project.
 [**retrieve_project_user**](ProjectsApi.md#retrieve_project_user) | **GET** /organization/projects/{project_id}/users/{user_id} | Retrieves a user in the project.
+[**update_project_model_permissions**](ProjectsApi.md#update_project_model_permissions) | **POST** /organization/projects/{project_id}/model_permissions | Updates model permissions for a project.
 [**update_project_rate_limits**](ProjectsApi.md#update_project_rate_limits) | **POST** /organization/projects/{project_id}/rate_limits/{rate_limit_id} | Updates a project rate limit.
 
 
@@ -142,7 +145,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_project_api_key
 
-> models::ProjectApiKeyDeleteResponse delete_project_api_key(project_id, key_id)
+> models::ProjectApiKeyDeleteResponse delete_project_api_key(project_id, api_key_id)
 Deletes an API key from the project.  Returns confirmation of the key deletion, or an error if the key belonged to a service account. 
 
 ### Parameters
@@ -151,11 +154,39 @@ Deletes an API key from the project.  Returns confirmation of the key deletion, 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
-**key_id** | **String** | The ID of the API key. | [required] |
+**api_key_id** | **String** | The ID of the API key. | [required] |
 
 ### Return type
 
 [**models::ProjectApiKeyDeleteResponse**](ProjectApiKeyDeleteResponse.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_project_model_permissions
+
+> models::ProjectModelPermissionsDeleteResponse delete_project_model_permissions(project_id)
+Deletes model permissions for a project.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project. | [required] |
+
+### Return type
+
+[**models::ProjectModelPermissionsDeleteResponse**](ProjectModelPermissionsDeleteResponse.md)
 
 ### Authorization
 
@@ -467,7 +498,7 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project_api_key
 
-> models::ProjectApiKey retrieve_project_api_key(project_id, key_id)
+> models::ProjectApiKey retrieve_project_api_key(project_id, api_key_id)
 Retrieves an API key in the project.
 
 ### Parameters
@@ -476,11 +507,39 @@ Retrieves an API key in the project.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
-**key_id** | **String** | The ID of the API key. | [required] |
+**api_key_id** | **String** | The ID of the API key. | [required] |
 
 ### Return type
 
 [**models::ProjectApiKey**](ProjectApiKey.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_project_model_permissions
+
+> models::ProjectModelPermissions retrieve_project_model_permissions(project_id)
+Returns model permissions for a project.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project. | [required] |
+
+### Return type
+
+[**models::ProjectModelPermissions**](ProjectModelPermissions.md)
 
 ### Authorization
 
@@ -547,6 +606,35 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_project_model_permissions
+
+> models::ProjectModelPermissions update_project_model_permissions(project_id, project_model_permissions_update_request)
+Updates model permissions for a project.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project. | [required] |
+**project_model_permissions_update_request** | [**ProjectModelPermissionsUpdateRequest**](ProjectModelPermissionsUpdateRequest.md) | The project model permissions update request payload. | [required] |
+
+### Return type
+
+[**models::ProjectModelPermissions**](ProjectModelPermissions.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

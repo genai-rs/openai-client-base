@@ -98,7 +98,7 @@ pub async fn create_image_edit(
     background: Option<&str>,
     model: Option<&str>,
     n: Option<i32>,
-    size: Option<&str>,
+    size: Option<models::CreateImageEditRequestSize>,
     response_format: Option<&str>,
     output_format: Option<&str>,
     output_compression: Option<i32>,

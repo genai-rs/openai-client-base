@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## activate_organization_certificates
 
-> models::ListCertificatesResponse activate_organization_certificates(toggle_certificates_request)
+> models::OrganizationCertificateActivationResponse activate_organization_certificates(toggle_certificates_request)
 Activate certificates at the organization level.  You can atomically and idempotently activate up to 10 certificates at a time. 
 
 ### Parameters
@@ -31,7 +31,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ListCertificatesResponse**](ListCertificatesResponse.md)
+[**models::OrganizationCertificateActivationResponse**](OrganizationCertificateActivationResponse.md)
 
 ### Authorization
 
@@ -47,7 +47,7 @@ Name | Type | Description  | Required | Notes
 
 ## activate_project_certificates
 
-> models::ListCertificatesResponse activate_project_certificates(project_id, toggle_certificates_request)
+> models::OrganizationProjectCertificateActivationResponse activate_project_certificates(project_id, toggle_certificates_request)
 Activate certificates at the project level.  You can atomically and idempotently activate up to 10 certificates at a time. 
 
 ### Parameters
@@ -60,7 +60,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ListCertificatesResponse**](ListCertificatesResponse.md)
+[**models::OrganizationProjectCertificateActivationResponse**](OrganizationProjectCertificateActivationResponse.md)
 
 ### Authorization
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 
 ## deactivate_organization_certificates
 
-> models::ListCertificatesResponse deactivate_organization_certificates(toggle_certificates_request)
+> models::OrganizationCertificateDeactivationResponse deactivate_organization_certificates(toggle_certificates_request)
 Deactivate certificates at the organization level.  You can atomically and idempotently deactivate up to 10 certificates at a time. 
 
 ### Parameters
@@ -88,7 +88,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ListCertificatesResponse**](ListCertificatesResponse.md)
+[**models::OrganizationCertificateDeactivationResponse**](OrganizationCertificateDeactivationResponse.md)
 
 ### Authorization
 
@@ -104,7 +104,7 @@ Name | Type | Description  | Required | Notes
 
 ## deactivate_project_certificates
 
-> models::ListCertificatesResponse deactivate_project_certificates(project_id, toggle_certificates_request)
+> models::OrganizationProjectCertificateDeactivationResponse deactivate_project_certificates(project_id, toggle_certificates_request)
 Deactivate certificates at the project level. You can atomically and  idempotently deactivate up to 10 certificates at a time. 
 
 ### Parameters
@@ -117,7 +117,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ListCertificatesResponse**](ListCertificatesResponse.md)
+[**models::OrganizationProjectCertificateDeactivationResponse**](OrganizationProjectCertificateDeactivationResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_certificates
 
-> models::ListCertificatesResponse list_project_certificates(project_id, limit, after, order)
+> models::ListProjectCertificatesResponse list_project_certificates(project_id, limit, after, order)
 List certificates for this project.
 
 ### Parameters
@@ -235,7 +235,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ListCertificatesResponse**](ListCertificatesResponse.md)
+[**models::ListProjectCertificatesResponse**](ListProjectCertificatesResponse.md)
 
 ### Authorization
 

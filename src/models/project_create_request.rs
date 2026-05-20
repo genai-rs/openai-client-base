@@ -16,9 +16,20 @@ pub struct ProjectCreateRequest {
     /// The friendly name of the project, this name appears in reports.
     #[serde(rename = "name")]
     pub name: String,
-    /// Create the project with the specified data residency region. Your organization must have access to Data residency functionality in order to use. See [data residency controls](/docs/guides/your-data#data-residency-controls) to review the functionality and limitations of setting this field.
-    #[serde(rename = "geography", skip_serializing_if = "Option::is_none")]
-    pub geography: Option<Geography>,
+    #[serde(
+        rename = "geography",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub geography: Option<Option<String>>,
+    #[serde(
+        rename = "external_key_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub external_key_id: Option<Option<String>>,
 }
 
 impl ProjectCreateRequest {
@@ -26,33 +37,8 @@ impl ProjectCreateRequest {
         ProjectCreateRequest {
             name,
             geography: None,
+            external_key_id: None,
         }
-    }
-}
-/// Create the project with the specified data residency region. Your organization must have access to Data residency functionality in order to use. See [data residency controls](/docs/guides/your-data#data-residency-controls) to review the functionality and limitations of setting this field.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Geography {
-    #[serde(rename = "US")]
-    Us,
-    #[serde(rename = "EU")]
-    Eu,
-    #[serde(rename = "JP")]
-    Jp,
-    #[serde(rename = "IN")]
-    In,
-    #[serde(rename = "KR")]
-    Kr,
-    #[serde(rename = "CA")]
-    Ca,
-    #[serde(rename = "AU")]
-    Au,
-    #[serde(rename = "SG")]
-    Sg,
-}
-
-impl Default for Geography {
-    fn default() -> Geography {
-        Self::Us
     }
 }
 

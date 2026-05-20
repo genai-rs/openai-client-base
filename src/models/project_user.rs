@@ -20,15 +20,23 @@ pub struct ProjectUser {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
-    /// The name of the user
-    #[serde(rename = "name")]
-    pub name: String,
-    /// The email address of the user
-    #[serde(rename = "email")]
-    pub email: String,
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
+    #[serde(
+        rename = "email",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub email: Option<Option<String>>,
     /// `owner` or `member`
     #[serde(rename = "role")]
-    pub role: Role,
+    pub role: String,
     /// The Unix timestamp (in seconds) of when the project was added.
     #[serde(rename = "added_at")]
     pub added_at: i32,
@@ -36,19 +44,12 @@ pub struct ProjectUser {
 
 impl ProjectUser {
     /// Represents an individual user in a project.
-    pub fn new(
-        object: Object,
-        id: String,
-        name: String,
-        email: String,
-        role: Role,
-        added_at: i32,
-    ) -> ProjectUser {
+    pub fn new(object: Object, id: String, role: String, added_at: i32) -> ProjectUser {
         ProjectUser {
             object,
             id,
-            name,
-            email,
+            name: None,
+            email: None,
             role,
             added_at,
         }
@@ -64,20 +65,6 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::OrganizationProjectUser
-    }
-}
-/// `owner` or `member`
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    #[serde(rename = "owner")]
-    Owner,
-    #[serde(rename = "member")]
-    Member,
-}
-
-impl Default for Role {
-    fn default() -> Role {
-        Self::Owner
     }
 }
 

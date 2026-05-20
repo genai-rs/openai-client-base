@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **line_item** | Option<**String**> | When `group_by=line_item`, this field provides the line item of the grouped costs result. | [optional]
 **project_id** | Option<**String**> | When `group_by=project_id`, this field provides the project ID of the grouped costs result. | [optional]
 **api_key_id** | Option<**String**> | When `group_by=api_key_id`, this field provides the API Key ID of the grouped costs result. | [optional]
+**quantity** | Option<**f64**> | When `group_by=line_item`, this field provides the quantity of the grouped costs result. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -18,25 +18,33 @@ pub struct InviteListResponse {
     pub object: Object,
     #[serde(rename = "data")]
     pub data: Vec<models::Invite>,
-    /// The first `invite_id` in the retrieved `list`
-    #[serde(rename = "first_id", skip_serializing_if = "Option::is_none")]
-    pub first_id: Option<String>,
-    /// The last `invite_id` in the retrieved `list`
-    #[serde(rename = "last_id", skip_serializing_if = "Option::is_none")]
-    pub last_id: Option<String>,
+    #[serde(
+        rename = "first_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub first_id: Option<Option<String>>,
+    #[serde(
+        rename = "last_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_id: Option<Option<String>>,
     /// The `has_more` property is used for pagination to indicate there are additional results.
-    #[serde(rename = "has_more", skip_serializing_if = "Option::is_none")]
-    pub has_more: Option<bool>,
+    #[serde(rename = "has_more")]
+    pub has_more: bool,
 }
 
 impl InviteListResponse {
-    pub fn new(object: Object, data: Vec<models::Invite>) -> InviteListResponse {
+    pub fn new(object: Object, data: Vec<models::Invite>, has_more: bool) -> InviteListResponse {
         InviteListResponse {
             object,
             data,
             first_id: None,
             last_id: None,
-            has_more: None,
+            has_more,
         }
     }
 }

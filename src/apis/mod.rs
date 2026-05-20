@@ -138,6 +138,7 @@ pub mod fine_tuning_api;
 pub mod group_organization_role_assignments_api;
 pub mod group_users_api;
 pub mod groups_api;
+pub mod hosted_tools_api;
 pub mod images_api;
 pub mod invites_api;
 pub mod models_api;

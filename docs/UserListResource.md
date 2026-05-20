@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **object** | **String** | Always `list`. | 
-**data** | [**Vec<models::User>**](User.md) | Users in the current page. | 
+**data** | [**Vec<models::GroupUser>**](GroupUser.md) | Users in the current page. | 
 **has_more** | **bool** | Whether more users are available when paginating. | 
 **next** | Option<**String**> |  | 
 

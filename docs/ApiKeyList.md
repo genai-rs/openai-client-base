@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | Option<**String**> |  | [optional]
-**data** | Option<[**Vec<models::AdminApiKey>**](AdminApiKey.md)> |  | [optional]
-**has_more** | Option<**bool**> |  | [optional]
+**object** | **String** |  | 
+**data** | [**Vec<models::AdminApiKey>**](AdminApiKey.md) |  | 
+**has_more** | **bool** |  | 
 **first_id** | Option<**String**> |  | [optional]
 **last_id** | Option<**String**> |  | [optional]
 

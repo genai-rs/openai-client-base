@@ -38,6 +38,14 @@ pub struct RealtimeSessionCreateRequestGa {
     pub tools: Option<Vec<models::RealtimeResponseCreateParamsToolsInner>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<Box<models::RealtimeBetaResponseCreateParamsToolChoice>>,
+    /// Whether the model may call multiple tools in parallel. Only supported by reasoning Realtime models such as `gpt-realtime-2`.
+    #[serde(
+        rename = "parallel_tool_calls",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub parallel_tool_calls: Option<bool>,
+    #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
+    pub reasoning: Option<Box<models::RealtimeReasoning>>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
     pub max_output_tokens: Option<Box<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>>,
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
@@ -64,6 +72,8 @@ impl RealtimeSessionCreateRequestGa {
             tracing: None,
             tools: None,
             tool_choice: None,
+            parallel_tool_calls: None,
+            reasoning: None,
             max_output_tokens: None,
             truncation: None,
             prompt: None,

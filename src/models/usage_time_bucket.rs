@@ -19,8 +19,8 @@ pub struct UsageTimeBucket {
     pub start_time: i32,
     #[serde(rename = "end_time")]
     pub end_time: i32,
-    #[serde(rename = "result")]
-    pub result: Vec<models::UsageTimeBucketResultInner>,
+    #[serde(rename = "results")]
+    pub results: Vec<models::UsageTimeBucketResultsInner>,
 }
 
 impl UsageTimeBucket {
@@ -28,13 +28,13 @@ impl UsageTimeBucket {
         object: Object,
         start_time: i32,
         end_time: i32,
-        result: Vec<models::UsageTimeBucketResultInner>,
+        results: Vec<models::UsageTimeBucketResultsInner>,
     ) -> UsageTimeBucket {
         UsageTimeBucket {
             object,
             start_time,
             end_time,
-            result,
+            results,
         }
     }
 }

@@ -16,6 +16,7 @@ use serde::{Deserialize, Serialize};
 pub enum InputItem {
     EasyInputMessage(Box<models::EasyInputMessage>),
     Item(Box<models::Item>),
+    CompactionTriggerItemParam(Box<models::CompactionTriggerItemParam>),
     ItemReferenceParam(Box<models::ItemReferenceParam>),
 }
 

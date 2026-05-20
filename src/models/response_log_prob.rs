@@ -20,7 +20,7 @@ pub struct ResponseLogProb {
     /// The log probability of this token.
     #[serde(rename = "logprob")]
     pub logprob: f64,
-    /// The log probability of the top 20 most likely tokens.
+    /// The log probabilities of up to 20 of the most likely tokens.
     #[serde(rename = "top_logprobs", skip_serializing_if = "Option::is_none")]
     pub top_logprobs: Option<Vec<models::ResponseLogProbTopLogprobsInner>>,
 }

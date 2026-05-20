@@ -21,7 +21,7 @@ pub struct CreateResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
-    /// An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability.
+    /// An integer between 0 and 20 specifying the maximum number of most likely tokens to return at each token position, each with an associated log probability. In some cases, the number of returned tokens may be fewer than requested.
     #[serde(rename = "top_logprobs", skip_serializing_if = "Option::is_none")]
     pub top_logprobs: Option<i32>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.

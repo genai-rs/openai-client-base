@@ -19,7 +19,7 @@ pub struct UserListResource {
     pub object: Object,
     /// Users in the current page.
     #[serde(rename = "data")]
-    pub data: Vec<models::User>,
+    pub data: Vec<models::GroupUser>,
     /// Whether more users are available when paginating.
     #[serde(rename = "has_more")]
     pub has_more: bool,
@@ -31,7 +31,7 @@ impl UserListResource {
     /// Paginated list of user objects returned when inspecting group membership.
     pub fn new(
         object: Object,
-        data: Vec<models::User>,
+        data: Vec<models::GroupUser>,
         has_more: bool,
         next: Option<String>,
     ) -> UserListResource {

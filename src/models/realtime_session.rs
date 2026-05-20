@@ -52,7 +52,7 @@ pub struct RealtimeSession {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio_transcription: Option<Option<Box<models::AudioTranscription>>>,
+    pub input_audio_transcription: Option<Option<Box<models::AudioTranscriptionResponse>>>,
     #[serde(
         rename = "turn_detection",
         default,

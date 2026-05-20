@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// WebSearchActionOpenPage : Action type \"open_page\" - Opens a specific URL from search results.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchActionOpenPage {
-    /// The action type.
+    /// The action type. Always `open_page`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(
@@ -32,7 +32,7 @@ impl WebSearchActionOpenPage {
         WebSearchActionOpenPage { r#type, url: None }
     }
 }
-/// The action type.
+/// The action type. Always `open_page`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "open_page")]

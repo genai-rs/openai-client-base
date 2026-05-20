@@ -59,20 +59,6 @@ impl Default for Quality {
         Self::Low
     }
 }
-/// The size of the generated image. One of `1024x1024`, `1024x1536`, `1536x1024`, or `auto`. Default: `auto`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Size {
-    Variant1024x1024,
-    Variant1024x1536,
-    Variant1536x1024,
-    Auto,
-}
-
-impl Default for Size {
-    fn default() -> Size {
-        Self::Variant1024x1024
-    }
-}
 /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputFormat {

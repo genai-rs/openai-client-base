@@ -14,10 +14,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ListCertificatesResponse {
     #[serde(rename = "data")]
-    pub data: Vec<models::Certificate>,
-    #[serde(rename = "first_id", skip_serializing_if = "Option::is_none")]
+    pub data: Vec<models::OrganizationCertificate>,
+    #[serde(rename = "first_id", deserialize_with = "Option::deserialize")]
     pub first_id: Option<String>,
-    #[serde(rename = "last_id", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "last_id", deserialize_with = "Option::deserialize")]
     pub last_id: Option<String>,
     #[serde(rename = "has_more")]
     pub has_more: bool,
@@ -27,14 +27,16 @@ pub struct ListCertificatesResponse {
 
 impl ListCertificatesResponse {
     pub fn new(
-        data: Vec<models::Certificate>,
+        data: Vec<models::OrganizationCertificate>,
+        first_id: Option<String>,
+        last_id: Option<String>,
         has_more: bool,
         object: Object,
     ) -> ListCertificatesResponse {
         ListCertificatesResponse {
             data,
-            first_id: None,
-            last_id: None,
+            first_id,
+            last_id,
             has_more,
             object,
         }

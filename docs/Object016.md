@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**event** | **String** |  | 
-**data** | [**models::RunObject**](RunObject.md) |  | 
+**model** | **String** | The transcription model to use for source transcript deltas. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -5,20 +5,20 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeServerEventSessionCreatedSession {
-    Realtimesessioncreaterequestga(models::RealtimeSessionCreateRequestGa),
-    Realtimetranscriptionsessioncreaterequestga(
-        models::RealtimeTranscriptionSessionCreateRequestGa,
+    Realtimesessioncreateresponsega(models::RealtimeSessionCreateResponseGa),
+    Realtimetranscriptionsessioncreateresponsega(
+        models::RealtimeTranscriptionSessionCreateResponseGa,
     ),
 }
 
 impl std::fmt::Display for RealtimeServerEventSessionCreatedSession {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            RealtimeServerEventSessionCreatedSession::Realtimesessioncreaterequestga(value) => match serde_json::to_string(value) {
+            RealtimeServerEventSessionCreatedSession::Realtimesessioncreateresponsega(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
-            RealtimeServerEventSessionCreatedSession::Realtimetranscriptionsessioncreaterequestga(value) => match serde_json::to_string(value) {
+            RealtimeServerEventSessionCreatedSession::Realtimetranscriptionsessioncreateresponsega(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },

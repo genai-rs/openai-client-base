@@ -23,7 +23,7 @@ pub struct WebSearchTool {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub filters: Option<Option<Box<models::Object018>>>,
+    pub filters: Option<Option<Box<models::Object024>>>,
     #[serde(
         rename = "user_location",
         default,

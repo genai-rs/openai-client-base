@@ -11,30 +11,20 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectUserUpdateRequest {
-    /// `owner` or `member`
-    #[serde(rename = "role")]
-    pub role: Role,
+    #[serde(
+        rename = "role",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub role: Option<Option<String>>,
 }
 
 impl ProjectUserUpdateRequest {
-    pub fn new(role: Role) -> ProjectUserUpdateRequest {
-        ProjectUserUpdateRequest { role }
-    }
-}
-/// `owner` or `member`
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    #[serde(rename = "owner")]
-    Owner,
-    #[serde(rename = "member")]
-    Member,
-}
-
-impl Default for Role {
-    fn default() -> Role {
-        Self::Owner
+    pub fn new() -> ProjectUserUpdateRequest {
+        ProjectUserUpdateRequest { role: None }
     }
 }
 

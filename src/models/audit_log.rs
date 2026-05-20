@@ -24,8 +24,13 @@ pub struct AuditLog {
     pub effective_at: i32,
     #[serde(rename = "project", skip_serializing_if = "Option::is_none")]
     pub project: Option<Box<models::AuditLogProject>>,
-    #[serde(rename = "actor")]
-    pub actor: Box<models::AuditLogActor>,
+    #[serde(
+        rename = "actor",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub actor: Option<Option<Box<models::AuditLogActor>>>,
     #[serde(rename = "api_key.created", skip_serializing_if = "Option::is_none")]
     pub api_key_created: Option<Box<models::AuditLogApiKeyCreated>>,
     #[serde(rename = "api_key.updated", skip_serializing_if = "Option::is_none")]
@@ -186,18 +191,13 @@ pub struct AuditLog {
 
 impl AuditLog {
     /// A log of a user action or configuration change within this organization.
-    pub fn new(
-        id: String,
-        r#type: models::AuditLogEventType,
-        effective_at: i32,
-        actor: models::AuditLogActor,
-    ) -> AuditLog {
+    pub fn new(id: String, r#type: models::AuditLogEventType, effective_at: i32) -> AuditLog {
         AuditLog {
             id,
             r#type,
             effective_at,
             project: None,
-            actor: Box::new(actor),
+            actor: None,
             api_key_created: None,
             api_key_updated: None,
             api_key_deleted: None,

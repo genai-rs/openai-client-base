@@ -17,15 +17,15 @@ pub struct UploadCertificateRequest {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// The certificate content in PEM format
-    #[serde(rename = "content")]
-    pub content: String,
+    #[serde(rename = "certificate")]
+    pub certificate: String,
 }
 
 impl UploadCertificateRequest {
-    pub fn new(content: String) -> UploadCertificateRequest {
+    pub fn new(certificate: String) -> UploadCertificateRequest {
         UploadCertificateRequest {
             name: None,
-            content,
+            certificate,
         }
     }
 }

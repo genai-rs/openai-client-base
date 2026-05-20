@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **tracing** | Option<[**models::RealtimeSessionCreateRequestGaTracing**](RealtimeSessionCreateRequestGATracing.md)> |  | [optional]
 **tools** | Option<[**Vec<models::RealtimeResponseCreateParamsToolsInner>**](RealtimeResponseCreateParams_tools_inner.md)> | Tools available to the model. | [optional]
 **tool_choice** | Option<[**models::RealtimeBetaResponseCreateParamsToolChoice**](RealtimeBetaResponseCreateParams_tool_choice.md)> |  | [optional]
+**parallel_tool_calls** | Option<**bool**> | Whether the model may call multiple tools in parallel. Only supported by reasoning Realtime models such as `gpt-realtime-2`.  | [optional]
+**reasoning** | Option<[**models::RealtimeReasoning**](RealtimeReasoning.md)> |  | [optional]
 **max_output_tokens** | Option<[**models::RealtimeBetaResponseCreateParamsMaxOutputTokens**](RealtimeBetaResponseCreateParams_max_output_tokens.md)> |  | [optional]
 **truncation** | Option<[**models::RealtimeTruncation**](RealtimeTruncation.md)> |  | [optional]
 **prompt** | Option<[**models::Prompt**](Prompt.md)> |  | [optional]
