@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**assign_user_role**](UserOrganizationRoleAssignmentsApi.md#assign_user_role) | **POST** /organization/users/{user_id}/roles | Assigns an organization role to a user within the organization.
 [**list_user_role_assignments**](UserOrganizationRoleAssignmentsApi.md#list_user_role_assignments) | **GET** /organization/users/{user_id}/roles | Lists the organization roles assigned to a user within the organization.
+[**retrieve_user_role**](UserOrganizationRoleAssignmentsApi.md#retrieve_user_role) | **GET** /organization/users/{user_id}/roles/{role_id} | Retrieves an organization role assigned to a user.
 [**unassign_user_role**](UserOrganizationRoleAssignmentsApi.md#unassign_user_role) | **DELETE** /organization/users/{user_id}/roles/{role_id} | Unassigns an organization role from a user within the organization.
 
 
@@ -57,6 +58,35 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RoleListResource**](RoleListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_user_role
+
+> models::AssignedRoleDetails retrieve_user_role(user_id, role_id)
+Retrieves an organization role assigned to a user.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**user_id** | **String** | The ID of the user to inspect. | [required] |
+**role_id** | **String** | The ID of the organization role to retrieve for the user. | [required] |
+
+### Return type
+
+[**models::AssignedRoleDetails**](AssignedRoleDetails.md)
 
 ### Authorization
 

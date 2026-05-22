@@ -15,49 +15,194 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
-/// struct for typed errors of method [`assign_user_role`]
+/// struct for typed errors of method [`retrieve_organization_data_retention`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AssignUserRoleError {
+pub enum RetrieveOrganizationDataRetentionError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`list_user_role_assignments`]
+/// struct for typed errors of method [`retrieve_project_data_retention`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum ListUserRoleAssignmentsError {
+pub enum RetrieveProjectDataRetentionError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`retrieve_user_role`]
+/// struct for typed errors of method [`update_organization_data_retention`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum RetrieveUserRoleError {
+pub enum UpdateOrganizationDataRetentionError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`unassign_user_role`]
+/// struct for typed errors of method [`update_project_data_retention`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum UnassignUserRoleError {
+pub enum UpdateProjectDataRetentionError {
     UnknownValue(serde_json::Value),
 }
 
 #[bon::builder]
-pub async fn assign_user_role(
+pub async fn retrieve_organization_data_retention(
     configuration: &configuration::Configuration,
-    user_id: &str,
-    public_assign_organization_group_role_body: models::PublicAssignOrganizationGroupRoleBody,
-) -> Result<models::UserRoleAssignment, Error<AssignUserRoleError>> {
+) -> Result<models::OrganizationDataRetention, Error<RetrieveOrganizationDataRetentionError>> {
+    let uri_str = format!("{}/organization/data_retention", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationDataRetention`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationDataRetention`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RetrieveOrganizationDataRetentionError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn retrieve_project_data_retention(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+) -> Result<models::ProjectDataRetention, Error<RetrieveProjectDataRetentionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_user_id = user_id;
-    let p_body_public_assign_organization_group_role_body =
-        public_assign_organization_group_role_body;
+    let p_path_project_id = project_id;
 
     let uri_str = format!(
-        "{}/organization/users/{user_id}/roles",
+        "{}/organization/projects/{project_id}/data_retention",
         configuration.base_path,
-        user_id = crate::apis::urlencode(p_path_user_id)
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectDataRetention`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectDataRetention`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RetrieveProjectDataRetentionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn update_organization_data_retention(
+    configuration: &configuration::Configuration,
+    update_organization_data_retention_body: models::UpdateOrganizationDataRetentionBody,
+) -> Result<models::OrganizationDataRetention, Error<UpdateOrganizationDataRetentionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_update_organization_data_retention_body = update_organization_data_retention_body;
+
+    let uri_str = format!("{}/organization/data_retention", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_organization_data_retention_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationDataRetention`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationDataRetention`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateOrganizationDataRetentionError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn update_project_data_retention(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    update_project_data_retention_body: models::UpdateProjectDataRetentionBody,
+) -> Result<models::ProjectDataRetention, Error<UpdateProjectDataRetentionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_body_update_project_data_retention_body = update_project_data_retention_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/data_retention",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
     );
     let mut req_builder = configuration
         .client
@@ -69,7 +214,7 @@ pub async fn assign_user_role(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_public_assign_organization_group_role_body);
+    req_builder = req_builder.json(&p_body_update_project_data_retention_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -86,188 +231,12 @@ pub async fn assign_user_role(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UserRoleAssignment`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UserRoleAssignment`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectDataRetention`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectDataRetention`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AssignUserRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-#[bon::builder]
-pub async fn list_user_role_assignments(
-    configuration: &configuration::Configuration,
-    user_id: &str,
-    limit: Option<i32>,
-    after: Option<&str>,
-    order: Option<&str>,
-) -> Result<models::RoleListResource, Error<ListUserRoleAssignmentsError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_user_id = user_id;
-    let p_query_limit = limit;
-    let p_query_after = after;
-    let p_query_order = order;
-
-    let uri_str = format!(
-        "{}/organization/users/{user_id}/roles",
-        configuration.base_path,
-        user_id = crate::apis::urlencode(p_path_user_id)
-    );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref param_value) = p_query_limit {
-        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_after {
-        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
-    }
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::RoleListResource`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::RoleListResource`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ListUserRoleAssignmentsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-#[bon::builder]
-pub async fn retrieve_user_role(
-    configuration: &configuration::Configuration,
-    user_id: &str,
-    role_id: &str,
-) -> Result<models::AssignedRoleDetails, Error<RetrieveUserRoleError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_user_id = user_id;
-    let p_path_role_id = role_id;
-
-    let uri_str = format!(
-        "{}/organization/users/{user_id}/roles/{role_id}",
-        configuration.base_path,
-        user_id = crate::apis::urlencode(p_path_user_id),
-        role_id = crate::apis::urlencode(p_path_role_id)
-    );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AssignedRoleDetails`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AssignedRoleDetails`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<RetrieveUserRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity,
-        }))
-    }
-}
-
-#[bon::builder]
-pub async fn unassign_user_role(
-    configuration: &configuration::Configuration,
-    user_id: &str,
-    role_id: &str,
-) -> Result<models::DeletedRoleAssignmentResource, Error<UnassignUserRoleError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_user_id = user_id;
-    let p_path_role_id = role_id;
-
-    let uri_str = format!(
-        "{}/organization/users/{user_id}/roles/{role_id}",
-        configuration.base_path,
-        user_id = crate::apis::urlencode(p_path_user_id),
-        role_id = crate::apis::urlencode(p_path_role_id)
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::DELETE, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeletedRoleAssignmentResource`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeletedRoleAssignmentResource`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<UnassignUserRoleError> = serde_json::from_str(&content).ok();
+        let entity: Option<UpdateProjectDataRetentionError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

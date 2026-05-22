@@ -1,11 +1,11 @@
-# WebSearchActionOpenPage
+# AssignedRoleDetailsAssignmentSourcesInner
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The action type.  | 
-**url** | Option<**String**> |  | [optional]
+**principal_id** | **String** |  | 
+**principal_type** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

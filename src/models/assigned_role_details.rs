@@ -34,7 +34,7 @@ pub struct AssignedRoleDetails {
     #[serde(rename = "created_at", deserialize_with = "Option::deserialize")]
     pub created_at: Option<i32>,
     #[serde(rename = "updated_at", deserialize_with = "Option::deserialize")]
-    pub updated_at: Option<i64>,
+    pub updated_at: Option<i32>,
     #[serde(rename = "created_by", deserialize_with = "Option::deserialize")]
     pub created_by: Option<String>,
     #[serde(
@@ -44,6 +44,11 @@ pub struct AssignedRoleDetails {
     pub created_by_user_obj: Option<std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(
+        rename = "assignment_sources",
+        deserialize_with = "Option::deserialize"
+    )]
+    pub assignment_sources: Option<Vec<models::AssignedRoleDetailsAssignmentSourcesInner>>,
 }
 
 impl AssignedRoleDetails {
@@ -56,10 +61,11 @@ impl AssignedRoleDetails {
         predefined_role: bool,
         description: Option<String>,
         created_at: Option<i32>,
-        updated_at: Option<i64>,
+        updated_at: Option<i32>,
         created_by: Option<String>,
         created_by_user_obj: Option<std::collections::HashMap<String, serde_json::Value>>,
         metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
+        assignment_sources: Option<Vec<models::AssignedRoleDetailsAssignmentSourcesInner>>,
     ) -> AssignedRoleDetails {
         AssignedRoleDetails {
             id,
@@ -73,6 +79,7 @@ impl AssignedRoleDetails {
             created_by,
             created_by_user_obj,
             metadata,
+            assignment_sources,
         }
     }
 }

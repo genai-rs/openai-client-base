@@ -28,7 +28,7 @@ pub struct GroupResponse {
     pub is_scim_managed: bool,
     /// The type of the group.
     #[serde(rename = "group_type")]
-    pub group_type: String,
+    pub group_type: GroupType,
 }
 
 impl GroupResponse {
@@ -38,7 +38,7 @@ impl GroupResponse {
         name: String,
         created_at: i32,
         is_scim_managed: bool,
-        group_type: String,
+        group_type: GroupType,
     ) -> GroupResponse {
         GroupResponse {
             id,
@@ -47,6 +47,20 @@ impl GroupResponse {
             is_scim_managed,
             group_type,
         }
+    }
+}
+/// The type of the group.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum GroupType {
+    #[serde(rename = "group")]
+    Group,
+    #[serde(rename = "tenant_group")]
+    TenantGroup,
+}
+
+impl Default for GroupType {
+    fn default() -> GroupType {
+        Self::Group
     }
 }
 

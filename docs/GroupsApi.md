@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**create_group**](GroupsApi.md#create_group) | **POST** /organization/groups | Creates a new group in the organization.
 [**delete_group**](GroupsApi.md#delete_group) | **DELETE** /organization/groups/{group_id} | Deletes a group from the organization.
 [**list_groups**](GroupsApi.md#list_groups) | **GET** /organization/groups | Lists all groups in the organization.
+[**retrieve_group**](GroupsApi.md#retrieve_group) | **GET** /organization/groups/{group_id} | Retrieves a group.
 [**update_group**](GroupsApi.md#update_group) | **POST** /organization/groups/{group_id} | Updates a group's information.
 
 
@@ -84,6 +85,34 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GroupListResource**](GroupListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_group
+
+> models::GroupResponse retrieve_group(group_id)
+Retrieves a group.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | The ID of the group to retrieve. | [required] |
+
+### Return type
+
+[**models::GroupResponse**](GroupResponse.md)
 
 ### Authorization
 
