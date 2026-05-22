@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.0](https://github.com/genai-rs/openai-client-base/compare/v0.12.0...v0.13.0) - 2026-05-22
+
+### Fixed
+
+- generic recursive type detection in code generator
+
+### Other
+
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- rename deprecated app-id to client-id in create-github-app-token
+- *(deps)* Update Rust crate serde_with to ^3.20.0
+- *(deps)* Update Rust crate tokio to ^1.52.3
+- *(deps)* Update Rust crate serde_with to ^3.19.0
+- *(deps)* Update astral-sh/setup-uv action to v8
+- *(deps)* Update Rust crate reqwest to ^0.13.3
+- *(deps)* Update mozilla-actions/sccache-action action to v0.0.10
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- *(deps)* Update Rust crate tokio to ^1.52.1
+- *(deps)* Update actions/github-script action to v9
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+- update generated client from latest OpenAPI spec
+
 ## [0.12.0](https://github.com/genai-rs/openai-client-base/compare/v0.11.1...v0.12.0) - 2026-04-10
 
 ### Other
