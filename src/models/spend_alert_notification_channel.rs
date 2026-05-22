@@ -11,41 +11,48 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebSearchActionOpenPage : Action type \"open_page\" - Opens a specific URL from search results.
+/// SpendAlertNotificationChannel : Email notification settings for a spend alert.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct WebSearchActionOpenPage {
-    /// The action type.
+pub struct SpendAlertNotificationChannel {
+    /// The notification channel type. Currently only `email` is supported.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Email addresses that receive the spend alert notification.
+    #[serde(rename = "recipients")]
+    pub recipients: Vec<String>,
     #[serde(
-        rename = "url",
+        rename = "subject_prefix",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub url: Option<Option<String>>,
+    pub subject_prefix: Option<Option<String>>,
 }
 
-impl WebSearchActionOpenPage {
-    /// Action type \"open_page\" - Opens a specific URL from search results.
-    pub fn new(r#type: Type) -> WebSearchActionOpenPage {
-        WebSearchActionOpenPage { r#type, url: None }
+impl SpendAlertNotificationChannel {
+    /// Email notification settings for a spend alert.
+    pub fn new(r#type: Type, recipients: Vec<String>) -> SpendAlertNotificationChannel {
+        SpendAlertNotificationChannel {
+            r#type,
+            recipients,
+            subject_prefix: None,
+        }
     }
 }
-/// The action type.
+/// The notification channel type. Currently only `email` is supported.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "open_page")]
-    OpenPage,
+    #[serde(rename = "email")]
+    Email,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::OpenPage
+        Self::Email
     }
 }
 
-impl std::fmt::Display for WebSearchActionOpenPage {
+impl std::fmt::Display for SpendAlertNotificationChannel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

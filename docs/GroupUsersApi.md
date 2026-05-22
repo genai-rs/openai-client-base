@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**add_group_user**](GroupUsersApi.md#add_group_user) | **POST** /organization/groups/{group_id}/users | Adds a user to a group.
 [**list_group_users**](GroupUsersApi.md#list_group_users) | **GET** /organization/groups/{group_id}/users | Lists the users assigned to a group.
 [**remove_group_user**](GroupUsersApi.md#remove_group_user) | **DELETE** /organization/groups/{group_id}/users/{user_id} | Removes a user from a group.
+[**retrieve_group_user**](GroupUsersApi.md#retrieve_group_user) | **GET** /organization/groups/{group_id}/users/{user_id} | Retrieves a user in a group.
 
 
 
@@ -86,6 +87,35 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GroupUserDeletedResource**](GroupUserDeletedResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_group_user
+
+> models::GroupMemberUser retrieve_group_user(group_id, user_id)
+Retrieves a user in a group.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | The ID of the group to inspect. | [required] |
+**user_id** | **String** | The ID of the user to retrieve from the group. | [required] |
+
+### Return type
+
+[**models::GroupMemberUser**](GroupMemberUser.md)
 
 ### Authorization
 

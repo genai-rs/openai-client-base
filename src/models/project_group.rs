@@ -28,7 +28,7 @@ pub struct ProjectGroup {
     pub group_name: String,
     /// The type of the group.
     #[serde(rename = "group_type")]
-    pub group_type: String,
+    pub group_type: GroupType,
     /// Unix timestamp (in seconds) when the group was granted project access.
     #[serde(rename = "created_at")]
     pub created_at: i32,
@@ -41,7 +41,7 @@ impl ProjectGroup {
         project_id: String,
         group_id: String,
         group_name: String,
-        group_type: String,
+        group_type: GroupType,
         created_at: i32,
     ) -> ProjectGroup {
         ProjectGroup {
@@ -64,6 +64,20 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::ProjectGroup
+    }
+}
+/// The type of the group.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum GroupType {
+    #[serde(rename = "group")]
+    Group,
+    #[serde(rename = "tenant_group")]
+    TenantGroup,
+}
+
+impl Default for GroupType {
+    fn default() -> GroupType {
+        Self::Group
     }
 }
 

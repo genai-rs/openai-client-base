@@ -10,6 +10,8 @@ Method | HTTP request | Description
 [**delete_role**](RolesApi.md#delete_role) | **DELETE** /organization/roles/{role_id} | Deletes a custom role from the organization.
 [**list_project_roles**](RolesApi.md#list_project_roles) | **GET** /projects/{project_id}/roles | Lists the roles configured for a project.
 [**list_roles**](RolesApi.md#list_roles) | **GET** /organization/roles | Lists the roles configured for the organization.
+[**retrieve_project_role**](RolesApi.md#retrieve_project_role) | **GET** /projects/{project_id}/roles/{role_id} | Retrieves a project role.
+[**retrieve_role**](RolesApi.md#retrieve_role) | **GET** /organization/roles/{role_id} | Retrieves an organization role.
 [**update_project_role**](RolesApi.md#update_project_role) | **POST** /projects/{project_id}/roles/{role_id} | Updates an existing project role.
 [**update_role**](RolesApi.md#update_role) | **POST** /organization/roles/{role_id} | Updates an existing organization role.
 
@@ -177,6 +179,63 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::PublicRoleListResource**](PublicRoleListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_project_role
+
+> models::Role retrieve_project_role(project_id, role_id)
+Retrieves a project role.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project. | [required] |
+**role_id** | **String** | The ID of the role to retrieve. | [required] |
+
+### Return type
+
+[**models::Role**](Role.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_role
+
+> models::Role retrieve_role(role_id)
+Retrieves an organization role.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**role_id** | **String** | The ID of the role to retrieve. | [required] |
+
+### Return type
+
+[**models::Role**](Role.md)
 
 ### Authorization
 

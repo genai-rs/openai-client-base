@@ -26,6 +26,7 @@ Method | HTTP request | Description
 [**retrieve_project_user**](ProjectsApi.md#retrieve_project_user) | **GET** /organization/projects/{project_id}/users/{user_id} | Retrieves a user in the project.
 [**update_project_model_permissions**](ProjectsApi.md#update_project_model_permissions) | **POST** /organization/projects/{project_id}/model_permissions | Updates model permissions for a project.
 [**update_project_rate_limits**](ProjectsApi.md#update_project_rate_limits) | **POST** /organization/projects/{project_id}/rate_limits/{rate_limit_id} | Updates a project rate limit.
+[**update_project_service_account**](ProjectsApi.md#update_project_service_account) | **POST** /organization/projects/{project_id}/service_accounts/{service_account_id} | Updates a service account in the project.
 
 
 
@@ -657,6 +658,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ProjectRateLimit**](ProjectRateLimit.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_project_service_account
+
+> models::ProjectServiceAccount update_project_service_account(project_id, service_account_id, update_project_service_account_body)
+Updates a service account in the project.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project. | [required] |
+**service_account_id** | **String** | The ID of the service account. | [required] |
+**update_project_service_account_body** | [**UpdateProjectServiceAccountBody**](UpdateProjectServiceAccountBody.md) | Fields to update on the service account. | [required] |
+
+### Return type
+
+[**models::ProjectServiceAccount**](ProjectServiceAccount.md)
 
 ### Authorization
 

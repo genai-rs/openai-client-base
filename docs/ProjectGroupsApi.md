@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**add_project_group**](ProjectGroupsApi.md#add_project_group) | **POST** /organization/projects/{project_id}/groups | Grants a group access to a project.
 [**list_project_groups**](ProjectGroupsApi.md#list_project_groups) | **GET** /organization/projects/{project_id}/groups | Lists the groups that have access to a project.
 [**remove_project_group**](ProjectGroupsApi.md#remove_project_group) | **DELETE** /organization/projects/{project_id}/groups/{group_id} | Revokes a group's access to a project.
+[**retrieve_project_group**](ProjectGroupsApi.md#retrieve_project_group) | **GET** /organization/projects/{project_id}/groups/{group_id} | Retrieves a project's group.
 
 
 
@@ -86,6 +87,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ProjectGroupDeletedResource**](ProjectGroupDeletedResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_project_group
+
+> models::ProjectGroup retrieve_project_group(project_id, group_id, group_type)
+Retrieves a project's group.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project to inspect. | [required] |
+**group_id** | **String** | The ID of the group to retrieve. | [required] |
+**group_type** | Option<**String**> | The type of group to retrieve. |  |[default to group]
+
+### Return type
+
+[**models::ProjectGroup**](ProjectGroup.md)
 
 ### Authorization
 

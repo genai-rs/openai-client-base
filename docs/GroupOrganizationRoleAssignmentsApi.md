@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**assign_group_role**](GroupOrganizationRoleAssignmentsApi.md#assign_group_role) | **POST** /organization/groups/{group_id}/roles | Assigns an organization role to a group within the organization.
 [**list_group_role_assignments**](GroupOrganizationRoleAssignmentsApi.md#list_group_role_assignments) | **GET** /organization/groups/{group_id}/roles | Lists the organization roles assigned to a group within the organization.
+[**retrieve_group_role**](GroupOrganizationRoleAssignmentsApi.md#retrieve_group_role) | **GET** /organization/groups/{group_id}/roles/{role_id} | Retrieves an organization role assigned to a group.
 [**unassign_group_role**](GroupOrganizationRoleAssignmentsApi.md#unassign_group_role) | **DELETE** /organization/groups/{group_id}/roles/{role_id} | Unassigns an organization role from a group within the organization.
 
 
@@ -57,6 +58,35 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RoleListResource**](RoleListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_group_role
+
+> models::AssignedRoleDetails retrieve_group_role(group_id, role_id)
+Retrieves an organization role assigned to a group.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**group_id** | **String** | The ID of the group to inspect. | [required] |
+**role_id** | **String** | The ID of the organization role to retrieve for the group. | [required] |
+
+### Return type
+
+[**models::AssignedRoleDetails**](AssignedRoleDetails.md)
 
 ### Authorization
 

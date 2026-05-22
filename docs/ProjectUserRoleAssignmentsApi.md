@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**assign_project_user_role**](ProjectUserRoleAssignmentsApi.md#assign_project_user_role) | **POST** /projects/{project_id}/users/{user_id}/roles | Assigns a project role to a user within a project.
 [**list_project_user_role_assignments**](ProjectUserRoleAssignmentsApi.md#list_project_user_role_assignments) | **GET** /projects/{project_id}/users/{user_id}/roles | Lists the project roles assigned to a user within a project.
+[**retrieve_project_user_role**](ProjectUserRoleAssignmentsApi.md#retrieve_project_user_role) | **GET** /projects/{project_id}/users/{user_id}/roles/{role_id} | Retrieves a project role assigned to a user.
 [**unassign_project_user_role**](ProjectUserRoleAssignmentsApi.md#unassign_project_user_role) | **DELETE** /projects/{project_id}/users/{user_id}/roles/{role_id} | Unassigns a project role from a user within a project.
 
 
@@ -59,6 +60,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RoleListResource**](RoleListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_project_user_role
+
+> models::AssignedRoleDetails retrieve_project_user_role(project_id, user_id, role_id)
+Retrieves a project role assigned to a user.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project to inspect. | [required] |
+**user_id** | **String** | The ID of the user to inspect. | [required] |
+**role_id** | **String** | The ID of the project role to retrieve for the user. | [required] |
+
+### Return type
+
+[**models::AssignedRoleDetails**](AssignedRoleDetails.md)
 
 ### Authorization
 

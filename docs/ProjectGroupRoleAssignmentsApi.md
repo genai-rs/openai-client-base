@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**assign_project_group_role**](ProjectGroupRoleAssignmentsApi.md#assign_project_group_role) | **POST** /projects/{project_id}/groups/{group_id}/roles | Assigns a project role to a group within a project.
 [**list_project_group_role_assignments**](ProjectGroupRoleAssignmentsApi.md#list_project_group_role_assignments) | **GET** /projects/{project_id}/groups/{group_id}/roles | Lists the project roles assigned to a group within a project.
+[**retrieve_project_group_role**](ProjectGroupRoleAssignmentsApi.md#retrieve_project_group_role) | **GET** /projects/{project_id}/groups/{group_id}/roles/{role_id} | Retrieves a project role assigned to a group.
 [**unassign_project_group_role**](ProjectGroupRoleAssignmentsApi.md#unassign_project_group_role) | **DELETE** /projects/{project_id}/groups/{group_id}/roles/{role_id} | Unassigns a project role from a group within a project.
 
 
@@ -59,6 +60,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::RoleListResource**](RoleListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_project_group_role
+
+> models::AssignedRoleDetails retrieve_project_group_role(project_id, group_id, role_id)
+Retrieves a project role assigned to a group.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project to inspect. | [required] |
+**group_id** | **String** | The ID of the group to inspect. | [required] |
+**role_id** | **String** | The ID of the project role to retrieve for the group. | [required] |
+
+### Return type
+
+[**models::AssignedRoleDetails**](AssignedRoleDetails.md)
 
 ### Authorization
 
