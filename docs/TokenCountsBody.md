@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **reasoning** | Option<[**models::Reasoning**](Reasoning.md)> |  | [optional]
 **truncation** | Option<[**models::TruncationEnum**](TruncationEnum.md)> |  | [optional]
 **instructions** | Option<**String**> | A system (or developer) message inserted into the model's context. When used along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses. | [optional]
+**personality** | Option<[**models::PersonalityEnum**](PersonalityEnum.md)> |  | [optional]
 **conversation** | Option<[**models::ConversationParam**](ConversationParam.md)> |  | [optional]
 **tool_choice** | Option<[**models::ToolChoiceParam**](ToolChoiceParam.md)> |  | [optional]
 **parallel_tool_calls** | Option<**bool**> | Whether to allow the model to run tool calls in parallel. | [optional]

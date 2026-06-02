@@ -91,6 +91,18 @@ pub enum AuditLogEventType {
     TunnelUpdated,
     #[serde(rename = "tunnel.deleted")]
     TunnelDeleted,
+    #[serde(rename = "workload_identity_provider.created")]
+    WorkloadIdentityProviderCreated,
+    #[serde(rename = "workload_identity_provider.updated")]
+    WorkloadIdentityProviderUpdated,
+    #[serde(rename = "workload_identity_provider.deleted")]
+    WorkloadIdentityProviderDeleted,
+    #[serde(rename = "workload_identity_provider_mapping.created")]
+    WorkloadIdentityProviderMappingCreated,
+    #[serde(rename = "workload_identity_provider_mapping.updated")]
+    WorkloadIdentityProviderMappingUpdated,
+    #[serde(rename = "workload_identity_provider_mapping.deleted")]
+    WorkloadIdentityProviderMappingDeleted,
     #[serde(rename = "role.created")]
     RoleCreated,
     #[serde(rename = "role.updated")]
@@ -160,6 +172,24 @@ impl std::fmt::Display for AuditLogEventType {
             Self::TunnelCreated => write!(f, "tunnel.created"),
             Self::TunnelUpdated => write!(f, "tunnel.updated"),
             Self::TunnelDeleted => write!(f, "tunnel.deleted"),
+            Self::WorkloadIdentityProviderCreated => {
+                write!(f, "workload_identity_provider.created")
+            }
+            Self::WorkloadIdentityProviderUpdated => {
+                write!(f, "workload_identity_provider.updated")
+            }
+            Self::WorkloadIdentityProviderDeleted => {
+                write!(f, "workload_identity_provider.deleted")
+            }
+            Self::WorkloadIdentityProviderMappingCreated => {
+                write!(f, "workload_identity_provider_mapping.created")
+            }
+            Self::WorkloadIdentityProviderMappingUpdated => {
+                write!(f, "workload_identity_provider_mapping.updated")
+            }
+            Self::WorkloadIdentityProviderMappingDeleted => {
+                write!(f, "workload_identity_provider_mapping.deleted")
+            }
             Self::RoleCreated => write!(f, "role.created"),
             Self::RoleUpdated => write!(f, "role.updated"),
             Self::RoleDeleted => write!(f, "role.deleted"),

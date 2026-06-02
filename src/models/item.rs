@@ -26,6 +26,7 @@ pub enum Item {
     FunctionCallOutputItemParam(Box<models::FunctionCallOutputItemParam>),
     ToolSearchCallItemParam(Box<models::ToolSearchCallItemParam>),
     ToolSearchOutputItemParam(Box<models::ToolSearchOutputItemParam>),
+    AdditionalToolsItemParam(Box<models::AdditionalToolsItemParam>),
     ReasoningItem(Box<models::ReasoningItem>),
     CompactionSummaryItemParam(Box<models::CompactionSummaryItemParam>),
     ImageGenToolCall(Box<models::ImageGenToolCall>),
@@ -44,14 +45,14 @@ pub enum Item {
     CustomToolCall(Box<models::CustomToolCall>),
 }
 
-/// The role of the output message. Always `assistant`.
+/// The role that provided the additional tools. Only `developer` is supported.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
-    Assistant,
+    Developer,
 }
 
 impl Default for Role {
     fn default() -> Role {
-        Self::Assistant
+        Self::Developer
     }
 }
