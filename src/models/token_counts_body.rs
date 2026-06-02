@@ -63,6 +63,8 @@ pub struct TokenCountsBody {
         skip_serializing_if = "Option::is_none"
     )]
     pub instructions: Option<Option<String>>,
+    #[serde(rename = "personality", skip_serializing_if = "Option::is_none")]
+    pub personality: Option<Box<models::PersonalityEnum>>,
     #[serde(
         rename = "conversation",
         default,
@@ -98,6 +100,7 @@ impl TokenCountsBody {
             reasoning: None,
             truncation: None,
             instructions: None,
+            personality: None,
             conversation: None,
             tool_choice: None,
             parallel_tool_calls: None,

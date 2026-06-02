@@ -17,9 +17,9 @@ pub struct WebSearchActionSearch {
     /// The action type.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// [DEPRECATED] The search query.
-    #[serde(rename = "query")]
-    pub query: String,
+    /// The search query.
+    #[serde(rename = "query", skip_serializing_if = "Option::is_none")]
+    pub query: Option<String>,
     /// The search queries.
     #[serde(rename = "queries", skip_serializing_if = "Option::is_none")]
     pub queries: Option<Vec<String>>,
@@ -30,10 +30,10 @@ pub struct WebSearchActionSearch {
 
 impl WebSearchActionSearch {
     /// Action type \"search\" - Performs a web search query.
-    pub fn new(r#type: Type, query: String) -> WebSearchActionSearch {
+    pub fn new(r#type: Type) -> WebSearchActionSearch {
         WebSearchActionSearch {
             r#type,
-            query,
+            query: None,
             queries: None,
             sources: None,
         }

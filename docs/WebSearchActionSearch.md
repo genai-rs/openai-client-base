@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | The action type.  | 
-**query** | **String** | [DEPRECATED] The search query.  | 
+**query** | Option<**String**> | The search query.  | [optional]
 **queries** | Option<**Vec<String>**> | The search queries.  | [optional]
 **sources** | Option<[**Vec<models::WebSearchSource>**](Web_search_source.md)> | The sources used in the search.  | [optional]
 

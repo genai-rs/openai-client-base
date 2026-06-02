@@ -156,6 +156,42 @@ pub struct AuditLog {
         skip_serializing_if = "Option::is_none"
     )]
     pub service_account_deleted: Option<Box<models::AuditLogServiceAccountDeleted>>,
+    #[serde(
+        rename = "workload_identity_provider.created",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub workload_identity_provider_created:
+        Option<Box<models::AuditLogWorkloadIdentityProviderCreated>>,
+    #[serde(
+        rename = "workload_identity_provider.updated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub workload_identity_provider_updated:
+        Option<Box<models::AuditLogWorkloadIdentityProviderUpdated>>,
+    #[serde(
+        rename = "workload_identity_provider.deleted",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub workload_identity_provider_deleted:
+        Option<Box<models::AuditLogWorkloadIdentityProviderDeleted>>,
+    #[serde(
+        rename = "workload_identity_provider_mapping.created",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub workload_identity_provider_mapping_created:
+        Option<Box<models::AuditLogWorkloadIdentityProviderMappingCreated>>,
+    #[serde(
+        rename = "workload_identity_provider_mapping.updated",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub workload_identity_provider_mapping_updated:
+        Option<Box<models::AuditLogWorkloadIdentityProviderMappingUpdated>>,
+    #[serde(
+        rename = "workload_identity_provider_mapping.deleted",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub workload_identity_provider_mapping_deleted:
+        Option<Box<models::AuditLogWorkloadIdentityProviderMappingDeleted>>,
     #[serde(rename = "user.added", skip_serializing_if = "Option::is_none")]
     pub user_added: Option<Box<models::AuditLogUserAdded>>,
     #[serde(rename = "user.updated", skip_serializing_if = "Option::is_none")]
@@ -237,6 +273,12 @@ impl AuditLog {
             service_account_created: None,
             service_account_updated: None,
             service_account_deleted: None,
+            workload_identity_provider_created: None,
+            workload_identity_provider_updated: None,
+            workload_identity_provider_deleted: None,
+            workload_identity_provider_mapping_created: None,
+            workload_identity_provider_mapping_updated: None,
+            workload_identity_provider_mapping_deleted: None,
             user_added: None,
             user_updated: None,
             user_deleted: None,

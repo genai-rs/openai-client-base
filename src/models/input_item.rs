@@ -20,14 +20,14 @@ pub enum InputItem {
     ItemReferenceParam(Box<models::ItemReferenceParam>),
 }
 
-/// The role of the output message. Always `assistant`.
+/// The role that provided the additional tools. Only `developer` is supported.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
-    Assistant,
+    Developer,
 }
 
 impl Default for Role {
     fn default() -> Role {
-        Self::Assistant
+        Self::Developer
     }
 }

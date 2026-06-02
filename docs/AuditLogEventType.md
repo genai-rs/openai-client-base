@@ -42,6 +42,12 @@
 | TunnelCreated | tunnel.created |
 | TunnelUpdated | tunnel.updated |
 | TunnelDeleted | tunnel.deleted |
+| WorkloadIdentityProviderCreated | workload_identity_provider.created |
+| WorkloadIdentityProviderUpdated | workload_identity_provider.updated |
+| WorkloadIdentityProviderDeleted | workload_identity_provider.deleted |
+| WorkloadIdentityProviderMappingCreated | workload_identity_provider_mapping.created |
+| WorkloadIdentityProviderMappingUpdated | workload_identity_provider_mapping.updated |
+| WorkloadIdentityProviderMappingDeleted | workload_identity_provider_mapping.deleted |
 | RoleCreated | role.created |
 | RoleUpdated | role.updated |
 | RoleDeleted | role.deleted |

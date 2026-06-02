@@ -19,6 +19,7 @@ pub enum ItemField {
     FunctionToolCall(Box<models::FunctionToolCall>),
     ToolSearchCall(Box<models::ToolSearchCall>),
     ToolSearchOutput(Box<models::ToolSearchOutput>),
+    AdditionalTools(Box<models::AdditionalTools>),
     FunctionToolCallOutput(Box<models::FunctionToolCallOutput>),
     FileSearchToolCall(Box<models::FileSearchToolCall>),
     WebSearchToolCall(Box<models::WebSearchToolCall>),

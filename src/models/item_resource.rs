@@ -25,6 +25,7 @@ pub enum ItemResource {
     FunctionToolCallOutputResource(Box<models::FunctionToolCallOutputResource>),
     ToolSearchCall(Box<models::ToolSearchCall>),
     ToolSearchOutput(Box<models::ToolSearchOutput>),
+    AdditionalTools(Box<models::AdditionalTools>),
     ReasoningItem(Box<models::ReasoningItem>),
     CompactionBody(Box<models::CompactionBody>),
     ImageGenToolCall(Box<models::ImageGenToolCall>),
@@ -41,16 +42,4 @@ pub enum ItemResource {
     McpToolCall(Box<models::McpToolCall>),
     CustomToolCallResource(Box<models::CustomToolCallResource>),
     CustomToolCallOutputResource(Box<models::CustomToolCallOutputResource>),
-}
-
-/// The role of the output message. Always `assistant`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    Assistant,
-}
-
-impl Default for Role {
-    fn default() -> Role {
-        Self::Assistant
-    }
 }
