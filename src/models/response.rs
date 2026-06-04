@@ -123,6 +123,13 @@ pub struct Response {
     pub output_text: Option<Option<String>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
     pub usage: Option<Box<models::ResponseUsage>>,
+    #[serde(
+        rename = "moderation",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub moderation: Option<Option<Box<models::Moderation>>>,
     /// Whether to allow the model to run tool calls in parallel.
     #[serde(rename = "parallel_tool_calls")]
     pub parallel_tool_calls: bool,
@@ -186,6 +193,7 @@ impl Response {
             instructions,
             output_text: None,
             usage: None,
+            moderation: None,
             parallel_tool_calls,
             conversation: None,
             max_output_tokens: None,

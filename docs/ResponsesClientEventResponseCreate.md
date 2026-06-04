@@ -28,6 +28,7 @@ Name | Type | Description | Notes
 **parallel_tool_calls** | Option<**bool**> | Whether to allow the model to run tool calls in parallel.  | [optional]
 **store** | Option<**bool**> | Whether to store the generated model response for later retrieval via API.  | [optional]
 **instructions** | Option<**String**> | A system (or developer) message inserted into the model's context.  When using along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses.  | [optional]
+**moderation** | Option<[**models::ModerationParam**](ModerationParam.md)> |  | [optional]
 **stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](/docs/api-reference/responses-streaming) for more information.  | [optional]
 **stream_options** | Option<[**models::ResponseStreamOptions**](ResponseStreamOptions.md)> |  | [optional]
 **conversation** | Option<[**models::ConversationParam**](ConversationParam.md)> |  | [optional]

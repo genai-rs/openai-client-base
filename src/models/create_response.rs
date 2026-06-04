@@ -119,6 +119,13 @@ pub struct CreateResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub instructions: Option<Option<String>>,
+    #[serde(
+        rename = "moderation",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub moderation: Option<Option<Box<models::ModerationParam>>>,
     /// If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](/docs/api-reference/responses-streaming) for more information.
     #[serde(
         rename = "stream",
@@ -186,6 +193,7 @@ impl CreateResponse {
             parallel_tool_calls: None,
             store: None,
             instructions: None,
+            moderation: None,
             stream: None,
             stream_options: None,
             conversation: None,

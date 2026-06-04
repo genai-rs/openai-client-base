@@ -101,6 +101,13 @@ pub struct CreateChatCompletionRequest {
     /// Whether or not to store the output of this chat completion request for use in our [model distillation](/docs/guides/distillation) or [evals](/docs/guides/evals) products.  Supports text and image inputs. Note: image inputs over 8MB will be dropped.
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
     pub store: Option<bool>,
+    #[serde(
+        rename = "moderation",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub moderation: Option<Option<Box<models::ModerationParam>>>,
     /// If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](/docs/api-reference/chat/streaming) for more information, along with the [streaming responses](/docs/guides/streaming-responses) guide for more information on how to handle the streaming events.
     #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
     pub stream: Option<bool>,
@@ -175,6 +182,7 @@ impl CreateChatCompletionRequest {
             response_format: None,
             audio: None,
             store: None,
+            moderation: None,
             stream: None,
             stop: None,
             logit_bias: None,

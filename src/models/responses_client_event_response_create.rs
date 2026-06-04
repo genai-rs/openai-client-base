@@ -98,6 +98,8 @@ pub struct ResponsesClientEventResponseCreate {
     /// A system (or developer) message inserted into the model's context.  When using along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses.
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
+    #[serde(rename = "moderation", skip_serializing_if = "Option::is_none")]
+    pub moderation: Option<Box<models::ModerationParam>>,
     /// If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](/docs/api-reference/responses-streaming) for more information.
     #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
     pub stream: Option<bool>,
@@ -149,6 +151,7 @@ impl ResponsesClientEventResponseCreate {
             parallel_tool_calls: None,
             store: None,
             instructions: None,
+            moderation: None,
             stream: None,
             stream_options: None,
             conversation: None,

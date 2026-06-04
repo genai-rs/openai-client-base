@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 **instructions** | **String** |  | 
 **output_text** | Option<**String**> | SDK-only convenience property that contains the aggregated text output from all `output_text` items in the `output` array, if any are present. Supported in the Python and JavaScript SDKs.  | [optional]
 **usage** | Option<[**models::ResponseUsage**](ResponseUsage.md)> |  | [optional]
+**moderation** | Option<[**models::Moderation**](Moderation.md)> |  | [optional]
 **parallel_tool_calls** | **bool** | Whether to allow the model to run tool calls in parallel.  | 
 **conversation** | Option<[**models::Conversation2**](Conversation2.md)> |  | [optional]
 **max_output_tokens** | Option<**i32**> | An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).  | [optional]
