@@ -41,6 +41,13 @@ pub struct CreateChatCompletionStreamResponse {
     pub object: Object,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
     pub usage: Option<Box<models::CompletionUsage>>,
+    #[serde(
+        rename = "moderation",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub moderation: Option<Option<Box<models::ChatCompletionModeration>>>,
 }
 
 impl CreateChatCompletionStreamResponse {
@@ -61,6 +68,7 @@ impl CreateChatCompletionStreamResponse {
             system_fingerprint: None,
             object,
             usage: None,
+            moderation: None,
         }
     }
 }
