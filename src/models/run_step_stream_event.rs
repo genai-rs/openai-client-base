@@ -29,3 +29,9 @@ pub enum Event {
     #[serde(rename = "thread.run.step.expired")]
     ThreadRunStepExpired,
 }
+
+impl Default for Event {
+    fn default() -> Event {
+        Self::ThreadRunStepExpired
+    }
+}
