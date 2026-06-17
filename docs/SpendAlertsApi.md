@@ -10,6 +10,8 @@ Method | HTTP request | Description
 [**delete_project_spend_alert**](SpendAlertsApi.md#delete_project_spend_alert) | **DELETE** /organization/projects/{project_id}/spend_alerts/{alert_id} | Deletes a project spend alert.
 [**list_organization_spend_alerts**](SpendAlertsApi.md#list_organization_spend_alerts) | **GET** /organization/spend_alerts | Lists organization spend alerts.
 [**list_project_spend_alerts**](SpendAlertsApi.md#list_project_spend_alerts) | **GET** /organization/projects/{project_id}/spend_alerts | Lists project spend alerts.
+[**retrieve_organization_spend_alert**](SpendAlertsApi.md#retrieve_organization_spend_alert) | **GET** /organization/spend_alerts/{alert_id} | Retrieves an organization spend alert.
+[**retrieve_project_spend_alert**](SpendAlertsApi.md#retrieve_project_spend_alert) | **GET** /organization/projects/{project_id}/spend_alerts/{alert_id} | Retrieves a project spend alert.
 [**update_organization_spend_alert**](SpendAlertsApi.md#update_organization_spend_alert) | **POST** /organization/spend_alerts/{alert_id} | Updates an organization spend alert.
 [**update_project_spend_alert**](SpendAlertsApi.md#update_project_spend_alert) | **POST** /organization/projects/{project_id}/spend_alerts/{alert_id} | Updates a project spend alert.
 
@@ -179,6 +181,63 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ProjectSpendAlertListResource**](ProjectSpendAlertListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_organization_spend_alert
+
+> models::OrganizationSpendAlert retrieve_organization_spend_alert(alert_id)
+Retrieves an organization spend alert.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**alert_id** | **String** | The ID of the spend alert to retrieve. | [required] |
+
+### Return type
+
+[**models::OrganizationSpendAlert**](OrganizationSpendAlert.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_project_spend_alert
+
+> models::ProjectSpendAlert retrieve_project_spend_alert(project_id, alert_id)
+Retrieves a project spend alert.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project. | [required] |
+**alert_id** | **String** | The ID of the spend alert to retrieve. | [required] |
+
+### Return type
+
+[**models::ProjectSpendAlert**](ProjectSpendAlert.md)
 
 ### Authorization
 

@@ -27,6 +27,9 @@ pub struct AdminApiKeyCreateResponse {
     /// The Unix timestamp (in seconds) of when the API key was created
     #[serde(rename = "created_at")]
     pub created_at: i32,
+    /// The Unix timestamp (in seconds) of when the API key expires
+    #[serde(rename = "expires_at")]
+    pub expires_at: i32,
     /// The Unix timestamp (in seconds) of when the API key was last used
     #[serde(rename = "last_used_at", skip_serializing_if = "Option::is_none")]
     pub last_used_at: Option<i32>,
@@ -43,6 +46,7 @@ impl AdminApiKeyCreateResponse {
         id: String,
         redacted_value: String,
         created_at: i32,
+        expires_at: i32,
         owner: models::AdminApiKeyOwner,
         value: String,
     ) -> AdminApiKeyCreateResponse {
@@ -52,6 +56,7 @@ impl AdminApiKeyCreateResponse {
             name: None,
             redacted_value,
             created_at,
+            expires_at,
             last_used_at: None,
             owner: Box::new(owner),
             value,

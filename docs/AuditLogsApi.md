@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## list_audit_logs
 
-> models::ListAuditLogsResponse list_audit_logs(effective_at, project_ids_left_square_bracket_right_square_bracket, event_types_left_square_bracket_right_square_bracket, actor_ids_left_square_bracket_right_square_bracket, actor_emails_left_square_bracket_right_square_bracket, resource_ids_left_square_bracket_right_square_bracket, limit, after, before)
+> models::ListAuditLogsResponse list_audit_logs(effective_at, project_ids_left_square_bracket_right_square_bracket, event_types_left_square_bracket_right_square_bracket, actor_ids_left_square_bracket_right_square_bracket, actor_emails_left_square_bracket_right_square_bracket, resource_ids_left_square_bracket_right_square_bracket, tenant_only, limit, after, before)
 List user actions and configuration changes within this organization.
 
 ### Parameters
@@ -23,7 +23,8 @@ Name | Type | Description  | Required | Notes
 **event_types_left_square_bracket_right_square_bracket** | Option<[**Vec<models::AuditLogEventType>**](models::AuditLogEventType.md)> | Return only events with a `type` in one of these values. For example, `project.created`. For all options, see the documentation for the [audit log object](/docs/api-reference/audit-logs/object). |  |
 **actor_ids_left_square_bracket_right_square_bracket** | Option<[**Vec<String>**](String.md)> | Return only events performed by these actors. Can be a user ID, a service account ID, or an api key tracking ID. |  |
 **actor_emails_left_square_bracket_right_square_bracket** | Option<[**Vec<String>**](String.md)> | Return only events performed by users with these emails. |  |
-**resource_ids_left_square_bracket_right_square_bracket** | Option<[**Vec<String>**](String.md)> | Return only events performed on these targets. For example, a project ID updated. |  |
+**resource_ids_left_square_bracket_right_square_bracket** | Option<[**Vec<String>**](String.md)> | Return only events performed on these targets. For example, a project ID updated. For ChatGPT connector role events, use the workspace connector resource ID shown in `details.id`, such as `<workspace_id>__<connector_id>`. |  |
+**tenant_only** | Option<**bool**> | Return only tenant-scoped events associated with this organization. Required for tenant-scoped events such as `role.bound_to_resource` and `role.unbound_from_resource`. When `true`, all supplied event types must be tenant-scoped. |  |[default to false]
 **limit** | Option<**i32**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |

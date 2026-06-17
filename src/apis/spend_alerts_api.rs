@@ -57,6 +57,20 @@ pub enum ListProjectSpendAlertsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`retrieve_organization_spend_alert`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrieveOrganizationSpendAlertError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`retrieve_project_spend_alert`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrieveProjectSpendAlertError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_organization_spend_alert`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -415,6 +429,112 @@ pub async fn list_project_spend_alerts(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectSpendAlertsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn retrieve_organization_spend_alert(
+    configuration: &configuration::Configuration,
+    alert_id: &str,
+) -> Result<models::OrganizationSpendAlert, Error<RetrieveOrganizationSpendAlertError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_alert_id = alert_id;
+
+    let uri_str = format!(
+        "{}/organization/spend_alerts/{alert_id}",
+        configuration.base_path,
+        alert_id = crate::apis::urlencode(p_path_alert_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationSpendAlert`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationSpendAlert`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RetrieveOrganizationSpendAlertError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn retrieve_project_spend_alert(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    alert_id: &str,
+) -> Result<models::ProjectSpendAlert, Error<RetrieveProjectSpendAlertError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_path_alert_id = alert_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_alerts/{alert_id}",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id),
+        alert_id = crate::apis::urlencode(p_path_alert_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectSpendAlert`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectSpendAlert`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RetrieveProjectSpendAlertError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
