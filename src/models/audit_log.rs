@@ -142,6 +142,16 @@ pub struct AuditLog {
     )]
     pub role_assignment_deleted: Option<Box<models::AuditLogRoleAssignmentDeleted>>,
     #[serde(
+        rename = "role.bound_to_resource",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub role_bound_to_resource: Option<Box<models::AuditLogRoleBoundToResource>>,
+    #[serde(
+        rename = "role.unbound_from_resource",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub role_unbound_from_resource: Option<Box<models::AuditLogRoleUnboundFromResource>>,
+    #[serde(
         rename = "service_account.created",
         skip_serializing_if = "Option::is_none"
     )]
@@ -270,6 +280,8 @@ impl AuditLog {
             role_deleted: None,
             role_assignment_created: None,
             role_assignment_deleted: None,
+            role_bound_to_resource: None,
+            role_unbound_from_resource: None,
             service_account_created: None,
             service_account_updated: None,
             service_account_deleted: None,

@@ -60,8 +60,6 @@ pub struct CreateResponse {
     pub previous_response_id: Option<String>,
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
-    #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
-    pub reasoning: Option<Box<models::Reasoning>>,
     /// Whether to run the model response in the background. [Learn more](/docs/guides/background).
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<bool>,
@@ -83,8 +81,20 @@ pub struct CreateResponse {
     )]
     pub prompt: Option<Option<Box<models::Prompt>>>,
     /// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
-    #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
-    pub truncation: Option<Truncation>,
+    #[serde(
+        rename = "truncation",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub truncation: Option<Option<Truncation>>,
+    #[serde(
+        rename = "reasoning",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub reasoning: Option<Option<Box<models::Reasoning>>>,
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
     pub input: Option<String>,
     /// Specify additional output data to include in the model response. Currently supported values are: - `web_search_call.action.sources`: Include the sources of the web search tool call. - `code_interpreter_call.outputs`: Includes the outputs of python code execution in code interpreter tool call items. - `computer_call_output.output.image_url`: Include image urls from the computer call output. - `file_search_call.results`: Include the search results of the file search tool call. - `message.input_image.image_url`: Include image urls from the input message. - `message.output_text.logprobs`: Include logprobs with assistant messages. - `reasoning.encrypted_content`: Includes an encrypted version of reasoning tokens in reasoning item outputs. This enables reasoning items to be used in multi-turn conversations when using the Responses API statelessly (like when the `store` parameter is set to `false`, or when an organization is enrolled in the zero data retention program).
@@ -180,7 +190,6 @@ impl CreateResponse {
             prompt_cache_retention: None,
             previous_response_id: None,
             model: None,
-            reasoning: None,
             background: None,
             max_tool_calls: None,
             text: None,
@@ -188,6 +197,7 @@ impl CreateResponse {
             tool_choice: None,
             prompt: None,
             truncation: None,
+            reasoning: None,
             input: None,
             include: None,
             parallel_tool_calls: None,

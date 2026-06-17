@@ -45,6 +45,8 @@ Name | Type | Description | Notes
 **role_deleted** | Option<[**models::AuditLogRoleDeleted**](AuditLog_role_deleted.md)> |  | [optional]
 **role_assignment_created** | Option<[**models::AuditLogRoleAssignmentCreated**](AuditLog_role_assignment_created.md)> |  | [optional]
 **role_assignment_deleted** | Option<[**models::AuditLogRoleAssignmentDeleted**](AuditLog_role_assignment_deleted.md)> |  | [optional]
+**role_bound_to_resource** | Option<[**models::AuditLogRoleBoundToResource**](AuditLog_role_bound_to_resource.md)> |  | [optional]
+**role_unbound_from_resource** | Option<[**models::AuditLogRoleUnboundFromResource**](AuditLog_role_unbound_from_resource.md)> |  | [optional]
 **service_account_created** | Option<[**models::AuditLogServiceAccountCreated**](AuditLog_service_account_created.md)> |  | [optional]
 **service_account_updated** | Option<[**models::AuditLogServiceAccountUpdated**](AuditLog_service_account_updated.md)> |  | [optional]
 **service_account_deleted** | Option<[**models::AuditLogServiceAccountDeleted**](AuditLog_service_account_deleted.md)> |  | [optional]

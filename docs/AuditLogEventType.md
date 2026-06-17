@@ -53,6 +53,8 @@
 | RoleDeleted | role.deleted |
 | RoleAssignmentCreated | role.assignment.created |
 | RoleAssignmentDeleted | role.assignment.deleted |
+| RoleBoundToResource | role.bound_to_resource |
+| RoleUnboundFromResource | role.unbound_from_resource |
 | ScimEnabled | scim.enabled |
 | ScimDisabled | scim.disabled |
 | ServiceAccountCreated | service_account.created |

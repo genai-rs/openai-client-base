@@ -113,6 +113,10 @@ pub enum AuditLogEventType {
     RoleAssignmentCreated,
     #[serde(rename = "role.assignment.deleted")]
     RoleAssignmentDeleted,
+    #[serde(rename = "role.bound_to_resource")]
+    RoleBoundToResource,
+    #[serde(rename = "role.unbound_from_resource")]
+    RoleUnboundFromResource,
     #[serde(rename = "scim.enabled")]
     ScimEnabled,
     #[serde(rename = "scim.disabled")]
@@ -195,6 +199,8 @@ impl std::fmt::Display for AuditLogEventType {
             Self::RoleDeleted => write!(f, "role.deleted"),
             Self::RoleAssignmentCreated => write!(f, "role.assignment.created"),
             Self::RoleAssignmentDeleted => write!(f, "role.assignment.deleted"),
+            Self::RoleBoundToResource => write!(f, "role.bound_to_resource"),
+            Self::RoleUnboundFromResource => write!(f, "role.unbound_from_resource"),
             Self::ScimEnabled => write!(f, "scim.enabled"),
             Self::ScimDisabled => write!(f, "scim.disabled"),
             Self::ServiceAccountCreated => write!(f, "service_account.created"),

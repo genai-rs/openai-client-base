@@ -24,13 +24,6 @@ pub struct ResponseProperties {
     /// Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](/docs/models) to browse and compare available models.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
-    #[serde(
-        rename = "reasoning",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub reasoning: Option<Option<Box<models::Reasoning>>>,
     /// Whether to run the model response in the background. [Learn more](/docs/guides/background).
     #[serde(
         rename = "background",
@@ -61,14 +54,6 @@ pub struct ResponseProperties {
         skip_serializing_if = "Option::is_none"
     )]
     pub prompt: Option<Option<Box<models::Prompt>>>,
-    /// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
-    #[serde(
-        rename = "truncation",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub truncation: Option<Option<Truncation>>,
 }
 
 impl ResponseProperties {
@@ -76,29 +61,13 @@ impl ResponseProperties {
         ResponseProperties {
             previous_response_id: None,
             model: None,
-            reasoning: None,
             background: None,
             max_tool_calls: None,
             text: None,
             tools: None,
             tool_choice: None,
             prompt: None,
-            truncation: None,
         }
-    }
-}
-/// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Truncation {
-    #[serde(rename = "auto")]
-    Auto,
-    #[serde(rename = "disabled")]
-    Disabled,
-}
-
-impl Default for Truncation {
-    fn default() -> Truncation {
-        Self::Auto
     }
 }
 

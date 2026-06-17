@@ -31,6 +31,7 @@ pub async fn list_audit_logs(
     actor_ids_left_square_bracket_right_square_bracket: Option<Vec<String>>,
     actor_emails_left_square_bracket_right_square_bracket: Option<Vec<String>>,
     resource_ids_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    tenant_only: Option<bool>,
     limit: Option<i32>,
     after: Option<&str>,
     before: Option<&str>,
@@ -47,6 +48,7 @@ pub async fn list_audit_logs(
         actor_emails_left_square_bracket_right_square_bracket;
     let p_query_resource_ids_left_square_bracket_right_square_bracket =
         resource_ids_left_square_bracket_right_square_bracket;
+    let p_query_tenant_only = tenant_only;
     let p_query_limit = limit;
     let p_query_after = after;
     let p_query_before = before;
@@ -151,6 +153,9 @@ pub async fn list_audit_logs(
                     .to_string(),
             )]),
         };
+    }
+    if let Some(ref param_value) = p_query_tenant_only {
+        req_builder = req_builder.query(&[("tenant_only", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
