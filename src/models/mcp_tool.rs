@@ -20,12 +20,15 @@ pub struct McpTool {
     /// A label for this MCP server, used to identify it in tool calls.
     #[serde(rename = "server_label")]
     pub server_label: String,
-    /// The URL for the MCP server. One of `server_url` or `connector_id` must be provided.
+    /// The URL for the MCP server. One of `server_url`, `connector_id`, or `tunnel_id` must be provided.
     #[serde(rename = "server_url", skip_serializing_if = "Option::is_none")]
     pub server_url: Option<String>,
-    /// Identifier for service connectors, like those available in ChatGPT. One of `server_url` or `connector_id` must be provided. Learn more about service connectors [here](/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
+    /// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
     #[serde(rename = "connector_id", skip_serializing_if = "Option::is_none")]
     pub connector_id: Option<ConnectorId>,
+    /// The Secure MCP Tunnel ID to use instead of a direct server URL. One of `server_url`, `connector_id`, or `tunnel_id` must be provided.
+    #[serde(rename = "tunnel_id", skip_serializing_if = "Option::is_none")]
+    pub tunnel_id: Option<String>,
     /// An OAuth access token that can be used with a remote MCP server, either with a custom MCP server URL or a service connector. Your application must handle the OAuth authorization flow and provide the token here.
     #[serde(rename = "authorization", skip_serializing_if = "Option::is_none")]
     pub authorization: Option<String>,
@@ -67,6 +70,7 @@ impl McpTool {
             server_label,
             server_url: None,
             connector_id: None,
+            tunnel_id: None,
             authorization: None,
             server_description: None,
             headers: None,
@@ -88,7 +92,7 @@ impl Default for Type {
         Self::Mcp
     }
 }
-/// Identifier for service connectors, like those available in ChatGPT. One of `server_url` or `connector_id` must be provided. Learn more about service connectors [here](/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
+/// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ConnectorId {
     #[serde(rename = "connector_dropbox")]
