@@ -18,6 +18,11 @@ GEN_SPEC_DIR="$PROJECT_ROOT/target/specs"
 SPEC_IN="$PROJECT_ROOT/stainless.yaml"
 SPEC_MODEL_FIXED="$GEN_SPEC_DIR/l1_model_fixed.yaml"
 SPEC_OUT="$GEN_SPEC_DIR/l2_rust_compatible.yaml"
+# JSON form of the final spec fed to the generator: the OpenAPI 3.1 $ref
+# dereferencer parses YAML through snakeyaml, which aborts once the document
+# exceeds 3145728 code points ("The incoming YAML document exceeds the limit").
+# The Stainless spec has grown past that; JSON parsing has no such limit.
+SPEC_OUT_JSON="$GEN_SPEC_DIR/l2_rust_compatible.json"
 OUT_DIR="$PROJECT_ROOT"
 
 # Ensure target directories exist
@@ -67,6 +72,12 @@ uv run --with pyyaml python "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL
 echo "  Layer 2b: Replacing missing schema references with free-form objects..."
 uv run --with pyyaml python "$SCRIPT_DIR/replace_missing_schema_refs.py" "$SPEC_OUT"
 
+# Convert the final spec to JSON for the generator (see SPEC_OUT_JSON note above):
+# snakeyaml's 3 MiB code-point limit aborts the OpenAPI 3.1 $ref dereferencer on
+# the (now larger) spec, so we feed JSON instead, which has no such limit.
+echo "  Converting final spec to JSON..."
+uv run --with pyyaml python -c "import sys, json, yaml; json.dump(yaml.safe_load(open(sys.argv[1])), open(sys.argv[2], 'w'), default=str)" "$SPEC_OUT" "$SPEC_OUT_JSON"
+
 # Step 3: Generate Rust client
 echo ""
 echo "🦀 Generating Rust client..."
@@ -86,10 +97,12 @@ find "$OUT_DIR" -name "*.rs" -not -name "lib.rs" -delete 2>/dev/null || true
 rm -rf "$OUT_DIR/docs" 2>/dev/null || true
 
 # Run OpenAPI Generator via Docker
-GENERATOR_CMD="docker run --rm -v $PROJECT_ROOT:/local -u $(id -u):$(id -g) -e JAVA_OPTS=-Dlog.level=${OPENAPI_GENERATOR_LOG_LEVEL} openapitools/openapi-generator-cli:v${OPENAPI_GENERATOR_VERSION}"
-
-$GENERATOR_CMD generate \
-    -i "/local/target/specs/l2_rust_compatible.yaml" \
+docker run --rm \
+    -v "$PROJECT_ROOT:/local" \
+    -u "$(id -u):$(id -g)" \
+    -e JAVA_OPTS="-Dlog.level=${OPENAPI_GENERATOR_LOG_LEVEL}" \
+    "openapitools/openapi-generator-cli:v${OPENAPI_GENERATOR_VERSION}" generate \
+    -i "/local/target/specs/l2_rust_compatible.json" \
     -g rust \
     -o "/local" \
     --skip-validate-spec \

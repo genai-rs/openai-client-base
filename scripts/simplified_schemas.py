@@ -14,6 +14,13 @@ SIMPLIFIED_SCHEMAS: Set[str] = {
     "ModelIds",
     "ModelIdsShared",
     "ModelIdsResponses",
+    # Beta analogs of the model-id wrapper schemas above. Like the non-Beta
+    # ones they must be flattened to plain strings; otherwise the generator
+    # emits enums with invalid Rust identifiers (e.g. `gpt-5.1-codex-max`
+    # becomes the variant `Gpt5.1CodexMax`, which does not compile).
+    "BetaModelIdsShared",
+    "BetaModelIdsResponses",
+    "BetaModelIdsCompaction",
     "CreateCompletionRequestModel",
     "CreateAssistantRequestModel",
     "CreateThreadAndRunRequestModel",
