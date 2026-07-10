@@ -131,7 +131,14 @@ def add_titles_to_unnamed_union_variants(node, path=""):
                             item["title"] = "Boolean"
                         elif t == "array":
                             items_schema = item.get("items", {})
-                            inner_type = items_schema.get("type", "item").capitalize()
+                            # Prefer the referenced schema name so that a union of
+                            # several array-of-$ref variants gets distinct titles
+                            # (otherwise they all collapse to "ArrayOfItems", which
+                            # yields duplicate Rust enum variants that fail to compile).
+                            if "$ref" in items_schema:
+                                inner_type = items_schema["$ref"].split("/")[-1]
+                            else:
+                                inner_type = items_schema.get("type", "item").capitalize()
                             item["title"] = f"ArrayOf{inner_type}s"
                         elif t == "object":
                             item["title"] = f"Object{i}"
