@@ -20,12 +20,21 @@ pub struct ChatCompletionRequestMessageContentPartText {
     /// The text content.
     #[serde(rename = "text")]
     pub text: String,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointParam>>,
 }
 
 impl ChatCompletionRequestMessageContentPartText {
     /// Learn about [text inputs](/docs/guides/text-generation).
     pub fn new(r#type: Type, text: String) -> ChatCompletionRequestMessageContentPartText {
-        ChatCompletionRequestMessageContentPartText { r#type, text }
+        ChatCompletionRequestMessageContentPartText {
+            r#type,
+            text,
+            prompt_cache_breakpoint: None,
+        }
     }
 }
 /// The type of the content part.

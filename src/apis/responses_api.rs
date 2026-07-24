@@ -15,6 +15,43 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`beta_cancel_response`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BetaCancelResponseError {
+    Status404(models::BetaError),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`beta_create_response`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BetaCreateResponseError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`beta_delete_response`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BetaDeleteResponseError {
+    Status404(models::BetaError),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`beta_get_response`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BetaGetResponseError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`beta_list_input_items`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BetaListInputItemsError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`cancel_response`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -50,6 +87,350 @@ pub enum GetResponseError {
 #[serde(untagged)]
 pub enum ListInputItemsError {
     UnknownValue(serde_json::Value),
+}
+
+#[bon::builder]
+pub async fn beta_cancel_response(
+    configuration: &configuration::Configuration,
+    response_id: &str,
+    openai_beta: Option<Vec<String>>,
+) -> Result<models::BetaResponse, Error<BetaCancelResponseError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_response_id = response_id;
+    let p_header_openai_beta = openai_beta;
+
+    let uri_str = format!(
+        "{}/responses/{response_id}/cancel?beta=true",
+        configuration.base_path,
+        response_id = crate::apis::urlencode(p_path_response_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_openai_beta {
+        req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BetaResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BetaResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<BetaCancelResponseError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn beta_create_response(
+    configuration: &configuration::Configuration,
+    beta_create_response: models::BetaCreateResponse,
+    openai_beta: Option<Vec<String>>,
+) -> Result<models::BetaResponse, Error<BetaCreateResponseError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_beta_create_response = beta_create_response;
+    let p_header_openai_beta = openai_beta;
+
+    let uri_str = format!("{}/responses?beta=true", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_openai_beta {
+        req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_beta_create_response);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BetaResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BetaResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<BetaCreateResponseError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn beta_delete_response(
+    configuration: &configuration::Configuration,
+    response_id: &str,
+    openai_beta: Option<Vec<String>>,
+) -> Result<(), Error<BetaDeleteResponseError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_response_id = response_id;
+    let p_header_openai_beta = openai_beta;
+
+    let uri_str = format!(
+        "{}/responses/{response_id}?beta=true",
+        configuration.base_path,
+        response_id = crate::apis::urlencode(p_path_response_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_openai_beta {
+        req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<BetaDeleteResponseError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn beta_get_response(
+    configuration: &configuration::Configuration,
+    response_id: &str,
+    include: Option<Vec<models::BetaIncludeEnum>>,
+    stream: Option<bool>,
+    starting_after: Option<i32>,
+    include_obfuscation: Option<bool>,
+    openai_beta: Option<Vec<String>>,
+) -> Result<models::BetaResponse, Error<BetaGetResponseError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_response_id = response_id;
+    let p_query_include = include;
+    let p_query_stream = stream;
+    let p_query_starting_after = starting_after;
+    let p_query_include_obfuscation = include_obfuscation;
+    let p_header_openai_beta = openai_beta;
+
+    let uri_str = format!(
+        "{}/responses/{response_id}?beta=true",
+        configuration.base_path,
+        response_id = crate::apis::urlencode(p_path_response_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_include {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("include".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "include",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_stream {
+        req_builder = req_builder.query(&[("stream", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_starting_after {
+        req_builder = req_builder.query(&[("starting_after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_include_obfuscation {
+        req_builder = req_builder.query(&[("include_obfuscation", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_openai_beta {
+        req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BetaResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BetaResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<BetaGetResponseError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+#[bon::builder]
+pub async fn beta_list_input_items(
+    configuration: &configuration::Configuration,
+    response_id: &str,
+    limit: Option<i32>,
+    order: Option<&str>,
+    after: Option<&str>,
+    include: Option<Vec<models::BetaIncludeEnum>>,
+    openai_beta: Option<Vec<String>>,
+) -> Result<models::BetaResponseItemList, Error<BetaListInputItemsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_response_id = response_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_include = include;
+    let p_header_openai_beta = openai_beta;
+
+    let uri_str = format!(
+        "{}/responses/{response_id}/input_items?beta=true",
+        configuration.base_path,
+        response_id = crate::apis::urlencode(p_path_response_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_include {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("include".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "include",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_openai_beta {
+        req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BetaResponseItemList`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BetaResponseItemList`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<BetaListInputItemsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
 }
 
 #[bon::builder]

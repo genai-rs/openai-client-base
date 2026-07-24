@@ -22,6 +22,7 @@ pub enum Tool {
     WebSearchTool(Box<models::WebSearchTool>),
     McpTool(Box<models::McpTool>),
     CodeInterpreterTool(Box<models::CodeInterpreterTool>),
+    ProgrammaticToolCallingParam(Box<models::ProgrammaticToolCallingParam>),
     ImageGenTool(Box<models::ImageGenTool>),
     LocalShellToolParam(Box<models::LocalShellToolParam>),
     FunctionShellToolParam(Box<models::FunctionShellToolParam>),

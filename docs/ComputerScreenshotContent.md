@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **image_url** | Option<**String**> | The URL of the screenshot image. | 
 **file_id** | Option<**String**> | The identifier of an uploaded file that contains the screenshot. | 
 **detail** | [**models::ImageDetail**](ImageDetail.md) |  | 
+**prompt_cache_breakpoint** | Option<[**models::PromptCacheBreakpointConfig**](PromptCacheBreakpointConfig.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

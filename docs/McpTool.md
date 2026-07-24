@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **server_description** | Option<**String**> | Optional description of the MCP server, used to provide more context.  | [optional]
 **headers** | Option<**std::collections::HashMap<String, String>**> | Optional HTTP headers to send to the MCP server. Use for authentication or other purposes.  | [optional]
 **allowed_tools** | Option<[**models::McpToolAllowedTools**](MCPTool_allowed_tools.md)> |  | [optional]
+**allowed_callers** | Option<[**Vec<models::CallableToolAllowedCaller>**](CallableToolAllowedCaller.md)> | The tool invocation context(s). | [optional]
 **require_approval** | Option<[**models::McpToolRequireApproval**](MCPTool_require_approval.md)> |  | [optional]
 **defer_loading** | Option<**bool**> | Whether this MCP tool is deferred and discovered via tool search.  | [optional]
 

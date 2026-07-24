@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 /// Reasoning : **gpt-5 and o-series models only**  Configuration options for [reasoning models](https://platform.openai.com/docs/guides/reasoning).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Reasoning {
+    #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
+    pub mode: Option<Box<models::ReasoningModeEnum>>,
     #[serde(
         rename = "effort",
         default,
@@ -29,7 +31,7 @@ pub struct Reasoning {
         skip_serializing_if = "Option::is_none"
     )]
     pub summary: Option<Option<Summary>>,
-    /// Controls which reasoning items are rendered back to the model on later turns. When returned on a response, this is the effective reasoning context mode used for the response.
+    /// Controls which reasoning items are rendered back to the model on later turns. If omitted or set to `auto`, the model determines the context mode. The `gpt-5.6` model family defaults to `all_turns`; earlier models default to `current_turn`.  When returned on a response, this is the effective reasoning context mode used for the response.
     #[serde(
         rename = "context",
         default,
@@ -51,6 +53,7 @@ impl Reasoning {
     /// **gpt-5 and o-series models only**  Configuration options for [reasoning models](https://platform.openai.com/docs/guides/reasoning).
     pub fn new() -> Reasoning {
         Reasoning {
+            mode: None,
             effort: None,
             summary: None,
             context: None,
@@ -74,7 +77,7 @@ impl Default for Summary {
         Self::Auto
     }
 }
-/// Controls which reasoning items are rendered back to the model on later turns. When returned on a response, this is the effective reasoning context mode used for the response.
+/// Controls which reasoning items are rendered back to the model on later turns. If omitted or set to `auto`, the model determines the context mode. The `gpt-5.6` model family defaults to `all_turns`; earlier models default to `current_turn`.  When returned on a response, this is the effective reasoning context mode used for the response.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Context {
     #[serde(rename = "auto")]

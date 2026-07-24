@@ -4,6 +4,7 @@
 
 | Name | Value |
 |---- | -----|
+| Auto | auto |
 | Low | low |
 | High | high |
 

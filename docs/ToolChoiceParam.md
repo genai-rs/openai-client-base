@@ -6,6 +6,7 @@
 |---- | -----|
 | SpecificApplyPatchParam | How the model should select which tool (or tools) to use when generating a response. See the &#x60;tools&#x60; parameter to see how to specify which tools the model can call.  |
 | SpecificFunctionShellParam | How the model should select which tool (or tools) to use when generating a response. See the &#x60;tools&#x60; parameter to see how to specify which tools the model can call.  |
+| SpecificProgrammaticToolCallingParam | How the model should select which tool (or tools) to use when generating a response. See the &#x60;tools&#x60; parameter to see how to specify which tools the model can call.  |
 | ToolChoiceAllowed | How the model should select which tool (or tools) to use when generating a response. See the &#x60;tools&#x60; parameter to see how to specify which tools the model can call.  |
 | ToolChoiceCustom | How the model should select which tool (or tools) to use when generating a response. See the &#x60;tools&#x60; parameter to see how to specify which tools the model can call.  |
 | ToolChoiceFunction | How the model should select which tool (or tools) to use when generating a response. See the &#x60;tools&#x60; parameter to see how to specify which tools the model can call.  |

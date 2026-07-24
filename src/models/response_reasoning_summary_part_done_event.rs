@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ResponseReasoningSummaryPartDoneEvent : Emitted when a reasoning summary part is completed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseReasoningSummaryPartDoneEvent {
     /// The type of the event. Always `response.reasoning_summary_part.done`.
     #[serde(rename = "type")]
@@ -26,6 +26,9 @@ pub struct ResponseReasoningSummaryPartDoneEvent {
     /// The index of the summary part within the reasoning summary.
     #[serde(rename = "summary_index")]
     pub summary_index: i32,
+    /// The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<Status>,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
@@ -48,6 +51,7 @@ impl ResponseReasoningSummaryPartDoneEvent {
             item_id,
             output_index,
             summary_index,
+            status: None,
             sequence_number,
             part: Box::new(part),
         }
@@ -63,6 +67,18 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::ResponseReasoningSummaryPartDone
+    }
+}
+/// The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "incomplete")]
+    Incomplete,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Incomplete
     }
 }
 

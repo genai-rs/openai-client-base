@@ -31,6 +31,9 @@ pub struct ProjectApiKey {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
+    /// Whether the API key's owner currently has effective access to the project.
+    #[serde(rename = "owner_project_access")]
+    pub owner_project_access: OwnerProjectAccess,
     #[serde(rename = "owner")]
     pub owner: Box<models::ProjectApiKeyOwner>,
 }
@@ -44,6 +47,7 @@ impl ProjectApiKey {
         created_at: i32,
         last_used_at: Option<i32>,
         id: String,
+        owner_project_access: OwnerProjectAccess,
         owner: models::ProjectApiKeyOwner,
     ) -> ProjectApiKey {
         ProjectApiKey {
@@ -53,6 +57,7 @@ impl ProjectApiKey {
             created_at,
             last_used_at,
             id,
+            owner_project_access,
             owner: Box::new(owner),
         }
     }
@@ -67,6 +72,20 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::OrganizationProjectApiKey
+    }
+}
+/// Whether the API key's owner currently has effective access to the project.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum OwnerProjectAccess {
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "inactive")]
+    Inactive,
+}
+
+impl Default for OwnerProjectAccess {
+    fn default() -> OwnerProjectAccess {
+        Self::Active
     }
 }
 

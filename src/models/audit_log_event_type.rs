@@ -133,6 +133,174 @@ pub enum AuditLogEventType {
     UserUpdated,
     #[serde(rename = "user.deleted")]
     UserDeleted,
+    #[serde(rename = "tenant.metadata.updated")]
+    TenantMetadataUpdated,
+    #[serde(rename = "tenant.microsoft_entra_mapping.upserted")]
+    TenantMicrosoftEntraMappingUpserted,
+    #[serde(rename = "tenant.microsoft_entra_mapping.deleted")]
+    TenantMicrosoftEntraMappingDeleted,
+    #[serde(rename = "tenant.workload_identity.provider.created")]
+    TenantWorkloadIdentityProviderCreated,
+    #[serde(rename = "tenant.workload_identity.provider.updated")]
+    TenantWorkloadIdentityProviderUpdated,
+    #[serde(rename = "tenant.workload_identity.provider.archived")]
+    TenantWorkloadIdentityProviderArchived,
+    #[serde(rename = "tenant.workload_identity.mapping.created")]
+    TenantWorkloadIdentityMappingCreated,
+    #[serde(rename = "tenant.workload_identity.mapping.updated")]
+    TenantWorkloadIdentityMappingUpdated,
+    #[serde(rename = "tenant.workload_identity.mapping.archived")]
+    TenantWorkloadIdentityMappingArchived,
+    #[serde(rename = "tenant.workload_identity.binding.created")]
+    TenantWorkloadIdentityBindingCreated,
+    #[serde(rename = "tenant.workload_identity.principal.provisioned")]
+    TenantWorkloadIdentityPrincipalProvisioned,
+    #[serde(rename = "tenant.admin_api_key.created")]
+    TenantAdminApiKeyCreated,
+    #[serde(rename = "tenant.admin_api_key.updated")]
+    TenantAdminApiKeyUpdated,
+    #[serde(rename = "tenant.admin_api_key.deleted")]
+    TenantAdminApiKeyDeleted,
+    #[serde(rename = "tenant.project_api_key.created")]
+    TenantProjectApiKeyCreated,
+    #[serde(rename = "tenant.chatgpt_access_token.revoked")]
+    TenantChatgptAccessTokenRevoked,
+    #[serde(rename = "tenant.migration.completed")]
+    TenantMigrationCompleted,
+    #[serde(rename = "tenant.sso.migrated")]
+    TenantSsoMigrated,
+    #[serde(rename = "tenant.domains.migrated")]
+    TenantDomainsMigrated,
+    #[serde(rename = "tenant.sso_connection.created")]
+    TenantSsoConnectionCreated,
+    #[serde(rename = "tenant.sso_connection.updated")]
+    TenantSsoConnectionUpdated,
+    #[serde(rename = "tenant.sso_connection.deleted")]
+    TenantSsoConnectionDeleted,
+    #[serde(rename = "tenant.sso_connection.setup.started")]
+    TenantSsoConnectionSetupStarted,
+    #[serde(rename = "tenant.policy.created")]
+    TenantPolicyCreated,
+    #[serde(rename = "tenant.policy.updated")]
+    TenantPolicyUpdated,
+    #[serde(rename = "tenant.policy.deleted")]
+    TenantPolicyDeleted,
+    #[serde(rename = "tenant.policy.attached")]
+    TenantPolicyAttached,
+    #[serde(rename = "tenant.policy.detached")]
+    TenantPolicyDetached,
+    #[serde(rename = "tenant.principal_authentication_policy.resolved")]
+    TenantPrincipalAuthenticationPolicyResolved,
+    #[serde(rename = "tenant.scim.setup.started")]
+    TenantScimSetupStarted,
+    #[serde(rename = "tenant.scim.deletion.requested")]
+    TenantScimDeletionRequested,
+    #[serde(rename = "tenant.scim.directory.created")]
+    TenantScimDirectoryCreated,
+    #[serde(rename = "tenant.product_access_policy.updated")]
+    TenantProductAccessPolicyUpdated,
+    #[serde(rename = "tenant.resource_share_grant.created")]
+    TenantResourceShareGrantCreated,
+    #[serde(rename = "tenant.resource_share_grant.updated")]
+    TenantResourceShareGrantUpdated,
+    #[serde(rename = "tenant.resource_share_grant.accepted")]
+    TenantResourceShareGrantAccepted,
+    #[serde(rename = "tenant.resource_share_grant.declined")]
+    TenantResourceShareGrantDeclined,
+    #[serde(rename = "tenant.resource_share_grant.revoked")]
+    TenantResourceShareGrantRevoked,
+    #[serde(rename = "tenant.resource_share_grant.deleted")]
+    TenantResourceShareGrantDeleted,
+    #[serde(rename = "tenant.service_account.updated")]
+    TenantServiceAccountUpdated,
+    #[serde(rename = "tenant.service_account.deleted")]
+    TenantServiceAccountDeleted,
+    #[serde(rename = "tenant.service_account.token.revoked")]
+    TenantServiceAccountTokenRevoked,
+    #[serde(rename = "tenant.billing.overage_limit.updated")]
+    TenantBillingOverageLimitUpdated,
+    #[serde(rename = "tenant.billing.alerts.updated")]
+    TenantBillingAlertsUpdated,
+    #[serde(rename = "tenant.billing.info.updated")]
+    TenantBillingInfoUpdated,
+    #[serde(rename = "tenant.usage_limit.workspace.updated")]
+    TenantUsageLimitWorkspaceUpdated,
+    #[serde(rename = "tenant.usage_limit.group.updated")]
+    TenantUsageLimitGroupUpdated,
+    #[serde(rename = "tenant.usage_limit.user.updated")]
+    TenantUsageLimitUserUpdated,
+    #[serde(rename = "tenant.usage_limit.increase_request.updated")]
+    TenantUsageLimitIncreaseRequestUpdated,
+    #[serde(rename = "tenant.usage_limit.increase_request.resolved")]
+    TenantUsageLimitIncreaseRequestResolved,
+    #[serde(rename = "tenant.group.created")]
+    TenantGroupCreated,
+    #[serde(rename = "tenant.group.updated")]
+    TenantGroupUpdated,
+    #[serde(rename = "tenant.group.deleted")]
+    TenantGroupDeleted,
+    #[serde(rename = "tenant.group.member.added")]
+    TenantGroupMemberAdded,
+    #[serde(rename = "tenant.group.member.removed")]
+    TenantGroupMemberRemoved,
+    #[serde(rename = "tenant.migration_rollout.status.updated")]
+    TenantMigrationRolloutStatusUpdated,
+    #[serde(rename = "tenant.migration_rollout.tier.updated")]
+    TenantMigrationRolloutTierUpdated,
+    #[serde(rename = "tenant.role.metadata.updated")]
+    TenantRoleMetadataUpdated,
+    #[serde(rename = "tenant.custom_role.created")]
+    TenantCustomRoleCreated,
+    #[serde(rename = "tenant.custom_role.updated")]
+    TenantCustomRoleUpdated,
+    #[serde(rename = "tenant.custom_role.deleted")]
+    TenantCustomRoleDeleted,
+    #[serde(rename = "tenant.role_assignment.created")]
+    TenantRoleAssignmentCreated,
+    #[serde(rename = "tenant.role_assignment.deleted")]
+    TenantRoleAssignmentDeleted,
+    #[serde(rename = "tenant.resource_role_assignment.created")]
+    TenantResourceRoleAssignmentCreated,
+    #[serde(rename = "tenant.resource_role_assignment.deleted")]
+    TenantResourceRoleAssignmentDeleted,
+    #[serde(rename = "tenant.resource_access.updated")]
+    TenantResourceAccessUpdated,
+    #[serde(rename = "tenant.resource_access.deleted")]
+    TenantResourceAccessDeleted,
+    #[serde(rename = "tenant.session_policy.created")]
+    TenantSessionPolicyCreated,
+    #[serde(rename = "tenant.session_policy.updated")]
+    TenantSessionPolicyUpdated,
+    #[serde(rename = "tenant.session_policy.deleted")]
+    TenantSessionPolicyDeleted,
+    #[serde(rename = "tenant.session_revocation.started")]
+    TenantSessionRevocationStarted,
+    #[serde(rename = "tenant.third_party_app_policy.updated")]
+    TenantThirdPartyAppPolicyUpdated,
+    #[serde(rename = "tenant.user.added")]
+    TenantUserAdded,
+    #[serde(rename = "tenant.user.updated")]
+    TenantUserUpdated,
+    #[serde(rename = "tenant.user.removed")]
+    TenantUserRemoved,
+    #[serde(rename = "tenant.user.looked_up")]
+    TenantUserLookedUp,
+    #[serde(rename = "tenant.user.invited")]
+    TenantUserInvited,
+    #[serde(rename = "tenant.membership.revoked")]
+    TenantMembershipRevoked,
+    #[serde(rename = "tenant.api_organization_invite.upserted")]
+    TenantApiOrganizationInviteUpserted,
+    #[serde(rename = "tenant.api_organization_invite.deleted")]
+    TenantApiOrganizationInviteDeleted,
+    #[serde(rename = "tenant.chatgpt_workspace_invite.upserted")]
+    TenantChatgptWorkspaceInviteUpserted,
+    #[serde(rename = "tenant.membership.accepted")]
+    TenantMembershipAccepted,
+    #[serde(rename = "tenant.membership.declined")]
+    TenantMembershipDeclined,
+    #[serde(rename = "tenant.workspace_invite_email_settings.updated")]
+    TenantWorkspaceInviteEmailSettingsUpdated,
 }
 
 impl std::fmt::Display for AuditLogEventType {
@@ -209,6 +377,158 @@ impl std::fmt::Display for AuditLogEventType {
             Self::UserAdded => write!(f, "user.added"),
             Self::UserUpdated => write!(f, "user.updated"),
             Self::UserDeleted => write!(f, "user.deleted"),
+            Self::TenantMetadataUpdated => write!(f, "tenant.metadata.updated"),
+            Self::TenantMicrosoftEntraMappingUpserted => {
+                write!(f, "tenant.microsoft_entra_mapping.upserted")
+            }
+            Self::TenantMicrosoftEntraMappingDeleted => {
+                write!(f, "tenant.microsoft_entra_mapping.deleted")
+            }
+            Self::TenantWorkloadIdentityProviderCreated => {
+                write!(f, "tenant.workload_identity.provider.created")
+            }
+            Self::TenantWorkloadIdentityProviderUpdated => {
+                write!(f, "tenant.workload_identity.provider.updated")
+            }
+            Self::TenantWorkloadIdentityProviderArchived => {
+                write!(f, "tenant.workload_identity.provider.archived")
+            }
+            Self::TenantWorkloadIdentityMappingCreated => {
+                write!(f, "tenant.workload_identity.mapping.created")
+            }
+            Self::TenantWorkloadIdentityMappingUpdated => {
+                write!(f, "tenant.workload_identity.mapping.updated")
+            }
+            Self::TenantWorkloadIdentityMappingArchived => {
+                write!(f, "tenant.workload_identity.mapping.archived")
+            }
+            Self::TenantWorkloadIdentityBindingCreated => {
+                write!(f, "tenant.workload_identity.binding.created")
+            }
+            Self::TenantWorkloadIdentityPrincipalProvisioned => {
+                write!(f, "tenant.workload_identity.principal.provisioned")
+            }
+            Self::TenantAdminApiKeyCreated => write!(f, "tenant.admin_api_key.created"),
+            Self::TenantAdminApiKeyUpdated => write!(f, "tenant.admin_api_key.updated"),
+            Self::TenantAdminApiKeyDeleted => write!(f, "tenant.admin_api_key.deleted"),
+            Self::TenantProjectApiKeyCreated => write!(f, "tenant.project_api_key.created"),
+            Self::TenantChatgptAccessTokenRevoked => {
+                write!(f, "tenant.chatgpt_access_token.revoked")
+            }
+            Self::TenantMigrationCompleted => write!(f, "tenant.migration.completed"),
+            Self::TenantSsoMigrated => write!(f, "tenant.sso.migrated"),
+            Self::TenantDomainsMigrated => write!(f, "tenant.domains.migrated"),
+            Self::TenantSsoConnectionCreated => write!(f, "tenant.sso_connection.created"),
+            Self::TenantSsoConnectionUpdated => write!(f, "tenant.sso_connection.updated"),
+            Self::TenantSsoConnectionDeleted => write!(f, "tenant.sso_connection.deleted"),
+            Self::TenantSsoConnectionSetupStarted => {
+                write!(f, "tenant.sso_connection.setup.started")
+            }
+            Self::TenantPolicyCreated => write!(f, "tenant.policy.created"),
+            Self::TenantPolicyUpdated => write!(f, "tenant.policy.updated"),
+            Self::TenantPolicyDeleted => write!(f, "tenant.policy.deleted"),
+            Self::TenantPolicyAttached => write!(f, "tenant.policy.attached"),
+            Self::TenantPolicyDetached => write!(f, "tenant.policy.detached"),
+            Self::TenantPrincipalAuthenticationPolicyResolved => {
+                write!(f, "tenant.principal_authentication_policy.resolved")
+            }
+            Self::TenantScimSetupStarted => write!(f, "tenant.scim.setup.started"),
+            Self::TenantScimDeletionRequested => write!(f, "tenant.scim.deletion.requested"),
+            Self::TenantScimDirectoryCreated => write!(f, "tenant.scim.directory.created"),
+            Self::TenantProductAccessPolicyUpdated => {
+                write!(f, "tenant.product_access_policy.updated")
+            }
+            Self::TenantResourceShareGrantCreated => {
+                write!(f, "tenant.resource_share_grant.created")
+            }
+            Self::TenantResourceShareGrantUpdated => {
+                write!(f, "tenant.resource_share_grant.updated")
+            }
+            Self::TenantResourceShareGrantAccepted => {
+                write!(f, "tenant.resource_share_grant.accepted")
+            }
+            Self::TenantResourceShareGrantDeclined => {
+                write!(f, "tenant.resource_share_grant.declined")
+            }
+            Self::TenantResourceShareGrantRevoked => {
+                write!(f, "tenant.resource_share_grant.revoked")
+            }
+            Self::TenantResourceShareGrantDeleted => {
+                write!(f, "tenant.resource_share_grant.deleted")
+            }
+            Self::TenantServiceAccountUpdated => write!(f, "tenant.service_account.updated"),
+            Self::TenantServiceAccountDeleted => write!(f, "tenant.service_account.deleted"),
+            Self::TenantServiceAccountTokenRevoked => {
+                write!(f, "tenant.service_account.token.revoked")
+            }
+            Self::TenantBillingOverageLimitUpdated => {
+                write!(f, "tenant.billing.overage_limit.updated")
+            }
+            Self::TenantBillingAlertsUpdated => write!(f, "tenant.billing.alerts.updated"),
+            Self::TenantBillingInfoUpdated => write!(f, "tenant.billing.info.updated"),
+            Self::TenantUsageLimitWorkspaceUpdated => {
+                write!(f, "tenant.usage_limit.workspace.updated")
+            }
+            Self::TenantUsageLimitGroupUpdated => write!(f, "tenant.usage_limit.group.updated"),
+            Self::TenantUsageLimitUserUpdated => write!(f, "tenant.usage_limit.user.updated"),
+            Self::TenantUsageLimitIncreaseRequestUpdated => {
+                write!(f, "tenant.usage_limit.increase_request.updated")
+            }
+            Self::TenantUsageLimitIncreaseRequestResolved => {
+                write!(f, "tenant.usage_limit.increase_request.resolved")
+            }
+            Self::TenantGroupCreated => write!(f, "tenant.group.created"),
+            Self::TenantGroupUpdated => write!(f, "tenant.group.updated"),
+            Self::TenantGroupDeleted => write!(f, "tenant.group.deleted"),
+            Self::TenantGroupMemberAdded => write!(f, "tenant.group.member.added"),
+            Self::TenantGroupMemberRemoved => write!(f, "tenant.group.member.removed"),
+            Self::TenantMigrationRolloutStatusUpdated => {
+                write!(f, "tenant.migration_rollout.status.updated")
+            }
+            Self::TenantMigrationRolloutTierUpdated => {
+                write!(f, "tenant.migration_rollout.tier.updated")
+            }
+            Self::TenantRoleMetadataUpdated => write!(f, "tenant.role.metadata.updated"),
+            Self::TenantCustomRoleCreated => write!(f, "tenant.custom_role.created"),
+            Self::TenantCustomRoleUpdated => write!(f, "tenant.custom_role.updated"),
+            Self::TenantCustomRoleDeleted => write!(f, "tenant.custom_role.deleted"),
+            Self::TenantRoleAssignmentCreated => write!(f, "tenant.role_assignment.created"),
+            Self::TenantRoleAssignmentDeleted => write!(f, "tenant.role_assignment.deleted"),
+            Self::TenantResourceRoleAssignmentCreated => {
+                write!(f, "tenant.resource_role_assignment.created")
+            }
+            Self::TenantResourceRoleAssignmentDeleted => {
+                write!(f, "tenant.resource_role_assignment.deleted")
+            }
+            Self::TenantResourceAccessUpdated => write!(f, "tenant.resource_access.updated"),
+            Self::TenantResourceAccessDeleted => write!(f, "tenant.resource_access.deleted"),
+            Self::TenantSessionPolicyCreated => write!(f, "tenant.session_policy.created"),
+            Self::TenantSessionPolicyUpdated => write!(f, "tenant.session_policy.updated"),
+            Self::TenantSessionPolicyDeleted => write!(f, "tenant.session_policy.deleted"),
+            Self::TenantSessionRevocationStarted => write!(f, "tenant.session_revocation.started"),
+            Self::TenantThirdPartyAppPolicyUpdated => {
+                write!(f, "tenant.third_party_app_policy.updated")
+            }
+            Self::TenantUserAdded => write!(f, "tenant.user.added"),
+            Self::TenantUserUpdated => write!(f, "tenant.user.updated"),
+            Self::TenantUserRemoved => write!(f, "tenant.user.removed"),
+            Self::TenantUserLookedUp => write!(f, "tenant.user.looked_up"),
+            Self::TenantUserInvited => write!(f, "tenant.user.invited"),
+            Self::TenantMembershipRevoked => write!(f, "tenant.membership.revoked"),
+            Self::TenantApiOrganizationInviteUpserted => {
+                write!(f, "tenant.api_organization_invite.upserted")
+            }
+            Self::TenantApiOrganizationInviteDeleted => {
+                write!(f, "tenant.api_organization_invite.deleted")
+            }
+            Self::TenantChatgptWorkspaceInviteUpserted => {
+                write!(f, "tenant.chatgpt_workspace_invite.upserted")
+            }
+            Self::TenantMembershipAccepted => write!(f, "tenant.membership.accepted"),
+            Self::TenantMembershipDeclined => write!(f, "tenant.membership.declined"),
+            Self::TenantWorkspaceInviteEmailSettingsUpdated => {
+                write!(f, "tenant.workspace_invite_email_settings.updated")
+            }
         }
     }
 }

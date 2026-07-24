@@ -20,6 +20,9 @@ pub struct CompletionUsagePromptTokensDetails {
     /// Cached tokens present in the prompt.
     #[serde(rename = "cached_tokens", skip_serializing_if = "Option::is_none")]
     pub cached_tokens: Option<i32>,
+    /// The unadjusted number of prompt tokens written to cache.
+    #[serde(rename = "cache_write_tokens", skip_serializing_if = "Option::is_none")]
+    pub cache_write_tokens: Option<i32>,
 }
 
 impl CompletionUsagePromptTokensDetails {
@@ -28,6 +31,7 @@ impl CompletionUsagePromptTokensDetails {
         CompletionUsagePromptTokensDetails {
             audio_tokens: None,
             cached_tokens: None,
+            cache_write_tokens: None,
         }
     }
 }
