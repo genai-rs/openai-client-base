@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **description** | Option<**String**> | Optional description of the custom tool, used to provide more context. | [optional]
 **format** | Option<[**models::CustomToolParamFormat**](CustomToolParam_format.md)> |  | [optional]
 **defer_loading** | Option<**bool**> | Whether this tool should be deferred and discovered via tool search. | [optional]
+**allowed_callers** | Option<[**Vec<models::CallableToolAllowedCaller>**](CallableToolAllowedCaller.md)> | The tool invocation context(s). | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

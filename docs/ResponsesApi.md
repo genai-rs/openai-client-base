@@ -4,12 +4,170 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**beta_cancel_response**](ResponsesApi.md#beta_cancel_response) | **POST** /responses/{response_id}/cancel?beta=true | Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled.  [Learn more](/docs/guides/background). 
+[**beta_create_response**](ResponsesApi.md#beta_create_response) | **POST** /responses?beta=true | Creates a model response. Provide [text](/docs/guides/text) or [image](/docs/guides/images) inputs to generate [text](/docs/guides/text) or [JSON](/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](/docs/guides/function-calling) or use built-in [tools](/docs/guides/tools) like [web search](/docs/guides/tools-web-search) or [file search](/docs/guides/tools-file-search) to use your own data as input for the model's response. 
+[**beta_delete_response**](ResponsesApi.md#beta_delete_response) | **DELETE** /responses/{response_id}?beta=true | Deletes a model response with the given ID. 
+[**beta_get_response**](ResponsesApi.md#beta_get_response) | **GET** /responses/{response_id}?beta=true | Retrieves a model response with the given ID. 
+[**beta_list_input_items**](ResponsesApi.md#beta_list_input_items) | **GET** /responses/{response_id}/input_items?beta=true | Returns a list of input items for a given response.
 [**cancel_response**](ResponsesApi.md#cancel_response) | **POST** /responses/{response_id}/cancel | Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled.  [Learn more](/docs/guides/background). 
 [**create_response**](ResponsesApi.md#create_response) | **POST** /responses | Creates a model response. Provide [text](/docs/guides/text) or [image](/docs/guides/images) inputs to generate [text](/docs/guides/text) or [JSON](/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](/docs/guides/function-calling) or use built-in [tools](/docs/guides/tools) like [web search](/docs/guides/tools-web-search) or [file search](/docs/guides/tools-file-search) to use your own data as input for the model's response. 
 [**delete_response**](ResponsesApi.md#delete_response) | **DELETE** /responses/{response_id} | Deletes a model response with the given ID. 
 [**get_response**](ResponsesApi.md#get_response) | **GET** /responses/{response_id} | Retrieves a model response with the given ID. 
 [**list_input_items**](ResponsesApi.md#list_input_items) | **GET** /responses/{response_id}/input_items | Returns a list of input items for a given response.
 
+
+
+## beta_cancel_response
+
+> models::BetaResponse beta_cancel_response(response_id, openai_beta)
+Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled.  [Learn more](/docs/guides/background). 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**response_id** | **String** | The ID of the response to cancel. | [required] |
+**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+
+### Return type
+
+[**models::BetaResponse**](BetaResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## beta_create_response
+
+> models::BetaResponse beta_create_response(beta_create_response, openai_beta)
+Creates a model response. Provide [text](/docs/guides/text) or [image](/docs/guides/images) inputs to generate [text](/docs/guides/text) or [JSON](/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](/docs/guides/function-calling) or use built-in [tools](/docs/guides/tools) like [web search](/docs/guides/tools-web-search) or [file search](/docs/guides/tools-file-search) to use your own data as input for the model's response. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**beta_create_response** | [**BetaCreateResponse**](BetaCreateResponse.md) |  | [required] |
+**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+
+### Return type
+
+[**models::BetaResponse**](BetaResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, text/event-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## beta_delete_response
+
+> beta_delete_response(response_id, openai_beta)
+Deletes a model response with the given ID. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**response_id** | **String** | The ID of the response to delete. | [required] |
+**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## beta_get_response
+
+> models::BetaResponse beta_get_response(response_id, include, stream, starting_after, include_obfuscation, openai_beta)
+Retrieves a model response with the given ID. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**response_id** | **String** | The ID of the response to retrieve. | [required] |
+**include** | Option<[**Vec<models::BetaIncludeEnum>**](models::BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](/docs/api-reference/responses-streaming) for more information.  |  |
+**starting_after** | Option<**i32**> | The sequence number of the event after which to start streaming.  |  |
+**include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
+**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+
+### Return type
+
+[**models::BetaResponse**](BetaResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## beta_list_input_items
+
+> models::BetaResponseItemList beta_list_input_items(response_id, limit, order, after, include, openai_beta)
+Returns a list of input items for a given response.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**response_id** | **String** | The ID of the response to retrieve input items for. | [required] |
+**limit** | Option<**i32**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
+**order** | Option<**String**> | The order to return the input items in. Default is `desc`. - `asc`: Return the input items in ascending order. - `desc`: Return the input items in descending order.  |  |
+**after** | Option<**String**> | An item ID to list items after, used in pagination.  |  |
+**include** | Option<[**Vec<models::BetaIncludeEnum>**](models::BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+
+### Return type
+
+[**models::BetaResponseItemList**](BetaResponseItemList.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## cancel_response

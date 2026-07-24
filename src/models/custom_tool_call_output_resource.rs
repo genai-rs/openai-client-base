@@ -22,6 +22,8 @@ pub struct CustomToolCallOutputResource {
     /// The call ID, used to map this custom tool call output to a custom tool call.
     #[serde(rename = "call_id")]
     pub call_id: String,
+    #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
+    pub caller: Option<Box<models::ToolCallCallerParam>>,
     #[serde(rename = "output")]
     pub output: Box<models::CustomToolCallOutputOutput>,
     #[serde(rename = "status")]
@@ -43,6 +45,7 @@ impl CustomToolCallOutputResource {
             r#type,
             id,
             call_id,
+            caller: None,
             output: Box::new(output),
             status,
             created_by: None,

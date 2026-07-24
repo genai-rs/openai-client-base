@@ -20,12 +20,21 @@ pub struct InputTextContent {
     /// The text input to the model.
     #[serde(rename = "text")]
     pub text: String,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointConfig>>,
 }
 
 impl InputTextContent {
     /// A text input to the model.
     pub fn new(r#type: Type, text: String) -> InputTextContent {
-        InputTextContent { r#type, text }
+        InputTextContent {
+            r#type,
+            text,
+            prompt_cache_breakpoint: None,
+        }
     }
 }
 /// The type of the input item. Always `input_text`.

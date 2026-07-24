@@ -27,6 +27,8 @@ pub enum ItemResource {
     ToolSearchOutput(Box<models::ToolSearchOutput>),
     AdditionalTools(Box<models::AdditionalTools>),
     ReasoningItem(Box<models::ReasoningItem>),
+    Program(Box<models::Program>),
+    ProgramOutput(Box<models::ProgramOutput>),
     CompactionBody(Box<models::CompactionBody>),
     ImageGenToolCall(Box<models::ImageGenToolCall>),
     CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),

@@ -51,6 +51,13 @@ pub struct InputFileContentParam {
     pub file_url: Option<Option<String>>,
     #[serde(rename = "detail", skip_serializing_if = "Option::is_none")]
     pub detail: Option<models::FileDetailEnum>,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<Option<Box<models::PromptCacheBreakpointParam>>>,
 }
 
 impl InputFileContentParam {
@@ -63,6 +70,7 @@ impl InputFileContentParam {
             file_data: None,
             file_url: None,
             detail: None,
+            prompt_cache_breakpoint: None,
         }
     }
 }

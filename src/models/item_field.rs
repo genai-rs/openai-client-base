@@ -16,6 +16,8 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ItemField {
     Message(Box<models::Message>),
+    Program(Box<models::Program>),
+    ProgramOutput(Box<models::ProgramOutput>),
     FunctionToolCall(Box<models::FunctionToolCall>),
     ToolSearchCall(Box<models::ToolSearchCall>),
     ToolSearchOutput(Box<models::ToolSearchOutput>),

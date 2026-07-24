@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**archive_project**](ProjectsApi.md#archive_project) | **POST** /organization/projects/{project_id}/archive | Archives a project in the organization. Archived projects cannot be used or updated.
 [**create_project**](ProjectsApi.md#create_project) | **POST** /organization/projects | Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
-[**create_project_service_account**](ProjectsApi.md#create_project_service_account) | **POST** /organization/projects/{project_id}/service_accounts | Creates a new service account in the project. This also returns an unredacted API key for the service account.
+[**create_project_service_account**](ProjectsApi.md#create_project_service_account) | **POST** /organization/projects/{project_id}/service_accounts | Creates a new service account in the project. By default, this also returns an unredacted API key for the service account.
 [**create_project_user**](ProjectsApi.md#create_project_user) | **POST** /organization/projects/{project_id}/users | Adds a user to the project. Users must already be members of the organization to be added to a project.
 [**delete_project_api_key**](ProjectsApi.md#delete_project_api_key) | **DELETE** /organization/projects/{project_id}/api_keys/{api_key_id} | Deletes an API key from the project.  Returns confirmation of the key deletion, or an error if the key belonged to a service account. 
 [**delete_project_model_permissions**](ProjectsApi.md#delete_project_model_permissions) | **DELETE** /organization/projects/{project_id}/model_permissions | Deletes model permissions for a project.
@@ -89,7 +89,7 @@ Name | Type | Description  | Required | Notes
 ## create_project_service_account
 
 > models::ProjectServiceAccountCreateResponse create_project_service_account(project_id, project_service_account_create_request)
-Creates a new service account in the project. This also returns an unredacted API key for the service account.
+Creates a new service account in the project. By default, this also returns an unredacted API key for the service account.
 
 ### Parameters
 
@@ -261,7 +261,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_api_keys
 
-> models::ProjectApiKeyListResponse list_project_api_keys(project_id, limit, after)
+> models::ProjectApiKeyListResponse list_project_api_keys(project_id, limit, after, owner_project_access)
 Returns a list of API keys in the project.
 
 ### Parameters
@@ -272,6 +272,7 @@ Name | Type | Description  | Required | Notes
 **project_id** | **String** | The ID of the project. | [required] |
 **limit** | Option<**i32**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
+**owner_project_access** | Option<**String**> | Filter API keys by whether the owner currently has effective access to the project. Use `active` for owners with access, `inactive` for owners without access, or `any` for all enabled project API keys. If omitted, the endpoint applies its existing membership-based visibility rules, which may exclude some enabled keys.  |  |
 
 ### Return type
 

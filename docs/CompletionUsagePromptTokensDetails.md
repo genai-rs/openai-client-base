@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **audio_tokens** | Option<**i32**> | Audio input tokens present in the prompt. | [optional]
 **cached_tokens** | Option<**i32**> | Cached tokens present in the prompt. | [optional]
+**cache_write_tokens** | Option<**i32**> | The unadjusted number of prompt tokens written to cache. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

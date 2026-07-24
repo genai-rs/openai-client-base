@@ -21,6 +21,10 @@ pub enum ResponseErrorCode {
     RateLimitExceeded,
     #[serde(rename = "invalid_prompt")]
     InvalidPrompt,
+    #[serde(rename = "data_residency_mismatch")]
+    DataResidencyMismatch,
+    #[serde(rename = "bio_policy")]
+    BioPolicy,
     #[serde(rename = "vector_store_timeout")]
     VectorStoreTimeout,
     #[serde(rename = "invalid_image")]
@@ -59,6 +63,8 @@ impl std::fmt::Display for ResponseErrorCode {
             Self::ServerError => write!(f, "server_error"),
             Self::RateLimitExceeded => write!(f, "rate_limit_exceeded"),
             Self::InvalidPrompt => write!(f, "invalid_prompt"),
+            Self::DataResidencyMismatch => write!(f, "data_residency_mismatch"),
+            Self::BioPolicy => write!(f, "bio_policy"),
             Self::VectorStoreTimeout => write!(f, "vector_store_timeout"),
             Self::InvalidImage => write!(f, "invalid_image"),
             Self::InvalidImageFormat => write!(f, "invalid_image_format"),

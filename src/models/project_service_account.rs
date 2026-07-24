@@ -23,7 +23,7 @@ pub struct ProjectServiceAccount {
     /// The name of the service account
     #[serde(rename = "name")]
     pub name: String,
-    /// `owner` or `member`
+    /// `owner`, `member`, or `none`
     #[serde(rename = "role")]
     pub role: Role,
     /// The Unix timestamp (in seconds) of when the service account was created
@@ -61,13 +61,15 @@ impl Default for Object {
         Self::OrganizationProjectServiceAccount
     }
 }
-/// `owner` or `member`
+/// `owner`, `member`, or `none`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
     #[serde(rename = "owner")]
     Owner,
     #[serde(rename = "member")]
     Member,
+    #[serde(rename = "none")]
+    None,
 }
 
 impl Default for Role {

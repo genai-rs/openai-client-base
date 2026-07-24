@@ -11,6 +11,7 @@ pub enum ToolChoiceParam {
     Toolchoicefunction(models::ToolChoiceFunction),
     Toolchoicemcp(models::ToolChoiceMcp),
     Toolchoicecustom(models::ToolChoiceCustom),
+    Specificprogrammatictoolcallingparam(models::SpecificProgrammaticToolCallingParam),
     Specificapplypatchparam(models::SpecificApplyPatchParam),
     Specificfunctionshellparam(models::SpecificFunctionShellParam),
 }
@@ -42,6 +43,12 @@ impl std::fmt::Display for ToolChoiceParam {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            ToolChoiceParam::Specificprogrammatictoolcallingparam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
             ToolChoiceParam::Specificapplypatchparam(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
