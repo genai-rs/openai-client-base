@@ -18,6 +18,8 @@ pub enum ServiceTierEnum {
     Auto,
     #[serde(rename = "default")]
     Default,
+    #[serde(rename = "fast")]
+    Fast,
     #[serde(rename = "flex")]
     Flex,
     #[serde(rename = "priority")]
@@ -29,6 +31,7 @@ impl std::fmt::Display for ServiceTierEnum {
         match self {
             Self::Auto => write!(f, "auto"),
             Self::Default => write!(f, "default"),
+            Self::Fast => write!(f, "fast"),
             Self::Flex => write!(f, "flex"),
             Self::Priority => write!(f, "priority"),
         }

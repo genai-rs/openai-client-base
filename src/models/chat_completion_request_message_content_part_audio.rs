@@ -19,6 +19,11 @@ pub struct ChatCompletionRequestMessageContentPartAudio {
     pub r#type: Type,
     #[serde(rename = "input_audio")]
     pub input_audio: Box<models::ChatCompletionRequestMessageContentPartAudioInputAudio>,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointParam>>,
 }
 
 impl ChatCompletionRequestMessageContentPartAudio {
@@ -30,6 +35,7 @@ impl ChatCompletionRequestMessageContentPartAudio {
         ChatCompletionRequestMessageContentPartAudio {
             r#type,
             input_audio: Box::new(input_audio),
+            prompt_cache_breakpoint: None,
         }
     }
 }

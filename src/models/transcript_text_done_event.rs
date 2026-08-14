@@ -20,6 +20,9 @@ pub struct TranscriptTextDoneEvent {
     /// The text that was transcribed.
     #[serde(rename = "text")]
     pub text: String,
+    /// The languages detected in the audio. Returned by `gpt-transcribe`. An empty array indicates that no language could be reliably detected.
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<models::TranscriptionLanguage>>,
     /// The log probabilities of the individual tokens in the transcription. Only included if you [create a transcription](/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
     pub logprobs: Option<Vec<models::TranscriptTextDeltaEventLogprobsInner>>,
@@ -33,6 +36,7 @@ impl TranscriptTextDoneEvent {
         TranscriptTextDoneEvent {
             r#type,
             text,
+            languages: None,
             logprobs: None,
             usage: None,
         }

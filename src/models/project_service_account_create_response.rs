@@ -19,7 +19,7 @@ pub struct ProjectServiceAccountCreateResponse {
     pub id: String,
     #[serde(rename = "name")]
     pub name: String,
-    /// Service accounts can only have one role of type `member`
+    /// Service accounts created with default project membership have role `member`. Accounts created with `create_service_account_only` have role `none`.
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "created_at")]
@@ -59,11 +59,13 @@ impl Default for Object {
         Self::OrganizationProjectServiceAccount
     }
 }
-/// Service accounts can only have one role of type `member`
+/// Service accounts created with default project membership have role `member`. Accounts created with `create_service_account_only` have role `none`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
     #[serde(rename = "member")]
     Member,
+    #[serde(rename = "none")]
+    None,
 }
 
 impl Default for Role {

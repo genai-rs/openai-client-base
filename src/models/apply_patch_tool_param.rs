@@ -17,12 +17,23 @@ pub struct ApplyPatchToolParam {
     /// The type of the tool. Always `apply_patch`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// The tool invocation context(s).
+    #[serde(
+        rename = "allowed_callers",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_callers: Option<Option<Vec<models::CallableToolAllowedCaller>>>,
 }
 
 impl ApplyPatchToolParam {
     /// Allows the assistant to create, delete, or update files using unified diffs.
     pub fn new(r#type: Type) -> ApplyPatchToolParam {
-        ApplyPatchToolParam { r#type }
+        ApplyPatchToolParam {
+            r#type,
+            allowed_callers: None,
+        }
     }
 }
 /// The type of the tool. Always `apply_patch`.

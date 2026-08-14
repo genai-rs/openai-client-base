@@ -46,7 +46,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_transcription
 
-> models::CreateTranscription200Response create_transcription(file, model, language, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references)
+> models::CreateTranscription200Response create_transcription(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references)
 Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, or a stream of transcript events. 
 
 ### Parameters
@@ -57,6 +57,8 @@ Name | Type | Description  | Required | Notes
 **file** | **std::path::PathBuf** | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.  | [required] |
 **model** | **String** |  | [required] |
 **language** | Option<**String**> | The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.  |  |
+**languages** | Option<[**Vec<String>**](String.md)> | Possible languages of the input audio, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Supported by `gpt-transcribe`.  |  |
+**keywords** | Option<[**Vec<String>**](String.md)> | Words or phrases to guide transcription of the input audio. Supported by `gpt-transcribe`.  |  |
 **prompt** | Option<**String**> | An optional text to guide the model's style or continue a previous audio segment. The [prompt](/docs/guides/speech-to-text#prompting) should match the audio language. This field is not supported when using `gpt-4o-transcribe-diarize`.  |  |
 **response_format** | Option<[**models::AudioResponseFormat**](AudioResponseFormat.md)> |  |  |
 **temperature** | Option<**f64**> | The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use [log probability](https://en.wikipedia.org/wiki/Log_probability) to automatically increase the temperature until certain thresholds are hit.  |  |

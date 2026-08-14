@@ -24,6 +24,7 @@ pub struct FunctionToolParam {
     pub description: Option<Option<String>>,
     #[serde(rename = "parameters", skip_serializing_if = "Option::is_none")]
     pub parameters: Option<serde_json::Value>,
+    /// Whether to enforce strict parameter validation. If omitted, Responses attempts to use strict validation when the schema is compatible, and falls back to non-strict validation otherwise.
     #[serde(
         rename = "strict",
         default,
@@ -33,9 +34,25 @@ pub struct FunctionToolParam {
     pub strict: Option<Option<bool>>,
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// A JSON Schema describing the JSON value encoded in string outputs for this function tool. This does not describe content-array outputs.
+    #[serde(
+        rename = "output_schema",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub output_schema: Option<Option<std::collections::HashMap<String, serde_json::Value>>>,
     /// Whether this function should be deferred and discovered via tool search.
     #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
     pub defer_loading: Option<bool>,
+    /// The tool invocation context(s).
+    #[serde(
+        rename = "allowed_callers",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_callers: Option<Option<Vec<models::CallableToolAllowedCaller>>>,
 }
 
 impl FunctionToolParam {
@@ -46,7 +63,9 @@ impl FunctionToolParam {
             parameters: None,
             strict: None,
             r#type,
+            output_schema: None,
             defer_loading: None,
+            allowed_callers: None,
         }
     }
 }

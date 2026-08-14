@@ -27,3 +27,9 @@ pub enum Event {
     #[serde(rename = "thread.message.incomplete")]
     ThreadMessageIncomplete,
 }
+
+impl Default for Event {
+    fn default() -> Event {
+        Self::ThreadMessageIncomplete
+    }
+}

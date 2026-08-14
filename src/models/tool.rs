@@ -22,6 +22,7 @@ pub enum Tool {
     WebSearchTool(Box<models::WebSearchTool>),
     McpTool(Box<models::McpTool>),
     CodeInterpreterTool(Box<models::CodeInterpreterTool>),
+    ProgrammaticToolCallingParam(Box<models::ProgrammaticToolCallingParam>),
     ImageGenTool(Box<models::ImageGenTool>),
     LocalShellToolParam(Box<models::LocalShellToolParam>),
     FunctionShellToolParam(Box<models::FunctionShellToolParam>),
@@ -45,6 +46,11 @@ pub enum ConnectorId {
     ConnectorSharepoint,
 }
 
+impl Default for ConnectorId {
+    fn default() -> ConnectorId {
+        Self::ConnectorDropbox
+    }
+}
 /// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {

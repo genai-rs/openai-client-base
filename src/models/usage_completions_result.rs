@@ -16,27 +16,72 @@ use serde::{Deserialize, Serialize};
 pub struct UsageCompletionsResult {
     #[serde(rename = "object")]
     pub object: Object,
-    /// The aggregated number of text input tokens used, including cached tokens. For customers subscribe to scale tier, this includes scale tier tokens.
+    /// The aggregated number of input tokens used, including cached and cache-write tokens. This includes text, audio, and image tokens. For customers subscribed to Scale Tier, this includes Scale Tier tokens.
     #[serde(rename = "input_tokens")]
     pub input_tokens: i32,
-    /// The aggregated number of text input tokens that has been cached from previous requests. For customers subscribe to scale tier, this includes scale tier tokens.
+    /// The aggregated number of cached input tokens used across text, audio, and image inputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens.
     #[serde(
         rename = "input_cached_tokens",
         skip_serializing_if = "Option::is_none"
     )]
     pub input_cached_tokens: Option<i32>,
-    /// The aggregated number of text output tokens used. For customers subscribe to scale tier, this includes scale tier tokens.
+    /// The aggregated number of input tokens written to the cache.
+    #[serde(
+        rename = "input_cache_write_tokens",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub input_cache_write_tokens: Option<i32>,
+    /// The aggregated number of uncached input tokens used across text, audio, and image inputs, excluding cache-write tokens.
+    #[serde(
+        rename = "input_uncached_tokens",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub input_uncached_tokens: Option<i32>,
+    /// The aggregated number of output tokens used across text, audio, and image outputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens.
     #[serde(rename = "output_tokens")]
     pub output_tokens: i32,
-    /// The aggregated number of audio input tokens used, including cached tokens.
+    /// The aggregated number of uncached text input tokens used, excluding cache-write tokens.
+    #[serde(rename = "input_text_tokens", skip_serializing_if = "Option::is_none")]
+    pub input_text_tokens: Option<i32>,
+    /// The aggregated number of text output tokens used.
+    #[serde(rename = "output_text_tokens", skip_serializing_if = "Option::is_none")]
+    pub output_text_tokens: Option<i32>,
+    /// The aggregated number of cached text input tokens used.
+    #[serde(
+        rename = "input_cached_text_tokens",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub input_cached_text_tokens: Option<i32>,
+    /// The aggregated number of uncached audio input tokens used.
     #[serde(rename = "input_audio_tokens", skip_serializing_if = "Option::is_none")]
     pub input_audio_tokens: Option<i32>,
+    /// The aggregated number of cached audio input tokens used.
+    #[serde(
+        rename = "input_cached_audio_tokens",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub input_cached_audio_tokens: Option<i32>,
     /// The aggregated number of audio output tokens used.
     #[serde(
         rename = "output_audio_tokens",
         skip_serializing_if = "Option::is_none"
     )]
     pub output_audio_tokens: Option<i32>,
+    /// The aggregated number of uncached image input tokens used.
+    #[serde(rename = "input_image_tokens", skip_serializing_if = "Option::is_none")]
+    pub input_image_tokens: Option<i32>,
+    /// The aggregated number of cached image input tokens used.
+    #[serde(
+        rename = "input_cached_image_tokens",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub input_cached_image_tokens: Option<i32>,
+    /// The aggregated number of image output tokens used.
+    #[serde(
+        rename = "output_image_tokens",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub output_image_tokens: Option<i32>,
     /// The count of requests made to the model.
     #[serde(rename = "num_model_requests")]
     pub num_model_requests: i32,
@@ -97,9 +142,18 @@ impl UsageCompletionsResult {
             object,
             input_tokens,
             input_cached_tokens: None,
+            input_cache_write_tokens: None,
+            input_uncached_tokens: None,
             output_tokens,
+            input_text_tokens: None,
+            output_text_tokens: None,
+            input_cached_text_tokens: None,
             input_audio_tokens: None,
+            input_cached_audio_tokens: None,
             output_audio_tokens: None,
+            input_image_tokens: None,
+            input_cached_image_tokens: None,
+            output_image_tokens: None,
             num_model_requests,
             project_id: None,
             user_id: None,

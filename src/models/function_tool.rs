@@ -31,12 +31,28 @@ pub struct FunctionTool {
     /// A JSON schema object describing the parameters of the function.
     #[serde(rename = "parameters", deserialize_with = "Option::deserialize")]
     pub parameters: Option<std::collections::HashMap<String, serde_json::Value>>,
-    /// Whether to enforce strict parameter validation. Default `true`.
+    /// A JSON schema object describing the JSON value encoded in string outputs for this function.
+    #[serde(
+        rename = "output_schema",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub output_schema: Option<Option<std::collections::HashMap<String, serde_json::Value>>>,
+    /// Whether strict parameter validation is enforced for this function tool.
     #[serde(rename = "strict", deserialize_with = "Option::deserialize")]
     pub strict: Option<bool>,
     /// Whether this function is deferred and loaded via tool search.
     #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
     pub defer_loading: Option<bool>,
+    /// The tool invocation context(s).
+    #[serde(
+        rename = "allowed_callers",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_callers: Option<Option<Vec<models::CallableToolAllowedCaller>>>,
 }
 
 impl FunctionTool {
@@ -52,8 +68,10 @@ impl FunctionTool {
             name,
             description: None,
             parameters,
+            output_schema: None,
             strict,
             defer_loading: None,
+            allowed_callers: None,
         }
     }
 }

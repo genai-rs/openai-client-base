@@ -18,6 +18,8 @@ pub enum InputItem {
     Item(Box<models::Item>),
     CompactionTriggerItemParam(Box<models::CompactionTriggerItemParam>),
     ItemReferenceParam(Box<models::ItemReferenceParam>),
+    ProgramItemParam(Box<models::ProgramItemParam>),
+    ProgramOutputItemParam(Box<models::ProgramOutputItemParam>),
 }
 
 /// The role that provided the additional tools. Only `developer` is supported.

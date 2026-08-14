@@ -17,12 +17,22 @@ pub struct ModerationParam {
     /// The moderation model to use for moderated completions, e.g. 'omni-moderation-latest'.
     #[serde(rename = "model")]
     pub model: String,
+    #[serde(
+        rename = "policy",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub policy: Option<Option<Box<models::ModerationPolicyParam>>>,
 }
 
 impl ModerationParam {
     /// Configuration for running moderation on the input and output of this response.
     pub fn new(model: String) -> ModerationParam {
-        ModerationParam { model }
+        ModerationParam {
+            model,
+            policy: None,
+        }
     }
 }
 

@@ -7,6 +7,8 @@
 | ServerError | server_error |
 | RateLimitExceeded | rate_limit_exceeded |
 | InvalidPrompt | invalid_prompt |
+| DataResidencyMismatch | data_residency_mismatch |
+| BioPolicy | bio_policy |
 | VectorStoreTimeout | vector_store_timeout |
 | InvalidImage | invalid_image |
 | InvalidImageFormat | invalid_image_format |

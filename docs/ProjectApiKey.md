@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **created_at** | **i32** | The Unix timestamp (in seconds) of when the API key was created | 
 **last_used_at** | Option<**i32**> |  | 
 **id** | **String** | The identifier, which can be referenced in API endpoints | 
+**owner_project_access** | **String** | Whether the API key's owner currently has effective access to the project. | 
 **owner** | [**models::ProjectApiKeyOwner**](ProjectApiKey_owner.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -24,6 +24,14 @@ pub struct FunctionShellToolParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub environment: Option<Option<Box<models::FunctionShellToolParamEnvironment>>>,
+    /// The tool invocation context(s).
+    #[serde(
+        rename = "allowed_callers",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_callers: Option<Option<Vec<models::CallableToolAllowedCaller>>>,
 }
 
 impl FunctionShellToolParam {
@@ -32,6 +40,7 @@ impl FunctionShellToolParam {
         FunctionShellToolParam {
             r#type,
             environment: None,
+            allowed_callers: None,
         }
     }
 }

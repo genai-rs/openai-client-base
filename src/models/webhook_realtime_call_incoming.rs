@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookRealtimeCallIncoming : Sent when Realtime API Receives a incoming SIP call.
+/// WebhookRealtimeCallIncoming : Sent when an incoming API SIP session is available for Realtime acceptance. The same pending session can also emit `live.call.incoming`; the first successful Realtime or Live accept endpoint selects the runtime surface.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookRealtimeCallIncoming {
     /// The Unix timestamp (in seconds) of when the model response was completed.
@@ -31,7 +31,7 @@ pub struct WebhookRealtimeCallIncoming {
 }
 
 impl WebhookRealtimeCallIncoming {
-    /// Sent when Realtime API Receives a incoming SIP call.
+    /// Sent when an incoming API SIP session is available for Realtime acceptance. The same pending session can also emit `live.call.incoming`; the first successful Realtime or Live accept endpoint selects the runtime surface.
     pub fn new(
         created_at: i32,
         id: String,

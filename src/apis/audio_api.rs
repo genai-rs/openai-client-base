@@ -125,6 +125,8 @@ pub async fn create_transcription(
     file: std::path::PathBuf,
     model: &str,
     language: Option<&str>,
+    languages: Option<Vec<String>>,
+    keywords: Option<Vec<String>>,
     prompt: Option<&str>,
     response_format: Option<models::AudioResponseFormat>,
     temperature: Option<f64>,
@@ -139,6 +141,8 @@ pub async fn create_transcription(
     let p_form_file = file;
     let p_form_model = model;
     let p_form_language = language;
+    let p_form_languages = languages;
+    let p_form_keywords = keywords;
     let p_form_prompt = prompt;
     let p_form_response_format = response_format;
     let p_form_temperature = temperature;
@@ -166,6 +170,28 @@ pub async fn create_transcription(
     multipart_form = multipart_form.text("model", p_form_model.to_string());
     if let Some(param_value) = p_form_language {
         multipart_form = multipart_form.text("language", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_languages {
+        multipart_form = multipart_form.text(
+            "languages",
+            param_value
+                .into_iter()
+                .map(|p| p.to_string())
+                .collect::<Vec<String>>()
+                .join(",")
+                .to_string(),
+        );
+    }
+    if let Some(param_value) = p_form_keywords {
+        multipart_form = multipart_form.text(
+            "keywords",
+            param_value
+                .into_iter()
+                .map(|p| p.to_string())
+                .collect::<Vec<String>>()
+                .join(",")
+                .to_string(),
+        );
     }
     if let Some(param_value) = p_form_prompt {
         multipart_form = multipart_form.text("prompt", param_value.to_string());
