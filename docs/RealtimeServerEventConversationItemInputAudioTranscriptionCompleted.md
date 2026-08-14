@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **item_id** | **String** | The ID of the item containing the audio that is being transcribed. | 
 **content_index** | **i32** | The index of the content part containing the audio. | 
 **transcript** | **String** | The transcribed text. | 
+**languages** | Option<[**Vec<models::TranscriptionLanguage>**](TranscriptionLanguage.md)> | The languages detected in the audio. Returned by `gpt-transcribe`. An empty array indicates that no language could be reliably detected.  | [optional]
 **logprobs** | Option<[**Vec<models::LogProbProperties>**](LogProbProperties.md)> | The log probabilities of the transcription. | [optional]
 **usage** | [**models::RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsage**](RealtimeServerEventConversationItemInputAudioTranscriptionCompleted_usage.md) |  | 
 

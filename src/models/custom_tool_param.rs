@@ -28,6 +28,14 @@ pub struct CustomToolParam {
     /// Whether this tool should be deferred and discovered via tool search.
     #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
     pub defer_loading: Option<bool>,
+    /// The tool invocation context(s).
+    #[serde(
+        rename = "allowed_callers",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_callers: Option<Option<Vec<models::CallableToolAllowedCaller>>>,
 }
 
 impl CustomToolParam {
@@ -39,6 +47,7 @@ impl CustomToolParam {
             description: None,
             format: None,
             defer_loading: None,
+            allowed_callers: None,
         }
     }
 }

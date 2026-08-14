@@ -6,6 +6,7 @@
 |---- | -----|
 | Auto | auto |
 | Default | default |
+| Fast | fast |
 | Flex | flex |
 | Priority | priority |
 

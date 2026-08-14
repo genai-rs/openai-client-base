@@ -9,6 +9,7 @@ pub enum ServiceTierTextVariantEnum {
     Flex,
     Scale,
     Priority,
+    Fast,
 }
 
 impl Default for ServiceTierTextVariantEnum {
@@ -25,6 +26,7 @@ impl std::fmt::Display for ServiceTierTextVariantEnum {
             ServiceTierTextVariantEnum::Flex => "flex",
             ServiceTierTextVariantEnum::Scale => "scale",
             ServiceTierTextVariantEnum::Priority => "priority",
+            ServiceTierTextVariantEnum::Fast => "fast",
         };
         write!(f, "{}", value)
     }

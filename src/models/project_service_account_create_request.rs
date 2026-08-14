@@ -16,11 +16,22 @@ pub struct ProjectServiceAccountCreateRequest {
     /// The name of the service account being created.
     #[serde(rename = "name")]
     pub name: String,
+    /// Create the service account without default roles or an API key.
+    #[serde(
+        rename = "create_service_account_only",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub create_service_account_only: Option<Option<bool>>,
 }
 
 impl ProjectServiceAccountCreateRequest {
     pub fn new(name: String) -> ProjectServiceAccountCreateRequest {
-        ProjectServiceAccountCreateRequest { name }
+        ProjectServiceAccountCreateRequest {
+            name,
+            create_service_account_only: None,
+        }
     }
 }
 

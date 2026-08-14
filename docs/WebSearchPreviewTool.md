@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | Option<**String**> | The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`. | [optional]
+**r#type** | **String** | The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`. | 
 **user_location** | Option<[**models::ApproximateLocation**](ApproximateLocation.md)> |  | [optional]
 **search_context_size** | Option<[**models::SearchContextSize**](SearchContextSize.md)> |  | [optional]
 **search_content_types** | Option<[**Vec<models::SearchContentType>**](SearchContentType.md)> |  | [optional]

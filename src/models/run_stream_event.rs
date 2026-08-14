@@ -32,9 +32,3 @@ pub enum Event {
     #[serde(rename = "thread.run.expired")]
     ThreadRunExpired,
 }
-
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunExpired
-    }
-}

@@ -25,6 +25,11 @@ pub struct ComputerScreenshotContent {
     pub file_id: Option<String>,
     #[serde(rename = "detail")]
     pub detail: models::ImageDetail,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointConfig>>,
 }
 
 impl ComputerScreenshotContent {
@@ -40,6 +45,7 @@ impl ComputerScreenshotContent {
             image_url,
             file_id,
             detail,
+            prompt_cache_breakpoint: None,
         }
     }
 }

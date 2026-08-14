@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApproximateLocation {
     /// The type of location approximation. Always `approximate`.
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Type>,
+    #[serde(rename = "type")]
+    pub r#type: Type,
     /// The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
     #[serde(
         rename = "country",
@@ -51,9 +51,9 @@ pub struct ApproximateLocation {
 }
 
 impl ApproximateLocation {
-    pub fn new() -> ApproximateLocation {
+    pub fn new(r#type: Type) -> ApproximateLocation {
         ApproximateLocation {
-            r#type: None,
+            r#type,
             country: None,
             region: None,
             city: None,

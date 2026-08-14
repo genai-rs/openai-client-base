@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **file_id** | Option<**String**> | The ID of the file to be sent to the model. | [optional]
 **filename** | Option<**String**> | The name of the file to be sent to the model. | [optional]
 **file_data** | Option<**String**> | The content of the file to be sent to the model.  | [optional]
+**prompt_cache_breakpoint** | Option<[**models::PromptCacheBreakpointConfig**](PromptCacheBreakpointConfig.md)> |  | [optional]
 **file_url** | Option<**String**> | The URL of the file to be sent to the model. | [optional]
 **detail** | Option<[**models::FileInputDetail**](FileInputDetail.md)> |  | [optional]
 

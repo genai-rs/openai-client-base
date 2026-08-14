@@ -50,6 +50,14 @@ pub struct McpTool {
         skip_serializing_if = "Option::is_none"
     )]
     pub allowed_tools: Option<Option<Box<models::McpToolAllowedTools>>>,
+    /// The tool invocation context(s).
+    #[serde(
+        rename = "allowed_callers",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_callers: Option<Option<Vec<models::CallableToolAllowedCaller>>>,
     #[serde(
         rename = "require_approval",
         default,
@@ -75,6 +83,7 @@ impl McpTool {
             server_description: None,
             headers: None,
             allowed_tools: None,
+            allowed_callers: None,
             require_approval: None,
             defer_loading: None,
         }

@@ -20,12 +20,23 @@ pub struct InputTextContentParam {
     /// The text input to the model.
     #[serde(rename = "text")]
     pub text: String,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<Option<Box<models::PromptCacheBreakpointParam>>>,
 }
 
 impl InputTextContentParam {
     /// A text input to the model.
     pub fn new(r#type: Type, text: String) -> InputTextContentParam {
-        InputTextContentParam { r#type, text }
+        InputTextContentParam {
+            r#type,
+            text,
+            prompt_cache_breakpoint: None,
+        }
     }
 }
 /// The type of the input item. Always `input_text`.

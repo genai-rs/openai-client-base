@@ -40,6 +40,13 @@ pub struct InputImageContentParamAutoParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub detail: Option<Option<models::DetailEnum>>,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<Option<Box<models::PromptCacheBreakpointParam>>>,
 }
 
 impl InputImageContentParamAutoParam {
@@ -50,6 +57,7 @@ impl InputImageContentParamAutoParam {
             image_url: None,
             file_id: None,
             detail: None,
+            prompt_cache_breakpoint: None,
         }
     }
 }

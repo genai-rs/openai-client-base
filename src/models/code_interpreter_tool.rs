@@ -19,6 +19,14 @@ pub struct CodeInterpreterTool {
     pub r#type: Type,
     #[serde(rename = "container")]
     pub container: Box<models::CodeInterpreterToolContainer>,
+    /// The tool invocation context(s).
+    #[serde(
+        rename = "allowed_callers",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_callers: Option<Option<Vec<models::CallableToolAllowedCaller>>>,
 }
 
 impl CodeInterpreterTool {
@@ -30,6 +38,7 @@ impl CodeInterpreterTool {
         CodeInterpreterTool {
             r#type,
             container: Box::new(container),
+            allowed_callers: None,
         }
     }
 }
