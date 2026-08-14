@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | The type of the event. Always `transcript.text.done`.  | 
 **text** | **String** | The text that was transcribed.  | 
+**languages** | Option<[**Vec<models::TranscriptionLanguage>**](TranscriptionLanguage.md)> | The languages detected in the audio. Returned by `gpt-transcribe`. An empty array indicates that no language could be reliably detected.  | [optional]
 **logprobs** | Option<[**Vec<models::TranscriptTextDeltaEventLogprobsInner>**](TranscriptTextDeltaEvent_logprobs_inner.md)> | The log probabilities of the individual tokens in the transcription. Only included if you [create a transcription](/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.  | [optional]
 **usage** | Option<[**models::TranscriptTextUsageTokens**](TranscriptTextUsageTokens.md)> |  | [optional]
 

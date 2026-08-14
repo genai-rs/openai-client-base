@@ -17,6 +17,9 @@ pub struct CreateTranscriptionResponseJson {
     /// The transcribed text.
     #[serde(rename = "text")]
     pub text: String,
+    /// The languages detected in the audio. Returned by `gpt-transcribe`. An empty array indicates that no language could be reliably detected.
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<models::TranscriptionLanguage>>,
     /// The log probabilities of the tokens in the transcription. Only returned with the models `gpt-4o-transcribe` and `gpt-4o-mini-transcribe` if `logprobs` is added to the `include` array.
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
     pub logprobs: Option<Vec<models::CreateTranscriptionResponseJsonLogprobsInner>>,
@@ -29,6 +32,7 @@ impl CreateTranscriptionResponseJson {
     pub fn new(text: String) -> CreateTranscriptionResponseJson {
         CreateTranscriptionResponseJson {
             text,
+            languages: None,
             logprobs: None,
             usage: None,
         }

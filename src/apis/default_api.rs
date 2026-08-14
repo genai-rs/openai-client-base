@@ -85,6 +85,13 @@ pub enum FineTuningJobSucceededPostError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`live_call_incoming_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum LiveCallIncomingPostError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`realtime_call_incoming_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -520,7 +527,47 @@ pub async fn fine_tuning_job_succeeded_post(
     }
 }
 
-/// Sent when Realtime API Receives a incoming SIP call.
+/// Sent when an incoming API SIP session is available for Live acceptance.
+#[bon::builder]
+pub async fn live_call_incoming_post(
+    configuration: &configuration::Configuration,
+    webhook_live_call_incoming: Option<models::WebhookLiveCallIncoming>,
+) -> Result<(), Error<LiveCallIncomingPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_live_call_incoming = webhook_live_call_incoming;
+
+    let uri_str = format!("{}/live_call_incoming", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_live_call_incoming);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<LiveCallIncomingPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity,
+        }))
+    }
+}
+
+/// Sent when an incoming API SIP session is available for Realtime acceptance.
 #[bon::builder]
 pub async fn realtime_call_incoming_post(
     configuration: &configuration::Configuration,

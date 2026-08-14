@@ -27,6 +27,8 @@ pub enum ConversationItem {
     ToolSearchOutput(Box<models::ToolSearchOutput>),
     AdditionalTools(Box<models::AdditionalTools>),
     ReasoningItem(Box<models::ReasoningItem>),
+    Program(Box<models::Program>),
+    ProgramOutput(Box<models::ProgramOutput>),
     CompactionBody(Box<models::CompactionBody>),
     CodeInterpreterToolCall(Box<models::CodeInterpreterToolCall>),
     LocalShellToolCall(Box<models::LocalShellToolCall>),

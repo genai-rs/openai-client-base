@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**fine_tuning_job_cancelled_post**](DefaultApi.md#fine_tuning_job_cancelled_post) | **POST** /fine_tuning_job_cancelled | 
 [**fine_tuning_job_failed_post**](DefaultApi.md#fine_tuning_job_failed_post) | **POST** /fine_tuning_job_failed | 
 [**fine_tuning_job_succeeded_post**](DefaultApi.md#fine_tuning_job_succeeded_post) | **POST** /fine_tuning_job_succeeded | 
+[**live_call_incoming_post**](DefaultApi.md#live_call_incoming_post) | **POST** /live_call_incoming | 
 [**realtime_call_incoming_post**](DefaultApi.md#realtime_call_incoming_post) | **POST** /realtime_call_incoming | 
 [**response_cancelled_post**](DefaultApi.md#response_cancelled_post) | **POST** /response_cancelled | 
 [**response_completed_post**](DefaultApi.md#response_completed_post) | **POST** /response_completed | 
@@ -322,12 +323,42 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## live_call_incoming_post
+
+> live_call_incoming_post(webhook_live_call_incoming)
+
+
+Sent when an incoming API SIP session is available for Live acceptance. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_live_call_incoming** | Option<[**WebhookLiveCallIncoming**](WebhookLiveCallIncoming.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## realtime_call_incoming_post
 
 > realtime_call_incoming_post(webhook_realtime_call_incoming)
 
 
-Sent when Realtime API Receives a incoming SIP call. 
+Sent when an incoming API SIP session is available for Realtime acceptance. 
 
 ### Parameters
 

@@ -13,12 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AudioTranscription {
-    /// The model to use for transcription. Current options are `whisper-1`, `gpt-4o-mini-transcribe`, `gpt-4o-mini-transcribe-2025-12-15`, `gpt-4o-transcribe`, `gpt-4o-transcribe-diarize`, and `gpt-realtime-whisper`. Use `gpt-4o-transcribe-diarize` when you need diarization with speaker labels.
+    /// The model to use for transcription. Current options are `whisper-1`, `gpt-transcribe`, `gpt-live-transcribe`, `gpt-4o-mini-transcribe`, `gpt-4o-mini-transcribe-2025-12-15`, `gpt-4o-transcribe`, `gpt-4o-transcribe-diarize`, and `gpt-realtime-whisper`. Use `gpt-4o-transcribe-diarize` when you need diarization with speaker labels.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.
     #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
+    /// Possible languages of the input audio, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Supported by `gpt-transcribe` and `gpt-live-transcribe`.
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<String>>,
+    /// Words or phrases to guide transcription of the input audio. Supported by `gpt-transcribe` and `gpt-live-transcribe`.
+    #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
+    pub keywords: Option<Vec<String>>,
     /// An optional text to guide the model's style or continue a previous audio segment. For `whisper-1`, the [prompt is a list of keywords](/docs/guides/speech-to-text#prompting). For `gpt-4o-transcribe` models (excluding `gpt-4o-transcribe-diarize`), the prompt is a free text string, for example \"expect words related to technology\". Prompt is not supported with `gpt-realtime-whisper` in GA Realtime sessions.
     #[serde(rename = "prompt", skip_serializing_if = "Option::is_none")]
     pub prompt: Option<String>,
@@ -32,6 +38,8 @@ impl AudioTranscription {
         AudioTranscription {
             model: None,
             language: None,
+            languages: None,
+            keywords: None,
             prompt: None,
             delay: None,
         }

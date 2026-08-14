@@ -35,6 +35,11 @@ pub struct InputImageContent {
     pub file_id: Option<Option<String>>,
     #[serde(rename = "detail")]
     pub detail: models::ImageDetail,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointConfig>>,
 }
 
 impl InputImageContent {
@@ -45,6 +50,7 @@ impl InputImageContent {
             image_url: None,
             file_id: None,
             detail,
+            prompt_cache_breakpoint: None,
         }
     }
 }

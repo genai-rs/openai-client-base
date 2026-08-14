@@ -13,12 +13,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AudioTranscriptionResponse {
-    /// The model used for transcription. Current options are `whisper-1`, `gpt-4o-mini-transcribe`, `gpt-4o-mini-transcribe-2025-12-15`, `gpt-4o-transcribe`, `gpt-4o-transcribe-diarize`, and `gpt-realtime-whisper`.
+    /// The model used for transcription. Current options are `whisper-1`, `gpt-transcribe`, `gpt-live-transcribe`, `gpt-4o-mini-transcribe`, `gpt-4o-mini-transcribe-2025-12-15`, `gpt-4o-transcribe`, `gpt-4o-transcribe-diarize`, and `gpt-realtime-whisper`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// The language of the input audio.
     #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
+    /// The possible input audio languages configured for transcription, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format.
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<String>>,
     /// The prompt configured for input audio transcription, when present.
     #[serde(rename = "prompt", skip_serializing_if = "Option::is_none")]
     pub prompt: Option<String>,
@@ -29,6 +32,7 @@ impl AudioTranscriptionResponse {
         AudioTranscriptionResponse {
             model: None,
             language: None,
+            languages: None,
             prompt: None,
         }
     }

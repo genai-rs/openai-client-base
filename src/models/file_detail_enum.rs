@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum FileDetailEnum {
+    #[serde(rename = "auto")]
+    Auto,
     #[serde(rename = "low")]
     Low,
     #[serde(rename = "high")]
@@ -23,6 +25,7 @@ pub enum FileDetailEnum {
 impl std::fmt::Display for FileDetailEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
+            Self::Auto => write!(f, "auto"),
             Self::Low => write!(f, "low"),
             Self::High => write!(f, "high"),
         }
@@ -31,6 +34,6 @@ impl std::fmt::Display for FileDetailEnum {
 
 impl Default for FileDetailEnum {
     fn default() -> FileDetailEnum {
-        Self::Low
+        Self::Auto
     }
 }

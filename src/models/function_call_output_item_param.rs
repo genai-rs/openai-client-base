@@ -30,6 +30,29 @@ pub struct FunctionCallOutputItemParam {
     pub r#type: Type,
     #[serde(rename = "output")]
     pub output: Box<models::FunctionCallOutputItemParamOutput>,
+    /// The name of the tool that produced the output.
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
+    /// The namespace of the tool that produced the output.
+    #[serde(
+        rename = "namespace",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub namespace: Option<Option<String>>,
+    #[serde(
+        rename = "caller",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub caller: Option<Option<Box<models::ToolCallCallerParam>>>,
     #[serde(
         rename = "status",
         default,
@@ -51,6 +74,9 @@ impl FunctionCallOutputItemParam {
             call_id,
             r#type,
             output: Box::new(output),
+            name: None,
+            namespace: None,
+            caller: None,
             status: None,
         }
     }

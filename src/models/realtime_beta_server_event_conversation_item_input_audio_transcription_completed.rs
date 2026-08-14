@@ -29,6 +29,9 @@ pub struct RealtimeBetaServerEventConversationItemInputAudioTranscriptionComplet
     /// The transcribed text.
     #[serde(rename = "transcript")]
     pub transcript: String,
+    /// The languages detected in the audio. Returned by `gpt-transcribe`. An empty array indicates that no language could be reliably detected.
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<models::TranscriptionLanguage>>,
     /// The log probabilities of the transcription.
     #[serde(
         rename = "logprobs",
@@ -58,6 +61,7 @@ impl RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompleted {
             item_id,
             content_index,
             transcript,
+            languages: None,
             logprobs: None,
             usage: Box::new(usage),
         }

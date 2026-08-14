@@ -14,19 +14,19 @@ use serde::{Deserialize, Serialize};
 /// WebhookRealtimeCallIncomingData : Event data payload.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookRealtimeCallIncomingData {
-    /// The unique ID of this call.
+    /// The Transceiver `rtc_...` ID of the pending SIP session. The same value appears as `session_id` in `live.call.incoming`.
     #[serde(rename = "call_id")]
     pub call_id: String,
     /// Headers from the SIP Invite.
     #[serde(rename = "sip_headers")]
-    pub sip_headers: Vec<models::WebhookRealtimeCallIncomingDataSipHeadersInner>,
+    pub sip_headers: Vec<models::WebhookLiveCallIncomingDataSipHeadersInner>,
 }
 
 impl WebhookRealtimeCallIncomingData {
     /// Event data payload.
     pub fn new(
         call_id: String,
-        sip_headers: Vec<models::WebhookRealtimeCallIncomingDataSipHeadersInner>,
+        sip_headers: Vec<models::WebhookLiveCallIncomingDataSipHeadersInner>,
     ) -> WebhookRealtimeCallIncomingData {
         WebhookRealtimeCallIncomingData {
             call_id,

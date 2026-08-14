@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **item_id** | **String** | The ID of the item this summary part is associated with.  | 
 **output_index** | **i32** | The index of the output item this summary part is associated with.  | 
 **summary_index** | **i32** | The index of the summary part within the reasoning summary.  | 
+**status** | Option<**String**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  | [optional]
 **sequence_number** | **i32** | The sequence number of this event.  | 
 **part** | [**models::ResponseReasoningSummaryPartDoneEventPart**](ResponseReasoningSummaryPartDoneEvent_part.md) |  | 
 

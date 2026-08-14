@@ -1,0 +1,18 @@
+# BetaCompactResponseMethodPublicBody
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**model** | **String** | ID of the model to use | 
+**input** | Option<[**models::BetaTokenCountsBodyInput**](BetaTokenCountsBody_input.md)> |  | [optional]
+**previous_response_id** | Option<**String**> | The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`. | [optional]
+**instructions** | Option<**String**> | A system (or developer) message inserted into the model's context. When used along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses. | [optional]
+**prompt_cache_key** | Option<**String**> | A key to use when reading from or writing to the prompt cache. | [optional]
+**prompt_cache_retention** | Option<[**models::BetaPromptCacheRetentionEnum**](BetaPromptCacheRetentionEnum.md)> |  | [optional]
+**prompt_cache_options** | Option<[**models::BetaPromptCacheOptionsParam**](BetaPromptCacheOptionsParam.md)> |  | [optional]
+**service_tier** | Option<[**models::BetaServiceTierEnum**](BetaServiceTierEnum.md)> |  | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
