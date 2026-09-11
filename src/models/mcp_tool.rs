@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// McpTool : Give the model access to additional tools via remote Model Context Protocol (MCP) servers. [Learn more about MCP](/docs/guides/tools-remote-mcp).
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct McpTool {
     /// The type of the MCP tool. Always `mcp`.
     #[serde(rename = "type")]

@@ -25,3 +25,9 @@ pub enum Task {
     #[serde(rename = "transcribe")]
     Transcribe,
 }
+
+impl Default for Task {
+    fn default() -> Task {
+        Self::Transcribe
+    }
+}

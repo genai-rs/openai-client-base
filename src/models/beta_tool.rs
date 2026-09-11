@@ -46,6 +46,11 @@ pub enum ConnectorId {
     ConnectorSharepoint,
 }
 
+impl Default for ConnectorId {
+    fn default() -> ConnectorId {
+        Self::ConnectorDropbox
+    }
+}
 /// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
