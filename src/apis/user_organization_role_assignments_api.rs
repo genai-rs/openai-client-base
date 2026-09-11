@@ -92,11 +92,11 @@ pub async fn assign_user_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<AssignUserRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -158,11 +158,11 @@ pub async fn list_user_role_assignments(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListUserRoleAssignmentsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -212,11 +212,11 @@ pub async fn retrieve_user_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveUserRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -268,10 +268,10 @@ pub async fn unassign_user_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<UnassignUserRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

@@ -134,11 +134,11 @@ pub async fn activate_organization_certificates(
         let content = resp.text().await?;
         let entity: Option<ActivateOrganizationCertificatesError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -193,11 +193,11 @@ pub async fn activate_project_certificates(
     } else {
         let content = resp.text().await?;
         let entity: Option<ActivateProjectCertificatesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -250,11 +250,11 @@ pub async fn deactivate_organization_certificates(
         let content = resp.text().await?;
         let entity: Option<DeactivateOrganizationCertificatesError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -310,11 +310,11 @@ pub async fn deactivate_project_certificates(
         let content = resp.text().await?;
         let entity: Option<DeactivateProjectCertificatesError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -363,11 +363,11 @@ pub async fn delete_certificate(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteCertificateError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -435,11 +435,11 @@ pub async fn get_certificate(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetCertificateError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -495,11 +495,11 @@ pub async fn list_organization_certificates(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListOrganizationCertificatesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -561,11 +561,11 @@ pub async fn list_project_certificates(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectCertificatesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -617,11 +617,11 @@ pub async fn modify_certificate(
     } else {
         let content = resp.text().await?;
         let entity: Option<ModifyCertificateError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -667,10 +667,10 @@ pub async fn upload_certificate(
     } else {
         let content = resp.text().await?;
         let entity: Option<UploadCertificateError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

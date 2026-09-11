@@ -80,11 +80,11 @@ pub async fn create_image(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateImageError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -203,11 +203,11 @@ pub async fn create_image_edit(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateImageEditError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -281,10 +281,10 @@ pub async fn create_image_variation(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateImageVariationError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

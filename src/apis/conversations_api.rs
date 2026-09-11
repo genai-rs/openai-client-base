@@ -113,11 +113,11 @@ pub async fn create_conversation(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateConversationError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -190,11 +190,11 @@ pub async fn create_conversation_items(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateConversationItemsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -243,11 +243,11 @@ pub async fn delete_conversation(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteConversationError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -299,11 +299,11 @@ pub async fn delete_conversation_item(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteConversationItemError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -350,11 +350,11 @@ pub async fn get_conversation(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetConversationError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -425,11 +425,11 @@ pub async fn get_conversation_item(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetConversationItemError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -512,11 +512,11 @@ pub async fn list_conversation_items(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListConversationItemsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -568,10 +568,10 @@ pub async fn update_conversation(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateConversationError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

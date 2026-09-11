@@ -92,11 +92,11 @@ pub async fn assign_group_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<AssignGroupRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -158,11 +158,11 @@ pub async fn list_group_role_assignments(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListGroupRoleAssignmentsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -212,11 +212,11 @@ pub async fn retrieve_group_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveGroupRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -268,10 +268,10 @@ pub async fn unassign_group_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<UnassignGroupRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

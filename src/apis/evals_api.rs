@@ -150,11 +150,11 @@ pub async fn cancel_eval_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<CancelEvalRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -200,11 +200,11 @@ pub async fn create_eval(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateEvalError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -256,11 +256,11 @@ pub async fn create_eval_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateEvalRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -309,11 +309,11 @@ pub async fn delete_eval(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteEvalError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -365,11 +365,11 @@ pub async fn delete_eval_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteEvalRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -416,11 +416,11 @@ pub async fn get_eval(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEvalError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -470,11 +470,11 @@ pub async fn get_eval_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEvalRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -527,11 +527,11 @@ pub async fn get_eval_run_output_item(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEvalRunOutputItemError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -601,11 +601,11 @@ pub async fn get_eval_run_output_items(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEvalRunOutputItemsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -672,11 +672,11 @@ pub async fn get_eval_runs(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetEvalRunsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -737,11 +737,11 @@ pub async fn list_evals(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListEvalsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -793,10 +793,10 @@ pub async fn update_eval(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateEvalError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

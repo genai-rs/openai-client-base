@@ -224,11 +224,11 @@ pub async fn cancel_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<CancelRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -274,11 +274,11 @@ pub async fn create_assistant(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateAssistantError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -330,11 +330,11 @@ pub async fn create_message(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateMessageError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -408,11 +408,11 @@ pub async fn create_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -458,11 +458,11 @@ pub async fn create_thread(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateThreadError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -508,11 +508,11 @@ pub async fn create_thread_and_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateThreadAndRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -561,11 +561,11 @@ pub async fn delete_assistant(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteAssistantError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -617,11 +617,11 @@ pub async fn delete_message(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteMessageError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -670,11 +670,11 @@ pub async fn delete_thread(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteThreadError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -721,11 +721,11 @@ pub async fn get_assistant(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetAssistantError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -775,11 +775,11 @@ pub async fn get_message(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetMessageError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -829,11 +829,11 @@ pub async fn get_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -908,11 +908,11 @@ pub async fn get_run_step(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetRunStepError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -959,11 +959,11 @@ pub async fn get_thread(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetThreadError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1024,11 +1024,11 @@ pub async fn list_assistants(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAssistantsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1100,11 +1100,11 @@ pub async fn list_messages(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListMessagesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1196,11 +1196,11 @@ pub async fn list_run_steps(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListRunStepsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1267,11 +1267,11 @@ pub async fn list_runs(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListRunsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1323,11 +1323,11 @@ pub async fn modify_assistant(
     } else {
         let content = resp.text().await?;
         let entity: Option<ModifyAssistantError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1382,11 +1382,11 @@ pub async fn modify_message(
     } else {
         let content = resp.text().await?;
         let entity: Option<ModifyMessageError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1441,11 +1441,11 @@ pub async fn modify_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<ModifyRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1497,11 +1497,11 @@ pub async fn modify_thread(
     } else {
         let content = resp.text().await?;
         let entity: Option<ModifyThreadError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1556,10 +1556,10 @@ pub async fn submit_tool_ouputs_to_run(
     } else {
         let content = resp.text().await?;
         let entity: Option<SubmitToolOuputsToRunError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

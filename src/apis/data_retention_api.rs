@@ -79,11 +79,11 @@ pub async fn retrieve_organization_data_retention(
         let content = resp.text().await?;
         let entity: Option<RetrieveOrganizationDataRetentionError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -130,11 +130,11 @@ pub async fn retrieve_project_data_retention(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectDataRetentionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -181,11 +181,11 @@ pub async fn update_organization_data_retention(
         let content = resp.text().await?;
         let entity: Option<UpdateOrganizationDataRetentionError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -237,10 +237,10 @@ pub async fn update_project_data_retention(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateProjectDataRetentionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

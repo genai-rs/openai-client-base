@@ -91,11 +91,11 @@ pub async fn add_group_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<AddGroupUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -157,11 +157,11 @@ pub async fn list_group_users(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListGroupUsersError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -213,11 +213,11 @@ pub async fn remove_group_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<RemoveGroupUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -267,10 +267,10 @@ pub async fn retrieve_group_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveGroupUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

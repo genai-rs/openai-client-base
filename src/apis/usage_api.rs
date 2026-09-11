@@ -260,11 +260,11 @@ pub async fn usage_audio_speeches(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageAudioSpeechesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -436,11 +436,11 @@ pub async fn usage_audio_transcriptions(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageAudioTranscriptionsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -549,11 +549,11 @@ pub async fn usage_code_interpreter_sessions(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageCodeInterpreterSessionsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -727,11 +727,11 @@ pub async fn usage_completions(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageCompletionsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -858,11 +858,11 @@ pub async fn usage_costs(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageCostsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1031,11 +1031,11 @@ pub async fn usage_embeddings(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageEmbeddingsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1207,11 +1207,11 @@ pub async fn usage_file_search_calls(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageFileSearchCallsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1422,11 +1422,11 @@ pub async fn usage_images(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageImagesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1595,11 +1595,11 @@ pub async fn usage_moderations(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageModerationsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1708,11 +1708,11 @@ pub async fn usage_vector_stores(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageVectorStoresError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1905,10 +1905,10 @@ pub async fn usage_web_search_calls(
     } else {
         let content = resp.text().await?;
         let entity: Option<UsageWebSearchCallsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

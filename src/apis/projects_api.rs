@@ -230,11 +230,11 @@ pub async fn archive_project(
     } else {
         let content = resp.text().await?;
         let entity: Option<ArchiveProjectError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -280,11 +280,11 @@ pub async fn create_project(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateProjectError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -336,11 +336,11 @@ pub async fn create_project_service_account(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateProjectServiceAccountError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -392,11 +392,11 @@ pub async fn create_project_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateProjectUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -448,11 +448,11 @@ pub async fn delete_project_api_key(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteProjectApiKeyError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -503,11 +503,11 @@ pub async fn delete_project_model_permissions(
         let content = resp.text().await?;
         let entity: Option<DeleteProjectModelPermissionsError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -559,11 +559,11 @@ pub async fn delete_project_service_account(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteProjectServiceAccountError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -615,11 +615,11 @@ pub async fn delete_project_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteProjectUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -681,11 +681,11 @@ pub async fn list_project_api_keys(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectApiKeysError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -747,11 +747,11 @@ pub async fn list_project_rate_limits(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectRateLimitsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -808,11 +808,11 @@ pub async fn list_project_service_accounts(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectServiceAccountsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -869,11 +869,11 @@ pub async fn list_project_users(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectUsersError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -929,11 +929,11 @@ pub async fn list_projects(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -985,11 +985,11 @@ pub async fn modify_project(
     } else {
         let content = resp.text().await?;
         let entity: Option<ModifyProjectError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1044,11 +1044,11 @@ pub async fn modify_project_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<ModifyProjectUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1095,11 +1095,11 @@ pub async fn retrieve_project(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1149,11 +1149,11 @@ pub async fn retrieve_project_api_key(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectApiKeyError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1201,11 +1201,11 @@ pub async fn retrieve_project_model_permissions(
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectModelPermissionsError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1256,11 +1256,11 @@ pub async fn retrieve_project_service_account(
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectServiceAccountError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1310,11 +1310,11 @@ pub async fn retrieve_project_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1367,11 +1367,11 @@ pub async fn update_project_model_permissions(
         let content = resp.text().await?;
         let entity: Option<UpdateProjectModelPermissionsError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1426,11 +1426,11 @@ pub async fn update_project_rate_limits(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateProjectRateLimitsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1485,10 +1485,10 @@ pub async fn update_project_service_account(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateProjectServiceAccountError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

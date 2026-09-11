@@ -175,11 +175,11 @@ pub async fn cancel_vector_store_file_batch(
     } else {
         let content = resp.text().await?;
         let entity: Option<CancelVectorStoreFileBatchError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -225,11 +225,11 @@ pub async fn create_vector_store(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVectorStoreError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -282,11 +282,11 @@ pub async fn create_vector_store_file(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVectorStoreFileError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -339,11 +339,11 @@ pub async fn create_vector_store_file_batch(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVectorStoreFileBatchError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -392,11 +392,11 @@ pub async fn delete_vector_store(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteVectorStoreError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -448,11 +448,11 @@ pub async fn delete_vector_store_file(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteVectorStoreFileError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -499,11 +499,11 @@ pub async fn get_vector_store(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetVectorStoreError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -553,11 +553,11 @@ pub async fn get_vector_store_file(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetVectorStoreFileError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -607,11 +607,11 @@ pub async fn get_vector_store_file_batch(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetVectorStoreFileBatchError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -686,11 +686,11 @@ pub async fn list_files_in_vector_store_batch(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListFilesInVectorStoreBatchError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -762,11 +762,11 @@ pub async fn list_vector_store_files(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListVectorStoreFilesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -827,11 +827,11 @@ pub async fn list_vector_stores(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListVectorStoresError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -883,11 +883,11 @@ pub async fn modify_vector_store(
     } else {
         let content = resp.text().await?;
         let entity: Option<ModifyVectorStoreError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -938,11 +938,11 @@ pub async fn retrieve_vector_store_file_content(
         let content = resp.text().await?;
         let entity: Option<RetrieveVectorStoreFileContentError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -994,11 +994,11 @@ pub async fn search_vector_store(
     } else {
         let content = resp.text().await?;
         let entity: Option<SearchVectorStoreError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -1055,10 +1055,10 @@ pub async fn update_vector_store_file_attributes(
         let content = resp.text().await?;
         let entity: Option<UpdateVectorStoreFileAttributesError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

@@ -88,11 +88,11 @@ pub async fn delete_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -164,11 +164,11 @@ pub async fn list_users(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListUsersError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -220,11 +220,11 @@ pub async fn modify_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<ModifyUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -271,10 +271,10 @@ pub async fn retrieve_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

@@ -99,11 +99,11 @@ pub async fn create_chat_completion(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateChatCompletionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -152,11 +152,11 @@ pub async fn delete_chat_completion(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteChatCompletionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -203,11 +203,11 @@ pub async fn get_chat_completion(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetChatCompletionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -269,11 +269,11 @@ pub async fn get_chat_completion_messages(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetChatCompletionMessagesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -339,11 +339,11 @@ pub async fn list_chat_completions(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListChatCompletionsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -395,10 +395,10 @@ pub async fn update_chat_completion(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateChatCompletionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

@@ -96,11 +96,11 @@ pub async fn add_upload_part(
     } else {
         let content = resp.text().await?;
         let entity: Option<AddUploadPartError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -149,11 +149,11 @@ pub async fn cancel_upload(
     } else {
         let content = resp.text().await?;
         let entity: Option<CancelUploadError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -205,11 +205,11 @@ pub async fn complete_upload(
     } else {
         let content = resp.text().await?;
         let entity: Option<CompleteUploadError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -255,10 +255,10 @@ pub async fn create_upload(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateUploadError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

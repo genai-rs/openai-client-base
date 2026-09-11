@@ -322,11 +322,21 @@ def remove_default_from_problematic_structs(models_dir):
             if enum_name in non_default_types:
                 continue
 
+            # A generated file can contain several enums. Inspect only the
+            # enum owning this impl, not variants of neighboring definitions.
+            enum_match = re.search(
+                rf"^pub enum {re.escape(enum_name)}\s*\{{(.*?)^\}}",
+                content,
+                flags=re.MULTILINE | re.DOTALL,
+            )
+            if not enum_match:
+                continue
+
             # Check if any enum variant references a non-Default type
             should_remove = False
             for type_name in non_default_types:
                 variant_pattern = rf"\w+\((?:Box<)?(?:models::)?{type_name}>?\)"
-                if re.search(variant_pattern, content):
+                if re.search(variant_pattern, enum_match.group(1)):
                     should_remove = True
                     break
 
