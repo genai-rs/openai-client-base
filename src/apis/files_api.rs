@@ -105,11 +105,11 @@ pub async fn create_file(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateFileError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -158,11 +158,11 @@ pub async fn delete_file(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteFileError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -209,11 +209,11 @@ pub async fn download_file(
     } else {
         let content = resp.text().await?;
         let entity: Option<DownloadFileError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -274,11 +274,11 @@ pub async fn list_files(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListFilesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -325,10 +325,10 @@ pub async fn retrieve_file(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveFileError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

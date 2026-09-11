@@ -151,11 +151,11 @@ pub async fn create_video(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVideoError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -206,11 +206,11 @@ pub async fn create_video_character(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVideoCharacterError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -261,11 +261,11 @@ pub async fn create_video_edit(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVideoEditError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -319,11 +319,11 @@ pub async fn create_video_extend(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVideoExtendError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -377,11 +377,11 @@ pub async fn create_video_remix(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVideoRemixError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -430,11 +430,11 @@ pub async fn delete_video(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteVideoError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -481,11 +481,11 @@ pub async fn get_video(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetVideoError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -532,11 +532,11 @@ pub async fn get_video_character(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetVideoCharacterError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -592,11 +592,11 @@ pub async fn list_videos(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListVideosError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -637,10 +637,10 @@ pub async fn retrieve_video_content(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveVideoContentError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

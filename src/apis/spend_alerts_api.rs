@@ -127,11 +127,11 @@ pub async fn create_organization_spend_alert(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateOrganizationSpendAlertError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -183,11 +183,11 @@ pub async fn create_project_spend_alert(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateProjectSpendAlertError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -237,11 +237,11 @@ pub async fn delete_organization_spend_alert(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteOrganizationSpendAlertError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -293,11 +293,11 @@ pub async fn delete_project_spend_alert(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteProjectSpendAlertError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -358,11 +358,11 @@ pub async fn list_organization_spend_alerts(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListOrganizationSpendAlertsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -429,11 +429,11 @@ pub async fn list_project_spend_alerts(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectSpendAlertsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -481,11 +481,11 @@ pub async fn retrieve_organization_spend_alert(
         let content = resp.text().await?;
         let entity: Option<RetrieveOrganizationSpendAlertError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -535,11 +535,11 @@ pub async fn retrieve_project_spend_alert(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectSpendAlertError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -591,11 +591,11 @@ pub async fn update_organization_spend_alert(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateOrganizationSpendAlertError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -650,10 +650,10 @@ pub async fn update_project_spend_alert(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateProjectSpendAlertError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

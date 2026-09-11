@@ -91,11 +91,11 @@ pub async fn add_project_group(
     } else {
         let content = resp.text().await?;
         let entity: Option<AddProjectGroupError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -157,11 +157,11 @@ pub async fn list_project_groups(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectGroupsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -213,11 +213,11 @@ pub async fn remove_project_group(
     } else {
         let content = resp.text().await?;
         let entity: Option<RemoveProjectGroupError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -272,10 +272,10 @@ pub async fn retrieve_project_group(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectGroupError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

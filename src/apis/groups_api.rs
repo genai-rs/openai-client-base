@@ -92,11 +92,11 @@ pub async fn create_group(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateGroupError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -145,11 +145,11 @@ pub async fn delete_group(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteGroupError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -205,11 +205,11 @@ pub async fn list_groups(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListGroupsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -256,11 +256,11 @@ pub async fn retrieve_group(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveGroupError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -312,10 +312,10 @@ pub async fn update_group(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateGroupError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

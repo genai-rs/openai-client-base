@@ -194,10 +194,10 @@ pub async fn list_audit_logs(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAuditLogsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

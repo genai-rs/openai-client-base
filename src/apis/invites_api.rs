@@ -88,11 +88,11 @@ pub async fn delete_invite(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteInviteError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -138,11 +138,11 @@ pub async fn invite_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<InviteUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -193,11 +193,11 @@ pub async fn list_invites(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListInvitesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -244,10 +244,10 @@ pub async fn retrieve_invite(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveInviteError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

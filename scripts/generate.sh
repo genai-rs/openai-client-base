@@ -93,7 +93,7 @@ if [ -f "$OUT_DIR/lib.rs" ]; then
 fi
 
 # Clean generated directories but preserve src folder structure
-find "$OUT_DIR" -name "*.rs" -not -name "lib.rs" -delete 2>/dev/null || true
+find "$OUT_DIR/src/apis" "$OUT_DIR/src/models" -name "*.rs" -delete
 rm -rf "$OUT_DIR/docs" 2>/dev/null || true
 
 # Run OpenAPI Generator via Docker
@@ -232,6 +232,11 @@ fi
 uv run python scripts/fix_generated_code.py
 
 # Step 10: Fix clippy warnings in generated code
+echo ""
+echo "🔧 Boxing shared API response errors..."
+python3 -m unittest discover -s "$SCRIPT_DIR/tests"
+python3 "$SCRIPT_DIR/box_response_errors.py" "$PROJECT_ROOT"
+
 echo ""
 echo "🔧 Fixing clippy warnings..."
 uv run python scripts/fix_clippy_warnings.py

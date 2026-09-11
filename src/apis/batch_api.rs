@@ -88,11 +88,11 @@ pub async fn cancel_batch(
     } else {
         let content = resp.text().await?;
         let entity: Option<CancelBatchError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -138,11 +138,11 @@ pub async fn create_batch(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateBatchError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -193,11 +193,11 @@ pub async fn list_batches(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListBatchesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -244,10 +244,10 @@ pub async fn retrieve_batch(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveBatchError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

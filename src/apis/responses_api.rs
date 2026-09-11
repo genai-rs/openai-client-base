@@ -139,11 +139,11 @@ pub async fn beta_cancel_response(
     } else {
         let content = resp.text().await?;
         let entity: Option<BetaCancelResponseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -194,11 +194,11 @@ pub async fn beta_create_response(
     } else {
         let content = resp.text().await?;
         let entity: Option<BetaCreateResponseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -241,11 +241,11 @@ pub async fn beta_delete_response(
     } else {
         let content = resp.text().await?;
         let entity: Option<BetaDeleteResponseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -333,11 +333,11 @@ pub async fn beta_get_response(
     } else {
         let content = resp.text().await?;
         let entity: Option<BetaGetResponseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -425,11 +425,11 @@ pub async fn beta_list_input_items(
     } else {
         let content = resp.text().await?;
         let entity: Option<BetaListInputItemsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -478,11 +478,11 @@ pub async fn cancel_response(
     } else {
         let content = resp.text().await?;
         let entity: Option<CancelResponseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -528,11 +528,11 @@ pub async fn create_response(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateResponseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -570,11 +570,11 @@ pub async fn delete_response(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteResponseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -657,11 +657,11 @@ pub async fn get_response(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetResponseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -744,10 +744,10 @@ pub async fn list_input_items(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListInputItemsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

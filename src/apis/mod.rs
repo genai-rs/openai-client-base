@@ -14,7 +14,7 @@ pub enum Error<T> {
     ReqwestMiddleware(reqwest_middleware::Error),
     Serde(serde_json::Error),
     Io(std::io::Error),
-    ResponseError(ResponseContent<T>),
+    ResponseError(Box<ResponseContent<T>>),
 }
 
 impl<T> fmt::Display for Error<T> {

@@ -151,11 +151,11 @@ pub async fn cancel_fine_tuning_job(
     } else {
         let content = resp.text().await?;
         let entity: Option<CancelFineTuningJobError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -212,11 +212,11 @@ pub async fn create_fine_tuning_checkpoint_permission(
         let content = resp.text().await?;
         let entity: Option<CreateFineTuningCheckpointPermissionError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -262,11 +262,11 @@ pub async fn create_fine_tuning_job(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateFineTuningJobError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -322,11 +322,11 @@ pub async fn delete_fine_tuning_checkpoint_permission(
         let content = resp.text().await?;
         let entity: Option<DeleteFineTuningCheckpointPermissionError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -397,11 +397,11 @@ pub async fn list_fine_tuning_checkpoint_permissions(
         let content = resp.text().await?;
         let entity: Option<ListFineTuningCheckpointPermissionsError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -458,11 +458,11 @@ pub async fn list_fine_tuning_events(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListFineTuningEventsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -520,11 +520,11 @@ pub async fn list_fine_tuning_job_checkpoints(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListFineTuningJobCheckpointsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -584,11 +584,11 @@ pub async fn list_paginated_fine_tuning_jobs(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListPaginatedFineTuningJobsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -637,11 +637,11 @@ pub async fn pause_fine_tuning_job(
     } else {
         let content = resp.text().await?;
         let entity: Option<PauseFineTuningJobError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -690,11 +690,11 @@ pub async fn resume_fine_tuning_job(
     } else {
         let content = resp.text().await?;
         let entity: Option<ResumeFineTuningJobError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -741,11 +741,11 @@ pub async fn retrieve_fine_tuning_job(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveFineTuningJobError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -791,11 +791,11 @@ pub async fn run_grader(
     } else {
         let content = resp.text().await?;
         let entity: Option<RunGraderError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -844,10 +844,10 @@ pub async fn validate_grader(
     } else {
         let content = resp.text().await?;
         let entity: Option<ValidateGraderError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

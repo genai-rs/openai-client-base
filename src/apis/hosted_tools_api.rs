@@ -74,11 +74,11 @@ pub async fn retrieve_project_hosted_tool_permissions(
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectHostedToolPermissionsError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -132,10 +132,10 @@ pub async fn update_project_hosted_tool_permissions(
         let content = resp.text().await?;
         let entity: Option<UpdateProjectHostedToolPermissionsError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

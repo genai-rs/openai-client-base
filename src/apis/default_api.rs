@@ -159,11 +159,11 @@ pub async fn batch_cancelled_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<BatchCancelledPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -199,11 +199,11 @@ pub async fn batch_completed_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<BatchCompletedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -239,11 +239,11 @@ pub async fn batch_expired_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<BatchExpiredPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -279,11 +279,11 @@ pub async fn batch_failed_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<BatchFailedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -319,11 +319,11 @@ pub async fn eval_run_canceled_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<EvalRunCanceledPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -359,11 +359,11 @@ pub async fn eval_run_failed_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<EvalRunFailedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -399,11 +399,11 @@ pub async fn eval_run_succeeded_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<EvalRunSucceededPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -439,11 +439,11 @@ pub async fn fine_tuning_job_cancelled_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<FineTuningJobCancelledPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -479,11 +479,11 @@ pub async fn fine_tuning_job_failed_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<FineTuningJobFailedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -519,11 +519,11 @@ pub async fn fine_tuning_job_succeeded_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<FineTuningJobSucceededPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -559,11 +559,11 @@ pub async fn live_call_incoming_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<LiveCallIncomingPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -599,11 +599,11 @@ pub async fn realtime_call_incoming_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<RealtimeCallIncomingPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -639,11 +639,11 @@ pub async fn response_cancelled_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<ResponseCancelledPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -679,11 +679,11 @@ pub async fn response_completed_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<ResponseCompletedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -719,11 +719,11 @@ pub async fn response_failed_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<ResponseFailedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -759,10 +759,10 @@ pub async fn response_incomplete_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<ResponseIncompletePostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

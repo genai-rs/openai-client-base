@@ -95,11 +95,11 @@ pub async fn assign_project_user_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<AssignProjectUserRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -165,11 +165,11 @@ pub async fn list_project_user_role_assignments(
         let content = resp.text().await?;
         let entity: Option<ListProjectUserRoleAssignmentsError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -222,11 +222,11 @@ pub async fn retrieve_project_user_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectUserRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -281,10 +281,10 @@ pub async fn unassign_project_user_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<UnassignProjectUserRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

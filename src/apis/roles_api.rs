@@ -133,11 +133,11 @@ pub async fn create_project_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateProjectRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -183,11 +183,11 @@ pub async fn create_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -239,11 +239,11 @@ pub async fn delete_project_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteProjectRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -292,11 +292,11 @@ pub async fn delete_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -358,11 +358,11 @@ pub async fn list_project_roles(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListProjectRolesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -418,11 +418,11 @@ pub async fn list_roles(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListRolesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -472,11 +472,11 @@ pub async fn retrieve_project_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -523,11 +523,11 @@ pub async fn retrieve_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -582,11 +582,11 @@ pub async fn update_project_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateProjectRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -638,10 +638,10 @@ pub async fn update_role(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateRoleError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

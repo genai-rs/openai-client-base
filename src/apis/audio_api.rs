@@ -111,11 +111,11 @@ pub async fn create_speech(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateSpeechError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -275,11 +275,11 @@ pub async fn create_transcription(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateTranscriptionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -346,11 +346,11 @@ pub async fn create_translation(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateTranslationError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -406,11 +406,11 @@ pub async fn create_voice(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVoiceError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -466,11 +466,11 @@ pub async fn create_voice_consent(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVoiceConsentError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -520,11 +520,11 @@ pub async fn delete_voice_consent(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteVoiceConsentError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -572,11 +572,11 @@ pub async fn get_voice_consent(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetVoiceConsentError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -628,11 +628,11 @@ pub async fn list_voice_consents(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListVoiceConsentsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -685,10 +685,10 @@ pub async fn update_voice_consent(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateVoiceConsentError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

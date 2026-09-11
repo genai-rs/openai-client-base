@@ -115,11 +115,11 @@ pub async fn accept_realtime_call(
     } else {
         let content = resp.text().await?;
         let entity: Option<AcceptRealtimeCallError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -172,11 +172,11 @@ pub async fn create_realtime_call(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateRealtimeCallError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -222,11 +222,11 @@ pub async fn create_realtime_client_secret(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateRealtimeClientSecretError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -272,11 +272,11 @@ pub async fn create_realtime_session(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateRealtimeSessionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -330,11 +330,11 @@ pub async fn create_realtime_transcription_session(
         let content = resp.text().await?;
         let entity: Option<CreateRealtimeTranscriptionSessionError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -388,11 +388,11 @@ pub async fn create_realtime_translation_client_secret(
         let content = resp.text().await?;
         let entity: Option<CreateRealtimeTranslationClientSecretError> =
             serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -430,11 +430,11 @@ pub async fn hangup_realtime_call(
     } else {
         let content = resp.text().await?;
         let entity: Option<HangupRealtimeCallError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -475,11 +475,11 @@ pub async fn refer_realtime_call(
     } else {
         let content = resp.text().await?;
         let entity: Option<ReferRealtimeCallError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -520,10 +520,10 @@ pub async fn reject_realtime_call(
     } else {
         let content = resp.text().await?;
         let entity: Option<RejectRealtimeCallError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }

@@ -136,11 +136,11 @@ pub async fn create_skill(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateSkillError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -194,11 +194,11 @@ pub async fn create_skill_version(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateSkillVersionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -247,11 +247,11 @@ pub async fn delete_skill(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteSkillError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -303,11 +303,11 @@ pub async fn delete_skill_version(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteSkillVersionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -354,11 +354,11 @@ pub async fn get_skill(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetSkillError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -394,11 +394,11 @@ pub async fn get_skill_content(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetSkillContentError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -448,11 +448,11 @@ pub async fn get_skill_version(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetSkillVersionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -491,11 +491,11 @@ pub async fn get_skill_version_content(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetSkillVersionContentError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -557,11 +557,11 @@ pub async fn list_skill_versions(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListSkillVersionsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -617,11 +617,11 @@ pub async fn list_skills(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListSkillsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
 
@@ -673,10 +673,10 @@ pub async fn update_skill_default_version(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateSkillDefaultVersionError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
+        Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
             entity,
-        }))
+        })))
     }
 }
