@@ -4,10 +4,15 @@ on:
   schedule:
     # Run every night at 2 AM UTC
     - cron: '0 2 * * *'
-  workflow_dispatch: # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Update the generated-client PR (main branch only)'
+        type: boolean
+        default: false
 
 concurrency:
-  group: generate-client
+  group: generate-client-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -30,6 +35,7 @@ jobs:
 
       # Mint short-lived GitHub App token (ensures PR events trigger CI)
       - name: Create GitHub App token
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || inputs.publish)
         id: app-token
         uses: actions/create-github-app-token@v3
         with:
@@ -75,6 +81,12 @@ jobs:
           echo "🧪 Running tests..."
           cargo test --all-features
 
+          echo "📚 Building documentation..."
+          cargo doc --no-deps --all-features
+
+          echo "🎨 Checking formatting..."
+          cargo fmt --all -- --check
+
       - name: Cleanup transient files
         run: |
           rm -rf scripts/__pycache__ || true
@@ -94,14 +106,14 @@ jobs:
             .openapi-generator-ignore
           )
           if [ -n "$(git status --porcelain -- "${ALLOWED_PATHS[@]}")" ]; then
-            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "changes=true" >> "$GITHUB_OUTPUT"
           else
-            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "changes=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Create Pull Request
         id: cpr
-        if: steps.changes.outputs.changes == 'true'
+        if: steps.changes.outputs.changes == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || inputs.publish)
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.app-token.outputs.token }}
@@ -149,6 +161,7 @@ jobs:
 
       # No PAT fallback; fail early if token is missing
       - name: Assert App token present
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || inputs.publish)
         run: |
           if [ -z "${{ steps.app-token.outputs.token }}" ]; then
             echo "GitHub App token missing. Ensure BOT_APP_ID and BOT_PRIVATE_KEY are configured." >&2
