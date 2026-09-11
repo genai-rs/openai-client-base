@@ -27,6 +27,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+
+      - name: Test generation patches
+        if: matrix.rust == 'stable'
+        run: python3 -m unittest discover -s scripts/tests -v
         
       - name: Install Rust
         uses: dtolnay/rust-toolchain@master
@@ -39,8 +43,8 @@ jobs:
       
       - name: Start sccache locally (no GHA cache)
         run: |
-          echo "SCCACHE_GHA_ENABLED=off" >> $GITHUB_ENV
-          sccache --start-server && echo "RUSTC_WRAPPER=sccache" >> $GITHUB_ENV || echo "sccache unavailable, proceeding without it"
+          echo "SCCACHE_GHA_ENABLED=off" >> "$GITHUB_ENV"
+          sccache --start-server && echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV" || echo "sccache unavailable, proceeding without it"
           
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
