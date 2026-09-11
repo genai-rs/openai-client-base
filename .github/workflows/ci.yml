@@ -22,6 +22,7 @@ jobs:
     name: Test (${{ matrix.rust }})
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         rust: [stable, beta, 1.88.0]  # 1.88.0 is our MSRV
     steps:
@@ -31,6 +32,9 @@ jobs:
       - name: Test generation patches
         if: matrix.rust == 'stable'
         run: python3 -m unittest discover -s scripts/tests -v
+
+      - name: Prepare memory for documentation
+        run: bash scripts/prepare_ci_memory.sh
         
       - name: Install Rust
         uses: dtolnay/rust-toolchain@master
@@ -53,7 +57,7 @@ jobs:
         run: cargo build --verbose
         
       - name: Build documentation
-        run: cargo doc --no-deps --all-features
+        run: /usr/bin/time -v cargo doc --no-deps --all-features
         
       - name: Run tests
         run: cargo test --verbose

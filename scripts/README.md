@@ -45,3 +45,11 @@ within the enum that owns the implementation. Generated modules can contain
 multiple enums: a non-defaultable payload in a neighboring enum must not remove
 a valid default from an unrelated unit enum. Fixtures cover different enum
 names, file creation orders, valid defaults, invalid defaults, and idempotence.
+
+## CI documentation memory
+
+Rustdoc's synthetic trait collection for the generated client exceeded 18 GiB
+in a local MSRV run. `prepare_ci_memory.sh` provisions enough swap on ephemeral
+Linux runners to bring RAM plus swap to 24 GiB, prints resource information,
+and fails if allocation fails. CI keeps documentation checks on all three
+toolchains and records their peak resident memory with `/usr/bin/time -v`.
