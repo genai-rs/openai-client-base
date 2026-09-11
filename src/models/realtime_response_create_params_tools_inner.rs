@@ -18,6 +18,11 @@ pub enum RealtimeResponseCreateParamsToolsInner {
     McpTool(Box<models::McpTool>),
 }
 
+impl Default for RealtimeResponseCreateParamsToolsInner {
+    fn default() -> Self {
+        Self::RealtimeFunctionTool(Default::default())
+    }
+}
 /// The type of the tool, i.e. `function`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
@@ -27,6 +32,11 @@ pub enum Type {
     Mcp,
 }
 
+impl Default for Type {
+    fn default() -> Type {
+        Self::Function
+    }
+}
 /// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ConnectorId {

@@ -30,8 +30,19 @@ pub enum OutputModalities {
     Audio,
 }
 
+impl Default for OutputModalities {
+    fn default() -> OutputModalities {
+        Self::Text
+    }
+}
 /// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Include {
     ItemInputAudioTranscriptionLogprobs,
+}
+
+impl Default for Include {
+    fn default() -> Include {
+        Self::ItemInputAudioTranscriptionLogprobs
+    }
 }

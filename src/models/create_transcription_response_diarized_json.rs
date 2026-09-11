@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateTranscriptionResponseDiarizedJson : Represents a diarized transcription response returned by the model, including the combined transcript and speaker-segment annotations.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateTranscriptionResponseDiarizedJson {
     /// The type of task that was run. Always `transcribe`.
     #[serde(rename = "task")]
