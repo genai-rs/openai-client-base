@@ -44,14 +44,13 @@ pub struct BetaMcpToolCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub output: Option<Option<String>>,
-    /// The error from the tool call, if any.
     #[serde(
         rename = "error",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub error: Option<Option<String>>,
+    pub error: Option<Option<Box<models::BetaMcpToolCallError>>>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::BetaMcpToolCallStatus>,
     /// Unique identifier for the MCP tool call approval request. Include this value in a subsequent `mcp_approval_response` input to approve or reject the corresponding tool call.

@@ -11,6 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// BetaResponseStreamEvent : Event emitted while a response is streamed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaResponseStreamEvent {
@@ -33,6 +34,9 @@ pub enum BetaResponseStreamEvent {
     BetaResponseCodeInterpreterCallInterpretingEvent(
         Box<models::BetaResponseCodeInterpreterCallInterpretingEvent>,
     ),
+    BetaResponseCompactionCompactingStreamingEvent(
+        Box<models::BetaResponseCompactionCompactingStreamingEvent>,
+    ),
     BetaResponseCompletedEvent(Box<models::BetaResponseCompletedEvent>),
     BetaResponseContentPartAddedEvent(Box<models::BetaResponseContentPartAddedEvent>),
     BetaResponseContentPartDoneEvent(Box<models::BetaResponseContentPartDoneEvent>),
@@ -48,6 +52,21 @@ pub enum BetaResponseStreamEvent {
     ),
     BetaResponseFunctionCallArgumentsDoneEvent(
         Box<models::BetaResponseFunctionCallArgumentsDoneEvent>,
+    ),
+    BetaResponseShellCallCommandAddedStreamingEvent(
+        Box<models::BetaResponseShellCallCommandAddedStreamingEvent>,
+    ),
+    BetaResponseShellCallCommandDeltaStreamingEvent(
+        Box<models::BetaResponseShellCallCommandDeltaStreamingEvent>,
+    ),
+    BetaResponseShellCallCommandDoneStreamingEvent(
+        Box<models::BetaResponseShellCallCommandDoneStreamingEvent>,
+    ),
+    BetaResponseShellCallOutputContentDeltaStreamingEvent(
+        Box<models::BetaResponseShellCallOutputContentDeltaStreamingEvent>,
+    ),
+    BetaResponseShellCallOutputContentDoneStreamingEvent(
+        Box<models::BetaResponseShellCallOutputContentDoneStreamingEvent>,
     ),
     BetaResponseInProgressEvent(Box<models::BetaResponseInProgressEvent>),
     BetaResponseFailedEvent(Box<models::BetaResponseFailedEvent>),

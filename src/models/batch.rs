@@ -21,7 +21,7 @@ pub struct Batch {
     /// The OpenAI API endpoint used by the batch.
     #[serde(rename = "endpoint")]
     pub endpoint: String,
-    /// Model ID used to process the batch, like `gpt-5-2025-08-07`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](/docs/models) to browse and compare available models.
+    /// Model ID used to process the batch, like `gpt-6-astra`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://developers.openai.com/api/docs/models) to browse and compare available models.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     #[serde(rename = "errors", skip_serializing_if = "Option::is_none")]

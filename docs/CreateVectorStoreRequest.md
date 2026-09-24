@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**file_ids** | Option<**Vec<String>**> | A list of [File](/docs/api-reference/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files. | [optional]
+**file_ids** | Option<**Vec<String>**> | A list of [File](https://developers.openai.com/api/reference/resources/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files. | [optional]
 **name** | Option<**String**> | The name of the vector store. | [optional]
 **description** | Option<**String**> | A description for the vector store. Can be used to describe the vector store's purpose. | [optional]
 **expires_after** | Option<[**models::VectorStoreExpirationAfter**](VectorStoreExpirationAfter.md)> |  | [optional]

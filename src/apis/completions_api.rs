@@ -19,9 +19,12 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateCompletionError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Creates a completion for the provided prompt and parameters.  Returns a completion object, or a sequence of completion objects if the request is streamed.
 #[bon::builder]
 pub async fn create_completion(
     configuration: &configuration::Configuration,

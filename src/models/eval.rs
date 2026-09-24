@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Eval : An Eval object with a data source config and testing criteria. An Eval represents a task to be done for your LLM integration. Like:  - Improve the quality of my chatbot  - See how well my chatbot handles customer support  - Check if o4-mini is better at my usecase than gpt-4o
+/// Eval : An Eval object with a data source config and testing criteria. An Eval represents a task to be done for your LLM integration. Like:  - Improve the quality of my chatbot  - See how well my chatbot handles customer support  - Check if o4-mini is better at my usecase than gpt-6-astra
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Eval {
     /// The object type.
@@ -37,7 +37,7 @@ pub struct Eval {
 }
 
 impl Eval {
-    /// An Eval object with a data source config and testing criteria. An Eval represents a task to be done for your LLM integration. Like:  - Improve the quality of my chatbot  - See how well my chatbot handles customer support  - Check if o4-mini is better at my usecase than gpt-4o
+    /// An Eval object with a data source config and testing criteria. An Eval represents a task to be done for your LLM integration. Like:  - Improve the quality of my chatbot  - See how well my chatbot handles customer support  - Check if o4-mini is better at my usecase than gpt-6-astra
     pub fn new(
         object: Object,
         id: String,

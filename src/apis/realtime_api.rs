@@ -78,6 +78,7 @@ pub enum RejectRealtimeCallError {
     UnknownValue(serde_json::Value),
 }
 
+/// Accept an incoming SIP call and configure the realtime session that will handle it.
 #[bon::builder]
 pub async fn accept_realtime_call(
     configuration: &configuration::Configuration,
@@ -123,6 +124,7 @@ pub async fn accept_realtime_call(
     }
 }
 
+/// Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
 #[bon::builder]
 pub async fn create_realtime_call(
     configuration: &configuration::Configuration,
@@ -180,6 +182,7 @@ pub async fn create_realtime_call(
     }
 }
 
+/// Create a Realtime client secret with an associated session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime API without leaking your main API key. You can configure a custom TTL for each client secret.  You can also attach session configuration options to the client secret, which will be applied to any sessions created using that client secret, but these can also be overridden by the client connection.  [Learn more about authentication with client secrets over WebRTC](https://developers.openai.com/api/docs/guides/realtime-webrtc).  Returns the created client secret and the effective session object. The client secret is a string that looks like `ek_1234`.
 #[bon::builder]
 pub async fn create_realtime_client_secret(
     configuration: &configuration::Configuration,
@@ -230,6 +233,7 @@ pub async fn create_realtime_client_secret(
     }
 }
 
+/// Create an ephemeral API token for use in client-side applications with the Realtime API. Can be configured with the same session parameters as the `session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime session object, plus an ephemeral key.
 #[bon::builder]
 pub async fn create_realtime_session(
     configuration: &configuration::Configuration,
@@ -280,6 +284,7 @@ pub async fn create_realtime_session(
     }
 }
 
+/// Create an ephemeral API token for use in client-side applications with the Realtime API specifically for realtime transcriptions.  Can be configured with the same session parameters as the `transcription_session.update` client event.  It responds with a session object, plus a `client_secret` key which contains a usable ephemeral API token that can be used to authenticate browser clients for the Realtime API.  Returns the created Realtime transcription session object, plus an ephemeral key.
 #[bon::builder]
 pub async fn create_realtime_transcription_session(
     configuration: &configuration::Configuration,
@@ -338,6 +343,7 @@ pub async fn create_realtime_transcription_session(
     }
 }
 
+/// Create a Realtime translation client secret with an associated translation session configuration.  Client secrets are short-lived tokens that can be passed to a client app, such as a web frontend or mobile client, which grants access to the Realtime Translation API without leaking your main API key. You can configure a custom TTL for each client secret.  Returns the created client secret and the effective translation session object. The client secret is a string that looks like `ek_1234`.
 #[bon::builder]
 pub async fn create_realtime_translation_client_secret(
     configuration: &configuration::Configuration,
@@ -396,6 +402,7 @@ pub async fn create_realtime_translation_client_secret(
     }
 }
 
+/// End an active Realtime API call, whether it was initiated over SIP or WebRTC.
 #[bon::builder]
 pub async fn hangup_realtime_call(
     configuration: &configuration::Configuration,
@@ -438,6 +445,7 @@ pub async fn hangup_realtime_call(
     }
 }
 
+/// Transfer an active SIP call to a new destination using the SIP REFER verb.
 #[bon::builder]
 pub async fn refer_realtime_call(
     configuration: &configuration::Configuration,
@@ -483,6 +491,7 @@ pub async fn refer_realtime_call(
     }
 }
 
+/// Decline an incoming SIP call by returning a SIP status code to the caller.
 #[bon::builder]
 pub async fn reject_realtime_call(
     configuration: &configuration::Configuration,

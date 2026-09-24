@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object011FileSearch {
-    /// Overrides the [vector store](/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
+    /// Overrides the [vector store](https://developers.openai.com/api/reference/resources/vector_stores) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
     #[serde(rename = "vector_store_ids", skip_serializing_if = "Option::is_none")]
     pub vector_store_ids: Option<Vec<String>>,
 }

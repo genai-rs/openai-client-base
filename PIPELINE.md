@@ -4,13 +4,18 @@ This document describes the automated generation pipeline for the OpenAI Rust cl
 
 ## Overview
 
-The pipeline fetches the latest OpenAPI specification from Stainless and generates a Rust client with all necessary fixes applied automatically.
+The pipeline fetches OpenAI's current published OpenAPI specification and generates a Rust client with the required Rust compatibility fixes.
 
 ## Pipeline Steps
 
 ### 1. Fetch Specification (`fetch_spec.sh`)
-- Downloads the latest OpenAPI spec from Stainless API
+- Downloads the latest OpenAPI spec from [OpenAI's published repository](https://github.com/openai/openai-openapi/blob/main/openapi.yaml)
+- Rejects HTTP errors, malformed documents, and unresolved local references before replacing the checked-in copy
 - Saves as `stainless.yaml`
+
+The former Stainless documented-spec endpoint returned HTTP 404 on 2026-09-24.
+OpenAI's published repository is generated from its upstream source, and this
+pipeline reads its moving `main` branch without a local schema backfill or pinned snapshot.
 
 ### 2. Apply Spec Patches (Layer 1 & 2)
 - **Layer 1: Model Field Fixes** (`fix_model_fields.py`)
@@ -21,6 +26,7 @@ The pipeline fetches the latest OpenAPI specification from Stainless and generat
   - Simplifies union types
   - Fixes multipart form handling
   - Renames fields that conflict with Rust keywords
+- Validates the patched spec again before generating code; missing upstream schemas stop the run
 
 ### 3. Generate Rust Code
 - Uses OpenAPI Generator via Docker
@@ -55,6 +61,7 @@ The pipeline fetches the latest OpenAPI specification from Stainless and generat
 
 ### 10. Fix Clippy Warnings (`fix_clippy_warnings.py`)
 - Addresses common clippy lints
+- Normalizes conflicting generated Rust names and removes stale enum helpers
 
 ### 11. Format Code
 - Runs cargo fmt for consistent formatting
@@ -80,9 +87,6 @@ The pipeline fetches the latest OpenAPI specification from Stainless and generat
 ```bash
 # Full generation from scratch
 ./scripts/generate.sh
-
-# Use cached spec (skip download)
-USE_CACHED_SPEC=1 ./scripts/generate.sh
 
 # Control OpenAPI Generator verbosity (error|warn|info|debug|trace)
 OPENAPI_GENERATOR_LOG_LEVEL=error ./scripts/generate.sh

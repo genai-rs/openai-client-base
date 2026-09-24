@@ -15,12 +15,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SessionConfiguration1 {
-    #[serde(rename = "RealtimeSessionCreateResponseGA")]
-    RealtimeSessionCreateResponseGa(Box<models::RealtimeSessionCreateResponseGa>),
-    #[serde(rename = "RealtimeTranscriptionSessionCreateResponseGA")]
-    RealtimeTranscriptionSessionCreateResponseGa(
-        Box<models::RealtimeTranscriptionSessionCreateResponseGa>,
-    ),
+    #[serde(rename = "realtime")]
+    Realtime(Box<models::RealtimeSessionCreateResponseGa>),
+    #[serde(rename = "transcription")]
+    Transcription(Box<models::RealtimeTranscriptionSessionCreateResponseGa>),
 }
 
 /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.

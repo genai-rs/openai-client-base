@@ -8,6 +8,18 @@ from fix_generated_code import remove_default_from_problematic_structs
 
 
 class DefaultEnumScopeTests(unittest.TestCase):
+    def test_boxed_non_default_field_removes_struct_default(self):
+        with tempfile.TemporaryDirectory() as directory:
+            models = Path(directory)
+            (models / "item.rs").write_text("pub enum Item {\n    Value(String),\n}\n")
+            path = models / "container.rs"
+            path.write_text(
+                "#[derive(Clone, Default)]\npub struct Container {\n"
+                "    pub item: Box<models::Item>,\n}\n"
+            )
+            remove_default_from_problematic_structs(models)
+            self.assertNotIn("Default", path.read_text())
+
     def test_neighboring_enum_does_not_remove_valid_default(self):
         for enum_name in ["ConnectorId", "WidgetKind"]:
             for filenames in [("tool.rs", "beta_tool.rs"), ("beta_tool.rs", "tool.rs")]:

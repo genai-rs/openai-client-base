@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **value** | **String** | The unredacted API key value. | 
 **name** | **String** | The name of the API key. | 
 **created_at** | **i32** | The Unix timestamp (in seconds) when the API key was created. | 
+**expires_at** | Option<**i32**> | The Unix timestamp (in seconds) when the API key expires, or null if it does not expire. | [optional]
 **id** | **String** | The identifier of the API key. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,16 +4,18 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_image**](ImagesApi.md#create_image) | **POST** /images/generations | Creates an image given a prompt. [Learn more](/docs/guides/images). 
-[**create_image_edit**](ImagesApi.md#create_image_edit) | **POST** /images/edits | Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, `gpt-image-1-mini`, and `chatgpt-image-latest`) and `dall-e-2`.
-[**create_image_variation**](ImagesApi.md#create_image_variation) | **POST** /images/variations | Creates a variation of a given image. This endpoint only supports `dall-e-2`.
+[**create_image**](ImagesApi.md#create_image) | **POST** /images/generations | Create image
+[**create_image_edit**](ImagesApi.md#create_image_edit) | **POST** /images/edits | Create image edit
+[**create_image_variation**](ImagesApi.md#create_image_variation) | **POST** /images/variations | Create image variation
 
 
 
 ## create_image
 
 > models::ImagesResponse create_image(create_image_request)
-Creates an image given a prompt. [Learn more](/docs/guides/images). 
+Create image
+
+Creates an image given a prompt. [Learn more](https://developers.openai.com/api/docs/guides/images-vision). 
 
 ### Parameters
 
@@ -41,9 +43,9 @@ Name | Type | Description  | Required | Notes
 ## create_image_edit
 
 > models::ImagesResponse create_image_edit(image, prompt, mask, background, model, n, size, response_format, output_format, output_compression, user, input_fidelity, stream, partial_images, quality)
-Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (`gpt-image-1.5`, `gpt-image-1`, `gpt-image-1-mini`, and `chatgpt-image-latest`) and `dall-e-2`.
+Create image edit
 
-You can call this endpoint with either:  - `multipart/form-data`: use binary uploads via `image` (and optional `mask`). - `application/json`: use `images` (and optional `mask`) as references with either `image_url` or `file_id`.  Note that JSON requests use `images` (array) instead of the multipart `image` field. 
+Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models and `dall-e-2`.
 
 ### Parameters
 
@@ -53,18 +55,18 @@ Name | Type | Description  | Required | Notes
 **image** | **String** |  | [required] |
 **prompt** | **String** | A text description of the desired image(s). The maximum length is 1000 characters for `dall-e-2`, and 32000 characters for the GPT image models. | [required] |
 **mask** | Option<**std::path::PathBuf**> | An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where `image` should be edited. If there are multiple images provided, the mask will be applied on the first image. Must be a valid PNG file, less than 4MB, and have the same dimensions as `image`. |  |
-**background** | Option<**String**> | Allows to set transparency for the background of the generated image(s). This parameter is only supported for the GPT image models. Must be one of `transparent`, `opaque` or `auto` (default value). When `auto` is used, the model will automatically determine the best background for the image.  If `transparent`, the output format needs to support transparency, so it should be set to either `png` (default value) or `webp`.  |  |
+**background** | Option<**String**> | Set the background of the generated image(s). This parameter is only supported for the GPT image models. Must be one of `transparent`, `opaque`, or `auto` (default value). When `auto` is used, the model will automatically determine the best background for the image.  `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`.  |  |
 **model** | Option<**String**> |  |  |
 **n** | Option<**i32**> | The number of images to generate. Must be between 1 and 10. |  |
 **size** | Option<[**models::CreateImageEditRequestSize**](CreateImageEditRequest_size.md)> |  |  |
 **response_format** | Option<**String**> | The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. This parameter is only supported for `dall-e-2` (default is `url` for `dall-e-2`), as GPT image models always return base64-encoded images. |  |
 **output_format** | Option<**String**> | The format in which the generated images are returned. This parameter is only supported for the GPT image models. Must be one of `png`, `jpeg`, or `webp`. The default value is `png`.  |  |
 **output_compression** | Option<**i32**> | The compression level (0-100%) for the generated images. This parameter is only supported for the GPT image models with the `webp` or `jpeg` output formats, and defaults to 100.  |  |
-**user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](/docs/guides/safety-best-practices#end-user-ids).  |  |
+**user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).  |  |
 **input_fidelity** | Option<[**models::InputFidelity**](InputFidelity.md)> |  |  |
-**stream** | Option<**bool**> | Edit the image in streaming mode. Defaults to `false`. See the [Image generation guide](/docs/guides/image-generation) for more information.  |  |
+**stream** | Option<**bool**> | Edit the image in streaming mode. Defaults to `false`. See the [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation) for more information.  |  |
 **partial_images** | Option<**i32**> | The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.  |  |
-**quality** | Option<**String**> | The quality of the image that will be generated for GPT image models. Defaults to `auto`.  |  |
+**quality** | Option<**String**> | The quality of the image that will be generated for GPT image models. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Defaults to `auto`.  |  |
 
 ### Return type
 
@@ -85,6 +87,8 @@ Name | Type | Description  | Required | Notes
 ## create_image_variation
 
 > models::ImagesResponse create_image_variation(image, model, n, response_format, size, user)
+Create image variation
+
 Creates a variation of a given image. This endpoint only supports `dall-e-2`.
 
 ### Parameters
@@ -97,7 +101,7 @@ Name | Type | Description  | Required | Notes
 **n** | Option<**i32**> | The number of images to generate. Must be between 1 and 10. |  |
 **response_format** | Option<**String**> | The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. |  |
 **size** | Option<**String**> | The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`. |  |
-**user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](/docs/guides/safety-best-practices#end-user-ids).  |  |
+**user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).  |  |
 
 ### Return type
 

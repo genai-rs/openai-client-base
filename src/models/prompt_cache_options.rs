@@ -18,6 +18,14 @@ pub struct PromptCacheOptions {
     pub ttl: models::PromptCacheTtlEnum,
     #[serde(rename = "mode")]
     pub mode: models::PromptCacheModeEnum,
+    /// The response ID supplied as the prompt cache diagnostics comparison.
+    #[serde(
+        rename = "comparison_response_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub comparison_response_id: Option<Option<String>>,
 }
 
 impl PromptCacheOptions {
@@ -26,7 +34,11 @@ impl PromptCacheOptions {
         ttl: models::PromptCacheTtlEnum,
         mode: models::PromptCacheModeEnum,
     ) -> PromptCacheOptions {
-        PromptCacheOptions { ttl, mode }
+        PromptCacheOptions {
+            ttl,
+            mode,
+            comparison_response_id: None,
+        }
     }
 }
 

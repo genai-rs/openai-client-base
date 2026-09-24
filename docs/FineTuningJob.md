@@ -13,11 +13,11 @@ Name | Type | Description | Notes
 **model** | **String** | The base model that is being fine-tuned. | 
 **object** | **String** | The object type, which is always \"fine_tuning.job\". | 
 **organization_id** | **String** | The organization that owns the fine-tuning job. | 
-**result_files** | **Vec<String>** | The compiled results file ID(s) for the fine-tuning job. You can retrieve the results with the [Files API](/docs/api-reference/files/retrieve-contents). | 
+**result_files** | **Vec<String>** | The compiled results file ID(s) for the fine-tuning job. You can retrieve the results with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content). | 
 **status** | **String** | The current status of the fine-tuning job, which can be either `validating_files`, `queued`, `running`, `succeeded`, `failed`, or `cancelled`. | 
 **trained_tokens** | Option<**i32**> | The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running. | 
-**training_file** | **String** | The file ID used for training. You can retrieve the training data with the [Files API](/docs/api-reference/files/retrieve-contents). | 
-**validation_file** | Option<**String**> | The file ID used for validation. You can retrieve the validation results with the [Files API](/docs/api-reference/files/retrieve-contents). | 
+**training_file** | **String** | The file ID used for training. You can retrieve the training data with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content). | 
+**validation_file** | Option<**String**> | The file ID used for validation. You can retrieve the validation results with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content). | 
 **integrations** | Option<[**Vec<models::FineTuningIntegration>**](FineTuningIntegration.md)> | A list of integrations to enable for this fine-tuning job. | [optional]
 **seed** | **i32** | The seed used for the fine-tuning job. | 
 **estimated_finish** | Option<**i32**> | The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running. | [optional]

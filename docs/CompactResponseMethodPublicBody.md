@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **model** | Option<[**models::ModelIdsCompaction**](ModelIdsCompaction.md)> |  | 
 **input** | Option<[**models::TokenCountsBodyInput**](TokenCountsBody_input.md)> |  | [optional]
-**previous_response_id** | Option<**String**> | The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`. | [optional]
+**previous_response_id** | Option<**String**> | The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`. | [optional]
 **instructions** | Option<**String**> | A system (or developer) message inserted into the model's context. When used along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses. | [optional]
 **prompt_cache_key** | Option<**String**> | A key to use when reading from or writing to the prompt cache. | [optional]
 **prompt_cache_retention** | Option<[**models::PromptCacheRetentionEnum**](PromptCacheRetentionEnum.md)> |  | [optional]

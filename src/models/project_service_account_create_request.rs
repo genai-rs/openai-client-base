@@ -24,6 +24,13 @@ pub struct ProjectServiceAccountCreateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub create_service_account_only: Option<Option<bool>>,
+    #[serde(
+        rename = "expires_in_seconds",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expires_in_seconds: Option<Option<i32>>,
 }
 
 impl ProjectServiceAccountCreateRequest {
@@ -31,6 +38,7 @@ impl ProjectServiceAccountCreateRequest {
         ProjectServiceAccountCreateRequest {
             name,
             create_service_account_only: None,
+            expires_in_seconds: None,
         }
     }
 }

@@ -32,6 +32,18 @@ pub struct ResponseImageGenCallPartialImageEvent {
     /// Base64-encoded partial image data, suitable for rendering as an image.
     #[serde(rename = "partial_image_b64")]
     pub partial_image_b64: String,
+    /// The image size that was used.
+    #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
+    pub size: Option<String>,
+    /// The image quality that was used.
+    #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
+    pub quality: Option<String>,
+    /// The background setting that was used.
+    #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
+    pub background: Option<String>,
+    /// The output format that was used.
+    #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
+    pub output_format: Option<String>,
 }
 
 impl ResponseImageGenCallPartialImageEvent {
@@ -51,6 +63,10 @@ impl ResponseImageGenCallPartialImageEvent {
             sequence_number,
             partial_image_index,
             partial_image_b64,
+            size: None,
+            quality: None,
+            background: None,
+            output_format: None,
         }
     }
 }

@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateRunRequest {
-    /// The ID of the [assistant](/docs/api-reference/assistants) to use to execute this run.
+    /// The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) to use to execute this run.
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
-    /// The ID of the [Model](/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
+    /// The ID of the [Model](https://developers.openai.com/api/reference/resources/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     #[serde(
@@ -26,7 +26,7 @@ pub struct CreateRunRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub reasoning_effort: Option<Option<models::ReasoningEffort>>,
-    /// Overrides the [instructions](/docs/api-reference/assistants/createAssistant) of the assistant. This is useful for modifying the behavior on a per-run basis.
+    /// Overrides the [instructions](https://developers.openai.com/api/docs/assistants/migration) of the assistant. This is useful for modifying the behavior on a per-run basis.
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
     /// Appends additional instructions at the end of the instructions for the run. This is useful for modifying the behavior on a per-run basis without overriding other instructions.
@@ -77,7 +77,7 @@ pub struct CreateRunRequest {
     pub truncation_strategy: Option<Box<models::TruncationObject>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<Box<models::AssistantsApiToolChoiceOption>>,
-    /// Whether to enable [parallel function calling](/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
+    /// Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use.
     #[serde(
         rename = "parallel_tool_calls",
         skip_serializing_if = "Option::is_none"

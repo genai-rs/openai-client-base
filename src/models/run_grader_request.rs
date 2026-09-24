@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 pub struct RunGraderRequest {
     #[serde(rename = "grader")]
     pub grader: Box<models::FineTuneReinforcementMethodGrader>,
-    /// The dataset item provided to the grader. This will be used to populate  the `item` namespace. See [the guide](/docs/guides/graders) for more details.  
+    /// The dataset item provided to the grader. This will be used to populate the `item` namespace. See [the guide](https://developers.openai.com/api/docs/guides/graders) for more details.
     #[serde(rename = "item", skip_serializing_if = "Option::is_none")]
     pub item: Option<serde_json::Value>,
-    /// The model sample to be evaluated. This value will be used to populate  the `sample` namespace. See [the guide](/docs/guides/graders) for more details. The `output_json` variable will be populated if the model sample is a  valid JSON string.   
+    /// The model sample to be evaluated. This value will be used to populate the `sample` namespace. See [the guide](https://developers.openai.com/api/docs/guides/graders) for more details. The `output_json` variable will be populated if the model sample is a valid JSON string.
     #[serde(rename = "model_sample")]
     pub model_sample: String,
 }

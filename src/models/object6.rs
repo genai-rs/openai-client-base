@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object6 : Occurs when a [run step](/docs/api-reference/run-steps/step-object) expires.
+/// Object6 : Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) expires.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object6 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object6 {
 }
 
 impl Object6 {
-    /// Occurs when a [run step](/docs/api-reference/run-steps/step-object) expires.
+    /// Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) expires.
     pub fn new(event: Event, data: models::RunStepObject) -> Object6 {
         Object6 {
             event,

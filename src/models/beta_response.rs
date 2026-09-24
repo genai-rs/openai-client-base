@@ -30,29 +30,22 @@ pub struct BetaResponse {
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or `temperature` but not both.
     #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
     pub top_p: Option<f64>,
-    /// This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use `prompt_cache_key` instead to maintain caching optimizations. A stable identifier for your end-users. Used to boost cache hit rates by better bucketing similar requests and  to help OpenAI detect and prevent abuse. [Learn more](/docs/guides/safety-best-practices#safety-identifiers).
+    /// This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use `prompt_cache_key` instead to maintain caching optimizations. A stable identifier for your end-users. Used to boost cache hit rates by better bucketing similar requests and  to help OpenAI detect and prevent abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
-    /// A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies. The IDs should be a string that uniquely identifies each user, with a maximum length of 64 characters. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](/docs/guides/safety-best-practices#safety-identifiers).
+    /// A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies. The IDs should be a string that uniquely identifies each user, with a maximum length of 64 characters. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
     #[serde(rename = "safety_identifier", skip_serializing_if = "Option::is_none")]
     pub safety_identifier: Option<String>,
-    /// Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the `user` field. [Learn more](/docs/guides/prompt-caching).
+    /// Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the `user` field. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching).
     #[serde(rename = "prompt_cache_key", skip_serializing_if = "Option::is_none")]
     pub prompt_cache_key: Option<String>,
-    #[serde(
-        rename = "service_tier",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub service_tier: Option<Option<models::BetaServiceTier>>,
-    /// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
+    /// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
     #[serde(
         rename = "prompt_cache_retention",
         skip_serializing_if = "Option::is_none"
     )]
     pub prompt_cache_retention: Option<PromptCacheRetention>,
-    /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
+    /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
         skip_serializing_if = "Option::is_none"
@@ -61,7 +54,7 @@ pub struct BetaResponse {
     /// ID of the model to use
     #[serde(rename = "model")]
     pub model: String,
-    /// Whether to run the model response in the background. [Learn more](/docs/guides/background).
+    /// Whether to run the model response in the background. [Learn more](https://developers.openai.com/api/docs/guides/background).
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<bool>,
     /// The maximum number of total calls to built-in tools that can be processed in a response. This maximum number applies across all built-in tool calls, not per individual tool. Any further attempts to call a tool by the model will be ignored.
@@ -69,7 +62,7 @@ pub struct BetaResponse {
     pub max_tool_calls: Option<i32>,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<Box<models::BetaResponseTextParam>>,
-    /// An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  We support the following categories of tools: - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](/docs/guides/tools-web-search)   or [file search](/docs/guides/tools-file-search). Learn more about   [built-in tools](/docs/guides/tools). - **MCP Tools**: Integrations with third-party systems via custom MCP servers   or predefined connectors such as Google Drive and SharePoint. Learn more about   [MCP Tools](/docs/guides/tools-connectors-mcp). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code with strongly typed arguments   and outputs. Learn more about   [function calling](/docs/guides/function-calling). You can also use   custom tools to call your own code.
+    /// An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  We support the following categories of tools: - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](https://developers.openai.com/api/docs/guides/tools-web-search)   or [file search](https://developers.openai.com/api/docs/guides/tools-file-search). Learn more about   [built-in tools](https://developers.openai.com/api/docs/guides/tools). - **MCP Tools**: Integrations with third-party systems via custom MCP servers   or predefined connectors such as Google Drive and SharePoint. Learn more about   [MCP Tools](https://developers.openai.com/api/docs/guides/tools-connectors-mcp). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code with strongly typed arguments   and outputs. Learn more about   [function calling](https://developers.openai.com/api/docs/guides/function-calling). You can also use   custom tools to call your own code.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::BetaTool>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
@@ -81,6 +74,13 @@ pub struct BetaResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub prompt: Option<Option<Box<models::BetaPrompt>>>,
+    #[serde(
+        rename = "service_tier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub service_tier: Option<Option<models::BetaServiceTierResponses>>,
     /// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
     #[serde(
         rename = "truncation",
@@ -98,6 +98,8 @@ pub struct BetaResponse {
     /// The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    #[serde(rename = "access_programs", deserialize_with = "Option::deserialize")]
+    pub access_programs: Option<Box<models::BetaAccessProgramsBody>>,
     /// Unix timestamp (in seconds) of when this Response was created.
     #[serde(rename = "created_at")]
     pub created_at: f64,
@@ -144,6 +146,11 @@ pub struct BetaResponse {
     )]
     pub prompt_cache_options: Option<Box<models::BetaPromptCacheOptions>>,
     #[serde(
+        rename = "prompt_cache_diagnostics",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_diagnostics: Option<Box<models::BetaPromptCacheDiagnostics>>,
+    #[serde(
         rename = "moderation",
         default,
         with = "::serde_with::rust::double_option",
@@ -160,7 +167,7 @@ pub struct BetaResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub conversation: Option<Option<Box<models::BetaResponseConversation>>>,
-    /// An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).
+    /// An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](https://developers.openai.com/api/docs/guides/reasoning).
     #[serde(
         rename = "max_output_tokens",
         default,
@@ -175,6 +182,7 @@ impl BetaResponse {
         model: String,
         id: String,
         object: Object,
+        access_programs: Option<models::BetaAccessProgramsBody>,
         created_at: f64,
         error: Option<models::BetaResponseError>,
         incomplete_details: Option<models::Object018>,
@@ -190,7 +198,6 @@ impl BetaResponse {
             user: None,
             safety_identifier: None,
             prompt_cache_key: None,
-            service_tier: None,
             prompt_cache_retention: None,
             previous_response_id: None,
             model,
@@ -200,10 +207,12 @@ impl BetaResponse {
             tools: None,
             tool_choice: None,
             prompt: None,
+            service_tier: None,
             truncation: None,
             id,
             object,
             status: None,
+            access_programs: access_programs.map(Box::new),
             created_at,
             completed_at: None,
             error: error.map(Box::new),
@@ -214,6 +223,7 @@ impl BetaResponse {
             output_text: None,
             usage: None,
             prompt_cache_options: None,
+            prompt_cache_diagnostics: None,
             moderation: None,
             parallel_tool_calls,
             conversation: None,
@@ -221,7 +231,7 @@ impl BetaResponse {
         }
     }
 }
-/// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
+/// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum PromptCacheRetention {
     #[serde(rename = "in_memory")]

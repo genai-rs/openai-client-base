@@ -4,13 +4,13 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_conversation**](ConversationsApi.md#create_conversation) | **POST** /conversations | Create a conversation.
-[**create_conversation_items**](ConversationsApi.md#create_conversation_items) | **POST** /conversations/{conversation_id}/items | Create items in a conversation with the given ID.
-[**delete_conversation**](ConversationsApi.md#delete_conversation) | **DELETE** /conversations/{conversation_id} | Delete a conversation. Items in the conversation will not be deleted.
-[**delete_conversation_item**](ConversationsApi.md#delete_conversation_item) | **DELETE** /conversations/{conversation_id}/items/{item_id} | Delete an item from a conversation with the given IDs.
-[**get_conversation**](ConversationsApi.md#get_conversation) | **GET** /conversations/{conversation_id} | Get a conversation
-[**get_conversation_item**](ConversationsApi.md#get_conversation_item) | **GET** /conversations/{conversation_id}/items/{item_id} | Get a single item from a conversation with the given IDs.
-[**list_conversation_items**](ConversationsApi.md#list_conversation_items) | **GET** /conversations/{conversation_id}/items | List all items for a conversation with the given ID.
+[**create_conversation**](ConversationsApi.md#create_conversation) | **POST** /conversations | Create a conversation
+[**create_conversation_items**](ConversationsApi.md#create_conversation_items) | **POST** /conversations/{conversation_id}/items | Create items
+[**delete_conversation**](ConversationsApi.md#delete_conversation) | **DELETE** /conversations/{conversation_id} | Delete a conversation
+[**delete_conversation_item**](ConversationsApi.md#delete_conversation_item) | **DELETE** /conversations/{conversation_id}/items/{item_id} | Delete an item
+[**get_conversation**](ConversationsApi.md#get_conversation) | **GET** /conversations/{conversation_id} | Retrieve a conversation
+[**get_conversation_item**](ConversationsApi.md#get_conversation_item) | **GET** /conversations/{conversation_id}/items/{item_id} | Retrieve an item
+[**list_conversation_items**](ConversationsApi.md#list_conversation_items) | **GET** /conversations/{conversation_id}/items | List items
 [**update_conversation**](ConversationsApi.md#update_conversation) | **POST** /conversations/{conversation_id} | Update a conversation
 
 
@@ -18,6 +18,8 @@ Method | HTTP request | Description
 ## create_conversation
 
 > models::ConversationResource create_conversation(create_conversation_body)
+Create a conversation
+
 Create a conversation.
 
 ### Parameters
@@ -46,6 +48,8 @@ Name | Type | Description  | Required | Notes
 ## create_conversation_items
 
 > models::ConversationItemList create_conversation_items(conversation_id, create_conversation_items_request, include)
+Create items
+
 Create items in a conversation with the given ID.
 
 ### Parameters
@@ -55,7 +59,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **conversation_id** | **String** | The ID of the conversation to add the item to. | [required] |
 **create_conversation_items_request** | [**CreateConversationItemsRequest**](CreateConversationItemsRequest.md) |  | [required] |
-**include** | Option<[**Vec<models::IncludeEnum>**](models::IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for [listing Conversation items above](/docs/api-reference/conversations/list-items#conversations_list_items-include) for more information.  |  |
+**include** | Option<[**Vec<models::IncludeEnum>**](models::IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for [listing Conversation items above](https://developers.openai.com/api/reference/resources/conversations/subresources/items/methods/list#%28resource%29%20conversations.items%20%3E%20%28method%29%20list%20%3E%20%28params%29%20default%20%3E%20%28param%29%20include%20%3E%20%28schema%29) for more information.  |  |
 
 ### Return type
 
@@ -76,6 +80,8 @@ Name | Type | Description  | Required | Notes
 ## delete_conversation
 
 > models::DeletedConversationResource delete_conversation(conversation_id)
+Delete a conversation
+
 Delete a conversation. Items in the conversation will not be deleted.
 
 ### Parameters
@@ -104,6 +110,8 @@ Name | Type | Description  | Required | Notes
 ## delete_conversation_item
 
 > models::ConversationResource delete_conversation_item(conversation_id, item_id)
+Delete an item
+
 Delete an item from a conversation with the given IDs.
 
 ### Parameters
@@ -133,6 +141,8 @@ Name | Type | Description  | Required | Notes
 ## get_conversation
 
 > models::ConversationResource get_conversation(conversation_id)
+Retrieve a conversation
+
 Get a conversation
 
 ### Parameters
@@ -161,6 +171,8 @@ Name | Type | Description  | Required | Notes
 ## get_conversation_item
 
 > models::ConversationItem get_conversation_item(conversation_id, item_id, include)
+Retrieve an item
+
 Get a single item from a conversation with the given IDs.
 
 ### Parameters
@@ -170,7 +182,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **conversation_id** | **String** | The ID of the conversation that contains the item. | [required] |
 **item_id** | **String** | The ID of the item to retrieve. | [required] |
-**include** | Option<[**Vec<models::IncludeEnum>**](models::IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for [listing Conversation items above](/docs/api-reference/conversations/list-items#conversations_list_items-include) for more information.  |  |
+**include** | Option<[**Vec<models::IncludeEnum>**](models::IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for [listing Conversation items above](https://developers.openai.com/api/reference/resources/conversations/subresources/items/methods/list#%28resource%29%20conversations.items%20%3E%20%28method%29%20list%20%3E%20%28params%29%20default%20%3E%20%28param%29%20include%20%3E%20%28schema%29) for more information.  |  |
 
 ### Return type
 
@@ -191,6 +203,8 @@ Name | Type | Description  | Required | Notes
 ## list_conversation_items
 
 > models::ConversationItemList list_conversation_items(conversation_id, limit, order, after, include)
+List items
+
 List all items for a conversation with the given ID.
 
 ### Parameters
@@ -223,6 +237,8 @@ Name | Type | Description  | Required | Notes
 ## update_conversation
 
 > models::ConversationResource update_conversation(conversation_id, update_conversation_body)
+Update a conversation
+
 Update a conversation
 
 ### Parameters

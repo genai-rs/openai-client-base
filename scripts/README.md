@@ -3,10 +3,12 @@
 Run the Python patch tests with:
 
 ```sh
-python3 -m unittest discover -s scripts/tests -v
+uv run --with pyyaml python -m unittest discover -s scripts/tests -v
 ```
 
-`generate.sh` downloads the current Stainless specification and runs these
+`generate.sh` downloads OpenAI's current published specification and validates
+the raw and patched documents before running the generator. Missing `$ref`
+targets stop generation and must be corrected upstream. It runs these
 checks before applying the shared API response-error patch. Generated Rust is
 limited to `src/apis` and `src/models` during cleanup; integration tests under
 `tests` must survive regeneration. Run `cargo test --all-features` and

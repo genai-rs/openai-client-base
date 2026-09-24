@@ -16,13 +16,9 @@ use serde::{Deserialize, Serialize};
 pub struct RealtimeSessionCreateRequest {
     #[serde(rename = "client_secret")]
     pub client_secret: Box<models::RealtimeSessionCreateRequestClientSecret>,
-    #[serde(
-        rename = "modalities",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub modalities: Option<Option<serde_json::Value>>,
+    /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
+    #[serde(rename = "modalities", skip_serializing_if = "Option::is_none")]
+    pub modalities: Option<Vec<Modalities>>,
     /// The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. \"be extremely succinct\", \"act friendly\", \"here are examples of good responses\") and on audio behavior (e.g. \"talk quickly\", \"inject emotion into your voice\", \"laugh frequently\"). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior. Note that the server sets default instructions which will be used if this field is not set and are visible in the `session.created` event at the start of the session.
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
@@ -99,6 +95,20 @@ impl RealtimeSessionCreateRequest {
             truncation: None,
             prompt: None,
         }
+    }
+}
+/// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Modalities {
+    #[serde(rename = "text")]
+    Text,
+    #[serde(rename = "audio")]
+    Audio,
+}
+
+impl Default for Modalities {
+    fn default() -> Modalities {
+        Self::Text
     }
 }
 

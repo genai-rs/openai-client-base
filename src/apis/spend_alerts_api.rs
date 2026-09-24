@@ -85,6 +85,7 @@ pub enum UpdateProjectSpendAlertError {
     UnknownValue(serde_json::Value),
 }
 
+/// Creates an organization spend alert.
 #[bon::builder]
 pub async fn create_organization_spend_alert(
     configuration: &configuration::Configuration,
@@ -135,6 +136,7 @@ pub async fn create_organization_spend_alert(
     }
 }
 
+/// Creates a project spend alert.
 #[bon::builder]
 pub async fn create_project_spend_alert(
     configuration: &configuration::Configuration,
@@ -191,6 +193,7 @@ pub async fn create_project_spend_alert(
     }
 }
 
+/// Deletes an organization spend alert.
 #[bon::builder]
 pub async fn delete_organization_spend_alert(
     configuration: &configuration::Configuration,
@@ -245,6 +248,7 @@ pub async fn delete_organization_spend_alert(
     }
 }
 
+/// Deletes a project spend alert.
 #[bon::builder]
 pub async fn delete_project_spend_alert(
     configuration: &configuration::Configuration,
@@ -301,6 +305,7 @@ pub async fn delete_project_spend_alert(
     }
 }
 
+/// Lists organization spend alerts.
 #[bon::builder]
 pub async fn list_organization_spend_alerts(
     configuration: &configuration::Configuration,
@@ -366,6 +371,7 @@ pub async fn list_organization_spend_alerts(
     }
 }
 
+/// Lists project spend alerts.
 #[bon::builder]
 pub async fn list_project_spend_alerts(
     configuration: &configuration::Configuration,
@@ -437,6 +443,7 @@ pub async fn list_project_spend_alerts(
     }
 }
 
+/// Retrieves an organization spend alert.
 #[bon::builder]
 pub async fn retrieve_organization_spend_alert(
     configuration: &configuration::Configuration,
@@ -489,6 +496,7 @@ pub async fn retrieve_organization_spend_alert(
     }
 }
 
+/// Retrieves a project spend alert.
 #[bon::builder]
 pub async fn retrieve_project_spend_alert(
     configuration: &configuration::Configuration,
@@ -543,6 +551,7 @@ pub async fn retrieve_project_spend_alert(
     }
 }
 
+/// Updates an organization spend alert.
 #[bon::builder]
 pub async fn update_organization_spend_alert(
     configuration: &configuration::Configuration,
@@ -599,6 +608,7 @@ pub async fn update_organization_spend_alert(
     }
 }
 
+/// Updates a project spend alert.
 #[bon::builder]
 pub async fn update_project_spend_alert(
     configuration: &configuration::Configuration,

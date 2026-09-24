@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FileSearchTool : A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+/// FileSearchTool : A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FileSearchTool {
     /// The type of the file search tool. Always `file_search`.
@@ -35,7 +35,7 @@ pub struct FileSearchTool {
 }
 
 impl FileSearchTool {
-    /// A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+    /// A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).
     pub fn new(r#type: Type, vector_store_ids: Vec<String>) -> FileSearchTool {
         FileSearchTool {
             r#type,

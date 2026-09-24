@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AssignUserRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum AssignUserRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListUserRoleAssignmentsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum ListUserRoleAssignmentsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveUserRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,9 +43,11 @@ pub enum RetrieveUserRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UnassignUserRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Assigns an organization role to a user within the organization.
 #[bon::builder]
 pub async fn assign_user_role(
     configuration: &configuration::Configuration,
@@ -100,6 +105,7 @@ pub async fn assign_user_role(
     }
 }
 
+/// Lists the organization roles assigned to a user within the organization.
 #[bon::builder]
 pub async fn list_user_role_assignments(
     configuration: &configuration::Configuration,
@@ -166,6 +172,7 @@ pub async fn list_user_role_assignments(
     }
 }
 
+/// Retrieves an organization role assigned to a user.
 #[bon::builder]
 pub async fn retrieve_user_role(
     configuration: &configuration::Configuration,
@@ -220,6 +227,7 @@ pub async fn retrieve_user_role(
     }
 }
 
+/// Unassigns an organization role from a user within the organization.
 #[bon::builder]
 pub async fn unassign_user_role(
     configuration: &configuration::Configuration,

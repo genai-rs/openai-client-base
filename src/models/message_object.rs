@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// MessageObject : Represents a message within a [thread](/docs/api-reference/threads).
+/// MessageObject : Represents a message within a [thread](https://developers.openai.com/api/docs/assistants/migration).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageObject {
     /// The identifier, which can be referenced in API endpoints.
@@ -23,7 +23,7 @@ pub struct MessageObject {
     /// The Unix timestamp (in seconds) for when the message was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The [thread](/docs/api-reference/threads) ID that this message belongs to.
+    /// The [thread](https://developers.openai.com/api/docs/assistants/migration) ID that this message belongs to.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
     /// The status of the message, which can be either `in_progress`, `incomplete`, or `completed`.
@@ -46,10 +46,10 @@ pub struct MessageObject {
     /// The content of the message in array of text and/or images.
     #[serde(rename = "content")]
     pub content: Vec<models::MessageObjectContentInner>,
-    /// If applicable, the ID of the [assistant](/docs/api-reference/assistants) that authored this message.
+    /// If applicable, the ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) that authored this message.
     #[serde(rename = "assistant_id", deserialize_with = "Option::deserialize")]
     pub assistant_id: Option<String>,
-    /// The ID of the [run](/docs/api-reference/runs) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints.
+    /// The ID of the [run](https://developers.openai.com/api/docs/assistants/migration) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints.
     #[serde(rename = "run_id", deserialize_with = "Option::deserialize")]
     pub run_id: Option<String>,
     /// A list of files attached to the message, and the tools they were added to.
@@ -61,7 +61,7 @@ pub struct MessageObject {
 }
 
 impl MessageObject {
-    /// Represents a message within a [thread](/docs/api-reference/threads).
+    /// Represents a message within a [thread](https://developers.openai.com/api/docs/assistants/migration).
     pub fn new(
         id: String,
         object: Object,

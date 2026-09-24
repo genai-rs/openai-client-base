@@ -34,6 +34,9 @@ pub struct FunctionToolParam {
     pub strict: Option<Option<bool>>,
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Whether the tool response can be returned asynchronously versus immediately returned on next response creation.
+    #[serde(rename = "async", skip_serializing_if = "Option::is_none")]
+    pub r#async: Option<bool>,
     /// A JSON Schema describing the JSON value encoded in string outputs for this function tool. This does not describe content-array outputs.
     #[serde(
         rename = "output_schema",
@@ -63,6 +66,7 @@ impl FunctionToolParam {
             parameters: None,
             strict: None,
             r#type,
+            r#async: None,
             output_schema: None,
             defer_loading: None,
             allowed_callers: None,

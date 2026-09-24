@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AssignGroupRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum AssignGroupRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListGroupRoleAssignmentsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum ListGroupRoleAssignmentsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveGroupRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,9 +43,11 @@ pub enum RetrieveGroupRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UnassignGroupRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Assigns an organization role to a group within the organization.
 #[bon::builder]
 pub async fn assign_group_role(
     configuration: &configuration::Configuration,
@@ -100,6 +105,7 @@ pub async fn assign_group_role(
     }
 }
 
+/// Lists the organization roles assigned to a group within the organization.
 #[bon::builder]
 pub async fn list_group_role_assignments(
     configuration: &configuration::Configuration,
@@ -166,6 +172,7 @@ pub async fn list_group_role_assignments(
     }
 }
 
+/// Retrieves an organization role assigned to a group.
 #[bon::builder]
 pub async fn retrieve_group_role(
     configuration: &configuration::Configuration,
@@ -220,6 +227,7 @@ pub async fn retrieve_group_role(
     }
 }
 
+/// Unassigns an organization role from a group within the organization.
 #[bon::builder]
 pub async fn unassign_group_role(
     configuration: &configuration::Configuration,

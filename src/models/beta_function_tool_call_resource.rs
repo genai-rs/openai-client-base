@@ -37,6 +37,9 @@ pub struct BetaFunctionToolCallResource {
     pub arguments: String,
     #[serde(rename = "status")]
     pub status: models::BetaFunctionCallStatus,
+    /// Whether the function tool call runs asynchronously.
+    #[serde(rename = "async", skip_serializing_if = "Option::is_none")]
+    pub r#async: Option<bool>,
     /// The identifier of the actor that created the item.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -61,6 +64,7 @@ impl BetaFunctionToolCallResource {
             name,
             arguments,
             status,
+            r#async: None,
             created_by: None,
         }
     }

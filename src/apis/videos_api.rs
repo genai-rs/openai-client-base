@@ -21,6 +21,8 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -35,6 +37,8 @@ pub enum CreateVideoCharacterError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoEditError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -42,6 +46,8 @@ pub enum CreateVideoEditError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoExtendError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -49,6 +55,8 @@ pub enum CreateVideoExtendError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoRemixError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -87,6 +95,7 @@ pub enum RetrieveVideoContentError {
     UnknownValue(serde_json::Value),
 }
 
+/// Create a new video generation job from a prompt and optional reference assets.
 #[bon::builder]
 pub async fn create_video(
     configuration: &configuration::Configuration,
@@ -159,6 +168,7 @@ pub async fn create_video(
     }
 }
 
+/// Create a character from an uploaded video.
 #[bon::builder]
 pub async fn create_video_character(
     configuration: &configuration::Configuration,
@@ -214,6 +224,7 @@ pub async fn create_video_character(
     }
 }
 
+/// Create a new video generation job by editing a source video or existing generated video.
 #[bon::builder]
 pub async fn create_video_edit(
     configuration: &configuration::Configuration,
@@ -269,6 +280,7 @@ pub async fn create_video_edit(
     }
 }
 
+/// Create an extension of a completed video.
 #[bon::builder]
 pub async fn create_video_extend(
     configuration: &configuration::Configuration,
@@ -327,6 +339,7 @@ pub async fn create_video_extend(
     }
 }
 
+/// Create a remix of a completed video using a refreshed prompt.
 #[bon::builder]
 pub async fn create_video_remix(
     configuration: &configuration::Configuration,
@@ -385,6 +398,7 @@ pub async fn create_video_remix(
     }
 }
 
+/// Permanently delete a completed or failed video and its stored assets.
 #[bon::builder]
 pub async fn delete_video(
     configuration: &configuration::Configuration,
@@ -438,6 +452,7 @@ pub async fn delete_video(
     }
 }
 
+/// Fetch the latest metadata for a generated video.
 #[bon::builder]
 pub async fn get_video(
     configuration: &configuration::Configuration,
@@ -489,6 +504,7 @@ pub async fn get_video(
     }
 }
 
+/// Fetch a character.
 #[bon::builder]
 pub async fn get_video_character(
     configuration: &configuration::Configuration,
@@ -540,6 +556,7 @@ pub async fn get_video_character(
     }
 }
 
+/// List recently generated videos for the current project.
 #[bon::builder]
 pub async fn list_videos(
     configuration: &configuration::Configuration,
@@ -600,6 +617,7 @@ pub async fn list_videos(
     }
 }
 
+/// Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
 #[bon::builder]
 pub async fn retrieve_video_content(
     configuration: &configuration::Configuration,

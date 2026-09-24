@@ -19,6 +19,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddGroupUserError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +31,7 @@ pub enum AddGroupUserError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListGroupUsersError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +39,11 @@ pub enum ListGroupUsersError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveGroupUserError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,9 +51,11 @@ pub enum RemoveGroupUserError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveGroupUserError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Adds a user to a group.
 #[bon::builder]
 pub async fn add_group_user(
     configuration: &configuration::Configuration,
@@ -99,6 +112,7 @@ pub async fn add_group_user(
     }
 }
 
+/// Lists the users assigned to a group.
 #[bon::builder]
 pub async fn list_group_users(
     configuration: &configuration::Configuration,
@@ -165,6 +179,7 @@ pub async fn list_group_users(
     }
 }
 
+/// Removes a user from a group.
 #[bon::builder]
 pub async fn remove_group_user(
     configuration: &configuration::Configuration,
@@ -221,6 +236,7 @@ pub async fn remove_group_user(
     }
 }
 
+/// Retrieves a user in a group.
 #[bon::builder]
 pub async fn retrieve_group_user(
     configuration: &configuration::Configuration,

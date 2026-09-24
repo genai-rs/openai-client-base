@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | The type of the function tool. Always `function`. | 
 **name** | **String** | The name of the function to call. | 
+**r#async** | Option<**bool**> |  | [optional]
 **description** | Option<**String**> | A description of the function. Used by the model to determine whether or not to call the function. | [optional]
 **parameters** | Option<[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)> | A JSON schema object describing the parameters of the function. | 
 **output_schema** | Option<[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)> | A JSON schema object describing the JSON value encoded in string outputs for this function. | [optional]

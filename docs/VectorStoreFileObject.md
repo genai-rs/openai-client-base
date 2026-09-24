@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **object** | **String** | The object type, which is always `vector_store.file`. | 
 **usage_bytes** | **i32** | The total vector store usage in bytes. Note that this may be different from the original file size. | 
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the vector store file was created. | 
-**vector_store_id** | **String** | The ID of the [vector store](/docs/api-reference/vector-stores/object) that the [File](/docs/api-reference/files) is attached to. | 
+**vector_store_id** | **String** | The ID of the [vector store](https://developers.openai.com/api/reference/resources/vector_stores) that the [File](https://developers.openai.com/api/reference/resources/files) is attached to. | 
 **status** | **String** | The status of the vector store file, which can be either `in_progress`, `completed`, `cancelled`, or `failed`. The status `completed` indicates that the vector store file is ready for use. | 
 **last_error** | Option<[**models::Object023**](Object0_23.md)> |  | 
 **chunking_strategy** | Option<[**models::VectorStoreFileObjectChunkingStrategy**](VectorStoreFileObject_chunking_strategy.md)> |  | [optional]

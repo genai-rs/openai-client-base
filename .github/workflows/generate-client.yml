@@ -61,7 +61,7 @@ jobs:
           OPENAPI_GENERATOR_LOG_LEVEL: error
         run: |
           # The script handles everything internally:
-          # - Downloads latest Stainless OpenAPI spec
+          # - Downloads and validates latest published OpenAI OpenAPI spec
           # - Runs 2-layer patching pipeline
           # - Generates using Docker
           # - Applies post-generation patches
@@ -125,10 +125,10 @@ jobs:
           body: |
             ## 🤖 Automated Client Update
             
-            This PR updates the generated client based on the latest Stainless OpenAPI specification.
+            This PR updates the generated client based on the latest published OpenAI OpenAPI specification.
             
             ### Changes
-            - Downloaded latest spec from Stainless API
+            - Downloaded and validated the latest spec from [OpenAI's specification repository](https://github.com/openai/openai-openapi/blob/main/openapi.yaml)
             - Applied Layer 1 patches (model field fixes)
             - Applied Layer 2 patches (Rust compatibility)
             - Generated new client code

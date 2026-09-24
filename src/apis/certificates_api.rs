@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ActivateOrganizationCertificatesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum ActivateOrganizationCertificatesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ActivateProjectCertificatesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum ActivateProjectCertificatesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeactivateOrganizationCertificatesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,6 +43,7 @@ pub enum DeactivateOrganizationCertificatesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeactivateProjectCertificatesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,6 +51,7 @@ pub enum DeactivateProjectCertificatesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteCertificateError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,6 +59,7 @@ pub enum DeleteCertificateError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetCertificateError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -61,6 +67,7 @@ pub enum GetCertificateError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListOrganizationCertificatesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,6 +75,7 @@ pub enum ListOrganizationCertificatesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListProjectCertificatesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -75,6 +83,7 @@ pub enum ListProjectCertificatesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyCertificateError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -82,9 +91,11 @@ pub enum ModifyCertificateError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UploadCertificateError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Activate certificates at the organization level.  You can atomically and idempotently activate up to 10 certificates at a time.
 #[bon::builder]
 pub async fn activate_organization_certificates(
     configuration: &configuration::Configuration,
@@ -142,6 +153,7 @@ pub async fn activate_organization_certificates(
     }
 }
 
+/// Activate certificates at the project level.  You can atomically and idempotently activate up to 10 certificates at a time.
 #[bon::builder]
 pub async fn activate_project_certificates(
     configuration: &configuration::Configuration,
@@ -201,6 +213,7 @@ pub async fn activate_project_certificates(
     }
 }
 
+/// Deactivate certificates at the organization level.  You can atomically and idempotently deactivate up to 10 certificates at a time.
 #[bon::builder]
 pub async fn deactivate_organization_certificates(
     configuration: &configuration::Configuration,
@@ -258,6 +271,7 @@ pub async fn deactivate_organization_certificates(
     }
 }
 
+/// Deactivate certificates at the project level. You can atomically and  idempotently deactivate up to 10 certificates at a time.
 #[bon::builder]
 pub async fn deactivate_project_certificates(
     configuration: &configuration::Configuration,
@@ -318,6 +332,7 @@ pub async fn deactivate_project_certificates(
     }
 }
 
+/// Delete a certificate from the organization.  The certificate must be inactive for the organization and all projects.
 #[bon::builder]
 pub async fn delete_certificate(
     configuration: &configuration::Configuration,
@@ -371,6 +386,7 @@ pub async fn delete_certificate(
     }
 }
 
+/// Get a certificate that has been uploaded to the organization.  You can get a certificate regardless of whether it is active or not.
 #[bon::builder]
 pub async fn get_certificate(
     configuration: &configuration::Configuration,
@@ -443,6 +459,7 @@ pub async fn get_certificate(
     }
 }
 
+/// List uploaded certificates for this organization.
 #[bon::builder]
 pub async fn list_organization_certificates(
     configuration: &configuration::Configuration,
@@ -503,6 +520,7 @@ pub async fn list_organization_certificates(
     }
 }
 
+/// List certificates for this project.
 #[bon::builder]
 pub async fn list_project_certificates(
     configuration: &configuration::Configuration,
@@ -569,6 +587,7 @@ pub async fn list_project_certificates(
     }
 }
 
+/// Modify a certificate. Note that only the name can be modified.
 #[bon::builder]
 pub async fn modify_certificate(
     configuration: &configuration::Configuration,
@@ -625,6 +644,7 @@ pub async fn modify_certificate(
     }
 }
 
+/// Upload a certificate to the organization. This does **not** automatically activate the certificate.  Organizations can upload up to 50 certificates.
 #[bon::builder]
 pub async fn upload_certificate(
     configuration: &configuration::Configuration,

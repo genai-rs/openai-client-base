@@ -19,9 +19,12 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateModerationError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Classifies if text and/or image inputs are potentially harmful. Learn more in the [moderation guide](https://developers.openai.com/api/docs/guides/moderation).
 #[bon::builder]
 pub async fn create_moderation(
     configuration: &configuration::Configuration,

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **choices** | [**Vec<models::CreateChatCompletionStreamResponseChoicesInner>**](CreateChatCompletionStreamResponse_choices_inner.md) | A list of chat completion choices. Can contain more than one elements if `n` is greater than 1. Can also be empty for the last chunk if you set `stream_options: {\"include_usage\": true}`.  | 
 **created** | **i32** | The Unix timestamp (in seconds) of when the chat completion was created. Each chunk has the same timestamp. | 
 **model** | **String** | The model to generate the completion. | 
+**obfuscation** | Option<**String**> | An obfuscation string added to normalize the size of streamed chunks as a mitigation to certain side-channel attacks. The field is included by default and omitted when `stream_options.include_obfuscation` is `false`.  | [optional]
 **service_tier** | Option<[**models::ServiceTier**](ServiceTier.md)> |  | [optional]
 **system_fingerprint** | Option<**String**> | This fingerprint represents the backend configuration that the model runs with. Can be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism.  | [optional]
 **object** | **String** | The object type, which is always `chat.completion.chunk`. | 

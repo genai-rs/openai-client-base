@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaFunctionToolCall : A tool call to run a function. See the  [function calling guide](/docs/guides/function-calling) for more information.
+/// BetaFunctionToolCall : A tool call to run a function. See the [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionToolCall {
     #[serde(
@@ -49,10 +49,13 @@ pub struct BetaFunctionToolCall {
     /// The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
+    /// Whether the function tool call runs asynchronously.
+    #[serde(rename = "async", skip_serializing_if = "Option::is_none")]
+    pub r#async: Option<bool>,
 }
 
 impl BetaFunctionToolCall {
-    /// A tool call to run a function. See the  [function calling guide](/docs/guides/function-calling) for more information.
+    /// A tool call to run a function. See the [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
     pub fn new(
         r#type: Type,
         call_id: String,
@@ -69,6 +72,7 @@ impl BetaFunctionToolCall {
             name,
             arguments,
             status: None,
+            r#async: None,
         }
     }
 }

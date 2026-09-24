@@ -143,7 +143,7 @@ def add_display_impl_for_structs(models_dir):
             else:
                 continue
 
-            if f"impl std::fmt::Display for {struct_name}" in content:
+            if re.search(rf"impl\s+std::fmt::Display\s+for\s+{re.escape(struct_name)}\b", content):
                 continue
 
             impl_body = f"""
@@ -270,18 +270,13 @@ def remove_default_from_problematic_structs(models_dir):
                     non_default_types.add(struct_name)
                 continue
 
-            # Check if file contains any of the non-default types as fields
-            should_remove_default = False
-            for type_name in non_default_types:
-                # Match Box-wrapped fields: pub x: (Option<)?Box<(models::)?TypeName>
-                box_pattern = rf"pub \w+: (?:Option<)?Box<(?:models::)?{type_name}>"
-                # Match direct fields: pub x: (Option<)?(models::)?TypeName
-                direct_pattern = rf"pub \w+: (?:Option<)?(?:models::)?{type_name}\b"
-                if re.search(box_pattern, content) or re.search(
-                    direct_pattern, content
-                ):
-                    should_remove_default = True
-                    break
+            # Extract direct and Box-wrapped field types once. Checking every
+            # known type against every file made large upstream specs quadratic.
+            field_types = set(re.findall(
+                r"pub \w+: (?:Option<)?(?:Box<)?(?:models::)?(\w+)\b",
+                content,
+            ))
+            should_remove_default = bool(field_types & non_default_types)
 
             if should_remove_default:
                 # Remove Default from derive
@@ -332,13 +327,12 @@ def remove_default_from_problematic_structs(models_dir):
             if not enum_match:
                 continue
 
-            # Check if any enum variant references a non-Default type
-            should_remove = False
-            for type_name in non_default_types:
-                variant_pattern = rf"\w+\((?:Box<)?(?:models::)?{type_name}>?\)"
-                if re.search(variant_pattern, enum_match.group(1)):
-                    should_remove = True
-                    break
+            # Only inspect types actually present in this enum's variants.
+            variant_types = set(re.findall(
+                r"\w+\((?:Box<)?(?:models::)?(\w+)>?\)",
+                enum_match.group(1),
+            ))
+            should_remove = bool(variant_types & non_default_types)
 
             if should_remove:
                 # Remove the entire impl Default block

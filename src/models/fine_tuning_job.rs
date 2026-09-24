@@ -39,7 +39,7 @@ pub struct FineTuningJob {
     /// The organization that owns the fine-tuning job.
     #[serde(rename = "organization_id")]
     pub organization_id: String,
-    /// The compiled results file ID(s) for the fine-tuning job. You can retrieve the results with the [Files API](/docs/api-reference/files/retrieve-contents).
+    /// The compiled results file ID(s) for the fine-tuning job. You can retrieve the results with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content).
     #[serde(rename = "result_files")]
     pub result_files: Vec<String>,
     /// The current status of the fine-tuning job, which can be either `validating_files`, `queued`, `running`, `succeeded`, `failed`, or `cancelled`.
@@ -48,10 +48,10 @@ pub struct FineTuningJob {
     /// The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "trained_tokens", deserialize_with = "Option::deserialize")]
     pub trained_tokens: Option<i32>,
-    /// The file ID used for training. You can retrieve the training data with the [Files API](/docs/api-reference/files/retrieve-contents).
+    /// The file ID used for training. You can retrieve the training data with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content).
     #[serde(rename = "training_file")]
     pub training_file: String,
-    /// The file ID used for validation. You can retrieve the validation results with the [Files API](/docs/api-reference/files/retrieve-contents).
+    /// The file ID used for validation. You can retrieve the validation results with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content).
     #[serde(rename = "validation_file", deserialize_with = "Option::deserialize")]
     pub validation_file: Option<String>,
     /// A list of integrations to enable for this fine-tuning job.

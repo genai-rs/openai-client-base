@@ -11,12 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaWebSearchTool : Search the Internet for sources related to the prompt. Learn more about the [web search tool](/docs/guides/tools-web-search).
+/// BetaWebSearchTool : Search the Internet for sources related to the prompt. Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaWebSearchTool {
     /// The type of the web search tool. One of `web_search` or `web_search_2025_08_26`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Allow live internet access for web search. Defaults to true when omitted. When false, the web search tool runs in offline/cache-only mode and will not fetch new external content.
+    #[serde(
+        rename = "external_web_access",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub external_web_access: Option<bool>,
     #[serde(
         rename = "filters",
         default,
@@ -40,10 +46,11 @@ pub struct BetaWebSearchTool {
 }
 
 impl BetaWebSearchTool {
-    /// Search the Internet for sources related to the prompt. Learn more about the [web search tool](/docs/guides/tools-web-search).
+    /// Search the Internet for sources related to the prompt. Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
     pub fn new(r#type: Type) -> BetaWebSearchTool {
         BetaWebSearchTool {
             r#type,
+            external_web_access: None,
             filters: None,
             user_location: None,
             search_context_size: None,

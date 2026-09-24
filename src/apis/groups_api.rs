@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateGroupError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum CreateGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteGroupError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum DeleteGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListGroupsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,6 +43,7 @@ pub enum ListGroupsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveGroupError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,9 +51,11 @@ pub enum RetrieveGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateGroupError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Creates a new group in the organization.
 #[bon::builder]
 pub async fn create_group(
     configuration: &configuration::Configuration,
@@ -100,6 +106,7 @@ pub async fn create_group(
     }
 }
 
+/// Deletes a group from the organization.
 #[bon::builder]
 pub async fn delete_group(
     configuration: &configuration::Configuration,
@@ -153,6 +160,7 @@ pub async fn delete_group(
     }
 }
 
+/// Lists all groups in the organization.
 #[bon::builder]
 pub async fn list_groups(
     configuration: &configuration::Configuration,
@@ -213,6 +221,7 @@ pub async fn list_groups(
     }
 }
 
+/// Retrieves a group.
 #[bon::builder]
 pub async fn retrieve_group(
     configuration: &configuration::Configuration,
@@ -264,6 +273,7 @@ pub async fn retrieve_group(
     }
 }
 
+/// Updates a group's information.
 #[bon::builder]
 pub async fn update_group(
     configuration: &configuration::Configuration,

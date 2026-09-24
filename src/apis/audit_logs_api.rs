@@ -19,9 +19,11 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAuditLogsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// List user actions and configuration changes within this organization.
 #[bon::builder]
 pub async fn list_audit_logs(
     configuration: &configuration::Configuration,

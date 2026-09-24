@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **value** | **String** |  | 
 **name** | **String** |  | 
 **created_at** | **i32** |  | 
+**expires_at** | Option<**i32**> |  | [optional]
 **id** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

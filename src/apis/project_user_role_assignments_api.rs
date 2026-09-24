@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AssignProjectUserRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum AssignProjectUserRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListProjectUserRoleAssignmentsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum ListProjectUserRoleAssignmentsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveProjectUserRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,9 +43,11 @@ pub enum RetrieveProjectUserRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UnassignProjectUserRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Assigns a project role to a user within a project.
 #[bon::builder]
 pub async fn assign_project_user_role(
     configuration: &configuration::Configuration,
@@ -103,6 +108,7 @@ pub async fn assign_project_user_role(
     }
 }
 
+/// Lists the project roles assigned to a user within a project.
 #[bon::builder]
 pub async fn list_project_user_role_assignments(
     configuration: &configuration::Configuration,
@@ -173,6 +179,7 @@ pub async fn list_project_user_role_assignments(
     }
 }
 
+/// Retrieves a project role assigned to a user.
 #[bon::builder]
 pub async fn retrieve_project_user_role(
     configuration: &configuration::Configuration,
@@ -230,6 +237,7 @@ pub async fn retrieve_project_user_role(
     }
 }
 
+/// Unassigns a project role from a user within a project.
 #[bon::builder]
 pub async fn unassign_project_user_role(
     configuration: &configuration::Configuration,

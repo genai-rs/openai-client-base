@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ResponseIncompleteEvent : An event that is emitted when a response finishes as incomplete.
+/// ResponseIncompleteEvent : An event that is emitted when a response finishes as incomplete.  Over WebSocket, steering can finish a response with `response.incomplete_details.reason` set to `steered`, followed automatically by a successor `response.created` that commits the queued steering input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseIncompleteEvent {
     /// The type of the event. Always `response.incomplete`.
@@ -25,7 +25,7 @@ pub struct ResponseIncompleteEvent {
 }
 
 impl ResponseIncompleteEvent {
-    /// An event that is emitted when a response finishes as incomplete.
+    /// An event that is emitted when a response finishes as incomplete.  Over WebSocket, steering can finish a response with `response.incomplete_details.reason` set to `steered`, followed automatically by a successor `response.created` that commits the queued steering input.
     pub fn new(
         r#type: Type,
         response: models::Response,

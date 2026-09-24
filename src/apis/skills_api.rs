@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateSkillError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum CreateSkillError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateSkillVersionError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum CreateSkillVersionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteSkillError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,6 +43,7 @@ pub enum DeleteSkillError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteSkillVersionError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,6 +51,7 @@ pub enum DeleteSkillVersionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSkillError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,6 +59,7 @@ pub enum GetSkillError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSkillContentError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -61,6 +67,7 @@ pub enum GetSkillContentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSkillVersionError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,6 +75,7 @@ pub enum GetSkillVersionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetSkillVersionContentError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -75,6 +83,7 @@ pub enum GetSkillVersionContentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListSkillVersionsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -82,6 +91,7 @@ pub enum ListSkillVersionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListSkillsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -89,9 +99,11 @@ pub enum ListSkillsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateSkillDefaultVersionError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Create a new skill.
 #[bon::builder]
 pub async fn create_skill(
     configuration: &configuration::Configuration,
@@ -144,6 +156,7 @@ pub async fn create_skill(
     }
 }
 
+/// Create a new immutable skill version.
 #[bon::builder]
 pub async fn create_skill_version(
     configuration: &configuration::Configuration,
@@ -202,6 +215,7 @@ pub async fn create_skill_version(
     }
 }
 
+/// Delete a skill by its ID.
 #[bon::builder]
 pub async fn delete_skill(
     configuration: &configuration::Configuration,
@@ -255,6 +269,7 @@ pub async fn delete_skill(
     }
 }
 
+/// Delete a skill version.
 #[bon::builder]
 pub async fn delete_skill_version(
     configuration: &configuration::Configuration,
@@ -311,6 +326,7 @@ pub async fn delete_skill_version(
     }
 }
 
+/// Get a skill by its ID.
 #[bon::builder]
 pub async fn get_skill(
     configuration: &configuration::Configuration,
@@ -362,6 +378,7 @@ pub async fn get_skill(
     }
 }
 
+/// Download a skill zip bundle by its ID.
 #[bon::builder]
 pub async fn get_skill_content(
     configuration: &configuration::Configuration,
@@ -402,6 +419,7 @@ pub async fn get_skill_content(
     }
 }
 
+/// Get a specific skill version.
 #[bon::builder]
 pub async fn get_skill_version(
     configuration: &configuration::Configuration,
@@ -456,6 +474,7 @@ pub async fn get_skill_version(
     }
 }
 
+/// Download a skill version zip bundle.
 #[bon::builder]
 pub async fn get_skill_version_content(
     configuration: &configuration::Configuration,
@@ -499,6 +518,7 @@ pub async fn get_skill_version_content(
     }
 }
 
+/// List skill versions for a skill.
 #[bon::builder]
 pub async fn list_skill_versions(
     configuration: &configuration::Configuration,
@@ -565,6 +585,7 @@ pub async fn list_skill_versions(
     }
 }
 
+/// List all skills for the current project.
 #[bon::builder]
 pub async fn list_skills(
     configuration: &configuration::Configuration,
@@ -625,6 +646,7 @@ pub async fn list_skills(
     }
 }
 
+/// Update the default version pointer for a skill.
 #[bon::builder]
 pub async fn update_skill_default_version(
     configuration: &configuration::Configuration,

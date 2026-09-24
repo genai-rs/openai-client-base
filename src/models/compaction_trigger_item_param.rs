@@ -14,6 +14,14 @@ use serde::{Deserialize, Serialize};
 /// CompactionTriggerItemParam : Compacts the current context. Must be the final input item.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompactionTriggerItemParam {
+    /// The unique ID of this compaction trigger.
+    #[serde(
+        rename = "id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub id: Option<Option<String>>,
     /// The type of the item. Always `compaction_trigger`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -22,7 +30,7 @@ pub struct CompactionTriggerItemParam {
 impl CompactionTriggerItemParam {
     /// Compacts the current context. Must be the final input item.
     pub fn new(r#type: Type) -> CompactionTriggerItemParam {
-        CompactionTriggerItemParam { r#type }
+        CompactionTriggerItemParam { id: None, r#type }
     }
 }
 /// The type of the item. Always `compaction_trigger`.

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object8 : Occurs when a [run](/docs/api-reference/runs/object) is cancelled.
+/// Object8 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) is cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object8 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object8 {
 }
 
 impl Object8 {
-    /// Occurs when a [run](/docs/api-reference/runs/object) is cancelled.
+    /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) is cancelled.
     pub fn new(event: Event, data: models::RunObject) -> Object8 {
         Object8 {
             event,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**model** | Option<**String**> | ID of the model to use. You can use the [List models](/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](/docs/models) for descriptions of them.  | [optional]
+**model** | Option<**String**> | ID of the model to use. You can use the [List models](https://developers.openai.com/api/reference/resources/models/methods/list) API to see all of your available models, or see our [Model overview](https://developers.openai.com/api/docs/models) for descriptions of them.  | [optional]
 **reasoning_effort** | Option<[**models::ReasoningEffort**](ReasoningEffort.md)> |  | [optional]
 **name** | Option<**String**> | The name of the assistant. The maximum length is 256 characters.  | [optional]
 **description** | Option<**String**> | The description of the assistant. The maximum length is 512 characters.  | [optional]

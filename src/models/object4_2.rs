@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object42 : Occurs when a [run](/docs/api-reference/runs/object) is completed.
+/// Object42 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) is completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object42 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object42 {
 }
 
 impl Object42 {
-    /// Occurs when a [run](/docs/api-reference/runs/object) is completed.
+    /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) is completed.
     pub fn new(event: Event, data: models::RunObject) -> Object42 {
         Object42 {
             event,

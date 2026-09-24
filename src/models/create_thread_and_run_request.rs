@@ -13,12 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateThreadAndRunRequest {
-    /// The ID of the [assistant](/docs/api-reference/assistants) to use to execute this run.
+    /// The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) to use to execute this run.
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
     #[serde(rename = "thread", skip_serializing_if = "Option::is_none")]
     pub thread: Option<models::CreateThreadRequest>,
-    /// The ID of the [Model](/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
+    /// The ID of the [Model](https://developers.openai.com/api/reference/resources/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Override the default system message of the assistant. This is useful for modifying the behavior on a per-run basis.
@@ -62,7 +62,7 @@ pub struct CreateThreadAndRunRequest {
     pub truncation_strategy: Option<Box<models::TruncationObject>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<Box<models::AssistantsApiToolChoiceOption>>,
-    /// Whether to enable [parallel function calling](/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
+    /// Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use.
     #[serde(
         rename = "parallel_tool_calls",
         skip_serializing_if = "Option::is_none"

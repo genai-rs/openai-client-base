@@ -21,6 +21,8 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateImageError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -28,6 +30,8 @@ pub enum CreateImageError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateImageEditError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -38,6 +42,7 @@ pub enum CreateImageVariationError {
     UnknownValue(serde_json::Value),
 }
 
+/// Creates an image given a prompt. [Learn more](https://developers.openai.com/api/docs/guides/images-vision).
 #[bon::builder]
 pub async fn create_image(
     configuration: &configuration::Configuration,
@@ -88,7 +93,7 @@ pub async fn create_image(
     }
 }
 
-/// You can call this endpoint with either:  - `multipart/form-data`: use binary uploads via `image` (and optional `mask`). - `application/json`: use `images` (and optional `mask`) as references with either `image_url` or `file_id`.  Note that JSON requests use `images` (array) instead of the multipart `image` field.
+/// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models and `dall-e-2`.
 #[bon::builder]
 pub async fn create_image_edit(
     configuration: &configuration::Configuration,
@@ -211,6 +216,7 @@ pub async fn create_image_edit(
     }
 }
 
+/// Creates a variation of a given image. This endpoint only supports `dall-e-2`.
 #[bon::builder]
 pub async fn create_image_variation(
     configuration: &configuration::Configuration,

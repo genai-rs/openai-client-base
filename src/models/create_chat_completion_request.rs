@@ -30,23 +30,16 @@ pub struct CreateChatCompletionRequest {
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or `temperature` but not both.
     #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
     pub top_p: Option<f64>,
-    /// This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use `prompt_cache_key` instead to maintain caching optimizations. A stable identifier for your end-users. Used to boost cache hit rates by better bucketing similar requests and  to help OpenAI detect and prevent abuse. [Learn more](/docs/guides/safety-best-practices#safety-identifiers).
+    /// This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use `prompt_cache_key` instead to maintain caching optimizations. A stable identifier for your end-users. Used to boost cache hit rates by better bucketing similar requests and  to help OpenAI detect and prevent abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
-    /// A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies. The IDs should be a string that uniquely identifies each user, with a maximum length of 64 characters. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](/docs/guides/safety-best-practices#safety-identifiers).
+    /// A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies. The IDs should be a string that uniquely identifies each user, with a maximum length of 64 characters. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
     #[serde(rename = "safety_identifier", skip_serializing_if = "Option::is_none")]
     pub safety_identifier: Option<String>,
-    /// Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the `user` field. [Learn more](/docs/guides/prompt-caching).
+    /// Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the `user` field. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching).
     #[serde(rename = "prompt_cache_key", skip_serializing_if = "Option::is_none")]
     pub prompt_cache_key: Option<String>,
-    #[serde(
-        rename = "service_tier",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub service_tier: Option<Option<models::ServiceTier>>,
-    /// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
+    /// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
     #[serde(
         rename = "prompt_cache_retention",
         skip_serializing_if = "Option::is_none"
@@ -57,13 +50,20 @@ pub struct CreateChatCompletionRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub prompt_cache_options: Option<Box<models::PromptCacheOptionsParam>>,
-    /// A list of messages comprising the conversation so far. Depending on the [model](/docs/models) you use, different message types (modalities) are supported, like [text](/docs/guides/text-generation), [images](/docs/guides/vision), and [audio](/docs/guides/audio).
+    /// A list of messages comprising the conversation so far. Depending on the [model](https://developers.openai.com/api/docs/models) you use, different message types (modalities) are supported, like [text](https://developers.openai.com/api/docs/guides/text), [images](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio).
     #[serde(rename = "messages")]
     pub messages: Vec<models::ChatCompletionRequestMessage>,
     /// Model identifier as string
     #[serde(rename = "model")]
     pub model: String,
-    /// Output types that you would like the model to generate. Most models are capable of generating text, which is the default:  `[\"text\"]`  The `gpt-4o-audio-preview` model can also be used to [generate audio](/docs/guides/audio). To request that this model generate both text and audio responses, you can use:  `[\"text\", \"audio\"]`
+    #[serde(
+        rename = "service_tier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub service_tier: Option<Option<models::ServiceTier>>,
+    /// Output types that you would like the model to generate. Most models are capable of generating text, which is the default:  `[\"text\"]`  The `gpt-4o-audio-preview` model can also be used to [generate audio](https://developers.openai.com/api/docs/guides/audio). To request that this model generate both text and audio responses, you can use:  `[\"text\", \"audio\"]`
     #[serde(
         rename = "modalities",
         default,
@@ -85,7 +85,7 @@ pub struct CreateChatCompletionRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub reasoning_effort: Option<Option<models::ReasoningEffort>>,
-    /// An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).
+    /// An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and [reasoning tokens](https://developers.openai.com/api/docs/guides/reasoning).
     #[serde(
         rename = "max_completion_tokens",
         skip_serializing_if = "Option::is_none"
@@ -103,7 +103,7 @@ pub struct CreateChatCompletionRequest {
     pub response_format: Option<Box<models::CreateChatCompletionRequestAllOfResponseFormat>>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
     pub audio: Option<Box<models::CreateChatCompletionRequestAllOfAudio>>,
-    /// Whether or not to store the output of this chat completion request for use in our [model distillation](/docs/guides/distillation) or [evals](/docs/guides/evals) products.  Supports text and image inputs. Note: image inputs over 8MB will be dropped.
+    /// Whether or not to store the output of this chat completion request for use in our [model distillation](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#distilling-from-a-larger-model) or [evals](https://developers.openai.com/api/docs/guides/evals) products.  Supports text and image inputs. Note: image inputs over 8MB will be dropped.
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
     pub store: Option<bool>,
     #[serde(
@@ -113,7 +113,7 @@ pub struct CreateChatCompletionRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub moderation: Option<Option<Box<models::ModerationParam>>>,
-    /// If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](/docs/api-reference/chat/streaming) for more information, along with the [streaming responses](/docs/guides/streaming-responses) guide for more information on how to handle the streaming events.
+    /// If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/chat/subresources/completions/streaming-events) for more information, along with the [streaming responses](https://developers.openai.com/api/docs/guides/streaming-responses) guide for more information on how to handle the streaming events.
     #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
     pub stream: Option<bool>,
     #[serde(rename = "stop", skip_serializing_if = "Option::is_none")]
@@ -124,7 +124,7 @@ pub struct CreateChatCompletionRequest {
     /// Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the `content` of `message`.
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
     pub logprobs: Option<bool>,
-    /// The maximum number of [tokens](/tokenizer) that can be generated in the chat completion. This value can be used to control [costs](https://openai.com/api/pricing/) for text generated via API.  This value is now deprecated in favor of `max_completion_tokens`, and is not compatible with [o-series models](/docs/guides/reasoning).
+    /// The maximum number of [tokens](https://platform.openai.com/tokenizer) that can be generated in the chat completion. This value can be used to control [costs](https://openai.com/api/pricing/) for text generated via API.  This value is now deprecated in favor of `max_completion_tokens`, and is not compatible with [o-series models](https://developers.openai.com/api/docs/guides/reasoning).
     #[serde(rename = "max_tokens", skip_serializing_if = "Option::is_none")]
     pub max_tokens: Option<i32>,
     /// How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep `n` as `1` to minimize costs.
@@ -134,7 +134,7 @@ pub struct CreateChatCompletionRequest {
     pub prediction: Option<Box<models::PredictionContent>>,
     /// This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result. Determinism is not guaranteed, and you should refer to the `system_fingerprint` response parameter to monitor changes in the backend.
     #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
-    pub seed: Option<i32>,
+    pub seed: Option<i64>,
     #[serde(
         rename = "stream_options",
         default,
@@ -142,12 +142,12 @@ pub struct CreateChatCompletionRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub stream_options: Option<Option<Box<models::ChatCompletionStreamOptions>>>,
-    /// A list of tools the model may call. You can provide either [custom tools](/docs/guides/function-calling#custom-tools) or [function tools](/docs/guides/function-calling).
+    /// A list of tools the model may call. You can provide either [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools) or [function tools](https://developers.openai.com/api/docs/guides/function-calling).
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::CreateChatCompletionRequestAllOfTools>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<Box<models::ChatCompletionToolChoiceOption>>,
-    /// Whether to enable [parallel function calling](/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
+    /// Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use.
     #[serde(
         rename = "parallel_tool_calls",
         skip_serializing_if = "Option::is_none"
@@ -173,11 +173,11 @@ impl CreateChatCompletionRequest {
             user: None,
             safety_identifier: None,
             prompt_cache_key: None,
-            service_tier: None,
             prompt_cache_retention: None,
             prompt_cache_options: None,
             messages,
             model,
+            service_tier: None,
             modalities: None,
             verbosity: None,
             reasoning_effort: None,
@@ -206,7 +206,7 @@ impl CreateChatCompletionRequest {
         }
     }
 }
-/// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
+/// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum PromptCacheRetention {
     #[serde(rename = "in_memory")]
@@ -220,7 +220,7 @@ impl Default for PromptCacheRetention {
         Self::InMemory
     }
 }
-/// Output types that you would like the model to generate. Most models are capable of generating text, which is the default:  `[\"text\"]`  The `gpt-4o-audio-preview` model can also be used to [generate audio](/docs/guides/audio). To request that this model generate both text and audio responses, you can use:  `[\"text\", \"audio\"]`
+/// Output types that you would like the model to generate. Most models are capable of generating text, which is the default:  `[\"text\"]`  The `gpt-4o-audio-preview` model can also be used to [generate audio](https://developers.openai.com/api/docs/guides/audio). To request that this model generate both text and audio responses, you can use:  `[\"text\", \"audio\"]`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Modalities {
     #[serde(rename = "text")]

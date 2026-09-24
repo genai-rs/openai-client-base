@@ -20,7 +20,7 @@ pub struct BetaImageGenTool {
     /// ID of the model to use
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
-    /// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
+    /// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
@@ -34,7 +34,7 @@ pub struct BetaImageGenTool {
     /// Moderation level for the generated image. Default: `auto`.
     #[serde(rename = "moderation", skip_serializing_if = "Option::is_none")]
     pub moderation: Option<Moderation>,
-    /// Background type for the generated image. One of `transparent`, `opaque`, or `auto`. Default: `auto`.
+    /// Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<Background>,
     #[serde(
@@ -84,7 +84,7 @@ impl Default for Type {
         Self::ImageGeneration
     }
 }
-/// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
+/// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
     #[serde(rename = "low")]
@@ -93,6 +93,10 @@ pub enum Quality {
     Medium,
     #[serde(rename = "high")]
     High,
+    #[serde(rename = "xhigh")]
+    Xhigh,
+    #[serde(rename = "max")]
+    Max,
     #[serde(rename = "auto")]
     Auto,
 }
@@ -132,7 +136,7 @@ impl Default for Moderation {
         Self::Auto
     }
 }
-/// Background type for the generated image. One of `transparent`, `opaque`, or `auto`. Default: `auto`.
+/// Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Background {
     #[serde(rename = "transparent")]

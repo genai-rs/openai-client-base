@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaMcpTool : Give the model access to additional tools via remote Model Context Protocol (MCP) servers. [Learn more about MCP](/docs/guides/tools-remote-mcp).
+/// BetaMcpTool : Give the model access to additional tools via remote Model Context Protocol (MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMcpTool {
     /// The type of the MCP tool. Always `mcp`.
@@ -23,7 +23,7 @@ pub struct BetaMcpTool {
     /// The URL for the MCP server. One of `server_url`, `connector_id`, or `tunnel_id` must be provided.
     #[serde(rename = "server_url", skip_serializing_if = "Option::is_none")]
     pub server_url: Option<String>,
-    /// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
+    /// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](https://developers.openai.com/api/docs/guides/tools-connectors-mcp#connectors).  This field is deprecated for models released after September 1, 2026. Use `server_url` to connect to a remote MCP server, or `tunnel_id` to connect through a Secure MCP Tunnel.  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
     #[serde(rename = "connector_id", skip_serializing_if = "Option::is_none")]
     pub connector_id: Option<ConnectorId>,
     /// The Secure MCP Tunnel ID to use instead of a direct server URL. One of `server_url`, `connector_id`, or `tunnel_id` must be provided.
@@ -71,7 +71,7 @@ pub struct BetaMcpTool {
 }
 
 impl BetaMcpTool {
-    /// Give the model access to additional tools via remote Model Context Protocol (MCP) servers. [Learn more about MCP](/docs/guides/tools-remote-mcp).
+    /// Give the model access to additional tools via remote Model Context Protocol (MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).
     pub fn new(r#type: Type, server_label: String) -> BetaMcpTool {
         BetaMcpTool {
             r#type,
@@ -101,7 +101,7 @@ impl Default for Type {
         Self::Mcp
     }
 }
-/// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
+/// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](https://developers.openai.com/api/docs/guides/tools-connectors-mcp#connectors).  This field is deprecated for models released after September 1, 2026. Use `server_url` to connect to a remote MCP server, or `tunnel_id` to connect through a Secure MCP Tunnel.  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ConnectorId {
     #[serde(rename = "connector_dropbox")]

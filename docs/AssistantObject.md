@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the assistant was created. | 
 **name** | Option<**String**> | The name of the assistant. The maximum length is 256 characters.  | 
 **description** | Option<**String**> | The description of the assistant. The maximum length is 512 characters.  | 
-**model** | **String** | ID of the model to use. You can use the [List models](/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](/docs/models) for descriptions of them.  | 
+**model** | **String** | ID of the model to use. You can use the [List models](https://developers.openai.com/api/reference/resources/models/methods/list) API to see all of your available models, or see our [Model overview](https://developers.openai.com/api/docs/models) for descriptions of them.  | 
 **instructions** | Option<**String**> | The system instructions that the assistant uses. The maximum length is 256,000 characters.  | 
 **tools** | [**Vec<models::AssistantObjectToolsInner>**](AssistantObject_tools_inner.md) | A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.  | 
 **tool_resources** | Option<[**models::Object0**](Object0.md)> |  | [optional]

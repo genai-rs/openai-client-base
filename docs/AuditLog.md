@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **checkpoint_permission_deleted** | Option<[**models::AuditLogCheckpointPermissionDeleted**](AuditLog_checkpoint_permission_deleted.md)> |  | [optional]
 **external_key_registered** | Option<[**models::AuditLogExternalKeyRegistered**](AuditLog_external_key_registered.md)> |  | [optional]
 **external_key_removed** | Option<[**models::AuditLogExternalKeyRemoved**](AuditLog_external_key_removed.md)> |  | [optional]
+**external_storage_registered** | Option<[**models::AuditLogExternalStorageRegistered**](AuditLog_external_storage_registered.md)> |  | [optional]
+**external_storage_removed** | Option<[**models::AuditLogExternalStorageRemoved**](AuditLog_external_storage_removed.md)> |  | [optional]
 **group_created** | Option<[**models::AuditLogGroupCreated**](AuditLog_group_created.md)> |  | [optional]
 **group_updated** | Option<[**models::AuditLogGroupUpdated**](AuditLog_group_updated.md)> |  | [optional]
 **group_deleted** | Option<[**models::AuditLogGroupDeleted**](AuditLog_group_deleted.md)> |  | [optional]

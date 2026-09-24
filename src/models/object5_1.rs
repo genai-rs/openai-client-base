@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object51 : Occurs when a [run](/docs/api-reference/runs/object) ends with status `incomplete`.
+/// Object51 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) ends with status `incomplete`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object51 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object51 {
 }
 
 impl Object51 {
-    /// Occurs when a [run](/docs/api-reference/runs/object) ends with status `incomplete`.
+    /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) ends with status `incomplete`.
     pub fn new(event: Event, data: models::RunObject) -> Object51 {
         Object51 {
             event,

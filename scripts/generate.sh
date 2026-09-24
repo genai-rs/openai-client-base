@@ -32,13 +32,16 @@ mkdir -p "$PROJECT_ROOT/target/reports"
 echo "🚀 OpenAI Client Base Generation Pipeline"
 echo "========================================="
 
-# Step 1: Fetch latest spec unless using cached version
-if [ "${USE_CACHED_SPEC:-0}" = "1" ] && [ -f "$SPEC_IN" ]; then
-    echo "✓ Using cached spec at $SPEC_IN"
-else
-    echo "📥 Fetching latest OpenAPI spec..."
-    bash "$SCRIPT_DIR/fetch_spec.sh"
+# Check required tools before touching the checked-in specification.
+if ! command -v uv &> /dev/null; then
+    echo "❌ uv is not installed or not in PATH"
+    echo "Please install uv from https://docs.astral.sh/uv/getting-started/installation/"
+    exit 1
 fi
+
+# Step 1: Always fetch and validate the current upstream specification.
+echo "📥 Fetching latest OpenAPI spec..."
+bash "$SCRIPT_DIR/fetch_spec.sh"
 
 # Step 2: Apply patching pipeline
 echo ""
@@ -51,14 +54,6 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-# Check if uv is available
-if ! command -v uv &> /dev/null; then
-    echo "❌ uv is not installed or not in PATH"
-    echo "Please install uv from https://docs.astral.sh/uv/getting-started/installation/"
-    echo "Quick install: curl -LsSf https://astral.sh/uv/install.sh | sh"
-    exit 1
-fi
-
 echo "Using uv for Python dependencies"
 
 # Layer 1: Fix model field types (handle allOf inheritance)
@@ -68,9 +63,10 @@ uv run --with pyyaml python "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_IN" "$SPEC_
 # Layer 2: Apply Rust compatibility patches
 echo "  Layer 2: Applying Rust compatibility patches..."
 uv run --with pyyaml python "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL_FIXED" "$SPEC_OUT"
-# Layer 2b: Replace references to missing schemas with free-form objects (no backfills)
-echo "  Layer 2b: Replacing missing schema references with free-form objects..."
-uv run --with pyyaml python "$SCRIPT_DIR/replace_missing_schema_refs.py" "$SPEC_OUT"
+# Catch any references introduced or exposed by the compatibility patches.
+# Missing upstream schemas must be fixed upstream, never fabricated here.
+echo "  Validating patched OpenAPI spec..."
+uv run --with pyyaml python "$SCRIPT_DIR/validate_spec.py" "$SPEC_OUT"
 
 # Convert the final spec to JSON for the generator (see SPEC_OUT_JSON note above):
 # snakeyaml's 3 MiB code-point limit aborts the OpenAPI 3.1 $ref dereferencer on
@@ -212,34 +208,23 @@ if [ -f "$SCRIPT_DIR/fix_default_issues.py" ]; then
     uv run python scripts/fix_default_issues.py "$PROJECT_ROOT"
 fi
 
-# Step 9b: Normalize placeholder Value paths after missing-schema replacements
-echo ""
-echo "🔧 Normalizing placeholder Value paths..."
-FILES_WITH_SERDE_JSON=$(rg -l "models::serde_json::Value" src || true)
-if [ -n "$FILES_WITH_SERDE_JSON" ]; then
-    echo "$FILES_WITH_SERDE_JSON" | while read -r file; do
-        python3 - "$file" <<'PY'
-import sys, pathlib
-path = pathlib.Path(sys.argv[1])
-text = path.read_text()
-text = text.replace("models::serde_json::Value", "serde_json::Value")
-path.write_text(text)
-PY
-    done
-fi
-
 # Re-run general code fixes to ensure Display/Default adjustments are present
 uv run python scripts/fix_generated_code.py
 
 # Step 10: Fix clippy warnings in generated code
 echo ""
 echo "🔧 Boxing shared API response errors..."
-python3 -m unittest discover -s "$SCRIPT_DIR/tests"
+uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"
 python3 "$SCRIPT_DIR/box_response_errors.py" "$PROJECT_ROOT"
 
 echo ""
 echo "🔧 Fixing clippy warnings..."
 uv run python scripts/fix_clippy_warnings.py
+
+# Resolve generator-only Rust names and helpers after every transformation.
+uv run python scripts/fix_generator_artifacts.py
+uv run python scripts/fix_helper_impl_mismatches.py
+uv run python scripts/fix_generated_code.py
 
 # Step 11: Format the generated code
 echo ""

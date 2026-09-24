@@ -20,13 +20,9 @@ pub struct RealtimeSession {
     /// The object type. Always `realtime.session`.
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
-    #[serde(
-        rename = "modalities",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub modalities: Option<Option<serde_json::Value>>,
+    /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
+    #[serde(rename = "modalities", skip_serializing_if = "Option::is_none")]
+    pub modalities: Option<Vec<Modalities>>,
     /// The Realtime model used for this session.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -45,7 +41,7 @@ pub struct RealtimeSession {
         skip_serializing_if = "Option::is_none"
     )]
     pub output_audio_format: Option<OutputAudioFormat>,
-    /// Configuration for input audio transcription, defaults to off and can be set to `null` to turn off once on. Input audio transcription is not native to the model, since the model consumes audio directly. Transcription runs asynchronously through [the /audio/transcriptions endpoint](https://platform.openai.com/docs/api-reference/audio/createTranscription) and should be treated as guidance of input audio content rather than precisely what the model heard. The client can optionally set the language and prompt for transcription, these offer additional guidance to the transcription service.
+    /// Configuration for input audio transcription, defaults to off and can be set to `null` to turn off once on. Input audio transcription is not native to the model, since the model consumes audio directly. Transcription runs asynchronously through [the /audio/transcriptions endpoint](https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create) and should be treated as guidance of input audio content rather than precisely what the model heard. The client can optionally set the language and prompt for transcription, these offer additional guidance to the transcription service.
     #[serde(
         rename = "input_audio_transcription",
         default,
@@ -147,6 +143,20 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::RealtimeSession
+    }
+}
+/// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Modalities {
+    #[serde(rename = "text")]
+    Text,
+    #[serde(rename = "audio")]
+    Audio,
+}
+
+impl Default for Modalities {
+    fn default() -> Modalities {
+        Self::Text
     }
 }
 /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.

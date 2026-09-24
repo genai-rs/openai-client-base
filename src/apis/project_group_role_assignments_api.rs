@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AssignProjectGroupRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum AssignProjectGroupRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListProjectGroupRoleAssignmentsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum ListProjectGroupRoleAssignmentsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveProjectGroupRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,9 +43,11 @@ pub enum RetrieveProjectGroupRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UnassignProjectGroupRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Assigns a project role to a group within a project.
 #[bon::builder]
 pub async fn assign_project_group_role(
     configuration: &configuration::Configuration,
@@ -103,6 +108,7 @@ pub async fn assign_project_group_role(
     }
 }
 
+/// Lists the project roles assigned to a group within a project.
 #[bon::builder]
 pub async fn list_project_group_role_assignments(
     configuration: &configuration::Configuration,
@@ -173,6 +179,7 @@ pub async fn list_project_group_role_assignments(
     }
 }
 
+/// Retrieves a project role assigned to a group.
 #[bon::builder]
 pub async fn retrieve_project_group_role(
     configuration: &configuration::Configuration,
@@ -230,6 +237,7 @@ pub async fn retrieve_project_group_role(
     }
 }
 
+/// Unassigns a project role from a group within a project.
 #[bon::builder]
 pub async fn unassign_project_group_role(
     configuration: &configuration::Configuration,

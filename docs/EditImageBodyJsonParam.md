@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**model** | Option<**String**> | The model to use for image editing. | [optional]
+**model** | Option<**String**> | The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, and `gpt-image-2.5-flare-2026-09-08`. | [optional]
 **images** | [**Vec<models::ImageRefParam>**](ImageRefParam.md) | Input image references to edit. For GPT image models, you can provide up to 16 images.  | 
 **mask** | Option<[**models::ImageRefParam**](ImageRefParam.md)> |  | [optional]
 **prompt** | **String** | A text description of the desired image edit. | 
 **n** | Option<**i32**> |  | [optional]
 **quality** | Option<**String**> |  | [optional]
 **input_fidelity** | Option<**String**> |  | [optional]
-**size** | Option<**String**> |  | [optional]
+**size** | Option<[**models::EditImageBodyJsonParamSize**](EditImageBodyJsonParam_size.md)> |  | [optional]
 **user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI monitor and detect abuse.  | [optional]
 **output_format** | Option<**String**> |  | [optional]
 **output_compression** | Option<**i32**> |  | [optional]

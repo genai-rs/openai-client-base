@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeTranslationServerEventSessionOutputAudioDelta : Returned when translated output audio is available. Output audio deltas are 200 ms frames of PCM16 audio.
+/// RealtimeTranslationServerEventSessionOutputAudioDelta : Returned when translated output audio is available. The `delta` contains a PCM16 audio chunk whose length can vary. Clients should decode and queue the complete delta instead of assuming a fixed byte or sample count.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranslationServerEventSessionOutputAudioDelta {
     /// The unique ID of the server event.
@@ -43,7 +43,7 @@ pub struct RealtimeTranslationServerEventSessionOutputAudioDelta {
 }
 
 impl RealtimeTranslationServerEventSessionOutputAudioDelta {
-    /// Returned when translated output audio is available. Output audio deltas are 200 ms frames of PCM16 audio.
+    /// Returned when translated output audio is available. The `delta` contains a PCM16 audio chunk whose length can vary. Clients should decode and queue the complete delta instead of assuming a fixed byte or sample count.
     pub fn new(
         event_id: String,
         r#type: Type,

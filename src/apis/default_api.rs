@@ -92,6 +92,13 @@ pub enum LiveCallIncomingPostError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`live_transport_incoming_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum LiveTransportIncomingPostError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`realtime_call_incoming_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -124,6 +131,34 @@ pub enum ResponseFailedPostError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ResponseIncompletePostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`safety_alert_created_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SafetyAlertCreatedPostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`safety_deactivation_issued_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SafetyDeactivationIssuedPostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`safety_org_alert_created_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SafetyOrgAlertCreatedPostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`safety_warning_issued_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SafetyWarningIssuedPostError {
     UnknownValue(serde_json::Value),
 }
 
@@ -527,7 +562,7 @@ pub async fn fine_tuning_job_succeeded_post(
     }
 }
 
-/// Sent when an incoming API SIP session is available for Live acceptance.
+/// Deprecated: use `live.transport.incoming`. Retained only for existing subscriptions. Sent when an incoming API SIP session is available for Live acceptance.
 #[bon::builder]
 pub async fn live_call_incoming_post(
     configuration: &configuration::Configuration,
@@ -559,6 +594,46 @@ pub async fn live_call_incoming_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<LiveCallIncomingPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when an incoming API SIP session is available for Live acceptance.
+#[bon::builder]
+pub async fn live_transport_incoming_post(
+    configuration: &configuration::Configuration,
+    webhook_live_transport_incoming: Option<models::WebhookLiveTransportIncoming>,
+) -> Result<(), Error<LiveTransportIncomingPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_live_transport_incoming = webhook_live_transport_incoming;
+
+    let uri_str = format!("{}/live_transport_incoming", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_live_transport_incoming);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<LiveTransportIncomingPostError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -759,6 +834,166 @@ pub async fn response_incomplete_post(
     } else {
         let content = resp.text().await?;
         let entity: Option<ResponseIncompletePostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when an approved safety alert is available for an API project. Retrieve the alert with a project API key granted `api.safety.alerts.read`.
+#[bon::builder]
+pub async fn safety_alert_created_post(
+    configuration: &configuration::Configuration,
+    webhook_safety_alert_created: Option<models::WebhookSafetyAlertCreated>,
+) -> Result<(), Error<SafetyAlertCreatedPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_safety_alert_created = webhook_safety_alert_created;
+
+    let uri_str = format!("{}/safety_alert_created", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_safety_alert_created);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SafetyAlertCreatedPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when a deactivation is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`.
+#[bon::builder]
+pub async fn safety_deactivation_issued_post(
+    configuration: &configuration::Configuration,
+    webhook_safety_deactivation_issued: Option<models::WebhookSafetyDeactivationIssued>,
+) -> Result<(), Error<SafetyDeactivationIssuedPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_safety_deactivation_issued = webhook_safety_deactivation_issued;
+
+    let uri_str = format!("{}/safety_deactivation_issued", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_safety_deactivation_issued);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SafetyDeactivationIssuedPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when an approved safety alert is available for an enterprise workspace. Retrieve the alert from `https://api.chatgpt.com/v1/safety/alerts/{id}` with an administrator API key for the workspace's backing organization granted `chatgpt.enterprise.safety_alerts.read`.
+#[bon::builder]
+pub async fn safety_org_alert_created_post(
+    configuration: &configuration::Configuration,
+    webhook_safety_org_alert_created: Option<models::WebhookSafetyOrgAlertCreated>,
+) -> Result<(), Error<SafetyOrgAlertCreatedPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_safety_org_alert_created = webhook_safety_org_alert_created;
+
+    let uri_str = format!("{}/safety_org_alert_created", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_safety_org_alert_created);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SafetyOrgAlertCreatedPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when a warning is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`.
+#[bon::builder]
+pub async fn safety_warning_issued_post(
+    configuration: &configuration::Configuration,
+    webhook_safety_warning_issued: Option<models::WebhookSafetyWarningIssued>,
+) -> Result<(), Error<SafetyWarningIssuedPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_safety_warning_issued = webhook_safety_warning_issued;
+
+    let uri_str = format!("{}/safety_warning_issued", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_safety_warning_issued);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<SafetyWarningIssuedPostError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,

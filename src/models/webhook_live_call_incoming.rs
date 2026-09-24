@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// WebhookLiveCallIncoming : Sent when an incoming API SIP session is available for Live acceptance. The same pending session can also emit `realtime.call.incoming`; the first successful Realtime or Live accept endpoint selects the runtime surface.
+/// WebhookLiveCallIncoming : Deprecated: use `live.transport.incoming`. Retained for existing subscriptions during migration; new subscriptions to this event are not allowed. Sent when an incoming API SIP session is available for Live acceptance. The same pending session can also emit `realtime.call.incoming`; the first successful Realtime or Live accept endpoint selects the runtime surface.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookLiveCallIncoming {
     /// The Unix timestamp (in seconds) of when the event was created.
@@ -31,7 +31,7 @@ pub struct WebhookLiveCallIncoming {
 }
 
 impl WebhookLiveCallIncoming {
-    /// Sent when an incoming API SIP session is available for Live acceptance. The same pending session can also emit `realtime.call.incoming`; the first successful Realtime or Live accept endpoint selects the runtime surface.
+    /// Deprecated: use `live.transport.incoming`. Retained for existing subscriptions during migration; new subscriptions to this event are not allowed. Sent when an incoming API SIP session is available for Live acceptance. The same pending session can also emit `realtime.call.incoming`; the first successful Realtime or Live accept endpoint selects the runtime surface.
     pub fn new(
         created_at: i32,
         id: String,

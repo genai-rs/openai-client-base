@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaComputerToolCall : A tool call to a computer use tool. See the [computer use guide](/docs/guides/tools-computer-use) for more information.
+/// BetaComputerToolCall : A tool call to a computer use tool. See the [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaComputerToolCall {
     #[serde(
@@ -44,7 +44,7 @@ pub struct BetaComputerToolCall {
 }
 
 impl BetaComputerToolCall {
-    /// A tool call to a computer use tool. See the [computer use guide](/docs/guides/tools-computer-use) for more information.
+    /// A tool call to a computer use tool. See the [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
     pub fn new(
         r#type: Type,
         id: String,

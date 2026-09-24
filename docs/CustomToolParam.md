@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | The type of the custom tool. Always `custom`. | 
 **name** | **String** | The name of the custom tool, used to identify it in tool calls. | 
+**r#async** | Option<**bool**> | Whether the tool response can be returned asynchronously versus immediately returned on next response creation. | [optional]
 **description** | Option<**String**> | Optional description of the custom tool, used to provide more context. | [optional]
 **format** | Option<[**models::CustomToolParamFormat**](CustomToolParam_format.md)> |  | [optional]
 **defer_loading** | Option<**bool**> | Whether this tool should be deferred and discovered via tool search. | [optional]

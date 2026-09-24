@@ -20,12 +20,22 @@ pub struct Error2 {
     /// A human-readable description of the error that was returned.
     #[serde(rename = "message")]
     pub message: String,
+    /// The Retry-After and Retry-After-Ms headers returned with the original error, if any.
+    #[serde(rename = "headers", skip_serializing_if = "Option::is_none")]
+    pub headers: Option<std::collections::HashMap<String, String>>,
+    #[serde(rename = "misalignment", skip_serializing_if = "Option::is_none")]
+    pub misalignment: Option<Box<models::MisalignmentErrorDetailsResource>>,
 }
 
 impl Error2 {
     /// An error that occurred while generating the response.
     pub fn new(code: String, message: String) -> Error2 {
-        Error2 { code, message }
+        Error2 {
+            code,
+            message,
+            headers: None,
+            misalignment: None,
+        }
     }
 }
 

@@ -4,16 +4,18 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assign_project_user_role**](ProjectUserRoleAssignmentsApi.md#assign_project_user_role) | **POST** /projects/{project_id}/users/{user_id}/roles | Assigns a project role to a user within a project.
-[**list_project_user_role_assignments**](ProjectUserRoleAssignmentsApi.md#list_project_user_role_assignments) | **GET** /projects/{project_id}/users/{user_id}/roles | Lists the project roles assigned to a user within a project.
-[**retrieve_project_user_role**](ProjectUserRoleAssignmentsApi.md#retrieve_project_user_role) | **GET** /projects/{project_id}/users/{user_id}/roles/{role_id} | Retrieves a project role assigned to a user.
-[**unassign_project_user_role**](ProjectUserRoleAssignmentsApi.md#unassign_project_user_role) | **DELETE** /projects/{project_id}/users/{user_id}/roles/{role_id} | Unassigns a project role from a user within a project.
+[**assign_project_user_role**](ProjectUserRoleAssignmentsApi.md#assign_project_user_role) | **POST** /projects/{project_id}/users/{user_id}/roles | Assign project role to user
+[**list_project_user_role_assignments**](ProjectUserRoleAssignmentsApi.md#list_project_user_role_assignments) | **GET** /projects/{project_id}/users/{user_id}/roles | List project user role assignments
+[**retrieve_project_user_role**](ProjectUserRoleAssignmentsApi.md#retrieve_project_user_role) | **GET** /projects/{project_id}/users/{user_id}/roles/{role_id} | Retrieve project user role
+[**unassign_project_user_role**](ProjectUserRoleAssignmentsApi.md#unassign_project_user_role) | **DELETE** /projects/{project_id}/users/{user_id}/roles/{role_id} | Unassign project role from user
 
 
 
 ## assign_project_user_role
 
 > models::UserRoleAssignment assign_project_user_role(project_id, user_id, public_assign_organization_group_role_body)
+Assign project role to user
+
 Assigns a project role to a user within a project.
 
 ### Parameters
@@ -44,6 +46,8 @@ Name | Type | Description  | Required | Notes
 ## list_project_user_role_assignments
 
 > models::RoleListResource list_project_user_role_assignments(project_id, user_id, limit, after, order)
+List project user role assignments
+
 Lists the project roles assigned to a user within a project.
 
 ### Parameters
@@ -76,6 +80,8 @@ Name | Type | Description  | Required | Notes
 ## retrieve_project_user_role
 
 > models::AssignedRoleDetails retrieve_project_user_role(project_id, user_id, role_id)
+Retrieve project user role
+
 Retrieves a project role assigned to a user.
 
 ### Parameters
@@ -106,6 +112,8 @@ Name | Type | Description  | Required | Notes
 ## unassign_project_user_role
 
 > models::DeletedRoleAssignmentResource unassign_project_user_role(project_id, user_id, role_id)
+Unassign project role from user
+
 Unassigns a project role from a user within a project.
 
 ### Parameters

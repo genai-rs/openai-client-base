@@ -4,16 +4,18 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assign_user_role**](UserOrganizationRoleAssignmentsApi.md#assign_user_role) | **POST** /organization/users/{user_id}/roles | Assigns an organization role to a user within the organization.
-[**list_user_role_assignments**](UserOrganizationRoleAssignmentsApi.md#list_user_role_assignments) | **GET** /organization/users/{user_id}/roles | Lists the organization roles assigned to a user within the organization.
-[**retrieve_user_role**](UserOrganizationRoleAssignmentsApi.md#retrieve_user_role) | **GET** /organization/users/{user_id}/roles/{role_id} | Retrieves an organization role assigned to a user.
-[**unassign_user_role**](UserOrganizationRoleAssignmentsApi.md#unassign_user_role) | **DELETE** /organization/users/{user_id}/roles/{role_id} | Unassigns an organization role from a user within the organization.
+[**assign_user_role**](UserOrganizationRoleAssignmentsApi.md#assign_user_role) | **POST** /organization/users/{user_id}/roles | Assign organization role to user
+[**list_user_role_assignments**](UserOrganizationRoleAssignmentsApi.md#list_user_role_assignments) | **GET** /organization/users/{user_id}/roles | List user organization role assignments
+[**retrieve_user_role**](UserOrganizationRoleAssignmentsApi.md#retrieve_user_role) | **GET** /organization/users/{user_id}/roles/{role_id} | Retrieve user organization role
+[**unassign_user_role**](UserOrganizationRoleAssignmentsApi.md#unassign_user_role) | **DELETE** /organization/users/{user_id}/roles/{role_id} | Unassign organization role from user
 
 
 
 ## assign_user_role
 
 > models::UserRoleAssignment assign_user_role(user_id, public_assign_organization_group_role_body)
+Assign organization role to user
+
 Assigns an organization role to a user within the organization.
 
 ### Parameters
@@ -43,6 +45,8 @@ Name | Type | Description  | Required | Notes
 ## list_user_role_assignments
 
 > models::RoleListResource list_user_role_assignments(user_id, limit, after, order)
+List user organization role assignments
+
 Lists the organization roles assigned to a user within the organization.
 
 ### Parameters
@@ -74,6 +78,8 @@ Name | Type | Description  | Required | Notes
 ## retrieve_user_role
 
 > models::AssignedRoleDetails retrieve_user_role(user_id, role_id)
+Retrieve user organization role
+
 Retrieves an organization role assigned to a user.
 
 ### Parameters
@@ -103,6 +109,8 @@ Name | Type | Description  | Required | Notes
 ## unassign_user_role
 
 > models::DeletedRoleAssignmentResource unassign_user_role(user_id, role_id)
+Unassign organization role from user
+
 Unassigns an organization role from a user within the organization.
 
 ### Parameters

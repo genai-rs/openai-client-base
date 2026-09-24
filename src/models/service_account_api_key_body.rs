@@ -25,6 +25,14 @@ pub struct ServiceAccountApiKeyBody {
     /// The Unix timestamp (in seconds) when the API key was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
+    /// The Unix timestamp (in seconds) when the API key expires, or null if it does not expire.
+    #[serde(
+        rename = "expires_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expires_at: Option<Option<i32>>,
     /// The identifier of the API key.
     #[serde(rename = "id")]
     pub id: String,
@@ -43,6 +51,7 @@ impl ServiceAccountApiKeyBody {
             value,
             name,
             created_at,
+            expires_at: None,
             id,
         }
     }

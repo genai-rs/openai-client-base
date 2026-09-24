@@ -20,6 +20,14 @@ pub struct CreateProjectServiceAccountApiKeyBody {
     /// API key scopes.
     #[serde(rename = "scopes", skip_serializing_if = "Option::is_none")]
     pub scopes: Option<Vec<String>>,
+    /// Number of seconds until the API key expires.
+    #[serde(
+        rename = "expires_in_seconds",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expires_in_seconds: Option<Option<i32>>,
 }
 
 impl CreateProjectServiceAccountApiKeyBody {
@@ -28,6 +36,7 @@ impl CreateProjectServiceAccountApiKeyBody {
         CreateProjectServiceAccountApiKeyBody {
             name: None,
             scopes: None,
+            expires_in_seconds: None,
         }
     }
 }

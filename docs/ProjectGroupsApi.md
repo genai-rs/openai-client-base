@@ -4,16 +4,18 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_project_group**](ProjectGroupsApi.md#add_project_group) | **POST** /organization/projects/{project_id}/groups | Grants a group access to a project.
-[**list_project_groups**](ProjectGroupsApi.md#list_project_groups) | **GET** /organization/projects/{project_id}/groups | Lists the groups that have access to a project.
-[**remove_project_group**](ProjectGroupsApi.md#remove_project_group) | **DELETE** /organization/projects/{project_id}/groups/{group_id} | Revokes a group's access to a project.
-[**retrieve_project_group**](ProjectGroupsApi.md#retrieve_project_group) | **GET** /organization/projects/{project_id}/groups/{group_id} | Retrieves a project's group.
+[**add_project_group**](ProjectGroupsApi.md#add_project_group) | **POST** /organization/projects/{project_id}/groups | Add project group
+[**list_project_groups**](ProjectGroupsApi.md#list_project_groups) | **GET** /organization/projects/{project_id}/groups | List project groups
+[**remove_project_group**](ProjectGroupsApi.md#remove_project_group) | **DELETE** /organization/projects/{project_id}/groups/{group_id} | Remove project group
+[**retrieve_project_group**](ProjectGroupsApi.md#retrieve_project_group) | **GET** /organization/projects/{project_id}/groups/{group_id} | Retrieve project group
 
 
 
 ## add_project_group
 
 > models::ProjectGroup add_project_group(project_id, invite_project_group_body)
+Add project group
+
 Grants a group access to a project.
 
 ### Parameters
@@ -43,6 +45,8 @@ Name | Type | Description  | Required | Notes
 ## list_project_groups
 
 > models::ProjectGroupListResource list_project_groups(project_id, limit, after, order)
+List project groups
+
 Lists the groups that have access to a project.
 
 ### Parameters
@@ -74,6 +78,8 @@ Name | Type | Description  | Required | Notes
 ## remove_project_group
 
 > models::ProjectGroupDeletedResource remove_project_group(project_id, group_id)
+Remove project group
+
 Revokes a group's access to a project.
 
 ### Parameters
@@ -103,6 +109,8 @@ Name | Type | Description  | Required | Notes
 ## retrieve_project_group
 
 > models::ProjectGroup retrieve_project_group(project_id, group_id, group_type)
+Retrieve project group
+
 Retrieves a project's group.
 
 ### Parameters

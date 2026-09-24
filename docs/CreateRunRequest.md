@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**assistant_id** | **String** | The ID of the [assistant](/docs/api-reference/assistants) to use to execute this run. | 
-**model** | Option<**String**> | The ID of the [Model](/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used. | [optional]
+**assistant_id** | **String** | The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) to use to execute this run. | 
+**model** | Option<**String**> | The ID of the [Model](https://developers.openai.com/api/reference/resources/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used. | [optional]
 **reasoning_effort** | Option<[**models::ReasoningEffort**](ReasoningEffort.md)> |  | [optional]
-**instructions** | Option<**String**> | Overrides the [instructions](/docs/api-reference/assistants/createAssistant) of the assistant. This is useful for modifying the behavior on a per-run basis. | [optional]
+**instructions** | Option<**String**> | Overrides the [instructions](https://developers.openai.com/api/docs/assistants/migration) of the assistant. This is useful for modifying the behavior on a per-run basis. | [optional]
 **additional_instructions** | Option<**String**> | Appends additional instructions at the end of the instructions for the run. This is useful for modifying the behavior on a per-run basis without overriding other instructions. | [optional]
 **additional_messages** | Option<[**Vec<models::CreateMessageRequest>**](CreateMessageRequest.md)> | Adds additional messages to the thread before creating the run. | [optional]
 **tools** | Option<[**Vec<models::AssistantObjectToolsInner>**](AssistantObject_tools_inner.md)> | Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis. | [optional]
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **max_completion_tokens** | Option<**i32**> | The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.  | [optional]
 **truncation_strategy** | Option<[**models::TruncationObject**](TruncationObject.md)> |  | [optional]
 **tool_choice** | Option<[**models::AssistantsApiToolChoiceOption**](AssistantsApiToolChoiceOption.md)> |  | [optional]
-**parallel_tool_calls** | Option<**bool**> | Whether to enable [parallel function calling](/docs/guides/function-calling#configuring-parallel-function-calling) during tool use. | [optional]
+**parallel_tool_calls** | Option<**bool**> | Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use. | [optional]
 **response_format** | Option<[**models::AssistantsApiResponseFormatOption**](AssistantsApiResponseFormatOption.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

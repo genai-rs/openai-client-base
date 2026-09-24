@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ChatCompletionRequestMessageContentPartImage : Learn about [image inputs](/docs/guides/vision).
+/// ChatCompletionRequestMessageContentPartImage : Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestMessageContentPartImage {
     /// The type of the content part.
@@ -27,7 +27,7 @@ pub struct ChatCompletionRequestMessageContentPartImage {
 }
 
 impl ChatCompletionRequestMessageContentPartImage {
-    /// Learn about [image inputs](/docs/guides/vision).
+    /// Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
     pub fn new(
         r#type: Type,
         image_url: models::ChatCompletionRequestMessageContentPartImageImageUrl,

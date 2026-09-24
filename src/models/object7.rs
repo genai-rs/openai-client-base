@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object7 : Occurs when a [run](/docs/api-reference/runs/object) moves to a `cancelling` status.
+/// Object7 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `cancelling` status.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object7 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object7 {
 }
 
 impl Object7 {
-    /// Occurs when a [run](/docs/api-reference/runs/object) moves to a `cancelling` status.
+    /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `cancelling` status.
     pub fn new(event: Event, data: models::RunObject) -> Object7 {
         Object7 {
             event,

@@ -15,11 +15,16 @@ Method | HTTP request | Description
 [**fine_tuning_job_failed_post**](DefaultApi.md#fine_tuning_job_failed_post) | **POST** /fine_tuning_job_failed | 
 [**fine_tuning_job_succeeded_post**](DefaultApi.md#fine_tuning_job_succeeded_post) | **POST** /fine_tuning_job_succeeded | 
 [**live_call_incoming_post**](DefaultApi.md#live_call_incoming_post) | **POST** /live_call_incoming | 
+[**live_transport_incoming_post**](DefaultApi.md#live_transport_incoming_post) | **POST** /live_transport_incoming | 
 [**realtime_call_incoming_post**](DefaultApi.md#realtime_call_incoming_post) | **POST** /realtime_call_incoming | 
 [**response_cancelled_post**](DefaultApi.md#response_cancelled_post) | **POST** /response_cancelled | 
 [**response_completed_post**](DefaultApi.md#response_completed_post) | **POST** /response_completed | 
 [**response_failed_post**](DefaultApi.md#response_failed_post) | **POST** /response_failed | 
 [**response_incomplete_post**](DefaultApi.md#response_incomplete_post) | **POST** /response_incomplete | 
+[**safety_alert_created_post**](DefaultApi.md#safety_alert_created_post) | **POST** /safety_alert_created | 
+[**safety_deactivation_issued_post**](DefaultApi.md#safety_deactivation_issued_post) | **POST** /safety_deactivation_issued | 
+[**safety_org_alert_created_post**](DefaultApi.md#safety_org_alert_created_post) | **POST** /safety_org_alert_created | 
+[**safety_warning_issued_post**](DefaultApi.md#safety_warning_issued_post) | **POST** /safety_warning_issued | 
 
 
 
@@ -328,7 +333,7 @@ Name | Type | Description  | Required | Notes
 > live_call_incoming_post(webhook_live_call_incoming)
 
 
-Sent when an incoming API SIP session is available for Live acceptance. 
+Deprecated: use `live.transport.incoming`. Retained only for existing subscriptions. Sent when an incoming API SIP session is available for Live acceptance. 
 
 ### Parameters
 
@@ -336,6 +341,36 @@ Sent when an incoming API SIP session is available for Live acceptance.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_live_call_incoming** | Option<[**WebhookLiveCallIncoming**](WebhookLiveCallIncoming.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## live_transport_incoming_post
+
+> live_transport_incoming_post(webhook_live_transport_incoming)
+
+
+Sent when an incoming API SIP session is available for Live acceptance. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_live_transport_incoming** | Option<[**WebhookLiveTransportIncoming**](WebhookLiveTransportIncoming.md)> | The event payload sent by the API. |  |
 
 ### Return type
 
@@ -486,6 +521,126 @@ Sent when a background response is incomplete.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_response_incomplete** | Option<[**WebhookResponseIncomplete**](WebhookResponseIncomplete.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## safety_alert_created_post
+
+> safety_alert_created_post(webhook_safety_alert_created)
+
+
+Sent when an approved safety alert is available for an API project. Retrieve the alert with a project API key granted `api.safety.alerts.read`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_safety_alert_created** | Option<[**WebhookSafetyAlertCreated**](WebhookSafetyAlertCreated.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## safety_deactivation_issued_post
+
+> safety_deactivation_issued_post(webhook_safety_deactivation_issued)
+
+
+Sent when a deactivation is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_safety_deactivation_issued** | Option<[**WebhookSafetyDeactivationIssued**](WebhookSafetyDeactivationIssued.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## safety_org_alert_created_post
+
+> safety_org_alert_created_post(webhook_safety_org_alert_created)
+
+
+Sent when an approved safety alert is available for an enterprise workspace. Retrieve the alert from `https://api.chatgpt.com/v1/safety/alerts/{id}` with an administrator API key for the workspace's backing organization granted `chatgpt.enterprise.safety_alerts.read`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_safety_org_alert_created** | Option<[**WebhookSafetyOrgAlertCreated**](WebhookSafetyOrgAlertCreated.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## safety_warning_issued_post
+
+> safety_warning_issued_post(webhook_safety_warning_issued)
+
+
+Sent when a warning is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_safety_warning_issued** | Option<[**WebhookSafetyWarningIssued**](WebhookSafetyWarningIssued.md)> | The event payload sent by the API. |  |
 
 ### Return type
 

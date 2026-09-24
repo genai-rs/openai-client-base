@@ -33,7 +33,7 @@ pub enum Tool {
     ApplyPatchToolParam(Box<models::ApplyPatchToolParam>),
 }
 
-/// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](/docs/guides/tools-remote-mcp#connectors).  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
+/// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](https://developers.openai.com/api/docs/guides/tools-connectors-mcp#connectors).  This field is deprecated for models released after September 1, 2026. Use `server_url` to connect to a remote MCP server, or `tunnel_id` to connect through a Secure MCP Tunnel.  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ConnectorId {
     ConnectorDropbox,
@@ -51,12 +51,14 @@ impl Default for ConnectorId {
         Self::ConnectorDropbox
     }
 }
-/// The quality of the generated image. One of `low`, `medium`, `high`, or `auto`. Default: `auto`.
+/// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
     Low,
     Medium,
     High,
+    Xhigh,
+    Max,
     Auto,
 }
 
@@ -90,7 +92,7 @@ impl Default for Moderation {
         Self::Auto
     }
 }
-/// Background type for the generated image. One of `transparent`, `opaque`, or `auto`. Default: `auto`.
+/// Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Background {
     Transparent,

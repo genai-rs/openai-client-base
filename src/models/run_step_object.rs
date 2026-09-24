@@ -23,13 +23,13 @@ pub struct RunStepObject {
     /// The Unix timestamp (in seconds) for when the run step was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The ID of the [assistant](/docs/api-reference/assistants) associated with the run step.
+    /// The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) associated with the run step.
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
-    /// The ID of the [thread](/docs/api-reference/threads) that was run.
+    /// The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) that was run.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
-    /// The ID of the [run](/docs/api-reference/runs) that this run step is a part of.
+    /// The ID of the [run](https://developers.openai.com/api/docs/assistants/migration) that this run step is a part of.
     #[serde(rename = "run_id")]
     pub run_id: String,
     /// The type of run step, which can be either `message_creation` or `tool_calls`.

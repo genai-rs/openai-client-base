@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaWebSearchPreviewTool : This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+/// BetaWebSearchPreviewTool : This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaWebSearchPreviewTool {
     /// The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`.
@@ -37,7 +37,7 @@ pub struct BetaWebSearchPreviewTool {
 }
 
 impl BetaWebSearchPreviewTool {
-    /// This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+    /// This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
     pub fn new(r#type: Type) -> BetaWebSearchPreviewTool {
         BetaWebSearchPreviewTool {
             r#type,

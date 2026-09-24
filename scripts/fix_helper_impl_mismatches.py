@@ -45,6 +45,7 @@ def remove_mismatched_impls(src: str):
     def find_and_strip_impls(enum_name: str, variants: set, text: str) -> str:
         nonlocal changed
         def strip_blocks(prefix_regex: str, s: str) -> str:
+            nonlocal changed
             out = []
             i = 0
             while i < len(s):

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// EditImageBodyJsonParam : JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models only; DALL-E edits require multipart (`dall-e-2` only).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EditImageBodyJsonParam {
-    /// The model to use for image editing.
+    /// The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, and `gpt-image-2.5-flare-2026-09-08`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Input image references to edit. For GPT image models, you can provide up to 16 images.
@@ -52,7 +52,7 @@ pub struct EditImageBodyJsonParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub size: Option<Option<Size>>,
+    pub size: Option<Option<Box<models::EditImageBodyJsonParamSize>>>,
     /// A unique identifier representing your end-user, which can help OpenAI monitor and detect abuse.
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
@@ -132,6 +132,10 @@ pub enum Quality {
     Medium,
     #[serde(rename = "high")]
     High,
+    #[serde(rename = "xhigh")]
+    Xhigh,
+    #[serde(rename = "max")]
+    Max,
     #[serde(rename = "auto")]
     Auto,
 }
@@ -153,24 +157,6 @@ pub enum InputFidelity {
 impl Default for InputFidelity {
     fn default() -> InputFidelity {
         Self::High
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Size {
-    #[serde(rename = "auto")]
-    Auto,
-    #[serde(rename = "1024x1024")]
-    Variant1024x1024,
-    #[serde(rename = "1536x1024")]
-    Variant1536x1024,
-    #[serde(rename = "1024x1536")]
-    Variant1024x1536,
-}
-
-impl Default for Size {
-    fn default() -> Size {
-        Self::Auto
     }
 }
 ///

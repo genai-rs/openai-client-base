@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddProjectGroupError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum AddProjectGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListProjectGroupsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum ListProjectGroupsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RemoveProjectGroupError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,9 +43,11 @@ pub enum RemoveProjectGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveProjectGroupError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Grants a group access to a project.
 #[bon::builder]
 pub async fn add_project_group(
     configuration: &configuration::Configuration,
@@ -99,6 +104,7 @@ pub async fn add_project_group(
     }
 }
 
+/// Lists the groups that have access to a project.
 #[bon::builder]
 pub async fn list_project_groups(
     configuration: &configuration::Configuration,
@@ -165,6 +171,7 @@ pub async fn list_project_groups(
     }
 }
 
+/// Revokes a group's access to a project.
 #[bon::builder]
 pub async fn remove_project_group(
     configuration: &configuration::Configuration,
@@ -221,6 +228,7 @@ pub async fn remove_project_group(
     }
 }
 
+/// Retrieves a project's group.
 #[bon::builder]
 pub async fn retrieve_project_group(
     configuration: &configuration::Configuration,

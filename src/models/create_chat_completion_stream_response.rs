@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateChatCompletionStreamResponse : Represents a streamed chunk of a chat completion response returned by the model, based on the provided input.  [Learn more](/docs/guides/streaming-responses).
+/// CreateChatCompletionStreamResponse : Represents a streamed chunk of a chat completion response returned by the model, based on the provided input. [Learn more](https://developers.openai.com/api/docs/guides/streaming-responses).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionStreamResponse {
     /// A unique identifier for the chat completion. Each chunk has the same ID.
@@ -26,6 +26,9 @@ pub struct CreateChatCompletionStreamResponse {
     /// The model to generate the completion.
     #[serde(rename = "model")]
     pub model: String,
+    /// An obfuscation string added to normalize the size of streamed chunks as a mitigation to certain side-channel attacks. The field is included by default and omitted when `stream_options.include_obfuscation` is `false`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
     #[serde(
         rename = "service_tier",
         default,
@@ -51,7 +54,7 @@ pub struct CreateChatCompletionStreamResponse {
 }
 
 impl CreateChatCompletionStreamResponse {
-    /// Represents a streamed chunk of a chat completion response returned by the model, based on the provided input.  [Learn more](/docs/guides/streaming-responses).
+    /// Represents a streamed chunk of a chat completion response returned by the model, based on the provided input. [Learn more](https://developers.openai.com/api/docs/guides/streaming-responses).
     pub fn new(
         id: String,
         choices: Vec<models::CreateChatCompletionStreamResponseChoicesInner>,
@@ -64,6 +67,7 @@ impl CreateChatCompletionStreamResponse {
             choices,
             created,
             model,
+            obfuscation: None,
             service_tier: None,
             system_fingerprint: None,
             object,

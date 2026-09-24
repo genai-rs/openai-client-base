@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **archived_at** | Option<**i32**> | The Unix timestamp (in seconds) of when the project was archived or `null`. | [optional]
 **status** | Option<**String**> |  | [optional]
 **external_key_id** | Option<**String**> |  | [optional]
+**residency** | Option<[**models::PublicProjectResidency**](PublicProjectResidency.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

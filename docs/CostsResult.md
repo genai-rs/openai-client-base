@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **project_id** | Option<**String**> | When `group_by=project_id`, this field provides the project ID of the grouped costs result. | [optional]
 **api_key_id** | Option<**String**> | When `group_by=api_key_id`, this field provides the API Key ID of the grouped costs result. | [optional]
 **quantity** | Option<**f64**> | When `group_by=line_item`, this field provides the quantity of the grouped costs result. | [optional]
+**quantity_unit** | Option<[**models::CostsResultQuantityUnit**](CostsResult_quantity_unit.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

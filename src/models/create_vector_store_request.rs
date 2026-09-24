@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVectorStoreRequest {
-    /// A list of [File](/docs/api-reference/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files.
+    /// A list of [File](https://developers.openai.com/api/reference/resources/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
     /// The name of the vector store.

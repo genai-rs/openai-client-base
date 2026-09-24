@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ErrorEvent : Occurs when an [error](/docs/guides/error-codes#api-errors) occurs. This can happen due to an internal server error or a timeout.
+/// ErrorEvent : Occurs when an [error](https://developers.openai.com/api/docs/guides/error-codes#api-errors) occurs. This can happen due to an internal server error or a timeout.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ErrorEvent {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct ErrorEvent {
 }
 
 impl ErrorEvent {
-    /// Occurs when an [error](/docs/guides/error-codes#api-errors) occurs. This can happen due to an internal server error or a timeout.
+    /// Occurs when an [error](https://developers.openai.com/api/docs/guides/error-codes#api-errors) occurs. This can happen due to an internal server error or a timeout.
     pub fn new(event: Event, data: models::Error) -> ErrorEvent {
         ErrorEvent {
             event,

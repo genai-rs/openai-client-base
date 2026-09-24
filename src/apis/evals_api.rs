@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelEvalRunError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum CancelEvalRunError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateEvalError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -34,6 +36,7 @@ pub enum CreateEvalError {
 #[serde(untagged)]
 pub enum CreateEvalRunError {
     Status400(models::Error),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -42,6 +45,7 @@ pub enum CreateEvalRunError {
 #[serde(untagged)]
 pub enum DeleteEvalError {
     Status404(models::Error),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -50,6 +54,7 @@ pub enum DeleteEvalError {
 #[serde(untagged)]
 pub enum DeleteEvalRunError {
     Status404(models::Error),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,6 +62,7 @@ pub enum DeleteEvalRunError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetEvalError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -64,6 +70,7 @@ pub enum GetEvalError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetEvalRunError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -71,6 +78,7 @@ pub enum GetEvalRunError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetEvalRunOutputItemError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -78,6 +86,7 @@ pub enum GetEvalRunOutputItemError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetEvalRunOutputItemsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -85,6 +94,7 @@ pub enum GetEvalRunOutputItemsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetEvalRunsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -92,6 +102,7 @@ pub enum GetEvalRunsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListEvalsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -99,9 +110,11 @@ pub enum ListEvalsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateEvalError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Cancel an ongoing evaluation run.
 #[bon::builder]
 pub async fn cancel_eval_run(
     configuration: &configuration::Configuration,
@@ -158,6 +171,7 @@ pub async fn cancel_eval_run(
     }
 }
 
+/// Create the structure of an evaluation that can be used to test a model's performance. An evaluation is a set of testing criteria and the config for a data source, which dictates the schema of the data used in the evaluation. After creating an evaluation, you can run it on different models and model parameters. We support several types of graders and datasources. For more information, see the [Evals guide](https://developers.openai.com/api/docs/guides/evals).
 #[bon::builder]
 pub async fn create_eval(
     configuration: &configuration::Configuration,
@@ -208,6 +222,7 @@ pub async fn create_eval(
     }
 }
 
+/// Kicks off a new run for a given evaluation, specifying the data source, and what model configuration to use to test. The datasource will be validated against the schema specified in the config of the evaluation.
 #[bon::builder]
 pub async fn create_eval_run(
     configuration: &configuration::Configuration,
@@ -264,6 +279,7 @@ pub async fn create_eval_run(
     }
 }
 
+/// Delete an evaluation.
 #[bon::builder]
 pub async fn delete_eval(
     configuration: &configuration::Configuration,
@@ -317,6 +333,7 @@ pub async fn delete_eval(
     }
 }
 
+/// Delete an eval run.
 #[bon::builder]
 pub async fn delete_eval_run(
     configuration: &configuration::Configuration,
@@ -373,6 +390,7 @@ pub async fn delete_eval_run(
     }
 }
 
+/// Get an evaluation by ID.
 #[bon::builder]
 pub async fn get_eval(
     configuration: &configuration::Configuration,
@@ -424,6 +442,7 @@ pub async fn get_eval(
     }
 }
 
+/// Get an evaluation run by ID.
 #[bon::builder]
 pub async fn get_eval_run(
     configuration: &configuration::Configuration,
@@ -478,6 +497,7 @@ pub async fn get_eval_run(
     }
 }
 
+/// Get an evaluation run output item by ID.
 #[bon::builder]
 pub async fn get_eval_run_output_item(
     configuration: &configuration::Configuration,
@@ -535,6 +555,7 @@ pub async fn get_eval_run_output_item(
     }
 }
 
+/// Get a list of output items for an evaluation run.
 #[bon::builder]
 pub async fn get_eval_run_output_items(
     configuration: &configuration::Configuration,
@@ -609,6 +630,7 @@ pub async fn get_eval_run_output_items(
     }
 }
 
+/// Get a list of runs for an evaluation.
 #[bon::builder]
 pub async fn get_eval_runs(
     configuration: &configuration::Configuration,
@@ -680,6 +702,7 @@ pub async fn get_eval_runs(
     }
 }
 
+/// List evaluations for a project.
 #[bon::builder]
 pub async fn list_evals(
     configuration: &configuration::Configuration,
@@ -745,6 +768,7 @@ pub async fn list_evals(
     }
 }
 
+/// Update certain properties of an evaluation.
 #[bon::builder]
 pub async fn update_eval(
     configuration: &configuration::Configuration,

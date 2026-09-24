@@ -19,6 +19,10 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteUserError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -43,6 +47,7 @@ pub enum RetrieveUserError {
     UnknownValue(serde_json::Value),
 }
 
+/// Deletes a user from the organization.
 #[bon::builder]
 pub async fn delete_user(
     configuration: &configuration::Configuration,
@@ -96,6 +101,7 @@ pub async fn delete_user(
     }
 }
 
+/// Lists all of the users in the organization.
 #[bon::builder]
 pub async fn list_users(
     configuration: &configuration::Configuration,
@@ -172,6 +178,7 @@ pub async fn list_users(
     }
 }
 
+/// Modifies a user's role in the organization.
 #[bon::builder]
 pub async fn modify_user(
     configuration: &configuration::Configuration,
@@ -228,6 +235,7 @@ pub async fn modify_user(
     }
 }
 
+/// Retrieves a user by their identifier.
 #[bon::builder]
 pub async fn retrieve_user(
     configuration: &configuration::Configuration,

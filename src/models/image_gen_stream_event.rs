@@ -18,21 +18,14 @@ pub enum ImageGenStreamEvent {
     ImageGenCompletedEvent(Box<models::ImageGenCompletedEvent>),
 }
 
-/// The size of the generated image.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Size {
-    Variant1024x1024,
-    Variant1024x1536,
-    Variant1536x1024,
-    Auto,
-}
-
 /// The quality setting for the generated image.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
     Low,
     Medium,
     High,
+    Xhigh,
+    Max,
     Auto,
 }
 

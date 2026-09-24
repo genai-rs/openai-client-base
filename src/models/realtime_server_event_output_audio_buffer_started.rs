@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeServerEventOutputAudioBufferStarted : **WebRTC/SIP Only:** Emitted when the server begins streaming audio to the client. This event is emitted after an audio content part has been added (`response.content_part.added`) to the response. [Learn more](/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
+/// RealtimeServerEventOutputAudioBufferStarted : **WebRTC/SIP Only:** Emitted when the server begins streaming audio to the client. This event is emitted after an audio content part has been added (`response.content_part.added`) to the response. [Learn more](https://developers.openai.com/api/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeServerEventOutputAudioBufferStarted {
     /// The unique ID of the server event.
@@ -26,7 +26,7 @@ pub struct RealtimeServerEventOutputAudioBufferStarted {
 }
 
 impl RealtimeServerEventOutputAudioBufferStarted {
-    /// **WebRTC/SIP Only:** Emitted when the server begins streaming audio to the client. This event is emitted after an audio content part has been added (`response.content_part.added`) to the response. [Learn more](/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
+    /// **WebRTC/SIP Only:** Emitted when the server begins streaming audio to the client. This event is emitted after an audio content part has been added (`response.content_part.added`) to the response. [Learn more](https://developers.openai.com/api/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
     pub fn new(
         event_id: String,
         r#type: Type,

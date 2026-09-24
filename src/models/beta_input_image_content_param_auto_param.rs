@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaInputImageContentParamAutoParam : An image input to the model. Learn about [image inputs](/docs/guides/vision)
+/// BetaInputImageContentParamAutoParam : An image input to the model. Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaInputImageContentParamAutoParam {
     /// The type of the input item. Always `input_image`.
@@ -50,7 +50,7 @@ pub struct BetaInputImageContentParamAutoParam {
 }
 
 impl BetaInputImageContentParamAutoParam {
-    /// An image input to the model. Learn about [image inputs](/docs/guides/vision)
+    /// An image input to the model. Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision)
     pub fn new(r#type: Type) -> BetaInputImageContentParamAutoParam {
         BetaInputImageContentParamAutoParam {
             r#type,

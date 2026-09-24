@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ThreadStreamEvent : Occurs when a new [thread](/docs/api-reference/threads/object) is created.
+/// ThreadStreamEvent : Occurs when a new [thread](https://developers.openai.com/api/docs/assistants/migration) is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ThreadStreamEvent {
     /// Whether to enable input audio transcription.
@@ -24,7 +24,7 @@ pub struct ThreadStreamEvent {
 }
 
 impl ThreadStreamEvent {
-    /// Occurs when a new [thread](/docs/api-reference/threads/object) is created.
+    /// Occurs when a new [thread](https://developers.openai.com/api/docs/assistants/migration) is created.
     pub fn new(event: Event, data: models::ThreadObject) -> ThreadStreamEvent {
         ThreadStreamEvent {
             enabled: None,
