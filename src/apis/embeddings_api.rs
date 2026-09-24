@@ -19,9 +19,12 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateEmbeddingError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Creates an embedding vector representing the input text.
 #[bon::builder]
 pub async fn create_embedding(
     configuration: &configuration::Configuration,

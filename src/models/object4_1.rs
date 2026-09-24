@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object41 : Occurs when a [run step](/docs/api-reference/run-steps/step-object) fails.
+/// Object41 : Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) fails.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object41 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object41 {
 }
 
 impl Object41 {
-    /// Occurs when a [run step](/docs/api-reference/run-steps/step-object) fails.
+    /// Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) fails.
     pub fn new(event: Event, data: models::RunStepObject) -> Object41 {
         Object41 {
             event,

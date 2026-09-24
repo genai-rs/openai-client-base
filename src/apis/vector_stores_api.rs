@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelVectorStoreFileBatchError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum CancelVectorStoreFileBatchError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVectorStoreError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum CreateVectorStoreError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVectorStoreFileError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,6 +43,7 @@ pub enum CreateVectorStoreFileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVectorStoreFileBatchError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,6 +51,7 @@ pub enum CreateVectorStoreFileBatchError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteVectorStoreError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,6 +59,7 @@ pub enum DeleteVectorStoreError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteVectorStoreFileError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -61,6 +67,7 @@ pub enum DeleteVectorStoreFileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVectorStoreError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,6 +75,7 @@ pub enum GetVectorStoreError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVectorStoreFileError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -75,6 +83,7 @@ pub enum GetVectorStoreFileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVectorStoreFileBatchError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -82,6 +91,7 @@ pub enum GetVectorStoreFileBatchError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListFilesInVectorStoreBatchError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -89,6 +99,7 @@ pub enum ListFilesInVectorStoreBatchError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListVectorStoreFilesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -96,6 +107,7 @@ pub enum ListVectorStoreFilesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListVectorStoresError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -103,6 +115,7 @@ pub enum ListVectorStoresError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyVectorStoreError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -110,6 +123,7 @@ pub enum ModifyVectorStoreError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveVectorStoreFileContentError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -117,6 +131,7 @@ pub enum RetrieveVectorStoreFileContentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SearchVectorStoreError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -124,9 +139,11 @@ pub enum SearchVectorStoreError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateVectorStoreFileAttributesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Cancel a vector store file batch. This attempts to cancel the processing of files in this batch as soon as possible.
 #[bon::builder]
 pub async fn cancel_vector_store_file_batch(
     configuration: &configuration::Configuration,
@@ -183,6 +200,7 @@ pub async fn cancel_vector_store_file_batch(
     }
 }
 
+/// Create a vector store.
 #[bon::builder]
 pub async fn create_vector_store(
     configuration: &configuration::Configuration,
@@ -233,7 +251,7 @@ pub async fn create_vector_store(
     }
 }
 
-/// This endpoint is subject to a per-vector-store write rate limit of 300 requests per minute, shared with `/vector_stores/{vector_store_id}/file_batches`. For uploading multiple files to the same vector store, use the file batches endpoint to reduce request volume.
+/// Create a vector store file by attaching a [File](https://developers.openai.com/api/reference/resources/files) to a [vector store](https://developers.openai.com/api/reference/resources/vector_stores).
 #[bon::builder]
 pub async fn create_vector_store_file(
     configuration: &configuration::Configuration,
@@ -290,7 +308,7 @@ pub async fn create_vector_store_file(
     }
 }
 
-/// The maximum number of files in a single batch request is 2000. Vector store file attach requests are rate limited per vector store (300 requests per minute across both this endpoint and `/vector_stores/{vector_store_id}/files`). For ingesting multiple files into the same vector store, this batch endpoint is recommended.
+/// Create a vector store file batch.
 #[bon::builder]
 pub async fn create_vector_store_file_batch(
     configuration: &configuration::Configuration,
@@ -347,6 +365,7 @@ pub async fn create_vector_store_file_batch(
     }
 }
 
+/// Delete a vector store.
 #[bon::builder]
 pub async fn delete_vector_store(
     configuration: &configuration::Configuration,
@@ -400,6 +419,7 @@ pub async fn delete_vector_store(
     }
 }
 
+/// Delete a vector store file. This will remove the file from the vector store but the file itself will not be deleted. To delete the file, use the [delete file](https://developers.openai.com/api/reference/resources/files/methods/delete) endpoint.
 #[bon::builder]
 pub async fn delete_vector_store_file(
     configuration: &configuration::Configuration,
@@ -456,6 +476,7 @@ pub async fn delete_vector_store_file(
     }
 }
 
+/// Retrieves a vector store.
 #[bon::builder]
 pub async fn get_vector_store(
     configuration: &configuration::Configuration,
@@ -507,6 +528,7 @@ pub async fn get_vector_store(
     }
 }
 
+/// Retrieves a vector store file.
 #[bon::builder]
 pub async fn get_vector_store_file(
     configuration: &configuration::Configuration,
@@ -561,6 +583,7 @@ pub async fn get_vector_store_file(
     }
 }
 
+/// Retrieves a vector store file batch.
 #[bon::builder]
 pub async fn get_vector_store_file_batch(
     configuration: &configuration::Configuration,
@@ -615,6 +638,7 @@ pub async fn get_vector_store_file_batch(
     }
 }
 
+/// Returns a list of vector store files in a batch.
 #[bon::builder]
 pub async fn list_files_in_vector_store_batch(
     configuration: &configuration::Configuration,
@@ -694,6 +718,7 @@ pub async fn list_files_in_vector_store_batch(
     }
 }
 
+/// Returns a list of vector store files.
 #[bon::builder]
 pub async fn list_vector_store_files(
     configuration: &configuration::Configuration,
@@ -770,6 +795,7 @@ pub async fn list_vector_store_files(
     }
 }
 
+/// Returns a list of vector stores.
 #[bon::builder]
 pub async fn list_vector_stores(
     configuration: &configuration::Configuration,
@@ -835,6 +861,7 @@ pub async fn list_vector_stores(
     }
 }
 
+/// Modifies a vector store.
 #[bon::builder]
 pub async fn modify_vector_store(
     configuration: &configuration::Configuration,
@@ -891,6 +918,7 @@ pub async fn modify_vector_store(
     }
 }
 
+/// Retrieve the parsed contents of a vector store file.
 #[bon::builder]
 pub async fn retrieve_vector_store_file_content(
     configuration: &configuration::Configuration,
@@ -946,6 +974,7 @@ pub async fn retrieve_vector_store_file_content(
     }
 }
 
+/// Search a vector store for relevant chunks based on a query and file attributes filter.
 #[bon::builder]
 pub async fn search_vector_store(
     configuration: &configuration::Configuration,
@@ -1002,6 +1031,7 @@ pub async fn search_vector_store(
     }
 }
 
+/// Update attributes on a vector store file.
 #[bon::builder]
 pub async fn update_vector_store_file_attributes(
     configuration: &configuration::Configuration,

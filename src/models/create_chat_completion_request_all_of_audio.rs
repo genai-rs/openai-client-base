@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CreateChatCompletionRequestAllOfAudio : Parameters for audio output. Required when audio output is requested with `modalities: [\"audio\"]`. [Learn more](/docs/guides/audio).
+/// CreateChatCompletionRequestAllOfAudio : Parameters for audio output. Required when audio output is requested with `modalities: [\"audio\"]`. [Learn more](https://developers.openai.com/api/docs/guides/audio).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionRequestAllOfAudio {
     #[serde(rename = "voice")]
@@ -22,7 +22,7 @@ pub struct CreateChatCompletionRequestAllOfAudio {
 }
 
 impl CreateChatCompletionRequestAllOfAudio {
-    /// Parameters for audio output. Required when audio output is requested with `modalities: [\"audio\"]`. [Learn more](/docs/guides/audio).
+    /// Parameters for audio output. Required when audio output is requested with `modalities: [\"audio\"]`. [Learn more](https://developers.openai.com/api/docs/guides/audio).
     pub fn new(
         voice: models::VoiceIdsOrCustomVoice,
         format: Format,

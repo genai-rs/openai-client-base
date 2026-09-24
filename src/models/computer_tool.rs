@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ComputerTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+/// ComputerTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerTool {
     /// The type of the computer tool. Always `computer`.
@@ -20,7 +20,7 @@ pub struct ComputerTool {
 }
 
 impl ComputerTool {
-    /// A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+    /// A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
     pub fn new(r#type: Type) -> ComputerTool {
         ComputerTool { r#type }
     }

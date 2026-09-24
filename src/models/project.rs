@@ -52,6 +52,8 @@ pub struct Project {
         skip_serializing_if = "Option::is_none"
     )]
     pub external_key_id: Option<Option<String>>,
+    #[serde(rename = "residency", skip_serializing_if = "Option::is_none")]
+    pub residency: Option<models::PublicProjectResidency>,
 }
 
 impl Project {
@@ -65,6 +67,7 @@ impl Project {
             archived_at: None,
             status: None,
             external_key_id: None,
+            residency: None,
         }
     }
 }

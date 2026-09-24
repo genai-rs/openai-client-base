@@ -57,6 +57,16 @@ pub struct AuditLog {
         skip_serializing_if = "Option::is_none"
     )]
     pub external_key_removed: Option<Box<models::AuditLogExternalKeyRemoved>>,
+    #[serde(
+        rename = "external_storage.registered",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub external_storage_registered: Option<Box<models::AuditLogExternalStorageRegistered>>,
+    #[serde(
+        rename = "external_storage.removed",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub external_storage_removed: Option<Box<models::AuditLogExternalStorageRemoved>>,
     #[serde(rename = "group.created", skip_serializing_if = "Option::is_none")]
     pub group_created: Option<Box<models::AuditLogGroupCreated>>,
     #[serde(rename = "group.updated", skip_serializing_if = "Option::is_none")]
@@ -251,6 +261,8 @@ impl AuditLog {
             checkpoint_permission_deleted: None,
             external_key_registered: None,
             external_key_removed: None,
+            external_storage_registered: None,
+            external_storage_removed: None,
             group_created: None,
             group_updated: None,
             group_deleted: None,

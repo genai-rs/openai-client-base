@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object21 : Occurs when parts of a [run step](/docs/api-reference/run-steps/step-object) are being streamed.
+/// Object21 : Occurs when parts of a [run step](https://developers.openai.com/api/docs/assistants/migration) are being streamed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object21 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object21 {
 }
 
 impl Object21 {
-    /// Occurs when parts of a [run step](/docs/api-reference/run-steps/step-object) are being streamed.
+    /// Occurs when parts of a [run step](https://developers.openai.com/api/docs/assistants/migration) are being streamed.
     pub fn new(event: Event, data: models::RunStepDeltaObject) -> Object21 {
         Object21 {
             event,

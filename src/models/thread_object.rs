@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ThreadObject : Represents a thread that contains [messages](/docs/api-reference/messages).
+/// ThreadObject : Represents a thread that contains [messages](https://developers.openai.com/api/docs/assistants/migration).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ThreadObject {
     /// The identifier, which can be referenced in API endpoints.
@@ -31,7 +31,7 @@ pub struct ThreadObject {
 }
 
 impl ThreadObject {
-    /// Represents a thread that contains [messages](/docs/api-reference/messages).
+    /// Represents a thread that contains [messages](https://developers.openai.com/api/docs/assistants/migration).
     pub fn new(
         id: String,
         object: Object,

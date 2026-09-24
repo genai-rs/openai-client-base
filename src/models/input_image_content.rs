@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// InputImageContent : An image input to the model. Learn about [image inputs](/docs/guides/vision).
+/// InputImageContent : An image input to the model. Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InputImageContent {
     /// The type of the input item. Always `input_image`.
@@ -43,7 +43,7 @@ pub struct InputImageContent {
 }
 
 impl InputImageContent {
-    /// An image input to the model. Learn about [image inputs](/docs/guides/vision).
+    /// An image input to the model. Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
     pub fn new(r#type: Type, detail: models::ImageDetail) -> InputImageContent {
         InputImageContent {
             r#type,

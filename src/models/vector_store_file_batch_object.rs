@@ -23,7 +23,7 @@ pub struct VectorStoreFileBatchObject {
     /// The Unix timestamp (in seconds) for when the vector store files batch was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The ID of the [vector store](/docs/api-reference/vector-stores/object) that the [File](/docs/api-reference/files) is attached to.
+    /// The ID of the [vector store](https://developers.openai.com/api/reference/resources/vector_stores) that the [File](https://developers.openai.com/api/reference/resources/files) is attached to.
     #[serde(rename = "vector_store_id")]
     pub vector_store_id: String,
     /// The status of the vector store files batch, which can be either `in_progress`, `completed`, `cancelled` or `failed`.

@@ -1,0 +1,17 @@
+# SendSubagentInputCallItemResource
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**r#type** | **String** | The item type. Always `send_subagent_input_call`. | 
+**id** | **String** | The ID of the tool call item. | 
+**turn_id** | **String** | The ID of the turn that contains this item. | 
+**status** | [**models::FunctionCallStatusResource**](FunctionCallStatusResource.md) |  | 
+**sender_agent_id** | **String** | The ID of the agent sending the input. | 
+**recipient_agent_id** | **String** | The ID of the agent receiving the input. | 
+**content** | [**Vec<models::AgentContentResource>**](AgentContentResource.md) | The input sent to the receiving agent. | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

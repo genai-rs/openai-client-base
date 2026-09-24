@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateProjectRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum CreateProjectRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum CreateRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteProjectRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,6 +43,7 @@ pub enum DeleteProjectRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,6 +51,7 @@ pub enum DeleteRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListProjectRolesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,6 +59,7 @@ pub enum ListProjectRolesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListRolesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -61,6 +67,7 @@ pub enum ListRolesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveProjectRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,6 +75,7 @@ pub enum RetrieveProjectRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -75,6 +83,7 @@ pub enum RetrieveRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateProjectRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -82,9 +91,11 @@ pub enum UpdateProjectRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateRoleError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Creates a custom role for a project.
 #[bon::builder]
 pub async fn create_project_role(
     configuration: &configuration::Configuration,
@@ -141,6 +152,7 @@ pub async fn create_project_role(
     }
 }
 
+/// Creates a custom role for the organization.
 #[bon::builder]
 pub async fn create_role(
     configuration: &configuration::Configuration,
@@ -191,6 +203,7 @@ pub async fn create_role(
     }
 }
 
+/// Deletes a custom role from a project.
 #[bon::builder]
 pub async fn delete_project_role(
     configuration: &configuration::Configuration,
@@ -247,6 +260,7 @@ pub async fn delete_project_role(
     }
 }
 
+/// Deletes a custom role from the organization.
 #[bon::builder]
 pub async fn delete_role(
     configuration: &configuration::Configuration,
@@ -300,6 +314,7 @@ pub async fn delete_role(
     }
 }
 
+/// Lists the roles configured for a project.
 #[bon::builder]
 pub async fn list_project_roles(
     configuration: &configuration::Configuration,
@@ -366,6 +381,7 @@ pub async fn list_project_roles(
     }
 }
 
+/// Lists the roles configured for the organization.
 #[bon::builder]
 pub async fn list_roles(
     configuration: &configuration::Configuration,
@@ -426,6 +442,7 @@ pub async fn list_roles(
     }
 }
 
+/// Retrieves a project role.
 #[bon::builder]
 pub async fn retrieve_project_role(
     configuration: &configuration::Configuration,
@@ -480,6 +497,7 @@ pub async fn retrieve_project_role(
     }
 }
 
+/// Retrieves an organization role.
 #[bon::builder]
 pub async fn retrieve_role(
     configuration: &configuration::Configuration,
@@ -531,6 +549,7 @@ pub async fn retrieve_role(
     }
 }
 
+/// Updates an existing project role.
 #[bon::builder]
 pub async fn update_project_role(
     configuration: &configuration::Configuration,
@@ -590,6 +609,7 @@ pub async fn update_project_role(
     }
 }
 
+/// Updates an existing organization role.
 #[bon::builder]
 pub async fn update_role(
     configuration: &configuration::Configuration,

@@ -1,0 +1,14 @@
+# WebSearchLocationParam
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**country** | Option<**String**> | The two-letter ISO country code, such as `US`. | [optional]
+**region** | Option<**String**> | The region or state name. | [optional]
+**city** | Option<**String**> | The city name. | [optional]
+**timezone** | Option<**String**> | The IANA timezone, such as `America/Los_Angeles`. | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

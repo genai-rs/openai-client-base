@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object010 : Occurs when a [message](/docs/api-reference/messages/object) is created.
+/// Object010 : Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object010 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object010 {
 }
 
 impl Object010 {
-    /// Occurs when a [message](/docs/api-reference/messages/object) is created.
+    /// Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) is created.
     pub fn new(event: Event, data: models::MessageObject) -> Object010 {
         Object010 {
             event,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**model** | **String** | One of the available [TTS models](/docs/models#tts): `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`.  | 
+**model** | **String** | One of the available [TTS models](https://developers.openai.com/api/docs/guides/text-to-speech): `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`.  | 
 **input** | **String** | The text to generate audio for. The maximum length is 4096 characters. | 
 **instructions** | Option<**String**> | Control the voice of your generated audio with additional instructions. Does not work with `tts-1` or `tts-1-hd`. | [optional]
 **voice** | [**models::VoiceIdsOrCustomVoice**](VoiceIdsOrCustomVoice.md) |  | 

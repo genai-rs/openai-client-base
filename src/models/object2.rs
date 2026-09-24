@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object2 : Occurs when parts of a [Message](/docs/api-reference/messages/object) are being streamed.
+/// Object2 : Occurs when parts of a [Message](https://developers.openai.com/api/docs/assistants/migration) are being streamed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object2 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object2 {
 }
 
 impl Object2 {
-    /// Occurs when parts of a [Message](/docs/api-reference/messages/object) are being streamed.
+    /// Occurs when parts of a [Message](https://developers.openai.com/api/docs/assistants/migration) are being streamed.
     pub fn new(event: Event, data: models::MessageDeltaObject) -> Object2 {
         Object2 {
             event,

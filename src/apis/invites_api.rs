@@ -19,6 +19,10 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteInviteError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -43,6 +47,7 @@ pub enum RetrieveInviteError {
     UnknownValue(serde_json::Value),
 }
 
+/// Delete an invite. If the invite has already been accepted, it cannot be deleted.
 #[bon::builder]
 pub async fn delete_invite(
     configuration: &configuration::Configuration,
@@ -96,6 +101,7 @@ pub async fn delete_invite(
     }
 }
 
+/// Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
 #[bon::builder]
 pub async fn invite_user(
     configuration: &configuration::Configuration,
@@ -146,6 +152,7 @@ pub async fn invite_user(
     }
 }
 
+/// Returns a list of invites in the organization.
 #[bon::builder]
 pub async fn list_invites(
     configuration: &configuration::Configuration,
@@ -201,6 +208,7 @@ pub async fn list_invites(
     }
 }
 
+/// Retrieves an invite.
 #[bon::builder]
 pub async fn retrieve_invite(
     configuration: &configuration::Configuration,

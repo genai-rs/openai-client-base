@@ -29,6 +29,7 @@ pub enum UpdateProjectHostedToolPermissionsError {
     UnknownValue(serde_json::Value),
 }
 
+/// Returns hosted tool permissions for a project.
 #[bon::builder]
 pub async fn retrieve_project_hosted_tool_permissions(
     configuration: &configuration::Configuration,
@@ -82,6 +83,7 @@ pub async fn retrieve_project_hosted_tool_permissions(
     }
 }
 
+/// Updates hosted tool permissions for a project.
 #[bon::builder]
 pub async fn update_project_hosted_tool_permissions(
     configuration: &configuration::Configuration,

@@ -1,0 +1,15 @@
+# ListAgentSessionSubagents200Response
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**object** | **String** | The object type, which is always `list`. | [default to List]
+**data** | [**Vec<models::SubagentResource>**](SubagentResource.md) | The resources returned in this page, in the requested sort order. | 
+**first_id** | **String** | The ID of the first resource in `data`, or `null` if the page is empty. | 
+**last_id** | **String** | The ID of the last resource in `data`, or `null` if the page is empty. Pass this as `after` with the same order and filters. | 
+**has_more** | **bool** | Whether there are more resources to retrieve after this page. | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

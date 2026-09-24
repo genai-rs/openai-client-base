@@ -4,18 +4,20 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_file**](FilesApi.md#create_file) | **POST** /files | Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit. Uploads to this endpoint are rate-limited to 1,000 requests per minute per authenticated user.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](/docs/assistants/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](/docs/api-reference/fine-tuning/chat-input) or   [completions](/docs/api-reference/fine-tuning/completions-input) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](/docs/api-reference/batch/request-input). - For Retrieval or `file_search` ingestion, upload files here first. If   you need to attach multiple uploaded files to the same vector store, use   [`/vector_stores/{vector_store_id}/file_batches`](/docs/api-reference/vector-stores-file-batches/createBatch)   instead of attaching them one by one. Vector store attachment has separate   limits from file upload, including 2,000 attached files per minute per   organization.  Please [contact us](https://help.openai.com/) if you need to increase these storage limits. 
-[**delete_file**](FilesApi.md#delete_file) | **DELETE** /files/{file_id} | Delete a file and remove it from all vector stores.
-[**download_file**](FilesApi.md#download_file) | **GET** /files/{file_id}/content | Returns the contents of the specified file.
-[**list_files**](FilesApi.md#list_files) | **GET** /files | Returns a list of files.
-[**retrieve_file**](FilesApi.md#retrieve_file) | **GET** /files/{file_id} | Returns information about a specific file.
+[**create_file**](FilesApi.md#create_file) | **POST** /files | Upload file
+[**delete_file**](FilesApi.md#delete_file) | **DELETE** /files/{file_id} | Delete file
+[**download_file**](FilesApi.md#download_file) | **GET** /files/{file_id}/content | Retrieve file content
+[**list_files**](FilesApi.md#list_files) | **GET** /files | List files
+[**retrieve_file**](FilesApi.md#retrieve_file) | **GET** /files/{file_id} | Retrieve file
 
 
 
 ## create_file
 
 > models::OpenAiFile create_file(file, purpose, expires_after)
-Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit. Uploads to this endpoint are rate-limited to 1,000 requests per minute per authenticated user.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](/docs/assistants/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](/docs/api-reference/fine-tuning/chat-input) or   [completions](/docs/api-reference/fine-tuning/completions-input) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](/docs/api-reference/batch/request-input). - For Retrieval or `file_search` ingestion, upload files here first. If   you need to attach multiple uploaded files to the same vector store, use   [`/vector_stores/{vector_store_id}/file_batches`](/docs/api-reference/vector-stores-file-batches/createBatch)   instead of attaching them one by one. Vector store attachment has separate   limits from file upload, including 2,000 attached files per minute per   organization.  Please [contact us](https://help.openai.com/) if you need to increase these storage limits. 
+Upload file
+
+Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit. Uploads to this endpoint are rate-limited to 1,000 requests per minute per authenticated user.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](https://developers.openai.com/api/docs/guides/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#formatting-your-data) or   [completions](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#formatting-your-data) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](https://developers.openai.com/api/docs/guides/batch#1-prepare-your-batch-file). - For Retrieval or `file_search` ingestion, upload files here first. If   you need to attach multiple uploaded files to the same vector store, use   [`/vector_stores/{vector_store_id}/file_batches`](https://developers.openai.com/api/reference/resources/vector_stores/subresources/file_batches/methods/create)   instead of attaching them one by one. Vector store attachment has separate   limits from file upload, including 2,000 attached files per minute per   organization.  Please [contact us](https://help.openai.com/) if you need to increase these storage limits. 
 
 ### Parameters
 
@@ -45,6 +47,8 @@ Name | Type | Description  | Required | Notes
 ## delete_file
 
 > models::DeleteFileResponse delete_file(file_id)
+Delete file
+
 Delete a file and remove it from all vector stores.
 
 ### Parameters
@@ -73,7 +77,9 @@ Name | Type | Description  | Required | Notes
 ## download_file
 
 > String download_file(file_id)
-Returns the contents of the specified file.
+Retrieve file content
+
+Returns a response containing the contents of the specified file.
 
 ### Parameters
 
@@ -101,6 +107,8 @@ Name | Type | Description  | Required | Notes
 ## list_files
 
 > models::ListFilesResponse list_files(purpose, limit, order, after)
+List files
+
 Returns a list of files.
 
 ### Parameters
@@ -132,6 +140,8 @@ Name | Type | Description  | Required | Notes
 ## retrieve_file
 
 > models::OpenAiFile retrieve_file(file_id)
+Retrieve file
+
 Returns information about a specific file.
 
 ### Parameters

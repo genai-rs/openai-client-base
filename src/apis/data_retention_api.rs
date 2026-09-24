@@ -43,6 +43,7 @@ pub enum UpdateProjectDataRetentionError {
     UnknownValue(serde_json::Value),
 }
 
+/// Retrieves organization data retention controls.
 #[bon::builder]
 pub async fn retrieve_organization_data_retention(
     configuration: &configuration::Configuration,
@@ -87,6 +88,7 @@ pub async fn retrieve_organization_data_retention(
     }
 }
 
+/// Retrieves project data retention controls.
 #[bon::builder]
 pub async fn retrieve_project_data_retention(
     configuration: &configuration::Configuration,
@@ -138,6 +140,7 @@ pub async fn retrieve_project_data_retention(
     }
 }
 
+/// Updates organization data retention controls.
 #[bon::builder]
 pub async fn update_organization_data_retention(
     configuration: &configuration::Configuration,
@@ -189,6 +192,7 @@ pub async fn update_organization_data_retention(
     }
 }
 
+/// Updates project data retention controls.
 #[bon::builder]
 pub async fn update_project_data_retention(
     configuration: &configuration::Configuration,

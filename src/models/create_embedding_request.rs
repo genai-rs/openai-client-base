@@ -23,7 +23,7 @@ pub struct CreateEmbeddingRequest {
     /// The number of dimensions the resulting output embeddings should have. Only supported in `text-embedding-3` and later models.
     #[serde(rename = "dimensions", skip_serializing_if = "Option::is_none")]
     pub dimensions: Option<i32>,
-    /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](/docs/guides/safety-best-practices#end-user-ids).
+    /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
 }

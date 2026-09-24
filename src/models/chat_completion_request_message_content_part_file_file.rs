@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestMessageContentPartFileFile {
-    /// The name of the file, used when passing the file to the model as a  string.
+    /// The name of the file, used when passing the file to the model as a string.
     #[serde(rename = "filename", skip_serializing_if = "Option::is_none")]
     pub filename: Option<String>,
-    /// The base64 encoded file data, used when passing the file to the model  as a string.
+    /// The base64 encoded file data, used when passing the file to the model as a string.
     #[serde(rename = "file_data", skip_serializing_if = "Option::is_none")]
     pub file_data: Option<String>,
     /// The ID of an uploaded file to use as input.

@@ -16,6 +16,8 @@
 | CheckpointPermissionDeleted | checkpoint.permission.deleted |
 | ExternalKeyRegistered | external_key.registered |
 | ExternalKeyRemoved | external_key.removed |
+| ExternalStorageRegistered | external_storage.registered |
+| ExternalStorageRemoved | external_storage.removed |
 | GroupCreated | group.created |
 | GroupUpdated | group.updated |
 | GroupDeleted | group.deleted |
@@ -74,10 +76,13 @@
 | TenantWorkloadIdentityMappingArchived | tenant.workload_identity.mapping.archived |
 | TenantWorkloadIdentityBindingCreated | tenant.workload_identity.binding.created |
 | TenantWorkloadIdentityPrincipalProvisioned | tenant.workload_identity.principal.provisioned |
+| TenantWorkloadIdentityAccessTokenIssued | tenant.workload_identity.access_token.issued |
 | TenantAdminApiKeyCreated | tenant.admin_api_key.created |
 | TenantAdminApiKeyUpdated | tenant.admin_api_key.updated |
 | TenantAdminApiKeyDeleted | tenant.admin_api_key.deleted |
 | TenantProjectApiKeyCreated | tenant.project_api_key.created |
+| TenantTrustedAccessBusinessVerificationStarted | tenant.trusted_access.business_verification.started |
+| TenantTrustedAccessApplicationSubmitted | tenant.trusted_access.application.submitted |
 | TenantChatgptAccessTokenRevoked | tenant.chatgpt_access_token.revoked |
 | TenantMigrationCompleted | tenant.migration.completed |
 | TenantSsoMigrated | tenant.sso.migrated |
@@ -130,6 +135,7 @@
 | TenantResourceRoleAssignmentDeleted | tenant.resource_role_assignment.deleted |
 | TenantResourceAccessUpdated | tenant.resource_access.updated |
 | TenantResourceAccessDeleted | tenant.resource_access.deleted |
+| TenantAdsAccountOnboardingRedemption | tenant.ads_account.onboarding.redemption |
 | TenantSessionPolicyCreated | tenant.session_policy.created |
 | TenantSessionPolicyUpdated | tenant.session_policy.updated |
 | TenantSessionPolicyDeleted | tenant.session_policy.deleted |

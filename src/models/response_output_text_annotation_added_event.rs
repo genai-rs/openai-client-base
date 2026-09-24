@@ -32,9 +32,8 @@ pub struct ResponseOutputTextAnnotationAddedEvent {
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
-    /// The annotation object being added. (See annotation schema for details.)
-    #[serde(rename = "annotation")]
-    pub annotation: serde_json::Value,
+    #[serde(rename = "annotation", deserialize_with = "Option::deserialize")]
+    pub annotation: Option<Box<models::Annotation>>,
 }
 
 impl ResponseOutputTextAnnotationAddedEvent {
@@ -46,7 +45,7 @@ impl ResponseOutputTextAnnotationAddedEvent {
         content_index: i32,
         annotation_index: i32,
         sequence_number: i32,
-        annotation: serde_json::Value,
+        annotation: Option<models::Annotation>,
     ) -> ResponseOutputTextAnnotationAddedEvent {
         ResponseOutputTextAnnotationAddedEvent {
             r#type,
@@ -55,7 +54,7 @@ impl ResponseOutputTextAnnotationAddedEvent {
             content_index,
             annotation_index,
             sequence_number,
-            annotation,
+            annotation: annotation.map(Box::new),
         }
     }
 }

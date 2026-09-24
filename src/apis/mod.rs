@@ -122,6 +122,7 @@ impl From<&str> for ContentType {
     }
 }
 
+pub mod agents_api;
 pub mod assistants_api;
 pub mod audio_api;
 pub mod audit_logs_api;
@@ -142,6 +143,7 @@ pub mod groups_api;
 pub mod hosted_tools_api;
 pub mod images_api;
 pub mod invites_api;
+pub mod live_api;
 pub mod models_api;
 pub mod moderations_api;
 pub mod project_group_role_assignments_api;
@@ -157,6 +159,7 @@ pub mod uploads_api;
 pub mod usage_api;
 pub mod user_organization_role_assignments_api;
 pub mod users_api;
+pub mod vaults_api;
 pub mod vector_stores_api;
 pub mod videos_api;
 

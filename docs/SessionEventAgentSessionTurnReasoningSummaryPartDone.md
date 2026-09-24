@@ -1,0 +1,19 @@
+# SessionEventAgentSessionTurnReasoningSummaryPartDone
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**r#type** | **String** | The type of the object. Always `agent.session.turn.reasoning_summary_part.done`. | 
+**event_id** | **String** | The unique ID of the event. | 
+**session_id** | **String** | The ID of the session associated with the event. | 
+**turn_id** | Option<**String**> | The ID of the turn associated with the event, when applicable. | 
+**item_id** | **String** | The ID of the reasoning item. | 
+**output_index** | **i64** | The index of the item in the turn output. | 
+**summary_index** | **i64** | The index of the summary part. | 
+**part** | [**models::SummaryTextResource**](SummaryTextResource.md) |  | 
+**status** | Option<**String**> | Present as `incomplete` when summary generation was interrupted. | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

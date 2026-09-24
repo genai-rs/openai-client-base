@@ -23,9 +23,8 @@ pub struct ImageEditCompletedEvent {
     /// The Unix timestamp when the event was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The size of the edited image.
     #[serde(rename = "size")]
-    pub size: Size,
+    pub size: Box<models::ImageEditCompletedEventSize>,
     /// The quality setting for the edited image.
     #[serde(rename = "quality")]
     pub quality: Quality,
@@ -45,7 +44,7 @@ impl ImageEditCompletedEvent {
         r#type: Type,
         b64_json: String,
         created_at: i32,
-        size: Size,
+        size: models::ImageEditCompletedEventSize,
         quality: Quality,
         background: Background,
         output_format: OutputFormat,
@@ -55,7 +54,7 @@ impl ImageEditCompletedEvent {
             r#type,
             b64_json,
             created_at,
-            size,
+            size: Box::new(size),
             quality,
             background,
             output_format,
@@ -75,24 +74,6 @@ impl Default for Type {
         Self::ImageEditCompleted
     }
 }
-/// The size of the edited image.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Size {
-    #[serde(rename = "1024x1024")]
-    Variant1024x1024,
-    #[serde(rename = "1024x1536")]
-    Variant1024x1536,
-    #[serde(rename = "1536x1024")]
-    Variant1536x1024,
-    #[serde(rename = "auto")]
-    Auto,
-}
-
-impl Default for Size {
-    fn default() -> Size {
-        Self::Variant1024x1024
-    }
-}
 /// The quality setting for the edited image.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
@@ -102,6 +83,10 @@ pub enum Quality {
     Medium,
     #[serde(rename = "high")]
     High,
+    #[serde(rename = "xhigh")]
+    Xhigh,
+    #[serde(rename = "max")]
+    Max,
     #[serde(rename = "auto")]
     Auto,
 }

@@ -16,7 +16,7 @@ pub struct ChatCompletionRequestMessageContentPartImageImageUrl {
     /// Either a URL of the image or the base64 encoded image data.
     #[serde(rename = "url")]
     pub url: String,
-    /// Specifies the detail level of the image. Learn more in the [Vision guide](/docs/guides/vision#low-or-high-fidelity-image-understanding).
+    /// Specifies the detail level of the image. Learn more in the [Vision guide](https://developers.openai.com/api/docs/guides/images-vision#choose-an-image-detail-level).
     #[serde(rename = "detail", skip_serializing_if = "Option::is_none")]
     pub detail: Option<Detail>,
 }
@@ -26,7 +26,7 @@ impl ChatCompletionRequestMessageContentPartImageImageUrl {
         ChatCompletionRequestMessageContentPartImageImageUrl { url, detail: None }
     }
 }
-/// Specifies the detail level of the image. Learn more in the [Vision guide](/docs/guides/vision#low-or-high-fidelity-image-understanding).
+/// Specifies the detail level of the image. Learn more in the [Vision guide](https://developers.openai.com/api/docs/guides/images-vision#choose-an-image-detail-level).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Detail {
     #[serde(rename = "auto")]

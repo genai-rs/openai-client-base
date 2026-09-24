@@ -20,6 +20,16 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[serde(untagged)]
 pub enum BetaCancelResponseError {
     Status404(models::BetaError),
+    Status429(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`beta_compactconversation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BetaCompactconversationError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,6 +37,8 @@ pub enum BetaCancelResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaCreateResponseError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -35,6 +47,7 @@ pub enum BetaCreateResponseError {
 #[serde(untagged)]
 pub enum BetaDeleteResponseError {
     Status404(models::BetaError),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -42,6 +55,15 @@ pub enum BetaDeleteResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaGetResponseError {
+    Status429(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`beta_getinputtokencounts`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BetaGetinputtokencountsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -49,6 +71,7 @@ pub enum BetaGetResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaListInputItemsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -57,6 +80,16 @@ pub enum BetaListInputItemsError {
 #[serde(untagged)]
 pub enum CancelResponseError {
     Status404(models::Error),
+    Status429(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`compactconversation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CompactconversationError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -64,6 +97,8 @@ pub enum CancelResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateResponseError {
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -72,6 +107,7 @@ pub enum CreateResponseError {
 #[serde(untagged)]
 pub enum DeleteResponseError {
     Status404(models::Error),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -79,6 +115,15 @@ pub enum DeleteResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetResponseError {
+    Status429(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`getinputtokencounts`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetinputtokencountsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -86,9 +131,11 @@ pub enum GetResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListInputItemsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled. [Learn more](https://developers.openai.com/api/docs/guides/background).
 #[bon::builder]
 pub async fn beta_cancel_response(
     configuration: &configuration::Configuration,
@@ -147,6 +194,63 @@ pub async fn beta_cancel_response(
     }
 }
 
+/// Compact a conversation. Returns a compacted response object.  Learn when and how to compact long-running conversations in the [conversation state guide](https://developers.openai.com/api/docs/guides/conversation-state#managing-the-context-window). For ZDR-compatible compaction details, see [Compaction (advanced)](https://developers.openai.com/api/docs/guides/conversation-state#compaction-advanced).
+#[bon::builder]
+pub async fn beta_compactconversation(
+    configuration: &configuration::Configuration,
+    openai_beta: Option<Vec<String>>,
+    beta_compact_response_method_public_body: Option<models::BetaCompactResponseMethodPublicBody>,
+) -> Result<models::BetaCompactResource, Error<BetaCompactconversationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_header_openai_beta = openai_beta;
+    let p_body_beta_compact_response_method_public_body = beta_compact_response_method_public_body;
+
+    let uri_str = format!("{}/responses/compact?beta=true", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_openai_beta {
+        req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_beta_compact_response_method_public_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BetaCompactResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BetaCompactResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<BetaCompactconversationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
 #[bon::builder]
 pub async fn beta_create_response(
     configuration: &configuration::Configuration,
@@ -202,6 +306,7 @@ pub async fn beta_create_response(
     }
 }
 
+/// Deletes a model response with the given ID.
 #[bon::builder]
 pub async fn beta_delete_response(
     configuration: &configuration::Configuration,
@@ -249,6 +354,7 @@ pub async fn beta_delete_response(
     }
 }
 
+/// Retrieves a model response with the given ID.
 #[bon::builder]
 pub async fn beta_get_response(
     configuration: &configuration::Configuration,
@@ -341,6 +447,66 @@ pub async fn beta_get_response(
     }
 }
 
+/// Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.
+#[bon::builder]
+pub async fn beta_getinputtokencounts(
+    configuration: &configuration::Configuration,
+    openai_beta: Option<Vec<String>>,
+    beta_token_counts_body: Option<models::BetaTokenCountsBody>,
+) -> Result<models::BetaTokenCountsResource, Error<BetaGetinputtokencountsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_header_openai_beta = openai_beta;
+    let p_body_beta_token_counts_body = beta_token_counts_body;
+
+    let uri_str = format!(
+        "{}/responses/input_tokens?beta=true",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_openai_beta {
+        req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_beta_token_counts_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BetaTokenCountsResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BetaTokenCountsResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<BetaGetinputtokencountsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Returns a list of input items for a given response.
 #[bon::builder]
 pub async fn beta_list_input_items(
     configuration: &configuration::Configuration,
@@ -433,6 +599,7 @@ pub async fn beta_list_input_items(
     }
 }
 
+/// Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled. [Learn more](https://developers.openai.com/api/docs/guides/background).
 #[bon::builder]
 pub async fn cancel_response(
     configuration: &configuration::Configuration,
@@ -486,6 +653,58 @@ pub async fn cancel_response(
     }
 }
 
+/// Compact a conversation. Returns a compacted response object.  Learn when and how to compact long-running conversations in the [conversation state guide](https://developers.openai.com/api/docs/guides/conversation-state#managing-the-context-window). For ZDR-compatible compaction details, see [Compaction (advanced)](https://developers.openai.com/api/docs/guides/conversation-state#compaction-advanced).
+#[bon::builder]
+pub async fn compactconversation(
+    configuration: &configuration::Configuration,
+    compact_response_method_public_body: Option<models::CompactResponseMethodPublicBody>,
+) -> Result<models::CompactResource, Error<CompactconversationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_compact_response_method_public_body = compact_response_method_public_body;
+
+    let uri_str = format!("{}/responses/compact", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_compact_response_method_public_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CompactResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CompactResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CompactconversationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
 #[bon::builder]
 pub async fn create_response(
     configuration: &configuration::Configuration,
@@ -536,6 +755,7 @@ pub async fn create_response(
     }
 }
 
+/// Deletes a model response with the given ID.
 #[bon::builder]
 pub async fn delete_response(
     configuration: &configuration::Configuration,
@@ -578,6 +798,7 @@ pub async fn delete_response(
     }
 }
 
+/// Retrieves a model response with the given ID.
 #[bon::builder]
 pub async fn get_response(
     configuration: &configuration::Configuration,
@@ -665,6 +886,58 @@ pub async fn get_response(
     }
 }
 
+/// Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.
+#[bon::builder]
+pub async fn getinputtokencounts(
+    configuration: &configuration::Configuration,
+    token_counts_body: Option<models::TokenCountsBody>,
+) -> Result<models::TokenCountsResource, Error<GetinputtokencountsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_token_counts_body = token_counts_body;
+
+    let uri_str = format!("{}/responses/input_tokens", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_token_counts_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TokenCountsResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TokenCountsResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetinputtokencountsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Returns a list of input items for a given response.
 #[bon::builder]
 pub async fn list_input_items(
     configuration: &configuration::Configuration,

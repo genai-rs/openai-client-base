@@ -26,10 +26,9 @@ pub struct ImagesResponse {
     /// The output format of the image generation. Either `png`, `webp`, or `jpeg`.
     #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
     pub output_format: Option<OutputFormat>,
-    /// The size of the image generated. Either `1024x1024`, `1024x1536`, or `1536x1024`.
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
-    pub size: Option<Size>,
-    /// The quality of the image generated. Either `low`, `medium`, or `high`.
+    pub size: Option<Box<models::ImagesResponseSize>>,
+    /// The quality of the image generated. One of `low`, `medium`, `high`, `xhigh`, or `max`.
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
@@ -80,23 +79,7 @@ impl Default for OutputFormat {
         Self::Png
     }
 }
-/// The size of the image generated. Either `1024x1024`, `1024x1536`, or `1536x1024`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Size {
-    #[serde(rename = "1024x1024")]
-    Variant1024x1024,
-    #[serde(rename = "1024x1536")]
-    Variant1024x1536,
-    #[serde(rename = "1536x1024")]
-    Variant1536x1024,
-}
-
-impl Default for Size {
-    fn default() -> Size {
-        Self::Variant1024x1024
-    }
-}
-/// The quality of the image generated. Either `low`, `medium`, or `high`.
+/// The quality of the image generated. One of `low`, `medium`, `high`, `xhigh`, or `max`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
     #[serde(rename = "low")]
@@ -105,6 +88,10 @@ pub enum Quality {
     Medium,
     #[serde(rename = "high")]
     High,
+    #[serde(rename = "xhigh")]
+    Xhigh,
+    #[serde(rename = "max")]
+    Max,
 }
 
 impl Default for Quality {

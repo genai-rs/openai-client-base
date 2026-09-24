@@ -3,27 +3,17 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+SPEC_URL="https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml"
+SPEC_PATH="$PROJECT_ROOT/stainless.yaml"
+TEMP_PATH="$(mktemp "$PROJECT_ROOT/.stainless.yaml.XXXXXX")"
+trap 'rm -f "$TEMP_PATH"' EXIT
 
-echo "📥 Fetching Stainless OpenAI specification..."
+echo "📥 Fetching the current OpenAI OpenAPI specification from $SPEC_URL"
+curl --fail --location --silent --show-error --retry 3 \
+    --output "$TEMP_PATH" "$SPEC_URL"
 
-
-# Use Stainless spec as the single authoritative source
-# Stainless is OpenAI's official SDK generation partner
-STAINLESS_SPEC_URL="https://app.stainless.com/api/spec/documented/openai/openapi.documented.yml"
-
-# Fetch the spec
-echo "Downloading from: $STAINLESS_SPEC_URL"
-echo "Note: Stainless spec is the authoritative source (no website cross-referencing needed)"
-curl -s -o "$PROJECT_ROOT/stainless.yaml" "$STAINLESS_SPEC_URL"
-
-if [ -f "$PROJECT_ROOT/stainless.yaml" ]; then
-    echo "✅ Successfully downloaded Stainless spec to stainless.yaml"
-    
-    # Get spec version info
-    VERSION=$(grep -m1 "version:" "$PROJECT_ROOT/stainless.yaml" | cut -d'"' -f2 || echo "unknown")
-    echo "📌 Spec version: $VERSION"
-    
-else
-    echo "❌ Failed to download Stainless spec"
-    exit 1
-fi
+# Validate before replacing the checked-in copy. An HTTP error or malformed
+# response must never reach the generator as a null OpenAPI document.
+uv run --with pyyaml python "$SCRIPT_DIR/validate_spec.py" "$TEMP_PATH"
+mv "$TEMP_PATH" "$SPEC_PATH"
+echo "✅ Downloaded OpenAI OpenAPI specification to stainless.yaml"

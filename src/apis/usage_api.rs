@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageAudioSpeechesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum UsageAudioSpeechesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageAudioTranscriptionsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum UsageAudioTranscriptionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageCodeInterpreterSessionsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,6 +43,7 @@ pub enum UsageCodeInterpreterSessionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageCompletionsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,6 +51,7 @@ pub enum UsageCompletionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageCostsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,6 +59,7 @@ pub enum UsageCostsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageEmbeddingsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -61,6 +67,7 @@ pub enum UsageEmbeddingsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageFileSearchCallsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,6 +75,7 @@ pub enum UsageFileSearchCallsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageImagesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -75,6 +83,7 @@ pub enum UsageImagesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageModerationsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -82,6 +91,7 @@ pub enum UsageModerationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageVectorStoresError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -89,9 +99,11 @@ pub enum UsageVectorStoresError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageWebSearchCallsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Get audio speeches usage details for the organization.
 #[bon::builder]
 pub async fn usage_audio_speeches(
     configuration: &configuration::Configuration,
@@ -268,6 +280,7 @@ pub async fn usage_audio_speeches(
     }
 }
 
+/// Get audio transcriptions usage details for the organization.
 #[bon::builder]
 pub async fn usage_audio_transcriptions(
     configuration: &configuration::Configuration,
@@ -444,6 +457,7 @@ pub async fn usage_audio_transcriptions(
     }
 }
 
+/// Get code interpreter sessions usage details for the organization.
 #[bon::builder]
 pub async fn usage_code_interpreter_sessions(
     configuration: &configuration::Configuration,
@@ -557,6 +571,7 @@ pub async fn usage_code_interpreter_sessions(
     }
 }
 
+/// Get completions usage details for the organization.
 #[bon::builder]
 pub async fn usage_completions(
     configuration: &configuration::Configuration,
@@ -735,6 +750,7 @@ pub async fn usage_completions(
     }
 }
 
+/// Get costs details for the organization.
 #[bon::builder]
 pub async fn usage_costs(
     configuration: &configuration::Configuration,
@@ -743,6 +759,7 @@ pub async fn usage_costs(
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     api_key_ids: Option<Vec<String>>,
+    line_items: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
     limit: Option<i32>,
     page: Option<&str>,
@@ -753,6 +770,7 @@ pub async fn usage_costs(
     let p_query_bucket_width = bucket_width;
     let p_query_project_ids = project_ids;
     let p_query_api_key_ids = api_key_ids;
+    let p_query_line_items = line_items;
     let p_query_group_by = group_by;
     let p_query_limit = limit;
     let p_query_page = page;
@@ -796,6 +814,25 @@ pub async fn usage_costs(
             ),
             _ => req_builder.query(&[(
                 "api_key_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_line_items {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("line_items".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "line_items",
                 &param_value
                     .into_iter()
                     .map(|p| p.to_string())
@@ -866,6 +903,7 @@ pub async fn usage_costs(
     }
 }
 
+/// Get embeddings usage details for the organization.
 #[bon::builder]
 pub async fn usage_embeddings(
     configuration: &configuration::Configuration,
@@ -1039,6 +1077,7 @@ pub async fn usage_embeddings(
     }
 }
 
+/// Get file search calls usage details for the organization.
 #[bon::builder]
 pub async fn usage_file_search_calls(
     configuration: &configuration::Configuration,
@@ -1215,6 +1254,7 @@ pub async fn usage_file_search_calls(
     }
 }
 
+/// Get images usage details for the organization.
 #[bon::builder]
 pub async fn usage_images(
     configuration: &configuration::Configuration,
@@ -1430,6 +1470,7 @@ pub async fn usage_images(
     }
 }
 
+/// Get moderations usage details for the organization.
 #[bon::builder]
 pub async fn usage_moderations(
     configuration: &configuration::Configuration,
@@ -1603,6 +1644,7 @@ pub async fn usage_moderations(
     }
 }
 
+/// Get vector stores usage details for the organization.
 #[bon::builder]
 pub async fn usage_vector_stores(
     configuration: &configuration::Configuration,
@@ -1716,6 +1758,7 @@ pub async fn usage_vector_stores(
     }
 }
 
+/// Get web search calls usage details for the organization.
 #[bon::builder]
 pub async fn usage_web_search_calls(
     configuration: &configuration::Configuration,

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **model** | Option<**String**> | ID of the model to use | [optional]
 **input** | Option<[**models::BetaTokenCountsBodyInput**](BetaTokenCountsBody_input.md)> |  | [optional]
-**previous_response_id** | Option<**String**> | The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`. | [optional]
+**previous_response_id** | Option<**String**> | The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`. | [optional]
 **tools** | Option<[**Vec<models::BetaTool>**](BetaTool.md)> | An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter. | [optional]
 **text** | Option<[**models::BetaResponseTextParam**](BetaResponseTextParam.md)> |  | [optional]
 **reasoning** | Option<[**models::BetaReasoning**](BetaReasoning.md)> |  | [optional]

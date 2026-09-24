@@ -25,7 +25,7 @@ pub struct AudioTranscription {
     /// Words or phrases to guide transcription of the input audio. Supported by `gpt-transcribe` and `gpt-live-transcribe`.
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
     pub keywords: Option<Vec<String>>,
-    /// An optional text to guide the model's style or continue a previous audio segment. For `whisper-1`, the [prompt is a list of keywords](/docs/guides/speech-to-text#prompting). For `gpt-4o-transcribe` models (excluding `gpt-4o-transcribe-diarize`), the prompt is a free text string, for example \"expect words related to technology\". Prompt is not supported with `gpt-realtime-whisper` in GA Realtime sessions.
+    /// An optional text to guide the model's style or continue a previous audio segment. For `whisper-1`, the [prompt is a list of keywords](https://developers.openai.com/api/docs/guides/speech-to-text#prompting). For `gpt-4o-transcribe` models (excluding `gpt-4o-transcribe-diarize`), the prompt is a free text string, for example \"expect words related to technology\". Prompt is not supported with `gpt-realtime-whisper` in GA Realtime sessions.
     #[serde(rename = "prompt", skip_serializing_if = "Option::is_none")]
     pub prompt: Option<String>,
     /// Controls how long the model waits before emitting transcription text. Higher values can improve transcription accuracy at the cost of latency. Only supported with `gpt-realtime-whisper` in GA Realtime sessions.

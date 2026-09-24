@@ -24,6 +24,13 @@ pub struct ProjectCreateRequest {
     )]
     pub geography: Option<Option<String>>,
     #[serde(
+        rename = "residency",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub residency: Option<Option<models::PublicProjectResidency>>,
+    #[serde(
         rename = "external_key_id",
         default,
         with = "::serde_with::rust::double_option",
@@ -37,6 +44,7 @@ impl ProjectCreateRequest {
         ProjectCreateRequest {
             name,
             geography: None,
+            residency: None,
             external_key_id: None,
         }
     }

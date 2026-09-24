@@ -14,10 +14,12 @@ use serde::{Deserialize, Serialize};
 /// WebhookLiveCallIncomingData : Event data payload.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookLiveCallIncomingData {
-    /// The Transceiver `rtc_...` ID of the pending SIP session. The same value appears as `call_id` in `realtime.call.incoming`.
+    /// The `live_...` ID of the pending SIP session. Pass this value unchanged to Live call controls and sideband connections. The corresponding `realtime.call.incoming` event uses a separate `rtc_...` call ID.
     #[serde(rename = "session_id")]
     pub session_id: String,
-    /// Headers from the SIP Invite.
+    #[serde(rename = "sip_media_security", skip_serializing_if = "Option::is_none")]
+    pub sip_media_security: Option<Box<models::WebhookLiveCallIncomingDataSipMediaSecurity>>,
+    /// Headers from the SIP INVITE, excluding SIP authorization headers. Retained names, values, repeated entries, and order are preserved. Treat these values as untrusted call metadata.
     #[serde(rename = "sip_headers")]
     pub sip_headers: Vec<models::WebhookLiveCallIncomingDataSipHeadersInner>,
 }
@@ -30,6 +32,7 @@ impl WebhookLiveCallIncomingData {
     ) -> WebhookLiveCallIncomingData {
         WebhookLiveCallIncomingData {
             session_id,
+            sip_media_security: None,
             sip_headers,
         }
     }

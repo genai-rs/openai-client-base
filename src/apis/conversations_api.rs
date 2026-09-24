@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateConversationError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum CreateConversationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateConversationItemsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum CreateConversationItemsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteConversationError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,6 +43,7 @@ pub enum DeleteConversationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteConversationItemError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,6 +51,7 @@ pub enum DeleteConversationItemError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetConversationError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,6 +59,7 @@ pub enum GetConversationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetConversationItemError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -61,6 +67,7 @@ pub enum GetConversationItemError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListConversationItemsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,9 +75,11 @@ pub enum ListConversationItemsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateConversationError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Create a conversation.
 #[bon::builder]
 pub async fn create_conversation(
     configuration: &configuration::Configuration,
@@ -121,6 +130,7 @@ pub async fn create_conversation(
     }
 }
 
+/// Create items in a conversation with the given ID.
 #[bon::builder]
 pub async fn create_conversation_items(
     configuration: &configuration::Configuration,
@@ -198,6 +208,7 @@ pub async fn create_conversation_items(
     }
 }
 
+/// Delete a conversation. Items in the conversation will not be deleted.
 #[bon::builder]
 pub async fn delete_conversation(
     configuration: &configuration::Configuration,
@@ -251,6 +262,7 @@ pub async fn delete_conversation(
     }
 }
 
+/// Delete an item from a conversation with the given IDs.
 #[bon::builder]
 pub async fn delete_conversation_item(
     configuration: &configuration::Configuration,
@@ -307,6 +319,7 @@ pub async fn delete_conversation_item(
     }
 }
 
+/// Get a conversation
 #[bon::builder]
 pub async fn get_conversation(
     configuration: &configuration::Configuration,
@@ -358,6 +371,7 @@ pub async fn get_conversation(
     }
 }
 
+/// Get a single item from a conversation with the given IDs.
 #[bon::builder]
 pub async fn get_conversation_item(
     configuration: &configuration::Configuration,
@@ -433,6 +447,7 @@ pub async fn get_conversation_item(
     }
 }
 
+/// List all items for a conversation with the given ID.
 #[bon::builder]
 pub async fn list_conversation_items(
     configuration: &configuration::Configuration,
@@ -520,6 +535,7 @@ pub async fn list_conversation_items(
     }
 }
 
+/// Update a conversation
 #[bon::builder]
 pub async fn update_conversation(
     configuration: &configuration::Configuration,

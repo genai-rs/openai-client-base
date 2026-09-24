@@ -22,6 +22,13 @@ pub struct ProjectServiceAccountApiKey {
     pub name: String,
     #[serde(rename = "created_at")]
     pub created_at: i32,
+    #[serde(
+        rename = "expires_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expires_at: Option<Option<i32>>,
     #[serde(rename = "id")]
     pub id: String,
 }
@@ -39,6 +46,7 @@ impl ProjectServiceAccountApiKey {
             value,
             name,
             created_at,
+            expires_at: None,
             id,
         }
     }

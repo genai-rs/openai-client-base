@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ResponseUsageInputTokensDetails : A detailed breakdown of the input tokens.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseUsageInputTokensDetails {
-    /// The number of tokens that were retrieved from the cache.  [More on prompt caching](/docs/guides/prompt-caching).
+    /// The number of tokens that were retrieved from the cache. [More on prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching).
     #[serde(rename = "cached_tokens")]
     pub cached_tokens: i32,
     /// The number of input tokens that were written to the cache.

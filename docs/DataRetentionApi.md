@@ -4,16 +4,18 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**retrieve_organization_data_retention**](DataRetentionApi.md#retrieve_organization_data_retention) | **GET** /organization/data_retention | Retrieves organization data retention controls.
-[**retrieve_project_data_retention**](DataRetentionApi.md#retrieve_project_data_retention) | **GET** /organization/projects/{project_id}/data_retention | Retrieves project data retention controls.
-[**update_organization_data_retention**](DataRetentionApi.md#update_organization_data_retention) | **POST** /organization/data_retention | Updates organization data retention controls.
-[**update_project_data_retention**](DataRetentionApi.md#update_project_data_retention) | **POST** /organization/projects/{project_id}/data_retention | Updates project data retention controls.
+[**retrieve_organization_data_retention**](DataRetentionApi.md#retrieve_organization_data_retention) | **GET** /organization/data_retention | Retrieve organization data retention
+[**retrieve_project_data_retention**](DataRetentionApi.md#retrieve_project_data_retention) | **GET** /organization/projects/{project_id}/data_retention | Retrieve project data retention
+[**update_organization_data_retention**](DataRetentionApi.md#update_organization_data_retention) | **POST** /organization/data_retention | Update organization data retention
+[**update_project_data_retention**](DataRetentionApi.md#update_project_data_retention) | **POST** /organization/projects/{project_id}/data_retention | Update project data retention
 
 
 
 ## retrieve_organization_data_retention
 
 > models::OrganizationDataRetention retrieve_organization_data_retention()
+Retrieve organization data retention
+
 Retrieves organization data retention controls.
 
 ### Parameters
@@ -39,6 +41,8 @@ This endpoint does not need any parameter.
 ## retrieve_project_data_retention
 
 > models::ProjectDataRetention retrieve_project_data_retention(project_id)
+Retrieve project data retention
+
 Retrieves project data retention controls.
 
 ### Parameters
@@ -67,6 +71,8 @@ Name | Type | Description  | Required | Notes
 ## update_organization_data_retention
 
 > models::OrganizationDataRetention update_organization_data_retention(update_organization_data_retention_body)
+Update organization data retention
+
 Updates organization data retention controls.
 
 ### Parameters
@@ -95,6 +101,8 @@ Name | Type | Description  | Required | Notes
 ## update_project_data_retention
 
 > models::ProjectDataRetention update_project_data_retention(project_id, update_project_data_retention_body)
+Update project data retention
+
 Updates project data retention controls.
 
 ### Parameters

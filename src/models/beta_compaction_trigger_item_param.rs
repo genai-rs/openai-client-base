@@ -21,6 +21,14 @@ pub struct BetaCompactionTriggerItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    /// The unique ID of this compaction trigger.
+    #[serde(
+        rename = "id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub id: Option<Option<String>>,
     /// The type of the item. Always `compaction_trigger`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -31,6 +39,7 @@ impl BetaCompactionTriggerItemParam {
     pub fn new(r#type: Type) -> BetaCompactionTriggerItemParam {
         BetaCompactionTriggerItemParam {
             agent: None,
+            id: None,
             r#type,
         }
     }

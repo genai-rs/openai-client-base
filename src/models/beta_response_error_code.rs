@@ -25,6 +25,8 @@ pub enum BetaResponseErrorCode {
     DataResidencyMismatch,
     #[serde(rename = "bio_policy")]
     BioPolicy,
+    #[serde(rename = "misalignment_policy_violation")]
+    MisalignmentPolicyViolation,
     #[serde(rename = "vector_store_timeout")]
     VectorStoreTimeout,
     #[serde(rename = "invalid_image")]
@@ -65,6 +67,7 @@ impl std::fmt::Display for BetaResponseErrorCode {
             Self::InvalidPrompt => write!(f, "invalid_prompt"),
             Self::DataResidencyMismatch => write!(f, "data_residency_mismatch"),
             Self::BioPolicy => write!(f, "bio_policy"),
+            Self::MisalignmentPolicyViolation => write!(f, "misalignment_policy_violation"),
             Self::VectorStoreTimeout => write!(f, "vector_store_timeout"),
             Self::InvalidImage => write!(f, "invalid_image"),
             Self::InvalidImageFormat => write!(f, "invalid_image_format"),

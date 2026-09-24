@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaCustomToolParam : A custom tool that processes input using a specified format. Learn more about   [custom tools](/docs/guides/function-calling#custom-tools)
+/// BetaCustomToolParam : A custom tool that processes input using a specified format. Learn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCustomToolParam {
     /// The type of the custom tool. Always `custom`.
@@ -20,6 +20,9 @@ pub struct BetaCustomToolParam {
     /// The name of the custom tool, used to identify it in tool calls.
     #[serde(rename = "name")]
     pub name: String,
+    /// Whether the tool response can be returned asynchronously versus immediately returned on next response creation.
+    #[serde(rename = "async", skip_serializing_if = "Option::is_none")]
+    pub r#async: Option<bool>,
     /// Optional description of the custom tool, used to provide more context.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -39,11 +42,12 @@ pub struct BetaCustomToolParam {
 }
 
 impl BetaCustomToolParam {
-    /// A custom tool that processes input using a specified format. Learn more about   [custom tools](/docs/guides/function-calling#custom-tools)
+    /// A custom tool that processes input using a specified format. Learn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)
     pub fn new(r#type: Type, name: String) -> BetaCustomToolParam {
         BetaCustomToolParam {
             r#type,
             name,
+            r#async: None,
             description: None,
             format: None,
             defer_loading: None,

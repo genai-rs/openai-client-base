@@ -39,6 +39,10 @@ pub enum AuditLogEventType {
     ExternalKeyRegistered,
     #[serde(rename = "external_key.removed")]
     ExternalKeyRemoved,
+    #[serde(rename = "external_storage.registered")]
+    ExternalStorageRegistered,
+    #[serde(rename = "external_storage.removed")]
+    ExternalStorageRemoved,
     #[serde(rename = "group.created")]
     GroupCreated,
     #[serde(rename = "group.updated")]
@@ -155,6 +159,8 @@ pub enum AuditLogEventType {
     TenantWorkloadIdentityBindingCreated,
     #[serde(rename = "tenant.workload_identity.principal.provisioned")]
     TenantWorkloadIdentityPrincipalProvisioned,
+    #[serde(rename = "tenant.workload_identity.access_token.issued")]
+    TenantWorkloadIdentityAccessTokenIssued,
     #[serde(rename = "tenant.admin_api_key.created")]
     TenantAdminApiKeyCreated,
     #[serde(rename = "tenant.admin_api_key.updated")]
@@ -163,6 +169,10 @@ pub enum AuditLogEventType {
     TenantAdminApiKeyDeleted,
     #[serde(rename = "tenant.project_api_key.created")]
     TenantProjectApiKeyCreated,
+    #[serde(rename = "tenant.trusted_access.business_verification.started")]
+    TenantTrustedAccessBusinessVerificationStarted,
+    #[serde(rename = "tenant.trusted_access.application.submitted")]
+    TenantTrustedAccessApplicationSubmitted,
     #[serde(rename = "tenant.chatgpt_access_token.revoked")]
     TenantChatgptAccessTokenRevoked,
     #[serde(rename = "tenant.migration.completed")]
@@ -267,6 +277,8 @@ pub enum AuditLogEventType {
     TenantResourceAccessUpdated,
     #[serde(rename = "tenant.resource_access.deleted")]
     TenantResourceAccessDeleted,
+    #[serde(rename = "tenant.ads_account.onboarding.redemption")]
+    TenantAdsAccountOnboardingRedemption,
     #[serde(rename = "tenant.session_policy.created")]
     TenantSessionPolicyCreated,
     #[serde(rename = "tenant.session_policy.updated")]
@@ -318,6 +330,8 @@ impl std::fmt::Display for AuditLogEventType {
             Self::CheckpointPermissionDeleted => write!(f, "checkpoint.permission.deleted"),
             Self::ExternalKeyRegistered => write!(f, "external_key.registered"),
             Self::ExternalKeyRemoved => write!(f, "external_key.removed"),
+            Self::ExternalStorageRegistered => write!(f, "external_storage.registered"),
+            Self::ExternalStorageRemoved => write!(f, "external_storage.removed"),
             Self::GroupCreated => write!(f, "group.created"),
             Self::GroupUpdated => write!(f, "group.updated"),
             Self::GroupDeleted => write!(f, "group.deleted"),
@@ -408,10 +422,19 @@ impl std::fmt::Display for AuditLogEventType {
             Self::TenantWorkloadIdentityPrincipalProvisioned => {
                 write!(f, "tenant.workload_identity.principal.provisioned")
             }
+            Self::TenantWorkloadIdentityAccessTokenIssued => {
+                write!(f, "tenant.workload_identity.access_token.issued")
+            }
             Self::TenantAdminApiKeyCreated => write!(f, "tenant.admin_api_key.created"),
             Self::TenantAdminApiKeyUpdated => write!(f, "tenant.admin_api_key.updated"),
             Self::TenantAdminApiKeyDeleted => write!(f, "tenant.admin_api_key.deleted"),
             Self::TenantProjectApiKeyCreated => write!(f, "tenant.project_api_key.created"),
+            Self::TenantTrustedAccessBusinessVerificationStarted => {
+                write!(f, "tenant.trusted_access.business_verification.started")
+            }
+            Self::TenantTrustedAccessApplicationSubmitted => {
+                write!(f, "tenant.trusted_access.application.submitted")
+            }
             Self::TenantChatgptAccessTokenRevoked => {
                 write!(f, "tenant.chatgpt_access_token.revoked")
             }
@@ -502,6 +525,9 @@ impl std::fmt::Display for AuditLogEventType {
             }
             Self::TenantResourceAccessUpdated => write!(f, "tenant.resource_access.updated"),
             Self::TenantResourceAccessDeleted => write!(f, "tenant.resource_access.deleted"),
+            Self::TenantAdsAccountOnboardingRedemption => {
+                write!(f, "tenant.ads_account.onboarding.redemption")
+            }
             Self::TenantSessionPolicyCreated => write!(f, "tenant.session_policy.created"),
             Self::TenantSessionPolicyUpdated => write!(f, "tenant.session_policy.updated"),
             Self::TenantSessionPolicyDeleted => write!(f, "tenant.session_policy.deleted"),

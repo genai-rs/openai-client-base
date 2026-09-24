@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ComputerToolCall : A tool call to a computer use tool. See the [computer use guide](/docs/guides/tools-computer-use) for more information.
+/// ComputerToolCall : A tool call to a computer use tool. See the [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerToolCall {
     /// The type of the computer call. Always `computer_call`.
@@ -37,7 +37,7 @@ pub struct ComputerToolCall {
 }
 
 impl ComputerToolCall {
-    /// A tool call to a computer use tool. See the [computer use guide](/docs/guides/tools-computer-use) for more information.
+    /// A tool call to a computer use tool. See the [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
     pub fn new(
         r#type: Type,
         id: String,

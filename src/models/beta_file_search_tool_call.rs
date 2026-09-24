@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaFileSearchToolCall : The results of a file search tool call. See the [file search guide](/docs/guides/tools-file-search) for more information.
+/// BetaFileSearchToolCall : The results of a file search tool call. See the [file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFileSearchToolCall {
     #[serde(
@@ -44,7 +44,7 @@ pub struct BetaFileSearchToolCall {
 }
 
 impl BetaFileSearchToolCall {
-    /// The results of a file search tool call. See the [file search guide](/docs/guides/tools-file-search) for more information.
+    /// The results of a file search tool call. See the [file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.
     pub fn new(
         id: String,
         r#type: Type,

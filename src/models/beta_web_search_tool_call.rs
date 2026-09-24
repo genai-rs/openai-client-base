@@ -11,8 +11,8 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaWebSearchToolCall : The results of a web search tool call. See the [web search guide](/docs/guides/tools-web-search) for more information.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// BetaWebSearchToolCall : The results of a web search tool call. See the [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaWebSearchToolCall {
     #[serde(
         rename = "agent",
@@ -27,19 +27,18 @@ pub struct BetaWebSearchToolCall {
     /// The type of the web search tool call. Always `web_search_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The status of the web search tool call.
     #[serde(rename = "status")]
-    pub status: Status,
+    pub status: models::BetaWebSearchCallStatus,
     #[serde(rename = "action")]
     pub action: Box<models::BetaWebSearchToolCallAction>,
 }
 
 impl BetaWebSearchToolCall {
-    /// The results of a web search tool call. See the [web search guide](/docs/guides/tools-web-search) for more information.
+    /// The results of a web search tool call. See the [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
     pub fn new(
         id: String,
         r#type: Type,
-        status: Status,
+        status: models::BetaWebSearchCallStatus,
         action: models::BetaWebSearchToolCallAction,
     ) -> BetaWebSearchToolCall {
         BetaWebSearchToolCall {
@@ -61,24 +60,6 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::WebSearchCall
-    }
-}
-/// The status of the web search tool call.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "in_progress")]
-    InProgress,
-    #[serde(rename = "searching")]
-    Searching,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "failed")]
-    Failed,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::InProgress
     }
 }
 

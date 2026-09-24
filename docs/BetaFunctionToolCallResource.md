@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **name** | **String** | The name of the function to run.  | 
 **arguments** | **String** | A JSON string of the arguments to pass to the function.  | 
 **status** | [**models::BetaFunctionCallStatus**](BetaFunctionCallStatus.md) |  | 
+**r#async** | Option<**bool**> | Whether the function tool call runs asynchronously.  | [optional]
 **created_by** | Option<**String**> | The identifier of the actor that created the item.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

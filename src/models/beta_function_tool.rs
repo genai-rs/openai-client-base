@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaFunctionTool : Defines a function in your own code the model can choose to call. Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+/// BetaFunctionTool : Defines a function in your own code the model can choose to call. Learn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionTool {
     /// The type of the function tool. Always `function`.
@@ -20,6 +20,8 @@ pub struct BetaFunctionTool {
     /// The name of the function to call.
     #[serde(rename = "name")]
     pub name: String,
+    #[serde(rename = "async", skip_serializing_if = "Option::is_none")]
+    pub r#async: Option<bool>,
     /// A description of the function. Used by the model to determine whether or not to call the function.
     #[serde(
         rename = "description",
@@ -56,7 +58,7 @@ pub struct BetaFunctionTool {
 }
 
 impl BetaFunctionTool {
-    /// Defines a function in your own code the model can choose to call. Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+    /// Defines a function in your own code the model can choose to call. Learn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).
     pub fn new(
         r#type: Type,
         name: String,
@@ -66,6 +68,7 @@ impl BetaFunctionTool {
         BetaFunctionTool {
             r#type,
             name,
+            r#async: None,
             description: None,
             parameters,
             output_schema: None,

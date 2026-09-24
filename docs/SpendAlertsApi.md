@@ -4,22 +4,24 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_organization_spend_alert**](SpendAlertsApi.md#create_organization_spend_alert) | **POST** /organization/spend_alerts | Creates an organization spend alert.
-[**create_project_spend_alert**](SpendAlertsApi.md#create_project_spend_alert) | **POST** /organization/projects/{project_id}/spend_alerts | Creates a project spend alert.
-[**delete_organization_spend_alert**](SpendAlertsApi.md#delete_organization_spend_alert) | **DELETE** /organization/spend_alerts/{alert_id} | Deletes an organization spend alert.
-[**delete_project_spend_alert**](SpendAlertsApi.md#delete_project_spend_alert) | **DELETE** /organization/projects/{project_id}/spend_alerts/{alert_id} | Deletes a project spend alert.
-[**list_organization_spend_alerts**](SpendAlertsApi.md#list_organization_spend_alerts) | **GET** /organization/spend_alerts | Lists organization spend alerts.
-[**list_project_spend_alerts**](SpendAlertsApi.md#list_project_spend_alerts) | **GET** /organization/projects/{project_id}/spend_alerts | Lists project spend alerts.
-[**retrieve_organization_spend_alert**](SpendAlertsApi.md#retrieve_organization_spend_alert) | **GET** /organization/spend_alerts/{alert_id} | Retrieves an organization spend alert.
-[**retrieve_project_spend_alert**](SpendAlertsApi.md#retrieve_project_spend_alert) | **GET** /organization/projects/{project_id}/spend_alerts/{alert_id} | Retrieves a project spend alert.
-[**update_organization_spend_alert**](SpendAlertsApi.md#update_organization_spend_alert) | **POST** /organization/spend_alerts/{alert_id} | Updates an organization spend alert.
-[**update_project_spend_alert**](SpendAlertsApi.md#update_project_spend_alert) | **POST** /organization/projects/{project_id}/spend_alerts/{alert_id} | Updates a project spend alert.
+[**create_organization_spend_alert**](SpendAlertsApi.md#create_organization_spend_alert) | **POST** /organization/spend_alerts | Create organization spend alert
+[**create_project_spend_alert**](SpendAlertsApi.md#create_project_spend_alert) | **POST** /organization/projects/{project_id}/spend_alerts | Create project spend alert
+[**delete_organization_spend_alert**](SpendAlertsApi.md#delete_organization_spend_alert) | **DELETE** /organization/spend_alerts/{alert_id} | Delete organization spend alert
+[**delete_project_spend_alert**](SpendAlertsApi.md#delete_project_spend_alert) | **DELETE** /organization/projects/{project_id}/spend_alerts/{alert_id} | Delete project spend alert
+[**list_organization_spend_alerts**](SpendAlertsApi.md#list_organization_spend_alerts) | **GET** /organization/spend_alerts | List organization spend alerts
+[**list_project_spend_alerts**](SpendAlertsApi.md#list_project_spend_alerts) | **GET** /organization/projects/{project_id}/spend_alerts | List project spend alerts
+[**retrieve_organization_spend_alert**](SpendAlertsApi.md#retrieve_organization_spend_alert) | **GET** /organization/spend_alerts/{alert_id} | Retrieve organization spend alert
+[**retrieve_project_spend_alert**](SpendAlertsApi.md#retrieve_project_spend_alert) | **GET** /organization/projects/{project_id}/spend_alerts/{alert_id} | Retrieve project spend alert
+[**update_organization_spend_alert**](SpendAlertsApi.md#update_organization_spend_alert) | **POST** /organization/spend_alerts/{alert_id} | Update organization spend alert
+[**update_project_spend_alert**](SpendAlertsApi.md#update_project_spend_alert) | **POST** /organization/projects/{project_id}/spend_alerts/{alert_id} | Update project spend alert
 
 
 
 ## create_organization_spend_alert
 
 > models::OrganizationSpendAlert create_organization_spend_alert(create_spend_alert_body)
+Create organization spend alert
+
 Creates an organization spend alert.
 
 ### Parameters
@@ -48,6 +50,8 @@ Name | Type | Description  | Required | Notes
 ## create_project_spend_alert
 
 > models::ProjectSpendAlert create_project_spend_alert(project_id, create_spend_alert_body)
+Create project spend alert
+
 Creates a project spend alert.
 
 ### Parameters
@@ -77,6 +81,8 @@ Name | Type | Description  | Required | Notes
 ## delete_organization_spend_alert
 
 > models::OrganizationSpendAlertDeletedResource delete_organization_spend_alert(alert_id)
+Delete organization spend alert
+
 Deletes an organization spend alert.
 
 ### Parameters
@@ -105,6 +111,8 @@ Name | Type | Description  | Required | Notes
 ## delete_project_spend_alert
 
 > models::ProjectSpendAlertDeletedResource delete_project_spend_alert(project_id, alert_id)
+Delete project spend alert
+
 Deletes a project spend alert.
 
 ### Parameters
@@ -134,6 +142,8 @@ Name | Type | Description  | Required | Notes
 ## list_organization_spend_alerts
 
 > models::OrganizationSpendAlertListResource list_organization_spend_alerts(limit, order, after, before)
+List organization spend alerts
+
 Lists organization spend alerts.
 
 ### Parameters
@@ -165,6 +175,8 @@ Name | Type | Description  | Required | Notes
 ## list_project_spend_alerts
 
 > models::ProjectSpendAlertListResource list_project_spend_alerts(project_id, limit, order, after, before)
+List project spend alerts
+
 Lists project spend alerts.
 
 ### Parameters
@@ -197,6 +209,8 @@ Name | Type | Description  | Required | Notes
 ## retrieve_organization_spend_alert
 
 > models::OrganizationSpendAlert retrieve_organization_spend_alert(alert_id)
+Retrieve organization spend alert
+
 Retrieves an organization spend alert.
 
 ### Parameters
@@ -225,6 +239,8 @@ Name | Type | Description  | Required | Notes
 ## retrieve_project_spend_alert
 
 > models::ProjectSpendAlert retrieve_project_spend_alert(project_id, alert_id)
+Retrieve project spend alert
+
 Retrieves a project spend alert.
 
 ### Parameters
@@ -254,6 +270,8 @@ Name | Type | Description  | Required | Notes
 ## update_organization_spend_alert
 
 > models::OrganizationSpendAlert update_organization_spend_alert(alert_id, create_spend_alert_body)
+Update organization spend alert
+
 Updates an organization spend alert.
 
 ### Parameters
@@ -283,6 +301,8 @@ Name | Type | Description  | Required | Notes
 ## update_project_spend_alert
 
 > models::ProjectSpendAlert update_project_spend_alert(project_id, alert_id, create_spend_alert_body)
+Update project spend alert
+
 Updates a project spend alert.
 
 ### Parameters

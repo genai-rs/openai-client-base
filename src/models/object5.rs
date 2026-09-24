@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object5 : Occurs when a [run step](/docs/api-reference/run-steps/step-object) is cancelled.
+/// Object5 : Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) is cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object5 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object5 {
 }
 
 impl Object5 {
-    /// Occurs when a [run step](/docs/api-reference/run-steps/step-object) is cancelled.
+    /// Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) is cancelled.
     pub fn new(event: Event, data: models::RunStepObject) -> Object5 {
         Object5 {
             event,

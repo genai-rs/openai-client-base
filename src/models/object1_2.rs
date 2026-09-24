@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object12 : Occurs when a [run](/docs/api-reference/runs/object) moves to a `queued` status.
+/// Object12 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `queued` status.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object12 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object12 {
 }
 
 impl Object12 {
-    /// Occurs when a [run](/docs/api-reference/runs/object) moves to a `queued` status.
+    /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `queued` status.
     pub fn new(event: Event, data: models::RunObject) -> Object12 {
         Object12 {
             event,

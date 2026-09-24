@@ -26,6 +26,13 @@ pub struct Model {
     /// The organization that owns the model.
     #[serde(rename = "owned_by")]
     pub owned_by: String,
+    #[serde(
+        rename = "shutdown_date",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub shutdown_date: Option<Option<String>>,
 }
 
 impl Model {
@@ -36,6 +43,7 @@ impl Model {
             created,
             object,
             owned_by,
+            shutdown_date: None,
         }
     }
 }

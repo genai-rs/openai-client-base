@@ -4,16 +4,18 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_group_user**](GroupUsersApi.md#add_group_user) | **POST** /organization/groups/{group_id}/users | Adds a user to a group.
-[**list_group_users**](GroupUsersApi.md#list_group_users) | **GET** /organization/groups/{group_id}/users | Lists the users assigned to a group.
-[**remove_group_user**](GroupUsersApi.md#remove_group_user) | **DELETE** /organization/groups/{group_id}/users/{user_id} | Removes a user from a group.
-[**retrieve_group_user**](GroupUsersApi.md#retrieve_group_user) | **GET** /organization/groups/{group_id}/users/{user_id} | Retrieves a user in a group.
+[**add_group_user**](GroupUsersApi.md#add_group_user) | **POST** /organization/groups/{group_id}/users | Add group user
+[**list_group_users**](GroupUsersApi.md#list_group_users) | **GET** /organization/groups/{group_id}/users | List group users
+[**remove_group_user**](GroupUsersApi.md#remove_group_user) | **DELETE** /organization/groups/{group_id}/users/{user_id} | Remove group user
+[**retrieve_group_user**](GroupUsersApi.md#retrieve_group_user) | **GET** /organization/groups/{group_id}/users/{user_id} | Retrieve group user
 
 
 
 ## add_group_user
 
 > models::GroupUserAssignment add_group_user(group_id, create_group_user_body)
+Add group user
+
 Adds a user to a group.
 
 ### Parameters
@@ -43,6 +45,8 @@ Name | Type | Description  | Required | Notes
 ## list_group_users
 
 > models::UserListResource list_group_users(group_id, limit, after, order)
+List group users
+
 Lists the users assigned to a group.
 
 ### Parameters
@@ -74,6 +78,8 @@ Name | Type | Description  | Required | Notes
 ## remove_group_user
 
 > models::GroupUserDeletedResource remove_group_user(group_id, user_id)
+Remove group user
+
 Removes a user from a group.
 
 ### Parameters
@@ -103,6 +109,8 @@ Name | Type | Description  | Required | Notes
 ## retrieve_group_user
 
 > models::GroupMemberUser retrieve_group_user(group_id, user_id)
+Retrieve group user
+
 Retrieves a user in a group.
 
 ### Parameters

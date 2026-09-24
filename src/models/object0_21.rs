@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object021 : Occurs when a new [run](/docs/api-reference/runs/object) is created.
+/// Object021 : Occurs when a new [run](https://developers.openai.com/api/docs/assistants/migration) is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object021 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object021 {
 }
 
 impl Object021 {
-    /// Occurs when a new [run](/docs/api-reference/runs/object) is created.
+    /// Occurs when a new [run](https://developers.openai.com/api/docs/assistants/migration) is created.
     pub fn new(event: Event, data: models::RunObject) -> Object021 {
         Object021 {
             event,

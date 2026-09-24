@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object1 : Occurs when a [message](/docs/api-reference/messages/object) moves to an `in_progress` state.
+/// Object1 : Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object1 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object1 {
 }
 
 impl Object1 {
-    /// Occurs when a [message](/docs/api-reference/messages/object) moves to an `in_progress` state.
+    /// Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
     pub fn new(event: Event, data: models::MessageObject) -> Object1 {
         Object1 {
             event,

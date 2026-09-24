@@ -50,6 +50,13 @@ pub struct CostsResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub quantity: Option<Option<f64>>,
+    #[serde(
+        rename = "quantity_unit",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub quantity_unit: Option<Option<Box<models::CostsResultQuantityUnit>>>,
 }
 
 impl CostsResult {
@@ -62,6 +69,7 @@ impl CostsResult {
             project_id: None,
             api_key_id: None,
             quantity: None,
+            quantity_unit: None,
         }
     }
 }

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Reasoning : **gpt-5 and o-series models only**  Configuration options for [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+/// Reasoning : Configuration options for [reasoning models](https://developers.openai.com/api/docs/guides/reasoning).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Reasoning {
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
@@ -50,7 +50,7 @@ pub struct Reasoning {
 }
 
 impl Reasoning {
-    /// **gpt-5 and o-series models only**  Configuration options for [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+    /// Configuration options for [reasoning models](https://developers.openai.com/api/docs/guides/reasoning).
     pub fn new() -> Reasoning {
         Reasoning {
             mode: None,

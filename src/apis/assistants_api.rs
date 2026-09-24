@@ -19,6 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelRunError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +27,7 @@ pub enum CancelRunError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateAssistantError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +35,7 @@ pub enum CreateAssistantError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateMessageError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,6 +43,7 @@ pub enum CreateMessageError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRunError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,6 +51,7 @@ pub enum CreateRunError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateThreadError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,6 +59,7 @@ pub enum CreateThreadError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateThreadAndRunError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -61,6 +67,7 @@ pub enum CreateThreadAndRunError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteAssistantError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,6 +75,7 @@ pub enum DeleteAssistantError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteMessageError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -75,6 +83,7 @@ pub enum DeleteMessageError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteThreadError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -82,6 +91,7 @@ pub enum DeleteThreadError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAssistantError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -89,6 +99,7 @@ pub enum GetAssistantError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetMessageError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -96,6 +107,7 @@ pub enum GetMessageError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetRunError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -103,6 +115,7 @@ pub enum GetRunError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetRunStepError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -110,6 +123,7 @@ pub enum GetRunStepError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetThreadError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -117,6 +131,7 @@ pub enum GetThreadError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAssistantsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -124,6 +139,7 @@ pub enum ListAssistantsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListMessagesError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -131,6 +147,7 @@ pub enum ListMessagesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListRunStepsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -138,6 +155,7 @@ pub enum ListRunStepsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListRunsError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -145,6 +163,7 @@ pub enum ListRunsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyAssistantError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -152,6 +171,7 @@ pub enum ModifyAssistantError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyMessageError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -159,6 +179,7 @@ pub enum ModifyMessageError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyRunError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -166,6 +187,7 @@ pub enum ModifyRunError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyThreadError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -173,9 +195,11 @@ pub enum ModifyThreadError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SubmitToolOuputsToRunError {
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
+/// Cancels a run that is `in_progress`.
 #[bon::builder]
 pub async fn cancel_run(
     configuration: &configuration::Configuration,
@@ -232,6 +256,7 @@ pub async fn cancel_run(
     }
 }
 
+/// Create an assistant with a model and instructions.
 #[bon::builder]
 pub async fn create_assistant(
     configuration: &configuration::Configuration,
@@ -282,6 +307,7 @@ pub async fn create_assistant(
     }
 }
 
+/// Create a message.
 #[bon::builder]
 pub async fn create_message(
     configuration: &configuration::Configuration,
@@ -338,6 +364,7 @@ pub async fn create_message(
     }
 }
 
+/// Create a run.
 #[bon::builder]
 pub async fn create_run(
     configuration: &configuration::Configuration,
@@ -416,6 +443,7 @@ pub async fn create_run(
     }
 }
 
+/// Create a thread.
 #[bon::builder]
 pub async fn create_thread(
     configuration: &configuration::Configuration,
@@ -466,6 +494,7 @@ pub async fn create_thread(
     }
 }
 
+/// Create a thread and run it in one request.
 #[bon::builder]
 pub async fn create_thread_and_run(
     configuration: &configuration::Configuration,
@@ -516,6 +545,7 @@ pub async fn create_thread_and_run(
     }
 }
 
+/// Delete an assistant.
 #[bon::builder]
 pub async fn delete_assistant(
     configuration: &configuration::Configuration,
@@ -569,6 +599,7 @@ pub async fn delete_assistant(
     }
 }
 
+/// Deletes a message.
 #[bon::builder]
 pub async fn delete_message(
     configuration: &configuration::Configuration,
@@ -625,6 +656,7 @@ pub async fn delete_message(
     }
 }
 
+/// Delete a thread.
 #[bon::builder]
 pub async fn delete_thread(
     configuration: &configuration::Configuration,
@@ -678,6 +710,7 @@ pub async fn delete_thread(
     }
 }
 
+/// Retrieves an assistant.
 #[bon::builder]
 pub async fn get_assistant(
     configuration: &configuration::Configuration,
@@ -729,6 +762,7 @@ pub async fn get_assistant(
     }
 }
 
+/// Retrieve a message.
 #[bon::builder]
 pub async fn get_message(
     configuration: &configuration::Configuration,
@@ -783,6 +817,7 @@ pub async fn get_message(
     }
 }
 
+/// Retrieves a run.
 #[bon::builder]
 pub async fn get_run(
     configuration: &configuration::Configuration,
@@ -837,6 +872,7 @@ pub async fn get_run(
     }
 }
 
+/// Retrieves a run step.
 #[bon::builder]
 pub async fn get_run_step(
     configuration: &configuration::Configuration,
@@ -916,6 +952,7 @@ pub async fn get_run_step(
     }
 }
 
+/// Retrieves a thread.
 #[bon::builder]
 pub async fn get_thread(
     configuration: &configuration::Configuration,
@@ -967,6 +1004,7 @@ pub async fn get_thread(
     }
 }
 
+/// Returns a list of assistants.
 #[bon::builder]
 pub async fn list_assistants(
     configuration: &configuration::Configuration,
@@ -1032,6 +1070,7 @@ pub async fn list_assistants(
     }
 }
 
+/// Returns a list of messages for a given thread.
 #[bon::builder]
 pub async fn list_messages(
     configuration: &configuration::Configuration,
@@ -1108,6 +1147,7 @@ pub async fn list_messages(
     }
 }
 
+/// Returns a list of run steps belonging to a run.
 #[bon::builder]
 pub async fn list_run_steps(
     configuration: &configuration::Configuration,
@@ -1204,6 +1244,7 @@ pub async fn list_run_steps(
     }
 }
 
+/// Returns a list of runs belonging to a thread.
 #[bon::builder]
 pub async fn list_runs(
     configuration: &configuration::Configuration,
@@ -1275,6 +1316,7 @@ pub async fn list_runs(
     }
 }
 
+/// Modifies an assistant.
 #[bon::builder]
 pub async fn modify_assistant(
     configuration: &configuration::Configuration,
@@ -1331,6 +1373,7 @@ pub async fn modify_assistant(
     }
 }
 
+/// Modifies a message.
 #[bon::builder]
 pub async fn modify_message(
     configuration: &configuration::Configuration,
@@ -1390,6 +1433,7 @@ pub async fn modify_message(
     }
 }
 
+/// Modifies a run.
 #[bon::builder]
 pub async fn modify_run(
     configuration: &configuration::Configuration,
@@ -1449,6 +1493,7 @@ pub async fn modify_run(
     }
 }
 
+/// Modifies a thread.
 #[bon::builder]
 pub async fn modify_thread(
     configuration: &configuration::Configuration,
@@ -1505,6 +1550,7 @@ pub async fn modify_thread(
     }
 }
 
+/// When a run has the `status: \"requires_action\"` and `required_action.type` is `submit_tool_outputs`, this endpoint can be used to submit the outputs from the tool calls once they're all completed. All outputs must be submitted in a single request.
 #[bon::builder]
 pub async fn submit_tool_ouputs_to_run(
     configuration: &configuration::Configuration,

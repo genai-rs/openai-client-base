@@ -4,23 +4,25 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**usage_audio_speeches**](UsageApi.md#usage_audio_speeches) | **GET** /organization/usage/audio_speeches | Get audio speeches usage details for the organization.
-[**usage_audio_transcriptions**](UsageApi.md#usage_audio_transcriptions) | **GET** /organization/usage/audio_transcriptions | Get audio transcriptions usage details for the organization.
-[**usage_code_interpreter_sessions**](UsageApi.md#usage_code_interpreter_sessions) | **GET** /organization/usage/code_interpreter_sessions | Get code interpreter sessions usage details for the organization.
-[**usage_completions**](UsageApi.md#usage_completions) | **GET** /organization/usage/completions | Get completions usage details for the organization.
-[**usage_costs**](UsageApi.md#usage_costs) | **GET** /organization/costs | Get costs details for the organization.
-[**usage_embeddings**](UsageApi.md#usage_embeddings) | **GET** /organization/usage/embeddings | Get embeddings usage details for the organization.
-[**usage_file_search_calls**](UsageApi.md#usage_file_search_calls) | **GET** /organization/usage/file_search_calls | Get file search calls usage details for the organization.
-[**usage_images**](UsageApi.md#usage_images) | **GET** /organization/usage/images | Get images usage details for the organization.
-[**usage_moderations**](UsageApi.md#usage_moderations) | **GET** /organization/usage/moderations | Get moderations usage details for the organization.
-[**usage_vector_stores**](UsageApi.md#usage_vector_stores) | **GET** /organization/usage/vector_stores | Get vector stores usage details for the organization.
-[**usage_web_search_calls**](UsageApi.md#usage_web_search_calls) | **GET** /organization/usage/web_search_calls | Get web search calls usage details for the organization.
+[**usage_audio_speeches**](UsageApi.md#usage_audio_speeches) | **GET** /organization/usage/audio_speeches | Audio speeches
+[**usage_audio_transcriptions**](UsageApi.md#usage_audio_transcriptions) | **GET** /organization/usage/audio_transcriptions | Audio transcriptions
+[**usage_code_interpreter_sessions**](UsageApi.md#usage_code_interpreter_sessions) | **GET** /organization/usage/code_interpreter_sessions | Code interpreter sessions
+[**usage_completions**](UsageApi.md#usage_completions) | **GET** /organization/usage/completions | Completions
+[**usage_costs**](UsageApi.md#usage_costs) | **GET** /organization/costs | Costs
+[**usage_embeddings**](UsageApi.md#usage_embeddings) | **GET** /organization/usage/embeddings | Embeddings
+[**usage_file_search_calls**](UsageApi.md#usage_file_search_calls) | **GET** /organization/usage/file_search_calls | File search calls
+[**usage_images**](UsageApi.md#usage_images) | **GET** /organization/usage/images | Images
+[**usage_moderations**](UsageApi.md#usage_moderations) | **GET** /organization/usage/moderations | Moderations
+[**usage_vector_stores**](UsageApi.md#usage_vector_stores) | **GET** /organization/usage/vector_stores | Vector stores
+[**usage_web_search_calls**](UsageApi.md#usage_web_search_calls) | **GET** /organization/usage/web_search_calls | Web search calls
 
 
 
 ## usage_audio_speeches
 
 > models::UsageResponse usage_audio_speeches(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+Audio speeches
+
 Get audio speeches usage details for the organization.
 
 ### Parameters
@@ -58,6 +60,8 @@ Name | Type | Description  | Required | Notes
 ## usage_audio_transcriptions
 
 > models::UsageResponse usage_audio_transcriptions(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+Audio transcriptions
+
 Get audio transcriptions usage details for the organization.
 
 ### Parameters
@@ -95,6 +99,8 @@ Name | Type | Description  | Required | Notes
 ## usage_code_interpreter_sessions
 
 > models::UsageResponse usage_code_interpreter_sessions(start_time, end_time, bucket_width, project_ids, group_by, limit, page)
+Code interpreter sessions
+
 Get code interpreter sessions usage details for the organization.
 
 ### Parameters
@@ -129,6 +135,8 @@ Name | Type | Description  | Required | Notes
 ## usage_completions
 
 > models::UsageResponse usage_completions(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, batch, group_by, limit, page)
+Completions
+
 Get completions usage details for the organization.
 
 ### Parameters
@@ -166,7 +174,9 @@ Name | Type | Description  | Required | Notes
 
 ## usage_costs
 
-> models::UsageResponse usage_costs(start_time, end_time, bucket_width, project_ids, api_key_ids, group_by, limit, page)
+> models::UsageResponse usage_costs(start_time, end_time, bucket_width, project_ids, api_key_ids, line_items, group_by, limit, page)
+Costs
+
 Get costs details for the organization.
 
 ### Parameters
@@ -179,6 +189,7 @@ Name | Type | Description  | Required | Notes
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently only `1d` is supported, default to `1d`. |  |[default to 1d]
 **project_ids** | Option<[**Vec<String>**](String.md)> | Return only costs for these projects. |  |
 **api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only costs for these API keys. |  |
+**line_items** | Option<[**Vec<String>**](String.md)> | Return only costs for these exact line item names. Each value must match the complete `line_item` value, for example `gpt-6-astra, input_tokens`. |  |
 **group_by** | Option<[**Vec<String>**](String.md)> | Group the costs by the specified fields. Support fields include `project_id`, `line_item`, `api_key_id` and any combination of them. |  |
 **limit** | Option<**i32**> | A limit on the number of buckets to be returned. Limit can range between 1 and 180, and the default is 7.  |  |[default to 7]
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
@@ -202,6 +213,8 @@ Name | Type | Description  | Required | Notes
 ## usage_embeddings
 
 > models::UsageResponse usage_embeddings(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+Embeddings
+
 Get embeddings usage details for the organization.
 
 ### Parameters
@@ -239,6 +252,8 @@ Name | Type | Description  | Required | Notes
 ## usage_file_search_calls
 
 > models::UsageResponse usage_file_search_calls(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, vector_store_ids, group_by, limit, page)
+File search calls
+
 Get file search calls usage details for the organization.
 
 ### Parameters
@@ -276,6 +291,8 @@ Name | Type | Description  | Required | Notes
 ## usage_images
 
 > models::UsageResponse usage_images(start_time, end_time, bucket_width, sources, sizes, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+Images
+
 Get images usage details for the organization.
 
 ### Parameters
@@ -315,6 +332,8 @@ Name | Type | Description  | Required | Notes
 ## usage_moderations
 
 > models::UsageResponse usage_moderations(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+Moderations
+
 Get moderations usage details for the organization.
 
 ### Parameters
@@ -352,6 +371,8 @@ Name | Type | Description  | Required | Notes
 ## usage_vector_stores
 
 > models::UsageResponse usage_vector_stores(start_time, end_time, bucket_width, project_ids, group_by, limit, page)
+Vector stores
+
 Get vector stores usage details for the organization.
 
 ### Parameters
@@ -386,6 +407,8 @@ Name | Type | Description  | Required | Notes
 ## usage_web_search_calls
 
 > models::UsageResponse usage_web_search_calls(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, context_levels, group_by, limit, page)
+Web search calls
+
 Get web search calls usage details for the organization.
 
 ### Parameters

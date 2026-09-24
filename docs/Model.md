@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **created** | **i32** | The Unix timestamp (in seconds) when the model was created. | 
 **object** | **String** | The object type, which is always \"model\". | 
 **owned_by** | **String** | The organization that owns the model. | 
+**shutdown_date** | Option<[**String**](string.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

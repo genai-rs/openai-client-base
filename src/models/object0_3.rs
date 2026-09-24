@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object03 : If the audio output modality is requested, this object contains data about the audio response from the model. [Learn more](/docs/guides/audio).
+/// Object03 : If the audio output modality is requested, this object contains data about the audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object03 {
     /// Unique identifier for this audio response.
@@ -29,7 +29,7 @@ pub struct Object03 {
 }
 
 impl Object03 {
-    /// If the audio output modality is requested, this object contains data about the audio response from the model. [Learn more](/docs/guides/audio).
+    /// If the audio output modality is requested, this object contains data about the audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
     pub fn new(id: String, expires_at: i32, data: String, transcript: String) -> Object03 {
         Object03 {
             id,

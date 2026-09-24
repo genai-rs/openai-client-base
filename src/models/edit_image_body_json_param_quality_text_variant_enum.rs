@@ -7,6 +7,8 @@ pub enum EditImageBodyJsonParamQualityTextVariantEnum {
     Low,
     Medium,
     High,
+    Xhigh,
+    Max,
     Auto,
 }
 
@@ -22,6 +24,8 @@ impl std::fmt::Display for EditImageBodyJsonParamQualityTextVariantEnum {
             EditImageBodyJsonParamQualityTextVariantEnum::Low => "low",
             EditImageBodyJsonParamQualityTextVariantEnum::Medium => "medium",
             EditImageBodyJsonParamQualityTextVariantEnum::High => "high",
+            EditImageBodyJsonParamQualityTextVariantEnum::Xhigh => "xhigh",
+            EditImageBodyJsonParamQualityTextVariantEnum::Max => "max",
             EditImageBodyJsonParamQualityTextVariantEnum::Auto => "auto",
         };
         write!(f, "{}", value)

@@ -40,11 +40,11 @@ This crate provides the foundational types and API client implementation for Ope
 
 ## Generation Pipeline
 
-The client is generated through a comprehensive automated pipeline using Stainless as the single authoritative source:
+The client is generated from OpenAI's current published OpenAPI specification:
 
-1. **Fetch Specification** (`fetch_spec.sh`): Download the latest OpenAPI spec from Stainless
-   - Source: `https://app.stainless.com/api/spec/documented/openai/openapi.documented.yml`
-   - Contains complete definitions for all API endpoints
+1. **Fetch Specification** (`fetch_spec.sh`): Download and validate the latest OpenAPI spec
+   - Source: `https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml`
+   - Missing schema references stop generation so upstream issues remain visible
 
 2. **Apply Spec Patches**:
    - **Layer 1**: Fix model field types and handle allOf inheritance (`fix_model_fields.py`)
@@ -81,12 +81,10 @@ To regenerate the client with the latest OpenAPI spec:
 # Regenerate with latest spec (default behavior)
 ./scripts/generate.sh
 
-# Or use cached spec during development
-USE_CACHED_SPEC=1 ./scripts/generate.sh
 ```
 
 The generation script automatically:
-- Downloads the latest OpenAPI spec from Stainless
+- Downloads and validates the latest published OpenAI spec
 - Applies spec-level patches for Rust compatibility
 - Generates Rust code using OpenAPI Generator
 - Fixes compilation issues (untagged unions, nullable fields, enum variants)

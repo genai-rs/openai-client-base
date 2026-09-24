@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaComputerTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+/// BetaComputerTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaComputerTool {
     /// The type of the computer tool. Always `computer`.
@@ -20,7 +20,7 @@ pub struct BetaComputerTool {
 }
 
 impl BetaComputerTool {
-    /// A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+    /// A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
     pub fn new(r#type: Type) -> BetaComputerTool {
         BetaComputerTool { r#type }
     }

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ComputerUsePreviewTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+/// ComputerUsePreviewTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUsePreviewTool {
     /// The type of the computer use tool. Always `computer_use_preview`.
@@ -28,7 +28,7 @@ pub struct ComputerUsePreviewTool {
 }
 
 impl ComputerUsePreviewTool {
-    /// A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+    /// A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
     pub fn new(
         r#type: Type,
         environment: models::ComputerEnvironment,

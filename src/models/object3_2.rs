@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object32 : Occurs when a [run](/docs/api-reference/runs/object) moves to a `requires_action` status.
+/// Object32 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `requires_action` status.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object32 {
     #[serde(rename = "event")]
@@ -21,7 +21,7 @@ pub struct Object32 {
 }
 
 impl Object32 {
-    /// Occurs when a [run](/docs/api-reference/runs/object) moves to a `requires_action` status.
+    /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `requires_action` status.
     pub fn new(event: Event, data: models::RunObject) -> Object32 {
         Object32 {
             event,
