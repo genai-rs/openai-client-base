@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.1](https://github.com/genai-rs/openai-client-base/compare/v0.14.0...v0.14.1) - 2026-08-10
+
+### Other
+
+- *(deps)* Update Rust crate serde_with to ^3.22.0
+- *(deps)* Update mozilla-actions/sccache-action action to v0.0.11
+- *(deps)* Update rust patch updates
+- *(deps)* Update astral-sh/setup-uv action to v9
+- *(deps)* Update rust patch updates
+- *(deps)* Update Rust crate tokio to ^1.53.0
+- *(deps)* Update astral-sh/setup-uv action to v8.3.2
+
 ## [0.14.0](https://github.com/genai-rs/openai-client-base/compare/v0.13.0...v0.14.0) - 2026-07-10
 
 ### Fixed
