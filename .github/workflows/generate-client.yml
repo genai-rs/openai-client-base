@@ -33,9 +33,6 @@ jobs:
         with:
           components: rustfmt, clippy
 
-      - name: Prepare memory for documentation
-        run: bash scripts/prepare_ci_memory.sh
-
       # Mint short-lived GitHub App token (ensures PR events trigger CI)
       - name: Create GitHub App token
         if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || inputs.publish)
@@ -83,9 +80,6 @@ jobs:
           
           echo "🧪 Running tests..."
           cargo test --all-features
-
-          echo "📚 Building documentation..."
-          /usr/bin/time -v cargo doc --no-deps --all-features
 
           echo "🎨 Checking formatting..."
           cargo fmt --all -- --check

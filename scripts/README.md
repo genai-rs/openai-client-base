@@ -37,7 +37,7 @@ fields stay the same. Each HTTP error response now allocates one box.
 
 The Generate Client workflow defaults manual runs to validation only. Run it on
 a review branch without `publish` to exercise downloading, generation, build,
-lint, tests, documentation, and formatting without updating the bot branch.
+lint, tests, and formatting without updating the bot branch.
 Publishing is restricted to `main`, either on schedule or with `publish: true`.
 
 ## Default implementation scope
@@ -48,10 +48,12 @@ multiple enums: a non-defaultable payload in a neighboring enum must not remove
 a valid default from an unrelated unit enum. Fixtures cover different enum
 names, file creation orders, valid defaults, invalid defaults, and idempotence.
 
-## CI documentation memory
+## Documentation build
 
-Rustdoc's synthetic trait collection for the generated client exceeded 18 GiB
-in a local MSRV run. `prepare_ci_memory.sh` provisions enough swap on ephemeral
-Linux runners to bring RAM plus swap to 24 GiB, prints resource information,
-and fails if allocation fails. CI keeps documentation checks on all three
-toolchains and records their peak resident memory with `/usr/bin/time -v`.
+Run `cargo doc --no-deps --all-features` on a machine with sufficient memory
+when checking the generated Rust documentation. Rustdoc's synthetic trait
+collection for this large generated client exceeded 18 GiB locally. GitHub's
+standard Linux runners repeatedly stopped during this step, even with swap,
+before reaching tests, formatting, and clippy. CI therefore checks the client
+with build, tests, formatting, and clippy; the generated Markdown documentation
+remains part of the reproducible generation output.

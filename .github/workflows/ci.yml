@@ -33,9 +33,6 @@ jobs:
         if: matrix.rust == 'stable'
         run: python3 -m unittest discover -s scripts/tests -v
 
-      - name: Prepare memory for documentation
-        run: bash scripts/prepare_ci_memory.sh
-        
       - name: Install Rust
         uses: dtolnay/rust-toolchain@master
         with:
@@ -55,9 +52,6 @@ jobs:
     
       - name: Build
         run: cargo build --verbose
-        
-      - name: Build documentation
-        run: /usr/bin/time -v cargo doc --no-deps --all-features
         
       - name: Run tests
         run: cargo test --verbose
