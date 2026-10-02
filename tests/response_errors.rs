@@ -50,8 +50,11 @@ async fn generated_endpoint_preserves_typed_and_unparseable_http_errors() {
     use std::net::TcpListener;
     use std::time::{Duration, Instant};
 
+    // list_evals has one documented ErrorResponse variant. Generated errors
+    // are untagged, so variants sharing a payload type match in order.
+    // ErrorResponse wraps the typed error fields in `error`.
     for body in [
-        r#"{"code":null,"message":"missing eval","param":null,"type":"not_found"}"#,
+        r#"{"error":{"code":null,"message":"rate limited","param":null,"type":"rate_limit_error"}}"#,
         "upstream returned a non-JSON error",
     ] {
         let listener = TcpListener::bind("127.0.0.1:0").unwrap();
@@ -80,9 +83,9 @@ async fn generated_endpoint_preserves_typed_and_unparseable_http_errors() {
                 assert_ne!(count, 0);
                 request.extend_from_slice(&buffer[..count]);
             }
-            assert!(request.starts_with(b"DELETE /evals/missing HTTP/1.1\r\n"));
+            assert!(request.starts_with(b"GET /evals HTTP/1.1\r\n"));
             write!(stream,
-                "HTTP/1.1 404 Not Found\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",
+                "HTTP/1.1 429 Too Many Requests\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",
                 body.len(), body).unwrap();
         });
         let client = reqwest::Client::builder()
@@ -95,23 +98,22 @@ async fn generated_endpoint_preserves_typed_and_unparseable_http_errors() {
             client: reqwest_middleware::ClientBuilder::new(client).build(),
             ..Configuration::default()
         };
-        let result = evals_api::delete_eval()
+        let result = evals_api::list_evals()
             .configuration(&configuration)
-            .eval_id("missing")
             .call()
             .await;
         server.join().unwrap();
         match result.unwrap_err() {
             Error::ResponseError(response) => {
-                assert_eq!(response.status, reqwest::StatusCode::NOT_FOUND);
+                assert_eq!(response.status, reqwest::StatusCode::TOO_MANY_REQUESTS);
                 assert_eq!(response.content, body);
                 if body.starts_with('{') {
                     match response.entity.unwrap() {
-                        evals_api::DeleteEvalError::Status404(entity) => {
-                            assert_eq!(entity.message, "missing eval");
-                            assert_eq!(entity.r#type, "not_found");
-                            assert_eq!(entity.code, None);
-                            assert_eq!(entity.param, None);
+                        evals_api::ListEvalsError::Status429(entity) => {
+                            assert_eq!(entity.error.message, "rate limited");
+                            assert_eq!(entity.error.r#type, "rate_limit_error");
+                            assert_eq!(entity.error.code, None);
+                            assert_eq!(entity.error.param, None);
                         }
                         other => panic!("unexpected entity: {other:?}"),
                     }
