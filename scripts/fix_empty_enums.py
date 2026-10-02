@@ -167,6 +167,7 @@ def detect_empty_tagged_enums(spec_path: Path) -> Dict[str, Dict[str, Any]]:
     schemas: Dict[str, Any] = spec.get('components', {}).get('schemas', {})
 
     result: Dict[str, Dict[str, Any]] = {}
+    active_nodes: set[int] = set()
 
     def resolve(node: Any) -> Any:
         ref = _get_ref_name(node) if isinstance(node, dict) else None
@@ -179,6 +180,19 @@ def detect_empty_tagged_enums(spec_path: Path) -> Dict[str, Dict[str, Any]]:
         if not isinstance(node, dict):
             return
 
+        # Stop only back-edges on this traversal branch. A global visited set
+        # would lose enums reached under other roots or property/array paths,
+        # since those contexts determine the generated Rust enum names.
+        node_id = id(node)
+        if node_id in active_nodes:
+            return
+        active_nodes.add(node_id)
+        try:
+            walk_node(schema_name, node, path, root_has_allof=root_has_allof)
+        finally:
+            active_nodes.remove(node_id)
+
+    def walk_node(schema_name: str, node: Dict[str, Any], path: List[Tuple[str, Optional[str]]], *, root_has_allof: bool):
         # Union at current node
         extracted = _extract_discriminated_variants(node, schemas)
         if extracted:
