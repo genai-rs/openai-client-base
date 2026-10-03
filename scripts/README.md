@@ -57,3 +57,30 @@ standard Linux runners repeatedly stopped during this step, even with swap,
 before reaching tests, formatting, and clippy. CI therefore checks the client
 with build, tests, formatting, and clippy; the generated Markdown documentation
 remains part of the reproducible generation output.
+
+## Release API compatibility
+
+Release-plz also invokes rustdoc through `cargo-semver-checks` to generate JSON
+for API comparison. The release workflow repeatedly stopped in that phase with
+exit 143 and a runner shutdown signal, including [October 2](https://github.com/genai-rs/openai-client-base/actions/runs/37058999261)
+and [October 3](https://github.com/genai-rs/openai-client-base/actions/runs/37108040310).
+Those logs do not contain memory measurements or establish the exact shutdown
+cause. A local reproduction with cargo-semver-checks 0.50.0 and one build job
+exceeded 18 GiB RSS while rustdoc was generating the current client's JSON.
+This exceeds the [16 GB RAM of standard public Linux runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners).
+
+The package-specific `semver_check = false` in `release-plz.toml` keeps release
+preparation from invoking this resource-intensive analysis. Version selection
+still follows conventional commits, and publication still verifies the crate
+build. Automatic API breaking-change detection is unavailable, so review API
+changes and the proposed version before merging a release PR. Mark breaking
+changes with `!` or a `BREAKING CHANGE:` footer, or adjust the release version
+manually. The release PR body includes this review requirement.
+
+On a machine with sufficient memory, install cargo-semver-checks and run
+`CARGO_BUILD_JOBS=1 cargo semver-checks check-release --baseline-version 0.14.0`
+(replace the baseline with the latest published version). Restore automated
+checks when rustdoc's memory usage improves or a suitable runner is available.
+To validate release preparation without publishing or updating a GitHub PR,
+run `release-plz update` in a disposable clone; it updates only that clone's
+version, lockfile, and changelog.
