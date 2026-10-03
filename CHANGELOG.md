@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.0](https://github.com/genai-rs/openai-client-base/compare/v0.14.0...v0.15.0) - 2026-10-03
+
+### Fixed
+
+- avoid rustdoc memory exhaustion during release preparation
+- handle recursive schemas during client generation
+- restore upstream OpenAPI client generation
+- restore defaults removed by unscoped enum matching
+- [**breaking**] keep generated API errors small and preserve enum defaults
+
+### Other
+
+- update generated client from latest OpenAPI spec
+- *(deps)* Update Rust crate serde_with to ^3.24.0
+- *(deps)* Update astral-sh/setup-uv action to v10.2.0
+- avoid rustdoc runner shutdown during client checks
+- *(deps)* Update Rust crate reqwest to ^0.13.5
+- *(deps)* Update rust minor updates
+- *(deps)* Update astral-sh/setup-uv action to v10
+- provision memory for generated documentation checks
+- validate generation on review branches without publishing
+- update generated client from latest OpenAPI spec
+- *(deps)* Update Rust crate serde_with to ^3.22.0
+- *(deps)* Update mozilla-actions/sccache-action action to v0.0.11
+- *(deps)* Update rust patch updates
+- *(deps)* Update astral-sh/setup-uv action to v9
+- *(deps)* Update rust patch updates
+- *(deps)* Update Rust crate tokio to ^1.53.0
+- *(deps)* Update astral-sh/setup-uv action to v8.3.2
+
 ## [0.14.0](https://github.com/genai-rs/openai-client-base/compare/v0.13.0...v0.14.0) - 2026-07-10
 
 ### Fixed
