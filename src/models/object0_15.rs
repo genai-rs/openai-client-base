@@ -11,17 +11,23 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object015 : Optional input noise reduction.
+/// Object015 : A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object015 {
-    #[serde(rename = "type")]
-    pub r#type: models::NoiseReductionType,
+    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
+    pub code_interpreter:
+        Option<Box<models::CreateThreadAndRunRequestToolResourcesCodeInterpreter>>,
+    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
+    pub file_search: Option<Box<models::Object015FileSearch>>,
 }
 
 impl Object015 {
-    /// Optional input noise reduction.
-    pub fn new(r#type: models::NoiseReductionType) -> Object015 {
-        Object015 { r#type }
+    /// A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+    pub fn new() -> Object015 {
+        Object015 {
+            code_interpreter: None,
+            file_search: None,
+        }
     }
 }
 

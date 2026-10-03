@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveTransportDtmfSend : A SIP DTMF keypress successfully sent by the hosted tool. Delivered only to sideband observers; this is not a client command.
+/// LiveTransportDtmfSend : A SIP DTMF keypress successfully sent to the SIP trunk. Delivered only to sideband observers; this is not a client command.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveTransportDtmfSend {
     #[serde(rename = "type")]
@@ -20,15 +20,19 @@ pub struct LiveTransportDtmfSend {
     pub event_id: String,
     #[serde(rename = "event")]
     pub event: String,
+    /// The event_id of the client command, when supplied.
+    #[serde(rename = "client_event_id", skip_serializing_if = "Option::is_none")]
+    pub client_event_id: Option<String>,
 }
 
 impl LiveTransportDtmfSend {
-    /// A SIP DTMF keypress successfully sent by the hosted tool. Delivered only to sideband observers; this is not a client command.
+    /// A SIP DTMF keypress successfully sent to the SIP trunk. Delivered only to sideband observers; this is not a client command.
     pub fn new(r#type: Type, event_id: String, event: String) -> LiveTransportDtmfSend {
         LiveTransportDtmfSend {
             r#type,
             event_id,
             event,
+            client_event_id: None,
         }
     }
 }

@@ -22,23 +22,18 @@ pub struct WebSearchToolCall {
     pub r#type: Type,
     #[serde(rename = "status")]
     pub status: models::WebSearchCallStatus,
-    #[serde(rename = "action")]
-    pub action: Box<models::WebSearchToolCallAction>,
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    pub action: Option<Box<models::WebSearchToolCallAction>>,
 }
 
 impl WebSearchToolCall {
     /// The results of a web search tool call. See the [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
-    pub fn new(
-        id: String,
-        r#type: Type,
-        status: models::WebSearchCallStatus,
-        action: models::WebSearchToolCallAction,
-    ) -> WebSearchToolCall {
+    pub fn new(id: String, r#type: Type, status: models::WebSearchCallStatus) -> WebSearchToolCall {
         WebSearchToolCall {
             id,
             r#type,
             status,
-            action: Box::new(action),
+            action: None,
         }
     }
 }

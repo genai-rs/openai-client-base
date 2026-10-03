@@ -611,7 +611,7 @@ pub async fn rotate_vault_credential(
     configuration: &configuration::Configuration,
     vault_id: &str,
     credential_id: &str,
-    rotate_vault_credential_params: Option<models::RotateVaultCredentialParams>,
+    rotate_vault_credential_params: models::RotateVaultCredentialParams,
 ) -> Result<models::VaultCredentialResource, Error<RotateVaultCredentialError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;

@@ -13,12 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object07FileSearch {
-    /// The [vector store](https://developers.openai.com/api/reference/resources/vector_stores) attached to this thread. There can be a maximum of 1 vector store attached to the thread.
+    /// The [vector store](https://developers.openai.com/api/reference/resources/vector_stores) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
     #[serde(rename = "vector_store_ids", skip_serializing_if = "Option::is_none")]
     pub vector_store_ids: Option<Vec<String>>,
-    /// A helper to create a [vector store](https://developers.openai.com/api/reference/resources/vector_stores) with file_ids and attach it to this thread. There can be a maximum of 1 vector store attached to the thread.
+    /// A helper to create a [vector store](https://developers.openai.com/api/reference/resources/vector_stores) with file_ids and attach it to this assistant. There can be a maximum of 1 vector store attached to the assistant.
     #[serde(rename = "vector_stores", skip_serializing_if = "Option::is_none")]
-    pub vector_stores: Option<Vec<models::Object04FileSearchVectorStoresInner>>,
+    pub vector_stores: Option<Vec<models::Object07FileSearchVectorStoresInner>>,
 }
 
 impl Object07FileSearch {

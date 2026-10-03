@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**event** | **String** |  | 
-**data** | [**models::MessageObject**](MessageObject.md) |  | 
+**code_interpreter** | Option<[**models::Object07CodeInterpreter**](Object0_7_code_interpreter.md)> |  | [optional]
+**file_search** | Option<[**models::Object010FileSearch**](Object0_10_file_search.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

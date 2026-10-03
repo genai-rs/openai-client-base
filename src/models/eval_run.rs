@@ -27,11 +27,11 @@ pub struct EvalRun {
     #[serde(rename = "status")]
     pub status: String,
     /// The model that is evaluated, if applicable.
-    #[serde(rename = "model")]
-    pub model: String,
+    #[serde(rename = "model", deserialize_with = "Option::deserialize")]
+    pub model: Option<String>,
     /// The name of the evaluation run.
-    #[serde(rename = "name")]
-    pub name: String,
+    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    pub name: Option<String>,
     /// Unix timestamp (in seconds) when the evaluation run was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
@@ -41,18 +41,21 @@ pub struct EvalRun {
     #[serde(rename = "result_counts")]
     pub result_counts: Box<models::EvalRunResultCounts>,
     /// Usage statistics for each model during the evaluation run.
-    #[serde(rename = "per_model_usage")]
-    pub per_model_usage: Vec<models::EvalRunPerModelUsageInner>,
+    #[serde(rename = "per_model_usage", deserialize_with = "Option::deserialize")]
+    pub per_model_usage: Option<Vec<models::EvalRunPerModelUsageInner>>,
     /// Results per testing criteria applied during the evaluation run.
-    #[serde(rename = "per_testing_criteria_results")]
-    pub per_testing_criteria_results: Vec<models::EvalRunPerTestingCriteriaResultsInner>,
+    #[serde(
+        rename = "per_testing_criteria_results",
+        deserialize_with = "Option::deserialize"
+    )]
+    pub per_testing_criteria_results: Option<Vec<models::EvalRunPerTestingCriteriaResultsInner>>,
     #[serde(rename = "data_source")]
     pub data_source: Box<models::EvalRunDataSource>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
-    #[serde(rename = "error")]
-    pub error: Box<models::EvalApiError>,
+    #[serde(rename = "error", deserialize_with = "Option::deserialize")]
+    pub error: Option<Box<models::EvalApiError>>,
 }
 
 impl EvalRun {
@@ -62,16 +65,16 @@ impl EvalRun {
         id: String,
         eval_id: String,
         status: String,
-        model: String,
-        name: String,
+        model: Option<String>,
+        name: Option<String>,
         created_at: i32,
         report_url: String,
         result_counts: models::EvalRunResultCounts,
-        per_model_usage: Vec<models::EvalRunPerModelUsageInner>,
-        per_testing_criteria_results: Vec<models::EvalRunPerTestingCriteriaResultsInner>,
+        per_model_usage: Option<Vec<models::EvalRunPerModelUsageInner>>,
+        per_testing_criteria_results: Option<Vec<models::EvalRunPerTestingCriteriaResultsInner>>,
         data_source: models::EvalRunDataSource,
         metadata: Option<std::collections::HashMap<String, String>>,
-        error: models::EvalApiError,
+        error: Option<models::EvalApiError>,
     ) -> EvalRun {
         EvalRun {
             object,
@@ -87,7 +90,7 @@ impl EvalRun {
             per_testing_criteria_results,
             data_source: Box::new(data_source),
             metadata,
-            error: Box::new(error),
+            error: error.map(Box::new),
         }
     }
 }

@@ -48,6 +48,16 @@ pub enum ProjectEventTypeEnum {
     VideoCompleted,
     #[serde(rename = "video.failed")]
     VideoFailed,
+    #[serde(rename = "agent.session.created")]
+    AgentSessionCreated,
+    #[serde(rename = "agent.session.action_required")]
+    AgentSessionActionRequired,
+    #[serde(rename = "agent.session.in_progress")]
+    AgentSessionInProgress,
+    #[serde(rename = "agent.session.idle")]
+    AgentSessionIdle,
+    #[serde(rename = "agent.session.failed")]
+    AgentSessionFailed,
     #[serde(rename = "safety.alert.created")]
     SafetyAlertCreated,
 }
@@ -72,6 +82,11 @@ impl std::fmt::Display for ProjectEventTypeEnum {
             Self::RealtimeCallIncoming => write!(f, "realtime.call.incoming"),
             Self::VideoCompleted => write!(f, "video.completed"),
             Self::VideoFailed => write!(f, "video.failed"),
+            Self::AgentSessionCreated => write!(f, "agent.session.created"),
+            Self::AgentSessionActionRequired => write!(f, "agent.session.action_required"),
+            Self::AgentSessionInProgress => write!(f, "agent.session.in_progress"),
+            Self::AgentSessionIdle => write!(f, "agent.session.idle"),
+            Self::AgentSessionFailed => write!(f, "agent.session.failed"),
             Self::SafetyAlertCreated => write!(f, "safety.alert.created"),
         }
     }

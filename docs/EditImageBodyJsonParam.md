@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**model** | Option<**String**> | The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, and `gpt-image-2.5-flare-2026-09-08`. | [optional]
+**model** | Option<**String**> | The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, and `gpt-image-2.5-flare-2026-09-08`. Defaults to `gpt-image-2.5-sunburst`. | [optional]
 **images** | [**Vec<models::ImageRefParam>**](ImageRefParam.md) | Input image references to edit. For GPT image models, you can provide up to 16 images.  | 
 **mask** | Option<[**models::ImageRefParam**](ImageRefParam.md)> |  | [optional]
 **prompt** | **String** | A text description of the desired image edit. | 

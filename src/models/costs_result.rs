@@ -14,6 +14,13 @@ use serde::{Deserialize, Serialize};
 /// CostsResult : The aggregated costs details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CostsResult {
+    #[serde(
+        rename = "api_source",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub api_source: Option<Option<ApiSource>>,
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "amount", skip_serializing_if = "Option::is_none")]
@@ -34,6 +41,14 @@ pub struct CostsResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub project_id: Option<Option<String>>,
+    /// When `group_by=user_id`, this field provides the user ID of the grouped costs result.
+    #[serde(
+        rename = "user_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub user_id: Option<Option<String>>,
     /// When `group_by=api_key_id`, this field provides the API Key ID of the grouped costs result.
     #[serde(
         rename = "api_key_id",
@@ -63,14 +78,30 @@ impl CostsResult {
     /// The aggregated costs details of the specific time bucket.
     pub fn new(object: Object) -> CostsResult {
         CostsResult {
+            api_source: None,
             object,
             amount: None,
             line_item: None,
             project_id: None,
+            user_id: None,
             api_key_id: None,
             quantity: None,
             quantity_unit: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ApiSource {
+    #[serde(rename = "agents_api")]
+    AgentsApi,
+    #[serde(rename = "unlabeled")]
+    Unlabeled,
+}
+
+impl Default for ApiSource {
+    fn default() -> ApiSource {
+        Self::AgentsApi
     }
 }
 ///

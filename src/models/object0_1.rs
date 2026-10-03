@@ -11,18 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object01 : Data about a previous audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object01 {
-    /// Unique identifier for a previous audio response from the model.
-    #[serde(rename = "id")]
-    pub id: String,
+    #[serde(rename = "url")]
+    pub url: String,
+    #[serde(
+        rename = "detail",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub detail: Option<Option<String>>,
 }
 
 impl Object01 {
-    /// Data about a previous audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
-    pub fn new(id: String) -> Object01 {
-        Object01 { id }
+    pub fn new(url: String) -> Object01 {
+        Object01 { url, detail: None }
     }
 }
 

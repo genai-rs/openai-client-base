@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | [**Vec<models::ChatCompletionTokenLogprob>**](ChatCompletionTokenLogprob.md) | A list of message content tokens with log probability information. | 
-**refusal** | [**Vec<models::ChatCompletionTokenLogprob>**](ChatCompletionTokenLogprob.md) | A list of message refusal tokens with log probability information. | 
+**content** | Option<[**Vec<models::ChatCompletionTokenLogprob>**](ChatCompletionTokenLogprob.md)> | A list of message content tokens with log probability information. | 
+**refusal** | Option<[**Vec<models::ChatCompletionTokenLogprob>**](ChatCompletionTokenLogprob.md)> | A list of message refusal tokens with log probability information. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

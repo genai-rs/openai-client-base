@@ -12,11 +12,11 @@ Name | Type | Description | Notes
 **status** | **String** | The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`. | 
 **required_action** | [**models::RunObjectRequiredAction**](RunObject_required_action.md) |  | 
 **last_error** | [**models::RunObjectLastError**](RunObject_last_error.md) |  | 
-**expires_at** | **i32** | The Unix timestamp (in seconds) for when the run will expire. | 
-**started_at** | **i32** | The Unix timestamp (in seconds) for when the run was started. | 
-**cancelled_at** | **i32** | The Unix timestamp (in seconds) for when the run was cancelled. | 
-**failed_at** | **i32** | The Unix timestamp (in seconds) for when the run failed. | 
-**completed_at** | **i32** | The Unix timestamp (in seconds) for when the run was completed. | 
+**expires_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run will expire. | 
+**started_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run was started. | 
+**cancelled_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run was cancelled. | 
+**failed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run failed. | 
+**completed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run was completed. | 
 **incomplete_details** | [**models::RunObjectIncompleteDetails**](RunObject_incomplete_details.md) |  | 
 **model** | **String** | The model that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
 **instructions** | **String** | The instructions that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
@@ -25,12 +25,12 @@ Name | Type | Description | Notes
 **usage** | Option<[**models::RunCompletionUsage**](RunCompletionUsage.md)> |  | 
 **temperature** | Option<**f64**> | The sampling temperature used for this run. If not set, defaults to 1. | [optional]
 **top_p** | Option<**f64**> | The nucleus sampling value used for this run. If not set, defaults to 1. | [optional]
-**max_prompt_tokens** | **i32** | The maximum number of prompt tokens specified to have been used over the course of the run.  | 
-**max_completion_tokens** | **i32** | The maximum number of completion tokens specified to have been used over the course of the run.  | 
-**truncation_strategy** | [**models::TruncationObject**](TruncationObject.md) |  | 
-**tool_choice** | [**models::AssistantsApiToolChoiceOption**](AssistantsApiToolChoiceOption.md) |  | 
+**max_prompt_tokens** | Option<**i32**> | The maximum number of prompt tokens specified to have been used over the course of the run.  | 
+**max_completion_tokens** | Option<**i32**> | The maximum number of completion tokens specified to have been used over the course of the run.  | 
+**truncation_strategy** | Option<[**models::TruncationObject**](TruncationObject.md)> |  | 
+**tool_choice** | Option<[**models::AssistantsApiToolChoiceOption**](AssistantsApiToolChoiceOption.md)> |  | 
 **parallel_tool_calls** | **bool** | Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use. | 
-**response_format** | [**models::AssistantsApiResponseFormatOption**](AssistantsApiResponseFormatOption.md) |  | 
+**response_format** | Option<[**models::AssistantsApiResponseFormatOption**](AssistantsApiResponseFormatOption.md)> |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

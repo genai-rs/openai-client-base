@@ -19,6 +19,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteModelError {
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +28,7 @@ pub enum DeleteModelError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListModelsError {
+    Status403(models::PermissionErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +36,8 @@ pub enum ListModelsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveModelError {
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

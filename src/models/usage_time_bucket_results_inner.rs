@@ -37,3 +37,18 @@ pub enum UsageTimeBucketResultsInner {
     #[serde(rename = "organization.costs.result")]
     CostsResult(Box<models::CostsResult>),
 }
+
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ApiSource {
+    #[serde(rename = "agents_api")]
+    AgentsApi,
+    #[serde(rename = "unlabeled")]
+    Unlabeled,
+}
+
+impl Default for ApiSource {
+    fn default() -> ApiSource {
+        Self::AgentsApi
+    }
+}

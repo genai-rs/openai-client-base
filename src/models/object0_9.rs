@@ -11,38 +11,26 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object09 : On an incomplete message, details about why the message is incomplete.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object09 {
-    /// The reason the message is incomplete.
-    #[serde(rename = "reason")]
-    pub reason: Reason,
+    #[serde(rename = "text_offset", skip_serializing_if = "Option::is_none")]
+    pub text_offset: Option<Vec<i32>>,
+    #[serde(rename = "token_logprobs", skip_serializing_if = "Option::is_none")]
+    pub token_logprobs: Option<Vec<f64>>,
+    #[serde(rename = "tokens", skip_serializing_if = "Option::is_none")]
+    pub tokens: Option<Vec<String>>,
+    #[serde(rename = "top_logprobs", skip_serializing_if = "Option::is_none")]
+    pub top_logprobs: Option<Vec<std::collections::HashMap<String, f64>>>,
 }
 
 impl Object09 {
-    /// On an incomplete message, details about why the message is incomplete.
-    pub fn new(reason: Reason) -> Object09 {
-        Object09 { reason }
-    }
-}
-/// The reason the message is incomplete.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Reason {
-    #[serde(rename = "content_filter")]
-    ContentFilter,
-    #[serde(rename = "max_tokens")]
-    MaxTokens,
-    #[serde(rename = "run_cancelled")]
-    RunCancelled,
-    #[serde(rename = "run_expired")]
-    RunExpired,
-    #[serde(rename = "run_failed")]
-    RunFailed,
-}
-
-impl Default for Reason {
-    fn default() -> Reason {
-        Self::ContentFilter
+    pub fn new() -> Object09 {
+        Object09 {
+            text_offset: None,
+            token_logprobs: None,
+            tokens: None,
+            top_logprobs: None,
+        }
     }
 }
 

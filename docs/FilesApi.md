@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 
 ## download_file
 
-> String download_file(file_id)
+> std::path::PathBuf download_file(file_id)
 Retrieve file content
 
 Returns a response containing the contents of the specified file.
@@ -90,7 +90,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-**String**
+[**std::path::PathBuf**](std::path::PathBuf.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: application/octet-stream, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

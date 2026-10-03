@@ -11,34 +11,36 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object021 : Occurs when a new [run](https://developers.openai.com/api/docs/assistants/migration) is created.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object021 : Details about why the response is incomplete.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object021 {
-    #[serde(rename = "event")]
-    pub event: Event,
-    #[serde(rename = "data")]
-    pub data: Box<models::RunObject>,
+    /// The reason why the response is incomplete. `steered` means the response stopped at a safe output boundary after a WebSocket `response.steer` event. The server can then create a successor response automatically with the queued input.
+    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
+    pub reason: Option<Reason>,
 }
 
 impl Object021 {
-    /// Occurs when a new [run](https://developers.openai.com/api/docs/assistants/migration) is created.
-    pub fn new(event: Event, data: models::RunObject) -> Object021 {
-        Object021 {
-            event,
-            data: Box::new(data),
-        }
+    /// Details about why the response is incomplete.
+    pub fn new() -> Object021 {
+        Object021 { reason: None }
     }
 }
-///
+/// The reason why the response is incomplete. `steered` means the response stopped at a safe output boundary after a WebSocket `response.steer` event. The server can then create a successor response automatically with the queued input.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.run.created")]
-    ThreadRunCreated,
+pub enum Reason {
+    #[serde(rename = "max_output_tokens")]
+    MaxOutputTokens,
+    #[serde(rename = "max_messages")]
+    MaxMessages,
+    #[serde(rename = "content_filter")]
+    ContentFilter,
+    #[serde(rename = "steered")]
+    Steered,
 }
 
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunCreated
+impl Default for Reason {
+    fn default() -> Reason {
+        Self::MaxOutputTokens
     }
 }
 

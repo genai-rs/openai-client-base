@@ -20,4 +20,5 @@ pub enum PersistedAgentToolConfigParam {
     ProgrammaticToolCalling(Box<models::PersistedAgentToolConfigParamProgrammaticToolCalling>),
     Mcp(Box<models::PersistedAgentToolConfigParamMcp>),
     WebSearch(Box<models::PersistedAgentToolConfigParamWebSearch>),
+    ComputerUse(Box<models::PersistedAgentToolConfigParamComputerUse>),
 }

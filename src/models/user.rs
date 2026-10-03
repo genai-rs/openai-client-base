@@ -92,7 +92,7 @@ pub struct User {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub projects: Option<Option<Box<models::Object022>>>,
+    pub projects: Option<Option<Box<models::Object026>>>,
 }
 
 impl User {

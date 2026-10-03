@@ -27,8 +27,13 @@ pub struct RealtimeTranscriptionSessionCreateResponseGa {
     #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
     pub expires_at: Option<i32>,
     /// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
-    #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
-    pub include: Option<Vec<Include>>,
+    #[serde(
+        rename = "include",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub include: Option<Option<Vec<Include>>>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
     pub audio: Option<Box<models::RealtimeTranscriptionSessionCreateResponseGaAudio>>,
 }

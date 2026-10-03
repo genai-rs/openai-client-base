@@ -17,8 +17,13 @@ pub struct AudioTranscriptionResponse {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// The language of the input audio.
-    #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
-    pub language: Option<String>,
+    #[serde(
+        rename = "language",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub language: Option<Option<String>>,
     /// The possible input audio languages configured for transcription, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format.
     #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
     pub languages: Option<Vec<String>>,

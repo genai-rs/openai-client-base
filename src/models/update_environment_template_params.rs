@@ -44,6 +44,13 @@ pub struct UpdateEnvironmentTemplateParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub network: Option<Option<models::NetworkPolicyParam>>,
+    #[serde(
+        rename = "desktop",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub desktop: Option<Option<models::DesktopParam>>,
     /// Replacement confidential environment values.
     #[serde(rename = "env", skip_serializing_if = "Option::is_none")]
     pub env: Option<std::collections::HashMap<String, String>>,
@@ -89,6 +96,7 @@ impl UpdateEnvironmentTemplateParams {
             packages: None,
             setup_commands: None,
             network: None,
+            desktop: None,
             env: None,
             capability_directories: None,
             skills: None,

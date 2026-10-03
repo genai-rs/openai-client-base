@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **packages** | Option<[**models::EnvironmentPackagesParam**](EnvironmentPackagesParam.md)> |  | [optional]
 **setup_commands** | Option<[**Vec<models::SetupCommandParam>**](SetupCommandParam.md)> | Ordered, confidential setup commands. Command bodies are never returned. | [optional]
 **network** | Option<[**models::NetworkPolicyParam**](NetworkPolicyParam.md)> |  | [optional]
+**desktop** | Option<[**models::DesktopParam**](DesktopParam.md)> |  | [optional]
 **env** | Option<**std::collections::HashMap<String, String>**> | Environment variables made available to the agent. | [optional]
 **capability_directories** | Option<**Vec<String>**> | Directories that contain capabilities exposed to the agent. Defaults to an empty list. | [optional]
 **skills** | Option<[**Vec<models::HostedSkillParam>**](HostedSkillParam.md)> | Skills referenced by ID or provided as inline ZIP archives. Defaults to an empty list. | [optional]

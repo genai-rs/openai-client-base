@@ -21,6 +21,11 @@ pub enum SessionTurnItemResource {
     FunctionCallOutputItemResource(Box<models::FunctionCallOutputItemResource>),
     AgentMessageItemResource(Box<models::AgentMessageItemResource>),
     McpCallItemResource(Box<models::McpCallItemResource>),
+    ComputerUseCallItemResource(Box<models::ComputerUseCallItemResource>),
+    BrowserAuthenticationRequestItemResource(Box<models::BrowserAuthenticationRequestItemResource>),
+    ComputerUseApprovalRequestResultItemResource(
+        Box<models::ComputerUseApprovalRequestResultItemResource>,
+    ),
     WebSearchCallItemResource(Box<models::WebSearchCallItemResource>),
     CommandExecutionItemResource(Box<models::CommandExecutionItemResource>),
     CreateSubagentCallItemResource(Box<models::CreateSubagentCallItemResource>),

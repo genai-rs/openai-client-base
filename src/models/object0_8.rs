@@ -11,28 +11,24 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object08 : For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
+/// Object08 : Log probability information for the choice.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object08 {
-    /// A machine-readable error code.
-    #[serde(rename = "code")]
-    pub code: String,
-    /// A human-readable error message.
-    #[serde(rename = "message")]
-    pub message: String,
-    /// The parameter that was invalid, usually `training_file` or `validation_file`. This field will be null if the failure was not parameter-specific.
-    #[serde(rename = "param", deserialize_with = "Option::deserialize")]
-    pub param: Option<String>,
+    /// A list of message content tokens with log probability information.
+    #[serde(rename = "content", deserialize_with = "Option::deserialize")]
+    pub content: Option<Vec<models::ChatCompletionTokenLogprob>>,
+    /// A list of message refusal tokens with log probability information.
+    #[serde(rename = "refusal", deserialize_with = "Option::deserialize")]
+    pub refusal: Option<Vec<models::ChatCompletionTokenLogprob>>,
 }
 
 impl Object08 {
-    /// For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
-    pub fn new(code: String, message: String, param: Option<String>) -> Object08 {
-        Object08 {
-            code,
-            message,
-            param,
-        }
+    /// Log probability information for the choice.
+    pub fn new(
+        content: Option<Vec<models::ChatCompletionTokenLogprob>>,
+        refusal: Option<Vec<models::ChatCompletionTokenLogprob>>,
+    ) -> Object08 {
+        Object08 { content, refusal }
     }
 }
 

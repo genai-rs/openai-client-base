@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object023 : The last error associated with this vector store file. Will be `null` if there are no errors.
+/// Object023 : The last error associated with this run step. Will be `null` if there are no errors.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object023 {
-    /// One of `server_error`, `unsupported_file`, or `invalid_file`.
+    /// One of `server_error` or `rate_limit_exceeded`.
     #[serde(rename = "code")]
     pub code: Code,
     /// A human-readable description of the error.
@@ -23,20 +23,18 @@ pub struct Object023 {
 }
 
 impl Object023 {
-    /// The last error associated with this vector store file. Will be `null` if there are no errors.
+    /// The last error associated with this run step. Will be `null` if there are no errors.
     pub fn new(code: Code, message: String) -> Object023 {
         Object023 { code, message }
     }
 }
-/// One of `server_error`, `unsupported_file`, or `invalid_file`.
+/// One of `server_error` or `rate_limit_exceeded`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Code {
     #[serde(rename = "server_error")]
     ServerError,
-    #[serde(rename = "unsupported_file")]
-    UnsupportedFile,
-    #[serde(rename = "invalid_file")]
-    InvalidFile,
+    #[serde(rename = "rate_limit_exceeded")]
+    RateLimitExceeded,
 }
 
 impl Default for Code {

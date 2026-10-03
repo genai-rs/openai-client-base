@@ -19,12 +19,15 @@ pub struct BetaCompoundFilter {
     pub r#type: Type,
     /// Array of filters to combine. Items can be `ComparisonFilter` or `CompoundFilter`.
     #[serde(rename = "filters")]
-    pub filters: Vec<models::BetaComparisonFilter>,
+    pub filters: Vec<models::BetaCompoundFilterFiltersInner>,
 }
 
 impl BetaCompoundFilter {
     /// Combine multiple filters using `and` or `or`.
-    pub fn new(r#type: Type, filters: Vec<models::BetaComparisonFilter>) -> BetaCompoundFilter {
+    pub fn new(
+        r#type: Type,
+        filters: Vec<models::BetaCompoundFilterFiltersInner>,
+    ) -> BetaCompoundFilter {
         BetaCompoundFilter { r#type, filters }
     }
 }

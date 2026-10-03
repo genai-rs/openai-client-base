@@ -11,14 +11,57 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreateTranscription200Response {
-    CreateTranscriptionResponseJson(Box<models::CreateTranscriptionResponseJson>),
-    CreateTranscriptionResponseDiarizedJson(Box<models::CreateTranscriptionResponseDiarizedJson>),
-    CreateTranscriptionResponseVerboseJson(Box<models::CreateTranscriptionResponseVerboseJson>),
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+pub struct CreateTranscription200Response {
+    /// The transcribed text.
+    #[serde(rename = "text")]
+    pub text: String,
+    /// The languages detected in the audio. Returned by `gpt-transcribe`. An empty array indicates that no language could be reliably detected.
+    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
+    pub languages: Option<Vec<models::TranscriptionLanguage>>,
+    /// The log probabilities of the tokens in the transcription. Only returned with the models `gpt-4o-transcribe` and `gpt-4o-mini-transcribe` if `logprobs` is added to the `include` array.
+    #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
+    pub logprobs: Option<Vec<models::CreateTranscriptionResponseJsonLogprobsInner>>,
+    #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
+    pub usage: Option<Box<models::TranscriptTextUsageDuration>>,
+    /// The type of task that was run. Always `transcribe`.
+    #[serde(rename = "task")]
+    pub task: Task,
+    /// The duration of the input audio.
+    #[serde(rename = "duration")]
+    pub duration: f64,
+    /// Segments of the transcribed text and their corresponding details.
+    #[serde(rename = "segments")]
+    pub segments: Vec<models::TranscriptionSegment>,
+    /// The language of the input audio.
+    #[serde(rename = "language")]
+    pub language: String,
+    /// Extracted words and their corresponding timestamps.
+    #[serde(rename = "words", skip_serializing_if = "Option::is_none")]
+    pub words: Option<Vec<models::TranscriptionWord>>,
 }
 
+impl CreateTranscription200Response {
+    pub fn new(
+        text: String,
+        task: Task,
+        duration: f64,
+        segments: Vec<models::TranscriptionSegment>,
+        language: String,
+    ) -> CreateTranscription200Response {
+        CreateTranscription200Response {
+            text,
+            languages: None,
+            logprobs: None,
+            usage: None,
+            task,
+            duration,
+            segments,
+            language,
+            words: None,
+        }
+    }
+}
 /// The type of task that was run. Always `transcribe`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Task {
@@ -29,5 +72,14 @@ pub enum Task {
 impl Default for Task {
     fn default() -> Task {
         Self::Transcribe
+    }
+}
+
+impl std::fmt::Display for CreateTranscription200Response {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match serde_json::to_string(self) {
+            Ok(s) => write!(f, "{}", s),
+            Err(_) => Err(std::fmt::Error),
+        }
     }
 }

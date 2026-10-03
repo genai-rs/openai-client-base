@@ -4,10 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**api_source** | Option<**String**> |  | [optional]
 **object** | **String** |  | 
 **input_tokens** | **i32** | The aggregated number of input tokens used, including cached and cache-write tokens. This includes text, audio, and image tokens. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | 
 **input_cached_tokens** | Option<**i32**> | The aggregated number of cached input tokens used across text, audio, and image inputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | [optional]
-**input_cache_write_tokens** | Option<**i32**> | The aggregated number of input tokens written to the cache. | [optional]
+**input_cache_write_tokens** | Option<**i32**> | The aggregated number of input tokens written to the cache with a 30-minute retention period. | [optional]
+**input_cache_write_12h_tokens** | Option<**i32**> | The aggregated number of input tokens written to the cache with a 12-hour retention period. | [optional]
 **input_uncached_tokens** | Option<**i32**> | The aggregated number of uncached input tokens used across text, audio, and image inputs, excluding cache-write tokens. | [optional]
 **output_tokens** | **i32** | The aggregated number of output tokens used across text, audio, and image outputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | 
 **input_text_tokens** | Option<**i32**> | The aggregated number of uncached text input tokens used, excluding cache-write tokens. | [optional]

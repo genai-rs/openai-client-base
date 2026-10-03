@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | [**models::NoiseReductionType**](NoiseReductionType.md) |  | 
+**code_interpreter** | Option<[**models::CreateThreadAndRunRequestToolResourcesCodeInterpreter**](CreateThreadAndRunRequest_tool_resources_code_interpreter.md)> |  | [optional]
+**file_search** | Option<[**models::Object015FileSearch**](Object0_15_file_search.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

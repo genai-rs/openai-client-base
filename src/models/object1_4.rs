@@ -11,33 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object14 : An object describing text to classify.
+/// Object14 : Custom voice reference.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object14 {
-    /// Always `text`.
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    /// A string of text to classify.
-    #[serde(rename = "text")]
-    pub text: String,
+    /// The custom voice ID, e.g. `voice_1234`.
+    #[serde(rename = "id")]
+    pub id: String,
 }
 
 impl Object14 {
-    /// An object describing text to classify.
-    pub fn new(r#type: Type, text: String) -> Object14 {
-        Object14 { r#type, text }
-    }
-}
-/// Always `text`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "text")]
-    Text,
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::Text
+    /// Custom voice reference.
+    pub fn new(id: String) -> Object14 {
+        Object14 { id }
     }
 }
 

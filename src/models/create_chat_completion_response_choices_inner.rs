@@ -22,7 +22,7 @@ pub struct CreateChatCompletionResponseChoicesInner {
     #[serde(rename = "message")]
     pub message: Box<models::ChatCompletionResponseMessage>,
     #[serde(rename = "logprobs", deserialize_with = "Option::deserialize")]
-    pub logprobs: Option<Box<models::Object05>>,
+    pub logprobs: Option<Box<models::Object08>>,
 }
 
 impl CreateChatCompletionResponseChoicesInner {
@@ -30,7 +30,7 @@ impl CreateChatCompletionResponseChoicesInner {
         finish_reason: FinishReason,
         index: i32,
         message: models::ChatCompletionResponseMessage,
-        logprobs: Option<models::Object05>,
+        logprobs: Option<models::Object08>,
     ) -> CreateChatCompletionResponseChoicesInner {
         CreateChatCompletionResponseChoicesInner {
             finish_reason,

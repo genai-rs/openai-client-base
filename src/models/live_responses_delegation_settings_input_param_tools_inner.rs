@@ -16,6 +16,10 @@ use serde::{Deserialize, Serialize};
 pub enum LiveResponsesDelegationSettingsInputParamToolsInner {
     LiveFunctionToolInputParam(Box<models::LiveFunctionToolInputParam>),
     LiveWebSearchToolInputParam(Box<models::LiveWebSearchToolInputParam>),
+    LiveFileSearchToolInputParam(Box<models::LiveFileSearchToolInputParam>),
+    LiveCodeInterpreterToolInputParam(Box<models::LiveCodeInterpreterToolInputParam>),
+    LiveHostedShellToolInputParam(Box<models::LiveHostedShellToolInputParam>),
+    LiveImageGenerationToolInputParam(Box<models::LiveImageGenerationToolInputParam>),
 }
 
 impl Default for LiveResponsesDelegationSettingsInputParamToolsInner {

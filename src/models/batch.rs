@@ -36,38 +36,88 @@ pub struct Batch {
     #[serde(rename = "status")]
     pub status: Status,
     /// The ID of the file containing the outputs of successfully executed requests.
-    #[serde(rename = "output_file_id", skip_serializing_if = "Option::is_none")]
-    pub output_file_id: Option<String>,
+    #[serde(
+        rename = "output_file_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub output_file_id: Option<Option<String>>,
     /// The ID of the file containing the outputs of requests with errors.
-    #[serde(rename = "error_file_id", skip_serializing_if = "Option::is_none")]
-    pub error_file_id: Option<String>,
+    #[serde(
+        rename = "error_file_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error_file_id: Option<Option<String>>,
     /// The Unix timestamp (in seconds) for when the batch was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
     /// The Unix timestamp (in seconds) for when the batch started processing.
-    #[serde(rename = "in_progress_at", skip_serializing_if = "Option::is_none")]
-    pub in_progress_at: Option<i32>,
+    #[serde(
+        rename = "in_progress_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub in_progress_at: Option<Option<i32>>,
     /// The Unix timestamp (in seconds) for when the batch will expire.
-    #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<i32>,
+    #[serde(
+        rename = "expires_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expires_at: Option<Option<i32>>,
     /// The Unix timestamp (in seconds) for when the batch started finalizing.
-    #[serde(rename = "finalizing_at", skip_serializing_if = "Option::is_none")]
-    pub finalizing_at: Option<i32>,
+    #[serde(
+        rename = "finalizing_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub finalizing_at: Option<Option<i32>>,
     /// The Unix timestamp (in seconds) for when the batch was completed.
-    #[serde(rename = "completed_at", skip_serializing_if = "Option::is_none")]
-    pub completed_at: Option<i32>,
+    #[serde(
+        rename = "completed_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub completed_at: Option<Option<i32>>,
     /// The Unix timestamp (in seconds) for when the batch failed.
-    #[serde(rename = "failed_at", skip_serializing_if = "Option::is_none")]
-    pub failed_at: Option<i32>,
+    #[serde(
+        rename = "failed_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub failed_at: Option<Option<i32>>,
     /// The Unix timestamp (in seconds) for when the batch expired.
-    #[serde(rename = "expired_at", skip_serializing_if = "Option::is_none")]
-    pub expired_at: Option<i32>,
+    #[serde(
+        rename = "expired_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub expired_at: Option<Option<i32>>,
     /// The Unix timestamp (in seconds) for when the batch started cancelling.
-    #[serde(rename = "cancelling_at", skip_serializing_if = "Option::is_none")]
-    pub cancelling_at: Option<i32>,
+    #[serde(
+        rename = "cancelling_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cancelling_at: Option<Option<i32>>,
     /// The Unix timestamp (in seconds) for when the batch was cancelled.
-    #[serde(rename = "cancelled_at", skip_serializing_if = "Option::is_none")]
-    pub cancelled_at: Option<i32>,
+    #[serde(
+        rename = "cancelled_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cancelled_at: Option<Option<i32>>,
     #[serde(rename = "request_counts", skip_serializing_if = "Option::is_none")]
     pub request_counts: Option<Box<models::BatchRequestCounts>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]

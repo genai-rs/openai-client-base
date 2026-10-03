@@ -19,7 +19,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaCancelResponseError {
-    Status404(models::BetaError),
+    Status404(models::BetaErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -28,6 +28,7 @@ pub enum BetaCancelResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaCompactconversationError {
+    Status400(models::BetaErrorResponse),
     Status429(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -37,6 +38,8 @@ pub enum BetaCompactconversationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaCreateResponseError {
+    Status400(models::BetaErrorResponse),
+    Status404(models::BetaErrorResponse),
     Status429(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -46,7 +49,7 @@ pub enum BetaCreateResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaDeleteResponseError {
-    Status404(models::BetaError),
+    Status404(models::BetaErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -55,6 +58,7 @@ pub enum BetaDeleteResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaGetResponseError {
+    Status404(models::BetaErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -63,6 +67,7 @@ pub enum BetaGetResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaGetinputtokencountsError {
+    Status400(models::BetaErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -71,6 +76,7 @@ pub enum BetaGetinputtokencountsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaListInputItemsError {
+    Status404(models::BetaErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -79,7 +85,7 @@ pub enum BetaListInputItemsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelResponseError {
-    Status404(models::Error),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -88,6 +94,7 @@ pub enum CancelResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CompactconversationError {
+    Status400(models::ErrorResponse),
     Status429(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -97,6 +104,8 @@ pub enum CompactconversationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateResponseError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -106,7 +115,7 @@ pub enum CreateResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteResponseError {
-    Status404(models::Error),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -115,6 +124,7 @@ pub enum DeleteResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetResponseError {
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -123,6 +133,7 @@ pub enum GetResponseError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetinputtokencountsError {
+    Status400(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -131,6 +142,7 @@ pub enum GetinputtokencountsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListInputItemsError {
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -312,7 +324,7 @@ pub async fn beta_delete_response(
     configuration: &configuration::Configuration,
     response_id: &str,
     openai_beta: Option<Vec<String>>,
-) -> Result<(), Error<BetaDeleteResponseError>> {
+) -> Result<models::DeleteResponse200Response, Error<BetaDeleteResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
     let p_header_openai_beta = openai_beta;
@@ -340,9 +352,20 @@ pub async fn beta_delete_response(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteResponse200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteResponse200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<BetaDeleteResponseError> = serde_json::from_str(&content).ok();
@@ -760,7 +783,7 @@ pub async fn create_response(
 pub async fn delete_response(
     configuration: &configuration::Configuration,
     response_id: &str,
-) -> Result<(), Error<DeleteResponseError>> {
+) -> Result<models::DeleteResponse200Response, Error<DeleteResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
 
@@ -784,9 +807,20 @@ pub async fn delete_response(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteResponse200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteResponse200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteResponseError> = serde_json::from_str(&content).ok();

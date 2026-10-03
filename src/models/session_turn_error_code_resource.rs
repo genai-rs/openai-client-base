@@ -21,14 +21,24 @@ pub enum SessionTurnErrorCodeResource {
     SessionBudgetExceeded,
     #[serde(rename = "usage_limit_exceeded")]
     UsageLimitExceeded,
+    #[serde(rename = "project_spend_limit_exceeded")]
+    ProjectSpendLimitExceeded,
+    #[serde(rename = "organization_spend_limit_exceeded")]
+    OrganizationSpendLimitExceeded,
+    #[serde(rename = "organization_usage_limit_exceeded")]
+    OrganizationUsageLimitExceeded,
     #[serde(rename = "credit_balance_exhausted")]
     CreditBalanceExhausted,
     #[serde(rename = "rate_limit_exceeded")]
     RateLimitExceeded,
+    #[serde(rename = "flex_unavailable")]
+    FlexUnavailable,
     #[serde(rename = "server_overloaded")]
     ServerOverloaded,
     #[serde(rename = "cyber_policy")]
     CyberPolicy,
+    #[serde(rename = "misalignment_policy_violation")]
+    MisalignmentPolicyViolation,
     #[serde(rename = "connection_failed")]
     ConnectionFailed,
     #[serde(rename = "server_error")]
@@ -57,10 +67,15 @@ impl std::fmt::Display for SessionTurnErrorCodeResource {
             Self::ContextLengthExceeded => write!(f, "context_length_exceeded"),
             Self::SessionBudgetExceeded => write!(f, "session_budget_exceeded"),
             Self::UsageLimitExceeded => write!(f, "usage_limit_exceeded"),
+            Self::ProjectSpendLimitExceeded => write!(f, "project_spend_limit_exceeded"),
+            Self::OrganizationSpendLimitExceeded => write!(f, "organization_spend_limit_exceeded"),
+            Self::OrganizationUsageLimitExceeded => write!(f, "organization_usage_limit_exceeded"),
             Self::CreditBalanceExhausted => write!(f, "credit_balance_exhausted"),
             Self::RateLimitExceeded => write!(f, "rate_limit_exceeded"),
+            Self::FlexUnavailable => write!(f, "flex_unavailable"),
             Self::ServerOverloaded => write!(f, "server_overloaded"),
             Self::CyberPolicy => write!(f, "cyber_policy"),
+            Self::MisalignmentPolicyViolation => write!(f, "misalignment_policy_violation"),
             Self::ConnectionFailed => write!(f, "connection_failed"),
             Self::ServerError => write!(f, "server_error"),
             Self::AuthenticationError => write!(f, "authentication_error"),

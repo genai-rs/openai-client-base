@@ -39,6 +39,13 @@ pub struct EnvironmentParamOpenaiHosted {
         skip_serializing_if = "Option::is_none"
     )]
     pub network: Option<Option<models::NetworkPolicyParam>>,
+    #[serde(
+        rename = "desktop",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub desktop: Option<Option<models::DesktopParam>>,
     /// Environment variables made available to the agent.
     #[serde(rename = "env", skip_serializing_if = "Option::is_none")]
     pub env: Option<std::collections::HashMap<String, String>>,
@@ -80,6 +87,8 @@ pub struct EnvironmentParamOpenaiHosted {
         skip_serializing_if = "Option::is_none"
     )]
     pub environment_template_id: Option<String>,
+    #[serde(rename = "container_size", skip_serializing_if = "Option::is_none")]
+    pub container_size: Option<models::ContainerSizeParam>,
 }
 
 impl EnvironmentParamOpenaiHosted {
@@ -90,12 +99,14 @@ impl EnvironmentParamOpenaiHosted {
             packages: None,
             setup_commands: None,
             network: None,
+            desktop: None,
             env: None,
             capability_directories: None,
             skills: None,
             plugins: None,
             files: None,
             environment_template_id: None,
+            container_size: None,
         }
     }
 }

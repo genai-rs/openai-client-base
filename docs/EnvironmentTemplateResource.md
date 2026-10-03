@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **updated_at** | **i64** | The Unix timestamp, in seconds, when the template was last updated. | 
 **packages** | [**models::EnvironmentPackagesResource**](EnvironmentPackagesResource.md) |  | 
 **network** | [**models::NetworkPolicyResource**](NetworkPolicyResource.md) |  | 
+**desktop** | [**models::DesktopResource**](DesktopResource.md) |  | 
 **capability_directories** | **Vec<String>** | Directories that expose capabilities to the agent. | 
 **skills** | [**Vec<models::HostedTemplateSkillResource>**](HostedTemplateSkillResource.md) | Safe skill metadata, preserving unresolved version selectors. | 
 **plugins** | [**Vec<models::HostedPluginResourceInline>**](HostedPluginResourceInline.md) | Safe plugin metadata, excluding inline archive contents. | 

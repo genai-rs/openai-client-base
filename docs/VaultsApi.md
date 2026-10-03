@@ -280,7 +280,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vault_id** | **String** | The ID of the vault. | [required] |
 **credential_id** | **String** | The ID of the vault credential. | [required] |
-**rotate_vault_credential_params** | Option<[**RotateVaultCredentialParams**](RotateVaultCredentialParams.md)> |  |  |
+**rotate_vault_credential_params** | [**RotateVaultCredentialParams**](RotateVaultCredentialParams.md) |  | [required] |
 
 ### Return type
 

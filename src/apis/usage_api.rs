@@ -19,6 +19,8 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageAudioSpeechesError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -27,6 +29,8 @@ pub enum UsageAudioSpeechesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageAudioTranscriptionsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -35,6 +39,8 @@ pub enum UsageAudioTranscriptionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageCodeInterpreterSessionsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -43,6 +49,8 @@ pub enum UsageCodeInterpreterSessionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageCompletionsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -51,6 +59,8 @@ pub enum UsageCompletionsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageCostsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -59,6 +69,8 @@ pub enum UsageCostsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageEmbeddingsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -67,6 +79,8 @@ pub enum UsageEmbeddingsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageFileSearchCallsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -75,6 +89,8 @@ pub enum UsageFileSearchCallsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageImagesError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -83,6 +99,8 @@ pub enum UsageImagesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageModerationsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -91,6 +109,8 @@ pub enum UsageModerationsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageVectorStoresError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -99,6 +119,8 @@ pub enum UsageVectorStoresError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UsageWebSearchCallsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }

@@ -29,8 +29,8 @@ pub struct BetaWebSearchToolCall {
     pub r#type: Type,
     #[serde(rename = "status")]
     pub status: models::BetaWebSearchCallStatus,
-    #[serde(rename = "action")]
-    pub action: Box<models::BetaWebSearchToolCallAction>,
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    pub action: Option<Box<models::BetaWebSearchToolCallAction>>,
 }
 
 impl BetaWebSearchToolCall {
@@ -39,14 +39,13 @@ impl BetaWebSearchToolCall {
         id: String,
         r#type: Type,
         status: models::BetaWebSearchCallStatus,
-        action: models::BetaWebSearchToolCallAction,
     ) -> BetaWebSearchToolCall {
         BetaWebSearchToolCall {
             agent: None,
             id,
             r#type,
             status,
-            action: Box::new(action),
+            action: None,
         }
     }
 }

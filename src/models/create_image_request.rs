@@ -13,18 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateImageRequest {
-    /// A text description of the desired image(s). The maximum length is 32000 characters for the GPT image models, 1000 characters for `dall-e-2` and 4000 characters for `dall-e-3`.
+    /// A text description of the desired image(s). The maximum length is 32000 characters.
     #[serde(rename = "prompt")]
     pub prompt: String,
-    #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
-    pub model: Option<String>,
-    /// The number of images to generate. Must be between 1 and 10. For `dall-e-3`, only `n=1` is supported.
+    #[serde(rename = "model")]
+    pub model: String,
+    /// The number of images to generate. Must be between 1 and 10.
     #[serde(rename = "n", skip_serializing_if = "Option::is_none")]
     pub n: Option<i32>,
-    /// The quality of the image that will be generated.  - `auto` (default value) will automatically select the best quality for the given   model. - `high`, `medium` and `low` are supported for the GPT image models. - `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08`   snapshots, also support `xhigh` and `max`. - `hd` and `standard` are supported for `dall-e-3`. - `standard` is the only option for `dall-e-2`.
+    /// The quality of the image that will be generated.  - `auto` (default value) will automatically select the best quality for the given   model. - `high`, `medium` and `low` are supported for the GPT image models. - `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08`   snapshots, also support `xhigh` and `max`.
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
-    /// The format in which generated images with `dall-e-2` and `dall-e-3` are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. This parameter isn't supported for the GPT image models, which always return base64-encoded images.
+    /// Legacy response format parameter for retired image models. Unsupported for GPT image models, which always return base64-encoded images.
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
     pub response_format: Option<ResponseFormat>,
     /// The format in which the generated images are returned. This parameter is only supported for the GPT image models. Must be one of `png`, `jpeg`, or `webp`.
@@ -52,7 +52,7 @@ pub struct CreateImageRequest {
     /// Set the background of the generated image(s). This parameter is only supported for the GPT image models. Must be one of `transparent`, `opaque`, or `auto` (default value). When `auto` is used, the model will automatically determine the best background for the image.  `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`.
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<Background>,
-    /// The style of the generated images. This parameter is only supported for `dall-e-3`. Must be one of `vivid` or `natural`. Vivid causes the model to lean towards generating hyper-real and dramatic images. Natural causes the model to produce more natural, less hyper-real looking images.
+    /// Legacy style parameter for retired image models. Unsupported for GPT image models; describe the desired style in the prompt instead.
     #[serde(rename = "style", skip_serializing_if = "Option::is_none")]
     pub style: Option<Style>,
     /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
@@ -61,10 +61,10 @@ pub struct CreateImageRequest {
 }
 
 impl CreateImageRequest {
-    pub fn new(prompt: String) -> CreateImageRequest {
+    pub fn new(prompt: String, model: String) -> CreateImageRequest {
         CreateImageRequest {
             prompt,
-            model: None,
+            model,
             n: None,
             quality: None,
             response_format: None,
@@ -80,13 +80,9 @@ impl CreateImageRequest {
         }
     }
 }
-/// The quality of the image that will be generated.  - `auto` (default value) will automatically select the best quality for the given   model. - `high`, `medium` and `low` are supported for the GPT image models. - `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08`   snapshots, also support `xhigh` and `max`. - `hd` and `standard` are supported for `dall-e-3`. - `standard` is the only option for `dall-e-2`.
+/// The quality of the image that will be generated.  - `auto` (default value) will automatically select the best quality for the given   model. - `high`, `medium` and `low` are supported for the GPT image models. - `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08`   snapshots, also support `xhigh` and `max`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
-    #[serde(rename = "standard")]
-    Standard,
-    #[serde(rename = "hd")]
-    Hd,
     #[serde(rename = "low")]
     Low,
     #[serde(rename = "medium")]
@@ -99,14 +95,18 @@ pub enum Quality {
     Max,
     #[serde(rename = "auto")]
     Auto,
+    #[serde(rename = "standard")]
+    Standard,
+    #[serde(rename = "hd")]
+    Hd,
 }
 
 impl Default for Quality {
     fn default() -> Quality {
-        Self::Standard
+        Self::Low
     }
 }
-/// The format in which generated images with `dall-e-2` and `dall-e-3` are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. This parameter isn't supported for the GPT image models, which always return base64-encoded images.
+/// Legacy response format parameter for retired image models. Unsupported for GPT image models, which always return base64-encoded images.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ResponseFormat {
     #[serde(rename = "url")]
@@ -166,7 +166,7 @@ impl Default for Background {
         Self::Transparent
     }
 }
-/// The style of the generated images. This parameter is only supported for `dall-e-3`. Must be one of `vivid` or `natural`. Vivid causes the model to lean towards generating hyper-real and dramatic images. Natural causes the model to produce more natural, less hyper-real looking images.
+/// Legacy style parameter for retired image models. Unsupported for GPT image models; describe the desired style in the prompt instead.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Style {
     #[serde(rename = "vivid")]

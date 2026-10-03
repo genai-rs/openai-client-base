@@ -19,6 +19,8 @@ pub enum AgentOutputItemResource {
     ReasoningItemResource(Box<models::ReasoningItemResource>),
     FunctionCallItemResource(Box<models::FunctionCallItemResource>),
     McpCallItemResource(Box<models::McpCallItemResource>),
+    ComputerUseCallItemResource(Box<models::ComputerUseCallItemResource>),
+    BrowserAuthenticationRequestItemResource(Box<models::BrowserAuthenticationRequestItemResource>),
     WebSearchCallItemResource(Box<models::WebSearchCallItemResource>),
     CommandExecutionItemResource(Box<models::CommandExecutionItemResource>),
     CreateSubagentCallItemResource(Box<models::CreateSubagentCallItemResource>),

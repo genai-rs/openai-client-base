@@ -19,6 +19,12 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AcceptLiveSessionError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(String),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -26,6 +32,13 @@ pub enum AcceptLiveSessionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateLiveError {
+    Status400(models::ErrorResponse),
+    Status413(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(String),
+    Status502(String),
+    Status503(models::ErrorResponse),
+    Status504(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +46,11 @@ pub enum CreateLiveError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DownloadLiveRecordingError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -40,6 +58,12 @@ pub enum DownloadLiveRecordingError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ForkLiveSessionError {
+    Status400(models::ErrorResponse),
+    Status404(String),
+    Status413(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(String),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -47,6 +71,7 @@ pub enum ForkLiveSessionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum HangupLiveSessionError {
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,6 +79,9 @@ pub enum HangupLiveSessionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ReferLiveSessionError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status500(String),
     UnknownValue(serde_json::Value),
 }
 
@@ -61,6 +89,10 @@ pub enum ReferLiveSessionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RejectLiveSessionError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status500(String),
     UnknownValue(serde_json::Value),
 }
 
@@ -110,14 +142,14 @@ pub async fn accept_live_session(
     }
 }
 
-/// Create a Live WebRTC session. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting).
+/// Create a Live WebRTC session or place an outbound SIP call. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) for session configuration and [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call) for trunk setup and call monitoring.  Set transport.type to `webrtc` and supply an SDP offer, or set it to `sip` and supply an E.164 destination and trunk credentials. Outbound SIP calling must be enabled for your organization. Ringing is limited to 3 minutes and connected calls to 2 hours; these limits are not configurable in the request.  Returns `201 Created` after session initialization. WebRTC responses include an SDP answer. SIP responses do not wait for the callee to answer. Attach a sideband connection using session.id to monitor SIP call progress.  Each SIP request creates a new call. If a request times out or the connection fails, retry with caution: the original request may have succeeded, and a retry can place another call.
 #[bon::builder]
 pub async fn create_live(
     configuration: &configuration::Configuration,
-    live_create_request: models::LiveCreateRequest,
-) -> Result<models::LiveCreateResponse, Error<CreateLiveError>> {
+    live_session_create_request: models::LiveSessionCreateRequest,
+) -> Result<models::LiveSessionCreateResponse, Error<CreateLiveError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_live_create_request = live_create_request;
+    let p_body_live_session_create_request = live_session_create_request;
 
     let uri_str = format!("{}/live/sessions", configuration.base_path);
     let mut req_builder = configuration
@@ -130,7 +162,7 @@ pub async fn create_live(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_live_create_request);
+    req_builder = req_builder.json(&p_body_live_session_create_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -147,8 +179,8 @@ pub async fn create_live(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::LiveCreateResponse`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::LiveCreateResponse`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::LiveSessionCreateResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::LiveSessionCreateResponse`")))),
         }
     } else {
         let content = resp.text().await?;

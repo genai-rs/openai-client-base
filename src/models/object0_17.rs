@@ -11,17 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object017 : Optional input noise reduction. Set to `null` to disable it.
+/// Object017 : Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object017 {
-    #[serde(rename = "type")]
-    pub r#type: models::NoiseReductionType,
+    /// The transcription model used for source transcript deltas.
+    #[serde(rename = "model")]
+    pub model: String,
 }
 
 impl Object017 {
-    /// Optional input noise reduction. Set to `null` to disable it.
-    pub fn new(r#type: models::NoiseReductionType) -> Object017 {
-        Object017 { r#type }
+    /// Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
+    pub fn new(model: String) -> Object017 {
+        Object017 { model }
     }
 }
 
