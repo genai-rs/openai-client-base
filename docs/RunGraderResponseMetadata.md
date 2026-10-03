@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **errors** | [**models::RunGraderResponseMetadataErrors**](RunGraderResponse_metadata_errors.md) |  | 
 **execution_time** | **f64** |  | 
 **scores** | [**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md) |  | 
-**token_usage** | Option<**i32**> |  | 
+**token_usage** | Option<[**models::Object022**](Object0_22.md)> |  | 
 **sampled_model_name** | Option<**String**> |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

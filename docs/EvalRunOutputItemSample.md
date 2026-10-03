@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **finish_reason** | **String** | The reason why the sample generation was finished. | 
 **model** | **String** | The model used for generating the sample. | 
 **usage** | [**models::EvalRunOutputItemSampleUsage**](EvalRunOutputItem_sample_usage.md) |  | 
-**error** | [**models::EvalApiError**](EvalApiError.md) |  | 
+**error** | Option<[**models::EvalApiError**](EvalApiError.md)> |  | 
 **temperature** | **f64** | The sampling temperature used. | 
 **max_completion_tokens** | **i32** | The maximum number of tokens allowed for completion. | 
 **top_p** | **f64** | The top_p value used for sampling. | 

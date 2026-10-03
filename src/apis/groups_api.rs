@@ -19,7 +19,12 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateGroupError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    Status422(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -27,6 +32,9 @@ pub enum CreateGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteGroupError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -35,6 +43,9 @@ pub enum DeleteGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListGroupsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -43,7 +54,11 @@ pub enum ListGroupsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveGroupError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -51,7 +66,11 @@ pub enum RetrieveGroupError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateGroupError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

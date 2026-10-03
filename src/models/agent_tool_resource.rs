@@ -19,6 +19,7 @@ pub enum AgentToolResource {
     ProgrammaticToolCalling(Box<models::AgentToolResourceProgrammaticToolCalling>),
     Mcp(Box<models::AgentToolResourceMcp>),
     WebSearch(Box<models::AgentToolResourceWebSearch>),
+    ComputerUse(Box<models::AgentToolResourceComputerUse>),
 }
 
 impl Default for AgentToolResource {

@@ -15,6 +15,41 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`agent_session_action_required_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AgentSessionActionRequiredPostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`agent_session_created_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AgentSessionCreatedPostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`agent_session_failed_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AgentSessionFailedPostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`agent_session_idle_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AgentSessionIdlePostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`agent_session_in_progress_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AgentSessionInProgressPostError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`batch_cancelled_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -160,6 +195,207 @@ pub enum SafetyOrgAlertCreatedPostError {
 #[serde(untagged)]
 pub enum SafetyWarningIssuedPostError {
     UnknownValue(serde_json::Value),
+}
+
+/// Sent when an agent session requires an action. Retrieve the session for action details.
+#[bon::builder]
+pub async fn agent_session_action_required_post(
+    configuration: &configuration::Configuration,
+    webhook_agent_session_action_required: Option<models::WebhookAgentSessionActionRequired>,
+) -> Result<(), Error<AgentSessionActionRequiredPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_agent_session_action_required = webhook_agent_session_action_required;
+
+    let uri_str = format!("{}/agent_session_action_required", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_agent_session_action_required);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AgentSessionActionRequiredPostError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when an agent session is created.
+#[bon::builder]
+pub async fn agent_session_created_post(
+    configuration: &configuration::Configuration,
+    webhook_agent_session_created: Option<models::WebhookAgentSessionCreated>,
+) -> Result<(), Error<AgentSessionCreatedPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_agent_session_created = webhook_agent_session_created;
+
+    let uri_str = format!("{}/agent_session_created", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_agent_session_created);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AgentSessionCreatedPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when an agent session fails.
+#[bon::builder]
+pub async fn agent_session_failed_post(
+    configuration: &configuration::Configuration,
+    webhook_agent_session_failed: Option<models::WebhookAgentSessionFailed>,
+) -> Result<(), Error<AgentSessionFailedPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_agent_session_failed = webhook_agent_session_failed;
+
+    let uri_str = format!("{}/agent_session_failed", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_agent_session_failed);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AgentSessionFailedPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when an agent session becomes idle.
+#[bon::builder]
+pub async fn agent_session_idle_post(
+    configuration: &configuration::Configuration,
+    webhook_agent_session_idle: Option<models::WebhookAgentSessionIdle>,
+) -> Result<(), Error<AgentSessionIdlePostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_agent_session_idle = webhook_agent_session_idle;
+
+    let uri_str = format!("{}/agent_session_idle", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_agent_session_idle);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AgentSessionIdlePostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when an agent session enters the in-progress state.
+#[bon::builder]
+pub async fn agent_session_in_progress_post(
+    configuration: &configuration::Configuration,
+    webhook_agent_session_in_progress: Option<models::WebhookAgentSessionInProgress>,
+) -> Result<(), Error<AgentSessionInProgressPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_agent_session_in_progress = webhook_agent_session_in_progress;
+
+    let uri_str = format!("{}/agent_session_in_progress", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_agent_session_in_progress);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AgentSessionInProgressPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
 }
 
 /// Sent when a batch has been cancelled.

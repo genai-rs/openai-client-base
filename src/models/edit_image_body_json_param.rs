@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// EditImageBodyJsonParam : JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models only; DALL-E edits require multipart (`dall-e-2` only).
+/// EditImageBodyJsonParam : JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EditImageBodyJsonParam {
-    /// The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, and `gpt-image-2.5-flare-2026-09-08`.
+    /// The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, and `gpt-image-2.5-flare-2026-09-08`. Defaults to `gpt-image-2.5-sunburst`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Input image references to edit. For GPT image models, you can provide up to 16 images.
@@ -102,7 +102,7 @@ pub struct EditImageBodyJsonParam {
 }
 
 impl EditImageBodyJsonParam {
-    /// JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models only; DALL-E edits require multipart (`dall-e-2` only).
+    /// JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models.
     pub fn new(images: Vec<models::ImageRefParam>, prompt: String) -> EditImageBodyJsonParam {
         EditImageBodyJsonParam {
             model: None,

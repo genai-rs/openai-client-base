@@ -33,6 +33,8 @@ pub struct EnvironmentTemplateResource {
     pub packages: models::EnvironmentPackagesResource,
     #[serde(rename = "network")]
     pub network: models::NetworkPolicyResource,
+    #[serde(rename = "desktop")]
+    pub desktop: models::DesktopResource,
     /// Directories that expose capabilities to the agent.
     #[serde(rename = "capability_directories")]
     pub capability_directories: Vec<String>,
@@ -57,6 +59,7 @@ impl EnvironmentTemplateResource {
         updated_at: i64,
         packages: models::EnvironmentPackagesResource,
         network: models::NetworkPolicyResource,
+        desktop: models::DesktopResource,
         capability_directories: Vec<String>,
         skills: Vec<models::HostedTemplateSkillResource>,
         plugins: Vec<models::HostedPluginResourceInline>,
@@ -70,6 +73,7 @@ impl EnvironmentTemplateResource {
             updated_at,
             packages,
             network,
+            desktop,
             capability_directories,
             skills,
             plugins,

@@ -40,28 +40,28 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## create_live
 
-> models::LiveCreateResponse create_live(live_create_request)
+> models::LiveSessionCreateResponse create_live(live_session_create_request)
 Create session
 
-Create a Live WebRTC session. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting).
+Create a Live WebRTC session or place an outbound SIP call. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) for session configuration and [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call) for trunk setup and call monitoring.  Set transport.type to `webrtc` and supply an SDP offer, or set it to `sip` and supply an E.164 destination and trunk credentials. Outbound SIP calling must be enabled for your organization. Ringing is limited to 3 minutes and connected calls to 2 hours; these limits are not configurable in the request.  Returns `201 Created` after session initialization. WebRTC responses include an SDP answer. SIP responses do not wait for the callee to answer. Attach a sideband connection using session.id to monitor SIP call progress.  Each SIP request creates a new call. If a request times out or the connection fails, retry with caution: the original request may have succeeded, and a retry can place another call.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**live_create_request** | [**LiveCreateRequest**](LiveCreateRequest.md) |  | [required] |
+**live_session_create_request** | [**LiveSessionCreateRequest**](LiveSessionCreateRequest.md) |  | [required] |
 
 ### Return type
 
-[**models::LiveCreateResponse**](LiveCreateResponse.md)
+[**models::LiveSessionCreateResponse**](LiveSessionCreateResponse.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -100,7 +100,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: audio/wav
+- **Accept**: audio/wav, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
+- **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -161,7 +161,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -192,7 +192,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -223,7 +223,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

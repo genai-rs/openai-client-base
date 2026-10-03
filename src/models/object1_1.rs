@@ -11,18 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object11 : Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
+/// Object11 : Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object11 {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "data")]
-    pub data: Box<models::RunStepObject>,
+    pub data: Box<models::MessageObject>,
 }
 
 impl Object11 {
-    /// Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
-    pub fn new(event: Event, data: models::RunStepObject) -> Object11 {
+    /// Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
+    pub fn new(event: Event, data: models::MessageObject) -> Object11 {
         Object11 {
             event,
             data: Box::new(data),
@@ -32,13 +32,13 @@ impl Object11 {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
-    #[serde(rename = "thread.run.step.in_progress")]
-    ThreadRunStepInProgress,
+    #[serde(rename = "thread.message.in_progress")]
+    ThreadMessageInProgress,
 }
 
 impl Default for Event {
     fn default() -> Event {
-        Self::ThreadRunStepInProgress
+        Self::ThreadMessageInProgress
     }
 }
 

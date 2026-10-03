@@ -4,10 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**api_source** | Option<**String**> |  | [optional]
 **object** | **String** |  | 
 **amount** | Option<[**models::CostsResultAmount**](CostsResult_amount.md)> |  | [optional]
 **line_item** | Option<**String**> | When `group_by=line_item`, this field provides the line item of the grouped costs result. | [optional]
 **project_id** | Option<**String**> | When `group_by=project_id`, this field provides the project ID of the grouped costs result. | [optional]
+**user_id** | Option<**String**> | When `group_by=user_id`, this field provides the user ID of the grouped costs result. | [optional]
 **api_key_id** | Option<**String**> | When `group_by=api_key_id`, this field provides the API Key ID of the grouped costs result. | [optional]
 **quantity** | Option<**f64**> | When `group_by=line_item`, this field provides the quantity of the grouped costs result. | [optional]
 **quantity_unit** | Option<[**models::CostsResultQuantityUnit**](CostsResult_quantity_unit.md)> |  | [optional]

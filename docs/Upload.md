@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **status** | **String** | The status of the Upload. | 
 **expires_at** | **i32** | The Unix timestamp (in seconds) for when the Upload will expire. | 
 **object** | Option<**String**> | The object type, which is always \"upload\". | [optional]
-**file** | Option<[**models::OpenAiFile**](OpenAIFile.md)> | The ready File object after the Upload is completed. | [optional]
+**file** | Option<[**models::OpenAiFile**](OpenAIFile.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

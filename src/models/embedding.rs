@@ -17,9 +17,8 @@ pub struct Embedding {
     /// The index of the embedding in the list of embeddings.
     #[serde(rename = "index")]
     pub index: i32,
-    /// The embedding vector, which is a list of floats. The length of vector depends on the model as listed in the [embedding guide](https://developers.openai.com/api/docs/guides/embeddings).
     #[serde(rename = "embedding")]
-    pub embedding: Vec<f32>,
+    pub embedding: Box<models::EmbeddingEmbedding>,
     /// The object type, which is always \"embedding\".
     #[serde(rename = "object")]
     pub object: Object,
@@ -27,10 +26,10 @@ pub struct Embedding {
 
 impl Embedding {
     /// Represents an embedding vector returned by embedding endpoint.
-    pub fn new(index: i32, embedding: Vec<f32>, object: Object) -> Embedding {
+    pub fn new(index: i32, embedding: models::EmbeddingEmbedding, object: Object) -> Embedding {
         Embedding {
             index,
-            embedding,
+            embedding: Box::new(embedding),
             object,
         }
     }

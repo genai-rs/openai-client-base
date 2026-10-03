@@ -19,6 +19,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AcceptRealtimeCallError {
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status500(String),
     UnknownValue(serde_json::Value),
 }
 
@@ -33,6 +36,9 @@ pub enum CreateRealtimeCallError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRealtimeClientSecretError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -54,6 +60,9 @@ pub enum CreateRealtimeTranscriptionSessionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRealtimeTranslationClientSecretError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -61,6 +70,7 @@ pub enum CreateRealtimeTranslationClientSecretError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum HangupRealtimeCallError {
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -68,6 +78,8 @@ pub enum HangupRealtimeCallError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ReferRealtimeCallError {
+    Status404(models::ErrorResponse),
+    Status500(String),
     UnknownValue(serde_json::Value),
 }
 
@@ -75,6 +87,9 @@ pub enum ReferRealtimeCallError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RejectRealtimeCallError {
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status500(String),
     UnknownValue(serde_json::Value),
 }
 

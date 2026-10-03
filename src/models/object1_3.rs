@@ -11,18 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object13 : Custom voice reference.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object13 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `queued` status.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object13 {
-    /// The custom voice ID, e.g. `voice_1234`.
-    #[serde(rename = "id")]
-    pub id: String,
+    #[serde(rename = "event")]
+    pub event: Event,
+    #[serde(rename = "data")]
+    pub data: Box<models::RunObject>,
 }
 
 impl Object13 {
-    /// Custom voice reference.
-    pub fn new(id: String) -> Object13 {
-        Object13 { id }
+    /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `queued` status.
+    pub fn new(event: Event, data: models::RunObject) -> Object13 {
+        Object13 {
+            event,
+            data: Box::new(data),
+        }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Event {
+    #[serde(rename = "thread.run.queued")]
+    ThreadRunQueued,
+}
+
+impl Default for Event {
+    fn default() -> Event {
+        Self::ThreadRunQueued
     }
 }
 

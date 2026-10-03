@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **packages** | Option<[**models::EnvironmentPackagesParam**](EnvironmentPackagesParam.md)> |  | [optional]
 **setup_commands** | Option<[**Vec<models::SetupCommandParam>**](SetupCommandParam.md)> | Replacement confidential setup commands, never included in returned resources. | [optional]
 **network** | Option<[**models::NetworkPolicyParam**](NetworkPolicyParam.md)> |  | [optional]
+**desktop** | Option<[**models::DesktopParam**](DesktopParam.md)> |  | [optional]
 **env** | Option<**std::collections::HashMap<String, String>**> | Replacement confidential environment values. | [optional]
 **capability_directories** | Option<**Vec<String>**> | Directories that expose capabilities to the agent. | [optional]
 **skills** | Option<[**Vec<models::HostedSkillParam>**](HostedSkillParam.md)> | Replacement skill configuration installed for each new session. | [optional]

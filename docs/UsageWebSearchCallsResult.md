@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**api_source** | Option<**String**> |  | [optional]
 **object** | **String** |  | 
 **num_model_requests** | **i32** | The count of model requests. | 
 **num_requests** | **i32** | The count of web search calls. | 

@@ -30,6 +30,9 @@ pub enum DeleteUserError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListUsersError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -37,6 +40,10 @@ pub enum ListUsersError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyUserError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -44,6 +51,9 @@ pub enum ModifyUserError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveUserError {
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

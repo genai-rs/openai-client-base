@@ -38,9 +38,13 @@ pub struct Upload {
     /// The object type, which is always \"upload\".
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
-    /// The ready File object after the Upload is completed.
-    #[serde(rename = "file", skip_serializing_if = "Option::is_none")]
-    pub file: Option<Box<models::OpenAiFile>>,
+    #[serde(
+        rename = "file",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub file: Option<Option<Box<models::OpenAiFile>>>,
 }
 
 impl Upload {

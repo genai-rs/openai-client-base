@@ -4,7 +4,7 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancel_eval_run**](EvalsApi.md#cancel_eval_run) | **POST** /evals/{eval_id}/runs/{run_id} | Cancel eval run
+[**cancel_eval_run**](EvalsApi.md#cancel_eval_run) | **POST** /evals/{eval_id}/runs/{run_id}/cancel | Cancel eval run
 [**create_eval**](EvalsApi.md#create_eval) | **POST** /evals | Create eval
 [**create_eval_run**](EvalsApi.md#create_eval_run) | **POST** /evals/{eval_id}/runs | Create eval run
 [**delete_eval**](EvalsApi.md#delete_eval) | **DELETE** /evals/{eval_id} | Delete an eval

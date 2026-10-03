@@ -11,18 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object12 : Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `queued` status.
+/// Object12 : Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object12 {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "data")]
-    pub data: Box<models::RunObject>,
+    pub data: Box<models::RunStepObject>,
 }
 
 impl Object12 {
-    /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `queued` status.
-    pub fn new(event: Event, data: models::RunObject) -> Object12 {
+    /// Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
+    pub fn new(event: Event, data: models::RunStepObject) -> Object12 {
         Object12 {
             event,
             data: Box::new(data),
@@ -32,13 +32,13 @@ impl Object12 {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
-    #[serde(rename = "thread.run.queued")]
-    ThreadRunQueued,
+    #[serde(rename = "thread.run.step.in_progress")]
+    ThreadRunStepInProgress,
 }
 
 impl Default for Event {
     fn default() -> Event {
-        Self::ThreadRunQueued
+        Self::ThreadRunStepInProgress
     }
 }
 

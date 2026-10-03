@@ -21,7 +21,10 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -30,6 +33,10 @@ pub enum CreateVideoError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoCharacterError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    Status504(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -37,7 +44,10 @@ pub enum CreateVideoCharacterError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoEditError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -46,7 +56,10 @@ pub enum CreateVideoEditError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoExtendError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -55,7 +68,10 @@ pub enum CreateVideoExtendError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoRemixError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -64,6 +80,9 @@ pub enum CreateVideoRemixError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteVideoError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -71,6 +90,8 @@ pub enum DeleteVideoError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVideoError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -78,6 +99,8 @@ pub enum GetVideoError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVideoCharacterError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -85,6 +108,8 @@ pub enum GetVideoCharacterError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListVideosError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -92,6 +117,9 @@ pub enum ListVideosError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveVideoContentError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

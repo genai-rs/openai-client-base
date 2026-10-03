@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**model** | **String** | The transcription model used for source transcript deltas. | 
+**code_interpreter** | Option<[**models::Object014CodeInterpreter**](Object0_14_code_interpreter.md)> |  | [optional]
+**file_search** | Option<[**models::Object014FileSearch**](Object0_14_file_search.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

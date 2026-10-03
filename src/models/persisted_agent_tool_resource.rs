@@ -20,6 +20,7 @@ pub enum PersistedAgentToolResource {
     ProgrammaticToolCalling(Box<models::PersistedAgentToolResourceProgrammaticToolCalling>),
     Mcp(Box<models::PersistedAgentToolResourceMcp>),
     WebSearch(Box<models::PersistedAgentToolResourceWebSearch>),
+    ComputerUse(Box<models::PersistedAgentToolResourceComputerUse>),
 }
 
 impl Default for PersistedAgentToolResource {

@@ -21,15 +21,15 @@ pub struct FineTuningJob {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
-    pub error: Option<Box<models::Object08>>,
+    pub error: Option<Box<models::FineTuningJobError>>,
     /// The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "fine_tuned_model", deserialize_with = "Option::deserialize")]
     pub fine_tuned_model: Option<String>,
     /// The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "finished_at", deserialize_with = "Option::deserialize")]
     pub finished_at: Option<i32>,
-    #[serde(rename = "hyperparameters")]
-    pub hyperparameters: Box<models::FineTuningJobHyperparameters>,
+    #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
+    pub hyperparameters: Option<Box<models::FineTuningJobHyperparameters>>,
     /// The base model that is being fine-tuned.
     #[serde(rename = "model")]
     pub model: String,
@@ -42,7 +42,7 @@ pub struct FineTuningJob {
     /// The compiled results file ID(s) for the fine-tuning job. You can retrieve the results with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content).
     #[serde(rename = "result_files")]
     pub result_files: Vec<String>,
-    /// The current status of the fine-tuning job, which can be either `validating_files`, `queued`, `running`, `succeeded`, `failed`, or `cancelled`.
+    /// The current status of the fine-tuning job, which can be `validating_files`, `queued`, `running`, `pausing`, `paused`, `succeeded`, `failed`, or `cancelled`.
     #[serde(rename = "status")]
     pub status: Status,
     /// The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
@@ -63,8 +63,8 @@ pub struct FineTuningJob {
     )]
     pub integrations: Option<Option<Vec<models::FineTuningIntegration>>>,
     /// The seed used for the fine-tuning job.
-    #[serde(rename = "seed")]
-    pub seed: i32,
+    #[serde(rename = "seed", deserialize_with = "Option::deserialize")]
+    pub seed: Option<i32>,
     /// The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running.
     #[serde(
         rename = "estimated_finish",
@@ -73,8 +73,13 @@ pub struct FineTuningJob {
         skip_serializing_if = "Option::is_none"
     )]
     pub estimated_finish: Option<Option<i32>>,
-    #[serde(rename = "method", skip_serializing_if = "Option::is_none")]
-    pub method: Option<Box<models::FineTuneMethod>>,
+    #[serde(
+        rename = "method",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub method: Option<Option<Box<models::FineTuneMethod>>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",
@@ -90,10 +95,9 @@ impl FineTuningJob {
     pub fn new(
         id: String,
         created_at: i32,
-        error: Option<models::Object08>,
+        error: Option<models::FineTuningJobError>,
         fine_tuned_model: Option<String>,
         finished_at: Option<i32>,
-        hyperparameters: models::FineTuningJobHyperparameters,
         model: String,
         object: Object,
         organization_id: String,
@@ -102,7 +106,7 @@ impl FineTuningJob {
         trained_tokens: Option<i32>,
         training_file: String,
         validation_file: Option<String>,
-        seed: i32,
+        seed: Option<i32>,
     ) -> FineTuningJob {
         FineTuningJob {
             id,
@@ -110,7 +114,7 @@ impl FineTuningJob {
             error: error.map(Box::new),
             fine_tuned_model,
             finished_at,
-            hyperparameters: Box::new(hyperparameters),
+            hyperparameters: None,
             model,
             object,
             organization_id,
@@ -139,7 +143,7 @@ impl Default for Object {
         Self::FineTuningJob
     }
 }
-/// The current status of the fine-tuning job, which can be either `validating_files`, `queued`, `running`, `succeeded`, `failed`, or `cancelled`.
+/// The current status of the fine-tuning job, which can be `validating_files`, `queued`, `running`, `pausing`, `paused`, `succeeded`, `failed`, or `cancelled`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "validating_files")]
@@ -154,6 +158,10 @@ pub enum Status {
     Failed,
     #[serde(rename = "cancelled")]
     Cancelled,
+    #[serde(rename = "pausing")]
+    Pausing,
+    #[serde(rename = "paused")]
+    Paused,
 }
 
 impl Default for Status {

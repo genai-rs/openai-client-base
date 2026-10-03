@@ -11,34 +11,17 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object020 : Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) is created.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object020 : Optional input noise reduction. Set to `null` to disable it.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object020 {
-    #[serde(rename = "event")]
-    pub event: Event,
-    #[serde(rename = "data")]
-    pub data: Box<models::RunStepObject>,
+    #[serde(rename = "type")]
+    pub r#type: models::NoiseReductionType,
 }
 
 impl Object020 {
-    /// Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) is created.
-    pub fn new(event: Event, data: models::RunStepObject) -> Object020 {
-        Object020 {
-            event,
-            data: Box::new(data),
-        }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.run.step.created")]
-    ThreadRunStepCreated,
-}
-
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunStepCreated
+    /// Optional input noise reduction. Set to `null` to disable it.
+    pub fn new(r#type: models::NoiseReductionType) -> Object020 {
+        Object020 { r#type }
     }
 }
 

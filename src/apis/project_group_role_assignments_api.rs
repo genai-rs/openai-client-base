@@ -19,6 +19,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AssignProjectGroupRoleError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -27,6 +30,9 @@ pub enum AssignProjectGroupRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListProjectGroupRoleAssignmentsError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -35,6 +41,9 @@ pub enum ListProjectGroupRoleAssignmentsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveProjectGroupRoleError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -43,6 +52,9 @@ pub enum RetrieveProjectGroupRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UnassignProjectGroupRoleError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }

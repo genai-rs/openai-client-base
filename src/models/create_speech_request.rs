@@ -22,8 +22,9 @@ pub struct CreateSpeechRequest {
     /// Control the voice of your generated audio with additional instructions. Does not work with `tts-1` or `tts-1-hd`.
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
+    /// The voice to use when generating the audio. Supported built-in voices are `alloy`, `ash`, `ballad`, `coral`, `echo`, `fable`, `onyx`, `nova`, `sage`, `shimmer`, `verse`, `marin`, and `cedar`. You may also provide a custom voice object with an `id`, for example `{ \"id\": \"voice_1234\" }`. Previews of the voices are available in the [Text to speech guide](https://developers.openai.com/api/docs/guides/text-to-speech#voice-options). Custom voices must be created from audio samples. Voices created from text prompts are supported only in Live.
     #[serde(rename = "voice")]
-    pub voice: Box<models::VoiceIdsOrCustomVoice>,
+    pub voice: String,
     /// The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`.
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
     pub response_format: Option<ResponseFormat>,
@@ -36,16 +37,12 @@ pub struct CreateSpeechRequest {
 }
 
 impl CreateSpeechRequest {
-    pub fn new(
-        model: String,
-        input: String,
-        voice: models::VoiceIdsOrCustomVoice,
-    ) -> CreateSpeechRequest {
+    pub fn new(model: String, input: String, voice: String) -> CreateSpeechRequest {
         CreateSpeechRequest {
             model,
             input,
             instructions: None,
-            voice: Box::new(voice),
+            voice,
             response_format: None,
             speed: None,
             stream_format: None,

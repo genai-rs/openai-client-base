@@ -20,4 +20,5 @@ pub enum AgentToolConfigParam {
     ProgrammaticToolCalling(Box<models::AgentToolConfigParamProgrammaticToolCalling>),
     Mcp(Box<models::AgentToolConfigParamMcp>),
     WebSearch(Box<models::AgentToolConfigParamWebSearch>),
+    ComputerUse(Box<models::AgentToolConfigParamComputerUse>),
 }

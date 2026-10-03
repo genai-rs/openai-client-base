@@ -31,7 +31,11 @@ pub enum AddGroupUserError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListGroupUsersError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -51,6 +55,9 @@ pub enum RemoveGroupUserError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveGroupUserError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }

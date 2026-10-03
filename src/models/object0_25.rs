@@ -11,35 +11,34 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object025 : An object describing an image to classify.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object025 : Occurs when a new [run](https://developers.openai.com/api/docs/assistants/migration) is created.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object025 {
-    /// Always `image_url`.
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    #[serde(rename = "image_url")]
-    pub image_url: Box<models::Object025ImageUrl>,
+    #[serde(rename = "event")]
+    pub event: Event,
+    #[serde(rename = "data")]
+    pub data: Box<models::RunObject>,
 }
 
 impl Object025 {
-    /// An object describing an image to classify.
-    pub fn new(r#type: Type, image_url: models::Object025ImageUrl) -> Object025 {
+    /// Occurs when a new [run](https://developers.openai.com/api/docs/assistants/migration) is created.
+    pub fn new(event: Event, data: models::RunObject) -> Object025 {
         Object025 {
-            r#type,
-            image_url: Box::new(image_url),
+            event,
+            data: Box::new(data),
         }
     }
 }
-/// Always `image_url`.
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "image_url")]
-    ImageUrl,
+pub enum Event {
+    #[serde(rename = "thread.run.created")]
+    ThreadRunCreated,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::ImageUrl
+impl Default for Event {
+    fn default() -> Event {
+        Self::ThreadRunCreated
     }
 }
 

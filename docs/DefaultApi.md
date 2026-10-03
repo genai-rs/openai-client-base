@@ -4,6 +4,11 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**agent_session_action_required_post**](DefaultApi.md#agent_session_action_required_post) | **POST** /agent_session_action_required | 
+[**agent_session_created_post**](DefaultApi.md#agent_session_created_post) | **POST** /agent_session_created | 
+[**agent_session_failed_post**](DefaultApi.md#agent_session_failed_post) | **POST** /agent_session_failed | 
+[**agent_session_idle_post**](DefaultApi.md#agent_session_idle_post) | **POST** /agent_session_idle | 
+[**agent_session_in_progress_post**](DefaultApi.md#agent_session_in_progress_post) | **POST** /agent_session_in_progress | 
 [**batch_cancelled_post**](DefaultApi.md#batch_cancelled_post) | **POST** /batch_cancelled | 
 [**batch_completed_post**](DefaultApi.md#batch_completed_post) | **POST** /batch_completed | 
 [**batch_expired_post**](DefaultApi.md#batch_expired_post) | **POST** /batch_expired | 
@@ -26,6 +31,156 @@ Method | HTTP request | Description
 [**safety_org_alert_created_post**](DefaultApi.md#safety_org_alert_created_post) | **POST** /safety_org_alert_created | 
 [**safety_warning_issued_post**](DefaultApi.md#safety_warning_issued_post) | **POST** /safety_warning_issued | 
 
+
+
+## agent_session_action_required_post
+
+> agent_session_action_required_post(webhook_agent_session_action_required)
+
+
+Sent when an agent session requires an action. Retrieve the session for action details. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_agent_session_action_required** | Option<[**WebhookAgentSessionActionRequired**](WebhookAgentSessionActionRequired.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## agent_session_created_post
+
+> agent_session_created_post(webhook_agent_session_created)
+
+
+Sent when an agent session is created. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_agent_session_created** | Option<[**WebhookAgentSessionCreated**](WebhookAgentSessionCreated.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## agent_session_failed_post
+
+> agent_session_failed_post(webhook_agent_session_failed)
+
+
+Sent when an agent session fails. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_agent_session_failed** | Option<[**WebhookAgentSessionFailed**](WebhookAgentSessionFailed.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## agent_session_idle_post
+
+> agent_session_idle_post(webhook_agent_session_idle)
+
+
+Sent when an agent session becomes idle. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_agent_session_idle** | Option<[**WebhookAgentSessionIdle**](WebhookAgentSessionIdle.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## agent_session_in_progress_post
+
+> agent_session_in_progress_post(webhook_agent_session_in_progress)
+
+
+Sent when an agent session enters the in-progress state. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_agent_session_in_progress** | Option<[**WebhookAgentSessionInProgress**](WebhookAgentSessionInProgress.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## batch_cancelled_post

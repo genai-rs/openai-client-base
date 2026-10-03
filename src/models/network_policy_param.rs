@@ -24,6 +24,14 @@ pub struct NetworkPolicyParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub allowed_domains: Option<Option<Vec<String>>>,
+    /// Domains blocked for both executor and browser when access is restricted. A nonempty list requires `access: restricted` and cannot be combined with nonempty `allowed_domains`. Wildcard domains are not supported.
+    #[serde(
+        rename = "blocked_domains",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub blocked_domains: Option<Option<Vec<String>>>,
 }
 
 impl NetworkPolicyParam {
@@ -32,6 +40,7 @@ impl NetworkPolicyParam {
         NetworkPolicyParam {
             access,
             allowed_domains: None,
+            blocked_domains: None,
         }
     }
 }

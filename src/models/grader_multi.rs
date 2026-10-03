@@ -21,7 +21,7 @@ pub struct GraderMulti {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "graders")]
-    pub graders: Box<models::GraderMultiGraders>,
+    pub graders: std::collections::HashMap<String, models::GraderMultiGradersValue>,
     /// A formula to calculate the output based on grader results.
     #[serde(rename = "calculate_output")]
     pub calculate_output: String,
@@ -32,13 +32,13 @@ impl GraderMulti {
     pub fn new(
         r#type: Type,
         name: String,
-        graders: models::GraderMultiGraders,
+        graders: std::collections::HashMap<String, models::GraderMultiGradersValue>,
         calculate_output: String,
     ) -> GraderMulti {
         GraderMulti {
             r#type,
             name,
-            graders: Box::new(graders),
+            graders,
             calculate_output,
         }
     }

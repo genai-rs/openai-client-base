@@ -20,10 +20,19 @@ pub struct EnvironmentResourceOpenaiHosted {
     /// The public ID of the environment.
     #[serde(rename = "id")]
     pub id: String,
+    #[serde(
+        rename = "container_size",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub container_size: Option<Option<models::ContainerSizeResource>>,
     #[serde(rename = "packages")]
     pub packages: models::EnvironmentPackagesResource,
     #[serde(rename = "network")]
     pub network: models::NetworkPolicyResource,
+    #[serde(rename = "desktop")]
+    pub desktop: models::DesktopResource,
     /// Directories that contain capabilities exposed to the agent.
     #[serde(rename = "capability_directories")]
     pub capability_directories: Vec<String>,
@@ -45,6 +54,7 @@ impl EnvironmentResourceOpenaiHosted {
         id: String,
         packages: models::EnvironmentPackagesResource,
         network: models::NetworkPolicyResource,
+        desktop: models::DesktopResource,
         capability_directories: Vec<String>,
         skills: Vec<models::HostedSkillResource>,
         plugins: Vec<models::HostedPluginResourceInline>,
@@ -53,8 +63,10 @@ impl EnvironmentResourceOpenaiHosted {
         EnvironmentResourceOpenaiHosted {
             r#type,
             id,
+            container_size: None,
             packages,
             network,
+            desktop,
             capability_directories,
             skills,
             plugins,

@@ -11,23 +11,38 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object012 : A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+/// Object012 : On an incomplete message, details about why the message is incomplete.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object012 {
-    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
-    pub code_interpreter:
-        Option<Box<models::CreateThreadAndRunRequestToolResourcesCodeInterpreter>>,
-    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
-    pub file_search: Option<Box<models::Object012FileSearch>>,
+    /// The reason the message is incomplete.
+    #[serde(rename = "reason")]
+    pub reason: Reason,
 }
 
 impl Object012 {
-    /// A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
-    pub fn new() -> Object012 {
-        Object012 {
-            code_interpreter: None,
-            file_search: None,
-        }
+    /// On an incomplete message, details about why the message is incomplete.
+    pub fn new(reason: Reason) -> Object012 {
+        Object012 { reason }
+    }
+}
+/// The reason the message is incomplete.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Reason {
+    #[serde(rename = "content_filter")]
+    ContentFilter,
+    #[serde(rename = "max_tokens")]
+    MaxTokens,
+    #[serde(rename = "run_cancelled")]
+    RunCancelled,
+    #[serde(rename = "run_expired")]
+    RunExpired,
+    #[serde(rename = "run_failed")]
+    RunFailed,
+}
+
+impl Default for Reason {
+    fn default() -> Reason {
+        Self::ContentFilter
     }
 }
 

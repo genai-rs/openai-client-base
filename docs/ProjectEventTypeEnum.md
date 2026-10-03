@@ -21,6 +21,11 @@
 | RealtimeCallIncoming | realtime.call.incoming |
 | VideoCompleted | video.completed |
 | VideoFailed | video.failed |
+| AgentSessionCreated | agent.session.created |
+| AgentSessionActionRequired | agent.session.action_required |
+| AgentSessionInProgress | agent.session.in_progress |
+| AgentSessionIdle | agent.session.idle |
+| AgentSessionFailed | agent.session.failed |
 | SafetyAlertCreated | safety.alert.created |
 
 

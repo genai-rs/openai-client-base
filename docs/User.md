@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **api_key_last_used_at** | Option<**i32**> |  | [optional]
 **technical_level** | Option<**String**> |  | [optional]
 **developer_persona** | Option<**String**> |  | [optional]
-**projects** | Option<[**models::Object022**](Object0_22.md)> |  | [optional]
+**projects** | Option<[**models::Object026**](Object0_26.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

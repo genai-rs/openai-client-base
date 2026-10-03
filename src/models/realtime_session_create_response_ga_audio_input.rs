@@ -15,8 +15,13 @@ use serde::{Deserialize, Serialize};
 pub struct RealtimeSessionCreateResponseGaAudioInput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<Box<models::RealtimeAudioFormats>>,
-    #[serde(rename = "transcription", skip_serializing_if = "Option::is_none")]
-    pub transcription: Option<Box<models::AudioTranscriptionResponse>>,
+    #[serde(
+        rename = "transcription",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub transcription: Option<Option<Box<models::AudioTranscriptionResponse>>>,
     #[serde(rename = "noise_reduction", skip_serializing_if = "Option::is_none")]
     pub noise_reduction: Option<Box<models::RealtimeSessionInputAudioNoiseReduction>>,
     #[serde(

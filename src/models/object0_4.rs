@@ -11,22 +11,18 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object04 : A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+/// Object04 : Data about a previous audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object04 {
-    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
-    pub code_interpreter: Option<Box<models::Object04CodeInterpreter>>,
-    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
-    pub file_search: Option<Box<models::Object04FileSearch>>,
+    /// Unique identifier for a previous audio response from the model.
+    #[serde(rename = "id")]
+    pub id: String,
 }
 
 impl Object04 {
-    /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
-    pub fn new() -> Object04 {
-        Object04 {
-            code_interpreter: None,
-            file_search: None,
-        }
+    /// Data about a previous audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
+    pub fn new(id: String) -> Object04 {
+        Object04 { id }
     }
 }
 

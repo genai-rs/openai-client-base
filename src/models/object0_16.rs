@@ -11,18 +11,35 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object016 : Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
+/// Object016 : Configuration for turn detection. Can be set to `null` to turn off. Server VAD means that the model will detect the start and end of speech based on audio volume and respond at the end of user speech. For `gpt-realtime-whisper`, this must be `null`; VAD is not supported.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object016 {
-    /// The transcription model to use for source transcript deltas.
-    #[serde(rename = "model")]
-    pub model: String,
+    /// Type of turn detection, only `server_vad` is currently supported.
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
+    /// Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A higher threshold will require louder audio to activate the model, and thus might perform better in noisy environments.
+    #[serde(rename = "threshold", skip_serializing_if = "Option::is_none")]
+    pub threshold: Option<f64>,
+    /// Amount of audio to include before the VAD detected speech (in milliseconds). Defaults to 300ms.
+    #[serde(rename = "prefix_padding_ms", skip_serializing_if = "Option::is_none")]
+    pub prefix_padding_ms: Option<i32>,
+    /// Duration of silence to detect speech stop (in milliseconds). Defaults to 500ms. With shorter values the model will respond more quickly, but may jump in on short pauses from the user.
+    #[serde(
+        rename = "silence_duration_ms",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub silence_duration_ms: Option<i32>,
 }
 
 impl Object016 {
-    /// Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
-    pub fn new(model: String) -> Object016 {
-        Object016 { model }
+    /// Configuration for turn detection. Can be set to `null` to turn off. Server VAD means that the model will detect the start and end of speech based on audio volume and respond at the end of user speech. For `gpt-realtime-whisper`, this must be `null`; VAD is not supported.
+    pub fn new() -> Object016 {
+        Object016 {
+            r#type: None,
+            threshold: None,
+            prefix_padding_ms: None,
+            silence_duration_ms: None,
+        }
     }
 }
 

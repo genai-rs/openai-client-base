@@ -33,8 +33,13 @@ pub struct FineTuningJobEvent {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
     /// The data associated with the event.
-    #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
-    pub data: Option<serde_json::Value>,
+    #[serde(
+        rename = "data",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub data: Option<Option<serde_json::Value>>,
 }
 
 impl FineTuningJobEvent {

@@ -21,7 +21,11 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateSpeechError {
+    Status400(models::ErrorResponse),
+    Status401(models::ErrorResponse),
+    Status403(String),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -30,7 +34,13 @@ pub enum CreateSpeechError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTranscriptionError {
+    Status400(models::ErrorResponse),
+    Status401(models::ErrorResponse),
+    Status403(String),
+    Status413(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -39,7 +49,13 @@ pub enum CreateTranscriptionError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTranslationError {
+    Status400(models::ErrorResponse),
+    Status401(models::ErrorResponse),
+    Status403(String),
+    Status413(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    Status502(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -48,6 +64,9 @@ pub enum CreateTranslationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVoiceError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -55,6 +74,8 @@ pub enum CreateVoiceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVoiceConsentError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -62,6 +83,8 @@ pub enum CreateVoiceConsentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteVoiceConsentError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -69,6 +92,8 @@ pub enum DeleteVoiceConsentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVoiceConsentError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -76,6 +101,8 @@ pub enum GetVoiceConsentError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListVoiceConsentsError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -83,6 +110,8 @@ pub enum ListVoiceConsentsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateVoiceConsentError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -126,7 +155,7 @@ pub async fn create_speech(
     }
 }
 
-/// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, or a stream of transcript events.
+/// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
 #[bon::builder]
 pub async fn create_transcription(
     configuration: &configuration::Configuration,
@@ -363,18 +392,14 @@ pub async fn create_translation(
     }
 }
 
-/// Creates a custom voice.
+/// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
 #[bon::builder]
 pub async fn create_voice(
     configuration: &configuration::Configuration,
-    name: &str,
-    audio_sample: std::path::PathBuf,
-    consent: &str,
+    create_voice_prompt_request: models::CreateVoicePromptRequest,
 ) -> Result<models::VoiceResource, Error<CreateVoiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_form_name = name;
-    let p_form_audio_sample = audio_sample;
-    let p_form_consent = consent;
+    let p_body_create_voice_prompt_request = create_voice_prompt_request;
 
     let uri_str = format!("{}/audio/voices", configuration.base_path);
     let mut req_builder = configuration
@@ -387,12 +412,7 @@ pub async fn create_voice(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
-    multipart_form = multipart_form.text("name", p_form_name.to_string());
-    multipart_form =
-        multipart_helper::add_file_to_form(multipart_form, &p_form_audio_sample, "audio_sample")?;
-    multipart_form = multipart_form.text("consent", p_form_consent.to_string());
-    req_builder = req_builder.multipart(multipart_form);
+    req_builder = req_builder.json(&p_body_create_voice_prompt_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

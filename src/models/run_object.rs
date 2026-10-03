@@ -37,20 +37,20 @@ pub struct RunObject {
     #[serde(rename = "last_error")]
     pub last_error: Option<Box<models::RunObjectLastError>>,
     /// The Unix timestamp (in seconds) for when the run will expire.
-    #[serde(rename = "expires_at")]
-    pub expires_at: i32,
+    #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
+    pub expires_at: Option<i32>,
     /// The Unix timestamp (in seconds) for when the run was started.
-    #[serde(rename = "started_at")]
-    pub started_at: i32,
+    #[serde(rename = "started_at", deserialize_with = "Option::deserialize")]
+    pub started_at: Option<i32>,
     /// The Unix timestamp (in seconds) for when the run was cancelled.
-    #[serde(rename = "cancelled_at")]
-    pub cancelled_at: i32,
+    #[serde(rename = "cancelled_at", deserialize_with = "Option::deserialize")]
+    pub cancelled_at: Option<i32>,
     /// The Unix timestamp (in seconds) for when the run failed.
-    #[serde(rename = "failed_at")]
-    pub failed_at: i32,
+    #[serde(rename = "failed_at", deserialize_with = "Option::deserialize")]
+    pub failed_at: Option<i32>,
     /// The Unix timestamp (in seconds) for when the run was completed.
-    #[serde(rename = "completed_at")]
-    pub completed_at: i32,
+    #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
+    pub completed_at: Option<i32>,
     #[serde(rename = "incomplete_details")]
     pub incomplete_details: Option<Box<models::RunObjectIncompleteDetails>>,
     /// The model that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run.
@@ -68,26 +68,42 @@ pub struct RunObject {
     #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
     pub usage: Option<Box<models::RunCompletionUsage>>,
     /// The sampling temperature used for this run. If not set, defaults to 1.
-    #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
-    pub temperature: Option<f64>,
+    #[serde(
+        rename = "temperature",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub temperature: Option<Option<f64>>,
     /// The nucleus sampling value used for this run. If not set, defaults to 1.
-    #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
-    pub top_p: Option<f64>,
+    #[serde(
+        rename = "top_p",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub top_p: Option<Option<f64>>,
     /// The maximum number of prompt tokens specified to have been used over the course of the run.
-    #[serde(rename = "max_prompt_tokens")]
-    pub max_prompt_tokens: i32,
+    #[serde(rename = "max_prompt_tokens", deserialize_with = "Option::deserialize")]
+    pub max_prompt_tokens: Option<i32>,
     /// The maximum number of completion tokens specified to have been used over the course of the run.
-    #[serde(rename = "max_completion_tokens")]
-    pub max_completion_tokens: i32,
-    #[serde(rename = "truncation_strategy")]
-    pub truncation_strategy: Box<models::TruncationObject>,
-    #[serde(rename = "tool_choice")]
-    pub tool_choice: Box<models::AssistantsApiToolChoiceOption>,
+    #[serde(
+        rename = "max_completion_tokens",
+        deserialize_with = "Option::deserialize"
+    )]
+    pub max_completion_tokens: Option<i32>,
+    #[serde(
+        rename = "truncation_strategy",
+        deserialize_with = "Option::deserialize"
+    )]
+    pub truncation_strategy: Option<Box<models::TruncationObject>>,
+    #[serde(rename = "tool_choice", deserialize_with = "Option::deserialize")]
+    pub tool_choice: Option<Box<models::AssistantsApiToolChoiceOption>>,
     /// Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use.
     #[serde(rename = "parallel_tool_calls")]
     pub parallel_tool_calls: bool,
-    #[serde(rename = "response_format")]
-    pub response_format: Box<models::AssistantsApiResponseFormatOption>,
+    #[serde(rename = "response_format", deserialize_with = "Option::deserialize")]
+    pub response_format: Option<Box<models::AssistantsApiResponseFormatOption>>,
 }
 
 impl RunObject {
@@ -101,23 +117,23 @@ impl RunObject {
         status: Status,
         required_action: Option<models::RunObjectRequiredAction>,
         last_error: Option<models::RunObjectLastError>,
-        expires_at: i32,
-        started_at: i32,
-        cancelled_at: i32,
-        failed_at: i32,
-        completed_at: i32,
+        expires_at: Option<i32>,
+        started_at: Option<i32>,
+        cancelled_at: Option<i32>,
+        failed_at: Option<i32>,
+        completed_at: Option<i32>,
         incomplete_details: Option<models::RunObjectIncompleteDetails>,
         model: String,
         instructions: String,
         tools: Vec<models::AssistantObjectToolsInner>,
         metadata: Option<std::collections::HashMap<String, String>>,
         usage: Option<models::RunCompletionUsage>,
-        max_prompt_tokens: i32,
-        max_completion_tokens: i32,
-        truncation_strategy: models::TruncationObject,
-        tool_choice: models::AssistantsApiToolChoiceOption,
+        max_prompt_tokens: Option<i32>,
+        max_completion_tokens: Option<i32>,
+        truncation_strategy: Option<models::TruncationObject>,
+        tool_choice: Option<models::AssistantsApiToolChoiceOption>,
         parallel_tool_calls: bool,
-        response_format: models::AssistantsApiResponseFormatOption,
+        response_format: Option<models::AssistantsApiResponseFormatOption>,
     ) -> RunObject {
         RunObject {
             id,
@@ -143,10 +159,10 @@ impl RunObject {
             top_p: None,
             max_prompt_tokens,
             max_completion_tokens,
-            truncation_strategy: Box::new(truncation_strategy),
-            tool_choice: Box::new(tool_choice),
+            truncation_strategy: truncation_strategy.map(Box::new),
+            tool_choice: tool_choice.map(Box::new),
             parallel_tool_calls,
-            response_format: Box::new(response_format),
+            response_format: response_format.map(Box::new),
         }
     }
 }

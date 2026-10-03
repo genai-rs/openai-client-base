@@ -14,6 +14,13 @@ use serde::{Deserialize, Serialize};
 /// UsageCompletionsResult : The aggregated completions usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UsageCompletionsResult {
+    #[serde(
+        rename = "api_source",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub api_source: Option<Option<ApiSource>>,
     #[serde(rename = "object")]
     pub object: Object,
     /// The aggregated number of input tokens used, including cached and cache-write tokens. This includes text, audio, and image tokens. For customers subscribed to Scale Tier, this includes Scale Tier tokens.
@@ -25,12 +32,18 @@ pub struct UsageCompletionsResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub input_cached_tokens: Option<i32>,
-    /// The aggregated number of input tokens written to the cache.
+    /// The aggregated number of input tokens written to the cache with a 30-minute retention period.
     #[serde(
         rename = "input_cache_write_tokens",
         skip_serializing_if = "Option::is_none"
     )]
     pub input_cache_write_tokens: Option<i32>,
+    /// The aggregated number of input tokens written to the cache with a 12-hour retention period.
+    #[serde(
+        rename = "input_cache_write_12h_tokens",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub input_cache_write_12h_tokens: Option<i32>,
     /// The aggregated number of uncached input tokens used across text, audio, and image inputs, excluding cache-write tokens.
     #[serde(
         rename = "input_uncached_tokens",
@@ -139,10 +152,12 @@ impl UsageCompletionsResult {
         num_model_requests: i32,
     ) -> UsageCompletionsResult {
         UsageCompletionsResult {
+            api_source: None,
             object,
             input_tokens,
             input_cached_tokens: None,
             input_cache_write_tokens: None,
+            input_cache_write_12h_tokens: None,
             input_uncached_tokens: None,
             output_tokens,
             input_text_tokens: None,
@@ -162,6 +177,20 @@ impl UsageCompletionsResult {
             batch: None,
             service_tier: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ApiSource {
+    #[serde(rename = "agents_api")]
+    AgentsApi,
+    #[serde(rename = "unlabeled")]
+    Unlabeled,
+}
+
+impl Default for ApiSource {
+    fn default() -> ApiSource {
+        Self::AgentsApi
     }
 }
 ///

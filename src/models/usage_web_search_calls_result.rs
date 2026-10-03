@@ -14,6 +14,13 @@ use serde::{Deserialize, Serialize};
 /// UsageWebSearchCallsResult : The aggregated web search calls usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UsageWebSearchCallsResult {
+    #[serde(
+        rename = "api_source",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub api_source: Option<Option<ApiSource>>,
     #[serde(rename = "object")]
     pub object: Object,
     /// The count of model requests.
@@ -67,6 +74,7 @@ impl UsageWebSearchCallsResult {
         num_requests: i32,
     ) -> UsageWebSearchCallsResult {
         UsageWebSearchCallsResult {
+            api_source: None,
             object,
             num_model_requests,
             num_requests,
@@ -76,6 +84,20 @@ impl UsageWebSearchCallsResult {
             model: None,
             context_level: None,
         }
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum ApiSource {
+    #[serde(rename = "agents_api")]
+    AgentsApi,
+    #[serde(rename = "unlabeled")]
+    Unlabeled,
+}
+
+impl Default for ApiSource {
+    fn default() -> ApiSource {
+        Self::AgentsApi
     }
 }
 ///

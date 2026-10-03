@@ -21,6 +21,7 @@ use serde::{de::Error as _, Deserialize, Serialize};
 pub enum CreateAgentError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -34,6 +35,7 @@ pub enum CreateAgentError {
 pub enum CreateAgentEnvironmentFileError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -88,6 +90,7 @@ pub enum CreateAgentSessionEventsError {
 pub enum DeleteAgentError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -143,6 +146,7 @@ pub enum DeleteAgentSessionArtifactError {
 pub enum ListAgentEnvironmentFilesError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -261,12 +265,41 @@ pub enum ListAgentSessionSubagentsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_agent_session_traces`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAgentSessionTracesError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_agent_session_turn_items`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAgentSessionTurnItemsError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_agent_session_turns`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAgentSessionTurnsError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -294,6 +327,7 @@ pub enum ListAgentSessionsError {
 pub enum ListAgentsError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -307,6 +341,7 @@ pub enum ListAgentsError {
 pub enum RetrieveAgentError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -320,6 +355,7 @@ pub enum RetrieveAgentError {
 pub enum RetrieveAgentEnvironmentError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -416,6 +452,7 @@ pub enum RetrieveAgentSessionSubagentTurnError {
 pub enum RetrieveAgentSessionTurnError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -429,6 +466,7 @@ pub enum RetrieveAgentSessionTurnError {
 pub enum UpdateAgentError {
     Status400(models::ErrorResponse2),
     Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
@@ -675,7 +713,7 @@ pub async fn create_agent_session(
     }
 }
 
-/// Submits message, cancellation, or tool-result events to a managed agent session. Cancellation can recover a still-open turn whose backend execution has ended by marking it cancelled and abandoning unpublished outputs. Saved results, published files, and existing terminal outcomes are preserved. HTTP 202 confirms acceptance, not durable completion. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
+/// Submits message, cancellation, tool-result, or computer-use approval-response events to a managed agent session. Cancellation can recover a still-open turn whose backend execution has ended by marking it cancelled and abandoning unpublished outputs. Saved results, published files, and existing terminal outcomes are preserved. HTTP 202 confirms acceptance, not durable completion. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
 #[bon::builder]
 pub async fn create_agent_session_events(
     configuration: &configuration::Configuration,
@@ -1547,6 +1585,143 @@ pub async fn list_agent_session_subagents(
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAgentSessionSubagentsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Trace reads and the JSON response are limited to 16 MiB per request. If the limit is exceeded, request fewer traces.
+#[bon::builder]
+pub async fn list_agent_session_traces(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+) -> Result<models::SessionTraceListResource, Error<ListAgentSessionTracesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/traces",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionTraceListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionTraceListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionTracesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Lists items belonging to one root-agent turn, including its interactions with subagents. See [inspecting agent output](https://developers.openai.com/api/docs/guides/agents-api/observability).
+#[bon::builder]
+pub async fn list_agent_session_turn_items(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    turn_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+) -> Result<models::SessionItemListResource, Error<ListAgentSessionTurnItemsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_turn_id = turn_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/turns/{turn_id}/items",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        turn_id = crate::apis::urlencode(p_path_turn_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionItemListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionItemListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionTurnItemsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,

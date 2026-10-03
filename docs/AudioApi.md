@@ -41,7 +41,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/octet-stream, text/event-stream, application/json
+- **Accept**: application/octet-stream, audio/mpeg, audio/aac, audio/opus, audio/flac, audio/pcm, audio/wav, text/event-stream, application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateTranscription200Response create_transcription(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references)
 Create transcription
 
-Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, or a stream of transcript events. 
+Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model. 
 
 ### Parameters
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
-- **Accept**: application/json, text/event-stream
+- **Accept**: application/json, text/plain, text/event-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -118,26 +118,24 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
-- **Accept**: application/json
+- **Accept**: application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## create_voice
 
-> models::VoiceResource create_voice(name, audio_sample, consent)
+> models::VoiceResource create_voice(create_voice_prompt_request)
 Create voice
 
-Creates a custom voice.
+Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**name** | **String** | The name of the new voice. | [required] |
-**audio_sample** | **std::path::PathBuf** | The sample audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  | [required] |
-**consent** | **String** | The consent recording ID (for example, `cons_1234`). | [required] |
+**create_voice_prompt_request** | [**CreateVoicePromptRequest**](CreateVoicePromptRequest.md) |  | [required] |
 
 ### Return type
 
@@ -149,7 +147,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: multipart/form-data
+- **Content-Type**: application/json, multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

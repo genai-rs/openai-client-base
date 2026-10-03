@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LiveSidebandServerEvent {
+    LiveTransportRinging(Box<models::LiveTransportRinging>),
+    LiveTransportAnswered(Box<models::LiveTransportAnswered>),
+    LiveTransportFailed(Box<models::LiveTransportFailed>),
     LiveSessionStarted(Box<models::LiveSessionStarted>),
     LiveSessionUpdated(Box<models::LiveSessionUpdated>),
     LiveInputAudioMuted(Box<models::LiveInputAudioMuted>),

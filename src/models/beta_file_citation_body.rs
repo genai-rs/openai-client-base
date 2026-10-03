@@ -20,7 +20,7 @@ pub struct BetaFileCitationBody {
     /// The ID of the file.
     #[serde(rename = "file_id")]
     pub file_id: String,
-    /// The index of the file in the list of files.
+    /// The index in the output text at which to insert the file citation.
     #[serde(rename = "index")]
     pub index: i32,
     /// The filename of the file cited.

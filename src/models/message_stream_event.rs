@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum MessageStreamEvent {
-    Object010(serde_json::Value),
-    Object1(Box<models::Object1>),
+    Object013(serde_json::Value),
+    Object11(serde_json::Value),
     Object2(Box<models::Object2>),
     Object3(Box<models::Object3>),
     Object4(Box<models::Object4>),

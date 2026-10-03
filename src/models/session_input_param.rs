@@ -15,13 +15,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SessionInputParam {
+    AgentSessionInputComputerUseApprovalRequestResult(
+        Box<models::SessionInputParamAgentSessionInputComputerUseApprovalRequestResult>,
+    ),
     AgentSessionInputMessage(Box<models::SessionInputParamAgentSessionInputMessage>),
     AgentSessionInputCancel(Box<models::SessionInputParamAgentSessionInputCancel>),
     AgentSessionInputToolResult(Box<models::SessionInputParamAgentSessionInputToolResult>),
-}
-
-impl Default for SessionInputParam {
-    fn default() -> Self {
-        Self::AgentSessionInputMessage(Default::default())
-    }
 }

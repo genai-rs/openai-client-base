@@ -11,18 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object014 : Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
+/// Object014 : A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object014 {
-    /// The transcription model used for source transcript deltas.
-    #[serde(rename = "model")]
-    pub model: String,
+    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
+    pub code_interpreter: Option<Box<models::Object014CodeInterpreter>>,
+    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
+    pub file_search: Option<Box<models::Object014FileSearch>>,
 }
 
 impl Object014 {
-    /// Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
-    pub fn new(model: String) -> Object014 {
-        Object014 { model }
+    /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+    pub fn new() -> Object014 {
+        Object014 {
+            code_interpreter: None,
+            file_search: None,
+        }
     }
 }
 

@@ -42,8 +42,13 @@ pub struct CreateChatCompletionStreamResponse {
     /// The object type, which is always `chat.completion.chunk`.
     #[serde(rename = "object")]
     pub object: Object,
-    #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<Box<models::CompletionUsage>>,
+    #[serde(
+        rename = "usage",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub usage: Option<Option<Box<models::CompletionUsage>>>,
     #[serde(
         rename = "moderation",
         default,

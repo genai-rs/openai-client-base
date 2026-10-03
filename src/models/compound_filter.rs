@@ -19,12 +19,12 @@ pub struct CompoundFilter {
     pub r#type: Type,
     /// Array of filters to combine. Items can be `ComparisonFilter` or `CompoundFilter`.
     #[serde(rename = "filters")]
-    pub filters: Vec<models::ComparisonFilter>,
+    pub filters: Vec<models::CompoundFilterFiltersInner>,
 }
 
 impl CompoundFilter {
     /// Combine multiple filters using `and` or `or`.
-    pub fn new(r#type: Type, filters: Vec<models::ComparisonFilter>) -> CompoundFilter {
+    pub fn new(r#type: Type, filters: Vec<models::CompoundFilterFiltersInner>) -> CompoundFilter {
         CompoundFilter { r#type, filters }
     }
 }

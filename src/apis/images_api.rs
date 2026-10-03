@@ -21,7 +21,11 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateImageError {
+    Status400(models::ErrorResponse),
+    Status403(models::ErrorResponse),
+    Status410(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -30,7 +34,11 @@ pub enum CreateImageError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateImageEditError {
+    Status400(models::ErrorResponse),
+    Status403(models::ErrorResponse),
+    Status410(models::ErrorResponse),
     Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -39,10 +47,15 @@ pub enum CreateImageEditError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateImageVariationError {
+    Status400(models::ErrorResponse),
+    Status403(models::ErrorResponse),
+    Status410(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// Creates an image given a prompt. [Learn more](https://developers.openai.com/api/docs/guides/images-vision).
+/// Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision).
 #[bon::builder]
 pub async fn create_image(
     configuration: &configuration::Configuration,
@@ -93,15 +106,15 @@ pub async fn create_image(
     }
 }
 
-/// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models and `dall-e-2`.
+/// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 #[bon::builder]
 pub async fn create_image_edit(
     configuration: &configuration::Configuration,
     image: std::path::PathBuf,
     prompt: &str,
+    model: &str,
     mask: Option<std::path::PathBuf>,
     background: Option<&str>,
-    model: Option<&str>,
     n: Option<i32>,
     size: Option<models::CreateImageEditRequestSize>,
     response_format: Option<&str>,
@@ -116,9 +129,9 @@ pub async fn create_image_edit(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_image = image;
     let p_form_prompt = prompt;
+    let p_form_model = model;
     let p_form_mask = mask;
     let p_form_background = background;
-    let p_form_model = model;
     let p_form_n = n;
     let p_form_size = size;
     let p_form_response_format = response_format;
@@ -152,9 +165,7 @@ pub async fn create_image_edit(
     if let Some(param_value) = p_form_background {
         multipart_form = multipart_form.text("background", param_value.to_string());
     }
-    if let Some(param_value) = p_form_model {
-        multipart_form = multipart_form.text("model", param_value.to_string());
-    }
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
     if let Some(param_value) = p_form_n {
         multipart_form = multipart_form.text("n", param_value.to_string());
     }
@@ -216,7 +227,7 @@ pub async fn create_image_edit(
     }
 }
 
-/// Creates a variation of a given image. This endpoint only supports `dall-e-2`.
+/// This endpoint is retired and no longer available. Use the image edits endpoint with a GPT Image model and a prompt to create a variation of an image. The request and response schemas below describe the legacy contract.
 #[bon::builder]
 pub async fn create_image_variation(
     configuration: &configuration::Configuration,

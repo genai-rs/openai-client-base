@@ -35,6 +35,8 @@ pub enum Detail {
     Low,
     #[serde(rename = "high")]
     High,
+    #[serde(rename = "original")]
+    Original,
 }
 
 impl Default for Detail {

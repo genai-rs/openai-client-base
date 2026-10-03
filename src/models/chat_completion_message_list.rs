@@ -21,11 +21,11 @@ pub struct ChatCompletionMessageList {
     #[serde(rename = "data")]
     pub data: Vec<models::ChatCompletionMessageListDataInner>,
     /// The identifier of the first chat message in the data array.
-    #[serde(rename = "first_id")]
-    pub first_id: String,
+    #[serde(rename = "first_id", deserialize_with = "Option::deserialize")]
+    pub first_id: Option<String>,
     /// The identifier of the last chat message in the data array.
-    #[serde(rename = "last_id")]
-    pub last_id: String,
+    #[serde(rename = "last_id", deserialize_with = "Option::deserialize")]
+    pub last_id: Option<String>,
     /// Indicates whether there are more chat messages available.
     #[serde(rename = "has_more")]
     pub has_more: bool,
@@ -36,8 +36,8 @@ impl ChatCompletionMessageList {
     pub fn new(
         object: Object,
         data: Vec<models::ChatCompletionMessageListDataInner>,
-        first_id: String,
-        last_id: String,
+        first_id: Option<String>,
+        last_id: Option<String>,
         has_more: bool,
     ) -> ChatCompletionMessageList {
         ChatCompletionMessageList {

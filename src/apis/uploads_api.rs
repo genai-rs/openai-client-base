@@ -21,6 +21,11 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddUploadPartError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status410(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -28,6 +33,10 @@ pub enum AddUploadPartError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelUploadError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status410(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -35,6 +44,11 @@ pub enum CancelUploadError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CompleteUploadError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status410(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -42,6 +56,8 @@ pub enum CompleteUploadError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateUploadError {
+    Status400(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

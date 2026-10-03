@@ -11,29 +11,36 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object022 {
-    #[serde(rename = "object")]
-    pub object: Object,
-    #[serde(rename = "data")]
-    pub data: Vec<models::Object022DataInner>,
+    #[serde(rename = "prompt_tokens")]
+    pub prompt_tokens: i32,
+    #[serde(rename = "total_tokens")]
+    pub total_tokens: i32,
+    #[serde(
+        rename = "completion_tokens",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub completion_tokens: Option<Option<i32>>,
+    #[serde(
+        rename = "cached_tokens",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cached_tokens: Option<Option<i32>>,
 }
 
 impl Object022 {
-    pub fn new(object: Object, data: Vec<models::Object022DataInner>) -> Object022 {
-        Object022 { object, data }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Object {
-    #[serde(rename = "list")]
-    List,
-}
-
-impl Default for Object {
-    fn default() -> Object {
-        Self::List
+    pub fn new(prompt_tokens: i32, total_tokens: i32) -> Object022 {
+        Object022 {
+            prompt_tokens,
+            total_tokens,
+            completion_tokens: None,
+            cached_tokens: None,
+        }
     }
 }
 

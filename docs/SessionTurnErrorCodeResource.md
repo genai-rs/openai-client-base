@@ -7,10 +7,15 @@
 | ContextLengthExceeded | context_length_exceeded |
 | SessionBudgetExceeded | session_budget_exceeded |
 | UsageLimitExceeded | usage_limit_exceeded |
+| ProjectSpendLimitExceeded | project_spend_limit_exceeded |
+| OrganizationSpendLimitExceeded | organization_spend_limit_exceeded |
+| OrganizationUsageLimitExceeded | organization_usage_limit_exceeded |
 | CreditBalanceExhausted | credit_balance_exhausted |
 | RateLimitExceeded | rate_limit_exceeded |
+| FlexUnavailable | flex_unavailable |
 | ServerOverloaded | server_overloaded |
 | CyberPolicy | cyber_policy |
+| MisalignmentPolicyViolation | misalignment_policy_violation |
 | ConnectionFailed | connection_failed |
 | ServerError | server_error |
 | AuthenticationError | authentication_error |

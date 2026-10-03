@@ -11,34 +11,30 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object1 : Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object1 : The SIP transport. Trunk credentials and SDP are not returned.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object1 {
-    #[serde(rename = "event")]
-    pub event: Event,
-    #[serde(rename = "data")]
-    pub data: Box<models::MessageObject>,
+    /// The transport used for the Live session. Always `sip`.
+    #[serde(rename = "type")]
+    pub r#type: Type,
 }
 
 impl Object1 {
-    /// Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
-    pub fn new(event: Event, data: models::MessageObject) -> Object1 {
-        Object1 {
-            event,
-            data: Box::new(data),
-        }
+    /// The SIP transport. Trunk credentials and SDP are not returned.
+    pub fn new(r#type: Type) -> Object1 {
+        Object1 { r#type }
     }
 }
-///
+/// The transport used for the Live session. Always `sip`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.message.in_progress")]
-    ThreadMessageInProgress,
+pub enum Type {
+    #[serde(rename = "sip")]
+    Sip,
 }
 
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadMessageInProgress
+impl Default for Type {
+    fn default() -> Type {
+        Self::Sip
     }
 }
 

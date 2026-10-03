@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**code_interpreter** | Option<[**models::Object011CodeInterpreter**](Object0_11_code_interpreter.md)> |  | [optional]
-**file_search** | Option<[**models::Object011FileSearch**](Object0_11_file_search.md)> |  | [optional]
+**code** | **String** | A machine-readable error code. | 
+**message** | **String** | A human-readable error message. | 
+**param** | Option<**String**> | The parameter that was invalid, usually `training_file` or `validation_file`. This field will be null if the failure was not parameter-specific. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

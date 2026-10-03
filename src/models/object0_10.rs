@@ -11,34 +11,22 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object010 : Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) is created.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+/// Object010 : A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object010 {
-    #[serde(rename = "event")]
-    pub event: Event,
-    #[serde(rename = "data")]
-    pub data: Box<models::MessageObject>,
+    #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
+    pub code_interpreter: Option<Box<models::Object07CodeInterpreter>>,
+    #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
+    pub file_search: Option<Box<models::Object010FileSearch>>,
 }
 
 impl Object010 {
-    /// Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) is created.
-    pub fn new(event: Event, data: models::MessageObject) -> Object010 {
+    /// A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+    pub fn new() -> Object010 {
         Object010 {
-            event,
-            data: Box::new(data),
+            code_interpreter: None,
+            file_search: None,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.message.created")]
-    ThreadMessageCreated,
-}
-
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadMessageCreated
     }
 }
 

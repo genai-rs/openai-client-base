@@ -56,13 +56,13 @@ impl VectorStoreFileBatchObject {
 /// The object type, which is always `vector_store.file_batch`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
-    #[serde(rename = "vector_store.files_batch")]
-    VectorStoreFilesBatch,
+    #[serde(rename = "vector_store.file_batch")]
+    VectorStoreFileBatch,
 }
 
 impl Default for Object {
     fn default() -> Object {
-        Self::VectorStoreFilesBatch
+        Self::VectorStoreFileBatch
     }
 }
 /// The status of the vector store files batch, which can be either `in_progress`, `completed`, `cancelled` or `failed`.

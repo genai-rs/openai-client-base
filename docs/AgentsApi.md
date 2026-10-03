@@ -22,6 +22,8 @@ Method | HTTP request | Description
 [**list_agent_session_subagent_turn_items**](AgentsApi.md#list_agent_session_subagent_turn_items) | **GET** /agents/sessions/{session_id}/subagents/{subagent_id}/turns/{turn_id}/items | List subagent turn items
 [**list_agent_session_subagent_turns**](AgentsApi.md#list_agent_session_subagent_turns) | **GET** /agents/sessions/{session_id}/subagents/{subagent_id}/turns | List subagent turns
 [**list_agent_session_subagents**](AgentsApi.md#list_agent_session_subagents) | **GET** /agents/sessions/{session_id}/subagents | List session subagents
+[**list_agent_session_traces**](AgentsApi.md#list_agent_session_traces) | **GET** /agents/sessions/{session_id}/traces | List agent session traces
+[**list_agent_session_turn_items**](AgentsApi.md#list_agent_session_turn_items) | **GET** /agents/sessions/{session_id}/turns/{turn_id}/items | List agent session turn items
 [**list_agent_session_turns**](AgentsApi.md#list_agent_session_turns) | **GET** /agents/sessions/{session_id}/turns | List agent session turns
 [**list_agent_sessions**](AgentsApi.md#list_agent_sessions) | **GET** /agents/sessions | List agent sessions
 [**list_agents**](AgentsApi.md#list_agents) | **GET** /agents | List agents
@@ -166,7 +168,7 @@ Name | Type | Description  | Required | Notes
 > create_agent_session_events(session_id, idempotency_key, create_session_events_params)
 Create agent session input events
 
-Submits message, cancellation, or tool-result events to a managed agent session. Cancellation can recover a still-open turn whose backend execution has ended by marking it cancelled and abandoning unpublished outputs. Saved results, published files, and existing terminal outcomes are preserved. HTTP 202 confirms acceptance, not durable completion. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
+Submits message, cancellation, tool-result, or computer-use approval-response events to a managed agent session. Cancellation can recover a still-open turn whose backend execution has ended by marking it cancelled and abandoning unpublished outputs. Saved results, published files, and existing terminal outcomes are preserved. HTTP 202 confirms acceptance, not durable completion. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
 
 ### Parameters
 
@@ -600,6 +602,73 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ListAgentSessionSubagents200Response**](listAgentSessionSubagents_200_response.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_agent_session_traces
+
+> models::SessionTraceListResource list_agent_session_traces(session_id, limit, order, after)
+List agent session traces
+
+Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Trace reads and the JSON response are limited to 16 MiB per request. If the limit is exceeded, request fewer traces.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**session_id** | **String** | The ID of the session. | [required] |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
+
+### Return type
+
+[**models::SessionTraceListResource**](SessionTraceListResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_agent_session_turn_items
+
+> models::SessionItemListResource list_agent_session_turn_items(session_id, turn_id, limit, order, after)
+List agent session turn items
+
+Lists items belonging to one root-agent turn, including its interactions with subagents. See [inspecting agent output](https://developers.openai.com/api/docs/guides/agents-api/observability).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**session_id** | **String** | The ID of the session that owns the turn. | [required] |
+**turn_id** | **String** | The ID of the turn. | [required] |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
+
+### Return type
+
+[**models::SessionItemListResource**](SessionItemListResource.md)
 
 ### Authorization
 

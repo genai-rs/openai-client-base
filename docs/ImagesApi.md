@@ -15,7 +15,7 @@ Method | HTTP request | Description
 > models::ImagesResponse create_image(create_image_request)
 Create image
 
-Creates an image given a prompt. [Learn more](https://developers.openai.com/api/docs/guides/images-vision). 
+Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision). 
 
 ### Parameters
 
@@ -42,10 +42,10 @@ Name | Type | Description  | Required | Notes
 
 ## create_image_edit
 
-> models::ImagesResponse create_image_edit(image, prompt, mask, background, model, n, size, response_format, output_format, output_compression, user, input_fidelity, stream, partial_images, quality)
+> models::ImagesResponse create_image_edit(image, prompt, model, mask, background, n, size, response_format, output_format, output_compression, user, input_fidelity, stream, partial_images, quality)
 Create image edit
 
-Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models and `dall-e-2`.
+Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 
 ### Parameters
 
@@ -53,13 +53,13 @@ Creates an edited or extended image given one or more source images and a prompt
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **image** | **String** |  | [required] |
-**prompt** | **String** | A text description of the desired image(s). The maximum length is 1000 characters for `dall-e-2`, and 32000 characters for the GPT image models. | [required] |
+**prompt** | **String** | A text description of the desired image(s). The maximum length is 32000 characters for the GPT image models. | [required] |
+**model** | **String** |  | [required] |
 **mask** | Option<**std::path::PathBuf**> | An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where `image` should be edited. If there are multiple images provided, the mask will be applied on the first image. Must be a valid PNG file, less than 4MB, and have the same dimensions as `image`. |  |
 **background** | Option<**String**> | Set the background of the generated image(s). This parameter is only supported for the GPT image models. Must be one of `transparent`, `opaque`, or `auto` (default value). When `auto` is used, the model will automatically determine the best background for the image.  `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`.  |  |
-**model** | Option<**String**> |  |  |
 **n** | Option<**i32**> | The number of images to generate. Must be between 1 and 10. |  |
 **size** | Option<[**models::CreateImageEditRequestSize**](CreateImageEditRequest_size.md)> |  |  |
-**response_format** | Option<**String**> | The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. This parameter is only supported for `dall-e-2` (default is `url` for `dall-e-2`), as GPT image models always return base64-encoded images. |  |
+**response_format** | Option<**String**> | Legacy response format parameter for retired image models. Unsupported for GPT image models, which always return base64-encoded images. |  |
 **output_format** | Option<**String**> | The format in which the generated images are returned. This parameter is only supported for the GPT image models. Must be one of `png`, `jpeg`, or `webp`. The default value is `png`.  |  |
 **output_compression** | Option<**i32**> | The compression level (0-100%) for the generated images. This parameter is only supported for the GPT image models with the `webp` or `jpeg` output formats, and defaults to 100.  |  |
 **user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).  |  |
@@ -89,7 +89,7 @@ Name | Type | Description  | Required | Notes
 > models::ImagesResponse create_image_variation(image, model, n, response_format, size, user)
 Create image variation
 
-Creates a variation of a given image. This endpoint only supports `dall-e-2`.
+This endpoint is retired and no longer available. Use the image edits endpoint with a GPT Image model and a prompt to create a variation of an image. The request and response schemas below describe the legacy contract.
 
 ### Parameters
 

@@ -21,6 +21,9 @@ use tokio_util::codec::{BytesCodec, FramedRead};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateFileError {
+    Status400(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -28,6 +31,8 @@ pub enum CreateFileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteFileError {
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -35,6 +40,10 @@ pub enum DeleteFileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DownloadFileError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -42,6 +51,9 @@ pub enum DownloadFileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListFilesError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -49,6 +61,8 @@ pub enum ListFilesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveFileError {
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -173,7 +187,7 @@ pub async fn delete_file(
 pub async fn download_file(
     configuration: &configuration::Configuration,
     file_id: &str,
-) -> Result<String, Error<DownloadFileError>> {
+) -> Result<reqwest::Response, Error<DownloadFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_file_id = file_id;
 
@@ -195,20 +209,9 @@ pub async fn download_file(
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `String`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
-        }
+        Ok(resp)
     } else {
         let content = resp.text().await?;
         let entity: Option<DownloadFileError> = serde_json::from_str(&content).ok();
