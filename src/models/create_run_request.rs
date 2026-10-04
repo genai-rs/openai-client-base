@@ -27,23 +27,37 @@ pub struct CreateRunRequest {
     )]
     pub reasoning_effort: Option<Option<models::ReasoningEffort>>,
     /// Overrides the [instructions](https://developers.openai.com/api/docs/assistants/migration) of the assistant. This is useful for modifying the behavior on a per-run basis.
-    #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
-    pub instructions: Option<String>,
+    #[serde(
+        rename = "instructions",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub instructions: Option<Option<String>>,
     /// Appends additional instructions at the end of the instructions for the run. This is useful for modifying the behavior on a per-run basis without overriding other instructions.
     #[serde(
         rename = "additional_instructions",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub additional_instructions: Option<String>,
+    pub additional_instructions: Option<Option<String>>,
     /// Adds additional messages to the thread before creating the run.
     #[serde(
         rename = "additional_messages",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub additional_messages: Option<Vec<models::CreateMessageRequest>>,
+    pub additional_messages: Option<Option<Vec<models::CreateMessageRequest>>>,
     /// Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis.
-    #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<models::AssistantObjectToolsInner>>,
+    #[serde(
+        rename = "tools",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tools: Option<Option<Vec<models::AssistantObjectToolsInner>>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",
@@ -53,23 +67,45 @@ pub struct CreateRunRequest {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
-    #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
-    pub temperature: Option<f64>,
+    #[serde(
+        rename = "temperature",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub temperature: Option<Option<f64>>,
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or temperature but not both.
-    #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
-    pub top_p: Option<f64>,
+    #[serde(
+        rename = "top_p",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub top_p: Option<Option<f64>>,
     /// If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message.
-    #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
-    pub stream: Option<bool>,
+    #[serde(
+        rename = "stream",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub stream: Option<Option<bool>>,
     /// The maximum number of prompt tokens that may be used over the course of the run. The run will make a best effort to use only the number of prompt tokens specified, across multiple turns of the run. If the run exceeds the number of prompt tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
-    #[serde(rename = "max_prompt_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_prompt_tokens: Option<i32>,
+    #[serde(
+        rename = "max_prompt_tokens",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_prompt_tokens: Option<Option<i32>>,
     /// The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
     #[serde(
         rename = "max_completion_tokens",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_completion_tokens: Option<i32>,
+    pub max_completion_tokens: Option<Option<i32>>,
     #[serde(
         rename = "truncation_strategy",
         skip_serializing_if = "Option::is_none"

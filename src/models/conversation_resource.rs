@@ -19,8 +19,9 @@ pub struct ConversationResource {
     /// The object type, which is always `conversation`.
     #[serde(rename = "object")]
     pub object: Object,
-    #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
-    pub metadata: Option<serde_json::Value>,
+    /// Set of 16 key-value pairs that can be attached to an object. This can be         useful for storing additional information about the object in a structured         format, and querying for objects via API or the dashboard.         Keys are strings with a maximum length of 64 characters. Values are strings         with a maximum length of 512 characters.
+    #[serde(rename = "metadata")]
+    pub metadata: std::collections::HashMap<String, String>,
     /// The time at which the conversation was created, measured in seconds since the Unix epoch.
     #[serde(rename = "created_at")]
     pub created_at: i32,
@@ -30,7 +31,7 @@ impl ConversationResource {
     pub fn new(
         id: String,
         object: Object,
-        metadata: Option<serde_json::Value>,
+        metadata: std::collections::HashMap<String, String>,
         created_at: i32,
     ) -> ConversationResource {
         ConversationResource {

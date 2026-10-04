@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 pub enum StopConfiguration {
     Text(String),
     ArrayOfStrings(Vec<String>),
+    Null,
 }
 
 impl Default for StopConfiguration {
@@ -43,6 +44,7 @@ impl std::fmt::Display for StopConfiguration {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            StopConfiguration::Null => write!(f, "null"),
         }
     }
 }
