@@ -17,13 +17,13 @@ pub struct OpenAiFile {
     /// The file identifier, which can be referenced in the API endpoints.
     #[serde(rename = "id")]
     pub id: String,
-    /// The size of the file, in bytes.
+    /// The size of the file, in bytes. In a completed file upload response, this can be null when the file size is not yet available.
     #[serde(rename = "bytes")]
     pub bytes: i32,
     /// The Unix timestamp (in seconds) for when the file was created.
     #[serde(rename = "created_at")]
     pub created_at: i32,
-    /// The Unix timestamp (in seconds) for when the file will expire.
+    /// The Unix timestamp (in seconds) for when the file will expire. In a completed file upload response, this can be null when no expiry is set.
     #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
     pub expires_at: Option<i32>,
     /// The name of the file.
@@ -38,7 +38,7 @@ pub struct OpenAiFile {
     /// Deprecated. The current status of the file, which can be either `uploaded`, `processed`, or `error`.
     #[serde(rename = "status")]
     pub status: Status,
-    /// Deprecated. For details on why a fine-tuning training file failed validation, see the `error` field on `fine_tuning.job`.
+    /// Deprecated. For details on why a fine-tuning training file failed validation, see the `error` field on `fine_tuning.job`. Completed file upload responses can return null when these details are unset.
     #[serde(rename = "status_details", skip_serializing_if = "Option::is_none")]
     pub status_details: Option<String>,
 }

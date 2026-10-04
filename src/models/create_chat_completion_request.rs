@@ -22,8 +22,13 @@ pub struct CreateChatCompletionRequest {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     /// An integer between 0 and 20 specifying the maximum number of most likely tokens to return at each token position, each with an associated log probability. In some cases, the number of returned tokens may be fewer than requested. `logprobs` must be set to `true` if this parameter is used.
-    #[serde(rename = "top_logprobs", skip_serializing_if = "Option::is_none")]
-    pub top_logprobs: Option<i32>,
+    #[serde(
+        rename = "top_logprobs",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub top_logprobs: Option<Option<i32>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
     pub temperature: Option<f64>,
@@ -88,15 +93,27 @@ pub struct CreateChatCompletionRequest {
     /// An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and [reasoning tokens](https://developers.openai.com/api/docs/guides/reasoning).
     #[serde(
         rename = "max_completion_tokens",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_completion_tokens: Option<i32>,
+    pub max_completion_tokens: Option<Option<i32>>,
     /// Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
-    #[serde(rename = "frequency_penalty", skip_serializing_if = "Option::is_none")]
-    pub frequency_penalty: Option<f64>,
+    #[serde(
+        rename = "frequency_penalty",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub frequency_penalty: Option<Option<f64>>,
     /// Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
-    #[serde(rename = "presence_penalty", skip_serializing_if = "Option::is_none")]
-    pub presence_penalty: Option<f64>,
+    #[serde(
+        rename = "presence_penalty",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub presence_penalty: Option<Option<f64>>,
     #[serde(rename = "web_search_options", skip_serializing_if = "Option::is_none")]
     pub web_search_options: Option<Box<models::WebSearch>>,
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
@@ -104,8 +121,13 @@ pub struct CreateChatCompletionRequest {
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
     pub audio: Option<Box<models::CreateChatCompletionRequestAllOfAudio>>,
     /// Whether or not to store the output of this chat completion request for use in our [model distillation](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#distilling-from-a-larger-model) or [evals](https://developers.openai.com/api/docs/guides/evals) products.  Supports text and image inputs. Note: image inputs over 8MB will be dropped.
-    #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
-    pub store: Option<bool>,
+    #[serde(
+        rename = "store",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub store: Option<Option<bool>>,
     #[serde(
         rename = "moderation",
         default,
@@ -114,27 +136,62 @@ pub struct CreateChatCompletionRequest {
     )]
     pub moderation: Option<Option<Box<models::ModerationParam>>>,
     /// If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/chat/subresources/completions/streaming-events) for more information, along with the [streaming responses](https://developers.openai.com/api/docs/guides/streaming-responses) guide for more information on how to handle the streaming events.
-    #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
-    pub stream: Option<bool>,
-    #[serde(rename = "stop", skip_serializing_if = "Option::is_none")]
-    pub stop: Option<Box<models::StopConfiguration>>,
+    #[serde(
+        rename = "stream",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub stream: Option<Option<bool>>,
+    #[serde(
+        rename = "stop",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub stop: Option<Option<Box<models::StopConfiguration>>>,
     /// Modify the likelihood of specified tokens appearing in the completion.  Accepts a JSON object that maps tokens (specified by their token ID in the tokenizer) to an associated bias value from -100 to 100. Mathematically, the bias is added to the logits generated by the model prior to sampling. The exact effect will vary per model, but values between -1 and 1 should decrease or increase likelihood of selection; values like -100 or 100 should result in a ban or exclusive selection of the relevant token.
     #[serde(rename = "logit_bias", skip_serializing_if = "Option::is_none")]
     pub logit_bias: Option<std::collections::HashMap<String, i32>>,
     /// Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the `content` of `message`.
-    #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
-    pub logprobs: Option<bool>,
+    #[serde(
+        rename = "logprobs",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub logprobs: Option<Option<bool>>,
     /// The maximum number of [tokens](https://platform.openai.com/tokenizer) that can be generated in the chat completion. This value can be used to control [costs](https://openai.com/api/pricing/) for text generated via API.  This value is now deprecated in favor of `max_completion_tokens`, and is not compatible with [o-series models](https://developers.openai.com/api/docs/guides/reasoning).
-    #[serde(rename = "max_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_tokens: Option<i32>,
+    #[serde(
+        rename = "max_tokens",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_tokens: Option<Option<i32>>,
     /// How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep `n` as `1` to minimize costs.
-    #[serde(rename = "n", skip_serializing_if = "Option::is_none")]
-    pub n: Option<i32>,
-    #[serde(rename = "prediction", skip_serializing_if = "Option::is_none")]
-    pub prediction: Option<Box<models::PredictionContent>>,
+    #[serde(
+        rename = "n",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub n: Option<Option<i32>>,
+    #[serde(
+        rename = "prediction",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prediction: Option<Option<Box<models::PredictionContent>>>,
     /// This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result. Determinism is not guaranteed, and you should refer to the `system_fingerprint` response parameter to monitor changes in the backend.
-    #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
-    pub seed: Option<i64>,
+    #[serde(
+        rename = "seed",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub seed: Option<Option<i64>>,
     #[serde(
         rename = "stream_options",
         default,

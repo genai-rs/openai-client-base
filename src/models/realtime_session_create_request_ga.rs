@@ -31,8 +31,13 @@ pub struct RealtimeSessionCreateRequestGa {
     /// Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
     #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
     pub include: Option<Vec<Include>>,
-    #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<Box<models::RealtimeSessionCreateRequestGaTracing>>,
+    #[serde(
+        rename = "tracing",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tracing: Option<Option<Box<models::TracingConfiguration1>>>,
     /// Tools available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeResponseCreateParamsToolsInner>>,

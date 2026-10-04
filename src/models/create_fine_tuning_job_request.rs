@@ -22,17 +22,37 @@ pub struct CreateFineTuningJobRequest {
     #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
     pub hyperparameters: Option<Box<models::CreateFineTuningJobRequestHyperparameters>>,
     /// A string of up to 64 characters that will be added to your fine-tuned model name.  For example, a `suffix` of \"custom-model-name\" would produce a model name like `ft:gpt-4o-mini:openai:custom-model-name:7p4lURel`.
-    #[serde(rename = "suffix", skip_serializing_if = "Option::is_none")]
-    pub suffix: Option<String>,
+    #[serde(
+        rename = "suffix",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub suffix: Option<Option<String>>,
     /// The ID of an uploaded file that contains validation data.  If you provide this file, the data is used to generate validation metrics periodically during fine-tuning. These metrics can be viewed in the fine-tuning results file. The same data should not be present in both train and validation files.  Your dataset must be formatted as a JSONL file. You must upload your file with the purpose `fine-tune`.  See the [fine-tuning guide](https://developers.openai.com/api/docs/guides/model-optimization) for more details.
-    #[serde(rename = "validation_file", skip_serializing_if = "Option::is_none")]
-    pub validation_file: Option<String>,
+    #[serde(
+        rename = "validation_file",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub validation_file: Option<Option<String>>,
     /// A list of integrations to enable for your fine-tuning job.
-    #[serde(rename = "integrations", skip_serializing_if = "Option::is_none")]
-    pub integrations: Option<Vec<models::CreateFineTuningJobRequestIntegrationsInner>>,
+    #[serde(
+        rename = "integrations",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub integrations: Option<Option<Vec<models::CreateFineTuningJobRequestIntegrationsInner>>>,
     /// The seed controls the reproducibility of the job. Passing in the same seed and job parameters should produce the same results, but may differ in rare cases. If a seed is not specified, one will be generated for you.
-    #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
-    pub seed: Option<i32>,
+    #[serde(
+        rename = "seed",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub seed: Option<Option<i32>>,
     #[serde(rename = "method", skip_serializing_if = "Option::is_none")]
     pub method: Option<Box<models::FineTuneMethod>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.

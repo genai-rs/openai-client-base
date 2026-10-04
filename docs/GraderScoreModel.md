@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **model** | **String** | The model to use for the evaluation. | 
 **sampling_params** | Option<[**models::GraderScoreModelSamplingParams**](GraderScoreModel_sampling_params.md)> |  | [optional]
 **input** | [**Vec<models::EvalItem>**](EvalItem.md) | The input messages evaluated by the grader. Supports text, output text, input image, and input audio content blocks, and may include template strings.  | 
-**range** | Option<**Vec<f64>**> | The range of the score. Defaults to `[0, 1]`. | [optional]
+**range** | Option<**Vec<f64>**> | The service requires two numbers for the score range. Defaults to `[0, 1]`.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
