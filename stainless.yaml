@@ -44358,7 +44358,6 @@ components:
             sees during training, so if a prompt is not specified the model will
             generate as if from the beginning of a new document.
           default: <|endoftext|>
-          nullable: true
           oneOf:
             - type: string
               default: ""
@@ -44381,6 +44380,7 @@ components:
                 items:
                   type: integer
               example: "[[1212, 318, 257, 1332, 13]]"
+            - type: "null"
         best_of:
           type:
             - integer
@@ -45864,9 +45864,9 @@ components:
                 512x512:
                   message: This legacy size suggestion is retained for SDK compatibility. Check
                     the selected GPT image model's supported sizes.
+            - type: "null"
           default: auto
           example: 1024x1024
-          nullable: true
           description: The size of the generated images. Defaults to `auto`. For
             `gpt-image-2`, `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`,
             `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, and
@@ -46120,9 +46120,9 @@ components:
                 1024x1792:
                   message: This legacy size suggestion is retained for SDK compatibility. Check
                     the selected GPT image model's supported sizes.
+            - type: "null"
           default: auto
           example: 1024x1024
-          nullable: true
           description: The size of the generated images. For `gpt-image-2`,
             `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`,
             `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, and
@@ -46217,10 +46217,10 @@ components:
               enum:
                 - dall-e-2
               x-stainless-const: true
+            - type: "null"
           x-oaiTypeLabel: string
           default: dall-e-2
           example: dall-e-2
-          nullable: true
           description: The legacy model used by the retired image variations endpoint.
             This endpoint no longer accepts requests.
         n:
@@ -46983,8 +46983,8 @@ components:
           anyOf:
             - type: string
             - $ref: "#/components/schemas/AssistantSupportedModels"
+            - type: "null"
           x-oaiTypeLabel: string
-          nullable: true
         reasoning_effort:
           $ref: "#/components/schemas/ReasoningEffort"
         instructions:
@@ -47274,8 +47274,8 @@ components:
                 - gpt-3.5-turbo-1106
                 - gpt-3.5-turbo-0125
                 - gpt-3.5-turbo-16k-0613
+            - type: "null"
           x-oaiTypeLabel: string
-          nullable: true
         instructions:
           description: Override the default system message of the assistant. This is
             useful for modifying the behavior on a per-run basis.
@@ -62021,27 +62021,25 @@ components:
           }
     RealtimeClientEventSessionUpdate:
       type: object
-      description: >
+      description: |
         Send this event to update the session’s configuration.
-
         The client may send this event at any time to update any field
-
-        except for `voice` and `model`. `voice` can be updated only if there
-        have been no other audio outputs yet.
-
+        except for `voice` and `model`. `voice` can be updated only if there have been no other audio outputs yet.
 
         When the server receives a `session.update`, it will respond
-
-        with a `session.updated` event showing the full, effective
-        configuration.
-
-        Only the fields that are present in the `session.update` are updated. To
-        clear a field like
-
-        `instructions`, pass an empty string. To clear a field like `tools`,
-        pass an empty array.
-
+        with a `session.updated` event showing the full, effective configuration.
+        Only the fields that are present in the `session.update` are updated. To clear a field like
+        `instructions`, pass an empty string. To clear a field like `tools`, pass an empty array.
         To clear a field like `turn_detection`, pass `null`.
+
+        To turn off input audio noise reduction, send this Realtime event:
+
+        ```json
+        {"type":"session.update","session":{"type":"realtime","audio":{"input":{"noise_reduction":null}}}}
+        ```
+
+        For a transcription session, use `"type":"transcription"` inside `session`.
+        Omitting `audio.input.noise_reduction` from an update leaves its current setting unchanged.
       properties:
         event_id:
           type: string

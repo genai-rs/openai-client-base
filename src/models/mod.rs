@@ -1708,8 +1708,6 @@ pub mod create_chat_session_body;
 pub use self::create_chat_session_body::CreateChatSessionBody;
 pub mod create_completion_request;
 pub use self::create_completion_request::CreateCompletionRequest;
-pub mod create_completion_request_prompt;
-pub use self::create_completion_request_prompt::CreateCompletionRequestPrompt;
 pub mod create_completion_response;
 pub use self::create_completion_response::CreateCompletionResponse;
 pub mod create_completion_response_choices_inner;

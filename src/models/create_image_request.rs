@@ -67,8 +67,13 @@ pub struct CreateImageRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub partial_images: Option<Option<i32>>,
-    #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
-    pub size: Option<Box<models::CreateImageRequestSize>>,
+    #[serde(
+        rename = "size",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub size: Option<Option<Box<models::CreateImageRequestSize>>>,
     #[serde(
         rename = "moderation",
         default,
