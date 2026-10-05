@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 pub enum CreateImageRequestSize {
     Text(String),
     TextVariant(CreateImageRequestSizeTextVariantEnum),
+    Null,
 }
 
 impl Default for CreateImageRequestSize {
@@ -37,6 +38,7 @@ impl std::fmt::Display for CreateImageRequestSize {
         match self {
             CreateImageRequestSize::Text(value) => write!(f, "{}", value),
             CreateImageRequestSize::TextVariant(value) => write!(f, "{}", value),
+            CreateImageRequestSize::Null => write!(f, "null"),
         }
     }
 }
