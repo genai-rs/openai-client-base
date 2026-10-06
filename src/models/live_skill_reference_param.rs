@@ -11,43 +11,47 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveHostedShellToolInputParam : A Responses shell tool. Use a hosted container or return local shell results with response.item.create. Domain secrets are not supported.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct LiveHostedShellToolInputParam {
+pub struct LiveSkillReferenceParam {
+    /// References a skill created with the /v1/skills endpoint.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// The ID of the referenced skill.
+    #[serde(rename = "skill_id")]
+    pub skill_id: String,
+    /// Optional skill version. Use a positive integer or 'latest'. Omit for default.
     #[serde(
-        rename = "environment",
+        rename = "version",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub environment: Option<Option<Box<models::LiveHostedShellToolInputParamEnvironment>>>,
+    pub version: Option<Option<String>>,
 }
 
-impl LiveHostedShellToolInputParam {
-    /// A Responses shell tool. Use a hosted container or return local shell results with response.item.create. Domain secrets are not supported.
-    pub fn new(r#type: Type) -> LiveHostedShellToolInputParam {
-        LiveHostedShellToolInputParam {
+impl LiveSkillReferenceParam {
+    pub fn new(r#type: Type, skill_id: String) -> LiveSkillReferenceParam {
+        LiveSkillReferenceParam {
             r#type,
-            environment: None,
+            skill_id,
+            version: None,
         }
     }
 }
-///
+/// References a skill created with the /v1/skills endpoint.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "shell")]
-    Shell,
+    #[serde(rename = "skill_reference")]
+    SkillReference,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Shell
+        Self::SkillReference
     }
 }
 
-impl std::fmt::Display for LiveHostedShellToolInputParam {
+impl std::fmt::Display for LiveSkillReferenceParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

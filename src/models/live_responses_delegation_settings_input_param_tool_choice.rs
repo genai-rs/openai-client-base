@@ -6,8 +6,6 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum LiveResponsesDelegationSettingsInputParamToolChoice {
     Livetoolchoiceenum(models::LiveToolChoiceEnum),
-    Livefunctiontoolchoiceparam(models::LiveFunctionToolChoiceParam),
-    Livemcptoolchoiceparam(models::LiveMcpToolChoiceParam),
 }
 
 impl std::fmt::Display for LiveResponsesDelegationSettingsInputParamToolChoice {
@@ -15,18 +13,6 @@ impl std::fmt::Display for LiveResponsesDelegationSettingsInputParamToolChoice {
         match self {
             LiveResponsesDelegationSettingsInputParamToolChoice::Livetoolchoiceenum(value) => {
                 write!(f, "{}", value)
-            }
-            LiveResponsesDelegationSettingsInputParamToolChoice::Livefunctiontoolchoiceparam(
-                value,
-            ) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
-            LiveResponsesDelegationSettingsInputParamToolChoice::Livemcptoolchoiceparam(value) => {
-                match serde_json::to_string(value) {
-                    Ok(s) => write!(f, "{}", s),
-                    Err(_) => Err(std::fmt::Error),
-                }
             }
         }
     }

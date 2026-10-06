@@ -16,9 +16,9 @@ pub struct ComputerToolCallOutputResource {
     /// The type of the computer tool call output. Always `computer_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The unique ID of the computer call tool output.
-    #[serde(rename = "id")]
-    pub id: String,
+    /// The ID of the computer tool call output.
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
     /// The ID of the computer tool call that produced the output.
     #[serde(rename = "call_id")]
     pub call_id: String,
@@ -40,14 +40,13 @@ pub struct ComputerToolCallOutputResource {
 impl ComputerToolCallOutputResource {
     pub fn new(
         r#type: Type,
-        id: String,
         call_id: String,
         output: models::ComputerScreenshotImage,
         status: models::ComputerCallOutputStatus,
     ) -> ComputerToolCallOutputResource {
         ComputerToolCallOutputResource {
             r#type,
-            id,
+            id: None,
             call_id,
             acknowledged_safety_checks: None,
             output: Box::new(output),

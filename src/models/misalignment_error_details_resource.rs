@@ -13,6 +13,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MisalignmentErrorDetailsResource {
+    /// An opaque target for explicitly continuing this review, or null when unavailable.
+    #[serde(
+        rename = "review_target",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub review_target: Option<Option<String>>,
     #[serde(rename = "error_type", skip_serializing_if = "Option::is_none")]
     pub error_type: Option<Box<models::MisalignmentErrorType>>,
     /// The public explanation for this block.
@@ -28,6 +36,7 @@ pub struct MisalignmentErrorDetailsResource {
 impl MisalignmentErrorDetailsResource {
     pub fn new() -> MisalignmentErrorDetailsResource {
         MisalignmentErrorDetailsResource {
+            review_target: None,
             error_type: None,
             detailed_explanation: None,
             steer: None,

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The file identifier, which can be referenced in the API endpoints. | 
-**bytes** | **i32** | The size of the file, in bytes. In a completed file upload response, this can be null when the file size is not yet available.  | 
+**bytes** | Option<**i32**> | The size of the file, in bytes. In a completed file upload response, this can be null when the file size is not yet available.  | 
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the file was created. | 
 **expires_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the file will expire. In a completed file upload response, this can be null when no expiry is set.  | [optional]
 **filename** | **String** | The name of the file. | 

@@ -23,7 +23,8 @@ pub struct RealtimeSessionCreateResponseGaAudioInput {
     )]
     pub transcription: Option<Option<Box<models::AudioTranscriptionResponse>>>,
     #[serde(rename = "noise_reduction", skip_serializing_if = "Option::is_none")]
-    pub noise_reduction: Option<Box<models::RealtimeSessionInputAudioNoiseReduction>>,
+    pub noise_reduction:
+        Option<Box<models::RealtimeSessionCreateResponseGaAudioInputNoiseReduction>>,
     #[serde(
         rename = "turn_detection",
         default,

@@ -20,6 +20,13 @@ pub enum LiveResponsesDelegationSettingsInputParamToolsInner {
     LiveCodeInterpreterToolInputParam(Box<models::LiveCodeInterpreterToolInputParam>),
     LiveHostedShellToolInputParam(Box<models::LiveHostedShellToolInputParam>),
     LiveImageGenerationToolInputParam(Box<models::LiveImageGenerationToolInputParam>),
+    LiveMcpToolInputParam(Box<models::LiveMcpToolInputParam>),
+    LiveCustomToolInputParam(Box<models::LiveCustomToolInputParam>),
+    LiveNamespaceToolInputParam(Box<models::LiveNamespaceToolInputParam>),
+    LiveToolSearchToolInputParam(Box<models::LiveToolSearchToolInputParam>),
+    LiveProgrammaticToolInputParam(Box<models::LiveProgrammaticToolInputParam>),
+    LiveComputerToolInputParam(Box<models::LiveComputerToolInputParam>),
+    LiveApplyPatchToolInputParam(Box<models::LiveApplyPatchToolInputParam>),
 }
 
 impl Default for LiveResponsesDelegationSettingsInputParamToolsInner {

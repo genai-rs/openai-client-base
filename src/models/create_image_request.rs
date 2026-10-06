@@ -34,8 +34,13 @@ pub struct CreateImageRequest {
     )]
     pub quality: Option<Option<Quality>>,
     /// Legacy response format parameter for retired image models. Unsupported for GPT image models, which always return base64-encoded images.
-    #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
-    pub response_format: Option<ResponseFormat>,
+    #[serde(
+        rename = "response_format",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub response_format: Option<Option<ResponseFormat>>,
     #[serde(
         rename = "output_format",
         default,
@@ -89,8 +94,13 @@ pub struct CreateImageRequest {
     )]
     pub background: Option<Option<Background>>,
     /// Legacy style parameter for retired image models. Unsupported for GPT image models; describe the desired style in the prompt instead.
-    #[serde(rename = "style", skip_serializing_if = "Option::is_none")]
-    pub style: Option<Style>,
+    #[serde(
+        rename = "style",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub style: Option<Option<Style>>,
     /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
