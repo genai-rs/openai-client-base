@@ -1,11 +1,11 @@
-# LiveHostedShellToolInputParam
+# LiveHostedShellNetworkPolicyAllowlistParam
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** |  | 
-**environment** | Option<[**models::LiveHostedShellToolInputParamEnvironment**](LiveHostedShellToolInputParam_environment.md)> |  | [optional]
+**r#type** | **String** | Allow outbound network access only to specified domains. Always `allowlist`. | 
+**allowed_domains** | **Vec<String>** | A list of allowed domains when type is `allowlist`. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**audio** | Option<[**models::ChatCompletionStreamResponseDeltaAudio**](ChatCompletionStreamResponseDelta_audio.md)> |  | [optional]
 **content** | Option<**String**> | The contents of the chunk message. | [optional]
 **function_call** | Option<[**models::ChatCompletionStreamResponseDeltaFunctionCall**](ChatCompletionStreamResponseDelta_function_call.md)> |  | [optional]
 **tool_calls** | Option<[**Vec<models::ChatCompletionMessageToolCallChunk>**](ChatCompletionMessageToolCallChunk.md)> |  | [optional]

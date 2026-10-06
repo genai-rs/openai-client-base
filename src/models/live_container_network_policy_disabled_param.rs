@@ -12,32 +12,31 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct LiveFunctionToolChoiceParam {
+pub struct LiveContainerNetworkPolicyDisabledParam {
+    /// Disable outbound network access. Always `disabled`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    #[serde(rename = "name")]
-    pub name: String,
 }
 
-impl LiveFunctionToolChoiceParam {
-    pub fn new(r#type: Type, name: String) -> LiveFunctionToolChoiceParam {
-        LiveFunctionToolChoiceParam { r#type, name }
+impl LiveContainerNetworkPolicyDisabledParam {
+    pub fn new(r#type: Type) -> LiveContainerNetworkPolicyDisabledParam {
+        LiveContainerNetworkPolicyDisabledParam { r#type }
     }
 }
-///
+/// Disable outbound network access. Always `disabled`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "function")]
-    Function,
+    #[serde(rename = "disabled")]
+    Disabled,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Function
+        Self::Disabled
     }
 }
 
-impl std::fmt::Display for LiveFunctionToolChoiceParam {
+impl std::fmt::Display for LiveContainerNetworkPolicyDisabledParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

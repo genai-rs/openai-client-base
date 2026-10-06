@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
 **r#type** | **String** | The type of the computer tool call output. Always `computer_call_output`.  | 
-**id** | **String** | The unique ID of the computer call tool output.  | 
+**id** | Option<**String**> | The ID of the computer tool call output.  | [optional]
 **call_id** | **String** | The ID of the computer tool call that produced the output.  | 
 **acknowledged_safety_checks** | Option<[**Vec<models::BetaComputerCallSafetyCheckParam>**](BetaComputerCallSafetyCheckParam.md)> | The safety checks reported by the API that have been acknowledged by the developer.  | [optional]
 **output** | [**models::BetaComputerScreenshotImage**](BetaComputerScreenshotImage.md) |  | 

@@ -1,12 +1,10 @@
-# LiveMcpToolChoiceParam
+# RealtimeSessionCreateResponseGaAudioInputNoiseReduction
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** |  | 
-**server_label** | **String** |  | 
-**name** | **String** |  | 
+**r#type** | Option<[**models::NoiseReductionType**](NoiseReductionType.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

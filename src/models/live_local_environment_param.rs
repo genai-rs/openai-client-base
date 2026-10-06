@@ -12,38 +12,42 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct LiveMcpToolChoiceParam {
+pub struct LiveLocalEnvironmentParam {
+    /// Use a local computer environment.
     #[serde(rename = "type")]
     pub r#type: Type,
-    #[serde(rename = "server_label")]
-    pub server_label: String,
-    #[serde(rename = "name")]
-    pub name: String,
+    /// An optional list of skills.
+    #[serde(
+        rename = "skills",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub skills: Option<Option<Vec<models::LiveLocalSkillParam>>>,
 }
 
-impl LiveMcpToolChoiceParam {
-    pub fn new(r#type: Type, server_label: String, name: String) -> LiveMcpToolChoiceParam {
-        LiveMcpToolChoiceParam {
+impl LiveLocalEnvironmentParam {
+    pub fn new(r#type: Type) -> LiveLocalEnvironmentParam {
+        LiveLocalEnvironmentParam {
             r#type,
-            server_label,
-            name,
+            skills: None,
         }
     }
 }
-///
+/// Use a local computer environment.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
-    #[serde(rename = "mcp")]
-    Mcp,
+    #[serde(rename = "local")]
+    Local,
 }
 
 impl Default for Type {
     fn default() -> Type {
-        Self::Mcp
+        Self::Local
     }
 }
 
-impl std::fmt::Display for LiveMcpToolChoiceParam {
+impl std::fmt::Display for LiveLocalEnvironmentParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),
