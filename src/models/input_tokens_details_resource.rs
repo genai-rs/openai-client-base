@@ -11,18 +11,20 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// InputTokensDetailsResource : A breakdown of input token usage for a session or turn.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InputTokensDetailsResource {
-    /// The number of input tokens retrieved from the prompt cache.
     #[serde(rename = "cached_tokens")]
     pub cached_tokens: i64,
+    #[serde(rename = "cache_write_tokens")]
+    pub cache_write_tokens: i64,
 }
 
 impl InputTokensDetailsResource {
-    /// A breakdown of input token usage for a session or turn.
-    pub fn new(cached_tokens: i64) -> InputTokensDetailsResource {
-        InputTokensDetailsResource { cached_tokens }
+    pub fn new(cached_tokens: i64, cache_write_tokens: i64) -> InputTokensDetailsResource {
+        InputTokensDetailsResource {
+            cached_tokens,
+            cache_write_tokens,
+        }
     }
 }
 

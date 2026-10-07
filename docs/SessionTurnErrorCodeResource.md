@@ -10,6 +10,7 @@
 | ProjectSpendLimitExceeded | project_spend_limit_exceeded |
 | OrganizationSpendLimitExceeded | organization_spend_limit_exceeded |
 | OrganizationUsageLimitExceeded | organization_usage_limit_exceeded |
+| BillingNotActive | billing_not_active |
 | CreditBalanceExhausted | credit_balance_exhausted |
 | RateLimitExceeded | rate_limit_exceeded |
 | FlexUnavailable | flex_unavailable |

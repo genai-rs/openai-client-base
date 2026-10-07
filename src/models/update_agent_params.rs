@@ -64,7 +64,7 @@ pub struct UpdateAgentParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub name: Option<Option<String>>,
-    /// Tools available to the agent.
+    /// Replaces the tool list. Omit to leave it unchanged, or pass null to clear it. The replacement must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON.
     #[serde(
         rename = "tools",
         default,

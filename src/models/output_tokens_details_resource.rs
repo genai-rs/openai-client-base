@@ -11,16 +11,13 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// OutputTokensDetailsResource : A breakdown of output token usage for a session or turn.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct OutputTokensDetailsResource {
-    /// The number of output tokens used for reasoning.
     #[serde(rename = "reasoning_tokens")]
     pub reasoning_tokens: i64,
 }
 
 impl OutputTokensDetailsResource {
-    /// A breakdown of output token usage for a session or turn.
     pub fn new(reasoning_tokens: i64) -> OutputTokensDetailsResource {
         OutputTokensDetailsResource { reasoning_tokens }
     }

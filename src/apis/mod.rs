@@ -132,6 +132,7 @@ pub mod chat_api;
 pub mod completions_api;
 pub mod conversations_api;
 pub mod data_retention_api;
+pub mod decisions_api;
 pub mod default_api;
 pub mod embeddings_api;
 pub mod evals_api;

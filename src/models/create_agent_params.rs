@@ -57,7 +57,7 @@ pub struct CreateAgentParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub instructions: Option<Option<String>>,
-    /// Tools available to the agent. Defaults to an empty list.
+    /// Tools available to the agent. Defaults to an empty list. The tool list must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON.
     #[serde(
         rename = "tools",
         default,
