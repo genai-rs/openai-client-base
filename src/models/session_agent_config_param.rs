@@ -53,7 +53,7 @@ pub struct SessionAgentConfigParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub multi_agent: Option<Option<models::MultiAgentConfigCurrentParam>>,
-    /// Tools available to the agent. Omit to inherit, or pass null to clear them.
+    /// Tools available to the agent. Omit to inherit, or pass null to clear them. The resolved tool list must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON.
     #[serde(
         rename = "tools",
         default,

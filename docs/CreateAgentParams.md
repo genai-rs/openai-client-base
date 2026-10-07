@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **text** | Option<[**models::TextParam**](TextParam.md)> |  | [optional]
 **service_tier** | Option<[**models::ServiceTierParam**](ServiceTierParam.md)> |  | [optional]
 **instructions** | Option<**String**> | Additional instructions appended to the agent's default base instructions. Omit or set to null to add no custom instructions. | [optional]
-**tools** | Option<[**Vec<models::PersistedAgentToolConfigParam>**](PersistedAgentToolConfigParam.md)> | Tools available to the agent. Defaults to an empty list. | [optional]
+**tools** | Option<[**Vec<models::PersistedAgentToolConfigParam>**](PersistedAgentToolConfigParam.md)> | Tools available to the agent. Defaults to an empty list. The tool list must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON. | [optional]
 **multi_agent** | Option<[**models::MultiAgentConfigCurrentParam**](MultiAgentConfigCurrentParam.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

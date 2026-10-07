@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**retrieve_vault**](VaultsApi.md#retrieve_vault) | **GET** /vaults/{vault_id} | Retrieve a vault
 [**retrieve_vault_credential**](VaultsApi.md#retrieve_vault_credential) | **GET** /vaults/{vault_id}/credentials/{credential_id} | Retrieve a vault credential
 [**rotate_vault_credential**](VaultsApi.md#rotate_vault_credential) | **POST** /vaults/{vault_id}/credentials/{credential_id} | Update a vault credential
+[**update_vault**](VaultsApi.md#update_vault) | **POST** /vaults/{vault_id} | Update a vault
 
 
 
@@ -140,7 +141,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_vault_credentials
 
-> models::VaultCredentialListResource list_vault_credentials(vault_id, order, limit, status, after)
+> models::VaultCredentialListResource list_vault_credentials(vault_id, metadata, order, limit, status, after)
 List vault credentials
 
 Lists a vault's credentials using ID-based pagination without returning secret values. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
@@ -151,6 +152,7 @@ Lists a vault's credentials using ID-based pagination without returning secret v
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vault_id** | **String** | The ID of the vault. | [required] |
+**metadata** | Option<**String**> | Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear. |  |
 **order** | Option<[**ListOrderParam**](.md)> | Sort order by the `created_at` timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `desc`. |  |
 **limit** | Option<**i64**> | The maximum number of resources to return. Defaults to 20. Values are clamped between 1 and 100. |  |
 **status** | Option<**String**> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
@@ -174,7 +176,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_vaults
 
-> models::VaultListResource list_vaults(order, limit, status, after)
+> models::VaultListResource list_vaults(metadata, order, limit, status, after)
 List vaults
 
 Lists vaults using ID-based pagination. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
@@ -184,6 +186,7 @@ Lists vaults using ID-based pagination. See [vaults](https://developers.openai.c
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
+**metadata** | Option<**String**> | Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear. |  |
 **order** | Option<[**ListOrderParam**](.md)> | Sort order by the `created_at` timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `desc`. |  |
 **limit** | Option<**i64**> | The maximum number of resources to return. Defaults to 20. Values are clamped between 1 and 100. |  |
 **status** | Option<[**VaultStatusFilterParam**](.md)> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
@@ -285,6 +288,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::VaultCredentialResource**](VaultCredentialResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_vault
+
+> models::VaultResource update_vault(vault_id, update_vault_params)
+Update a vault
+
+Updates the name or metadata of an active vault. Omitted fields remain unchanged. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**vault_id** | **String** | The ID of the vault. | [required] |
+**update_vault_params** | [**UpdateVaultParams**](UpdateVaultParams.md) |  | [required] |
+
+### Return type
+
+[**models::VaultResource**](VaultResource.md)
 
 ### Authorization
 

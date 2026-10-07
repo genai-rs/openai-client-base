@@ -36,7 +36,7 @@ pub struct ToolSearchOutputItemParam {
     pub execution: Option<models::ToolSearchExecutionType>,
     /// The loaded tool definitions returned by the tool search output.
     #[serde(rename = "tools")]
-    pub tools: Vec<models::Tool>,
+    pub tools: Vec<models::ToolSearchOutputTool>,
     #[serde(
         rename = "status",
         default,
@@ -47,7 +47,10 @@ pub struct ToolSearchOutputItemParam {
 }
 
 impl ToolSearchOutputItemParam {
-    pub fn new(r#type: Type, tools: Vec<models::Tool>) -> ToolSearchOutputItemParam {
+    pub fn new(
+        r#type: Type,
+        tools: Vec<models::ToolSearchOutputTool>,
+    ) -> ToolSearchOutputItemParam {
         ToolSearchOutputItemParam {
             id: None,
             call_id: None,

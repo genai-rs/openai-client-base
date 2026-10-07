@@ -43,7 +43,7 @@ pub struct BetaToolSearchOutputItemParam {
     pub execution: Option<models::BetaToolSearchExecutionType>,
     /// The loaded tool definitions returned by the tool search output.
     #[serde(rename = "tools")]
-    pub tools: Vec<models::BetaTool>,
+    pub tools: Vec<models::BetaToolSearchOutputTool>,
     #[serde(
         rename = "status",
         default,
@@ -54,7 +54,10 @@ pub struct BetaToolSearchOutputItemParam {
 }
 
 impl BetaToolSearchOutputItemParam {
-    pub fn new(r#type: Type, tools: Vec<models::BetaTool>) -> BetaToolSearchOutputItemParam {
+    pub fn new(
+        r#type: Type,
+        tools: Vec<models::BetaToolSearchOutputTool>,
+    ) -> BetaToolSearchOutputItemParam {
         BetaToolSearchOutputItemParam {
             agent: None,
             id: None,

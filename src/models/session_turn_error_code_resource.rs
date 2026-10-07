@@ -27,6 +27,8 @@ pub enum SessionTurnErrorCodeResource {
     OrganizationSpendLimitExceeded,
     #[serde(rename = "organization_usage_limit_exceeded")]
     OrganizationUsageLimitExceeded,
+    #[serde(rename = "billing_not_active")]
+    BillingNotActive,
     #[serde(rename = "credit_balance_exhausted")]
     CreditBalanceExhausted,
     #[serde(rename = "rate_limit_exceeded")]
@@ -70,6 +72,7 @@ impl std::fmt::Display for SessionTurnErrorCodeResource {
             Self::ProjectSpendLimitExceeded => write!(f, "project_spend_limit_exceeded"),
             Self::OrganizationSpendLimitExceeded => write!(f, "organization_spend_limit_exceeded"),
             Self::OrganizationUsageLimitExceeded => write!(f, "organization_usage_limit_exceeded"),
+            Self::BillingNotActive => write!(f, "billing_not_active"),
             Self::CreditBalanceExhausted => write!(f, "credit_balance_exhausted"),
             Self::RateLimitExceeded => write!(f, "rate_limit_exceeded"),
             Self::FlexUnavailable => write!(f, "flex_unavailable"),

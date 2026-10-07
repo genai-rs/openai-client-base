@@ -141,6 +141,20 @@ pub enum RotateVaultCredentialError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_vault`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateVaultError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
 /// Creates a vault for the current project. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
 #[bon::builder]
 pub async fn create_vault(
@@ -365,6 +379,7 @@ pub async fn delete_vault_credential(
 pub async fn list_vault_credentials(
     configuration: &configuration::Configuration,
     vault_id: &str,
+    metadata: Option<&str>,
     order: Option<models::ListOrderParam>,
     limit: Option<i64>,
     status: Option<&str>,
@@ -372,6 +387,7 @@ pub async fn list_vault_credentials(
 ) -> Result<models::VaultCredentialListResource, Error<ListVaultCredentialsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;
+    let p_query_metadata = metadata;
     let p_query_order = order;
     let p_query_limit = limit;
     let p_query_status = status;
@@ -384,6 +400,9 @@ pub async fn list_vault_credentials(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_metadata {
+        req_builder = req_builder.query(&[("metadata", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_order {
         req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
@@ -436,12 +455,14 @@ pub async fn list_vault_credentials(
 #[bon::builder]
 pub async fn list_vaults(
     configuration: &configuration::Configuration,
+    metadata: Option<&str>,
     order: Option<models::ListOrderParam>,
     limit: Option<i64>,
     status: Option<models::VaultStatusFilterParam>,
     after: Option<&str>,
 ) -> Result<models::VaultListResource, Error<ListVaultsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_metadata = metadata;
     let p_query_order = order;
     let p_query_limit = limit;
     let p_query_status = status;
@@ -450,6 +471,9 @@ pub async fn list_vaults(
     let uri_str = format!("{}/vaults", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_metadata {
+        req_builder = req_builder.query(&[("metadata", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_order {
         req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
@@ -657,6 +681,63 @@ pub async fn rotate_vault_credential(
     } else {
         let content = resp.text().await?;
         let entity: Option<RotateVaultCredentialError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Updates the name or metadata of an active vault. Omitted fields remain unchanged. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
+#[bon::builder]
+pub async fn update_vault(
+    configuration: &configuration::Configuration,
+    vault_id: &str,
+    update_vault_params: models::UpdateVaultParams,
+) -> Result<models::VaultResource, Error<UpdateVaultError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vault_id = vault_id;
+    let p_body_update_vault_params = update_vault_params;
+
+    let uri_str = format!(
+        "{}/vaults/{vault_id}",
+        configuration.base_path,
+        vault_id = crate::apis::urlencode(p_path_vault_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_vault_params);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VaultResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VaultResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateVaultError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
