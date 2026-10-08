@@ -21,6 +21,7 @@ pub struct QuestionParamChoice {
     pub name: Option<String>,
     #[serde(rename = "instructions")]
     pub instructions: String,
+    /// Provide between 2 and 255 choices. Each choice must be unique.
     #[serde(rename = "choices")]
     pub choices: Vec<models::ChoiceOptionParam>,
 }

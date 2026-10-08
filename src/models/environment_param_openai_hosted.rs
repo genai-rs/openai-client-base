@@ -81,14 +81,14 @@ pub struct EnvironmentParamOpenaiHosted {
         skip_serializing_if = "Option::is_none"
     )]
     pub files: Option<Option<Vec<models::HostedEnvironmentFileParam>>>,
+    #[serde(rename = "container_size", skip_serializing_if = "Option::is_none")]
+    pub container_size: Option<models::ContainerSizeParam>,
     /// A reusable hosted template applied before inline session configuration. Omitted fields inherit the template; network overrides cannot broaden its policy.
     #[serde(
         rename = "environment_template_id",
         skip_serializing_if = "Option::is_none"
     )]
     pub environment_template_id: Option<String>,
-    #[serde(rename = "container_size", skip_serializing_if = "Option::is_none")]
-    pub container_size: Option<models::ContainerSizeParam>,
 }
 
 impl EnvironmentParamOpenaiHosted {
@@ -105,8 +105,8 @@ impl EnvironmentParamOpenaiHosted {
             skills: None,
             plugins: None,
             files: None,
-            environment_template_id: None,
             container_size: None,
+            environment_template_id: None,
         }
     }
 }

@@ -1126,17 +1126,17 @@ pub async fn list_agent_environment_templates(
 pub async fn list_agent_session_artifacts(
     configuration: &configuration::Configuration,
     session_id: &str,
-    order: Option<models::ListOrderParam>,
-    environment_id: Option<&str>,
     limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    environment_id: Option<&str>,
 ) -> Result<models::SessionArtifactListResource, Error<ListAgentSessionArtifactsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
-    let p_query_order = order;
-    let p_query_environment_id = environment_id;
     let p_query_limit = limit;
+    let p_query_order = order;
     let p_query_after = after;
+    let p_query_environment_id = environment_id;
 
     let uri_str = format!(
         "{}/agents/sessions/{session_id}/artifacts",
@@ -1145,17 +1145,17 @@ pub async fn list_agent_session_artifacts(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_order {
-        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_environment_id {
-        req_builder = req_builder.query(&[("environment_id", &param_value.to_string())]);
-    }
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_after {
         req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_environment_id {
+        req_builder = req_builder.query(&[("environment_id", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -1805,14 +1805,14 @@ pub async fn list_agent_sessions(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
-    agent_id: Option<&str>,
     after: Option<&str>,
+    agent_id: Option<&str>,
 ) -> Result<models::SessionListResource, Error<ListAgentSessionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
     let p_query_order = order;
-    let p_query_agent_id = agent_id;
     let p_query_after = after;
+    let p_query_agent_id = agent_id;
 
     let uri_str = format!("{}/agents/sessions", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -1823,11 +1823,11 @@ pub async fn list_agent_sessions(
     if let Some(ref param_value) = p_query_order {
         req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_agent_id {
-        req_builder = req_builder.query(&[("agent_id", &param_value.to_string())]);
-    }
     if let Some(ref param_value) = p_query_after {
         req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_agent_id {
+        req_builder = req_builder.query(&[("agent_id", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

@@ -384,7 +384,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_agent_session_artifacts
 
-> models::SessionArtifactListResource list_agent_session_artifacts(session_id, order, environment_id, limit, after)
+> models::SessionArtifactListResource list_agent_session_artifacts(session_id, limit, order, after, environment_id)
 List agent session artifacts
 
 Lists immutable artifacts published by completed hosted session turns. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
@@ -395,10 +395,10 @@ Lists immutable artifacts published by completed hosted session turns. See [sess
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
-**order** | Option<[**ListOrderParam**](.md)> | Sort by creation time and ID. Defaults to descending. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 **environment_id** | Option<**String**> | Restrict the listing to artifacts produced by this environment. |  |
-**limit** | Option<**i64**> | The maximum number of artifacts to return, between 1 and 100. |  |
-**after** | Option<**String**> | Return artifacts after this immutable artifact ID. |  |
 
 ### Return type
 
@@ -717,7 +717,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_agent_sessions
 
-> models::SessionListResource list_agent_sessions(limit, order, agent_id, after)
+> models::SessionListResource list_agent_sessions(limit, order, after, agent_id)
 List agent sessions
 
 Lists managed agent sessions using ID-based pagination and the requested sort order. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
@@ -727,10 +727,10 @@ Lists managed agent sessions using ID-based pagination and the requested sort or
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i64**> | The maximum number of resources to return. |  |
-**order** | Option<[**ListOrderParam**](.md)> | Sort order by the `created_at` timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `desc`. |  |
-**agent_id** | Option<**String**> | Only return sessions whose root agent has this ID. Omit to return sessions for all agents. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
+**agent_id** | Option<**String**> | Only return sessions whose root agent has this ID. Omit to return sessions for all agents. |  |
 
 ### Return type
 
@@ -760,7 +760,7 @@ Lists reusable agents in the current project. See [agent configuration](https://
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i64**> | The maximum number of resources to return. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
 **order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 

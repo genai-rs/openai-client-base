@@ -17,9 +17,6 @@ pub struct EnvironmentParamSelfHosted {
     /// The type of the object. Always `self_hosted`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// Absolute project directory inside the self-hosted environment.
-    #[serde(rename = "workspace_directory")]
-    pub workspace_directory: String,
     /// Directories that contain capabilities exposed to the agent. Defaults to an empty list.
     #[serde(
         rename = "capability_directories",
@@ -28,6 +25,9 @@ pub struct EnvironmentParamSelfHosted {
         skip_serializing_if = "Option::is_none"
     )]
     pub capability_directories: Option<Option<Vec<String>>>,
+    /// Absolute project directory inside the self-hosted environment.
+    #[serde(rename = "workspace_directory")]
+    pub workspace_directory: String,
 }
 
 impl EnvironmentParamSelfHosted {
@@ -35,8 +35,8 @@ impl EnvironmentParamSelfHosted {
     pub fn new(r#type: Type, workspace_directory: String) -> EnvironmentParamSelfHosted {
         EnvironmentParamSelfHosted {
             r#type,
-            workspace_directory,
             capability_directories: None,
+            workspace_directory,
         }
     }
 }

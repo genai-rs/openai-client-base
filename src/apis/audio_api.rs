@@ -392,14 +392,20 @@ pub async fn create_translation(
     }
 }
 
-/// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
+/// Create a custom voice you can use for audio output (for example, in Text-to-Speech and the Realtime API). This requires an audio sample and a previously uploaded consent recording.  Send `name`, `audio_sample`, and the `consent` recording ID as multipart form data. The optional `type` defaults to `audio_sample`.  Returns the saved voice's metadata. See the [custom voices guide](https://developers.openai.com/api/docs/guides/text-to-speech#custom-voices) for requirements and best practices. Custom voices are limited to eligible customers.
 #[bon::builder]
 pub async fn create_voice(
     configuration: &configuration::Configuration,
-    create_voice_prompt_request: models::CreateVoicePromptRequest,
+    name: &str,
+    audio_sample: std::path::PathBuf,
+    consent: &str,
+    r#type: Option<&str>,
 ) -> Result<models::VoiceResource, Error<CreateVoiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_voice_prompt_request = create_voice_prompt_request;
+    let p_form_name = name;
+    let p_form_audio_sample = audio_sample;
+    let p_form_consent = consent;
+    let p_form_type = r#type;
 
     let uri_str = format!("{}/audio/voices", configuration.base_path);
     let mut req_builder = configuration
@@ -412,7 +418,15 @@ pub async fn create_voice(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_create_voice_prompt_request);
+    let mut multipart_form = reqwest::multipart::Form::new();
+    if let Some(param_value) = p_form_type {
+        multipart_form = multipart_form.text("type", param_value.to_string());
+    }
+    multipart_form = multipart_form.text("name", p_form_name.to_string());
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_audio_sample, "audio_sample")?;
+    multipart_form = multipart_form.text("consent", p_form_consent.to_string());
+    req_builder = req_builder.multipart(multipart_form);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
