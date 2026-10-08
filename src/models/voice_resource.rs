@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// VoiceResource : A custom voice that can be used for audio output. Voices created from text prompts are supported only in Live.
+/// VoiceResource : A custom voice that can be used for audio output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VoiceResource {
     /// The object type, which is always `audio.voice`.
@@ -20,9 +20,8 @@ pub struct VoiceResource {
     /// The voice identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
     pub id: String,
-    /// How the voice was created. Voices created from text prompts are supported only in Live.
     #[serde(rename = "type")]
-    pub r#type: Type,
+    pub r#type: Box<models::VoiceResourceType>,
     /// The name of the voice.
     #[serde(rename = "name")]
     pub name: String,
@@ -32,18 +31,18 @@ pub struct VoiceResource {
 }
 
 impl VoiceResource {
-    /// A custom voice that can be used for audio output. Voices created from text prompts are supported only in Live.
+    /// A custom voice that can be used for audio output.
     pub fn new(
         object: Object,
         id: String,
-        r#type: Type,
+        r#type: models::VoiceResourceType,
         name: String,
         created_at: i32,
     ) -> VoiceResource {
         VoiceResource {
             object,
             id,
-            r#type,
+            r#type: Box::new(r#type),
             name,
             created_at,
         }
@@ -59,20 +58,6 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::AudioVoice
-    }
-}
-/// How the voice was created. Voices created from text prompts are supported only in Live.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "audio_sample")]
-    AudioSample,
-    #[serde(rename = "prompt")]
-    Prompt,
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::AudioSample
     }
 }
 

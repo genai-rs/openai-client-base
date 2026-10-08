@@ -14,46 +14,46 @@ use serde::{Deserialize, Serialize};
 /// PublicEnvironmentResource : Safe metadata for a first-class execution environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PublicEnvironmentResource {
+    #[serde(rename = "type")]
+    pub r#type: models::EnvironmentTypeResource,
     /// The ID of the environment.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type. Always `agent.environment`.
     #[serde(rename = "object")]
     pub object: Object,
-    #[serde(rename = "type")]
-    pub r#type: models::EnvironmentTypeResource,
     #[serde(rename = "status")]
     pub status: models::EnvironmentStatusResource,
-    /// Plugins installed in the environment, without their archive contents.
-    #[serde(rename = "plugins")]
-    pub plugins: Vec<models::HostedPluginResourceInline>,
-    /// Skills installed in the environment, without their archive contents.
-    #[serde(rename = "skills")]
-    pub skills: Vec<models::HostedSkillResource>,
     /// Files installed in the environment, without their contents.
     #[serde(rename = "files")]
     pub files: Vec<models::HostedEnvironmentFileResource>,
+    /// Skills installed in the environment, without their archive contents.
+    #[serde(rename = "skills")]
+    pub skills: Vec<models::HostedSkillResource>,
+    /// Plugins installed in the environment, without their archive contents.
+    #[serde(rename = "plugins")]
+    pub plugins: Vec<models::HostedPluginResourceInline>,
 }
 
 impl PublicEnvironmentResource {
     /// Safe metadata for a first-class execution environment.
     pub fn new(
+        r#type: models::EnvironmentTypeResource,
         id: String,
         object: Object,
-        r#type: models::EnvironmentTypeResource,
         status: models::EnvironmentStatusResource,
-        plugins: Vec<models::HostedPluginResourceInline>,
-        skills: Vec<models::HostedSkillResource>,
         files: Vec<models::HostedEnvironmentFileResource>,
+        skills: Vec<models::HostedSkillResource>,
+        plugins: Vec<models::HostedPluginResourceInline>,
     ) -> PublicEnvironmentResource {
         PublicEnvironmentResource {
+            r#type,
             id,
             object,
-            r#type,
             status,
-            plugins,
-            skills,
             files,
+            skills,
+            plugins,
         }
     }
 }

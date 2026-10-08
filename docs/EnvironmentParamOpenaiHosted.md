@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **skills** | Option<[**Vec<models::HostedSkillParam>**](HostedSkillParam.md)> | Skills referenced by ID or provided as inline ZIP archives. Defaults to an empty list. | [optional]
 **plugins** | Option<[**Vec<models::HostedPluginParamInline>**](HostedPluginParamInline.md)> | Plugins provided as inline ZIP archives. Defaults to an empty list. | [optional]
 **files** | Option<[**Vec<models::HostedEnvironmentFileParam>**](HostedEnvironmentFileParam.md)> | Files available before the agent starts. Defaults to an empty list. | [optional]
-**environment_template_id** | Option<**String**> | A reusable hosted template applied before inline session configuration. Omitted fields inherit the template; network overrides cannot broaden its policy. | [optional]
 **container_size** | Option<[**models::ContainerSizeParam**](ContainerSizeParam.md)> |  | [optional]
+**environment_template_id** | Option<**String**> | A reusable hosted template applied before inline session configuration. Omitted fields inherit the template; network overrides cannot broaden its policy. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

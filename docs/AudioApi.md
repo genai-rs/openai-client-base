@@ -125,17 +125,20 @@ Name | Type | Description  | Required | Notes
 
 ## create_voice
 
-> models::VoiceResource create_voice(create_voice_prompt_request)
+> models::VoiceResource create_voice(name, audio_sample, consent, r#type)
 Create voice
 
-Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio. 
+Create a custom voice you can use for audio output (for example, in Text-to-Speech and the Realtime API). This requires an audio sample and a previously uploaded consent recording.  Send `name`, `audio_sample`, and the `consent` recording ID as multipart form data. The optional `type` defaults to `audio_sample`.  Returns the saved voice's metadata. See the [custom voices guide](https://developers.openai.com/api/docs/guides/text-to-speech#custom-voices) for requirements and best practices. Custom voices are limited to eligible customers. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**create_voice_prompt_request** | [**CreateVoicePromptRequest**](CreateVoicePromptRequest.md) |  | [required] |
+**name** | **String** | The name of the new voice. | [required] |
+**audio_sample** | **std::path::PathBuf** | The sample audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  | [required] |
+**consent** | **String** | The consent recording ID (for example, `cons_1234`). | [required] |
+**r#type** | Option<**String**> | The voice creation method. Defaults to `audio_sample` when omitted. |  |
 
 ### Return type
 
@@ -147,7 +150,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json, multipart/form-data
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

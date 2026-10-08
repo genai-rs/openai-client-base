@@ -141,7 +141,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_vault_credentials
 
-> models::VaultCredentialListResource list_vault_credentials(vault_id, metadata, order, limit, status, after)
+> models::VaultCredentialListResource list_vault_credentials(vault_id, limit, order, after, metadata, status)
 List vault credentials
 
 Lists a vault's credentials using ID-based pagination without returning secret values. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
@@ -152,11 +152,11 @@ Lists a vault's credentials using ID-based pagination without returning secret v
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vault_id** | **String** | The ID of the vault. | [required] |
-**metadata** | Option<**String**> | Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear. |  |
-**order** | Option<[**ListOrderParam**](.md)> | Sort order by the `created_at` timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `desc`. |  |
-**limit** | Option<**i64**> | The maximum number of resources to return. Defaults to 20. Values are clamped between 1 and 100. |  |
-**status** | Option<**String**> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
+**metadata** | Option<**String**> | Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear. |  |
+**status** | Option<**String**> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
 
 ### Return type
 
@@ -176,7 +176,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_vaults
 
-> models::VaultListResource list_vaults(metadata, order, limit, status, after)
+> models::VaultListResource list_vaults(limit, order, after, metadata, status)
 List vaults
 
 Lists vaults using ID-based pagination. See [vaults](https://developers.openai.com/api/docs/guides/agents-api/tools/vaults).
@@ -186,11 +186,11 @@ Lists vaults using ID-based pagination. See [vaults](https://developers.openai.c
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**metadata** | Option<**String**> | Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear. |  |
-**order** | Option<[**ListOrderParam**](.md)> | Sort order by the `created_at` timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `desc`. |  |
-**limit** | Option<**i64**> | The maximum number of resources to return. Defaults to 20. Values are clamped between 1 and 100. |  |
-**status** | Option<[**VaultStatusFilterParam**](.md)> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
+**metadata** | Option<**String**> | Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear. |  |
+**status** | Option<[**VaultStatusFilterParam**](.md)> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
 
 ### Return type
 
