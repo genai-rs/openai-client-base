@@ -14,6 +14,13 @@ use serde::{Deserialize, Serialize};
 /// CreateAgentSessionParams : Parameters for creating a Managed Agents session.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAgentSessionParams {
+    #[serde(
+        rename = "spend_control",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub spend_control: Option<Option<models::SessionSpendControlParam>>,
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Omission or null defaults to an empty map.
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -48,6 +55,7 @@ impl CreateAgentSessionParams {
     /// Parameters for creating a Managed Agents session.
     pub fn new(environment: models::EnvironmentParam) -> CreateAgentSessionParams {
         CreateAgentSessionParams {
+            spend_control: None,
             metadata: None,
             agent: None,
             agent_id: None,

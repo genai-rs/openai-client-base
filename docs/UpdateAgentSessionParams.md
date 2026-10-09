@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**spend_control** | Option<[**models::SessionSpendControlParam**](SessionSpendControlParam.md)> |  | [optional]
 **agent** | Option<[**models::UpdateSessionAgentParam**](UpdateSessionAgentParam.md)> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Replaces all metadata. Omit to leave unchanged, or pass null or {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. | [optional]
 

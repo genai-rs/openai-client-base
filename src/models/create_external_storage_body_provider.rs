@@ -17,6 +17,7 @@ pub enum CreateExternalStorageBodyProvider {
     AwsExternalStorageProviderParams(Box<models::AwsExternalStorageProviderParams>),
     AzureExternalStorageProviderParams(Box<models::AzureExternalStorageProviderParams>),
     GcpExternalStorageProviderParams(Box<models::GcpExternalStorageProviderParams>),
+    OciExternalStorageProviderParams(Box<models::OciExternalStorageProviderParams>),
 }
 
 impl Default for CreateExternalStorageBodyProvider {

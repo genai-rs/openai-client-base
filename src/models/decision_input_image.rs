@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// DecisionInputImage : An inline image. External URLs and file IDs are not supported.
+/// DecisionInputImage : An image provided as a base64 data URL or a publicly accessible HTTP(S) URL. File IDs are not supported.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionInputImage {
-    /// A base64-encoded image in a data URL.
+    /// A base64-encoded image in a data URL or a publicly accessible HTTP(S) image URL.
     #[serde(rename = "image_url")]
     pub image_url: String,
     #[serde(
@@ -29,7 +29,7 @@ pub struct DecisionInputImage {
 }
 
 impl DecisionInputImage {
-    /// An inline image. External URLs and file IDs are not supported.
+    /// An image provided as a base64 data URL or a publicly accessible HTTP(S) URL. File IDs are not supported.
     pub fn new(image_url: String, r#type: Type) -> DecisionInputImage {
         DecisionInputImage {
             image_url,

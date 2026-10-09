@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**image_url** | **String** | A base64-encoded image in a data URL. | 
+**image_url** | **String** | A base64-encoded image in a data URL or a publicly accessible HTTP(S) image URL. | 
 **detail** | Option<[**models::ImageDetailParam**](ImageDetailParam.md)> |  | [optional]
 **r#type** | **String** |  | 
 

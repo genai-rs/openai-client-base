@@ -33,6 +33,14 @@ pub struct SafetyAlertResource {
     /// A customer-safe description derived from error_type, or null for zero data retention requests.
     #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
     pub reason: Option<String>,
+    /// A generated explanation, temporarily available for eligible zero data retention alerts. Omitted when unavailable.
+    #[serde(
+        rename = "detailed_explanation",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub detailed_explanation: Option<Option<String>>,
 }
 
 impl SafetyAlertResource {
@@ -57,6 +65,7 @@ impl SafetyAlertResource {
             request_paused,
             error_type,
             reason,
+            detailed_explanation: None,
         }
     }
 }

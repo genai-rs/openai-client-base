@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 /// SessionResource : A Managed Agents session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionResource {
+    #[serde(rename = "spend_control", skip_serializing_if = "Option::is_none")]
+    pub spend_control: Option<models::SessionSpendControlResource>,
     /// Custom string key-value pairs attached to the session.
     #[serde(rename = "metadata")]
     pub metadata: std::collections::HashMap<String, String>,
@@ -65,6 +67,7 @@ impl SessionResource {
         usage: Option<models::TokenUsageResource>,
     ) -> SessionResource {
         SessionResource {
+            spend_control: None,
             metadata,
             id,
             object,

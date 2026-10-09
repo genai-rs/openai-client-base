@@ -5,6 +5,7 @@ All URIs are relative to *https://api.openai.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_agent**](AgentsApi.md#create_agent) | **POST** /agents | Create an agent
+[**create_agent_environment**](AgentsApi.md#create_agent_environment) | **POST** /agents/environments | Create an agent environment
 [**create_agent_environment_file**](AgentsApi.md#create_agent_environment_file) | **POST** /agents/environments/{environment_id}/files | Create an agent environment file
 [**create_agent_environment_template**](AgentsApi.md#create_agent_environment_template) | **POST** /agents/environments/templates | Create an agent environment template
 [**create_agent_session**](AgentsApi.md#create_agent_session) | **POST** /agents/sessions | Create an agent session
@@ -15,6 +16,7 @@ Method | HTTP request | Description
 [**delete_agent_session_artifact**](AgentsApi.md#delete_agent_session_artifact) | **DELETE** /agents/sessions/{session_id}/artifacts/{artifact_id} | Delete an agent session artifact
 [**list_agent_environment_files**](AgentsApi.md#list_agent_environment_files) | **GET** /agents/environments/{environment_id}/files | List agent environment files
 [**list_agent_environment_templates**](AgentsApi.md#list_agent_environment_templates) | **GET** /agents/environments/templates | List agent environment templates
+[**list_agent_environments**](AgentsApi.md#list_agent_environments) | **GET** /agents/environments | List agent environments
 [**list_agent_session_artifacts**](AgentsApi.md#list_agent_session_artifacts) | **GET** /agents/sessions/{session_id}/artifacts | List agent session artifacts
 [**list_agent_session_events**](AgentsApi.md#list_agent_session_events) | **GET** /agents/sessions/{session_id}/events | Stream agent session events
 [**list_agent_session_items**](AgentsApi.md#list_agent_session_items) | **GET** /agents/sessions/{session_id}/items | List agent session items
@@ -59,6 +61,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AgentResource**](AgentResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_agent_environment
+
+> models::PublicEnvironmentResource create_agent_environment(create_agent_environment_params, idempotency_key)
+Create an agent environment
+
+Creates an OpenAI-hosted environment before creating a session. Requires access to the prewarming beta.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_agent_environment_params** | [**CreateAgentEnvironmentParams**](CreateAgentEnvironmentParams.md) |  | [required] |
+**idempotency_key** | Option<**String**> | Deduplicates creation for 24 hours within the authenticated organization, project, and creator. Retry the same JSON parameters with the same key to retrieve the original environment in its current state. Different parameters or an incomplete hosted creation return 409. Deleted environments are not recreated. After retention expires, the key may create a new environment. Without this header, each request creates a new environment. |  |
+
+### Return type
+
+[**models::PublicEnvironmentResource**](PublicEnvironmentResource.md)
 
 ### Authorization
 
@@ -369,6 +402,39 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::EnvironmentTemplateListResource**](EnvironmentTemplateListResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_agent_environments
+
+> models::AgentEnvironmentListResource list_agent_environments(limit, order, after, r#type)
+List agent environments
+
+Lists OpenAI-hosted environments owned by the authenticated principal. Requires access to the prewarming beta.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
+**r#type** | Option<[**EnvironmentTypeParam**](.md)> | The hosting type to list. Defaults to `openai_hosted`. |  |
+
+### Return type
+
+[**models::AgentEnvironmentListResource**](AgentEnvironmentListResource.md)
 
 ### Authorization
 

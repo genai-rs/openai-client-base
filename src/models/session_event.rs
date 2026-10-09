@@ -17,6 +17,8 @@ use serde::{Deserialize, Serialize};
 pub enum SessionEvent {
     Error(Box<models::SessionEventError>),
     AgentSessionEnvironmentReady(Box<models::SessionEventAgentSessionEnvironmentReady>),
+    AgentSessionEnvironmentSuspended(Box<models::SessionEventAgentSessionEnvironmentSuspended>),
+    AgentSessionEnvironmentExpired(Box<models::SessionEventAgentSessionEnvironmentExpired>),
     AgentSessionEnvironmentReset(Box<models::SessionEventAgentSessionEnvironmentReset>),
     AgentOutputCommandExecutionOutputDelta(
         Box<models::SessionEventAgentOutputCommandExecutionOutputDelta>,
