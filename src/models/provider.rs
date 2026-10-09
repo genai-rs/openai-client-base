@@ -20,6 +20,8 @@ pub enum Provider {
     AzureExternalStorageProviderResponse(Box<models::AzureExternalStorageProviderResponse>),
     #[serde(rename = "GcpExternalStorageProviderResponse")]
     GcpExternalStorageProviderResponse(Box<models::GcpExternalStorageProviderResponse>),
+    #[serde(rename = "OciExternalStorageProviderResponse")]
+    OciExternalStorageProviderResponse(Box<models::OciExternalStorageProviderResponse>),
 }
 
 impl Default for Provider {

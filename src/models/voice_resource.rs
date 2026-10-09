@@ -20,8 +20,9 @@ pub struct VoiceResource {
     /// The voice identifier, which can be referenced in API endpoints.
     #[serde(rename = "id")]
     pub id: String,
+    /// How the voice was created.
     #[serde(rename = "type")]
-    pub r#type: Box<models::VoiceResourceType>,
+    pub r#type: Type,
     /// The name of the voice.
     #[serde(rename = "name")]
     pub name: String,
@@ -35,14 +36,14 @@ impl VoiceResource {
     pub fn new(
         object: Object,
         id: String,
-        r#type: models::VoiceResourceType,
+        r#type: Type,
         name: String,
         created_at: i32,
     ) -> VoiceResource {
         VoiceResource {
             object,
             id,
-            r#type: Box::new(r#type),
+            r#type,
             name,
             created_at,
         }
@@ -58,6 +59,18 @@ pub enum Object {
 impl Default for Object {
     fn default() -> Object {
         Self::AudioVoice
+    }
+}
+/// How the voice was created.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "audio_sample")]
+    AudioSample,
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::AudioSample
     }
 }
 

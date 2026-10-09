@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**spend_control** | Option<[**models::SessionSpendControlResource**](SessionSpendControlResource.md)> |  | [optional]
 **metadata** | **std::collections::HashMap<String, String>** | Custom string key-value pairs attached to the session. | 
 **id** | **String** | The ID of the session. | 
 **object** | **String** | The object type. Always `agent.session`. | 

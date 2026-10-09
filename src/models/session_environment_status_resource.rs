@@ -23,6 +23,10 @@ pub enum SessionEnvironmentStatusResource {
     Connected,
     #[serde(rename = "disconnected")]
     Disconnected,
+    #[serde(rename = "suspended")]
+    Suspended,
+    #[serde(rename = "expired")]
+    Expired,
     #[serde(rename = "failed")]
     Failed,
 }
@@ -34,6 +38,8 @@ impl std::fmt::Display for SessionEnvironmentStatusResource {
             Self::Ready => write!(f, "ready"),
             Self::Connected => write!(f, "connected"),
             Self::Disconnected => write!(f, "disconnected"),
+            Self::Suspended => write!(f, "suspended"),
+            Self::Expired => write!(f, "expired"),
             Self::Failed => write!(f, "failed"),
         }
     }

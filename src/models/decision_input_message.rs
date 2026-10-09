@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// DecisionInputMessage : A user message containing text or inline images.
+/// DecisionInputMessage : A user message containing text or images.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionInputMessage {
     #[serde(rename = "role")]
@@ -23,7 +23,7 @@ pub struct DecisionInputMessage {
 }
 
 impl DecisionInputMessage {
-    /// A user message containing text or inline images.
+    /// A user message containing text or images.
     pub fn new(role: Role, content: models::DecisionInputContent) -> DecisionInputMessage {
         DecisionInputMessage {
             role,

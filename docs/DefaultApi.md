@@ -4,6 +4,10 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**agent_environment_expired_post**](DefaultApi.md#agent_environment_expired_post) | **POST** /agent_environment_expired | 
+[**agent_environment_failed_post**](DefaultApi.md#agent_environment_failed_post) | **POST** /agent_environment_failed | 
+[**agent_environment_ready_post**](DefaultApi.md#agent_environment_ready_post) | **POST** /agent_environment_ready | 
+[**agent_environment_suspended_post**](DefaultApi.md#agent_environment_suspended_post) | **POST** /agent_environment_suspended | 
 [**agent_session_action_required_post**](DefaultApi.md#agent_session_action_required_post) | **POST** /agent_session_action_required | 
 [**agent_session_created_post**](DefaultApi.md#agent_session_created_post) | **POST** /agent_session_created | 
 [**agent_session_failed_post**](DefaultApi.md#agent_session_failed_post) | **POST** /agent_session_failed | 
@@ -31,6 +35,126 @@ Method | HTTP request | Description
 [**safety_org_alert_created_post**](DefaultApi.md#safety_org_alert_created_post) | **POST** /safety_org_alert_created | 
 [**safety_warning_issued_post**](DefaultApi.md#safety_warning_issued_post) | **POST** /safety_warning_issued | 
 
+
+
+## agent_environment_expired_post
+
+> agent_environment_expired_post(webhook_agent_environment_expired)
+
+
+Sent when an agent environment expires and can no longer resume from a snapshot. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_agent_environment_expired** | Option<[**WebhookAgentEnvironmentExpired**](WebhookAgentEnvironmentExpired.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## agent_environment_failed_post
+
+> agent_environment_failed_post(webhook_agent_environment_failed)
+
+
+Sent when setup fails for a prewarmed OpenAI-hosted environment before it is attached to a session. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_agent_environment_failed** | Option<[**WebhookAgentEnvironmentFailed**](WebhookAgentEnvironmentFailed.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## agent_environment_ready_post
+
+> agent_environment_ready_post(webhook_agent_environment_ready)
+
+
+Sent when a prewarmed OpenAI-hosted environment finishes setup before being attached to a session. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_agent_environment_ready** | Option<[**WebhookAgentEnvironmentReady**](WebhookAgentEnvironmentReady.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## agent_environment_suspended_post
+
+> agent_environment_suspended_post(webhook_agent_environment_suspended)
+
+
+Sent when an agent environment is suspended and can resume from a snapshot. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_agent_environment_suspended** | Option<[**WebhookAgentEnvironmentSuspended**](WebhookAgentEnvironmentSuspended.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## agent_session_action_required_post

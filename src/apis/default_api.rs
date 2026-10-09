@@ -15,6 +15,34 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`agent_environment_expired_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AgentEnvironmentExpiredPostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`agent_environment_failed_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AgentEnvironmentFailedPostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`agent_environment_ready_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AgentEnvironmentReadyPostError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`agent_environment_suspended_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AgentEnvironmentSuspendedPostError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`agent_session_action_required_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -195,6 +223,167 @@ pub enum SafetyOrgAlertCreatedPostError {
 #[serde(untagged)]
 pub enum SafetyWarningIssuedPostError {
     UnknownValue(serde_json::Value),
+}
+
+/// Sent when an agent environment expires and can no longer resume from a snapshot.
+#[bon::builder]
+pub async fn agent_environment_expired_post(
+    configuration: &configuration::Configuration,
+    webhook_agent_environment_expired: Option<models::WebhookAgentEnvironmentExpired>,
+) -> Result<(), Error<AgentEnvironmentExpiredPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_agent_environment_expired = webhook_agent_environment_expired;
+
+    let uri_str = format!("{}/agent_environment_expired", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_agent_environment_expired);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AgentEnvironmentExpiredPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when setup fails for a prewarmed OpenAI-hosted environment before it is attached to a session.
+#[bon::builder]
+pub async fn agent_environment_failed_post(
+    configuration: &configuration::Configuration,
+    webhook_agent_environment_failed: Option<models::WebhookAgentEnvironmentFailed>,
+) -> Result<(), Error<AgentEnvironmentFailedPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_agent_environment_failed = webhook_agent_environment_failed;
+
+    let uri_str = format!("{}/agent_environment_failed", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_agent_environment_failed);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AgentEnvironmentFailedPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when a prewarmed OpenAI-hosted environment finishes setup before being attached to a session.
+#[bon::builder]
+pub async fn agent_environment_ready_post(
+    configuration: &configuration::Configuration,
+    webhook_agent_environment_ready: Option<models::WebhookAgentEnvironmentReady>,
+) -> Result<(), Error<AgentEnvironmentReadyPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_agent_environment_ready = webhook_agent_environment_ready;
+
+    let uri_str = format!("{}/agent_environment_ready", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_agent_environment_ready);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AgentEnvironmentReadyPostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Sent when an agent environment is suspended and can resume from a snapshot.
+#[bon::builder]
+pub async fn agent_environment_suspended_post(
+    configuration: &configuration::Configuration,
+    webhook_agent_environment_suspended: Option<models::WebhookAgentEnvironmentSuspended>,
+) -> Result<(), Error<AgentEnvironmentSuspendedPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_agent_environment_suspended = webhook_agent_environment_suspended;
+
+    let uri_str = format!("{}/agent_environment_suspended", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_webhook_agent_environment_suspended);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AgentEnvironmentSuspendedPostError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
 }
 
 /// Sent when an agent session requires an action. Retrieve the session for action details.

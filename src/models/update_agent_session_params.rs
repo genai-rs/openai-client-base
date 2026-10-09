@@ -14,6 +14,13 @@ use serde::{Deserialize, Serialize};
 /// UpdateAgentSessionParams : Fields to update on an existing session.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateAgentSessionParams {
+    #[serde(
+        rename = "spend_control",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub spend_control: Option<Option<models::SessionSpendControlParam>>,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::UpdateSessionAgentParam>,
     /// Replaces all metadata. Omit to leave unchanged, or pass null or {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters.
@@ -25,6 +32,7 @@ impl UpdateAgentSessionParams {
     /// Fields to update on an existing session.
     pub fn new() -> UpdateAgentSessionParams {
         UpdateAgentSessionParams {
+            spend_control: None,
             agent: None,
             metadata: None,
         }

@@ -17,6 +17,7 @@ pub enum ExternalStorageResponseProvider {
     AwsExternalStorageProviderResponse(Box<models::AwsExternalStorageProviderResponse>),
     AzureExternalStorageProviderResponse(Box<models::AzureExternalStorageProviderResponse>),
     GcpExternalStorageProviderResponse(Box<models::GcpExternalStorageProviderResponse>),
+    OciExternalStorageProviderResponse(Box<models::OciExternalStorageProviderResponse>),
 }
 
 impl Default for ExternalStorageResponseProvider {

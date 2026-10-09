@@ -22,7 +22,7 @@ pub enum CreateDecisionError {
     UnknownValue(serde_json::Value),
 }
 
-/// Use this endpoint to ask classification or scoring questions about the same input. You’ll get the answers back in the order you asked the questions.  For text, you can pass a string. You can also send user messages containing `input_text` and `input_image` parts, with up to 128 images per request. Images must be data URLs; external URLs and file IDs aren’t accepted. Other message roles, function calls, files, audio, and item references aren’t supported.  Sometimes a question returns a refusal instead of an answer. The result has type `refusal` and includes the question’s name, or `null` if you didn’t give it one.
+/// Use this endpoint to ask classification or scoring questions about the same input. You’ll get the answers back in the order you asked the questions.  For text, you can pass a string. You can also send user messages containing `input_text` and `input_image` parts, with up to 128 images per request. Images can be base64 data URLs or publicly accessible HTTP(S) URLs. File IDs aren’t accepted. Other message roles, function calls, files, audio, and item references aren’t supported.  Sometimes a question returns a refusal instead of an answer. The result has type `refusal` and includes the question’s name, or `null` if you didn’t give it one.
 #[bon::builder]
 pub async fn create_decision(
     configuration: &configuration::Configuration,

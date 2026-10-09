@@ -5,8 +5,10 @@
 | Name | Value |
 |---- | -----|
 | Pending | pending |
+| Ready | ready |
 | Connected | connected |
 | Disconnected | disconnected |
+| Suspended | suspended |
 | Expired | expired |
 | Failed | failed |
 

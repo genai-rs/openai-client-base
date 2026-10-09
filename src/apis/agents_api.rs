@@ -29,6 +29,21 @@ pub enum CreateAgentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_agent_environment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAgentEnvironmentError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status429(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_agent_environment_file`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -164,6 +179,20 @@ pub enum ListAgentEnvironmentTemplatesError {
     Status401(models::ErrorResponse2),
     Status403(models::ErrorResponse2),
     Status404(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_agent_environments`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAgentEnvironmentsError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
@@ -547,6 +576,62 @@ pub async fn create_agent(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateAgentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Creates an OpenAI-hosted environment before creating a session. Requires access to the prewarming beta.
+#[bon::builder]
+pub async fn create_agent_environment(
+    configuration: &configuration::Configuration,
+    create_agent_environment_params: models::CreateAgentEnvironmentParams,
+    idempotency_key: Option<&str>,
+) -> Result<models::PublicEnvironmentResource, Error<CreateAgentEnvironmentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_agent_environment_params = create_agent_environment_params;
+    let p_header_idempotency_key = idempotency_key;
+
+    let uri_str = format!("{}/agents/environments", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_agent_environment_params);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PublicEnvironmentResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PublicEnvironmentResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentEnvironmentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -1113,6 +1198,72 @@ pub async fn list_agent_environment_templates(
         let content = resp.text().await?;
         let entity: Option<ListAgentEnvironmentTemplatesError> =
             serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Lists OpenAI-hosted environments owned by the authenticated principal. Requires access to the prewarming beta.
+#[bon::builder]
+pub async fn list_agent_environments(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    r#type: Option<models::EnvironmentTypeParam>,
+) -> Result<models::AgentEnvironmentListResource, Error<ListAgentEnvironmentsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_type = r#type;
+
+    let uri_str = format!("{}/agents/environments", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_type {
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AgentEnvironmentListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AgentEnvironmentListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListAgentEnvironmentsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,

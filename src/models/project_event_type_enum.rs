@@ -48,6 +48,14 @@ pub enum ProjectEventTypeEnum {
     VideoCompleted,
     #[serde(rename = "video.failed")]
     VideoFailed,
+    #[serde(rename = "agent.environment.ready")]
+    AgentEnvironmentReady,
+    #[serde(rename = "agent.environment.failed")]
+    AgentEnvironmentFailed,
+    #[serde(rename = "agent.environment.suspended")]
+    AgentEnvironmentSuspended,
+    #[serde(rename = "agent.environment.expired")]
+    AgentEnvironmentExpired,
     #[serde(rename = "agent.session.created")]
     AgentSessionCreated,
     #[serde(rename = "agent.session.action_required")]
@@ -82,6 +90,10 @@ impl std::fmt::Display for ProjectEventTypeEnum {
             Self::RealtimeCallIncoming => write!(f, "realtime.call.incoming"),
             Self::VideoCompleted => write!(f, "video.completed"),
             Self::VideoFailed => write!(f, "video.failed"),
+            Self::AgentEnvironmentReady => write!(f, "agent.environment.ready"),
+            Self::AgentEnvironmentFailed => write!(f, "agent.environment.failed"),
+            Self::AgentEnvironmentSuspended => write!(f, "agent.environment.suspended"),
+            Self::AgentEnvironmentExpired => write!(f, "agent.environment.expired"),
             Self::AgentSessionCreated => write!(f, "agent.session.created"),
             Self::AgentSessionActionRequired => write!(f, "agent.session.action_required"),
             Self::AgentSessionInProgress => write!(f, "agent.session.in_progress"),

@@ -17,10 +17,14 @@ use serde::{Deserialize, Serialize};
 pub enum EnvironmentStatusResource {
     #[serde(rename = "pending")]
     Pending,
+    #[serde(rename = "ready")]
+    Ready,
     #[serde(rename = "connected")]
     Connected,
     #[serde(rename = "disconnected")]
     Disconnected,
+    #[serde(rename = "suspended")]
+    Suspended,
     #[serde(rename = "expired")]
     Expired,
     #[serde(rename = "failed")]
@@ -31,8 +35,10 @@ impl std::fmt::Display for EnvironmentStatusResource {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::Pending => write!(f, "pending"),
+            Self::Ready => write!(f, "ready"),
             Self::Connected => write!(f, "connected"),
             Self::Disconnected => write!(f, "disconnected"),
+            Self::Suspended => write!(f, "suspended"),
             Self::Expired => write!(f, "expired"),
             Self::Failed => write!(f, "failed"),
         }
