@@ -5160,6 +5160,8 @@ pub mod update_organization_data_retention_body;
 pub use self::update_organization_data_retention_body::UpdateOrganizationDataRetentionBody;
 pub mod update_organization_spend_limit_body;
 pub use self::update_organization_spend_limit_body::UpdateOrganizationSpendLimitBody;
+pub mod update_project_api_key_body;
+pub use self::update_project_api_key_body::UpdateProjectApiKeyBody;
 pub mod update_project_data_retention_body;
 pub use self::update_project_data_retention_body::UpdateProjectDataRetentionBody;
 pub mod update_project_service_account_body;
