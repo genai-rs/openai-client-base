@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**retrieve_project_model_permissions**](ProjectsApi.md#retrieve_project_model_permissions) | **GET** /organization/projects/{project_id}/model_permissions | Retrieve project model permissions
 [**retrieve_project_service_account**](ProjectsApi.md#retrieve_project_service_account) | **GET** /organization/projects/{project_id}/service_accounts/{service_account_id} | Retrieve project service account
 [**retrieve_project_user**](ProjectsApi.md#retrieve_project_user) | **GET** /organization/projects/{project_id}/users/{user_id} | Retrieve project user
+[**update_project_api_key**](ProjectsApi.md#update_project_api_key) | **POST** /organization/projects/{project_id}/api_keys/{api_key_id} | Update project API key
 [**update_project_model_permissions**](ProjectsApi.md#update_project_model_permissions) | **POST** /organization/projects/{project_id}/model_permissions | Modify project model permissions
 [**update_project_rate_limits**](ProjectsApi.md#update_project_rate_limits) | **POST** /organization/projects/{project_id}/rate_limits/{rate_limit_id} | Modify project rate limit
 [**update_project_service_account**](ProjectsApi.md#update_project_service_account) | **POST** /organization/projects/{project_id}/service_accounts/{service_account_id} | Update project service account
@@ -648,6 +649,38 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_project_api_key
+
+> models::ProjectApiKey update_project_api_key(project_id, api_key_id, update_project_api_key_body)
+Update project API key
+
+Updates the expiration of an existing API key in the project, including a service-account-owned key. Requires permission to write project API keys.  Provide `expires_in_seconds` to set the expiration relative to this request. The value must satisfy the organization's and project's expiry policies. Expired keys cannot be updated. Retrying resets the expiration relative to the new request. The response contains only the redacted key, not its secret. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project. | [required] |
+**api_key_id** | **String** | The ID of the API key. | [required] |
+**update_project_api_key_body** | [**UpdateProjectApiKeyBody**](UpdateProjectApiKeyBody.md) |  | [required] |
+
+### Return type
+
+[**models::ProjectApiKey**](ProjectApiKey.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

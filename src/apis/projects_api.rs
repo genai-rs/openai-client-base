@@ -233,6 +233,17 @@ pub enum RetrieveProjectUserError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_project_api_key`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateProjectApiKeyError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_project_model_permissions`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1410,6 +1421,66 @@ pub async fn retrieve_project_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveProjectUserError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Updates the expiration of an existing API key in the project, including a service-account-owned key. Requires permission to write project API keys.  Provide `expires_in_seconds` to set the expiration relative to this request. The value must satisfy the organization's and project's expiry policies. Expired keys cannot be updated. Retrying resets the expiration relative to the new request. The response contains only the redacted key, not its secret.
+#[bon::builder]
+pub async fn update_project_api_key(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    api_key_id: &str,
+    update_project_api_key_body: models::UpdateProjectApiKeyBody,
+) -> Result<models::ProjectApiKey, Error<UpdateProjectApiKeyError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_path_api_key_id = api_key_id;
+    let p_body_update_project_api_key_body = update_project_api_key_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/api_keys/{api_key_id}",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id),
+        api_key_id = crate::apis::urlencode(p_path_api_key_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_project_api_key_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectApiKey`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectApiKey`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateProjectApiKeyError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
