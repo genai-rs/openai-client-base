@@ -33,6 +33,8 @@ pub struct BetaImageGenToolCall {
     /// The generated image encoded in base64.
     #[serde(rename = "result", deserialize_with = "Option::deserialize")]
     pub result: Option<String>,
+    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
+    pub error: Option<Box<models::BetaImageGenToolCallError>>,
     #[serde(
         rename = "size",
         default,
@@ -93,6 +95,7 @@ impl BetaImageGenToolCall {
             id,
             status,
             result,
+            error: None,
             size: None,
             quality: None,
             action: None,
