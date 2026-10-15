@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveCommentaryAppendParam : Provide context the Live model can communicate to the user, optionally for an existing client delegation.
+/// LiveCommentaryAppendParam : Provide context the Live model can communicate to the user, optionally for an existing client delegation. Rejected while an audio fixture is active.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveCommentaryAppendParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
@@ -34,7 +34,7 @@ pub struct LiveCommentaryAppendParam {
 }
 
 impl LiveCommentaryAppendParam {
-    /// Provide context the Live model can communicate to the user, optionally for an existing client delegation.
+    /// Provide context the Live model can communicate to the user, optionally for an existing client delegation. Rejected while an audio fixture is active.
     pub fn new(
         r#type: Type,
         delegation_id: Option<String>,

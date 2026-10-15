@@ -11,23 +11,31 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// DecisionInputMessage : A user message containing text or images.
+/// DecisionInputMessage : A user message containing input text or images, a developer or system message containing input text, or an assistant message containing output text or refusals. System messages are rendered as developer messages.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionInputMessage {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
     pub content: Box<models::DecisionInputContent>,
+    #[serde(
+        rename = "phase",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub phase: Option<Option<models::MessagePhaseParam>>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
 }
 
 impl DecisionInputMessage {
-    /// A user message containing text or images.
+    /// A user message containing input text or images, a developer or system message containing input text, or an assistant message containing output text or refusals. System messages are rendered as developer messages.
     pub fn new(role: Role, content: models::DecisionInputContent) -> DecisionInputMessage {
         DecisionInputMessage {
             role,
             content: Box::new(content),
+            phase: None,
             r#type: None,
         }
     }
@@ -37,6 +45,12 @@ impl DecisionInputMessage {
 pub enum Role {
     #[serde(rename = "user")]
     User,
+    #[serde(rename = "developer")]
+    Developer,
+    #[serde(rename = "system")]
+    System,
+    #[serde(rename = "assistant")]
+    Assistant,
 }
 
 impl Default for Role {

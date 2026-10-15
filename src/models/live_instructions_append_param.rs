@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveInstructionsAppendParam : Append instructions to the Live conversation while it is running, optionally associating them with an existing client delegation.
+/// LiveInstructionsAppendParam : Append developer instructions to the Live conversation while it is running, optionally associating them with an existing client delegation. Rejected while an audio fixture is active. These instructions remain in conversation history through compaction and are included in future backend delegations. For external audio, describe content already delivered so the assistant does not repeat it.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInstructionsAppendParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
@@ -34,7 +34,7 @@ pub struct LiveInstructionsAppendParam {
 }
 
 impl LiveInstructionsAppendParam {
-    /// Append instructions to the Live conversation while it is running, optionally associating them with an existing client delegation.
+    /// Append developer instructions to the Live conversation while it is running, optionally associating them with an existing client delegation. Rejected while an audio fixture is active. These instructions remain in conversation history through compaction and are included in future backend delegations. For external audio, describe content already delivered so the assistant does not repeat it.
     pub fn new(
         r#type: Type,
         delegation_id: Option<String>,

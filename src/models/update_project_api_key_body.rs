@@ -13,14 +13,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateProjectApiKeyBody {
-    /// Number of seconds from this request until the API key expires. Must comply with the organization and project expiry policies. Expired keys cannot be updated. Retrying resets the expiry relative to the new request.
-    #[serde(rename = "expires_in_seconds")]
-    pub expires_in_seconds: i32,
+    /// Number of seconds from this request until the API key expires. Must comply with the organization and project expiry policies. Expired keys cannot be updated. Retrying resets the expiry relative to the new request. Omit to keep the current expiration.
+    #[serde(rename = "expires_in_seconds", skip_serializing_if = "Option::is_none")]
+    pub expires_in_seconds: Option<i32>,
+    /// Replace the API key scope restrictions. Omit to leave scopes unchanged. An empty array removes key restrictions (All permissions), subject to the owner's effective permissions. Use [\"api.all.read\"] for read-only access. Scopes do not change the owner's roles or grant administrative permissions.
+    #[serde(rename = "scopes", skip_serializing_if = "Option::is_none")]
+    pub scopes: Option<Vec<String>>,
 }
 
 impl UpdateProjectApiKeyBody {
-    pub fn new(expires_in_seconds: i32) -> UpdateProjectApiKeyBody {
-        UpdateProjectApiKeyBody { expires_in_seconds }
+    pub fn new() -> UpdateProjectApiKeyBody {
+        UpdateProjectApiKeyBody {
+            expires_in_seconds: None,
+            scopes: None,
+        }
     }
 }
 

@@ -22,6 +22,8 @@ pub enum PublicProjectResidency {
     EuStorageProcessing,
     #[serde(rename = "JP_STORAGE")]
     JpStorage,
+    #[serde(rename = "JP_STORAGE_PROCESSING")]
+    JpStorageProcessing,
     #[serde(rename = "KR_STORAGE")]
     KrStorage,
     #[serde(rename = "CA_STORAGE")]
@@ -30,8 +32,12 @@ pub enum PublicProjectResidency {
     SgStorage,
     #[serde(rename = "IN_STORAGE")]
     InStorage,
+    #[serde(rename = "IN_STORAGE_PROCESSING")]
+    InStorageProcessing,
     #[serde(rename = "AU_STORAGE")]
     AuStorage,
+    #[serde(rename = "AU_STORAGE_PROCESSING")]
+    AuStorageProcessing,
     #[serde(rename = "GB_STORAGE")]
     GbStorage,
     #[serde(rename = "AE_STORAGE")]
@@ -47,11 +53,14 @@ impl std::fmt::Display for PublicProjectResidency {
             Self::UsStorageProcessing => write!(f, "US_STORAGE_PROCESSING"),
             Self::EuStorageProcessing => write!(f, "EU_STORAGE_PROCESSING"),
             Self::JpStorage => write!(f, "JP_STORAGE"),
+            Self::JpStorageProcessing => write!(f, "JP_STORAGE_PROCESSING"),
             Self::KrStorage => write!(f, "KR_STORAGE"),
             Self::CaStorage => write!(f, "CA_STORAGE"),
             Self::SgStorage => write!(f, "SG_STORAGE"),
             Self::InStorage => write!(f, "IN_STORAGE"),
+            Self::InStorageProcessing => write!(f, "IN_STORAGE_PROCESSING"),
             Self::AuStorage => write!(f, "AU_STORAGE"),
+            Self::AuStorageProcessing => write!(f, "AU_STORAGE_PROCESSING"),
             Self::GbStorage => write!(f, "GB_STORAGE"),
             Self::AeStorage => write!(f, "AE_STORAGE"),
             Self::AeStorageProcessing => write!(f, "AE_STORAGE_PROCESSING"),

@@ -640,7 +640,7 @@ pub async fn create_agent_environment(
     }
 }
 
-/// Copies inline bytes or a Files API file into a connected execution environment. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
+/// Copies inline bytes or a Files API file into a connected execution environment, replacing an existing regular file at the same path. Upload between turns and wait for success before starting the next turn. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
 #[bon::builder]
 pub async fn create_agent_environment_file(
     configuration: &configuration::Configuration,

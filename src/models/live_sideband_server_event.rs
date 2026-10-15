@@ -22,6 +22,8 @@ pub enum LiveSidebandServerEvent {
     LiveSessionUpdated(Box<models::LiveSessionUpdated>),
     LiveInputAudioMuted(Box<models::LiveInputAudioMuted>),
     LiveInputAudioUnmuted(Box<models::LiveInputAudioUnmuted>),
+    LiveOutputAudioFixturePlaying(Box<models::LiveOutputAudioFixturePlaying>),
+    LiveOutputAudioFixturePlayed(Box<models::LiveOutputAudioFixturePlayed>),
     LiveInstructionsAppended(Box<models::LiveInstructionsAppended>),
     LiveThinkingAppended(Box<models::LiveThinkingAppended>),
     LiveCommentaryAppended(Box<models::LiveCommentaryAppended>),

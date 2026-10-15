@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveInputAudioMuted : Returned when a session.input_audio.mute command is accepted. Input audio is no longer sent to the model; sideband audio reflection continues.
+/// LiveInputAudioMuted : Acknowledges a session.input_audio.mute command. An independent input mute sends silence to the model and preserves sideband audio reflection. Fixture playback does not emit this event.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInputAudioMuted {
     /// The unique ID of the Live server event.
@@ -26,7 +26,7 @@ pub struct LiveInputAudioMuted {
 }
 
 impl LiveInputAudioMuted {
-    /// Returned when a session.input_audio.mute command is accepted. Input audio is no longer sent to the model; sideband audio reflection continues.
+    /// Acknowledges a session.input_audio.mute command. An independent input mute sends silence to the model and preserves sideband audio reflection. Fixture playback does not emit this event.
     pub fn new(event_id: String, r#type: Type) -> LiveInputAudioMuted {
         LiveInputAudioMuted {
             event_id,

@@ -11,13 +11,14 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveSidebandClientEvent : Client events accepted by an attached Live sideband WebSocket. The session is already started; send audio over the primary connection.
+/// LiveSidebandClientEvent : Client events accepted by an attached Live sideband WebSocket. The session has already started. Send input audio over the primary connection.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LiveSidebandClientEvent {
     LiveSessionUpdateParam(Box<models::LiveSessionUpdateParam>),
     LiveInputAudioMuteParam(Box<models::LiveInputAudioMuteParam>),
     LiveInputAudioUnmuteParam(Box<models::LiveInputAudioUnmuteParam>),
+    LiveOutputAudioFixturePlayParam(Box<models::LiveOutputAudioFixturePlayParam>),
     LiveInstructionsAppendParam(Box<models::LiveInstructionsAppendParam>),
     LiveThinkingAppendParam(Box<models::LiveThinkingAppendParam>),
     LiveCommentaryAppendParam(Box<models::LiveCommentaryAppendParam>),

@@ -17,11 +17,20 @@ pub struct DecisionInputText {
     pub r#type: Type,
     #[serde(rename = "text")]
     pub text: String,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<models::PromptCacheBreakpoint>,
 }
 
 impl DecisionInputText {
     pub fn new(r#type: Type, text: String) -> DecisionInputText {
-        DecisionInputText { r#type, text }
+        DecisionInputText {
+            r#type,
+            text,
+            prompt_cache_breakpoint: None,
+        }
     }
 }
 ///
