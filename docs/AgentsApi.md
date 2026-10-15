@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_agent**](AgentsApi.md#create_agent) | **POST** /agents | Create an agent
 [**create_agent_environment**](AgentsApi.md#create_agent_environment) | **POST** /agents/environments | Create an agent environment
-[**create_agent_environment_file**](AgentsApi.md#create_agent_environment_file) | **POST** /agents/environments/{environment_id}/files | Create an agent environment file
+[**create_agent_environment_file**](AgentsApi.md#create_agent_environment_file) | **POST** /agents/environments/{environment_id}/files | Write an agent environment file
 [**create_agent_environment_template**](AgentsApi.md#create_agent_environment_template) | **POST** /agents/environments/templates | Create an agent environment template
 [**create_agent_session**](AgentsApi.md#create_agent_session) | **POST** /agents/sessions | Create an agent session
 [**create_agent_session_events**](AgentsApi.md#create_agent_session_events) | **POST** /agents/sessions/{session_id}/events | Create agent session input events
@@ -108,9 +108,9 @@ Name | Type | Description  | Required | Notes
 ## create_agent_environment_file
 
 > models::EnvironmentFileResource create_agent_environment_file(environment_id, hosted_environment_file_param)
-Create an agent environment file
+Write an agent environment file
 
-Copies inline bytes or a Files API file into a connected execution environment. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
+Copies inline bytes or a Files API file into a connected execution environment, replacing an existing regular file at the same path. Upload between turns and wait for success before starting the next turn. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
 
 ### Parameters
 

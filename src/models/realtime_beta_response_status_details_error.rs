@@ -20,6 +20,9 @@ pub struct RealtimeBetaResponseStatusDetailsError {
     /// Error code, if any.
     #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
     pub code: Option<String>,
+    /// A human-readable error message.
+    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
 }
 
 impl RealtimeBetaResponseStatusDetailsError {
@@ -28,6 +31,7 @@ impl RealtimeBetaResponseStatusDetailsError {
         RealtimeBetaResponseStatusDetailsError {
             r#type: None,
             code: None,
+            message: None,
         }
     }
 }

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveInputAudioUnmuteParam : Resume audio input to a Live model after muting it. The server acknowledges with `session.input_audio.unmuted`.
+/// LiveInputAudioUnmuteParam : Resume audio input to a Live model after muting it. The server acknowledges with `session.input_audio.unmuted`. An active audio fixture still pauses inference until playback finishes.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInputAudioUnmuteParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
@@ -28,7 +28,7 @@ pub struct LiveInputAudioUnmuteParam {
 }
 
 impl LiveInputAudioUnmuteParam {
-    /// Resume audio input to a Live model after muting it. The server acknowledges with `session.input_audio.unmuted`.
+    /// Resume audio input to a Live model after muting it. The server acknowledges with `session.input_audio.unmuted`. An active audio fixture still pauses inference until playback finishes.
     pub fn new(r#type: Type) -> LiveInputAudioUnmuteParam {
         LiveInputAudioUnmuteParam {
             event_id: None,

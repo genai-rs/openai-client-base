@@ -20,6 +20,7 @@ pub enum LiveClientEvent {
     LiveInputAudioAppendEvent(Box<models::LiveInputAudioAppendEvent>),
     LiveInputAudioMuteParam(Box<models::LiveInputAudioMuteParam>),
     LiveInputAudioUnmuteParam(Box<models::LiveInputAudioUnmuteParam>),
+    LiveOutputAudioFixturePlayParam(Box<models::LiveOutputAudioFixturePlayParam>),
     LiveInstructionsAppendParam(Box<models::LiveInstructionsAppendParam>),
     LiveThinkingAppendParam(Box<models::LiveThinkingAppendParam>),
     LiveCommentaryAppendParam(Box<models::LiveCommentaryAppendParam>),

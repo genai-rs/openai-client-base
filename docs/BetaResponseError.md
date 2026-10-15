@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**r#type** | Option<**String**> |  | [optional]
+**param** | Option<**String**> |  | [optional]
 **code** | [**models::BetaResponseErrorCode**](BetaResponseErrorCode.md) |  | 
 **message** | **String** | A human-readable description of the error.  | 
 **misalignment** | Option<[**models::BetaMisalignmentErrorDetailsResource**](BetaMisalignmentErrorDetailsResource.md)> |  | [optional]

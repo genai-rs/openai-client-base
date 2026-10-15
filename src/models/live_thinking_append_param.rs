@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveThinkingAppendParam : Provide silent reasoning or progress context to the Live model, optionally for an existing client delegation.
+/// LiveThinkingAppendParam : Provide silent reasoning or progress context to the Live model, optionally for an existing client delegation. Rejected while an audio fixture is active.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveThinkingAppendParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
@@ -34,7 +34,7 @@ pub struct LiveThinkingAppendParam {
 }
 
 impl LiveThinkingAppendParam {
-    /// Provide silent reasoning or progress context to the Live model, optionally for an existing client delegation.
+    /// Provide silent reasoning or progress context to the Live model, optionally for an existing client delegation. Rejected while an audio fixture is active.
     pub fn new(
         r#type: Type,
         delegation_id: Option<String>,

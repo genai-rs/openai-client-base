@@ -23,6 +23,10 @@ pub enum LiveServerEvent2 {
     LiveInputAudioMuted(Box<models::LiveInputAudioMuted>),
     #[serde(rename = "LiveInputAudioUnmuted")]
     LiveInputAudioUnmuted(Box<models::LiveInputAudioUnmuted>),
+    #[serde(rename = "LiveOutputAudioFixturePlaying")]
+    LiveOutputAudioFixturePlaying(Box<models::LiveOutputAudioFixturePlaying>),
+    #[serde(rename = "LiveOutputAudioFixturePlayed")]
+    LiveOutputAudioFixturePlayed(Box<models::LiveOutputAudioFixturePlayed>),
     #[serde(rename = "LiveInstructionsAppended")]
     LiveInstructionsAppended(Box<models::LiveInstructionsAppended>),
     #[serde(rename = "LiveThinkingAppended")]

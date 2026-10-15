@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveInputAudioUnmuted : Returned when a session.input_audio.unmute command is accepted. Input audio is sent to the model again.
+/// LiveInputAudioUnmuted : Acknowledges a session.input_audio.unmute command, removing the independent input mute. An active audio fixture still pauses inference until playback finishes. Fixture playback does not emit this event.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInputAudioUnmuted {
     /// The unique ID of the Live server event.
@@ -26,7 +26,7 @@ pub struct LiveInputAudioUnmuted {
 }
 
 impl LiveInputAudioUnmuted {
-    /// Returned when a session.input_audio.unmute command is accepted. Input audio is sent to the model again.
+    /// Acknowledges a session.input_audio.unmute command, removing the independent input mute. An active audio fixture still pauses inference until playback finishes. Fixture playback does not emit this event.
     pub fn new(event_id: String, r#type: Type) -> LiveInputAudioUnmuted {
         LiveInputAudioUnmuted {
             event_id,

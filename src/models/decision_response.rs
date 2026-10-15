@@ -13,8 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionResponse {
+    /// The model used.
     #[serde(rename = "model")]
     pub model: String,
+    /// Answers in question order. Any question can return a refusal instead of an answer; other questions can still receive answers. A refusal has `type: \"refusal\"` and the question's `name`, or `null` if it was unnamed.
     #[serde(rename = "answers")]
     pub answers: Vec<models::AnswerResource>,
     #[serde(rename = "usage")]

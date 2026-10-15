@@ -13,20 +13,25 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionRequest {
+    /// The model to use. Only `gpt-6-luna` is supported.
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "input")]
     pub input: Box<models::DecisionInput>,
+    /// Ask 1–200 questions about the input. Each question can be a predicate, choice, or score. Answers come back in the same order.
     #[serde(rename = "questions")]
     pub questions: Vec<models::QuestionParam>,
     /// Opaque caller-provided end-user identifier, scoped by the verified org. Match Responses' limit; this is never the authenticated user identity.
+    #[serde(rename = "safety_identifier", skip_serializing_if = "Option::is_none")]
+    pub safety_identifier: Option<String>,
+    /// Partition prompt cache reuse by caller-provided key.
+    #[serde(rename = "prompt_cache_key", skip_serializing_if = "Option::is_none")]
+    pub prompt_cache_key: Option<String>,
     #[serde(
-        rename = "safety_identifier",
-        default,
-        with = "::serde_with::rust::double_option",
+        rename = "prompt_cache_options",
         skip_serializing_if = "Option::is_none"
     )]
-    pub safety_identifier: Option<Option<String>>,
+    pub prompt_cache_options: Option<models::PromptCacheOptions>,
 }
 
 impl DecisionRequest {
@@ -40,6 +45,8 @@ impl DecisionRequest {
             input: Box::new(input),
             questions,
             safety_identifier: None,
+            prompt_cache_key: None,
+            prompt_cache_options: None,
         }
     }
 }

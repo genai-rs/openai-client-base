@@ -17,6 +17,22 @@ pub struct Error2 {
     /// A machine-readable error code that was returned.
     #[serde(rename = "code")]
     pub code: String,
+    /// The original error type, or null if it was not recorded.
+    #[serde(
+        rename = "type",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub r#type: Option<Option<String>>,
+    /// The request parameter associated with the error, or null if none was recorded.
+    #[serde(
+        rename = "param",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub param: Option<Option<String>>,
     /// A human-readable description of the error that was returned.
     #[serde(rename = "message")]
     pub message: String,
@@ -32,6 +48,8 @@ impl Error2 {
     pub fn new(code: String, message: String) -> Error2 {
         Error2 {
             code,
+            r#type: None,
+            param: None,
             message,
             headers: None,
             misalignment: None,
