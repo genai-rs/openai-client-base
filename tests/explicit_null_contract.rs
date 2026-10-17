@@ -392,6 +392,10 @@ fn affected_models_reject_missing_required_fields() {
         json!({"type": "mcp", "server_label": "server"}),
         "server_label",
     );
+    assert_required_field::<LiveMcpToolChoiceParam>(
+        json!({"type": "mcp", "server_label": "server"}),
+        "type",
+    );
     // The generated model accepts omission despite both compared schema revisions
     // requiring these fields.
     let missing_prompt_cache_fields: PromptCacheOptions =

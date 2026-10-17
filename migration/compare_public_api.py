@@ -2,6 +2,7 @@ import json
 import re
 from pathlib import Path
 import argparse
+from serde_attributes import serde_field_attributes
 
 parser = argparse.ArgumentParser(description="Compare public Rust source declarations between two crate source trees.")
 parser.add_argument("registry_src", type=Path, help="Extracted src/ directory from the verified 0.15.0 registry crate")
@@ -123,31 +124,6 @@ def derive_attributes(root):
         for match in re.finditer(r"#\[derive\(([^)]*)\)\]\s*pub\s+(?:struct|enum)\s+(\w+)", text, re.S):
             derives = sorted(x.strip() for x in match.group(1).split(",") if x.strip())
             out[(rel, match.group(2))] = derives
-    return out
-
-
-def serde_field_attributes(path):
-    out = {}
-    if not path.exists():
-        return out
-    lines = path.read_text().splitlines()
-    pending = []
-    for i, line in enumerate(lines):
-        if line.strip().startswith("#[serde("):
-            attr = [line.strip()]
-            depth = line.count("(") - line.count(")")
-            while depth > 0 and i + 1 < len(lines):
-                i += 1
-                attr.append(lines[i].strip())
-                depth += lines[i].count("(") - lines[i].count(")")
-            pending = attr
-            continue
-        field = re.match(r"\s*pub (?:r#)?(\w+)\s*:", line)
-        if field:
-            out[field.group(1)] = " ".join(pending) if pending else ""
-            pending = []
-        elif line.strip() and not line.strip().startswith(("///", "//", "#[")):
-            pending = []
     return out
 
 

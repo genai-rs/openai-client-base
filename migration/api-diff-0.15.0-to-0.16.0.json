@@ -8382,14 +8382,14 @@
       "model": "BetaMisalignmentErrorDetailsResource",
       "field": "review_target",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"review_target\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/beta_tool_search_output_function_tool_param.rs",
       "model": "BetaToolSearchOutputFunctionToolParam",
       "field": "allowed_callers",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"allowed_callers\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/beta_tool_search_output_function_tool_param.rs",
@@ -8410,7 +8410,7 @@
       "model": "BetaToolSearchOutputFunctionToolParam",
       "field": "description",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"description\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/beta_tool_search_output_function_tool_param.rs",
@@ -8424,7 +8424,7 @@
       "model": "BetaToolSearchOutputFunctionToolParam",
       "field": "output_schema",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"output_schema\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/beta_tool_search_output_function_tool_param.rs",
@@ -8438,7 +8438,7 @@
       "model": "BetaToolSearchOutputFunctionToolParam",
       "field": "strict",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"strict\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/beta_tool_search_output_function_tool_param.rs",
@@ -8564,203 +8564,210 @@
       "model": "CreateAgentEnvironmentParams",
       "field": "vault_ids",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"vault_ids\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_agent_session_params.rs",
       "model": "CreateAgentSessionParams",
       "field": "spend_control",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"spend_control\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "frequency_penalty",
       "registry": "#[serde(rename = \"frequency_penalty\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"frequency_penalty\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "logprobs",
       "registry": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"logprobs\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "max_completion_tokens",
+      "registry": "#[serde( rename = \"max_completion_tokens\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"max_completion_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "max_tokens",
       "registry": "#[serde(rename = \"max_tokens\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"max_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "n",
       "registry": "#[serde(rename = \"n\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"n\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "prediction",
       "registry": "#[serde(rename = \"prediction\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"prediction\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "presence_penalty",
       "registry": "#[serde(rename = \"presence_penalty\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"presence_penalty\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "seed",
       "registry": "#[serde(rename = \"seed\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"seed\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "stop",
       "registry": "#[serde(rename = \"stop\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"stop\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "store",
       "registry": "#[serde(rename = \"store\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"store\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "stream",
       "registry": "#[serde(rename = \"stream\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"stream\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_request.rs",
       "model": "CreateChatCompletionRequest",
       "field": "top_logprobs",
       "registry": "#[serde(rename = \"top_logprobs\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"top_logprobs\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_chat_completion_stream_response_choices_inner.rs",
       "model": "CreateChatCompletionStreamResponseChoicesInner",
       "field": "finish_reason",
       "registry": "#[serde(rename = \"finish_reason\", deserialize_with = \"Option::deserialize\")]",
-      "current": ""
+      "current": "#[serde( rename = \"finish_reason\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "best_of",
       "registry": "#[serde(rename = \"best_of\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"best_of\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "echo",
       "registry": "#[serde(rename = \"echo\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"echo\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "frequency_penalty",
       "registry": "#[serde(rename = \"frequency_penalty\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"frequency_penalty\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "logprobs",
       "registry": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"logprobs\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "max_tokens",
       "registry": "#[serde(rename = \"max_tokens\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"max_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "n",
       "registry": "#[serde(rename = \"n\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"n\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "presence_penalty",
       "registry": "#[serde(rename = \"presence_penalty\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"presence_penalty\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "seed",
       "registry": "#[serde(rename = \"seed\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"seed\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "stop",
       "registry": "#[serde(rename = \"stop\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"stop\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "stream",
       "registry": "#[serde(rename = \"stream\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"stream\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "suffix",
       "registry": "#[serde(rename = \"suffix\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"suffix\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "temperature",
       "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_completion_request.rs",
       "model": "CreateCompletionRequest",
       "field": "top_p",
       "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
       "model": "CreateEnvironmentParamOpenaiHosted",
       "field": "capability_directories",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"capability_directories\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
       "model": "CreateEnvironmentParamOpenaiHosted",
       "field": "desktop",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"desktop\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
@@ -8774,49 +8781,49 @@
       "model": "CreateEnvironmentParamOpenaiHosted",
       "field": "environment_template_id",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"environment_template_id\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
       "model": "CreateEnvironmentParamOpenaiHosted",
       "field": "files",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"files\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
       "model": "CreateEnvironmentParamOpenaiHosted",
       "field": "network",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"network\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
       "model": "CreateEnvironmentParamOpenaiHosted",
       "field": "packages",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"packages\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
       "model": "CreateEnvironmentParamOpenaiHosted",
       "field": "plugins",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"plugins\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
       "model": "CreateEnvironmentParamOpenaiHosted",
       "field": "setup_commands",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"setup_commands\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
       "model": "CreateEnvironmentParamOpenaiHosted",
       "field": "skills",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"skills\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_environment_param_openai_hosted.rs",
@@ -8830,196 +8837,224 @@
       "model": "CreateFineTuningJobRequest",
       "field": "integrations",
       "registry": "#[serde(rename = \"integrations\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"integrations\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_fine_tuning_job_request.rs",
       "model": "CreateFineTuningJobRequest",
       "field": "seed",
       "registry": "#[serde(rename = \"seed\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"seed\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_fine_tuning_job_request.rs",
       "model": "CreateFineTuningJobRequest",
       "field": "suffix",
       "registry": "#[serde(rename = \"suffix\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"suffix\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_fine_tuning_job_request.rs",
       "model": "CreateFineTuningJobRequest",
       "field": "validation_file",
       "registry": "#[serde(rename = \"validation_file\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"validation_file\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_fine_tuning_job_request_integrations_inner_wandb.rs",
       "model": "CreateFineTuningJobRequestIntegrationsInnerWandb",
       "field": "entity",
       "registry": "#[serde(rename = \"entity\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"entity\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_fine_tuning_job_request_integrations_inner_wandb.rs",
       "model": "CreateFineTuningJobRequestIntegrationsInnerWandb",
       "field": "name",
       "registry": "#[serde(rename = \"name\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"name\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "background",
       "registry": "#[serde(rename = \"background\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"background\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "moderation",
       "registry": "#[serde(rename = \"moderation\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"moderation\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "n",
       "registry": "#[serde(rename = \"n\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"n\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "output_compression",
       "registry": "#[serde(rename = \"output_compression\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"output_compression\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "output_format",
       "registry": "#[serde(rename = \"output_format\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"output_format\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "quality",
       "registry": "#[serde(rename = \"quality\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"quality\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "response_format",
       "registry": "#[serde(rename = \"response_format\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"response_format\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "size",
       "registry": "#[serde(rename = \"size\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"size\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "stream",
       "registry": "#[serde(rename = \"stream\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"stream\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_image_request.rs",
       "model": "CreateImageRequest",
       "field": "style",
       "registry": "#[serde(rename = \"style\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"style\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_run_request.rs",
+      "model": "CreateRunRequest",
+      "field": "additional_instructions",
+      "registry": "#[serde( rename = \"additional_instructions\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"additional_instructions\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_run_request.rs",
+      "model": "CreateRunRequest",
+      "field": "additional_messages",
+      "registry": "#[serde( rename = \"additional_messages\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"additional_messages\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_run_request.rs",
       "model": "CreateRunRequest",
       "field": "instructions",
       "registry": "#[serde(rename = \"instructions\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"instructions\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_run_request.rs",
+      "model": "CreateRunRequest",
+      "field": "max_completion_tokens",
+      "registry": "#[serde( rename = \"max_completion_tokens\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"max_completion_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_run_request.rs",
       "model": "CreateRunRequest",
       "field": "max_prompt_tokens",
       "registry": "#[serde(rename = \"max_prompt_tokens\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"max_prompt_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_run_request.rs",
       "model": "CreateRunRequest",
       "field": "stream",
       "registry": "#[serde(rename = \"stream\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"stream\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_run_request.rs",
       "model": "CreateRunRequest",
       "field": "temperature",
       "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_run_request.rs",
       "model": "CreateRunRequest",
       "field": "tools",
       "registry": "#[serde(rename = \"tools\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"tools\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_run_request.rs",
       "model": "CreateRunRequest",
       "field": "top_p",
       "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_thread_and_run_request.rs",
       "model": "CreateThreadAndRunRequest",
       "field": "instructions",
       "registry": "#[serde(rename = \"instructions\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"instructions\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_thread_and_run_request.rs",
+      "model": "CreateThreadAndRunRequest",
+      "field": "max_completion_tokens",
+      "registry": "#[serde( rename = \"max_completion_tokens\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"max_completion_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_thread_and_run_request.rs",
       "model": "CreateThreadAndRunRequest",
       "field": "max_prompt_tokens",
       "registry": "#[serde(rename = \"max_prompt_tokens\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"max_prompt_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_thread_and_run_request.rs",
       "model": "CreateThreadAndRunRequest",
       "field": "stream",
       "registry": "#[serde(rename = \"stream\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"stream\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_thread_and_run_request.rs",
       "model": "CreateThreadAndRunRequest",
       "field": "temperature",
       "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_thread_and_run_request.rs",
       "model": "CreateThreadAndRunRequest",
       "field": "tools",
       "registry": "#[serde(rename = \"tools\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"tools\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_thread_and_run_request.rs",
       "model": "CreateThreadAndRunRequest",
       "field": "top_p",
       "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/create_voice_prompt_request.rs",
@@ -9068,7 +9103,7 @@
       "model": "DecisionInputCustomToolCall",
       "field": "id",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_custom_tool_call.rs",
@@ -9089,14 +9124,14 @@
       "model": "DecisionInputCustomToolCall",
       "field": "namespace",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"namespace\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_custom_tool_call.rs",
       "model": "DecisionInputCustomToolCall",
       "field": "status",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"status\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_custom_tool_call.rs",
@@ -9117,7 +9152,7 @@
       "model": "DecisionInputCustomToolCallOutput",
       "field": "id",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_custom_tool_call_output.rs",
@@ -9131,7 +9166,7 @@
       "model": "DecisionInputCustomToolCallOutput",
       "field": "status",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"status\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_custom_tool_call_output.rs",
@@ -9159,7 +9194,7 @@
       "model": "DecisionInputFunctionCall",
       "field": "id",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_function_call.rs",
@@ -9173,14 +9208,14 @@
       "model": "DecisionInputFunctionCall",
       "field": "namespace",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"namespace\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_function_call.rs",
       "model": "DecisionInputFunctionCall",
       "field": "status",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"status\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_function_call.rs",
@@ -9201,7 +9236,7 @@
       "model": "DecisionInputFunctionCallOutput",
       "field": "id",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_function_call_output.rs",
@@ -9215,7 +9250,7 @@
       "model": "DecisionInputFunctionCallOutput",
       "field": "status",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"status\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_function_call_output.rs",
@@ -9243,7 +9278,7 @@
       "model": "DecisionInputImage",
       "field": "prompt_cache_breakpoint",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"prompt_cache_breakpoint\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_image.rs",
@@ -9264,7 +9299,7 @@
       "model": "DecisionInputMessage",
       "field": "phase",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"phase\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_message.rs",
@@ -9313,7 +9348,7 @@
       "model": "DecisionInputText",
       "field": "prompt_cache_breakpoint",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"prompt_cache_breakpoint\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_input_text.rs",
@@ -9355,7 +9390,7 @@
       "model": "DecisionRequest",
       "field": "prompt_cache_options",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"prompt_cache_options\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decision_request.rs",
@@ -9467,84 +9502,84 @@
       "model": "DecisionsUsageResult",
       "field": "api_key_id",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"api_key_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "api_source",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"api_source\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "batch",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"batch\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "input_audio_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_audio_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "input_cache_write_12h_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_cache_write_12h_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "input_cache_write_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_cache_write_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "input_cached_audio_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_cached_audio_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "input_cached_image_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_cached_image_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "input_cached_text_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_cached_text_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "input_cached_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_cached_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "input_image_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_image_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "input_text_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_text_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
@@ -9558,7 +9593,7 @@
       "model": "DecisionsUsageResult",
       "field": "input_uncached_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"input_uncached_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
@@ -9586,21 +9621,21 @@
       "model": "DecisionsUsageResult",
       "field": "output_audio_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"output_audio_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "output_image_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"output_image_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "output_text_tokens",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"output_text_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
@@ -9614,21 +9649,21 @@
       "model": "DecisionsUsageResult",
       "field": "project_id",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"project_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "service_tier",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"service_tier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/decisions_usage_result.rs",
       "model": "DecisionsUsageResult",
       "field": "user_id",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"user_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/environment_param_openai_hosted.rs",
@@ -9642,14 +9677,14 @@
       "model": "Error2",
       "field": "param",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"param\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/error2.rs",
       "model": "Error2",
       "field": "type",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"type\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/image_gen_tool_call.rs",
@@ -9726,7 +9761,7 @@
       "model": "LiveAllowedToolsChoiceParam",
       "field": "mode",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"mode\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_allowed_tools_choice_param.rs",
@@ -9789,28 +9824,28 @@
       "model": "LiveHostedShellContainerAutoParam",
       "field": "file_ids",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"file_ids\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_hosted_shell_container_auto_param.rs",
       "model": "LiveHostedShellContainerAutoParam",
       "field": "memory_limit",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"memory_limit\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_hosted_shell_container_auto_param.rs",
       "model": "LiveHostedShellContainerAutoParam",
       "field": "network_policy",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"network_policy\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_hosted_shell_container_auto_param.rs",
       "model": "LiveHostedShellContainerAutoParam",
       "field": "skills",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"skills\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_hosted_shell_container_auto_param.rs",
@@ -9838,7 +9873,7 @@
       "model": "LiveHostedShellToolInputParam",
       "field": "environment",
       "registry": "#[serde(rename = \"environment\")]",
-      "current": ""
+      "current": "#[serde( rename = \"environment\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_inline_skill_param.rs",
@@ -9894,7 +9929,7 @@
       "model": "LiveLocalEnvironmentParam",
       "field": "skills",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"skills\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_local_environment_param.rs",
@@ -9929,7 +9964,7 @@
       "model": "LiveMcpToolChoiceParam",
       "field": "name",
       "registry": "#[serde(rename = \"name\")]",
-      "current": ""
+      "current": "#[serde( rename = \"name\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_mcp_tool_input_param.rs",
@@ -9957,7 +9992,7 @@
       "model": "LiveOutputAudioFixturePlayParam",
       "field": "event_id",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"event_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_output_audio_fixture_play_param.rs",
@@ -10034,7 +10069,7 @@
       "model": "LiveSkillReferenceParam",
       "field": "version",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"version\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/live_specific_apply_patch_param.rs",
@@ -10125,7 +10160,7 @@
       "model": "MisalignmentErrorDetailsResource",
       "field": "review_target",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"review_target\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/oci_external_storage_provider_params.rs",
@@ -10215,7 +10250,7 @@
       "file": "models/prompt_cache_options.rs",
       "model": "PromptCacheOptions",
       "field": "comparison_response_id",
-      "registry": "",
+      "registry": "#[serde( rename = \"comparison_response_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]",
       "current": null
     },
     {
@@ -10223,7 +10258,7 @@
       "model": "PromptCacheOptions",
       "field": "mode",
       "registry": "#[serde(rename = \"mode\")]",
-      "current": ""
+      "current": "#[serde( rename = \"mode\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/prompt_cache_options.rs",
@@ -10349,7 +10384,7 @@
       "model": "RealtimeSessionCreateRequestGa",
       "field": "tracing",
       "registry": "#[serde(rename = \"tracing\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"tracing\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/realtime_session_create_response_ga_audio_input_noise_reduction.rs",
@@ -10398,7 +10433,7 @@
       "model": "SafetyAlertResource",
       "field": "detailed_explanation",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"detailed_explanation\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/score_level_param.rs",
@@ -10538,7 +10573,7 @@
       "model": "ToolSearchOutputFunctionToolParam",
       "field": "allowed_callers",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"allowed_callers\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/tool_search_output_function_tool_param.rs",
@@ -10559,7 +10594,7 @@
       "model": "ToolSearchOutputFunctionToolParam",
       "field": "description",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"description\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/tool_search_output_function_tool_param.rs",
@@ -10573,7 +10608,7 @@
       "model": "ToolSearchOutputFunctionToolParam",
       "field": "output_schema",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"output_schema\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/tool_search_output_function_tool_param.rs",
@@ -10587,7 +10622,7 @@
       "model": "ToolSearchOutputFunctionToolParam",
       "field": "strict",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"strict\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/tool_search_output_function_tool_param.rs",
@@ -10629,7 +10664,7 @@
       "model": "UpdateAgentSessionParams",
       "field": "spend_control",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"spend_control\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/update_project_api_key_body.rs",
@@ -10657,14 +10692,14 @@
       "model": "UpdateVaultParams",
       "field": "name",
       "registry": null,
-      "current": ""
+      "current": "#[serde( rename = \"name\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/update_vector_store_request.rs",
       "model": "UpdateVectorStoreRequest",
       "field": "name",
       "registry": "#[serde(rename = \"name\", skip_serializing_if = \"Option::is_none\")]",
-      "current": ""
+      "current": "#[serde( rename = \"name\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
     },
     {
       "file": "models/webhook_agent_environment_expired.rs",
@@ -10817,6 +10852,6 @@
     "public_enum_variants_added": 359,
     "public_enum_variants_removed": 8,
     "public_derive_changes": 186,
-    "serde_field_attribute_changes": 377
+    "serde_field_attribute_changes": 382
   }
 }
