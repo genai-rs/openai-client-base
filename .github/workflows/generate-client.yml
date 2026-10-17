@@ -53,6 +53,19 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y curl ripgrep
 
+      # Save the checked-in upstream input and generated surface before
+      # generate.sh replaces them with the latest upstream specification.
+      - name: Capture API change baseline
+        run: |
+          mkdir -p target/reports/api-change
+          generator_version="${OPENAPI_GENERATOR_VERSION:-$(sed -n 's/^OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-\([^}]*\)}"$/\1/p' scripts/generate.sh)}"
+          test -n "$generator_version"
+          uv run --with pyyaml python scripts/api_change_report.py snapshot \
+            --spec stainless.yaml --generated-root . \
+            --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml \
+            --generator-version "$generator_version" --revision "$(git rev-parse HEAD)" \
+            --output target/reports/api-change/before.json
+
       - name: Generate client
         env:
           OPENAPI_GENERATOR_LOG_LEVEL: error
@@ -84,6 +97,60 @@ jobs:
           echo "🎨 Checking formatting..."
           cargo fmt --all -- --check
 
+      - name: Compare generated API with baseline
+        id: api-report
+        run: |
+          generator_version="${OPENAPI_GENERATOR_VERSION:-$(sed -n 's/^OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-\([^}]*\)}"$/\1/p' scripts/generate.sh)}"
+          test -n "$generator_version"
+          uv run --with pyyaml python scripts/api_change_report.py snapshot \
+            --spec stainless.yaml --generated-root . \
+            --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml \
+            --generator-version "$generator_version" \
+            --revision "$(git rev-parse HEAD)+run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
+            --output target/reports/api-change/after.json
+          uv run --with pyyaml python scripts/api_change_report.py compare \
+            --before target/reports/api-change/before.json \
+            --after target/reports/api-change/after.json \
+            --json-output target/reports/api-change/report.json \
+            --markdown-output target/reports/api-change/report.md
+          cat target/reports/api-change/report.md >> "$GITHUB_STEP_SUMMARY"
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+          report = json.loads(Path('target/reports/api-change/report.json').read_text())
+          print(f"review_required={str(report['review_required']).lower()}")
+          print(f"removals_flagged={str(report['removals_flagged']).lower()}")
+          PY
+
+      - name: Upload API change review evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: api-change-report
+          path: |
+            target/reports/api-change/before.json
+            target/reports/api-change/after.json
+            target/reports/api-change/report.json
+            target/reports/api-change/report.md
+          if-no-files-found: warn
+
+      - name: Check downstream consumer compatibility
+        env:
+          CARGO_BUILD_JOBS: '2'
+          DOWNSTREAM_RESULTS_DIR: ${{ runner.temp }}/downstream-results
+        run: |
+          # Record current main independently of the branch running generation.
+          git fetch --no-tags origin main
+          ./scripts/check-downstream.sh "$GITHUB_WORKSPACE" "$(git rev-parse FETCH_HEAD)"
+
+      - name: Upload downstream compatibility evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: downstream-compatibility
+          path: ${{ runner.temp }}/downstream-results
+          if-no-files-found: ignore
+
       - name: Cleanup transient files
         run: |
           rm -rf scripts/__pycache__ || true
@@ -106,6 +173,24 @@ jobs:
             echo "changes=true" >> "$GITHUB_OUTPUT"
           else
             echo "changes=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Older generated PRs may still carry the label consumed by the
+      # genai-ci-bot auto-merge workflow. Remove that path before updating them.
+      - name: Disable existing generated PR auto-merge
+        if: steps.changes.outputs.changes == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || inputs.publish)
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          pull_request="$(gh pr list --state open --head auto-update/client-generation --json number --jq '.[0].number // empty')"
+          if [ -n "$pull_request" ]; then
+            auto_merge="$(gh pr view "$pull_request" --json autoMergeRequest --jq '.autoMergeRequest != null')"
+            if [ "$auto_merge" = true ]; then
+              gh pr merge "$pull_request" --disable-auto
+            fi
+            if gh pr view "$pull_request" --json labels --jq '.labels[].name' | grep -Fxq automerge; then
+              gh pr edit "$pull_request" --remove-label automerge
+            fi
           fi
 
       - name: Create Pull Request
@@ -133,13 +218,29 @@ jobs:
             ✅ All tests pass
             ✅ Clippy checks pass
             
-            Please review the changes and merge if everything looks correct.
+            ### API compatibility review required
+
+            This PR does not auto-merge. Review the **api-change-report** artifact and
+            report in the linked [Generate Client workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+            The report flags removed operations/models, changed required fields and
+            enum wire values, and changes to generated Rust files. It is not complete
+            Rust semver analysis. A flagged removal requires explicit maintainer or
+            designated senior reviewer approval before merging. Include the accepted
+            head, affected surface, migration and version decision in the review.
+            A PR with a flagged removal stays in draft until a reviewer marks it ready.
+
+            Release reviewers can follow this generation PR from the release
+            comparison and use its workflow run to inspect the report artifact.
+            A successful generation or downstream check does not approve API
+            compatibility; preserve this review evidence through the release.
           branch: auto-update/client-generation
           delete-branch: true
+          # A breaking removal cannot be merged until a human reviewer marks
+          # the PR ready after reviewing the attached report.
+          draft: ${{ steps.api-report.outputs.removals_flagged == 'true' && 'always-true' || 'false' }}
           labels: |
             automated
             dependencies
-            automerge
           add-paths: |
             src/**
             docs/**
@@ -148,13 +249,6 @@ jobs:
             Cargo.lock
             stainless.yaml
             .openapi-generator-ignore
-
-      - name: Enable auto-merge for generated PR
-        if: steps.changes.outputs.changes == 'true' && steps.cpr.outputs.pull-request-number != ''
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          gh pr merge "${{ steps.cpr.outputs.pull-request-number }}" --auto --rebase --delete-branch
 
       # No PAT fallback; fail early if token is missing
       - name: Assert App token present
