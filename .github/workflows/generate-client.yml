@@ -84,6 +84,23 @@ jobs:
           echo "🎨 Checking formatting..."
           cargo fmt --all -- --check
 
+      - name: Check downstream consumer compatibility
+        env:
+          CARGO_BUILD_JOBS: '2'
+          DOWNSTREAM_RESULTS_DIR: ${{ runner.temp }}/downstream-results
+        run: |
+          # Record current main independently of the branch running generation.
+          git fetch --no-tags origin main
+          ./scripts/check-downstream.sh "$GITHUB_WORKSPACE" "$(git rev-parse FETCH_HEAD)"
+
+      - name: Upload downstream compatibility evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: downstream-compatibility
+          path: ${{ runner.temp }}/downstream-results
+          if-no-files-found: ignore
+
       - name: Cleanup transient files
         run: |
           rm -rf scripts/__pycache__ || true
