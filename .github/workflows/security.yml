@@ -20,9 +20,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-      - name: Generate Cargo.lock for audit
-        run: cargo generate-lockfile
-      - name: Run cargo audit
+      # Keep vulnerable locked versions visible to the audit.
+      - name: Audit committed Cargo.lock
         uses: rustsec/audit-check@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify Cargo.lock was not modified
+        if: always()
+        run: git diff --exit-code -- Cargo.lock
