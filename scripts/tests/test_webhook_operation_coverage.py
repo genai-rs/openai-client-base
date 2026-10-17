@@ -137,6 +137,62 @@ class OperationCoverageTests(unittest.TestCase):
         self.assertEqual(["eventReceived"],
                          [entry["operation_id"] for entry in result["missing_webhook_functions"]])
 
+    def test_webhook_function_with_wrong_method_and_path_fails(self):
+        spec = copy.deepcopy(self.spec)
+        spec["paths"] = {}
+        with tempfile.TemporaryDirectory() as directory:
+            apis = Path(directory)
+            (apis / "webhooks_api.rs").write_text(
+                'pub async fn event_received() { let uri_str = format!("{}/WRONG", base); '
+                'client.request(reqwest::Method::DELETE, &uri_str); }\n'
+            )
+            result = audit(spec, apis, "webhooks_api")
+        self.assertEqual("fail", result["status"])
+        self.assertEqual(1, len(result["mismatched_webhook_functions"]))
+        mismatch = result["mismatched_webhook_functions"][0]
+        self.assertEqual("POST", mismatch["webhook"]["method"])
+        self.assertEqual("/event", mismatch["webhook"]["path"])
+        self.assertEqual("DELETE", mismatch["generated"][0]["method"])
+        self.assertEqual("/WRONG", mismatch["generated"][0]["path"])
+
+    def test_local_path_item_reference_is_resolved_and_audited(self):
+        spec = {
+            "paths": {"/items/{id}": {"$ref": "#/components/pathItems/item"}},
+            "components": {"pathItems": {
+                "item": {"get": {"operationId": "readItem"}},
+            }},
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            apis = Path(directory)
+            (apis / "default_api.rs").write_text(
+                'pub async fn read_item() { let uri_str = format!("{}/items/{item_id}", base); '
+                'client.request(reqwest::Method::GET, &uri_str); }\n'
+            )
+            result = audit(spec, apis, "webhooks_api")
+        self.assertEqual("pass", result["status"])
+        self.assertEqual(1, len(result["expected_normal_operations"]))
+        self.assertEqual("readItem",
+                         result["matched_normal_operations"][0]["operation"]["operation_id"])
+
+    def test_invalid_or_cyclic_path_item_references_fail_closed(self):
+        cases = (
+            ({"paths": {"/items": {"$ref": "#/components/pathItems/missing"}}},
+             "reference target does not exist"),
+            ({"paths": {"/items": {"$ref": "#/components/pathItems/first"}},
+              "components": {"pathItems": {
+                  "first": {"$ref": "#/components/pathItems/second"},
+                  "second": {"$ref": "#/components/pathItems/first"},
+              }}}, "cyclic Path Item reference"),
+            ({"paths": {"/items": {"$ref": "https://example.test/path-item.json"}}},
+             "only local JSON Pointer references are supported"),
+        )
+        for spec, expected_error in cases:
+            with self.subTest(expected_error=expected_error), tempfile.TemporaryDirectory() as directory:
+                result = audit(spec, Path(directory), "webhooks_api")
+            self.assertEqual("fail", result["status"])
+            self.assertEqual(1, len(result["invalid_input_operations"]))
+            self.assertIn(expected_error, result["invalid_input_operations"][0]["error"])
+
     def test_webhook_without_operation_id_uses_generator_name_fallback(self):
         spec = copy.deepcopy(self.spec)
         spec["paths"] = {}

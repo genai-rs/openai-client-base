@@ -34,6 +34,43 @@ def rust_operation_name(operation_id: str) -> str:
     return re.sub(r"_+", "_", value).strip("_").lower()
 
 
+def resolve_local_reference(document: dict[str, Any], reference: str) -> Any:
+    """Resolve a local JSON Pointer reference or raise an actionable error."""
+    if not reference.startswith("#/"):
+        raise ValueError(f"only local JSON Pointer references are supported: {reference!r}")
+    target: Any = document
+    for token in reference[2:].split("/"):
+        token = token.replace("~1", "/").replace("~0", "~")
+        if isinstance(target, dict) and token in target:
+            target = target[token]
+        elif isinstance(target, list) and token.isdigit() and int(token) < len(target):
+            target = target[int(token)]
+        else:
+            raise ValueError(f"reference target does not exist: {reference!r}")
+    return target
+
+
+def resolve_path_item(document: dict[str, Any], item: Any, path: str,
+                      reference_chain: tuple[str, ...] = ()) -> tuple[dict[str, Any] | None, str | None]:
+    if not isinstance(item, dict):
+        return None, "Path Item must be an object"
+    reference = item.get("$ref")
+    if reference is None:
+        return item, None
+    if not isinstance(reference, str):
+        return None, "Path Item $ref must be a string"
+    if len(item) != 1:
+        return None, f"Path Item $ref siblings are unsupported for {reference!r}"
+    if reference in reference_chain:
+        cycle = " -> ".join((*reference_chain, reference))
+        return None, f"cyclic Path Item reference: {cycle}"
+    try:
+        target = resolve_local_reference(document, reference)
+    except ValueError as error:
+        return None, str(error)
+    return resolve_path_item(document, target, path, (*reference_chain, reference))
+
+
 def input_inventory(spec: dict[str, Any]) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
     normal: list[dict[str, str]] = []
     invalid: list[dict[str, str]] = []
@@ -41,10 +78,14 @@ def input_inventory(spec: dict[str, Any]) -> tuple[list[dict[str, str]], list[di
     if not isinstance(paths, dict):
         return normal, [{"error": "OpenAPI paths must be an object"}]
     for path, item in paths.items():
-        if not isinstance(path, str) or not isinstance(item, dict):
+        if not isinstance(path, str):
             invalid.append({"error": "Invalid path item", "path": str(path)})
             continue
-        for method, operation in item.items():
+        resolved, error = resolve_path_item(spec, item, path)
+        if error:
+            invalid.append({"error": error, "path": path})
+            continue
+        for method, operation in resolved.items():
             if method not in HTTP_METHODS:
                 continue
             if not isinstance(operation, dict):
@@ -129,7 +170,8 @@ def webhook_inventory(spec: dict[str, Any]) -> list[dict[str, str]]:
             result.append({"operation_id": operation_id,
                            "operation_id_source": operation_id_source,
                            "function": rust_operation_name(operation_id),
-                           "method": HTTP_METHODS[method], "webhook": str(name)})
+                           "method": HTTP_METHODS[method], "webhook": str(name),
+                           "path": f"/{name}", "normalized_path": normalize_path(f"/{name}")})
     return result
 
 
@@ -162,20 +204,27 @@ def audit(spec: dict[str, Any], apis_dir: Path, webhook_module: str) -> dict[str
 
     missing_webhooks = []
     ambiguous_webhooks = []
+    mismatched_webhooks = []
     for webhook in webhooks:
         if "function" not in webhook:
             continue
         webhook_matches = [entry for entry in generated if entry["function"] == webhook["function"]]
-        in_module = [entry for entry in webhook_matches if entry["module"] == webhook_module]
+        correct_identity = [entry for entry in webhook_matches
+                            if entry["method"] == webhook["method"] and
+                            entry["normalized_path"] == webhook["normalized_path"]]
+        wrong_identity = [entry for entry in webhook_matches if entry not in correct_identity]
+        in_module = [entry for entry in correct_identity if entry["module"] == webhook_module]
         if not in_module:
             missing_webhooks.append(webhook)
-        if len(webhook_matches) > 1 or len(in_module) > 1:
+        if wrong_identity:
+            mismatched_webhooks.append({"webhook": webhook, "generated": wrong_identity})
+        if len(correct_identity) > 1 or len(webhook_matches) > 1:
             ambiguous_webhooks.append({"webhook": webhook, "generated": webhook_matches})
     expected_keys = {(entry["method"], entry["normalized_path"]) for entry in expected}
     extra_generated = [entry for entry in normal_generated
                        if (entry["method"], entry["normalized_path"]) not in expected_keys]
     errors = bool(invalid or missing or ambiguous or unparsed or invalid_webhooks or
-                  missing_webhooks or ambiguous_webhooks or extra_generated)
+                  missing_webhooks or ambiguous_webhooks or mismatched_webhooks or extra_generated)
     return {"status": "fail" if errors else "pass", "expected_normal_operations": expected,
             "generated_api_functions": generated, "matched_normal_operations": matches,
             "missing_normal_operations": missing, "ambiguous_normal_operations": ambiguous,
@@ -184,6 +233,7 @@ def audit(spec: dict[str, Any], apis_dir: Path, webhook_module: str) -> dict[str
             "invalid_webhook_operations": invalid_webhooks,
             "missing_webhook_functions": missing_webhooks,
             "ambiguous_webhook_functions": ambiguous_webhooks,
+            "mismatched_webhook_functions": mismatched_webhooks,
             "unexpected_generated_operations": extra_generated}
 
 
@@ -210,6 +260,7 @@ def main() -> None:
                       "webhooks_missing": len(result["missing_webhook_functions"]),
                       "webhooks_invalid": len(result["invalid_webhook_operations"]),
                       "webhooks_ambiguous": len(result["ambiguous_webhook_functions"]),
+                      "webhooks_mismatched": len(result["mismatched_webhook_functions"]),
                       "unparsed": len(result["unparsed_generated_functions"])}, indent=2))
     if result["status"] != "pass":
         print("Full inventory written to the requested report; generation is not accepted.", file=sys.stderr)
