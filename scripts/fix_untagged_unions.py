@@ -394,21 +394,10 @@ def create_simple_string_enum(name, enum_info):
     
     variant_value_pairs = []
 
-    def to_variant(val: str) -> str:
-        if val == 'none':
-            return 'None'
-        if val == 'auto':
-            return 'Auto'
-        if val == 'required':
-            return 'Required'
-        if val == 'json_object':
-            return 'JsonObject'
-        if val == 'json_schema':
-            return 'JsonSchema'
-        return ''.join(word.capitalize() for word in val.replace('-', '_').split('_'))
-
     for value in values:
-        variant = to_variant(value)
+        # Use the same separator handling as union variant names. Wire values
+        # such as session.output_transcript.delta must never become Rust paths.
+        variant = sanitize_variant_name(value)
 
         # Add serde rename if variant name differs from original value
         if variant.lower() != value:
