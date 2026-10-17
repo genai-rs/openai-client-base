@@ -48,6 +48,15 @@ multiple enums: a non-defaultable payload in a neighboring enum must not remove
 a valid default from an unrelated unit enum. Fixtures cover different enum
 names, file creation orders, valid defaults, invalid defaults, and idempotence.
 
+## String enum identifiers
+
+`fix_untagged_unions.py` uses the shared variant-name sanitizer for string enum
+values as well as union variants. Dotted event names such as
+`session.output_transcript.delta` become `SessionOutputTranscriptDelta` in enum
+declarations, defaults, and `Display` match arms. Serde renames and `Display`
+results retain the exact upstream strings. Regression tests cover dotted values,
+existing variant names, and generation of helper enums inside untagged unions.
+
 ## Documentation build
 
 Run `cargo doc --no-deps --all-features` on a machine with sufficient memory
