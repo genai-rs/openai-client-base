@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Breaking:** preserve omitted, explicit `null`, and supplied values for 60 public fields across chat completions, completions, image generation, runs, vector stores, fine-tuning jobs, streamed chat choices, and Realtime sessions. See [MIGRATION-0.16.md](MIGRATION-0.16.md).
+- **Breaking:** change 60 previously optional and 3 previously required public field types to nested `Option`, preserving omitted, explicit `null`, and concrete values where the generated model permits them. See [MIGRATION-0.16.md](MIGRATION-0.16.md).
 - **Breaking:** make streamed chat choice `finish_reason` optional to accept the final audio update that omits it; explicit `null` remains distinct from omission.
 
 ## [0.15.0](https://github.com/genai-rs/openai-client-base/compare/v0.14.0...v0.15.0) - 2026-10-03
