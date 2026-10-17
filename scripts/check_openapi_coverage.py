@@ -54,11 +54,11 @@ def resolve_path_item(document: dict[str, Any], item: Any, path: str,
                       reference_chain: tuple[str, ...] = ()) -> tuple[dict[str, Any] | None, str | None]:
     if not isinstance(item, dict):
         return None, "Path Item must be an object"
-    reference = item.get("$ref")
-    if reference is None:
+    if "$ref" not in item:
         return item, None
+    reference = item["$ref"]
     if not isinstance(reference, str):
-        return None, "Path Item $ref must be a string"
+        return None, f"Path Item $ref must be a string for {path!r}"
     if len(item) != 1:
         return None, f"Path Item $ref siblings are unsupported for {reference!r}"
     if reference in reference_chain:
@@ -152,10 +152,11 @@ def webhook_inventory(spec: dict[str, Any]) -> list[dict[str, str]]:
     if not isinstance(webhooks, dict):
         return [{"error": "OpenAPI webhooks must be an object"}]
     for name, item in webhooks.items():
-        if not isinstance(item, dict):
-            result.append({"error": "Webhook must be an object", "webhook": str(name)})
+        path_item, error = resolve_path_item(spec, item, str(name))
+        if error:
+            result.append({"error": error, "webhook": str(name)})
             continue
-        for method, operation in item.items():
+        for method, operation in path_item.items():
             if method not in HTTP_METHODS:
                 continue
             operation_id = operation.get("operationId") if isinstance(operation, dict) else None
