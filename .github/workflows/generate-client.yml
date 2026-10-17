@@ -188,9 +188,21 @@ jobs:
             if [ "$auto_merge" = true ]; then
               gh pr merge "$pull_request" --disable-auto
             fi
-            if gh pr view "$pull_request" --json labels --jq '.labels[].name' | grep -Fxq automerge; then
-              gh pr edit "$pull_request" --remove-label automerge
-            fi
+            has_automerge_label="$(gh pr view "$pull_request" --json labels --jq 'any(.labels[].name; . == "automerge")')" || {
+              echo "::error::Could not read generated PR labels; refusing to update a PR without checking its auto-merge label." >&2
+              exit 1
+            }
+            case "$has_automerge_label" in
+              true)
+                gh pr edit "$pull_request" --remove-label automerge
+                ;;
+              false)
+                ;;
+              *)
+                echo "::error::Unexpected auto-merge label query result: $has_automerge_label" >&2
+                exit 1
+                ;;
+            esac
           fi
 
       - name: Create Pull Request
