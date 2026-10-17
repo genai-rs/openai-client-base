@@ -1,6 +1,6 @@
 # Migrating to `openai-client-base` 0.16
 
-Version 0.16 changes generated Rust field types to preserve the three states the OpenAI schema permits for selected optional properties: omitted, explicitly `null`, and a concrete value. This is a source-breaking API change. The 60 null-state type changes below are part of a broader generated OpenAI API update; additional additions and removals are listed at the end of this guide.
+Version 0.16 changes generated Rust field types to represent omitted, explicitly `null`, and concrete values. Sixty fields that were previously optional become nested `Option<Option<T>>`; three previously required field types also become nested options and are called out separately below because their source requiredness changed or could not be confirmed. This is a source-breaking API change. The broader generated API differences are listed at the end of this guide.
 
 ## Optional fields
 
@@ -15,6 +15,10 @@ The following fields now use `Option<Option<T>>`:
 - `CreateFineTuningJobRequestIntegrationsInnerWandb`: `name` and `entity`.
 - `CreateThreadAndRunRequest`: `instructions`, `tools`, `temperature`, `top_p`, `stream`, `max_prompt_tokens`, and `max_completion_tokens`.
 - `RealtimeSessionCreateRequestGa`: `tracing`.
+
+Three additional field types changed from required values to nested options: `LiveHostedShellToolInputParam.environment`, `LiveMcpToolChoiceParam.name`, and `PromptCacheOptions.mode`. The raw schema input changes `environment` from required/non-null to optional/nullable. The schema keeps `PromptCacheOptions.mode` required, and the inline source for `LiveMcpToolChoiceParam.name` did not map to a standalone schema component in this comparison; those two Rust/source mismatches have unknown origin and need review before release.
+
+`PromptCacheOptions.ttl` also changes from a required enum field to `Option<Ttl>`, while both compared schema inputs still mark it required. The current Rust model accepts omission for `ttl` and `mode`; the contract test records that behavior, but it is unresolved against the schema and must be reviewed before release.
 
 Use the outer option to choose whether to send a property. `None` omits it, `Some(None)` sends JSON `null`, and `Some(Some(value))` sends the value. For example:
 
@@ -39,16 +43,26 @@ The constructor no longer takes `finish_reason` because it is optional:
 let choice = CreateChatCompletionStreamResponseChoicesInner::new(delta, index);
 ```
 
-Set `choice.finish_reason` after construction when needed. Required arguments for the six changed request model constructors are unchanged; each constructor initializes the newly nested optional fields to omission.
+Set `choice.finish_reason` after construction when needed. Constructors for the six request models in the field list still exist and initialize nested optional fields to omission. `CreateCompletionRequest::new` now takes a `String` prompt because `CreateCompletionRequestPrompt` was removed. `PromptCacheOptions::new` no longer takes `ttl` and `mode`; both fields are optional in the generated Rust model, although the raw schema still marks them required.
 
 ## Other generated API changes since 0.15.0
 
-The OpenAI schema update also adds 125 exported model types and removes three: `CreateCompletionRequestPrompt`, `CreateVoicePromptRequest`, and `RealtimeSessionCreateRequestGaTracing`. Code that names one of the removed types must migrate to the current generated representation (`CreateCompletionRequest.prompt` accepts a string; voice creation now takes `name`, `audio_sample`, and `consent`; realtime tracing uses `TracingConfiguration1`).
+The current generated source adds 125 exported model types and removes three: `CreateCompletionRequestPrompt`, `CreateVoicePromptRequest`, and `RealtimeSessionCreateRequestGaTracing`. Code that names one of the removed types must migrate to the current representation (`CreateCompletionRequest.prompt` accepts a string; voice creation now takes `name`, `audio_sample`, and `consent`; realtime tracing uses `TracingConfiguration1`).
 
-New API operations include agent environment create/list, decision create, four agent environment webhooks, project API key update, and vault update. Existing signatures also changed for `list_agent_session_artifacts`, `list_agent_sessions`, `create_voice`, `list_vault_credentials`, and `list_vaults`. Several response/request model fields changed type as the upstream schema evolved; review the generated model definitions when migrating code that constructs those models.
+New API operations include agent environment create/list, decision create, four agent environment webhooks, project API key update, and vault update. Existing signatures also changed for `list_agent_session_artifacts`, `list_agent_sessions`, `create_voice`, `list_vault_credentials`, and `list_vaults`. Other response/request model field changes are recorded in the declaration and schema provenance reports; their causes are unresolved where the raw schema does not directly explain the generated source difference.
 
-The source-level public API inventory is in [`docs/api-diff-0.15.0-to-0.16.0.json`](docs/api-diff-0.15.0-to-0.16.0.json). It compares the verified `openai-client-base` 0.15.0 registry archive (SHA-256 `9f9fc44172785387f606bebb0ab4461d1eec0dfcd4074b0a51791176e9dac0d1`) with the current generated source at base commit `7918bf2949d38e201f05ee38729aa9286773a6cc`. It records added/removed model exports, public field and function signature changes, and enum variant changes. Rustdoc JSON extraction could not complete within 5m49s and reached 11.7 GB resident memory, so the checked-in inventory is derived from the public Rust source declarations.
+The declaration census and its reproduction script are in [`migration/api-diff-0.15.0-to-0.16.0.json`](migration/api-diff-0.15.0-to-0.16.0.json) and [`migration/compare_public_api.py`](migration/compare_public_api.py). Schema and requiredness evidence plus its Ruby reproduction script are in [`migration/provenance-0.15.0-to-0.16.0.json`](migration/provenance-0.15.0-to-0.16.0.json) and [`migration/compare_schema_provenance.rb`](migration/compare_schema_provenance.rb). Recreate the declaration census with `python3 migration/compare_public_api.py REGISTRY_SRC src`; recreate schema evidence by running `git show 4a996ba65cffd311faed1994cdd78bc73b9007c1:stainless.yaml > REGISTRY_STAINLESS.yaml`, then `ruby migration/compare_schema_provenance.rb REGISTRY_STAINLESS.yaml stainless.yaml migration/api-diff-0.15.0-to-0.16.0.json`. The Rust census compares the verified registry archive (SHA-256 `9f9fc44172785387f606bebb0ab4461d1eec0dfcd4074b0a51791176e9dac0d1`) with source at base commit `7918bf2949d38e201f05ee38729aa9286773a6cc`. It counts declarations, fields, function signatures, enum variant names, derive changes, and serde-field-attribute changes; it does not exhaust macro-generated builders, trait implementations, or all Rust visibility/re-export behavior and is not a complete semver proof. Derive changes include the added `Default` derive on `CreateImageRequest`; the derive census does not expand the generated builder surface. Rustdoc JSON extraction was stopped after 5m49s at 11.7 GB resident memory without output.
+
+## Provenance and unresolved causes
+
+The registry archive records VCS revision `4a996ba65cffd311faed1994cdd78bc73b9007c1`. Comparing its `stainless.yaml` with the candidate base at `7918bf2949d38e201f05ee38729aa9286773a6cc` shows schema input changes. For 53 of the 60 optional-to-nested field transitions that map directly to component properties, both schema versions permit `null`, while the encoding changes from the legacy `nullable: true` form to a type union or `anyOf` including `null`. The generated Rust representation changes from `Option<T>` to `Option<Option<T>>`, which now retains explicit null. Three transitions match unchanged schema references, and four did not map directly; their causes remain unknown.
+
+Of the three previously required-to-nested changes, only `LiveHostedShellToolInputParam.environment` is supported by a matching raw-schema requiredness/nullability change. `PromptCacheOptions.mode` remains required in both raw schema revisions, `PromptCacheOptions.ttl` also remains schema-required despite its Rust field becoming optional, and `LiveMcpToolChoiceParam.name` did not map to a standalone schema component. These are unresolved source/schema mismatches. The three required-to-nested changes and the separate `ttl` change are not attributed to upstream schema evolution without further evidence.
+
+The relevant nullable-field scripts and `scripts/generate.sh` are unchanged between the registry VCS revision and the candidate base. `scripts/fix_untagged_unions.py` did change its string-enum identifier sanitizer; that may explain enum identifier differences, so enum changes are not attributed solely to the OpenAPI input. The PR does not change generated source or generator patches. The new `Default` derive on `CreateImageRequest` is observed in generated source, but its exact generator/schema/patch cause is unknown.
+
+The census records a new `Default` derive for `CreateImageRequest`, alongside the unchanged `bon::Builder` derive. Its exact cause is unknown from the compared source and schema evidence. Other field changes without a direct schema match are also explicitly unresolved in the provenance report. No source-level census here proves that every generated difference is upstream-driven.
 
 ## Compatibility
 
-The package manifest is prepared at 0.16.0 because these public changes break source compatibility. Keep consumers on 0.15 if they need the former Rust type signatures. The null-state changes add no enum values or inferred defaults.
+The package manifest is prepared at 0.16.0 because these public changes break source compatibility. Keep consumers on 0.15 if they need the former Rust type signatures. The null-state type changes add no enum values or inferred defaults.
