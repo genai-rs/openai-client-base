@@ -17,6 +17,7 @@ export PYTHONDONTWRITEBYTECODE=1
 GEN_SPEC_DIR="$PROJECT_ROOT/target/specs"
 SPEC_IN="$PROJECT_ROOT/stainless.yaml"
 SPEC_MODEL_FIXED="$GEN_SPEC_DIR/l1_model_fixed.yaml"
+SPEC_WEBHOOK_ROUTED="$GEN_SPEC_DIR/l0_webhook_routed.yaml"
 SPEC_OUT="$GEN_SPEC_DIR/l2_rust_compatible.yaml"
 # JSON form of the final spec fed to the generator: the OpenAPI 3.1 $ref
 # dereferencer parses YAML through snakeyaml, which aborts once the document
@@ -56,9 +57,15 @@ fi
 
 echo "Using uv for Python dependencies"
 
+# Route webhook operations into their own API module. The raw fetched spec stays
+# untouched; this is a generator-only metadata change to prevent default_api.rs
+# collisions between untagged path operations and webhooks.
+echo "  Routing webhook operations into a dedicated API module..."
+uv run --with pyyaml python "$SCRIPT_DIR/route_webhook_apis.py" "$SPEC_IN" "$SPEC_WEBHOOK_ROUTED"
+
 # Layer 1: Fix model field types (handle allOf inheritance)
 echo "  Layer 1: Fixing model field types..."
-uv run --with pyyaml python "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_IN" "$SPEC_MODEL_FIXED"
+uv run --with pyyaml python "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_WEBHOOK_ROUTED" "$SPEC_MODEL_FIXED"
 
 # Layer 2: Apply Rust compatibility patches
 echo "  Layer 2: Applying Rust compatibility patches..."
@@ -215,6 +222,8 @@ uv run python scripts/fix_generated_code.py
 echo ""
 echo "🔧 Boxing shared API response errors..."
 uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"
+OPENAPI_GENERATOR_VERSION="$OPENAPI_GENERATOR_VERSION" \
+    uv run --with pyyaml python "$SCRIPT_DIR/tests/check_webhook_generator_collision.py"
 python3 "$SCRIPT_DIR/box_response_errors.py" "$PROJECT_ROOT"
 
 echo ""
@@ -225,6 +234,16 @@ uv run python scripts/fix_clippy_warnings.py
 uv run python scripts/fix_generator_artifacts.py
 uv run python scripts/fix_helper_impl_mismatches.py
 uv run python scripts/fix_generated_code.py
+
+# Restore the pre-routing public path for webhook operations.
+uv run python "$SCRIPT_DIR/preserve_webhook_api.py" "$PROJECT_ROOT/src/apis"
+
+# Fail closed if the generated APIs do not cover every raw upstream path
+# operation and webhook. This audit uses the fetched source before patches.
+uv run --with pyyaml python "$SCRIPT_DIR/check_openapi_coverage.py" \
+    "$SPEC_IN" "$PROJECT_ROOT/src/apis" \
+    --webhook-module open_ai_client_base_webhooks_api \
+    --report "$PROJECT_ROOT/target/reports/openapi-coverage.json"
 
 # Step 11: Format the generated code
 echo ""
