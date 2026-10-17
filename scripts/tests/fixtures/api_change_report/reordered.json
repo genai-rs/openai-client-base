@@ -1,0 +1,64 @@
+{
+  "components": {
+    "schemas": {
+      "Legacy": {
+        "type": "string"
+      },
+      "Widget": {
+        "properties": {
+          "metadata": {
+            "properties": {
+              "tag": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "ready"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "id"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "paths": {
+    "/widgets": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "created"
+          }
+        },
+        "operationId": "createWidget"
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Widget"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        },
+        "operationId": "listWidgets"
+      }
+    }
+  },
+  "openapi": "3.1.0"
+}
