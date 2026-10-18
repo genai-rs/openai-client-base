@@ -22,13 +22,78 @@ candidate_result=NOT_RUN
 baseline_result=NOT_RUN
 consumer_base_rev=UNKNOWN
 candidate_diff=$(git -C "$candidate" diff --binary HEAD | shasum -a 256 | cut -d ' ' -f 1)
-source_status_before=$(git -C "$candidate" status --porcelain --untracked-files=all | shasum -a 256 | cut -d ' ' -f 1)
+
+# Hash the complete checkout state, not just Git's status text. Porcelain does
+# not change when an already-dirty file is edited again. Include every file,
+# symlink, and directory outside .git (including ignored and untracked files),
+# plus the exact index entries and Git status. Nothing in the source tree is
+# silently excluded from this guard.
+source_fingerprint() {
+    python3 - "$1" <<'PYFINGERPRINT'
+import hashlib
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+root = Path(sys.argv[1]).resolve()
+digest = hashlib.sha256()
+def add(data):
+    digest.update(len(data).to_bytes(8, 'big'))
+    digest.update(data)
+
+status = subprocess.check_output(
+    ['git', '-C', str(root), 'status', '--porcelain=v2', '-z',
+     '--untracked-files=all', '--ignored=matching'])
+index = subprocess.check_output(['git', '-C', str(root), 'ls-files', '--stage', '-z'])
+add(status)
+add(index)
+for directory, names, files in os.walk(root, topdown=True, followlinks=False):
+    names[:] = sorted(name for name in names if name != '.git')
+    files.sort()
+    parent = Path(directory)
+    for name in names:
+        path = parent / name
+        if path.is_symlink():
+            add(b'L' + os.fsencode(path.relative_to(root)))
+            add(os.fsencode(os.readlink(path)))
+    for name in files:
+        path = parent / name
+        relative = os.fsencode(path.relative_to(root))
+        if path.is_symlink():
+            add(b'L' + relative)
+            add(os.fsencode(os.readlink(path)))
+        elif path.is_file():
+            add(b'F' + relative)
+            add(path.stat().st_mode.to_bytes(4, 'big'))
+            with path.open('rb') as source:
+                while chunk := source.read(1024 * 1024):
+                    add(chunk)
+        else:
+            add(b'O' + relative)
+print(digest.hexdigest())
+PYFINGERPRINT
+}
+source_fingerprint_before=$(source_fingerprint "$candidate")
 
 finish() {
-    status=$?
-    source_status_after=$(git -C "$candidate" status --porcelain --untracked-files=all | shasum -a 256 | cut -d ' ' -f 1)
-    if [[ "$source_status_after" != "$source_status_before" ]]; then
+    local status=$?
+    trap - EXIT
+    local source_fingerprint_after=''
+    local source_guard=PASS
+    if ! source_fingerprint_after=$(source_fingerprint "$candidate"); then
+        echo '::error::Could not fingerprint the candidate checkout after the downstream check.' >&2
+        status=1
+        candidate_result=FAIL
+        source_guard=ERROR
+    elif [[ "$source_fingerprint_after" != "$source_fingerprint_before" ]]; then
         echo '::error::Downstream check modified the candidate checkout.' >&2
+        status=1
+        candidate_result=FAIL
+        source_guard=FAIL
+    fi
+    if ! rm -rf "$scratch"; then
+        echo '::error::Could not remove the temporary downstream-check directory.' >&2
         status=1
     fi
     {
@@ -45,14 +110,14 @@ finish() {
         echo "| Candidate | $candidate_result |"
         echo "| Base main (diagnostic only) | $baseline_result |"
         echo
-        echo "Candidate failure blocks. Base-main failure is diagnostic. Exit status: $status."
+        echo "Candidate failure blocks. Base-main failure is diagnostic. Candidate source-state guard: $source_guard. Exit status: $status."
         echo 'Full command output is in candidate.log and baseline.log.'
     } > "$results/summary.md"
     cat "$results/summary.md"
     if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then
         cat "$results/summary.md" >> "$GITHUB_STEP_SUMMARY"
     fi
-    rm -rf "$scratch"
+    exit "$status"
 }
 trap finish EXIT
 
