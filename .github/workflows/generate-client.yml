@@ -39,7 +39,7 @@ jobs:
         id: app-token
         uses: actions/create-github-app-token@v3
         with:
-          client-id: ${{ secrets.BOT_APP_ID }}
+          app-id: ${{ secrets.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_PRIVATE_KEY }}
 
       - name: Install uv
@@ -52,6 +52,20 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y curl ripgrep
+
+      # Save the checked-in upstream input and generated surface before
+      # generate.sh replaces them with the latest upstream specification.
+      - name: Capture API change baseline
+        run: |
+          mkdir -p target/reports/api-change
+          # shellcheck disable=SC2016 # Keep the sed pattern literal for parameter expansion extraction.
+          generator_version="${OPENAPI_GENERATOR_VERSION:-$(sed -n 's/^OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-\([^}]*\)}"$/\1/p' scripts/generate.sh)}"
+          test -n "$generator_version"
+          uv run --with pyyaml python scripts/api_change_report.py snapshot \
+            --spec stainless.yaml --generated-root . \
+            --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml \
+            --generator-version "$generator_version" --revision "$(git rev-parse HEAD)" \
+            --output target/reports/api-change/before.json
 
       - name: Generate client
         env:
@@ -83,6 +97,44 @@ jobs:
 
           echo "🎨 Checking formatting..."
           cargo fmt --all -- --check
+
+      - name: Compare generated API with baseline
+        id: api-report
+        run: |
+          # shellcheck disable=SC2016 # Keep the sed pattern literal for parameter expansion extraction.
+          generator_version="${OPENAPI_GENERATOR_VERSION:-$(sed -n 's/^OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-\([^}]*\)}"$/\1/p' scripts/generate.sh)}"
+          test -n "$generator_version"
+          uv run --with pyyaml python scripts/api_change_report.py snapshot \
+            --spec stainless.yaml --generated-root . \
+            --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml \
+            --generator-version "$generator_version" \
+            --revision "$(git rev-parse HEAD)+run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
+            --output target/reports/api-change/after.json
+          uv run --with pyyaml python scripts/api_change_report.py compare \
+            --before target/reports/api-change/before.json \
+            --after target/reports/api-change/after.json \
+            --json-output target/reports/api-change/report.json \
+            --markdown-output target/reports/api-change/report.md
+          cat target/reports/api-change/report.md >> "$GITHUB_STEP_SUMMARY"
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+          report = json.loads(Path('target/reports/api-change/report.json').read_text())
+          print(f"review_required={str(report['review_required']).lower()}")
+          print(f"removals_flagged={str(report['removals_flagged']).lower()}")
+          PY
+
+      - name: Upload API change review evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: api-change-report
+          path: |
+            target/reports/api-change/before.json
+            target/reports/api-change/after.json
+            target/reports/api-change/report.json
+            target/reports/api-change/report.md
+          if-no-files-found: warn
 
       - name: Check downstream consumer compatibility
         env:
@@ -180,13 +232,29 @@ jobs:
             ✅ All tests pass
             ✅ Clippy checks pass
             
-            Please review the changes and merge if everything looks correct.
+            ### API compatibility review required
+
+            This PR does not auto-merge. Review the **api-change-report** artifact and
+            report in the linked [Generate Client workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+            The report flags removed operations/models, changed required fields and
+            enum wire values, and changes to generated Rust files. It is not complete
+            Rust semver analysis. A flagged removal requires explicit maintainer or
+            designated senior reviewer approval before merging. Include the accepted
+            head, affected surface, migration and version decision in the review.
+            A PR with a flagged removal stays in draft until a reviewer marks it ready.
+
+            Release reviewers can follow this generation PR from the release
+            comparison and use its workflow run to inspect the report artifact.
+            A successful generation or downstream check does not approve API
+            compatibility; preserve this review evidence through the release.
           branch: auto-update/client-generation
           delete-branch: true
+          # A breaking removal cannot be merged until a human reviewer marks
+          # the PR ready after reviewing the attached report.
+          draft: ${{ steps.api-report.outputs.removals_flagged == 'true' && 'always-true' || 'false' }}
           labels: |
             automated
             dependencies
-            automerge
           add-paths: |
             src/**
             docs/**
@@ -195,13 +263,6 @@ jobs:
             Cargo.lock
             stainless.yaml
             .openapi-generator-ignore
-
-      - name: Enable auto-merge for generated PR
-        if: steps.changes.outputs.changes == 'true' && steps.cpr.outputs.pull-request-number != ''
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          gh pr merge "${{ steps.cpr.outputs.pull-request-number }}" --auto --rebase --delete-branch
 
       # No PAT fallback; fail early if token is missing
       - name: Assert App token present

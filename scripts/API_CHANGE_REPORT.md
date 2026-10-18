@@ -77,12 +77,28 @@ are review evidence, not generation caches or approved upstream substitutes.
 
 ## PR and release review integration
 
-Workflow integration is pending coordination with the Generate Client workflow
-owner. The standalone script does not currently upload reports, change labels,
-disable auto-merge, or enforce approval. Until that integration lands, reviewers
-can generate and attach these artifacts manually.
+The Generate Client workflow captures `before.json` before running
+`generate.sh`, then captures `after.json` after compilation, lint, tests and
+formatting pass. It publishes `report.json` and `report.md`, places the Markdown
+report in the Actions run summary, and links the run from the generated PR. The
+four files are uploaded as the `api-change-report` artifact. The existing OA02
+downstream compatibility check remains after generation and its own artifact
+upload remains independent.
 
-The integration must:
+The generated PR no longer receives the `automerge` label and no workflow step
+enables GitHub auto-merge. Before updating an older generated PR, the workflow
+disables any existing auto-merge request and removes that label, which is
+consumed by the genai-ci-bot workflow. With both auto-merge paths removed, a
+human must merge the generated PR. The PR body requires explicit maintainer
+or designated senior reviewer approval for a flagged removal; the workflow
+creates flagged-removal PRs as drafts, which must be explicitly marked ready
+before they can be merged. It applies that draft state to existing generated
+PRs as well as new ones. The PR body records the accepted head, affected surface,
+migration and version decision. The release-plz
+PR body directs release reviewers to the generated-client PR and its report.
+No branch protection or repository setting is changed.
+
+The workflow integration:
 
 1. Capture baseline evidence before fetching/generation overwrites files, then
    capture the candidate only after successful generation. If capture fails,
@@ -94,10 +110,10 @@ The integration must:
    the latest nightly comparison alone may omit earlier release changes.
 3. Read `review_required` and `removals_flagged` from `report.json`. An exit code
    of zero means successful reporting, **not compatibility approval**. A removal
-   must prevent auto-merge through the existing PR flow and require explicit
-   maintainer/designated senior reviewer approval. Other flagged changes also
-   need review. Record reviewer identity, accepted head, migration and version
-   decision; do not infer approval from a green generation run.
+   cannot auto-merge and requires explicit maintainer/designated senior reviewer
+   approval. Other flagged changes also need review. Record reviewer identity,
+   accepted head, migration and version decision; do not infer approval from a
+   green generation run.
 4. Preserve report links or artifacts with the release evidence before CI
    artifact retention expires. Keep `semver_check = false` and the existing
    manual review requirement; this report does not replace it.
