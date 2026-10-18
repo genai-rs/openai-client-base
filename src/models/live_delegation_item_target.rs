@@ -20,19 +20,19 @@ impl std::fmt::Display for LiveDelegationItemTarget {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
 pub enum LiveDelegationItemTargetTextVariantEnum {
-    Responses,
+    Decisions,
 }
 
 impl Default for LiveDelegationItemTargetTextVariantEnum {
     fn default() -> Self {
-        Self::Responses
+        Self::Decisions
     }
 }
 
 impl std::fmt::Display for LiveDelegationItemTargetTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
-            LiveDelegationItemTargetTextVariantEnum::Responses => "responses",
+            LiveDelegationItemTargetTextVariantEnum::Decisions => "decisions",
         };
         write!(f, "{}", value)
     }

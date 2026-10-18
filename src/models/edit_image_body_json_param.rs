@@ -53,7 +53,15 @@ pub struct EditImageBodyJsonParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub size: Option<Option<Box<models::EditImageBodyJsonParamSize>>>,
-    /// A unique identifier representing your end-user, which can help OpenAI monitor and detect abuse.
+    /// A stable identifier for an end user in your organization, used for safety monitoring and abuse detection. Hash a username or email address to avoid sending identifying information. A non-empty value takes precedence over the deprecated `user` parameter. If omitted, null, or empty, the API uses `user` when available. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
+    #[serde(
+        rename = "safety_identifier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub safety_identifier: Option<Option<String>>,
+    /// Deprecated: use `safety_identifier` instead. This parameter remains accepted for backward compatibility and is used when `safety_identifier` is omitted, null, or empty. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
     #[serde(
@@ -113,6 +121,7 @@ impl EditImageBodyJsonParam {
             quality: None,
             input_fidelity: None,
             size: None,
+            safety_identifier: None,
             user: None,
             output_format: None,
             output_compression: None,

@@ -14,6 +14,14 @@ use serde::{Deserialize, Serialize};
 /// ImagesResponse : The response from the image generation endpoint.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImagesResponse {
+    /// The effective safety identifier used for safety monitoring and abuse detection. This is the non-empty `safety_identifier` from the request, or the deprecated `user` value when `safety_identifier` is omitted, null, or empty.
+    #[serde(
+        rename = "safety_identifier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub safety_identifier: Option<Option<String>>,
     /// The Unix timestamp (in seconds) of when the image was created.
     #[serde(rename = "created")]
     pub created: i32,
@@ -39,6 +47,7 @@ impl ImagesResponse {
     /// The response from the image generation endpoint.
     pub fn new(created: i32) -> ImagesResponse {
         ImagesResponse {
+            safety_identifier: None,
             created,
             data: None,
             background: None,

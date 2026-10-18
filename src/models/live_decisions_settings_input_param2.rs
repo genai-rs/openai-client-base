@@ -11,22 +11,25 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SessionSpendControlParam : Sets the session-wide limit without changing recorded spend.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct SessionSpendControlParam {
-    /// Positive USD cents, or null to remove the limit.
-    #[serde(rename = "limit", deserialize_with = "Option::deserialize")]
-    pub limit: Option<i64>,
+pub struct LiveDecisionsSettingsInputParam2 {
+    /// Native Decision API questions evaluated together, in order.
+    #[serde(rename = "questions")]
+    pub questions: Vec<models::QuestionParam>,
+    #[serde(rename = "model")]
+    pub model: String,
 }
 
-impl SessionSpendControlParam {
-    /// Sets the session-wide limit without changing recorded spend.
-    pub fn new(limit: Option<i64>) -> SessionSpendControlParam {
-        SessionSpendControlParam { limit }
+impl LiveDecisionsSettingsInputParam2 {
+    pub fn new(
+        questions: Vec<models::QuestionParam>,
+        model: String,
+    ) -> LiveDecisionsSettingsInputParam2 {
+        LiveDecisionsSettingsInputParam2 { questions, model }
     }
 }
 
-impl std::fmt::Display for SessionSpendControlParam {
+impl std::fmt::Display for LiveDecisionsSettingsInputParam2 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

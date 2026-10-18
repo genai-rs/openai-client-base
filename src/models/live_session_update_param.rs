@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveSessionUpdateParam : Update the delegation settings of an active Live session. The server acknowledges accepted changes with `session.updated`.
+/// LiveSessionUpdateParam : Update the delegation settings or transcript triggers of an active Live session. The server acknowledges accepted changes with `session.updated`.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionUpdateParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
@@ -30,7 +30,7 @@ pub struct LiveSessionUpdateParam {
 }
 
 impl LiveSessionUpdateParam {
-    /// Update the delegation settings of an active Live session. The server acknowledges accepted changes with `session.updated`.
+    /// Update the delegation settings or transcript triggers of an active Live session. The server acknowledges accepted changes with `session.updated`.
     pub fn new(r#type: Type, session: models::LiveSessionUpdateParams) -> LiveSessionUpdateParam {
         LiveSessionUpdateParam {
             event_id: None,

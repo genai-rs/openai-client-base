@@ -18,6 +18,8 @@ pub enum ExternalStorageStatus {
     Pending,
     #[serde(rename = "validated")]
     Validated,
+    #[serde(rename = "degraded")]
+    Degraded,
     #[serde(rename = "unhealthy")]
     Unhealthy,
 }
@@ -27,6 +29,7 @@ impl std::fmt::Display for ExternalStorageStatus {
         match self {
             Self::Pending => write!(f, "pending"),
             Self::Validated => write!(f, "validated"),
+            Self::Degraded => write!(f, "degraded"),
             Self::Unhealthy => write!(f, "unhealthy"),
         }
     }

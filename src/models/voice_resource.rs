@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// VoiceResource : A custom voice that can be used for audio output.
+/// VoiceResource : A custom voice that can be used for audio output. Voices created from text prompts are supported only in Live.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VoiceResource {
     /// The object type, which is always `audio.voice`.
@@ -23,6 +23,9 @@ pub struct VoiceResource {
     /// How the voice was created.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// The original text prompt used to create the voice. Present for prompt-generated voices with a stored prompt; omitted for audio-sample voices and older voices without a stored prompt.
+    #[serde(rename = "prompt", skip_serializing_if = "Option::is_none")]
+    pub prompt: Option<String>,
     /// The name of the voice.
     #[serde(rename = "name")]
     pub name: String,
@@ -32,7 +35,7 @@ pub struct VoiceResource {
 }
 
 impl VoiceResource {
-    /// A custom voice that can be used for audio output.
+    /// A custom voice that can be used for audio output. Voices created from text prompts are supported only in Live.
     pub fn new(
         object: Object,
         id: String,
@@ -44,6 +47,7 @@ impl VoiceResource {
             object,
             id,
             r#type,
+            prompt: None,
             name,
             created_at,
         }
@@ -66,6 +70,8 @@ impl Default for Object {
 pub enum Type {
     #[serde(rename = "audio_sample")]
     AudioSample,
+    #[serde(rename = "prompt")]
+    Prompt,
 }
 
 impl Default for Type {

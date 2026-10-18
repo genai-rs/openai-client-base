@@ -120,6 +120,7 @@ pub async fn create_image_edit(
     response_format: Option<&str>,
     output_format: Option<&str>,
     output_compression: Option<i32>,
+    safety_identifier: Option<&str>,
     user: Option<&str>,
     input_fidelity: Option<models::InputFidelity>,
     stream: Option<bool>,
@@ -137,6 +138,7 @@ pub async fn create_image_edit(
     let p_form_response_format = response_format;
     let p_form_output_format = output_format;
     let p_form_output_compression = output_compression;
+    let p_form_safety_identifier = safety_identifier;
     let p_form_user = user;
     let p_form_input_fidelity = input_fidelity;
     let p_form_stream = stream;
@@ -180,6 +182,9 @@ pub async fn create_image_edit(
     }
     if let Some(param_value) = p_form_output_compression {
         multipart_form = multipart_form.text("output_compression", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_safety_identifier {
+        multipart_form = multipart_form.text("safety_identifier", param_value.to_string());
     }
     if let Some(param_value) = p_form_user {
         multipart_form = multipart_form.text("user", param_value.to_string());

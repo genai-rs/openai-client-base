@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**safety_identifier** | Option<**String**> | The effective safety identifier used for safety monitoring and abuse detection. This is the non-empty `safety_identifier` from the request, or the deprecated `user` value when `safety_identifier` is omitted, null, or empty. | [optional]
 **r#type** | **String** | The type of the event. Always `image_edit.completed`.  | 
 **b64_json** | **String** | Base64-encoded final edited image data, suitable for rendering as an image.  | 
 **created_at** | **i32** | The Unix timestamp when the event was created.  | 

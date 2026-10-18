@@ -6,6 +6,7 @@
 |---- | -----|
 | Pending | pending |
 | Validated | validated |
+| Degraded | degraded |
 | Unhealthy | unhealthy |
 
 
