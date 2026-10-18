@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
-# Check a pinned consumer without changing either repository. Usage:
+# Check a pinned Git-source consumer without changing either repository. Usage:
 #   scripts/check-downstream.sh [candidate-directory] [base-main-commit]
-# DOWNSTREAM_REPOSITORY / DOWNSTREAM_COMMIT also support local Git fixtures.
-# Results survive temporary checkout cleanup in DOWNSTREAM_RESULTS_DIR.
+# Results survive checkout cleanup in DOWNSTREAM_RESULTS_DIR.
 set -euo pipefail
 
 candidate=$(cd "${1:-$(dirname "$0")/..}" && pwd -P)
 baseline_sha=$(git -C "$candidate" rev-parse "${2:-origin/main}^{commit}")
 candidate_sha=$(git -C "$candidate" rev-parse HEAD)
 consumer_repository=${DOWNSTREAM_REPOSITORY:-https://github.com/genai-rs/openai-ergonomic.git}
-# Reviewed offline suite: live tests are ignored or require credentials.
-consumer_sha=${DOWNSTREAM_COMMIT:-8717a622373d565d3d9511ba7150dca245b4fcfa}
+# OA08 integration: wrapper 0.7 pins base 0.16 at an immutable Git revision.
+consumer_sha=${DOWNSTREAM_COMMIT:-89b4e1323c3c5b460afe19d4e851a06c7e9881ea}
 if [[ ! "$consumer_sha" =~ ^[0-9a-f]{40}$ ]]; then
     echo "DOWNSTREAM_COMMIT must be a full commit SHA" >&2
     exit 1
@@ -21,13 +20,22 @@ results=$(cd "$results" && pwd -P)
 scratch=$(mktemp -d "${RUNNER_TEMP:-${TMPDIR:-/tmp}}/downstream.XXXXXX")
 candidate_result=NOT_RUN
 baseline_result=NOT_RUN
+consumer_base_rev=UNKNOWN
+candidate_diff=$(git -C "$candidate" diff --binary HEAD | shasum -a 256 | cut -d ' ' -f 1)
+source_status_before=$(git -C "$candidate" status --porcelain --untracked-files=all | shasum -a 256 | cut -d ' ' -f 1)
 
 finish() {
     status=$?
+    source_status_after=$(git -C "$candidate" status --porcelain --untracked-files=all | shasum -a 256 | cut -d ' ' -f 1)
+    if [[ "$source_status_after" != "$source_status_before" ]]; then
+        echo '::error::Downstream check modified the candidate checkout.' >&2
+        status=1
+    fi
     {
         echo '## Downstream compatibility'
         echo
         echo "- Consumer commit: \`$consumer_sha\`"
+        echo "- Consumer base Git revision: \`$consumer_base_rev\`"
         echo "- Candidate source commit: \`$candidate_sha\` (working tree, including generated changes)"
         echo "- Candidate tracked diff SHA-256: \`$candidate_diff\`"
         echo "- Base-main commit: \`$baseline_sha\`"
@@ -37,7 +45,7 @@ finish() {
         echo "| Candidate | $candidate_result |"
         echo "| Base main (diagnostic only) | $baseline_result |"
         echo
-        echo "Exit status: $status. Candidate failure always blocks; base-main failure is diagnostic."
+        echo "Candidate failure blocks. Base-main failure is diagnostic. Exit status: $status."
         echo 'Full command output is in candidate.log and baseline.log.'
     } > "$results/summary.md"
     cat "$results/summary.md"
@@ -46,14 +54,13 @@ finish() {
     fi
     rm -rf "$scratch"
 }
-candidate_diff=$(git -C "$candidate" diff --binary HEAD | shasum -a 256 | cut -d ' ' -f 1)
 trap finish EXIT
 
 # Never enable live consumer tests, even when invoked from a credentialed shell.
 unset OPENAI_API_KEY OPENAI_TEST_API_KEY AZURE_OPENAI_API_KEY
 unset LANGFUSE_PUBLIC_KEY LANGFUSE_SECRET_KEY
 export CARGO_BUILD_JOBS=${CARGO_BUILD_JOBS:-2}
-# Keep all Cargo outputs out of the candidate, including path dependency builds.
+# Keep Cargo outputs and all patched consumer files outside the candidate.
 export CARGO_TARGET_DIR="$scratch/target"
 
 mkdir -p "$scratch/base-main" "$scratch/candidate-consumer" "$scratch/baseline-consumer"
@@ -62,6 +69,22 @@ git init -q "$scratch/consumer"
 git -C "$scratch/consumer" fetch --depth=1 "$consumer_repository" "$consumer_sha"
 git -C "$scratch/consumer" checkout -q --detach FETCH_HEAD
 test "$(git -C "$scratch/consumer" rev-parse HEAD)" = "$consumer_sha"
+consumer_base_rev=$(python3 - "$scratch/consumer/Cargo.toml" <<'PYREV'
+import re
+import sys
+import tomllib
+with open(sys.argv[1], 'rb') as manifest_file:
+    manifest = tomllib.load(manifest_file)
+dependency = manifest.get('dependencies', {}).get('openai-client-base')
+if not isinstance(dependency, dict):
+    sys.exit('ERROR: pinned consumer must declare openai-client-base as a Git dependency')
+source = dependency.get('git')
+revision = dependency.get('rev')
+if source != 'https://github.com/genai-rs/openai-client-base' or not isinstance(revision, str) or not re.fullmatch(r'[0-9a-f]{40}', revision):
+    sys.exit('ERROR: consumer base dependency must use the canonical Git URL and a full immutable revision')
+print(revision)
+PYREV
+)
 for variant in candidate baseline; do
     git -C "$scratch/consumer" archive HEAD | tar -x -C "$scratch/$variant-consumer"
 done
@@ -69,43 +92,68 @@ done
 check_consumer() (
     label=$1
     base=$2
-    cd "$scratch/$label-consumer" || return
-    # Absolute path in a disposable Cargo config; no consumer file is committed.
-    python3 - "$base" > "$scratch/$label.toml" <<'PYCONFIG' || return
+    consumer="$scratch/$label-consumer"
+    config="$scratch/$label.toml"
+    cd "$consumer" || return
+    # Derive the exact Git source from the pinned consumer manifest. Cargo
+    # resolves in this temporary copy; no consumer lockfile is committed.
+    python3 - "$consumer/Cargo.toml" "$base/Cargo.toml" > "$config" <<'PYCONFIG' || return
 import json
 import sys
-print('[patch.crates-io]')
-print('openai-client-base = { path = ' + json.dumps(sys.argv[1]) + ' }')
-PYCONFIG
-    config="$scratch/$label.toml"
-    version=$(python3 - "$base/Cargo.toml" <<'PYVERSION'
-import sys
 import tomllib
-with open(sys.argv[1], 'rb') as manifest:
-    print(tomllib.load(manifest)['package']['version'])
-PYVERSION
-    ) || return
-    # Refresh only the patched package; retain the consumer's other locked deps.
-    cargo --config "$config" update -p openai-client-base --precise "$version" || return
+with open(sys.argv[1], 'rb') as manifest_file:
+    consumer = tomllib.load(manifest_file)
+with open(sys.argv[2], 'rb') as base_file:
+    base = tomllib.load(base_file)
+dependency = consumer.get('dependencies', {}).get('openai-client-base')
+if not isinstance(dependency, dict) or dependency.get('git') != 'https://github.com/genai-rs/openai-client-base':
+    sys.exit('ERROR: consumer does not declare the expected Git dependency')
+if not isinstance(dependency.get('rev'), str) or not __import__('re').fullmatch(r'[0-9a-f]{40}', dependency['rev']):
+    sys.exit('ERROR: consumer Git dependency must use a full immutable revision')
+if base.get('package', {}).get('name') != 'openai-client-base':
+    sys.exit('ERROR: candidate path is not openai-client-base')
+if base.get('package', {}).get('version') != '0.16.0':
+    sys.exit('ERROR: expected accepted openai-client-base 0.16.0 source')
+print('[patch.' + json.dumps(dependency['git']) + ']')
+from pathlib import Path
+print('openai-client-base = { path = ' + json.dumps(str(Path(sys.argv[2]).resolve().parent)) + ' }')
+PYCONFIG
+    echo '+ cargo metadata --format-version 1 --all-features'
     cargo --config "$config" metadata --format-version 1 --all-features > "$scratch/$label.json" || return
-    # Cargo can silently ignore an incompatible patch. Never accept a registry
-    # fallback as evidence that the candidate compiles.
-    python3 - "$scratch/$label.json" "$base" <<'PYMETADATA' || return
+    # Inspect Cargo's actual resolved graph. A source assertion or matching
+    # package name alone cannot prove the wrapper uses the local candidate.
+    python3 - "$scratch/$label.json" "$consumer/Cargo.toml" "$base/Cargo.toml" <<'PYMETADATA' || return
 import json
 from pathlib import Path
 import sys
+import tomllib
 metadata = json.loads(Path(sys.argv[1]).read_text())
+with open(sys.argv[2], 'rb') as f:
+    consumer = tomllib.load(f)
+with open(sys.argv[3], 'rb') as f:
+    base = tomllib.load(f)
+expected = Path(sys.argv[3]).resolve()
 packages = [p for p in metadata['packages'] if p['name'] == 'openai-client-base']
-expected = (Path(sys.argv[2]) / 'Cargo.toml').resolve()
 if len(packages) != 1 or Path(packages[0]['manifest_path']).resolve() != expected:
-    sys.exit('ERROR: consumer did not resolve exclusively to the requested base path')
-print('Verified consumer patch:', expected)
+    sys.exit('ERROR: Cargo did not resolve exclusively to the requested local base manifest')
+root = metadata['resolve']['root']
+root_package = next((p for p in metadata['packages'] if p['id'] == root), None)
+if root_package is None or root_package['name'] != 'openai-ergonomic':
+    sys.exit('ERROR: resolved workspace root is not the pinned openai-ergonomic package')
+root_node = next((n for n in metadata['resolve']['nodes'] if n['id'] == root), None)
+base_id = packages[0]['id']
+if root_node is None or not any(d['name'] == 'openai_client_base' and d['pkg'] == base_id for d in root_node['deps']):
+    sys.exit('ERROR: Cargo dependency graph does not link the wrapper directly to the candidate manifest')
+if base['package']['version'] != consumer['dependencies']['openai-client-base']['version'].lstrip('='):
+    sys.exit('ERROR: patched manifest version does not equal the consumer pin')
+print('Verified Cargo edge: openai-ergonomic ->', expected)
 PYMETADATA
-    echo '+ cargo check --all-targets --all-features'
-    cargo --config "$config" check --all-targets --all-features || return
-    echo '+ cargo test --offline --all-features'
-    # --offline prevents Cargo downloads; ignored/gated live tests stay disabled.
-    cargo --config "$config" test --offline --all-features || return
+    echo '+ cargo check --locked --all-targets --all-features'
+    cargo --config "$config" check --locked --all-targets --all-features || return
+    echo '+ cargo test --offline --locked --all-features'
+    # Metadata fetched/resolved dependencies. Tests now run offline with the
+    # same verified temporary lockfile and local Git-source patch.
+    cargo --config "$config" test --offline --locked --all-features || return
 )
 
 if check_consumer candidate "$candidate" > "$results/candidate.log" 2>&1; then
@@ -114,7 +162,7 @@ else
     candidate_result=FAIL
 fi
 cat "$results/candidate.log"
-# Always run main too, including after candidate failure, for attribution.
+# Always run base main too, including after candidate failure, for attribution.
 if check_consumer baseline "$scratch/base-main" > "$results/baseline.log" 2>&1; then
     baseline_result=PASS
 else
