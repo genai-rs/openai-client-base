@@ -43,6 +43,15 @@ Automatic API compatibility checks are disabled for this generated crate because
 rustdoc exceeds standard runner memory. Review the API changes and proposed
 version before merging; mark breaking changes with `!` or `BREAKING CHANGE:`.
 
+For generated client changes, follow the generated-client PR in this release's
+compare link and review its `api-change-report` artifact from the linked Generate
+Client workflow run. The report is limited evidence, not complete Rust semver
+analysis. Require explicit maintainer or designated senior reviewer approval for
+flagged removals before merging this release PR; record the accepted head,
+affected surface, migration and version decision. Keep the linked generation PR
+and workflow artifact available as release evidence; a successful generation or
+downstream check does not approve API compatibility.
+
 {%- if release.changelog %}
 
 ### 📋 Changelog
