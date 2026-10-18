@@ -33,10 +33,13 @@ pub struct LiveMediaSessionCreateParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub delegation: Option<Option<Box<models::Delegation>>>,
+    /// At most one Decisions trigger per transcript event type. Triggers run independently of delegation. On update, omit triggers to keep the current configuration, send a list to replace it, or send an empty list to disable triggers.
+    #[serde(rename = "triggers", skip_serializing_if = "Option::is_none")]
+    pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam>>,
     /// Whether to store the session for later forking and recording download. Defaults to false for new sessions.
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
     pub store: Option<bool>,
-    /// Ordered text-only history supplied before startup. Supports developer, user, and assistant messages with one text part each; at most 128 messages and 8,192 rendered tokens in total.
+    /// Ordered text-only history supplied before startup. Supports developer, user, and assistant messages with one text part each; at most 128 messages and a configured rendered-token limit (8,192 by default).
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
     pub input: Option<Vec<models::LiveInitialItem>>,
     #[serde(rename = "client", skip_serializing_if = "Option::is_none")]
@@ -51,6 +54,7 @@ impl LiveMediaSessionCreateParams {
             instructions: None,
             audio: None,
             delegation: None,
+            triggers: None,
             store: None,
             input: None,
             client: None,

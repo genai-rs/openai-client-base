@@ -14,6 +14,14 @@ use serde::{Deserialize, Serialize};
 /// ImageGenCompletedEvent : Emitted when image generation has completed and the final image is available.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenCompletedEvent {
+    /// The effective safety identifier used for safety monitoring and abuse detection. This is the non-empty `safety_identifier` from the request, or the deprecated `user` value when `safety_identifier` is omitted, null, or empty.
+    #[serde(
+        rename = "safety_identifier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub safety_identifier: Option<Option<String>>,
     /// The type of the event. Always `image_generation.completed`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -51,6 +59,7 @@ impl ImageGenCompletedEvent {
         usage: models::ImagesUsage,
     ) -> ImageGenCompletedEvent {
         ImageGenCompletedEvent {
+            safety_identifier: None,
             r#type,
             b64_json,
             created_at,

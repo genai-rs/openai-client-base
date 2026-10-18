@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 pub enum Delegation {
     Liveclientdelegationparam(models::LiveClientDelegationParam),
     Liveresponsesdelegationparam(models::LiveResponsesDelegationParam),
+    Livedecisionsdelegationparam(models::LiveDecisionsDelegationParam),
     Null,
 }
 
@@ -18,6 +19,10 @@ impl std::fmt::Display for Delegation {
                 Err(_) => Err(std::fmt::Error),
             },
             Delegation::Liveresponsesdelegationparam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Delegation::Livedecisionsdelegationparam(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },

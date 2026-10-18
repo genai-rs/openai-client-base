@@ -25,6 +25,8 @@ pub enum ServiceTierParam {
     Priority,
     #[serde(rename = "fast")]
     Fast,
+    #[serde(rename = "ultrafast")]
+    Ultrafast,
 }
 
 impl std::fmt::Display for ServiceTierParam {
@@ -35,6 +37,7 @@ impl std::fmt::Display for ServiceTierParam {
             Self::Flex => write!(f, "flex"),
             Self::Priority => write!(f, "priority"),
             Self::Fast => write!(f, "fast"),
+            Self::Ultrafast => write!(f, "ultrafast"),
         }
     }
 }

@@ -17,9 +17,13 @@ pub struct WebSearchActionFind {
     /// The action type.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The URL of the page searched for the pattern.
-    #[serde(rename = "url")]
-    pub url: String,
+    #[serde(
+        rename = "url",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub url: Option<Option<String>>,
     /// The pattern or text to search for within the page.
     #[serde(rename = "pattern")]
     pub pattern: String,
@@ -27,10 +31,10 @@ pub struct WebSearchActionFind {
 
 impl WebSearchActionFind {
     /// Action type \"find_in_page\": Searches for a pattern within a loaded page.
-    pub fn new(r#type: Type, url: String, pattern: String) -> WebSearchActionFind {
+    pub fn new(r#type: Type, pattern: String) -> WebSearchActionFind {
         WebSearchActionFind {
             r#type,
-            url,
+            url: None,
             pattern,
         }
     }

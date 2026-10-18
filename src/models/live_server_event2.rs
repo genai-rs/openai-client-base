@@ -43,6 +43,12 @@ pub enum LiveServerEvent2 {
     LiveOutputTranscriptDelta(Box<models::LiveOutputTranscriptDelta>),
     #[serde(rename = "LiveDelegationCreated")]
     LiveDelegationCreated(Box<models::LiveDelegationCreated>),
+    #[serde(rename = "LiveDecisionEvent")]
+    LiveDecisionEvent(Box<models::LiveDecisionEvent>),
+    #[serde(rename = "LiveDecisionItemCreated")]
+    LiveDecisionItemCreated(Box<models::LiveDecisionItemCreated>),
+    #[serde(rename = "LiveDecisionItemDeleted")]
+    LiveDecisionItemDeleted(Box<models::LiveDecisionItemDeleted>),
     #[serde(rename = "LiveResponseEvent")]
     LiveResponseEvent(Box<models::LiveResponseEvent>),
     #[serde(rename = "LiveSessionUsageUpdated")]

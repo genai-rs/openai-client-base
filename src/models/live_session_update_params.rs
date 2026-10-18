@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveSessionUpdateParams : Changes to an active Live session. Only delegation backend settings can be updated after startup.
+/// LiveSessionUpdateParams : Changes to an active Live session's delegation settings and transcript triggers.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionUpdateParams {
     #[serde(
@@ -21,12 +21,18 @@ pub struct LiveSessionUpdateParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub delegation: Option<Option<Box<models::LiveSessionUpdateParamsDelegation>>>,
+    /// At most one Decisions trigger per transcript event type. Triggers run independently of delegation. On update, omit triggers to keep the current configuration, send a list to replace it, or send an empty list to disable triggers.
+    #[serde(rename = "triggers", skip_serializing_if = "Option::is_none")]
+    pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam2>>,
 }
 
 impl LiveSessionUpdateParams {
-    /// Changes to an active Live session. Only delegation backend settings can be updated after startup.
+    /// Changes to an active Live session's delegation settings and transcript triggers.
     pub fn new() -> LiveSessionUpdateParams {
-        LiveSessionUpdateParams { delegation: None }
+        LiveSessionUpdateParams {
+            delegation: None,
+            triggers: None,
+        }
     }
 }
 

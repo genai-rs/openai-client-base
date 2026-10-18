@@ -11,10 +11,10 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveDelegationItem : Metadata for work delegated by the Live model. Client delegations are handled by your application; Responses delegations run on the configured backend.
+/// LiveDelegationItem : Metadata for work delegated by the Live model to your application, Responses, or Decisions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDelegationItem {
-    /// The unique ID of the delegation. Use this as delegation_id when replying to client-owned work or correlating Responses events.
+    /// The unique ID of the delegation. Use this as delegation_id when replying to client-owned work or correlating backend events.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type, always `delegation`.
@@ -28,7 +28,7 @@ pub struct LiveDelegationItem {
 }
 
 impl LiveDelegationItem {
-    /// Metadata for work delegated by the Live model. Client delegations are handled by your application; Responses delegations run on the configured backend.
+    /// Metadata for work delegated by the Live model to your application, Responses, or Decisions.
     pub fn new(
         id: String,
         r#type: Type,

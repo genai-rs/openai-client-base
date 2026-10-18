@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 pub enum LiveSessionUpdateParamsDelegation {
     Liveclientdelegationparam(models::LiveClientDelegationParam),
     Liveresponsesdelegationupdateparam(models::LiveResponsesDelegationUpdateParam),
+    Livedecisionsdelegationupdateparam(models::LiveDecisionsDelegationUpdateParam),
     Null,
 }
 
@@ -20,6 +21,12 @@ impl std::fmt::Display for LiveSessionUpdateParamsDelegation {
                 }
             }
             LiveSessionUpdateParamsDelegation::Liveresponsesdelegationupdateparam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            LiveSessionUpdateParamsDelegation::Livedecisionsdelegationupdateparam(value) => {
                 match serde_json::to_string(value) {
                     Ok(s) => write!(f, "{}", s),
                     Err(_) => Err(std::fmt::Error),
