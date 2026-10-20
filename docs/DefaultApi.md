@@ -4,176 +4,191 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**agent_environment_expired_post**](DefaultApi.md#agent_environment_expired_post) | **POST** /agent_environment_expired | 
-[**agent_environment_failed_post**](DefaultApi.md#agent_environment_failed_post) | **POST** /agent_environment_failed | 
-[**agent_environment_ready_post**](DefaultApi.md#agent_environment_ready_post) | **POST** /agent_environment_ready | 
-[**agent_environment_suspended_post**](DefaultApi.md#agent_environment_suspended_post) | **POST** /agent_environment_suspended | 
-[**agent_session_action_required_post**](DefaultApi.md#agent_session_action_required_post) | **POST** /agent_session_action_required | 
-[**agent_session_created_post**](DefaultApi.md#agent_session_created_post) | **POST** /agent_session_created | 
-[**agent_session_failed_post**](DefaultApi.md#agent_session_failed_post) | **POST** /agent_session_failed | 
-[**agent_session_idle_post**](DefaultApi.md#agent_session_idle_post) | **POST** /agent_session_idle | 
-[**agent_session_in_progress_post**](DefaultApi.md#agent_session_in_progress_post) | **POST** /agent_session_in_progress | 
-[**batch_cancelled_post**](DefaultApi.md#batch_cancelled_post) | **POST** /batch_cancelled | 
-[**batch_completed_post**](DefaultApi.md#batch_completed_post) | **POST** /batch_completed | 
-[**batch_expired_post**](DefaultApi.md#batch_expired_post) | **POST** /batch_expired | 
-[**batch_failed_post**](DefaultApi.md#batch_failed_post) | **POST** /batch_failed | 
-[**eval_run_canceled_post**](DefaultApi.md#eval_run_canceled_post) | **POST** /eval_run_canceled | 
-[**eval_run_failed_post**](DefaultApi.md#eval_run_failed_post) | **POST** /eval_run_failed | 
-[**eval_run_succeeded_post**](DefaultApi.md#eval_run_succeeded_post) | **POST** /eval_run_succeeded | 
-[**fine_tuning_job_cancelled_post**](DefaultApi.md#fine_tuning_job_cancelled_post) | **POST** /fine_tuning_job_cancelled | 
-[**fine_tuning_job_failed_post**](DefaultApi.md#fine_tuning_job_failed_post) | **POST** /fine_tuning_job_failed | 
-[**fine_tuning_job_succeeded_post**](DefaultApi.md#fine_tuning_job_succeeded_post) | **POST** /fine_tuning_job_succeeded | 
-[**live_call_incoming_post**](DefaultApi.md#live_call_incoming_post) | **POST** /live_call_incoming | 
-[**live_transport_incoming_post**](DefaultApi.md#live_transport_incoming_post) | **POST** /live_transport_incoming | 
-[**realtime_call_incoming_post**](DefaultApi.md#realtime_call_incoming_post) | **POST** /realtime_call_incoming | 
-[**response_cancelled_post**](DefaultApi.md#response_cancelled_post) | **POST** /response_cancelled | 
-[**response_completed_post**](DefaultApi.md#response_completed_post) | **POST** /response_completed | 
-[**response_failed_post**](DefaultApi.md#response_failed_post) | **POST** /response_failed | 
-[**response_incomplete_post**](DefaultApi.md#response_incomplete_post) | **POST** /response_incomplete | 
-[**safety_alert_created_post**](DefaultApi.md#safety_alert_created_post) | **POST** /safety_alert_created | 
-[**safety_deactivation_issued_post**](DefaultApi.md#safety_deactivation_issued_post) | **POST** /safety_deactivation_issued | 
-[**safety_org_alert_created_post**](DefaultApi.md#safety_org_alert_created_post) | **POST** /safety_org_alert_created | 
-[**safety_warning_issued_post**](DefaultApi.md#safety_warning_issued_post) | **POST** /safety_warning_issued | 
+[**admin_api_keys_create**](DefaultApi.md#admin_api_keys_create) | **POST** /organization/admin_api_keys | Create admin API key
+[**admin_api_keys_delete**](DefaultApi.md#admin_api_keys_delete) | **DELETE** /organization/admin_api_keys/{key_id} | Delete admin API key
+[**admin_api_keys_get**](DefaultApi.md#admin_api_keys_get) | **GET** /organization/admin_api_keys/{key_id} | Retrieve admin API key
+[**admin_api_keys_list**](DefaultApi.md#admin_api_keys_list) | **GET** /organization/admin_api_keys | List all organization and project API keys.
+[**cancel_chat_session_method**](DefaultApi.md#cancel_chat_session_method) | **POST** /chatkit/sessions/{session_id}/cancel | Cancel a ChatKit session
+[**create_chat_session_method**](DefaultApi.md#create_chat_session_method) | **POST** /chatkit/sessions | Create a ChatKit session
+[**create_container**](DefaultApi.md#create_container) | **POST** /containers | Create container
+[**create_container_file**](DefaultApi.md#create_container_file) | **POST** /containers/{container_id}/files | Create container file
+[**create_webhook_endpoint**](DefaultApi.md#create_webhook_endpoint) | **POST** /webhook_endpoints | Create Webhook Endpoint
+[**createan_ap_ikeyforaserviceaccount**](DefaultApi.md#createan_ap_ikeyforaserviceaccount) | **POST** /organization/projects/{project_id}/service_accounts/{service_account_id}/api_keys | Create an API key for a service account
+[**createanexternalstorageconfiguration**](DefaultApi.md#createanexternalstorageconfiguration) | **POST** /organization/external_storage | Create an external storage configuration
+[**createcontentprovenancecheck**](DefaultApi.md#createcontentprovenancecheck) | **POST** /content_provenance_checks | Create content provenance check
+[**delete_container**](DefaultApi.md#delete_container) | **DELETE** /containers/{container_id} | Delete a container
+[**delete_container_file**](DefaultApi.md#delete_container_file) | **DELETE** /containers/{container_id}/files/{file_id} | Delete a container file
+[**delete_thread_method**](DefaultApi.md#delete_thread_method) | **DELETE** /chatkit/threads/{thread_id} | Delete a ChatKit thread
+[**delete_webhook_endpoint**](DefaultApi.md#delete_webhook_endpoint) | **DELETE** /webhook_endpoints/{webhook_endpoint_id} | Delete Webhook Endpoint
+[**deleteanexternalstorageconfiguration**](DefaultApi.md#deleteanexternalstorageconfiguration) | **DELETE** /organization/external_storage/{external_storage_id} | Delete an external storage configuration
+[**deleteorganizationspendlimit**](DefaultApi.md#deleteorganizationspendlimit) | **DELETE** /organization/spend_limit | Delete organization spend limit
+[**deleteprojectspendlimit**](DefaultApi.md#deleteprojectspendlimit) | **DELETE** /organization/projects/{project_id}/spend_limit | Delete project spend limit
+[**get_thread_method**](DefaultApi.md#get_thread_method) | **GET** /chatkit/threads/{thread_id} | Retrieve a ChatKit thread
+[**getanexternalstorageconfiguration**](DefaultApi.md#getanexternalstorageconfiguration) | **GET** /organization/external_storage/{external_storage_id} | Get an external storage configuration
+[**getorganizationspendlimit**](DefaultApi.md#getorganizationspendlimit) | **GET** /organization/spend_limit | Get organization spend limit
+[**getprojectsafetyalert**](DefaultApi.md#getprojectsafetyalert) | **GET** /safety/alerts/{id} | Get project safety alert
+[**getprojectspendlimit**](DefaultApi.md#getprojectspendlimit) | **GET** /organization/projects/{project_id}/spend_limit | Get project spend limit
+[**getsafetycase**](DefaultApi.md#getsafetycase) | **GET** /safety/cases/{id} | Get safety case
+[**list_container_files**](DefaultApi.md#list_container_files) | **GET** /containers/{container_id}/files | List container files
+[**list_containers**](DefaultApi.md#list_containers) | **GET** /containers | List containers
+[**list_thread_items_method**](DefaultApi.md#list_thread_items_method) | **GET** /chatkit/threads/{thread_id}/items | List ChatKit thread items
+[**list_threads_method**](DefaultApi.md#list_threads_method) | **GET** /chatkit/threads | List ChatKit threads
+[**list_webhook_endpoints**](DefaultApi.md#list_webhook_endpoints) | **GET** /webhook_endpoints | List Webhook Endpoints
+[**list_webhook_event_types**](DefaultApi.md#list_webhook_event_types) | **GET** /webhook_event_types | List Webhook Event Types
+[**listexternalstorageconfigurations**](DefaultApi.md#listexternalstorageconfigurations) | **GET** /organization/external_storage | List external storage configurations
+[**organization_decisionsusage**](DefaultApi.md#organization_decisionsusage) | **GET** /organization/usage/decisions | Decisions
+[**retrieve_container**](DefaultApi.md#retrieve_container) | **GET** /containers/{container_id} | Retrieve container
+[**retrieve_container_file**](DefaultApi.md#retrieve_container_file) | **GET** /containers/{container_id}/files/{file_id} | Retrieve container file
+[**retrieve_container_file_content**](DefaultApi.md#retrieve_container_file_content) | **GET** /containers/{container_id}/files/{file_id}/content | Retrieve container file content
+[**retrieve_webhook_endpoint**](DefaultApi.md#retrieve_webhook_endpoint) | **GET** /webhook_endpoints/{webhook_endpoint_id} | Retrieve Webhook Endpoint
+[**rotate_webhook_endpoint_signing_secret**](DefaultApi.md#rotate_webhook_endpoint_signing_secret) | **POST** /webhook_endpoints/{webhook_endpoint_id}/rotate_secret | Rotate Webhook Endpoint Signing Secret
+[**test_webhook_endpoint**](DefaultApi.md#test_webhook_endpoint) | **POST** /webhook_endpoints/{webhook_endpoint_id}/test | Test Webhook Endpoint
+[**update_webhook_endpoint**](DefaultApi.md#update_webhook_endpoint) | **POST** /webhook_endpoints/{webhook_endpoint_id} | Update Webhook Endpoint
+[**updateorganizationspendlimit**](DefaultApi.md#updateorganizationspendlimit) | **POST** /organization/spend_limit | Update organization spend limit
+[**updateprojectspendlimit**](DefaultApi.md#updateprojectspendlimit) | **POST** /organization/projects/{project_id}/spend_limit | Update project spend limit
+[**validateanexternalstorageconfiguration**](DefaultApi.md#validateanexternalstorageconfiguration) | **POST** /organization/external_storage/{external_storage_id}/validate | Validate an external storage configuration
 
 
 
-## agent_environment_expired_post
+## admin_api_keys_create
 
-> agent_environment_expired_post(webhook_agent_environment_expired)
+> models::AdminApiKeyCreateResponse admin_api_keys_create(admin_api_keys_create_request)
+Create admin API key
 
-
-Sent when an agent environment expires and can no longer resume from a snapshot. 
+Create an organization admin API key
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_agent_environment_expired** | Option<[**WebhookAgentEnvironmentExpired**](WebhookAgentEnvironmentExpired.md)> | The event payload sent by the API. |  |
+**admin_api_keys_create_request** | [**AdminApiKeysCreateRequest**](AdminApiKeysCreateRequest.md) |  | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::AdminApiKeyCreateResponse**](AdminApiKeyCreateResponse.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## agent_environment_failed_post
+## admin_api_keys_delete
 
-> agent_environment_failed_post(webhook_agent_environment_failed)
+> models::AdminApiKeysDelete200Response admin_api_keys_delete(key_id)
+Delete admin API key
 
-
-Sent when setup fails for a prewarmed OpenAI-hosted environment before it is attached to a session. 
+Delete an organization admin API key
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_agent_environment_failed** | Option<[**WebhookAgentEnvironmentFailed**](WebhookAgentEnvironmentFailed.md)> | The event payload sent by the API. |  |
+**key_id** | **String** |  | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::AdminApiKeysDelete200Response**](admin_api_keys_delete_200_response.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## agent_environment_ready_post
+## admin_api_keys_get
 
-> agent_environment_ready_post(webhook_agent_environment_ready)
+> models::AdminApiKey admin_api_keys_get(key_id)
+Retrieve admin API key
 
-
-Sent when a prewarmed OpenAI-hosted environment finishes setup before being attached to a session. 
+Retrieve a single organization API key
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_agent_environment_ready** | Option<[**WebhookAgentEnvironmentReady**](WebhookAgentEnvironmentReady.md)> | The event payload sent by the API. |  |
+**key_id** | **String** |  | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::AdminApiKey**](AdminApiKey.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## agent_environment_suspended_post
+## admin_api_keys_list
 
-> agent_environment_suspended_post(webhook_agent_environment_suspended)
+> models::ApiKeyList admin_api_keys_list(after, order, limit)
+List all organization and project API keys.
 
-
-Sent when an agent environment is suspended and can resume from a snapshot. 
+List organization API keys
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_agent_environment_suspended** | Option<[**WebhookAgentEnvironmentSuspended**](WebhookAgentEnvironmentSuspended.md)> | The event payload sent by the API. |  |
+**after** | Option<**String**> |  |  |
+**order** | Option<**String**> |  |  |[default to asc]
+**limit** | Option<**i32**> |  |  |[default to 20]
 
 ### Return type
 
- (empty response body)
+[**models::ApiKeyList**](ApiKeyList.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## agent_session_action_required_post
+## cancel_chat_session_method
 
-> agent_session_action_required_post(webhook_agent_session_action_required)
+> models::ChatSessionResource cancel_chat_session_method(session_id)
+Cancel a ChatKit session
 
-
-Sent when an agent session requires an action. Retrieve the session for action details. 
+Cancel an active ChatKit session and return its most recent metadata.  Cancelling prevents new requests from using the issued client secret.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_agent_session_action_required** | Option<[**WebhookAgentSessionActionRequired**](WebhookAgentSessionActionRequired.md)> | The event payload sent by the API. |  |
+**session_id** | **String** | Unique identifier for the ChatKit session to cancel. | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::ChatSessionResource**](ChatSessionResource.md)
 
 ### Authorization
 
@@ -181,29 +196,29 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## agent_session_created_post
+## create_chat_session_method
 
-> agent_session_created_post(webhook_agent_session_created)
+> models::ChatSessionResource create_chat_session_method(create_chat_session_body)
+Create a ChatKit session
 
-
-Sent when an agent session is created. 
+Create a ChatKit session.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_agent_session_created** | Option<[**WebhookAgentSessionCreated**](WebhookAgentSessionCreated.md)> | The event payload sent by the API. |  |
+**create_chat_session_body** | Option<[**CreateChatSessionBody**](CreateChatSessionBody.md)> |  |  |
 
 ### Return type
 
- (empty response body)
+[**models::ChatSessionResource**](ChatSessionResource.md)
 
 ### Authorization
 
@@ -212,28 +227,28 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## agent_session_failed_post
+## create_container
 
-> agent_session_failed_post(webhook_agent_session_failed)
+> models::ContainerResource create_container(create_container_body)
+Create container
 
-
-Sent when an agent session fails. 
+Create Container
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_agent_session_failed** | Option<[**WebhookAgentSessionFailed**](WebhookAgentSessionFailed.md)> | The event payload sent by the API. |  |
+**create_container_body** | Option<[**CreateContainerBody**](CreateContainerBody.md)> |  |  |
 
 ### Return type
 
- (empty response body)
+[**models::ContainerResource**](ContainerResource.md)
 
 ### Authorization
 
@@ -242,28 +257,29 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## agent_session_idle_post
+## create_container_file
 
-> agent_session_idle_post(webhook_agent_session_idle)
+> models::ContainerFileResource create_container_file(container_id, create_container_file_body)
+Create container file
 
-
-Sent when an agent session becomes idle. 
+Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_agent_session_idle** | Option<[**WebhookAgentSessionIdle**](WebhookAgentSessionIdle.md)> | The event payload sent by the API. |  |
+**container_id** | **String** |  | [required] |
+**create_container_file_body** | [**CreateContainerFileBody**](CreateContainerFileBody.md) |  | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::ContainerFileResource**](ContainerFileResource.md)
 
 ### Authorization
 
@@ -271,29 +287,29 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: application/json, multipart/form-data
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## agent_session_in_progress_post
+## create_webhook_endpoint
 
-> agent_session_in_progress_post(webhook_agent_session_in_progress)
+> models::WebhookEndpointWithSecretResource create_webhook_endpoint(public_create_endpoint_body)
+Create Webhook Endpoint
 
-
-Sent when an agent session enters the in-progress state. 
+Creates a webhook endpoint for the authenticated project.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_agent_session_in_progress** | Option<[**WebhookAgentSessionInProgress**](WebhookAgentSessionInProgress.md)> | The event payload sent by the API. |  |
+**public_create_endpoint_body** | Option<[**PublicCreateEndpointBody**](PublicCreateEndpointBody.md)> |  |  |
 
 ### Return type
 
- (empty response body)
+[**models::WebhookEndpointWithSecretResource**](WebhookEndpointWithSecretResource.md)
 
 ### Authorization
 
@@ -302,88 +318,90 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## batch_cancelled_post
+## createan_ap_ikeyforaserviceaccount
 
-> batch_cancelled_post(webhook_batch_cancelled)
+> models::ServiceAccountApiKeyBody createan_ap_ikeyforaserviceaccount(project_id, service_account_id, create_project_service_account_api_key_body)
+Create an API key for a service account
 
-
-Sent when a batch has been cancelled. 
+Creates an API key for a service account in the project.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_batch_cancelled** | Option<[**WebhookBatchCancelled**](WebhookBatchCancelled.md)> | The event payload sent by the API. |  |
+**project_id** | **String** | The ID of the project. | [required] |
+**service_account_id** | **String** | The ID of the service account. | [required] |
+**create_project_service_account_api_key_body** | Option<[**CreateProjectServiceAccountApiKeyBody**](CreateProjectServiceAccountApiKeyBody.md)> | The service account API key create request payload. |  |
 
 ### Return type
 
- (empty response body)
+[**models::ServiceAccountApiKeyBody**](ServiceAccountApiKeyBody.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## batch_completed_post
+## createanexternalstorageconfiguration
 
-> batch_completed_post(webhook_batch_completed)
+> models::ExternalStorageResponse createanexternalstorageconfiguration(create_external_storage_body)
+Create an external storage configuration
 
-
-Sent when a batch has completed processing. 
+Register one customer-managed external storage configuration.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_batch_completed** | Option<[**WebhookBatchCompleted**](WebhookBatchCompleted.md)> | The event payload sent by the API. |  |
+**create_external_storage_body** | [**CreateExternalStorageBody**](CreateExternalStorageBody.md) |  | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::ExternalStorageResponse**](ExternalStorageResponse.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## batch_expired_post
+## createcontentprovenancecheck
 
-> batch_expired_post(webhook_batch_expired)
+> models::ProvenanceResource createcontentprovenancecheck(file)
+Create content provenance check
 
-
-Sent when a batch has expired before completion. 
+Check whether an image or audio file contains known OpenAI provenance signals. [Learn more about content provenance](https://developers.openai.com/api/docs/guides/content-provenance).  If `not_detected`, it means the tool did not find supported signals in the uploaded file. The content could still have been generated by OpenAI if the metadata was stripped or has evidence of tampering, the watermark was degraded, it comes from a legacy generation model, or it was created before provenance signals were available. Content could also still be AI-generated by another company's model, which the tool currently does not detect.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_batch_expired** | Option<[**WebhookBatchExpired**](WebhookBatchExpired.md)> | The event payload sent by the API. |  |
+**file** | **std::path::PathBuf** | The image or audio file to check for supported OpenAI provenance signals. | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::ProvenanceResource**](ProvenanceResource.md)
 
 ### Authorization
 
@@ -391,29 +409,29 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## batch_failed_post
+## delete_container
 
-> batch_failed_post(webhook_batch_failed)
+> models::DeleteContainer200Response delete_container(container_id)
+Delete a container
 
-
-Sent when a batch has failed. 
+Delete Container
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_batch_failed** | Option<[**WebhookBatchFailed**](WebhookBatchFailed.md)> | The event payload sent by the API. |  |
+**container_id** | **String** | The ID of the container to delete. | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::DeleteContainer200Response**](DeleteContainer_200_response.md)
 
 ### Authorization
 
@@ -421,29 +439,30 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## eval_run_canceled_post
+## delete_container_file
 
-> eval_run_canceled_post(webhook_eval_run_canceled)
+> models::DeleteContainerFile200Response delete_container_file(container_id, file_id)
+Delete a container file
 
-
-Sent when an eval run has been canceled. 
+Delete Container File
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_eval_run_canceled** | Option<[**WebhookEvalRunCanceled**](WebhookEvalRunCanceled.md)> | The event payload sent by the API. |  |
+**container_id** | **String** |  | [required] |
+**file_id** | **String** |  | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::DeleteContainerFile200Response**](DeleteContainerFile_200_response.md)
 
 ### Authorization
 
@@ -451,29 +470,29 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## eval_run_failed_post
+## delete_thread_method
 
-> eval_run_failed_post(webhook_eval_run_failed)
+> models::DeletedThreadResource delete_thread_method(thread_id)
+Delete a ChatKit thread
 
-
-Sent when an eval run has failed. 
+Delete a ChatKit thread along with its items and stored attachments.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_eval_run_failed** | Option<[**WebhookEvalRunFailed**](WebhookEvalRunFailed.md)> | The event payload sent by the API. |  |
+**thread_id** | **String** | Identifier of the ChatKit thread to delete. | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::DeletedThreadResource**](DeletedThreadResource.md)
 
 ### Authorization
 
@@ -481,29 +500,29 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## eval_run_succeeded_post
+## delete_webhook_endpoint
 
-> eval_run_succeeded_post(webhook_eval_run_succeeded)
+> models::DeletedWebhookEndpointResource delete_webhook_endpoint(webhook_endpoint_id)
+Delete Webhook Endpoint
 
-
-Sent when an eval run has succeeded. 
+Deletes a webhook endpoint for the authenticated project.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_eval_run_succeeded** | Option<[**WebhookEvalRunSucceeded**](WebhookEvalRunSucceeded.md)> | The event payload sent by the API. |  |
+**webhook_endpoint_id** | **String** | The ID of the webhook endpoint to delete. | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::DeletedWebhookEndpointResource**](DeletedWebhookEndpointResource.md)
 
 ### Authorization
 
@@ -511,119 +530,116 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## fine_tuning_job_cancelled_post
+## deleteanexternalstorageconfiguration
 
-> fine_tuning_job_cancelled_post(webhook_fine_tuning_job_cancelled)
+> models::ExternalStorageDeletedResource deleteanexternalstorageconfiguration(external_storage_id)
+Delete an external storage configuration
 
-
-Sent when a fine-tuning job has been cancelled. 
+Disconnect a customer-managed external storage configuration. Removing the project's last configuration restores organization-default retention if customer-managed retention was active. Repeating a deletion also completes any interrupted retention update. Cloud storage is unchanged.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_fine_tuning_job_cancelled** | Option<[**WebhookFineTuningJobCancelled**](WebhookFineTuningJobCancelled.md)> | The event payload sent by the API. |  |
+**external_storage_id** | **String** |  | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::ExternalStorageDeletedResource**](ExternalStorageDeletedResource.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## fine_tuning_job_failed_post
+## deleteorganizationspendlimit
 
-> fine_tuning_job_failed_post(webhook_fine_tuning_job_failed)
+> models::OrganizationSpendLimitDeletedResource deleteorganizationspendlimit()
+Delete organization spend limit
 
-
-Sent when a fine-tuning job has failed. 
+Delete the organization's hard spend limit.
 
 ### Parameters
 
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**webhook_fine_tuning_job_failed** | Option<[**WebhookFineTuningJobFailed**](WebhookFineTuningJobFailed.md)> | The event payload sent by the API. |  |
+This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**models::OrganizationSpendLimitDeletedResource**](OrganizationSpendLimitDeletedResource.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## fine_tuning_job_succeeded_post
+## deleteprojectspendlimit
 
-> fine_tuning_job_succeeded_post(webhook_fine_tuning_job_succeeded)
+> models::ProjectSpendLimitDeletedResource deleteprojectspendlimit(project_id)
+Delete project spend limit
 
-
-Sent when a fine-tuning job has succeeded. 
+Delete a project's hard spend limit.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_fine_tuning_job_succeeded** | Option<[**WebhookFineTuningJobSucceeded**](WebhookFineTuningJobSucceeded.md)> | The event payload sent by the API. |  |
+**project_id** | **String** | The ID of the project whose hard spend limit is being managed. | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::ProjectSpendLimitDeletedResource**](ProjectSpendLimitDeletedResource.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## live_call_incoming_post
+## get_thread_method
 
-> live_call_incoming_post(webhook_live_call_incoming)
+> models::ThreadResource get_thread_method(thread_id)
+Retrieve a ChatKit thread
 
-
-Deprecated: use `live.transport.incoming`. Retained only for existing subscriptions. Sent when an incoming API SIP session is available for Live acceptance. 
+Retrieve a ChatKit thread by its identifier.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_live_call_incoming** | Option<[**WebhookLiveCallIncoming**](WebhookLiveCallIncoming.md)> | The event payload sent by the API. |  |
+**thread_id** | **String** | Identifier of the ChatKit thread to retrieve. | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::ThreadResource**](ThreadResource.md)
 
 ### Authorization
 
@@ -631,89 +647,86 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## live_transport_incoming_post
+## getanexternalstorageconfiguration
 
-> live_transport_incoming_post(webhook_live_transport_incoming)
+> models::ExternalStorageResponse getanexternalstorageconfiguration(external_storage_id)
+Get an external storage configuration
 
-
-Sent when an incoming API SIP session is available for Live acceptance. 
+Get one customer-managed external storage configuration.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_live_transport_incoming** | Option<[**WebhookLiveTransportIncoming**](WebhookLiveTransportIncoming.md)> | The event payload sent by the API. |  |
+**external_storage_id** | **String** |  | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::ExternalStorageResponse**](ExternalStorageResponse.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## realtime_call_incoming_post
+## getorganizationspendlimit
 
-> realtime_call_incoming_post(webhook_realtime_call_incoming)
+> models::OrganizationSpendLimitResource getorganizationspendlimit()
+Get organization spend limit
 
-
-Sent when an incoming API SIP session is available for Realtime acceptance. 
+Get the organization's hard spend limit.
 
 ### Parameters
 
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**webhook_realtime_call_incoming** | Option<[**WebhookRealtimeCallIncoming**](WebhookRealtimeCallIncoming.md)> | The event payload sent by the API. |  |
+This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**models::OrganizationSpendLimitResource**](OrganizationSpendLimitResource.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## response_cancelled_post
+## getprojectsafetyalert
 
-> response_cancelled_post(webhook_response_cancelled)
+> models::SafetyAlertResource getprojectsafetyalert(id)
+Get project safety alert
 
-
-Sent when a background response has been cancelled. 
+Get a safety alert belonging to the authenticated API project.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_response_cancelled** | Option<[**WebhookResponseCancelled**](WebhookResponseCancelled.md)> | The event payload sent by the API. |  |
+**id** | **String** | Project safety alert ID | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::SafetyAlertResource**](SafetyAlertResource.md)
 
 ### Authorization
 
@@ -721,59 +734,59 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## response_completed_post
+## getprojectspendlimit
 
-> response_completed_post(webhook_response_completed)
+> models::ProjectSpendLimitResource getprojectspendlimit(project_id)
+Get project spend limit
 
-
-Sent when a background response has completed successfully. 
+Get a project's hard spend limit.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_response_completed** | Option<[**WebhookResponseCompleted**](WebhookResponseCompleted.md)> | The event payload sent by the API. |  |
+**project_id** | **String** | The ID of the project whose hard spend limit is being managed. | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::ProjectSpendLimitResource**](ProjectSpendLimitResource.md)
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## response_failed_post
+## getsafetycase
 
-> response_failed_post(webhook_response_failed)
+> models::SafetyCaseResource getsafetycase(id)
+Get safety case
 
-
-Sent when a background response has failed. 
+Get a safety case by ID.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_response_failed** | Option<[**WebhookResponseFailed**](WebhookResponseFailed.md)> | The event payload sent by the API. |  |
+**id** | **String** | Safety case ID | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::SafetyCaseResource**](SafetyCaseResource.md)
 
 ### Authorization
 
@@ -781,29 +794,32 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## response_incomplete_post
+## list_container_files
 
-> response_incomplete_post(webhook_response_incomplete)
+> models::ContainerFileListResource list_container_files(container_id, limit, order, after)
+List container files
 
-
-Sent when a background response is incomplete. 
+List Container files
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_response_incomplete** | Option<[**WebhookResponseIncomplete**](WebhookResponseIncomplete.md)> | The event payload sent by the API. |  |
+**container_id** | **String** |  | [required] |
+**limit** | Option<**i32**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
+**order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  |  |[default to desc]
+**after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 
 ### Return type
 
- (empty response body)
+[**models::ContainerFileListResource**](ContainerFileListResource.md)
 
 ### Authorization
 
@@ -811,29 +827,32 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## safety_alert_created_post
+## list_containers
 
-> safety_alert_created_post(webhook_safety_alert_created)
+> models::ContainerListResource list_containers(limit, order, after, name)
+List containers
 
-
-Sent when an approved safety alert is available for an API project. Retrieve the alert with a project API key granted `api.safety.alerts.read`. 
+List Containers
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_safety_alert_created** | Option<[**WebhookSafetyAlertCreated**](WebhookSafetyAlertCreated.md)> | The event payload sent by the API. |  |
+**limit** | Option<**i32**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
+**order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  |  |[default to desc]
+**after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
+**name** | Option<**String**> | Filter results by container name. |  |
 
 ### Return type
 
- (empty response body)
+[**models::ContainerListResource**](ContainerListResource.md)
 
 ### Authorization
 
@@ -841,29 +860,33 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## safety_deactivation_issued_post
+## list_thread_items_method
 
-> safety_deactivation_issued_post(webhook_safety_deactivation_issued)
+> models::ThreadItemListResource list_thread_items_method(thread_id, limit, order, after, before)
+List ChatKit thread items
 
-
-Sent when a deactivation is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`. 
+List items that belong to a ChatKit thread.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_safety_deactivation_issued** | Option<[**WebhookSafetyDeactivationIssued**](WebhookSafetyDeactivationIssued.md)> | The event payload sent by the API. |  |
+**thread_id** | **String** | Identifier of the ChatKit thread whose items are requested. | [required] |
+**limit** | Option<**i32**> | Maximum number of thread items to return. Defaults to 20. |  |
+**order** | Option<[**OrderEnum**](.md)> | Sort order for results by creation time. Defaults to `desc`. |  |
+**after** | Option<**String**> | List items created after this thread item ID. Defaults to null for the first page. |  |
+**before** | Option<**String**> | List items created before this thread item ID. Defaults to null for the newest results. |  |
 
 ### Return type
 
- (empty response body)
+[**models::ThreadItemListResource**](ThreadItemListResource.md)
 
 ### Authorization
 
@@ -871,29 +894,33 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## safety_org_alert_created_post
+## list_threads_method
 
-> safety_org_alert_created_post(webhook_safety_org_alert_created)
+> models::ThreadListResource list_threads_method(limit, order, after, before, user)
+List ChatKit threads
 
-
-Sent when an approved safety alert is available for an enterprise workspace. Retrieve the alert from `https://api.chatgpt.com/v1/safety/alerts/{id}` with an administrator API key for the workspace's backing organization granted `chatgpt.enterprise.safety_alerts.read`. 
+List ChatKit threads with optional pagination and user filters.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_safety_org_alert_created** | Option<[**WebhookSafetyOrgAlertCreated**](WebhookSafetyOrgAlertCreated.md)> | The event payload sent by the API. |  |
+**limit** | Option<**i32**> | Maximum number of thread items to return. Defaults to 20. |  |
+**order** | Option<[**OrderEnum**](.md)> | Sort order for results by creation time. Defaults to `desc`. |  |
+**after** | Option<**String**> | List items created after this thread item ID. Defaults to null for the first page. |  |
+**before** | Option<**String**> | List items created before this thread item ID. Defaults to null for the newest results. |  |
+**user** | Option<**String**> | Filter threads that belong to this user identifier. Defaults to null to return all users. |  |
 
 ### Return type
 
- (empty response body)
+[**models::ThreadListResource**](ThreadListResource.md)
 
 ### Authorization
 
@@ -901,29 +928,283 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## safety_warning_issued_post
+## list_webhook_endpoints
 
-> safety_warning_issued_post(webhook_safety_warning_issued)
+> models::WebhookEndpointListResource list_webhook_endpoints(limit, after)
+List Webhook Endpoints
 
-
-Sent when a warning is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`. 
+Returns webhook endpoints for the authenticated project in newest-first order.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**webhook_safety_warning_issued** | Option<[**WebhookSafetyWarningIssued**](WebhookSafetyWarningIssued.md)> | The event payload sent by the API. |  |
+**limit** | Option<**i32**> | Maximum number of webhook endpoints to return. Defaults to 20. |  |
+**after** | Option<**String**> | ID of the last webhook endpoint from the previous page. |  |
 
 ### Return type
 
- (empty response body)
+[**models::WebhookEndpointListResource**](WebhookEndpointListResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_webhook_event_types
+
+> models::WebhookEventTypeListResource list_webhook_event_types()
+List Webhook Event Types
+
+Returns webhook event types visible to the authenticated project.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::WebhookEventTypeListResource**](WebhookEventTypeListResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## listexternalstorageconfigurations
+
+> models::ExternalStorageListResource listexternalstorageconfigurations(project_id, after, order, limit)
+List external storage configurations
+
+List the organization's customer-managed external storage configurations.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | Option<**String**> |  |  |
+**after** | Option<**String**> | Return external storage configurations after this ID. |  |
+**order** | Option<[**ExternalStorageOrder**](.md)> |  |  |
+**limit** | Option<**i32**> |  |  |
+
+### Return type
+
+[**models::ExternalStorageListResource**](ExternalStorageListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## organization_decisionsusage
+
+> models::PublicDecisionsUsageResponseResource organization_decisionsusage(start_time, end_time, bucket_width, limit, page, project_ids, group_by, user_ids, api_key_ids, models, batch)
+Decisions
+
+Get Decisions API usage details for the organization.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**start_time** | **i32** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
+**end_time** | Option<**i32**> | End time (Unix seconds) of the query time range, exclusive. |  |
+**bucket_width** | Option<[**DecisionsUsageBucketWidth**](.md)> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |
+**limit** | Option<**i32**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440 |  |
+**page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
+**group_by** | Option<[**Vec<models::DecisionsUsageGroupBy>**](models::DecisionsUsageGroupBy.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
+**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
+**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
+**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
+**batch** | Option<**bool**> | If `true`, return batch jobs only. If `false`, return non-batch jobs only. By default, return both. |  |
+
+### Return type
+
+[**models::PublicDecisionsUsageResponseResource**](PublicDecisionsUsageResponseResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_container
+
+> models::ContainerResource retrieve_container(container_id)
+Retrieve container
+
+Retrieve Container
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**container_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ContainerResource**](ContainerResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_container_file
+
+> models::ContainerFileResource retrieve_container_file(container_id, file_id)
+Retrieve container file
+
+Retrieve Container File
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**container_id** | **String** |  | [required] |
+**file_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ContainerFileResource**](ContainerFileResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_container_file_content
+
+> std::path::PathBuf retrieve_container_file_content(container_id, file_id)
+Retrieve container file content
+
+Retrieve Container File Content
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**container_id** | **String** |  | [required] |
+**file_id** | **String** |  | [required] |
+
+### Return type
+
+[**std::path::PathBuf**](std::path::PathBuf.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: */*, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_webhook_endpoint
+
+> models::WebhookEndpointBody retrieve_webhook_endpoint(webhook_endpoint_id)
+Retrieve Webhook Endpoint
+
+Retrieves a webhook endpoint for the authenticated project.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_endpoint_id** | **String** | The ID of the webhook endpoint to retrieve. | [required] |
+
+### Return type
+
+[**models::WebhookEndpointBody**](WebhookEndpointBody.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## rotate_webhook_endpoint_signing_secret
+
+> models::WebhookEndpointWithSecretResource rotate_webhook_endpoint_signing_secret(webhook_endpoint_id, public_rotate_secret_body)
+Rotate Webhook Endpoint Signing Secret
+
+Rotates the signing secret for a webhook endpoint in the authenticated project.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_endpoint_id** | **String** | The ID of the webhook endpoint whose signing secret will be rotated. | [required] |
+**public_rotate_secret_body** | Option<[**PublicRotateSecretBody**](PublicRotateSecretBody.md)> |  |  |
+
+### Return type
+
+[**models::WebhookEndpointWithSecretResource**](WebhookEndpointWithSecretResource.md)
 
 ### Authorization
 
@@ -932,7 +1213,160 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## test_webhook_endpoint
+
+> models::WebhookEndpointTestResultResource test_webhook_endpoint(webhook_endpoint_id, public_test_endpoint_body)
+Test Webhook Endpoint
+
+Sends a sample event to a webhook endpoint for the authenticated project.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_endpoint_id** | **String** | The ID of the webhook endpoint to test. | [required] |
+**public_test_endpoint_body** | Option<[**PublicTestEndpointBody**](PublicTestEndpointBody.md)> |  |  |
+
+### Return type
+
+[**models::WebhookEndpointTestResultResource**](WebhookEndpointTestResultResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_webhook_endpoint
+
+> models::WebhookEndpointBody update_webhook_endpoint(webhook_endpoint_id, public_update_endpoint_body)
+Update Webhook Endpoint
+
+Updates a webhook endpoint for the authenticated project.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_endpoint_id** | **String** | The ID of the webhook endpoint to update. | [required] |
+**public_update_endpoint_body** | Option<[**PublicUpdateEndpointBody**](PublicUpdateEndpointBody.md)> |  |  |
+
+### Return type
+
+[**models::WebhookEndpointBody**](WebhookEndpointBody.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## updateorganizationspendlimit
+
+> models::OrganizationSpendLimitResource updateorganizationspendlimit(update_organization_spend_limit_body)
+Update organization spend limit
+
+Create or replace the organization's hard spend limit.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**update_organization_spend_limit_body** | [**UpdateOrganizationSpendLimitBody**](UpdateOrganizationSpendLimitBody.md) | Parameters for the hard spend limit you want to create or replace. | [required] |
+
+### Return type
+
+[**models::OrganizationSpendLimitResource**](OrganizationSpendLimitResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## updateprojectspendlimit
+
+> models::ProjectSpendLimitResource updateprojectspendlimit(project_id, update_project_spend_limit_body)
+Update project spend limit
+
+Create or replace a project's hard spend limit.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project whose hard spend limit is being managed. | [required] |
+**update_project_spend_limit_body** | [**UpdateProjectSpendLimitBody**](UpdateProjectSpendLimitBody.md) | Parameters for the hard spend limit you want to create or replace. | [required] |
+
+### Return type
+
+[**models::ProjectSpendLimitResource**](ProjectSpendLimitResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## validateanexternalstorageconfiguration
+
+> models::ExternalStorageResponse validateanexternalstorageconfiguration(external_storage_id)
+Validate an external storage configuration
+
+Validate one customer-managed external storage configuration.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**external_storage_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ExternalStorageResponse**](ExternalStorageResponse.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

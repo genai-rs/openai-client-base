@@ -95,7 +95,12 @@ pub async fn create_file(
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
     multipart_form = multipart_form.text("purpose", p_form_purpose.to_string());
     if let Some(param_value) = p_form_expires_after {
-        multipart_form = multipart_form.text("expires_after", param_value.to_string());
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "expires_after",
+            serde_json::to_value(param_value)?,
+            None,
+        )?;
     }
     req_builder = req_builder.multipart(multipart_form);
 

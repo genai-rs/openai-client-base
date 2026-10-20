@@ -209,26 +209,24 @@ pub async fn create_transcription(
         multipart_form = multipart_form.text("language", param_value.to_string());
     }
     if let Some(param_value) = p_form_languages {
-        multipart_form = multipart_form.text(
-            "languages",
-            param_value
-                .into_iter()
-                .map(|p| p.to_string())
-                .collect::<Vec<String>>()
-                .join(",")
-                .to_string(),
-        );
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "languages",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
     }
     if let Some(param_value) = p_form_keywords {
-        multipart_form = multipart_form.text(
-            "keywords",
-            param_value
-                .into_iter()
-                .map(|p| p.to_string())
-                .collect::<Vec<String>>()
-                .join(",")
-                .to_string(),
-        );
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "keywords",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
     }
     if let Some(param_value) = p_form_prompt {
         multipart_form = multipart_form.text("prompt", param_value.to_string());
@@ -240,54 +238,55 @@ pub async fn create_transcription(
         multipart_form = multipart_form.text("temperature", param_value.to_string());
     }
     if let Some(param_value) = p_form_include {
-        multipart_form = multipart_form.text(
-            "include",
-            param_value
-                .into_iter()
-                .map(|p| p.to_string())
-                .collect::<Vec<String>>()
-                .join(",")
-                .to_string(),
-        );
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "include",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
     }
     if let Some(param_value) = p_form_timestamp_granularities {
-        multipart_form = multipart_form.text(
-            "timestamp_granularities",
-            param_value
-                .into_iter()
-                .map(|p| p.to_string())
-                .collect::<Vec<String>>()
-                .join(",")
-                .to_string(),
-        );
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "timestamp_granularities",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
     }
     if let Some(param_value) = p_form_stream {
         multipart_form = multipart_form.text("stream", param_value.to_string());
     }
     if let Some(param_value) = p_form_chunking_strategy {
-        multipart_form = multipart_form.text("chunking_strategy", param_value.to_string());
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "chunking_strategy",
+            serde_json::to_value(param_value)?,
+            None,
+        )?;
     }
     if let Some(param_value) = p_form_known_speaker_names {
-        multipart_form = multipart_form.text(
-            "known_speaker_names",
-            param_value
-                .into_iter()
-                .map(|p| p.to_string())
-                .collect::<Vec<String>>()
-                .join(",")
-                .to_string(),
-        );
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_names",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
     }
     if let Some(param_value) = p_form_known_speaker_references {
-        multipart_form = multipart_form.text(
-            "known_speaker_references",
-            param_value
-                .into_iter()
-                .map(|p| p.to_string())
-                .collect::<Vec<String>>()
-                .join(",")
-                .to_string(),
-        );
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_references",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
     }
     req_builder = req_builder.multipart(multipart_form);
 
