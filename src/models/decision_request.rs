@@ -31,7 +31,7 @@ pub struct DecisionRequest {
         rename = "prompt_cache_options",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_options: Option<models::PromptCacheOptions>,
+    pub prompt_cache_options: Option<models::DecisionRequestPromptCacheOptions>,
 }
 
 impl DecisionRequest {

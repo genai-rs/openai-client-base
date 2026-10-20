@@ -2,9 +2,11 @@ use openai_client_base::models::{
     ChatCompletionStreamResponseDelta, CreateChatCompletionRequest,
     CreateChatCompletionStreamResponseChoicesInner, CreateCompletionRequest,
     CreateFineTuningJobRequest, CreateFineTuningJobRequestIntegrationsInnerWandb,
-    CreateImageRequest, CreateRunRequest, CreateThreadAndRunRequest, LiveHostedShellToolInputParam,
-    LiveMcpToolChoiceParam, PredictionContent, PromptCacheOptions, RealtimeSessionCreateRequestGa,
-    StopConfiguration, UpdateVectorStoreRequest,
+    CreateImageRequest, CreateRunRequest, CreateThreadAndRunRequest, DecisionRequest,
+    DecisionRequestPromptCacheOptions, LiveHostedShellToolInputParam, LiveMcpToolChoiceParam,
+    PredictionContent, PromptCacheModeEnum, PromptCacheOptions, PromptCacheOptionsParam,
+    PromptCacheTtlEnum, RealtimeSessionCreateRequestGa, StopConfiguration,
+    UpdateVectorStoreRequest,
 };
 use serde::{de::DeserializeOwned, Serialize};
 use serde_json::{json, Value};
@@ -170,7 +172,6 @@ fn affected_request_fields_preserve_omitted_null_and_value() {
         json!({"type": "mcp", "server_label": "server"}),
         &[("name", json!(""))],
     );
-    check_fields::<PromptCacheOptions>(json!({"ttl": "30m"}), &[("mode", json!("implicit"))]);
     check_fields::<CreateChatCompletionStreamResponseChoicesInner>(
         json!({"delta": {}, "index": 0}),
         &[("finish_reason", json!("stop"))],
@@ -298,7 +299,14 @@ fn constructors_keep_their_required_arguments_and_usable_defaults() {
         ),
         &["name"],
     );
-    assert_omitted_fields(PromptCacheOptions::new(), &["ttl", "mode"]);
+    let response_options = PromptCacheOptions::new(
+        PromptCacheTtlEnum::Variant30m,
+        PromptCacheModeEnum::Explicit,
+    );
+    assert_eq!(
+        serde_json::to_value(response_options).unwrap(),
+        json!({"ttl": "30m", "mode": "explicit"})
+    );
     assert_omitted_fields(
         CreateChatCompletionStreamResponseChoicesInner::new(
             ChatCompletionStreamResponseDelta::new(),
@@ -396,19 +404,19 @@ fn affected_models_reject_missing_required_fields() {
         json!({"type": "mcp", "server_label": "server"}),
         "type",
     );
-    // The generated model accepts omission despite both compared schema revisions
-    // requiring these fields.
-    let missing_prompt_cache_fields: PromptCacheOptions =
-        serde_json::from_value(json!({})).unwrap();
-    assert_eq!(missing_prompt_cache_fields.ttl, None);
-    assert_eq!(missing_prompt_cache_fields.mode, None);
-    let explicit_nulls: PromptCacheOptions =
-        serde_json::from_value(json!({"ttl": null, "mode": null})).unwrap();
-    assert_eq!(explicit_nulls.ttl, None);
-    assert_eq!(explicit_nulls.mode, Some(None));
-    let encoded = serde_json::to_value(explicit_nulls).unwrap();
-    assert!(encoded.get("ttl").is_none());
-    assert_eq!(encoded.get("mode"), Some(&Value::Null));
+    let response_options = json!({"ttl": "30m", "mode": "implicit"});
+    assert_required_field::<PromptCacheOptions>(response_options.clone(), "ttl");
+    assert_required_field::<PromptCacheOptions>(response_options.clone(), "mode");
+    assert!(serde_json::from_value::<PromptCacheOptions>(json!({
+        "ttl": null,
+        "mode": "implicit"
+    }))
+    .is_err());
+    assert!(serde_json::from_value::<PromptCacheOptions>(json!({
+        "ttl": "30m",
+        "mode": null
+    }))
+    .is_err());
 
     let choice = json!({"delta": {}, "index": 0});
     assert_required_field::<CreateChatCompletionStreamResponseChoicesInner>(
@@ -416,4 +424,119 @@ fn affected_models_reject_missing_required_fields() {
         "delta",
     );
     assert_required_field::<CreateChatCompletionStreamResponseChoicesInner>(choice, "index");
+}
+
+#[test]
+fn prompt_cache_response_comparison_id_preserves_omitted_null_and_value() {
+    let omitted: PromptCacheOptions =
+        serde_json::from_value(json!({"ttl": "30m", "mode": "implicit"})).unwrap();
+    assert_eq!(omitted.comparison_response_id, None);
+    assert_eq!(
+        serde_json::to_value(omitted).unwrap(),
+        json!({"ttl": "30m", "mode": "implicit"})
+    );
+
+    let explicit_null: PromptCacheOptions = serde_json::from_value(json!({
+        "ttl": "30m",
+        "mode": "implicit",
+        "comparison_response_id": null
+    }))
+    .unwrap();
+    assert_eq!(explicit_null.comparison_response_id, Some(None));
+    assert_eq!(
+        serde_json::to_value(explicit_null).unwrap(),
+        json!({"ttl": "30m", "mode": "implicit", "comparison_response_id": null})
+    );
+
+    let value: PromptCacheOptions = serde_json::from_value(json!({
+        "ttl": "30m",
+        "mode": "implicit",
+        "comparison_response_id": "resp_123"
+    }))
+    .unwrap();
+    assert_eq!(
+        value.comparison_response_id,
+        Some(Some("resp_123".to_owned()))
+    );
+    assert_eq!(
+        serde_json::to_value(value).unwrap(),
+        json!({"ttl": "30m", "mode": "implicit", "comparison_response_id": "resp_123"})
+    );
+}
+
+#[test]
+fn prompt_cache_request_param_keeps_optional_ttl_and_mode() {
+    let default = PromptCacheOptionsParam::new();
+    assert_eq!(serde_json::to_value(default).unwrap(), json!({}));
+
+    let value: PromptCacheOptionsParam =
+        serde_json::from_value(json!({"ttl": "30m", "mode": "explicit"})).unwrap();
+    assert_eq!(value.ttl, Some(PromptCacheTtlEnum::Variant30m));
+    assert_eq!(value.mode, Some(PromptCacheModeEnum::Explicit));
+    assert_eq!(
+        serde_json::to_value(value).unwrap(),
+        json!({"ttl": "30m", "mode": "explicit"})
+    );
+}
+
+#[test]
+fn decision_request_inline_prompt_cache_options_preserves_optional_and_nullable_fields() {
+    use openai_client_base::models::decision_request_prompt_cache_options::{Mode, Ttl};
+
+    let default = DecisionRequestPromptCacheOptions::new();
+    assert_eq!(default.ttl, None);
+    assert_eq!(default.mode, None);
+    assert_eq!(serde_json::to_value(default).unwrap(), json!({}));
+
+    let explicit_null_mode: DecisionRequestPromptCacheOptions =
+        serde_json::from_value(json!({"mode": null})).unwrap();
+    assert_eq!(explicit_null_mode.mode, Some(None));
+    assert_eq!(
+        serde_json::to_value(explicit_null_mode).unwrap(),
+        json!({"mode": null})
+    );
+
+    let value: DecisionRequestPromptCacheOptions =
+        serde_json::from_value(json!({"ttl": "30m", "mode": "explicit"})).unwrap();
+    assert_eq!(value.ttl, Some(Ttl::Variant30m));
+    assert_eq!(value.mode, Some(Some(Mode::Explicit)));
+    assert_eq!(
+        serde_json::to_value(value).unwrap(),
+        json!({"ttl": "30m", "mode": "explicit"})
+    );
+}
+
+#[test]
+fn decision_request_outer_prompt_cache_null_collapses_with_omission() {
+    let required = json!({"model": "gpt-6-luna", "input": "hello", "questions": []});
+    let omitted: DecisionRequest = serde_json::from_value(required.clone()).unwrap();
+    assert_eq!(omitted.prompt_cache_options, None);
+    assert_eq!(
+        serde_json::to_value(omitted).unwrap(),
+        json!({"model": "gpt-6-luna", "input": "hello", "questions": []})
+    );
+
+    let mut explicit_null = required;
+    explicit_null["prompt_cache_options"] = Value::Null;
+    let parsed: DecisionRequest = serde_json::from_value(explicit_null).unwrap();
+    assert_eq!(parsed.prompt_cache_options, None);
+    assert_eq!(
+        serde_json::to_value(parsed).unwrap(),
+        json!({"model": "gpt-6-luna", "input": "hello", "questions": []})
+    );
+
+    let nested_null: DecisionRequest = serde_json::from_value(json!({
+        "model": "gpt-6-luna",
+        "input": "hello",
+        "questions": [],
+        "prompt_cache_options": {"mode": null}
+    }))
+    .unwrap();
+    assert_eq!(
+        nested_null
+            .prompt_cache_options
+            .as_ref()
+            .and_then(|options| options.mode),
+        Some(None)
+    );
 }
