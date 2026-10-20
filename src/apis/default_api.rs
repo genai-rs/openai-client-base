@@ -10,231 +10,439 @@
 
 #![allow(clippy::needless_return, clippy::into_iter_on_ref)]
 
-use super::{configuration, ContentType, Error};
+use super::{configuration, multipart_helper, ContentType, Error};
 use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
+use tokio::fs::File as TokioFile;
+use tokio_util::codec::{BytesCodec, FramedRead};
 
-/// struct for typed errors of method [`agent_environment_expired_post`]
+/// struct for typed errors of method [`admin_api_keys_create`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AgentEnvironmentExpiredPostError {
+pub enum AdminApiKeysCreateError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`agent_environment_failed_post`]
+/// struct for typed errors of method [`admin_api_keys_delete`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AgentEnvironmentFailedPostError {
+pub enum AdminApiKeysDeleteError {
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`agent_environment_ready_post`]
+/// struct for typed errors of method [`admin_api_keys_get`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AgentEnvironmentReadyPostError {
+pub enum AdminApiKeysGetError {
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`agent_environment_suspended_post`]
+/// struct for typed errors of method [`admin_api_keys_list`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AgentEnvironmentSuspendedPostError {
+pub enum AdminApiKeysListError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`agent_session_action_required_post`]
+/// struct for typed errors of method [`cancel_chat_session_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AgentSessionActionRequiredPostError {
+pub enum CancelChatSessionMethodError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`agent_session_created_post`]
+/// struct for typed errors of method [`create_chat_session_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AgentSessionCreatedPostError {
+pub enum CreateChatSessionMethodError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`agent_session_failed_post`]
+/// struct for typed errors of method [`create_container`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AgentSessionFailedPostError {
+pub enum CreateContainerError {
+    Status400(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`agent_session_idle_post`]
+/// struct for typed errors of method [`create_container_file`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AgentSessionIdlePostError {
+pub enum CreateContainerFileError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`agent_session_in_progress_post`]
+/// struct for typed errors of method [`create_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AgentSessionInProgressPostError {
+pub enum CreateWebhookEndpointError {
+    Status400(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`batch_cancelled_post`]
+/// struct for typed errors of method [`createan_ap_ikeyforaserviceaccount`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum BatchCancelledPostError {
+pub enum CreateanApIkeyforaserviceaccountError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    Status409(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`batch_completed_post`]
+/// struct for typed errors of method [`createanexternalstorageconfiguration`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum BatchCompletedPostError {
+pub enum CreateanexternalstorageconfigurationError {
+    Status400(models::ErrorResponse),
+    Status403(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`batch_expired_post`]
+/// struct for typed errors of method [`createcontentprovenancecheck`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum BatchExpiredPostError {
+pub enum CreatecontentprovenancecheckError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`batch_failed_post`]
+/// struct for typed errors of method [`delete_container`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum BatchFailedPostError {
+pub enum DeleteContainerError {
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`eval_run_canceled_post`]
+/// struct for typed errors of method [`delete_container_file`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum EvalRunCanceledPostError {
+pub enum DeleteContainerFileError {
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`eval_run_failed_post`]
+/// struct for typed errors of method [`delete_thread_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum EvalRunFailedPostError {
+pub enum DeleteThreadMethodError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`eval_run_succeeded_post`]
+/// struct for typed errors of method [`delete_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum EvalRunSucceededPostError {
+pub enum DeleteWebhookEndpointError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`fine_tuning_job_cancelled_post`]
+/// struct for typed errors of method [`deleteanexternalstorageconfiguration`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum FineTuningJobCancelledPostError {
+pub enum DeleteanexternalstorageconfigurationError {
+    Status400(models::ErrorResponse),
+    Status403(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`fine_tuning_job_failed_post`]
+/// struct for typed errors of method [`deleteorganizationspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum FineTuningJobFailedPostError {
+pub enum DeleteorganizationspendlimitError {
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`fine_tuning_job_succeeded_post`]
+/// struct for typed errors of method [`deleteprojectspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum FineTuningJobSucceededPostError {
+pub enum DeleteprojectspendlimitError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`live_call_incoming_post`]
+/// struct for typed errors of method [`get_thread_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum LiveCallIncomingPostError {
+pub enum GetThreadMethodError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`live_transport_incoming_post`]
+/// struct for typed errors of method [`getanexternalstorageconfiguration`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum LiveTransportIncomingPostError {
+pub enum GetanexternalstorageconfigurationError {
+    Status400(models::ErrorResponse),
+    Status403(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`realtime_call_incoming_post`]
+/// struct for typed errors of method [`getorganizationspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum RealtimeCallIncomingPostError {
+pub enum GetorganizationspendlimitError {
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`response_cancelled_post`]
+/// struct for typed errors of method [`getprojectsafetyalert`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum ResponseCancelledPostError {
+pub enum GetprojectsafetyalertError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`response_completed_post`]
+/// struct for typed errors of method [`getprojectspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum ResponseCompletedPostError {
+pub enum GetprojectspendlimitError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`response_failed_post`]
+/// struct for typed errors of method [`getsafetycase`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum ResponseFailedPostError {
+pub enum GetsafetycaseError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`response_incomplete_post`]
+/// struct for typed errors of method [`list_container_files`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum ResponseIncompletePostError {
+pub enum ListContainerFilesError {
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`safety_alert_created_post`]
+/// struct for typed errors of method [`list_containers`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum SafetyAlertCreatedPostError {
+pub enum ListContainersError {
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`safety_deactivation_issued_post`]
+/// struct for typed errors of method [`list_thread_items_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum SafetyDeactivationIssuedPostError {
+pub enum ListThreadItemsMethodError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`safety_org_alert_created_post`]
+/// struct for typed errors of method [`list_threads_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum SafetyOrgAlertCreatedPostError {
+pub enum ListThreadsMethodError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`safety_warning_issued_post`]
+/// struct for typed errors of method [`list_webhook_endpoints`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum SafetyWarningIssuedPostError {
+pub enum ListWebhookEndpointsError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
-/// Sent when an agent environment expires and can no longer resume from a snapshot.
+/// struct for typed errors of method [`list_webhook_event_types`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWebhookEventTypesError {
+    Status401(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`listexternalstorageconfigurations`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListexternalstorageconfigurationsError {
+    Status400(models::ErrorResponse),
+    Status403(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`organization_decisionsusage`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OrganizationDecisionsusageError {
+    Status400(models::DecisionsUsageErrorResponse),
+    Status403(models::DecisionsUsagePermissionErrorResponse),
+    Status429(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`retrieve_container`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrieveContainerError {
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`retrieve_container_file`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrieveContainerFileError {
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`retrieve_container_file_content`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrieveContainerFileContentError {
+    Status404(models::ErrorResponse),
+    Status429(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`retrieve_webhook_endpoint`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrieveWebhookEndpointError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`rotate_webhook_endpoint_signing_secret`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RotateWebhookEndpointSigningSecretError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`test_webhook_endpoint`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum TestWebhookEndpointError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_webhook_endpoint`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateWebhookEndpointError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`updateorganizationspendlimit`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateorganizationspendlimitError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`updateprojectspendlimit`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateprojectspendlimitError {
+    Status400(models::ErrorResponse),
+    Status403(models::PermissionErrorResponse),
+    Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`validateanexternalstorageconfiguration`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidateanexternalstorageconfigurationError {
+    Status400(models::ErrorResponse),
+    Status403(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status503(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// Create an organization admin API key
 #[bon::builder]
-pub async fn agent_environment_expired_post(
+pub async fn admin_api_keys_create(
     configuration: &configuration::Configuration,
-    webhook_agent_environment_expired: Option<models::WebhookAgentEnvironmentExpired>,
-) -> Result<(), Error<AgentEnvironmentExpiredPostError>> {
+    admin_api_keys_create_request: models::AdminApiKeysCreateRequest,
+) -> Result<models::AdminApiKeyCreateResponse, Error<AdminApiKeysCreateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_agent_environment_expired = webhook_agent_environment_expired;
+    let p_body_admin_api_keys_create_request = admin_api_keys_create_request;
 
-    let uri_str = format!("{}/agent_environment_expired", configuration.base_path);
+    let uri_str = format!("{}/organization/admin_api_keys", configuration.base_path);
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -245,18 +453,29 @@ pub async fn agent_environment_expired_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_agent_environment_expired);
+    req_builder = req_builder.json(&p_body_admin_api_keys_create_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AdminApiKeyCreateResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdminApiKeyCreateResponse`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AgentEnvironmentExpiredPostError> = serde_json::from_str(&content).ok();
+        let entity: Option<AdminApiKeysCreateError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -265,19 +484,23 @@ pub async fn agent_environment_expired_post(
     }
 }
 
-/// Sent when setup fails for a prewarmed OpenAI-hosted environment before it is attached to a session.
+/// Delete an organization admin API key
 #[bon::builder]
-pub async fn agent_environment_failed_post(
+pub async fn admin_api_keys_delete(
     configuration: &configuration::Configuration,
-    webhook_agent_environment_failed: Option<models::WebhookAgentEnvironmentFailed>,
-) -> Result<(), Error<AgentEnvironmentFailedPostError>> {
+    key_id: &str,
+) -> Result<models::AdminApiKeysDelete200Response, Error<AdminApiKeysDeleteError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_agent_environment_failed = webhook_agent_environment_failed;
+    let p_path_key_id = key_id;
 
-    let uri_str = format!("{}/agent_environment_failed", configuration.base_path);
+    let uri_str = format!(
+        "{}/organization/admin_api_keys/{key_id}",
+        configuration.base_path,
+        key_id = crate::apis::urlencode(p_path_key_id)
+    );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -285,18 +508,28 @@ pub async fn agent_environment_failed_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_agent_environment_failed);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AdminApiKeysDelete200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdminApiKeysDelete200Response`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AgentEnvironmentFailedPostError> = serde_json::from_str(&content).ok();
+        let entity: Option<AdminApiKeysDeleteError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -305,19 +538,21 @@ pub async fn agent_environment_failed_post(
     }
 }
 
-/// Sent when a prewarmed OpenAI-hosted environment finishes setup before being attached to a session.
+/// Retrieve a single organization API key
 #[bon::builder]
-pub async fn agent_environment_ready_post(
+pub async fn admin_api_keys_get(
     configuration: &configuration::Configuration,
-    webhook_agent_environment_ready: Option<models::WebhookAgentEnvironmentReady>,
-) -> Result<(), Error<AgentEnvironmentReadyPostError>> {
+    key_id: &str,
+) -> Result<models::AdminApiKey, Error<AdminApiKeysGetError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_agent_environment_ready = webhook_agent_environment_ready;
+    let p_path_key_id = key_id;
 
-    let uri_str = format!("{}/agent_environment_ready", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
+    let uri_str = format!(
+        "{}/organization/admin_api_keys/{key_id}",
+        configuration.base_path,
+        key_id = crate::apis::urlencode(p_path_key_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -325,18 +560,28 @@ pub async fn agent_environment_ready_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_agent_environment_ready);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AdminApiKey`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AdminApiKey`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AgentEnvironmentReadyPostError> = serde_json::from_str(&content).ok();
+        let entity: Option<AdminApiKeysGetError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -345,16 +590,81 @@ pub async fn agent_environment_ready_post(
     }
 }
 
-/// Sent when an agent environment is suspended and can resume from a snapshot.
+/// List organization API keys
 #[bon::builder]
-pub async fn agent_environment_suspended_post(
+pub async fn admin_api_keys_list(
     configuration: &configuration::Configuration,
-    webhook_agent_environment_suspended: Option<models::WebhookAgentEnvironmentSuspended>,
-) -> Result<(), Error<AgentEnvironmentSuspendedPostError>> {
+    after: Option<&str>,
+    order: Option<&str>,
+    limit: Option<i32>,
+) -> Result<models::ApiKeyList, Error<AdminApiKeysListError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_agent_environment_suspended = webhook_agent_environment_suspended;
+    let p_query_after = after;
+    let p_query_order = order;
+    let p_query_limit = limit;
 
-    let uri_str = format!("{}/agent_environment_suspended", configuration.base_path);
+    let uri_str = format!("{}/organization/admin_api_keys", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ApiKeyList`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ApiKeyList`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AdminApiKeysListError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Cancel an active ChatKit session and return its most recent metadata.  Cancelling prevents new requests from using the issued client secret.
+#[bon::builder]
+pub async fn cancel_chat_session_method(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+) -> Result<models::ChatSessionResource, Error<CancelChatSessionMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+
+    let uri_str = format!(
+        "{}/chatkit/sessions/{session_id}/cancel",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -365,18 +675,301 @@ pub async fn agent_environment_suspended_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_agent_environment_suspended);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ChatSessionResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ChatSessionResource`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AgentEnvironmentSuspendedPostError> =
+        let entity: Option<CancelChatSessionMethodError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Create a ChatKit session.
+#[bon::builder]
+pub async fn create_chat_session_method(
+    configuration: &configuration::Configuration,
+    create_chat_session_body: Option<models::CreateChatSessionBody>,
+) -> Result<models::ChatSessionResource, Error<CreateChatSessionMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_chat_session_body = create_chat_session_body;
+
+    let uri_str = format!("{}/chatkit/sessions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_chat_session_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ChatSessionResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ChatSessionResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateChatSessionMethodError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Create Container
+#[bon::builder]
+pub async fn create_container(
+    configuration: &configuration::Configuration,
+    create_container_body: Option<models::CreateContainerBody>,
+) -> Result<models::ContainerResource, Error<CreateContainerError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_container_body = create_container_body;
+
+    let uri_str = format!("{}/containers", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_container_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateContainerError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
+#[bon::builder]
+pub async fn create_container_file(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    create_container_file_body: models::CreateContainerFileBody,
+) -> Result<models::ContainerFileResource, Error<CreateContainerFileError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_body_create_container_file_body = create_container_file_body;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_container_file_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerFileResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerFileResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateContainerFileError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Creates a webhook endpoint for the authenticated project.
+#[bon::builder]
+pub async fn create_webhook_endpoint(
+    configuration: &configuration::Configuration,
+    public_create_endpoint_body: Option<models::PublicCreateEndpointBody>,
+) -> Result<models::WebhookEndpointWithSecretResource, Error<CreateWebhookEndpointError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_public_create_endpoint_body = public_create_endpoint_body;
+
+    let uri_str = format!("{}/webhook_endpoints", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_public_create_endpoint_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEndpointWithSecretResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEndpointWithSecretResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateWebhookEndpointError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Creates an API key for a service account in the project.
+#[bon::builder]
+pub async fn createan_ap_ikeyforaserviceaccount(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    service_account_id: &str,
+    create_project_service_account_api_key_body: Option<
+        models::CreateProjectServiceAccountApiKeyBody,
+    >,
+) -> Result<models::ServiceAccountApiKeyBody, Error<CreateanApIkeyforaserviceaccountError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_path_service_account_id = service_account_id;
+    let p_body_create_project_service_account_api_key_body =
+        create_project_service_account_api_key_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/service_accounts/{service_account_id}/api_keys",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id),
+        service_account_id = crate::apis::urlencode(p_path_service_account_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_project_service_account_api_key_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ServiceAccountApiKeyBody`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ServiceAccountApiKeyBody`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateanApIkeyforaserviceaccountError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
@@ -386,16 +979,16 @@ pub async fn agent_environment_suspended_post(
     }
 }
 
-/// Sent when an agent session requires an action. Retrieve the session for action details.
+/// Register one customer-managed external storage configuration.
 #[bon::builder]
-pub async fn agent_session_action_required_post(
+pub async fn createanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
-    webhook_agent_session_action_required: Option<models::WebhookAgentSessionActionRequired>,
-) -> Result<(), Error<AgentSessionActionRequiredPostError>> {
+    create_external_storage_body: models::CreateExternalStorageBody,
+) -> Result<models::ExternalStorageResponse, Error<CreateanexternalstorageconfigurationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_agent_session_action_required = webhook_agent_session_action_required;
+    let p_body_create_external_storage_body = create_external_storage_body;
 
-    let uri_str = format!("{}/agent_session_action_required", configuration.base_path);
+    let uri_str = format!("{}/organization/external_storage", configuration.base_path);
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -406,18 +999,29 @@ pub async fn agent_session_action_required_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_agent_session_action_required);
+    req_builder = req_builder.json(&p_body_create_external_storage_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalStorageResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalStorageResponse`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AgentSessionActionRequiredPostError> =
+        let entity: Option<CreateanexternalstorageconfigurationError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
@@ -427,16 +1031,16 @@ pub async fn agent_session_action_required_post(
     }
 }
 
-/// Sent when an agent session is created.
+/// Check whether an image or audio file contains known OpenAI provenance signals. [Learn more about content provenance](https://developers.openai.com/api/docs/guides/content-provenance).  If `not_detected`, it means the tool did not find supported signals in the uploaded file. The content could still have been generated by OpenAI if the metadata was stripped or has evidence of tampering, the watermark was degraded, it comes from a legacy generation model, or it was created before provenance signals were available. Content could also still be AI-generated by another company's model, which the tool currently does not detect.
 #[bon::builder]
-pub async fn agent_session_created_post(
+pub async fn createcontentprovenancecheck(
     configuration: &configuration::Configuration,
-    webhook_agent_session_created: Option<models::WebhookAgentSessionCreated>,
-) -> Result<(), Error<AgentSessionCreatedPostError>> {
+    file: std::path::PathBuf,
+) -> Result<models::ProvenanceResource, Error<CreatecontentprovenancecheckError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_agent_session_created = webhook_agent_session_created;
+    let p_form_file = file;
 
-    let uri_str = format!("{}/agent_session_created", configuration.base_path);
+    let uri_str = format!("{}/content_provenance_checks", configuration.base_path);
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -447,18 +1051,31 @@ pub async fn agent_session_created_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_agent_session_created);
+    let mut multipart_form = reqwest::multipart::Form::new();
+    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    req_builder = req_builder.multipart(multipart_form);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProvenanceResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProvenanceResource`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AgentSessionCreatedPostError> = serde_json::from_str(&content).ok();
+        let entity: Option<CreatecontentprovenancecheckError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -467,16 +1084,1529 @@ pub async fn agent_session_created_post(
     }
 }
 
-/// Sent when an agent session fails.
+/// Delete Container
 #[bon::builder]
-pub async fn agent_session_failed_post(
+pub async fn delete_container(
     configuration: &configuration::Configuration,
-    webhook_agent_session_failed: Option<models::WebhookAgentSessionFailed>,
-) -> Result<(), Error<AgentSessionFailedPostError>> {
+    container_id: &str,
+) -> Result<models::DeleteContainer200Response, Error<DeleteContainerError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_agent_session_failed = webhook_agent_session_failed;
+    let p_path_container_id = container_id;
 
-    let uri_str = format!("{}/agent_session_failed", configuration.base_path);
+    let uri_str = format!(
+        "{}/containers/{container_id}",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteContainer200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteContainer200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteContainerError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Delete Container File
+#[bon::builder]
+pub async fn delete_container_file(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    file_id: &str,
+) -> Result<models::DeleteContainerFile200Response, Error<DeleteContainerFileError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_path_file_id = file_id;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files/{file_id}",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id),
+        file_id = crate::apis::urlencode(p_path_file_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteContainerFile200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteContainerFile200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteContainerFileError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Delete a ChatKit thread along with its items and stored attachments.
+#[bon::builder]
+pub async fn delete_thread_method(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+) -> Result<models::DeletedThreadResource, Error<DeleteThreadMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+
+    let uri_str = format!(
+        "{}/chatkit/threads/{thread_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeletedThreadResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeletedThreadResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteThreadMethodError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Deletes a webhook endpoint for the authenticated project.
+#[bon::builder]
+pub async fn delete_webhook_endpoint(
+    configuration: &configuration::Configuration,
+    webhook_endpoint_id: &str,
+) -> Result<models::DeletedWebhookEndpointResource, Error<DeleteWebhookEndpointError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeletedWebhookEndpointResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeletedWebhookEndpointResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteWebhookEndpointError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Disconnect a customer-managed external storage configuration. Removing the project's last configuration restores organization-default retention if customer-managed retention was active. Repeating a deletion also completes any interrupted retention update. Cloud storage is unchanged.
+#[bon::builder]
+pub async fn deleteanexternalstorageconfiguration(
+    configuration: &configuration::Configuration,
+    external_storage_id: &str,
+) -> Result<models::ExternalStorageDeletedResource, Error<DeleteanexternalstorageconfigurationError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_storage_id = external_storage_id;
+
+    let uri_str = format!(
+        "{}/organization/external_storage/{external_storage_id}",
+        configuration.base_path,
+        external_storage_id = crate::apis::urlencode(p_path_external_storage_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalStorageDeletedResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalStorageDeletedResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteanexternalstorageconfigurationError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Delete the organization's hard spend limit.
+#[bon::builder]
+pub async fn deleteorganizationspendlimit(
+    configuration: &configuration::Configuration,
+) -> Result<models::OrganizationSpendLimitDeletedResource, Error<DeleteorganizationspendlimitError>>
+{
+    let uri_str = format!("{}/organization/spend_limit", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationSpendLimitDeletedResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationSpendLimitDeletedResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteorganizationspendlimitError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Delete a project's hard spend limit.
+#[bon::builder]
+pub async fn deleteprojectspendlimit(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+) -> Result<models::ProjectSpendLimitDeletedResource, Error<DeleteprojectspendlimitError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_limit",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectSpendLimitDeletedResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectSpendLimitDeletedResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteprojectspendlimitError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Retrieve a ChatKit thread by its identifier.
+#[bon::builder]
+pub async fn get_thread_method(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+) -> Result<models::ThreadResource, Error<GetThreadMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+
+    let uri_str = format!(
+        "{}/chatkit/threads/{thread_id}",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ThreadResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ThreadResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetThreadMethodError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Get one customer-managed external storage configuration.
+#[bon::builder]
+pub async fn getanexternalstorageconfiguration(
+    configuration: &configuration::Configuration,
+    external_storage_id: &str,
+) -> Result<models::ExternalStorageResponse, Error<GetanexternalstorageconfigurationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_storage_id = external_storage_id;
+
+    let uri_str = format!(
+        "{}/organization/external_storage/{external_storage_id}",
+        configuration.base_path,
+        external_storage_id = crate::apis::urlencode(p_path_external_storage_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalStorageResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalStorageResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetanexternalstorageconfigurationError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Get the organization's hard spend limit.
+#[bon::builder]
+pub async fn getorganizationspendlimit(
+    configuration: &configuration::Configuration,
+) -> Result<models::OrganizationSpendLimitResource, Error<GetorganizationspendlimitError>> {
+    let uri_str = format!("{}/organization/spend_limit", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationSpendLimitResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationSpendLimitResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetorganizationspendlimitError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Get a safety alert belonging to the authenticated API project.
+#[bon::builder]
+pub async fn getprojectsafetyalert(
+    configuration: &configuration::Configuration,
+    id: &str,
+) -> Result<models::SafetyAlertResource, Error<GetprojectsafetyalertError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+
+    let uri_str = format!(
+        "{}/safety/alerts/{id}",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SafetyAlertResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SafetyAlertResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetprojectsafetyalertError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Get a project's hard spend limit.
+#[bon::builder]
+pub async fn getprojectspendlimit(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+) -> Result<models::ProjectSpendLimitResource, Error<GetprojectspendlimitError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_limit",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectSpendLimitResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectSpendLimitResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetprojectspendlimitError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Get a safety case by ID.
+#[bon::builder]
+pub async fn getsafetycase(
+    configuration: &configuration::Configuration,
+    id: &str,
+) -> Result<models::SafetyCaseResource, Error<GetsafetycaseError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+
+    let uri_str = format!(
+        "{}/safety/cases/{id}",
+        configuration.base_path,
+        id = crate::apis::urlencode(p_path_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SafetyCaseResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SafetyCaseResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetsafetycaseError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// List Container files
+#[bon::builder]
+pub async fn list_container_files(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    limit: Option<i32>,
+    order: Option<&str>,
+    after: Option<&str>,
+) -> Result<models::ContainerFileListResource, Error<ListContainerFilesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerFileListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerFileListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListContainerFilesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// List Containers
+#[bon::builder]
+pub async fn list_containers(
+    configuration: &configuration::Configuration,
+    limit: Option<i32>,
+    order: Option<&str>,
+    after: Option<&str>,
+    name: Option<&str>,
+) -> Result<models::ContainerListResource, Error<ListContainersError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_name = name;
+
+    let uri_str = format!("{}/containers", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_name {
+        req_builder = req_builder.query(&[("name", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListContainersError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// List items that belong to a ChatKit thread.
+#[bon::builder]
+pub async fn list_thread_items_method(
+    configuration: &configuration::Configuration,
+    thread_id: &str,
+    limit: Option<i32>,
+    order: Option<models::OrderEnum>,
+    after: Option<&str>,
+    before: Option<&str>,
+) -> Result<models::ThreadItemListResource, Error<ListThreadItemsMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_thread_id = thread_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+
+    let uri_str = format!(
+        "{}/chatkit/threads/{thread_id}/items",
+        configuration.base_path,
+        thread_id = crate::apis::urlencode(p_path_thread_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ThreadItemListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ThreadItemListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListThreadItemsMethodError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// List ChatKit threads with optional pagination and user filters.
+#[bon::builder]
+pub async fn list_threads_method(
+    configuration: &configuration::Configuration,
+    limit: Option<i32>,
+    order: Option<models::OrderEnum>,
+    after: Option<&str>,
+    before: Option<&str>,
+    user: Option<&str>,
+) -> Result<models::ThreadListResource, Error<ListThreadsMethodError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+    let p_query_user = user;
+
+    let uri_str = format!("{}/chatkit/threads", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_user {
+        req_builder = req_builder.query(&[("user", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ThreadListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ThreadListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListThreadsMethodError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Returns webhook endpoints for the authenticated project in newest-first order.
+#[bon::builder]
+pub async fn list_webhook_endpoints(
+    configuration: &configuration::Configuration,
+    limit: Option<i32>,
+    after: Option<&str>,
+) -> Result<models::WebhookEndpointListResource, Error<ListWebhookEndpointsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/webhook_endpoints", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEndpointListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEndpointListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListWebhookEndpointsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Returns webhook event types visible to the authenticated project.
+#[bon::builder]
+pub async fn list_webhook_event_types(
+    configuration: &configuration::Configuration,
+) -> Result<models::WebhookEventTypeListResource, Error<ListWebhookEventTypesError>> {
+    let uri_str = format!("{}/webhook_event_types", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEventTypeListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEventTypeListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListWebhookEventTypesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// List the organization's customer-managed external storage configurations.
+#[bon::builder]
+pub async fn listexternalstorageconfigurations(
+    configuration: &configuration::Configuration,
+    project_id: Option<&str>,
+    after: Option<&str>,
+    order: Option<models::ExternalStorageOrder>,
+    limit: Option<i32>,
+) -> Result<models::ExternalStorageListResource, Error<ListexternalstorageconfigurationsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_project_id = project_id;
+    let p_query_after = after;
+    let p_query_order = order;
+    let p_query_limit = limit;
+
+    let uri_str = format!("{}/organization/external_storage", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_project_id {
+        req_builder = req_builder.query(&[("project_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalStorageListResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalStorageListResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListexternalstorageconfigurationsError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Get Decisions API usage details for the organization.
+#[bon::builder]
+pub async fn organization_decisionsusage(
+    configuration: &configuration::Configuration,
+    start_time: i32,
+    end_time: Option<i32>,
+    bucket_width: Option<models::DecisionsUsageBucketWidth>,
+    limit: Option<i32>,
+    page: Option<&str>,
+    project_ids: Option<Vec<String>>,
+    group_by: Option<Vec<models::DecisionsUsageGroupBy>>,
+    user_ids: Option<Vec<String>>,
+    api_key_ids: Option<Vec<String>>,
+    models: Option<Vec<String>>,
+    batch: Option<bool>,
+) -> Result<models::PublicDecisionsUsageResponseResource, Error<OrganizationDecisionsusageError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_start_time = start_time;
+    let p_query_end_time = end_time;
+    let p_query_bucket_width = bucket_width;
+    let p_query_limit = limit;
+    let p_query_page = page;
+    let p_query_project_ids = project_ids;
+    let p_query_group_by = group_by;
+    let p_query_user_ids = user_ids;
+    let p_query_api_key_ids = api_key_ids;
+    let p_query_models = models;
+    let p_query_batch = batch;
+
+    let uri_str = format!("{}/organization/usage/decisions", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
+    if let Some(ref param_value) = p_query_end_time {
+        req_builder = req_builder.query(&[("end_time", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_bucket_width {
+        req_builder = req_builder.query(&[("bucket_width", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_project_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("project_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "project_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_group_by {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("group_by".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "group_by",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_user_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("user_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "user_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_api_key_ids {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("api_key_ids".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "api_key_ids",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_models {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("models".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "models",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_batch {
+        req_builder = req_builder.query(&[("batch", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PublicDecisionsUsageResponseResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PublicDecisionsUsageResponseResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OrganizationDecisionsusageError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Retrieve Container
+#[bon::builder]
+pub async fn retrieve_container(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+) -> Result<models::ContainerResource, Error<RetrieveContainerError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RetrieveContainerError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Retrieve Container File
+#[bon::builder]
+pub async fn retrieve_container_file(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    file_id: &str,
+) -> Result<models::ContainerFileResource, Error<RetrieveContainerFileError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_path_file_id = file_id;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files/{file_id}",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id),
+        file_id = crate::apis::urlencode(p_path_file_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerFileResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerFileResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RetrieveContainerFileError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Retrieve Container File Content
+#[bon::builder]
+pub async fn retrieve_container_file_content(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    file_id: &str,
+) -> Result<reqwest::Response, Error<RetrieveContainerFileContentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_path_file_id = file_id;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files/{file_id}/content",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id),
+        file_id = crate::apis::urlencode(p_path_file_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(resp)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RetrieveContainerFileContentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Retrieves a webhook endpoint for the authenticated project.
+#[bon::builder]
+pub async fn retrieve_webhook_endpoint(
+    configuration: &configuration::Configuration,
+    webhook_endpoint_id: &str,
+) -> Result<models::WebhookEndpointBody, Error<RetrieveWebhookEndpointError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEndpointBody`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEndpointBody`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RetrieveWebhookEndpointError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Rotates the signing secret for a webhook endpoint in the authenticated project.
+#[bon::builder]
+pub async fn rotate_webhook_endpoint_signing_secret(
+    configuration: &configuration::Configuration,
+    webhook_endpoint_id: &str,
+    public_rotate_secret_body: Option<models::PublicRotateSecretBody>,
+) -> Result<models::WebhookEndpointWithSecretResource, Error<RotateWebhookEndpointSigningSecretError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+    let p_body_public_rotate_secret_body = public_rotate_secret_body;
+
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}/rotate_secret",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -487,18 +2617,30 @@ pub async fn agent_session_failed_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_agent_session_failed);
+    req_builder = req_builder.json(&p_body_public_rotate_secret_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEndpointWithSecretResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEndpointWithSecretResource`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AgentSessionFailedPostError> = serde_json::from_str(&content).ok();
+        let entity: Option<RotateWebhookEndpointSigningSecretError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -507,16 +2649,22 @@ pub async fn agent_session_failed_post(
     }
 }
 
-/// Sent when an agent session becomes idle.
+/// Sends a sample event to a webhook endpoint for the authenticated project.
 #[bon::builder]
-pub async fn agent_session_idle_post(
+pub async fn test_webhook_endpoint(
     configuration: &configuration::Configuration,
-    webhook_agent_session_idle: Option<models::WebhookAgentSessionIdle>,
-) -> Result<(), Error<AgentSessionIdlePostError>> {
+    webhook_endpoint_id: &str,
+    public_test_endpoint_body: Option<models::PublicTestEndpointBody>,
+) -> Result<models::WebhookEndpointTestResultResource, Error<TestWebhookEndpointError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_agent_session_idle = webhook_agent_session_idle;
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+    let p_body_public_test_endpoint_body = public_test_endpoint_body;
 
-    let uri_str = format!("{}/agent_session_idle", configuration.base_path);
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}/test",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -527,18 +2675,29 @@ pub async fn agent_session_idle_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_agent_session_idle);
+    req_builder = req_builder.json(&p_body_public_test_endpoint_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEndpointTestResultResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEndpointTestResultResource`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AgentSessionIdlePostError> = serde_json::from_str(&content).ok();
+        let entity: Option<TestWebhookEndpointError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -547,16 +2706,22 @@ pub async fn agent_session_idle_post(
     }
 }
 
-/// Sent when an agent session enters the in-progress state.
+/// Updates a webhook endpoint for the authenticated project.
 #[bon::builder]
-pub async fn agent_session_in_progress_post(
+pub async fn update_webhook_endpoint(
     configuration: &configuration::Configuration,
-    webhook_agent_session_in_progress: Option<models::WebhookAgentSessionInProgress>,
-) -> Result<(), Error<AgentSessionInProgressPostError>> {
+    webhook_endpoint_id: &str,
+    public_update_endpoint_body: Option<models::PublicUpdateEndpointBody>,
+) -> Result<models::WebhookEndpointBody, Error<UpdateWebhookEndpointError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_agent_session_in_progress = webhook_agent_session_in_progress;
+    let p_path_webhook_endpoint_id = webhook_endpoint_id;
+    let p_body_public_update_endpoint_body = public_update_endpoint_body;
 
-    let uri_str = format!("{}/agent_session_in_progress", configuration.base_path);
+    let uri_str = format!(
+        "{}/webhook_endpoints/{webhook_endpoint_id}",
+        configuration.base_path,
+        webhook_endpoint_id = crate::apis::urlencode(p_path_webhook_endpoint_id)
+    );
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -567,18 +2732,29 @@ pub async fn agent_session_in_progress_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_agent_session_in_progress);
+    req_builder = req_builder.json(&p_body_public_update_endpoint_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WebhookEndpointBody`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WebhookEndpointBody`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<AgentSessionInProgressPostError> = serde_json::from_str(&content).ok();
+        let entity: Option<UpdateWebhookEndpointError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -587,16 +2763,16 @@ pub async fn agent_session_in_progress_post(
     }
 }
 
-/// Sent when a batch has been cancelled.
+/// Create or replace the organization's hard spend limit.
 #[bon::builder]
-pub async fn batch_cancelled_post(
+pub async fn updateorganizationspendlimit(
     configuration: &configuration::Configuration,
-    webhook_batch_cancelled: Option<models::WebhookBatchCancelled>,
-) -> Result<(), Error<BatchCancelledPostError>> {
+    update_organization_spend_limit_body: models::UpdateOrganizationSpendLimitBody,
+) -> Result<models::OrganizationSpendLimitResource, Error<UpdateorganizationspendlimitError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_batch_cancelled = webhook_batch_cancelled;
+    let p_body_update_organization_spend_limit_body = update_organization_spend_limit_body;
 
-    let uri_str = format!("{}/batch_cancelled", configuration.base_path);
+    let uri_str = format!("{}/organization/spend_limit", configuration.base_path);
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -607,18 +2783,29 @@ pub async fn batch_cancelled_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_batch_cancelled);
+    req_builder = req_builder.json(&p_body_update_organization_spend_limit_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OrganizationSpendLimitResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OrganizationSpendLimitResource`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<BatchCancelledPostError> = serde_json::from_str(&content).ok();
+        let entity: Option<UpdateorganizationspendlimitError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -627,16 +2814,22 @@ pub async fn batch_cancelled_post(
     }
 }
 
-/// Sent when a batch has completed processing.
+/// Create or replace a project's hard spend limit.
 #[bon::builder]
-pub async fn batch_completed_post(
+pub async fn updateprojectspendlimit(
     configuration: &configuration::Configuration,
-    webhook_batch_completed: Option<models::WebhookBatchCompleted>,
-) -> Result<(), Error<BatchCompletedPostError>> {
+    project_id: &str,
+    update_project_spend_limit_body: models::UpdateProjectSpendLimitBody,
+) -> Result<models::ProjectSpendLimitResource, Error<UpdateprojectspendlimitError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_batch_completed = webhook_batch_completed;
+    let p_path_project_id = project_id;
+    let p_body_update_project_spend_limit_body = update_project_spend_limit_body;
 
-    let uri_str = format!("{}/batch_completed", configuration.base_path);
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/spend_limit",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -647,18 +2840,29 @@ pub async fn batch_completed_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_batch_completed);
+    req_builder = req_builder.json(&p_body_update_project_spend_limit_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectSpendLimitResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectSpendLimitResource`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<BatchCompletedPostError> = serde_json::from_str(&content).ok();
+        let entity: Option<UpdateprojectspendlimitError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -667,16 +2871,20 @@ pub async fn batch_completed_post(
     }
 }
 
-/// Sent when a batch has expired before completion.
+/// Validate one customer-managed external storage configuration.
 #[bon::builder]
-pub async fn batch_expired_post(
+pub async fn validateanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
-    webhook_batch_expired: Option<models::WebhookBatchExpired>,
-) -> Result<(), Error<BatchExpiredPostError>> {
+    external_storage_id: &str,
+) -> Result<models::ExternalStorageResponse, Error<ValidateanexternalstorageconfigurationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_batch_expired = webhook_batch_expired;
+    let p_path_external_storage_id = external_storage_id;
 
-    let uri_str = format!("{}/batch_expired", configuration.base_path);
+    let uri_str = format!(
+        "{}/organization/external_storage/{external_storage_id}/validate",
+        configuration.base_path,
+        external_storage_id = crate::apis::urlencode(p_path_external_storage_id)
+    );
     let mut req_builder = configuration
         .client
         .request(reqwest::Method::POST, &uri_str);
@@ -687,18 +2895,29 @@ pub async fn batch_expired_post(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook_batch_expired);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalStorageResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalStorageResponse`")))),
+        }
     } else {
         let content = resp.text().await?;
-        let entity: Option<BatchExpiredPostError> = serde_json::from_str(&content).ok();
+        let entity: Option<ValidateanexternalstorageconfigurationError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -707,722 +2926,4 @@ pub async fn batch_expired_post(
     }
 }
 
-/// Sent when a batch has failed.
-#[bon::builder]
-pub async fn batch_failed_post(
-    configuration: &configuration::Configuration,
-    webhook_batch_failed: Option<models::WebhookBatchFailed>,
-) -> Result<(), Error<BatchFailedPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_batch_failed = webhook_batch_failed;
-
-    let uri_str = format!("{}/batch_failed", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_batch_failed);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<BatchFailedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when an eval run has been canceled.
-#[bon::builder]
-pub async fn eval_run_canceled_post(
-    configuration: &configuration::Configuration,
-    webhook_eval_run_canceled: Option<models::WebhookEvalRunCanceled>,
-) -> Result<(), Error<EvalRunCanceledPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_eval_run_canceled = webhook_eval_run_canceled;
-
-    let uri_str = format!("{}/eval_run_canceled", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_eval_run_canceled);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<EvalRunCanceledPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when an eval run has failed.
-#[bon::builder]
-pub async fn eval_run_failed_post(
-    configuration: &configuration::Configuration,
-    webhook_eval_run_failed: Option<models::WebhookEvalRunFailed>,
-) -> Result<(), Error<EvalRunFailedPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_eval_run_failed = webhook_eval_run_failed;
-
-    let uri_str = format!("{}/eval_run_failed", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_eval_run_failed);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<EvalRunFailedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when an eval run has succeeded.
-#[bon::builder]
-pub async fn eval_run_succeeded_post(
-    configuration: &configuration::Configuration,
-    webhook_eval_run_succeeded: Option<models::WebhookEvalRunSucceeded>,
-) -> Result<(), Error<EvalRunSucceededPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_eval_run_succeeded = webhook_eval_run_succeeded;
-
-    let uri_str = format!("{}/eval_run_succeeded", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_eval_run_succeeded);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<EvalRunSucceededPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when a fine-tuning job has been cancelled.
-#[bon::builder]
-pub async fn fine_tuning_job_cancelled_post(
-    configuration: &configuration::Configuration,
-    webhook_fine_tuning_job_cancelled: Option<models::WebhookFineTuningJobCancelled>,
-) -> Result<(), Error<FineTuningJobCancelledPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_fine_tuning_job_cancelled = webhook_fine_tuning_job_cancelled;
-
-    let uri_str = format!("{}/fine_tuning_job_cancelled", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_fine_tuning_job_cancelled);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<FineTuningJobCancelledPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when a fine-tuning job has failed.
-#[bon::builder]
-pub async fn fine_tuning_job_failed_post(
-    configuration: &configuration::Configuration,
-    webhook_fine_tuning_job_failed: Option<models::WebhookFineTuningJobFailed>,
-) -> Result<(), Error<FineTuningJobFailedPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_fine_tuning_job_failed = webhook_fine_tuning_job_failed;
-
-    let uri_str = format!("{}/fine_tuning_job_failed", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_fine_tuning_job_failed);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<FineTuningJobFailedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when a fine-tuning job has succeeded.
-#[bon::builder]
-pub async fn fine_tuning_job_succeeded_post(
-    configuration: &configuration::Configuration,
-    webhook_fine_tuning_job_succeeded: Option<models::WebhookFineTuningJobSucceeded>,
-) -> Result<(), Error<FineTuningJobSucceededPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_fine_tuning_job_succeeded = webhook_fine_tuning_job_succeeded;
-
-    let uri_str = format!("{}/fine_tuning_job_succeeded", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_fine_tuning_job_succeeded);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<FineTuningJobSucceededPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Deprecated: use `live.transport.incoming`. Retained only for existing subscriptions. Sent when an incoming API SIP session is available for Live acceptance.
-#[bon::builder]
-pub async fn live_call_incoming_post(
-    configuration: &configuration::Configuration,
-    webhook_live_call_incoming: Option<models::WebhookLiveCallIncoming>,
-) -> Result<(), Error<LiveCallIncomingPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_live_call_incoming = webhook_live_call_incoming;
-
-    let uri_str = format!("{}/live_call_incoming", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_live_call_incoming);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<LiveCallIncomingPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when an incoming API SIP session is available for Live acceptance.
-#[bon::builder]
-pub async fn live_transport_incoming_post(
-    configuration: &configuration::Configuration,
-    webhook_live_transport_incoming: Option<models::WebhookLiveTransportIncoming>,
-) -> Result<(), Error<LiveTransportIncomingPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_live_transport_incoming = webhook_live_transport_incoming;
-
-    let uri_str = format!("{}/live_transport_incoming", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_live_transport_incoming);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<LiveTransportIncomingPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when an incoming API SIP session is available for Realtime acceptance.
-#[bon::builder]
-pub async fn realtime_call_incoming_post(
-    configuration: &configuration::Configuration,
-    webhook_realtime_call_incoming: Option<models::WebhookRealtimeCallIncoming>,
-) -> Result<(), Error<RealtimeCallIncomingPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_realtime_call_incoming = webhook_realtime_call_incoming;
-
-    let uri_str = format!("{}/realtime_call_incoming", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_realtime_call_incoming);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<RealtimeCallIncomingPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when a background response has been cancelled.
-#[bon::builder]
-pub async fn response_cancelled_post(
-    configuration: &configuration::Configuration,
-    webhook_response_cancelled: Option<models::WebhookResponseCancelled>,
-) -> Result<(), Error<ResponseCancelledPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_response_cancelled = webhook_response_cancelled;
-
-    let uri_str = format!("{}/response_cancelled", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_response_cancelled);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ResponseCancelledPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when a background response has completed successfully.
-#[bon::builder]
-pub async fn response_completed_post(
-    configuration: &configuration::Configuration,
-    webhook_response_completed: Option<models::WebhookResponseCompleted>,
-) -> Result<(), Error<ResponseCompletedPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_response_completed = webhook_response_completed;
-
-    let uri_str = format!("{}/response_completed", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_response_completed);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ResponseCompletedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when a background response has failed.
-#[bon::builder]
-pub async fn response_failed_post(
-    configuration: &configuration::Configuration,
-    webhook_response_failed: Option<models::WebhookResponseFailed>,
-) -> Result<(), Error<ResponseFailedPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_response_failed = webhook_response_failed;
-
-    let uri_str = format!("{}/response_failed", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_response_failed);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ResponseFailedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when a background response is incomplete.
-#[bon::builder]
-pub async fn response_incomplete_post(
-    configuration: &configuration::Configuration,
-    webhook_response_incomplete: Option<models::WebhookResponseIncomplete>,
-) -> Result<(), Error<ResponseIncompletePostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_response_incomplete = webhook_response_incomplete;
-
-    let uri_str = format!("{}/response_incomplete", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_response_incomplete);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ResponseIncompletePostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when an approved safety alert is available for an API project. Retrieve the alert with a project API key granted `api.safety.alerts.read`.
-#[bon::builder]
-pub async fn safety_alert_created_post(
-    configuration: &configuration::Configuration,
-    webhook_safety_alert_created: Option<models::WebhookSafetyAlertCreated>,
-) -> Result<(), Error<SafetyAlertCreatedPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_safety_alert_created = webhook_safety_alert_created;
-
-    let uri_str = format!("{}/safety_alert_created", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_safety_alert_created);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<SafetyAlertCreatedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when a deactivation is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`.
-#[bon::builder]
-pub async fn safety_deactivation_issued_post(
-    configuration: &configuration::Configuration,
-    webhook_safety_deactivation_issued: Option<models::WebhookSafetyDeactivationIssued>,
-) -> Result<(), Error<SafetyDeactivationIssuedPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_safety_deactivation_issued = webhook_safety_deactivation_issued;
-
-    let uri_str = format!("{}/safety_deactivation_issued", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_safety_deactivation_issued);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<SafetyDeactivationIssuedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when an approved safety alert is available for an enterprise workspace. Retrieve the alert from `https://api.chatgpt.com/v1/safety/alerts/{id}` with an administrator API key for the workspace's backing organization granted `chatgpt.enterprise.safety_alerts.read`.
-#[bon::builder]
-pub async fn safety_org_alert_created_post(
-    configuration: &configuration::Configuration,
-    webhook_safety_org_alert_created: Option<models::WebhookSafetyOrgAlertCreated>,
-) -> Result<(), Error<SafetyOrgAlertCreatedPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_safety_org_alert_created = webhook_safety_org_alert_created;
-
-    let uri_str = format!("{}/safety_org_alert_created", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_safety_org_alert_created);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<SafetyOrgAlertCreatedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
-
-/// Sent when a warning is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`.
-#[bon::builder]
-pub async fn safety_warning_issued_post(
-    configuration: &configuration::Configuration,
-    webhook_safety_warning_issued: Option<models::WebhookSafetyWarningIssued>,
-) -> Result<(), Error<SafetyWarningIssuedPostError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook_safety_warning_issued = webhook_safety_warning_issued;
-
-    let uri_str = format!("{}/safety_warning_issued", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_webhook_safety_warning_issued);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<SafetyWarningIssuedPostError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
-    }
-}
+pub use super::open_ai_client_base_webhooks_api::*;

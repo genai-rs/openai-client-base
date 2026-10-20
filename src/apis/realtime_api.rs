@@ -10,7 +10,7 @@
 
 #![allow(clippy::needless_return, clippy::into_iter_on_ref)]
 
-use super::{configuration, ContentType, Error};
+use super::{configuration, multipart_helper, ContentType, Error};
 use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
@@ -162,9 +162,19 @@ pub async fn create_realtime_call(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
-    multipart_form = multipart_form.text("sdp", p_form_sdp.to_string());
+    multipart_form = multipart_helper::add_schema_value_to_form(
+        multipart_form,
+        "sdp",
+        serde_json::Value::String(p_form_sdp.to_string()),
+        Some("application/sdp"),
+    )?;
     if let Some(param_value) = p_form_session {
-        multipart_form = multipart_form.text("session", param_value.to_string());
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "session",
+            serde_json::to_value(param_value)?,
+            Some("application/json"),
+        )?;
     }
     req_builder = req_builder.multipart(multipart_form);
 
