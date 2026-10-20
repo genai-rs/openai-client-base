@@ -2064,6 +2064,8 @@ pub mod decision_input_tool_output_content_parts_inner;
 pub use self::decision_input_tool_output_content_parts_inner::DecisionInputToolOutputContentPartsInner;
 pub mod decision_request;
 pub use self::decision_request::DecisionRequest;
+pub mod decision_request_prompt_cache_options;
+pub use self::decision_request_prompt_cache_options::DecisionRequestPromptCacheOptions;
 pub mod decision_response;
 pub use self::decision_response::DecisionResponse;
 pub mod decisions_usage_api_source;

@@ -14,6 +14,9 @@ This script handles Rust/generator-specific issues:
 
 import sys, copy, os, re
 import yaml
+from prompt_cache_title_disambiguation import (
+    disambiguate_decision_request_prompt_cache_options,
+)
 
 # This now takes the model fixed spec as input
 IN = sys.argv[1] if len(sys.argv) > 1 else "target/specs/l1_model_fixed.yaml"
@@ -239,6 +242,14 @@ def hoist_inline_unions(schemas):
 # 1) Remove all defaults under components.schemas
 schemas = doc.get("components", {}).get("schemas", {})
 walk_and_prune(schemas)
+# The Decisions request embeds an inline object titled the same as the named
+# response model. OpenAPI Generator otherwise writes both models to the same
+# Rust source path and leaves the request shape in prompt_cache_options.rs.
+if disambiguate_decision_request_prompt_cache_options(schemas):
+    note(
+        "Renamed generator-only title on DecisionRequest.prompt_cache_options "
+        "to DecisionRequestPromptCacheOptions to avoid response-model collision"
+    )
 # Also ensure no $ref siblings across entire document
 strip_ref_siblings(doc)
 # Remove oneOf/anyOf entries that only express required-field constraints
