@@ -9,7 +9,7 @@ baseline_sha=$(git -C "$candidate" rev-parse "${2:-origin/main}^{commit}")
 candidate_sha=$(git -C "$candidate" rev-parse HEAD)
 consumer_repository=${DOWNSTREAM_REPOSITORY:-https://github.com/genai-rs/openai-ergonomic.git}
 # OA08 integration: wrapper 0.7 pins base 0.16 at an immutable Git revision.
-consumer_sha=${DOWNSTREAM_COMMIT:-89b4e1323c3c5b460afe19d4e851a06c7e9881ea}
+consumer_sha=${DOWNSTREAM_COMMIT:-8ac6a6fe007eeb92754f64ecff40d63b505d6c50}
 if [[ ! "$consumer_sha" =~ ^[0-9a-f]{40}$ ]]; then
     echo "DOWNSTREAM_COMMIT must be a full commit SHA" >&2
     exit 1
