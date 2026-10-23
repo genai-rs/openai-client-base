@@ -20,7 +20,7 @@ pub struct QuestionParamScore {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "instructions")]
-    pub instructions: String,
+    pub instructions: Box<models::QuestionParamScoreInstructions>,
     #[serde(rename = "levels")]
     pub levels: Vec<models::ScoreLevelParam>,
 }
@@ -29,13 +29,13 @@ impl QuestionParamScore {
     /// Rate the input against the supplied ordered levels.
     pub fn new(
         r#type: Type,
-        instructions: String,
+        instructions: models::QuestionParamScoreInstructions,
         levels: Vec<models::ScoreLevelParam>,
     ) -> QuestionParamScore {
         QuestionParamScore {
             r#type,
             name: None,
-            instructions,
+            instructions: Box::new(instructions),
             levels,
         }
     }

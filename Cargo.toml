@@ -14,17 +14,17 @@ categories = ["api-bindings"]
 rust-version = "1.88"
 
 [dependencies]
-bon = "^3.10.2"
+bon = { version = "^3.10.2" }
 serde = { version = "^1.0.229", features = ["derive"] }
-serde_with = { version = "^3.24.0", default-features = false, features = ["base64", "std", "macros"] }
-serde_json = "^1.0.151"
-serde_repr = "^0.1.21"
-url = "^2.5.8"
+serde_with = { version = "^3.24.0", features = ["base64", "std", "macros"], default-features = false }
+serde_json = { version = "^1.0.151" }
+serde_repr = { version = "^0.1.21" }
+url = { version = "^2.5.8" }
 tokio = { version = "^1.53.2", features = ["fs"] }
 tokio-util = { version = "^0.7.19", features = ["codec"] }
-reqwest = { version = "^0.13.5", default-features = false, features = ["json", "multipart", "stream", "query"] }
+reqwest = { version = "^0.13.5", features = ["json", "multipart", "stream", "query"], default-features = false }
 reqwest-middleware = { version = "^0.5.2", features = ["json", "multipart", "query"] }
 
 [dev-dependencies]
-anyhow = "^1.0.104"
+anyhow = { version = "^1.0.104" }
 tokio = { version = "^1.53.2", features = ["rt-multi-thread", "macros"] }

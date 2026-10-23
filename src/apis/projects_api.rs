@@ -495,7 +495,7 @@ pub async fn create_project_user(
     }
 }
 
-/// Deletes an API key from the project.  Returns confirmation of the key deletion, or an error if the key belonged to a service account.
+/// Deletes an API key from the project, including keys owned by service accounts.  Requires permission to write project API keys. Deleting a service-account key does not delete the service account or its other keys.  Returns confirmation of the key deletion.
 #[bon::builder]
 pub async fn delete_project_api_key(
     configuration: &configuration::Configuration,

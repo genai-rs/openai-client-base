@@ -14,6 +14,12 @@ use serde::{Deserialize, Serialize};
 /// LiveResponsesDelegationUpdateParam : Update the Responses backend for an existing Live session without changing delegation ownership.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveResponsesDelegationUpdateParam {
+    /// Milliseconds to wait before requesting an automatic spoken acknowledgement for a delegation. The model may still speak before this delay. Any commentary or thinking appended to the session cancels all pending acknowledgements, including those for other delegations. Defaults to 400 for Decisions sessions and 0 (request immediately) for other sessions. Omission in a session update preserves the current value. Updates apply to subsequent delegations.
+    #[serde(
+        rename = "acknowledgement_delay_ms",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub acknowledgement_delay_ms: Option<i32>,
     /// The delegation owner. Always `responses` for tasks handled by the Responses API.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -25,6 +31,7 @@ impl LiveResponsesDelegationUpdateParam {
     /// Update the Responses backend for an existing Live session without changing delegation ownership.
     pub fn new(r#type: Type) -> LiveResponsesDelegationUpdateParam {
         LiveResponsesDelegationUpdateParam {
+            acknowledgement_delay_ms: None,
             r#type,
             responses: None,
         }

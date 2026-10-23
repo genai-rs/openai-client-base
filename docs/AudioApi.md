@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**create_translation**](AudioApi.md#create_translation) | **POST** /audio/translations | Create translation
 [**create_voice**](AudioApi.md#create_voice) | **POST** /audio/voices | Create voice
 [**create_voice_consent**](AudioApi.md#create_voice_consent) | **POST** /audio/voice_consents | Create voice consent
+[**delete_voice**](AudioApi.md#delete_voice) | **DELETE** /audio/voices/{voice_id} | Delete voice
 [**delete_voice_consent**](AudioApi.md#delete_voice_consent) | **DELETE** /audio/voice_consents/{consent_id} | Delete voice consent
 [**get_voice_consent**](AudioApi.md#get_voice_consent) | **GET** /audio/voice_consents/{consent_id} | Retrieve voice consent
 [**list_voice_consents**](AudioApi.md#list_voice_consents) | **GET** /audio/voice_consents | List voice consents
@@ -180,6 +181,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_voice
+
+> models::VoiceDeletedResource delete_voice(voice_id)
+Delete voice
+
+Deletes a voice created from a text prompt or an audio sample.  Requires voice write permission and access to the voice's project. Access to voices created from recordings is limited to eligible customers. See the [custom voices guide](https://developers.openai.com/api/docs/guides/custom-voices).  Deleting a voice does not delete its consent recording. Deleting an already deleted voice returns a 404 error. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**voice_id** | **String** | The ID of the voice to delete. | [required] |
+
+### Return type
+
+[**models::VoiceDeletedResource**](VoiceDeletedResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

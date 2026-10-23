@@ -79,6 +79,15 @@ pub enum CreateVoiceConsentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_voice`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteVoiceError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_voice_consent`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -494,6 +503,60 @@ pub async fn create_voice_consent(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVoiceConsentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Deletes a voice created from a text prompt or an audio sample.  Requires voice write permission and access to the voice's project. Access to voices created from recordings is limited to eligible customers. See the [custom voices guide](https://developers.openai.com/api/docs/guides/custom-voices).  Deleting a voice does not delete its consent recording. Deleting an already deleted voice returns a 404 error.
+#[bon::builder]
+pub async fn delete_voice(
+    configuration: &configuration::Configuration,
+    voice_id: &str,
+) -> Result<models::VoiceDeletedResource, Error<DeleteVoiceError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_voice_id = voice_id;
+
+    let uri_str = format!(
+        "{}/audio/voices/{voice_id}",
+        configuration.base_path,
+        voice_id = crate::apis::urlencode(p_path_voice_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceDeletedResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceDeletedResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteVoiceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
