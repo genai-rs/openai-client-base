@@ -108,7 +108,6 @@ pub enum CreateanApIkeyforaserviceaccountError {
     Status400(models::ErrorResponse),
     Status403(models::PermissionErrorResponse),
     Status404(models::ErrorResponse),
-    Status409(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }

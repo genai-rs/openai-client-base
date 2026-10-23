@@ -17,12 +17,15 @@ pub struct BetaPromptCacheBreakpointParam {
     /// The breakpoint mode. Always `explicit`.
     #[serde(rename = "mode")]
     pub mode: Mode,
+    /// The minimum lifetime of this cache breakpoint. Defaults to the request TTL.
+    #[serde(rename = "ttl", skip_serializing_if = "Option::is_none")]
+    pub ttl: Option<Ttl>,
 }
 
 impl BetaPromptCacheBreakpointParam {
     /// Marks the exact end of a reusable prompt prefix. The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
     pub fn new(mode: Mode) -> BetaPromptCacheBreakpointParam {
-        BetaPromptCacheBreakpointParam { mode }
+        BetaPromptCacheBreakpointParam { mode, ttl: None }
     }
 }
 /// The breakpoint mode. Always `explicit`.
@@ -35,6 +38,20 @@ pub enum Mode {
 impl Default for Mode {
     fn default() -> Mode {
         Self::Explicit
+    }
+}
+/// The minimum lifetime of this cache breakpoint. Defaults to the request TTL.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Ttl {
+    #[serde(rename = "30m")]
+    Variant30m,
+    #[serde(rename = "12h")]
+    Variant12h,
+}
+
+impl Default for Ttl {
+    fn default() -> Ttl {
+        Self::Variant30m
     }
 }
 

@@ -20,16 +20,19 @@ pub struct QuestionParamPredicate {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "instructions")]
-    pub instructions: String,
+    pub instructions: Box<models::QuestionParamPredicateInstructions>,
 }
 
 impl QuestionParamPredicate {
     /// Estimate how likely it is that a statement about the input is true.
-    pub fn new(r#type: Type, instructions: String) -> QuestionParamPredicate {
+    pub fn new(
+        r#type: Type,
+        instructions: models::QuestionParamPredicateInstructions,
+    ) -> QuestionParamPredicate {
         QuestionParamPredicate {
             r#type,
             name: None,
-            instructions,
+            instructions: Box::new(instructions),
         }
     }
 }

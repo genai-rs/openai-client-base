@@ -18,7 +18,7 @@ pub struct DecisionRequest {
     pub model: String,
     #[serde(rename = "input")]
     pub input: Box<models::DecisionInput>,
-    /// Ask 1–200 questions about the input. Each question can be a predicate, choice, or score. Answers come back in the same order.
+    /// Ask 1–400 questions about the input. Each question can be a predicate, choice, or score. Answers come back in the same order.
     #[serde(rename = "questions")]
     pub questions: Vec<models::QuestionParam>,
     /// Opaque caller-provided end-user identifier, scoped by the verified org. Match Responses' limit; this is never the authenticated user identity.

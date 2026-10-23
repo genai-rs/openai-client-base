@@ -11,53 +11,19 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// DecisionInputMessage : A user message containing input text or images, a developer or system message containing input text, or an assistant message containing output text or refusals. System messages are rendered as developer messages.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct DecisionInputMessage {
-    #[serde(rename = "role")]
-    pub role: Role,
-    #[serde(rename = "content")]
-    pub content: Box<models::DecisionInputContent>,
-    #[serde(
-        rename = "phase",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub phase: Option<Option<models::MessagePhaseParam>>,
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Type>,
-}
-
-impl DecisionInputMessage {
-    /// A user message containing input text or images, a developer or system message containing input text, or an assistant message containing output text or refusals. System messages are rendered as developer messages.
-    pub fn new(role: Role, content: models::DecisionInputContent) -> DecisionInputMessage {
-        DecisionInputMessage {
-            role,
-            content: Box::new(content),
-            phase: None,
-            r#type: None,
-        }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "role")]
+pub enum DecisionInputMessage {
     #[serde(rename = "user")]
-    User,
+    DecisionInputUserMessage(Box<models::DecisionInputUserMessage>),
     #[serde(rename = "developer")]
-    Developer,
+    DecisionInputDeveloperMessage(Box<models::DecisionInputDeveloperMessage>),
     #[serde(rename = "system")]
-    System,
+    DecisionInputSystemMessage(Box<models::DecisionInputSystemMessage>),
     #[serde(rename = "assistant")]
-    Assistant,
+    DecisionInputAssistantMessage(Box<models::DecisionInputAssistantMessage>),
 }
 
-impl Default for Role {
-    fn default() -> Role {
-        Self::User
-    }
-}
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
@@ -68,14 +34,5 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Message
-    }
-}
-
-impl std::fmt::Display for DecisionInputMessage {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }
