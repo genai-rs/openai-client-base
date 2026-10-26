@@ -22,7 +22,7 @@ If you find issues with the generated code:
 
 Documentation improvements are welcome for:
 - `README.md`
-- `docs/GENERATION_PIPELINE.md`
+- `PIPELINE.md`
 - Comments in the patch scripts
 
 ### Submitting Changes
