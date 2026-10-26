@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/genai-rs/openai-client-base/workflows/CI/badge.svg)](https://github.com/genai-rs/openai-client-base/actions)
 [![Security](https://github.com/genai-rs/openai-client-base/workflows/Security/badge.svg)](https://github.com/genai-rs/openai-client-base/actions)
-[![MSRV](https://img.shields.io/badge/MSRV-1.82.0-blue)](https://releases.rs/docs/1.82.0/)
+[![MSRV](https://img.shields.io/badge/MSRV-1.88.0-blue)](https://releases.rs/docs/1.88.0/)
 [![License](https://img.shields.io/github/license/genai-rs/openai-client-base)](./LICENSE-MIT)
 
 Auto-generated Rust client for the [OpenAI](https://openai.com) API, based on the Stainless OpenAPI specification.
@@ -70,8 +70,10 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-openai-client-base = { git = "https://github.com/genai-rs/openai-client-base" }
+openai-client-base = "0.16"
 ```
+
+Git dependencies are only meant for pre-release testing.
 
 ## Regenerating the Client
 
@@ -95,7 +97,7 @@ For detailed pipeline documentation, see [PIPELINE.md](PIPELINE.md)
 
 ## Requirements
 
-- Rust 1.82+ (stable toolchain recommended for consistent formatting)
+- Rust 1.88+ (stable toolchain recommended for consistent formatting)
 - Docker (for OpenAPI Generator)
 - `uv` (for Python dependency management) - [Install from here](https://docs.astral.sh/uv/getting-started/installation/)
 - ripgrep (`rg`) for post-processing scripts
