@@ -18,6 +18,11 @@ exclude = ["docs/", "stainless.yaml", "migration/", "scripts/", ".github/", "*.b
 all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
+[features]
+default = ["rustls"]
+rustls = ["reqwest/rustls"]
+native-tls = ["reqwest/native-tls"]
+
 [dependencies]
 bon = "^3.10.2"
 serde = { version = "^1.0.229", features = ["derive"] }

@@ -102,6 +102,22 @@ For detailed pipeline documentation, see [PIPELINE.md](PIPELINE.md)
 - `uv` (for Python dependency management) - [Install from here](https://docs.astral.sh/uv/getting-started/installation/)
 - ripgrep (`rg`) for post-processing scripts
 
+## TLS
+
+`reqwest` is built with `default-features = false`, so a TLS backend must be selected through this crate's features; without one, HTTPS requests fail at runtime. By default the crate uses `rustls`:
+
+```toml
+[dependencies]
+openai-client-base = "0.17"
+```
+
+To use the platform's native TLS (OpenSSL on Linux, Schannel on Windows, Security Framework on macOS):
+
+```toml
+[dependencies]
+openai-client-base = { version = "0.17", default-features = false, features = ["native-tls"] }
+```
+
 ## License
 
 Licensed under either of:
