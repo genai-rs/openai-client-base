@@ -14,6 +14,24 @@ permissions:
   security-events: write
 
 jobs:
+  # License and dependency analysis
+  deny:
+    name: Cargo Deny
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-deny
+        run: cargo install cargo-deny --locked
+
+      - name: Run cargo deny
+        run: cargo deny --locked check
+
   audit:
     name: Cargo Audit
     runs-on: ubuntu-latest
