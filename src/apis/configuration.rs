@@ -39,7 +39,7 @@ impl Default for Configuration {
     fn default() -> Self {
         Configuration {
             base_path: "https://api.openai.com/v1".to_owned(),
-            user_agent: Some("OpenAPI-Generator/2.3.0/rust".to_owned()),
+            user_agent: Some(concat!("openai-client-base/", env!("CARGO_PKG_VERSION")).to_owned()),
             client: reqwest_middleware::ClientBuilder::new(reqwest::Client::new()).build(),
             basic_auth: None,
             oauth_access_token: None,

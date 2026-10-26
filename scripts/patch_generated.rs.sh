@@ -39,6 +39,12 @@ fi
 # Target common patterns: `&local_var_str.to_string()` → `&local_var_str` when already a &str
 # and object maps, but we’ll keep it minimal here.
 
+# Identify requests with the crate user agent instead of the generator default
+cfg="$ROOT/src/apis/configuration.rs"
+if [ -f "$cfg" ]; then
+  perl -i -pe 's|Some\("OpenAPI-Generator/[^"]*"\.to_owned\(\)\)|Some(concat!("openai-client-base/", env!("CARGO_PKG_VERSION")).to_owned())|' "$cfg"
+fi
+
 echo "Patched generated Rust sources under $ROOT"
 
 # Apply multipart file upload fixes
