@@ -51,7 +51,6 @@ def add_clippy_allows_to_lib(lib_file):
     """Add clippy allow attributes to lib.rs"""
     # Define the comprehensive allows first
     allows = """#![allow(
-    unreachable_patterns,
     clippy::too_many_arguments,
     clippy::needless_return,
     clippy::unnecessary_operation,
@@ -77,12 +76,12 @@ def add_clippy_allows_to_lib(lib_file):
     content = content.replace('#![allow(clippy::too_many_arguments)]', '')
 
     # Check if already has comprehensive allows including the latest lints
-    if 'unreachable_patterns,' in content and 'clippy::derivable_impls' in content:
+    if 'clippy::too_many_arguments,' in content and 'clippy::derivable_impls' in content:
         print(f"  {lib_file} already has comprehensive clippy allows, skipping")
         return
 
     # If we have the old allows but not the new lint, we need to update
-    if 'unreachable_patterns,' in content and 'clippy::derivable_impls' not in content:
+    if 'clippy::too_many_arguments,' in content and 'clippy::derivable_impls' not in content:
         # Replace the old allow block with the new one
         import re
         content = re.sub(
@@ -113,39 +112,6 @@ def add_clippy_allows_to_lib(lib_file):
         f.write('\n'.join(lines))
     
     print(f"  Added clippy allows to {lib_file}")
-
-def add_clippy_allows_to_models(models_dir):
-    """Add clippy allow attributes to model files with unreachable patterns"""
-    problem_files = [
-        'item.rs',
-        'realtime_conversation_item.rs',
-    ]
-    
-    for filename in problem_files:
-        file_path = models_dir / filename
-        if not file_path.exists():
-            continue
-            
-        with open(file_path, 'r') as f:
-            content = f.read()
-        
-        # Check if already has the allow
-        if '#[allow(unreachable_patterns)]' in content:
-            print(f"  {filename} already has unreachable_patterns allow, skipping")
-            continue
-        
-        # Add allow before the enum definition
-        lines = content.split('\n')
-        for i, line in enumerate(lines):
-            if line.startswith('pub enum'):
-                # Insert allow attribute before the enum
-                lines.insert(i, '#[allow(unreachable_patterns)]')
-                break
-        
-        with open(file_path, 'w') as f:
-            f.write('\n'.join(lines))
-        
-        print(f"  Added unreachable_patterns allow to {filename}")
 
 def add_clippy_allows_to_apis(apis_dir):
     """Add clippy allow attributes to API files"""
@@ -191,11 +157,6 @@ def main():
     if lib_file.exists():
         add_clippy_allows_to_lib(lib_file)
         add_lib_docs(lib_file)
-    
-    # Add to specific model files with unreachable patterns
-    models_dir = project_root / "src" / "models"
-    if models_dir.exists():
-        add_clippy_allows_to_models(models_dir)
     
     # Add to API files
     apis_dir = project_root / "src" / "apis"

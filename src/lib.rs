@@ -25,7 +25,6 @@
 //! ```
 
 #![allow(
-    unreachable_patterns,
     clippy::too_many_arguments,
     clippy::needless_return,
     clippy::unnecessary_operation,
