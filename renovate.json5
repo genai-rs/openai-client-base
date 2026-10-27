@@ -22,7 +22,11 @@
   prBodyTemplate: 'This PR updates dependencies. See the Dependency Dashboard for details.',
   rangeStrategy: 'auto',
   lockFileMaintenance: {
-    enabled: false,
+    enabled: true,
+    schedule: [
+      'after 2am and before 6am on monday',
+    ],
+    automerge: false,
   },
   ignorePaths: [
     'src/**/*.rs',

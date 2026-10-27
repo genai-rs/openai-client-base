@@ -5,8 +5,11 @@ import argparse
 from serde_attributes import serde_field_attributes
 
 parser = argparse.ArgumentParser(description="Compare public Rust source declarations between two crate source trees.")
-parser.add_argument("registry_src", type=Path, help="Extracted src/ directory from the verified 0.15.0 registry crate")
+parser.add_argument("registry_src", type=Path, help="Reference src/ directory (a published crate or a git ref's src/)")
 parser.add_argument("candidate_src", type=Path, help="Candidate src/ directory")
+parser.add_argument("--reference-label", default=None, help="How the reference tree is described in the report (default: its path)")
+parser.add_argument("--candidate-label", default=None, help="How the candidate tree is described in the report (default: its path)")
+parser.add_argument("--fail-on-change", action="store_true", help="Exit 1 when any public declaration differs")
 args = parser.parse_args()
 old, new = args.registry_src, args.candidate_src
 
@@ -148,8 +151,8 @@ for key in sorted(old_variants.keys() | new_variants.keys()):
     if before != after:
         variant_changes.append({"file": key[0], "enum": key[1], "added": sorted(after - before), "removed": sorted(before - after)})
 result = {
-    "source_heads": {"registry_crate_version": "0.15.0", "working_tree_base_commit": "7918bf2949d38e201f05ee38729aa9286773a6cc", "registry_crate_sha256": "9f9fc44172785387f606bebb0ab4461d1eec0dfcd4074b0a51791176e9dac0d1"},
-    "method": "Source declaration census of public model exports, struct fields, enum variant names, and function signatures, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derive or macro-generated builders, enumerate trait implementations, or resolve every visibility/re-export interaction. Rustdoc JSON extraction was stopped after 5m49s at 11.7 GB RSS without producing output.",
+    "source_heads": {"reference": args.reference_label or str(old), "candidate": args.candidate_label or str(new)},
+    "method": "Source declaration census of public model exports, struct fields, enum variant names, and function signatures, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derive or macro-generated builders, enumerate trait implementations, or resolve every visibility/re-export interaction.",
     "registry_source_rs_files": len(old_files),
     "current_source_rs_files": len(new_files),
     "source_files_added": sorted(new_files.keys() - old_files.keys()),
@@ -177,3 +180,5 @@ result["counts"] = {
     "serde_field_attribute_changes": len(result["serde_field_attribute_changes"]),
 }
 print(json.dumps(result, indent=2))
+if args.fail_on_change and any(result["counts"].values()):
+    raise SystemExit(1)
