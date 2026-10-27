@@ -2,7 +2,16 @@
 set -euo pipefail
 
 # Config
+# openapi-generator 7.25.0 changes this crate's output (boxing, Option nesting,
+# 123 model exports, chrono types) and breaks compilation; upgrading is its own
+# task, so the pipeline stays pinned on 7.15.0.
 OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.15.0}"
+# Custom generator image (timvw-rust extends the stock rust generator; see
+# https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
+# <generator version>-og<openapi-generator version>. Override for local builds,
+# e.g. GENERATOR_IMAGE=timvw-rust:dev.
+GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:0.1.0-og${OPENAPI_GENERATOR_VERSION}}"
+GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
 OPENAPI_GENERATOR_LOG_LEVEL="${OPENAPI_GENERATOR_LOG_LEVEL:-info}"
 PKG_NAME="openai-client-base"
@@ -40,9 +49,15 @@ if ! command -v uv &> /dev/null; then
     exit 1
 fi
 
-# Step 1: Always fetch and validate the current upstream specification.
-echo "📥 Fetching latest OpenAPI spec..."
-bash "$SCRIPT_DIR/fetch_spec.sh"
+# Step 1: Fetch and validate the current upstream specification.
+# SKIP_SPEC_FETCH=1 regenerates from the checked-in stainless.yaml instead, so a
+# generator change can be compared without upstream spec changes mixed in.
+if [ "${SKIP_SPEC_FETCH:-0}" = "1" ]; then
+    echo "📥 SKIP_SPEC_FETCH=1 → using the checked-in stainless.yaml"
+else
+    echo "📥 Fetching latest OpenAPI spec..."
+    bash "$SCRIPT_DIR/fetch_spec.sh"
+fi
 
 # Step 2: Apply patching pipeline
 echo ""
@@ -104,9 +119,9 @@ docker run --rm \
     -v "$PROJECT_ROOT:/local" \
     -u "$(id -u):$(id -g)" \
     -e JAVA_OPTS="-Dlog.level=${OPENAPI_GENERATOR_LOG_LEVEL}" \
-    "openapitools/openapi-generator-cli:v${OPENAPI_GENERATOR_VERSION}" generate \
+    "$GENERATOR_IMAGE" generate \
     -i "/local/target/specs/l2_rust_compatible.json" \
-    -g rust \
+    -g "$GENERATOR_NAME" \
     -o "/local" \
     --skip-validate-spec \
     --additional-properties=packageName=$PKG_NAME \
