@@ -108,14 +108,14 @@ For detailed pipeline documentation, see [PIPELINE.md](PIPELINE.md)
 
 ```toml
 [dependencies]
-openai-client-base = "0.17"
+openai-client-base = "0.16"
 ```
 
 To use the platform's native TLS (OpenSSL on Linux, Schannel on Windows, Security Framework on macOS):
 
 ```toml
 [dependencies]
-openai-client-base = { version = "0.17", default-features = false, features = ["native-tls"] }
+openai-client-base = { version = "0.16", default-features = false, features = ["native-tls"] }
 ```
 
 ## License
