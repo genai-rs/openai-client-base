@@ -1,4 +1,3 @@
-use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaReasoningEffort - Untagged union type

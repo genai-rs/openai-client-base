@@ -51,7 +51,6 @@ def add_clippy_allows_to_lib(lib_file):
     """Add clippy allow attributes to lib.rs"""
     # Define the comprehensive allows first
     allows = """#![allow(
-    unused_imports,
     unreachable_patterns,
     clippy::too_many_arguments,
     clippy::needless_return,
