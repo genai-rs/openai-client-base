@@ -10,10 +10,10 @@
 
 #![allow(clippy::needless_return, clippy::into_iter_on_ref)]
 
-use super::{configuration, ContentType, Error};
+use super::{configuration, Error};
 use crate::{apis::ResponseContent, models};
 use reqwest;
-use serde::{de::Error as _, Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 
 /// struct for typed errors of method [`agent_environment_expired_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
