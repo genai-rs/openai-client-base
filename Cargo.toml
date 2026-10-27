@@ -39,3 +39,7 @@ reqwest-middleware = { version = "^0.5.2", features = ["json", "multipart", "que
 anyhow = "^1.0.104"
 tokio = { version = "^1.53.2", features = ["rt-multi-thread", "macros"] }
 wiremock = "0.6"
+
+# Generated code trips this lint on the MSRV toolchain; the shared CI clippy has no per-toolchain flags.
+[lints.clippy]
+uninlined_format_args = "allow"
