@@ -35,6 +35,12 @@ Documentation improvements are welcome for:
 6. Push to your fork (`git push origin feature/amazing-fix`)
 7. Open a Pull Request
 
+### Public API check
+
+`scripts/check_public_api.sh [git-ref]` compares the public Rust declarations in `src/` (model exports, struct fields, enum variants, function signatures, derives, serde attributes) against a reference git ref, by default the latest tag. It exits 1 on any difference unless `ALLOW_API_CHANGES=1` is set, and writes the report to `target/reports/public-api-diff.json`.
+
+CI runs it on every PR, but it only *fails* a PR that changes the generation pipeline (`scripts/`, `migration/`, the generate workflow): such a change must reproduce the released API, or ship the diff intentionally with a migration note. Spec-driven regeneration PRs are expected to move the API; for them the job is report-only and the review happens through the api-change report of `generate-client.yml`.
+
 ### Testing
 
 Before submitting:
