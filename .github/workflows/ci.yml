@@ -2,9 +2,8 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -13,52 +12,22 @@ concurrency:
 permissions:
   contents: read
 
-env:
-  CARGO_TERM_COLOR: always
-  RUSTFLAGS: -C debuginfo=0
-
 jobs:
-  test:
-    name: Test (${{ matrix.rust }})
+  ci:
+    uses: genai-rs/.github/.github/workflows/rust-ci.yml@main
+    with:
+      msrv: "1.88"
+      generated-crate: true
+      os-matrix: '["ubuntu-latest"]'
+      # rustdoc is OOM-killed on hosted runners for this crate.
+      run-doc: false
+    secrets: inherit
+
+  python-tests:
+    name: Generation patch tests
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        rust: [stable, beta, 1.88.0]  # 1.88.0 is our MSRV
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-
       - name: Test generation patches
-        if: matrix.rust == 'stable'
         run: python3 -m unittest discover -s scripts/tests -v
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ matrix.rust }}
-          components: rustfmt, clippy
-      
-      - name: Enable sccache
-        uses: mozilla-actions/sccache-action@v0.0.11
-      
-      - name: Start sccache locally (no GHA cache)
-        run: |
-          echo "SCCACHE_GHA_ENABLED=off" >> "$GITHUB_ENV"
-          sccache --start-server && echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV" || echo "sccache unavailable, proceeding without it"
-          
-      - name: Cache Rust dependencies
-        uses: Swatinem/rust-cache@v2
-    
-      - name: Build
-        run: cargo build --verbose
-        
-      - name: Run tests
-        run: cargo test --verbose
-        
-      - name: Check formatting
-        run: cargo fmt --all -- --check
-        
-      # Generated code trips clippy::uninlined_format_args on the MSRV toolchain only.
-      - name: Run clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings ${{ matrix.rust == '1.88.0' && '-A clippy::uninlined_format_args' || '' }}
