@@ -243,6 +243,10 @@ uv run --with pyyaml python "$SCRIPT_DIR/fix_multipart_serialization.py" \
 # Restore the pre-routing public path for webhook operations.
 uv run python "$SCRIPT_DIR/preserve_webhook_api.py" "$PROJECT_ROOT/src/apis"
 
+# Drop imports the generator emits but the file never uses (replaces the
+# crate-wide allow(unused_imports)).
+uv run python scripts/fix_unused_imports.py "$PROJECT_ROOT"
+
 # Fail closed if the generated APIs do not cover every raw upstream path
 # operation and webhook. This audit uses the fetched source before patches.
 uv run --with pyyaml python "$SCRIPT_DIR/check_openapi_coverage.py" \

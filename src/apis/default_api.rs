@@ -14,8 +14,6 @@ use super::{configuration, multipart_helper, ContentType, Error};
 use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
-use tokio::fs::File as TokioFile;
-use tokio_util::codec::{BytesCodec, FramedRead};
 
 /// struct for typed errors of method [`admin_api_keys_create`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
