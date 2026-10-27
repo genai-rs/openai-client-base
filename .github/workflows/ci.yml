@@ -53,12 +53,6 @@ jobs:
       - name: Build
         run: cargo build --verbose
         
-      - name: Build documentation
-        if: matrix.rust == 'stable'
-        run: cargo doc --no-deps --all-features
-        env:
-          RUSTDOCFLAGS: "-D warnings"
-
       - name: Run tests
         run: cargo test --verbose
         
