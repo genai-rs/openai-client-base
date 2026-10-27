@@ -16,6 +16,5 @@ use serde::{Deserialize, Serialize};
 pub enum DecisionInputContentPartsInner {
     DecisionInputText(Box<models::DecisionInputText>),
     DecisionInputImage(Box<models::DecisionInputImage>),
-    DecisionInputOutputText(Box<models::DecisionInputOutputText>),
-    DecisionInputRefusal(Box<models::DecisionInputRefusal>),
+    DecisionInputJson(Box<models::DecisionInputJson>),
 }

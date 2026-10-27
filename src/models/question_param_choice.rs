@@ -20,7 +20,7 @@ pub struct QuestionParamChoice {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "instructions")]
-    pub instructions: String,
+    pub instructions: Box<models::QuestionParamChoiceInstructions>,
     /// Provide between 2 and 255 choices. Each choice must be unique.
     #[serde(rename = "choices")]
     pub choices: Vec<models::ChoiceOptionParam>,
@@ -30,13 +30,13 @@ impl QuestionParamChoice {
     /// Choose from the supplied options based on the input.
     pub fn new(
         r#type: Type,
-        instructions: String,
+        instructions: models::QuestionParamChoiceInstructions,
         choices: Vec<models::ChoiceOptionParam>,
     ) -> QuestionParamChoice {
         QuestionParamChoice {
             r#type,
             name: None,
-            instructions,
+            instructions: Box::new(instructions),
             choices,
         }
     }

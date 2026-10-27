@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 pub enum DecisionInputOneOfInner {
     #[serde(rename = "message")]
-    Message(models::DecisionInputMessage),
+    Message(Box<models::DecisionInputMessage>),
     #[serde(rename = "function_call")]
     FunctionCall(models::DecisionInputFunctionCall),
     #[serde(rename = "function_call_output")]
@@ -29,18 +29,12 @@ pub enum DecisionInputOneOfInner {
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
-    #[serde(rename = "user")]
-    User,
-    #[serde(rename = "developer")]
-    Developer,
-    #[serde(rename = "system")]
-    System,
     #[serde(rename = "assistant")]
     Assistant,
 }
 
 impl Default for Role {
     fn default() -> Role {
-        Self::User
+        Self::Assistant
     }
 }

@@ -34,7 +34,7 @@ pub struct DecisionsUsageResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub input_cached_tokens: Option<Option<i32>>,
-    /// The aggregated number of input tokens written to the cache with a 30-minute retention period.
+    /// The aggregated number of input tokens written to the cache across 30-minute and 12-hour retention periods.
     #[serde(
         rename = "input_cache_write_tokens",
         default,
@@ -42,6 +42,14 @@ pub struct DecisionsUsageResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub input_cache_write_tokens: Option<Option<i32>>,
+    /// The aggregated number of input tokens written to the cache with a 30-minute retention period.
+    #[serde(
+        rename = "input_cache_write_30m_tokens",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub input_cache_write_30m_tokens: Option<Option<i32>>,
     /// The aggregated number of input tokens written to the cache with a 12-hour retention period.
     #[serde(
         rename = "input_cache_write_12h_tokens",
@@ -195,6 +203,7 @@ impl DecisionsUsageResult {
             input_tokens,
             input_cached_tokens: None,
             input_cache_write_tokens: None,
+            input_cache_write_30m_tokens: None,
             input_cache_write_12h_tokens: None,
             input_uncached_tokens: None,
             output_tokens,
