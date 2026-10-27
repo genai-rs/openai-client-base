@@ -57,9 +57,8 @@ jobs:
         run: cargo test --verbose
         
       - name: Check formatting
-        if: matrix.rust == 'stable'
         run: cargo fmt --all -- --check
         
+      # Generated code trips clippy::uninlined_format_args on the MSRV toolchain only.
       - name: Run clippy
-        if: matrix.rust == 'stable'
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        run: cargo clippy --all-targets --all-features -- -D warnings ${{ matrix.rust == '1.88.0' && '-A clippy::uninlined_format_args' || '' }}
