@@ -1,3 +1,29 @@
+//! Generated Rust client for the OpenAI API.
+//!
+//! # Examples
+//!
+//! Build a [`Configuration`](apis::configuration::Configuration) with a bearer
+//! token and call an endpoint through its generated builder:
+//!
+//! ```no_run
+//! use openai_client_base::apis::{configuration::Configuration, models_api};
+//!
+//! # async fn run() -> Result<(), Box<dyn std::error::Error>> {
+//! let configuration = Configuration {
+//!     base_path: "https://api.openai.com/v1".to_owned(),
+//!     bearer_access_token: Some(std::env::var("OPENAI_API_KEY")?),
+//!     ..Configuration::default()
+//! };
+//!
+//! let models = models_api::list_models()
+//!     .configuration(&configuration)
+//!     .call()
+//!     .await?;
+//! println!("{} models available", models.data.len());
+//! # Ok(())
+//! # }
+//! ```
+
 #![allow(
     unused_imports,
     unreachable_patterns,

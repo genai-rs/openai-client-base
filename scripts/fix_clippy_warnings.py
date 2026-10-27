@@ -7,6 +7,46 @@ Since this is auto-generated code, we don't want clippy failures in CI.
 import os
 from pathlib import Path
 
+LIB_DOCS = '''//! Generated Rust client for the OpenAI API.
+//!
+//! # Examples
+//!
+//! Build a [`Configuration`](apis::configuration::Configuration) with a bearer
+//! token and call an endpoint through its generated builder:
+//!
+//! ```no_run
+//! use openai_client_base::apis::{configuration::Configuration, models_api};
+//!
+//! # async fn run() -> Result<(), Box<dyn std::error::Error>> {
+//! let configuration = Configuration {
+//!     base_path: "https://api.openai.com/v1".to_owned(),
+//!     bearer_access_token: Some(std::env::var("OPENAI_API_KEY")?),
+//!     ..Configuration::default()
+//! };
+//!
+//! let models = models_api::list_models()
+//!     .configuration(&configuration)
+//!     .call()
+//!     .await?;
+//! println!("{} models available", models.data.len());
+//! # Ok(())
+//! # }
+//! ```
+
+'''
+
+
+def add_lib_docs(lib_file):
+    """Prepend the crate-level docs (with the doctest) to lib.rs if missing"""
+    with open(lib_file, 'r') as f:
+        content = f.read()
+    if '//! # Examples' in content:
+        return
+    with open(lib_file, 'w') as f:
+        f.write(LIB_DOCS + content)
+    print(f"  Added crate docs to {lib_file}")
+
+
 def add_clippy_allows_to_lib(lib_file):
     """Add clippy allow attributes to lib.rs"""
     # Define the comprehensive allows first
@@ -151,6 +191,7 @@ def main():
     lib_file = project_root / "src" / "lib.rs"
     if lib_file.exists():
         add_clippy_allows_to_lib(lib_file)
+        add_lib_docs(lib_file)
     
     # Add to specific model files with unreachable patterns
     models_dir = project_root / "src" / "models"
