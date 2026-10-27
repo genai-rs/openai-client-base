@@ -7,12 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.16.0] - Unreleased
+## [0.16.0](https://github.com/genai-rs/openai-client-base/compare/v0.15.0...v0.16.0) - 2026-10-27
+
+### Added
+
+- `rustls` (default) and `native-tls` pass-through features so HTTPS works out of the box; see the README "TLS" section
+- standalone generated API change reports in the generation workflow
 
 ### Changed
 
 - **Breaking:** change 60 previously optional and 3 previously required public field types to nested `Option`, preserving omitted, explicit `null`, and concrete values where the generated model permits them. See [MIGRATION-0.16.md](MIGRATION-0.16.md).
 - **Breaking:** make streamed chat choice `finish_reason` optional to accept the final audio update that omits it; explicit `null` remains distinct from omission.
+
+### Fixed
+
+- identify requests with the crate name and version in the `User-Agent` header instead of the generator default
+- sanitize dotted string enum variants during generation
+- preserve webhook and multipart APIs and the distinct prompt-cache request model during generation
+- pin the downstream consumer check to the accepted wrapper revision
+
+### Other
+
+- exclude generated docs, the spec and the pipeline scripts from the published package
+- fix README MSRV (1.88), usage snippet and pipeline links
+- run cargo-deny in the security workflow and audit the committed Cargo.lock
+- gate release publication behind an explicit dispatch
 
 ## [0.15.0](https://github.com/genai-rs/openai-client-base/compare/v0.14.0...v0.15.0) - 2026-10-03
 
