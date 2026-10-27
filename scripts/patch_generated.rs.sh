@@ -85,3 +85,6 @@ uv run python scripts/add_bon_builders.py "$ROOT"
 
 # 6) Fix tool-related enums that have conflicting internal tagging
 uv run python scripts/fix_tool_enum_tagging.py "$ROOT"
+
+# 7) rustdoc (-D warnings): the spec truncates one description mid-link, leaving "[text](https://..." unterminated
+find "$ROOT/src" -name '*.rs' -print0 | xargs -0 perl -pi -e 'if (m{^\s*//[/!]}) { s{(\]\(https?://[^)\s]*)$}{$1)} }'

@@ -28,10 +28,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0  # tags are needed for the public-API reference check
 
       - name: Test generation patches
         if: matrix.rust == 'stable'
         run: python3 -m unittest discover -s scripts/tests -v
+
+      - name: Check public API against the last release
+        if: matrix.rust == 'stable'
+        run: scripts/check_public_api.sh
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@master
@@ -53,6 +59,12 @@ jobs:
       - name: Build
         run: cargo build --verbose
         
+      - name: Build documentation
+        if: matrix.rust == 'stable'
+        run: cargo doc --no-deps --all-features
+        env:
+          RUSTDOCFLAGS: "-D warnings"
+
       - name: Run tests
         run: cargo test --verbose
         

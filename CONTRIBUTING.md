@@ -35,6 +35,10 @@ Documentation improvements are welcome for:
 6. Push to your fork (`git push origin feature/amazing-fix`)
 7. Open a Pull Request
 
+### Public API check
+
+`scripts/check_public_api.sh [git-ref]` compares the public Rust declarations in `src/` (model exports, struct fields, enum variants, function signatures, derives, serde attributes) against a reference git ref, by default the latest tag. CI runs it on every push, so a pipeline change that alters the public API fails until it is intentional: set `ALLOW_API_CHANGES=1` to report without failing, and ship such a change with a migration note. The report is written to `target/reports/public-api-diff.json`.
+
 ### Testing
 
 Before submitting:

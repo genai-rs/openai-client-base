@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ConversationItem : A single item within a conversation. The set of possible types are the same as the `output` type of a [Response object](https://developers.openai.com/api/reference/resources/responses
+/// ConversationItem : A single item within a conversation. The set of possible types are the same as the `output` type of a [Response object](https://developers.openai.com/api/reference/resources/responses)
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ConversationItem {
