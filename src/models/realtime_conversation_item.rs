@@ -14,7 +14,6 @@ use serde::{Deserialize, Serialize};
 /// RealtimeConversationItem : A single item within a Realtime conversation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-#[allow(unreachable_patterns)]
 pub enum RealtimeConversationItem {
     MessageSystem(Box<models::RealtimeConversationItemMessageSystem>),
     MessageUser(Box<models::RealtimeConversationItemMessageUser>),
