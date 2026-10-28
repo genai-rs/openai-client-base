@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.16.1](https://github.com/genai-rs/openai-client-base/compare/v0.16.0...v0.16.1) - 2026-10-28
+
+### Other
+
+- *(generator)* fix unreachable_patterns in post-processing instead of allowing it
+- *(generator)* fix unused_imports in post-processing instead of allowing it
+- grant shared security workflow its permissions and allow uninlined_format_args
+- switch to shared genai-rs workflows
+- add lib.rs example
+- add mocked-HTTP smoke tests
+- drop the public-API census gate from this PR
+- fail on rustdoc warnings, add docs.rs metadata and Renovate lockfile maintenance
+- *(renovate)* move security-update settings into vulnerabilityAlerts
+
 ## [0.16.0](https://github.com/genai-rs/openai-client-base/compare/v0.15.0...v0.16.0) - 2026-10-27
 
 ### Added
