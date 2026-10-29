@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The unique ID of this program output item. | 
-**r#type** | **String** | The item type. Always `program_output`. | 
+**r#type** | **Type** | The item type. Always `program_output`. (enum: program_output) | 
 **call_id** | **String** | The call ID of the program item. | 
 **result** | **String** | The result produced by the program item. | 
 **status** | [**models::ProgramOutputItemStatus**](ProgramOutputItemStatus.md) |  | 

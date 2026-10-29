@@ -38,6 +38,7 @@ pub struct Upload {
     /// The object type, which is always \"upload\".
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
+    /// The ready File object after the Upload is completed.
     #[serde(
         rename = "file",
         default,

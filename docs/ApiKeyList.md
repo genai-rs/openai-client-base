@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: list) | 
 **data** | [**Vec<models::AdminApiKey>**](AdminApiKey.md) |  | 
 **has_more** | **bool** |  | 
 **first_id** | Option<**String**> |  | [optional]

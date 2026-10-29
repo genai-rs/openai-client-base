@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** |  | 
+**r#type** | **Type** |  (enum: transport.dtmf.received) | 
 **event_id** | **String** |  | 
 **event** | **String** |  | 
 

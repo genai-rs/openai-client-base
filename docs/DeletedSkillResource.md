@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: skill.deleted) | 
 **deleted** | **bool** |  | 
 **id** | **String** |  | 
 

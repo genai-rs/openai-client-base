@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The error type. Always `invalid_request_error`. | 
+**r#type** | **Type** | The error type. Always `invalid_request_error`. (enum: invalid_request_error) | 
 **code** | [**models::BetaResponseSteerErrorCode**](BetaResponseSteerErrorCode.md) |  | 
 **message** | **String** | A human-readable description of the error. | 
 

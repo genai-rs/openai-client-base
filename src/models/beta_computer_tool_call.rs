@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaComputerToolCall : A tool call to a computer use tool. See the [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaComputerToolCall {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

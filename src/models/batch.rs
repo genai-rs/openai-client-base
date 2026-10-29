@@ -24,8 +24,13 @@ pub struct Batch {
     /// Model ID used to process the batch, like `gpt-6-astra`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://developers.openai.com/api/docs/models) to browse and compare available models.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
-    #[serde(rename = "errors", skip_serializing_if = "Option::is_none")]
-    pub errors: Option<Box<models::BatchErrors>>,
+    #[serde(
+        rename = "errors",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub errors: Option<Option<Box<models::BatchErrors>>>,
     /// The ID of the input file for the batch.
     #[serde(rename = "input_file_id")]
     pub input_file_id: String,

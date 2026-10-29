@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The object type, which is always list. | 
+**object** | **Object** | The object type, which is always list. (enum: list) | 
 **data** | [**Vec<models::WebhookEndpointBody>**](WebhookEndpointBody.md) | The webhook endpoints in this page. | 
 **first_id** | Option<**String**> | The ID of the first endpoint in this page. | 
 **last_id** | Option<**String**> | The ID of the last endpoint in this page. | 

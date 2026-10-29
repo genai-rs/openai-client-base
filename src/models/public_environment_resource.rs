@@ -32,7 +32,7 @@ pub struct PublicEnvironmentResource {
     pub skills: Vec<models::HostedSkillResource>,
     /// Plugins installed in the environment, without their archive contents.
     #[serde(rename = "plugins")]
-    pub plugins: Vec<models::HostedPluginResourceInline>,
+    pub plugins: Vec<models::HostedPluginResource>,
 }
 
 impl PublicEnvironmentResource {
@@ -44,7 +44,7 @@ impl PublicEnvironmentResource {
         status: models::EnvironmentStatusResource,
         files: Vec<models::HostedEnvironmentFileResource>,
         skills: Vec<models::HostedSkillResource>,
-        plugins: Vec<models::HostedPluginResourceInline>,
+        plugins: Vec<models::HostedPluginResource>,
     ) -> PublicEnvironmentResource {
         PublicEnvironmentResource {
             r#type,

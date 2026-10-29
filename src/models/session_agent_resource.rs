@@ -24,9 +24,9 @@ pub struct SessionAgentResource {
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "reasoning")]
-    pub reasoning: models::ReasoningResource,
+    pub reasoning: Box<models::ReasoningResource>,
     #[serde(rename = "text")]
-    pub text: models::TextResource,
+    pub text: Box<models::TextResource>,
     #[serde(rename = "service_tier")]
     pub service_tier: models::ServiceTierResource,
     /// Custom instructions appended to the agent's default base instructions.
@@ -36,7 +36,7 @@ pub struct SessionAgentResource {
     #[serde(rename = "tools")]
     pub tools: Vec<models::AgentToolResource>,
     #[serde(rename = "multi_agent")]
-    pub multi_agent: models::MultiAgentConfigResource,
+    pub multi_agent: Box<models::MultiAgentConfigResource>,
 }
 
 impl SessionAgentResource {
@@ -56,12 +56,12 @@ impl SessionAgentResource {
             id,
             name,
             model,
-            reasoning,
-            text,
+            reasoning: Box::new(reasoning),
+            text: Box::new(text),
             service_tier,
             instructions,
             tools,
-            multi_agent,
+            multi_agent: Box::new(multi_agent),
         }
     }
 }

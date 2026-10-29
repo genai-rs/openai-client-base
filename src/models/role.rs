@@ -22,6 +22,7 @@ pub struct Role {
     /// Unique name for the role.
     #[serde(rename = "name")]
     pub name: String,
+    /// Optional description of the role.
     #[serde(rename = "description", deserialize_with = "Option::deserialize")]
     pub description: Option<String>,
     /// Permissions granted by the role.

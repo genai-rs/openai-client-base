@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `environment_variable`. | 
+**r#type** | **Type** | The type of the object. Always `environment_variable`. (enum: environment_variable) | 
 **secret_name** | **String** | The environment variable name that receives the placeholder in the sandbox. | 
 **networking** | [**models::VaultCredentialNetworkingResource**](VaultCredentialNetworkingResource.md) |  | 
 

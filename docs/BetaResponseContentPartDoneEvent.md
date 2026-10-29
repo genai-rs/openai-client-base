@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the event. Always `response.content_part.done`.  | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
+**r#type** | **Type** | The type of the event. Always `response.content_part.done`.  (enum: response.content_part.done) | 
 **item_id** | **String** | The ID of the output item that the content part was added to.  | 
 **output_index** | **i32** | The index of the output item that the content part was added to.  | 
 **content_index** | **i32** | The index of the content part that is done.  | 

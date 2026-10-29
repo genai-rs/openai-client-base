@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the input item. Always `input_image`. | 
+**r#type** | **Type** | The type of the input item. Always `input_image`. (enum: input_image) | 
 **image_url** | Option<**String**> | The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL. | [optional]
 **file_id** | Option<**String**> | The ID of the file to be sent to the model. | [optional]
 **detail** | Option<[**models::BetaDetailEnum**](BetaDetailEnum.md)> |  | [optional]

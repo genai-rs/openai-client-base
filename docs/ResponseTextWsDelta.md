@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.output_text.delta`.  | 
+**r#type** | **Type** | The type of the event. Always `response.output_text.delta`.  (enum: response.output_text.delta) | 
 **item_id** | **String** | The ID of the output item that the text delta was added to.  | 
 **output_index** | **i32** | The index of the output item that the text delta was added to.  | 
 **content_index** | **i32** | The index of the content part that the text delta was added to.  | 

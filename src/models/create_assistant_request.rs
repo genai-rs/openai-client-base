@@ -11,17 +11,35 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAssistantRequest {
     /// ID of the model to use. You can use the [List models](https://developers.openai.com/api/reference/resources/models/methods/list) API to see all of your available models, or see our [Model overview](https://developers.openai.com/api/docs/models) for descriptions of them.
     #[serde(rename = "model")]
     pub model: String,
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<Box<models::CreateAssistantRequestName>>,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<Box<models::CreateAssistantRequestDescription>>,
-    #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
-    pub instructions: Option<Box<models::CreateAssistantRequestInstructions>>,
+    /// The name of the assistant. The maximum length is 256 characters.
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
+    /// The description of the assistant. The maximum length is 512 characters.
+    #[serde(
+        rename = "description",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<Option<String>>,
+    /// The system instructions that the assistant uses. The maximum length is 256,000 characters.
+    #[serde(
+        rename = "instructions",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub instructions: Option<Option<String>>,
     #[serde(
         rename = "reasoning_effort",
         default,
@@ -32,8 +50,13 @@ pub struct CreateAssistantRequest {
     /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::AssistantObjectToolsInner>>,
-    #[serde(rename = "tool_resources", skip_serializing_if = "Option::is_none")]
-    pub tool_resources: Option<Box<models::CreateAssistantRequestToolResources>>,
+    #[serde(
+        rename = "tool_resources",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tool_resources: Option<Option<Box<models::Object07>>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",
@@ -42,12 +65,29 @@ pub struct CreateAssistantRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
-    #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
-    pub temperature: Option<Box<models::CreateAssistantRequestTemperature>>,
-    #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
-    pub top_p: Option<Box<models::CreateAssistantRequestTopP>>,
-    #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
-    pub response_format: Option<Box<models::CreateAssistantRequestResponseFormat>>,
+    /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+    #[serde(
+        rename = "temperature",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub temperature: Option<Option<f64>>,
+    /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or temperature but not both.
+    #[serde(
+        rename = "top_p",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub top_p: Option<Option<f64>>,
+    #[serde(
+        rename = "response_format",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub response_format: Option<Option<Box<models::AssistantsApiResponseFormatOption>>>,
 }
 
 impl CreateAssistantRequest {

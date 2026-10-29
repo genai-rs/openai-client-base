@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | Specifies the event type. For a computer screenshot, this property is  always set to `computer_screenshot`.  | 
+**r#type** | **Type** | Specifies the event type. For a computer screenshot, this property is  always set to `computer_screenshot`.  (enum: computer_screenshot) | 
 **image_url** | Option<**String**> | The URL of the screenshot image. | [optional]
 **file_id** | Option<**String**> | The identifier of an uploaded file that contains the screenshot. | [optional]
 

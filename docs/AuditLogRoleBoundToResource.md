@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **connector_id** | Option<**String**> | The connector ID for a ChatGPT workspace connector resource. | [optional]
 **connector_name** | Option<**String**> | The connector display name for a ChatGPT workspace connector resource, or the connector ID when the display name could not be resolved. | [optional]
 **enabled** | Option<**bool**> | Whether the connector is enabled for the role. | [optional]
-**source** | Option<**String**> | The connector role mutation path that produced the event. | [optional]
+**source** | Option<**Source**> | The connector role mutation path that produced the event. (enum: role_toggle, role_connector_update, role_delete, workspace_permissions, connector_publish) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

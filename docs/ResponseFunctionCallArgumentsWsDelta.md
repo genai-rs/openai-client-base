@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.function_call_arguments.delta`.  | 
+**r#type** | **Type** | The type of the event. Always `response.function_call_arguments.delta`.  (enum: response.function_call_arguments.delta) | 
 **item_id** | **String** | The ID of the output item that the function-call arguments delta is added to.  | 
 **output_index** | **i32** | The index of the output item that the function-call arguments delta is added to.  | 
 **sequence_number** | **i32** | The sequence number of this event. | 

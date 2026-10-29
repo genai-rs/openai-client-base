@@ -153,10 +153,10 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vault_id** | **String** | The ID of the vault. | [required] |
 **limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 **metadata** | Option<**String**> | Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear. |  |
-**status** | Option<**String**> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
+**status** | Option<[**VaultStatusFilterParam**](VaultStatusFilterParam.md)> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
 
 ### Return type
 
@@ -187,10 +187,10 @@ Lists vaults using ID-based pagination. See [vaults](https://developers.openai.c
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 **metadata** | Option<**String**> | Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. Filtering is eventually consistent; metadata changes may take time to appear. |  |
-**status** | Option<[**VaultStatusFilterParam**](.md)> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
+**status** | Option<[**VaultStatusFilterParam**](VaultStatusFilterParam.md)> | Filter by one status or a list, such as `status=active` or `status[]=active&status[]=archived`. Both statuses are included by default. |  |
 
 ### Return type
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: list) | 
 **data** | [**Vec<models::ProjectApiKey>**](ProjectApiKey.md) |  | 
 **first_id** | Option<**String**> |  | [optional]
 **last_id** | Option<**String**> |  | [optional]

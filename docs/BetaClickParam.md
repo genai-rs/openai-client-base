@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | Specifies the event type. For a click action, this property is always `click`. | 
+**r#type** | **Type** | Specifies the event type. For a click action, this property is always `click`. (enum: click) | 
 **button** | [**models::BetaClickButtonType**](BetaClickButtonType.md) |  | 
 **x** | **i32** | The x-coordinate where the click occurred. | 
 **y** | **i32** | The y-coordinate where the click occurred. | 

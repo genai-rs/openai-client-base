@@ -1050,6 +1050,7 @@ pub async fn createcontentprovenancecheck(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
+    // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
     req_builder = req_builder.multipart(multipart_form);
 
@@ -2212,7 +2213,7 @@ pub async fn organization_decisionsusage(
     configuration: &configuration::Configuration,
     start_time: i32,
     end_time: Option<i32>,
-    bucket_width: Option<models::DecisionsUsageBucketWidth>,
+    bucket_width: Option<&str>,
     limit: Option<i32>,
     page: Option<&str>,
     project_ids: Option<Vec<String>>,

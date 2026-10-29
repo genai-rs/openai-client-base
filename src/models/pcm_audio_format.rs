@@ -10,6 +10,8 @@
 
 use serde::{Deserialize, Serialize};
 
+use serde_repr::{Deserialize_repr, Serialize_repr};
+
 /// PcmAudioFormat : The PCM audio format. Only a 24kHz sample rate is supported.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PcmAudioFormat {
@@ -43,10 +45,24 @@ impl Default for Type {
     }
 }
 /// The sample rate of the audio. Always `24000`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[repr(i64)]
+#[derive(
+    Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize_repr, Deserialize_repr,
+)]
 pub enum Rate {
-    #[serde(rename = "24000")]
-    Variant24000,
+    Variant24000 = 24000,
+}
+
+impl std::fmt::Display for Rate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}",
+            match self {
+                Self::Variant24000 => "24000",
+            }
+        )
+    }
 }
 
 impl Default for Rate {

@@ -20,6 +20,7 @@ pub struct Project {
     /// The object type, which is always `organization.project`
     #[serde(rename = "object")]
     pub object: Object,
+    /// The name of the project. This appears in reporting.
     #[serde(
         rename = "name",
         default,
@@ -38,6 +39,7 @@ pub struct Project {
         skip_serializing_if = "Option::is_none"
     )]
     pub archived_at: Option<Option<i32>>,
+    /// `active` or `archived`
     #[serde(
         rename = "status",
         default,
@@ -45,6 +47,7 @@ pub struct Project {
         skip_serializing_if = "Option::is_none"
     )]
     pub status: Option<Option<String>>,
+    /// The external key associated with the project.
     #[serde(
         rename = "external_key_id",
         default,

@@ -257,6 +257,7 @@ pub async fn cancel_run(
 }
 
 /// Create an assistant with a model and instructions.
+#[deprecated]
 #[bon::builder]
 pub async fn create_assistant(
     configuration: &configuration::Configuration,
@@ -546,6 +547,7 @@ pub async fn create_thread_and_run(
 }
 
 /// Delete an assistant.
+#[deprecated]
 #[bon::builder]
 pub async fn delete_assistant(
     configuration: &configuration::Configuration,
@@ -711,6 +713,7 @@ pub async fn delete_thread(
 }
 
 /// Retrieves an assistant.
+#[deprecated]
 #[bon::builder]
 pub async fn get_assistant(
     configuration: &configuration::Configuration,
@@ -1005,6 +1008,7 @@ pub async fn get_thread(
 }
 
 /// Returns a list of assistants.
+#[deprecated]
 #[bon::builder]
 pub async fn list_assistants(
     configuration: &configuration::Configuration,
@@ -1317,6 +1321,7 @@ pub async fn list_runs(
 }
 
 /// Modifies an assistant.
+#[deprecated]
 #[bon::builder]
 pub async fn modify_assistant(
     configuration: &configuration::Configuration,

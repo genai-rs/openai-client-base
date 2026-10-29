@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The object type, which was always `moderation_result` for successful moderation results. | 
+**r#type** | **Type** | The object type, which was always `moderation_result` for successful moderation results. (enum: moderation_result) | 
 **model** | **String** | The moderation model that produced this result. | 
 **flagged** | **bool** | A boolean indicating whether the content was flagged by any category. | 
 **categories** | **std::collections::HashMap<String, bool>** | A dictionary of moderation categories to booleans, True if the input is flagged under this category. | 

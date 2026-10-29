@@ -15,13 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ErrorResponse2 {
     #[serde(rename = "error")]
-    pub error: models::ErrorBodyResource,
+    pub error: Box<models::ErrorBodyResource>,
 }
 
 impl ErrorResponse2 {
     /// An API error response.
     pub fn new(error: models::ErrorBodyResource) -> ErrorResponse2 {
-        ErrorResponse2 { error }
+        ErrorResponse2 {
+            error: Box::new(error),
+        }
     }
 }
 

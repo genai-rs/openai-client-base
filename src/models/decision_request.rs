@@ -22,16 +22,28 @@ pub struct DecisionRequest {
     #[serde(rename = "questions")]
     pub questions: Vec<models::QuestionParam>,
     /// Opaque caller-provided end-user identifier, scoped by the verified org. Match Responses' limit; this is never the authenticated user identity.
-    #[serde(rename = "safety_identifier", skip_serializing_if = "Option::is_none")]
-    pub safety_identifier: Option<String>,
-    /// Partition prompt cache reuse by caller-provided key.
-    #[serde(rename = "prompt_cache_key", skip_serializing_if = "Option::is_none")]
-    pub prompt_cache_key: Option<String>,
     #[serde(
-        rename = "prompt_cache_options",
+        rename = "safety_identifier",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_options: Option<models::DecisionRequestPromptCacheOptions>,
+    pub safety_identifier: Option<Option<String>>,
+    /// Partition prompt cache reuse by caller-provided key.
+    #[serde(
+        rename = "prompt_cache_key",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_key: Option<Option<String>>,
+    #[serde(
+        rename = "prompt_cache_options",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_options: Option<Option<Box<models::DecisionRequestPromptCacheOptions>>>,
 }
 
 impl DecisionRequest {

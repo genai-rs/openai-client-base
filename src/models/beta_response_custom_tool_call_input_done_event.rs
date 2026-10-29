@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCustomToolCallInputDoneEvent : Event indicating that input for a custom tool call is complete.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCustomToolCallInputDoneEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

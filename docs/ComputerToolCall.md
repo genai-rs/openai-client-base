@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the computer call. Always `computer_call`. | 
+**r#type** | **Type** | The type of the computer call. Always `computer_call`. (enum: computer_call) | 
 **id** | **String** | The unique ID of the computer call. | 
 **call_id** | **String** | An identifier used when responding to the tool call with output.  | 
-**action** | Option<[**serde_json::Value**](.md)> |  | [optional]
-**actions** | Option<[**Vec<serde_json::Value>**](serde_json::Value.md)> | Flattened batched actions for `computer_use`. Each action includes an `type` discriminator and action-specific fields.  | [optional]
+**action** | Option<**serde_json::Value**> |  | [optional]
+**actions** | Option<**Vec<serde_json::Value>**> | Flattened batched actions for `computer_use`. Each action includes an `type` discriminator and action-specific fields.  | [optional]
 **pending_safety_checks** | [**Vec<models::ComputerCallSafetyCheckParam>**](ComputerCallSafetyCheckParam.md) | The pending safety checks for the computer call.  | 
-**status** | **String** | The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.  | 
+**status** | **Status** | The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.  (enum: in_progress, completed, incomplete) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

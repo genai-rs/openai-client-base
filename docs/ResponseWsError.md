@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `error`. | 
+**r#type** | **Type** | The type of the event. Always `error`. (enum: error) | 
 **status** | Option<**i32**> | The HTTP status code associated with a WebSocket protocol error. | [optional]
 **sequence_number** | Option<**i32**> | The sequence number of an error emitted by the response stream. | [optional]
 **error** | [**models::ErrorPayload**](ErrorPayload.md) |  | 

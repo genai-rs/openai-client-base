@@ -383,7 +383,7 @@ pub async fn list_vault_credentials(
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
     metadata: Option<&str>,
-    status: Option<&str>,
+    status: Option<models::VaultStatusFilterParam>,
 ) -> Result<models::VaultCredentialListResource, Error<ListVaultCredentialsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;

@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseFunctionCallArgumentsWsDone : Emitted when function-call arguments are finalized.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseFunctionCallArgumentsWsDone {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     #[serde(rename = "type")]

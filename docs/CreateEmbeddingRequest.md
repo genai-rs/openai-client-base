@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **input** | [**models::CreateEmbeddingRequestInput**](CreateEmbeddingRequestInput.md) |  | 
 **model** | **String** |  | 
-**encoding_format** | Option<**String**> | The format to return the embeddings in. Can be either `float` or [`base64`](https://pypi.org/project/pybase64/). | [optional]
+**encoding_format** | Option<**EncodingFormat**> | The format to return the embeddings in. Can be either `float` or [`base64`](https://pypi.org/project/pybase64/). (enum: float, base64) | [optional]
 **dimensions** | Option<**i32**> | The number of dimensions the resulting output embeddings should have. Only supported in `text-embedding-3` and later models.  | [optional]
 **user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).  | [optional]
 

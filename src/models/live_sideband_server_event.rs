@@ -39,3 +39,16 @@ pub enum LiveSidebandServerEvent {
     LiveErrorEvent(Box<models::LiveErrorEvent>),
     LiveInfoEvent(Box<models::LiveInfoEvent>),
 }
+
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SourceEventType {
+    SessionInputTranscriptDelta,
+    SessionOutputTranscriptDelta,
+}
+
+impl Default for SourceEventType {
+    fn default() -> SourceEventType {
+        Self::SessionInputTranscriptDelta
+    }
+}

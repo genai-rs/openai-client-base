@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **threshold_amount** | **i32** | The alert threshold amount, in cents. | 
-**currency** | **String** | The currency for the threshold amount. | 
-**interval** | **String** | The time interval for evaluating spend against the threshold. | 
+**currency** | **Currency** | The currency for the threshold amount. (enum: USD) | 
+**interval** | **Interval** | The time interval for evaluating spend against the threshold. (enum: month) | 
 **notification_channel** | [**models::SpendAlertNotificationChannel**](SpendAlertNotificationChannel.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

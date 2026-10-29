@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Identifier of the thread item. | 
-**object** | **String** | Type discriminator that is always `chatkit.thread_item`. | 
+**object** | **Object** | Type discriminator that is always `chatkit.thread_item`. (enum: chatkit.thread_item) | 
 **created_at** | **i32** | Unix timestamp (in seconds) for when the item was created. | 
 **thread_id** | **String** | Identifier of the parent thread. | 
-**r#type** | **String** | Type discriminator that is always `chatkit.task`. | 
+**r#type** | **Type** | Type discriminator that is always `chatkit.task`. (enum: chatkit.task) | 
 **task_type** | [**models::TaskType**](TaskType.md) |  | 
 **heading** | Option<**String**> | Optional heading for the task. Defaults to null when not provided. | 
 **summary** | Option<**String**> | Optional summary that describes the task. Defaults to null when omitted. | 

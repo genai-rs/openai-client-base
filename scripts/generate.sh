@@ -2,15 +2,13 @@
 set -euo pipefail
 
 # Config
-# openapi-generator 7.25.0 changes this crate's output (boxing, Option nesting,
-# 123 model exports, chrono types) and breaks compilation; upgrading is its own
-# task, so the pipeline stays pinned on 7.15.0.
-OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.15.0}"
+OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.25.0}"
 # Custom generator image (timvw-rust extends the stock rust generator; see
 # https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
 # <generator version>-og<openapi-generator version>. Override for local builds,
 # e.g. GENERATOR_IMAGE=timvw-rust:dev.
-GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:0.1.0-og${OPENAPI_GENERATOR_VERSION}}"
+TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.3.1}"
+GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:${TIMVW_RUST_VERSION}-og${OPENAPI_GENERATOR_VERSION}}"
 GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
 OPENAPI_GENERATOR_LOG_LEVEL="${OPENAPI_GENERATOR_LOG_LEVEL:-info}"
@@ -130,7 +128,9 @@ docker run --rm \
     --additional-properties=supportAsync=true \
     --additional-properties=supportMiddleware=true \
     --additional-properties=preferUnsignedInt=false \
-    --additional-properties=useSingleRequestParameter=false
+    --additional-properties=useSingleRequestParameter=false \
+    --additional-properties=useChrono=false \
+    --additional-properties=titleNaming=false
 
 echo ""
 echo "📝 Merging Cargo.toml dependency updates..."
@@ -257,6 +257,11 @@ uv run --with pyyaml python "$SCRIPT_DIR/fix_multipart_serialization.py" \
 
 # Restore the pre-routing public path for webhook operations.
 uv run python "$SCRIPT_DIR/preserve_webhook_api.py" "$PROJECT_ROOT/src/apis"
+
+# Re-apply the truncated-doc-link fix of patch_generated.rs.sh (#7): the union
+# rewrites above regenerate model files from the spec after that patch ran, and
+# rustdoc -D warnings rejects the unterminated "[text](https://..." it restores.
+find "$PROJECT_ROOT/src" -name '*.rs' -print0 | xargs -0 perl -pi -e 'if (m{^\s*//[/!]}) { s{(\]\(https?://[^)\s]*)$}{$1)} }'
 
 # Drop imports the generator emits but the file never uses (replaces the
 # crate-wide allow(unused_imports)).

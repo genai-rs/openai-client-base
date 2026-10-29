@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseFailedEvent : An event that is emitted when a response fails.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseFailedEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

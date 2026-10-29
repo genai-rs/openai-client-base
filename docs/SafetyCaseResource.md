@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**object** | **String** |  | 
+**object** | **Object** |  (enum: safety.case) | 
 **created_at** | **i32** |  | 
 **entity_identifier** | **String** |  | 
 **reason** | Option<**String**> |  | 

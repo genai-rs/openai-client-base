@@ -507,7 +507,10 @@ fn decision_request_inline_prompt_cache_options_preserves_optional_and_nullable_
 }
 
 #[test]
-fn decision_request_outer_prompt_cache_null_collapses_with_omission() {
+fn decision_request_outer_prompt_cache_null_is_kept_apart_from_omission() {
+    // `prompt_cache_options` is `anyOf: [object, null]` in the spec. openapi-generator 7.25
+    // renders that as `Option<Option<Box<_>>>` (7.15 dropped the null), so an explicit `null`
+    // round-trips as `Some(None)` instead of collapsing into omission.
     let required = json!({"model": "gpt-6-luna", "input": "hello", "questions": []});
     let omitted: DecisionRequest = serde_json::from_value(required.clone()).unwrap();
     assert_eq!(omitted.prompt_cache_options, None);
@@ -519,10 +522,10 @@ fn decision_request_outer_prompt_cache_null_collapses_with_omission() {
     let mut explicit_null = required;
     explicit_null["prompt_cache_options"] = Value::Null;
     let parsed: DecisionRequest = serde_json::from_value(explicit_null).unwrap();
-    assert_eq!(parsed.prompt_cache_options, None);
+    assert_eq!(parsed.prompt_cache_options, Some(None));
     assert_eq!(
         serde_json::to_value(parsed).unwrap(),
-        json!({"model": "gpt-6-luna", "input": "hello", "questions": []})
+        json!({"model": "gpt-6-luna", "input": "hello", "questions": [], "prompt_cache_options": null})
     );
 
     let nested_null: DecisionRequest = serde_json::from_value(json!({
@@ -536,6 +539,7 @@ fn decision_request_outer_prompt_cache_null_collapses_with_omission() {
         nested_null
             .prompt_cache_options
             .as_ref()
+            .and_then(|options| options.as_deref())
             .and_then(|options| options.mode),
         Some(None)
     );

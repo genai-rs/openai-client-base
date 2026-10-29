@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseInProgressEvent : Emitted when the response is in progress.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseInProgressEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

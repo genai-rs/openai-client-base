@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | Always `group.user`. | 
+**object** | **Object** | Always `group.user`. (enum: group.user) | 
 **user_id** | **String** | Identifier of the user that was added. | 
 **group_id** | **String** | Identifier of the group the user was added to. | 
 

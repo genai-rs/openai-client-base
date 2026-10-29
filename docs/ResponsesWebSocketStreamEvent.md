@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The event type identifier. | 
+**r#type** | **Type** | The event type identifier. (enum: response.custom_tool_call_input.done) | 
 **sequence_number** | **i32** | The sequence number of this event. | 
 **delta** | **String** | The incremental input data (delta) for the custom tool call. | 
 **output_index** | **i32** | The index of the output this event applies to. | 
@@ -12,15 +12,15 @@ Name | Type | Description | Notes
 **code** | **String** | The final code snippet output by the code interpreter. | 
 **response** | [**models::Response**](Response.md) |  | 
 **content_index** | **i32** | The index of the content part within the output item. | 
-**part** | [**models::ResponseReasoningSummaryPartDoneEventPart**](ResponseReasoningSummaryPartDoneEvent_part.md) |  | 
+**part** | [**models::ResponseReasoningSummaryPartDoneEventPart**](ResponseReasoningSummaryPartDoneEventPart.md) |  | 
 **arguments** | **String** | A JSON string containing the finalized arguments for the MCP tool call.  | 
 **command_index** | **i32** | The index of the shell command that produced output. | 
 **command** | **String** | The final shell command that was emitted. | 
 **obfuscation** | Option<**String**> | An obfuscation string that was added to pad the event payload. | [optional]
 **output** | [**Vec<models::FunctionShellCallOutputContent>**](FunctionShellCallOutputContent.md) | The output contents emitted for the shell command. | 
-**item** | [**serde_json::Value**](.md) |  | 
+**item** | **serde_json::Value** |  | 
 **summary_index** | **i32** | The index of the summary part within the reasoning summary.  | 
-**status** | Option<**String**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  | [optional]
+**status** | Option<**Status**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  (enum: incomplete) | [optional]
 **text** | **String** | The text content that is finalized.  | 
 **refusal** | **String** | The refusal text that is finalized.  | 
 **logprobs** | [**Vec<models::ResponseLogProb>**](ResponseLogProb.md) | The log probabilities of the tokens in the delta.  | 
@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 **background** | Option<**String**> | The background setting that was used. | [optional]
 **output_format** | Option<**String**> | The output format that was used. | [optional]
 **annotation_index** | **i32** | The index of the annotation within the content part. | 
-**annotation** | Option<[**models::Annotation**](Annotation.md)> |  | 
+**annotation** | Option<[**models::Annotation**](Annotation.md)> | The annotation object being added. (See annotation schema for details.) | 
 **input** | **String** | The complete input data for the custom tool call. | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 

@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseFunctionCallArgumentsDeltaEvent : Emitted when there is a partial function-call arguments delta.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseFunctionCallArgumentsDeltaEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

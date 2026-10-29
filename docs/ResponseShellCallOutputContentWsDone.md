@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event, always `response.shell_call_output_content.done`. | 
+**r#type** | **Type** | The type of the event, always `response.shell_call_output_content.done`. (enum: response.shell_call_output_content.done) | 
 **sequence_number** | **i32** | The sequence number of the event that was emitted. | 
 **item_id** | **String** | The ID of the output item that was updated. | 
 **output_index** | **i32** | The index of the output item that was updated. | 

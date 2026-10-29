@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseImageGenCallInProgressEvent : Emitted when an image generation tool call is in progress.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseImageGenCallInProgressEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

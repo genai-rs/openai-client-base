@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the item. Always `mcp_list_tools`.  | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that produced this item. | [optional]
+**r#type** | **Type** | The type of the item. Always `mcp_list_tools`.  (enum: mcp_list_tools) | 
 **id** | **String** | The unique ID of the list.  | 
 **server_label** | **String** | The label of the MCP server.  | 
 **tools** | [**Vec<models::BetaMcpListToolsTool>**](BetaMCPListToolsTool.md) | The tools available on the server.  | 

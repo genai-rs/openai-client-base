@@ -26,7 +26,7 @@ pub struct LiveDecisionEvent {
     #[serde(rename = "trigger_id", deserialize_with = "Option::deserialize")]
     pub trigger_id: Option<String>,
     #[serde(rename = "source_event_type", deserialize_with = "Option::deserialize")]
-    pub source_event_type: Option<Box<models::LiveDecisionEventSourceEventType>>,
+    pub source_event_type: Option<SourceEventType>,
     /// The event_id of the transcript delta that fired this trigger, or null for a delegation.
     #[serde(rename = "source_event_id", deserialize_with = "Option::deserialize")]
     pub source_event_id: Option<String>,
@@ -41,7 +41,7 @@ impl LiveDecisionEvent {
         event_id: String,
         delegation_id: Option<String>,
         trigger_id: Option<String>,
-        source_event_type: Option<models::LiveDecisionEventSourceEventType>,
+        source_event_type: Option<SourceEventType>,
         source_event_id: Option<String>,
         event: models::LiveDecisionCompleted,
     ) -> LiveDecisionEvent {
@@ -50,7 +50,7 @@ impl LiveDecisionEvent {
             event_id,
             delegation_id,
             trigger_id,
-            source_event_type: source_event_type.map(Box::new),
+            source_event_type,
             source_event_id,
             event: Box::new(event),
         }
@@ -66,6 +66,20 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::DecisionEvent
+    }
+}
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SourceEventType {
+    #[serde(rename = "session.input_transcript.delta")]
+    SessionInputTranscriptDelta,
+    #[serde(rename = "session.output_transcript.delta")]
+    SessionOutputTranscriptDelta,
+}
+
+impl Default for SourceEventType {
+    fn default() -> SourceEventType {
+        Self::SessionInputTranscriptDelta
     }
 }
 

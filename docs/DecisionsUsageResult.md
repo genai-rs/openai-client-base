@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **api_source** | Option<[**models::DecisionsUsageApiSource**](DecisionsUsageApiSource.md)> |  | [optional]
-**object** | **String** |  | 
+**object** | **Object** |  (enum: organization.usage.decisions.result) | 
 **input_tokens** | **i32** | The aggregated number of input tokens used, including cached and cache-write tokens. This includes text, audio, and image tokens. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | 
 **input_cached_tokens** | Option<**i32**> | The aggregated number of cached input tokens used across text, audio, and image inputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | [optional]
 **input_cache_write_tokens** | Option<**i32**> | The aggregated number of input tokens written to the cache with a 30-minute retention period. | [optional]

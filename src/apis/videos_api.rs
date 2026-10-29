@@ -122,6 +122,7 @@ pub enum RetrieveVideoContentError {
 }
 
 /// Create a new video generation job from a prompt and optional reference assets.
+#[deprecated]
 #[bon::builder]
 pub async fn create_video(
     configuration: &configuration::Configuration,
@@ -151,11 +152,12 @@ pub async fn create_video(
     };
     let mut multipart_form = reqwest::multipart::Form::new();
     if let Some(param_value) = p_form_model {
-        multipart_form = multipart_form.text("model", param_value.to_string());
+        multipart_form = multipart_form.text("model", serde_json::to_string(&param_value)?);
     }
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     if let Some(param_value) = p_form_input_reference {
-        multipart_form = multipart_form.text("input_reference", param_value.to_string());
+        multipart_form =
+            multipart_form.text("input_reference", serde_json::to_string(&param_value)?);
     }
     if let Some(param_value) = p_form_seconds {
         multipart_form = multipart_form.text("seconds", param_value.to_string());
@@ -195,6 +197,7 @@ pub async fn create_video(
 }
 
 /// Create a character from an uploaded video.
+#[deprecated]
 #[bon::builder]
 pub async fn create_video_character(
     configuration: &configuration::Configuration,
@@ -217,6 +220,7 @@ pub async fn create_video_character(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
+    // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_video, "video")?;
     multipart_form = multipart_form.text("name", p_form_name.to_string());
     req_builder = req_builder.multipart(multipart_form);
@@ -251,6 +255,7 @@ pub async fn create_video_character(
 }
 
 /// Create a new video generation job by editing a source video or existing generated video.
+#[deprecated]
 #[bon::builder]
 pub async fn create_video_edit(
     configuration: &configuration::Configuration,
@@ -307,6 +312,7 @@ pub async fn create_video_edit(
 }
 
 /// Create an extension of a completed video.
+#[deprecated]
 #[bon::builder]
 pub async fn create_video_extend(
     configuration: &configuration::Configuration,
@@ -366,6 +372,7 @@ pub async fn create_video_extend(
 }
 
 /// Create a remix of a completed video using a refreshed prompt.
+#[deprecated]
 #[bon::builder]
 pub async fn create_video_remix(
     configuration: &configuration::Configuration,
@@ -425,6 +432,7 @@ pub async fn create_video_remix(
 }
 
 /// Permanently delete a completed or failed video and its stored assets.
+#[deprecated]
 #[bon::builder]
 pub async fn delete_video(
     configuration: &configuration::Configuration,
@@ -479,6 +487,7 @@ pub async fn delete_video(
 }
 
 /// Fetch the latest metadata for a generated video.
+#[deprecated]
 #[bon::builder]
 pub async fn get_video(
     configuration: &configuration::Configuration,
@@ -531,6 +540,7 @@ pub async fn get_video(
 }
 
 /// Fetch a character.
+#[deprecated]
 #[bon::builder]
 pub async fn get_video_character(
     configuration: &configuration::Configuration,
@@ -583,6 +593,7 @@ pub async fn get_video_character(
 }
 
 /// List recently generated videos for the current project.
+#[deprecated]
 #[bon::builder]
 pub async fn list_videos(
     configuration: &configuration::Configuration,
@@ -644,6 +655,7 @@ pub async fn list_videos(
 }
 
 /// Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
+#[deprecated]
 #[bon::builder]
 pub async fn retrieve_video_content(
     configuration: &configuration::Configuration,

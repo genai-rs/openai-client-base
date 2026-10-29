@@ -12,30 +12,26 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
+#[serde(untagged)]
 pub enum DecisionInputOneOfInner {
     #[serde(rename = "message")]
-    Message(models::DecisionInputMessage),
+    Message(Box<models::DecisionInputMessage>),
     #[serde(rename = "function_call")]
-    FunctionCall(models::DecisionInputFunctionCall),
+    FunctionCall(Box<models::DecisionInputFunctionCall>),
     #[serde(rename = "function_call_output")]
-    FunctionCallOutput(models::DecisionInputFunctionCallOutput),
+    FunctionCallOutput(Box<models::DecisionInputFunctionCallOutput>),
     #[serde(rename = "custom_tool_call")]
-    CustomToolCall(models::DecisionInputCustomToolCall),
+    CustomToolCall(Box<models::DecisionInputCustomToolCall>),
     #[serde(rename = "custom_tool_call_output")]
-    CustomToolCallOutput(models::DecisionInputCustomToolCallOutput),
+    CustomToolCallOutput(Box<models::DecisionInputCustomToolCallOutput>),
 }
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
-    #[serde(rename = "user")]
     User,
-    #[serde(rename = "developer")]
     Developer,
-    #[serde(rename = "system")]
     System,
-    #[serde(rename = "assistant")]
     Assistant,
 }
 

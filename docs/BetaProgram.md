@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the item. Always `program`. | 
+**r#type** | **Type** | The type of the item. Always `program`. (enum: program) | 
 **id** | **String** | The unique ID of the program item. | 
 **call_id** | **String** | The stable call ID of the program item. | 
 **code** | **String** | The JavaScript source executed by programmatic tool calling. | 

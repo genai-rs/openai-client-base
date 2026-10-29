@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> | The unique ID of this message item. | [optional]
-**r#type** | **String** | The item type. Always `message`. | 
-**role** | **String** | The message role. Always `user`. | 
+**r#type** | **Type** | The item type. Always `message`. (enum: message) | 
+**role** | **Role** | The message role. Always `user`. (enum: user) | 
 **content** | [**models::UserMessageItemParamContent**](UserMessageItemParamContent.md) |  | 
 **status** | Option<**String**> | The status of the message item. | [optional]
 

@@ -21,6 +21,7 @@ pub struct ProjectServiceAccountApiKey {
     pub name: String,
     #[serde(rename = "created_at")]
     pub created_at: i32,
+    /// The Unix timestamp (in seconds) when the API key expires, or null if it does not expire.
     #[serde(
         rename = "expires_at",
         default,

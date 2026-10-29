@@ -16,6 +16,7 @@ pub struct WebSearchActionOpenPage {
     /// The action type.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// The URL opened by the model.
     #[serde(
         rename = "url",
         default,

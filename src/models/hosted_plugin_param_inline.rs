@@ -24,7 +24,7 @@ pub struct HostedPluginParamInline {
     #[serde(rename = "description")]
     pub description: String,
     #[serde(rename = "source")]
-    pub source: models::InlineCapabilitySourceParamBase64,
+    pub source: Box<models::InlineCapabilitySourceParam>,
 }
 
 impl HostedPluginParamInline {
@@ -33,13 +33,13 @@ impl HostedPluginParamInline {
         r#type: Type,
         name: String,
         description: String,
-        source: models::InlineCapabilitySourceParamBase64,
+        source: models::InlineCapabilitySourceParam,
     ) -> HostedPluginParamInline {
         HostedPluginParamInline {
             r#type,
             name,
             description,
-            source,
+            source: Box::new(source),
         }
     }
 }

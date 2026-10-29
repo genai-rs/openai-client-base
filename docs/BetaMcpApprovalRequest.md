@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the item. Always `mcp_approval_request`.  | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that produced this item. | [optional]
+**r#type** | **Type** | The type of the item. Always `mcp_approval_request`.  (enum: mcp_approval_request) | 
 **id** | **String** | The unique ID of the approval request.  | 
 **server_label** | **String** | The label of the MCP server making the request.  | 
 **name** | **String** | The name of the tool to run.  | 

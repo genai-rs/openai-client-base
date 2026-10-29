@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **session** | [**models::LiveMediaSessionCreateParams**](LiveMediaSessionCreateParams.md) |  | 
-**transport** | [**models::LiveSessionCreateRequestTransport**](LiveSessionCreateRequest_transport.md) |  | 
+**transport** | [**models::LiveSessionCreateRequestTransport**](LiveSessionCreateRequestTransport.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

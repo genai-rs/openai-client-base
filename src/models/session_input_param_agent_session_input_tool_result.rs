@@ -26,6 +26,7 @@ pub struct SessionInputParamAgentSessionInputToolResult {
     /// Whether the function call succeeded.
     #[serde(rename = "success")]
     pub success: bool,
+    /// The function result when the call succeeded.
     #[serde(
         rename = "output",
         default,

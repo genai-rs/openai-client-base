@@ -23,6 +23,7 @@ pub struct UserListResource {
     /// Whether more users are available when paginating.
     #[serde(rename = "has_more")]
     pub has_more: bool,
+    /// Cursor to fetch the next page of results, or `null` when no further users are available.
     #[serde(rename = "next", deserialize_with = "Option::deserialize")]
     pub next: Option<String>,
 }

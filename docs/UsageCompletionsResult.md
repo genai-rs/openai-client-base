@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**api_source** | Option<**String**> |  | [optional]
-**object** | **String** |  | 
+**api_source** | Option<**ApiSource**> | When grouped by `api_source`, `agents_api` identifies attributed Agents API activity and `unlabeled` includes all records without published source attribution, including historical and unknown origins. Unlabeled does not imply direct API usage. Without source grouping, this field is null. (enum: agents_api, unlabeled) | [optional]
+**object** | **Object** |  (enum: organization.usage.completions.result) | 
 **input_tokens** | **i32** | The aggregated number of input tokens used, including cached and cache-write tokens. This includes text, audio, and image tokens. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | 
 **input_cached_tokens** | Option<**i32**> | The aggregated number of cached input tokens used across text, audio, and image inputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | [optional]
 **input_cache_write_tokens** | Option<**i32**> | The aggregated number of input tokens written to the cache with a 30-minute retention period. | [optional]

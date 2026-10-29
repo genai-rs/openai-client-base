@@ -27,7 +27,7 @@ pub struct WebhookAgentEnvironmentReady {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "data")]
-    pub data: models::AgentEnvironmentEvent,
+    pub data: Box<models::AgentEnvironmentEvent>,
 }
 
 impl WebhookAgentEnvironmentReady {
@@ -44,7 +44,7 @@ impl WebhookAgentEnvironmentReady {
             object,
             created_at,
             r#type,
-            data,
+            data: Box::new(data),
         }
     }
 }

@@ -19,6 +19,7 @@ pub struct PublicCreateOrganizationRoleBody {
     /// Permissions to grant to the role.
     #[serde(rename = "permissions")]
     pub permissions: Vec<String>,
+    /// Optional description of the role.
     #[serde(
         rename = "description",
         default,

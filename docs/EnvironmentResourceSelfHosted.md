@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `self_hosted`. | 
+**r#type** | **Type** | The type of the object. Always `self_hosted`. (enum: self_hosted) | 
 **remote_url** | **String** | Pass this URL unchanged to `codex exec-server --remote` when connecting this environment. | 
 **id** | **String** | The public ID of the environment. | 
 **workspace_directory** | **String** | The absolute project directory inside the environment. Defaults to `/workspace`. | 

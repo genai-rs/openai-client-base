@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The type of object being deleted. | 
+**object** | **Object** | The type of object being deleted. (enum: chat.completion.deleted) | 
 **id** | **String** | The ID of the chat completion that was deleted. | 
 **deleted** | **bool** | Whether the chat completion was deleted. | 
 

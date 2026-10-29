@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the computer use tool. Always `computer_use_preview`. | 
+**r#type** | **Type** | The type of the computer use tool. Always `computer_use_preview`. (enum: computer_use_preview) | 
 **environment** | [**models::BetaComputerEnvironment**](BetaComputerEnvironment.md) |  | 
 **display_width** | **i32** | The width of the computer display. | 
 **display_height** | **i32** | The height of the computer display. | 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The object type, which is always `audio.voice_consent`. | 
+**object** | **Object** | The object type, which is always `audio.voice_consent`. (enum: audio.voice_consent) | 
 **id** | **String** | The consent recording identifier. | 
 **name** | **String** | The label provided when the consent recording was uploaded. | 
 **language** | **String** | The BCP 47 language tag for the consent phrase (for example, `en-US`). | 

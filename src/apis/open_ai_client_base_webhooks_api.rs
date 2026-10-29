@@ -988,6 +988,7 @@ pub async fn fine_tuning_job_succeeded_post(
 }
 
 /// Deprecated: use `live.transport.incoming`. Retained only for existing subscriptions. Sent when an incoming API SIP session is available for Live acceptance.
+#[deprecated]
 #[bon::builder]
 pub async fn live_call_incoming_post(
     configuration: &configuration::Configuration,

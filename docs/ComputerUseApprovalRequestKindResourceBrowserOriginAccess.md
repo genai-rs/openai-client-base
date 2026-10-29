@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `browser_origin_access`. | 
+**r#type** | **Type** | The type of the object. Always `browser_origin_access`. (enum: browser_origin_access) | 
 **reason** | Option<**String**> | The browser's explanation for this request, or null when unavailable. | 
 **origin** | **String** | The origin the browser needs permission to access. | 
 

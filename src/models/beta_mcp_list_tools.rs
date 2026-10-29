@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaMcpListTools : A list of tools available on an MCP server.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMcpListTools {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

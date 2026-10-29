@@ -50,7 +50,7 @@ def operation_source(path: Path, function: str) -> str:
 
 
 def main() -> None:
-    version = os.environ.get("OPENAPI_GENERATOR_VERSION", "7.15.0")
+    version = os.environ.get("OPENAPI_GENERATOR_VERSION", "7.25.0")
     image = f"openapitools/openapi-generator-cli:v{version}"
     fixture = Path(__file__).parent / "fixtures/webhook_collision/openapi.json"
     original = json.loads(fixture.read_text(encoding="utf-8"))

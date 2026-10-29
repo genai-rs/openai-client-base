@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The provenance signal type. Always `synthid`. | 
+**r#type** | **Type** | The provenance signal type. Always `synthid`. (enum: synthid) | 
 **outcome** | [**models::ProvenanceDetectionResultApi**](ProvenanceDetectionResultApi.md) |  | 
 **model** | **String** | ID of the model to use | 
 **generated_at** | Option<**String**> | The UTC RFC 3339 timestamp recorded by the provenance signal for when the asset was generated, when available. | 

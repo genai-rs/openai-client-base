@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// UpdateSessionReasoningParam : Reasoning effort for subsequent turns. The reasoning summary stays unchanged.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateSessionReasoningParam {
+    /// Omit to keep the current effort. Null selects the model's default effort.
     #[serde(
         rename = "effort",
         default,

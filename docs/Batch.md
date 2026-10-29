@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**object** | **String** | The object type, which is always `batch`. | 
+**object** | **Object** | The object type, which is always `batch`. (enum: batch) | 
 **endpoint** | **String** | The OpenAI API endpoint used by the batch. | 
 **model** | Option<**String**> | Model ID used to process the batch, like `gpt-6-astra`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://developers.openai.com/api/docs/models) to browse and compare available models.  | [optional]
-**errors** | Option<[**models::BatchErrors**](Batch_errors.md)> |  | [optional]
+**errors** | Option<[**models::BatchErrors**](BatchErrors.md)> |  | [optional]
 **input_file_id** | **String** | The ID of the input file for the batch. | 
 **completion_window** | **String** | The time frame within which the batch should be processed. | 
-**status** | **String** | The current status of the batch. | 
+**status** | **Status** | The current status of the batch. (enum: validating, failed, in_progress, finalizing, completed, expired, cancelling, cancelled) | 
 **output_file_id** | Option<**String**> | The ID of the file containing the outputs of successfully executed requests. | [optional]
 **error_file_id** | Option<**String**> | The ID of the file containing the outputs of requests with errors. | [optional]
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the batch was created. | 
@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **cancelling_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the batch started cancelling. | [optional]
 **cancelled_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the batch was cancelled. | [optional]
 **request_counts** | Option<[**models::BatchRequestCounts**](BatchRequestCounts.md)> |  | [optional]
-**usage** | Option<[**models::BatchUsage**](Batch_usage.md)> |  | [optional]
+**usage** | Option<[**models::BatchUsage**](BatchUsage.md)> |  | [optional]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

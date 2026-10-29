@@ -42,6 +42,7 @@ pub struct CreateChatCompletionStreamResponse {
     /// The object type, which is always `chat.completion.chunk`.
     #[serde(rename = "object")]
     pub object: Object,
+    /// An optional field that will only be present when you set `stream_options: {\"include_usage\": true}` in your request. When present, it contains a null value **except for the last chunk** which contains the token usage statistics for the entire request.  **NOTE:** If the stream is interrupted or cancelled, you may not receive the final usage chunk which contains the total token usage for the request.
     #[serde(
         rename = "usage",
         default,

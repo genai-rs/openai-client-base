@@ -17,6 +17,7 @@ pub struct PersistedAgentToolConfigParamWebSearch {
     /// The type of the object. Always `web_search`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// The source used for web search results. Defaults to `live`.
     #[serde(
         rename = "mode",
         default,
@@ -24,6 +25,7 @@ pub struct PersistedAgentToolConfigParamWebSearch {
         skip_serializing_if = "Option::is_none"
     )]
     pub mode: Option<Option<models::WebSearchModeParam>>,
+    /// The amount of search context made available to the model. Defaults to `medium`.
     #[serde(
         rename = "context_size",
         default,
@@ -39,13 +41,14 @@ pub struct PersistedAgentToolConfigParamWebSearch {
         skip_serializing_if = "Option::is_none"
     )]
     pub allowed_domains: Option<Option<Vec<String>>>,
+    /// Approximate location used to localize search results.
     #[serde(
         rename = "location",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub location: Option<Option<models::WebSearchLocationParam>>,
+    pub location: Option<Option<Box<models::WebSearchLocationParam>>>,
 }
 
 impl PersistedAgentToolConfigParamWebSearch {

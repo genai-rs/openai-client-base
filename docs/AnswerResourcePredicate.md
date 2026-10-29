@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `predicate`. | 
+**r#type** | **Type** | The type of the object. Always `predicate`. (enum: predicate) | 
 **name** | Option<**String**> |  | 
 **probability** | **f64** |  | 
 

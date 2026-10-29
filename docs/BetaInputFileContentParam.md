@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the input item. Always `input_file`. | 
+**r#type** | **Type** | The type of the input item. Always `input_file`. (enum: input_file) | 
 **file_id** | Option<**String**> | The ID of the file to be sent to the model. | [optional]
 **filename** | Option<**String**> | The name of the file to be sent to the model. | [optional]
 **file_data** | Option<**String**> | The base64-encoded data of the file to be sent to the model. | [optional]

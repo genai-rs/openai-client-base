@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The citation type. Always `container_file_citation`. | 
+**r#type** | **Type** | The citation type. Always `container_file_citation`. (enum: container_file_citation) | 
 **start_index** | **i32** | The index of the first character of the citation in the message. | 
 **end_index** | **i32** | The index of the last character of the citation in the message. | 
 **container_id** | **String** | The ID of the container. | 

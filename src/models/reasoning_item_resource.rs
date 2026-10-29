@@ -26,6 +26,7 @@ pub struct ReasoningItemResource {
     /// The reasoning summaries produced by the agent.
     #[serde(rename = "summary")]
     pub summary: Vec<models::SummaryTextResource>,
+    /// The status of the reasoning item.
     #[serde(rename = "status", deserialize_with = "Option::deserialize")]
     pub status: Option<models::OutputItemStatusResource>,
 }

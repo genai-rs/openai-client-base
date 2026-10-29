@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | Always `role`. | 
+**object** | **Object** | Always `role`. (enum: role) | 
 **id** | **String** | Identifier for the role. | 
 **name** | **String** | Unique name for the role. | 
-**description** | Option<**String**> |  | 
+**description** | Option<**String**> | Optional description of the role. | 
 **permissions** | **Vec<String>** | Permissions granted by the role. | 
 **resource_type** | **String** | Resource type the role is bound to (for example `api.organization` or `api.project`). | 
 **predefined_role** | **bool** | Whether the role is predefined and managed by OpenAI. | 

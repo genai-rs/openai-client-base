@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: page) | 
 **has_more** | **bool** |  | 
 **next_page** | Option<**String**> |  | 
 **data** | [**Vec<models::DecisionsUsageBucket>**](DecisionsUsageBucket.md) |  | 

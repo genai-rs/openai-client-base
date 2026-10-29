@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseAudioTranscriptDoneEvent : Emitted when the full audio transcript is completed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseAudioTranscriptDoneEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the item. Always `mcp_list_tools`.  | 
+**r#type** | **Type** | The type of the item. Always `mcp_list_tools`.  (enum: mcp_list_tools) | 
 **id** | **String** | The unique ID of the list.  | 
 **server_label** | **String** | The label of the MCP server.  | 
 **tools** | [**Vec<models::McpListToolsTool>**](MCPListToolsTool.md) | The tools available on the server.  | 

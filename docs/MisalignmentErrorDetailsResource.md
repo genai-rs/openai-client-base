@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **review_target** | Option<**String**> | An opaque target for explicitly continuing this review, or null when unavailable. | [optional]
-**error_type** | Option<[**models::MisalignmentErrorType**](_MisalignmentErrorType.md)> |  | [optional]
+**error_type** | Option<[**models::MisalignmentErrorType**](MisalignmentErrorType.md)> |  | [optional]
 **detailed_explanation** | Option<**String**> | The public explanation for this block. | [optional]
-**steer** | Option<[**models::MisalignmentSteer**](_MisalignmentSteer.md)> |  | [optional]
+**steer** | Option<[**models::MisalignmentSteer**](MisalignmentSteer.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

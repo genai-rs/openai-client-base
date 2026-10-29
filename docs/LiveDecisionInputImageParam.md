@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the input item. Always `input_image`. | 
+**r#type** | **Type** | The type of the input item. Always `input_image`. (enum: input_image) | 
 **image_url** | **String** | An inline image encoded as a data URL. | 
 **detail** | Option<[**models::LiveDetailEnum**](LiveDetailEnum.md)> |  | [optional]
 

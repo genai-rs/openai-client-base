@@ -27,7 +27,7 @@ pub struct SessionEventAgentSessionTurnInProgress {
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     #[serde(rename = "turn")]
-    pub turn: models::TurnResource,
+    pub turn: Box<models::TurnResource>,
 }
 
 impl SessionEventAgentSessionTurnInProgress {
@@ -44,7 +44,7 @@ impl SessionEventAgentSessionTurnInProgress {
             event_id,
             session_id,
             turn_id,
-            turn,
+            turn: Box::new(turn),
         }
     }
 }

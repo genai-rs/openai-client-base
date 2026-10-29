@@ -17,7 +17,7 @@ pub struct AgentSessionActionRequiredPayloadResource {
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "required_action")]
-    pub required_action: models::AgentSessionRequiredActionPayloadResource,
+    pub required_action: Box<models::AgentSessionRequiredActionPayloadResource>,
 }
 
 impl AgentSessionActionRequiredPayloadResource {
@@ -27,7 +27,7 @@ impl AgentSessionActionRequiredPayloadResource {
     ) -> AgentSessionActionRequiredPayloadResource {
         AgentSessionActionRequiredPayloadResource {
             id,
-            required_action,
+            required_action: Box::new(required_action),
         }
     }
 }

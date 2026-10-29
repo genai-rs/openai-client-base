@@ -14,8 +14,10 @@ use serde::{Deserialize, Serialize};
 /// ReasoningResource : The reasoning configuration used by an agent.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ReasoningResource {
+    /// The requested reasoning effort, or `null` when the model selects its own default.
     #[serde(rename = "effort", deserialize_with = "Option::deserialize")]
     pub effort: Option<models::ReasoningEffortResource>,
+    /// The requested reasoning summary format, or `null` when summaries are disabled.
     #[serde(rename = "summary", deserialize_with = "Option::deserialize")]
     pub summary: Option<models::ReasoningSummaryResource>,
 }

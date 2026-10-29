@@ -18,7 +18,7 @@ pub struct LiveSipTrunk {
     #[serde(rename = "provider_url")]
     pub provider_url: String,
     #[serde(rename = "auth")]
-    pub auth: models::LiveSipTrunkAuth,
+    pub auth: Box<models::LiveSipTrunkAuth>,
     /// Caller phone number in E.164 format to use in the SIP From header.
     #[serde(rename = "caller_number")]
     pub caller_number: String,
@@ -33,7 +33,7 @@ impl LiveSipTrunk {
     ) -> LiveSipTrunk {
         LiveSipTrunk {
             provider_url,
-            auth,
+            auth: Box::new(auth),
             caller_number,
         }
     }

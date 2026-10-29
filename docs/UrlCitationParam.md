@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The citation type. Always `url_citation`. | 
+**r#type** | **Type** | The citation type. Always `url_citation`. (enum: url_citation) | 
 **start_index** | **i32** | The index of the first character of the citation in the message. | 
 **end_index** | **i32** | The index of the last character of the citation in the message. | 
 **url** | **String** | The URL of the cited resource. | 

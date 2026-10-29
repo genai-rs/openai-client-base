@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseOutputTextAnnotationAddedEvent : Emitted when an annotation is added to output text content.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseOutputTextAnnotationAddedEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,
@@ -39,6 +40,7 @@ pub struct BetaResponseOutputTextAnnotationAddedEvent {
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
+    /// The annotation object being added. (See annotation schema for details.)
     #[serde(rename = "annotation", deserialize_with = "Option::deserialize")]
     pub annotation: Option<Box<models::BetaAnnotation>>,
 }

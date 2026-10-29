@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `self_hosted`. | 
+**r#type** | **Type** | The type of the object. Always `self_hosted`. (enum: self_hosted) | 
 **capability_directories** | Option<**Vec<String>**> | Directories that contain capabilities exposed to the agent. Defaults to an empty list. | [optional]
 **workspace_directory** | **String** | Absolute project directory inside the self-hosted environment. | 
 

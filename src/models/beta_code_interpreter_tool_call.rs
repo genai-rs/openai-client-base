@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaCodeInterpreterToolCall : A tool call to run code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCodeInterpreterToolCall {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: conversation.deleted) | 
 **deleted** | **bool** |  | 
 **id** | **String** |  | 
 

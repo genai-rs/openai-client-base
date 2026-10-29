@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `agent.session.in_progress`. | 
+**r#type** | **Type** | The type of the object. Always `agent.session.in_progress`. (enum: agent.session.in_progress) | 
 **event_id** | **String** | The unique ID of the event. | 
 **session** | [**models::SessionResource**](SessionResource.md) |  | 
 

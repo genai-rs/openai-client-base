@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseTextDoneEvent : Emitted when text content is finalized.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseTextDoneEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

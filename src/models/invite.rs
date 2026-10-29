@@ -32,6 +32,7 @@ pub struct Invite {
     /// The Unix timestamp (in seconds) of when the invite was sent.
     #[serde(rename = "created_at")]
     pub created_at: i32,
+    /// The Unix timestamp (in seconds) of when the invite expires.
     #[serde(
         rename = "expires_at",
         default,
@@ -39,6 +40,7 @@ pub struct Invite {
         skip_serializing_if = "Option::is_none"
     )]
     pub expires_at: Option<Option<i32>>,
+    /// The Unix timestamp (in seconds) of when the invite was accepted.
     #[serde(
         rename = "accepted_at",
         default,

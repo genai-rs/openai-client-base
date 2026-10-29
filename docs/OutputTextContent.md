@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the output text. Always `output_text`. | 
+**r#type** | **Type** | The type of the output text. Always `output_text`. (enum: output_text) | 
 **text** | **String** | The text output from the model. | 
 **annotations** | [**Vec<models::Annotation>**](Annotation.md) | The annotations of the text output. | 
 **logprobs** | [**Vec<models::LogProb>**](LogProb.md) |  | 

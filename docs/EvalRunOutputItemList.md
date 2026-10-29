@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The type of this object. It is always set to \"list\".  | 
+**object** | **Object** | The type of this object. It is always set to \"list\".  (enum: list) | 
 **data** | [**Vec<models::EvalRunOutputItem>**](EvalRunOutputItem.md) | An array of eval run output item objects.  | 
 **first_id** | **String** | The identifier of the first eval run output item in the data array. | 
 **last_id** | **String** | The identifier of the last eval run output item in the data array. | 

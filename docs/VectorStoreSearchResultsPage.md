@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The object type, which is always `vector_store.search_results.page` | 
+**object** | **Object** | The object type, which is always `vector_store.search_results.page` (enum: vector_store.search_results.page) | 
 **search_query** | **Vec<String>** |  | 
 **data** | [**Vec<models::VectorStoreSearchResultItem>**](VectorStoreSearchResultItem.md) | The list of search result items. | 
 **has_more** | **bool** | Indicates if there are more results to fetch. | 

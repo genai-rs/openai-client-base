@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the item. Always `program_output`. | 
+**r#type** | **Type** | The type of the item. Always `program_output`. (enum: program_output) | 
 **id** | **String** | The unique ID of the program output item. | 
 **call_id** | **String** | The call ID of the program item. | 
 **result** | **String** | The result produced by the program item. | 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the file search tool. Always `file_search`. | 
+**r#type** | **Type** | The type of the file search tool. Always `file_search`. (enum: file_search) | 
 **vector_store_ids** | **Vec<String>** | The IDs of the vector stores to search. | 
 **max_num_results** | Option<**i32**> | The maximum number of results to return. This number should be between 1 and 50 inclusive. | [optional]
 **ranking_options** | Option<[**models::BetaRankingOptions**](BetaRankingOptions.md)> |  | [optional]

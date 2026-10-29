@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The object type. Always `agent.environment.file`. | 
+**object** | **Object** | The object type. Always `agent.environment.file`. (enum: agent.environment.file) | 
 **environment_id** | **String** | The ID of the environment containing this file. | 
 **path** | **String** | The absolute file path inside the environment's workspace. | 
 **size_bytes** | **i64** | The file size in bytes. | 

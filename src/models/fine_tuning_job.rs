@@ -28,8 +28,13 @@ pub struct FineTuningJob {
     /// The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "finished_at", deserialize_with = "Option::deserialize")]
     pub finished_at: Option<i32>,
-    #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
-    pub hyperparameters: Option<Box<models::FineTuningJobHyperparameters>>,
+    #[serde(
+        rename = "hyperparameters",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub hyperparameters: Option<Option<Box<models::FineTuningJobHyperparameters>>>,
     /// The base model that is being fine-tuned.
     #[serde(rename = "model")]
     pub model: String,

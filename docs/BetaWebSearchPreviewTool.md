@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`. | 
+**r#type** | **Type** | The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`. (enum: web_search_preview, web_search_preview_2025_03_11) | 
 **user_location** | Option<[**models::BetaApproximateLocation**](BetaApproximateLocation.md)> |  | [optional]
 **search_context_size** | Option<[**models::BetaSearchContextSize**](BetaSearchContextSize.md)> |  | [optional]
 **search_content_types** | Option<[**Vec<models::BetaSearchContentType>**](BetaSearchContentType.md)> |  | [optional]

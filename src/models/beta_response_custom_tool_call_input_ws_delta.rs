@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCustomToolCallInputWsDelta : Event representing a delta (partial update) to the input of a custom tool call.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCustomToolCallInputWsDelta {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The event type identifier.

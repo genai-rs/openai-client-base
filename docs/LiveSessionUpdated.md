@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The event type, always `session.updated`. | 
+**r#type** | **Type** | The event type, always `session.updated`. (enum: session.updated) | 
 **event_id** | **String** | The unique ID of the Live server event. | 
 **client_event_id** | Option<**String**> | The event_id of the client command associated with this server event, when supplied. | [optional]
 **session** | [**models::LiveSessionResourceParam**](LiveSessionResourceParam.md) |  | 

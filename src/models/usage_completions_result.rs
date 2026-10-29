@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 /// UsageCompletionsResult : The aggregated completions usage details of the specific time bucket.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UsageCompletionsResult {
+    /// When grouped by `api_source`, `agents_api` identifies attributed Agents API activity and `unlabeled` includes all records without published source attribution, including historical and unknown origins. Unlabeled does not imply direct API usage. Without source grouping, this field is null.
     #[serde(
         rename = "api_source",
         default,
@@ -178,7 +179,7 @@ impl UsageCompletionsResult {
         }
     }
 }
-///
+/// When grouped by `api_source`, `agents_api` identifies attributed Agents API activity and `unlabeled` includes all records without published source attribution, including historical and unknown origins. Unlabeled does not imply direct API usage. Without source grouping, this field is null.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ApiSource {
     #[serde(rename = "agents_api")]

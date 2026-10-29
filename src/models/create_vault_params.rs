@@ -17,8 +17,13 @@ pub struct CreateVaultParams {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// Key-value pairs to associate with the vault, such as an application or team identifier.
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "metadata",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
 }
 
 impl CreateVaultParams {

@@ -18,6 +18,7 @@ pub struct InviteListResponse {
     pub object: Object,
     #[serde(rename = "data")]
     pub data: Vec<models::Invite>,
+    /// The first `invite_id` in the retrieved `list`
     #[serde(
         rename = "first_id",
         default,
@@ -25,6 +26,7 @@ pub struct InviteListResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub first_id: Option<Option<String>>,
+    /// The last `invite_id` in the retrieved `list`
     #[serde(
         rename = "last_id",
         default,

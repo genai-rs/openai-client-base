@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the event. Always `response.file_search_call.completed`.  | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
+**r#type** | **Type** | The type of the event. Always `response.file_search_call.completed`.  (enum: response.file_search_call.completed) | 
 **output_index** | **i32** | The index of the output item that the file search call is initiated.  | 
 **item_id** | **String** | The ID of the output item that the file search call is initiated.  | 
 **sequence_number** | **i32** | The sequence number of this event. | 

@@ -10,18 +10,36 @@
 
 use serde::{Deserialize, Serialize};
 
-/// Object019 : Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
+/// Object019 : Details about why the response is incomplete.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object019 {
-    /// The transcription model to use for source transcript deltas.
-    #[serde(rename = "model")]
-    pub model: String,
+    /// The reason why the response is incomplete. `steered` means the response stopped at a safe output boundary after a WebSocket `response.steer` event. The server can then create a successor response automatically with the queued input.
+    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
+    pub reason: Option<Reason>,
 }
 
 impl Object019 {
-    /// Optional source-language transcription. When configured, the server emits `session.input_transcript.delta` events. Translation itself still runs from the input audio stream.
-    pub fn new(model: String) -> Object019 {
-        Object019 { model }
+    /// Details about why the response is incomplete.
+    pub fn new() -> Object019 {
+        Object019 { reason: None }
+    }
+}
+/// The reason why the response is incomplete. `steered` means the response stopped at a safe output boundary after a WebSocket `response.steer` event. The server can then create a successor response automatically with the queued input.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Reason {
+    #[serde(rename = "max_output_tokens")]
+    MaxOutputTokens,
+    #[serde(rename = "max_messages")]
+    MaxMessages,
+    #[serde(rename = "content_filter")]
+    ContentFilter,
+    #[serde(rename = "steered")]
+    Steered,
+}
+
+impl Default for Reason {
+    fn default() -> Reason {
+        Self::MaxOutputTokens
     }
 }
 

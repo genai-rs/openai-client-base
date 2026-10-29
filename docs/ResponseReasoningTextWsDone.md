@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.reasoning_text.done`.  | 
+**r#type** | **Type** | The type of the event. Always `response.reasoning_text.done`.  (enum: response.reasoning_text.done) | 
 **item_id** | **String** | The ID of the item this reasoning text is associated with.  | 
 **output_index** | **i32** | The index of the output item this reasoning text is associated with.  | 
 **content_index** | **i32** | The index of the reasoning content part.  | 

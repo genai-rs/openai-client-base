@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the custom tool call. Always `custom_tool_call`.  | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that produced this item. | [optional]
+**r#type** | **Type** | The type of the custom tool call. Always `custom_tool_call`.  (enum: custom_tool_call) | 
 **id** | Option<**String**> | The unique ID of the custom tool call in the OpenAI platform.  | [optional]
 **call_id** | **String** | An identifier used to map this custom tool call to a tool call output.  | 
 **caller** | Option<[**models::BetaToolCallCaller**](BetaToolCallCaller.md)> |  | [optional]

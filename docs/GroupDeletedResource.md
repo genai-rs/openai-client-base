@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | Always `group.deleted`. | 
+**object** | **Object** | Always `group.deleted`. (enum: group.deleted) | 
 **id** | **String** | Identifier of the deleted group. | 
 **deleted** | **bool** | Whether the group was deleted. | 
 

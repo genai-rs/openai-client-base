@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `http`. | 
+**r#type** | **Type** | The type of the object. Always `http`. (enum: http) | 
 **server_url** | **String** | The URL of the MCP server. | 
 **authorization** | Option<**String**> | The authorization value sent to the MCP server, if any. | [optional]
 **headers** | Option<**std::collections::HashMap<String, String>**> | Additional HTTP headers sent to the MCP server. | [optional]

@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseTextWsDelta : Emitted when there is an additional text delta.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseTextWsDelta {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always `response.output_text.delta`.

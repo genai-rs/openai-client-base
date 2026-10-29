@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** |  | 
+**r#type** | **Type** |  (enum: azure) | 
 **tenant_id** | **String** |  | 
 **subscription_id** | **String** |  | 
 **resource_group** | **String** |  | 

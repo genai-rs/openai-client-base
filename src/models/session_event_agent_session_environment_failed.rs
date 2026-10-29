@@ -27,7 +27,7 @@ pub struct SessionEventAgentSessionEnvironmentFailed {
     #[serde(rename = "turn_id", deserialize_with = "Option::deserialize")]
     pub turn_id: Option<String>,
     #[serde(rename = "environment")]
-    pub environment: models::SessionEnvironmentStateResource,
+    pub environment: Box<models::SessionEnvironmentStateResource>,
 }
 
 impl SessionEventAgentSessionEnvironmentFailed {
@@ -44,7 +44,7 @@ impl SessionEventAgentSessionEnvironmentFailed {
             event_id,
             session_id,
             turn_id,
-            environment,
+            environment: Box::new(environment),
         }
     }
 }

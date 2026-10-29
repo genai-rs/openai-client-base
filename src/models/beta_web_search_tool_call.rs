@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaWebSearchToolCall : The results of a web search tool call. See the [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaWebSearchToolCall {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

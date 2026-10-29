@@ -36,7 +36,7 @@ pub struct SessionEventAgentSessionTurnReasoningSummaryPartDone {
     #[serde(rename = "summary_index")]
     pub summary_index: i64,
     #[serde(rename = "part")]
-    pub part: models::SummaryTextResource,
+    pub part: Box<models::SummaryTextResource>,
     /// Present as `incomplete` when summary generation was interrupted.
     #[serde(rename = "status", deserialize_with = "Option::deserialize")]
     pub status: Option<Status>,
@@ -63,7 +63,7 @@ impl SessionEventAgentSessionTurnReasoningSummaryPartDone {
             item_id,
             output_index,
             summary_index,
-            part,
+            part: Box::new(part),
             status,
         }
     }

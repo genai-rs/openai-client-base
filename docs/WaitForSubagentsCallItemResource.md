@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The item type. Always `wait_for_subagents_call`. | 
+**r#type** | **Type** | The item type. Always `wait_for_subagents_call`. (enum: wait_for_subagents_call) | 
 **id** | **String** | The ID of the tool call item. | 
 **turn_id** | **String** | The ID of the turn that contains this item. | 
 **status** | [**models::FunctionCallStatusResource**](FunctionCallStatusResource.md) |  | 

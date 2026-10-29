@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **permissions_added** | Option<**Vec<String>**> | The permissions added to the role. | [optional]
 **permissions_removed** | Option<**Vec<String>**> | The permissions removed from the role. | [optional]
 **description** | Option<**String**> | The updated role description, when provided. | [optional]
-**metadata** | Option<[**serde_json::Value**](.md)> | Additional metadata stored on the role. | [optional]
+**metadata** | Option<**serde_json::Value**> | Additional metadata stored on the role. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

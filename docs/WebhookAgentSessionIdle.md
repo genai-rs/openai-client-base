@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The unique ID of the event. | 
-**object** | **String** | The object type. Always `event`. | 
+**object** | **Object** | The object type. Always `event`. (enum: event) | 
 **created_at** | **i32** | The Unix timestamp, in seconds, when the event was created. | 
-**r#type** | **String** | The event type. Always `agent.session.idle`. | 
+**r#type** | **Type** | The event type. Always `agent.session.idle`. (enum: agent.session.idle) | 
 **data** | [**models::AgentSessionEnvironmentPayloadResource**](AgentSessionEnvironmentPayloadResource.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `skill_reference`. | 
+**r#type** | **Type** | The type of the object. Always `skill_reference`. (enum: skill_reference) | 
 **skill_id** | **String** | The referenced skill ID. | 
 **version** | **String** | The concrete skill version installed for this session. | 
 **name** | **String** | The installed skill name. | 

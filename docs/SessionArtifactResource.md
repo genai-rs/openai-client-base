@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The immutable artifact ID. | 
-**object** | **String** | The object type. Always `agent.session.artifact`. | 
+**object** | **Object** | The object type. Always `agent.session.artifact`. (enum: agent.session.artifact) | 
 **session_id** | **String** | The ID of the session that owns the artifact. | 
 **environment_id** | **String** | The ID of the environment that produced the artifact. | 
 **turn_id** | **String** | The ID of the completed turn that published the artifact. | 

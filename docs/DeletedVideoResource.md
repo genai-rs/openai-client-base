@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The object type that signals the deletion response. | 
+**object** | **Object** | The object type that signals the deletion response. (enum: video.deleted) | 
 **deleted** | **bool** | Indicates that the video resource was deleted. | 
 **id** | **String** | Identifier of the deleted video. | 
 

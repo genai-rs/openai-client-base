@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | Always `role.deleted`. | 
+**object** | **Object** | Always `role.deleted`. (enum: role.deleted) | 
 **id** | **String** | Identifier of the deleted role. | 
 **deleted** | **bool** | Whether the role was deleted. | 
 

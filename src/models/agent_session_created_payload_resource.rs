@@ -23,7 +23,7 @@ pub struct AgentSessionCreatedPayloadResource {
     #[serde(rename = "environment_type")]
     pub environment_type: String,
     #[serde(rename = "connect", skip_serializing_if = "Option::is_none")]
-    pub connect: Option<models::AgentSessionConnectPayloadResource>,
+    pub connect: Option<Box<models::AgentSessionConnectPayloadResource>>,
 }
 
 impl AgentSessionCreatedPayloadResource {

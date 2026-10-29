@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseWsQueued : Emitted when a response is queued and waiting to be processed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseWsQueued {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always 'response.queued'.

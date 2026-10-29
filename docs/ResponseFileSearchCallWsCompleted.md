@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.file_search_call.completed`.  | 
+**r#type** | **Type** | The type of the event. Always `response.file_search_call.completed`.  (enum: response.file_search_call.completed) | 
 **output_index** | **i32** | The index of the output item that the file search call is initiated.  | 
 **item_id** | **String** | The ID of the output item that the file search call is initiated.  | 
 **sequence_number** | **i32** | The sequence number of this event. | 

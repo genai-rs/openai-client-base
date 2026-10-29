@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.completed`.  | 
+**r#type** | **Type** | The type of the event. Always `response.completed`.  (enum: response.completed) | 
 **response** | [**models::Response**](Response.md) |  | 
 **sequence_number** | **i32** | The sequence number for this event. | 
 

@@ -16,6 +16,7 @@ pub struct WebSearchActionFind {
     /// The action type.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// The URL of the page searched for the pattern, when available.
     #[serde(
         rename = "url",
         default,

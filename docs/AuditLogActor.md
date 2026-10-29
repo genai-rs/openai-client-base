@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | Option<**String**> | The type of actor. Is either `session` or `api_key`. | [optional]
+**r#type** | Option<**Type**> | The type of actor. Is either `session` or `api_key`. (enum: session, api_key) | [optional]
 **session** | Option<[**models::AuditLogActorSession**](AuditLogActorSession.md)> |  | [optional]
 **api_key** | Option<[**models::AuditLogActorApiKey**](AuditLogActorApiKey.md)> |  | [optional]
 

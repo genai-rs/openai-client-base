@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | For MCP tools, the type is always `mcp`. | 
+**r#type** | **Type** | For MCP tools, the type is always `mcp`. (enum: mcp) | 
 **server_label** | **String** | The label of the MCP server to use.  | 
 **name** | Option<**String**> | The name of the tool to call on the server.  | [optional]
 

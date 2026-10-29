@@ -18,7 +18,7 @@ pub struct RealtimeTranslationSessionCreateRequest {
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::RealtimeTranslationSessionCreateRequestAudio>>,
+    pub audio: Option<Box<models::RealtimeTranslationSessionAudio>>,
 }
 
 impl RealtimeTranslationSessionCreateRequest {

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**input** | Option<[**models::RealtimeSessionCreateRequestGaAudioInput**](RealtimeSessionCreateRequestGA_audio_input.md)> |  | [optional]
-**output** | Option<[**models::RealtimeSessionCreateRequestGaAudioOutput**](RealtimeSessionCreateRequestGA_audio_output.md)> |  | [optional]
+**input** | Option<[**models::RealtimeSessionCreateRequestGaAudioInput**](RealtimeSessionCreateRequestGAAudioInput.md)> |  | [optional]
+**output** | Option<[**models::RealtimeSessionCreateRequestGaAudioOutput**](RealtimeSessionCreateRequestGAAudioOutput.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

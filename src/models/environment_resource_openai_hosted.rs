@@ -20,6 +20,7 @@ pub struct EnvironmentResourceOpenaiHosted {
     /// The public ID of the environment.
     #[serde(rename = "id")]
     pub id: String,
+    /// The effective CPU and memory tier, or null when unknown or outside the public tiers.
     #[serde(
         rename = "container_size",
         default,
@@ -28,11 +29,11 @@ pub struct EnvironmentResourceOpenaiHosted {
     )]
     pub container_size: Option<Option<models::ContainerSizeResource>>,
     #[serde(rename = "packages")]
-    pub packages: models::EnvironmentPackagesResource,
+    pub packages: Box<models::EnvironmentPackagesResource>,
     #[serde(rename = "network")]
-    pub network: models::NetworkPolicyResource,
+    pub network: Box<models::NetworkPolicyResource>,
     #[serde(rename = "desktop")]
-    pub desktop: models::DesktopResource,
+    pub desktop: Box<models::DesktopResource>,
     /// Directories that contain capabilities exposed to the agent.
     #[serde(rename = "capability_directories")]
     pub capability_directories: Vec<String>,
@@ -41,7 +42,7 @@ pub struct EnvironmentResourceOpenaiHosted {
     pub skills: Vec<models::HostedSkillResource>,
     /// Plugins installed in the environment, excluding their archive contents.
     #[serde(rename = "plugins")]
-    pub plugins: Vec<models::HostedPluginResourceInline>,
+    pub plugins: Vec<models::HostedPluginResource>,
     /// Files available in the environment, excluding their contents.
     #[serde(rename = "files")]
     pub files: Vec<models::HostedEnvironmentFileResource>,
@@ -57,16 +58,16 @@ impl EnvironmentResourceOpenaiHosted {
         desktop: models::DesktopResource,
         capability_directories: Vec<String>,
         skills: Vec<models::HostedSkillResource>,
-        plugins: Vec<models::HostedPluginResourceInline>,
+        plugins: Vec<models::HostedPluginResource>,
         files: Vec<models::HostedEnvironmentFileResource>,
     ) -> EnvironmentResourceOpenaiHosted {
         EnvironmentResourceOpenaiHosted {
             r#type,
             id,
             container_size: None,
-            packages,
-            network,
-            desktop,
+            packages: Box::new(packages),
+            network: Box::new(network),
+            desktop: Box::new(desktop),
             capability_directories,
             skills,
             plugins,

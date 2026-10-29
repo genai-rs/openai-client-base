@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `agent.session.subagent.active`. | 
+**r#type** | **Type** | The type of the object. Always `agent.session.subagent.active`. (enum: agent.session.subagent.active) | 
 **event_id** | **String** | The unique ID of the event. | 
 **subagent** | [**models::SubagentResource**](SubagentResource.md) |  | 
 

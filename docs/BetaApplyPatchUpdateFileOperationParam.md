@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The operation type. Always `update_file`. | 
+**r#type** | **Type** | The operation type. Always `update_file`. (enum: update_file) | 
 **path** | **String** | Path of the file to update relative to the workspace root. | 
 **diff** | **String** | Unified diff content to apply to the existing file. | 
 

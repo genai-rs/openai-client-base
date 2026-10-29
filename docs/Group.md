@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | Always `group`. | 
+**object** | **Object** | Always `group`. (enum: group) | 
 **id** | **String** | Identifier for the group. | 
 **name** | **String** | Display name of the group. | 
 **created_at** | **i32** | Unix timestamp (in seconds) when the group was created. | 

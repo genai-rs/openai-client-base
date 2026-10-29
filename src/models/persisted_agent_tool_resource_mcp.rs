@@ -21,16 +21,16 @@ pub struct PersistedAgentToolResourceMcp {
     #[serde(rename = "server_label")]
     pub server_label: String,
     /// The vault credential selected for this MCP server, if any.
-    #[serde(rename = "credential_id")]
-    pub credential_id: String,
+    #[serde(rename = "credential_id", deserialize_with = "Option::deserialize")]
+    pub credential_id: Option<String>,
     #[serde(rename = "transport")]
     pub transport: Box<models::PersistedMcpTransportResource>,
     /// Metadata included with requests to this MCP server.
     #[serde(rename = "request_metadata")]
     pub request_metadata: std::collections::HashMap<String, serde_json::Value>,
     /// The MCP tools the agent may call, or null when all server tools are allowed.
-    #[serde(rename = "allowed_tools")]
-    pub allowed_tools: Vec<String>,
+    #[serde(rename = "allowed_tools", deserialize_with = "Option::deserialize")]
+    pub allowed_tools: Option<Vec<String>>,
     /// Whether this MCP server must initialize before the first turn.
     #[serde(rename = "required")]
     pub required: bool,
@@ -43,10 +43,10 @@ impl PersistedAgentToolResourceMcp {
     pub fn new(
         r#type: Type,
         server_label: String,
-        credential_id: String,
+        credential_id: Option<String>,
         transport: models::PersistedMcpTransportResource,
         request_metadata: std::collections::HashMap<String, serde_json::Value>,
-        allowed_tools: Vec<String>,
+        allowed_tools: Option<Vec<String>>,
         required: bool,
         connection_origin: models::McpConnectionOriginResource,
     ) -> PersistedAgentToolResourceMcp {

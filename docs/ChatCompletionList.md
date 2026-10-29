@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The type of this object. It is always set to \"list\".  | 
+**object** | **Object** | The type of this object. It is always set to \"list\".  (enum: list) | 
 **data** | [**Vec<models::CreateChatCompletionResponse>**](CreateChatCompletionResponse.md) | An array of chat completion objects.  | 
 **first_id** | Option<**String**> | The identifier of the first chat completion in the data array. | 
 **last_id** | Option<**String**> | The identifier of the last chat completion in the data array. | 

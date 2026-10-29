@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The event discriminator. Always `response.steer.pending`. | 
+**r#type** | **Type** | The event discriminator. Always `response.steer.pending`. (enum: response.steer.pending) | 
 **sequence_number** | **i32** | The sequence number for this event. | 
-**steer** | [**models::ResponseSteerPendingEventSteer**](ResponseSteerPendingEvent_steer.md) |  | 
+**steer** | [**models::ResponseSteerPendingEventSteer**](ResponseSteerPendingEventSteer.md) |  | 
 **reason** | [**models::BetaResponseSteerPendingReason**](BetaResponseSteerPendingReason.md) |  | 
 **required_input** | [**Vec<models::BetaResponseSteerRequiredInput>**](BetaResponseSteerRequiredInput.md) | Input stubs identifying outstanding client-owned tool results or approval decisions. Each stub contains identifying fields only; the client supplies the result before including it in `response.create`.  | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the target response's `response.create` event supplied a `stream_id`.  | [optional]

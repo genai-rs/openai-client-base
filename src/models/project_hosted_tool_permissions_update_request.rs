@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectHostedToolPermissionsUpdateRequest {
+    /// The file search permission update.
     #[serde(
         rename = "file_search",
         default,
@@ -20,6 +21,7 @@ pub struct ProjectHostedToolPermissionsUpdateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub file_search: Option<Option<Box<models::HostedToolPermissionUpdate>>>,
+    /// The web search permission update.
     #[serde(
         rename = "web_search",
         default,
@@ -27,6 +29,7 @@ pub struct ProjectHostedToolPermissionsUpdateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub web_search: Option<Option<Box<models::HostedToolPermissionUpdate>>>,
+    /// The image generation permission update.
     #[serde(
         rename = "image_generation",
         default,
@@ -34,6 +37,7 @@ pub struct ProjectHostedToolPermissionsUpdateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub image_generation: Option<Option<Box<models::HostedToolPermissionUpdate>>>,
+    /// The MCP permission update.
     #[serde(
         rename = "mcp",
         default,
@@ -41,6 +45,7 @@ pub struct ProjectHostedToolPermissionsUpdateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub mcp: Option<Option<Box<models::HostedToolPermissionUpdate>>>,
+    /// The code interpreter permission update.
     #[serde(
         rename = "code_interpreter",
         default,

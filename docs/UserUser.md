@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: user) | 
 **id** | **String** |  | 
 **email** | Option<**String**> |  | [optional]
 **name** | Option<**String**> |  | [optional]

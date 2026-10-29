@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The identifier of the run step, which can be referenced in API endpoints. | 
-**object** | **String** | The object type, which is always `thread.run.step`. | 
+**object** | **Object** | The object type, which is always `thread.run.step`. (enum: thread.run.step) | 
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the run step was created. | 
 **assistant_id** | **String** | The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) associated with the run step. | 
 **thread_id** | **String** | The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) that was run. | 
 **run_id** | **String** | The ID of the [run](https://developers.openai.com/api/docs/assistants/migration) that this run step is a part of. | 
-**r#type** | **String** | The type of run step, which can be either `message_creation` or `tool_calls`. | 
-**status** | **String** | The status of the run step, which can be either `in_progress`, `cancelled`, `failed`, `completed`, or `expired`. | 
-**step_details** | [**models::RunStepObjectStepDetails**](RunStepObject_step_details.md) |  | 
-**last_error** | Option<[**models::Object023**](Object0_23.md)> |  | 
+**r#type** | **Type** | The type of run step, which can be either `message_creation` or `tool_calls`. (enum: message_creation, tool_calls) | 
+**status** | **Status** | The status of the run step, which can be either `in_progress`, `cancelled`, `failed`, `completed`, or `expired`. (enum: in_progress, cancelled, failed, completed, expired) | 
+**step_details** | [**models::RunStepObjectStepDetails**](RunStepObjectStepDetails.md) |  | 
+**last_error** | Option<[**models::Object021**](Object021.md)> |  | 
 **expired_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired. | 
 **cancelled_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step was cancelled. | 
 **failed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step failed. | 

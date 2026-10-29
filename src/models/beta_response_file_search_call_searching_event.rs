@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseFileSearchCallSearchingEvent : Emitted when a file search is currently searching.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseFileSearchCallSearchingEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

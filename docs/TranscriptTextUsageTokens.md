@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the usage object. Always `tokens` for this variant. | 
+**r#type** | **Type** | The type of the usage object. Always `tokens` for this variant. (enum: tokens) | 
 **input_tokens** | **i32** | Number of input tokens billed for this request. | 
-**input_token_details** | Option<[**models::TranscriptTextUsageTokensInputTokenDetails**](TranscriptTextUsageTokens_input_token_details.md)> |  | [optional]
+**input_token_details** | Option<[**models::TranscriptTextUsageTokensInputTokenDetails**](TranscriptTextUsageTokensInputTokenDetails.md)> |  | [optional]
 **output_tokens** | **i32** | Number of output tokens generated. | 
 **total_tokens** | **i32** | Total number of tokens used (input + output). | 
 

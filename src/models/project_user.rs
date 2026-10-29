@@ -19,6 +19,7 @@ pub struct ProjectUser {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
+    /// The name of the user
     #[serde(
         rename = "name",
         default,
@@ -26,6 +27,7 @@ pub struct ProjectUser {
         skip_serializing_if = "Option::is_none"
     )]
     pub name: Option<Option<String>>,
+    /// The email address of the user
     #[serde(
         rename = "email",
         default,

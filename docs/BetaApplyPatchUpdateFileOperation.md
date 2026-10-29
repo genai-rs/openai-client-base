@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | Update an existing file with the provided diff. | 
+**r#type** | **Type** | Update an existing file with the provided diff. (enum: update_file) | 
 **path** | **String** | Path of the file to update. | 
 **diff** | **String** | Diff to apply. | 
 

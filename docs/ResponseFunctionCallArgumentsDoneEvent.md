@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** |  | 
+**r#type** | **Type** |  (enum: response.function_call_arguments.done) | 
 **item_id** | **String** | The ID of the item. | 
 **output_index** | **i32** | The index of the output item. | 
 **sequence_number** | **i32** | The sequence number of this event. | 

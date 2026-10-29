@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**role** | **String** | The role of the messages author, in this case `tool`. | 
+**role** | **Role** | The role of the messages author, in this case `tool`. (enum: tool) | 
 **content** | [**models::ChatCompletionRequestToolMessageContent**](ChatCompletionRequestToolMessageContent.md) |  | 
 **tool_call_id** | **String** | Tool call that this message is responding to. | 
 

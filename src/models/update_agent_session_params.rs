@@ -15,10 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateAgentSessionParams {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<models::UpdateSessionAgentParam>,
+    pub agent: Option<Box<models::UpdateSessionAgentParam>>,
     /// Replaces all metadata. Omit to leave unchanged, or pass null or {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters.
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "metadata",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
 }
 
 impl UpdateAgentSessionParams {

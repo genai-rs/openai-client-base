@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `choice`. | 
+**r#type** | **Type** | The type of the object. Always `choice`. (enum: choice) | 
 **name** | Option<**String**> |  | 
 **choice** | [**models::ChoiceValueResource**](ChoiceValueResource.md) |  | 
 **probabilities** | [**Vec<models::ChoiceProbabilityResource>**](ChoiceProbabilityResource.md) |  | 

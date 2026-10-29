@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `file_id`. | 
+**r#type** | **Type** | The type of the object. Always `file_id`. (enum: file_id) | 
 **file_id** | **String** | The ID of the uploaded file. | 
 **path** | **String** | The file's absolute path inside the environment. | 
 

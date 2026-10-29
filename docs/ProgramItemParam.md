@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The unique ID of this program item. | 
-**r#type** | **String** | The item type. Always `program`. | 
+**r#type** | **Type** | The item type. Always `program`. (enum: program) | 
 **call_id** | **String** | The stable call ID of the program item. | 
 **code** | **String** | The JavaScript source executed by programmatic tool calling. | 
 **fingerprint** | **String** | Opaque program replay fingerprint that must be round-tripped. | 

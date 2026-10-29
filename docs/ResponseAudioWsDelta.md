@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.audio.delta`.  | 
+**r#type** | **Type** | The type of the event. Always `response.audio.delta`.  (enum: response.audio.delta) | 
 **sequence_number** | **i32** | A sequence number for this chunk of the stream response.  | 
 **delta** | **String** | A chunk of Base64 encoded response audio bytes.  | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]

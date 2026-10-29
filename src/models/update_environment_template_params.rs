@@ -22,13 +22,14 @@ pub struct UpdateEnvironmentTemplateParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub name: Option<Option<String>>,
+    /// Packages installed before the runtime network policy applies.
     #[serde(
         rename = "packages",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub packages: Option<Option<models::EnvironmentPackagesParam>>,
+    pub packages: Option<Option<Box<models::EnvironmentPackagesParam>>>,
     /// Replacement confidential setup commands, never included in returned resources.
     #[serde(
         rename = "setup_commands",
@@ -37,23 +38,30 @@ pub struct UpdateEnvironmentTemplateParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub setup_commands: Option<Option<Vec<models::SetupCommandParam>>>,
+    /// Network access available after setup completes. Omit to preserve the current policy, or pass `null` to reset to the default policy.
     #[serde(
         rename = "network",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub network: Option<Option<models::NetworkPolicyParam>>,
+    pub network: Option<Option<Box<models::NetworkPolicyParam>>>,
+    /// Replacement desktop configuration, or null to disable the desktop.
     #[serde(
         rename = "desktop",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub desktop: Option<Option<models::DesktopParam>>,
+    pub desktop: Option<Option<Box<models::DesktopParam>>>,
     /// Replacement confidential environment values.
-    #[serde(rename = "env", skip_serializing_if = "Option::is_none")]
-    pub env: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "env",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub env: Option<Option<std::collections::HashMap<String, String>>>,
     /// Directories that expose capabilities to the agent.
     #[serde(
         rename = "capability_directories",
@@ -77,7 +85,7 @@ pub struct UpdateEnvironmentTemplateParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub plugins: Option<Option<Vec<models::HostedPluginParamInline>>>,
+    pub plugins: Option<Option<Vec<models::HostedPluginParam>>>,
     /// Replacement file configuration materialized for each new session.
     #[serde(
         rename = "files",

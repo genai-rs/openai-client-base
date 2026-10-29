@@ -70,3 +70,16 @@ pub enum LiveServerEvent2 {
     #[serde(rename = "LiveTransportFailed")]
     LiveTransportFailed(Box<models::LiveTransportFailed>),
 }
+
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SourceEventType {
+    SessionInputTranscriptDelta,
+    SessionOutputTranscriptDelta,
+}
+
+impl Default for SourceEventType {
+    fn default() -> SourceEventType {
+        Self::SessionInputTranscriptDelta
+    }
+}

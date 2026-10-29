@@ -27,7 +27,7 @@ pub struct SessionEventAgentSessionEnvironmentDisconnected {
     #[serde(rename = "turn_id", deserialize_with = "Option::deserialize")]
     pub turn_id: Option<String>,
     #[serde(rename = "environment")]
-    pub environment: models::SessionEnvironmentStateResource,
+    pub environment: Box<models::SessionEnvironmentStateResource>,
 }
 
 impl SessionEventAgentSessionEnvironmentDisconnected {
@@ -44,7 +44,7 @@ impl SessionEventAgentSessionEnvironmentDisconnected {
             event_id,
             session_id,
             turn_id,
-            environment,
+            environment: Box::new(environment),
         }
     }
 }

@@ -10,6 +10,8 @@
 
 use serde::{Deserialize, Serialize};
 
+use serde_repr::{Deserialize_repr, Serialize_repr};
+
 /// LiveSessionAudioFormatPcmParam : Raw, mono 16-bit little-endian PCM audio for a Live WebSocket connection.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionAudioFormatPcmParam {
@@ -40,12 +42,26 @@ impl Default for Type {
     }
 }
 /// Audio sample rate in hertz. Live WebSocket PCM audio supports 16000 or 24000 Hz.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[repr(i64)]
+#[derive(
+    Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize_repr, Deserialize_repr,
+)]
 pub enum Rate {
-    #[serde(rename = "16000")]
-    Variant16000,
-    #[serde(rename = "24000")]
-    Variant24000,
+    Variant16000 = 16000,
+    Variant24000 = 24000,
+}
+
+impl std::fmt::Display for Rate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}",
+            match self {
+                Self::Variant16000 => "16000",
+                Self::Variant24000 => "24000",
+            }
+        )
+    }
 }
 
 impl Default for Rate {

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the server event. | 
-**r#type** | **String** | The event type, must be `conversation.item.input_audio_transcription.completed`.  | 
+**r#type** | **Type** | The event type, must be `conversation.item.input_audio_transcription.completed`.  (enum: conversation.item.input_audio_transcription.completed) | 
 **item_id** | **String** | The ID of the user message item containing the audio. | 
 **content_index** | **i32** | The index of the content part containing the audio. | 
 **transcript** | **String** | The transcribed text. | 
 **languages** | Option<[**Vec<models::TranscriptionLanguage>**](TranscriptionLanguage.md)> | The languages detected in the audio. Returned by `gpt-transcribe`. An empty array indicates that no language could be reliably detected.  | [optional]
 **logprobs** | Option<[**Vec<models::LogProbProperties>**](LogProbProperties.md)> | The log probabilities of the transcription. | [optional]
-**usage** | [**models::RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompletedUsage**](RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompleted_usage.md) |  | 
+**usage** | [**models::RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompletedUsage**](RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompletedUsage.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

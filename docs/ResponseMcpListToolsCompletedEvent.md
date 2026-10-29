@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always 'response.mcp_list_tools.completed'. | 
+**r#type** | **Type** | The type of the event. Always 'response.mcp_list_tools.completed'. (enum: response.mcp_list_tools.completed) | 
 **item_id** | **String** | The ID of the MCP tool call item that produced this output. | 
 **output_index** | **i32** | The index of the output item that was processed. | 
 **sequence_number** | **i32** | The sequence number of this event. | 

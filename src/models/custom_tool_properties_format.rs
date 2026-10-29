@@ -16,8 +16,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CustomToolPropertiesFormat {
-    TextFormat(models::TextFormat),
-    GrammarFormat(models::GrammarFormat),
+    TextFormat(Box<models::TextFormat>),
+    GrammarFormat(Box<models::GrammarFormat>),
 }
 
 impl Default for CustomToolPropertiesFormat {

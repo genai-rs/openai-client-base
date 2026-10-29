@@ -15,13 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveCallAcceptRequest {
     #[serde(rename = "session")]
-    pub session: models::LiveCallAcceptSession,
+    pub session: Box<models::LiveCallAcceptSession>,
 }
 
 impl LiveCallAcceptRequest {
     /// Accept an incoming SIP call with Live startup configuration.
     pub fn new(session: models::LiveCallAcceptSession) -> LiveCallAcceptRequest {
-        LiveCallAcceptRequest { session }
+        LiveCallAcceptRequest {
+            session: Box::new(session),
+        }
     }
 }
 

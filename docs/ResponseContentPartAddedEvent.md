@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.content_part.added`.  | 
+**r#type** | **Type** | The type of the event. Always `response.content_part.added`.  (enum: response.content_part.added) | 
 **item_id** | **String** | The ID of the output item that the content part was added to.  | 
 **output_index** | **i32** | The index of the output item that the content part was added to.  | 
 **content_index** | **i32** | The index of the content part that was added.  | 

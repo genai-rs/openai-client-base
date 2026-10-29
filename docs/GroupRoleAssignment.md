@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | Always `group.role`. | 
+**object** | **Object** | Always `group.role`. (enum: group.role) | 
 **group** | [**models::Group**](Group.md) |  | 
 **role** | [**models::Role**](Role.md) |  | 
 

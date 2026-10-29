@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The event discriminator. Always `response.steer`. | 
+**r#type** | **Type** | The event discriminator. Always `response.steer`. (enum: response.steer) | 
 **previous_response_id** | **String** | The ID of the response to steer on this WebSocket connection. | 
 **input** | [**models::ResponseSteerInput**](ResponseSteerInput.md) |  | 
 

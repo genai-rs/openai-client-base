@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | Defines an inline skill for this request. | 
+**r#type** | **Type** | Defines an inline skill for this request. (enum: inline) | 
 **name** | **String** | The name of the skill. | 
 **description** | **String** | The description of the skill. | 
 **source** | [**models::BetaInlineSkillSourceParam**](BetaInlineSkillSourceParam.md) |  | 

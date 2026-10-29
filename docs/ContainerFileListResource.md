@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The type of object returned, must be 'list'. | 
+**object** | **Object** | The type of object returned, must be 'list'. (enum: list) | 
 **data** | [**Vec<models::ContainerFileResource>**](ContainerFileResource.md) | A list of container files. | 
 **first_id** | **String** | The ID of the first file in the list. | 
 **last_id** | **String** | The ID of the last file in the list. | 
