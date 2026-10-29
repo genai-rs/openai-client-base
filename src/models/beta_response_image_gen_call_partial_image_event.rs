@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseImageGenCallPartialImageEvent : Emitted when a partial image is available during image generation streaming.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseImageGenCallPartialImageEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

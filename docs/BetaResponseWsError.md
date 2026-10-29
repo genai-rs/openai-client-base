@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the event. Always `error`. | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
+**r#type** | **Type** | The type of the event. Always `error`. (enum: error) | 
 **status** | Option<**i32**> | The HTTP status code associated with a WebSocket protocol error. | [optional]
 **sequence_number** | Option<**i32**> | The sequence number of an error emitted by the response stream. | [optional]
 **error** | [**models::BetaErrorPayload**](BetaErrorPayload.md) |  | 

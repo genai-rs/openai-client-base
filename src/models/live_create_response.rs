@@ -17,7 +17,7 @@ pub struct LiveCreateResponse {
     #[serde(rename = "session")]
     pub session: Box<models::LiveCreateResponseSession>,
     #[serde(rename = "transport")]
-    pub transport: models::LiveWebRtcTransport,
+    pub transport: Box<models::LiveWebRtcTransport>,
 }
 
 impl LiveCreateResponse {
@@ -28,7 +28,7 @@ impl LiveCreateResponse {
     ) -> LiveCreateResponse {
         LiveCreateResponse {
             session: Box::new(session),
-            transport,
+            transport: Box::new(transport),
         }
     }
 }

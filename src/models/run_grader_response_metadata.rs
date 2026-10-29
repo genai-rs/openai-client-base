@@ -24,7 +24,7 @@ pub struct RunGraderResponseMetadata {
     #[serde(rename = "scores")]
     pub scores: std::collections::HashMap<String, serde_json::Value>,
     #[serde(rename = "token_usage", deserialize_with = "Option::deserialize")]
-    pub token_usage: Option<Box<models::Object022>>,
+    pub token_usage: Option<Box<models::Object020>>,
     #[serde(
         rename = "sampled_model_name",
         deserialize_with = "Option::deserialize"
@@ -39,7 +39,7 @@ impl RunGraderResponseMetadata {
         errors: models::RunGraderResponseMetadataErrors,
         execution_time: f64,
         scores: std::collections::HashMap<String, serde_json::Value>,
-        token_usage: Option<models::Object022>,
+        token_usage: Option<models::Object020>,
         sampled_model_name: Option<String>,
     ) -> RunGraderResponseMetadata {
         RunGraderResponseMetadata {

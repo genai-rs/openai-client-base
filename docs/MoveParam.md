@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | Specifies the event type. For a move action, this property is always set to `move`. | 
+**r#type** | **Type** | Specifies the event type. For a move action, this property is always set to `move`. (enum: move) | 
 **x** | **i32** | The x-coordinate to move to. | 
 **y** | **i32** | The y-coordinate to move to. | 
 **keys** | Option<**Vec<String>**> | The keys being held while moving the mouse. | [optional]

@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseRefusalDoneEvent : Emitted when refusal text is finalized.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseRefusalDoneEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always 'response.mcp_call_arguments.done'. | 
+**r#type** | **Type** | The type of the event. Always 'response.mcp_call_arguments.done'. (enum: response.mcp_call_arguments.done) | 
 **output_index** | **i32** | The index of the output item in the response's output array. | 
 **item_id** | **String** | The unique identifier of the MCP tool call item being processed. | 
 **arguments** | **String** | A JSON string containing the finalized arguments for the MCP tool call.  | 

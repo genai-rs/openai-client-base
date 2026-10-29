@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseFileSearchCallInWsProgress : Emitted when a file search call is initiated.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseFileSearchCallInWsProgress {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always `response.file_search_call.in_progress`.

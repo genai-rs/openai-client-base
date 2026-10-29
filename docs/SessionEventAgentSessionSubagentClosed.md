@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `agent.session.subagent.closed`. | 
+**r#type** | **Type** | The type of the object. Always `agent.session.subagent.closed`. (enum: agent.session.subagent.closed) | 
 **event_id** | **String** | The unique ID of the event. | 
 **subagent** | [**models::SubagentResource**](SubagentResource.md) |  | 
 

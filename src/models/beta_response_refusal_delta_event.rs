@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseRefusalDeltaEvent : Emitted when there is a partial refusal text.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseRefusalDeltaEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

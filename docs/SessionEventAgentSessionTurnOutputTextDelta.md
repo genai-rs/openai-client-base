@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `agent.session.turn.output_text.delta`. | 
+**r#type** | **Type** | The type of the object. Always `agent.session.turn.output_text.delta`. (enum: agent.session.turn.output_text.delta) | 
 **event_id** | **String** | The unique ID of the event. | 
 **session_id** | **String** | The ID of the session associated with the event. | 
 **turn_id** | Option<**String**> | The ID of the turn associated with the event, when applicable. | 

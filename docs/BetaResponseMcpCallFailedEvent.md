@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the event. Always 'response.mcp_call.failed'. | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
+**r#type** | **Type** | The type of the event. Always 'response.mcp_call.failed'. (enum: response.mcp_call.failed) | 
 **item_id** | **String** | The ID of the MCP tool call item that failed. | 
 **output_index** | **i32** | The index of the output item that failed. | 
 **sequence_number** | **i32** | The sequence number of this event. | 

@@ -15,6 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct RealtimeSessionCreateResponseGaAudioInput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<Box<models::RealtimeAudioFormats>>,
+    /// Configuration for input audio transcription, defaults to off and can be set to `null` to turn off once on. Input audio transcription is not native to the model, since the model consumes audio directly. Transcription runs asynchronously through [the /audio/transcriptions endpoint](https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create) and should be treated as guidance of input audio content rather than precisely what the model heard. The client can optionally set the language and prompt for transcription, these offer additional guidance to the transcription service.
     #[serde(
         rename = "transcription",
         default,
@@ -22,9 +23,14 @@ pub struct RealtimeSessionCreateResponseGaAudioInput {
         skip_serializing_if = "Option::is_none"
     )]
     pub transcription: Option<Option<Box<models::AudioTranscriptionResponse>>>,
-    #[serde(rename = "noise_reduction", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "noise_reduction",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub noise_reduction:
-        Option<Box<models::RealtimeSessionCreateResponseGaAudioInputNoiseReduction>>,
+        Option<Option<Box<models::RealtimeSessionCreateResponseGaAudioInputNoiseReduction>>>,
     #[serde(
         rename = "turn_detection",
         default,

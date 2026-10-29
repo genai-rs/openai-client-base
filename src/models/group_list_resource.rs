@@ -23,6 +23,7 @@ pub struct GroupListResource {
     /// Whether additional groups are available when paginating.
     #[serde(rename = "has_more")]
     pub has_more: bool,
+    /// Cursor to fetch the next page of results, or `null` if there are no more results.
     #[serde(rename = "next", deserialize_with = "Option::deserialize")]
     pub next: Option<String>,
 }

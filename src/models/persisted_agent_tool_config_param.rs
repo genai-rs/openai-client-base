@@ -22,3 +22,9 @@ pub enum PersistedAgentToolConfigParam {
     WebSearch(Box<models::PersistedAgentToolConfigParamWebSearch>),
     ComputerUse(Box<models::PersistedAgentToolConfigParamComputerUse>),
 }
+
+impl Default for PersistedAgentToolConfigParam {
+    fn default() -> Self {
+        Self::Function(Default::default())
+    }
+}

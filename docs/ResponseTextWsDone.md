@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.output_text.done`.  | 
+**r#type** | **Type** | The type of the event. Always `response.output_text.done`.  (enum: response.output_text.done) | 
 **item_id** | **String** | The ID of the output item that the text content is finalized.  | 
 **output_index** | **i32** | The index of the output item that the text content is finalized.  | 
 **content_index** | **i32** | The index of the content part that the text content is finalized.  | 

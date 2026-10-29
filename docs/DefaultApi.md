@@ -880,7 +880,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | Identifier of the ChatKit thread whose items are requested. | [required] |
 **limit** | Option<**i32**> | Maximum number of thread items to return. Defaults to 20. |  |
-**order** | Option<[**OrderEnum**](.md)> | Sort order for results by creation time. Defaults to `desc`. |  |
+**order** | Option<[**OrderEnum**](OrderEnum.md)> | Sort order for results by creation time. Defaults to `desc`. |  |
 **after** | Option<**String**> | List items created after this thread item ID. Defaults to null for the first page. |  |
 **before** | Option<**String**> | List items created before this thread item ID. Defaults to null for the newest results. |  |
 
@@ -913,7 +913,7 @@ List ChatKit threads with optional pagination and user filters.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i32**> | Maximum number of thread items to return. Defaults to 20. |  |
-**order** | Option<[**OrderEnum**](.md)> | Sort order for results by creation time. Defaults to `desc`. |  |
+**order** | Option<[**OrderEnum**](OrderEnum.md)> | Sort order for results by creation time. Defaults to `desc`. |  |
 **after** | Option<**String**> | List items created after this thread item ID. Defaults to null for the first page. |  |
 **before** | Option<**String**> | List items created before this thread item ID. Defaults to null for the newest results. |  |
 **user** | Option<**String**> | Filter threads that belong to this user identifier. Defaults to null to return all users. |  |
@@ -1006,7 +1006,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | Option<**String**> |  |  |
 **after** | Option<**String**> | Return external storage configurations after this ID. |  |
-**order** | Option<[**ExternalStorageOrder**](.md)> |  |  |
+**order** | Option<[**ExternalStorageOrder**](ExternalStorageOrder.md)> |  |  |
 **limit** | Option<**i32**> |  |  |
 
 ### Return type
@@ -1039,11 +1039,11 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **start_time** | **i32** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i32**> | End time (Unix seconds) of the query time range, exclusive. |  |
-**bucket_width** | Option<[**DecisionsUsageBucketWidth**](.md)> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |
+**bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |
 **limit** | Option<**i32**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440 |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 **project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**group_by** | Option<[**Vec<models::DecisionsUsageGroupBy>**](models::DecisionsUsageGroupBy.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
+**group_by** | Option<[**Vec<models::DecisionsUsageGroupBy>**](Models__DecisionsUsageGroupBy.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
 **user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
 **api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
 **models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of method. Is either `supervised`, `dpo`, or `reinforcement`. | 
+**r#type** | **Type** | The type of method. Is either `supervised`, `dpo`, or `reinforcement`. (enum: supervised, dpo, reinforcement) | 
 **supervised** | Option<[**models::FineTuneSupervisedMethod**](FineTuneSupervisedMethod.md)> |  | [optional]
 **dpo** | Option<[**models::FineTuneDpoMethod**](FineTuneDPOMethod.md)> |  | [optional]
 **reinforcement** | Option<[**models::FineTuneReinforcementMethod**](FineTuneReinforcementMethod.md)> |  | [optional]

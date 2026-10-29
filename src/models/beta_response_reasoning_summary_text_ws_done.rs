@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseReasoningSummaryTextWsDone : Emitted when a reasoning summary text is completed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseReasoningSummaryTextWsDone {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always `response.reasoning_summary_text.done`.

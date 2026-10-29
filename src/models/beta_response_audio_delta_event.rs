@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseAudioDeltaEvent : Emitted when there is a partial audio response.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseAudioDeltaEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

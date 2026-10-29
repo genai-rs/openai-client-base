@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// PersistedAgentToolConfigParamMcp : Tools provided by a remote MCP server without stored credentials.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PersistedAgentToolConfigParamMcp {
     /// The type of the object. Always `mcp`.
     #[serde(rename = "type")]
@@ -21,21 +21,42 @@ pub struct PersistedAgentToolConfigParamMcp {
     #[serde(rename = "server_label")]
     pub server_label: String,
     /// The vault credential selected for this MCP server. Optional when exactly one attached credential matches the server URL.
-    #[serde(rename = "credential_id", skip_serializing_if = "Option::is_none")]
-    pub credential_id: Option<String>,
+    #[serde(
+        rename = "credential_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub credential_id: Option<Option<String>>,
     #[serde(rename = "transport")]
     pub transport: Box<models::PersistedMcpTransportConfigParam>,
     /// Metadata included with requests to this MCP server.
-    #[serde(rename = "request_metadata", skip_serializing_if = "Option::is_none")]
-    pub request_metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(
+        rename = "request_metadata",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub request_metadata: Option<Option<std::collections::HashMap<String, serde_json::Value>>>,
     /// The MCP tools the agent may call. All server tools are allowed when omitted.
-    #[serde(rename = "allowed_tools", skip_serializing_if = "Option::is_none")]
-    pub allowed_tools: Option<Vec<String>>,
+    #[serde(
+        rename = "allowed_tools",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub allowed_tools: Option<Option<Vec<String>>>,
     /// Whether this MCP server must initialize before the first turn. Defaults to `false`.
     #[serde(rename = "required", skip_serializing_if = "Option::is_none")]
     pub required: Option<bool>,
-    #[serde(rename = "connection_origin", skip_serializing_if = "Option::is_none")]
-    pub connection_origin: Option<Box<models::PersistedAgentToolConfigParamMcpConnectionOrigin>>,
+    /// Selects where outbound MCP HTTP connections originate.
+    #[serde(
+        rename = "connection_origin",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connection_origin: Option<Option<models::McpConnectionOriginParam>>,
 }
 
 impl PersistedAgentToolConfigParamMcp {

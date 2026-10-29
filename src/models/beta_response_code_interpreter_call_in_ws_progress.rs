@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCodeInterpreterCallInWsProgress : Emitted when a code interpreter call is in progress.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCodeInterpreterCallInWsProgress {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always `response.code_interpreter_call.in_progress`.

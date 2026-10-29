@@ -12,18 +12,26 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// DecisionInputImage : An image provided as a base64 data URL or a publicly accessible HTTP(S) URL. File IDs are not supported.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionInputImage {
     /// A base64-encoded image in a data URL or a publicly accessible HTTP(S) image URL.
     #[serde(rename = "image_url")]
     pub image_url: String,
-    #[serde(rename = "detail", skip_serializing_if = "Option::is_none")]
-    pub detail: Option<Box<models::DecisionInputImageDetail>>,
+    /// The image detail level, using the selected model's image profile. Defaults to auto.
     #[serde(
-        rename = "prompt_cache_breakpoint",
+        rename = "detail",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<models::PromptCacheBreakpoint1>,
+    pub detail: Option<Option<models::ImageDetailParam>>,
+    #[serde(
+        rename = "prompt_cache_breakpoint",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_breakpoint: Option<Option<Box<models::PromptCacheBreakpoint>>>,
     #[serde(rename = "type")]
     pub r#type: Type,
 }

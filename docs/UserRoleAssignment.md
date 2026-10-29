@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | Always `user.role`. | 
+**object** | **Object** | Always `user.role`. (enum: user.role) | 
 **user** | [**models::User**](User.md) |  | 
 **role** | [**models::Role**](Role.md) |  | 
 

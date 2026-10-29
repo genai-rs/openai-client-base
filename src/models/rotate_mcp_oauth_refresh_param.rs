@@ -30,6 +30,7 @@ pub struct RotateMcpOauthRefreshParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub scope: Option<Option<String>>,
+    /// Client-secret updates for the existing token endpoint authentication method.
     #[serde(
         rename = "token_endpoint_auth",
         default,

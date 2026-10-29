@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `inline`. | 
+**r#type** | **Type** | The type of the object. Always `inline`. (enum: inline) | 
 **name** | **String** | The plugin name declared in `.codex-plugin/plugin.json`. | 
 **description** | **String** | The plugin description declared in `.codex-plugin/plugin.json`. | 
-**source** | [**models::InlineCapabilitySourceParamBase64**](InlineCapabilitySourceParamBase64.md) |  | 
+**source** | [**models::InlineCapabilitySourceParam**](InlineCapabilitySourceParam.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

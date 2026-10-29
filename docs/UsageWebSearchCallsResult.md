@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**api_source** | Option<**String**> |  | [optional]
-**object** | **String** |  | 
+**api_source** | Option<**ApiSource**> | When grouped by `api_source`, `agents_api` identifies attributed Agents API activity and `unlabeled` includes all records without published source attribution, including historical and unknown origins. Unlabeled does not imply direct API usage. Without source grouping, this field is null. (enum: agents_api, unlabeled) | [optional]
+**object** | **Object** |  (enum: organization.usage.web_searches.result) | 
 **num_model_requests** | **i32** | The count of model requests. | 
 **num_requests** | **i32** | The count of web search calls. | 
 **project_id** | Option<**String**> | When `group_by=project_id`, this field provides the project ID of the grouped usage result. | [optional]

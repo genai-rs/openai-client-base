@@ -25,7 +25,7 @@ pub struct LiveCallAcceptSession {
     )]
     pub instructions: Option<Option<String>>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<models::LiveMediaSessionAudioParam>,
+    pub audio: Option<Box<models::LiveMediaSessionAudioParam>>,
     #[serde(
         rename = "delegation",
         default,

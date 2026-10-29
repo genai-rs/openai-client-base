@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The ID of the credential. | 
-**object** | **String** | The object type. Always `vault.credential`. | 
+**object** | **Object** | The object type. Always `vault.credential`. (enum: vault.credential) | 
 **vault_id** | **String** | The ID of the vault containing this credential. | 
 **name** | **String** | The human-readable name of the credential. | 
 **auth** | [**models::VaultCredentialAuthResource**](VaultCredentialAuthResource.md) |  | 

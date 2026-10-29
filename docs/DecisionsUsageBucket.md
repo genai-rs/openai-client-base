@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: bucket) | 
 **start_time** | **i32** |  | 
 **end_time** | **i32** |  | 
 **results** | [**Vec<models::DecisionsUsageResult>**](DecisionsUsageResult.md) |  | 

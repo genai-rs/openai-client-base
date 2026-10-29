@@ -15,10 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAgentSessionParams {
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Omission or null defaults to an empty map.
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "metadata",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<models::SessionAgentConfigParam>,
+    pub agent: Option<Box<models::SessionAgentConfigParam>>,
     /// The ID of a saved reusable agent. Omit `agent` to use its configuration unchanged.
     #[serde(rename = "agent_id", skip_serializing_if = "Option::is_none")]
     pub agent_id: Option<String>,
@@ -32,6 +37,7 @@ pub struct CreateAgentSessionParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub vault_ids: Option<Option<Vec<String>>>,
+    /// Initial input to submit when the session is created. A string is shorthand for a single user message. Required when `environment.type` is `none`, or when `stream` is `true` for an environment that is not `self_hosted`; optional for self-hosted and non-streaming execution environments.
     #[serde(
         rename = "input",
         default,

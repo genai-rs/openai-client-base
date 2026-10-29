@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of session to create. Always `realtime` for the Realtime API.  | 
-**output_modalities** | Option<**Vec<String>**> | The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.  | [optional]
+**r#type** | **Type** | The type of session to create. Always `realtime` for the Realtime API.  (enum: realtime) | 
+**output_modalities** | Option<**Vec<OutputModalities>**> | The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.  (enum: text, audio) | [optional]
 **model** | Option<**String**> | The Realtime model used for this session.  | [optional]
 **instructions** | Option<**String**> | The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. \"be extremely succinct\", \"act friendly\", \"here are examples of good responses\") and on audio behavior (e.g. \"talk quickly\", \"inject emotion into your voice\", \"laugh frequently\"). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior.  Note that the server sets default instructions which will be used if this field is not set and are visible in the `session.created` event at the start of the session.  | [optional]
-**audio** | Option<[**models::RealtimeSessionCreateRequestGaAudio**](RealtimeSessionCreateRequestGA_audio.md)> |  | [optional]
-**include** | Option<**Vec<String>**> | Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.  | [optional]
-**tracing** | Option<[**models::TracingConfiguration1**](Tracing_Configuration_1.md)> |  | [optional]
-**tools** | Option<[**Vec<models::RealtimeResponseCreateParamsToolsInner>**](RealtimeResponseCreateParams_tools_inner.md)> | Tools available to the model. | [optional]
-**tool_choice** | Option<[**models::RealtimeBetaResponseCreateParamsToolChoice**](RealtimeBetaResponseCreateParams_tool_choice.md)> |  | [optional]
+**audio** | Option<[**models::RealtimeSessionCreateRequestGaAudio**](RealtimeSessionCreateRequestGAAudio.md)> |  | [optional]
+**include** | Option<**Vec<Include>**> | Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.  (enum: item.input_audio_transcription.logprobs) | [optional]
+**tracing** | Option<[**models::TracingConfiguration1**](TracingConfiguration1.md)> |  | [optional]
+**tools** | Option<[**Vec<models::RealtimeResponseCreateParamsToolsInner>**](RealtimeResponseCreateParamsToolsInner.md)> | Tools available to the model. | [optional]
+**tool_choice** | Option<[**models::RealtimeBetaResponseCreateParamsToolChoice**](RealtimeBetaResponseCreateParamsToolChoice.md)> |  | [optional]
 **parallel_tool_calls** | Option<**bool**> | Whether the model may call multiple tools in parallel. Only supported by reasoning Realtime models such as `gpt-realtime-2`.  | [optional]
 **reasoning** | Option<[**models::RealtimeReasoning**](RealtimeReasoning.md)> |  | [optional]
-**max_output_tokens** | Option<[**models::RealtimeBetaResponseCreateParamsMaxOutputTokens**](RealtimeBetaResponseCreateParams_max_output_tokens.md)> |  | [optional]
+**max_output_tokens** | Option<[**models::RealtimeBetaResponseCreateParamsMaxOutputTokens**](RealtimeBetaResponseCreateParamsMaxOutputTokens.md)> |  | [optional]
 **truncation** | Option<[**models::RealtimeTruncation**](RealtimeTruncation.md)> |  | [optional]
 **prompt** | Option<[**models::Prompt**](Prompt.md)> |  | [optional]
 

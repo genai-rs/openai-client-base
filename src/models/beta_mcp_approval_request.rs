@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaMcpApprovalRequest : A request for human approval of a tool invocation.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMcpApprovalRequest {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

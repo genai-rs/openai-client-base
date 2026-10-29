@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseWsCreated : An event that is emitted when a response is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseWsCreated {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always `response.created`.

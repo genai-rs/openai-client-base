@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: container.deleted) | 
 **deleted** | **bool** |  | 
 **id** | **String** |  | 
 

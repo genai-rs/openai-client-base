@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **name** | **String** |  | 
 **arguments** | **String** |  | 
 **status** | Option<[**models::FunctionCallStatusParam**](FunctionCallStatusParam.md)> |  | [optional]
-**r#type** | **String** |  | 
+**r#type** | **Type** |  (enum: function_call) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

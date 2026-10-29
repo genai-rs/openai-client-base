@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaLocalShellToolCall : A tool call to run a command on the local shell.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaLocalShellToolCall {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

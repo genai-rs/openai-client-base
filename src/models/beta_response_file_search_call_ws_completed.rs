@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseFileSearchCallWsCompleted : Emitted when a file search call is completed (results found).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseFileSearchCallWsCompleted {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always `response.file_search_call.completed`.

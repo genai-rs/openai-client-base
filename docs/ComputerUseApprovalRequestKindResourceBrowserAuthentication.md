@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `browser_authentication`. | 
+**r#type** | **Type** | The type of the object. Always `browser_authentication`. (enum: browser_authentication) | 
 **reason** | Option<**String**> | Why the agent needs the user to sign in. | 
 **credential_origin** | Option<**String**> | The registered form or frame origin where values will be entered. | 
 **fields** | [**Vec<models::BrowserAuthenticationFieldResource>**](BrowserAuthenticationFieldResource.md) | Controls to render. All submitted values are sensitive. | 

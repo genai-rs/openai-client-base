@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.created`.  | 
+**r#type** | **Type** | The type of the event. Always `response.created`.  (enum: response.created) | 
 **response** | [**models::Response**](Response.md) |  | 
 **sequence_number** | **i32** | The sequence number for this event. | 
 

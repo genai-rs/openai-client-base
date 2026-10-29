@@ -31,8 +31,13 @@ pub struct McpTransportConfigParamStdio {
     #[serde(rename = "cwd")]
     pub cwd: String,
     /// Environment variables set for the MCP server process.
-    #[serde(rename = "env", skip_serializing_if = "Option::is_none")]
-    pub env: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "env",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub env: Option<Option<std::collections::HashMap<String, String>>>,
     /// Environment variable names to inherit from the selected execution environment.
     #[serde(
         rename = "env_vars",

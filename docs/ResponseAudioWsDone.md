@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.audio.done`.  | 
+**r#type** | **Type** | The type of the event. Always `response.audio.done`.  (enum: response.audio.done) | 
 **sequence_number** | **i32** | The sequence number of the delta.  | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 

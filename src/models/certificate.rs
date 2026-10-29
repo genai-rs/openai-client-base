@@ -20,6 +20,7 @@ pub struct Certificate {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
+    /// The name of the certificate.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     /// The Unix timestamp (in seconds) of when the certificate was uploaded.

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The object type, which is always `score_model`. | 
+**r#type** | **Type** | The object type, which is always `score_model`. (enum: score_model) | 
 **name** | **String** | The name of the grader. | 
 **model** | **String** | ID of the model to use | 
-**sampling_params** | Option<[**models::GraderScoreModelSamplingParams**](GraderScoreModel_sampling_params.md)> |  | [optional]
+**sampling_params** | Option<[**models::GraderScoreModelSamplingParams**](GraderScoreModelSamplingParams.md)> |  | [optional]
 **input** | [**Vec<models::EvalItem>**](EvalItem.md) | The input messages evaluated by the grader. Supports text, output text, input image, and input audio content blocks, and may include template strings.  | 
 **range** | Option<**Vec<f64>**> | The service requires two numbers for the score range. Defaults to `[0, 1]`.  | [optional]
 **pass_threshold** | Option<**f64**> | The threshold for the score. | [optional]

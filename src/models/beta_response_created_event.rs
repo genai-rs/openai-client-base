@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCreatedEvent : An event that is emitted when a response is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCreatedEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

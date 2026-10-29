@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The tool to call. Always `mcp`. | 
+**r#type** | **Type** | The tool to call. Always `mcp`. (enum: mcp) | 
 **server_label** | **String** | The label of the MCP server to call. | 
 **name** | Option<**String**> | The name of the MCP tool to call. If omitted, the server may choose a default. | [optional]
 

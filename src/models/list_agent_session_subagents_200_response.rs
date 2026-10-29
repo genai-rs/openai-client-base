@@ -21,11 +21,11 @@ pub struct ListAgentSessionSubagents200Response {
     #[serde(rename = "data")]
     pub data: Vec<models::SubagentResource>,
     /// The ID of the first resource in `data`, or `null` if the page is empty.
-    #[serde(rename = "first_id")]
-    pub first_id: String,
+    #[serde(rename = "first_id", deserialize_with = "Option::deserialize")]
+    pub first_id: Option<String>,
     /// The ID of the last resource in `data`, or `null` if the page is empty. Pass this as `after` with the same order and filters.
-    #[serde(rename = "last_id")]
-    pub last_id: String,
+    #[serde(rename = "last_id", deserialize_with = "Option::deserialize")]
+    pub last_id: Option<String>,
     /// Whether there are more resources to retrieve after this page.
     #[serde(rename = "has_more")]
     pub has_more: bool,
@@ -36,8 +36,8 @@ impl ListAgentSessionSubagents200Response {
     pub fn new(
         object: Object,
         data: Vec<models::SubagentResource>,
-        first_id: String,
-        last_id: String,
+        first_id: Option<String>,
+        last_id: Option<String>,
         has_more: bool,
     ) -> ListAgentSessionSubagents200Response {
         ListAgentSessionSubagents200Response {

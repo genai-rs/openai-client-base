@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaFileSearchToolCall : The results of a file search tool call. See the [file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFileSearchToolCall {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the item. Always `mcp_approval_response`. | 
+**r#type** | **Type** | The type of the item. Always `mcp_approval_response`. (enum: mcp_approval_response) | 
 **id** | **String** | The unique ID of the approval response. | 
 **approval_request_id** | **String** | The ID of the approval request being answered. | 
 **approve** | **bool** | Whether the request was approved. | 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `find_in_page`. | 
+**r#type** | **Type** | The type of the object. Always `find_in_page`. (enum: find_in_page) | 
 **url** | Option<**String**> | The URL of the page that was searched. | 
 **pattern** | Option<**String**> | The text pattern that was searched for. | 
 

@@ -20,6 +20,7 @@ pub struct User {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
+    /// The name of the user
     #[serde(
         rename = "name",
         default,
@@ -27,6 +28,7 @@ pub struct User {
         skip_serializing_if = "Option::is_none"
     )]
     pub name: Option<Option<String>>,
+    /// The email address of the user
     #[serde(
         rename = "email",
         default,
@@ -34,6 +36,7 @@ pub struct User {
         skip_serializing_if = "Option::is_none"
     )]
     pub email: Option<Option<String>>,
+    /// `owner` or `reader`
     #[serde(
         rename = "role",
         default,
@@ -55,6 +58,7 @@ pub struct User {
     /// Whether the user is a service account.
     #[serde(rename = "is_service_account", skip_serializing_if = "Option::is_none")]
     pub is_service_account: Option<bool>,
+    /// Whether the user is an authorized purchaser for Scale Tier.
     #[serde(
         rename = "is_scale_tier_authorized_purchaser",
         default,
@@ -65,6 +69,7 @@ pub struct User {
     /// Whether the user is managed through SCIM.
     #[serde(rename = "is_scim_managed", skip_serializing_if = "Option::is_none")]
     pub is_scim_managed: Option<bool>,
+    /// The Unix timestamp (in seconds) of the user's last API key usage.
     #[serde(
         rename = "api_key_last_used_at",
         default,
@@ -72,6 +77,7 @@ pub struct User {
         skip_serializing_if = "Option::is_none"
     )]
     pub api_key_last_used_at: Option<Option<i32>>,
+    /// The technical level metadata for the user.
     #[serde(
         rename = "technical_level",
         default,
@@ -79,6 +85,7 @@ pub struct User {
         skip_serializing_if = "Option::is_none"
     )]
     pub technical_level: Option<Option<String>>,
+    /// The developer persona metadata for the user.
     #[serde(
         rename = "developer_persona",
         default,
@@ -92,7 +99,7 @@ pub struct User {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub projects: Option<Option<Box<models::Object026>>>,
+    pub projects: Option<Option<Box<models::Object024>>>,
 }
 
 impl User {

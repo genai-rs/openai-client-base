@@ -29,6 +29,7 @@ pub struct McpCallItemResource {
     /// The name of the MCP tool.
     #[serde(rename = "name")]
     pub name: String,
+    /// The arguments passed to the MCP tool.
     #[serde(rename = "arguments", deserialize_with = "Option::deserialize")]
     pub arguments: Option<serde_json::Value>,
     #[serde(rename = "status")]

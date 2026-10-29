@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the custom tool call. Always `custom_tool_call`.  | 
+**r#type** | **Type** | The type of the custom tool call. Always `custom_tool_call`.  (enum: custom_tool_call) | 
 **id** | Option<**String**> | The unique ID of the custom tool call in the OpenAI platform.  | [optional]
 **call_id** | **String** | An identifier used to map this custom tool call to a tool call output.  | 
 **caller** | Option<[**models::ToolCallCaller**](ToolCallCaller.md)> |  | [optional]

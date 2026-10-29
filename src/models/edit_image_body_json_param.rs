@@ -21,10 +21,11 @@ pub struct EditImageBodyJsonParam {
     #[serde(rename = "images")]
     pub images: Vec<models::ImageRefParam>,
     #[serde(rename = "mask", skip_serializing_if = "Option::is_none")]
-    pub mask: Option<models::ImageRefParam>,
+    pub mask: Option<Box<models::ImageRefParam>>,
     /// A text description of the desired image edit.
     #[serde(rename = "prompt")]
     pub prompt: String,
+    /// The number of edited images to generate.
     #[serde(
         rename = "n",
         default,
@@ -32,6 +33,7 @@ pub struct EditImageBodyJsonParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub n: Option<Option<i32>>,
+    /// Output quality for GPT image models. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Defaults to `auto`.
     #[serde(
         rename = "quality",
         default,
@@ -39,6 +41,7 @@ pub struct EditImageBodyJsonParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub quality: Option<Option<Quality>>,
+    /// Control how much effort the model will exert to match the style and features, especially facial features, of input images. Supports `high` and `low` on `gpt-image-1` and `gpt-image-1.5`; `gpt-image-1-mini` supports only `low`. For `gpt-image-2`, omit this parameter. Defaults to `low` on supported models.
     #[serde(
         rename = "input_fidelity",
         default,
@@ -64,6 +67,7 @@ pub struct EditImageBodyJsonParam {
     /// Deprecated: use `safety_identifier` instead. This parameter remains accepted for backward compatibility and is used when `safety_identifier` is omitted, null, or empty. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
+    /// Output image format. Supported for GPT image models.
     #[serde(
         rename = "output_format",
         default,
@@ -71,6 +75,7 @@ pub struct EditImageBodyJsonParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub output_format: Option<Option<OutputFormat>>,
+    /// Compression level for `jpeg` or `webp` output.
     #[serde(
         rename = "output_compression",
         default,
@@ -78,6 +83,7 @@ pub struct EditImageBodyJsonParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub output_compression: Option<Option<i32>>,
+    /// Moderation level for GPT image models.
     #[serde(
         rename = "moderation",
         default,
@@ -85,6 +91,7 @@ pub struct EditImageBodyJsonParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub moderation: Option<Option<Moderation>>,
+    /// Set the background of the generated image output. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`.
     #[serde(
         rename = "background",
         default,
@@ -92,6 +99,7 @@ pub struct EditImageBodyJsonParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub background: Option<Option<Background>>,
+    /// Stream partial image results as events.
     #[serde(
         rename = "stream",
         default,
@@ -132,7 +140,7 @@ impl EditImageBodyJsonParam {
         }
     }
 }
-///
+/// Output quality for GPT image models. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Defaults to `auto`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
     #[serde(rename = "low")]
@@ -154,7 +162,7 @@ impl Default for Quality {
         Self::Low
     }
 }
-///
+/// Control how much effort the model will exert to match the style and features, especially facial features, of input images. Supports `high` and `low` on `gpt-image-1` and `gpt-image-1.5`; `gpt-image-1-mini` supports only `low`. For `gpt-image-2`, omit this parameter. Defaults to `low` on supported models.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum InputFidelity {
     #[serde(rename = "high")]
@@ -168,7 +176,7 @@ impl Default for InputFidelity {
         Self::High
     }
 }
-///
+/// Output image format. Supported for GPT image models.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputFormat {
     #[serde(rename = "png")]
@@ -184,7 +192,7 @@ impl Default for OutputFormat {
         Self::Png
     }
 }
-///
+/// Moderation level for GPT image models.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Moderation {
     #[serde(rename = "low")]
@@ -198,7 +206,7 @@ impl Default for Moderation {
         Self::Low
     }
 }
-///
+/// Set the background of the generated image output. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Background {
     #[serde(rename = "transparent")]

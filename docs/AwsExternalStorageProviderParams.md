@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** |  | 
+**r#type** | **Type** |  (enum: aws) | 
 **bucket** | **String** |  | 
 **role_arn** | **String** |  | 
 

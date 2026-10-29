@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseReasoningSummaryTextDeltaEvent : Emitted when a delta is added to a reasoning summary text.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseReasoningSummaryTextDeltaEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

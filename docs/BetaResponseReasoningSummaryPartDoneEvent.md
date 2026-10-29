@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the event. Always `response.reasoning_summary_part.done`.  | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
+**r#type** | **Type** | The type of the event. Always `response.reasoning_summary_part.done`.  (enum: response.reasoning_summary_part.done) | 
 **item_id** | **String** | The ID of the item this summary part is associated with.  | 
 **output_index** | **i32** | The index of the output item this summary part is associated with.  | 
 **summary_index** | **i32** | The index of the summary part within the reasoning summary.  | 
-**status** | Option<**String**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  | [optional]
+**status** | Option<**Status**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  (enum: incomplete) | [optional]
 **sequence_number** | **i32** | The sequence number of this event.  | 
-**part** | [**models::ResponseReasoningSummaryPartDoneEventPart**](ResponseReasoningSummaryPartDoneEvent_part.md) |  | 
+**part** | [**models::ResponseReasoningSummaryPartDoneEventPart**](ResponseReasoningSummaryPartDoneEventPart.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

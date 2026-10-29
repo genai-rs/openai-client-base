@@ -10,36 +10,35 @@
 
 use serde::{Deserialize, Serialize};
 
-/// Object021 : Details about why the response is incomplete.
+/// Object021 : The last error associated with this run step. Will be `null` if there are no errors.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object021 {
-    /// The reason why the response is incomplete. `steered` means the response stopped at a safe output boundary after a WebSocket `response.steer` event. The server can then create a successor response automatically with the queued input.
-    #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
-    pub reason: Option<Reason>,
+    /// One of `server_error` or `rate_limit_exceeded`.
+    #[serde(rename = "code")]
+    pub code: Code,
+    /// A human-readable description of the error.
+    #[serde(rename = "message")]
+    pub message: String,
 }
 
 impl Object021 {
-    /// Details about why the response is incomplete.
-    pub fn new() -> Object021 {
-        Object021 { reason: None }
+    /// The last error associated with this run step. Will be `null` if there are no errors.
+    pub fn new(code: Code, message: String) -> Object021 {
+        Object021 { code, message }
     }
 }
-/// The reason why the response is incomplete. `steered` means the response stopped at a safe output boundary after a WebSocket `response.steer` event. The server can then create a successor response automatically with the queued input.
+/// One of `server_error` or `rate_limit_exceeded`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Reason {
-    #[serde(rename = "max_output_tokens")]
-    MaxOutputTokens,
-    #[serde(rename = "max_messages")]
-    MaxMessages,
-    #[serde(rename = "content_filter")]
-    ContentFilter,
-    #[serde(rename = "steered")]
-    Steered,
+pub enum Code {
+    #[serde(rename = "server_error")]
+    ServerError,
+    #[serde(rename = "rate_limit_exceeded")]
+    RateLimitExceeded,
 }
 
-impl Default for Reason {
-    fn default() -> Reason {
-        Self::MaxOutputTokens
+impl Default for Code {
+    fn default() -> Code {
+        Self::ServerError
     }
 }
 

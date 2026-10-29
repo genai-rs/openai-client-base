@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the image input. Always `input_image`.  | 
+**r#type** | **Type** | The type of the image input. Always `input_image`.  (enum: input_image) | 
 **image_url** | **String** | The URL of the image input.  | 
 **detail** | Option<**String**> | The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.  | [optional]
 

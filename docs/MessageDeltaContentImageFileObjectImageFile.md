@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **file_id** | Option<**String**> | The [File](https://developers.openai.com/api/reference/resources/files) ID of the image in the message content. Set `purpose=\"vision\"` when uploading the File if you need to later display the file content. | [optional]
-**detail** | Option<**String**> | Specifies the detail level of the image if specified by the user. `low` uses fewer tokens, you can opt in to high resolution using `high`. | [optional]
+**detail** | Option<**Detail**> | Specifies the detail level of the image if specified by the user. `low` uses fewer tokens, you can opt in to high resolution using `high`. (enum: auto, low, high) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

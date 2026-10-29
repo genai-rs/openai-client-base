@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseContentPartAddedEvent : Emitted when a new content part is added.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseContentPartAddedEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

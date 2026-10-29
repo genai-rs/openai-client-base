@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.reasoning_summary_text.delta`.  | 
+**r#type** | **Type** | The type of the event. Always `response.reasoning_summary_text.delta`.  (enum: response.reasoning_summary_text.delta) | 
 **item_id** | **String** | The ID of the item this summary text delta is associated with.  | 
 **output_index** | **i32** | The index of the output item this summary text delta is associated with.  | 
 **summary_index** | **i32** | The index of the summary part within the reasoning summary.  | 

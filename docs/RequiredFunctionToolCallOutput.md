@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** |  | 
+**r#type** | **Type** |  (enum: function_call_output) | 
 **call_id** | **String** |  | 
 **name** | **String** |  | 
 

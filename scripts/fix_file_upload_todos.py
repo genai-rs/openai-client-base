@@ -78,6 +78,37 @@ def fix_file_upload_todo(file_path):
 
         print(f"  Fixed file upload TODO for parameter '{param_name_in_todo}' in {file_path.name}::{func_name}")
 
+    # openapi-generator 7.25 no longer leaves a TODO: it streams the file with
+    # tokio_util::codec::FramedRead. Route those parts through the helper as well,
+    # so every upload reads the file up front and the request carries a
+    # Content-Length (the streamed body is chunked, which the wire tests and some
+    # proxies reject). Matches both the generator's one-line form and cargo fmt's.
+    stream_pattern = re.compile(
+        r'(?P<indent>[ \t]*)let file = TokioFile::open\((?P<source>&?[\w.]+)\)\.await\?;\s*\n'
+        r'[ \t]*let stream = FramedRead::new\(file, BytesCodec::new\(\)\);\s*\n'
+        r'[ \t]*let file_name = (?:[^;\n]*\n){0,4}[^;\n]*\.unwrap_or_default\(\);\s*\n'
+        r'[ \t]*let file_part =\s*reqwest::multipart::Part::stream\(reqwest::Body::wrap_stream\(stream\)\)'
+        r'\.file_name\(file_name\);\s*\n'
+        r'[ \t]*multipart_form = multipart_form\.part\("(?P<field>[^"]+)", file_part\);'
+    )
+
+    def stream_replacement(match):
+        indent = match.group('indent')
+        source = match.group('source')
+        field = match.group('field')
+        # `&p_form_x` (required parameter) or `param_value` (a `ref` binding of an Option).
+        path_expr = source if source.startswith('&') else source
+        return (
+            f'{indent}// Add file to multipart form\n'
+            f'{indent}multipart_form = multipart_helper::add_file_to_form(multipart_form, {path_expr}, "{field}")?;'
+        )
+
+    content, stream_count = stream_pattern.subn(stream_replacement, content)
+    if stream_count:
+        changes_made = True
+        needs_import = True
+        print(f"  Routed {stream_count} streamed file part(s) through multipart_helper in {file_path.name}")
+
     # Add multipart_helper import if needed and not already present
     if needs_import:
         # Check specifically for multipart_helper in the imports section

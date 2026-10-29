@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaOutputMessage : An output message from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaOutputMessage {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

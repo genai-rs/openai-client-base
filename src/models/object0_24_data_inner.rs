@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Object026DataInner {
+pub struct Object024DataInner {
     #[serde(
         rename = "id",
         default,
@@ -35,9 +35,9 @@ pub struct Object026DataInner {
     pub role: Option<Option<String>>,
 }
 
-impl Object026DataInner {
-    pub fn new() -> Object026DataInner {
-        Object026DataInner {
+impl Object024DataInner {
+    pub fn new() -> Object024DataInner {
+        Object024DataInner {
             id: None,
             name: None,
             role: None,
@@ -45,7 +45,7 @@ impl Object026DataInner {
     }
 }
 
-impl std::fmt::Display for Object026DataInner {
+impl std::fmt::Display for Object024DataInner {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

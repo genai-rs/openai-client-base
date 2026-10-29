@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: organization.usage.file_searches.result) | 
 **num_requests** | **i32** | The count of file search calls. | 
 **project_id** | Option<**String**> | When `group_by=project_id`, this field provides the project ID of the grouped usage result. | [optional]
 **user_id** | Option<**String**> | When `group_by=user_id`, this field provides the user ID of the grouped usage result. | [optional]

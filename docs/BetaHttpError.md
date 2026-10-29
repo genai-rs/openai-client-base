@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** |  | 
+**r#type** | **Type** |  (enum: http_error) | 
 **code** | **i32** |  | 
 **message** | **String** |  | 
 

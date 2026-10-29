@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | Option<**String**> | A replacement human-readable display name, or `null` to clear the name. | [optional]
-**packages** | Option<[**models::EnvironmentPackagesParam**](EnvironmentPackagesParam.md)> |  | [optional]
+**packages** | Option<[**models::EnvironmentPackagesParam**](EnvironmentPackagesParam.md)> | Packages installed before the runtime network policy applies. | [optional]
 **setup_commands** | Option<[**Vec<models::SetupCommandParam>**](SetupCommandParam.md)> | Replacement confidential setup commands, never included in returned resources. | [optional]
-**network** | Option<[**models::NetworkPolicyParam**](NetworkPolicyParam.md)> |  | [optional]
-**desktop** | Option<[**models::DesktopParam**](DesktopParam.md)> |  | [optional]
+**network** | Option<[**models::NetworkPolicyParam**](NetworkPolicyParam.md)> | Network access available after setup completes. Omit to preserve the current policy, or pass `null` to reset to the default policy. | [optional]
+**desktop** | Option<[**models::DesktopParam**](DesktopParam.md)> | Replacement desktop configuration, or null to disable the desktop. | [optional]
 **env** | Option<**std::collections::HashMap<String, String>**> | Replacement confidential environment values. | [optional]
 **capability_directories** | Option<**Vec<String>**> | Directories that expose capabilities to the agent. | [optional]
 **skills** | Option<[**Vec<models::HostedSkillParam>**](HostedSkillParam.md)> | Replacement skill configuration installed for each new session. | [optional]
-**plugins** | Option<[**Vec<models::HostedPluginParamInline>**](HostedPluginParamInline.md)> | Replacement plugin configuration installed for each new session. | [optional]
+**plugins** | Option<[**Vec<models::HostedPluginParam>**](HostedPluginParam.md)> | Replacement plugin configuration installed for each new session. | [optional]
 **files** | Option<[**Vec<models::HostedEnvironmentFileParam>**](HostedEnvironmentFileParam.md)> | Replacement file configuration materialized for each new session. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

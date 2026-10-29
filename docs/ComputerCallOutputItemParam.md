@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> | The ID of the computer tool call output. | [optional]
 **call_id** | **String** | The ID of the computer tool call that produced the output. | 
-**r#type** | **String** | The type of the computer tool call output. Always `computer_call_output`. | 
+**r#type** | **Type** | The type of the computer tool call output. Always `computer_call_output`. (enum: computer_call_output) | 
 **output** | [**models::ComputerScreenshotImage**](ComputerScreenshotImage.md) |  | 
 **acknowledged_safety_checks** | Option<[**Vec<models::ComputerCallSafetyCheckParam>**](ComputerCallSafetyCheckParam.md)> | The safety checks reported by the API that have been acknowledged by the developer. | [optional]
 **status** | Option<[**models::FunctionCallItemStatus**](FunctionCallItemStatus.md)> |  | [optional]

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 /// PublicUpdateOrganizationRoleBody : Request payload for updating an existing role.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PublicUpdateOrganizationRoleBody {
+    /// Updated set of permissions for the role.
     #[serde(
         rename = "permissions",
         default,
@@ -20,6 +21,7 @@ pub struct PublicUpdateOrganizationRoleBody {
         skip_serializing_if = "Option::is_none"
     )]
     pub permissions: Option<Option<Vec<String>>>,
+    /// New description for the role.
     #[serde(
         rename = "description",
         default,
@@ -27,6 +29,7 @@ pub struct PublicUpdateOrganizationRoleBody {
         skip_serializing_if = "Option::is_none"
     )]
     pub description: Option<Option<String>>,
+    /// New name for the role.
     #[serde(
         rename = "role_name",
         default,

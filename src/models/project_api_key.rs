@@ -26,6 +26,7 @@ pub struct ProjectApiKey {
     /// The Unix timestamp (in seconds) of when the API key was created
     #[serde(rename = "created_at")]
     pub created_at: i32,
+    /// The Unix timestamp (in seconds) when the API key expires, or null if it does not expire.
     #[serde(
         rename = "expires_at",
         default,
@@ -33,6 +34,7 @@ pub struct ProjectApiKey {
         skip_serializing_if = "Option::is_none"
     )]
     pub expires_at: Option<Option<i32>>,
+    /// The Unix timestamp (in seconds) of when the API key was last used.
     #[serde(rename = "last_used_at", deserialize_with = "Option::deserialize")]
     pub last_used_at: Option<i32>,
     /// The identifier, which can be referenced in API endpoints

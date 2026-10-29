@@ -29,6 +29,7 @@ pub struct FunctionCallItemResource {
     /// The name of the function to call.
     #[serde(rename = "name")]
     pub name: String,
+    /// The arguments to pass to the function.
     #[serde(rename = "arguments", deserialize_with = "Option::deserialize")]
     pub arguments: Option<serde_json::Value>,
     #[serde(rename = "status")]

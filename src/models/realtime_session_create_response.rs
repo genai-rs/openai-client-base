@@ -29,6 +29,7 @@ pub struct RealtimeSessionCreateResponse {
     /// The Realtime model used for this session.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
+    /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
     #[serde(
         rename = "output_modalities",
         default,
@@ -43,8 +44,13 @@ pub struct RealtimeSessionCreateResponse {
     pub audio: Option<Box<models::RealtimeSessionCreateResponseAudio>>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
     pub tracing: Option<Box<models::RealtimeSessionCreateResponseTracing>>,
-    #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
-    pub turn_detection: Option<Box<models::RealtimeSessionCreateRequestTurnDetection>>,
+    #[serde(
+        rename = "turn_detection",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub turn_detection: Option<Option<Box<models::RealtimeSessionCreateResponseTurnDetection>>>,
     /// Tools (functions) available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeFunctionTool>>,

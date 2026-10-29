@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**input** | [**models::ModerationInput**](Moderation_input.md) |  | 
-**output** | [**models::ModerationOutput**](Moderation_output.md) |  | 
+**input** | [**models::ModerationInput**](ModerationInput.md) |  | 
+**output** | [**models::ModerationOutput**](ModerationOutput.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

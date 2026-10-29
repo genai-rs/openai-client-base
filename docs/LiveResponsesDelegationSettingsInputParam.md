@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **service_tier** | Option<[**models::LiveResponsesServiceTier**](LiveResponsesServiceTier.md)> |  | [optional]
 **reasoning** | Option<[**models::LiveDelegationReasoningInputParam**](LiveDelegationReasoningInputParam.md)> |  | [optional]
 **text** | Option<[**models::LiveDelegationTextInputParam**](LiveDelegationTextInputParam.md)> |  | [optional]
-**tools** | Option<[**Vec<models::LiveResponsesDelegationSettingsInputParamToolsInner>**](LiveResponsesDelegationSettingsInputParam_tools_inner.md)> | Tools available to the Responses backend while it handles tasks delegated by the Live model. | [optional]
-**tool_choice** | Option<[**models::LiveResponsesDelegationSettingsInputParamToolChoice**](LiveResponsesDelegationSettingsInputParam_tool_choice.md)> |  | [optional]
+**tools** | Option<[**Vec<models::LiveResponsesDelegationSettingsInputParamToolsInner>**](LiveResponsesDelegationSettingsInputParamToolsInner.md)> | Tools available to the Responses backend while it handles tasks delegated by the Live model. | [optional]
+**tool_choice** | Option<[**models::LiveResponsesDelegationSettingsInputParamToolChoice**](LiveResponsesDelegationSettingsInputParamToolChoice.md)> |  | [optional]
 **parallel_tool_calls** | Option<**bool**> | Whether the delegated Responses model may request multiple tool calls in a single response. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

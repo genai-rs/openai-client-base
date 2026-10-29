@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `stdio`. | 
+**r#type** | **Type** | The type of the object. Always `stdio`. (enum: stdio) | 
 **command** | **String** | The command used to start the MCP server. | 
 **args** | Option<**Vec<String>**> | Arguments passed to the MCP server command. | [optional]
 **cwd** | **String** | The working directory used to start the MCP server. | 

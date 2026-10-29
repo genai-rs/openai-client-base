@@ -86,7 +86,7 @@ pub async fn add_upload_part(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
-    // Add data file to multipart form
+    // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_data, "data")?;
     req_builder = req_builder.multipart(multipart_form);
 

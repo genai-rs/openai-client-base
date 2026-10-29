@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the event. Always `response.refusal.done`.  | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
+**r#type** | **Type** | The type of the event. Always `response.refusal.done`.  (enum: response.refusal.done) | 
 **item_id** | **String** | The ID of the output item that the refusal text is finalized.  | 
 **output_index** | **i32** | The index of the output item that the refusal text is finalized.  | 
 **content_index** | **i32** | The index of the content part that the refusal text is finalized.  | 

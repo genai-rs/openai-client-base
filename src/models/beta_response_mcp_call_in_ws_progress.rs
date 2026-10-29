@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseMcpCallInWsProgress : Emitted when an MCP  tool call is in progress.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseMcpCallInWsProgress {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always 'response.mcp_call.in_progress'.

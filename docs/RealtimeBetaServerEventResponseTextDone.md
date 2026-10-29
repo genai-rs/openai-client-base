@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the server event. | 
-**r#type** | **String** | The event type, must be `response.output_text.done`. | 
+**r#type** | **Type** | The event type, must be `response.output_text.done`. (enum: response.output_text.done) | 
 **response_id** | **String** | The ID of the response. | 
 **item_id** | **String** | The ID of the item. | 
 **output_index** | **i32** | The index of the output item in the response. | 

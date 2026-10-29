@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.completed`.  | 
+**r#type** | **Type** | The type of the event. Always `response.completed`.  (enum: response.completed) | 
 **response** | [**models::Response**](Response.md) |  | 
 **sequence_number** | **i32** | The sequence number for this event. | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]

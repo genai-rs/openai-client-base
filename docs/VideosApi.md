@@ -31,7 +31,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **prompt** | **String** | Text prompt that describes the video to generate. | [required] |
 **model** | Option<[**models::VideoModel**](VideoModel.md)> |  |  |
-**input_reference** | Option<[**models::CreateVideoMultipartBodyInputReference**](CreateVideoMultipartBody_input_reference.md)> |  |  |
+**input_reference** | Option<[**models::CreateVideoMultipartBodyInputReference**](CreateVideoMultipartBodyInputReference.md)> |  |  |
 **seconds** | Option<[**models::VideoSeconds**](VideoSeconds.md)> |  |  |
 **size** | Option<[**models::VideoSize**](VideoSize.md)> |  |  |
 
@@ -94,7 +94,7 @@ Create a new video generation job by editing a source video or existing generate
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**video** | [**models::CreateVideoEditMultipartBodyVideo**](CreateVideoEditMultipartBody_video.md) |  | [required] |
+**video** | [**models::CreateVideoEditMultipartBodyVideo**](CreateVideoEditMultipartBodyVideo.md) |  | [required] |
 **prompt** | **String** | Text prompt that describes how to edit the source video. | [required] |
 
 ### Return type
@@ -125,7 +125,7 @@ Create an extension of a completed video.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**video** | [**models::CreateVideoExtendMultipartBodyVideo**](CreateVideoExtendMultipartBody_video.md) |  | [required] |
+**video** | [**models::CreateVideoExtendMultipartBodyVideo**](CreateVideoExtendMultipartBodyVideo.md) |  | [required] |
 **prompt** | **String** | Updated text prompt that directs the extension generation. | [required] |
 **seconds** | [**models::VideoSeconds**](VideoSeconds.md) |  | [required] |
 
@@ -279,7 +279,7 @@ List recently generated videos for the current project.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i32**> | Number of items to retrieve |  |
-**order** | Option<[**OrderEnum**](.md)> | Sort order of results by timestamp. Use `asc` for ascending order or `desc` for descending order. |  |
+**order** | Option<[**OrderEnum**](OrderEnum.md)> | Sort order of results by timestamp. Use `asc` for ascending order or `desc` for descending order. |  |
 **after** | Option<**String**> | Identifier for the last item from the previous pagination request |  |
 
 ### Return type
@@ -311,7 +311,7 @@ Download the generated video bytes or a derived preview asset.  Streams the rend
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The identifier of the video whose media to download. | [required] |
-**variant** | Option<[**VideoContentVariant**](.md)> | Which downloadable asset to return. Defaults to the MP4 video. |  |
+**variant** | Option<[**VideoContentVariant**](VideoContentVariant.md)> | Which downloadable asset to return. Defaults to the MP4 video. |  |
 
 ### Return type
 

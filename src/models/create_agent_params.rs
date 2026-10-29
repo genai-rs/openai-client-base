@@ -15,8 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAgentParams {
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Omission or null defaults to an empty map.
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "metadata",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     /// A human-readable name for the agent. Omission or null leaves the agent unnamed.
     #[serde(
         rename = "name",
@@ -28,20 +33,23 @@ pub struct CreateAgentParams {
     /// The model to use for the agent. The requested model name is preserved.
     #[serde(rename = "model")]
     pub model: String,
+    /// Configuration for model reasoning. Omission uses the model's default effort.
     #[serde(
         rename = "reasoning",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub reasoning: Option<Option<models::ReasoningParam>>,
+    pub reasoning: Option<Option<Box<models::ReasoningParam>>>,
+    /// Configuration for generated text. Defaults to the `text` format and medium verbosity.
     #[serde(
         rename = "text",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub text: Option<Option<models::TextParam>>,
+    pub text: Option<Option<Box<models::TextParam>>>,
+    /// The service tier used for model requests. Defaults to `auto`.
     #[serde(
         rename = "service_tier",
         default,
@@ -65,13 +73,14 @@ pub struct CreateAgentParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub tools: Option<Option<Vec<models::PersistedAgentToolConfigParam>>>,
+    /// Configuration for creating and coordinating subagents. Subagent tools are disabled by default.
     #[serde(
         rename = "multi_agent",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub multi_agent: Option<Option<models::MultiAgentConfigCurrentParam>>,
+    pub multi_agent: Option<Option<Box<models::MultiAgentConfigCurrentParam>>>,
 }
 
 impl CreateAgentParams {

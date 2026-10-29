@@ -37,6 +37,7 @@ pub struct McpToolCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub output: Option<Option<String>>,
+    /// The error from the tool call, if any.
     #[serde(
         rename = "error",
         default,

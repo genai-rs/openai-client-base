@@ -20,6 +20,7 @@ pub struct AdminApiKey {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
+    /// The name of the API key
     #[serde(
         rename = "name",
         default,

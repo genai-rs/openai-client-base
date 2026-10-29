@@ -14,13 +14,14 @@ use serde::{Deserialize, Serialize};
 /// CreateEnvironmentTemplateParams : Parameters for creating a reusable, project-scoped OpenAI-hosted environment template.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEnvironmentTemplateParams {
+    /// Packages to install in the environment. Defaults to empty package lists.
     #[serde(
         rename = "packages",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub packages: Option<Option<models::EnvironmentPackagesParam>>,
+    pub packages: Option<Option<Box<models::EnvironmentPackagesParam>>>,
     /// Ordered, confidential setup commands. Command bodies are never returned.
     #[serde(
         rename = "setup_commands",
@@ -29,23 +30,30 @@ pub struct CreateEnvironmentTemplateParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub setup_commands: Option<Option<Vec<models::SetupCommandParam>>>,
+    /// Network access policy for the environment. If omitted, the API version determines whether network access is enabled or disabled.
     #[serde(
         rename = "network",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub network: Option<Option<models::NetworkPolicyParam>>,
+    pub network: Option<Option<Box<models::NetworkPolicyParam>>>,
+    /// Desktop provisioning. Omission or null inherits the template setting, or defaults to disabled.
     #[serde(
         rename = "desktop",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub desktop: Option<Option<models::DesktopParam>>,
+    pub desktop: Option<Option<Box<models::DesktopParam>>>,
     /// Environment variables made available to the agent.
-    #[serde(rename = "env", skip_serializing_if = "Option::is_none")]
-    pub env: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "env",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub env: Option<Option<std::collections::HashMap<String, String>>>,
     /// Directories that contain capabilities exposed to the agent. Defaults to an empty list.
     #[serde(
         rename = "capability_directories",
@@ -69,7 +77,7 @@ pub struct CreateEnvironmentTemplateParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub plugins: Option<Option<Vec<models::HostedPluginParamInline>>>,
+    pub plugins: Option<Option<Vec<models::HostedPluginParam>>>,
     /// Files available before the agent starts. Defaults to an empty list.
     #[serde(
         rename = "files",

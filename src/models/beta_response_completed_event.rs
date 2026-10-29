@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCompletedEvent : Emitted when the model response is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCompletedEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

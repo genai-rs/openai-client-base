@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranslationSessionUpdateRequest {
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::RealtimeTranslationSessionCreateRequestAudio>>,
+    pub audio: Option<Box<models::RealtimeTranslationSessionAudio>>,
 }
 
 impl RealtimeTranslationSessionUpdateRequest {

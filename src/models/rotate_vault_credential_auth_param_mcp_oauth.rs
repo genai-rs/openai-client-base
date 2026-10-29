@@ -33,13 +33,14 @@ pub struct RotateVaultCredentialAuthParamMcpOauth {
         skip_serializing_if = "Option::is_none"
     )]
     pub expires_at: Option<Option<String>>,
+    /// Optional write-only refresh-token and client-secret updates.
     #[serde(
         rename = "refresh",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub refresh: Option<Option<models::RotateMcpOauthRefreshParam>>,
+    pub refresh: Option<Option<Box<models::RotateMcpOauthRefreshParam>>>,
 }
 
 impl RotateVaultCredentialAuthParamMcpOauth {

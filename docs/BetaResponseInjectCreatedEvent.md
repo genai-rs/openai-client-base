@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The event discriminator. Always `response.inject.created`. | 
+**r#type** | **Type** | The event discriminator. Always `response.inject.created`. (enum: response.inject.created) | 
 **response_id** | **String** | The ID of the response that accepted the input. | 
 **sequence_number** | **i32** | The sequence number for this event. | 
 **stream_id** | Option<**String**> | The multiplexed WebSocket stream that emitted the event. This field is present only when WebSocket multiplexing is enabled separately.  | [optional]

@@ -10,22 +10,16 @@
 
 use serde::{Deserialize, Serialize};
 
-/// Object029ImageUrl : Contains either an image URL or a data URL for a base64 encoded image.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct Object029ImageUrl {
-    /// Either a URL of the image or the base64 encoded image data.
-    #[serde(rename = "url")]
-    pub url: String,
-}
+pub struct Object027Value {}
 
-impl Object029ImageUrl {
-    /// Contains either an image URL or a data URL for a base64 encoded image.
-    pub fn new(url: String) -> Object029ImageUrl {
-        Object029ImageUrl { url }
+impl Object027Value {
+    pub fn new() -> Object027Value {
+        Object027Value {}
     }
 }
 
-impl std::fmt::Display for Object029ImageUrl {
+impl std::fmt::Display for Object027Value {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match serde_json::to_string(self) {
             Ok(s) => write!(f, "{}", s),

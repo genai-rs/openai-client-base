@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** |  | 
+**r#type** | **Type** |  (enum: oci) | 
 **tenancy_ocid** | **String** |  | 
 **region** | **String** |  | 
 **bucket** | **String** |  | 

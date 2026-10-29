@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | A unique identifier for the chat completion. | 
-**choices** | [**Vec<models::CreateChatCompletionResponseChoicesInner>**](CreateChatCompletionResponse_choices_inner.md) | A list of chat completion choices. Can be more than one if `n` is greater than 1. | 
+**choices** | [**Vec<models::CreateChatCompletionResponseChoicesInner>**](CreateChatCompletionResponseChoicesInner.md) | A list of chat completion choices. Can be more than one if `n` is greater than 1. | 
 **created** | **i32** | The Unix timestamp (in seconds) of when the chat completion was created. | 
 **model** | **String** | The model used for the chat completion. | 
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | [optional]
 **service_tier** | Option<[**models::ServiceTier**](ServiceTier.md)> |  | [optional]
 **system_fingerprint** | Option<**String**> | This fingerprint represents the backend configuration that the model runs with.  Can be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism.  | [optional]
-**object** | **String** | The object type, which is always `chat.completion`. | 
+**object** | **Object** | The object type, which is always `chat.completion`. (enum: chat.completion) | 
 **usage** | Option<[**models::CompletionUsage**](CompletionUsage.md)> |  | [optional]
 **moderation** | Option<[**models::ChatCompletionModeration**](ChatCompletionModeration.md)> |  | [optional]
 

@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseWsError : Emitted when an error occurs while processing a Responses WebSocket request.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseWsError {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

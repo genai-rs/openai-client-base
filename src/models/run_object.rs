@@ -32,9 +32,9 @@ pub struct RunObject {
     /// The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.
     #[serde(rename = "status")]
     pub status: Status,
-    #[serde(rename = "required_action")]
+    #[serde(rename = "required_action", deserialize_with = "Option::deserialize")]
     pub required_action: Option<Box<models::RunObjectRequiredAction>>,
-    #[serde(rename = "last_error")]
+    #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
     pub last_error: Option<Box<models::RunObjectLastError>>,
     /// The Unix timestamp (in seconds) for when the run will expire.
     #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
@@ -51,7 +51,10 @@ pub struct RunObject {
     /// The Unix timestamp (in seconds) for when the run was completed.
     #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
     pub completed_at: Option<i32>,
-    #[serde(rename = "incomplete_details")]
+    #[serde(
+        rename = "incomplete_details",
+        deserialize_with = "Option::deserialize"
+    )]
     pub incomplete_details: Option<Box<models::RunObjectIncompleteDetails>>,
     /// The model that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run.
     #[serde(rename = "model")]

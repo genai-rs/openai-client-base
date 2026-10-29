@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the Live server event. | 
 **client_event_id** | Option<**String**> | The event_id of the client command associated with this server event, when supplied. | [optional]
-**r#type** | **String** | The event type, always `info`. | 
+**r#type** | **Type** | The event type, always `info`. (enum: info) | 
 **code** | **String** | A machine-readable code for the notice, such as `data_channel_permissions`. | 
 **message** | **String** | A human-readable explanation of the Live session notice. | 
 

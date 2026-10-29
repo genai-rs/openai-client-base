@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The type of this object. It is always set to \"list\".  | 
+**object** | **Object** | The type of this object. It is always set to \"list\".  (enum: list) | 
 **data** | [**Vec<models::Eval>**](Eval.md) | An array of eval objects.  | 
 **first_id** | **String** | The identifier of the first eval in the data array. | 
 **last_id** | **String** | The identifier of the last eval in the data array. | 

@@ -27,7 +27,7 @@ pub struct WebhookAgentEnvironmentFailed {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "data")]
-    pub data: models::AgentEnvironmentEvent,
+    pub data: Box<models::AgentEnvironmentEvent>,
 }
 
 impl WebhookAgentEnvironmentFailed {
@@ -44,7 +44,7 @@ impl WebhookAgentEnvironmentFailed {
             object,
             created_at,
             r#type,
-            data,
+            data: Box::new(data),
         }
     }
 }

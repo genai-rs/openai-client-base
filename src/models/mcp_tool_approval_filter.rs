@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct McpToolApprovalFilter {
     #[serde(rename = "always", skip_serializing_if = "Option::is_none")]
-    pub always: Option<models::McpToolFilter>,
+    pub always: Option<Box<models::McpToolFilter>>,
     #[serde(rename = "never", skip_serializing_if = "Option::is_none")]
-    pub never: Option<models::McpToolFilter>,
+    pub never: Option<Box<models::McpToolFilter>>,
 }
 
 impl McpToolApprovalFilter {

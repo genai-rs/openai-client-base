@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCodeInterpreterCallCodeDeltaEvent : Emitted when a partial code snippet is streamed by the code interpreter.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCodeInterpreterCallCodeDeltaEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

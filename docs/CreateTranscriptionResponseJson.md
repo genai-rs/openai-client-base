@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **text** | **String** | The transcribed text. | 
 **languages** | Option<[**Vec<models::TranscriptionLanguage>**](TranscriptionLanguage.md)> | The languages detected in the audio. Returned by `gpt-transcribe`. An empty array indicates that no language could be reliably detected.  | [optional]
-**logprobs** | Option<[**Vec<models::CreateTranscriptionResponseJsonLogprobsInner>**](CreateTranscriptionResponseJson_logprobs_inner.md)> | The log probabilities of the tokens in the transcription. Only returned with the models `gpt-4o-transcribe` and `gpt-4o-mini-transcribe` if `logprobs` is added to the `include` array.  | [optional]
-**usage** | Option<[**models::CreateTranscriptionResponseJsonUsage**](CreateTranscriptionResponseJson_usage.md)> |  | [optional]
+**logprobs** | Option<[**Vec<models::CreateTranscriptionResponseJsonLogprobsInner>**](CreateTranscriptionResponseJsonLogprobsInner.md)> | The log probabilities of the tokens in the transcription. Only returned with the models `gpt-4o-transcribe` and `gpt-4o-mini-transcribe` if `logprobs` is added to the `include` array.  | [optional]
+**usage** | Option<[**models::CreateTranscriptionResponseJsonUsage**](CreateTranscriptionResponseJsonUsage.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

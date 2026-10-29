@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the custom tool call output. Always `custom_tool_call_output`.  | 
+**r#type** | **Type** | The type of the custom tool call output. Always `custom_tool_call_output`.  (enum: custom_tool_call_output) | 
 **id** | **String** | The unique ID of the custom tool call output item.  | 
 **call_id** | **String** | The call ID, used to map this custom tool call output to a custom tool call.  | 
 **caller** | Option<[**models::ToolCallCallerParam**](ToolCallCallerParam.md)> |  | [optional]

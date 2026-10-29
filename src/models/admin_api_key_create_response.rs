@@ -19,6 +19,7 @@ pub struct AdminApiKeyCreateResponse {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
+    /// The name of the API key
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// The redacted value of the API key

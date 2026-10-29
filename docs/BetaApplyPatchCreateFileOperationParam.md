@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The operation type. Always `create_file`. | 
+**r#type** | **Type** | The operation type. Always `create_file`. (enum: create_file) | 
 **path** | **String** | Path of the file to create relative to the workspace root. | 
 **diff** | **String** | Unified diff content to apply when creating the file. | 
 

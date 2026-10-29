@@ -25,6 +25,7 @@ pub struct Model {
     /// The organization that owns the model.
     #[serde(rename = "owned_by")]
     pub owned_by: String,
+    /// The date when the model will shut down, or null if not announced.
     #[serde(
         rename = "shutdown_date",
         default,

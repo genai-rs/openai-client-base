@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the Live server event. | 
 **client_event_id** | Option<**String**> | The event_id of the client command associated with this server event, when supplied. | [optional]
-**r#type** | **String** | The event type, always `session.usage.updated`. | 
+**r#type** | **Type** | The event type, always `session.usage.updated`. (enum: session.usage.updated) | 
 **usage** | [**models::LiveSessionUsage**](LiveSessionUsage.md) |  | 
 **context_window** | Option<[**models::LiveContextWindowUsage**](LiveContextWindowUsage.md)> |  | [optional]
 

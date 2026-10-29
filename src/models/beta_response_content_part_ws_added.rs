@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseContentPartWsAdded : Emitted when a new content part is added.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseContentPartWsAdded {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always `response.content_part.added`.

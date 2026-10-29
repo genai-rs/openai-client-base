@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | Allow outbound network access only to specified domains. Always `allowlist`. | 
+**r#type** | **Type** | Allow outbound network access only to specified domains. Always `allowlist`. (enum: allowlist) | 
 **allowed_domains** | **Vec<String>** | A list of allowed domains when type is `allowlist`. | 
 **domain_secrets** | Option<[**Vec<models::ContainerNetworkPolicyDomainSecretParam>**](ContainerNetworkPolicyDomainSecretParam.md)> | Optional domain-scoped secrets for allowlisted domains. | [optional]
 

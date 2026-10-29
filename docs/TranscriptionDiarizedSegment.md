@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the segment. Always `transcript.text.segment`.  | 
+**r#type** | **Type** | The type of the segment. Always `transcript.text.segment`.  (enum: transcript.text.segment) | 
 **id** | **String** | Unique identifier for the segment. | 
 **start** | **f64** | Start timestamp of the segment in seconds. | 
 **end** | **f64** | End timestamp of the segment in seconds. | 

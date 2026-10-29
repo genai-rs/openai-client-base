@@ -19,6 +19,7 @@ pub struct SpendAlertNotificationChannel {
     /// Email addresses that receive the spend alert notification.
     #[serde(rename = "recipients")]
     pub recipients: Vec<String>,
+    /// Optional subject prefix for alert emails.
     #[serde(
         rename = "subject_prefix",
         default,

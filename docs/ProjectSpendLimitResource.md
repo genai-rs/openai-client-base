@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The object type, which is always `project.spend_limit`. | 
+**object** | **Object** | The object type, which is always `project.spend_limit`. (enum: project.spend_limit) | 
 **threshold_amount** | **i32** | The hard spend limit amount, in cents. | 
 **currency** | [**models::SpendLimitCurrency**](SpendLimitCurrency.md) |  | 
 **interval** | [**models::SpendLimitInterval**](SpendLimitInterval.md) |  | 

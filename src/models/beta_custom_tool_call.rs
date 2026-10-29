@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaCustomToolCall : A call to a custom tool created by the model.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCustomToolCall {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

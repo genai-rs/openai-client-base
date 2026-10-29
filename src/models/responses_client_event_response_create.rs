@@ -75,7 +75,7 @@ pub struct ResponsesClientEventResponseCreate {
     )]
     pub prompt: Option<Option<Box<models::Prompt>>>,
     #[serde(rename = "access_programs", skip_serializing_if = "Option::is_none")]
-    pub access_programs: Option<models::AccessProgramsParam>,
+    pub access_programs: Option<Box<models::AccessProgramsParam>>,
     #[serde(
         rename = "service_tier",
         default,

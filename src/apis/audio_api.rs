@@ -466,6 +466,7 @@ pub async fn create_voice_consent(
     };
     let mut multipart_form = reqwest::multipart::Form::new();
     multipart_form = multipart_form.text("name", p_form_name.to_string());
+    // Add file to multipart form
     multipart_form =
         multipart_helper::add_file_to_form(multipart_form, &p_form_recording, "recording")?;
     multipart_form = multipart_form.text("language", p_form_language.to_string());

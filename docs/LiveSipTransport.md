@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The transport used for the Live session. Always `sip`. | 
+**r#type** | **Type** | The transport used for the Live session. Always `sip`. (enum: sip) | 
 **destination** | **String** | Phone number to call in E.164 format. SIP URI destinations are not supported. | 
 **trunk** | [**models::LiveSipTrunk**](LiveSIPTrunk.md) |  | 
 

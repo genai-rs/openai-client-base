@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The identifier, which can be referenced in API endpoints. | 
-**object** | **String** | The object type, which is always `vector_store`. | 
+**object** | **Object** | The object type, which is always `vector_store`. (enum: vector_store) | 
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the vector store was created. | 
 **name** | **String** | The name of the vector store. | 
 **usage_bytes** | **i32** | The total number of bytes used by the files in the vector store. | 
-**file_counts** | [**models::VectorStoreObjectFileCounts**](VectorStoreObject_file_counts.md) |  | 
-**status** | **String** | The status of the vector store, which can be either `expired`, `in_progress`, or `completed`. A status of `completed` indicates that the vector store is ready for use. | 
+**file_counts** | [**models::VectorStoreObjectFileCounts**](VectorStoreObjectFileCounts.md) |  | 
+**status** | **Status** | The status of the vector store, which can be either `expired`, `in_progress`, or `completed`. A status of `completed` indicates that the vector store is ready for use. (enum: expired, in_progress, completed) | 
 **expires_after** | Option<[**models::VectorStoreExpirationAfter**](VectorStoreExpirationAfter.md)> |  | [optional]
 **expires_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the vector store will expire. | [optional]
 **last_active_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the vector store was last active. | 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the custom tool call output. Always `custom_tool_call_output`.  | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that produced this item. | [optional]
+**r#type** | **Type** | The type of the custom tool call output. Always `custom_tool_call_output`.  (enum: custom_tool_call_output) | 
 **id** | **String** | The unique ID of the custom tool call output item.  | 
 **call_id** | **String** | The call ID, used to map this custom tool call output to a custom tool call.  | 
 **caller** | Option<[**models::BetaToolCallCallerParam**](BetaToolCallCallerParam.md)> |  | [optional]

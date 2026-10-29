@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCodeInterpreterCallCompletedEvent : Emitted when the code interpreter call is completed.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCodeInterpreterCallCompletedEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

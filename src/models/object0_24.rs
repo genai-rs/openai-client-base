@@ -11,34 +11,31 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// Object024 : Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) is created.
+/// Object024 : Projects associated with the user, if included.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object024 {
-    #[serde(rename = "event")]
-    pub event: Event,
+    #[serde(rename = "object")]
+    pub object: Object,
     #[serde(rename = "data")]
-    pub data: Box<models::RunStepObject>,
+    pub data: Vec<models::Object024DataInner>,
 }
 
 impl Object024 {
-    /// Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) is created.
-    pub fn new(event: Event, data: models::RunStepObject) -> Object024 {
-        Object024 {
-            event,
-            data: Box::new(data),
-        }
+    /// Projects associated with the user, if included.
+    pub fn new(object: Object, data: Vec<models::Object024DataInner>) -> Object024 {
+        Object024 { object, data }
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.run.step.created")]
-    ThreadRunStepCreated,
+pub enum Object {
+    #[serde(rename = "list")]
+    List,
 }
 
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunStepCreated
+impl Default for Object {
+    fn default() -> Object {
+        Self::List
     }
 }
 

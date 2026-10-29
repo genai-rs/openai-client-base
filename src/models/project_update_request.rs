@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectUpdateRequest {
+    /// The updated name of the project, this name appears in reports.
     #[serde(
         rename = "name",
         default,
@@ -19,6 +20,7 @@ pub struct ProjectUpdateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub name: Option<Option<String>>,
+    /// External key ID to associate with the project.
     #[serde(
         rename = "external_key_id",
         default,
@@ -26,6 +28,7 @@ pub struct ProjectUpdateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub external_key_id: Option<Option<String>>,
+    /// Geography for the project. Deprecated: use `residency` when creating a project to configure data residency. This field is retained for backward compatibility.
     #[serde(
         rename = "geography",
         default,

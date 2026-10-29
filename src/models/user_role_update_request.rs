@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UserRoleUpdateRequest {
+    /// `owner` or `reader`
     #[serde(
         rename = "role",
         default,
@@ -19,6 +20,7 @@ pub struct UserRoleUpdateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub role: Option<Option<String>>,
+    /// Role ID to assign to the user.
     #[serde(
         rename = "role_id",
         default,
@@ -26,6 +28,7 @@ pub struct UserRoleUpdateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub role_id: Option<Option<String>>,
+    /// Technical level metadata.
     #[serde(
         rename = "technical_level",
         default,
@@ -33,6 +36,7 @@ pub struct UserRoleUpdateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub technical_level: Option<Option<String>>,
+    /// Developer persona metadata.
     #[serde(
         rename = "developer_persona",
         default,

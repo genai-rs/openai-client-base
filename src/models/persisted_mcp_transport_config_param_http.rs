@@ -20,8 +20,13 @@ pub struct PersistedMcpTransportConfigParamHttp {
     #[serde(rename = "server_url")]
     pub server_url: String,
     /// Non-secret HTTP headers sent to the MCP server.
-    #[serde(rename = "headers", skip_serializing_if = "Option::is_none")]
-    pub headers: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "headers",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub headers: Option<Option<std::collections::HashMap<String, String>>>,
 }
 
 impl PersistedMcpTransportConfigParamHttp {

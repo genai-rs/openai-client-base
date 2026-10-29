@@ -43,15 +43,21 @@ jobs:
       - name: Check public API against the last release
         env:
           BASE: ${{ github.event.pull_request.base.sha }}
+          API_CHANGE_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'api-change') }}
         run: |
           # Strict only for PRs that change the generation pipeline: those must
           # reproduce the released API or justify the diff. Spec-driven
           # regeneration PRs are expected to move the API and are reviewed via
           # the api-change report of generate-client.yml, so they only get a
-          # report here (as do pushes to main).
+          # report here (as do pushes to main). A pipeline PR that changes the
+          # API on purpose carries the `api-change` label and a migration note
+          # under migration/.
           if [ -z "$BASE" ] || git diff --quiet "$BASE...HEAD" -- scripts/ migration/ .github/workflows/generate-client.yml; then
             export ALLOW_API_CHANGES=1
             echo "::notice::Generation pipeline unchanged; public-API diff is report-only"
+          elif [ "$API_CHANGE_LABEL" = "true" ]; then
+            export ALLOW_API_CHANGES=1
+            echo "::warning::PR is labelled api-change; public-API diff is report-only and must be covered by a migration note under migration/"
           fi
           scripts/check_public_api.sh
       - name: Upload report

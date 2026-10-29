@@ -29,21 +29,28 @@ pub struct AssignedRoleDetails {
     /// Whether the role is predefined by OpenAI.
     #[serde(rename = "predefined_role")]
     pub predefined_role: bool,
+    /// Description of the role.
     #[serde(rename = "description", deserialize_with = "Option::deserialize")]
     pub description: Option<String>,
+    /// When the role was created.
     #[serde(rename = "created_at", deserialize_with = "Option::deserialize")]
     pub created_at: Option<i32>,
+    /// When the role was last updated.
     #[serde(rename = "updated_at", deserialize_with = "Option::deserialize")]
     pub updated_at: Option<i32>,
+    /// Identifier of the actor who created the role.
     #[serde(rename = "created_by", deserialize_with = "Option::deserialize")]
     pub created_by: Option<String>,
+    /// User details for the actor that created the role, when available.
     #[serde(
         rename = "created_by_user_obj",
         deserialize_with = "Option::deserialize"
     )]
     pub created_by_user_obj: Option<std::collections::HashMap<String, serde_json::Value>>,
+    /// Arbitrary metadata stored on the role.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
+    /// Principals from which the role assignment is inherited, when available.
     #[serde(
         rename = "assignment_sources",
         deserialize_with = "Option::deserialize"

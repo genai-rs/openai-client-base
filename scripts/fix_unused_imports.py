@@ -63,16 +63,17 @@ def fix_file(path: Path) -> bool:
     content = prune_braced(content, "tokio_util::codec", ["BytesCodec", "FramedRead"])
     if re.search(r"^use tokio_util::codec::\{\s*\};", content, re.M):
         content = re.sub(r"^use tokio_util::codec::\{\s*\};\n", "", content, flags=re.M)
-    content = prune_braced(content, "super", ["ContentType"])
+    content = prune_braced(content, "super", ["ContentType", "multipart_helper"])
 
-    # Trait import only needed for `Error::custom`-style calls.
-    if "use serde::{de::Error as _, Deserialize, Serialize};" in content:
-        stripped = content.replace("use serde::{de::Error as _, Deserialize, Serialize};", "")
+    # Trait import only needed for `Error::custom`-style calls. The generator writes the
+    # names in its own order (`{Deserialize, Serialize, de::Error as _}`); cargo fmt only
+    # sorts them later, so match the statement whatever the order.
+    serde_use = re.search(r"^use serde::\{([^}]*\bde::Error as _\b[^}]*)\};\n", content, re.M)
+    if serde_use:
+        stripped = content.replace(serde_use.group(0), "", 1)
         if not re.search(r"\.custom\(|::custom\(|\.invalid_|\.missing_field\(|\.unknown_variant\(", stripped):
-            content = content.replace(
-                "use serde::{de::Error as _, Deserialize, Serialize};",
-                "use serde::{Deserialize, Serialize};",
-            )
+            kept = [i.strip() for i in serde_use.group(1).split(",") if i.strip() and i.strip() != "de::Error as _"]
+            content = content.replace(serde_use.group(0), f"use serde::{{{', '.join(kept)}}};\n", 1)
 
     if content != original:
         path.write_text(content)

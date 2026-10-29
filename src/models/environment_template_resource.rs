@@ -30,11 +30,11 @@ pub struct EnvironmentTemplateResource {
     #[serde(rename = "updated_at")]
     pub updated_at: i64,
     #[serde(rename = "packages")]
-    pub packages: models::EnvironmentPackagesResource,
+    pub packages: Box<models::EnvironmentPackagesResource>,
     #[serde(rename = "network")]
-    pub network: models::NetworkPolicyResource,
+    pub network: Box<models::NetworkPolicyResource>,
     #[serde(rename = "desktop")]
-    pub desktop: models::DesktopResource,
+    pub desktop: Box<models::DesktopResource>,
     /// Directories that expose capabilities to the agent.
     #[serde(rename = "capability_directories")]
     pub capability_directories: Vec<String>,
@@ -43,7 +43,7 @@ pub struct EnvironmentTemplateResource {
     pub skills: Vec<models::HostedTemplateSkillResource>,
     /// Safe plugin metadata, excluding inline archive contents.
     #[serde(rename = "plugins")]
-    pub plugins: Vec<models::HostedPluginResourceInline>,
+    pub plugins: Vec<models::HostedPluginResource>,
     /// Safe file metadata, excluding contents and session-scoped file IDs.
     #[serde(rename = "files")]
     pub files: Vec<models::HostedTemplateFileResource>,
@@ -62,7 +62,7 @@ impl EnvironmentTemplateResource {
         desktop: models::DesktopResource,
         capability_directories: Vec<String>,
         skills: Vec<models::HostedTemplateSkillResource>,
-        plugins: Vec<models::HostedPluginResourceInline>,
+        plugins: Vec<models::HostedPluginResource>,
         files: Vec<models::HostedTemplateFileResource>,
     ) -> EnvironmentTemplateResource {
         EnvironmentTemplateResource {
@@ -71,9 +71,9 @@ impl EnvironmentTemplateResource {
             object,
             created_at,
             updated_at,
-            packages,
-            network,
-            desktop,
+            packages: Box::new(packages),
+            network: Box::new(network),
+            desktop: Box::new(desktop),
             capability_directories,
             skills,
             plugins,

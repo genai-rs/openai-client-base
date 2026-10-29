@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event, always `response.shell_call_command.delta`. | 
+**r#type** | **Type** | The type of the event, always `response.shell_call_command.delta`. (enum: response.shell_call_command.delta) | 
 **sequence_number** | **i32** | The sequence number of the event that was emitted. | 
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
 **output_index** | **i32** | The index of the output item that was updated. | 

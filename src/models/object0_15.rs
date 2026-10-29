@@ -15,8 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object015 {
     #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
-    pub code_interpreter:
-        Option<Box<models::CreateThreadAndRunRequestToolResourcesCodeInterpreter>>,
+    pub code_interpreter: Option<Box<models::Object07CodeInterpreter>>,
     #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
     pub file_search: Option<Box<models::Object015FileSearch>>,
 }

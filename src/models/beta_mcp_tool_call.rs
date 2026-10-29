@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaMcpToolCall : An invocation of a tool on an MCP server.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMcpToolCall {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,
@@ -44,6 +45,7 @@ pub struct BetaMcpToolCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub output: Option<Option<String>>,
+    /// The error from the tool call, if any.
     #[serde(
         rename = "error",
         default,

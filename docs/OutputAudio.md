@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the output audio. Always `output_audio`.  | 
+**r#type** | **Type** | The type of the output audio. Always `output_audio`.  (enum: output_audio) | 
 **data** | **String** | Base64-encoded audio data from the model.  | 
 **transcript** | **String** | The transcript of the audio data from the model.  | 
 

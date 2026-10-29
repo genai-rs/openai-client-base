@@ -25,6 +25,7 @@ pub struct SessionRequiredActionResourceFunctionCall {
     /// The function name.
     #[serde(rename = "name")]
     pub name: String,
+    /// The arguments supplied by the model.
     #[serde(rename = "arguments", deserialize_with = "Option::deserialize")]
     pub arguments: Option<serde_json::Value>,
 }

@@ -14,8 +14,13 @@ use serde::{Deserialize, Serialize};
 /// WebSearch : This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearch {
-    #[serde(rename = "user_location", skip_serializing_if = "Option::is_none")]
-    pub user_location: Option<Box<models::WebSearchUserLocation>>,
+    #[serde(
+        rename = "user_location",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub user_location: Option<Option<Box<models::WebSearchUserLocation>>>,
     #[serde(
         rename = "search_context_size",
         skip_serializing_if = "Option::is_none"

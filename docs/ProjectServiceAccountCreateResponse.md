@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: organization.project.service_account) | 
 **id** | **String** |  | 
 **name** | **String** |  | 
-**role** | **String** | Service accounts created with default project membership have role `member`. Accounts created with `create_service_account_only` have role `none`.  | 
+**role** | **Role** | Service accounts created with default project membership have role `member`. Accounts created with `create_service_account_only` have role `none`.  (enum: member, none) | 
 **created_at** | **i32** |  | 
 **api_key** | Option<[**models::ProjectServiceAccountApiKey**](ProjectServiceAccountApiKey.md)> |  | 
 

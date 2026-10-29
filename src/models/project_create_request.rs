@@ -16,6 +16,7 @@ pub struct ProjectCreateRequest {
     /// The friendly name of the project, this name appears in reports.
     #[serde(rename = "name")]
     pub name: String,
+    /// Create the project with the specified data residency region. Your organization must have access to Data residency functionality in order to use. See [data residency controls](https://developers.openai.com/api/docs/guides/your-data#data-residency-controls) to review the functionality and limitations of setting this field. Deprecated: use `residency` instead. Do not provide both `geography` and `residency`.
     #[serde(
         rename = "geography",
         default,
@@ -23,6 +24,7 @@ pub struct ProjectCreateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub geography: Option<Option<String>>,
+    /// Create the project with the specified residency configuration. Your organization must have access to the requested residency configuration in order to use it. See [data residency controls](https://developers.openai.com/api/docs/guides/your-data#data-residency-controls) to review the functionality and limitations of setting this field.
     #[serde(
         rename = "residency",
         default,
@@ -30,6 +32,7 @@ pub struct ProjectCreateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub residency: Option<Option<models::PublicProjectResidency>>,
+    /// External key ID to associate with the project.
     #[serde(
         rename = "external_key_id",
         default,

@@ -18,6 +18,7 @@ pub struct DecisionInputMessage {
     pub role: Role,
     #[serde(rename = "content")]
     pub content: Box<models::DecisionInputContent>,
+    /// The phase of an assistant message.
     #[serde(
         rename = "phase",
         default,

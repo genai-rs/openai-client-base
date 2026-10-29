@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The item type. Always `command_execution`. | 
+**r#type** | **Type** | The item type. Always `command_execution`. (enum: command_execution) | 
 **id** | **String** | The ID of the command execution item. | 
 **turn_id** | **String** | The ID of the turn that contains this item. | 
 **command** | **String** | The command that was executed. | 

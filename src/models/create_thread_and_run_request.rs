@@ -17,7 +17,7 @@ pub struct CreateThreadAndRunRequest {
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
     #[serde(rename = "thread", skip_serializing_if = "Option::is_none")]
-    pub thread: Option<models::CreateThreadRequest>,
+    pub thread: Option<Box<models::CreateThreadRequest>>,
     /// The ID of the [Model](https://developers.openai.com/api/reference/resources/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -37,8 +37,13 @@ pub struct CreateThreadAndRunRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub tools: Option<Option<Vec<models::AssistantObjectToolsInner>>>,
-    #[serde(rename = "tool_resources", skip_serializing_if = "Option::is_none")]
-    pub tool_resources: Option<Box<models::CreateThreadAndRunRequestToolResources>>,
+    #[serde(
+        rename = "tool_resources",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tool_resources: Option<Option<Box<models::CreateThreadAndRunRequestToolResources>>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",

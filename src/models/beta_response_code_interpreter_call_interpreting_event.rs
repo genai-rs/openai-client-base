@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCodeInterpreterCallInterpretingEvent : Emitted when the code interpreter is actively interpreting the code snippet.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCodeInterpreterCallInterpretingEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

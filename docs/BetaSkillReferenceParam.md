@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | References a skill created with the /v1/skills endpoint. | 
+**r#type** | **Type** | References a skill created with the /v1/skills endpoint. (enum: skill_reference) | 
 **skill_id** | **String** | The ID of the referenced skill. | 
 **version** | Option<**String**> | Optional skill version. Use a positive integer or 'latest'. Omit for default. | [optional]
 

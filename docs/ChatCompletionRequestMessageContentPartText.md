@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the content part. | 
+**r#type** | **Type** | The type of the content part. (enum: text) | 
 **text** | **String** | The text content. | 
 **prompt_cache_breakpoint** | Option<[**models::PromptCacheBreakpointParam**](PromptCacheBreakpointParam.md)> |  | [optional]
 

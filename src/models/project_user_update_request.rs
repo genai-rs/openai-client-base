@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectUserUpdateRequest {
+    /// `owner` or `member`
     #[serde(
         rename = "role",
         default,

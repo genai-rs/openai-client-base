@@ -45,7 +45,7 @@ pub struct BetaImageGenTool {
     )]
     pub input_fidelity: Option<Option<models::BetaInputFidelity>>,
     #[serde(rename = "input_image_mask", skip_serializing_if = "Option::is_none")]
-    pub input_image_mask: Option<models::ImageGenToolInputImageMask>,
+    pub input_image_mask: Option<Box<models::ImageGenToolInputImageMask>>,
     /// Number of partial images to generate in streaming mode, from 0 (default value) to 3.
     #[serde(rename = "partial_images", skip_serializing_if = "Option::is_none")]
     pub partial_images: Option<i32>,

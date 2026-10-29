@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The ID of the vault. | 
-**object** | **String** | The object type. Always `vault`. | 
+**object** | **Object** | The object type. Always `vault`. (enum: vault) | 
 **name** | Option<**String**> | The human-readable name of the vault, if set. | 
 **metadata** | **std::collections::HashMap<String, String>** | Key-value pairs associated with the vault, such as an application or team identifier. | 
 **created_at** | **i64** | The Unix timestamp, in seconds, when the vault was created. | 

@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaInputMessage : A message input to the model with a role indicating instruction following hierarchy. Instructions given with the `developer` or `system` role take precedence over instructions given with the `user` role.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaInputMessage {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

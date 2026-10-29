@@ -14,3 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum LiveServerEvent {}
+
+///
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum SourceEventType {
+    #[serde(rename = "session.input_transcript.delta")]
+    SessionInputTranscriptDelta,
+    #[serde(rename = "session.output_transcript.delta")]
+    SessionOutputTranscriptDelta,
+}

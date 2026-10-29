@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseWebSearchCallInProgressEvent : Emitted when a web search call is initiated.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseWebSearchCallInProgressEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

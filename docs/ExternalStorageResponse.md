@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
+**object** | **Object** |  (enum: organization.external_storage) | 
 **id** | **String** |  | 
 **project_id** | **String** |  | 
-**provider** | [**models::ExternalStorageResponseProvider**](ExternalStorageResponse_provider.md) |  | 
+**provider** | [**models::ExternalStorageResponseProvider**](ExternalStorageResponseProvider.md) |  | 
 **geography** | **String** |  | 
 **status** | [**models::ExternalStorageStatus**](ExternalStorageStatus.md) |  | 
 **created_at** | **i32** |  | 

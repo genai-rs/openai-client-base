@@ -26,6 +26,7 @@ pub struct BetaToolSearchCall {
     pub call_id: Option<String>,
     #[serde(rename = "execution")]
     pub execution: models::BetaToolSearchExecutionType,
+    /// Arguments used for the tool search call.
     #[serde(rename = "arguments", deserialize_with = "Option::deserialize")]
     pub arguments: Option<serde_json::Value>,
     #[serde(rename = "status")]

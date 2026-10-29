@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponsesWebSocketStreamEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,
@@ -98,6 +99,7 @@ pub struct BetaResponsesWebSocketStreamEvent {
     /// The index of the annotation within the content part.
     #[serde(rename = "annotation_index")]
     pub annotation_index: i32,
+    /// The annotation object being added. (See annotation schema for details.)
     #[serde(rename = "annotation", deserialize_with = "Option::deserialize")]
     pub annotation: Option<Box<models::BetaAnnotation>>,
     /// The complete input data for the custom tool call.

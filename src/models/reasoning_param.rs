@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ReasoningParam : Reasoning configuration for the agent.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ReasoningParam {
+    /// The amount of reasoning effort the model should use. Omission lets the model select it.
     #[serde(
         rename = "effort",
         default,
@@ -21,6 +22,7 @@ pub struct ReasoningParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub effort: Option<Option<models::ReasoningEffortParam>>,
+    /// Controls whether the response includes a reasoning summary.
     #[serde(
         rename = "summary",
         default,

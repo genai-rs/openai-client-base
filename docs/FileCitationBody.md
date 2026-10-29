@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the file citation. Always `file_citation`. | 
+**r#type** | **Type** | The type of the file citation. Always `file_citation`. (enum: file_citation) | 
 **file_id** | **String** | The ID of the file. | 
 **index** | **i32** | The index in the output text at which to insert the file citation. | 
 **filename** | **String** | The filename of the file cited. | 

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**input** | [**Vec<models::EvalRunOutputItemSampleInputInner>**](EvalRunOutputItem_sample_input_inner.md) | An array of input messages. | 
-**output** | [**Vec<models::EvalRunOutputItemSampleOutputInner>**](EvalRunOutputItem_sample_output_inner.md) | An array of output messages. | 
+**input** | [**Vec<models::EvalRunOutputItemSampleInputInner>**](EvalRunOutputItemSampleInputInner.md) | An array of input messages. | 
+**output** | [**Vec<models::EvalRunOutputItemSampleOutputInner>**](EvalRunOutputItemSampleOutputInner.md) | An array of output messages. | 
 **finish_reason** | **String** | The reason why the sample generation was finished. | 
 **model** | **String** | The model used for generating the sample. | 
-**usage** | [**models::EvalRunOutputItemSampleUsage**](EvalRunOutputItem_sample_usage.md) |  | 
+**usage** | [**models::EvalRunOutputItemSampleUsage**](EvalRunOutputItemSampleUsage.md) |  | 
 **error** | Option<[**models::EvalApiError**](EvalApiError.md)> |  | 
 **temperature** | **f64** | The sampling temperature used. | 
 **max_completion_tokens** | **i32** | The maximum number of tokens allowed for completion. | 

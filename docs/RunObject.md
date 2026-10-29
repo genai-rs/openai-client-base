@@ -5,22 +5,22 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The identifier, which can be referenced in API endpoints. | 
-**object** | **String** | The object type, which is always `thread.run`. | 
+**object** | **Object** | The object type, which is always `thread.run`. (enum: thread.run) | 
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the run was created. | 
 **thread_id** | **String** | The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) that was executed on as a part of this run. | 
 **assistant_id** | **String** | The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for execution of this run. | 
-**status** | **String** | The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`. | 
-**required_action** | [**models::RunObjectRequiredAction**](RunObject_required_action.md) |  | 
-**last_error** | [**models::RunObjectLastError**](RunObject_last_error.md) |  | 
+**status** | **Status** | The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`. (enum: queued, in_progress, requires_action, cancelling, cancelled, failed, completed, incomplete, expired) | 
+**required_action** | Option<[**models::RunObjectRequiredAction**](RunObjectRequiredAction.md)> |  | 
+**last_error** | Option<[**models::RunObjectLastError**](RunObjectLastError.md)> |  | 
 **expires_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run will expire. | 
 **started_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run was started. | 
 **cancelled_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run was cancelled. | 
 **failed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run failed. | 
 **completed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run was completed. | 
-**incomplete_details** | [**models::RunObjectIncompleteDetails**](RunObject_incomplete_details.md) |  | 
+**incomplete_details** | Option<[**models::RunObjectIncompleteDetails**](RunObjectIncompleteDetails.md)> |  | 
 **model** | **String** | The model that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
 **instructions** | **String** | The instructions that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
-**tools** | [**Vec<models::AssistantObjectToolsInner>**](AssistantObject_tools_inner.md) | The list of tools that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
+**tools** | [**Vec<models::AssistantObjectToolsInner>**](AssistantObjectToolsInner.md) | The list of tools that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | 
 **usage** | Option<[**models::RunCompletionUsage**](RunCompletionUsage.md)> |  | 
 **temperature** | Option<**f64**> | The sampling temperature used for this run. If not set, defaults to 1. | [optional]

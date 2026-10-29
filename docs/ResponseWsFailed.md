@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.failed`.  | 
+**r#type** | **Type** | The type of the event. Always `response.failed`.  (enum: response.failed) | 
 **sequence_number** | **i32** | The sequence number of this event. | 
 **response** | [**models::Response**](Response.md) |  | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]

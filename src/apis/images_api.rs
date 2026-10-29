@@ -158,9 +158,9 @@ pub async fn create_image_edit(
     // Add image file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image")?;
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
-    // Add mask file if provided
-    if let Some(mask_path) = p_form_mask {
-        multipart_form = multipart_helper::add_file_to_form(multipart_form, &mask_path, "mask")?;
+    if let Some(ref param_value) = p_form_mask {
+        // Add file to multipart form
+        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "mask")?;
     }
     if let Some(param_value) = p_form_background {
         multipart_form = multipart_form.text("background", param_value.to_string());
@@ -170,7 +170,7 @@ pub async fn create_image_edit(
         multipart_form = multipart_form.text("n", param_value.to_string());
     }
     if let Some(param_value) = p_form_size {
-        multipart_form = multipart_form.text("size", param_value.to_string());
+        multipart_form = multipart_form.text("size", serde_json::to_string(&param_value)?);
     }
     if let Some(param_value) = p_form_response_format {
         multipart_form = multipart_form.text("response_format", param_value.to_string());
@@ -231,6 +231,7 @@ pub async fn create_image_edit(
 }
 
 /// This endpoint is retired and no longer available. Use the image edits endpoint with a GPT Image model and a prompt to create a variation of an image. The request and response schemas below describe the legacy contract.
+#[deprecated]
 #[bon::builder]
 pub async fn create_image_variation(
     configuration: &configuration::Configuration,
@@ -261,7 +262,7 @@ pub async fn create_image_variation(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
-    // Add image file to multipart form
+    // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image")?;
     if let Some(param_value) = p_form_model {
         multipart_form = multipart_form.text("model", param_value.to_string());

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `score`. | 
+**r#type** | **Type** | The type of the object. Always `score`. (enum: score) | 
 **name** | Option<**String**> |  | 
 **score** | **f64** |  | 
 **probabilities** | [**Vec<models::ScoreProbabilityResource>**](ScoreProbabilityResource.md) |  | 

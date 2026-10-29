@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the file path. Always `file_path`.  | 
+**r#type** | **Type** | The type of the file path. Always `file_path`.  (enum: file_path) | 
 **file_id** | **String** | The ID of the file.  | 
 **index** | **i32** | The index of the file in the list of files.  | 
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `response.failed`.  | 
+**r#type** | **Type** | The type of the event. Always `response.failed`.  (enum: response.failed) | 
 **sequence_number** | **i32** | The sequence number of this event. | 
 **response** | [**models::Response**](Response.md) |  | 
 

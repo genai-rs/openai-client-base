@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | 
-**data** | [**Vec<models::Object026DataInner>**](Object0_26_data_inner.md) |  | 
+**allowed_domains** | Option<**Vec<String>**> | Allowed domains for the search. If not provided, all domains are allowed. Subdomains of the provided domains are allowed as well.  Example: `[\"pubmed.ncbi.nlm.nih.gov\"]`  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

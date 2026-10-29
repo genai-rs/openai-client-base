@@ -16,11 +16,11 @@ pub struct ResponseUsageResource {
     #[serde(rename = "input_tokens")]
     pub input_tokens: i64,
     #[serde(rename = "input_tokens_details")]
-    pub input_tokens_details: models::InputTokensDetailsResource,
+    pub input_tokens_details: Box<models::InputTokensDetailsResource>,
     #[serde(rename = "output_tokens")]
     pub output_tokens: i64,
     #[serde(rename = "output_tokens_details")]
-    pub output_tokens_details: models::OutputTokensDetailsResource,
+    pub output_tokens_details: Box<models::OutputTokensDetailsResource>,
     #[serde(rename = "total_tokens")]
     pub total_tokens: i64,
 }
@@ -35,9 +35,9 @@ impl ResponseUsageResource {
     ) -> ResponseUsageResource {
         ResponseUsageResource {
             input_tokens,
-            input_tokens_details,
+            input_tokens_details: Box::new(input_tokens_details),
             output_tokens,
-            output_tokens_details,
+            output_tokens_details: Box::new(output_tokens_details),
             total_tokens,
         }
     }

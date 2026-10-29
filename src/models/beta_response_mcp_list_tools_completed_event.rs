@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseMcpListToolsCompletedEvent : Emitted when the list of available MCP tools has been successfully retrieved.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseMcpListToolsCompletedEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

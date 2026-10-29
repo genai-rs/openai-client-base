@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the multi-agent result. Always `multi_agent_call_output`. | 
+**r#type** | **Type** | The type of the multi-agent result. Always `multi_agent_call_output`. (enum: multi_agent_call_output) | 
 **id** | **String** | The unique ID of the multi-agent call output item. | 
 **call_id** | **String** | The unique ID of the multi-agent call. | 
 **action** | [**models::BetaMultiAgentAction**](BetaMultiAgentAction.md) |  | 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The ID of the reusable agent. | 
-**object** | **String** | The object type. Always `agent`. | 
+**object** | **Object** | The object type. Always `agent`. (enum: agent) | 
 **created_at** | **i64** | The Unix timestamp, in seconds, when the agent was created. | 
 **updated_at** | **i64** | The Unix timestamp, in seconds, when the agent was last updated. | 
 **name** | Option<**String**> | A human-readable name for the agent, or null if it is unnamed. | 

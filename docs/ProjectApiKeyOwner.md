@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | Option<**String**> | `user` or `service_account` | [optional]
+**r#type** | Option<**Type**> | `user` or `service_account` (enum: user, service_account) | [optional]
 **user** | Option<[**models::ProjectApiKeyOwnerUser**](ProjectApiKeyOwnerUser.md)> |  | [optional]
 **service_account** | Option<[**models::ProjectApiKeyOwnerServiceAccount**](ProjectApiKeyOwnerServiceAccount.md)> |  | [optional]
 

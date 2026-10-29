@@ -75,7 +75,7 @@ pub struct BetaCreateResponse {
     )]
     pub prompt: Option<Option<Box<models::BetaPrompt>>>,
     #[serde(rename = "access_programs", skip_serializing_if = "Option::is_none")]
-    pub access_programs: Option<models::BetaAccessProgramsParam>,
+    pub access_programs: Option<Box<models::BetaAccessProgramsParam>>,
     #[serde(
         rename = "service_tier",
         default,

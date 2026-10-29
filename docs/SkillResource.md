@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Unique identifier for the skill. | 
-**object** | **String** | The object type, which is `skill`. | 
+**object** | **Object** | The object type, which is `skill`. (enum: skill) | 
 **name** | **String** | Name of the skill. | 
 **description** | **String** | Description of the skill. | 
 **created_at** | **i32** | Unix timestamp (seconds) for when the skill was created. | 

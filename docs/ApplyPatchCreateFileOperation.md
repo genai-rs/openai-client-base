@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | Create a new file with the provided diff. | 
+**r#type** | **Type** | Create a new file with the provided diff. (enum: create_file) | 
 **path** | **String** | Path of the file to create. | 
 **diff** | **String** | Diff to apply. | 
 

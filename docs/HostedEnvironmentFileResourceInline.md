@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `inline`. | 
+**r#type** | **Type** | The type of the object. Always `inline`. (enum: inline) | 
 **id** | **String** | The session-scoped ID of the file in the execution environment. | 
 **path** | **String** | The file's absolute path inside the environment. | 
 **size_bytes** | **i64** | The decoded file size in bytes. | 

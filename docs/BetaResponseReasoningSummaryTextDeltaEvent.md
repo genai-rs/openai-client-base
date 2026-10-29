@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The type of the event. Always `response.reasoning_summary_text.delta`.  | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
+**r#type** | **Type** | The type of the event. Always `response.reasoning_summary_text.delta`.  (enum: response.reasoning_summary_text.delta) | 
 **item_id** | **String** | The ID of the item this summary text delta is associated with.  | 
 **output_index** | **i32** | The index of the output item this summary text delta is associated with.  | 
 **summary_index** | **i32** | The index of the summary part within the reasoning summary.  | 

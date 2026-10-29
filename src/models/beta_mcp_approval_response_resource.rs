@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaMcpApprovalResponseResource : A response to an MCP approval request.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMcpApprovalResponseResource {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

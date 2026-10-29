@@ -23,8 +23,13 @@ pub struct BetaToolSearchOutputFunctionToolParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub description: Option<Option<String>>,
-    #[serde(rename = "parameters", skip_serializing_if = "Option::is_none")]
-    pub parameters: Option<serde_json::Value>,
+    #[serde(
+        rename = "parameters",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub parameters: Option<Option<serde_json::Value>>,
     /// Whether to enforce strict parameter validation. If omitted, Responses attempts to use strict validation when the schema is compatible, and falls back to non-strict validation otherwise.
     #[serde(
         rename = "strict",

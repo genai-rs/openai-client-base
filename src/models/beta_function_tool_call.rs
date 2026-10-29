@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaFunctionToolCall : A tool call to run a function. See the [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionToolCall {
+    /// The agent that produced this item.
     #[serde(
         rename = "agent",
         default,

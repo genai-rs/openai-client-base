@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  | [default to ResponseDeleted]
+**object** | **Object** |  (enum: response.deleted) | [default to ResponseDeleted]
 **deleted** | **bool** |  | 
 **id** | **String** |  | 
 

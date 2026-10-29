@@ -1,4 +1,4 @@
-# CreateAssistantRequestTemperature
+# Object027Value
 
 ## Properties
 

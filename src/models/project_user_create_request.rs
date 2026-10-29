@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectUserCreateRequest {
+    /// The ID of the user.
     #[serde(
         rename = "user_id",
         default,
@@ -19,6 +20,7 @@ pub struct ProjectUserCreateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub user_id: Option<Option<String>>,
+    /// Email of the user to add.
     #[serde(
         rename = "email",
         default,

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The unique identifier for the compacted response. | 
-**object** | **String** | The object type. Always `response.compaction`. | 
+**object** | **Object** | The object type. Always `response.compaction`. (enum: response.compaction) | 
 **output** | [**Vec<models::ItemField>**](ItemField.md) | The compacted list of output items. | 
 **created_at** | **i32** | Unix timestamp (in seconds) when the compacted conversation was created. | 
 **usage** | [**models::ResponseUsage**](ResponseUsage.md) |  | 

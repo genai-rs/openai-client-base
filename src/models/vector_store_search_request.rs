@@ -24,7 +24,7 @@ pub struct VectorStoreSearchRequest {
     #[serde(rename = "filters", skip_serializing_if = "Option::is_none")]
     pub filters: Option<Box<models::VectorStoreSearchRequestFilters>>,
     #[serde(rename = "ranking_options", skip_serializing_if = "Option::is_none")]
-    pub ranking_options: Option<models::VectorStoreSearchRequestRankingOptions>,
+    pub ranking_options: Option<Box<models::VectorStoreSearchRequestRankingOptions>>,
 }
 
 impl VectorStoreSearchRequest {

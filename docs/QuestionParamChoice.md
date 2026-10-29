@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `choice`. | 
+**r#type** | **Type** | The type of the object. Always `choice`. (enum: choice) | 
 **name** | Option<**String**> |  | [optional]
 **instructions** | **String** |  | 
 **choices** | [**Vec<models::ChoiceOptionParam>**](ChoiceOptionParam.md) | Provide between 2 and 255 choices. Each choice must be unique. | 

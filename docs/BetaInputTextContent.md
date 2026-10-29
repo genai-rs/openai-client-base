@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the input item. Always `input_text`. | 
+**r#type** | **Type** | The type of the input item. Always `input_text`. (enum: input_text) | 
 **text** | **String** | The text input to the model. | 
 **prompt_cache_breakpoint** | Option<[**models::BetaPromptCacheBreakpointConfig**](BetaPromptCacheBreakpointConfig.md)> |  | [optional]
 

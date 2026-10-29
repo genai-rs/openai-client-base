@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCustomToolCallInputDeltaEvent : Event representing a delta (partial update) to the input of a custom tool call.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCustomToolCallInputDeltaEvent {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(
         rename = "agent",
         default,

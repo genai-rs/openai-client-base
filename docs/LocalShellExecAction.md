@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the local shell action. Always `exec`. | 
+**r#type** | **Type** | The type of the local shell action. Always `exec`. (enum: exec) | 
 **command** | **Vec<String>** | The command to run. | 
 **timeout_ms** | Option<**i32**> | Optional timeout in milliseconds for the command. | [optional]
 **working_directory** | Option<**String**> | Optional working directory to run the command in. | [optional]

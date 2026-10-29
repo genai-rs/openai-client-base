@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **String** | The event type identifier. | 
+**agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
+**r#type** | **Type** | The event type identifier. (enum: response.custom_tool_call_input.done) | 
 **sequence_number** | **i32** | The sequence number of this event. | 
 **delta** | **String** | The incremental input data (delta) for the custom tool call. | 
 **output_index** | **i32** | The index of the output this event applies to. | 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **code** | **String** | The final code snippet output by the code interpreter. | 
 **response** | [**models::BetaResponse**](BetaResponse.md) |  | 
 **content_index** | **i32** | The index of the content part within the output item. | 
-**part** | [**models::ResponseReasoningSummaryPartDoneEventPart**](ResponseReasoningSummaryPartDoneEvent_part.md) |  | 
+**part** | [**models::ResponseReasoningSummaryPartDoneEventPart**](ResponseReasoningSummaryPartDoneEventPart.md) |  | 
 **arguments** | **String** | A JSON string containing the finalized arguments for the MCP tool call.  | 
 **command_index** | **i32** | The index of the shell command that produced output. | 
 **command** | **String** | The final shell command that was emitted. | 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **output** | [**Vec<models::BetaFunctionShellCallOutputContent>**](BetaFunctionShellCallOutputContent.md) | The output contents emitted for the shell command. | 
 **item** | [**models::BetaOutputItem**](BetaOutputItem.md) |  | 
 **summary_index** | **i32** | The index of the summary part within the reasoning summary.  | 
-**status** | Option<**String**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  | [optional]
+**status** | Option<**Status**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  (enum: incomplete) | [optional]
 **text** | **String** | The text content that is finalized.  | 
 **refusal** | **String** | The refusal text that is finalized.  | 
 **logprobs** | [**Vec<models::BetaResponseLogProb>**](BetaResponseLogProb.md) | The log probabilities of the tokens in the delta.  | 
@@ -32,7 +32,7 @@ Name | Type | Description | Notes
 **background** | Option<**String**> | The background setting that was used. | [optional]
 **output_format** | Option<**String**> | The output format that was used. | [optional]
 **annotation_index** | **i32** | The index of the annotation within the content part. | 
-**annotation** | Option<[**models::BetaAnnotation**](BetaAnnotation.md)> |  | 
+**annotation** | Option<[**models::BetaAnnotation**](BetaAnnotation.md)> | The annotation object being added. (See annotation schema for details.) | 
 **input** | **String** | The complete input data for the custom tool call. | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 

@@ -24,8 +24,9 @@ pub struct AgentToolResourceWebSearch {
     /// Allowed search domains, or `null` when the search is unrestricted.
     #[serde(rename = "allowed_domains", deserialize_with = "Option::deserialize")]
     pub allowed_domains: Option<Vec<String>>,
+    /// Approximate location used to localize search results, if provided.
     #[serde(rename = "location", deserialize_with = "Option::deserialize")]
-    pub location: Option<models::WebSearchLocationResource>,
+    pub location: Option<Box<models::WebSearchLocationResource>>,
 }
 
 impl AgentToolResourceWebSearch {
@@ -42,7 +43,7 @@ impl AgentToolResourceWebSearch {
             mode,
             context_size,
             allowed_domains,
-            location,
+            location: location.map(Box::new),
         }
     }
 }

@@ -16,6 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct RealtimeTranscriptionSessionCreateResponse {
     #[serde(rename = "client_secret")]
     pub client_secret: Box<models::RealtimeTranscriptionSessionCreateResponseClientSecret>,
+    /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
     #[serde(
         rename = "modalities",
         default,

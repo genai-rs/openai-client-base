@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the event. Always `error`.  | 
+**r#type** | **Type** | The type of the event. Always `error`.  (enum: error) | 
 **code** | Option<**String**> | The error code.  | 
 **message** | **String** | The error message.  | 
 **param** | Option<**String**> | The error parameter.  | 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** | The object type, which is `skill.version`. | 
+**object** | **Object** | The object type, which is `skill.version`. (enum: skill.version) | 
 **id** | **String** | Unique identifier for the skill version. | 
 **skill_id** | **String** | Identifier of the skill for this version. | 
 **version** | **String** | Version number for this skill. | 

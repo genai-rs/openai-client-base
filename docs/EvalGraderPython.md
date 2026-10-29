@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The object type, which is always `python`. | 
+**r#type** | **Type** | The object type, which is always `python`. (enum: python) | 
 **name** | **String** | The name of the grader. | 
 **source** | **String** | The source code of the python script. | 
 **image_tag** | Option<**String**> | The image tag to use for the python script. | [optional]

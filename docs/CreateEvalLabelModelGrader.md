@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The object type, which is always `label_model`. | 
+**r#type** | **Type** | The object type, which is always `label_model`. (enum: label_model) | 
 **name** | **String** | The name of the grader. | 
 **model** | **String** | The model to use for the evaluation. Must support structured outputs. | 
 **input** | [**Vec<models::CreateEvalItem>**](CreateEvalItem.md) | A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}. | 

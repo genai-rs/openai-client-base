@@ -23,6 +23,7 @@ pub struct ProjectGroupListResource {
     /// Whether additional project group memberships are available.
     #[serde(rename = "has_more")]
     pub has_more: bool,
+    /// Cursor to fetch the next page of results, or `null` when there are no more results.
     #[serde(rename = "next", deserialize_with = "Option::deserialize")]
     pub next: Option<String>,
 }

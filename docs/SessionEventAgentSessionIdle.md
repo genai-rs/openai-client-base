@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | The type of the object. Always `agent.session.idle`. | 
+**r#type** | **Type** | The type of the object. Always `agent.session.idle`. (enum: agent.session.idle) | 
 **event_id** | **String** | The unique ID of the event. | 
 **session** | [**models::SessionResource**](SessionResource.md) |  | 
 

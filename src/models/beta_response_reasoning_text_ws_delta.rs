@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseReasoningTextWsDelta : Emitted when a delta is added to a reasoning text.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseReasoningTextWsDelta {
+    /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<Box<models::BetaAgentTag>>,
     /// The type of the event. Always `response.reasoning_text.delta`.

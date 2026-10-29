@@ -23,6 +23,7 @@ pub struct PublicRoleListResource {
     /// Whether more roles are available when paginating.
     #[serde(rename = "has_more")]
     pub has_more: bool,
+    /// Cursor to fetch the next page of results, or `null` when there are no additional roles.
     #[serde(rename = "next", deserialize_with = "Option::deserialize")]
     pub next: Option<String>,
 }
