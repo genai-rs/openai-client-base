@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.17.0](https://github.com/genai-rs/openai-client-base/compare/v0.16.1...v0.17.0) - 2026-10-31
+
+### Added
+
+- [**breaking**] generate with openapi-generator 7.25.0 (timvw-rust 0.3.1)
+
+### Other
+
+- compare pipeline PRs' public API against their base commit
+- add public-API reference check
+
 ## [0.16.1](https://github.com/genai-rs/openai-client-base/compare/v0.16.0...v0.16.1) - 2026-10-28
 
 ### Other
