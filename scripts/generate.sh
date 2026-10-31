@@ -7,7 +7,7 @@ OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.25.0}"
 # https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
 # <generator version>-og<openapi-generator version>. Override for local builds,
 # e.g. GENERATOR_IMAGE=timvw-rust:dev.
-TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.4.0}"
+TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.5.0}"
 GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:${TIMVW_RUST_VERSION}-og${OPENAPI_GENERATOR_VERSION}}"
 GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
@@ -183,11 +183,6 @@ echo ""
 echo "🔧 Normalizing enum derives/attributes..."
 uv run python scripts/fix_enum_attributes.py
 
-# Step 6c: Fix Box<Value> constructor mismatches caused by generic fallbacks
-echo ""
-echo "🔧 Fixing Box<Value> constructor mismatches..."
-uv run python scripts/fix_box_value_constructor_mismatches.py
-
 # Step 6d: Fix tool-related enums with conflicting tagged serialization
 # This must run BEFORE fix_untagged_unions.py to handle discriminated unions with field conflicts
 echo ""
@@ -209,19 +204,6 @@ uv run python scripts/fix_helper_impl_mismatches.py
 echo ""
 echo "🔧 Fixing enum variants referencing simplified types..."
 uv run python scripts/fix_simplified_type_references.py
-
-# Step 8: Fix nullable fields and constructor signatures
-echo ""
-echo "🔧 Fixing nullable fields and constructors..."
-if [ -f "$SCRIPT_DIR/fix_boxed_nullable_fields.py" ]; then
-    uv run python scripts/fix_boxed_nullable_fields.py "$PROJECT_ROOT"
-fi
-if [ -f "$SCRIPT_DIR/fix_constructor_signatures.py" ]; then
-    uv run --with pyyaml python scripts/fix_constructor_signatures.py "$PROJECT_ROOT"
-fi
-if [ -f "$SCRIPT_DIR/fix_option_box_constructor_mismatches.py" ]; then
-    uv run python scripts/fix_option_box_constructor_mismatches.py "$PROJECT_ROOT"
-fi
 
 # Step 9: Fix Default trait issues
 echo ""

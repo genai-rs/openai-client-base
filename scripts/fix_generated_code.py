@@ -164,27 +164,6 @@ impl std::fmt::Display for {struct_name} {{
             print(f"Added JSON Display impls in {file_path.name}")
 
 
-def fix_manual_option_box_map(models_dir):
-    """Replace verbose Option<Box<T>> patterns with map(Box::new)."""
-    pattern = re.compile(
-        r"if let Some\(x\) = (?P<var>[A-Za-z_][A-Za-z0-9_]*) \{\s*"
-        r"Some\(Box::new\(x\)\)\s*\}\s*else \{\s*None\s*\}",
-        re.DOTALL,
-    )
-
-    for file_path in models_dir.glob("*.rs"):
-        content = file_path.read_text()
-        new_content, count = pattern.subn(
-            lambda m: f"{m.group('var')}.map(Box::new)",
-            content,
-        )
-        if count > 0:
-            file_path.write_text(new_content)
-            print(
-                f"Simplified Option::map pattern in {file_path.name} ({count} occurrences)"
-            )
-
-
 def remove_default_from_empty_enums(models_dir):
     """Remove Default impl from empty enums and fix double closing braces."""
     for file_path in models_dir.glob("*.rs"):
@@ -368,7 +347,6 @@ def main():
     fix_invalid_enum_variants(models_dir)
     fix_recursive_types(models_dir)
     add_display_impl_for_structs(models_dir)
-    fix_manual_option_box_map(models_dir)
     remove_default_from_empty_enums(models_dir)
     remove_default_from_problematic_structs(models_dir)
 
