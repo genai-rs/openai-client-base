@@ -50,8 +50,6 @@ The client is generated from OpenAI's current published OpenAPI specification:
 
 3. **Format and audit**: `cargo fmt`, then an audit that every upstream path operation and webhook has a generated function (`check_openapi_coverage.py`).
 
-The pipeline automatically detects and fixes issues rather than hardcoding solutions, making it robust against API changes.
-
 ## Usage
 
 Add this to your `Cargo.toml`:
