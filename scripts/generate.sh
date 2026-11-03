@@ -7,7 +7,7 @@ OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.25.0}"
 # https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
 # <generator version>-og<openapi-generator version>. Override for local builds,
 # e.g. GENERATOR_IMAGE=timvw-rust:dev.
-TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.7.0}"
+TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.8.0}"
 GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:${TIMVW_RUST_VERSION}-og${OPENAPI_GENERATOR_VERSION}}"
 GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
@@ -141,11 +141,6 @@ if [ -f "$OUT_DIR/lib.rs.backup" ]; then
     fi
 fi
 
-# Step 4b: Fix file upload TODOs (optional binary parameters)
-echo ""
-echo "🔧 Fixing file upload TODOs..."
-uv run python scripts/fix_file_upload_todos.py
-
 # Step 5: Fix compilation issues in generated code
 echo ""
 echo "🔧 Fixing compilation issues..."
@@ -202,11 +197,6 @@ uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"
 uv run python scripts/fix_generator_artifacts.py
 uv run python scripts/fix_helper_impl_mismatches.py
 uv run python scripts/fix_generated_code.py
-
-# Apply multipart array, object Content-Type, and explicit encoding rules from the source spec.
-uv run --with pyyaml python "$SCRIPT_DIR/fix_multipart_serialization.py" \
-    "$SPEC_IN" "$PROJECT_ROOT/src/apis" \
-    --report "$PROJECT_ROOT/target/reports/multipart-serialization.json"
 
 # Re-apply the truncated-doc-link fix of patch_generated.rs.sh (#7): the union
 # rewrites above regenerate model files from the spec after that patch ran, and

@@ -52,7 +52,7 @@ Creates an edited or extended image given one or more source images and a prompt
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**image** | **String** |  | [required] |
+**image** | **std::path::PathBuf** |  | [required] |
 **prompt** | **String** | A text description of the desired image(s). The maximum length is 32000 characters for the GPT image models. | [required] |
 **model** | **String** |  | [required] |
 **mask** | Option<**std::path::PathBuf**> | An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where `image` should be edited. If there are multiple images provided, the mask will be applied on the first image. Must be a valid PNG file, less than 4MB, and have the same dimensions as `image`. |  |

@@ -155,7 +155,7 @@ pub async fn create_image_edit(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
-    // Add image file to multipart form
+    // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image")?;
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     if let Some(ref param_value) = p_form_mask {
