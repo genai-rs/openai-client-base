@@ -84,21 +84,12 @@ uv run --with pyyaml python -c "import sys, json, yaml; json.dump(yaml.safe_load
 echo ""
 echo "🦀 Generating Rust client..."
 
-# Backup existing manifest so we can preserve curated dependency ranges
-if [ -f "$OUT_DIR/Cargo.toml" ]; then
-    cp "$OUT_DIR/Cargo.toml" "$OUT_DIR/Cargo.toml.original"
-fi
-
-# Clean previous generated code (preserve lib.rs if it has custom code)
-if [ -f "$OUT_DIR/lib.rs" ]; then
-    cp "$OUT_DIR/lib.rs" "$OUT_DIR/lib.rs.backup"
-fi
-
 # Clean generated directories but preserve src folder structure
 find "$OUT_DIR/src/apis" "$OUT_DIR/src/models" -name "*.rs" -delete
 rm -rf "$OUT_DIR/docs" 2>/dev/null || true
 
-# Run OpenAPI Generator via Docker
+# Run the generator. Hand-maintained files (Cargo.toml, README.md, src/lib.rs,
+# ...) are listed in .openapi-generator-ignore and left alone.
 docker run --rm \
     -v "$PROJECT_ROOT:/local" \
     -u "$(id -u):$(id -g)" \
@@ -109,32 +100,6 @@ docker run --rm \
     -o "/local" \
     -c "/local/scripts/generator-config.json" \
     --skip-validate-spec
-
-echo ""
-echo "📝 Merging Cargo.toml dependency updates..."
-if [ -f "$OUT_DIR/Cargo.toml.original" ]; then
-    mv "$OUT_DIR/Cargo.toml" "$OUT_DIR/Cargo.toml.generated"
-    mv "$OUT_DIR/Cargo.toml.original" "$OUT_DIR/Cargo.toml"
-
-    python3 "$SCRIPT_DIR/merge_cargo_dependencies.py" \
-        "$OUT_DIR/Cargo.toml" \
-        "$OUT_DIR/Cargo.toml.generated"
-
-    rm -f "$OUT_DIR/Cargo.toml.generated"
-fi
-
-# Ensure no backups linger if the generator didn't touch the manifest
-rm -f "$OUT_DIR/Cargo.toml.original"
-
-# Restore lib.rs if needed
-if [ -f "$OUT_DIR/lib.rs.backup" ]; then
-    # Check if lib.rs was regenerated
-    if [ -f "$OUT_DIR/lib.rs" ]; then
-        echo "Note: lib.rs was regenerated, backup available at lib.rs.backup"
-    else
-        mv "$OUT_DIR/lib.rs.backup" "$OUT_DIR/lib.rs"
-    fi
-fi
 
 # Step 4: Self-test the remaining generation scripts. The model rewrites the
 # post-processing scripts used to do (union enums, Display and Default impls,
