@@ -7,7 +7,7 @@ OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.25.0}"
 # https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
 # <generator version>-og<openapi-generator version>. Override for local builds,
 # e.g. GENERATOR_IMAGE=timvw-rust:dev.
-TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.6.0}"
+TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.7.0}"
 GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:${TIMVW_RUST_VERSION}-og${OPENAPI_GENERATOR_VERSION}}"
 GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
@@ -193,15 +193,10 @@ fi
 # Re-run general code fixes to ensure Display/Default adjustments are present
 uv run python scripts/fix_generated_code.py
 
-# Step 10: Fix clippy warnings in generated code
+# Step 10: Self-test the remaining generation scripts
 echo ""
-echo "🔧 Boxing shared API response errors..."
+echo "🧪 Testing generation scripts..."
 uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"
-python3 "$SCRIPT_DIR/box_response_errors.py" "$PROJECT_ROOT"
-
-echo ""
-echo "🔧 Fixing clippy warnings..."
-uv run python scripts/fix_clippy_warnings.py
 
 # Resolve generator-only Rust names and helpers after every transformation.
 uv run python scripts/fix_generator_artifacts.py
@@ -257,5 +252,4 @@ echo "  - Fixed recursive types and compilation issues"
 echo "  - Fixed empty enums and acronym casing (MCP -> Mcp, etc.)"
 echo "  - Fixed untagged anyOf unions (content types, tool choice, etc.)"
 echo "  - Added bon::Builder derives to all structs"
-echo "  - Fixed clippy warnings with appropriate allow attributes"
 echo "  - Applied cargo fmt for consistent formatting"

@@ -7,33 +7,30 @@ uv run --with pyyaml python -m unittest discover -s scripts/tests -v
 ```
 
 `generate.sh` downloads OpenAI's current published specification and validates
-the raw and patched documents before running the generator. Missing `$ref`
-targets stop generation and must be corrected upstream. It runs these
-checks before applying the shared API response-error patch. Generated Rust is
-limited to `src/apis` and `src/models` during cleanup; integration tests under
-`tests` must survive regeneration. Run `cargo test --all-features` and
+it before running the generator. Missing `$ref` targets stop generation and
+must be corrected upstream. Generated Rust is limited to `src/apis` and
+`src/models` during cleanup; integration tests under `tests` must survive
+regeneration. Run `cargo test --all-features` and
 `cargo clippy --all-targets --all-features -- -D warnings` after generation.
 
 ## Response-error storage
 
-`box_response_errors.py` boxes the shared `Error<T>::ResponseError` payload and
-all generated API constructor expressions. The rule applies to every endpoint,
-regardless of schema names or sizes. It leaves response schemas, JSON decoding,
-status codes, raw bodies, and other error variants unchanged. Its transforms are
-idempotent and reject unsupported generator shapes before writing files.
+The shared `Error<T>::ResponseError` payload is boxed by the generator
+(`boxResponseError` in `generator-config.json`), in the enum and in every
+generated constructor expression. It leaves response schemas, JSON decoding,
+status codes, raw bodies, and other error variants unchanged.
 
 This fixes `clippy::result_large_err` when an endpoint's typed error response
-makes the shared error enum large. The regression test uses a 4 KiB payload to
-verify that error size stays constant as response schemas grow.
+makes the shared error enum large; `tests/response_errors.rs` checks that
+error size stays constant as response schemas grow.
 
-This changes the public variant from `ResponseError(ResponseContent<T>)` to
-`ResponseError(Box<ResponseContent<T>>)`. Code constructing the variant must use
-`Error::ResponseError(Box::new(response))` or `response.into()`. Field access in
-match arms that bind the payload continues to work through dereferencing. Nested
-struct patterns such as `Error::ResponseError(ResponseContent { status, .. })`
-must first bind the box and then destructure `*response`. Moving the entire
-response out also requires `*response`. Endpoint signatures and the `ResponseContent<T>`
-fields stay the same. Each HTTP error response now allocates one box.
+The public variant is `ResponseError(Box<ResponseContent<T>>)`. Code
+constructing the variant must use `Error::ResponseError(Box::new(response))` or
+`response.into()`. Field access in match arms that bind the payload works
+through dereferencing. Nested struct patterns such as
+`Error::ResponseError(ResponseContent { status, .. })` must first bind the box
+and then destructure `*response`. Moving the entire response out also requires
+`*response`. Each HTTP error response allocates one box.
 
 The Generate Client workflow defaults manual runs to validation only. Run it on
 a review branch without `publish` to exercise downloading, generation, build,
