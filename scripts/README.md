@@ -37,22 +37,13 @@ a review branch without `publish` to exercise downloading, generation, build,
 lint, tests, and formatting without updating the bot branch.
 Publishing is restricted to `main`, either on schedule or with `publish: true`.
 
-## Default implementation scope
+## Model rewrites
 
-The manual enum `Default` check in `fix_generated_code.py` inspects variants
-within the enum that owns the implementation. Generated modules can contain
-multiple enums: a non-defaultable payload in a neighboring enum must not remove
-a valid default from an unrelated unit enum. Fixtures cover different enum
-names, file creation orders, valid defaults, invalid defaults, and idempotence.
-
-## String enum identifiers
-
-`fix_untagged_unions.py` uses the shared variant-name sanitizer for string enum
-values as well as union variants. Dotted event names such as
-`session.output_transcript.delta` become `SessionOutputTranscriptDelta` in enum
-declarations, defaults, and `Display` match arms. Serde renames and `Display`
-results retain the exact upstream strings. Regression tests cover dotted values,
-existing variant names, and generation of helper enums inside untagged unions.
+Union enums, JSON `Display` impls, the `Default` analysis, helper impls and
+unused-import pruning are done by the generator (`legacyModelRewrites` in
+`generator-config.json`): Java ports of the scripts that used to run here,
+checked byte for byte against their output. They are transitional; the
+generator's Milestone 3 replaces them with model-level rules.
 
 ## Documentation build
 
