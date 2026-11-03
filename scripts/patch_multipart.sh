@@ -61,10 +61,9 @@ fi
 # 2) Add multipart_helper module to mod.rs if not already present
 MOD_FILE="$ROOT/src/apis/mod.rs"
 if ! grep -q "pub(crate) mod multipart_helper;" "$MOD_FILE"; then
-  # Add at the end, before the last blank line if present
-  echo "" >> "$MOD_FILE"
-  echo "// Internal helper module for multipart file handling" >> "$MOD_FILE"
-  echo "pub(crate) mod multipart_helper;" >> "$MOD_FILE"
+  # Right after the configuration module; the generator declares the webhook module after it.
+  perl -0pi -e 's{^pub mod configuration;\n}{pub mod configuration;\n\n// Internal helper module for multipart file handling\npub(crate) mod multipart_helper;\n\n}m' "$MOD_FILE"
+  grep -q "pub(crate) mod multipart_helper;" "$MOD_FILE" || { echo "[patch] mod.rs has no 'pub mod configuration;' line" >&2; exit 1; }
   echo "[patch] Added multipart_helper module to mod.rs"
 fi
 

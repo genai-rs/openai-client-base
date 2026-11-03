@@ -12,12 +12,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ListAuditLogsEffectiveAtParameter {
+    /// Return only events whose `effective_at` (Unix seconds) is greater than this value.
     #[serde(rename = "gt", skip_serializing_if = "Option::is_none")]
     pub gt: Option<i32>,
+    /// Return only events whose `effective_at` (Unix seconds) is greater than or equal to this value.
     #[serde(rename = "gte", skip_serializing_if = "Option::is_none")]
     pub gte: Option<i32>,
+    /// Return only events whose `effective_at` (Unix seconds) is less than this value.
     #[serde(rename = "lt", skip_serializing_if = "Option::is_none")]
     pub lt: Option<i32>,
+    /// Return only events whose `effective_at` (Unix seconds) is less than or equal to this value.
     #[serde(rename = "lte", skip_serializing_if = "Option::is_none")]
     pub lte: Option<i32>,
 }

@@ -350,3 +350,20 @@ Counts: {"model_exports_added": 8, "model_exports_removed": 22, "public_function
   `Option<Option<..>>`.
 - `Object0NN*` names are generator-assigned for untitled inline objects and
   were renumbered; match on the field that holds them rather than the name.
+
+## Also in 0.17.0: spec rules moved into the generator (milestone 2.3)
+
+The spec patch scripts (`route_webhook_apis.py`, `fix_model_fields.py`,
+`patch_spec_rust_compat.py`) became options of the `timvw-rust` generator
+(`scripts/generator-config.json`). Two of their accidents are not reproduced:
+
+- `CreateSkillVersionBody` gains the optional field `default: Option<bool>`
+  ("Whether to set this version as the default"), and
+  `skills_api::create_skill_version` gains the trailing parameter
+  `default: Option<bool>`. The old script removed every `default` key while
+  pruning default *values*, which also removed this *property* named
+  `default`. Positional callers add `None` (or the flag); builder callers are
+  unaffected.
+- `ListAuditLogsEffectiveAtParameter` fields carry their upstream doc comments
+  again; the old script rewrote that schema without descriptions. No type
+  change.

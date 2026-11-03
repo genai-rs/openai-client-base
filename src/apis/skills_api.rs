@@ -181,10 +181,12 @@ pub async fn create_skill_version(
     configuration: &configuration::Configuration,
     skill_id: &str,
     files: models::CreateSkillVersionBodyFiles,
+    default: Option<bool>,
 ) -> Result<models::SkillVersionResource, Error<CreateSkillVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
     let p_form_files = files;
+    let p_form_default = default;
 
     let uri_str = format!(
         "{}/skills/{skill_id}/versions",
@@ -203,6 +205,9 @@ pub async fn create_skill_version(
     };
     let mut multipart_form = reqwest::multipart::Form::new();
     multipart_form = multipart_form.text("files", p_form_files.to_string());
+    if let Some(param_value) = p_form_default {
+        multipart_form = multipart_form.text("default", param_value.to_string());
+    }
     req_builder = req_builder.multipart(multipart_form);
 
     let req = req_builder.build()?;

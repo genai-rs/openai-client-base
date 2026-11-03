@@ -7,7 +7,7 @@ OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.25.0}"
 # https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
 # <generator version>-og<openapi-generator version>. Override for local builds,
 # e.g. GENERATOR_IMAGE=timvw-rust:dev.
-TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.5.0}"
+TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.6.0}"
 GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:${TIMVW_RUST_VERSION}-og${OPENAPI_GENERATOR_VERSION}}"
 GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
@@ -23,14 +23,15 @@ export PYTHONDONTWRITEBYTECODE=1
 # Paths
 GEN_SPEC_DIR="$PROJECT_ROOT/target/specs"
 SPEC_IN="$PROJECT_ROOT/stainless.yaml"
-SPEC_MODEL_FIXED="$GEN_SPEC_DIR/l1_model_fixed.yaml"
-SPEC_WEBHOOK_ROUTED="$GEN_SPEC_DIR/l0_webhook_routed.yaml"
-SPEC_OUT="$GEN_SPEC_DIR/l2_rust_compatible.yaml"
-# JSON form of the final spec fed to the generator: the OpenAPI 3.1 $ref
-# dereferencer parses YAML through snakeyaml, which aborts once the document
-# exceeds 3145728 code points ("The incoming YAML document exceeds the limit").
-# The Stainless spec has grown past that; JSON parsing has no such limit.
-SPEC_OUT_JSON="$GEN_SPEC_DIR/l2_rust_compatible.json"
+# JSON form of the spec fed to the generator: the OpenAPI 3.1 $ref dereferencer
+# parses YAML through snakeyaml, which aborts once the document exceeds 3145728
+# code points ("The incoming YAML document exceeds the limit"). The Stainless
+# spec has grown past that; JSON parsing has no such limit.
+SPEC_IN_JSON="$GEN_SPEC_DIR/stainless.json"
+# The spec as the generator sees it after its spec rules (webhook routing, string
+# ids, union titles, ...; see scripts/generator-config.json). Written by the
+# generator (preprocessedSpecFile) for the union scripts that still read it.
+SPEC_OUT="$GEN_SPEC_DIR/l2_rust_compatible.json"
 OUT_DIR="$PROJECT_ROOT"
 
 # Ensure target directories exist
@@ -57,9 +58,11 @@ else
     bash "$SCRIPT_DIR/fetch_spec.sh"
 fi
 
-# Step 2: Apply patching pipeline
+# Step 2: Validate the spec and hand it to the generator as JSON. The spec
+# decisions (webhook module, string ids, free-form schemas, deepObject query
+# parameters) are options of the generator, in scripts/generator-config.json.
 echo ""
-echo "🔧 Applying spec patches..."
+echo "🔧 Preparing spec..."
 
 # Check if Docker is available for generator
 if ! command -v docker &> /dev/null; then
@@ -70,29 +73,12 @@ fi
 
 echo "Using uv for Python dependencies"
 
-# Route webhook operations into their own API module. The raw fetched spec stays
-# untouched; this is a generator-only metadata change to prevent default_api.rs
-# collisions between untagged path operations and webhooks.
-echo "  Routing webhook operations into a dedicated API module..."
-uv run --with pyyaml python "$SCRIPT_DIR/route_webhook_apis.py" "$SPEC_IN" "$SPEC_WEBHOOK_ROUTED"
-
-# Layer 1: Fix model field types (handle allOf inheritance)
-echo "  Layer 1: Fixing model field types..."
-uv run --with pyyaml python "$SCRIPT_DIR/fix_model_fields.py" "$SPEC_WEBHOOK_ROUTED" "$SPEC_MODEL_FIXED"
-
-# Layer 2: Apply Rust compatibility patches
-echo "  Layer 2: Applying Rust compatibility patches..."
-uv run --with pyyaml python "$SCRIPT_DIR/patch_spec_rust_compat.py" "$SPEC_MODEL_FIXED" "$SPEC_OUT"
-# Catch any references introduced or exposed by the compatibility patches.
 # Missing upstream schemas must be fixed upstream, never fabricated here.
-echo "  Validating patched OpenAPI spec..."
-uv run --with pyyaml python "$SCRIPT_DIR/validate_spec.py" "$SPEC_OUT"
+echo "  Validating OpenAPI spec..."
+uv run --with pyyaml python "$SCRIPT_DIR/validate_spec.py" "$SPEC_IN"
 
-# Convert the final spec to JSON for the generator (see SPEC_OUT_JSON note above):
-# snakeyaml's 3 MiB code-point limit aborts the OpenAPI 3.1 $ref dereferencer on
-# the (now larger) spec, so we feed JSON instead, which has no such limit.
-echo "  Converting final spec to JSON..."
-uv run --with pyyaml python -c "import sys, json, yaml; json.dump(yaml.safe_load(open(sys.argv[1])), open(sys.argv[2], 'w'), default=str)" "$SPEC_OUT" "$SPEC_OUT_JSON"
+echo "  Converting spec to JSON..."
+uv run --with pyyaml python -c "import sys, json, yaml; json.dump(yaml.safe_load(open(sys.argv[1])), open(sys.argv[2], 'w'), default=str)" "$SPEC_IN" "$SPEC_IN_JSON"
 
 # Step 3: Generate Rust client
 echo ""
@@ -118,19 +104,11 @@ docker run --rm \
     -u "$(id -u):$(id -g)" \
     -e JAVA_OPTS="-Dlog.level=${OPENAPI_GENERATOR_LOG_LEVEL}" \
     "$GENERATOR_IMAGE" generate \
-    -i "/local/target/specs/l2_rust_compatible.json" \
+    -i "/local/target/specs/stainless.json" \
     -g "$GENERATOR_NAME" \
     -o "/local" \
-    --skip-validate-spec \
-    --additional-properties=packageName=$PKG_NAME \
-    --additional-properties=packageVersion=0.1.0 \
-    --additional-properties=library=reqwest \
-    --additional-properties=supportAsync=true \
-    --additional-properties=supportMiddleware=true \
-    --additional-properties=preferUnsignedInt=false \
-    --additional-properties=useSingleRequestParameter=false \
-    --additional-properties=useChrono=false \
-    --additional-properties=titleNaming=false
+    -c "/local/scripts/generator-config.json" \
+    --skip-validate-spec
 
 echo ""
 echo "📝 Merging Cargo.toml dependency updates..."
@@ -203,7 +181,7 @@ uv run python scripts/fix_helper_impl_mismatches.py
 # This handles ModelIdsResponses, VoiceIdsShared, and all other simplified types
 echo ""
 echo "🔧 Fixing enum variants referencing simplified types..."
-uv run python scripts/fix_simplified_type_references.py
+uv run python scripts/fix_simplified_type_references.py "$SCRIPT_DIR/generator-config.json"
 
 # Step 9: Fix Default trait issues
 echo ""
@@ -219,8 +197,6 @@ uv run python scripts/fix_generated_code.py
 echo ""
 echo "🔧 Boxing shared API response errors..."
 uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"
-OPENAPI_GENERATOR_VERSION="$OPENAPI_GENERATOR_VERSION" \
-    uv run --with pyyaml python "$SCRIPT_DIR/tests/check_webhook_generator_collision.py"
 python3 "$SCRIPT_DIR/box_response_errors.py" "$PROJECT_ROOT"
 
 echo ""
@@ -236,9 +212,6 @@ uv run python scripts/fix_generated_code.py
 uv run --with pyyaml python "$SCRIPT_DIR/fix_multipart_serialization.py" \
     "$SPEC_IN" "$PROJECT_ROOT/src/apis" \
     --report "$PROJECT_ROOT/target/reports/multipart-serialization.json"
-
-# Restore the pre-routing public path for webhook operations.
-uv run python "$SCRIPT_DIR/preserve_webhook_api.py" "$PROJECT_ROOT/src/apis"
 
 # Re-apply the truncated-doc-link fix of patch_generated.rs.sh (#7): the union
 # rewrites above regenerate model files from the spec after that patch ran, and
@@ -277,7 +250,7 @@ cargo build
 echo ""
 echo "✅ Generation complete!"
 echo "   Generated code in: $OUT_DIR"
-echo "   Patched spec at: $SPEC_OUT"
+echo "   Preprocessed spec at: $SPEC_OUT"
 echo ""
 echo "Note: The following post-generation fixes were applied:"
 echo "  - Fixed recursive types and compilation issues"
