@@ -7,7 +7,7 @@ OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.25.0}"
 # https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
 # <generator version>-og<openapi-generator version>. Override for local builds,
 # e.g. GENERATOR_IMAGE=timvw-rust:dev.
-TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.8.0}"
+TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.9.0}"
 GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:${TIMVW_RUST_VERSION}-og${OPENAPI_GENERATOR_VERSION}}"
 GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
@@ -126,11 +126,6 @@ fi
 # Ensure no backups linger if the generator didn't touch the manifest
 rm -f "$OUT_DIR/Cargo.toml.original"
 
-# Step 4: Apply post-generation patches
-echo ""
-echo "🔨 Applying post-generation patches..."
-bash "$SCRIPT_DIR/patch_generated.rs.sh" "$PROJECT_ROOT"
-
 # Restore lib.rs if needed
 if [ -f "$OUT_DIR/lib.rs.backup" ]; then
     # Check if lib.rs was regenerated
@@ -141,71 +136,12 @@ if [ -f "$OUT_DIR/lib.rs.backup" ]; then
     fi
 fi
 
-# Step 5: Fix compilation issues in generated code
-echo ""
-echo "🔧 Fixing compilation issues..."
-uv run python scripts/fix_generated_code.py
-
-# Step 6: Fix empty enums that should have variants
-echo ""
-echo "🔧 Fixing empty enums..."
-uv run --with pyyaml python scripts/fix_empty_enums.py
-
-# Step 6b: Normalize enum derives and misplaced attributes
-echo ""
-echo "🔧 Normalizing enum derives/attributes..."
-uv run python scripts/fix_enum_attributes.py
-
-# Step 6d: Fix tool-related enums with conflicting tagged serialization
-# This must run BEFORE fix_untagged_unions.py to handle discriminated unions with field conflicts
-echo ""
-echo "🔧 Fixing tool-related enum tagging conflicts..."
-uv run python scripts/fix_tool_enum_tagging.py "$PROJECT_ROOT"
-
-# Step 7: Fix untagged anyOf unions that generate as empty structs
-echo ""
-echo "🔧 Fixing untagged unions..."
-uv run --with pyyaml python scripts/fix_untagged_unions.py "$PROJECT_ROOT" "$SPEC_OUT"
-
-# Remove helper impls that reference nonexistent variants after all enum fixes
-echo ""
-echo "🔧 Removing mismatched enum helper impls..."
-uv run python scripts/fix_helper_impl_mismatches.py
-
-# Fix enum variants that reference types simplified to strings (generic solution)
-# This handles ModelIdsResponses, VoiceIdsShared, and all other simplified types
-echo ""
-echo "🔧 Fixing enum variants referencing simplified types..."
-uv run python scripts/fix_simplified_type_references.py "$SCRIPT_DIR/generator-config.json"
-
-# Step 9: Fix Default trait issues
-echo ""
-echo "🔧 Fixing Default trait issues..."
-if [ -f "$SCRIPT_DIR/fix_default_issues.py" ]; then
-    uv run python scripts/fix_default_issues.py "$PROJECT_ROOT"
-fi
-
-# Re-run general code fixes to ensure Display/Default adjustments are present
-uv run python scripts/fix_generated_code.py
-
-# Step 10: Self-test the remaining generation scripts
+# Step 4: Self-test the remaining generation scripts. The model rewrites the
+# post-processing scripts used to do (union enums, Display and Default impls,
+# imports) run inside the generator (legacyModelRewrites).
 echo ""
 echo "🧪 Testing generation scripts..."
 uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"
-
-# Resolve generator-only Rust names and helpers after every transformation.
-uv run python scripts/fix_generator_artifacts.py
-uv run python scripts/fix_helper_impl_mismatches.py
-uv run python scripts/fix_generated_code.py
-
-# Re-apply the truncated-doc-link fix of patch_generated.rs.sh (#7): the union
-# rewrites above regenerate model files from the spec after that patch ran, and
-# rustdoc -D warnings rejects the unterminated "[text](https://..." it restores.
-find "$PROJECT_ROOT/src" -name '*.rs' -print0 | xargs -0 perl -pi -e 'if (m{^\s*//[/!]}) { s{(\]\(https?://[^)\s]*)$}{$1)} }'
-
-# Drop imports the generator emits but the file never uses (replaces the
-# crate-wide allow(unused_imports)).
-uv run python scripts/fix_unused_imports.py "$PROJECT_ROOT"
 
 # Fail closed if the generated APIs do not cover every raw upstream path
 # operation and webhook. This audit uses the fetched source before patches.
@@ -214,12 +150,12 @@ uv run --with pyyaml python "$SCRIPT_DIR/check_openapi_coverage.py" \
     --webhook-module open_ai_client_base_webhooks_api \
     --report "$PROJECT_ROOT/target/reports/openapi-coverage.json"
 
-# Step 11: Format the generated code
+# Step 5: Format the generated code
 echo ""
 echo "🎨 Formatting generated code..."
 cargo fmt --all
 
-# Step 12: Build the crate
+# Step 6: Build the crate
 echo ""
 echo "🔨 Building crate..."
 if [ "${FULL_CARGO_CLEAN:-0}" = "1" ]; then
@@ -236,10 +172,3 @@ echo ""
 echo "✅ Generation complete!"
 echo "   Generated code in: $OUT_DIR"
 echo "   Preprocessed spec at: $SPEC_OUT"
-echo ""
-echo "Note: The following post-generation fixes were applied:"
-echo "  - Fixed recursive types and compilation issues"
-echo "  - Fixed empty enums and acronym casing (MCP -> Mcp, etc.)"
-echo "  - Fixed untagged anyOf unions (content types, tool choice, etc.)"
-echo "  - Added bon::Builder derives to all structs"
-echo "  - Applied cargo fmt for consistent formatting"

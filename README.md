@@ -48,14 +48,7 @@ The client is generated from OpenAI's current published OpenAPI specification:
 
 2. **Generate Rust Code**: Run the [timvw-rust](https://github.com/timvw/openapi-generator-timvw-rust) generator (a Docker image bundling OpenAPI Generator) on the raw spec. The spec decisions this crate takes (webhook module, model and voice ids as `String`, free-form event unions, deepObject query parameters) are generator options in `scripts/generator-config.json`; the generator writes the spec as it saw it to `target/specs/l2_rust_compatible.json`.
 
-3. **Post-Generation Fixes**:
-   - Fix module paths and add bon builder support (`patch_generated.rs.sh`)
-   - Fix invalid enum variant names (e.g., Gpt4.1 -> Gpt4_1)
-   - Add Display implementations for multipart types
-   - Fix empty enums with proper variants from spec
-   - Handle untagged unions (automatically detected from anyOf/oneOf)
-   - Manage Default trait based on field types
-   - Apply clippy fixes and format code
+3. **Format and audit**: `cargo fmt`, then an audit that every upstream path operation and webhook has a generated function (`check_openapi_coverage.py`).
 
 The pipeline automatically detects and fixes issues rather than hardcoding solutions, making it robust against API changes.
 
