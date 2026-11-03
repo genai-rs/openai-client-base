@@ -1,113 +1,70 @@
 # OpenAI Client Generation Pipeline
 
-This document describes the automated generation pipeline for the OpenAI Rust client.
+`scripts/generate.sh` regenerates the crate from OpenAI's published OpenAPI
+specification. The Rust code comes from the
+[`timvw-rust`](https://github.com/timvw/openapi-generator-timvw-rust) generator;
+no script edits the generated code afterwards.
 
-## Overview
+## Steps
 
-The pipeline fetches OpenAI's current published OpenAPI specification and generates a Rust client with the required Rust compatibility fixes.
+1. **Fetch** (`fetch_spec.sh`): downloads the current spec from
+   [OpenAI's published repository](https://github.com/openai/openai-openapi/blob/main/openapi.yaml)
+   into `stainless.yaml`. HTTP errors, malformed documents and unresolved local
+   references are rejected before the checked-in copy is replaced. Set
+   `SKIP_SPEC_FETCH=1` to regenerate from the checked-in copy.
+2. **Validate** (`validate_spec.py`) and convert the spec to JSON. Missing
+   upstream schemas stop the run; they are fixed upstream, never added here.
+3. **Generate** with the `timvw-rust` image
+   (`ghcr.io/timvw/openapi-generator-timvw-rust:<TIMVW_RUST_VERSION>-og<OPENAPI_GENERATOR_VERSION>`).
+   Every decision the crate takes about the spec and its rendering is a
+   generator option in `scripts/generator-config.json`: webhook module, string
+   ids, free-form schemas, deep-object query parameters, multipart handling,
+   error boxing, lint allows, boxing only on cycles (`boxOnlyCycles`) and the
+   transitional `legacyModelRewrites`. The generator writes the spec after its
+   spec rules to `target/specs/l2_rust_compatible.json`. Hand-maintained files
+   (`Cargo.toml`, `README.md`, `src/lib.rs`, ...) are listed in
+   `.openapi-generator-ignore` and left alone.
+4. **Check**: the remaining script tests (`scripts/tests`), and
+   `check_openapi_coverage.py`, which fails when the generated APIs miss an
+   upstream operation or webhook.
+5. **Format** with `cargo fmt` and **build** with `cargo build`.
 
-## Pipeline Steps
+After generation, run `cargo clippy --all-targets --all-features -- -D warnings`
+and `cargo test --all-features`.
 
-### 1. Fetch Specification (`fetch_spec.sh`)
-- Downloads the latest OpenAPI spec from [OpenAI's published repository](https://github.com/openai/openai-openapi/blob/main/openapi.yaml)
-- Rejects HTTP errors, malformed documents, and unresolved local references before replacing the checked-in copy
-- Saves as `stainless.yaml`
+## Public API changes
 
-The former Stainless documented-spec endpoint returned HTTP 404 on 2026-09-24.
-OpenAI's published repository is generated from its upstream source, and this
-pipeline reads its moving `main` branch without a local schema backfill or pinned snapshot.
+Pull requests that touch the pipeline compare the crate's public API with their
+base commit (`check_public_api.sh`). A change fails the check unless the pull
+request carries the `api-change` label; breaking changes get a note under
+`migration/`.
 
-### 2. Apply Spec Patches (Layer 1 & 2)
-- **Layer 1: Model Field Fixes** (`fix_model_fields.py`)
-  - Fixes allOf inheritance issues
-  - Flattens model field definitions
-  
-- **Layer 2: Rust Compatibility** (`patch_spec_rust_compat.py`)
-  - Simplifies union types
-  - Fixes multipart form handling
-  - Renames fields that conflict with Rust keywords
-- Validates the patched spec again before generating code; missing upstream schemas stop the run
-
-### 3. Generate Rust Code
-- Uses OpenAPI Generator via Docker
-- Generates client with reqwest library
-
-### 4. Apply Post-Generation Patches (`patch_generated.rs.sh`)
-- Fixes module paths
-- Adds bon builder support
-- Fixes content types
-
-### 5. Fix Compilation Issues (`fix_generated_code.py`)
-- Fixes invalid enum variant names (e.g., Gpt4.1 → Gpt4_1)
-- Adds Display implementations for multipart types
-- Removes Default from empty enums
-- Handles recursive type issues
-
-### 6. Fix Empty Enums (`fix_empty_enums.py`)
-- Populates empty enums with proper variants from spec
-
-### 7. Fix Untagged Unions (`fix_untagged_unions.py`)
-- Automatically detects untagged unions from spec
-- Adds #[serde(untagged)] attribute
-- Creates proper enum variants
-
-### 8. Fix Nullable Fields (`fix_boxed_nullable_fields.py`, `fix_constructor_signatures.py`, `fix_option_box_constructor_mismatches.py`)
-- Converts Box<T> to Option<Box<T>> for nullable fields
-- Updates constructor signatures to match
-- Normalizes constructors for Option<Box<T>> fields even when spec lacks `nullable`
-
-### 9. Fix Default Trait Issues (`fix_default_issues.py`)
-- Removes Default derive from structs with non-Default fields
-
-### 10. Fix Clippy Warnings (`fix_clippy_warnings.py`)
-- Addresses common clippy lints
-- Normalizes conflicting generated Rust names and removes stale enum helpers
-
-### 11. Format Code
-- Runs cargo fmt for consistent formatting
-
-### 12. Build
-- Performs final compilation check
-
-## Key Fixes Applied
-
-### Automatic Detection
-- Untagged unions are detected from anyOf/oneOf without discriminators
-- Nullable fields are identified and properly wrapped in Option
-- Empty enums are populated from spec
-
-### Rust-Specific Issues
-- Enum variant names sanitized (no dots allowed)
-- Display trait added where needed for multipart forms
-- Default trait managed based on field types
-- Module paths corrected
-
-## Running the Pipeline
+## Running the pipeline
 
 ```bash
-# Full generation from scratch
+# Full generation, fetching the current spec
 ./scripts/generate.sh
 
-# Control OpenAPI Generator verbosity (error|warn|info|debug|trace)
+# Regenerate from the checked-in stainless.yaml
+SKIP_SPEC_FETCH=1 ./scripts/generate.sh
+
+# Use a locally built generator image
+GENERATOR_IMAGE=timvw-rust:dev ./scripts/generate.sh
+
+# openapi-generator verbosity (error|warn|info|debug|trace)
 OPENAPI_GENERATOR_LOG_LEVEL=error ./scripts/generate.sh
 
-# Build strategy (default = light clean of build-script outputs only)
-# Default: fast, safe rebuild without full clean
-./scripts/generate.sh
-
-# Force full clean if you hit odd build issues
+# Full cargo clean instead of the default light clean of build-script outputs
 FULL_CARGO_CLEAN=1 ./scripts/generate.sh
 ```
 
-## Adding New Fixes
+## Changing the generated code
 
-1. For spec-level fixes: Add to `patch_spec_rust_compat.py`
-2. For post-generation fixes: Add to `fix_generated_code.py`
-3. For new fix scripts: Add to `generate.sh` pipeline
+Change the generator, not the output: add or adjust a rule or option in
+`timvw-rust`, release it, and bump `TIMVW_RUST_VERSION` in `generate.sh`.
 
 ## Dependencies
 
-- Docker (for OpenAPI Generator)
-- uv (for Python dependencies)
+- Docker (runs the generator image)
+- uv (Python for the spec checks)
 - Rust toolchain
-- ripgrep (rg)
