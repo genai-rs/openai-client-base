@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.18.0](https://github.com/genai-rs/openai-client-base/compare/v0.17.0...v0.18.0) - 2026-11-03
+
+### Added
+
+- [**breaking**] box model references only where a type contains itself
+
 ## [0.17.0](https://github.com/genai-rs/openai-client-base/compare/v0.16.1...v0.17.0) - 2026-11-03
 
 ### Added
