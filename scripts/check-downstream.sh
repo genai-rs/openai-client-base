@@ -1,17 +1,28 @@
 #!/usr/bin/env bash
-# Check a pinned Git-source consumer without changing either repository. Usage:
+# Check the crates.io consumer's default branch against this checkout without
+# changing either repository. Usage:
 #   scripts/check-downstream.sh [candidate-directory] [base-main-commit]
-# Results survive checkout cleanup in DOWNSTREAM_RESULTS_DIR.
+# DOWNSTREAM_COMMIT overrides the consumer commit (default: the consumer's
+# default branch, resolved to a full SHA at run time). Results survive checkout
+# cleanup in DOWNSTREAM_RESULTS_DIR.
 set -euo pipefail
 
 candidate=$(cd "${1:-$(dirname "$0")/..}" && pwd -P)
 baseline_sha=$(git -C "$candidate" rev-parse "${2:-origin/main}^{commit}")
 candidate_sha=$(git -C "$candidate" rev-parse HEAD)
 consumer_repository=${DOWNSTREAM_REPOSITORY:-https://github.com/genai-rs/openai-ergonomic.git}
-# OA08 integration: wrapper 0.7 pins base 0.16 at an immutable Git revision.
-consumer_sha=${DOWNSTREAM_COMMIT:-8ac6a6fe007eeb92754f64ecff40d63b505d6c50}
+if [[ -n "${DOWNSTREAM_COMMIT:-}" ]]; then
+    consumer_sha=$DOWNSTREAM_COMMIT
+    consumer_ref='DOWNSTREAM_COMMIT override'
+else
+    # The wrapper depends on the crates.io release line, so its default branch
+    # is the compatibility target. Resolve it once so both variants agree.
+    remote_head=$(git ls-remote --symref "$consumer_repository" HEAD)
+    consumer_ref=$(awk '$1 == "ref:" && $3 == "HEAD" { print $2 }' <<< "$remote_head")
+    consumer_sha=$(awk '$2 == "HEAD" && $1 != "ref:" { print $1 }' <<< "$remote_head")
+fi
 if [[ ! "$consumer_sha" =~ ^[0-9a-f]{40}$ ]]; then
-    echo "DOWNSTREAM_COMMIT must be a full commit SHA" >&2
+    echo "Consumer commit must be a full commit SHA (DOWNSTREAM_COMMIT or the resolved default branch), got: ${consumer_sha:-<empty>}" >&2
     exit 1
 fi
 results=${DOWNSTREAM_RESULTS_DIR:-${RUNNER_TEMP:-${TMPDIR:-/tmp}}/downstream-results}
@@ -20,7 +31,9 @@ results=$(cd "$results" && pwd -P)
 scratch=$(mktemp -d "${RUNNER_TEMP:-${TMPDIR:-/tmp}}/downstream.XXXXXX")
 candidate_result=NOT_RUN
 baseline_result=NOT_RUN
-consumer_base_rev=UNKNOWN
+consumer_requirement=UNKNOWN
+candidate_version=UNKNOWN
+baseline_version=UNKNOWN
 candidate_diff=$(git -C "$candidate" diff --binary HEAD | shasum -a 256 | cut -d ' ' -f 1)
 
 # Hash the complete checkout state, not just Git's status text. Porcelain does
@@ -99,8 +112,11 @@ finish() {
     {
         echo '## Downstream compatibility'
         echo
-        echo "- Consumer commit: \`$consumer_sha\`"
-        echo "- Consumer base Git revision: \`$consumer_base_rev\`"
+        echo "- Consumer repository: \`$consumer_repository\`"
+        echo "- Consumer commit: \`$consumer_sha\` ($consumer_ref)"
+        echo "- Consumer openai-client-base requirement: \`$consumer_requirement\`"
+        echo "- Candidate openai-client-base version: \`$candidate_version\`"
+        echo "- Base-main openai-client-base version: \`$baseline_version\`"
         echo "- Candidate source commit: \`$candidate_sha\` (working tree, including generated changes)"
         echo "- Candidate tracked diff SHA-256: \`$candidate_diff\`"
         echo "- Base-main commit: \`$baseline_sha\`"
@@ -110,7 +126,7 @@ finish() {
         echo "| Candidate | $candidate_result |"
         echo "| Base main (diagnostic only) | $baseline_result |"
         echo
-        echo "Candidate failure blocks. Base-main failure is diagnostic. Candidate source-state guard: $source_guard. Exit status: $status."
+        echo "Candidate failure blocks. Base-main failure is diagnostic. SKIP means the version does not satisfy the consumer requirement (a breaking release the consumer has not adopted yet), so nothing was built. Candidate source-state guard: $source_guard. Exit status: $status."
         echo 'Full command output is in candidate.log and baseline.log.'
     } > "$results/summary.md"
     cat "$results/summary.md"
@@ -134,22 +150,88 @@ git init -q "$scratch/consumer"
 git -C "$scratch/consumer" fetch --depth=1 "$consumer_repository" "$consumer_sha"
 git -C "$scratch/consumer" checkout -q --detach FETCH_HEAD
 test "$(git -C "$scratch/consumer" rev-parse HEAD)" = "$consumer_sha"
-consumer_base_rev=$(python3 - "$scratch/consumer/Cargo.toml" <<'PYREV'
+# The helper validates the consumer's crates.io dependency and applies Cargo's
+# version-requirement rules (pre-release tags are compared on the core version).
+cat > "$scratch/requirement.py" <<'PYREQUIREMENT'
 import re
 import sys
 import tomllib
-with open(sys.argv[1], 'rb') as manifest_file:
-    manifest = tomllib.load(manifest_file)
-dependency = manifest.get('dependencies', {}).get('openai-client-base')
-if not isinstance(dependency, dict):
-    sys.exit('ERROR: pinned consumer must declare openai-client-base as a Git dependency')
-source = dependency.get('git')
-revision = dependency.get('rev')
-if source != 'https://github.com/genai-rs/openai-client-base' or not isinstance(revision, str) or not re.fullmatch(r'[0-9a-f]{40}', revision):
-    sys.exit('ERROR: consumer base dependency must use the canonical Git URL and a full immutable revision')
-print(revision)
-PYREV
-)
+
+def load(path):
+    with open(path, 'rb') as manifest_file:
+        return tomllib.load(manifest_file)
+
+def requirement(path):
+    dependency = load(path).get('dependencies', {}).get('openai-client-base')
+    if isinstance(dependency, str):
+        return dependency
+    if not isinstance(dependency, dict) or not isinstance(dependency.get('version'), str):
+        sys.exit('ERROR: consumer must declare openai-client-base with a version requirement')
+    other = sorted({'git', 'path', 'registry', 'package', 'workspace'} & dependency.keys())
+    if other:
+        sys.exit('ERROR: consumer openai-client-base dependency is not a crates.io dependency: ' + ', '.join(other))
+    return dependency['version']
+
+def version(path):
+    package = load(path).get('package', {})
+    if package.get('name') != 'openai-client-base' or not isinstance(package.get('version'), str):
+        sys.exit('ERROR: ' + path + ' is not an openai-client-base manifest')
+    return package['version']
+
+def core(text):
+    match = re.fullmatch(r'(\d+)\.(\d+)\.(\d+)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?', text)
+    if not match:
+        sys.exit('ERROR: invalid version ' + repr(text))
+    return tuple(int(part) for part in match.groups())
+
+def matches(current, comparator):
+    if comparator == '*':
+        return True
+    match = re.fullmatch(r'(\^|~|=|>=|>|<=|<)?\s*(\d+)(?:\.(\d+|\*))?(?:\.(\d+|\*))?(?:-[0-9A-Za-z.-]+)?', comparator)
+    if not match:
+        sys.exit('ERROR: unsupported version requirement ' + repr(comparator))
+    op, major, minor, patch = match.groups()
+    major = int(major)
+    minor = None if minor in (None, '*') else int(minor)
+    patch = None if minor is None or patch in (None, '*') else int(patch)
+    lower = (major, minor or 0, patch or 0)
+    # The first version above a partial requirement: 1 -> 2.0.0, 1.2 -> 1.3.0.
+    after = (major + 1, 0, 0) if minor is None else (major, minor + 1, 0) if patch is None else (major, minor, patch + 1)
+    if op in (None, '^'):
+        if major > 0 or minor is None:
+            upper = (major + 1, 0, 0)
+        elif minor > 0 or patch is None:
+            upper = (0, minor + 1, 0)
+        else:
+            upper = (0, 0, patch + 1)
+        return lower <= current < upper
+    if op == '~':
+        return lower <= current < ((major + 1, 0, 0) if minor is None else (major, minor + 1, 0))
+    if op == '=':
+        return lower <= current < after
+    if op == '>=':
+        return current >= lower
+    if op == '>':
+        return current >= after
+    if op == '<':
+        return current < lower
+    return current < after
+
+command, *arguments = sys.argv[1:]
+if command == 'requirement':
+    print(requirement(arguments[0]))
+elif command == 'version':
+    print(version(arguments[0]))
+elif command == 'satisfies':
+    current = core(arguments[0])
+    # Exit 3 means a valid version outside the requirement; other failures are errors.
+    sys.exit(0 if all(matches(current, part.strip()) for part in arguments[1].split(',')) else 3)
+else:
+    sys.exit('ERROR: unknown command ' + command)
+PYREQUIREMENT
+consumer_requirement=$(python3 "$scratch/requirement.py" requirement "$scratch/consumer/Cargo.toml")
+candidate_version=$(python3 "$scratch/requirement.py" version "$candidate/Cargo.toml")
+baseline_version=$(python3 "$scratch/requirement.py" version "$scratch/base-main/Cargo.toml")
 for variant in candidate baseline; do
     git -C "$scratch/consumer" archive HEAD | tar -x -C "$scratch/$variant-consumer"
 done
@@ -160,29 +242,12 @@ check_consumer() (
     consumer="$scratch/$label-consumer"
     config="$scratch/$label.toml"
     cd "$consumer" || return
-    # Derive the exact Git source from the pinned consumer manifest. Cargo
-    # resolves in this temporary copy; no consumer lockfile is committed.
-    python3 - "$consumer/Cargo.toml" "$base/Cargo.toml" > "$config" <<'PYCONFIG' || return
-import json
-import sys
-import tomllib
-with open(sys.argv[1], 'rb') as manifest_file:
-    consumer = tomllib.load(manifest_file)
-with open(sys.argv[2], 'rb') as base_file:
-    base = tomllib.load(base_file)
-dependency = consumer.get('dependencies', {}).get('openai-client-base')
-if not isinstance(dependency, dict) or dependency.get('git') != 'https://github.com/genai-rs/openai-client-base':
-    sys.exit('ERROR: consumer does not declare the expected Git dependency')
-if not isinstance(dependency.get('rev'), str) or not __import__('re').fullmatch(r'[0-9a-f]{40}', dependency['rev']):
-    sys.exit('ERROR: consumer Git dependency must use a full immutable revision')
-if base.get('package', {}).get('name') != 'openai-client-base':
-    sys.exit('ERROR: candidate path is not openai-client-base')
-if base.get('package', {}).get('version') != '0.16.0':
-    sys.exit('ERROR: expected accepted openai-client-base 0.16.0 source')
-print('[patch.' + json.dumps(dependency['git']) + ']')
-from pathlib import Path
-print('openai-client-base = { path = ' + json.dumps(str(Path(sys.argv[2]).resolve().parent)) + ' }')
-PYCONFIG
+    # Replace the crates.io release with the local manifest. Cargo resolves
+    # in this temporary copy; the consumer's own lockfile is never written back.
+    {
+        echo '[patch.crates-io]'
+        python3 -c 'import json, sys; print("openai-client-base = { path = " + json.dumps(sys.argv[1]) + " }")' "$base"
+    } > "$config" || return
     echo '+ cargo metadata --format-version 1 --all-features'
     cargo --config "$config" metadata --format-version 1 --all-features > "$scratch/$label.json" || return
     # Inspect Cargo's actual resolved graph. A source assertion or matching
@@ -204,40 +269,55 @@ if len(packages) != 1 or Path(packages[0]['manifest_path']).resolve() != expecte
 root = metadata['resolve']['root']
 root_package = next((p for p in metadata['packages'] if p['id'] == root), None)
 if root_package is None or root_package['name'] != 'openai-ergonomic':
-    sys.exit('ERROR: resolved workspace root is not the pinned openai-ergonomic package')
+    sys.exit('ERROR: resolved workspace root is not the openai-ergonomic package')
 root_node = next((n for n in metadata['resolve']['nodes'] if n['id'] == root), None)
 base_id = packages[0]['id']
 if root_node is None or not any(d['name'] == 'openai_client_base' and d['pkg'] == base_id for d in root_node['deps']):
     sys.exit('ERROR: Cargo dependency graph does not link the wrapper directly to the candidate manifest')
-if base['package']['version'] != consumer['dependencies']['openai-client-base']['version'].lstrip('='):
-    sys.exit('ERROR: patched manifest version does not equal the consumer pin')
+if packages[0]['version'] != base['package']['version']:
+    sys.exit('ERROR: resolved openai-client-base version does not equal the candidate manifest')
 print('Verified Cargo edge: openai-ergonomic ->', expected)
 PYMETADATA
     echo '+ cargo check --locked --all-targets --all-features'
     cargo --config "$config" check --locked --all-targets --all-features || return
     echo '+ cargo test --offline --locked --all-features'
     # Metadata fetched/resolved dependencies. Tests now run offline with the
-    # same verified temporary lockfile and local Git-source patch.
+    # same verified temporary lockfile and local crates.io patch.
     cargo --config "$config" test --offline --locked --all-features || return
 )
 
-if check_consumer candidate "$candidate" > "$results/candidate.log" 2>&1; then
-    candidate_result=PASS
-else
-    candidate_result=FAIL
-fi
-cat "$results/candidate.log"
+# A version outside the consumer requirement is a breaking release the consumer
+# has not adopted yet. Cargo would ignore the patch, so report SKIP instead.
+run_variant() {
+    local label=$1 base=$2 version=$3
+    local satisfies=0
+    python3 "$scratch/requirement.py" satisfies "$version" "$consumer_requirement" || satisfies=$?
+    if [[ "$satisfies" == 3 ]]; then
+        echo "SKIP: openai-client-base $version does not satisfy the consumer requirement $consumer_requirement" \
+            > "$results/$label.log"
+        cat "$results/$label.log" >&2
+        echo SKIP
+    elif [[ "$satisfies" != 0 ]]; then
+        echo FAIL
+    elif check_consumer "$label" "$base" > "$results/$label.log" 2>&1; then
+        cat "$results/$label.log" >&2
+        echo PASS
+    else
+        cat "$results/$label.log" >&2
+        echo FAIL
+    fi
+}
+
+candidate_result=$(run_variant candidate "$candidate" "$candidate_version")
 # Always run base main too, including after candidate failure, for attribution.
-if check_consumer baseline "$scratch/base-main" > "$results/baseline.log" 2>&1; then
-    baseline_result=PASS
-else
-    baseline_result=FAIL
-fi
-cat "$results/baseline.log"
-if [[ "$candidate_result" != PASS ]]; then
+baseline_result=$(run_variant baseline "$scratch/base-main" "$baseline_version")
+if [[ "$candidate_result" == FAIL ]]; then
     echo '::error::Downstream candidate compatibility failed; inspect candidate.log and baseline.log.' >&2
     exit 1
 fi
-if [[ "$baseline_result" != PASS ]]; then
-    echo '::warning::Base-main consumer check failed; candidate passed. See baseline.log.' >&2
+if [[ "$candidate_result" == SKIP ]]; then
+    echo "::notice::Downstream check skipped: openai-client-base $candidate_version does not satisfy the consumer requirement $consumer_requirement." >&2
+fi
+if [[ "$baseline_result" == FAIL ]]; then
+    echo '::warning::Base-main consumer check failed; the candidate did not fail. See baseline.log.' >&2
 fi
