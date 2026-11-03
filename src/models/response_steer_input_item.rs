@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ResponseSteerInputItem {
-    UserMessageItemParam(Box<models::UserMessageItemParam>),
-    FunctionCallOutputItemParam(Box<models::FunctionCallOutputItemParam>),
+    UserMessageItemParam(models::UserMessageItemParam),
+    FunctionCallOutputItemParam(models::FunctionCallOutputItemParam),
 }
 
 /// The message role. Always `user`.

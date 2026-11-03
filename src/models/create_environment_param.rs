@@ -19,16 +19,16 @@ pub struct CreateEnvironmentParam {
     pub r#type: Type,
     /// Packages to install in the environment. Defaults to empty package lists.
     #[serde(rename = "packages", skip_serializing_if = "Option::is_none")]
-    pub packages: Option<Box<models::EnvironmentPackagesParam>>,
+    pub packages: Option<models::EnvironmentPackagesParam>,
     /// Ordered, confidential setup commands. Command bodies are never returned.
     #[serde(rename = "setup_commands", skip_serializing_if = "Option::is_none")]
     pub setup_commands: Option<Vec<models::SetupCommandParam>>,
     /// Network access policy for the environment. If omitted, the API version determines whether network access is enabled or disabled.
     #[serde(rename = "network", skip_serializing_if = "Option::is_none")]
-    pub network: Option<Box<models::NetworkPolicyParam>>,
+    pub network: Option<models::NetworkPolicyParam>,
     /// Desktop provisioning. Omission or null inherits the template setting, or defaults to disabled.
     #[serde(rename = "desktop", skip_serializing_if = "Option::is_none")]
-    pub desktop: Option<Box<models::DesktopParam>>,
+    pub desktop: Option<models::DesktopParam>,
     /// Environment variables made available to the agent.
     #[serde(rename = "env", skip_serializing_if = "Option::is_none")]
     pub env: Option<std::collections::HashMap<String, String>>,

@@ -14,11 +14,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateEvalRequestTestingCriteriaInner {
-    CreateEvalLabelModelGrader(Box<models::CreateEvalLabelModelGrader>),
-    EvalGraderStringCheck(Box<models::EvalGraderStringCheck>),
-    EvalGraderTextSimilarity(Box<models::EvalGraderTextSimilarity>),
-    EvalGraderPython(Box<models::EvalGraderPython>),
-    EvalGraderScoreModel(Box<models::EvalGraderScoreModel>),
+    CreateEvalLabelModelGrader(models::CreateEvalLabelModelGrader),
+    EvalGraderStringCheck(models::EvalGraderStringCheck),
+    EvalGraderTextSimilarity(models::EvalGraderTextSimilarity),
+    EvalGraderPython(models::EvalGraderPython),
+    EvalGraderScoreModel(models::EvalGraderScoreModel),
 }
 
 impl Default for CreateEvalRequestTestingCriteriaInner {

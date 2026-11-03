@@ -18,7 +18,7 @@ use serde::{Deserialize, Serialize};
 pub enum TracingConfiguration1 {
     /// Enables tracing and sets default values for tracing configuration options. Always `auto`.
     Auto(String),
-    TracingConfiguration(Box<models::TracingConfiguration>),
+    TracingConfiguration(models::TracingConfiguration),
 }
 
 impl Default for TracingConfiguration1 {

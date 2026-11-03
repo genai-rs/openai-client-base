@@ -18,7 +18,7 @@ pub struct ChatCompletionAllowedToolsChoice {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "allowed_tools")]
-    pub allowed_tools: Box<models::ChatCompletionAllowedTools>,
+    pub allowed_tools: models::ChatCompletionAllowedTools,
 }
 
 impl ChatCompletionAllowedToolsChoice {
@@ -29,7 +29,7 @@ impl ChatCompletionAllowedToolsChoice {
     ) -> ChatCompletionAllowedToolsChoice {
         ChatCompletionAllowedToolsChoice {
             r#type,
-            allowed_tools: Box::new(allowed_tools),
+            allowed_tools,
         }
     }
 }

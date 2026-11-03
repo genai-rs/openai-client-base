@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InferenceOptions {
     #[serde(rename = "tool_choice", deserialize_with = "Option::deserialize")]
-    pub tool_choice: Option<Box<models::ToolChoice>>,
+    pub tool_choice: Option<models::ToolChoice>,
     /// ID of the model to use
     #[serde(rename = "model")]
     pub model: String,
@@ -24,10 +24,7 @@ pub struct InferenceOptions {
 impl InferenceOptions {
     /// Model and tool overrides applied when generating the assistant response.
     pub fn new(tool_choice: Option<models::ToolChoice>, model: String) -> InferenceOptions {
-        InferenceOptions {
-            tool_choice: tool_choice.map(Box::new),
-            model,
-        }
+        InferenceOptions { tool_choice, model }
     }
 }
 

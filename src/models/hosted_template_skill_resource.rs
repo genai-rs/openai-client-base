@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum HostedTemplateSkillResource {
-    SkillReference(Box<models::HostedTemplateSkillResourceSkillReference>),
-    Inline(Box<models::HostedTemplateSkillResourceInline>),
+    SkillReference(models::HostedTemplateSkillResourceSkillReference),
+    Inline(models::HostedTemplateSkillResourceInline),
 }
 
 impl Default for HostedTemplateSkillResource {

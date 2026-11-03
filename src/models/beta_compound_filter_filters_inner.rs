@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaCompoundFilterFiltersInner {
-    BetaComparisonFilter(Box<models::BetaComparisonFilter>),
-    BetaCompoundFilter(Box<models::BetaCompoundFilter>),
+    BetaComparisonFilter(models::BetaComparisonFilter),
+    BetaCompoundFilter(models::BetaCompoundFilter),
 }
 
 impl Default for BetaCompoundFilterFiltersInner {

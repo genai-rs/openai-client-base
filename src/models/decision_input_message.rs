@@ -17,7 +17,7 @@ pub struct DecisionInputMessage {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
-    pub content: Box<models::DecisionInputContent>,
+    pub content: models::DecisionInputContent,
     /// The phase of an assistant message.
     #[serde(
         rename = "phase",
@@ -35,7 +35,7 @@ impl DecisionInputMessage {
     pub fn new(role: Role, content: models::DecisionInputContent) -> DecisionInputMessage {
         DecisionInputMessage {
             role,
-            content: Box::new(content),
+            content,
             phase: None,
             r#type: None,
         }

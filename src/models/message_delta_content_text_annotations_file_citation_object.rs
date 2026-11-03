@@ -25,7 +25,7 @@ pub struct MessageDeltaContentTextAnnotationsFileCitationObject {
     pub text: Option<String>,
     #[serde(rename = "file_citation", skip_serializing_if = "Option::is_none")]
     pub file_citation:
-        Option<Box<models::MessageDeltaContentTextAnnotationsFileCitationObjectFileCitation>>,
+        Option<models::MessageDeltaContentTextAnnotationsFileCitationObjectFileCitation>,
     #[serde(rename = "start_index", skip_serializing_if = "Option::is_none")]
     pub start_index: Option<i32>,
     #[serde(rename = "end_index", skip_serializing_if = "Option::is_none")]

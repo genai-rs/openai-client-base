@@ -26,7 +26,7 @@ pub struct LiveForkSessionStartEvent {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "session")]
-    pub session: Box<models::LiveForkSessionConfigParam>,
+    pub session: models::LiveForkSessionConfigParam,
 }
 
 impl LiveForkSessionStartEvent {
@@ -38,7 +38,7 @@ impl LiveForkSessionStartEvent {
         LiveForkSessionStartEvent {
             event_id: None,
             r#type,
-            session: Box::new(session),
+            session,
         }
     }
 }

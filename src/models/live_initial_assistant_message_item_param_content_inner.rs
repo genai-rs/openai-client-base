@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LiveInitialAssistantMessageItemParamContentInner {
-    LiveInitialTextContentPartParam(Box<models::LiveInitialTextContentPartParam>),
-    LiveInitialOutputTextContentPartParam(Box<models::LiveInitialOutputTextContentPartParam>),
+    LiveInitialTextContentPartParam(models::LiveInitialTextContentPartParam),
+    LiveInitialOutputTextContentPartParam(models::LiveInitialOutputTextContentPartParam),
 }
 
 impl Default for LiveInitialAssistantMessageItemParamContentInner {

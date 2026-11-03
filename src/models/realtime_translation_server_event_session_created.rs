@@ -21,7 +21,7 @@ pub struct RealtimeTranslationServerEventSessionCreated {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "session")]
-    pub session: Box<models::RealtimeTranslationSession>,
+    pub session: models::RealtimeTranslationSession,
 }
 
 impl RealtimeTranslationServerEventSessionCreated {
@@ -34,7 +34,7 @@ impl RealtimeTranslationServerEventSessionCreated {
         RealtimeTranslationServerEventSessionCreated {
             event_id,
             r#type,
-            session: Box::new(session),
+            session,
         }
     }
 }

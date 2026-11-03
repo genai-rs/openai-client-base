@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateContainerBodyNetworkPolicy {
-    ContainerNetworkPolicyDisabledParam(Box<models::ContainerNetworkPolicyDisabledParam>),
-    ContainerNetworkPolicyAllowlistParam(Box<models::ContainerNetworkPolicyAllowlistParam>),
+    ContainerNetworkPolicyDisabledParam(models::ContainerNetworkPolicyDisabledParam),
+    ContainerNetworkPolicyAllowlistParam(models::ContainerNetworkPolicyAllowlistParam),
 }
 
 impl Default for CreateContainerBodyNetworkPolicy {

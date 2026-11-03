@@ -39,7 +39,7 @@ pub struct EvalRun {
     #[serde(rename = "report_url")]
     pub report_url: String,
     #[serde(rename = "result_counts")]
-    pub result_counts: Box<models::EvalRunResultCounts>,
+    pub result_counts: models::EvalRunResultCounts,
     /// Usage statistics for each model during the evaluation run.
     #[serde(rename = "per_model_usage", deserialize_with = "Option::deserialize")]
     pub per_model_usage: Option<Vec<models::EvalRunPerModelUsageInner>>,
@@ -50,12 +50,12 @@ pub struct EvalRun {
     )]
     pub per_testing_criteria_results: Option<Vec<models::EvalRunPerTestingCriteriaResultsInner>>,
     #[serde(rename = "data_source")]
-    pub data_source: Box<models::EvalRunDataSource>,
+    pub data_source: models::EvalRunDataSource,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
-    pub error: Option<Box<models::EvalApiError>>,
+    pub error: Option<models::EvalApiError>,
 }
 
 impl EvalRun {
@@ -85,12 +85,12 @@ impl EvalRun {
             name,
             created_at,
             report_url,
-            result_counts: Box::new(result_counts),
+            result_counts,
             per_model_usage,
             per_testing_criteria_results,
-            data_source: Box::new(data_source),
+            data_source,
             metadata,
-            error: error.map(Box::new),
+            error,
         }
     }
 }

@@ -21,7 +21,7 @@ pub struct CustomToolProperties {
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
-    pub format: Option<Box<models::CustomToolPropertiesFormat>>,
+    pub format: Option<models::CustomToolPropertiesFormat>,
 }
 
 impl CustomToolProperties {

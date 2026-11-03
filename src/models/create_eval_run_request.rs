@@ -25,7 +25,7 @@ pub struct CreateEvalRunRequest {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     #[serde(rename = "data_source")]
-    pub data_source: Box<models::CreateEvalRunRequestDataSource>,
+    pub data_source: models::CreateEvalRunRequestDataSource,
 }
 
 impl CreateEvalRunRequest {
@@ -33,7 +33,7 @@ impl CreateEvalRunRequest {
         CreateEvalRunRequest {
             name: None,
             metadata: None,
-            data_source: Box::new(data_source),
+            data_source,
         }
     }
 }

@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaInputContent {
-    BetaInputTextContent(Box<models::BetaInputTextContent>),
-    BetaInputImageContent(Box<models::BetaInputImageContent>),
-    BetaInputFileContent(Box<models::BetaInputFileContent>),
+    BetaInputTextContent(models::BetaInputTextContent),
+    BetaInputImageContent(models::BetaInputImageContent),
+    BetaInputFileContent(models::BetaInputFileContent),
 }
 
 impl Default for BetaInputContent {

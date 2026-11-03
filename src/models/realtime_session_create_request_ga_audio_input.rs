@@ -14,18 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateRequestGaAudioInput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
-    pub format: Option<Box<models::RealtimeAudioFormats>>,
+    pub format: Option<models::RealtimeAudioFormats>,
     #[serde(rename = "transcription", skip_serializing_if = "Option::is_none")]
-    pub transcription: Option<Box<models::AudioTranscription>>,
+    pub transcription: Option<models::AudioTranscription>,
     #[serde(rename = "noise_reduction", skip_serializing_if = "Option::is_none")]
-    pub noise_reduction: Option<Box<models::RealtimeSessionInputAudioNoiseReduction>>,
+    pub noise_reduction: Option<models::RealtimeSessionInputAudioNoiseReduction>,
     #[serde(
         rename = "turn_detection",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub turn_detection: Option<Option<Box<models::RealtimeTurnDetection>>>,
+    pub turn_detection: Option<Option<models::RealtimeTurnDetection>>,
 }
 
 impl RealtimeSessionCreateRequestGaAudioInput {

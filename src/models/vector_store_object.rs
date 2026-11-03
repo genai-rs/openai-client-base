@@ -30,12 +30,12 @@ pub struct VectorStoreObject {
     #[serde(rename = "usage_bytes")]
     pub usage_bytes: i32,
     #[serde(rename = "file_counts")]
-    pub file_counts: Box<models::VectorStoreObjectFileCounts>,
+    pub file_counts: models::VectorStoreObjectFileCounts,
     /// The status of the vector store, which can be either `expired`, `in_progress`, or `completed`. A status of `completed` indicates that the vector store is ready for use.
     #[serde(rename = "status")]
     pub status: Status,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
-    pub expires_after: Option<Box<models::VectorStoreExpirationAfter>>,
+    pub expires_after: Option<models::VectorStoreExpirationAfter>,
     /// The Unix timestamp (in seconds) for when the vector store will expire.
     #[serde(
         rename = "expires_at",
@@ -71,7 +71,7 @@ impl VectorStoreObject {
             created_at,
             name,
             usage_bytes,
-            file_counts: Box::new(file_counts),
+            file_counts,
             status,
             expires_after: None,
             expires_at: None,

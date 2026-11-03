@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDeltaObjectDelta {
     #[serde(rename = "step_details", skip_serializing_if = "Option::is_none")]
-    pub step_details: Option<Box<models::RunStepDeltaObjectDeltaStepDetails>>,
+    pub step_details: Option<models::RunStepDeltaObjectDeltaStepDetails>,
 }
 
 impl RunStepDeltaObjectDelta {

@@ -35,7 +35,7 @@ pub struct UserMessageItem {
     #[serde(rename = "attachments")]
     pub attachments: Vec<models::Attachment>,
     #[serde(rename = "inference_options", deserialize_with = "Option::deserialize")]
-    pub inference_options: Option<Box<models::InferenceOptions>>,
+    pub inference_options: Option<models::InferenceOptions>,
 }
 
 impl UserMessageItem {
@@ -58,7 +58,7 @@ impl UserMessageItem {
             r#type,
             content,
             attachments,
-            inference_options: inference_options.map(Box::new),
+            inference_options,
         }
     }
 }

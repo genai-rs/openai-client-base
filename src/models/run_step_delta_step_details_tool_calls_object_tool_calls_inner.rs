@@ -14,14 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RunStepDeltaStepDetailsToolCallsObjectToolCallsInner {
-    RunStepDeltaStepDetailsToolCallsCodeObject(
-        Box<models::RunStepDeltaStepDetailsToolCallsCodeObject>,
-    ),
+    RunStepDeltaStepDetailsToolCallsCodeObject(models::RunStepDeltaStepDetailsToolCallsCodeObject),
     RunStepDeltaStepDetailsToolCallsFileSearchObject(
-        Box<models::RunStepDeltaStepDetailsToolCallsFileSearchObject>,
+        models::RunStepDeltaStepDetailsToolCallsFileSearchObject,
     ),
     RunStepDeltaStepDetailsToolCallsFunctionObject(
-        Box<models::RunStepDeltaStepDetailsToolCallsFunctionObject>,
+        models::RunStepDeltaStepDetailsToolCallsFunctionObject,
     ),
 }
 

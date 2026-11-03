@@ -18,7 +18,7 @@ pub struct UpdateSessionAgentParam {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
-    pub reasoning: Option<Box<models::UpdateSessionReasoningParam>>,
+    pub reasoning: Option<models::UpdateSessionReasoningParam>,
     /// Omit to keep the current tier. Null resets it to auto.
     #[serde(
         rename = "service_tier",

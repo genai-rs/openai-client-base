@@ -24,9 +24,9 @@ pub struct LiveSessionUsageUpdated {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "usage")]
-    pub usage: Box<models::LiveSessionUsage>,
+    pub usage: models::LiveSessionUsage,
     #[serde(rename = "context_window", skip_serializing_if = "Option::is_none")]
-    pub context_window: Option<Box<models::LiveContextWindowUsage>>,
+    pub context_window: Option<models::LiveContextWindowUsage>,
 }
 
 impl LiveSessionUsageUpdated {
@@ -40,7 +40,7 @@ impl LiveSessionUsageUpdated {
             event_id,
             client_event_id: None,
             r#type,
-            usage: Box::new(usage),
+            usage,
             context_window: None,
         }
     }

@@ -21,7 +21,7 @@ pub struct ResponseSteerFailedEventSteer {
     #[serde(rename = "previous_response_id")]
     pub previous_response_id: String,
     #[serde(rename = "input")]
-    pub input: Box<models::ResponseSteerInput>,
+    pub input: models::ResponseSteerInput,
 }
 
 impl ResponseSteerFailedEventSteer {
@@ -33,7 +33,7 @@ impl ResponseSteerFailedEventSteer {
         ResponseSteerFailedEventSteer {
             id: None,
             previous_response_id,
-            input: Box::new(input),
+            input,
         }
     }
 }

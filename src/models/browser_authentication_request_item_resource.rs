@@ -19,7 +19,7 @@ pub struct BrowserAuthenticationRequestItemResource {
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "request")]
-    pub request: Box<models::BrowserAuthenticationHistoryRequestKindResourceBrowserAuthentication>,
+    pub request: models::BrowserAuthenticationHistoryRequestKindResourceBrowserAuthentication,
     /// The stable history item ID.
     #[serde(rename = "id")]
     pub id: String,
@@ -40,7 +40,7 @@ impl BrowserAuthenticationRequestItemResource {
         BrowserAuthenticationRequestItemResource {
             turn_id,
             request_id,
-            request: Box::new(request),
+            request,
             id,
             r#type,
         }

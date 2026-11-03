@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionShellCall {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the item. Always `shell_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -31,13 +31,13 @@ pub struct BetaFunctionShellCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::BetaToolCallCaller>>>,
+    pub caller: Option<Option<models::BetaToolCallCaller>>,
     #[serde(rename = "action")]
-    pub action: Box<models::BetaFunctionShellAction>,
+    pub action: models::BetaFunctionShellAction,
     #[serde(rename = "status")]
     pub status: models::BetaFunctionShellCallStatus,
     #[serde(rename = "environment", deserialize_with = "Option::deserialize")]
-    pub environment: Option<Box<models::BetaFunctionShellCallEnvironment>>,
+    pub environment: Option<models::BetaFunctionShellCallEnvironment>,
     /// The ID of the entity that created this tool call.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -59,9 +59,9 @@ impl BetaFunctionShellCall {
             id,
             call_id,
             caller: None,
-            action: Box::new(action),
+            action,
             status,
-            environment: environment.map(Box::new),
+            environment,
             created_by: None,
         }
     }

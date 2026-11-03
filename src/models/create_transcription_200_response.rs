@@ -23,7 +23,7 @@ pub struct CreateTranscription200Response {
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
     pub logprobs: Option<Vec<models::CreateTranscriptionResponseJsonLogprobsInner>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<Box<models::TranscriptTextUsageDuration>>,
+    pub usage: Option<models::TranscriptTextUsageDuration>,
     /// The type of task that was run. Always `transcribe`.
     #[serde(rename = "task")]
     pub task: Task,

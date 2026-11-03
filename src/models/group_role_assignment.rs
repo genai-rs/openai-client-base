@@ -18,9 +18,9 @@ pub struct GroupRoleAssignment {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "group")]
-    pub group: Box<models::Group>,
+    pub group: models::Group,
     #[serde(rename = "role")]
-    pub role: Box<models::Role>,
+    pub role: models::Role,
 }
 
 impl GroupRoleAssignment {
@@ -28,8 +28,8 @@ impl GroupRoleAssignment {
     pub fn new(object: Object, group: models::Group, role: models::Role) -> GroupRoleAssignment {
         GroupRoleAssignment {
             object,
-            group: Box::new(group),
-            role: Box::new(role),
+            group,
+            role,
         }
     }
 }

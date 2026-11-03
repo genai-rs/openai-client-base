@@ -17,7 +17,7 @@ pub struct RunStepDetailsToolCallsCodeOutputImageObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "image")]
-    pub image: Box<models::RunStepDetailsToolCallsCodeOutputImageObjectImage>,
+    pub image: models::RunStepDetailsToolCallsCodeOutputImageObjectImage,
 }
 
 impl RunStepDetailsToolCallsCodeOutputImageObject {
@@ -25,10 +25,7 @@ impl RunStepDetailsToolCallsCodeOutputImageObject {
         r#type: Type,
         image: models::RunStepDetailsToolCallsCodeOutputImageObjectImage,
     ) -> RunStepDetailsToolCallsCodeOutputImageObject {
-        RunStepDetailsToolCallsCodeOutputImageObject {
-            r#type,
-            image: Box::new(image),
-        }
+        RunStepDetailsToolCallsCodeOutputImageObject { r#type, image }
     }
 }
 /// Always `image`.

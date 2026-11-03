@@ -29,14 +29,14 @@ pub struct WebSearchTool {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub filters: Option<Option<Box<models::Object026>>>,
+    pub filters: Option<Option<models::Object026>>,
     #[serde(
         rename = "user_location",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub user_location: Option<Option<Box<models::WebSearchApproximateLocation>>>,
+    pub user_location: Option<Option<models::WebSearchApproximateLocation>>,
     /// High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
     #[serde(
         rename = "search_context_size",

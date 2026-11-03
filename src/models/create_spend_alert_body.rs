@@ -24,7 +24,7 @@ pub struct CreateSpendAlertBody {
     #[serde(rename = "interval")]
     pub interval: Interval,
     #[serde(rename = "notification_channel")]
-    pub notification_channel: Box<models::SpendAlertNotificationChannel>,
+    pub notification_channel: models::SpendAlertNotificationChannel,
 }
 
 impl CreateSpendAlertBody {
@@ -39,7 +39,7 @@ impl CreateSpendAlertBody {
             threshold_amount,
             currency,
             interval,
-            notification_channel: Box::new(notification_channel),
+            notification_channel,
         }
     }
 }

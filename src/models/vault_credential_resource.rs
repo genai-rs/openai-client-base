@@ -27,7 +27,7 @@ pub struct VaultCredentialResource {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "auth")]
-    pub auth: Box<models::VaultCredentialAuthResource>,
+    pub auth: models::VaultCredentialAuthResource,
     /// Application-defined key-value pairs associated with this credential.
     #[serde(rename = "metadata")]
     pub metadata: std::collections::HashMap<String, String>,
@@ -56,7 +56,7 @@ impl VaultCredentialResource {
             object,
             vault_id,
             name,
-            auth: Box::new(auth),
+            auth,
             metadata,
             created_at,
             updated_at,

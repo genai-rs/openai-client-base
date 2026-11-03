@@ -23,7 +23,7 @@ pub struct WebSearchToolCall {
     #[serde(rename = "status")]
     pub status: models::WebSearchCallStatus,
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
-    pub action: Option<Box<models::WebSearchToolCallAction>>,
+    pub action: Option<models::WebSearchToolCallAction>,
 }
 
 impl WebSearchToolCall {

@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AnswerResource {
-    Predicate(Box<models::AnswerResourcePredicate>),
-    Choice(Box<models::AnswerResourceChoice>),
-    Score(Box<models::AnswerResourceScore>),
-    Refusal(Box<models::AnswerResourceRefusal>),
+    Predicate(models::AnswerResourcePredicate),
+    Choice(models::AnswerResourceChoice),
+    Score(models::AnswerResourceScore),
+    Refusal(models::AnswerResourceRefusal),
 }
 
 impl Default for AnswerResource {

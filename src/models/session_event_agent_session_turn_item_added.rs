@@ -30,7 +30,7 @@ pub struct SessionEventAgentSessionTurnItemAdded {
     #[serde(rename = "output_index", deserialize_with = "Option::deserialize")]
     pub output_index: Option<i64>,
     #[serde(rename = "item")]
-    pub item: Box<models::SessionTurnItemResource>,
+    pub item: models::SessionTurnItemResource,
 }
 
 impl SessionEventAgentSessionTurnItemAdded {
@@ -49,7 +49,7 @@ impl SessionEventAgentSessionTurnItemAdded {
             session_id,
             turn_id,
             output_index,
-            item: Box::new(item),
+            item,
         }
     }
 }

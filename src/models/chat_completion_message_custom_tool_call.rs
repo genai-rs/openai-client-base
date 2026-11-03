@@ -21,7 +21,7 @@ pub struct ChatCompletionMessageCustomToolCall {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "custom")]
-    pub custom: Box<models::ChatCompletionMessageCustomToolCallCustom>,
+    pub custom: models::ChatCompletionMessageCustomToolCallCustom,
 }
 
 impl ChatCompletionMessageCustomToolCall {
@@ -31,11 +31,7 @@ impl ChatCompletionMessageCustomToolCall {
         r#type: Type,
         custom: models::ChatCompletionMessageCustomToolCallCustom,
     ) -> ChatCompletionMessageCustomToolCall {
-        ChatCompletionMessageCustomToolCall {
-            id,
-            r#type,
-            custom: Box::new(custom),
-        }
+        ChatCompletionMessageCustomToolCall { id, r#type, custom }
     }
 }
 /// The type of the tool. Always `custom`.

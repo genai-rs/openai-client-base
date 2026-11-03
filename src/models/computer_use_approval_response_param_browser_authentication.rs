@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "action")]
 pub enum ComputerUseApprovalResponseParamBrowserAuthentication {
     #[serde(rename = "submit")]
-    SubmitParam(Box<models::ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam>),
+    SubmitParam(models::ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam),
     #[serde(rename = "cancel")]
-    CancelParam(Box<models::ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam>),
+    CancelParam(models::ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam),
 }
 
 ///

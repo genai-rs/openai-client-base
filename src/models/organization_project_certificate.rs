@@ -27,7 +27,7 @@ pub struct OrganizationProjectCertificate {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "certificate_details")]
-    pub certificate_details: Box<models::OrganizationCertificateCertificateDetails>,
+    pub certificate_details: models::OrganizationCertificateCertificateDetails,
     /// Whether the certificate is currently active at the project level.
     #[serde(rename = "active")]
     pub active: bool,
@@ -48,7 +48,7 @@ impl OrganizationProjectCertificate {
             id,
             name,
             created_at,
-            certificate_details: Box::new(certificate_details),
+            certificate_details,
             active,
         }
     }

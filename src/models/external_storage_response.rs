@@ -20,7 +20,7 @@ pub struct ExternalStorageResponse {
     #[serde(rename = "project_id")]
     pub project_id: String,
     #[serde(rename = "provider")]
-    pub provider: Box<models::ExternalStorageResponseProvider>,
+    pub provider: models::ExternalStorageResponseProvider,
     #[serde(rename = "geography")]
     pub geography: String,
     #[serde(rename = "status")]
@@ -43,7 +43,7 @@ impl ExternalStorageResponse {
             object,
             id,
             project_id,
-            provider: Box::new(provider),
+            provider,
             geography,
             status,
             created_at,

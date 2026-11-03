@@ -29,7 +29,7 @@ pub struct FunctionToolCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCaller>>>,
+    pub caller: Option<Option<models::ToolCallCaller>>,
     /// The namespace of the function to run.
     #[serde(rename = "namespace", skip_serializing_if = "Option::is_none")]
     pub namespace: Option<String>,

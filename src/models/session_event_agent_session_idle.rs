@@ -21,7 +21,7 @@ pub struct SessionEventAgentSessionIdle {
     #[serde(rename = "event_id")]
     pub event_id: String,
     #[serde(rename = "session")]
-    pub session: Box<models::SessionResource>,
+    pub session: models::SessionResource,
 }
 
 impl SessionEventAgentSessionIdle {
@@ -34,7 +34,7 @@ impl SessionEventAgentSessionIdle {
         SessionEventAgentSessionIdle {
             r#type,
             event_id,
-            session: Box::new(session),
+            session,
         }
     }
 }

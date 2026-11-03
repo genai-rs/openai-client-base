@@ -21,7 +21,7 @@ pub struct RealtimeBetaClientEventTranscriptionSessionUpdate {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "session")]
-    pub session: Box<models::RealtimeTranscriptionSessionCreateRequest>,
+    pub session: models::RealtimeTranscriptionSessionCreateRequest,
 }
 
 impl RealtimeBetaClientEventTranscriptionSessionUpdate {
@@ -33,7 +33,7 @@ impl RealtimeBetaClientEventTranscriptionSessionUpdate {
         RealtimeBetaClientEventTranscriptionSessionUpdate {
             event_id: None,
             r#type,
-            session: Box::new(session),
+            session,
         }
     }
 }

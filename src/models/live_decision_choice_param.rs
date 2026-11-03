@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionChoiceParam {
     #[serde(rename = "value")]
-    pub value: Box<models::LiveDecisionChoiceParamValue>,
+    pub value: models::LiveDecisionChoiceParamValue,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
@@ -22,7 +22,7 @@ pub struct LiveDecisionChoiceParam {
 impl LiveDecisionChoiceParam {
     pub fn new(value: models::LiveDecisionChoiceParamValue) -> LiveDecisionChoiceParam {
         LiveDecisionChoiceParam {
-            value: Box::new(value),
+            value,
             description: None,
         }
     }

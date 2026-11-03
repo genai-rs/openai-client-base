@@ -18,16 +18,13 @@ pub struct SpeechAudioDoneEvent {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "usage")]
-    pub usage: Box<models::SpeechAudioDoneEventUsage>,
+    pub usage: models::SpeechAudioDoneEventUsage,
 }
 
 impl SpeechAudioDoneEvent {
     /// Emitted when the speech synthesis is complete and all audio has been streamed.
     pub fn new(r#type: Type, usage: models::SpeechAudioDoneEventUsage) -> SpeechAudioDoneEvent {
-        SpeechAudioDoneEvent {
-            r#type,
-            usage: Box::new(usage),
-        }
+        SpeechAudioDoneEvent { r#type, usage }
     }
 }
 /// The type of the event. Always `speech.audio.done`.

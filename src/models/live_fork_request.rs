@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveForkRequest {
     #[serde(rename = "session", skip_serializing_if = "Option::is_none")]
-    pub session: Option<Box<models::LiveMediaSessionForkParams>>,
+    pub session: Option<models::LiveMediaSessionForkParams>,
     #[serde(rename = "transport")]
-    pub transport: Box<models::LiveWebRtcTransport>,
+    pub transport: models::LiveWebRtcTransport,
 }
 
 impl LiveForkRequest {
@@ -25,7 +25,7 @@ impl LiveForkRequest {
     pub fn new(transport: models::LiveWebRtcTransport) -> LiveForkRequest {
         LiveForkRequest {
             session: None,
-            transport: Box::new(transport),
+            transport,
         }
     }
 }

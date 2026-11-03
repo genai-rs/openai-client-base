@@ -37,7 +37,7 @@ pub struct LiveHostedShellContainerAutoParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub network_policy: Option<Option<Box<models::LiveHostedShellContainerAutoParamNetworkPolicy>>>,
+    pub network_policy: Option<Option<models::LiveHostedShellContainerAutoParamNetworkPolicy>>,
     /// An optional list of skills referenced by id or inline data.
     #[serde(
         rename = "skills",

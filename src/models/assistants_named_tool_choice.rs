@@ -18,7 +18,7 @@ pub struct AssistantsNamedToolChoice {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "function", skip_serializing_if = "Option::is_none")]
-    pub function: Option<Box<models::AssistantsNamedToolChoiceFunction>>,
+    pub function: Option<models::AssistantsNamedToolChoiceFunction>,
 }
 
 impl AssistantsNamedToolChoice {

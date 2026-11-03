@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TextResource {
     #[serde(rename = "format")]
-    pub format: Box<models::TextFormatResource>,
+    pub format: models::TextFormatResource,
     #[serde(rename = "verbosity")]
     pub verbosity: models::VerbosityResource,
 }
@@ -26,10 +26,7 @@ impl TextResource {
         format: models::TextFormatResource,
         verbosity: models::VerbosityResource,
     ) -> TextResource {
-        TextResource {
-            format: Box::new(format),
-            verbosity,
-        }
+        TextResource { format, verbosity }
     }
 }
 

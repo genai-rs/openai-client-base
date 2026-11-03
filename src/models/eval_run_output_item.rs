@@ -42,7 +42,7 @@ pub struct EvalRunOutputItem {
     #[serde(rename = "results")]
     pub results: Vec<models::EvalRunOutputItemResult>,
     #[serde(rename = "sample")]
-    pub sample: Box<models::EvalRunOutputItemSample>,
+    pub sample: models::EvalRunOutputItemSample,
 }
 
 impl EvalRunOutputItem {
@@ -69,7 +69,7 @@ impl EvalRunOutputItem {
             datasource_item_id,
             datasource_item,
             results,
-            sample: Box::new(sample),
+            sample,
         }
     }
 }

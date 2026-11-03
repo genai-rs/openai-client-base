@@ -18,7 +18,7 @@ pub struct WebhookLiveCallIncomingData {
     #[serde(rename = "session_id")]
     pub session_id: String,
     #[serde(rename = "sip_media_security", skip_serializing_if = "Option::is_none")]
-    pub sip_media_security: Option<Box<models::WebhookLiveCallIncomingDataSipMediaSecurity>>,
+    pub sip_media_security: Option<models::WebhookLiveCallIncomingDataSipMediaSecurity>,
     /// Headers from the SIP INVITE, excluding SIP authorization headers. Retained names, values, repeated entries, and order are preserved. Treat these values as untrusted call metadata.
     #[serde(rename = "sip_headers")]
     pub sip_headers: Vec<models::WebhookLiveCallIncomingDataSipHeadersInner>,

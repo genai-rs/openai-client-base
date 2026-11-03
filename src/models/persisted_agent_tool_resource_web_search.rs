@@ -26,7 +26,7 @@ pub struct PersistedAgentToolResourceWebSearch {
     pub allowed_domains: Option<Vec<String>>,
     /// Approximate location used to localize search results, if provided.
     #[serde(rename = "location", deserialize_with = "Option::deserialize")]
-    pub location: Option<Box<models::WebSearchLocationResource>>,
+    pub location: Option<models::WebSearchLocationResource>,
 }
 
 impl PersistedAgentToolResourceWebSearch {
@@ -43,7 +43,7 @@ impl PersistedAgentToolResourceWebSearch {
             mode,
             context_size,
             allowed_domains,
-            location: location.map(Box::new),
+            location,
         }
     }
 }

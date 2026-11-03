@@ -18,7 +18,7 @@ pub struct EvalItem {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
-    pub content: Box<models::EvalItemContent>,
+    pub content: models::EvalItemContent,
     /// The type of the message input. Always `message`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
@@ -29,7 +29,7 @@ impl EvalItem {
     pub fn new(role: Role, content: models::EvalItemContent) -> EvalItem {
         EvalItem {
             role,
-            content: Box::new(content),
+            content,
             r#type: None,
         }
     }

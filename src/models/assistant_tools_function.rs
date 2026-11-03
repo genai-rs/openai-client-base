@@ -17,15 +17,12 @@ pub struct AssistantToolsFunction {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "function")]
-    pub function: Box<models::FunctionObject>,
+    pub function: models::FunctionObject,
 }
 
 impl AssistantToolsFunction {
     pub fn new(r#type: Type, function: models::FunctionObject) -> AssistantToolsFunction {
-        AssistantToolsFunction {
-            r#type,
-            function: Box::new(function),
-        }
+        AssistantToolsFunction { r#type, function }
     }
 }
 /// The type of tool being defined: `function`

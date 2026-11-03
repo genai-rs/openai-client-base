@@ -26,7 +26,7 @@ pub struct LiveResponseItemCreateParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "item")]
-    pub item: Box<models::InputItem>,
+    pub item: models::InputItem,
 }
 
 impl LiveResponseItemCreateParam {
@@ -35,7 +35,7 @@ impl LiveResponseItemCreateParam {
         LiveResponseItemCreateParam {
             event_id: None,
             r#type,
-            item: Box::new(item),
+            item,
         }
     }
 }

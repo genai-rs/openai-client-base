@@ -26,7 +26,7 @@ pub struct BetaCompactResource {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "usage")]
-    pub usage: Box<models::BetaResponseUsage>,
+    pub usage: models::BetaResponseUsage,
 }
 
 impl BetaCompactResource {
@@ -42,7 +42,7 @@ impl BetaCompactResource {
             object,
             output,
             created_at,
-            usage: Box::new(usage),
+            usage,
         }
     }
 }

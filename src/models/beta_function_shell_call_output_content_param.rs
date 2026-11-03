@@ -21,7 +21,7 @@ pub struct BetaFunctionShellCallOutputContentParam {
     #[serde(rename = "stderr")]
     pub stderr: String,
     #[serde(rename = "outcome")]
-    pub outcome: Box<models::BetaFunctionShellCallOutputOutcomeParam>,
+    pub outcome: models::BetaFunctionShellCallOutputOutcomeParam,
 }
 
 impl BetaFunctionShellCallOutputContentParam {
@@ -34,7 +34,7 @@ impl BetaFunctionShellCallOutputContentParam {
         BetaFunctionShellCallOutputContentParam {
             stdout,
             stderr,
-            outcome: Box::new(outcome),
+            outcome,
         }
     }
 }

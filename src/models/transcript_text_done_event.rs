@@ -27,7 +27,7 @@ pub struct TranscriptTextDoneEvent {
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
     pub logprobs: Option<Vec<models::TranscriptTextDeltaEventLogprobsInner>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<Box<models::TranscriptTextUsageTokens>>,
+    pub usage: Option<models::TranscriptTextUsageTokens>,
 }
 
 impl TranscriptTextDoneEvent {

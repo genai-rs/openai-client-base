@@ -14,14 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaErrorResponse {
     #[serde(rename = "error")]
-    pub error: Box<models::BetaError>,
+    pub error: models::BetaError,
 }
 
 impl BetaErrorResponse {
     pub fn new(error: models::BetaError) -> BetaErrorResponse {
-        BetaErrorResponse {
-            error: Box::new(error),
-        }
+        BetaErrorResponse { error }
     }
 }
 

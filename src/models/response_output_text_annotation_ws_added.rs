@@ -34,7 +34,7 @@ pub struct ResponseOutputTextAnnotationWsAdded {
     pub sequence_number: i32,
     /// The annotation object being added. (See annotation schema for details.)
     #[serde(rename = "annotation")]
-    pub annotation: Box<models::Annotation>,
+    pub annotation: models::Annotation,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -58,7 +58,7 @@ impl ResponseOutputTextAnnotationWsAdded {
             content_index,
             annotation_index,
             sequence_number,
-            annotation: Box::new(annotation),
+            annotation,
             stream_id: None,
         }
     }

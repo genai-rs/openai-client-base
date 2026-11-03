@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionCreateParams {
     #[serde(rename = "model")]
-    pub model: Box<models::ModelIdsLive>,
+    pub model: models::ModelIdsLive,
     /// Frontend instructions for voice, conversation, interruptions, and when to delegate. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting); put business rules and tool workflows in a separate [backend prompt](https://developers.openai.com/api/docs/guides/live-delegation#start-with-your-existing-backend-prompt). Limited to 16,384 client-supplied tokens. Omitted or blank instructions use server defaults. Immutable after startup.
     #[serde(
         rename = "instructions",
@@ -28,14 +28,14 @@ pub struct LiveSessionCreateParams {
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
     pub input: Option<Vec<models::LiveInitialItem>>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::LiveInitialSessionAudioParam>>,
+    pub audio: Option<models::LiveInitialSessionAudioParam>,
     #[serde(
         rename = "delegation",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub delegation: Option<Option<Box<models::LiveSessionCreateParamsDelegation>>>,
+    pub delegation: Option<Option<models::LiveSessionCreateParamsDelegation>>,
     /// At most one Decisions trigger per transcript event type. Triggers run independently of delegation. On update, omit triggers to keep the current configuration, send a list to replace it, or send an empty list to disable triggers.
     #[serde(rename = "triggers", skip_serializing_if = "Option::is_none")]
     pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam2>>,
@@ -43,14 +43,14 @@ pub struct LiveSessionCreateParams {
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
     pub store: Option<bool>,
     #[serde(rename = "client", skip_serializing_if = "Option::is_none")]
-    pub client: Option<Box<models::LiveClientConfigParam>>,
+    pub client: Option<models::LiveClientConfigParam>,
 }
 
 impl LiveSessionCreateParams {
     /// Initial configuration for a Live session, including its model, conversation instructions, audio, and delegated task handling.
     pub fn new(model: models::ModelIdsLive) -> LiveSessionCreateParams {
         LiveSessionCreateParams {
-            model: Box::new(model),
+            model,
             instructions: None,
             input: None,
             audio: None,

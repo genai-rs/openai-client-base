@@ -18,7 +18,7 @@ pub struct MessageContentImageFileObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "image_file")]
-    pub image_file: Box<models::MessageContentImageFileObjectImageFile>,
+    pub image_file: models::MessageContentImageFileObjectImageFile,
 }
 
 impl MessageContentImageFileObject {
@@ -27,10 +27,7 @@ impl MessageContentImageFileObject {
         r#type: Type,
         image_file: models::MessageContentImageFileObjectImageFile,
     ) -> MessageContentImageFileObject {
-        MessageContentImageFileObject {
-            r#type,
-            image_file: Box::new(image_file),
-        }
+        MessageContentImageFileObject { r#type, image_file }
     }
 }
 /// Always `image_file`.

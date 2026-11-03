@@ -18,7 +18,7 @@ pub struct AuditLogUserAdded {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
-    pub data: Option<Box<models::AuditLogUserAddedData>>,
+    pub data: Option<models::AuditLogUserAddedData>,
 }
 
 impl AuditLogUserAdded {

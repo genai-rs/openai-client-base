@@ -24,11 +24,11 @@ pub struct LiveSessionClosed {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "reason")]
-    pub reason: Box<models::LiveSessionClosedReason>,
+    pub reason: models::LiveSessionClosedReason,
     #[serde(rename = "session")]
-    pub session: Box<models::LiveSessionResourceParam>,
+    pub session: models::LiveSessionResourceParam,
     #[serde(rename = "usage")]
-    pub usage: Box<models::LiveSessionUsage>,
+    pub usage: models::LiveSessionUsage,
 }
 
 impl LiveSessionClosed {
@@ -44,9 +44,9 @@ impl LiveSessionClosed {
             event_id,
             client_event_id: None,
             r#type,
-            reason: Box::new(reason),
-            session: Box::new(session),
-            usage: Box::new(usage),
+            reason,
+            session,
+            usage,
         }
     }
 }

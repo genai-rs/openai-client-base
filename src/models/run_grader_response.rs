@@ -16,7 +16,7 @@ pub struct RunGraderResponse {
     #[serde(rename = "reward")]
     pub reward: f64,
     #[serde(rename = "metadata")]
-    pub metadata: Box<models::RunGraderResponseMetadata>,
+    pub metadata: models::RunGraderResponseMetadata,
     #[serde(rename = "sub_rewards")]
     pub sub_rewards: std::collections::HashMap<String, serde_json::Value>,
     #[serde(rename = "model_grader_token_usage_per_model")]
@@ -32,7 +32,7 @@ impl RunGraderResponse {
     ) -> RunGraderResponse {
         RunGraderResponse {
             reward,
-            metadata: Box::new(metadata),
+            metadata,
             sub_rewards,
             model_grader_token_usage_per_model,
         }

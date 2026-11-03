@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveForkAudioParam {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
-    pub format: Option<Box<models::LiveAudioFormat>>,
+    pub format: Option<models::LiveAudioFormat>,
 }
 
 impl LiveForkAudioParam {

@@ -17,16 +17,13 @@ pub struct Object21 {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "data")]
-    pub data: Box<models::RunStepDeltaObject>,
+    pub data: models::RunStepDeltaObject,
 }
 
 impl Object21 {
     /// Occurs when parts of a [run step](https://developers.openai.com/api/docs/assistants/migration) are being streamed.
     pub fn new(event: Event, data: models::RunStepDeltaObject) -> Object21 {
-        Object21 {
-            event,
-            data: Box::new(data),
-        }
+        Object21 { event, data }
     }
 }
 ///

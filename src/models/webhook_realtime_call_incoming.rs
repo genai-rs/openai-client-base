@@ -21,7 +21,7 @@ pub struct WebhookRealtimeCallIncoming {
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "data")]
-    pub data: Box<models::WebhookRealtimeCallIncomingData>,
+    pub data: models::WebhookRealtimeCallIncomingData,
     /// The object of the event. Always `event`.
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
@@ -41,7 +41,7 @@ impl WebhookRealtimeCallIncoming {
         WebhookRealtimeCallIncoming {
             created_at,
             id,
-            data: Box::new(data),
+            data,
             object: None,
             r#type,
         }

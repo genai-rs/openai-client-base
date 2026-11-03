@@ -20,7 +20,7 @@ pub struct RunStepDetailsToolCallsFunctionObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "function")]
-    pub function: Box<models::RunStepDetailsToolCallsFunctionObjectFunction>,
+    pub function: models::RunStepDetailsToolCallsFunctionObjectFunction,
 }
 
 impl RunStepDetailsToolCallsFunctionObject {
@@ -32,7 +32,7 @@ impl RunStepDetailsToolCallsFunctionObject {
         RunStepDetailsToolCallsFunctionObject {
             id,
             r#type,
-            function: Box::new(function),
+            function,
         }
     }
 }

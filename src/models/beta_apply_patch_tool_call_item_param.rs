@@ -20,7 +20,7 @@ pub struct BetaApplyPatchToolCallItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    pub agent: Option<Option<models::BetaAgentTagParam>>,
     /// The type of the item. Always `apply_patch_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -41,11 +41,11 @@ pub struct BetaApplyPatchToolCallItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::BetaToolCallCallerParam>>>,
+    pub caller: Option<Option<models::BetaToolCallCallerParam>>,
     #[serde(rename = "status")]
     pub status: models::BetaApplyPatchCallStatusParam,
     #[serde(rename = "operation")]
-    pub operation: Box<models::BetaApplyPatchOperationParam>,
+    pub operation: models::BetaApplyPatchOperationParam,
 }
 
 impl BetaApplyPatchToolCallItemParam {
@@ -63,7 +63,7 @@ impl BetaApplyPatchToolCallItemParam {
             call_id,
             caller: None,
             status,
-            operation: Box::new(operation),
+            operation,
         }
     }
 }

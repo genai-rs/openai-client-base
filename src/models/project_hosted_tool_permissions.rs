@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectHostedToolPermissions {
     #[serde(rename = "file_search")]
-    pub file_search: Box<models::HostedToolPermission>,
+    pub file_search: models::HostedToolPermission,
     #[serde(rename = "web_search")]
-    pub web_search: Box<models::HostedToolPermission>,
+    pub web_search: models::HostedToolPermission,
     #[serde(rename = "image_generation")]
-    pub image_generation: Box<models::HostedToolPermission>,
+    pub image_generation: models::HostedToolPermission,
     #[serde(rename = "mcp")]
-    pub mcp: Box<models::HostedToolPermission>,
+    pub mcp: models::HostedToolPermission,
     #[serde(rename = "code_interpreter")]
-    pub code_interpreter: Box<models::HostedToolPermission>,
+    pub code_interpreter: models::HostedToolPermission,
 }
 
 impl ProjectHostedToolPermissions {
@@ -36,11 +36,11 @@ impl ProjectHostedToolPermissions {
         code_interpreter: models::HostedToolPermission,
     ) -> ProjectHostedToolPermissions {
         ProjectHostedToolPermissions {
-            file_search: Box::new(file_search),
-            web_search: Box::new(web_search),
-            image_generation: Box::new(image_generation),
-            mcp: Box::new(mcp),
-            code_interpreter: Box::new(code_interpreter),
+            file_search,
+            web_search,
+            image_generation,
+            mcp,
+            code_interpreter,
         }
     }
 }

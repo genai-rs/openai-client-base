@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnvironmentResource {
-    None(Box<models::EnvironmentResourceNone>),
-    OpenaiHosted(Box<models::EnvironmentResourceOpenaiHosted>),
-    SelfHosted(Box<models::EnvironmentResourceSelfHosted>),
+    None(models::EnvironmentResourceNone),
+    OpenaiHosted(models::EnvironmentResourceOpenaiHosted),
+    SelfHosted(models::EnvironmentResourceSelfHosted),
 }
 
 impl Default for EnvironmentResource {

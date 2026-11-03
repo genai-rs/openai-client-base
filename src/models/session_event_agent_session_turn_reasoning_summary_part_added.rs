@@ -36,7 +36,7 @@ pub struct SessionEventAgentSessionTurnReasoningSummaryPartAdded {
     #[serde(rename = "summary_index")]
     pub summary_index: i64,
     #[serde(rename = "part")]
-    pub part: Box<models::SummaryTextResource>,
+    pub part: models::SummaryTextResource,
 }
 
 impl SessionEventAgentSessionTurnReasoningSummaryPartAdded {
@@ -59,7 +59,7 @@ impl SessionEventAgentSessionTurnReasoningSummaryPartAdded {
             item_id,
             output_index,
             summary_index,
-            part: Box::new(part),
+            part,
         }
     }
 }

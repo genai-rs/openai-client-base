@@ -33,9 +33,9 @@ pub struct RunObject {
     #[serde(rename = "status")]
     pub status: Status,
     #[serde(rename = "required_action", deserialize_with = "Option::deserialize")]
-    pub required_action: Option<Box<models::RunObjectRequiredAction>>,
+    pub required_action: Option<models::RunObjectRequiredAction>,
     #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
-    pub last_error: Option<Box<models::RunObjectLastError>>,
+    pub last_error: Option<models::RunObjectLastError>,
     /// The Unix timestamp (in seconds) for when the run will expire.
     #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
     pub expires_at: Option<i32>,
@@ -55,7 +55,7 @@ pub struct RunObject {
         rename = "incomplete_details",
         deserialize_with = "Option::deserialize"
     )]
-    pub incomplete_details: Option<Box<models::RunObjectIncompleteDetails>>,
+    pub incomplete_details: Option<models::RunObjectIncompleteDetails>,
     /// The model that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run.
     #[serde(rename = "model")]
     pub model: String,
@@ -69,7 +69,7 @@ pub struct RunObject {
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
     #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
-    pub usage: Option<Box<models::RunCompletionUsage>>,
+    pub usage: Option<models::RunCompletionUsage>,
     /// The sampling temperature used for this run. If not set, defaults to 1.
     #[serde(
         rename = "temperature",
@@ -99,14 +99,14 @@ pub struct RunObject {
         rename = "truncation_strategy",
         deserialize_with = "Option::deserialize"
     )]
-    pub truncation_strategy: Option<Box<models::TruncationObject>>,
+    pub truncation_strategy: Option<models::TruncationObject>,
     #[serde(rename = "tool_choice", deserialize_with = "Option::deserialize")]
-    pub tool_choice: Option<Box<models::AssistantsApiToolChoiceOption>>,
+    pub tool_choice: Option<models::AssistantsApiToolChoiceOption>,
     /// Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use.
     #[serde(rename = "parallel_tool_calls")]
     pub parallel_tool_calls: bool,
     #[serde(rename = "response_format", deserialize_with = "Option::deserialize")]
-    pub response_format: Option<Box<models::AssistantsApiResponseFormatOption>>,
+    pub response_format: Option<models::AssistantsApiResponseFormatOption>,
 }
 
 impl RunObject {
@@ -145,27 +145,27 @@ impl RunObject {
             thread_id,
             assistant_id,
             status,
-            required_action: required_action.map(Box::new),
-            last_error: last_error.map(Box::new),
+            required_action,
+            last_error,
             expires_at,
             started_at,
             cancelled_at,
             failed_at,
             completed_at,
-            incomplete_details: incomplete_details.map(Box::new),
+            incomplete_details,
             model,
             instructions,
             tools,
             metadata,
-            usage: usage.map(Box::new),
+            usage,
             temperature: None,
             top_p: None,
             max_prompt_tokens,
             max_completion_tokens,
-            truncation_strategy: truncation_strategy.map(Box::new),
-            tool_choice: tool_choice.map(Box::new),
+            truncation_strategy,
+            tool_choice,
             parallel_tool_calls,
-            response_format: response_format.map(Box::new),
+            response_format,
         }
     }
 }

@@ -21,7 +21,7 @@ pub struct ComparisonFilter {
     #[serde(rename = "key")]
     pub key: String,
     #[serde(rename = "value")]
-    pub value: Box<models::ComparisonFilterValue>,
+    pub value: models::ComparisonFilterValue,
 }
 
 impl ComparisonFilter {
@@ -31,11 +31,7 @@ impl ComparisonFilter {
         key: String,
         value: models::ComparisonFilterValue,
     ) -> ComparisonFilter {
-        ComparisonFilter {
-            r#type,
-            key,
-            value: Box::new(value),
-        }
+        ComparisonFilter { r#type, key, value }
     }
 }
 /// Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`. - `eq`: equals - `ne`: not equal - `gt`: greater than - `gte`: greater than or equal - `lt`: less than - `lte`: less than or equal - `in`: in - `nin`: not in

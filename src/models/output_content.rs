@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum OutputContent {
-    OutputTextContent(Box<models::OutputTextContent>),
-    RefusalContent(Box<models::RefusalContent>),
-    ReasoningTextContent(Box<models::ReasoningTextContent>),
+    OutputTextContent(models::OutputTextContent),
+    RefusalContent(models::RefusalContent),
+    ReasoningTextContent(models::ReasoningTextContent),
 }
 
 impl Default for OutputContent {

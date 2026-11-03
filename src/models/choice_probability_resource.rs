@@ -14,17 +14,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChoiceProbabilityResource {
     #[serde(rename = "value")]
-    pub value: Box<models::ChoiceValueResource>,
+    pub value: models::ChoiceValueResource,
     #[serde(rename = "probability")]
     pub probability: f64,
 }
 
 impl ChoiceProbabilityResource {
     pub fn new(value: models::ChoiceValueResource, probability: f64) -> ChoiceProbabilityResource {
-        ChoiceProbabilityResource {
-            value: Box::new(value),
-            probability,
-        }
+        ChoiceProbabilityResource { value, probability }
     }
 }
 

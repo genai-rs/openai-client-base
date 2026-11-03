@@ -29,7 +29,7 @@ pub struct AgentToolConfigParamMcp {
     )]
     pub credential_id: Option<Option<String>>,
     #[serde(rename = "transport")]
-    pub transport: Box<models::McpTransportConfigParam>,
+    pub transport: models::McpTransportConfigParam,
     /// Metadata included with requests to this MCP server.
     #[serde(
         rename = "request_metadata",
@@ -70,7 +70,7 @@ impl AgentToolConfigParamMcp {
             r#type,
             server_label,
             credential_id: None,
-            transport: Box::new(transport),
+            transport,
             request_metadata: None,
             allowed_tools: None,
             required: None,

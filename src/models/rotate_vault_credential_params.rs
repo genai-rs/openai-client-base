@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RotateVaultCredentialParams {
     #[serde(rename = "auth", skip_serializing_if = "Option::is_none")]
-    pub auth: Option<Box<models::RotateVaultCredentialAuthParam>>,
+    pub auth: Option<models::RotateVaultCredentialAuthParam>,
     /// Replaces all metadata. Omit to preserve it, or pass {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters.
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, String>>,

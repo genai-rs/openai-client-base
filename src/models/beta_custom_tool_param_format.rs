@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaCustomToolParamFormat {
-    BetaCustomTextFormatParam(Box<models::BetaCustomTextFormatParam>),
-    BetaCustomGrammarFormatParam(Box<models::BetaCustomGrammarFormatParam>),
+    BetaCustomTextFormatParam(models::BetaCustomTextFormatParam),
+    BetaCustomGrammarFormatParam(models::BetaCustomGrammarFormatParam),
 }
 
 impl Default for BetaCustomToolParamFormat {

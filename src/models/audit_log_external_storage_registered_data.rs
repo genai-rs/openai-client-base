@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AuditLogExternalStorageRegisteredData {
     #[serde(rename = "provider", skip_serializing_if = "Option::is_none")]
-    pub provider: Option<Box<models::Provider>>,
+    pub provider: Option<models::Provider>,
     /// The OpenAI geography derived from the storage region.
     #[serde(rename = "geography", skip_serializing_if = "Option::is_none")]
     pub geography: Option<String>,

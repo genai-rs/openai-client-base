@@ -22,7 +22,7 @@ pub struct Error {
     #[serde(rename = "type")]
     pub r#type: String,
     #[serde(rename = "misalignment", skip_serializing_if = "Option::is_none")]
-    pub misalignment: Option<Box<models::MisalignmentErrorDetailsResource>>,
+    pub misalignment: Option<models::MisalignmentErrorDetailsResource>,
 }
 
 impl Error {

@@ -32,7 +32,7 @@ pub struct ImageGenCompletedEvent {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "size")]
-    pub size: Box<models::ImageEditCompletedEventSize>,
+    pub size: models::ImageEditCompletedEventSize,
     /// The quality setting for the generated image.
     #[serde(rename = "quality")]
     pub quality: Quality,
@@ -43,7 +43,7 @@ pub struct ImageGenCompletedEvent {
     #[serde(rename = "output_format")]
     pub output_format: OutputFormat,
     #[serde(rename = "usage")]
-    pub usage: Box<models::ImagesUsage>,
+    pub usage: models::ImagesUsage,
 }
 
 impl ImageGenCompletedEvent {
@@ -63,11 +63,11 @@ impl ImageGenCompletedEvent {
             r#type,
             b64_json,
             created_at,
-            size: Box::new(size),
+            size,
             quality,
             background,
             output_format,
-            usage: Box::new(usage),
+            usage,
         }
     }
 }

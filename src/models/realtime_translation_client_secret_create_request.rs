@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranslationClientSecretCreateRequest {
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
-    pub expires_after: Option<Box<models::ClientSecretExpiration>>,
+    pub expires_after: Option<models::ClientSecretExpiration>,
     #[serde(rename = "session")]
-    pub session: Box<models::RealtimeTranslationSessionCreateRequest>,
+    pub session: models::RealtimeTranslationSessionCreateRequest,
 }
 
 impl RealtimeTranslationClientSecretCreateRequest {
@@ -27,7 +27,7 @@ impl RealtimeTranslationClientSecretCreateRequest {
     ) -> RealtimeTranslationClientSecretCreateRequest {
         RealtimeTranslationClientSecretCreateRequest {
             expires_after: None,
-            session: Box::new(session),
+            session,
         }
     }
 }

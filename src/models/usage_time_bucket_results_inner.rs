@@ -15,27 +15,27 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "object")]
 pub enum UsageTimeBucketResultsInner {
     #[serde(rename = "organization.usage.completions.result")]
-    UsageCompletionsResult(Box<models::UsageCompletionsResult>),
+    UsageCompletionsResult(models::UsageCompletionsResult),
     #[serde(rename = "organization.usage.embeddings.result")]
-    UsageEmbeddingsResult(Box<models::UsageEmbeddingsResult>),
+    UsageEmbeddingsResult(models::UsageEmbeddingsResult),
     #[serde(rename = "organization.usage.moderations.result")]
-    UsageModerationsResult(Box<models::UsageModerationsResult>),
+    UsageModerationsResult(models::UsageModerationsResult),
     #[serde(rename = "organization.usage.images.result")]
-    UsageImagesResult(Box<models::UsageImagesResult>),
+    UsageImagesResult(models::UsageImagesResult),
     #[serde(rename = "organization.usage.audio_speeches.result")]
-    UsageAudioSpeechesResult(Box<models::UsageAudioSpeechesResult>),
+    UsageAudioSpeechesResult(models::UsageAudioSpeechesResult),
     #[serde(rename = "organization.usage.audio_transcriptions.result")]
-    UsageAudioTranscriptionsResult(Box<models::UsageAudioTranscriptionsResult>),
+    UsageAudioTranscriptionsResult(models::UsageAudioTranscriptionsResult),
     #[serde(rename = "organization.usage.vector_stores.result")]
-    UsageVectorStoresResult(Box<models::UsageVectorStoresResult>),
+    UsageVectorStoresResult(models::UsageVectorStoresResult),
     #[serde(rename = "organization.usage.code_interpreter_sessions.result")]
-    UsageCodeInterpreterSessionsResult(Box<models::UsageCodeInterpreterSessionsResult>),
+    UsageCodeInterpreterSessionsResult(models::UsageCodeInterpreterSessionsResult),
     #[serde(rename = "organization.usage.file_searches.result")]
-    UsageFileSearchCallsResult(Box<models::UsageFileSearchCallsResult>),
+    UsageFileSearchCallsResult(models::UsageFileSearchCallsResult),
     #[serde(rename = "organization.usage.web_searches.result")]
-    UsageWebSearchCallsResult(Box<models::UsageWebSearchCallsResult>),
+    UsageWebSearchCallsResult(models::UsageWebSearchCallsResult),
     #[serde(rename = "organization.costs.result")]
-    CostsResult(Box<models::CostsResult>),
+    CostsResult(models::CostsResult),
 }
 
 /// When grouped by `api_source`, `agents_api` identifies attributed Agents API activity and `unlabeled` includes all records without published source attribution, including historical and unknown origins. Unlabeled does not imply direct API usage. Without source grouping, this field is null.

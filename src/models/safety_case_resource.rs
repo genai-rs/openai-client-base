@@ -24,7 +24,7 @@ pub struct SafetyCaseResource {
     #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
     pub reason: Option<String>,
     #[serde(rename = "notice")]
-    pub notice: Box<models::SafetyCaseNotice>,
+    pub notice: models::SafetyCaseNotice,
 }
 
 impl SafetyCaseResource {
@@ -42,7 +42,7 @@ impl SafetyCaseResource {
             created_at,
             entity_identifier,
             reason,
-            notice: Box::new(notice),
+            notice,
         }
     }
 }

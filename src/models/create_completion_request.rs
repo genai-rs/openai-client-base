@@ -96,7 +96,7 @@ pub struct CreateCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub stop: Option<Option<Box<models::StopConfiguration>>>,
+    pub stop: Option<Option<models::StopConfiguration>>,
     /// Whether to stream back partial progress. If set, tokens will be sent as data-only [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format) as they become available, with the stream terminated by a `data: [DONE]` message. [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).
     #[serde(
         rename = "stream",
@@ -111,7 +111,7 @@ pub struct CreateCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub stream_options: Option<Option<Box<models::ChatCompletionStreamOptions>>>,
+    pub stream_options: Option<Option<models::ChatCompletionStreamOptions>>,
     /// The suffix that comes after a completion of inserted text.  This parameter is only supported for `gpt-3.5-turbo-instruct`.
     #[serde(
         rename = "suffix",

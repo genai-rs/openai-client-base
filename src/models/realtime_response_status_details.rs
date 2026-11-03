@@ -21,7 +21,7 @@ pub struct RealtimeResponseStatusDetails {
     #[serde(rename = "reason", skip_serializing_if = "Option::is_none")]
     pub reason: Option<Reason>,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<Box<models::RealtimeBetaResponseStatusDetailsError>>,
+    pub error: Option<models::RealtimeBetaResponseStatusDetailsError>,
 }
 
 impl RealtimeResponseStatusDetails {

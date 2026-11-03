@@ -24,7 +24,7 @@ pub struct SessionEventError {
     #[serde(rename = "session_id")]
     pub session_id: String,
     #[serde(rename = "error")]
-    pub error: Box<models::SessionErrorResource>,
+    pub error: models::SessionErrorResource,
 }
 
 impl SessionEventError {
@@ -39,7 +39,7 @@ impl SessionEventError {
             r#type,
             event_id,
             session_id,
-            error: Box::new(error),
+            error,
         }
     }
 }

@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum BetaResponsePromptVariablesValue {
     Text(String),
-    BetaInputTextContent(Box<models::BetaInputTextContent>),
-    BetaInputImageContent(Box<models::BetaInputImageContent>),
-    BetaInputFileContent(Box<models::BetaInputFileContent>),
+    BetaInputTextContent(models::BetaInputTextContent),
+    BetaInputImageContent(models::BetaInputImageContent),
+    BetaInputFileContent(models::BetaInputFileContent),
 }
 
 impl Default for BetaResponsePromptVariablesValue {

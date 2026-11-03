@@ -21,7 +21,7 @@ pub struct MessageContentTextAnnotationsFileCitationObject {
     #[serde(rename = "text")]
     pub text: String,
     #[serde(rename = "file_citation")]
-    pub file_citation: Box<models::MessageContentTextAnnotationsFileCitationObjectFileCitation>,
+    pub file_citation: models::MessageContentTextAnnotationsFileCitationObjectFileCitation,
     #[serde(rename = "start_index")]
     pub start_index: i32,
     #[serde(rename = "end_index")]
@@ -40,7 +40,7 @@ impl MessageContentTextAnnotationsFileCitationObject {
         MessageContentTextAnnotationsFileCitationObject {
             r#type,
             text,
-            file_citation: Box::new(file_citation),
+            file_citation,
             start_index,
             end_index,
         }

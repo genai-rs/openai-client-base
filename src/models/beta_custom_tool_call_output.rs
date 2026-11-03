@@ -21,7 +21,7 @@ pub struct BetaCustomToolCallOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the custom tool call output. Always `custom_tool_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -37,9 +37,9 @@ pub struct BetaCustomToolCallOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::BetaToolCallCallerParam>>>,
+    pub caller: Option<Option<models::BetaToolCallCallerParam>>,
     #[serde(rename = "output")]
-    pub output: Box<models::BetaCustomToolCallOutputOutput>,
+    pub output: models::BetaCustomToolCallOutputOutput,
 }
 
 impl BetaCustomToolCallOutput {
@@ -55,7 +55,7 @@ impl BetaCustomToolCallOutput {
             id: None,
             call_id,
             caller: None,
-            output: Box::new(output),
+            output,
         }
     }
 }

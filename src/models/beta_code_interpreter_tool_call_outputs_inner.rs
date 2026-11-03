@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaCodeInterpreterToolCallOutputsInner {
-    BetaCodeInterpreterOutputLogs(Box<models::BetaCodeInterpreterOutputLogs>),
-    BetaCodeInterpreterOutputImage(Box<models::BetaCodeInterpreterOutputImage>),
+    BetaCodeInterpreterOutputLogs(models::BetaCodeInterpreterOutputLogs),
+    BetaCodeInterpreterOutputImage(models::BetaCodeInterpreterOutputImage),
 }
 
 impl Default for BetaCodeInterpreterToolCallOutputsInner {

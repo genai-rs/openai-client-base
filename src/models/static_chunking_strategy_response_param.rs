@@ -17,7 +17,7 @@ pub struct StaticChunkingStrategyResponseParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "static")]
-    pub r#static: Box<models::StaticChunkingStrategy>,
+    pub r#static: models::StaticChunkingStrategy,
 }
 
 impl StaticChunkingStrategyResponseParam {
@@ -25,10 +25,7 @@ impl StaticChunkingStrategyResponseParam {
         r#type: Type,
         r#static: models::StaticChunkingStrategy,
     ) -> StaticChunkingStrategyResponseParam {
-        StaticChunkingStrategyResponseParam {
-            r#type,
-            r#static: Box::new(r#static),
-        }
+        StaticChunkingStrategyResponseParam { r#type, r#static }
     }
 }
 /// Always `static`.

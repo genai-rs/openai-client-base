@@ -18,7 +18,7 @@ pub struct CreateVaultCredentialParams {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "auth")]
-    pub auth: Box<models::CreateVaultCredentialAuthParam>,
+    pub auth: models::CreateVaultCredentialAuthParam,
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Defaults to an empty map.
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -32,7 +32,7 @@ impl CreateVaultCredentialParams {
     ) -> CreateVaultCredentialParams {
         CreateVaultCredentialParams {
             name,
-            auth: Box::new(auth),
+            auth,
             metadata: None,
         }
     }

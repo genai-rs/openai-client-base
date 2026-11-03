@@ -19,7 +19,7 @@ pub struct AnswerResourceChoice {
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     #[serde(rename = "choice")]
-    pub choice: Box<models::ChoiceValueResource>,
+    pub choice: models::ChoiceValueResource,
     #[serde(rename = "probabilities")]
     pub probabilities: Vec<models::ChoiceProbabilityResource>,
     #[serde(rename = "confidence")]
@@ -37,7 +37,7 @@ impl AnswerResourceChoice {
         AnswerResourceChoice {
             r#type,
             name,
-            choice: Box::new(choice),
+            choice,
             probabilities,
             confidence,
         }

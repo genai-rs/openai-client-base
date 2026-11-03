@@ -22,7 +22,7 @@ pub struct ChatCompletionMessageToolCallChunk {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
     #[serde(rename = "function", skip_serializing_if = "Option::is_none")]
-    pub function: Option<Box<models::ChatCompletionMessageToolCallChunkFunction>>,
+    pub function: Option<models::ChatCompletionMessageToolCallChunkFunction>,
 }
 
 impl ChatCompletionMessageToolCallChunk {

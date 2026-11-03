@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Reasoning {
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
-    pub mode: Option<Box<models::ReasoningModeEnum>>,
+    pub mode: Option<models::ReasoningModeEnum>,
     #[serde(
         rename = "effort",
         default,

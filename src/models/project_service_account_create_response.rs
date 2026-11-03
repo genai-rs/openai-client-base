@@ -25,7 +25,7 @@ pub struct ProjectServiceAccountCreateResponse {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "api_key", deserialize_with = "Option::deserialize")]
-    pub api_key: Option<Box<models::ProjectServiceAccountApiKey>>,
+    pub api_key: Option<models::ProjectServiceAccountApiKey>,
 }
 
 impl ProjectServiceAccountCreateResponse {
@@ -43,7 +43,7 @@ impl ProjectServiceAccountCreateResponse {
             name,
             role,
             created_at,
-            api_key: api_key.map(Box::new),
+            api_key,
         }
     }
 }

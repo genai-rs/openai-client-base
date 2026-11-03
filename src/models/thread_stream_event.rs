@@ -20,7 +20,7 @@ pub struct ThreadStreamEvent {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "data")]
-    pub data: Box<models::ThreadObject>,
+    pub data: models::ThreadObject,
 }
 
 impl ThreadStreamEvent {
@@ -29,7 +29,7 @@ impl ThreadStreamEvent {
         ThreadStreamEvent {
             enabled: None,
             event,
-            data: Box::new(data),
+            data,
         }
     }
 }

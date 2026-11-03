@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ChatCompletionRequestAssistantMessageContentPart {
     ChatCompletionRequestMessageContentPartText(
-        Box<models::ChatCompletionRequestMessageContentPartText>,
+        models::ChatCompletionRequestMessageContentPartText,
     ),
     ChatCompletionRequestMessageContentPartRefusal(
-        Box<models::ChatCompletionRequestMessageContentPartRefusal>,
+        models::ChatCompletionRequestMessageContentPartRefusal,
     ),
 }
 

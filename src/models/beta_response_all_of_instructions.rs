@@ -16,10 +16,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaResponseAllOfInstructions {
-    BetaEasyInputMessage(Box<models::BetaEasyInputMessage>),
-    BetaItem(Box<models::BetaItem>),
-    BetaCompactionTriggerItemParam(Box<models::BetaCompactionTriggerItemParam>),
-    BetaItemReferenceParam(Box<models::BetaItemReferenceParam>),
-    BetaProgramItemParam(Box<models::BetaProgramItemParam>),
-    BetaProgramOutputItemParam(Box<models::BetaProgramOutputItemParam>),
+    BetaEasyInputMessage(models::BetaEasyInputMessage),
+    BetaItem(models::BetaItem),
+    BetaCompactionTriggerItemParam(models::BetaCompactionTriggerItemParam),
+    BetaItemReferenceParam(models::BetaItemReferenceParam),
+    BetaProgramItemParam(models::BetaProgramItemParam),
+    BetaProgramOutputItemParam(models::BetaProgramOutputItemParam),
 }

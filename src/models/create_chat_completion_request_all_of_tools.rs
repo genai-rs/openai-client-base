@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateChatCompletionRequestAllOfTools {
-    ChatCompletionTool(Box<models::ChatCompletionTool>),
-    CustomToolChatCompletions(Box<models::CustomToolChatCompletions>),
+    ChatCompletionTool(models::ChatCompletionTool),
+    CustomToolChatCompletions(models::CustomToolChatCompletions),
 }
 
 impl Default for CreateChatCompletionRequestAllOfTools {

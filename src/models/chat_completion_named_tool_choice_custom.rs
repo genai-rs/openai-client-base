@@ -18,7 +18,7 @@ pub struct ChatCompletionNamedToolChoiceCustom {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "custom")]
-    pub custom: Box<models::ChatCompletionNamedToolChoiceCustomCustom>,
+    pub custom: models::ChatCompletionNamedToolChoiceCustomCustom,
 }
 
 impl ChatCompletionNamedToolChoiceCustom {
@@ -27,10 +27,7 @@ impl ChatCompletionNamedToolChoiceCustom {
         r#type: Type,
         custom: models::ChatCompletionNamedToolChoiceCustomCustom,
     ) -> ChatCompletionNamedToolChoiceCustom {
-        ChatCompletionNamedToolChoiceCustom {
-            r#type,
-            custom: Box::new(custom),
-        }
+        ChatCompletionNamedToolChoiceCustom { r#type, custom }
     }
 }
 /// For custom tool calling, the type is always `custom`.

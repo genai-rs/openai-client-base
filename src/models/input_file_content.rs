@@ -35,7 +35,7 @@ pub struct InputFileContent {
         rename = "prompt_cache_breakpoint",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointConfig>>,
+    pub prompt_cache_breakpoint: Option<models::PromptCacheBreakpointConfig>,
     /// The URL of the file to be sent to the model.
     #[serde(rename = "file_url", skip_serializing_if = "Option::is_none")]
     pub file_url: Option<String>,

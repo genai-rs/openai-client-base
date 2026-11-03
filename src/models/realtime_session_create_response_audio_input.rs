@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateResponseAudioInput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
-    pub format: Option<Box<models::RealtimeAudioFormats>>,
+    pub format: Option<models::RealtimeAudioFormats>,
     #[serde(rename = "transcription", skip_serializing_if = "Option::is_none")]
-    pub transcription: Option<Box<models::AudioTranscriptionResponse>>,
+    pub transcription: Option<models::AudioTranscriptionResponse>,
     #[serde(
         rename = "noise_reduction",
         default,
@@ -24,7 +24,7 @@ pub struct RealtimeSessionCreateResponseAudioInput {
         skip_serializing_if = "Option::is_none"
     )]
     pub noise_reduction:
-        Option<Option<Box<models::RealtimeSessionCreateResponseAudioInputNoiseReduction>>>,
+        Option<Option<models::RealtimeSessionCreateResponseAudioInputNoiseReduction>>,
     #[serde(
         rename = "turn_detection",
         default,
@@ -32,7 +32,7 @@ pub struct RealtimeSessionCreateResponseAudioInput {
         skip_serializing_if = "Option::is_none"
     )]
     pub turn_detection:
-        Option<Option<Box<models::RealtimeSessionCreateResponseAudioInputTurnDetection>>>,
+        Option<Option<models::RealtimeSessionCreateResponseAudioInputTurnDetection>>,
 }
 
 impl RealtimeSessionCreateResponseAudioInput {

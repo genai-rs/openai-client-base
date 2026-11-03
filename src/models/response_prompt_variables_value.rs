@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ResponsePromptVariablesValue {
     Text(String),
-    InputTextContent(Box<models::InputTextContent>),
-    InputImageContent(Box<models::InputImageContent>),
-    InputFileContent(Box<models::InputFileContent>),
+    InputTextContent(models::InputTextContent),
+    InputImageContent(models::InputImageContent),
+    InputFileContent(models::InputFileContent),
 }
 
 impl Default for ResponsePromptVariablesValue {

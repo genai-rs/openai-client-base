@@ -18,7 +18,7 @@ pub struct BetaResponseSteerFailedEventError {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "code")]
-    pub code: Box<models::BetaResponseSteerErrorCode>,
+    pub code: models::BetaResponseSteerErrorCode,
     /// A human-readable description of the error.
     #[serde(rename = "message")]
     pub message: String,
@@ -33,7 +33,7 @@ impl BetaResponseSteerFailedEventError {
     ) -> BetaResponseSteerFailedEventError {
         BetaResponseSteerFailedEventError {
             r#type,
-            code: Box::new(code),
+            code,
             message,
         }
     }

@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeResponseCreateParamsToolsInner {
-    RealtimeFunctionTool(Box<models::RealtimeFunctionTool>),
-    McpTool(Box<models::McpTool>),
+    RealtimeFunctionTool(models::RealtimeFunctionTool),
+    McpTool(models::McpTool),
 }
 
 impl Default for RealtimeResponseCreateParamsToolsInner {

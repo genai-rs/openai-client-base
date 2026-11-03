@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaAgentMessageItemParamContentInner {
-    BetaInputTextContentParam(Box<models::BetaInputTextContentParam>),
-    BetaInputImageContentParamAutoParam(Box<models::BetaInputImageContentParamAutoParam>),
-    BetaEncryptedContentParam(Box<models::BetaEncryptedContentParam>),
+    BetaInputTextContentParam(models::BetaInputTextContentParam),
+    BetaInputImageContentParamAutoParam(models::BetaInputImageContentParamAutoParam),
+    BetaEncryptedContentParam(models::BetaEncryptedContentParam),
 }
 
 impl Default for BetaAgentMessageItemParamContentInner {

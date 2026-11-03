@@ -18,7 +18,7 @@ pub struct ResponseIncompleteEvent {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "response")]
-    pub response: Box<models::Response>,
+    pub response: models::Response,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
@@ -33,7 +33,7 @@ impl ResponseIncompleteEvent {
     ) -> ResponseIncompleteEvent {
         ResponseIncompleteEvent {
             r#type,
-            response: Box::new(response),
+            response,
             sequence_number,
         }
     }

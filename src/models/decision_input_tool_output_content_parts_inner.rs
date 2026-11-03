@@ -14,6 +14,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DecisionInputToolOutputContentPartsInner {
-    DecisionInputText(Box<models::DecisionInputText>),
-    DecisionInputImage(Box<models::DecisionInputImage>),
+    DecisionInputText(models::DecisionInputText),
+    DecisionInputImage(models::DecisionInputImage),
 }

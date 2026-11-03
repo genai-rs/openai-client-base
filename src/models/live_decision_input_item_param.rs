@@ -27,7 +27,7 @@ pub struct LiveDecisionInputItemParam {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
-    pub content: Box<models::LiveDecisionInputItemParamContent>,
+    pub content: models::LiveDecisionInputItemParamContent,
 }
 
 impl LiveDecisionInputItemParam {
@@ -39,7 +39,7 @@ impl LiveDecisionInputItemParam {
             id: None,
             r#type: None,
             role,
-            content: Box::new(content),
+            content,
         }
     }
 }

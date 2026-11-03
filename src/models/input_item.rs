@@ -14,12 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum InputItem {
-    EasyInputMessage(Box<models::EasyInputMessage>),
-    Item(Box<models::Item>),
-    CompactionTriggerItemParam(Box<models::CompactionTriggerItemParam>),
-    ItemReferenceParam(Box<models::ItemReferenceParam>),
-    ProgramItemParam(Box<models::ProgramItemParam>),
-    ProgramOutputItemParam(Box<models::ProgramOutputItemParam>),
+    EasyInputMessage(models::EasyInputMessage),
+    Item(models::Item),
+    CompactionTriggerItemParam(models::CompactionTriggerItemParam),
+    ItemReferenceParam(models::ItemReferenceParam),
+    ProgramItemParam(models::ProgramItemParam),
+    ProgramOutputItemParam(models::ProgramOutputItemParam),
 }
 
 /// The role that provided the additional tools. Only `developer` is supported.

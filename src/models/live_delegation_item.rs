@@ -21,7 +21,7 @@ pub struct LiveDelegationItem {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "target")]
-    pub target: Box<models::LiveDelegationItemTarget>,
+    pub target: models::LiveDelegationItemTarget,
     /// The ID of the Responses API response associated with a Responses delegation. Omitted for client delegations.
     #[serde(rename = "response_id", skip_serializing_if = "Option::is_none")]
     pub response_id: Option<String>,
@@ -37,7 +37,7 @@ impl LiveDelegationItem {
         LiveDelegationItem {
             id,
             r#type,
-            target: Box::new(target),
+            target,
             response_id: None,
         }
     }

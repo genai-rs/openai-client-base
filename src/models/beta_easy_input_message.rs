@@ -18,7 +18,7 @@ pub struct BetaEasyInputMessage {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
-    pub content: Box<models::BetaEasyInputMessageContent>,
+    pub content: models::BetaEasyInputMessageContent,
     #[serde(
         rename = "phase",
         default,
@@ -36,7 +36,7 @@ impl BetaEasyInputMessage {
     pub fn new(role: Role, content: models::BetaEasyInputMessageContent) -> BetaEasyInputMessage {
         BetaEasyInputMessage {
             role,
-            content: Box::new(content),
+            content,
             phase: None,
             r#type: None,
         }

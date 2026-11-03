@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaReasoning {
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
-    pub mode: Option<Box<models::BetaReasoningModeEnum>>,
+    pub mode: Option<models::BetaReasoningModeEnum>,
     #[serde(
         rename = "effort",
         default,

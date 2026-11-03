@@ -21,7 +21,7 @@ pub struct BetaResponseImageGenCallCompletedEvent {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the event. Always 'response.image_generation_call.completed'.
     #[serde(rename = "type")]
     pub r#type: Type,

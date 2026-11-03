@@ -14,19 +14,19 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LiveResponsesDelegationSettingsInputParamToolsInner {
-    LiveFunctionToolInputParam(Box<models::LiveFunctionToolInputParam>),
-    LiveWebSearchToolInputParam(Box<models::LiveWebSearchToolInputParam>),
-    LiveFileSearchToolInputParam(Box<models::LiveFileSearchToolInputParam>),
-    LiveCodeInterpreterToolInputParam(Box<models::LiveCodeInterpreterToolInputParam>),
-    LiveHostedShellToolInputParam(Box<models::LiveHostedShellToolInputParam>),
-    LiveImageGenerationToolInputParam(Box<models::LiveImageGenerationToolInputParam>),
-    LiveMcpToolInputParam(Box<models::LiveMcpToolInputParam>),
-    LiveCustomToolInputParam(Box<models::LiveCustomToolInputParam>),
-    LiveNamespaceToolInputParam(Box<models::LiveNamespaceToolInputParam>),
-    LiveToolSearchToolInputParam(Box<models::LiveToolSearchToolInputParam>),
-    LiveProgrammaticToolInputParam(Box<models::LiveProgrammaticToolInputParam>),
-    LiveComputerToolInputParam(Box<models::LiveComputerToolInputParam>),
-    LiveApplyPatchToolInputParam(Box<models::LiveApplyPatchToolInputParam>),
+    LiveFunctionToolInputParam(models::LiveFunctionToolInputParam),
+    LiveWebSearchToolInputParam(models::LiveWebSearchToolInputParam),
+    LiveFileSearchToolInputParam(models::LiveFileSearchToolInputParam),
+    LiveCodeInterpreterToolInputParam(models::LiveCodeInterpreterToolInputParam),
+    LiveHostedShellToolInputParam(models::LiveHostedShellToolInputParam),
+    LiveImageGenerationToolInputParam(models::LiveImageGenerationToolInputParam),
+    LiveMcpToolInputParam(models::LiveMcpToolInputParam),
+    LiveCustomToolInputParam(models::LiveCustomToolInputParam),
+    LiveNamespaceToolInputParam(models::LiveNamespaceToolInputParam),
+    LiveToolSearchToolInputParam(models::LiveToolSearchToolInputParam),
+    LiveProgrammaticToolInputParam(models::LiveProgrammaticToolInputParam),
+    LiveComputerToolInputParam(models::LiveComputerToolInputParam),
+    LiveApplyPatchToolInputParam(models::LiveApplyPatchToolInputParam),
 }
 
 impl Default for LiveResponsesDelegationSettingsInputParamToolsInner {

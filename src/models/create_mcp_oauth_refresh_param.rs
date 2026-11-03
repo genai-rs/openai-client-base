@@ -40,7 +40,7 @@ pub struct CreateMcpOauthRefreshParam {
     #[serde(rename = "refresh_token")]
     pub refresh_token: String,
     #[serde(rename = "token_endpoint_auth")]
-    pub token_endpoint_auth: Box<models::CreateMcpOauthTokenEndpointAuthParam>,
+    pub token_endpoint_auth: models::CreateMcpOauthTokenEndpointAuthParam,
 }
 
 impl CreateMcpOauthRefreshParam {
@@ -57,7 +57,7 @@ impl CreateMcpOauthRefreshParam {
             resource: None,
             scope: None,
             refresh_token,
-            token_endpoint_auth: Box::new(token_endpoint_auth),
+            token_endpoint_auth,
         }
     }
 }

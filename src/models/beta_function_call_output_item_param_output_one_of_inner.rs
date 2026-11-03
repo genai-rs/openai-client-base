@@ -16,11 +16,11 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum BetaFunctionCallOutputItemParamOutputOneOfInner {
     #[serde(rename = "BetaInputTextContentParam")]
-    BetaInputTextContentParam(Box<models::BetaInputTextContentParam>),
+    BetaInputTextContentParam(models::BetaInputTextContentParam),
     #[serde(rename = "BetaInputImageContentParamAutoParam")]
-    BetaInputImageContentParamAutoParam(Box<models::BetaInputImageContentParamAutoParam>),
+    BetaInputImageContentParamAutoParam(models::BetaInputImageContentParamAutoParam),
     #[serde(rename = "BetaInputFileContentParam")]
-    BetaInputFileContentParam(Box<models::BetaInputFileContentParam>),
+    BetaInputFileContentParam(models::BetaInputFileContentParam),
 }
 
 impl Default for BetaFunctionCallOutputItemParamOutputOneOfInner {

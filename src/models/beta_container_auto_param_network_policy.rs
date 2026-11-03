@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaContainerAutoParamNetworkPolicy {
-    BetaContainerNetworkPolicyDisabledParam(Box<models::BetaContainerNetworkPolicyDisabledParam>),
-    BetaContainerNetworkPolicyAllowlistParam(Box<models::BetaContainerNetworkPolicyAllowlistParam>),
+    BetaContainerNetworkPolicyDisabledParam(models::BetaContainerNetworkPolicyDisabledParam),
+    BetaContainerNetworkPolicyAllowlistParam(models::BetaContainerNetworkPolicyAllowlistParam),
 }
 
 impl Default for BetaContainerAutoParamNetworkPolicy {

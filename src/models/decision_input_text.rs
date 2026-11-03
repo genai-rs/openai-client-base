@@ -23,7 +23,7 @@ pub struct DecisionInputText {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<Option<Box<models::PromptCacheBreakpoint>>>,
+    pub prompt_cache_breakpoint: Option<Option<models::PromptCacheBreakpoint>>,
 }
 
 impl DecisionInputText {

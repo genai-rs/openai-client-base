@@ -30,7 +30,7 @@ pub struct ResponseShellCallOutputContentDeltaStreamingEvent {
     #[serde(rename = "command_index")]
     pub command_index: i32,
     #[serde(rename = "delta")]
-    pub delta: Box<models::ShellCallOutputDelta>,
+    pub delta: models::ShellCallOutputDelta,
 }
 
 impl ResponseShellCallOutputContentDeltaStreamingEvent {
@@ -49,7 +49,7 @@ impl ResponseShellCallOutputContentDeltaStreamingEvent {
             item_id,
             output_index,
             command_index,
-            delta: Box::new(delta),
+            delta,
         }
     }
 }

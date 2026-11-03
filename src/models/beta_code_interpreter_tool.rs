@@ -18,7 +18,7 @@ pub struct BetaCodeInterpreterTool {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "container")]
-    pub container: Box<models::BetaCodeInterpreterToolContainer>,
+    pub container: models::BetaCodeInterpreterToolContainer,
     /// The tool invocation context(s).
     #[serde(
         rename = "allowed_callers",
@@ -37,7 +37,7 @@ impl BetaCodeInterpreterTool {
     ) -> BetaCodeInterpreterTool {
         BetaCodeInterpreterTool {
             r#type,
-            container: Box::new(container),
+            container,
             allowed_callers: None,
         }
     }

@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CompoundFilterFiltersInner {
-    ComparisonFilter(Box<models::ComparisonFilter>),
-    CompoundFilter(Box<models::CompoundFilter>),
+    ComparisonFilter(models::ComparisonFilter),
+    CompoundFilter(models::CompoundFilter),
 }
 
 impl Default for CompoundFilterFiltersInner {

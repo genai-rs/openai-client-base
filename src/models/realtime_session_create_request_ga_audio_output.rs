@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateRequestGaAudioOutput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
-    pub format: Option<Box<models::RealtimeAudioFormats>>,
+    pub format: Option<models::RealtimeAudioFormats>,
     #[serde(rename = "voice", skip_serializing_if = "Option::is_none")]
-    pub voice: Option<Box<models::VoiceIdsOrCustomVoice>>,
+    pub voice: Option<models::VoiceIdsOrCustomVoice>,
     /// The speed of the model's spoken response as a multiple of the original speed. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.  This parameter is a post-processing adjustment to the audio after it is generated, it's also possible to prompt the model to speak faster or slower.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,

@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInitialSessionAudioParam {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
-    pub format: Option<Box<models::LiveAudioFormat>>,
+    pub format: Option<models::LiveAudioFormat>,
     #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
-    pub output: Option<Box<models::LiveInitialSessionAudioOutputParam>>,
+    pub output: Option<models::LiveInitialSessionAudioOutputParam>,
 }
 
 impl LiveInitialSessionAudioParam {

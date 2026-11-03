@@ -24,7 +24,7 @@ pub struct ResponseWsError {
     #[serde(rename = "sequence_number", skip_serializing_if = "Option::is_none")]
     pub sequence_number: Option<i32>,
     #[serde(rename = "error")]
-    pub error: Box<models::ErrorPayload>,
+    pub error: models::ErrorPayload,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -37,7 +37,7 @@ impl ResponseWsError {
             r#type,
             status: None,
             sequence_number: None,
-            error: Box::new(error),
+            error,
             stream_id: None,
         }
     }

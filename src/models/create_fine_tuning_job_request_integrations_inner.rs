@@ -17,7 +17,7 @@ pub struct CreateFineTuningJobRequestIntegrationsInner {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "wandb")]
-    pub wandb: Box<models::CreateFineTuningJobRequestIntegrationsInnerWandb>,
+    pub wandb: models::CreateFineTuningJobRequestIntegrationsInnerWandb,
 }
 
 impl CreateFineTuningJobRequestIntegrationsInner {
@@ -25,10 +25,7 @@ impl CreateFineTuningJobRequestIntegrationsInner {
         r#type: Type,
         wandb: models::CreateFineTuningJobRequestIntegrationsInnerWandb,
     ) -> CreateFineTuningJobRequestIntegrationsInner {
-        CreateFineTuningJobRequestIntegrationsInner {
-            r#type,
-            wandb: Box::new(wandb),
-        }
+        CreateFineTuningJobRequestIntegrationsInner { r#type, wandb }
     }
 }
 /// The type of integration to enable. Currently, only \"wandb\" (Weights and Biases) is supported.

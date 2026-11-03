@@ -21,7 +21,7 @@ pub struct RealtimeBetaClientEventResponseCreate {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "response", skip_serializing_if = "Option::is_none")]
-    pub response: Option<Box<models::RealtimeBetaResponseCreateParams>>,
+    pub response: Option<models::RealtimeBetaResponseCreateParams>,
 }
 
 impl RealtimeBetaClientEventResponseCreate {

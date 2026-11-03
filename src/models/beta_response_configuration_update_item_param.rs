@@ -20,7 +20,7 @@ pub struct BetaResponseConfigurationUpdateItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    pub agent: Option<Option<models::BetaAgentTagParam>>,
     /// The unique ID of the configuration update item.
     #[serde(
         rename = "id",
@@ -33,7 +33,7 @@ pub struct BetaResponseConfigurationUpdateItemParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
-    pub reasoning: Option<Box<models::BetaResponseConfigurationUpdateItemParamReasoning>>,
+    pub reasoning: Option<models::BetaResponseConfigurationUpdateItemParamReasoning>,
 }
 
 impl BetaResponseConfigurationUpdateItemParam {

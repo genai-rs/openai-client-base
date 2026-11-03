@@ -28,7 +28,7 @@ pub struct UserMessageItemParam {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
-    pub content: Box<models::UserMessageItemParamContent>,
+    pub content: models::UserMessageItemParamContent,
     /// The status of the message item.
     #[serde(
         rename = "status",
@@ -49,7 +49,7 @@ impl UserMessageItemParam {
             id: None,
             r#type,
             role,
-            content: Box::new(content),
+            content,
             status: None,
         }
     }

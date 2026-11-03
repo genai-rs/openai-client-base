@@ -15,11 +15,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatSessionChatkitConfiguration {
     #[serde(rename = "automatic_thread_titling")]
-    pub automatic_thread_titling: Box<models::ChatSessionAutomaticThreadTitling>,
+    pub automatic_thread_titling: models::ChatSessionAutomaticThreadTitling,
     #[serde(rename = "file_upload")]
-    pub file_upload: Box<models::ChatSessionFileUpload>,
+    pub file_upload: models::ChatSessionFileUpload,
     #[serde(rename = "history")]
-    pub history: Box<models::ChatSessionHistory>,
+    pub history: models::ChatSessionHistory,
 }
 
 impl ChatSessionChatkitConfiguration {
@@ -30,9 +30,9 @@ impl ChatSessionChatkitConfiguration {
         history: models::ChatSessionHistory,
     ) -> ChatSessionChatkitConfiguration {
         ChatSessionChatkitConfiguration {
-            automatic_thread_titling: Box::new(automatic_thread_titling),
-            file_upload: Box::new(file_upload),
-            history: Box::new(history),
+            automatic_thread_titling,
+            file_upload,
+            history,
         }
     }
 }

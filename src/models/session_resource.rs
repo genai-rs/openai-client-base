@@ -38,15 +38,15 @@ pub struct SessionResource {
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<String>,
     #[serde(rename = "agent")]
-    pub agent: Box<models::SessionAgentResource>,
+    pub agent: models::SessionAgentResource,
     #[serde(rename = "environment")]
-    pub environment: Box<models::EnvironmentResource>,
+    pub environment: models::EnvironmentResource,
     /// The IDs of vaults made available to the session.
     #[serde(rename = "vault_ids")]
     pub vault_ids: Vec<String>,
     /// Best-effort token usage for the session, or null if unknown. Recorded usage may change.
     #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
-    pub usage: Option<Box<models::TokenUsageResource>>,
+    pub usage: Option<models::TokenUsageResource>,
 }
 
 impl SessionResource {
@@ -74,10 +74,10 @@ impl SessionResource {
             status,
             required_actions,
             error,
-            agent: Box::new(agent),
-            environment: Box::new(environment),
+            agent,
+            environment,
             vault_ids,
-            usage: usage.map(Box::new),
+            usage,
         }
     }
 }

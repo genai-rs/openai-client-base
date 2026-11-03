@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaResponseContentPartWsAdded {
     /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the event. Always `response.content_part.added`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -30,7 +30,7 @@ pub struct BetaResponseContentPartWsAdded {
     #[serde(rename = "content_index")]
     pub content_index: i32,
     #[serde(rename = "part")]
-    pub part: Box<models::BetaOutputContent>,
+    pub part: models::BetaOutputContent,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
@@ -55,7 +55,7 @@ impl BetaResponseContentPartWsAdded {
             item_id,
             output_index,
             content_index,
-            part: Box::new(part),
+            part,
             sequence_number,
             stream_id: None,
         }

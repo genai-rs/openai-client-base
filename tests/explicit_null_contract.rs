@@ -539,7 +539,7 @@ fn decision_request_outer_prompt_cache_null_is_kept_apart_from_omission() {
         nested_null
             .prompt_cache_options
             .as_ref()
-            .and_then(|options| options.as_deref())
+            .and_then(|options| options.as_ref())
             .and_then(|options| options.mode),
         Some(None)
     );

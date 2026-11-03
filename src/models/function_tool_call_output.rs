@@ -35,9 +35,9 @@ pub struct FunctionToolCallOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCallerParam>>>,
+    pub caller: Option<Option<models::ToolCallCallerParam>>,
     #[serde(rename = "output")]
-    pub output: Box<models::FunctionToolCallOutputOutput>,
+    pub output: models::FunctionToolCallOutputOutput,
     /// The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -56,7 +56,7 @@ impl FunctionToolCallOutput {
             name: None,
             namespace: None,
             caller: None,
-            output: Box::new(output),
+            output,
             status: None,
         }
     }

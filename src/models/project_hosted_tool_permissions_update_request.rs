@@ -20,7 +20,7 @@ pub struct ProjectHostedToolPermissionsUpdateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub file_search: Option<Option<Box<models::HostedToolPermissionUpdate>>>,
+    pub file_search: Option<Option<models::HostedToolPermissionUpdate>>,
     /// The web search permission update.
     #[serde(
         rename = "web_search",
@@ -28,7 +28,7 @@ pub struct ProjectHostedToolPermissionsUpdateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub web_search: Option<Option<Box<models::HostedToolPermissionUpdate>>>,
+    pub web_search: Option<Option<models::HostedToolPermissionUpdate>>,
     /// The image generation permission update.
     #[serde(
         rename = "image_generation",
@@ -36,7 +36,7 @@ pub struct ProjectHostedToolPermissionsUpdateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub image_generation: Option<Option<Box<models::HostedToolPermissionUpdate>>>,
+    pub image_generation: Option<Option<models::HostedToolPermissionUpdate>>,
     /// The MCP permission update.
     #[serde(
         rename = "mcp",
@@ -44,7 +44,7 @@ pub struct ProjectHostedToolPermissionsUpdateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub mcp: Option<Option<Box<models::HostedToolPermissionUpdate>>>,
+    pub mcp: Option<Option<models::HostedToolPermissionUpdate>>,
     /// The code interpreter permission update.
     #[serde(
         rename = "code_interpreter",
@@ -52,7 +52,7 @@ pub struct ProjectHostedToolPermissionsUpdateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub code_interpreter: Option<Option<Box<models::HostedToolPermissionUpdate>>>,
+    pub code_interpreter: Option<Option<models::HostedToolPermissionUpdate>>,
 }
 
 impl ProjectHostedToolPermissionsUpdateRequest {

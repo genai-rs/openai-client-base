@@ -48,14 +48,14 @@ pub struct CreateChatCompletionResponse {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<Box<models::CompletionUsage>>,
+    pub usage: Option<models::CompletionUsage>,
     #[serde(
         rename = "moderation",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub moderation: Option<Option<Box<models::ChatCompletionModeration>>>,
+    pub moderation: Option<Option<models::ChatCompletionModeration>>,
 }
 
 impl CreateChatCompletionResponse {

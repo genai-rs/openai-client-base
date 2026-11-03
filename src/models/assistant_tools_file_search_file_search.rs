@@ -18,7 +18,7 @@ pub struct AssistantToolsFileSearchFileSearch {
     #[serde(rename = "max_num_results", skip_serializing_if = "Option::is_none")]
     pub max_num_results: Option<i32>,
     #[serde(rename = "ranking_options", skip_serializing_if = "Option::is_none")]
-    pub ranking_options: Option<Box<models::FileSearchRankingOptions>>,
+    pub ranking_options: Option<models::FileSearchRankingOptions>,
 }
 
 impl AssistantToolsFileSearchFileSearch {

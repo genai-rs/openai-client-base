@@ -29,11 +29,11 @@ pub struct ApplyPatchToolCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCaller>>>,
+    pub caller: Option<Option<models::ToolCallCaller>>,
     #[serde(rename = "status")]
     pub status: models::ApplyPatchCallStatus,
     #[serde(rename = "operation")]
-    pub operation: Box<models::ApplyPatchOperation>,
+    pub operation: models::ApplyPatchOperation,
     /// The ID of the entity that created this tool call.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -54,7 +54,7 @@ impl ApplyPatchToolCall {
             call_id,
             caller: None,
             status,
-            operation: Box::new(operation),
+            operation,
             created_by: None,
         }
     }

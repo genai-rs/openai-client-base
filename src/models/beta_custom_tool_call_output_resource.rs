@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaCustomToolCallOutputResource {
     /// The agent that produced this item.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the custom tool call output. Always `custom_tool_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -26,9 +26,9 @@ pub struct BetaCustomToolCallOutputResource {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
-    pub caller: Option<Box<models::BetaToolCallCallerParam>>,
+    pub caller: Option<models::BetaToolCallCallerParam>,
     #[serde(rename = "output")]
-    pub output: Box<models::BetaCustomToolCallOutputOutput>,
+    pub output: models::BetaCustomToolCallOutputOutput,
     #[serde(rename = "status")]
     pub status: models::BetaFunctionCallOutputStatusEnum,
     /// The identifier of the actor that created the item.
@@ -50,7 +50,7 @@ impl BetaCustomToolCallOutputResource {
             id,
             call_id,
             caller: None,
-            output: Box::new(output),
+            output,
             status,
             created_by: None,
         }

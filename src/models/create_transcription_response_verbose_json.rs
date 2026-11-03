@@ -30,7 +30,7 @@ pub struct CreateTranscriptionResponseVerboseJson {
     #[serde(rename = "segments", skip_serializing_if = "Option::is_none")]
     pub segments: Option<Vec<models::TranscriptionSegment>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<Box<models::TranscriptTextUsageDuration>>,
+    pub usage: Option<models::TranscriptTextUsageDuration>,
 }
 
 impl CreateTranscriptionResponseVerboseJson {

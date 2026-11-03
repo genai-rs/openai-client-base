@@ -35,7 +35,7 @@ pub struct RealtimeTranscriptionSessionCreateResponseGa {
     )]
     pub include: Option<Option<Vec<Include>>>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::RealtimeTranscriptionSessionCreateResponseGaAudio>>,
+    pub audio: Option<models::RealtimeTranscriptionSessionCreateResponseGaAudio>,
 }
 
 impl RealtimeTranscriptionSessionCreateResponseGa {

@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum VaultCredentialNetworkingResource {
-    Unrestricted(Box<models::VaultCredentialNetworkingResourceUnrestricted>),
-    Limited(Box<models::VaultCredentialNetworkingResourceLimited>),
+    Unrestricted(models::VaultCredentialNetworkingResourceUnrestricted),
+    Limited(models::VaultCredentialNetworkingResourceLimited),
 }
 
 impl Default for VaultCredentialNetworkingResource {

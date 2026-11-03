@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum MessageContentInner {
-    InputTextContent(Box<models::InputTextContent>),
-    OutputTextContent(Box<models::OutputTextContent>),
-    TextContent(Box<models::TextContent>),
-    SummaryTextContent(Box<models::SummaryTextContent>),
-    ReasoningTextContent(Box<models::ReasoningTextContent>),
-    RefusalContent(Box<models::RefusalContent>),
-    InputImageContent(Box<models::InputImageContent>),
-    ComputerScreenshotContent(Box<models::ComputerScreenshotContent>),
-    InputFileContent(Box<models::InputFileContent>),
+    InputTextContent(models::InputTextContent),
+    OutputTextContent(models::OutputTextContent),
+    TextContent(models::TextContent),
+    SummaryTextContent(models::SummaryTextContent),
+    ReasoningTextContent(models::ReasoningTextContent),
+    RefusalContent(models::RefusalContent),
+    InputImageContent(models::InputImageContent),
+    ComputerScreenshotContent(models::ComputerScreenshotContent),
+    InputFileContent(models::InputFileContent),
 }
 
 impl Default for MessageContentInner {

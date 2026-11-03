@@ -110,9 +110,9 @@ pub struct CreateRunRequest {
         rename = "truncation_strategy",
         skip_serializing_if = "Option::is_none"
     )]
-    pub truncation_strategy: Option<Box<models::TruncationObject>>,
+    pub truncation_strategy: Option<models::TruncationObject>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
-    pub tool_choice: Option<Box<models::AssistantsApiToolChoiceOption>>,
+    pub tool_choice: Option<models::AssistantsApiToolChoiceOption>,
     /// Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use.
     #[serde(
         rename = "parallel_tool_calls",
@@ -120,7 +120,7 @@ pub struct CreateRunRequest {
     )]
     pub parallel_tool_calls: Option<bool>,
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
-    pub response_format: Option<Box<models::AssistantsApiResponseFormatOption>>,
+    pub response_format: Option<models::AssistantsApiResponseFormatOption>,
 }
 
 impl CreateRunRequest {

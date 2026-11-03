@@ -29,9 +29,9 @@ pub struct CustomToolCallOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCallerParam>>>,
+    pub caller: Option<Option<models::ToolCallCallerParam>>,
     #[serde(rename = "output")]
-    pub output: Box<models::CustomToolCallOutputOutput>,
+    pub output: models::CustomToolCallOutputOutput,
 }
 
 impl CustomToolCallOutput {
@@ -46,7 +46,7 @@ impl CustomToolCallOutput {
             id: None,
             call_id,
             caller: None,
-            output: Box::new(output),
+            output,
         }
     }
 }

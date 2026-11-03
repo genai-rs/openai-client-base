@@ -14,18 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LiveAllowedToolsChoiceParamToolsInner {
-    LiveFunctionToolChoiceParam(Box<models::LiveFunctionToolChoiceParam>),
-    LiveMcpToolChoiceParam(Box<models::LiveMcpToolChoiceParam>),
-    LiveSpecificFileSearchParam(Box<models::LiveSpecificFileSearchParam>),
-    LiveSpecificWebSearchParam(Box<models::LiveSpecificWebSearchParam>),
-    LiveSpecificWebSearchPreviewParam(Box<models::LiveSpecificWebSearchPreviewParam>),
-    LiveSpecificImageGenParam(Box<models::LiveSpecificImageGenParam>),
-    LiveSpecificComputerParam(Box<models::LiveSpecificComputerParam>),
-    LiveSpecificCodeInterpreterParam(Box<models::LiveSpecificCodeInterpreterParam>),
-    LiveSpecificProgrammaticToolCallingParam(Box<models::LiveSpecificProgrammaticToolCallingParam>),
-    LiveSpecificFunctionShellParam(Box<models::LiveSpecificFunctionShellParam>),
-    LiveSpecificCustomToolParam(Box<models::LiveSpecificCustomToolParam>),
-    LiveSpecificApplyPatchParam(Box<models::LiveSpecificApplyPatchParam>),
+    LiveFunctionToolChoiceParam(models::LiveFunctionToolChoiceParam),
+    LiveMcpToolChoiceParam(models::LiveMcpToolChoiceParam),
+    LiveSpecificFileSearchParam(models::LiveSpecificFileSearchParam),
+    LiveSpecificWebSearchParam(models::LiveSpecificWebSearchParam),
+    LiveSpecificWebSearchPreviewParam(models::LiveSpecificWebSearchPreviewParam),
+    LiveSpecificImageGenParam(models::LiveSpecificImageGenParam),
+    LiveSpecificComputerParam(models::LiveSpecificComputerParam),
+    LiveSpecificCodeInterpreterParam(models::LiveSpecificCodeInterpreterParam),
+    LiveSpecificProgrammaticToolCallingParam(models::LiveSpecificProgrammaticToolCallingParam),
+    LiveSpecificFunctionShellParam(models::LiveSpecificFunctionShellParam),
+    LiveSpecificCustomToolParam(models::LiveSpecificCustomToolParam),
+    LiveSpecificApplyPatchParam(models::LiveSpecificApplyPatchParam),
 }
 
 impl Default for LiveAllowedToolsChoiceParamToolsInner {

@@ -15,15 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveClientConfigParam {
     #[serde(rename = "data_channel")]
-    pub data_channel: Box<models::LiveDataChannelConfigParam>,
+    pub data_channel: models::LiveDataChannelConfigParam,
 }
 
 impl LiveClientConfigParam {
     /// Startup-only capabilities for an untrusted frontend attached to a unified WebRTC session. Trusted sideband connections are unaffected.
     pub fn new(data_channel: models::LiveDataChannelConfigParam) -> LiveClientConfigParam {
-        LiveClientConfigParam {
-            data_channel: Box::new(data_channel),
-        }
+        LiveClientConfigParam { data_channel }
     }
 }
 

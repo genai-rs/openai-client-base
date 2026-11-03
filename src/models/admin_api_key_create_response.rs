@@ -35,7 +35,7 @@ pub struct AdminApiKeyCreateResponse {
     #[serde(rename = "last_used_at", skip_serializing_if = "Option::is_none")]
     pub last_used_at: Option<i32>,
     #[serde(rename = "owner")]
-    pub owner: Box<models::AdminApiKeyOwner>,
+    pub owner: models::AdminApiKeyOwner,
     /// The value of the API key. Only shown on create.
     #[serde(rename = "value")]
     pub value: String,
@@ -59,7 +59,7 @@ impl AdminApiKeyCreateResponse {
             created_at,
             expires_at,
             last_used_at: None,
-            owner: Box::new(owner),
+            owner,
             value,
         }
     }

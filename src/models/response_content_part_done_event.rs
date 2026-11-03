@@ -30,7 +30,7 @@ pub struct ResponseContentPartDoneEvent {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "part")]
-    pub part: Box<models::OutputContent>,
+    pub part: models::OutputContent,
 }
 
 impl ResponseContentPartDoneEvent {
@@ -49,7 +49,7 @@ impl ResponseContentPartDoneEvent {
             output_index,
             content_index,
             sequence_number,
-            part: Box::new(part),
+            part,
         }
     }
 }

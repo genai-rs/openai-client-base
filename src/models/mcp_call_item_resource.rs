@@ -36,10 +36,10 @@ pub struct McpCallItemResource {
     pub status: models::FunctionCallStatusResource,
     /// The output returned by the MCP tool, if any.
     #[serde(rename = "output", deserialize_with = "Option::deserialize")]
-    pub output: Option<Box<serde_json::Value>>,
+    pub output: Option<serde_json::Value>,
     /// The error returned by the MCP tool, if any.
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
-    pub error: Option<Box<serde_json::Value>>,
+    pub error: Option<serde_json::Value>,
 }
 
 impl McpCallItemResource {
@@ -63,8 +63,8 @@ impl McpCallItemResource {
             name,
             arguments,
             status,
-            output: output.map(Box::new),
-            error: error.map(Box::new),
+            output,
+            error,
         }
     }
 }

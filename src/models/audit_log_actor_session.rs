@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AuditLogActorSession {
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
-    pub user: Option<Box<models::AuditLogActorUser>>,
+    pub user: Option<models::AuditLogActorUser>,
     /// The IP address from which the action was performed.
     #[serde(rename = "ip_address", skip_serializing_if = "Option::is_none")]
     pub ip_address: Option<String>,

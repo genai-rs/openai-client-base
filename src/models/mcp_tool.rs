@@ -49,7 +49,7 @@ pub struct McpTool {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub allowed_tools: Option<Option<Box<models::McpToolAllowedTools>>>,
+    pub allowed_tools: Option<Option<models::McpToolAllowedTools>>,
     /// The tool invocation context(s).
     #[serde(
         rename = "allowed_callers",
@@ -64,7 +64,7 @@ pub struct McpTool {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub require_approval: Option<Option<Box<models::McpToolRequireApproval>>>,
+    pub require_approval: Option<Option<models::McpToolRequireApproval>>,
     /// Whether this MCP tool is deferred and discovered via tool search.
     #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
     pub defer_loading: Option<bool>,

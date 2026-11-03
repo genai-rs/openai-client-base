@@ -27,12 +27,12 @@ pub struct RealtimeBetaResponseUsage {
         rename = "input_token_details",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_token_details: Option<Box<models::RealtimeBetaResponseUsageInputTokenDetails>>,
+    pub input_token_details: Option<models::RealtimeBetaResponseUsageInputTokenDetails>,
     #[serde(
         rename = "output_token_details",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_token_details: Option<Box<models::RealtimeBetaResponseUsageOutputTokenDetails>>,
+    pub output_token_details: Option<models::RealtimeBetaResponseUsageOutputTokenDetails>,
 }
 
 impl RealtimeBetaResponseUsage {

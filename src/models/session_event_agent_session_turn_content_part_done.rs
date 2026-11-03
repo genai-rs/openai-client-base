@@ -36,7 +36,7 @@ pub struct SessionEventAgentSessionTurnContentPartDone {
     #[serde(rename = "content_index")]
     pub content_index: i64,
     #[serde(rename = "part")]
-    pub part: Box<models::OutputTextResource>,
+    pub part: models::OutputTextResource,
 }
 
 impl SessionEventAgentSessionTurnContentPartDone {
@@ -59,7 +59,7 @@ impl SessionEventAgentSessionTurnContentPartDone {
             item_id,
             output_index,
             content_index,
-            part: Box::new(part),
+            part,
         }
     }
 }

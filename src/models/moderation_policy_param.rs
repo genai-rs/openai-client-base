@@ -20,14 +20,14 @@ pub struct ModerationPolicyParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input: Option<Option<Box<models::ModerationConfigParam>>>,
+    pub input: Option<Option<models::ModerationConfigParam>>,
     #[serde(
         rename = "output",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output: Option<Option<Box<models::ModerationConfigParam>>>,
+    pub output: Option<Option<models::ModerationConfigParam>>,
 }
 
 impl ModerationPolicyParam {

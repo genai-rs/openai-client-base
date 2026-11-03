@@ -16,11 +16,11 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "role")]
 pub enum LiveInitialItem {
     #[serde(rename = "developer")]
-    LiveInitialDeveloperMessageItemParam(Box<models::LiveInitialDeveloperMessageItemParam>),
+    LiveInitialDeveloperMessageItemParam(models::LiveInitialDeveloperMessageItemParam),
     #[serde(rename = "user")]
-    LiveInitialUserMessageItemParam(Box<models::LiveInitialUserMessageItemParam>),
+    LiveInitialUserMessageItemParam(models::LiveInitialUserMessageItemParam),
     #[serde(rename = "assistant")]
-    LiveInitialAssistantMessageItemParam(Box<models::LiveInitialAssistantMessageItemParam>),
+    LiveInitialAssistantMessageItemParam(models::LiveInitialAssistantMessageItemParam),
 }
 
 /// The history item type. Always `message`.

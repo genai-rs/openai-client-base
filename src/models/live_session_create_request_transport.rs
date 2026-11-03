@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LiveSessionCreateRequestTransport {
-    LiveWebRtcTransport(Box<models::LiveWebRtcTransport>),
-    LiveSipTransport(Box<models::LiveSipTransport>),
+    LiveWebRtcTransport(models::LiveWebRtcTransport),
+    LiveSipTransport(models::LiveSipTransport),
 }
 
 impl Default for LiveSessionCreateRequestTransport {

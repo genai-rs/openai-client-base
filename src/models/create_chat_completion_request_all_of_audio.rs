@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionRequestAllOfAudio {
     #[serde(rename = "voice")]
-    pub voice: Box<models::VoiceIdsOrCustomVoice>,
+    pub voice: models::VoiceIdsOrCustomVoice,
     /// Specifies the output audio format. Must be one of `wav`, `mp3`, `flac`, `opus`, or `pcm16`.
     #[serde(rename = "format")]
     pub format: Format,
@@ -27,10 +27,7 @@ impl CreateChatCompletionRequestAllOfAudio {
         voice: models::VoiceIdsOrCustomVoice,
         format: Format,
     ) -> CreateChatCompletionRequestAllOfAudio {
-        CreateChatCompletionRequestAllOfAudio {
-            voice: Box::new(voice),
-            format,
-        }
+        CreateChatCompletionRequestAllOfAudio { voice, format }
     }
 }
 /// Specifies the output audio format. Must be one of `wav`, `mp3`, `flac`, `opus`, or `pcm16`.

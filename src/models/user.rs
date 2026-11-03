@@ -54,7 +54,7 @@ pub struct User {
     #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
     pub created: Option<i32>,
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
-    pub user: Option<Box<models::UserUser>>,
+    pub user: Option<models::UserUser>,
     /// Whether the user is a service account.
     #[serde(rename = "is_service_account", skip_serializing_if = "Option::is_none")]
     pub is_service_account: Option<bool>,
@@ -99,7 +99,7 @@ pub struct User {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub projects: Option<Option<Box<models::Object024>>>,
+    pub projects: Option<Option<models::Object024>>,
 }
 
 impl User {

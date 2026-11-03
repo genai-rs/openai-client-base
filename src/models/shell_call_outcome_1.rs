@@ -16,11 +16,9 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ShellCallOutcome1 {
     #[serde(rename = "BetaFunctionShellCallOutputTimeoutOutcome")]
-    BetaFunctionShellCallOutputTimeoutOutcome(
-        Box<models::BetaFunctionShellCallOutputTimeoutOutcome>,
-    ),
+    BetaFunctionShellCallOutputTimeoutOutcome(models::BetaFunctionShellCallOutputTimeoutOutcome),
     #[serde(rename = "BetaFunctionShellCallOutputExitOutcome")]
-    BetaFunctionShellCallOutputExitOutcome(Box<models::BetaFunctionShellCallOutputExitOutcome>),
+    BetaFunctionShellCallOutputExitOutcome(models::BetaFunctionShellCallOutputExitOutcome),
 }
 
 impl Default for ShellCallOutcome1 {

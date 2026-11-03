@@ -16,8 +16,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Object07FileSearchVectorStoresInnerChunkingStrategy {
-    AutoChunkingStrategy(Box<models::AutoChunkingStrategy>),
-    StaticChunkingStrategy(Box<models::StaticChunkingStrategy>),
+    AutoChunkingStrategy(models::AutoChunkingStrategy),
+    StaticChunkingStrategy(models::StaticChunkingStrategy),
 }
 
 impl Default for Object07FileSearchVectorStoresInnerChunkingStrategy {

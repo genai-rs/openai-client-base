@@ -20,7 +20,7 @@ pub struct CreateContainerBody {
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
-    pub expires_after: Option<Box<models::CreateContainerBodyExpiresAfter>>,
+    pub expires_after: Option<models::CreateContainerBodyExpiresAfter>,
     /// An optional list of skills referenced by id or inline data.
     #[serde(rename = "skills", skip_serializing_if = "Option::is_none")]
     pub skills: Option<Vec<models::CreateContainerBodySkillsInner>>,
@@ -28,7 +28,7 @@ pub struct CreateContainerBody {
     #[serde(rename = "memory_limit", skip_serializing_if = "Option::is_none")]
     pub memory_limit: Option<MemoryLimit>,
     #[serde(rename = "network_policy", skip_serializing_if = "Option::is_none")]
-    pub network_policy: Option<Box<models::CreateContainerBodyNetworkPolicy>>,
+    pub network_policy: Option<models::CreateContainerBodyNetworkPolicy>,
 }
 
 impl CreateContainerBody {

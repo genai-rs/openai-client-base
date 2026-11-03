@@ -27,10 +27,10 @@ pub struct SessionEventAgentSessionTurnFailed {
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     #[serde(rename = "turn")]
-    pub turn: Box<models::TurnResource>,
+    pub turn: models::TurnResource,
     /// Token usage by the root agent during the turn, when available.
     #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
-    pub usage: Option<Box<models::TokenUsageResource>>,
+    pub usage: Option<models::TokenUsageResource>,
 }
 
 impl SessionEventAgentSessionTurnFailed {
@@ -48,8 +48,8 @@ impl SessionEventAgentSessionTurnFailed {
             event_id,
             session_id,
             turn_id,
-            turn: Box::new(turn),
-            usage: usage.map(Box::new),
+            turn,
+            usage,
         }
     }
 }

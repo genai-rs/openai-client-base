@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VectorStoreSearchRequest {
     #[serde(rename = "query")]
-    pub query: Box<models::VectorStoreSearchRequestQuery>,
+    pub query: models::VectorStoreSearchRequestQuery,
     /// Whether to rewrite the natural language query for vector search.
     #[serde(rename = "rewrite_query", skip_serializing_if = "Option::is_none")]
     pub rewrite_query: Option<bool>,
@@ -22,15 +22,15 @@ pub struct VectorStoreSearchRequest {
     #[serde(rename = "max_num_results", skip_serializing_if = "Option::is_none")]
     pub max_num_results: Option<i32>,
     #[serde(rename = "filters", skip_serializing_if = "Option::is_none")]
-    pub filters: Option<Box<models::VectorStoreSearchRequestFilters>>,
+    pub filters: Option<models::VectorStoreSearchRequestFilters>,
     #[serde(rename = "ranking_options", skip_serializing_if = "Option::is_none")]
-    pub ranking_options: Option<Box<models::VectorStoreSearchRequestRankingOptions>>,
+    pub ranking_options: Option<models::VectorStoreSearchRequestRankingOptions>,
 }
 
 impl VectorStoreSearchRequest {
     pub fn new(query: models::VectorStoreSearchRequestQuery) -> VectorStoreSearchRequest {
         VectorStoreSearchRequest {
-            query: Box::new(query),
+            query,
             rewrite_query: None,
             max_num_results: None,
             filters: None,

@@ -45,7 +45,7 @@ pub struct Upload {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub file: Option<Option<Box<models::OpenAiFile>>>,
+    pub file: Option<Option<models::OpenAiFile>>,
 }
 
 impl Upload {

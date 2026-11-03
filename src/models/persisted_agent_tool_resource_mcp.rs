@@ -24,7 +24,7 @@ pub struct PersistedAgentToolResourceMcp {
     #[serde(rename = "credential_id", deserialize_with = "Option::deserialize")]
     pub credential_id: Option<String>,
     #[serde(rename = "transport")]
-    pub transport: Box<models::PersistedMcpTransportResource>,
+    pub transport: models::PersistedMcpTransportResource,
     /// Metadata included with requests to this MCP server.
     #[serde(rename = "request_metadata")]
     pub request_metadata: std::collections::HashMap<String, serde_json::Value>,
@@ -54,7 +54,7 @@ impl PersistedAgentToolResourceMcp {
             r#type,
             server_label,
             credential_id,
-            transport: Box::new(transport),
+            transport,
             request_metadata,
             allowed_tools,
             required,

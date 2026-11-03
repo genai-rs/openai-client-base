@@ -18,7 +18,7 @@ pub struct EasyInputMessage {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
-    pub content: Box<models::EasyInputMessageContent>,
+    pub content: models::EasyInputMessageContent,
     #[serde(
         rename = "phase",
         default,
@@ -36,7 +36,7 @@ impl EasyInputMessage {
     pub fn new(role: Role, content: models::EasyInputMessageContent) -> EasyInputMessage {
         EasyInputMessage {
             role,
-            content: Box::new(content),
+            content,
             phase: None,
             r#type: None,
         }

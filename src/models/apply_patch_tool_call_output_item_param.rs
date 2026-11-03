@@ -34,7 +34,7 @@ pub struct ApplyPatchToolCallOutputItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCallerParam>>>,
+    pub caller: Option<Option<models::ToolCallCallerParam>>,
     #[serde(rename = "status")]
     pub status: models::ApplyPatchCallOutputStatusParam,
     /// Optional human-readable log text from the apply patch tool (e.g., patch results or errors).

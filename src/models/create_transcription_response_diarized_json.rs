@@ -27,7 +27,7 @@ pub struct CreateTranscriptionResponseDiarizedJson {
     #[serde(rename = "segments")]
     pub segments: Vec<models::TranscriptionDiarizedSegment>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<Box<models::CreateTranscriptionResponseDiarizedJsonUsage>>,
+    pub usage: Option<models::CreateTranscriptionResponseDiarizedJsonUsage>,
 }
 
 impl CreateTranscriptionResponseDiarizedJson {

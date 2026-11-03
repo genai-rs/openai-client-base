@@ -26,7 +26,7 @@ pub struct CompactResource {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "usage")]
-    pub usage: Box<models::ResponseUsage>,
+    pub usage: models::ResponseUsage,
 }
 
 impl CompactResource {
@@ -42,7 +42,7 @@ impl CompactResource {
             object,
             output,
             created_at,
-            usage: Box::new(usage),
+            usage,
         }
     }
 }

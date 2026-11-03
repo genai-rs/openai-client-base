@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum HostedEnvironmentFileResource {
-    FileId(Box<models::HostedEnvironmentFileResourceFileId>),
-    Inline(Box<models::HostedEnvironmentFileResourceInline>),
+    FileId(models::HostedEnvironmentFileResourceFileId),
+    Inline(models::HostedEnvironmentFileResourceInline),
 }
 
 impl Default for HostedEnvironmentFileResource {

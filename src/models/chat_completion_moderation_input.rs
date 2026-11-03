@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ChatCompletionModerationInput {
-    ChatCompletionModerationResults(Box<models::ChatCompletionModerationResults>),
-    ChatCompletionModerationError(Box<models::ChatCompletionModerationError>),
+    ChatCompletionModerationResults(models::ChatCompletionModerationResults),
+    ChatCompletionModerationError(models::ChatCompletionModerationError),
 }
 
 impl Default for ChatCompletionModerationInput {

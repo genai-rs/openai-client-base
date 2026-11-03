@@ -24,7 +24,7 @@ pub struct LiveErrorEvent {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "error")]
-    pub error: Box<models::LiveLiveError>,
+    pub error: models::LiveLiveError,
 }
 
 impl LiveErrorEvent {
@@ -34,7 +34,7 @@ impl LiveErrorEvent {
             event_id,
             client_event_id: None,
             r#type,
-            error: Box::new(error),
+            error,
         }
     }
 }

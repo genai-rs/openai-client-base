@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum VaultCredentialAuthResource {
-    McpOauth(Box<models::VaultCredentialAuthResourceMcpOauth>),
-    StaticBearer(Box<models::VaultCredentialAuthResourceStaticBearer>),
-    EnvironmentVariable(Box<models::VaultCredentialAuthResourceEnvironmentVariable>),
+    McpOauth(models::VaultCredentialAuthResourceMcpOauth),
+    StaticBearer(models::VaultCredentialAuthResourceStaticBearer),
+    EnvironmentVariable(models::VaultCredentialAuthResourceEnvironmentVariable),
 }
 
 impl Default for VaultCredentialAuthResource {

@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseTextParam {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
-    pub format: Option<Box<models::TextResponseFormatConfiguration>>,
+    pub format: Option<models::TextResponseFormatConfiguration>,
     #[serde(
         rename = "verbosity",
         default,

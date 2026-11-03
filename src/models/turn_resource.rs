@@ -41,10 +41,10 @@ pub struct TurnResource {
     pub completed_at: Option<i64>,
     /// A customer-safe error. Non-null only for a failed turn.
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
-    pub error: Option<Box<models::SessionTurnErrorResource>>,
+    pub error: Option<models::SessionTurnErrorResource>,
     /// Best-effort token usage for the turn, or null if unknown. Recorded usage may change.
     #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
-    pub usage: Option<Box<models::TokenUsageResource>>,
+    pub usage: Option<models::TokenUsageResource>,
 }
 
 impl TurnResource {
@@ -72,8 +72,8 @@ impl TurnResource {
             created_at,
             started_at,
             completed_at,
-            error: error.map(Box::new),
-            usage: usage.map(Box::new),
+            error,
+            usage,
         }
     }
 }

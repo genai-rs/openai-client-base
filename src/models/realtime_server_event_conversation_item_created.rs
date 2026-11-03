@@ -29,7 +29,7 @@ pub struct RealtimeServerEventConversationItemCreated {
     )]
     pub previous_item_id: Option<Option<String>>,
     #[serde(rename = "item")]
-    pub item: Box<models::RealtimeConversationItem>,
+    pub item: models::RealtimeConversationItem,
 }
 
 impl RealtimeServerEventConversationItemCreated {
@@ -43,7 +43,7 @@ impl RealtimeServerEventConversationItemCreated {
             event_id,
             r#type,
             previous_item_id: None,
-            item: Box::new(item),
+            item,
         }
     }
 }

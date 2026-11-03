@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateMcpOauthTokenEndpointAuthParam {
-    None(Box<models::CreateMcpOauthTokenEndpointAuthParamNone>),
-    ClientSecretBasic(Box<models::CreateMcpOauthTokenEndpointAuthParamClientSecretBasic>),
-    ClientSecretPost(Box<models::CreateMcpOauthTokenEndpointAuthParamClientSecretPost>),
+    None(models::CreateMcpOauthTokenEndpointAuthParamNone),
+    ClientSecretBasic(models::CreateMcpOauthTokenEndpointAuthParamClientSecretBasic),
+    ClientSecretPost(models::CreateMcpOauthTokenEndpointAuthParamClientSecretPost),
 }
 
 impl Default for CreateMcpOauthTokenEndpointAuthParam {

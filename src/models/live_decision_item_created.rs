@@ -23,7 +23,7 @@ pub struct LiveDecisionItemCreated {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "item")]
-    pub item: Box<models::LiveDecisionStoredInputItemParam>,
+    pub item: models::LiveDecisionStoredInputItemParam,
 }
 
 impl LiveDecisionItemCreated {
@@ -37,7 +37,7 @@ impl LiveDecisionItemCreated {
             event_id,
             client_event_id: None,
             r#type,
-            item: Box::new(item),
+            item,
         }
     }
 }

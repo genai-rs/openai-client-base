@@ -21,7 +21,7 @@ pub struct RunToolCallObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "function")]
-    pub function: Box<models::RunToolCallObjectFunction>,
+    pub function: models::RunToolCallObjectFunction,
 }
 
 impl RunToolCallObject {
@@ -34,7 +34,7 @@ impl RunToolCallObject {
         RunToolCallObject {
             id,
             r#type,
-            function: Box::new(function),
+            function,
         }
     }
 }

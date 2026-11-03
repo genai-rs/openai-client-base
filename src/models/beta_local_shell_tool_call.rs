@@ -21,7 +21,7 @@ pub struct BetaLocalShellToolCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the local shell call. Always `local_shell_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -32,7 +32,7 @@ pub struct BetaLocalShellToolCall {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "action")]
-    pub action: Box<models::BetaLocalShellExecAction>,
+    pub action: models::BetaLocalShellExecAction,
     /// The status of the local shell call.
     #[serde(rename = "status")]
     pub status: Status,
@@ -52,7 +52,7 @@ impl BetaLocalShellToolCall {
             r#type,
             id,
             call_id,
-            action: Box::new(action),
+            action,
             status,
         }
     }

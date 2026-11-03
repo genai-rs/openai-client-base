@@ -21,7 +21,7 @@ pub struct BetaResponseShellCallCommandDeltaStreamingEvent {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The index of the output item that was updated.
     #[serde(rename = "output_index")]
     pub output_index: i32,

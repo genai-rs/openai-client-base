@@ -24,7 +24,7 @@ pub struct SessionRequiredActionResourceComputerUseApprovalRequest {
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "request")]
-    pub request: Box<models::ComputerUseApprovalRequestKindResource>,
+    pub request: models::ComputerUseApprovalRequestKindResource,
 }
 
 impl SessionRequiredActionResourceComputerUseApprovalRequest {
@@ -39,7 +39,7 @@ impl SessionRequiredActionResourceComputerUseApprovalRequest {
             r#type,
             turn_id,
             request_id,
-            request: Box::new(request),
+            request,
         }
     }
 }

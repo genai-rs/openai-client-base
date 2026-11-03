@@ -17,12 +17,12 @@ pub struct CreateModerationResponseResultsInner {
     #[serde(rename = "flagged")]
     pub flagged: bool,
     #[serde(rename = "categories")]
-    pub categories: Box<models::CreateModerationResponseResultsInnerCategories>,
+    pub categories: models::CreateModerationResponseResultsInnerCategories,
     #[serde(rename = "category_scores")]
-    pub category_scores: Box<models::CreateModerationResponseResultsInnerCategoryScores>,
+    pub category_scores: models::CreateModerationResponseResultsInnerCategoryScores,
     #[serde(rename = "category_applied_input_types")]
     pub category_applied_input_types:
-        Box<models::CreateModerationResponseResultsInnerCategoryAppliedInputTypes>,
+        models::CreateModerationResponseResultsInnerCategoryAppliedInputTypes,
 }
 
 impl CreateModerationResponseResultsInner {
@@ -34,9 +34,9 @@ impl CreateModerationResponseResultsInner {
     ) -> CreateModerationResponseResultsInner {
         CreateModerationResponseResultsInner {
             flagged,
-            categories: Box::new(categories),
-            category_scores: Box::new(category_scores),
-            category_applied_input_types: Box::new(category_applied_input_types),
+            categories,
+            category_scores,
+            category_applied_input_types,
         }
     }
 }

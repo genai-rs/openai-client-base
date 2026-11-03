@@ -34,7 +34,7 @@ pub struct FunctionCallOutputItemParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "output")]
-    pub output: Box<models::FunctionCallOutputItemParamOutput>,
+    pub output: models::FunctionCallOutputItemParamOutput,
     /// The name of the tool that produced the output.
     #[serde(
         rename = "name",
@@ -57,7 +57,7 @@ pub struct FunctionCallOutputItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCallerParam>>>,
+    pub caller: Option<Option<models::ToolCallCallerParam>>,
     #[serde(
         rename = "status",
         default,
@@ -77,7 +77,7 @@ impl FunctionCallOutputItemParam {
             id: None,
             call_id: None,
             r#type,
-            output: Box::new(output),
+            output,
             name: None,
             namespace: None,
             caller: None,

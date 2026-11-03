@@ -18,7 +18,7 @@ pub struct ChatCompletionResponseMessageAnnotationsInner {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "url_citation")]
-    pub url_citation: Box<models::ChatCompletionResponseMessageAnnotationsInnerUrlCitation>,
+    pub url_citation: models::ChatCompletionResponseMessageAnnotationsInnerUrlCitation,
 }
 
 impl ChatCompletionResponseMessageAnnotationsInner {
@@ -29,7 +29,7 @@ impl ChatCompletionResponseMessageAnnotationsInner {
     ) -> ChatCompletionResponseMessageAnnotationsInner {
         ChatCompletionResponseMessageAnnotationsInner {
             r#type,
-            url_citation: Box::new(url_citation),
+            url_citation,
         }
     }
 }

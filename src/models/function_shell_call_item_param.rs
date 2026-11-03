@@ -31,12 +31,12 @@ pub struct FunctionShellCallItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCallerParam>>>,
+    pub caller: Option<Option<models::ToolCallCallerParam>>,
     /// The type of the item. Always `shell_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "action")]
-    pub action: Box<models::FunctionShellActionParam>,
+    pub action: models::FunctionShellActionParam,
     #[serde(
         rename = "status",
         default,
@@ -50,7 +50,7 @@ pub struct FunctionShellCallItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub environment: Option<Option<Box<models::FunctionShellCallItemParamEnvironment>>>,
+    pub environment: Option<Option<models::FunctionShellCallItemParamEnvironment>>,
 }
 
 impl FunctionShellCallItemParam {
@@ -65,7 +65,7 @@ impl FunctionShellCallItemParam {
             call_id,
             caller: None,
             r#type,
-            action: Box::new(action),
+            action,
             status: None,
             environment: None,
         }

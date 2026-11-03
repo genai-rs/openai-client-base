@@ -24,7 +24,7 @@ pub struct ImageEditPartialImageEvent {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "size")]
-    pub size: Box<models::ImageEditCompletedEventSize>,
+    pub size: models::ImageEditCompletedEventSize,
     /// The quality setting for the requested edited image.
     #[serde(rename = "quality")]
     pub quality: Quality,
@@ -55,7 +55,7 @@ impl ImageEditPartialImageEvent {
             r#type,
             b64_json,
             created_at,
-            size: Box::new(size),
+            size,
             quality,
             background,
             output_format,

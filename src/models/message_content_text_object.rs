@@ -18,7 +18,7 @@ pub struct MessageContentTextObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "text")]
-    pub text: Box<models::MessageContentTextObjectText>,
+    pub text: models::MessageContentTextObjectText,
 }
 
 impl MessageContentTextObject {
@@ -27,10 +27,7 @@ impl MessageContentTextObject {
         r#type: Type,
         text: models::MessageContentTextObjectText,
     ) -> MessageContentTextObject {
-        MessageContentTextObject {
-            r#type,
-            text: Box::new(text),
-        }
+        MessageContentTextObject { r#type, text }
     }
 }
 /// Always `text`.

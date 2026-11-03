@@ -17,16 +17,13 @@ pub struct Object11 {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "data")]
-    pub data: Box<models::MessageObject>,
+    pub data: models::MessageObject,
 }
 
 impl Object11 {
     /// Occurs when a [message](https://developers.openai.com/api/docs/assistants/migration) moves to an `in_progress` state.
     pub fn new(event: Event, data: models::MessageObject) -> Object11 {
-        Object11 {
-            event,
-            data: Box::new(data),
-        }
+        Object11 { event, data }
     }
 }
 ///

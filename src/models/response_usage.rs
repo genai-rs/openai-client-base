@@ -18,12 +18,12 @@ pub struct ResponseUsage {
     #[serde(rename = "input_tokens")]
     pub input_tokens: i32,
     #[serde(rename = "input_tokens_details")]
-    pub input_tokens_details: Box<models::ResponseUsageInputTokensDetails>,
+    pub input_tokens_details: models::ResponseUsageInputTokensDetails,
     /// The number of output tokens.
     #[serde(rename = "output_tokens")]
     pub output_tokens: i32,
     #[serde(rename = "output_tokens_details")]
-    pub output_tokens_details: Box<models::BatchUsageOutputTokensDetails>,
+    pub output_tokens_details: models::BatchUsageOutputTokensDetails,
     /// The total number of tokens used.
     #[serde(rename = "total_tokens")]
     pub total_tokens: i32,
@@ -40,9 +40,9 @@ impl ResponseUsage {
     ) -> ResponseUsage {
         ResponseUsage {
             input_tokens,
-            input_tokens_details: Box::new(input_tokens_details),
+            input_tokens_details,
             output_tokens,
-            output_tokens_details: Box::new(output_tokens_details),
+            output_tokens_details,
             total_tokens,
         }
     }

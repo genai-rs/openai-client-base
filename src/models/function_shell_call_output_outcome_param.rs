@@ -15,10 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum FunctionShellCallOutputOutcomeParam {
-    FunctionShellCallOutputTimeoutOutcomeParam(
-        Box<models::FunctionShellCallOutputTimeoutOutcomeParam>,
-    ),
-    FunctionShellCallOutputExitOutcomeParam(Box<models::FunctionShellCallOutputExitOutcomeParam>),
+    FunctionShellCallOutputTimeoutOutcomeParam(models::FunctionShellCallOutputTimeoutOutcomeParam),
+    FunctionShellCallOutputExitOutcomeParam(models::FunctionShellCallOutputExitOutcomeParam),
 }
 
 impl Default for FunctionShellCallOutputOutcomeParam {

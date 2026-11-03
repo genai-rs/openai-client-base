@@ -48,19 +48,19 @@ pub struct RealtimeSession {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio_transcription: Option<Option<Box<models::AudioTranscriptionResponse>>>,
+    pub input_audio_transcription: Option<Option<models::AudioTranscriptionResponse>>,
     #[serde(
         rename = "turn_detection",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub turn_detection: Option<Option<Box<models::RealtimeTurnDetection>>>,
+    pub turn_detection: Option<Option<models::RealtimeTurnDetection>>,
     #[serde(
         rename = "input_audio_noise_reduction",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio_noise_reduction: Option<Box<models::RealtimeSessionInputAudioNoiseReduction>>,
+    pub input_audio_noise_reduction: Option<models::RealtimeSessionInputAudioNoiseReduction>,
     /// The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
@@ -70,7 +70,7 @@ pub struct RealtimeSession {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tracing: Option<Option<Box<models::TracingConfiguration>>>,
+    pub tracing: Option<Option<models::TracingConfiguration>>,
     /// Tools (functions) available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeFunctionTool>>,
@@ -84,8 +84,7 @@ pub struct RealtimeSession {
         rename = "max_response_output_tokens",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_response_output_tokens:
-        Option<Box<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>>,
+    pub max_response_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
     /// Expiration timestamp for the session, in seconds since epoch.
     #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
     pub expires_at: Option<i32>,
@@ -95,7 +94,7 @@ pub struct RealtimeSession {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt: Option<Option<Box<models::Prompt>>>,
+    pub prompt: Option<Option<models::Prompt>>,
     /// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
     #[serde(
         rename = "include",

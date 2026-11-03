@@ -21,12 +21,12 @@ pub struct BetaResponseIncompleteEvent {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the event. Always `response.incomplete`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "response")]
-    pub response: Box<models::BetaResponse>,
+    pub response: models::BetaResponse,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
@@ -42,7 +42,7 @@ impl BetaResponseIncompleteEvent {
         BetaResponseIncompleteEvent {
             agent: None,
             r#type,
-            response: Box::new(response),
+            response,
             sequence_number,
         }
     }

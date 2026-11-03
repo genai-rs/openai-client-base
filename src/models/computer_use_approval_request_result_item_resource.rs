@@ -26,7 +26,7 @@ pub struct ComputerUseApprovalRequestResultItemResource {
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "response")]
-    pub response: Box<models::ComputerUseApprovalResponseKindResource>,
+    pub response: models::ComputerUseApprovalResponseKindResource,
 }
 
 impl ComputerUseApprovalRequestResultItemResource {
@@ -43,7 +43,7 @@ impl ComputerUseApprovalRequestResultItemResource {
             r#type,
             turn_id,
             request_id,
-            response: Box::new(response),
+            response,
         }
     }
 }

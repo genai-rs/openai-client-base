@@ -27,7 +27,7 @@ pub struct McpOauthRefreshResource {
     #[serde(rename = "scope", deserialize_with = "Option::deserialize")]
     pub scope: Option<String>,
     #[serde(rename = "token_endpoint_auth")]
-    pub token_endpoint_auth: Box<models::McpOauthTokenEndpointAuthResource>,
+    pub token_endpoint_auth: models::McpOauthTokenEndpointAuthResource,
 }
 
 impl McpOauthRefreshResource {
@@ -44,7 +44,7 @@ impl McpOauthRefreshResource {
             client_id,
             resource,
             scope,
-            token_endpoint_auth: Box::new(token_endpoint_auth),
+            token_endpoint_auth,
         }
     }
 }

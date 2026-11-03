@@ -24,7 +24,7 @@ pub struct BetaResponseInjectFailedEvent {
     #[serde(rename = "input")]
     pub input: Vec<models::BetaInputItem>,
     #[serde(rename = "error")]
-    pub error: Box<models::BetaResponseInjectFailedEventError>,
+    pub error: models::BetaResponseInjectFailedEventError,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
@@ -46,7 +46,7 @@ impl BetaResponseInjectFailedEvent {
             r#type,
             response_id,
             input,
-            error: Box::new(error),
+            error,
             sequence_number,
             stream_id: None,
         }

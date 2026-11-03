@@ -44,7 +44,7 @@ pub struct McpToolCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub error: Option<Option<Box<models::McpToolCallError>>>,
+    pub error: Option<Option<models::McpToolCallError>>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::McpToolCallStatus>,
     /// Unique identifier for the MCP tool call approval request. Include this value in a subsequent `mcp_approval_response` input to approve or reject the corresponding tool call.

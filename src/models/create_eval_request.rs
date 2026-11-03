@@ -25,7 +25,7 @@ pub struct CreateEvalRequest {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     #[serde(rename = "data_source_config")]
-    pub data_source_config: Box<models::CreateEvalRequestDataSourceConfig>,
+    pub data_source_config: models::CreateEvalRequestDataSourceConfig,
     /// A list of graders for all eval runs in this group. Graders can reference variables in the data source using double curly braces notation, like `{{item.variable_name}}`. To reference the model's output, use the `sample` namespace (ie, `{{sample.output_text}}`).
     #[serde(rename = "testing_criteria")]
     pub testing_criteria: Vec<models::CreateEvalRequestTestingCriteriaInner>,
@@ -39,7 +39,7 @@ impl CreateEvalRequest {
         CreateEvalRequest {
             name: None,
             metadata: None,
-            data_source_config: Box::new(data_source_config),
+            data_source_config,
             testing_criteria,
         }
     }

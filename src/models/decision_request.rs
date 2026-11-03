@@ -17,7 +17,7 @@ pub struct DecisionRequest {
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "input")]
-    pub input: Box<models::DecisionInput>,
+    pub input: models::DecisionInput,
     /// Ask 1–200 questions about the input. Each question can be a predicate, choice, or score. Answers come back in the same order.
     #[serde(rename = "questions")]
     pub questions: Vec<models::QuestionParam>,
@@ -43,7 +43,7 @@ pub struct DecisionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_options: Option<Option<Box<models::DecisionRequestPromptCacheOptions>>>,
+    pub prompt_cache_options: Option<Option<models::DecisionRequestPromptCacheOptions>>,
 }
 
 impl DecisionRequest {
@@ -54,7 +54,7 @@ impl DecisionRequest {
     ) -> DecisionRequest {
         DecisionRequest {
             model,
-            input: Box::new(input),
+            input,
             questions,
             safety_identifier: None,
             prompt_cache_key: None,

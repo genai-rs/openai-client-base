@@ -21,7 +21,7 @@ pub struct BetaResponseShellCallOutputContentWsDone {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The ID of the output item that was updated.
     #[serde(rename = "item_id")]
     pub item_id: String,

@@ -14,15 +14,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionStreamResponseChoicesInner {
     #[serde(rename = "delta")]
-    pub delta: Box<models::ChatCompletionStreamResponseDelta>,
+    pub delta: models::ChatCompletionStreamResponseDelta,
     #[serde(
         rename = "logprobs",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub logprobs:
-        Option<Option<Box<models::CreateChatCompletionStreamResponseChoicesInnerLogprobs>>>,
+    pub logprobs: Option<Option<models::CreateChatCompletionStreamResponseChoicesInnerLogprobs>>,
     /// The reason the model stopped generating tokens. This will be `stop` if the model hit a natural stop point or a provided stop sequence, `length` if the maximum number of tokens specified in the request was reached, `content_filter` if content was omitted due to a flag from our content filters, `tool_calls` if the model called a tool, or `function_call` (deprecated) if the model called a function. Omitted from the final audio update containing only `delta.audio.expires_at`.
     #[serde(
         rename = "finish_reason",
@@ -42,7 +41,7 @@ impl CreateChatCompletionStreamResponseChoicesInner {
         index: i32,
     ) -> CreateChatCompletionStreamResponseChoicesInner {
         CreateChatCompletionStreamResponseChoicesInner {
-            delta: Box::new(delta),
+            delta,
             logprobs: None,
             finish_reason: None,
             index,

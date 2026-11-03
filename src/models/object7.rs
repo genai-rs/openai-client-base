@@ -17,16 +17,13 @@ pub struct Object7 {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "data")]
-    pub data: Box<models::RunObject>,
+    pub data: models::RunObject,
 }
 
 impl Object7 {
     /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) moves to a `cancelling` status.
     pub fn new(event: Event, data: models::RunObject) -> Object7 {
-        Object7 {
-            event,
-            data: Box::new(data),
-        }
+        Object7 { event, data }
     }
 }
 ///

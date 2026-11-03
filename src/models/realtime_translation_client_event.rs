@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeTranslationClientEvent {
-    SessionUpdate(Box<models::RealtimeTranslationClientEventSessionUpdate>),
-    InputAudioBufferAppend(Box<models::RealtimeTranslationClientEventInputAudioBufferAppend>),
-    SessionClose(Box<models::RealtimeTranslationClientEventSessionClose>),
+    SessionUpdate(models::RealtimeTranslationClientEventSessionUpdate),
+    InputAudioBufferAppend(models::RealtimeTranslationClientEventInputAudioBufferAppend),
+    SessionClose(models::RealtimeTranslationClientEventSessionClose),
 }

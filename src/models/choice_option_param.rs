@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChoiceOptionParam {
     #[serde(rename = "value")]
-    pub value: Box<models::ChoiceValueParam>,
+    pub value: models::ChoiceValueParam,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
@@ -22,7 +22,7 @@ pub struct ChoiceOptionParam {
 impl ChoiceOptionParam {
     pub fn new(value: models::ChoiceValueParam) -> ChoiceOptionParam {
         ChoiceOptionParam {
-            value: Box::new(value),
+            value,
             description: None,
         }
     }

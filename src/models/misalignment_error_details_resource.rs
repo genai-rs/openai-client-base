@@ -22,7 +22,7 @@ pub struct MisalignmentErrorDetailsResource {
     )]
     pub review_target: Option<Option<String>>,
     #[serde(rename = "error_type", skip_serializing_if = "Option::is_none")]
-    pub error_type: Option<Box<models::MisalignmentErrorType>>,
+    pub error_type: Option<models::MisalignmentErrorType>,
     /// The public explanation for this block.
     #[serde(
         rename = "detailed_explanation",
@@ -30,7 +30,7 @@ pub struct MisalignmentErrorDetailsResource {
     )]
     pub detailed_explanation: Option<String>,
     #[serde(rename = "steer", skip_serializing_if = "Option::is_none")]
-    pub steer: Option<Box<models::MisalignmentSteer>>,
+    pub steer: Option<models::MisalignmentSteer>,
 }
 
 impl MisalignmentErrorDetailsResource {

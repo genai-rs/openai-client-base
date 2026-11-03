@@ -57,7 +57,7 @@ pub struct InputFileContentParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<Option<Box<models::PromptCacheBreakpointParam>>>,
+    pub prompt_cache_breakpoint: Option<Option<models::PromptCacheBreakpointParam>>,
 }
 
 impl InputFileContentParam {

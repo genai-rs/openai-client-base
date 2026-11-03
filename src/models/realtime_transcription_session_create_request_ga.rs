@@ -18,7 +18,7 @@ pub struct RealtimeTranscriptionSessionCreateRequestGa {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::RealtimeTranscriptionSessionCreateRequestGaAudio>>,
+    pub audio: Option<models::RealtimeTranscriptionSessionCreateRequestGaAudio>,
     /// Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
     #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
     pub include: Option<Vec<Include>>,

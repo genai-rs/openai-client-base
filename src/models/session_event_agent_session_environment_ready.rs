@@ -27,7 +27,7 @@ pub struct SessionEventAgentSessionEnvironmentReady {
     #[serde(rename = "turn_id", deserialize_with = "Option::deserialize")]
     pub turn_id: Option<String>,
     #[serde(rename = "environment")]
-    pub environment: Box<models::SessionEnvironmentStateResource>,
+    pub environment: models::SessionEnvironmentStateResource,
 }
 
 impl SessionEventAgentSessionEnvironmentReady {
@@ -44,7 +44,7 @@ impl SessionEventAgentSessionEnvironmentReady {
             event_id,
             session_id,
             turn_id,
-            environment: Box::new(environment),
+            environment,
         }
     }
 }

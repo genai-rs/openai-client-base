@@ -24,8 +24,7 @@ pub struct RunStepDeltaStepDetailsToolCallsCodeObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "code_interpreter", skip_serializing_if = "Option::is_none")]
-    pub code_interpreter:
-        Option<Box<models::RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreter>>,
+    pub code_interpreter: Option<models::RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreter>,
 }
 
 impl RunStepDeltaStepDetailsToolCallsCodeObject {

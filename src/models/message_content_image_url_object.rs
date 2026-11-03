@@ -18,7 +18,7 @@ pub struct MessageContentImageUrlObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "image_url")]
-    pub image_url: Box<models::MessageContentImageUrlObjectImageUrl>,
+    pub image_url: models::MessageContentImageUrlObjectImageUrl,
 }
 
 impl MessageContentImageUrlObject {
@@ -27,10 +27,7 @@ impl MessageContentImageUrlObject {
         r#type: Type,
         image_url: models::MessageContentImageUrlObjectImageUrl,
     ) -> MessageContentImageUrlObject {
-        MessageContentImageUrlObject {
-            r#type,
-            image_url: Box::new(image_url),
-        }
+        MessageContentImageUrlObject { r#type, image_url }
     }
 }
 /// The type of the content part.

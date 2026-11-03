@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaWebSearchToolCallAction {
-    BetaWebSearchActionSearch(Box<models::BetaWebSearchActionSearch>),
-    BetaWebSearchActionOpenPage(Box<models::BetaWebSearchActionOpenPage>),
-    BetaWebSearchActionFind(Box<models::BetaWebSearchActionFind>),
+    BetaWebSearchActionSearch(models::BetaWebSearchActionSearch),
+    BetaWebSearchActionOpenPage(models::BetaWebSearchActionOpenPage),
+    BetaWebSearchActionFind(models::BetaWebSearchActionFind),
 }
 
 impl Default for BetaWebSearchToolCallAction {

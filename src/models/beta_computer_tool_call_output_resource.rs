@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaComputerToolCallOutputResource {
     /// The agent that produced this item.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the computer tool call output. Always `computer_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -32,7 +32,7 @@ pub struct BetaComputerToolCallOutputResource {
     )]
     pub acknowledged_safety_checks: Option<Vec<models::BetaComputerCallSafetyCheckParam>>,
     #[serde(rename = "output")]
-    pub output: Box<models::BetaComputerScreenshotImage>,
+    pub output: models::BetaComputerScreenshotImage,
     #[serde(rename = "status")]
     pub status: models::BetaComputerCallOutputStatus,
     /// The identifier of the actor that created the item.
@@ -53,7 +53,7 @@ impl BetaComputerToolCallOutputResource {
             id: None,
             call_id,
             acknowledged_safety_checks: None,
-            output: Box::new(output),
+            output,
             status,
             created_by: None,
         }

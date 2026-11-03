@@ -21,7 +21,7 @@ pub struct BetaResponseWsError {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the event. Always `error`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -32,7 +32,7 @@ pub struct BetaResponseWsError {
     #[serde(rename = "sequence_number", skip_serializing_if = "Option::is_none")]
     pub sequence_number: Option<i32>,
     #[serde(rename = "error")]
-    pub error: Box<models::BetaErrorPayload>,
+    pub error: models::BetaErrorPayload,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -46,7 +46,7 @@ impl BetaResponseWsError {
             r#type,
             status: None,
             sequence_number: None,
-            error: Box::new(error),
+            error,
             stream_id: None,
         }
     }

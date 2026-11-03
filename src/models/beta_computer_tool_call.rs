@@ -21,7 +21,7 @@ pub struct BetaComputerToolCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the computer call. Always `computer_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -32,7 +32,7 @@ pub struct BetaComputerToolCall {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
-    pub action: Option<Box<models::BetaComputerAction>>,
+    pub action: Option<models::BetaComputerAction>,
     /// Flattened batched actions for `computer_use`. Each action includes an `type` discriminator and action-specific fields.
     #[serde(rename = "actions", skip_serializing_if = "Option::is_none")]
     pub actions: Option<Vec<models::BetaComputerAction>>,

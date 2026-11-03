@@ -33,7 +33,7 @@ pub struct MessageObject {
         rename = "incomplete_details",
         deserialize_with = "Option::deserialize"
     )]
-    pub incomplete_details: Option<Box<models::Object012>>,
+    pub incomplete_details: Option<models::Object012>,
     /// The Unix timestamp (in seconds) for when the message was completed.
     #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
     pub completed_at: Option<i32>,
@@ -84,7 +84,7 @@ impl MessageObject {
             created_at,
             thread_id,
             status,
-            incomplete_details: incomplete_details.map(Box::new),
+            incomplete_details,
             completed_at,
             incomplete_at,
             role,

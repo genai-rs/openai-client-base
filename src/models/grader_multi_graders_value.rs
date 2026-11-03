@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum GraderMultiGradersValue {
     #[serde(rename = "string_check")]
-    StringCheck(Box<models::GraderStringCheck>),
+    StringCheck(models::GraderStringCheck),
     #[serde(rename = "text_similarity")]
-    TextSimilarity(Box<models::GraderTextSimilarity>),
+    TextSimilarity(models::GraderTextSimilarity),
     #[serde(rename = "python")]
-    Python(Box<models::GraderPython>),
+    Python(models::GraderPython),
     #[serde(rename = "score_model")]
-    ScoreModel(Box<models::GraderScoreModel>),
+    ScoreModel(models::GraderScoreModel),
     #[serde(rename = "label_model")]
-    LabelModel(Box<models::GraderLabelModel>),
+    LabelModel(models::GraderLabelModel),
 }
 
 impl Default for GraderMultiGradersValue {

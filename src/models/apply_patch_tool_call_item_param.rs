@@ -34,11 +34,11 @@ pub struct ApplyPatchToolCallItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCallerParam>>>,
+    pub caller: Option<Option<models::ToolCallCallerParam>>,
     #[serde(rename = "status")]
     pub status: models::ApplyPatchCallStatusParam,
     #[serde(rename = "operation")]
-    pub operation: Box<models::ApplyPatchOperationParam>,
+    pub operation: models::ApplyPatchOperationParam,
 }
 
 impl ApplyPatchToolCallItemParam {
@@ -55,7 +55,7 @@ impl ApplyPatchToolCallItemParam {
             call_id,
             caller: None,
             status,
-            operation: Box::new(operation),
+            operation,
         }
     }
 }

@@ -36,7 +36,7 @@ pub struct RealtimeSessionCreateResponseGa {
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::RealtimeSessionCreateResponseGaAudio>>,
+    pub audio: Option<models::RealtimeSessionCreateResponseGaAudio>,
     /// Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
     #[serde(
         rename = "include",
@@ -51,25 +51,25 @@ pub struct RealtimeSessionCreateResponseGa {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tracing: Option<Option<Box<models::TracingConfiguration1>>>,
+    pub tracing: Option<Option<models::TracingConfiguration1>>,
     /// Tools available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeResponseCreateParamsToolsInner>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
-    pub tool_choice: Option<Box<models::RealtimeBetaResponseCreateParamsToolChoice>>,
+    pub tool_choice: Option<models::RealtimeBetaResponseCreateParamsToolChoice>,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
-    pub reasoning: Option<Box<models::RealtimeReasoning>>,
+    pub reasoning: Option<models::RealtimeReasoning>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_output_tokens: Option<Box<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>>,
+    pub max_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
-    pub truncation: Option<Box<models::RealtimeTruncation>>,
+    pub truncation: Option<models::RealtimeTruncation>,
     #[serde(
         rename = "prompt",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt: Option<Option<Box<models::Prompt>>>,
+    pub prompt: Option<Option<models::Prompt>>,
 }
 
 impl RealtimeSessionCreateResponseGa {

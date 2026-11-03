@@ -29,7 +29,7 @@ pub struct ComputerToolCallOutputResource {
     )]
     pub acknowledged_safety_checks: Option<Vec<models::ComputerCallSafetyCheckParam>>,
     #[serde(rename = "output")]
-    pub output: Box<models::ComputerScreenshotImage>,
+    pub output: models::ComputerScreenshotImage,
     #[serde(rename = "status")]
     pub status: models::ComputerCallOutputStatus,
     /// The identifier of the actor that created the item.
@@ -49,7 +49,7 @@ impl ComputerToolCallOutputResource {
             id: None,
             call_id,
             acknowledged_safety_checks: None,
-            output: Box::new(output),
+            output,
             status,
             created_by: None,
         }

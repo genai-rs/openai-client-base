@@ -51,7 +51,7 @@ pub struct RealtimeMcpToolCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub error: Option<Option<Box<models::RealtimeMcpToolCallError>>>,
+    pub error: Option<Option<models::RealtimeMcpToolCallError>>,
 }
 
 impl RealtimeMcpToolCall {

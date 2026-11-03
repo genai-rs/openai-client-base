@@ -24,7 +24,7 @@ pub struct SessionEnvironmentStateResource {
     pub status: models::SessionEnvironmentStatusResource,
     /// The error reported while preparing the environment, if any.
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
-    pub error: Option<Box<models::SessionEnvironmentErrorResource>>,
+    pub error: Option<models::SessionEnvironmentErrorResource>,
 }
 
 impl SessionEnvironmentStateResource {
@@ -39,7 +39,7 @@ impl SessionEnvironmentStateResource {
             id,
             r#type,
             status,
-            error: error.map(Box::new),
+            error,
         }
     }
 }

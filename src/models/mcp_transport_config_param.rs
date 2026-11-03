@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum McpTransportConfigParam {
-    Http(Box<models::McpTransportConfigParamHttp>),
-    Stdio(Box<models::McpTransportConfigParamStdio>),
+    Http(models::McpTransportConfigParamHttp),
+    Stdio(models::McpTransportConfigParamStdio),
 }
 
 impl Default for McpTransportConfigParam {

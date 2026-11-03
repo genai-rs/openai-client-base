@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaCustomToolCallResource {
     /// The agent that produced this item.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the custom tool call. Always `custom_tool_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -26,7 +26,7 @@ pub struct BetaCustomToolCallResource {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
-    pub caller: Option<Box<models::BetaToolCallCaller>>,
+    pub caller: Option<models::BetaToolCallCaller>,
     /// The namespace of the custom tool being called.
     #[serde(rename = "namespace", skip_serializing_if = "Option::is_none")]
     pub namespace: Option<String>,

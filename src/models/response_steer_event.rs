@@ -21,7 +21,7 @@ pub struct ResponseSteerEvent {
     #[serde(rename = "previous_response_id")]
     pub previous_response_id: String,
     #[serde(rename = "input")]
-    pub input: Box<models::ResponseSteerInput>,
+    pub input: models::ResponseSteerInput,
 }
 
 impl ResponseSteerEvent {
@@ -34,7 +34,7 @@ impl ResponseSteerEvent {
         ResponseSteerEvent {
             r#type,
             previous_response_id,
-            input: Box::new(input),
+            input,
         }
     }
 }

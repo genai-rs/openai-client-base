@@ -18,7 +18,7 @@ pub struct WebSearchUserLocation {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "approximate")]
-    pub approximate: Box<models::WebSearchLocation>,
+    pub approximate: models::WebSearchLocation,
 }
 
 impl WebSearchUserLocation {
@@ -26,7 +26,7 @@ impl WebSearchUserLocation {
     pub fn new(r#type: Type, approximate: models::WebSearchLocation) -> WebSearchUserLocation {
         WebSearchUserLocation {
             r#type,
-            approximate: Box::new(approximate),
+            approximate,
         }
     }
 }

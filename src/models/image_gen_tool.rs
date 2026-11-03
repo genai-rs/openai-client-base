@@ -24,7 +24,7 @@ pub struct ImageGenTool {
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
-    pub size: Option<Box<models::ImageGenToolSize>>,
+    pub size: Option<models::ImageGenToolSize>,
     /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
     #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
     pub output_format: Option<OutputFormat>,
@@ -45,7 +45,7 @@ pub struct ImageGenTool {
     )]
     pub input_fidelity: Option<Option<models::InputFidelity>>,
     #[serde(rename = "input_image_mask", skip_serializing_if = "Option::is_none")]
-    pub input_image_mask: Option<Box<models::ImageGenToolInputImageMask>>,
+    pub input_image_mask: Option<models::ImageGenToolInputImageMask>,
     /// Number of partial images to generate in streaming mode, from 0 (default value) to 3.
     #[serde(rename = "partial_images", skip_serializing_if = "Option::is_none")]
     pub partial_images: Option<i32>,

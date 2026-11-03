@@ -40,7 +40,7 @@ pub struct Error2 {
     #[serde(rename = "headers", skip_serializing_if = "Option::is_none")]
     pub headers: Option<std::collections::HashMap<String, String>>,
     #[serde(rename = "misalignment", skip_serializing_if = "Option::is_none")]
-    pub misalignment: Option<Box<models::MisalignmentErrorDetailsResource>>,
+    pub misalignment: Option<models::MisalignmentErrorDetailsResource>,
 }
 
 impl Error2 {

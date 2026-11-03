@@ -33,7 +33,7 @@ pub struct CreateCompletionResponse {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<Box<models::CompletionUsage>>,
+    pub usage: Option<models::CompletionUsage>,
 }
 
 impl CreateCompletionResponse {

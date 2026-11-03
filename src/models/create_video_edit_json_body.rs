@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVideoEditJsonBody {
     #[serde(rename = "video")]
-    pub video: Box<models::VideoReferenceInputParam>,
+    pub video: models::VideoReferenceInputParam,
     /// Text prompt that describes how to edit the source video.
     #[serde(rename = "prompt")]
     pub prompt: String,
@@ -24,10 +24,7 @@ pub struct CreateVideoEditJsonBody {
 impl CreateVideoEditJsonBody {
     /// JSON parameters for editing an existing generated video.
     pub fn new(video: models::VideoReferenceInputParam, prompt: String) -> CreateVideoEditJsonBody {
-        CreateVideoEditJsonBody {
-            video: Box::new(video),
-            prompt,
-        }
+        CreateVideoEditJsonBody { video, prompt }
     }
 }
 

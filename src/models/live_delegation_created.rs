@@ -27,7 +27,7 @@ pub struct LiveDelegationCreated {
     #[serde(rename = "offset_ms")]
     pub offset_ms: i32,
     #[serde(rename = "delegation")]
-    pub delegation: Box<models::LiveDelegationItem>,
+    pub delegation: models::LiveDelegationItem,
 }
 
 impl LiveDelegationCreated {
@@ -43,7 +43,7 @@ impl LiveDelegationCreated {
             client_event_id: None,
             r#type,
             offset_ms,
-            delegation: Box::new(delegation),
+            delegation,
         }
     }
 }

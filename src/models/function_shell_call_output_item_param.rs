@@ -31,7 +31,7 @@ pub struct FunctionShellCallOutputItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCallerParam>>>,
+    pub caller: Option<Option<models::ToolCallCallerParam>>,
     /// The type of the item. Always `shell_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,

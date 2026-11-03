@@ -20,7 +20,7 @@ pub struct BetaFunctionShellCallItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    pub agent: Option<Option<models::BetaAgentTagParam>>,
     /// The unique ID of the shell tool call. Populated when this item is returned via API.
     #[serde(
         rename = "id",
@@ -38,12 +38,12 @@ pub struct BetaFunctionShellCallItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::BetaToolCallCallerParam>>>,
+    pub caller: Option<Option<models::BetaToolCallCallerParam>>,
     /// The type of the item. Always `shell_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "action")]
-    pub action: Box<models::BetaFunctionShellActionParam>,
+    pub action: models::BetaFunctionShellActionParam,
     #[serde(
         rename = "status",
         default,
@@ -57,7 +57,7 @@ pub struct BetaFunctionShellCallItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub environment: Option<Option<Box<models::BetaFunctionShellCallItemParamEnvironment>>>,
+    pub environment: Option<Option<models::BetaFunctionShellCallItemParamEnvironment>>,
 }
 
 impl BetaFunctionShellCallItemParam {
@@ -73,7 +73,7 @@ impl BetaFunctionShellCallItemParam {
             call_id,
             caller: None,
             r#type,
-            action: Box::new(action),
+            action,
             status: None,
             environment: None,
         }

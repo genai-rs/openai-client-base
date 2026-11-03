@@ -31,7 +31,7 @@ pub struct LiveDecisionEvent {
     #[serde(rename = "source_event_id", deserialize_with = "Option::deserialize")]
     pub source_event_id: Option<String>,
     #[serde(rename = "event")]
-    pub event: Box<models::LiveDecisionCompleted>,
+    pub event: models::LiveDecisionCompleted,
 }
 
 impl LiveDecisionEvent {
@@ -52,7 +52,7 @@ impl LiveDecisionEvent {
             trigger_id,
             source_event_type,
             source_event_id,
-            event: Box::new(event),
+            event,
         }
     }
 }

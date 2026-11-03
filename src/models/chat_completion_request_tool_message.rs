@@ -17,7 +17,7 @@ pub struct ChatCompletionRequestToolMessage {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
-    pub content: Box<models::ChatCompletionRequestToolMessageContent>,
+    pub content: models::ChatCompletionRequestToolMessageContent,
     /// Tool call that this message is responding to.
     #[serde(rename = "tool_call_id")]
     pub tool_call_id: String,
@@ -31,7 +31,7 @@ impl ChatCompletionRequestToolMessage {
     ) -> ChatCompletionRequestToolMessage {
         ChatCompletionRequestToolMessage {
             role,
-            content: Box::new(content),
+            content,
             tool_call_id,
         }
     }

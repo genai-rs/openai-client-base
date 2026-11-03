@@ -30,7 +30,7 @@ pub struct SessionEventAgentSessionTurnItemDone {
     #[serde(rename = "output_index")]
     pub output_index: i64,
     #[serde(rename = "item")]
-    pub item: Box<models::AgentOutputItemResource>,
+    pub item: models::AgentOutputItemResource,
 }
 
 impl SessionEventAgentSessionTurnItemDone {
@@ -49,7 +49,7 @@ impl SessionEventAgentSessionTurnItemDone {
             session_id,
             turn_id,
             output_index,
-            item: Box::new(item),
+            item,
         }
     }
 }

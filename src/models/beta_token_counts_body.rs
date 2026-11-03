@@ -22,7 +22,7 @@ pub struct BetaTokenCountsBody {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input: Option<Option<Box<models::BetaTokenCountsBodyInput>>>,
+    pub input: Option<Option<models::BetaTokenCountsBodyInput>>,
     /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
@@ -45,14 +45,14 @@ pub struct BetaTokenCountsBody {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub text: Option<Option<Box<models::BetaResponseTextParam>>>,
+    pub text: Option<Option<models::BetaResponseTextParam>>,
     #[serde(
         rename = "reasoning",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub reasoning: Option<Option<Box<models::BetaReasoning>>>,
+    pub reasoning: Option<Option<models::BetaReasoning>>,
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
     pub truncation: Option<models::BetaTruncationEnum>,
     /// A system (or developer) message inserted into the model's context. When used along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses.
@@ -64,21 +64,21 @@ pub struct BetaTokenCountsBody {
     )]
     pub instructions: Option<Option<String>>,
     #[serde(rename = "personality", skip_serializing_if = "Option::is_none")]
-    pub personality: Option<Box<models::BetaPersonalityEnum>>,
+    pub personality: Option<models::BetaPersonalityEnum>,
     #[serde(
         rename = "conversation",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub conversation: Option<Option<Box<models::BetaConversationParam>>>,
+    pub conversation: Option<Option<models::BetaConversationParam>>,
     #[serde(
         rename = "tool_choice",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tool_choice: Option<Option<Box<models::BetaToolChoiceParam>>>,
+    pub tool_choice: Option<Option<models::BetaToolChoiceParam>>,
     /// Whether to allow the model to run tool calls in parallel.
     #[serde(
         rename = "parallel_tool_calls",

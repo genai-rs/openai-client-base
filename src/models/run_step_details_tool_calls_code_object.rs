@@ -21,7 +21,7 @@ pub struct RunStepDetailsToolCallsCodeObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "code_interpreter")]
-    pub code_interpreter: Box<models::RunStepDetailsToolCallsCodeObjectCodeInterpreter>,
+    pub code_interpreter: models::RunStepDetailsToolCallsCodeObjectCodeInterpreter,
 }
 
 impl RunStepDetailsToolCallsCodeObject {
@@ -34,7 +34,7 @@ impl RunStepDetailsToolCallsCodeObject {
         RunStepDetailsToolCallsCodeObject {
             id,
             r#type,
-            code_interpreter: Box::new(code_interpreter),
+            code_interpreter,
         }
     }
 }

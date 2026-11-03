@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateRequestGaAudio {
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
-    pub input: Option<Box<models::RealtimeSessionCreateRequestGaAudioInput>>,
+    pub input: Option<models::RealtimeSessionCreateRequestGaAudioInput>,
     #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
-    pub output: Option<Box<models::RealtimeSessionCreateRequestGaAudioOutput>>,
+    pub output: Option<models::RealtimeSessionCreateRequestGaAudioOutput>,
 }
 
 impl RealtimeSessionCreateRequestGaAudio {

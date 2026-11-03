@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TextFormatParam {
-    Text(Box<models::TextFormatParamText>),
-    JsonSchema(Box<models::TextFormatParamJsonSchema>),
+    Text(models::TextFormatParamText),
+    JsonSchema(models::TextFormatParamJsonSchema),
 }
 
 impl Default for TextFormatParam {

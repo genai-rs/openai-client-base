@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AgentToolConfigParam {
-    Function(Box<models::AgentToolConfigParamFunction>),
-    ToolSearch(Box<models::AgentToolConfigParamToolSearch>),
-    ProgrammaticToolCalling(Box<models::AgentToolConfigParamProgrammaticToolCalling>),
-    Mcp(Box<models::AgentToolConfigParamMcp>),
-    WebSearch(Box<models::AgentToolConfigParamWebSearch>),
-    ComputerUse(Box<models::AgentToolConfigParamComputerUse>),
+    Function(models::AgentToolConfigParamFunction),
+    ToolSearch(models::AgentToolConfigParamToolSearch),
+    ProgrammaticToolCalling(models::AgentToolConfigParamProgrammaticToolCalling),
+    Mcp(models::AgentToolConfigParamMcp),
+    WebSearch(models::AgentToolConfigParamWebSearch),
+    ComputerUse(models::AgentToolConfigParamComputerUse),
 }
 
 impl Default for AgentToolConfigParam {

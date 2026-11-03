@@ -24,7 +24,7 @@ pub struct CreateTranscriptionResponseJson {
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
     pub logprobs: Option<Vec<models::CreateTranscriptionResponseJsonLogprobsInner>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<Box<models::CreateTranscriptionResponseJsonUsage>>,
+    pub usage: Option<models::CreateTranscriptionResponseJsonUsage>,
 }
 
 impl CreateTranscriptionResponseJson {

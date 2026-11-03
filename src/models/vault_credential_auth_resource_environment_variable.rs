@@ -21,7 +21,7 @@ pub struct VaultCredentialAuthResourceEnvironmentVariable {
     #[serde(rename = "secret_name")]
     pub secret_name: String,
     #[serde(rename = "networking")]
-    pub networking: Box<models::VaultCredentialNetworkingResource>,
+    pub networking: models::VaultCredentialNetworkingResource,
 }
 
 impl VaultCredentialAuthResourceEnvironmentVariable {
@@ -34,7 +34,7 @@ impl VaultCredentialAuthResourceEnvironmentVariable {
         VaultCredentialAuthResourceEnvironmentVariable {
             r#type,
             secret_name,
-            networking: Box::new(networking),
+            networking,
         }
     }
 }

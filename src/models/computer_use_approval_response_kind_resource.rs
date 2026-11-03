@@ -16,11 +16,11 @@ use serde::{Deserialize, Serialize};
 pub enum ComputerUseApprovalResponseKindResource {
     #[serde(rename = "submit")]
     BrowserAuthenticationSubmitResource(
-        Box<models::ComputerUseApprovalResponseKindResourceBrowserAuthenticationSubmitResource>,
+        models::ComputerUseApprovalResponseKindResourceBrowserAuthenticationSubmitResource,
     ),
     #[serde(rename = "cancel")]
     BrowserAuthenticationCancelResource(
-        Box<models::ComputerUseApprovalResponseKindResourceBrowserAuthenticationCancelResource>,
+        models::ComputerUseApprovalResponseKindResourceBrowserAuthenticationCancelResource,
     ),
 }
 

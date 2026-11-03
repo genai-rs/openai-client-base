@@ -39,7 +39,7 @@ pub struct InputImageContent {
         rename = "prompt_cache_breakpoint",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointConfig>>,
+    pub prompt_cache_breakpoint: Option<models::PromptCacheBreakpointConfig>,
 }
 
 impl InputImageContent {

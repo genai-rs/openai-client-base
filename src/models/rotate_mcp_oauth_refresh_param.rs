@@ -37,7 +37,7 @@ pub struct RotateMcpOauthRefreshParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub token_endpoint_auth: Option<Option<Box<models::RotateMcpOauthTokenEndpointAuthParam>>>,
+    pub token_endpoint_auth: Option<Option<models::RotateMcpOauthTokenEndpointAuthParam>>,
 }
 
 impl RotateMcpOauthRefreshParam {

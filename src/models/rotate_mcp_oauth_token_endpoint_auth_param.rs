@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RotateMcpOauthTokenEndpointAuthParam {
-    ClientSecretBasic(Box<models::RotateMcpOauthTokenEndpointAuthParamClientSecretBasic>),
-    ClientSecretPost(Box<models::RotateMcpOauthTokenEndpointAuthParamClientSecretPost>),
+    ClientSecretBasic(models::RotateMcpOauthTokenEndpointAuthParamClientSecretBasic),
+    ClientSecretPost(models::RotateMcpOauthTokenEndpointAuthParamClientSecretPost),
 }
 
 impl Default for RotateMcpOauthTokenEndpointAuthParam {

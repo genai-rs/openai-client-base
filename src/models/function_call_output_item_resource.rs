@@ -30,7 +30,7 @@ pub struct FunctionCallOutputItemResource {
     pub status: models::FunctionCallStatusResource,
     /// The function result, if the call succeeded.
     #[serde(rename = "output", deserialize_with = "Option::deserialize")]
-    pub output: Option<Box<models::FunctionCallOutputResource>>,
+    pub output: Option<models::FunctionCallOutputResource>,
     /// The error message, if the call failed.
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<String>,
@@ -53,7 +53,7 @@ impl FunctionCallOutputItemResource {
             r#type,
             call_id,
             status,
-            output: output.map(Box::new),
+            output,
             error,
         }
     }

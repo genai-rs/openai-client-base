@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveCallAcceptSession {
     #[serde(rename = "model")]
-    pub model: Box<models::ModelIdsLive>,
+    pub model: models::ModelIdsLive,
     /// Frontend instructions for voice, conversation, interruptions, and when to delegate. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting); put business rules and tool workflows in a separate [backend prompt](https://developers.openai.com/api/docs/guides/live-delegation#start-with-your-existing-backend-prompt). Limited to 16,384 client-supplied tokens. Omitted or blank instructions use server defaults. Immutable after startup.
     #[serde(
         rename = "instructions",
@@ -25,14 +25,14 @@ pub struct LiveCallAcceptSession {
     )]
     pub instructions: Option<Option<String>>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::LiveMediaSessionAudioParam>>,
+    pub audio: Option<models::LiveMediaSessionAudioParam>,
     #[serde(
         rename = "delegation",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub delegation: Option<Option<Box<models::Delegation>>>,
+    pub delegation: Option<Option<models::Delegation>>,
     /// At most one Decisions trigger per transcript event type. Triggers run independently of delegation. On update, omit triggers to keep the current configuration, send a list to replace it, or send an empty list to disable triggers.
     #[serde(rename = "triggers", skip_serializing_if = "Option::is_none")]
     pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam>>,
@@ -51,7 +51,7 @@ impl LiveCallAcceptSession {
     /// Startup configuration for accepting an incoming Live SIP call. Follow the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) when writing frontend and backend instructions.
     pub fn new(model: models::ModelIdsLive, r#type: Type) -> LiveCallAcceptSession {
         LiveCallAcceptSession {
-            model: Box::new(model),
+            model,
             instructions: None,
             audio: None,
             delegation: None,

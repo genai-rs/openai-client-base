@@ -21,7 +21,7 @@ pub struct BetaResponseSteerAcceptedEvent {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "steer")]
-    pub steer: Box<models::ResponseSteerAcceptedEventSteer>,
+    pub steer: models::ResponseSteerAcceptedEventSteer,
     /// The WebSocket lane that emitted this event. This field is present when the target response's `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -37,7 +37,7 @@ impl BetaResponseSteerAcceptedEvent {
         BetaResponseSteerAcceptedEvent {
             r#type,
             sequence_number,
-            steer: Box::new(steer),
+            steer,
             stream_id: None,
         }
     }

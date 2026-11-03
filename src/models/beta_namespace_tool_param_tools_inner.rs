@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaNamespaceToolParamToolsInner {
-    BetaFunctionToolParam(Box<models::BetaFunctionToolParam>),
-    BetaCustomToolParam(Box<models::BetaCustomToolParam>),
+    BetaFunctionToolParam(models::BetaFunctionToolParam),
+    BetaCustomToolParam(models::BetaCustomToolParam),
 }
 
 impl Default for BetaNamespaceToolParamToolsInner {

@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ToolSearchOutputNamespaceToolParamToolsInner {
-    ToolSearchOutputFunctionToolParam(Box<models::ToolSearchOutputFunctionToolParam>),
-    CustomToolParam(Box<models::CustomToolParam>),
+    ToolSearchOutputFunctionToolParam(models::ToolSearchOutputFunctionToolParam),
+    CustomToolParam(models::CustomToolParam),
 }
 
 impl Default for ToolSearchOutputNamespaceToolParamToolsInner {

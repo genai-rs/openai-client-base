@@ -23,9 +23,9 @@ pub struct CustomToolCallOutputResource {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
-    pub caller: Option<Box<models::ToolCallCallerParam>>,
+    pub caller: Option<models::ToolCallCallerParam>,
     #[serde(rename = "output")]
-    pub output: Box<models::CustomToolCallOutputOutput>,
+    pub output: models::CustomToolCallOutputOutput,
     #[serde(rename = "status")]
     pub status: models::FunctionCallOutputStatusEnum,
     /// The identifier of the actor that created the item.
@@ -46,7 +46,7 @@ impl CustomToolCallOutputResource {
             id,
             call_id,
             caller: None,
-            output: Box::new(output),
+            output,
             status,
             created_by: None,
         }

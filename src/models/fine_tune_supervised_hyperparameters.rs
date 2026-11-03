@@ -15,15 +15,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneSupervisedHyperparameters {
     #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
-    pub batch_size: Option<Box<models::FineTuneDpoHyperparametersBatchSize>>,
+    pub batch_size: Option<models::FineTuneDpoHyperparametersBatchSize>,
     #[serde(
         rename = "learning_rate_multiplier",
         skip_serializing_if = "Option::is_none"
     )]
-    pub learning_rate_multiplier:
-        Option<Box<models::FineTuneDpoHyperparametersLearningRateMultiplier>>,
+    pub learning_rate_multiplier: Option<models::FineTuneDpoHyperparametersLearningRateMultiplier>,
     #[serde(rename = "n_epochs", skip_serializing_if = "Option::is_none")]
-    pub n_epochs: Option<Box<models::FineTuneDpoHyperparametersNEpochs>>,
+    pub n_epochs: Option<models::FineTuneDpoHyperparametersNEpochs>,
 }
 
 impl FineTuneSupervisedHyperparameters {

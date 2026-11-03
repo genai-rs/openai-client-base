@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum QuestionParam {
-    Predicate(Box<models::QuestionParamPredicate>),
-    Choice(Box<models::QuestionParamChoice>),
-    Score(Box<models::QuestionParamScore>),
+    Predicate(models::QuestionParamPredicate),
+    Choice(models::QuestionParamChoice),
+    Score(models::QuestionParamScore),
 }
 
 impl Default for QuestionParam {

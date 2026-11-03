@@ -21,7 +21,7 @@ pub struct RealtimeServerEventConversationItemRetrieved {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "item")]
-    pub item: Box<models::RealtimeConversationItem>,
+    pub item: models::RealtimeConversationItem,
 }
 
 impl RealtimeServerEventConversationItemRetrieved {
@@ -34,7 +34,7 @@ impl RealtimeServerEventConversationItemRetrieved {
         RealtimeServerEventConversationItemRetrieved {
             event_id,
             r#type,
-            item: Box::new(item),
+            item,
         }
     }
 }

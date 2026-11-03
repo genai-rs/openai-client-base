@@ -14,14 +14,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompactResponseMethodPublicBody {
     #[serde(rename = "model", deserialize_with = "Option::deserialize")]
-    pub model: Option<Box<models::ModelIdsCompaction>>,
+    pub model: Option<models::ModelIdsCompaction>,
     #[serde(
         rename = "input",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input: Option<Option<Box<models::TokenCountsBodyInput>>>,
+    pub input: Option<Option<models::TokenCountsBodyInput>>,
     /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
@@ -59,7 +59,7 @@ pub struct CompactResponseMethodPublicBody {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_options: Option<Option<Box<models::PromptCacheOptionsParam>>>,
+    pub prompt_cache_options: Option<Option<models::PromptCacheOptionsParam>>,
     #[serde(
         rename = "service_tier",
         default,
@@ -72,7 +72,7 @@ pub struct CompactResponseMethodPublicBody {
 impl CompactResponseMethodPublicBody {
     pub fn new(model: Option<models::ModelIdsCompaction>) -> CompactResponseMethodPublicBody {
         CompactResponseMethodPublicBody {
-            model: model.map(Box::new),
+            model,
             input: None,
             previous_response_id: None,
             instructions: None,

@@ -21,7 +21,7 @@ pub struct WebhookResponseIncomplete {
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "data")]
-    pub data: Box<models::WebhookResponseCancelledData>,
+    pub data: models::WebhookResponseCancelledData,
     /// The object of the event. Always `event`.
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
@@ -41,7 +41,7 @@ impl WebhookResponseIncomplete {
         WebhookResponseIncomplete {
             created_at,
             id,
-            data: Box::new(data),
+            data,
             object: None,
             r#type,
         }

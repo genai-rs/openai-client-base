@@ -21,11 +21,11 @@ pub struct OrganizationSpendLimitResource {
     #[serde(rename = "threshold_amount")]
     pub threshold_amount: i32,
     #[serde(rename = "currency")]
-    pub currency: Box<models::SpendLimitCurrency>,
+    pub currency: models::SpendLimitCurrency,
     #[serde(rename = "interval")]
-    pub interval: Box<models::SpendLimitInterval>,
+    pub interval: models::SpendLimitInterval,
     #[serde(rename = "enforcement")]
-    pub enforcement: Box<models::SpendLimitEnforcement>,
+    pub enforcement: models::SpendLimitEnforcement,
 }
 
 impl OrganizationSpendLimitResource {
@@ -40,9 +40,9 @@ impl OrganizationSpendLimitResource {
         OrganizationSpendLimitResource {
             object,
             threshold_amount,
-            currency: Box::new(currency),
-            interval: Box::new(interval),
-            enforcement: Box::new(enforcement),
+            currency,
+            interval,
+            enforcement,
         }
     }
 }

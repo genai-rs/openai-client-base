@@ -21,7 +21,7 @@ pub struct MessageDeltaObject {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "delta")]
-    pub delta: Box<models::MessageDeltaObjectDelta>,
+    pub delta: models::MessageDeltaObjectDelta,
 }
 
 impl MessageDeltaObject {
@@ -31,11 +31,7 @@ impl MessageDeltaObject {
         object: Object,
         delta: models::MessageDeltaObjectDelta,
     ) -> MessageDeltaObject {
-        MessageDeltaObject {
-            id,
-            object,
-            delta: Box::new(delta),
-        }
+        MessageDeltaObject { id, object, delta }
     }
 }
 /// The object type, which is always `thread.message.delta`.

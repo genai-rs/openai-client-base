@@ -29,7 +29,7 @@ pub struct UpdateEnvironmentTemplateParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub packages: Option<Option<Box<models::EnvironmentPackagesParam>>>,
+    pub packages: Option<Option<models::EnvironmentPackagesParam>>,
     /// Replacement confidential setup commands, never included in returned resources.
     #[serde(
         rename = "setup_commands",
@@ -45,7 +45,7 @@ pub struct UpdateEnvironmentTemplateParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub network: Option<Option<Box<models::NetworkPolicyParam>>>,
+    pub network: Option<Option<models::NetworkPolicyParam>>,
     /// Replacement desktop configuration, or null to disable the desktop.
     #[serde(
         rename = "desktop",
@@ -53,7 +53,7 @@ pub struct UpdateEnvironmentTemplateParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub desktop: Option<Option<Box<models::DesktopParam>>>,
+    pub desktop: Option<Option<models::DesktopParam>>,
     /// Replacement confidential environment values.
     #[serde(
         rename = "env",

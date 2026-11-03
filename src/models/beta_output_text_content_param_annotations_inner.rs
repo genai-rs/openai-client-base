@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaOutputTextContentParamAnnotationsInner {
-    BetaFileCitationParam(Box<models::BetaFileCitationParam>),
-    BetaUrlCitationParam(Box<models::BetaUrlCitationParam>),
-    BetaContainerFileCitationParam(Box<models::BetaContainerFileCitationParam>),
+    BetaFileCitationParam(models::BetaFileCitationParam),
+    BetaUrlCitationParam(models::BetaUrlCitationParam),
+    BetaContainerFileCitationParam(models::BetaContainerFileCitationParam),
 }
 
 impl Default for BetaOutputTextContentParamAnnotationsInner {

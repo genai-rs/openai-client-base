@@ -23,226 +23,223 @@ pub struct AuditLog {
     #[serde(rename = "effective_at")]
     pub effective_at: i32,
     #[serde(rename = "project", skip_serializing_if = "Option::is_none")]
-    pub project: Option<Box<models::AuditLogProject>>,
+    pub project: Option<models::AuditLogProject>,
     #[serde(
         rename = "actor",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub actor: Option<Option<Box<models::AuditLogActor>>>,
+    pub actor: Option<Option<models::AuditLogActor>>,
     #[serde(rename = "api_key.created", skip_serializing_if = "Option::is_none")]
-    pub api_key_created: Option<Box<models::AuditLogApiKeyCreated>>,
+    pub api_key_created: Option<models::AuditLogApiKeyCreated>,
     #[serde(rename = "api_key.updated", skip_serializing_if = "Option::is_none")]
-    pub api_key_updated: Option<Box<models::AuditLogApiKeyUpdated>>,
+    pub api_key_updated: Option<models::AuditLogApiKeyUpdated>,
     #[serde(rename = "api_key.deleted", skip_serializing_if = "Option::is_none")]
-    pub api_key_deleted: Option<Box<models::AuditLogApiKeyDeleted>>,
+    pub api_key_deleted: Option<models::AuditLogApiKeyDeleted>,
     #[serde(
         rename = "checkpoint.permission.created",
         skip_serializing_if = "Option::is_none"
     )]
-    pub checkpoint_permission_created: Option<Box<models::AuditLogCheckpointPermissionCreated>>,
+    pub checkpoint_permission_created: Option<models::AuditLogCheckpointPermissionCreated>,
     #[serde(
         rename = "checkpoint.permission.deleted",
         skip_serializing_if = "Option::is_none"
     )]
-    pub checkpoint_permission_deleted: Option<Box<models::AuditLogCheckpointPermissionDeleted>>,
+    pub checkpoint_permission_deleted: Option<models::AuditLogCheckpointPermissionDeleted>,
     #[serde(
         rename = "external_key.registered",
         skip_serializing_if = "Option::is_none"
     )]
-    pub external_key_registered: Option<Box<models::AuditLogExternalKeyRegistered>>,
+    pub external_key_registered: Option<models::AuditLogExternalKeyRegistered>,
     #[serde(
         rename = "external_key.removed",
         skip_serializing_if = "Option::is_none"
     )]
-    pub external_key_removed: Option<Box<models::AuditLogExternalKeyRemoved>>,
+    pub external_key_removed: Option<models::AuditLogExternalKeyRemoved>,
     #[serde(
         rename = "external_storage.registered",
         skip_serializing_if = "Option::is_none"
     )]
-    pub external_storage_registered: Option<Box<models::AuditLogExternalStorageRegistered>>,
+    pub external_storage_registered: Option<models::AuditLogExternalStorageRegistered>,
     #[serde(
         rename = "external_storage.removed",
         skip_serializing_if = "Option::is_none"
     )]
-    pub external_storage_removed: Option<Box<models::AuditLogExternalStorageRemoved>>,
+    pub external_storage_removed: Option<models::AuditLogExternalStorageRemoved>,
     #[serde(rename = "group.created", skip_serializing_if = "Option::is_none")]
-    pub group_created: Option<Box<models::AuditLogGroupCreated>>,
+    pub group_created: Option<models::AuditLogGroupCreated>,
     #[serde(rename = "group.updated", skip_serializing_if = "Option::is_none")]
-    pub group_updated: Option<Box<models::AuditLogGroupUpdated>>,
+    pub group_updated: Option<models::AuditLogGroupUpdated>,
     #[serde(rename = "group.deleted", skip_serializing_if = "Option::is_none")]
-    pub group_deleted: Option<Box<models::AuditLogGroupDeleted>>,
+    pub group_deleted: Option<models::AuditLogGroupDeleted>,
     #[serde(rename = "scim.enabled", skip_serializing_if = "Option::is_none")]
-    pub scim_enabled: Option<Box<models::AuditLogScimEnabled>>,
+    pub scim_enabled: Option<models::AuditLogScimEnabled>,
     #[serde(rename = "scim.disabled", skip_serializing_if = "Option::is_none")]
-    pub scim_disabled: Option<Box<models::AuditLogScimDisabled>>,
+    pub scim_disabled: Option<models::AuditLogScimDisabled>,
     #[serde(rename = "invite.sent", skip_serializing_if = "Option::is_none")]
-    pub invite_sent: Option<Box<models::AuditLogInviteSent>>,
+    pub invite_sent: Option<models::AuditLogInviteSent>,
     #[serde(rename = "invite.accepted", skip_serializing_if = "Option::is_none")]
-    pub invite_accepted: Option<Box<models::AuditLogInviteAccepted>>,
+    pub invite_accepted: Option<models::AuditLogInviteAccepted>,
     #[serde(rename = "invite.deleted", skip_serializing_if = "Option::is_none")]
-    pub invite_deleted: Option<Box<models::AuditLogInviteAccepted>>,
+    pub invite_deleted: Option<models::AuditLogInviteAccepted>,
     #[serde(
         rename = "ip_allowlist.created",
         skip_serializing_if = "Option::is_none"
     )]
-    pub ip_allowlist_created: Option<Box<models::AuditLogIpAllowlistCreated>>,
+    pub ip_allowlist_created: Option<models::AuditLogIpAllowlistCreated>,
     #[serde(
         rename = "ip_allowlist.updated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub ip_allowlist_updated: Option<Box<models::AuditLogIpAllowlistUpdated>>,
+    pub ip_allowlist_updated: Option<models::AuditLogIpAllowlistUpdated>,
     #[serde(
         rename = "ip_allowlist.deleted",
         skip_serializing_if = "Option::is_none"
     )]
-    pub ip_allowlist_deleted: Option<Box<models::AuditLogIpAllowlistDeleted>>,
+    pub ip_allowlist_deleted: Option<models::AuditLogIpAllowlistDeleted>,
     #[serde(
         rename = "ip_allowlist.config.activated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub ip_allowlist_config_activated: Option<Box<models::AuditLogIpAllowlistConfigActivated>>,
+    pub ip_allowlist_config_activated: Option<models::AuditLogIpAllowlistConfigActivated>,
     #[serde(
         rename = "ip_allowlist.config.deactivated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub ip_allowlist_config_deactivated: Option<Box<models::AuditLogIpAllowlistConfigDeactivated>>,
+    pub ip_allowlist_config_deactivated: Option<models::AuditLogIpAllowlistConfigDeactivated>,
     /// This event has no additional fields beyond the standard audit log attributes.
     #[serde(rename = "login.succeeded", skip_serializing_if = "Option::is_none")]
     pub login_succeeded: Option<serde_json::Value>,
     #[serde(rename = "login.failed", skip_serializing_if = "Option::is_none")]
-    pub login_failed: Option<Box<models::AuditLogLoginFailed>>,
+    pub login_failed: Option<models::AuditLogLoginFailed>,
     /// This event has no additional fields beyond the standard audit log attributes.
     #[serde(rename = "logout.succeeded", skip_serializing_if = "Option::is_none")]
     pub logout_succeeded: Option<serde_json::Value>,
     #[serde(rename = "logout.failed", skip_serializing_if = "Option::is_none")]
-    pub logout_failed: Option<Box<models::AuditLogLoginFailed>>,
+    pub logout_failed: Option<models::AuditLogLoginFailed>,
     #[serde(
         rename = "organization.updated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub organization_updated: Option<Box<models::AuditLogOrganizationUpdated>>,
+    pub organization_updated: Option<models::AuditLogOrganizationUpdated>,
     #[serde(rename = "project.created", skip_serializing_if = "Option::is_none")]
-    pub project_created: Option<Box<models::AuditLogProjectCreated>>,
+    pub project_created: Option<models::AuditLogProjectCreated>,
     #[serde(rename = "project.updated", skip_serializing_if = "Option::is_none")]
-    pub project_updated: Option<Box<models::AuditLogProjectUpdated>>,
+    pub project_updated: Option<models::AuditLogProjectUpdated>,
     #[serde(rename = "project.archived", skip_serializing_if = "Option::is_none")]
-    pub project_archived: Option<Box<models::AuditLogProjectArchived>>,
+    pub project_archived: Option<models::AuditLogProjectArchived>,
     #[serde(rename = "project.deleted", skip_serializing_if = "Option::is_none")]
-    pub project_deleted: Option<Box<models::AuditLogProjectArchived>>,
+    pub project_deleted: Option<models::AuditLogProjectArchived>,
     #[serde(rename = "rate_limit.updated", skip_serializing_if = "Option::is_none")]
-    pub rate_limit_updated: Option<Box<models::AuditLogRateLimitUpdated>>,
+    pub rate_limit_updated: Option<models::AuditLogRateLimitUpdated>,
     #[serde(rename = "rate_limit.deleted", skip_serializing_if = "Option::is_none")]
-    pub rate_limit_deleted: Option<Box<models::AuditLogRateLimitDeleted>>,
+    pub rate_limit_deleted: Option<models::AuditLogRateLimitDeleted>,
     #[serde(rename = "role.created", skip_serializing_if = "Option::is_none")]
-    pub role_created: Option<Box<models::AuditLogRoleCreated>>,
+    pub role_created: Option<models::AuditLogRoleCreated>,
     #[serde(rename = "role.updated", skip_serializing_if = "Option::is_none")]
-    pub role_updated: Option<Box<models::AuditLogRoleUpdated>>,
+    pub role_updated: Option<models::AuditLogRoleUpdated>,
     #[serde(rename = "role.deleted", skip_serializing_if = "Option::is_none")]
-    pub role_deleted: Option<Box<models::AuditLogRoleDeleted>>,
+    pub role_deleted: Option<models::AuditLogRoleDeleted>,
     #[serde(
         rename = "role.assignment.created",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role_assignment_created: Option<Box<models::AuditLogRoleAssignmentCreated>>,
+    pub role_assignment_created: Option<models::AuditLogRoleAssignmentCreated>,
     #[serde(
         rename = "role.assignment.deleted",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role_assignment_deleted: Option<Box<models::AuditLogRoleAssignmentDeleted>>,
+    pub role_assignment_deleted: Option<models::AuditLogRoleAssignmentDeleted>,
     #[serde(
         rename = "role.bound_to_resource",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role_bound_to_resource: Option<Box<models::AuditLogRoleBoundToResource>>,
+    pub role_bound_to_resource: Option<models::AuditLogRoleBoundToResource>,
     #[serde(
         rename = "role.unbound_from_resource",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role_unbound_from_resource: Option<Box<models::AuditLogRoleUnboundFromResource>>,
+    pub role_unbound_from_resource: Option<models::AuditLogRoleUnboundFromResource>,
     #[serde(
         rename = "service_account.created",
         skip_serializing_if = "Option::is_none"
     )]
-    pub service_account_created: Option<Box<models::AuditLogServiceAccountCreated>>,
+    pub service_account_created: Option<models::AuditLogServiceAccountCreated>,
     #[serde(
         rename = "service_account.updated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub service_account_updated: Option<Box<models::AuditLogServiceAccountUpdated>>,
+    pub service_account_updated: Option<models::AuditLogServiceAccountUpdated>,
     #[serde(
         rename = "service_account.deleted",
         skip_serializing_if = "Option::is_none"
     )]
-    pub service_account_deleted: Option<Box<models::AuditLogServiceAccountDeleted>>,
+    pub service_account_deleted: Option<models::AuditLogServiceAccountDeleted>,
     #[serde(
         rename = "workload_identity_provider.created",
         skip_serializing_if = "Option::is_none"
     )]
-    pub workload_identity_provider_created:
-        Option<Box<models::AuditLogWorkloadIdentityProviderCreated>>,
+    pub workload_identity_provider_created: Option<models::AuditLogWorkloadIdentityProviderCreated>,
     #[serde(
         rename = "workload_identity_provider.updated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub workload_identity_provider_updated:
-        Option<Box<models::AuditLogWorkloadIdentityProviderUpdated>>,
+    pub workload_identity_provider_updated: Option<models::AuditLogWorkloadIdentityProviderUpdated>,
     #[serde(
         rename = "workload_identity_provider.deleted",
         skip_serializing_if = "Option::is_none"
     )]
-    pub workload_identity_provider_deleted:
-        Option<Box<models::AuditLogWorkloadIdentityProviderDeleted>>,
+    pub workload_identity_provider_deleted: Option<models::AuditLogWorkloadIdentityProviderDeleted>,
     #[serde(
         rename = "workload_identity_provider_mapping.created",
         skip_serializing_if = "Option::is_none"
     )]
     pub workload_identity_provider_mapping_created:
-        Option<Box<models::AuditLogWorkloadIdentityProviderMappingCreated>>,
+        Option<models::AuditLogWorkloadIdentityProviderMappingCreated>,
     #[serde(
         rename = "workload_identity_provider_mapping.updated",
         skip_serializing_if = "Option::is_none"
     )]
     pub workload_identity_provider_mapping_updated:
-        Option<Box<models::AuditLogWorkloadIdentityProviderMappingUpdated>>,
+        Option<models::AuditLogWorkloadIdentityProviderMappingUpdated>,
     #[serde(
         rename = "workload_identity_provider_mapping.deleted",
         skip_serializing_if = "Option::is_none"
     )]
     pub workload_identity_provider_mapping_deleted:
-        Option<Box<models::AuditLogWorkloadIdentityProviderMappingDeleted>>,
+        Option<models::AuditLogWorkloadIdentityProviderMappingDeleted>,
     #[serde(rename = "user.added", skip_serializing_if = "Option::is_none")]
-    pub user_added: Option<Box<models::AuditLogUserAdded>>,
+    pub user_added: Option<models::AuditLogUserAdded>,
     #[serde(rename = "user.updated", skip_serializing_if = "Option::is_none")]
-    pub user_updated: Option<Box<models::AuditLogUserUpdated>>,
+    pub user_updated: Option<models::AuditLogUserUpdated>,
     #[serde(rename = "user.deleted", skip_serializing_if = "Option::is_none")]
-    pub user_deleted: Option<Box<models::AuditLogUserDeleted>>,
+    pub user_deleted: Option<models::AuditLogUserDeleted>,
     #[serde(
         rename = "certificate.created",
         skip_serializing_if = "Option::is_none"
     )]
-    pub certificate_created: Option<Box<models::AuditLogCertificateCreated>>,
+    pub certificate_created: Option<models::AuditLogCertificateCreated>,
     #[serde(
         rename = "certificate.updated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub certificate_updated: Option<Box<models::AuditLogCertificateCreated>>,
+    pub certificate_updated: Option<models::AuditLogCertificateCreated>,
     #[serde(
         rename = "certificate.deleted",
         skip_serializing_if = "Option::is_none"
     )]
-    pub certificate_deleted: Option<Box<models::AuditLogCertificateDeleted>>,
+    pub certificate_deleted: Option<models::AuditLogCertificateDeleted>,
     #[serde(
         rename = "certificates.activated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub certificates_activated: Option<Box<models::AuditLogCertificatesActivated>>,
+    pub certificates_activated: Option<models::AuditLogCertificatesActivated>,
     #[serde(
         rename = "certificates.deactivated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub certificates_deactivated: Option<Box<models::AuditLogCertificatesActivated>>,
+    pub certificates_deactivated: Option<models::AuditLogCertificatesActivated>,
 }
 
 impl AuditLog {

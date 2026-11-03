@@ -14,12 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ThreadItem {
-    UserMessageItem(Box<models::UserMessageItem>),
-    AssistantMessageItem(Box<models::AssistantMessageItem>),
-    WidgetMessageItem(Box<models::WidgetMessageItem>),
-    ClientToolCallItem(Box<models::ClientToolCallItem>),
-    TaskItem(Box<models::TaskItem>),
-    TaskGroupItem(Box<models::TaskGroupItem>),
+    UserMessageItem(models::UserMessageItem),
+    AssistantMessageItem(models::AssistantMessageItem),
+    WidgetMessageItem(models::WidgetMessageItem),
+    ClientToolCallItem(models::ClientToolCallItem),
+    TaskItem(models::TaskItem),
+    TaskGroupItem(models::TaskGroupItem),
 }
 
 /// Type discriminator that is always `chatkit.thread_item`.

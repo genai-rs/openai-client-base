@@ -17,16 +17,13 @@ pub struct Object6 {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "data")]
-    pub data: Box<models::RunStepObject>,
+    pub data: models::RunStepObject,
 }
 
 impl Object6 {
     /// Occurs when a [run step](https://developers.openai.com/api/docs/assistants/migration) expires.
     pub fn new(event: Event, data: models::RunStepObject) -> Object6 {
-        Object6 {
-            event,
-            data: Box::new(data),
-        }
+        Object6 { event, data }
     }
 }
 ///

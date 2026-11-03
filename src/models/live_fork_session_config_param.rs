@@ -15,14 +15,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveForkSessionConfigParam {
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::LiveForkAudioParam>>,
+    pub audio: Option<models::LiveForkAudioParam>,
     #[serde(rename = "delegation", skip_serializing_if = "Option::is_none")]
-    pub delegation: Option<Box<models::LiveResponsesDelegationUpdateParam>>,
+    pub delegation: Option<models::LiveResponsesDelegationUpdateParam>,
     /// Whether to store the forked session. Omission inherits the stored session's setting.
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
     pub store: Option<bool>,
     #[serde(rename = "client", skip_serializing_if = "Option::is_none")]
-    pub client: Option<Box<models::LiveClientConfigParam>>,
+    pub client: Option<models::LiveClientConfigParam>,
 }
 
 impl LiveForkSessionConfigParam {

@@ -18,7 +18,7 @@ pub struct ResponseFormatJsonSchema {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "json_schema")]
-    pub json_schema: Box<models::JsonSchema>,
+    pub json_schema: models::JsonSchema,
 }
 
 impl ResponseFormatJsonSchema {
@@ -26,7 +26,7 @@ impl ResponseFormatJsonSchema {
     pub fn new(r#type: Type, json_schema: models::JsonSchema) -> ResponseFormatJsonSchema {
         ResponseFormatJsonSchema {
             r#type,
-            json_schema: Box::new(json_schema),
+            json_schema,
         }
     }
 }

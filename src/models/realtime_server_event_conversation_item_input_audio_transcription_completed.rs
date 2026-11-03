@@ -41,8 +41,7 @@ pub struct RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {
     )]
     pub logprobs: Option<Option<Vec<models::LogProbProperties>>>,
     #[serde(rename = "usage")]
-    pub usage:
-        Box<models::RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsage>,
+    pub usage: models::RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsage,
 }
 
 impl RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {
@@ -63,7 +62,7 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {
             transcript,
             languages: None,
             logprobs: None,
-            usage: Box::new(usage),
+            usage,
         }
     }
 }

@@ -29,13 +29,13 @@ pub struct FunctionShellCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCaller>>>,
+    pub caller: Option<Option<models::ToolCallCaller>>,
     #[serde(rename = "action")]
-    pub action: Box<models::FunctionShellAction>,
+    pub action: models::FunctionShellAction,
     #[serde(rename = "status")]
     pub status: models::FunctionShellCallStatus,
     #[serde(rename = "environment", deserialize_with = "Option::deserialize")]
-    pub environment: Option<Box<models::FunctionShellCallEnvironment>>,
+    pub environment: Option<models::FunctionShellCallEnvironment>,
     /// The ID of the entity that created this tool call.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -56,9 +56,9 @@ impl FunctionShellCall {
             id,
             call_id,
             caller: None,
-            action: Box::new(action),
+            action,
             status,
-            environment: environment.map(Box::new),
+            environment,
             created_by: None,
         }
     }

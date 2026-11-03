@@ -44,7 +44,7 @@ pub struct ProjectApiKey {
     #[serde(rename = "owner_project_access")]
     pub owner_project_access: OwnerProjectAccess,
     #[serde(rename = "owner")]
-    pub owner: Box<models::ProjectApiKeyOwner>,
+    pub owner: models::ProjectApiKeyOwner,
 }
 
 impl ProjectApiKey {
@@ -68,7 +68,7 @@ impl ProjectApiKey {
             last_used_at,
             id,
             owner_project_access,
-            owner: Box::new(owner),
+            owner,
         }
     }
 }

@@ -16,12 +16,12 @@ use serde::{Deserialize, Serialize};
 pub struct BetaResponseWsQueued {
     /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the event. Always 'response.queued'.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "response")]
-    pub response: Box<models::BetaResponse>,
+    pub response: models::BetaResponse,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
@@ -40,7 +40,7 @@ impl BetaResponseWsQueued {
         BetaResponseWsQueued {
             agent: None,
             r#type,
-            response: Box::new(response),
+            response,
             sequence_number,
             stream_id: None,
         }

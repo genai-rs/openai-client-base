@@ -21,7 +21,7 @@ pub struct RealtimeClientEventResponseCreate {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "response", skip_serializing_if = "Option::is_none")]
-    pub response: Option<Box<models::RealtimeResponseCreateParams>>,
+    pub response: Option<models::RealtimeResponseCreateParams>,
 }
 
 impl RealtimeClientEventResponseCreate {

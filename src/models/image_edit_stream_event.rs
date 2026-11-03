@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ImageEditStreamEvent {
-    ImageEditPartialImageEvent(Box<models::ImageEditPartialImageEvent>),
-    ImageEditCompletedEvent(Box<models::ImageEditCompletedEvent>),
+    ImageEditPartialImageEvent(models::ImageEditPartialImageEvent),
+    ImageEditCompletedEvent(models::ImageEditCompletedEvent),
 }
 
 /// The quality setting for the edited image.

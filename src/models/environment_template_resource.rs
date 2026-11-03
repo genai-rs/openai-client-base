@@ -30,11 +30,11 @@ pub struct EnvironmentTemplateResource {
     #[serde(rename = "updated_at")]
     pub updated_at: i64,
     #[serde(rename = "packages")]
-    pub packages: Box<models::EnvironmentPackagesResource>,
+    pub packages: models::EnvironmentPackagesResource,
     #[serde(rename = "network")]
-    pub network: Box<models::NetworkPolicyResource>,
+    pub network: models::NetworkPolicyResource,
     #[serde(rename = "desktop")]
-    pub desktop: Box<models::DesktopResource>,
+    pub desktop: models::DesktopResource,
     /// Directories that expose capabilities to the agent.
     #[serde(rename = "capability_directories")]
     pub capability_directories: Vec<String>,
@@ -71,9 +71,9 @@ impl EnvironmentTemplateResource {
             object,
             created_at,
             updated_at,
-            packages: Box::new(packages),
-            network: Box::new(network),
-            desktop: Box::new(desktop),
+            packages,
+            network,
+            desktop,
             capability_directories,
             skills,
             plugins,

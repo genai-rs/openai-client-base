@@ -18,16 +18,13 @@ pub struct CustomToolChatCompletions {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "custom")]
-    pub custom: Box<models::CustomToolProperties>,
+    pub custom: models::CustomToolProperties,
 }
 
 impl CustomToolChatCompletions {
     /// A custom tool that processes input using a specified format.
     pub fn new(r#type: Type, custom: models::CustomToolProperties) -> CustomToolChatCompletions {
-        CustomToolChatCompletions {
-            r#type,
-            custom: Box::new(custom),
-        }
+        CustomToolChatCompletions { r#type, custom }
     }
 }
 /// The type of the custom tool. Always `custom`.
