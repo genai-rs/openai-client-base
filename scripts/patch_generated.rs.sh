@@ -2,11 +2,6 @@
 set -euo pipefail
 ROOT=${1:-crates/openai-patched}
 
-# 1) Fix double module path `models::models::` → `models::`
-rg -l "models::models::" "$ROOT/src" 2>/dev/null | while read -r f; do
-  sed -i.bak 's/models::models::/models::/g' "$f" && rm -f "$f.bak"
-done
-
 # 2) Loosen content types only for select non-chat models; keep chat message content enums intact
 for f in \
   "$ROOT/src/models/create_message_request.rs" \
@@ -40,9 +35,6 @@ fi
 # and object maps, but we’ll keep it minimal here.
 
 echo "Patched generated Rust sources under $ROOT"
-
-# Apply multipart file upload fixes
-bash scripts/patch_multipart.sh "$ROOT"
 
 # 3) Add bon dependency to generated crate for builder macros
 toml="$ROOT/Cargo.toml"
