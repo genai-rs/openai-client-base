@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Run isolated Cargo fixtures against the downstream checker."""
-import json
 import os
 from pathlib import Path
 import subprocess
@@ -20,7 +19,7 @@ def commit(repo, message):
         "commit", "-qm", message, cwd=repo)
     return run("git", "rev-parse", "HEAD", cwd=repo)
 
-with tempfile.TemporaryDirectory(prefix="downstream-git-fixtures-") as directory:
+with tempfile.TemporaryDirectory(prefix="downstream-crates-io-fixtures-") as directory:
     root = Path(directory)
     base = root / "base with spaces"
     consumer = root / "consumer"
@@ -30,12 +29,11 @@ with tempfile.TemporaryDirectory(prefix="downstream-git-fixtures-") as directory
     (base / "Cargo.toml").write_text(
         '[package]\nname="openai-client-base"\nversion="0.16.0"\nedition="2021"\n')
     (base / "src/lib.rs").write_text('pub fn consumed() -> u8 { 42 }\n')
-    good = commit(base, "Compatible Git base")
-    fake_git_url = "https://github.com/genai-rs/openai-client-base"
+    good = commit(base, "Compatible base")
+    # Same shape as the real wrapper: a crates.io requirement on the release line.
     (consumer / "Cargo.toml").write_text(
         '[package]\nname="openai-ergonomic"\nversion="0.7.0"\nedition="2021"\nbuild="build.rs"\n'
-        '[dependencies]\nopenai-client-base = { version = "=0.16.0", git = '
-        + json.dumps(fake_git_url) + ', rev = ' + json.dumps(good) + '}\n')
+        '[dependencies]\nopenai-client-base = { version = "^0.16.0", default-features = false }\n')
     (consumer / "build.rs").write_text(
         'use std::{env, fs::OpenOptions, io::Write};\n'
         'fn main() { if let Ok(path) = env::var("FIXTURE_MUTATE_CANDIDATE") {\n'
@@ -45,21 +43,18 @@ with tempfile.TemporaryDirectory(prefix="downstream-git-fixtures-") as directory
     (consumer / "src/lib.rs").write_text(
         'pub fn use_base() -> u8 { openai_client_base::consumed() }\n'
         '#[test] fn offline() { assert_eq!(use_base(), 42); }\n')
-    wrapper_sha = commit(consumer, "Pin Git-source base and offline test")
+    wrapper_sha = commit(consumer, "Depend on the crates.io base and test offline")
+    branch = run("git", "symbolic-ref", "HEAD", cwd=consumer)
 
-    # Isolate Git URL rewrites and identity. Cargo's Git CLI path maps the fake
-    # canonical upstream URL to this local fixture repository.
     git_config = root / "gitconfig"
     git_config.write_text(
-        '[user]\n    name = Fixture Runner\n    email = fixture-runner@example.invalid\n'
-        '[url "file://' + str(base) + '"]\n    insteadOf = ' + fake_git_url + '\n')
-    env = dict(os.environ, DOWNSTREAM_REPOSITORY=str(consumer),
-               DOWNSTREAM_COMMIT=wrapper_sha, CARGO_BUILD_JOBS="2",
-               GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=str(git_config),
-               CARGO_NET_GIT_FETCH_WITH_CLI="true")
-    assert run("git", "ls-remote", fake_git_url, env=env).startswith(good)
+        '[user]\n    name = Fixture Runner\n    email = fixture-runner@example.invalid\n')
+    # No DOWNSTREAM_COMMIT: the checker resolves the consumer's default branch.
+    env = dict(os.environ, DOWNSTREAM_REPOSITORY=str(consumer), CARGO_BUILD_JOBS="2",
+               GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=str(git_config))
+    env.pop("DOWNSTREAM_COMMIT", None)
 
-    def case(name, baseline, expected, candidate_result, baseline_result):
+    def case(name, baseline, expected, candidate_result, baseline_result, consumer_ref=branch):
         output = results / name
         output.mkdir(exist_ok=True)
         env["DOWNSTREAM_RESULTS_DIR"] = str(output)
@@ -72,7 +67,8 @@ with tempfile.TemporaryDirectory(prefix="downstream-git-fixtures-") as directory
         summary = (output / "summary.md").read_text()
         assert f"| Candidate | {candidate_result} |" in summary, name
         assert f"| Base main (diagnostic only) | {baseline_result} |" in summary, name
-        assert wrapper_sha in summary and baseline in summary, name
+        assert f"`{wrapper_sha}` ({consumer_ref})" in summary, name
+        assert baseline in summary and "requirement: `^0.16.0`" in summary, name
         assert run("git", "status", "--porcelain", cwd=base) == base_before
         assert run("git", "status", "--porcelain", cwd=consumer) == consumer_before
         assert not (base / "target").exists()
@@ -116,4 +112,22 @@ with tempfile.TemporaryDirectory(prefix="downstream-git-fixtures-") as directory
     case("both-fail", removed, 1, "FAIL", "FAIL")
     (base / "src/lib.rs").write_text('pub fn consumed() -> u8 { 42 }\n')
     case("baseline-only-fails", removed, 0, "PASS", "FAIL")
-print("All Git-source Cargo fixture cases passed; candidate and consumer trees stayed unchanged.")
+
+    # A breaking candidate release the consumer has not adopted yet is skipped.
+    manifest = base / "Cargo.toml"
+    manifest.write_text(manifest.read_text().replace('"0.16.0"', '"0.17.0"'))
+    case("breaking-release-skipped", good, 0, "SKIP", "PASS")
+    summary = (results / "breaking-release-skipped/summary.md").read_text()
+    assert "Candidate openai-client-base version: `0.17.0`" in summary
+    assert "Base-main openai-client-base version: `0.16.0`" in summary
+    assert "does not satisfy the consumer requirement ^0.16.0" in (
+        results / "breaking-release-skipped/candidate.log").read_text()
+    bumped = commit(base, "Release 0.17.0")
+    case("both-skipped", bumped, 0, "SKIP", "SKIP")
+
+    # DOWNSTREAM_COMMIT still overrides the default branch.
+    (consumer / "README.md").write_text("newer default branch\n")
+    commit(consumer, "Advance the default branch")
+    env["DOWNSTREAM_COMMIT"] = wrapper_sha
+    case("commit-override", bumped, 0, "SKIP", "SKIP", consumer_ref="DOWNSTREAM_COMMIT override")
+print("All crates.io consumer fixture cases passed; candidate and consumer trees stayed unchanged.")
