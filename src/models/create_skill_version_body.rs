@@ -16,6 +16,9 @@ use serde::{Deserialize, Serialize};
 pub struct CreateSkillVersionBody {
     #[serde(rename = "files")]
     pub files: Box<models::CreateSkillVersionBodyFiles>,
+    /// Whether to set this version as the default.
+    #[serde(rename = "default", skip_serializing_if = "Option::is_none")]
+    pub default: Option<bool>,
 }
 
 impl CreateSkillVersionBody {
@@ -23,6 +26,7 @@ impl CreateSkillVersionBody {
     pub fn new(files: models::CreateSkillVersionBodyFiles) -> CreateSkillVersionBody {
         CreateSkillVersionBody {
             files: Box::new(files),
+            default: None,
         }
     }
 }

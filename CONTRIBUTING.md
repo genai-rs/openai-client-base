@@ -14,9 +14,9 @@ If you find issues with the generated code:
 
 1. **DO NOT** modify the generated Rust code directly
 2. Instead, contribute to the generation pipeline:
-   - Fix issues in `scripts/fix_model_fields.py` (Layer 1 patches)
-   - Fix issues in `scripts/patch_spec_rust_compat.py` (Layer 2 patches)
-   - Fix issues in `scripts/patch_generated.rs.sh` (post-generation patches)
+   - Spec decisions (webhook module, schemas and properties rendered as `String`, free-form schemas, deepObject query parameters) are options of the generator in `scripts/generator-config.json`
+   - Rendering rules belong in the generator itself, [timvw-rust](https://github.com/timvw/openapi-generator-timvw-rust)
+   - Fix issues in `scripts/patch_generated.rs.sh` (post-generation patches, being moved into the generator)
 
 ### For Documentation
 

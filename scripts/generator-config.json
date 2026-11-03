@@ -1,0 +1,71 @@
+{
+  "packageName": "openai-client-base",
+  "packageVersion": "0.1.0",
+  "library": "reqwest",
+  "supportAsync": true,
+  "supportMiddleware": true,
+  "preferUnsignedInt": false,
+  "useSingleRequestParameter": false,
+  "useChrono": false,
+  "titleNaming": false,
+  "webhookModule": "OpenAiClientBaseWebhooks",
+  "webhookModuleReexport": true,
+  "resetQueryParameterStyle": true,
+  "preprocessedSpecFile": "target/specs/l2_rust_compatible.json",
+  "stringIdSchemas": [
+    "ModelIds=Model identifier as string",
+    "ModelIdsShared=Model identifier as string",
+    "ModelIdsResponses=Model identifier as string",
+    "BetaModelIdsShared=Model identifier as string",
+    "BetaModelIdsResponses=Model identifier as string",
+    "BetaModelIdsCompaction",
+    "CreateCompletionRequestModel",
+    "CreateAssistantRequestModel",
+    "CreateThreadAndRunRequestModel",
+    "CreateImageRequestModel",
+    "CreateEmbeddingRequestModel",
+    "CreateSpeechRequestModel",
+    "CreateFineTuningJobRequestModel",
+    "CreateTranscriptionRequestModel",
+    "CreateTranslationRequestModel",
+    "CreateModerationRequestModel",
+    "CreateImageEditRequestModel",
+    "CreateImageVariationRequestModel",
+    "CreateImageEditRequestImage",
+    "VoiceIdsShared=Model identifier as string"
+  ],
+  "stringIdProperties": [
+    "model=ID of the model to use",
+    "voice=The voice to use for audio generation"
+  ],
+  "stringProperties": [
+    "CreateEmbeddingRequest.model",
+    "CreateCompletionRequest.prompt",
+    "CreateModerationRequest.input",
+    "RealtimeResponseCreateParams.conversation",
+    "CreateImageEditRequest.model",
+    "CreateImageEditRequest.image",
+    "CreateImageVariationRequest.model",
+    "CreateImageRequest.model",
+    "CreateTranscriptionRequest.model",
+    "CreateTranslationRequest.model",
+    "CreateModerationRequest.model",
+    "CreateResponse.model",
+    "CreateResponse.input",
+    "CreateMessageRequest.content",
+    "PredictionContent.content",
+    "Response.instructions"
+  ],
+  "jsonValueSchemas": [
+    "CreateTranscriptionResponseStreamEvent",
+    "OutputItem",
+    "RealtimeClientEvent",
+    "RealtimeServerEvent",
+    "ResponseStreamEvent",
+    "ComputerAction"
+  ],
+  "deepObjectQueryParameters": [
+    "/fine_tuning/jobs?metadata",
+    "/organization/audit_logs?effective_at"
+  ]
+}

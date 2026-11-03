@@ -50,7 +50,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_skill_version
 
-> models::SkillVersionResource create_skill_version(skill_id, files)
+> models::SkillVersionResource create_skill_version(skill_id, files, default)
 Create Skill Version
 
 Create a new immutable skill version.
@@ -62,6 +62,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **skill_id** | **String** | The identifier of the skill to version. | [required] |
 **files** | [**models::CreateSkillVersionBodyFiles**](CreateSkillVersionBodyFiles.md) |  | [required] |
+**default** | Option<**bool**> | Whether to set this version as the default. |  |
 
 ### Return type
 
