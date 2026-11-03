@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateFineTuningJobRequestHyperparameters {
     #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
-    pub batch_size: Option<Box<models::CreateFineTuningJobRequestHyperparametersBatchSize>>,
+    pub batch_size: Option<models::CreateFineTuningJobRequestHyperparametersBatchSize>,
     #[serde(
         rename = "learning_rate_multiplier",
         skip_serializing_if = "Option::is_none"
     )]
     pub learning_rate_multiplier:
-        Option<Box<models::CreateFineTuningJobRequestHyperparametersLearningRateMultiplier>>,
+        Option<models::CreateFineTuningJobRequestHyperparametersLearningRateMultiplier>,
     #[serde(rename = "n_epochs", skip_serializing_if = "Option::is_none")]
-    pub n_epochs: Option<Box<models::CreateFineTuningJobRequestHyperparametersNEpochs>>,
+    pub n_epochs: Option<models::CreateFineTuningJobRequestHyperparametersNEpochs>,
 }
 
 impl CreateFineTuningJobRequestHyperparameters {

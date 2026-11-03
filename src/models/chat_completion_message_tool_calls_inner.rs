@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ChatCompletionMessageToolCallsInner {
-    ChatCompletionMessageToolCall(Box<models::ChatCompletionMessageToolCall>),
-    ChatCompletionMessageCustomToolCall(Box<models::ChatCompletionMessageCustomToolCall>),
+    ChatCompletionMessageToolCall(models::ChatCompletionMessageToolCall),
+    ChatCompletionMessageCustomToolCall(models::ChatCompletionMessageCustomToolCall),
 }
 
 impl Default for ChatCompletionMessageToolCallsInner {

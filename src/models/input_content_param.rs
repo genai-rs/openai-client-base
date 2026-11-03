@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum InputContentParam {
-    InputText(Box<models::InputContentParamInputText>),
-    InputImage(Box<models::InputContentParamInputImage>),
+    InputText(models::InputContentParamInputText),
+    InputImage(models::InputContentParamInputImage),
 }
 
 impl Default for InputContentParam {

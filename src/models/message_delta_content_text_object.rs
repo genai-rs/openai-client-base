@@ -21,7 +21,7 @@ pub struct MessageDeltaContentTextObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<Box<models::MessageDeltaContentTextObjectText>>,
+    pub text: Option<models::MessageDeltaContentTextObjectText>,
 }
 
 impl MessageDeltaContentTextObject {

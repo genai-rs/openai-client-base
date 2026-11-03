@@ -16,15 +16,12 @@ pub struct LiveDecisionCompleted {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "decision")]
-    pub decision: Box<models::DecisionResponse>,
+    pub decision: models::DecisionResponse,
 }
 
 impl LiveDecisionCompleted {
     pub fn new(r#type: Type, decision: models::DecisionResponse) -> LiveDecisionCompleted {
-        LiveDecisionCompleted {
-            r#type,
-            decision: Box::new(decision),
-        }
+        LiveDecisionCompleted { r#type, decision }
     }
 }
 ///

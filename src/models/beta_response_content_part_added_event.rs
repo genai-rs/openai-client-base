@@ -21,7 +21,7 @@ pub struct BetaResponseContentPartAddedEvent {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the event. Always `response.content_part.added`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -35,7 +35,7 @@ pub struct BetaResponseContentPartAddedEvent {
     #[serde(rename = "content_index")]
     pub content_index: i32,
     #[serde(rename = "part")]
-    pub part: Box<models::BetaOutputContent>,
+    pub part: models::BetaOutputContent,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
@@ -57,7 +57,7 @@ impl BetaResponseContentPartAddedEvent {
             item_id,
             output_index,
             content_index,
-            part: Box::new(part),
+            part,
             sequence_number,
         }
     }

@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum VaultCredentialNetworkingParam {
-    Unrestricted(Box<models::VaultCredentialNetworkingParamUnrestricted>),
-    Limited(Box<models::VaultCredentialNetworkingParamLimited>),
+    Unrestricted(models::VaultCredentialNetworkingParamUnrestricted),
+    Limited(models::VaultCredentialNetworkingParamLimited),
 }
 
 impl Default for VaultCredentialNetworkingParam {

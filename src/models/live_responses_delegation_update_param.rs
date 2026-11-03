@@ -18,7 +18,7 @@ pub struct LiveResponsesDelegationUpdateParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "responses", skip_serializing_if = "Option::is_none")]
-    pub responses: Option<Box<models::LiveResponsesDelegationSettingsUpdateInputParam>>,
+    pub responses: Option<models::LiveResponsesDelegationSettingsUpdateInputParam>,
 }
 
 impl LiveResponsesDelegationUpdateParam {

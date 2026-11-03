@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaApplyPatchToolCallOutput {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the item. Always `apply_patch_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -31,7 +31,7 @@ pub struct BetaApplyPatchToolCallOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::BetaToolCallCaller>>>,
+    pub caller: Option<Option<models::BetaToolCallCaller>>,
     #[serde(rename = "status")]
     pub status: models::BetaApplyPatchCallOutputStatus,
     /// Optional textual output returned by the apply patch tool.

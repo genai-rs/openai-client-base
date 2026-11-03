@@ -21,7 +21,7 @@ pub struct BetaCodeInterpreterToolCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the code interpreter tool call. Always `code_interpreter_call`.
     #[serde(rename = "type")]
     pub r#type: Type,

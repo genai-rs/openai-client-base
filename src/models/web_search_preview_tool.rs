@@ -23,7 +23,7 @@ pub struct WebSearchPreviewTool {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub user_location: Option<Option<Box<models::ApproximateLocation>>>,
+    pub user_location: Option<Option<models::ApproximateLocation>>,
     #[serde(
         rename = "search_context_size",
         skip_serializing_if = "Option::is_none"

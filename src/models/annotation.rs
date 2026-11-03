@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Annotation {
-    FileCitationBody(Box<models::FileCitationBody>),
-    UrlCitationBody(Box<models::UrlCitationBody>),
-    ContainerFileCitationBody(Box<models::ContainerFileCitationBody>),
-    FilePath(Box<models::FilePath>),
+    FileCitationBody(models::FileCitationBody),
+    UrlCitationBody(models::UrlCitationBody),
+    ContainerFileCitationBody(models::ContainerFileCitationBody),
+    FilePath(models::FilePath),
 }
 
 impl Default for Annotation {

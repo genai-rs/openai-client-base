@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionStreamResponseDelta {
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::ChatCompletionStreamResponseDeltaAudio>>,
+    pub audio: Option<models::ChatCompletionStreamResponseDeltaAudio>,
     /// The contents of the chunk message.
     #[serde(
         rename = "content",
@@ -25,7 +25,7 @@ pub struct ChatCompletionStreamResponseDelta {
     )]
     pub content: Option<Option<String>>,
     #[serde(rename = "function_call", skip_serializing_if = "Option::is_none")]
-    pub function_call: Option<Box<models::ChatCompletionStreamResponseDeltaFunctionCall>>,
+    pub function_call: Option<models::ChatCompletionStreamResponseDeltaFunctionCall>,
     #[serde(rename = "tool_calls", skip_serializing_if = "Option::is_none")]
     pub tool_calls: Option<Vec<models::ChatCompletionMessageToolCallChunk>>,
     /// The role of the author of this message.

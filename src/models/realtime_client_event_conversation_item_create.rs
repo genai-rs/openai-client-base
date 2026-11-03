@@ -24,7 +24,7 @@ pub struct RealtimeClientEventConversationItemCreate {
     #[serde(rename = "previous_item_id", skip_serializing_if = "Option::is_none")]
     pub previous_item_id: Option<String>,
     #[serde(rename = "item")]
-    pub item: Box<models::RealtimeConversationItem>,
+    pub item: models::RealtimeConversationItem,
 }
 
 impl RealtimeClientEventConversationItemCreate {
@@ -37,7 +37,7 @@ impl RealtimeClientEventConversationItemCreate {
             event_id: None,
             r#type,
             previous_item_id: None,
-            item: Box::new(item),
+            item,
         }
     }
 }

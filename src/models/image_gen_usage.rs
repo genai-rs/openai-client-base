@@ -27,9 +27,9 @@ pub struct ImageGenUsage {
         rename = "output_tokens_details",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_tokens_details: Option<Box<models::ImageGenOutputTokensDetails>>,
+    pub output_tokens_details: Option<models::ImageGenOutputTokensDetails>,
     #[serde(rename = "input_tokens_details")]
-    pub input_tokens_details: Box<models::ImageGenInputUsageDetails>,
+    pub input_tokens_details: models::ImageGenInputUsageDetails,
 }
 
 impl ImageGenUsage {
@@ -45,7 +45,7 @@ impl ImageGenUsage {
             total_tokens,
             output_tokens,
             output_tokens_details: None,
-            input_tokens_details: Box::new(input_tokens_details),
+            input_tokens_details,
         }
     }
 }

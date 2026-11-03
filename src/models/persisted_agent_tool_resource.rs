@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PersistedAgentToolResource {
-    Function(Box<models::PersistedAgentToolResourceFunction>),
-    ToolSearch(Box<models::PersistedAgentToolResourceToolSearch>),
-    ProgrammaticToolCalling(Box<models::PersistedAgentToolResourceProgrammaticToolCalling>),
-    Mcp(Box<models::PersistedAgentToolResourceMcp>),
-    WebSearch(Box<models::PersistedAgentToolResourceWebSearch>),
-    ComputerUse(Box<models::PersistedAgentToolResourceComputerUse>),
+    Function(models::PersistedAgentToolResourceFunction),
+    ToolSearch(models::PersistedAgentToolResourceToolSearch),
+    ProgrammaticToolCalling(models::PersistedAgentToolResourceProgrammaticToolCalling),
+    Mcp(models::PersistedAgentToolResourceMcp),
+    WebSearch(models::PersistedAgentToolResourceWebSearch),
+    ComputerUse(models::PersistedAgentToolResourceComputerUse),
 }
 
 impl Default for PersistedAgentToolResource {

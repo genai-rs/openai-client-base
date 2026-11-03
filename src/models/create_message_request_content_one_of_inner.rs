@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateMessageRequestContentOneOfInner {
-    MessageContentImageFileObject(Box<models::MessageContentImageFileObject>),
-    MessageContentImageUrlObject(Box<models::MessageContentImageUrlObject>),
-    MessageRequestContentTextObject(Box<models::MessageRequestContentTextObject>),
+    MessageContentImageFileObject(models::MessageContentImageFileObject),
+    MessageContentImageUrlObject(models::MessageContentImageUrlObject),
+    MessageRequestContentTextObject(models::MessageRequestContentTextObject),
 }
 
 impl Default for CreateMessageRequestContentOneOfInner {

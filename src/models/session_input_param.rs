@@ -16,9 +16,9 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum SessionInputParam {
     AgentSessionInputComputerUseApprovalRequestResult(
-        Box<models::SessionInputParamAgentSessionInputComputerUseApprovalRequestResult>,
+        models::SessionInputParamAgentSessionInputComputerUseApprovalRequestResult,
     ),
-    AgentSessionInputMessage(Box<models::SessionInputParamAgentSessionInputMessage>),
-    AgentSessionInputCancel(Box<models::SessionInputParamAgentSessionInputCancel>),
-    AgentSessionInputToolResult(Box<models::SessionInputParamAgentSessionInputToolResult>),
+    AgentSessionInputMessage(models::SessionInputParamAgentSessionInputMessage),
+    AgentSessionInputCancel(models::SessionInputParamAgentSessionInputCancel),
+    AgentSessionInputToolResult(models::SessionInputParamAgentSessionInputToolResult),
 }

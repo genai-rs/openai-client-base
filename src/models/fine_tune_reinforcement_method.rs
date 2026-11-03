@@ -15,16 +15,16 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneReinforcementMethod {
     #[serde(rename = "grader")]
-    pub grader: Box<models::FineTuneReinforcementMethodGrader>,
+    pub grader: models::FineTuneReinforcementMethodGrader,
     #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
-    pub hyperparameters: Option<Box<models::FineTuneReinforcementHyperparameters>>,
+    pub hyperparameters: Option<models::FineTuneReinforcementHyperparameters>,
 }
 
 impl FineTuneReinforcementMethod {
     /// Configuration for the reinforcement fine-tuning method.
     pub fn new(grader: models::FineTuneReinforcementMethodGrader) -> FineTuneReinforcementMethod {
         FineTuneReinforcementMethod {
-            grader: Box::new(grader),
+            grader,
             hyperparameters: None,
         }
     }

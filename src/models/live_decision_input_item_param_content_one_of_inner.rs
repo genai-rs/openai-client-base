@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum LiveDecisionInputItemParamContentOneOfInner {
     #[serde(rename = "LiveDecisionInputTextParam")]
-    LiveDecisionInputTextParam(Box<models::LiveDecisionInputTextParam>),
+    LiveDecisionInputTextParam(models::LiveDecisionInputTextParam),
     #[serde(rename = "LiveDecisionInputImageParam")]
-    LiveDecisionInputImageParam(Box<models::LiveDecisionInputImageParam>),
+    LiveDecisionInputImageParam(models::LiveDecisionInputImageParam),
 }
 
 impl Default for LiveDecisionInputItemParamContentOneOfInner {

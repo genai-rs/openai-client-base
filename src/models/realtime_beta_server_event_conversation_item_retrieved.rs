@@ -21,7 +21,7 @@ pub struct RealtimeBetaServerEventConversationItemRetrieved {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "item")]
-    pub item: Box<models::RealtimeConversationItem>,
+    pub item: models::RealtimeConversationItem,
 }
 
 impl RealtimeBetaServerEventConversationItemRetrieved {
@@ -34,7 +34,7 @@ impl RealtimeBetaServerEventConversationItemRetrieved {
         RealtimeBetaServerEventConversationItemRetrieved {
             event_id,
             r#type,
-            item: Box::new(item),
+            item,
         }
     }
 }

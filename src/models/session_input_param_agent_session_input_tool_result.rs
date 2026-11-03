@@ -33,7 +33,7 @@ pub struct SessionInputParamAgentSessionInputToolResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output: Option<Option<Box<models::FunctionCallOutputParam>>>,
+    pub output: Option<Option<models::FunctionCallOutputParam>>,
     /// The error message when the call failed.
     #[serde(
         rename = "error",

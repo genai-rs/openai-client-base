@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ComputerUseApprovalRequestKindResource {
-    BrowserAuthentication(Box<models::ComputerUseApprovalRequestKindResourceBrowserAuthentication>),
-    BrowserOriginAccess(Box<models::ComputerUseApprovalRequestKindResourceBrowserOriginAccess>),
+    BrowserAuthentication(models::ComputerUseApprovalRequestKindResourceBrowserAuthentication),
+    BrowserOriginAccess(models::ComputerUseApprovalRequestKindResourceBrowserOriginAccess),
 }
 
 impl Default for ComputerUseApprovalRequestKindResource {

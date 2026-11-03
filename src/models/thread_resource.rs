@@ -27,7 +27,7 @@ pub struct ThreadResource {
     #[serde(rename = "title", deserialize_with = "Option::deserialize")]
     pub title: Option<String>,
     #[serde(rename = "status")]
-    pub status: Box<models::ThreadResourceStatus>,
+    pub status: models::ThreadResourceStatus,
     /// Free-form string that identifies your end user who owns the thread.
     #[serde(rename = "user")]
     pub user: String,
@@ -48,7 +48,7 @@ impl ThreadResource {
             object,
             created_at,
             title,
-            status: Box::new(status),
+            status,
             user,
         }
     }

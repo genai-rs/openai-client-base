@@ -15,25 +15,23 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneReinforcementHyperparameters {
     #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
-    pub batch_size: Option<Box<models::FineTuneDpoHyperparametersBatchSize>>,
+    pub batch_size: Option<models::FineTuneDpoHyperparametersBatchSize>,
     #[serde(
         rename = "learning_rate_multiplier",
         skip_serializing_if = "Option::is_none"
     )]
-    pub learning_rate_multiplier:
-        Option<Box<models::FineTuneDpoHyperparametersLearningRateMultiplier>>,
+    pub learning_rate_multiplier: Option<models::FineTuneDpoHyperparametersLearningRateMultiplier>,
     #[serde(rename = "n_epochs", skip_serializing_if = "Option::is_none")]
-    pub n_epochs: Option<Box<models::FineTuneDpoHyperparametersNEpochs>>,
+    pub n_epochs: Option<models::FineTuneDpoHyperparametersNEpochs>,
     /// Level of reasoning effort.
     #[serde(rename = "reasoning_effort", skip_serializing_if = "Option::is_none")]
     pub reasoning_effort: Option<ReasoningEffort>,
     #[serde(rename = "compute_multiplier", skip_serializing_if = "Option::is_none")]
-    pub compute_multiplier:
-        Option<Box<models::FineTuneReinforcementHyperparametersComputeMultiplier>>,
+    pub compute_multiplier: Option<models::FineTuneReinforcementHyperparametersComputeMultiplier>,
     #[serde(rename = "eval_interval", skip_serializing_if = "Option::is_none")]
-    pub eval_interval: Option<Box<models::FineTuneReinforcementHyperparametersEvalInterval>>,
+    pub eval_interval: Option<models::FineTuneReinforcementHyperparametersEvalInterval>,
     #[serde(rename = "eval_samples", skip_serializing_if = "Option::is_none")]
-    pub eval_samples: Option<Box<models::FineTuneReinforcementHyperparametersEvalSamples>>,
+    pub eval_samples: Option<models::FineTuneReinforcementHyperparametersEvalSamples>,
 }
 
 impl FineTuneReinforcementHyperparameters {

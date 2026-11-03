@@ -48,7 +48,7 @@ pub struct AgentToolConfigParamWebSearch {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub location: Option<Option<Box<models::WebSearchLocationParam>>>,
+    pub location: Option<Option<models::WebSearchLocationParam>>,
 }
 
 impl AgentToolConfigParamWebSearch {

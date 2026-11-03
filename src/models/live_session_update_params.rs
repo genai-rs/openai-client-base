@@ -20,7 +20,7 @@ pub struct LiveSessionUpdateParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub delegation: Option<Option<Box<models::LiveSessionUpdateParamsDelegation>>>,
+    pub delegation: Option<Option<models::LiveSessionUpdateParamsDelegation>>,
     /// At most one Decisions trigger per transcript event type. Triggers run independently of delegation. On update, omit triggers to keep the current configuration, send a list to replace it, or send an empty list to disable triggers.
     #[serde(rename = "triggers", skip_serializing_if = "Option::is_none")]
     pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam2>>,

@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ThreadResourceStatus {
-    ActiveStatus(Box<models::ActiveStatus>),
-    LockedStatus(Box<models::LockedStatus>),
-    ClosedStatus(Box<models::ClosedStatus>),
+    ActiveStatus(models::ActiveStatus),
+    LockedStatus(models::LockedStatus),
+    ClosedStatus(models::ClosedStatus),
 }
 
 impl Default for ThreadResourceStatus {

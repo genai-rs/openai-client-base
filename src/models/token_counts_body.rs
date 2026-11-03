@@ -22,7 +22,7 @@ pub struct TokenCountsBody {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input: Option<Option<Box<models::TokenCountsBodyInput>>>,
+    pub input: Option<Option<models::TokenCountsBodyInput>>,
     /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
@@ -45,14 +45,14 @@ pub struct TokenCountsBody {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub text: Option<Option<Box<models::ResponseTextParam>>>,
+    pub text: Option<Option<models::ResponseTextParam>>,
     #[serde(
         rename = "reasoning",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub reasoning: Option<Option<Box<models::Reasoning>>>,
+    pub reasoning: Option<Option<models::Reasoning>>,
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
     pub truncation: Option<models::TruncationEnum>,
     /// A system (or developer) message inserted into the model's context. When used along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses.
@@ -64,21 +64,21 @@ pub struct TokenCountsBody {
     )]
     pub instructions: Option<Option<String>>,
     #[serde(rename = "personality", skip_serializing_if = "Option::is_none")]
-    pub personality: Option<Box<models::PersonalityEnum>>,
+    pub personality: Option<models::PersonalityEnum>,
     #[serde(
         rename = "conversation",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub conversation: Option<Option<Box<models::ConversationParam>>>,
+    pub conversation: Option<Option<models::ConversationParam>>,
     #[serde(
         rename = "tool_choice",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tool_choice: Option<Option<Box<models::ToolChoiceParam>>>,
+    pub tool_choice: Option<Option<models::ToolChoiceParam>>,
     /// Whether to allow the model to run tool calls in parallel.
     #[serde(
         rename = "parallel_tool_calls",

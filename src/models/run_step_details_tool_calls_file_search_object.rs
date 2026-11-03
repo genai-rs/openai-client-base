@@ -20,7 +20,7 @@ pub struct RunStepDetailsToolCallsFileSearchObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "file_search")]
-    pub file_search: Box<models::RunStepDetailsToolCallsFileSearchObjectFileSearch>,
+    pub file_search: models::RunStepDetailsToolCallsFileSearchObjectFileSearch,
 }
 
 impl RunStepDetailsToolCallsFileSearchObject {
@@ -32,7 +32,7 @@ impl RunStepDetailsToolCallsFileSearchObject {
         RunStepDetailsToolCallsFileSearchObject {
             id,
             r#type,
-            file_search: Box::new(file_search),
+            file_search,
         }
     }
 }

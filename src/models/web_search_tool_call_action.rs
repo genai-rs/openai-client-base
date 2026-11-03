@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum WebSearchToolCallAction {
-    WebSearchActionSearch(Box<models::WebSearchActionSearch>),
-    WebSearchActionOpenPage(Box<models::WebSearchActionOpenPage>),
-    WebSearchActionFind(Box<models::WebSearchActionFind>),
+    WebSearchActionSearch(models::WebSearchActionSearch),
+    WebSearchActionOpenPage(models::WebSearchActionOpenPage),
+    WebSearchActionFind(models::WebSearchActionFind),
 }
 
 impl Default for WebSearchToolCallAction {

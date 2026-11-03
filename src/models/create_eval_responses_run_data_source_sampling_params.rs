@@ -39,7 +39,7 @@ pub struct CreateEvalResponsesRunDataSourceSamplingParams {
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::Tool>>,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
-    pub text: Option<Box<models::CreateEvalResponsesRunDataSourceSamplingParamsText>>,
+    pub text: Option<models::CreateEvalResponsesRunDataSourceSamplingParamsText>,
 }
 
 impl CreateEvalResponsesRunDataSourceSamplingParams {

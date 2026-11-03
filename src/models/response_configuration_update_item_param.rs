@@ -26,7 +26,7 @@ pub struct ResponseConfigurationUpdateItemParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
-    pub reasoning: Option<Box<models::ResponseConfigurationUpdateItemParamReasoning>>,
+    pub reasoning: Option<models::ResponseConfigurationUpdateItemParamReasoning>,
 }
 
 impl ResponseConfigurationUpdateItemParam {

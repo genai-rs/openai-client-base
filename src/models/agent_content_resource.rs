@@ -15,6 +15,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AgentContentResource {
-    OutputTextResource(Box<models::OutputTextResource>),
-    EncryptedContentResource(Box<models::EncryptedContentResource>),
+    OutputTextResource(models::OutputTextResource),
+    EncryptedContentResource(models::EncryptedContentResource),
 }

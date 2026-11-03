@@ -21,7 +21,7 @@ pub struct BetaComputerToolCallOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the computer tool call output. Always `computer_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -38,7 +38,7 @@ pub struct BetaComputerToolCallOutput {
     )]
     pub acknowledged_safety_checks: Option<Vec<models::BetaComputerCallSafetyCheckParam>>,
     #[serde(rename = "output")]
-    pub output: Box<models::BetaComputerScreenshotImage>,
+    pub output: models::BetaComputerScreenshotImage,
     /// The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -57,7 +57,7 @@ impl BetaComputerToolCallOutput {
             id: None,
             call_id,
             acknowledged_safety_checks: None,
-            output: Box::new(output),
+            output,
             status: None,
         }
     }

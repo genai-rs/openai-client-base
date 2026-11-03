@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RunStepDetailsToolCallsObjectToolCallsInner {
-    RunStepDetailsToolCallsCodeObject(Box<models::RunStepDetailsToolCallsCodeObject>),
-    RunStepDetailsToolCallsFileSearchObject(Box<models::RunStepDetailsToolCallsFileSearchObject>),
-    RunStepDetailsToolCallsFunctionObject(Box<models::RunStepDetailsToolCallsFunctionObject>),
+    RunStepDetailsToolCallsCodeObject(models::RunStepDetailsToolCallsCodeObject),
+    RunStepDetailsToolCallsFileSearchObject(models::RunStepDetailsToolCallsFileSearchObject),
+    RunStepDetailsToolCallsFunctionObject(models::RunStepDetailsToolCallsFunctionObject),
 }
 
 impl Default for RunStepDetailsToolCallsObjectToolCallsInner {

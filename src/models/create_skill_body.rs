@@ -15,15 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSkillBody {
     #[serde(rename = "files")]
-    pub files: Box<models::CreateSkillBodyFiles>,
+    pub files: models::CreateSkillBodyFiles,
 }
 
 impl CreateSkillBody {
     /// Uploads a skill either as a directory (multipart `files[]`) or as a single zip file.
     pub fn new(files: models::CreateSkillBodyFiles) -> CreateSkillBody {
-        CreateSkillBody {
-            files: Box::new(files),
-        }
+        CreateSkillBody { files }
     }
 }
 

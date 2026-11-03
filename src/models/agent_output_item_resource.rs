@@ -15,20 +15,20 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AgentOutputItemResource {
-    AssistantMessageItemResource(Box<models::AssistantMessageItemResource>),
-    ReasoningItemResource(Box<models::ReasoningItemResource>),
-    FunctionCallItemResource(Box<models::FunctionCallItemResource>),
-    McpCallItemResource(Box<models::McpCallItemResource>),
-    ComputerUseCallItemResource(Box<models::ComputerUseCallItemResource>),
-    BrowserAuthenticationRequestItemResource(Box<models::BrowserAuthenticationRequestItemResource>),
-    WebSearchCallItemResource(Box<models::WebSearchCallItemResource>),
-    CommandExecutionItemResource(Box<models::CommandExecutionItemResource>),
-    CreateSubagentCallItemResource(Box<models::CreateSubagentCallItemResource>),
-    SendSubagentInputCallItemResource(Box<models::SendSubagentInputCallItemResource>),
-    ResumeSubagentCallItemResource(Box<models::ResumeSubagentCallItemResource>),
-    WaitForSubagentsCallItemResource(Box<models::WaitForSubagentsCallItemResource>),
-    InterruptSubagentCallItemResource(Box<models::InterruptSubagentCallItemResource>),
-    CloseSubagentCallItemResource(Box<models::CloseSubagentCallItemResource>),
+    AssistantMessageItemResource(models::AssistantMessageItemResource),
+    ReasoningItemResource(models::ReasoningItemResource),
+    FunctionCallItemResource(models::FunctionCallItemResource),
+    McpCallItemResource(models::McpCallItemResource),
+    ComputerUseCallItemResource(models::ComputerUseCallItemResource),
+    BrowserAuthenticationRequestItemResource(models::BrowserAuthenticationRequestItemResource),
+    WebSearchCallItemResource(models::WebSearchCallItemResource),
+    CommandExecutionItemResource(models::CommandExecutionItemResource),
+    CreateSubagentCallItemResource(models::CreateSubagentCallItemResource),
+    SendSubagentInputCallItemResource(models::SendSubagentInputCallItemResource),
+    ResumeSubagentCallItemResource(models::ResumeSubagentCallItemResource),
+    WaitForSubagentsCallItemResource(models::WaitForSubagentsCallItemResource),
+    InterruptSubagentCallItemResource(models::InterruptSubagentCallItemResource),
+    CloseSubagentCallItemResource(models::CloseSubagentCallItemResource),
 }
 
 /// The role of the message author. Always `assistant`.

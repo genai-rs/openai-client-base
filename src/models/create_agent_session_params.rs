@@ -23,12 +23,12 @@ pub struct CreateAgentSessionParams {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::SessionAgentConfigParam>>,
+    pub agent: Option<models::SessionAgentConfigParam>,
     /// The ID of a saved reusable agent. Omit `agent` to use its configuration unchanged.
     #[serde(rename = "agent_id", skip_serializing_if = "Option::is_none")]
     pub agent_id: Option<String>,
     #[serde(rename = "environment")]
-    pub environment: Box<models::EnvironmentParam>,
+    pub environment: models::EnvironmentParam,
     /// The IDs of vaults made available to the session.
     #[serde(
         rename = "vault_ids",
@@ -44,7 +44,7 @@ pub struct CreateAgentSessionParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input: Option<Option<Box<models::CreateSessionInputParam>>>,
+    pub input: Option<Option<models::CreateSessionInputParam>>,
     /// Whether to stream session events as server-sent events. Defaults to `false`.
     #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
     pub stream: Option<bool>,
@@ -57,7 +57,7 @@ impl CreateAgentSessionParams {
             metadata: None,
             agent: None,
             agent_id: None,
-            environment: Box::new(environment),
+            environment,
             vault_ids: None,
             input: None,
             stream: None,

@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaResponseReasoningSummaryPartWsAdded {
     /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the event. Always `response.reasoning_summary_part.added`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -33,7 +33,7 @@ pub struct BetaResponseReasoningSummaryPartWsAdded {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "part")]
-    pub part: Box<models::ResponseReasoningSummaryPartAddedEventPart>,
+    pub part: models::ResponseReasoningSummaryPartAddedEventPart,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -56,7 +56,7 @@ impl BetaResponseReasoningSummaryPartWsAdded {
             output_index,
             summary_index,
             sequence_number,
-            part: Box::new(part),
+            part,
             stream_id: None,
         }
     }

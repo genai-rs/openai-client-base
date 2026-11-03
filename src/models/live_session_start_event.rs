@@ -26,7 +26,7 @@ pub struct LiveSessionStartEvent {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "session")]
-    pub session: Box<models::LiveSessionCreateParams>,
+    pub session: models::LiveSessionCreateParams,
 }
 
 impl LiveSessionStartEvent {
@@ -35,7 +35,7 @@ impl LiveSessionStartEvent {
         LiveSessionStartEvent {
             event_id: None,
             r#type,
-            session: Box::new(session),
+            session,
         }
     }
 }

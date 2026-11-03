@@ -14,10 +14,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ExternalStorageResponseProvider {
-    AwsExternalStorageProviderResponse(Box<models::AwsExternalStorageProviderResponse>),
-    AzureExternalStorageProviderResponse(Box<models::AzureExternalStorageProviderResponse>),
-    GcpExternalStorageProviderResponse(Box<models::GcpExternalStorageProviderResponse>),
-    OciExternalStorageProviderResponse(Box<models::OciExternalStorageProviderResponse>),
+    AwsExternalStorageProviderResponse(models::AwsExternalStorageProviderResponse),
+    AzureExternalStorageProviderResponse(models::AzureExternalStorageProviderResponse),
+    GcpExternalStorageProviderResponse(models::GcpExternalStorageProviderResponse),
+    OciExternalStorageProviderResponse(models::OciExternalStorageProviderResponse),
 }
 
 impl Default for ExternalStorageResponseProvider {

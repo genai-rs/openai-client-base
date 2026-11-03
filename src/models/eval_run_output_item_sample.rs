@@ -27,9 +27,9 @@ pub struct EvalRunOutputItemSample {
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "usage")]
-    pub usage: Box<models::EvalRunOutputItemSampleUsage>,
+    pub usage: models::EvalRunOutputItemSampleUsage,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
-    pub error: Option<Box<models::EvalApiError>>,
+    pub error: Option<models::EvalApiError>,
     /// The sampling temperature used.
     #[serde(rename = "temperature")]
     pub temperature: f64,
@@ -63,8 +63,8 @@ impl EvalRunOutputItemSample {
             output,
             finish_reason,
             model,
-            usage: Box::new(usage),
-            error: error.map(Box::new),
+            usage,
+            error,
             temperature,
             max_completion_tokens,
             top_p,

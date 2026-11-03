@@ -15,16 +15,16 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaAgentMessageContentInner {
-    BetaInputTextContent(Box<models::BetaInputTextContent>),
-    BetaOutputTextContent(Box<models::BetaOutputTextContent>),
-    BetaTextContent(Box<models::BetaTextContent>),
-    BetaSummaryTextContent(Box<models::BetaSummaryTextContent>),
-    BetaReasoningTextContent(Box<models::BetaReasoningTextContent>),
-    BetaRefusalContent(Box<models::BetaRefusalContent>),
-    BetaInputImageContent(Box<models::BetaInputImageContent>),
-    BetaComputerScreenshotContent(Box<models::BetaComputerScreenshotContent>),
-    BetaInputFileContent(Box<models::BetaInputFileContent>),
-    BetaEncryptedContent(Box<models::BetaEncryptedContent>),
+    BetaInputTextContent(models::BetaInputTextContent),
+    BetaOutputTextContent(models::BetaOutputTextContent),
+    BetaTextContent(models::BetaTextContent),
+    BetaSummaryTextContent(models::BetaSummaryTextContent),
+    BetaReasoningTextContent(models::BetaReasoningTextContent),
+    BetaRefusalContent(models::BetaRefusalContent),
+    BetaInputImageContent(models::BetaInputImageContent),
+    BetaComputerScreenshotContent(models::BetaComputerScreenshotContent),
+    BetaInputFileContent(models::BetaInputFileContent),
+    BetaEncryptedContent(models::BetaEncryptedContent),
 }
 
 impl Default for BetaAgentMessageContentInner {

@@ -49,14 +49,14 @@ pub struct CreateChatCompletionStreamResponse {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub usage: Option<Option<Box<models::CompletionUsage>>>,
+    pub usage: Option<Option<models::CompletionUsage>>,
     #[serde(
         rename = "moderation",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub moderation: Option<Option<Box<models::ChatCompletionModeration>>>,
+    pub moderation: Option<Option<models::ChatCompletionModeration>>,
 }
 
 impl CreateChatCompletionStreamResponse {

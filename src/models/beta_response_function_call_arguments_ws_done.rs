@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaResponseFunctionCallArgumentsWsDone {
     /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the item.

@@ -21,7 +21,7 @@ pub struct SessionEventAgentSessionSubagentClosed {
     #[serde(rename = "event_id")]
     pub event_id: String,
     #[serde(rename = "subagent")]
-    pub subagent: Box<models::SubagentResource>,
+    pub subagent: models::SubagentResource,
 }
 
 impl SessionEventAgentSessionSubagentClosed {
@@ -34,7 +34,7 @@ impl SessionEventAgentSessionSubagentClosed {
         SessionEventAgentSessionSubagentClosed {
             r#type,
             event_id,
-            subagent: Box::new(subagent),
+            subagent,
         }
     }
 }

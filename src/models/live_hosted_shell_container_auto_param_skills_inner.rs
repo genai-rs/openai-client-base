@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LiveHostedShellContainerAutoParamSkillsInner {
-    LiveSkillReferenceParam(Box<models::LiveSkillReferenceParam>),
-    LiveInlineSkillParam(Box<models::LiveInlineSkillParam>),
+    LiveSkillReferenceParam(models::LiveSkillReferenceParam),
+    LiveInlineSkillParam(models::LiveInlineSkillParam),
 }
 
 impl Default for LiveHostedShellContainerAutoParamSkillsInner {

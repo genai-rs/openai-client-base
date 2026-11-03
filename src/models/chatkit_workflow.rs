@@ -24,7 +24,7 @@ pub struct ChatkitWorkflow {
     #[serde(rename = "state_variables", deserialize_with = "Option::deserialize")]
     pub state_variables: Option<std::collections::HashMap<String, models::Object027Value>>,
     #[serde(rename = "tracing")]
-    pub tracing: Box<models::ChatkitWorkflowTracing>,
+    pub tracing: models::ChatkitWorkflowTracing,
 }
 
 impl ChatkitWorkflow {
@@ -39,7 +39,7 @@ impl ChatkitWorkflow {
             id,
             version,
             state_variables,
-            tracing: Box::new(tracing),
+            tracing,
         }
     }
 }

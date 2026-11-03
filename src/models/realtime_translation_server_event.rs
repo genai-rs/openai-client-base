@@ -15,17 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeTranslationServerEvent {
-    RealtimeServerEventError(Box<models::RealtimeServerEventError>),
-    SessionCreated(Box<models::RealtimeTranslationServerEventSessionCreated>),
-    SessionUpdated(Box<models::RealtimeTranslationServerEventSessionUpdated>),
-    SessionClosed(Box<models::RealtimeTranslationServerEventSessionClosed>),
-    SessionInputTranscriptDelta(
-        Box<models::RealtimeTranslationServerEventSessionInputTranscriptDelta>,
-    ),
+    RealtimeServerEventError(models::RealtimeServerEventError),
+    SessionCreated(models::RealtimeTranslationServerEventSessionCreated),
+    SessionUpdated(models::RealtimeTranslationServerEventSessionUpdated),
+    SessionClosed(models::RealtimeTranslationServerEventSessionClosed),
+    SessionInputTranscriptDelta(models::RealtimeTranslationServerEventSessionInputTranscriptDelta),
     SessionOutputTranscriptDelta(
-        Box<models::RealtimeTranslationServerEventSessionOutputTranscriptDelta>,
+        models::RealtimeTranslationServerEventSessionOutputTranscriptDelta,
     ),
-    SessionOutputAudioDelta(Box<models::RealtimeTranslationServerEventSessionOutputAudioDelta>),
+    SessionOutputAudioDelta(models::RealtimeTranslationServerEventSessionOutputAudioDelta),
 }
 
 /// Audio encoding for `delta`.

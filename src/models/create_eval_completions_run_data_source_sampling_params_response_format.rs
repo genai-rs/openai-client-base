@@ -16,9 +16,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
-    ResponseFormatText(Box<models::ResponseFormatText>),
-    ResponseFormatJsonSchema(Box<models::ResponseFormatJsonSchema>),
-    ResponseFormatJsonObject(Box<models::ResponseFormatJsonObject>),
+    ResponseFormatText(models::ResponseFormatText),
+    ResponseFormatJsonSchema(models::ResponseFormatJsonSchema),
+    ResponseFormatJsonObject(models::ResponseFormatJsonObject),
 }
 
 impl Default for CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {

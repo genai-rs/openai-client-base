@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateMessageRequestAttachmentsInnerToolsInner {
-    AssistantToolsCode(Box<models::AssistantToolsCode>),
-    AssistantToolsFileSearchTypeOnly(Box<models::AssistantToolsFileSearchTypeOnly>),
+    AssistantToolsCode(models::AssistantToolsCode),
+    AssistantToolsFileSearchTypeOnly(models::AssistantToolsFileSearchTypeOnly),
 }
 
 impl Default for CreateMessageRequestAttachmentsInnerToolsInner {

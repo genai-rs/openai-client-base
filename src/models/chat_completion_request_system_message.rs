@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionRequestSystemMessage {
     #[serde(rename = "content")]
-    pub content: Box<models::ChatCompletionRequestSystemMessageContent>,
+    pub content: models::ChatCompletionRequestSystemMessageContent,
     /// The role of the messages author, in this case `system`.
     #[serde(rename = "role")]
     pub role: Role,
@@ -31,7 +31,7 @@ impl ChatCompletionRequestSystemMessage {
         role: Role,
     ) -> ChatCompletionRequestSystemMessage {
         ChatCompletionRequestSystemMessage {
-            content: Box::new(content),
+            content,
             role,
             name: None,
         }

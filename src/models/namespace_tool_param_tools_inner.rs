@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum NamespaceToolParamToolsInner {
-    FunctionToolParam(Box<models::FunctionToolParam>),
-    CustomToolParam(Box<models::CustomToolParam>),
+    FunctionToolParam(models::FunctionToolParam),
+    CustomToolParam(models::CustomToolParam),
 }
 
 impl Default for NamespaceToolParamToolsInner {

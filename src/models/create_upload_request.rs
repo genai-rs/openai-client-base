@@ -26,7 +26,7 @@ pub struct CreateUploadRequest {
     #[serde(rename = "mime_type")]
     pub mime_type: String,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
-    pub expires_after: Option<Box<models::FileExpirationAfter>>,
+    pub expires_after: Option<models::FileExpirationAfter>,
 }
 
 impl CreateUploadRequest {

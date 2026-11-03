@@ -18,11 +18,11 @@ pub struct FineTuneMethod {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "supervised", skip_serializing_if = "Option::is_none")]
-    pub supervised: Option<Box<models::FineTuneSupervisedMethod>>,
+    pub supervised: Option<models::FineTuneSupervisedMethod>,
     #[serde(rename = "dpo", skip_serializing_if = "Option::is_none")]
-    pub dpo: Option<Box<models::FineTuneDpoMethod>>,
+    pub dpo: Option<models::FineTuneDpoMethod>,
     #[serde(rename = "reinforcement", skip_serializing_if = "Option::is_none")]
-    pub reinforcement: Option<Box<models::FineTuneReinforcementMethod>>,
+    pub reinforcement: Option<models::FineTuneReinforcementMethod>,
 }
 
 impl FineTuneMethod {

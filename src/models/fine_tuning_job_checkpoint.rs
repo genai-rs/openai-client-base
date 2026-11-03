@@ -27,7 +27,7 @@ pub struct FineTuningJobCheckpoint {
     #[serde(rename = "step_number")]
     pub step_number: i32,
     #[serde(rename = "metrics")]
-    pub metrics: Box<models::FineTuningJobCheckpointMetrics>,
+    pub metrics: models::FineTuningJobCheckpointMetrics,
     /// The name of the fine-tuning job that this checkpoint was created from.
     #[serde(rename = "fine_tuning_job_id")]
     pub fine_tuning_job_id: String,
@@ -52,7 +52,7 @@ impl FineTuningJobCheckpoint {
             created_at,
             fine_tuned_model_checkpoint,
             step_number,
-            metrics: Box::new(metrics),
+            metrics,
             fine_tuning_job_id,
             object,
         }

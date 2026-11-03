@@ -16,11 +16,11 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum ApplyPatchOperation {
     #[serde(rename = "ApplyPatchCreateFileOperation")]
-    ApplyPatchCreateFileOperation(Box<models::ApplyPatchCreateFileOperation>),
+    ApplyPatchCreateFileOperation(models::ApplyPatchCreateFileOperation),
     #[serde(rename = "ApplyPatchDeleteFileOperation")]
-    ApplyPatchDeleteFileOperation(Box<models::ApplyPatchDeleteFileOperation>),
+    ApplyPatchDeleteFileOperation(models::ApplyPatchDeleteFileOperation),
     #[serde(rename = "ApplyPatchUpdateFileOperation")]
-    ApplyPatchUpdateFileOperation(Box<models::ApplyPatchUpdateFileOperation>),
+    ApplyPatchUpdateFileOperation(models::ApplyPatchUpdateFileOperation),
 }
 
 impl Default for ApplyPatchOperation {

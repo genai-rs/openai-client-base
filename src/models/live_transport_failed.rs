@@ -22,7 +22,7 @@ pub struct LiveTransportFailed {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "error")]
-    pub error: Box<models::LiveTransportCallError>,
+    pub error: models::LiveTransportCallError,
 }
 
 impl LiveTransportFailed {
@@ -37,7 +37,7 @@ impl LiveTransportFailed {
             event_id,
             session_id,
             r#type,
-            error: Box::new(error),
+            error,
         }
     }
 }

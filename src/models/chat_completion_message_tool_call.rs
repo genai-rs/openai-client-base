@@ -21,7 +21,7 @@ pub struct ChatCompletionMessageToolCall {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "function")]
-    pub function: Box<models::ChatCompletionMessageToolCallFunction>,
+    pub function: models::ChatCompletionMessageToolCallFunction,
 }
 
 impl ChatCompletionMessageToolCall {
@@ -34,7 +34,7 @@ impl ChatCompletionMessageToolCall {
         ChatCompletionMessageToolCall {
             id,
             r#type,
-            function: Box::new(function),
+            function,
         }
     }
 }

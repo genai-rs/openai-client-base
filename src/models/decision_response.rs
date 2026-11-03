@@ -20,7 +20,7 @@ pub struct DecisionResponse {
     #[serde(rename = "answers")]
     pub answers: Vec<models::AnswerResource>,
     #[serde(rename = "usage")]
-    pub usage: Box<models::ResponseUsageResource>,
+    pub usage: models::ResponseUsageResource,
 }
 
 impl DecisionResponse {
@@ -32,7 +32,7 @@ impl DecisionResponse {
         DecisionResponse {
             model,
             answers,
-            usage: Box::new(usage),
+            usage,
         }
     }
 }

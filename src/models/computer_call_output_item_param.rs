@@ -29,7 +29,7 @@ pub struct ComputerCallOutputItemParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "output")]
-    pub output: Box<models::ComputerScreenshotImage>,
+    pub output: models::ComputerScreenshotImage,
     /// The safety checks reported by the API that have been acknowledged by the developer.
     #[serde(
         rename = "acknowledged_safety_checks",
@@ -58,7 +58,7 @@ impl ComputerCallOutputItemParam {
             id: None,
             call_id,
             r#type,
-            output: Box::new(output),
+            output,
             acknowledged_safety_checks: None,
             status: None,
         }

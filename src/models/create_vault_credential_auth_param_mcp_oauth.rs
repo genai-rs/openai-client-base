@@ -38,7 +38,7 @@ pub struct CreateVaultCredentialAuthParamMcpOauth {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub refresh: Option<Option<Box<models::CreateMcpOauthRefreshParam>>>,
+    pub refresh: Option<Option<models::CreateMcpOauthRefreshParam>>,
 }
 
 impl CreateVaultCredentialAuthParamMcpOauth {

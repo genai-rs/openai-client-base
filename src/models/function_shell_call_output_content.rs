@@ -21,7 +21,7 @@ pub struct FunctionShellCallOutputContent {
     #[serde(rename = "stderr")]
     pub stderr: String,
     #[serde(rename = "outcome")]
-    pub outcome: Box<models::ShellCallOutcome>,
+    pub outcome: models::ShellCallOutcome,
     /// The identifier of the actor that created the item.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -37,7 +37,7 @@ impl FunctionShellCallOutputContent {
         FunctionShellCallOutputContent {
             stdout,
             stderr,
-            outcome: Box::new(outcome),
+            outcome,
             created_by: None,
         }
     }

@@ -27,7 +27,7 @@ pub struct RealtimeTranslationSession {
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "audio")]
-    pub audio: Box<models::RealtimeTranslationSessionAudio>,
+    pub audio: models::RealtimeTranslationSessionAudio,
 }
 
 impl RealtimeTranslationSession {
@@ -44,7 +44,7 @@ impl RealtimeTranslationSession {
             r#type,
             expires_at,
             model,
-            audio: Box::new(audio),
+            audio,
         }
     }
 }

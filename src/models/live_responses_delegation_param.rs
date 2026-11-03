@@ -18,7 +18,7 @@ pub struct LiveResponsesDelegationParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "responses")]
-    pub responses: Box<models::LiveResponsesDelegationSettingsInputParam>,
+    pub responses: models::LiveResponsesDelegationSettingsInputParam,
 }
 
 impl LiveResponsesDelegationParam {
@@ -27,10 +27,7 @@ impl LiveResponsesDelegationParam {
         r#type: Type,
         responses: models::LiveResponsesDelegationSettingsInputParam,
     ) -> LiveResponsesDelegationParam {
-        LiveResponsesDelegationParam {
-            r#type,
-            responses: Box::new(responses),
-        }
+        LiveResponsesDelegationParam { r#type, responses }
     }
 }
 /// The delegation owner. Always `responses` for tasks handled by the Responses API.

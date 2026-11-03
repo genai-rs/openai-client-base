@@ -34,7 +34,7 @@ pub struct CreateBatchRequest {
         rename = "output_expires_after",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_expires_after: Option<Box<models::BatchFileExpirationAfter>>,
+    pub output_expires_after: Option<models::BatchFileExpirationAfter>,
 }
 
 impl CreateBatchRequest {

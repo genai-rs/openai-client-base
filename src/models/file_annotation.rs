@@ -18,16 +18,13 @@ pub struct FileAnnotation {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "source")]
-    pub source: Box<models::FileAnnotationSource>,
+    pub source: models::FileAnnotationSource,
 }
 
 impl FileAnnotation {
     /// Annotation that references an uploaded file.
     pub fn new(r#type: Type, source: models::FileAnnotationSource) -> FileAnnotation {
-        FileAnnotation {
-            r#type,
-            source: Box::new(source),
-        }
+        FileAnnotation { r#type, source }
     }
 }
 /// Type discriminator that is always `file` for this annotation.

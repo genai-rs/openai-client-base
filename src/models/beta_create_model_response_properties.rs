@@ -44,7 +44,7 @@ pub struct BetaCreateModelResponseProperties {
         rename = "prompt_cache_options",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_options: Option<Box<models::BetaPromptCacheOptionsParam>>,
+    pub prompt_cache_options: Option<models::BetaPromptCacheOptionsParam>,
 }
 
 impl BetaCreateModelResponseProperties {

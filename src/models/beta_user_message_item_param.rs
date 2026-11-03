@@ -19,7 +19,7 @@ pub struct BetaUserMessageItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    pub agent: Option<Option<models::BetaAgentTagParam>>,
     /// The unique ID of this message item.
     #[serde(
         rename = "id",
@@ -35,7 +35,7 @@ pub struct BetaUserMessageItemParam {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
-    pub content: Box<models::BetaUserMessageItemParamContent>,
+    pub content: models::BetaUserMessageItemParamContent,
     /// The status of the message item.
     #[serde(
         rename = "status",
@@ -57,7 +57,7 @@ impl BetaUserMessageItemParam {
             id: None,
             r#type,
             role,
-            content: Box::new(content),
+            content,
             status: None,
         }
     }

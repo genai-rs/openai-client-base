@@ -45,14 +45,14 @@ pub struct ChatCompletionResponseMessage {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub function_call: Option<Option<Box<models::ChatCompletionResponseMessageFunctionCall>>>,
+    pub function_call: Option<Option<models::ChatCompletionResponseMessageFunctionCall>>,
     #[serde(
         rename = "audio",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub audio: Option<Option<Box<models::Object06>>>,
+    pub audio: Option<Option<models::Object06>>,
 }
 
 impl ChatCompletionResponseMessage {

@@ -21,7 +21,7 @@ pub struct LiveSipTransport {
     #[serde(rename = "destination")]
     pub destination: String,
     #[serde(rename = "trunk")]
-    pub trunk: Box<models::LiveSipTrunk>,
+    pub trunk: models::LiveSipTrunk,
 }
 
 impl LiveSipTransport {
@@ -30,7 +30,7 @@ impl LiveSipTransport {
         LiveSipTransport {
             r#type,
             destination,
-            trunk: Box::new(trunk),
+            trunk,
         }
     }
 }

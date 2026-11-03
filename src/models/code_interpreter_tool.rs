@@ -18,7 +18,7 @@ pub struct CodeInterpreterTool {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "container")]
-    pub container: Box<models::CodeInterpreterToolContainer>,
+    pub container: models::CodeInterpreterToolContainer,
     /// The tool invocation context(s).
     #[serde(
         rename = "allowed_callers",
@@ -37,7 +37,7 @@ impl CodeInterpreterTool {
     ) -> CodeInterpreterTool {
         CodeInterpreterTool {
             r#type,
-            container: Box::new(container),
+            container,
             allowed_callers: None,
         }
     }

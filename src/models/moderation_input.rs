@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModerationInput {
-    ModerationResultBody(Box<models::ModerationResultBody>),
-    ModerationErrorBody(Box<models::ModerationErrorBody>),
+    ModerationResultBody(models::ModerationResultBody),
+    ModerationErrorBody(models::ModerationErrorBody),
 }
 
 impl Default for ModerationInput {

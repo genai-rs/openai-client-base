@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum HostedSkillParam {
-    SkillReference(Box<models::HostedSkillParamSkillReference>),
-    Inline(Box<models::HostedSkillParamInline>),
+    SkillReference(models::HostedSkillParamSkillReference),
+    Inline(models::HostedSkillParamInline),
 }
 
 impl Default for HostedSkillParam {

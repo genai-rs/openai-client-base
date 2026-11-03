@@ -15,15 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SpendLimitEnforcement {
     #[serde(rename = "status")]
-    pub status: Box<models::SpendLimitEnforcementStatus>,
+    pub status: models::SpendLimitEnforcementStatus,
 }
 
 impl SpendLimitEnforcement {
     /// The current enforcement state of a hard spend limit.
     pub fn new(status: models::SpendLimitEnforcementStatus) -> SpendLimitEnforcement {
-        SpendLimitEnforcement {
-            status: Box::new(status),
-        }
+        SpendLimitEnforcement { status }
     }
 }
 

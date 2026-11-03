@@ -21,7 +21,7 @@ pub struct TextParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub format: Option<Option<Box<models::TextFormatParam>>>,
+    pub format: Option<Option<models::TextFormatParam>>,
     /// The amount of text the model should produce. Defaults to `medium`, matching Responses.
     #[serde(
         rename = "verbosity",

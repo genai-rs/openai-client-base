@@ -25,7 +25,7 @@ pub struct WorkflowParam {
     pub state_variables:
         Option<std::collections::HashMap<String, models::WorkflowParamStateVariablesValue>>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<Box<models::WorkflowTracingParam>>,
+    pub tracing: Option<models::WorkflowTracingParam>,
 }
 
 impl WorkflowParam {

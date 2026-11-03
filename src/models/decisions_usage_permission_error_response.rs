@@ -14,16 +14,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionsUsagePermissionErrorResponse {
     #[serde(rename = "error")]
-    pub error: Box<models::DecisionsUsagePermissionErrorResponseError>,
+    pub error: models::DecisionsUsagePermissionErrorResponseError,
 }
 
 impl DecisionsUsagePermissionErrorResponse {
     pub fn new(
         error: models::DecisionsUsagePermissionErrorResponseError,
     ) -> DecisionsUsagePermissionErrorResponse {
-        DecisionsUsagePermissionErrorResponse {
-            error: Box::new(error),
-        }
+        DecisionsUsagePermissionErrorResponse { error }
     }
 }
 

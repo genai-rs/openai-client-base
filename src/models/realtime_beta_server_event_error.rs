@@ -21,7 +21,7 @@ pub struct RealtimeBetaServerEventError {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "error")]
-    pub error: Box<models::RealtimeBetaServerEventErrorError>,
+    pub error: models::RealtimeBetaServerEventErrorError,
 }
 
 impl RealtimeBetaServerEventError {
@@ -34,7 +34,7 @@ impl RealtimeBetaServerEventError {
         RealtimeBetaServerEventError {
             event_id,
             r#type,
-            error: Box::new(error),
+            error,
         }
     }
 }

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ValidateGraderResponse {
     #[serde(rename = "grader", skip_serializing_if = "Option::is_none")]
-    pub grader: Option<Box<models::FineTuneReinforcementMethodGrader>>,
+    pub grader: Option<models::FineTuneReinforcementMethodGrader>,
 }
 
 impl ValidateGraderResponse {

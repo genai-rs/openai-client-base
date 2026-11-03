@@ -15,11 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SessionRequiredActionResource {
-    ComputerUseApprovalRequest(
-        Box<models::SessionRequiredActionResourceComputerUseApprovalRequest>,
-    ),
-    FunctionCall(Box<models::SessionRequiredActionResourceFunctionCall>),
-    EnvironmentConnection(Box<models::SessionRequiredActionResourceEnvironmentConnection>),
+    ComputerUseApprovalRequest(models::SessionRequiredActionResourceComputerUseApprovalRequest),
+    FunctionCall(models::SessionRequiredActionResourceFunctionCall),
+    EnvironmentConnection(models::SessionRequiredActionResourceEnvironmentConnection),
 }
 
 impl Default for SessionRequiredActionResource {

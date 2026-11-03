@@ -21,9 +21,9 @@ pub enum RunStreamEvent {
     Object42(serde_json::Value),
     Object51(serde_json::Value),
     Object61(serde_json::Value),
-    Object7(Box<models::Object7>),
-    Object8(Box<models::Object8>),
-    Object9(Box<models::Object9>),
+    Object7(models::Object7),
+    Object8(models::Object8),
+    Object9(models::Object9),
 }
 
 ///

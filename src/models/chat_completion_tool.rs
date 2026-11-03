@@ -18,16 +18,13 @@ pub struct ChatCompletionTool {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "function")]
-    pub function: Box<models::FunctionObject>,
+    pub function: models::FunctionObject,
 }
 
 impl ChatCompletionTool {
     /// A function tool that can be used to generate a response.
     pub fn new(r#type: Type, function: models::FunctionObject) -> ChatCompletionTool {
-        ChatCompletionTool {
-            r#type,
-            function: Box::new(function),
-        }
+        ChatCompletionTool { r#type, function }
     }
 }
 /// The type of the tool. Currently, only `function` is supported.

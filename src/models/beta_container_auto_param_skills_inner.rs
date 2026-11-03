@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaContainerAutoParamSkillsInner {
-    BetaSkillReferenceParam(Box<models::BetaSkillReferenceParam>),
-    BetaInlineSkillParam(Box<models::BetaInlineSkillParam>),
+    BetaSkillReferenceParam(models::BetaSkillReferenceParam),
+    BetaInlineSkillParam(models::BetaInlineSkillParam),
 }
 
 impl Default for BetaContainerAutoParamSkillsInner {

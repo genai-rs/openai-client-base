@@ -19,7 +19,7 @@ pub struct RunStepDeltaStepDetailsMessageCreationObject {
     pub r#type: Type,
     #[serde(rename = "message_creation", skip_serializing_if = "Option::is_none")]
     pub message_creation:
-        Option<Box<models::RunStepDeltaStepDetailsMessageCreationObjectMessageCreation>>,
+        Option<models::RunStepDeltaStepDetailsMessageCreationObjectMessageCreation>,
 }
 
 impl RunStepDeltaStepDetailsMessageCreationObject {

@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranscriptionSessionCreateResponse {
     #[serde(rename = "client_secret")]
-    pub client_secret: Box<models::RealtimeTranscriptionSessionCreateResponseClientSecret>,
+    pub client_secret: models::RealtimeTranscriptionSessionCreateResponseClientSecret,
     /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
     #[serde(
         rename = "modalities",
@@ -31,9 +31,9 @@ pub struct RealtimeTranscriptionSessionCreateResponse {
         rename = "input_audio_transcription",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio_transcription: Option<Box<models::AudioTranscriptionResponse>>,
+    pub input_audio_transcription: Option<models::AudioTranscriptionResponse>,
     #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
-    pub turn_detection: Option<Box<models::RealtimeSessionCreateRequestTurnDetection>>,
+    pub turn_detection: Option<models::RealtimeSessionCreateRequestTurnDetection>,
 }
 
 impl RealtimeTranscriptionSessionCreateResponse {
@@ -42,7 +42,7 @@ impl RealtimeTranscriptionSessionCreateResponse {
         client_secret: models::RealtimeTranscriptionSessionCreateResponseClientSecret,
     ) -> RealtimeTranscriptionSessionCreateResponse {
         RealtimeTranscriptionSessionCreateResponse {
-            client_secret: Box::new(client_secret),
+            client_secret,
             modalities: None,
             input_audio_format: None,
             input_audio_transcription: None,

@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum InputContentResource {
-    InputText(Box<models::InputContentResourceInputText>),
-    InputImage(Box<models::InputContentResourceInputImage>),
+    InputText(models::InputContentResourceInputText),
+    InputImage(models::InputContentResourceInputImage),
 }
 
 impl Default for InputContentResource {

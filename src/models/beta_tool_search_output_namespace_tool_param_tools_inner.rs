@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaToolSearchOutputNamespaceToolParamToolsInner {
-    BetaToolSearchOutputFunctionToolParam(Box<models::BetaToolSearchOutputFunctionToolParam>),
-    BetaCustomToolParam(Box<models::BetaCustomToolParam>),
+    BetaToolSearchOutputFunctionToolParam(models::BetaToolSearchOutputFunctionToolParam),
+    BetaCustomToolParam(models::BetaCustomToolParam),
 }
 
 impl Default for BetaToolSearchOutputNamespaceToolParamToolsInner {

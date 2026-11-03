@@ -16,9 +16,9 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum LiveSessionCreateResponseTransport {
     #[serde(rename = "LiveWebRTCTransport")]
-    LiveWebRtcTransport(Box<models::LiveWebRtcTransport>),
+    LiveWebRtcTransport(models::LiveWebRtcTransport),
     #[serde(rename = "Object1")]
-    Object1(Box<models::Object1>),
+    Object1(models::Object1),
 }
 
 impl Default for LiveSessionCreateResponseTransport {

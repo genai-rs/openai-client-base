@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ComputerUseApprovalResponseParam {
-    BrowserAuthentication(Box<models::ComputerUseApprovalResponseParamBrowserAuthentication>),
-    BrowserOriginAccessParam(Box<models::ComputerUseApprovalResponseParamBrowserOriginAccessParam>),
+    BrowserAuthentication(models::ComputerUseApprovalResponseParamBrowserAuthentication),
+    BrowserOriginAccessParam(models::ComputerUseApprovalResponseParamBrowserOriginAccessParam),
 }
 
 ///

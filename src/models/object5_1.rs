@@ -17,16 +17,13 @@ pub struct Object51 {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "data")]
-    pub data: Box<models::RunObject>,
+    pub data: models::RunObject,
 }
 
 impl Object51 {
     /// Occurs when a [run](https://developers.openai.com/api/docs/assistants/migration) ends with status `incomplete`.
     pub fn new(event: Event, data: models::RunObject) -> Object51 {
-        Object51 {
-            event,
-            data: Box::new(data),
-        }
+        Object51 { event, data }
     }
 }
 ///

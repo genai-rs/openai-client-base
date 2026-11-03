@@ -14,15 +14,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaComputerAction {
-    BetaClickParam(Box<models::BetaClickParam>),
-    BetaDoubleClickAction(Box<models::BetaDoubleClickAction>),
-    BetaDragParam(Box<models::BetaDragParam>),
-    BetaKeyPressAction(Box<models::BetaKeyPressAction>),
-    BetaMoveParam(Box<models::BetaMoveParam>),
-    BetaScreenshotParam(Box<models::BetaScreenshotParam>),
-    BetaScrollParam(Box<models::BetaScrollParam>),
-    BetaTypeParam(Box<models::BetaTypeParam>),
-    BetaWaitParam(Box<models::BetaWaitParam>),
+    BetaClickParam(models::BetaClickParam),
+    BetaDoubleClickAction(models::BetaDoubleClickAction),
+    BetaDragParam(models::BetaDragParam),
+    BetaKeyPressAction(models::BetaKeyPressAction),
+    BetaMoveParam(models::BetaMoveParam),
+    BetaScreenshotParam(models::BetaScreenshotParam),
+    BetaScrollParam(models::BetaScrollParam),
+    BetaTypeParam(models::BetaTypeParam),
+    BetaWaitParam(models::BetaWaitParam),
 }
 
 impl Default for BetaComputerAction {

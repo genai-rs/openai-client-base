@@ -21,7 +21,7 @@ pub struct MessageDeltaContentImageFileObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "image_file", skip_serializing_if = "Option::is_none")]
-    pub image_file: Option<Box<models::MessageDeltaContentImageFileObjectImageFile>>,
+    pub image_file: Option<models::MessageDeltaContentImageFileObjectImageFile>,
 }
 
 impl MessageDeltaContentImageFileObject {

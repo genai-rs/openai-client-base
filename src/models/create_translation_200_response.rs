@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTranslation200Response {
-    CreateTranslationResponseJson(Box<models::CreateTranslationResponseJson>),
-    CreateTranslationResponseVerboseJson(Box<models::CreateTranslationResponseVerboseJson>),
+    CreateTranslationResponseJson(models::CreateTranslationResponseJson),
+    CreateTranslationResponseVerboseJson(models::CreateTranslationResponseVerboseJson),
 }
 
 impl Default for CreateTranslation200Response {

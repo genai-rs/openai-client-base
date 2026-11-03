@@ -39,9 +39,9 @@ pub struct RunStepObject {
     #[serde(rename = "status")]
     pub status: Status,
     #[serde(rename = "step_details")]
-    pub step_details: Box<models::RunStepObjectStepDetails>,
+    pub step_details: models::RunStepObjectStepDetails,
     #[serde(rename = "last_error", deserialize_with = "Option::deserialize")]
-    pub last_error: Option<Box<models::Object021>>,
+    pub last_error: Option<models::Object021>,
     /// The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
     #[serde(rename = "expired_at", deserialize_with = "Option::deserialize")]
     pub expired_at: Option<i32>,
@@ -58,7 +58,7 @@ pub struct RunStepObject {
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
     #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
-    pub usage: Option<Box<models::RunStepCompletionUsage>>,
+    pub usage: Option<models::RunStepCompletionUsage>,
 }
 
 impl RunStepObject {
@@ -90,14 +90,14 @@ impl RunStepObject {
             run_id,
             r#type,
             status,
-            step_details: Box::new(step_details),
-            last_error: last_error.map(Box::new),
+            step_details,
+            last_error,
             expired_at,
             cancelled_at,
             failed_at,
             completed_at,
             metadata,
-            usage: usage.map(Box::new),
+            usage,
         }
     }
 }

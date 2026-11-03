@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnvironmentParam {
-    None(Box<models::EnvironmentParamNone>),
-    OpenaiHosted(Box<models::EnvironmentParamOpenaiHosted>),
-    SelfHosted(Box<models::EnvironmentParamSelfHosted>),
+    None(models::EnvironmentParamNone),
+    OpenaiHosted(models::EnvironmentParamOpenaiHosted),
+    SelfHosted(models::EnvironmentParamSelfHosted),
 }
 
 impl Default for EnvironmentParam {

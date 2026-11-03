@@ -21,7 +21,7 @@ pub struct FunctionShellCallOutputContentParam {
     #[serde(rename = "stderr")]
     pub stderr: String,
     #[serde(rename = "outcome")]
-    pub outcome: Box<models::FunctionShellCallOutputOutcomeParam>,
+    pub outcome: models::FunctionShellCallOutputOutcomeParam,
 }
 
 impl FunctionShellCallOutputContentParam {
@@ -34,7 +34,7 @@ impl FunctionShellCallOutputContentParam {
         FunctionShellCallOutputContentParam {
             stdout,
             stderr,
-            outcome: Box::new(outcome),
+            outcome,
         }
     }
 }

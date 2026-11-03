@@ -46,19 +46,19 @@ pub struct LiveResponsesDelegationSettingsInputParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub reasoning: Option<Option<Box<models::LiveDelegationReasoningInputParam>>>,
+    pub reasoning: Option<Option<models::LiveDelegationReasoningInputParam>>,
     #[serde(
         rename = "text",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub text: Option<Option<Box<models::LiveDelegationTextInputParam>>>,
+    pub text: Option<Option<models::LiveDelegationTextInputParam>>,
     /// Tools available to the Responses backend while it handles tasks delegated by the Live model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::LiveResponsesDelegationSettingsInputParamToolsInner>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
-    pub tool_choice: Option<Box<models::LiveResponsesDelegationSettingsInputParamToolChoice>>,
+    pub tool_choice: Option<models::LiveResponsesDelegationSettingsInputParamToolChoice>,
     /// Whether the delegated Responses model may request multiple tool calls in a single response.
     #[serde(
         rename = "parallel_tool_calls",

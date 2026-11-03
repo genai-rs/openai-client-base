@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVideoJsonBody {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
-    pub model: Option<Box<models::VideoModel>>,
+    pub model: Option<models::VideoModel>,
     /// Text prompt that describes the video to generate.
     #[serde(rename = "prompt")]
     pub prompt: String,
     #[serde(rename = "input_reference", skip_serializing_if = "Option::is_none")]
-    pub input_reference: Option<Box<models::ImageRefParam2>>,
+    pub input_reference: Option<models::ImageRefParam2>,
     #[serde(rename = "seconds", skip_serializing_if = "Option::is_none")]
     pub seconds: Option<models::VideoSeconds>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]

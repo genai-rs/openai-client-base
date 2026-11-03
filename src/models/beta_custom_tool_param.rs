@@ -27,7 +27,7 @@ pub struct BetaCustomToolParam {
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
-    pub format: Option<Box<models::BetaCustomToolParamFormat>>,
+    pub format: Option<models::BetaCustomToolParamFormat>,
     /// Whether this tool should be deferred and discovered via tool search.
     #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
     pub defer_loading: Option<bool>,

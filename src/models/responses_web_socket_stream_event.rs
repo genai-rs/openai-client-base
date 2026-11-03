@@ -32,12 +32,12 @@ pub struct ResponsesWebSocketStreamEvent {
     #[serde(rename = "code")]
     pub code: String,
     #[serde(rename = "response")]
-    pub response: Box<models::Response>,
+    pub response: models::Response,
     /// The index of the content part within the output item.
     #[serde(rename = "content_index")]
     pub content_index: i32,
     #[serde(rename = "part")]
-    pub part: Box<models::ResponseReasoningSummaryPartDoneEventPart>,
+    pub part: models::ResponseReasoningSummaryPartDoneEventPart,
     /// A JSON string containing the finalized arguments for the MCP tool call.
     #[serde(rename = "arguments")]
     pub arguments: String,
@@ -93,7 +93,7 @@ pub struct ResponsesWebSocketStreamEvent {
     pub annotation_index: i32,
     /// The annotation object being added. (See annotation schema for details.)
     #[serde(rename = "annotation", deserialize_with = "Option::deserialize")]
-    pub annotation: Option<Box<models::Annotation>>,
+    pub annotation: Option<models::Annotation>,
     /// The complete input data for the custom tool call.
     #[serde(rename = "input")]
     pub input: String,
@@ -135,9 +135,9 @@ impl ResponsesWebSocketStreamEvent {
             output_index,
             item_id,
             code,
-            response: Box::new(response),
+            response,
             content_index,
-            part: Box::new(part),
+            part,
             arguments,
             command_index,
             command,
@@ -156,7 +156,7 @@ impl ResponsesWebSocketStreamEvent {
             background: None,
             output_format: None,
             annotation_index,
-            annotation: annotation.map(Box::new),
+            annotation,
             input,
             stream_id: None,
         }

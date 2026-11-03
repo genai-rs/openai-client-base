@@ -41,16 +41,16 @@ pub struct RealtimeSessionCreateResponse {
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
     #[serde(rename = "audio", skip_serializing_if = "Option::is_none")]
-    pub audio: Option<Box<models::RealtimeSessionCreateResponseAudio>>,
+    pub audio: Option<models::RealtimeSessionCreateResponseAudio>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<Box<models::RealtimeSessionCreateResponseTracing>>,
+    pub tracing: Option<models::RealtimeSessionCreateResponseTracing>,
     #[serde(
         rename = "turn_detection",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub turn_detection: Option<Option<Box<models::RealtimeSessionCreateResponseTurnDetection>>>,
+    pub turn_detection: Option<Option<models::RealtimeSessionCreateResponseTurnDetection>>,
     /// Tools (functions) available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeFunctionTool>>,
@@ -58,7 +58,7 @@ pub struct RealtimeSessionCreateResponse {
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<String>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_output_tokens: Option<Box<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>>,
+    pub max_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
 }
 
 impl RealtimeSessionCreateResponse {

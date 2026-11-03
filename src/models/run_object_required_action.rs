@@ -18,7 +18,7 @@ pub struct RunObjectRequiredAction {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "submit_tool_outputs")]
-    pub submit_tool_outputs: Box<models::RunObjectRequiredActionSubmitToolOutputs>,
+    pub submit_tool_outputs: models::RunObjectRequiredActionSubmitToolOutputs,
 }
 
 impl RunObjectRequiredAction {
@@ -29,7 +29,7 @@ impl RunObjectRequiredAction {
     ) -> RunObjectRequiredAction {
         RunObjectRequiredAction {
             r#type,
-            submit_tool_outputs: Box::new(submit_tool_outputs),
+            submit_tool_outputs,
         }
     }
 }

@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ProvenanceResourceResultsInner {
-    C2PaProvenanceResult(Box<models::C2PaProvenanceResult>),
-    SynthIdProvenanceResult(Box<models::SynthIdProvenanceResult>),
+    C2PaProvenanceResult(models::C2PaProvenanceResult),
+    SynthIdProvenanceResult(models::SynthIdProvenanceResult),
 }
 
 impl Default for ProvenanceResourceResultsInner {

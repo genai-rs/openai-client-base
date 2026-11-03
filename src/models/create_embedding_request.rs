@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEmbeddingRequest {
     #[serde(rename = "input")]
-    pub input: Box<models::CreateEmbeddingRequestInput>,
+    pub input: models::CreateEmbeddingRequestInput,
     #[serde(rename = "model")]
     pub model: String,
     /// The format to return the embeddings in. Can be either `float` or [`base64`](https://pypi.org/project/pybase64/).
@@ -34,7 +34,7 @@ impl CreateEmbeddingRequest {
         model: String,
     ) -> CreateEmbeddingRequest {
         CreateEmbeddingRequest {
-            input: Box::new(input),
+            input,
             model,
             encoding_format: None,
             dimensions: None,

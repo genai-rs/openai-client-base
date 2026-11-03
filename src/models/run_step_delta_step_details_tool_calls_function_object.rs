@@ -23,7 +23,7 @@ pub struct RunStepDeltaStepDetailsToolCallsFunctionObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "function", skip_serializing_if = "Option::is_none")]
-    pub function: Option<Box<models::RunStepDeltaStepDetailsToolCallsFunctionObjectFunction>>,
+    pub function: Option<models::RunStepDeltaStepDetailsToolCallsFunctionObjectFunction>,
 }
 
 impl RunStepDeltaStepDetailsToolCallsFunctionObject {

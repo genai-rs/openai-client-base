@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionModeration {
     #[serde(rename = "input")]
-    pub input: Box<models::ChatCompletionModerationInput>,
+    pub input: models::ChatCompletionModerationInput,
     #[serde(rename = "output")]
-    pub output: Box<models::ChatCompletionModerationOutput>,
+    pub output: models::ChatCompletionModerationOutput,
 }
 
 impl ChatCompletionModeration {
@@ -26,10 +26,7 @@ impl ChatCompletionModeration {
         input: models::ChatCompletionModerationInput,
         output: models::ChatCompletionModerationOutput,
     ) -> ChatCompletionModeration {
-        ChatCompletionModeration {
-            input: Box::new(input),
-            output: Box::new(output),
-        }
+        ChatCompletionModeration { input, output }
     }
 }
 

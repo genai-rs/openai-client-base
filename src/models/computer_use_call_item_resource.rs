@@ -30,7 +30,7 @@ pub struct ComputerUseCallItemResource {
     pub status: models::FunctionCallStatusResource,
     /// The last screenshot emitted by the model. Null when screenshot inclusion is disabled or the call emitted no screenshot.
     #[serde(rename = "output", deserialize_with = "Option::deserialize")]
-    pub output: Option<Box<models::ComputerScreenshotResource>>,
+    pub output: Option<models::ComputerScreenshotResource>,
 }
 
 impl ComputerUseCallItemResource {
@@ -49,7 +49,7 @@ impl ComputerUseCallItemResource {
             turn_id,
             title,
             status,
-            output: output.map(Box::new),
+            output,
         }
     }
 }

@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ChunkingStrategyRequestParam {
-    AutoChunkingStrategyRequestParam(Box<models::AutoChunkingStrategyRequestParam>),
-    StaticChunkingStrategyRequestParam(Box<models::StaticChunkingStrategyRequestParam>),
+    AutoChunkingStrategyRequestParam(models::AutoChunkingStrategyRequestParam),
+    StaticChunkingStrategyRequestParam(models::StaticChunkingStrategyRequestParam),
 }
 
 impl Default for ChunkingStrategyRequestParam {

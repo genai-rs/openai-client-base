@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaAnnotation {
-    BetaFileCitationBody(Box<models::BetaFileCitationBody>),
-    BetaUrlCitationBody(Box<models::BetaUrlCitationBody>),
-    BetaContainerFileCitationBody(Box<models::BetaContainerFileCitationBody>),
-    BetaFilePath(Box<models::BetaFilePath>),
+    BetaFileCitationBody(models::BetaFileCitationBody),
+    BetaUrlCitationBody(models::BetaUrlCitationBody),
+    BetaContainerFileCitationBody(models::BetaContainerFileCitationBody),
+    BetaFilePath(models::BetaFilePath),
 }
 
 impl Default for BetaAnnotation {

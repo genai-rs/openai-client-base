@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDetailsToolCallsFileSearchObjectFileSearch {
     #[serde(rename = "ranking_options", skip_serializing_if = "Option::is_none")]
-    pub ranking_options: Option<Box<models::RunStepDetailsToolCallsFileSearchRankingOptionsObject>>,
+    pub ranking_options: Option<models::RunStepDetailsToolCallsFileSearchRankingOptionsObject>,
     /// The results of the file search.
     #[serde(rename = "results", skip_serializing_if = "Option::is_none")]
     pub results: Option<Vec<models::RunStepDetailsToolCallsFileSearchResultObject>>,

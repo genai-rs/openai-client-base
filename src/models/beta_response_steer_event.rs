@@ -21,7 +21,7 @@ pub struct BetaResponseSteerEvent {
     #[serde(rename = "previous_response_id")]
     pub previous_response_id: String,
     #[serde(rename = "input")]
-    pub input: Box<models::BetaResponseSteerInput>,
+    pub input: models::BetaResponseSteerInput,
 }
 
 impl BetaResponseSteerEvent {
@@ -34,7 +34,7 @@ impl BetaResponseSteerEvent {
         BetaResponseSteerEvent {
             r#type,
             previous_response_id,
-            input: Box::new(input),
+            input,
         }
     }
 }

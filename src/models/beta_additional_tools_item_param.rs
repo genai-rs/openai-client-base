@@ -19,7 +19,7 @@ pub struct BetaAdditionalToolsItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    pub agent: Option<Option<models::BetaAgentTagParam>>,
     /// The unique ID of this additional tools item.
     #[serde(
         rename = "id",

@@ -22,7 +22,7 @@ pub struct LiveHostedShellToolInputParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub environment: Option<Option<Box<models::LiveHostedShellToolInputParamEnvironment>>>,
+    pub environment: Option<Option<models::LiveHostedShellToolInputParamEnvironment>>,
 }
 
 impl LiveHostedShellToolInputParam {

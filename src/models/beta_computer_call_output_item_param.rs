@@ -20,7 +20,7 @@ pub struct BetaComputerCallOutputItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    pub agent: Option<Option<models::BetaAgentTagParam>>,
     /// The ID of the computer tool call output.
     #[serde(
         rename = "id",
@@ -36,7 +36,7 @@ pub struct BetaComputerCallOutputItemParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "output")]
-    pub output: Box<models::BetaComputerScreenshotImage>,
+    pub output: models::BetaComputerScreenshotImage,
     /// The safety checks reported by the API that have been acknowledged by the developer.
     #[serde(
         rename = "acknowledged_safety_checks",
@@ -66,7 +66,7 @@ impl BetaComputerCallOutputItemParam {
             id: None,
             call_id,
             r#type,
-            output: Box::new(output),
+            output,
             acknowledged_safety_checks: None,
             status: None,
         }

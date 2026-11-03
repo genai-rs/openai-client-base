@@ -15,26 +15,26 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatSessionBody {
     #[serde(rename = "workflow")]
-    pub workflow: Box<models::WorkflowParam>,
+    pub workflow: models::WorkflowParam,
     /// A free-form string that identifies your end user; ensures this Session can access other objects that have the same `user` scope.
     #[serde(rename = "user")]
     pub user: String,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
-    pub expires_after: Option<Box<models::ExpiresAfterParam>>,
+    pub expires_after: Option<models::ExpiresAfterParam>,
     #[serde(rename = "rate_limits", skip_serializing_if = "Option::is_none")]
-    pub rate_limits: Option<Box<models::RateLimitsParam>>,
+    pub rate_limits: Option<models::RateLimitsParam>,
     #[serde(
         rename = "chatkit_configuration",
         skip_serializing_if = "Option::is_none"
     )]
-    pub chatkit_configuration: Option<Box<models::ChatkitConfigurationParam>>,
+    pub chatkit_configuration: Option<models::ChatkitConfigurationParam>,
 }
 
 impl CreateChatSessionBody {
     /// Parameters for provisioning a new ChatKit session.
     pub fn new(workflow: models::WorkflowParam, user: String) -> CreateChatSessionBody {
         CreateChatSessionBody {
-            workflow: Box::new(workflow),
+            workflow,
             user,
             expires_after: None,
             rate_limits: None,

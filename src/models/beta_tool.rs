@@ -15,22 +15,22 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaTool {
-    BetaFunctionTool(Box<models::BetaFunctionTool>),
-    BetaFileSearchTool(Box<models::BetaFileSearchTool>),
-    BetaComputerTool(Box<models::BetaComputerTool>),
-    BetaComputerUsePreviewTool(Box<models::BetaComputerUsePreviewTool>),
-    BetaWebSearchTool(Box<models::BetaWebSearchTool>),
-    BetaMcpTool(Box<models::BetaMcpTool>),
-    BetaCodeInterpreterTool(Box<models::BetaCodeInterpreterTool>),
-    BetaProgrammaticToolCallingParam(Box<models::BetaProgrammaticToolCallingParam>),
-    BetaImageGenTool(Box<models::BetaImageGenTool>),
-    BetaLocalShellToolParam(Box<models::BetaLocalShellToolParam>),
-    BetaFunctionShellToolParam(Box<models::BetaFunctionShellToolParam>),
-    BetaCustomToolParam(Box<models::BetaCustomToolParam>),
-    BetaNamespaceToolParam(Box<models::BetaNamespaceToolParam>),
-    SearchToolParam(Box<models::BetaToolSearchToolParam>),
-    BetaWebSearchPreviewTool(Box<models::BetaWebSearchPreviewTool>),
-    BetaApplyPatchToolParam(Box<models::BetaApplyPatchToolParam>),
+    BetaFunctionTool(models::BetaFunctionTool),
+    BetaFileSearchTool(models::BetaFileSearchTool),
+    BetaComputerTool(models::BetaComputerTool),
+    BetaComputerUsePreviewTool(models::BetaComputerUsePreviewTool),
+    BetaWebSearchTool(models::BetaWebSearchTool),
+    BetaMcpTool(models::BetaMcpTool),
+    BetaCodeInterpreterTool(models::BetaCodeInterpreterTool),
+    BetaProgrammaticToolCallingParam(models::BetaProgrammaticToolCallingParam),
+    BetaImageGenTool(models::BetaImageGenTool),
+    BetaLocalShellToolParam(models::BetaLocalShellToolParam),
+    BetaFunctionShellToolParam(models::BetaFunctionShellToolParam),
+    BetaCustomToolParam(models::BetaCustomToolParam),
+    BetaNamespaceToolParam(models::BetaNamespaceToolParam),
+    SearchToolParam(models::BetaToolSearchToolParam),
+    BetaWebSearchPreviewTool(models::BetaWebSearchPreviewTool),
+    BetaApplyPatchToolParam(models::BetaApplyPatchToolParam),
 }
 
 /// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](https://developers.openai.com/api/docs/guides/tools-connectors-mcp#connectors).  This field is deprecated for models released after September 1, 2026. Use `server_url` to connect to a remote MCP server, or `tunnel_id` to connect through a Secure MCP Tunnel.  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`

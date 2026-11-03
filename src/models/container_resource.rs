@@ -32,12 +32,12 @@ pub struct ContainerResource {
     #[serde(rename = "last_active_at", skip_serializing_if = "Option::is_none")]
     pub last_active_at: Option<i32>,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
-    pub expires_after: Option<Box<models::ContainerResourceExpiresAfter>>,
+    pub expires_after: Option<models::ContainerResourceExpiresAfter>,
     /// The memory limit configured for the container.
     #[serde(rename = "memory_limit", skip_serializing_if = "Option::is_none")]
     pub memory_limit: Option<MemoryLimit>,
     #[serde(rename = "network_policy", skip_serializing_if = "Option::is_none")]
-    pub network_policy: Option<Box<models::ContainerResourceNetworkPolicy>>,
+    pub network_policy: Option<models::ContainerResourceNetworkPolicy>,
 }
 
 impl ContainerResource {

@@ -18,12 +18,12 @@ pub struct ChatCompletionRequestMessageContentPartImage {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "image_url")]
-    pub image_url: Box<models::ChatCompletionRequestMessageContentPartImageImageUrl>,
+    pub image_url: models::ChatCompletionRequestMessageContentPartImageImageUrl,
     #[serde(
         rename = "prompt_cache_breakpoint",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointParam>>,
+    pub prompt_cache_breakpoint: Option<models::PromptCacheBreakpointParam>,
 }
 
 impl ChatCompletionRequestMessageContentPartImage {
@@ -34,7 +34,7 @@ impl ChatCompletionRequestMessageContentPartImage {
     ) -> ChatCompletionRequestMessageContentPartImage {
         ChatCompletionRequestMessageContentPartImage {
             r#type,
-            image_url: Box::new(image_url),
+            image_url,
             prompt_cache_breakpoint: None,
         }
     }

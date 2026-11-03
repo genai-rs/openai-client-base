@@ -24,7 +24,7 @@ pub struct LocalShellToolCall {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "action")]
-    pub action: Box<models::LocalShellExecAction>,
+    pub action: models::LocalShellExecAction,
     /// The status of the local shell call.
     #[serde(rename = "status")]
     pub status: Status,
@@ -43,7 +43,7 @@ impl LocalShellToolCall {
             r#type,
             id,
             call_id,
-            action: Box::new(action),
+            action,
             status,
         }
     }

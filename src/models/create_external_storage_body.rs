@@ -16,7 +16,7 @@ pub struct CreateExternalStorageBody {
     #[serde(rename = "project_id")]
     pub project_id: String,
     #[serde(rename = "provider")]
-    pub provider: Box<models::CreateExternalStorageBodyProvider>,
+    pub provider: models::CreateExternalStorageBodyProvider,
 }
 
 impl CreateExternalStorageBody {
@@ -26,7 +26,7 @@ impl CreateExternalStorageBody {
     ) -> CreateExternalStorageBody {
         CreateExternalStorageBody {
             project_id,
-            provider: Box::new(provider),
+            provider,
         }
     }
 }

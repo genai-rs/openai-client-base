@@ -17,7 +17,7 @@ pub struct AssistantToolsFileSearch {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "file_search", skip_serializing_if = "Option::is_none")]
-    pub file_search: Option<Box<models::AssistantToolsFileSearchFileSearch>>,
+    pub file_search: Option<models::AssistantToolsFileSearchFileSearch>,
 }
 
 impl AssistantToolsFileSearch {

@@ -18,12 +18,12 @@ pub struct ChatCompletionRequestMessageContentPartFile {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "file")]
-    pub file: Box<models::ChatCompletionRequestMessageContentPartFileFile>,
+    pub file: models::ChatCompletionRequestMessageContentPartFileFile,
     #[serde(
         rename = "prompt_cache_breakpoint",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointParam>>,
+    pub prompt_cache_breakpoint: Option<models::PromptCacheBreakpointParam>,
 }
 
 impl ChatCompletionRequestMessageContentPartFile {
@@ -34,7 +34,7 @@ impl ChatCompletionRequestMessageContentPartFile {
     ) -> ChatCompletionRequestMessageContentPartFile {
         ChatCompletionRequestMessageContentPartFile {
             r#type,
-            file: Box::new(file),
+            file,
             prompt_cache_breakpoint: None,
         }
     }

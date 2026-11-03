@@ -27,7 +27,7 @@ pub struct Certificate {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "certificate_details")]
-    pub certificate_details: Box<models::CertificateCertificateDetails>,
+    pub certificate_details: models::CertificateCertificateDetails,
     /// Whether the certificate is currently active at the specified scope. Not returned when getting details for a specific certificate.
     #[serde(rename = "active", skip_serializing_if = "Option::is_none")]
     pub active: Option<bool>,
@@ -47,7 +47,7 @@ impl Certificate {
             id,
             name,
             created_at,
-            certificate_details: Box::new(certificate_details),
+            certificate_details,
             active: None,
         }
     }

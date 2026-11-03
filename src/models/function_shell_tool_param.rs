@@ -23,7 +23,7 @@ pub struct FunctionShellToolParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub environment: Option<Option<Box<models::FunctionShellToolParamEnvironment>>>,
+    pub environment: Option<Option<models::FunctionShellToolParamEnvironment>>,
     /// The tool invocation context(s).
     #[serde(
         rename = "allowed_callers",

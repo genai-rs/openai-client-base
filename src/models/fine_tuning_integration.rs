@@ -17,15 +17,12 @@ pub struct FineTuningIntegration {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "wandb")]
-    pub wandb: Box<models::FineTuningIntegrationWandb>,
+    pub wandb: models::FineTuningIntegrationWandb,
 }
 
 impl FineTuningIntegration {
     pub fn new(r#type: Type, wandb: models::FineTuningIntegrationWandb) -> FineTuningIntegration {
-        FineTuningIntegration {
-            r#type,
-            wandb: Box::new(wandb),
-        }
+        FineTuningIntegration { r#type, wandb }
     }
 }
 /// The type of the integration being enabled for the fine-tuning job

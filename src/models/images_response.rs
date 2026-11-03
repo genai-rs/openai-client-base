@@ -35,12 +35,12 @@ pub struct ImagesResponse {
     #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
     pub output_format: Option<OutputFormat>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
-    pub size: Option<Box<models::ImagesResponseSize>>,
+    pub size: Option<models::ImagesResponseSize>,
     /// The quality of the image generated. One of `low`, `medium`, `high`, `xhigh`, or `max`.
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<Box<models::ImageGenUsage>>,
+    pub usage: Option<models::ImageGenUsage>,
 }
 
 impl ImagesResponse {

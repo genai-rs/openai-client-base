@@ -25,7 +25,7 @@ pub struct CostsResult {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "amount", skip_serializing_if = "Option::is_none")]
-    pub amount: Option<Box<models::CostsResultAmount>>,
+    pub amount: Option<models::CostsResultAmount>,
     /// When `group_by=line_item`, this field provides the line item of the grouped costs result.
     #[serde(
         rename = "line_item",
@@ -72,7 +72,7 @@ pub struct CostsResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub quantity_unit: Option<Option<Box<models::CostsResultQuantityUnit>>>,
+    pub quantity_unit: Option<Option<models::CostsResultQuantityUnit>>,
 }
 
 impl CostsResult {

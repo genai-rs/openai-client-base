@@ -14,14 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ValidateGraderRequest {
     #[serde(rename = "grader")]
-    pub grader: Box<models::FineTuneReinforcementMethodGrader>,
+    pub grader: models::FineTuneReinforcementMethodGrader,
 }
 
 impl ValidateGraderRequest {
     pub fn new(grader: models::FineTuneReinforcementMethodGrader) -> ValidateGraderRequest {
-        ValidateGraderRequest {
-            grader: Box::new(grader),
-        }
+        ValidateGraderRequest { grader }
     }
 }
 

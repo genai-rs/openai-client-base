@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum RunStepDetailsToolCallsCodeObjectCodeInterpreterOutputsInner {
     RunStepDetailsToolCallsCodeOutputLogsObject(
-        Box<models::RunStepDetailsToolCallsCodeOutputLogsObject>,
+        models::RunStepDetailsToolCallsCodeOutputLogsObject,
     ),
     RunStepDetailsToolCallsCodeOutputImageObject(
-        Box<models::RunStepDetailsToolCallsCodeOutputImageObject>,
+        models::RunStepDetailsToolCallsCodeOutputImageObject,
     ),
 }
 

@@ -33,7 +33,7 @@ pub struct RealtimeServerEventResponseContentPartDone {
     #[serde(rename = "content_index")]
     pub content_index: i32,
     #[serde(rename = "part")]
-    pub part: Box<models::RealtimeBetaServerEventResponseContentPartDonePart>,
+    pub part: models::RealtimeBetaServerEventResponseContentPartDonePart,
 }
 
 impl RealtimeServerEventResponseContentPartDone {
@@ -54,7 +54,7 @@ impl RealtimeServerEventResponseContentPartDone {
             item_id,
             output_index,
             content_index,
-            part: Box::new(part),
+            part,
         }
     }
 }

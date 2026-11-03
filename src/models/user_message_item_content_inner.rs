@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UserMessageItemContentInner {
-    UserMessageInputText(Box<models::UserMessageInputText>),
-    UserMessageQuotedText(Box<models::UserMessageQuotedText>),
+    UserMessageInputText(models::UserMessageInputText),
+    UserMessageQuotedText(models::UserMessageQuotedText),
 }
 
 impl Default for UserMessageItemContentInner {

@@ -20,14 +20,14 @@ pub struct BetaModerationPolicyParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input: Option<Option<Box<models::BetaModerationConfigParam>>>,
+    pub input: Option<Option<models::BetaModerationConfigParam>>,
     #[serde(
         rename = "output",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output: Option<Option<Box<models::BetaModerationConfigParam>>>,
+    pub output: Option<Option<models::BetaModerationConfigParam>>,
 }
 
 impl BetaModerationPolicyParam {

@@ -30,7 +30,7 @@ pub struct ResponseReasoningSummaryPartAddedEvent {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "part")]
-    pub part: Box<models::ResponseReasoningSummaryPartAddedEventPart>,
+    pub part: models::ResponseReasoningSummaryPartAddedEventPart,
 }
 
 impl ResponseReasoningSummaryPartAddedEvent {
@@ -49,7 +49,7 @@ impl ResponseReasoningSummaryPartAddedEvent {
             output_index,
             summary_index,
             sequence_number,
-            part: Box::new(part),
+            part,
         }
     }
 }

@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum MessageContentResource {
-    InputText(Box<models::MessageContentResourceInputText>),
-    InputImage(Box<models::MessageContentResourceInputImage>),
-    OutputText(Box<models::MessageContentResourceOutputText>),
+    InputText(models::MessageContentResourceInputText),
+    InputImage(models::MessageContentResourceInputImage),
+    OutputText(models::MessageContentResourceOutputText),
 }
 
 impl Default for MessageContentResource {

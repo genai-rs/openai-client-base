@@ -18,7 +18,7 @@ pub struct LiveDecisionTriggerInputParam2 {
     #[serde(rename = "event_type")]
     pub event_type: EventType,
     #[serde(rename = "decisions")]
-    pub decisions: Box<models::LiveDecisionQuestionsInputParam2>,
+    pub decisions: models::LiveDecisionQuestionsInputParam2,
 }
 
 impl LiveDecisionTriggerInputParam2 {
@@ -30,7 +30,7 @@ impl LiveDecisionTriggerInputParam2 {
         LiveDecisionTriggerInputParam2 {
             r#type,
             event_type,
-            decisions: Box::new(decisions),
+            decisions,
         }
     }
 }

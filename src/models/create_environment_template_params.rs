@@ -21,7 +21,7 @@ pub struct CreateEnvironmentTemplateParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub packages: Option<Option<Box<models::EnvironmentPackagesParam>>>,
+    pub packages: Option<Option<models::EnvironmentPackagesParam>>,
     /// Ordered, confidential setup commands. Command bodies are never returned.
     #[serde(
         rename = "setup_commands",
@@ -37,7 +37,7 @@ pub struct CreateEnvironmentTemplateParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub network: Option<Option<Box<models::NetworkPolicyParam>>>,
+    pub network: Option<Option<models::NetworkPolicyParam>>,
     /// Desktop provisioning. Omission or null inherits the template setting, or defaults to disabled.
     #[serde(
         rename = "desktop",
@@ -45,7 +45,7 @@ pub struct CreateEnvironmentTemplateParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub desktop: Option<Option<Box<models::DesktopParam>>>,
+    pub desktop: Option<Option<models::DesktopParam>>,
     /// Environment variables made available to the agent.
     #[serde(
         rename = "env",

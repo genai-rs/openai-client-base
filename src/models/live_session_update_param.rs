@@ -26,7 +26,7 @@ pub struct LiveSessionUpdateParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "session")]
-    pub session: Box<models::LiveSessionUpdateParams>,
+    pub session: models::LiveSessionUpdateParams,
 }
 
 impl LiveSessionUpdateParam {
@@ -35,7 +35,7 @@ impl LiveSessionUpdateParam {
         LiveSessionUpdateParam {
             event_id: None,
             r#type,
-            session: Box::new(session),
+            session,
         }
     }
 }

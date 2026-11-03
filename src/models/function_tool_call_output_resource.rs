@@ -29,9 +29,9 @@ pub struct FunctionToolCallOutputResource {
     #[serde(rename = "namespace", skip_serializing_if = "Option::is_none")]
     pub namespace: Option<String>,
     #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
-    pub caller: Option<Box<models::ToolCallCallerParam>>,
+    pub caller: Option<models::ToolCallCallerParam>,
     #[serde(rename = "output")]
-    pub output: Box<models::FunctionToolCallOutputOutput>,
+    pub output: models::FunctionToolCallOutputOutput,
     #[serde(rename = "status")]
     pub status: models::FunctionCallOutputStatusEnum,
     /// The identifier of the actor that created the item.
@@ -53,7 +53,7 @@ impl FunctionToolCallOutputResource {
             name: None,
             namespace: None,
             caller: None,
-            output: Box::new(output),
+            output,
             status,
             created_by: None,
         }

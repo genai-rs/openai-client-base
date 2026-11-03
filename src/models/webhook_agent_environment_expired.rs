@@ -27,7 +27,7 @@ pub struct WebhookAgentEnvironmentExpired {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "data")]
-    pub data: Box<models::AgentEnvironmentEvent>,
+    pub data: models::AgentEnvironmentEvent,
 }
 
 impl WebhookAgentEnvironmentExpired {
@@ -44,7 +44,7 @@ impl WebhookAgentEnvironmentExpired {
             object,
             created_at,
             r#type,
-            data: Box::new(data),
+            data,
         }
     }
 }

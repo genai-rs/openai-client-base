@@ -21,7 +21,7 @@ pub struct RealtimeServerEventResponseDone {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "response")]
-    pub response: Box<models::RealtimeResponse>,
+    pub response: models::RealtimeResponse,
 }
 
 impl RealtimeServerEventResponseDone {
@@ -34,7 +34,7 @@ impl RealtimeServerEventResponseDone {
         RealtimeServerEventResponseDone {
             event_id,
             r#type,
-            response: Box::new(response),
+            response,
         }
     }
 }

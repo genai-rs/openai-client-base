@@ -23,7 +23,7 @@ pub struct CreateEmbeddingResponse {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "usage")]
-    pub usage: Box<models::CreateEmbeddingResponseUsage>,
+    pub usage: models::CreateEmbeddingResponseUsage,
 }
 
 impl CreateEmbeddingResponse {
@@ -37,7 +37,7 @@ impl CreateEmbeddingResponse {
             data,
             model,
             object,
-            usage: Box::new(usage),
+            usage,
         }
     }
 }

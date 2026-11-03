@@ -18,9 +18,9 @@ pub struct LiveMediaSessionForkParams {
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
     pub store: Option<bool>,
     #[serde(rename = "delegation", skip_serializing_if = "Option::is_none")]
-    pub delegation: Option<Box<models::LiveResponsesDelegationUpdateParam>>,
+    pub delegation: Option<models::LiveResponsesDelegationUpdateParam>,
     #[serde(rename = "client", skip_serializing_if = "Option::is_none")]
-    pub client: Option<Box<models::LiveClientConfigParam>>,
+    pub client: Option<models::LiveClientConfigParam>,
 }
 
 impl LiveMediaSessionForkParams {

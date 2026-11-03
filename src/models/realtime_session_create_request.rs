@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateRequest {
     #[serde(rename = "client_secret")]
-    pub client_secret: Box<models::RealtimeSessionCreateRequestClientSecret>,
+    pub client_secret: models::RealtimeSessionCreateRequestClientSecret,
     /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
     #[serde(rename = "modalities", skip_serializing_if = "Option::is_none")]
     pub modalities: Option<Vec<Modalities>>,
@@ -23,7 +23,7 @@ pub struct RealtimeSessionCreateRequest {
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
     #[serde(rename = "voice", skip_serializing_if = "Option::is_none")]
-    pub voice: Option<Box<models::VoiceIdsOrCustomVoice>>,
+    pub voice: Option<models::VoiceIdsOrCustomVoice>,
     /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.
     #[serde(rename = "input_audio_format", skip_serializing_if = "Option::is_none")]
     pub input_audio_format: Option<String>,
@@ -38,14 +38,14 @@ pub struct RealtimeSessionCreateRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub input_audio_transcription:
-        Option<Box<models::RealtimeSessionCreateRequestInputAudioTranscription>>,
+        Option<models::RealtimeSessionCreateRequestInputAudioTranscription>,
     /// The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
-    pub tracing: Option<Box<models::RealtimeSessionCreateRequestTracing>>,
+    pub tracing: Option<models::RealtimeSessionCreateRequestTracing>,
     #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
-    pub turn_detection: Option<Box<models::RealtimeSessionCreateRequestTurnDetection>>,
+    pub turn_detection: Option<models::RealtimeSessionCreateRequestTurnDetection>,
     /// Tools (functions) available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeSessionCreateRequestToolsInner>>,
@@ -59,17 +59,16 @@ pub struct RealtimeSessionCreateRequest {
         rename = "max_response_output_tokens",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_response_output_tokens:
-        Option<Box<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>>,
+    pub max_response_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
-    pub truncation: Option<Box<models::RealtimeTruncation>>,
+    pub truncation: Option<models::RealtimeTruncation>,
     #[serde(
         rename = "prompt",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt: Option<Option<Box<models::Prompt>>>,
+    pub prompt: Option<Option<models::Prompt>>,
 }
 
 impl RealtimeSessionCreateRequest {
@@ -78,7 +77,7 @@ impl RealtimeSessionCreateRequest {
         client_secret: models::RealtimeSessionCreateRequestClientSecret,
     ) -> RealtimeSessionCreateRequest {
         RealtimeSessionCreateRequest {
-            client_secret: Box::new(client_secret),
+            client_secret,
             modalities: None,
             instructions: None,
             voice: None,

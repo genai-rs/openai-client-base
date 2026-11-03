@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaToolSearchOutput {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the item. Always `tool_search_output`.
     #[serde(rename = "type")]
     pub r#type: Type,

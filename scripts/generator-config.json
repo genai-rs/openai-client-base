@@ -10,6 +10,7 @@
   "titleNaming": false,
   "legacyModelRewrites": true,
   "multipartHelper": true,
+  "boxOnlyCycles": true,
   "boxResponseError": true,
   "apiLintAllows": "clippy::needless_return, clippy::into_iter_on_ref",
   "userAgentFromPackage": true,

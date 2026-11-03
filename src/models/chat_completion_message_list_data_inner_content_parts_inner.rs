@@ -28,21 +28,21 @@ pub struct ChatCompletionMessageListDataInnerContentPartsInner {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub image_url: Option<Option<Box<models::Object01>>>,
+    pub image_url: Option<Option<models::Object01>>,
     #[serde(
         rename = "input_audio",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio: Option<Option<Box<models::Object02>>>,
+    pub input_audio: Option<Option<models::Object02>>,
     #[serde(
         rename = "file",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub file: Option<Option<Box<models::Object03>>>,
+    pub file: Option<Option<models::Object03>>,
 }
 
 impl ChatCompletionMessageListDataInnerContentPartsInner {

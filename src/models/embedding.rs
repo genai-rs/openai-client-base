@@ -18,7 +18,7 @@ pub struct Embedding {
     #[serde(rename = "index")]
     pub index: i32,
     #[serde(rename = "embedding")]
-    pub embedding: Box<models::EmbeddingEmbedding>,
+    pub embedding: models::EmbeddingEmbedding,
     /// The object type, which is always \"embedding\".
     #[serde(rename = "object")]
     pub object: Object,
@@ -29,7 +29,7 @@ impl Embedding {
     pub fn new(index: i32, embedding: models::EmbeddingEmbedding, object: Object) -> Embedding {
         Embedding {
             index,
-            embedding: Box::new(embedding),
+            embedding,
             object,
         }
     }

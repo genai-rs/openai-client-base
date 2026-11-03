@@ -18,7 +18,7 @@ pub struct AuditLogApiKeyCreated {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
-    pub data: Option<Box<models::AuditLogApiKeyCreatedData>>,
+    pub data: Option<models::AuditLogApiKeyCreatedData>,
 }
 
 impl AuditLogApiKeyCreated {

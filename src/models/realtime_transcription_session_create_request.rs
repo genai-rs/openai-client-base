@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranscriptionSessionCreateRequest {
     #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
-    pub turn_detection: Option<Box<models::RealtimeTranscriptionSessionCreateRequestTurnDetection>>,
+    pub turn_detection: Option<models::RealtimeTranscriptionSessionCreateRequestTurnDetection>,
     #[serde(
         rename = "input_audio_noise_reduction",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio_noise_reduction: Option<Box<models::RealtimeSessionInputAudioNoiseReduction>>,
+    pub input_audio_noise_reduction: Option<models::RealtimeSessionInputAudioNoiseReduction>,
     /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.
     #[serde(rename = "input_audio_format", skip_serializing_if = "Option::is_none")]
     pub input_audio_format: Option<InputAudioFormat>,
@@ -28,7 +28,7 @@ pub struct RealtimeTranscriptionSessionCreateRequest {
         rename = "input_audio_transcription",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio_transcription: Option<Box<models::AudioTranscription>>,
+    pub input_audio_transcription: Option<models::AudioTranscription>,
     /// The set of items to include in the transcription. Current available items are: `item.input_audio_transcription.logprobs`
     #[serde(rename = "include", skip_serializing_if = "Option::is_none")]
     pub include: Option<Vec<Include>>,

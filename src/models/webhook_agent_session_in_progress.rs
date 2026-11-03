@@ -27,7 +27,7 @@ pub struct WebhookAgentSessionInProgress {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "data")]
-    pub data: Box<models::AgentSessionEnvironmentPayloadResource>,
+    pub data: models::AgentSessionEnvironmentPayloadResource,
 }
 
 impl WebhookAgentSessionInProgress {
@@ -44,7 +44,7 @@ impl WebhookAgentSessionInProgress {
             object,
             created_at,
             r#type,
-            data: Box::new(data),
+            data,
         }
     }
 }

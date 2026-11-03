@@ -18,14 +18,14 @@ pub struct CreateEvalResponsesRunDataSource {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "input_messages", skip_serializing_if = "Option::is_none")]
-    pub input_messages: Option<Box<models::CreateEvalResponsesRunDataSourceInputMessages>>,
+    pub input_messages: Option<models::CreateEvalResponsesRunDataSourceInputMessages>,
     #[serde(rename = "sampling_params", skip_serializing_if = "Option::is_none")]
-    pub sampling_params: Option<Box<models::CreateEvalResponsesRunDataSourceSamplingParams>>,
+    pub sampling_params: Option<models::CreateEvalResponsesRunDataSourceSamplingParams>,
     /// The name of the model to use for generating completions (e.g. \"o3-mini\").
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     #[serde(rename = "source")]
-    pub source: Box<models::CreateEvalResponsesRunDataSourceSource>,
+    pub source: models::CreateEvalResponsesRunDataSourceSource,
 }
 
 impl CreateEvalResponsesRunDataSource {
@@ -39,7 +39,7 @@ impl CreateEvalResponsesRunDataSource {
             input_messages: None,
             sampling_params: None,
             model: None,
-            source: Box::new(source),
+            source,
         }
     }
 }

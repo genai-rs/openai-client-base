@@ -18,7 +18,7 @@ pub struct AuditLogCheckpointPermissionCreated {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
-    pub data: Option<Box<models::AuditLogCheckpointPermissionCreatedData>>,
+    pub data: Option<models::AuditLogCheckpointPermissionCreatedData>,
 }
 
 impl AuditLogCheckpointPermissionCreated {

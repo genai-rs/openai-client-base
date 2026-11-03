@@ -21,7 +21,7 @@ pub struct SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "response")]
-    pub response: Box<models::ComputerUseApprovalResponseParam>,
+    pub response: models::ComputerUseApprovalResponseParam,
 }
 
 impl SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
@@ -34,7 +34,7 @@ impl SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
         SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
             r#type,
             request_id,
-            response: Box::new(response),
+            response,
         }
     }
 }

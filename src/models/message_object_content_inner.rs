@@ -14,10 +14,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum MessageObjectContentInner {
-    MessageContentImageFileObject(Box<models::MessageContentImageFileObject>),
-    MessageContentImageUrlObject(Box<models::MessageContentImageUrlObject>),
-    MessageContentTextObject(Box<models::MessageContentTextObject>),
-    MessageContentRefusalObject(Box<models::MessageContentRefusalObject>),
+    MessageContentImageFileObject(models::MessageContentImageFileObject),
+    MessageContentImageUrlObject(models::MessageContentImageUrlObject),
+    MessageContentTextObject(models::MessageContentTextObject),
+    MessageContentRefusalObject(models::MessageContentRefusalObject),
 }
 
 impl Default for MessageObjectContentInner {

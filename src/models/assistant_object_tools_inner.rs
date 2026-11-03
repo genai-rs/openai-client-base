@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AssistantObjectToolsInner {
-    AssistantToolsCode(Box<models::AssistantToolsCode>),
-    AssistantToolsFileSearch(Box<models::AssistantToolsFileSearch>),
-    AssistantToolsFunction(Box<models::AssistantToolsFunction>),
+    AssistantToolsCode(models::AssistantToolsCode),
+    AssistantToolsFileSearch(models::AssistantToolsFileSearch),
+    AssistantToolsFunction(models::AssistantToolsFunction),
 }
 
 impl Default for AssistantObjectToolsInner {

@@ -18,11 +18,11 @@ pub struct ChatkitConfigurationParam {
         rename = "automatic_thread_titling",
         skip_serializing_if = "Option::is_none"
     )]
-    pub automatic_thread_titling: Option<Box<models::AutomaticThreadTitlingParam>>,
+    pub automatic_thread_titling: Option<models::AutomaticThreadTitlingParam>,
     #[serde(rename = "file_upload", skip_serializing_if = "Option::is_none")]
-    pub file_upload: Option<Box<models::FileUploadParam>>,
+    pub file_upload: Option<models::FileUploadParam>,
     #[serde(rename = "history", skip_serializing_if = "Option::is_none")]
-    pub history: Option<Box<models::HistoryParam>>,
+    pub history: Option<models::HistoryParam>,
 }
 
 impl ChatkitConfigurationParam {

@@ -18,7 +18,7 @@ pub struct ChatCompletionNamedToolChoice {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "function")]
-    pub function: Box<models::AssistantsNamedToolChoiceFunction>,
+    pub function: models::AssistantsNamedToolChoiceFunction,
 }
 
 impl ChatCompletionNamedToolChoice {
@@ -27,10 +27,7 @@ impl ChatCompletionNamedToolChoice {
         r#type: Type,
         function: models::AssistantsNamedToolChoiceFunction,
     ) -> ChatCompletionNamedToolChoice {
-        ChatCompletionNamedToolChoice {
-            r#type,
-            function: Box::new(function),
-        }
+        ChatCompletionNamedToolChoice { r#type, function }
     }
 }
 /// For function calling, the type is always `function`.

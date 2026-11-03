@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CodeInterpreterToolCallOutputsInner {
-    CodeInterpreterOutputLogs(Box<models::CodeInterpreterOutputLogs>),
-    CodeInterpreterOutputImage(Box<models::CodeInterpreterOutputImage>),
+    CodeInterpreterOutputLogs(models::CodeInterpreterOutputLogs),
+    CodeInterpreterOutputImage(models::CodeInterpreterOutputImage),
 }
 
 impl Default for CodeInterpreterToolCallOutputsInner {

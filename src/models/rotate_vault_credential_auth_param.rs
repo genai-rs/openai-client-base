@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RotateVaultCredentialAuthParam {
-    McpOauth(Box<models::RotateVaultCredentialAuthParamMcpOauth>),
-    StaticBearer(Box<models::RotateVaultCredentialAuthParamStaticBearer>),
-    EnvironmentVariable(Box<models::RotateVaultCredentialAuthParamEnvironmentVariable>),
+    McpOauth(models::RotateVaultCredentialAuthParamMcpOauth),
+    StaticBearer(models::RotateVaultCredentialAuthParamStaticBearer),
+    EnvironmentVariable(models::RotateVaultCredentialAuthParamEnvironmentVariable),
 }
 
 impl Default for RotateVaultCredentialAuthParam {

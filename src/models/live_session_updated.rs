@@ -24,7 +24,7 @@ pub struct LiveSessionUpdated {
     #[serde(rename = "client_event_id", skip_serializing_if = "Option::is_none")]
     pub client_event_id: Option<String>,
     #[serde(rename = "session")]
-    pub session: Box<models::LiveSessionResourceParam>,
+    pub session: models::LiveSessionResourceParam,
 }
 
 impl LiveSessionUpdated {
@@ -38,7 +38,7 @@ impl LiveSessionUpdated {
             r#type,
             event_id,
             client_event_id: None,
-            session: Box::new(session),
+            session,
         }
     }
 }

@@ -24,7 +24,7 @@ pub struct BetaInputTextContent {
         rename = "prompt_cache_breakpoint",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<Box<models::BetaPromptCacheBreakpointConfig>>,
+    pub prompt_cache_breakpoint: Option<models::BetaPromptCacheBreakpointConfig>,
 }
 
 impl BetaInputTextContent {

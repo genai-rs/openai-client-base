@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PromptCacheDiagnostics {
-    PromptCacheMissDiagnosticsBody(Box<models::PromptCacheMissDiagnosticsBody>),
-    PromptCacheHitDiagnosticsBody(Box<models::PromptCacheHitDiagnosticsBody>),
+    PromptCacheMissDiagnosticsBody(models::PromptCacheMissDiagnosticsBody),
+    PromptCacheHitDiagnosticsBody(models::PromptCacheHitDiagnosticsBody),
     PromptCacheComparisonResponseNotFoundDiagnosticsBody(
-        Box<models::PromptCacheComparisonResponseNotFoundDiagnosticsBody>,
+        models::PromptCacheComparisonResponseNotFoundDiagnosticsBody,
     ),
-    PromptCacheUnavailableDiagnosticsBody(Box<models::PromptCacheUnavailableDiagnosticsBody>),
+    PromptCacheUnavailableDiagnosticsBody(models::PromptCacheUnavailableDiagnosticsBody),
 }
 
 impl Default for PromptCacheDiagnostics {

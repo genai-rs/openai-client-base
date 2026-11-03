@@ -20,7 +20,7 @@ pub struct CreateFineTuningJobRequest {
     #[serde(rename = "training_file")]
     pub training_file: String,
     #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
-    pub hyperparameters: Option<Box<models::CreateFineTuningJobRequestHyperparameters>>,
+    pub hyperparameters: Option<models::CreateFineTuningJobRequestHyperparameters>,
     /// A string of up to 64 characters that will be added to your fine-tuned model name.  For example, a `suffix` of \"custom-model-name\" would produce a model name like `ft:gpt-4o-mini:openai:custom-model-name:7p4lURel`.
     #[serde(
         rename = "suffix",
@@ -54,7 +54,7 @@ pub struct CreateFineTuningJobRequest {
     )]
     pub seed: Option<Option<i32>>,
     #[serde(rename = "method", skip_serializing_if = "Option::is_none")]
-    pub method: Option<Box<models::FineTuneMethod>>,
+    pub method: Option<models::FineTuneMethod>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",

@@ -24,7 +24,7 @@ pub struct ChatCompletionRequestMessageContentPartText {
         rename = "prompt_cache_breakpoint",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<Box<models::PromptCacheBreakpointParam>>,
+    pub prompt_cache_breakpoint: Option<models::PromptCacheBreakpointParam>,
 }
 
 impl ChatCompletionRequestMessageContentPartText {

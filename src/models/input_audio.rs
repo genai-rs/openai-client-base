@@ -18,7 +18,7 @@ pub struct InputAudio {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "input_audio")]
-    pub input_audio: Box<models::InputAudioInputAudio>,
+    pub input_audio: models::InputAudioInputAudio,
 }
 
 impl InputAudio {
@@ -26,7 +26,7 @@ impl InputAudio {
     pub fn new(r#type: Type, input_audio: models::InputAudioInputAudio) -> InputAudio {
         InputAudio {
             r#type,
-            input_audio: Box::new(input_audio),
+            input_audio,
         }
     }
 }

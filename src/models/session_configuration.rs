@@ -16,9 +16,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SessionConfiguration {
-    RealtimeSessionCreateRequestGa(Box<models::RealtimeSessionCreateRequestGa>),
+    RealtimeSessionCreateRequestGa(models::RealtimeSessionCreateRequestGa),
     RealtimeTranscriptionSessionCreateRequestGa(
-        Box<models::RealtimeTranscriptionSessionCreateRequestGa>,
+        models::RealtimeTranscriptionSessionCreateRequestGa,
     ),
 }
 

@@ -46,7 +46,7 @@ pub struct AdminApiKey {
     )]
     pub last_used_at: Option<Option<i32>>,
     #[serde(rename = "owner")]
-    pub owner: Box<models::AdminApiKeyOwner>,
+    pub owner: models::AdminApiKeyOwner,
 }
 
 impl AdminApiKey {
@@ -67,7 +67,7 @@ impl AdminApiKey {
             created_at,
             expires_at,
             last_used_at: None,
-            owner: Box::new(owner),
+            owner,
         }
     }
 }

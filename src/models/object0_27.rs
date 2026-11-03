@@ -18,16 +18,13 @@ pub struct Object027 {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "image_url")]
-    pub image_url: Box<models::Object027ImageUrl>,
+    pub image_url: models::Object027ImageUrl,
 }
 
 impl Object027 {
     /// An object describing an image to classify.
     pub fn new(r#type: Type, image_url: models::Object027ImageUrl) -> Object027 {
-        Object027 {
-            r#type,
-            image_url: Box::new(image_url),
-        }
+        Object027 { r#type, image_url }
     }
 }
 /// Always `image_url`.

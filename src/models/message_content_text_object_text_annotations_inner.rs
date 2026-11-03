@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum MessageContentTextObjectTextAnnotationsInner {
     MessageContentTextAnnotationsFileCitationObject(
-        Box<models::MessageContentTextAnnotationsFileCitationObject>,
+        models::MessageContentTextAnnotationsFileCitationObject,
     ),
     MessageContentTextAnnotationsFilePathObject(
-        Box<models::MessageContentTextAnnotationsFilePathObject>,
+        models::MessageContentTextAnnotationsFilePathObject,
     ),
 }
 

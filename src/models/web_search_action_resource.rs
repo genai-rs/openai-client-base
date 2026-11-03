@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum WebSearchActionResource {
-    Search(Box<models::WebSearchActionResourceSearch>),
-    OpenPage(Box<models::WebSearchActionResourceOpenPage>),
-    FindInPage(Box<models::WebSearchActionResourceFindInPage>),
-    Other(Box<models::WebSearchActionResourceOther>),
+    Search(models::WebSearchActionResourceSearch),
+    OpenPage(models::WebSearchActionResourceOpenPage),
+    FindInPage(models::WebSearchActionResourceFindInPage),
+    Other(models::WebSearchActionResourceOther),
 }
 
 impl Default for WebSearchActionResource {

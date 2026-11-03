@@ -27,7 +27,7 @@ pub struct BetaContainerAutoParam {
     )]
     pub memory_limit: Option<Option<models::BetaContainerMemoryLimit>>,
     #[serde(rename = "network_policy", skip_serializing_if = "Option::is_none")]
-    pub network_policy: Option<Box<models::BetaContainerAutoParamNetworkPolicy>>,
+    pub network_policy: Option<models::BetaContainerAutoParamNetworkPolicy>,
     /// An optional list of skills referenced by id or inline data.
     #[serde(rename = "skills", skip_serializing_if = "Option::is_none")]
     pub skills: Option<Vec<models::BetaContainerAutoParamSkillsInner>>,

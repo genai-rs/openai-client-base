@@ -21,7 +21,7 @@ pub struct SessionEventAgentSessionRequiresAction {
     #[serde(rename = "event_id")]
     pub event_id: String,
     #[serde(rename = "session")]
-    pub session: Box<models::SessionResource>,
+    pub session: models::SessionResource,
 }
 
 impl SessionEventAgentSessionRequiresAction {
@@ -34,7 +34,7 @@ impl SessionEventAgentSessionRequiresAction {
         SessionEventAgentSessionRequiresAction {
             r#type,
             event_id,
-            session: Box::new(session),
+            session,
         }
     }
 }

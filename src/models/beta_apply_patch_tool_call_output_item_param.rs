@@ -20,7 +20,7 @@ pub struct BetaApplyPatchToolCallOutputItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    pub agent: Option<Option<models::BetaAgentTagParam>>,
     /// The type of the item. Always `apply_patch_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -41,7 +41,7 @@ pub struct BetaApplyPatchToolCallOutputItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::BetaToolCallCallerParam>>>,
+    pub caller: Option<Option<models::BetaToolCallCallerParam>>,
     #[serde(rename = "status")]
     pub status: models::BetaApplyPatchCallOutputStatusParam,
     /// Optional human-readable log text from the apply patch tool (e.g., patch results or errors).

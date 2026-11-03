@@ -22,7 +22,7 @@ pub struct BetaError {
     #[serde(rename = "type")]
     pub r#type: String,
     #[serde(rename = "misalignment", skip_serializing_if = "Option::is_none")]
-    pub misalignment: Option<Box<models::BetaMisalignmentErrorDetailsResource>>,
+    pub misalignment: Option<models::BetaMisalignmentErrorDetailsResource>,
 }
 
 impl BetaError {

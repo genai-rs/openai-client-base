@@ -26,7 +26,7 @@ pub struct BetaImageGenToolCallError {
     #[serde(rename = "param", deserialize_with = "Option::deserialize")]
     pub param: Option<String>,
     #[serde(rename = "moderation_details", skip_serializing_if = "Option::is_none")]
-    pub moderation_details: Option<Box<models::BetaImageGenToolCallModerationDetails>>,
+    pub moderation_details: Option<models::BetaImageGenToolCallModerationDetails>,
 }
 
 impl BetaImageGenToolCallError {

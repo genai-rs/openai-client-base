@@ -29,7 +29,7 @@ pub struct FunctionShellCallOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::ToolCallCaller>>>,
+    pub caller: Option<Option<models::ToolCallCaller>>,
     #[serde(rename = "status")]
     pub status: models::FunctionShellCallOutputStatusEnum,
     /// An array of shell call output contents

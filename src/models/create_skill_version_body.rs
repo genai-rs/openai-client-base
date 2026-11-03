@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSkillVersionBody {
     #[serde(rename = "files")]
-    pub files: Box<models::CreateSkillVersionBodyFiles>,
+    pub files: models::CreateSkillVersionBodyFiles,
     /// Whether to set this version as the default.
     #[serde(rename = "default", skip_serializing_if = "Option::is_none")]
     pub default: Option<bool>,
@@ -25,7 +25,7 @@ impl CreateSkillVersionBody {
     /// Uploads a new immutable version of a skill.
     pub fn new(files: models::CreateSkillVersionBodyFiles) -> CreateSkillVersionBody {
         CreateSkillVersionBody {
-            files: Box::new(files),
+            files,
             default: None,
         }
     }

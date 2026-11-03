@@ -27,19 +27,19 @@ pub struct ChatSessionResource {
     #[serde(rename = "client_secret")]
     pub client_secret: String,
     #[serde(rename = "workflow")]
-    pub workflow: Box<models::ChatkitWorkflow>,
+    pub workflow: models::ChatkitWorkflow,
     /// User identifier associated with the session.
     #[serde(rename = "user")]
     pub user: String,
     #[serde(rename = "rate_limits")]
-    pub rate_limits: Box<models::ChatSessionRateLimits>,
+    pub rate_limits: models::ChatSessionRateLimits,
     /// Convenience copy of the per-minute request limit.
     #[serde(rename = "max_requests_per_1_minute")]
     pub max_requests_per_1_minute: i32,
     #[serde(rename = "status")]
     pub status: models::ChatSessionStatus,
     #[serde(rename = "chatkit_configuration")]
-    pub chatkit_configuration: Box<models::ChatSessionChatkitConfiguration>,
+    pub chatkit_configuration: models::ChatSessionChatkitConfiguration,
 }
 
 impl ChatSessionResource {
@@ -61,12 +61,12 @@ impl ChatSessionResource {
             object,
             expires_at,
             client_secret,
-            workflow: Box::new(workflow),
+            workflow,
             user,
-            rate_limits: Box::new(rate_limits),
+            rate_limits,
             max_requests_per_1_minute,
             status,
-            chatkit_configuration: Box::new(chatkit_configuration),
+            chatkit_configuration,
         }
     }
 }

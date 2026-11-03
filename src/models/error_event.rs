@@ -17,16 +17,13 @@ pub struct ErrorEvent {
     #[serde(rename = "event")]
     pub event: Event,
     #[serde(rename = "data")]
-    pub data: Box<models::Error>,
+    pub data: models::Error,
 }
 
 impl ErrorEvent {
     /// Occurs when an [error](https://developers.openai.com/api/docs/guides/error-codes#api-errors) occurs. This can happen due to an internal server error or a timeout.
     pub fn new(event: Event, data: models::Error) -> ErrorEvent {
-        ErrorEvent {
-            event,
-            data: Box::new(data),
-        }
+        ErrorEvent { event, data }
     }
 }
 ///

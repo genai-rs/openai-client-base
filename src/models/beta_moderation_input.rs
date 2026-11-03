@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaModerationInput {
-    BetaModerationResultBody(Box<models::BetaModerationResultBody>),
-    BetaModerationErrorBody(Box<models::BetaModerationErrorBody>),
+    BetaModerationResultBody(models::BetaModerationResultBody),
+    BetaModerationErrorBody(models::BetaModerationErrorBody),
 }
 
 impl Default for BetaModerationInput {

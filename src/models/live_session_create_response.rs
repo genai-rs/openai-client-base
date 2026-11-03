@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionCreateResponse {
     #[serde(rename = "session")]
-    pub session: Box<models::Session>,
+    pub session: models::Session,
     #[serde(rename = "transport")]
-    pub transport: Box<models::LiveSessionCreateResponseTransport>,
+    pub transport: models::LiveSessionCreateResponseTransport,
 }
 
 impl LiveSessionCreateResponse {
@@ -26,10 +26,7 @@ impl LiveSessionCreateResponse {
         session: models::Session,
         transport: models::LiveSessionCreateResponseTransport,
     ) -> LiveSessionCreateResponse {
-        LiveSessionCreateResponse {
-            session: Box::new(session),
-            transport: Box::new(transport),
-        }
+        LiveSessionCreateResponse { session, transport }
     }
 }
 

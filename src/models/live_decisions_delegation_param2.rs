@@ -16,7 +16,7 @@ pub struct LiveDecisionsDelegationParam2 {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "decisions")]
-    pub decisions: Box<models::LiveDecisionsSettingsInputParam2>,
+    pub decisions: models::LiveDecisionsSettingsInputParam2,
 }
 
 impl LiveDecisionsDelegationParam2 {
@@ -24,10 +24,7 @@ impl LiveDecisionsDelegationParam2 {
         r#type: Type,
         decisions: models::LiveDecisionsSettingsInputParam2,
     ) -> LiveDecisionsDelegationParam2 {
-        LiveDecisionsDelegationParam2 {
-            r#type,
-            decisions: Box::new(decisions),
-        }
+        LiveDecisionsDelegationParam2 { r#type, decisions }
     }
 }
 ///

@@ -40,7 +40,7 @@ pub struct CreateAgentParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub reasoning: Option<Option<Box<models::ReasoningParam>>>,
+    pub reasoning: Option<Option<models::ReasoningParam>>,
     /// Configuration for generated text. Defaults to the `text` format and medium verbosity.
     #[serde(
         rename = "text",
@@ -48,7 +48,7 @@ pub struct CreateAgentParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub text: Option<Option<Box<models::TextParam>>>,
+    pub text: Option<Option<models::TextParam>>,
     /// The service tier used for model requests. Defaults to `auto`.
     #[serde(
         rename = "service_tier",
@@ -80,7 +80,7 @@ pub struct CreateAgentParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub multi_agent: Option<Option<Box<models::MultiAgentConfigCurrentParam>>>,
+    pub multi_agent: Option<Option<models::MultiAgentConfigCurrentParam>>,
 }
 
 impl CreateAgentParams {

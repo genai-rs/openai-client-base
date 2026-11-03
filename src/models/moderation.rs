@@ -15,18 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Moderation {
     #[serde(rename = "input")]
-    pub input: Box<models::ModerationInput>,
+    pub input: models::ModerationInput,
     #[serde(rename = "output")]
-    pub output: Box<models::ModerationOutput>,
+    pub output: models::ModerationOutput,
 }
 
 impl Moderation {
     /// Moderation results or errors for the response input and output.
     pub fn new(input: models::ModerationInput, output: models::ModerationOutput) -> Moderation {
-        Moderation {
-            input: Box::new(input),
-            output: Box::new(output),
-        }
+        Moderation { input, output }
     }
 }
 

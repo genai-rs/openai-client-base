@@ -199,7 +199,7 @@ async fn create_embedding_posts_json_and_parses_response() {
     assert_eq!(response.model, "text-embedding-test");
     assert_eq!(response.usage.total_tokens, 1);
     assert_eq!(response.data.len(), 1);
-    match &*response.data[0].embedding {
+    match &response.data[0].embedding {
         models::EmbeddingEmbedding::Arrayofnumbers(v) => {
             assert_eq!(v, &vec![json!(0.25), json!(-0.5)]);
         }

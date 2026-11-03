@@ -16,59 +16,59 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum LiveServerEvent2 {
     #[serde(rename = "LiveSessionStarted")]
-    LiveSessionStarted(Box<models::LiveSessionStarted>),
+    LiveSessionStarted(models::LiveSessionStarted),
     #[serde(rename = "LiveSessionUpdated")]
-    LiveSessionUpdated(Box<models::LiveSessionUpdated>),
+    LiveSessionUpdated(models::LiveSessionUpdated),
     #[serde(rename = "LiveInputAudioMuted")]
-    LiveInputAudioMuted(Box<models::LiveInputAudioMuted>),
+    LiveInputAudioMuted(models::LiveInputAudioMuted),
     #[serde(rename = "LiveInputAudioUnmuted")]
-    LiveInputAudioUnmuted(Box<models::LiveInputAudioUnmuted>),
+    LiveInputAudioUnmuted(models::LiveInputAudioUnmuted),
     #[serde(rename = "LiveOutputAudioFixturePlaying")]
-    LiveOutputAudioFixturePlaying(Box<models::LiveOutputAudioFixturePlaying>),
+    LiveOutputAudioFixturePlaying(models::LiveOutputAudioFixturePlaying),
     #[serde(rename = "LiveOutputAudioFixturePlayed")]
-    LiveOutputAudioFixturePlayed(Box<models::LiveOutputAudioFixturePlayed>),
+    LiveOutputAudioFixturePlayed(models::LiveOutputAudioFixturePlayed),
     #[serde(rename = "LiveInstructionsAppended")]
-    LiveInstructionsAppended(Box<models::LiveInstructionsAppended>),
+    LiveInstructionsAppended(models::LiveInstructionsAppended),
     #[serde(rename = "LiveThinkingAppended")]
-    LiveThinkingAppended(Box<models::LiveThinkingAppended>),
+    LiveThinkingAppended(models::LiveThinkingAppended),
     #[serde(rename = "LiveCommentaryAppended")]
-    LiveCommentaryAppended(Box<models::LiveCommentaryAppended>),
+    LiveCommentaryAppended(models::LiveCommentaryAppended),
     #[serde(rename = "LiveInputAudioAppend")]
-    LiveInputAudioAppend(Box<models::LiveInputAudioAppend>),
+    LiveInputAudioAppend(models::LiveInputAudioAppend),
     #[serde(rename = "LiveOutputAudioDelta")]
-    LiveOutputAudioDelta(Box<models::LiveOutputAudioDelta>),
+    LiveOutputAudioDelta(models::LiveOutputAudioDelta),
     #[serde(rename = "LiveInputTranscriptDelta")]
-    LiveInputTranscriptDelta(Box<models::LiveInputTranscriptDelta>),
+    LiveInputTranscriptDelta(models::LiveInputTranscriptDelta),
     #[serde(rename = "LiveOutputTranscriptDelta")]
-    LiveOutputTranscriptDelta(Box<models::LiveOutputTranscriptDelta>),
+    LiveOutputTranscriptDelta(models::LiveOutputTranscriptDelta),
     #[serde(rename = "LiveDelegationCreated")]
-    LiveDelegationCreated(Box<models::LiveDelegationCreated>),
+    LiveDelegationCreated(models::LiveDelegationCreated),
     #[serde(rename = "LiveDecisionEvent")]
-    LiveDecisionEvent(Box<models::LiveDecisionEvent>),
+    LiveDecisionEvent(models::LiveDecisionEvent),
     #[serde(rename = "LiveDecisionItemCreated")]
-    LiveDecisionItemCreated(Box<models::LiveDecisionItemCreated>),
+    LiveDecisionItemCreated(models::LiveDecisionItemCreated),
     #[serde(rename = "LiveDecisionItemDeleted")]
-    LiveDecisionItemDeleted(Box<models::LiveDecisionItemDeleted>),
+    LiveDecisionItemDeleted(models::LiveDecisionItemDeleted),
     #[serde(rename = "LiveResponseEvent")]
-    LiveResponseEvent(Box<models::LiveResponseEvent>),
+    LiveResponseEvent(models::LiveResponseEvent),
     #[serde(rename = "LiveSessionUsageUpdated")]
-    LiveSessionUsageUpdated(Box<models::LiveSessionUsageUpdated>),
+    LiveSessionUsageUpdated(models::LiveSessionUsageUpdated),
     #[serde(rename = "LiveSessionClosed")]
-    LiveSessionClosed(Box<models::LiveSessionClosed>),
+    LiveSessionClosed(models::LiveSessionClosed),
     #[serde(rename = "LiveErrorEvent")]
-    LiveErrorEvent(Box<models::LiveErrorEvent>),
+    LiveErrorEvent(models::LiveErrorEvent),
     #[serde(rename = "LiveInfoEvent")]
-    LiveInfoEvent(Box<models::LiveInfoEvent>),
+    LiveInfoEvent(models::LiveInfoEvent),
     #[serde(rename = "LiveTransportDTMFReceived")]
-    LiveTransportDtmfReceived(Box<models::LiveTransportDtmfReceived>),
+    LiveTransportDtmfReceived(models::LiveTransportDtmfReceived),
     #[serde(rename = "LiveTransportDTMFSend")]
-    LiveTransportDtmfSend(Box<models::LiveTransportDtmfSend>),
+    LiveTransportDtmfSend(models::LiveTransportDtmfSend),
     #[serde(rename = "LiveTransportRinging")]
-    LiveTransportRinging(Box<models::LiveTransportRinging>),
+    LiveTransportRinging(models::LiveTransportRinging),
     #[serde(rename = "LiveTransportAnswered")]
-    LiveTransportAnswered(Box<models::LiveTransportAnswered>),
+    LiveTransportAnswered(models::LiveTransportAnswered),
     #[serde(rename = "LiveTransportFailed")]
-    LiveTransportFailed(Box<models::LiveTransportFailed>),
+    LiveTransportFailed(models::LiveTransportFailed),
 }
 
 ///

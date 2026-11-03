@@ -21,7 +21,7 @@ pub struct VideoResource {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "model")]
-    pub model: Box<models::VideoModel>,
+    pub model: models::VideoModel,
     #[serde(rename = "status")]
     pub status: models::VideoStatus,
     /// Approximate completion percentage for the generation task.
@@ -51,7 +51,7 @@ pub struct VideoResource {
     )]
     pub remixed_from_video_id: Option<String>,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
-    pub error: Option<Box<models::Error2>>,
+    pub error: Option<models::Error2>,
 }
 
 impl VideoResource {
@@ -74,7 +74,7 @@ impl VideoResource {
         VideoResource {
             id,
             object,
-            model: Box::new(model),
+            model,
             status,
             progress,
             created_at,
@@ -84,7 +84,7 @@ impl VideoResource {
             size,
             seconds,
             remixed_from_video_id,
-            error: error.map(Box::new),
+            error,
         }
     }
 }

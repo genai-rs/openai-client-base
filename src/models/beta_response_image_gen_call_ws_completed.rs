@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaResponseImageGenCallWsCompleted {
     /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the event. Always 'response.image_generation_call.completed'.
     #[serde(rename = "type")]
     pub r#type: Type,

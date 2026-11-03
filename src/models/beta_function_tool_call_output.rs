@@ -21,7 +21,7 @@ pub struct BetaFunctionToolCallOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The unique ID of the function tool call output. Populated when this item is returned via API.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -43,9 +43,9 @@ pub struct BetaFunctionToolCallOutput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::BetaToolCallCallerParam>>>,
+    pub caller: Option<Option<models::BetaToolCallCallerParam>>,
     #[serde(rename = "output")]
-    pub output: Box<models::BetaFunctionToolCallOutputOutput>,
+    pub output: models::BetaFunctionToolCallOutputOutput,
     /// The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -65,7 +65,7 @@ impl BetaFunctionToolCallOutput {
             name: None,
             namespace: None,
             caller: None,
-            output: Box::new(output),
+            output,
             status: None,
         }
     }

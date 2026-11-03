@@ -21,7 +21,7 @@ pub struct RealtimeTranslationClientSecretCreateResponse {
     #[serde(rename = "expires_at")]
     pub expires_at: i32,
     #[serde(rename = "session")]
-    pub session: Box<models::RealtimeTranslationSession>,
+    pub session: models::RealtimeTranslationSession,
 }
 
 impl RealtimeTranslationClientSecretCreateResponse {
@@ -34,7 +34,7 @@ impl RealtimeTranslationClientSecretCreateResponse {
         RealtimeTranslationClientSecretCreateResponse {
             value,
             expires_at,
-            session: Box::new(session),
+            session,
         }
     }
 }

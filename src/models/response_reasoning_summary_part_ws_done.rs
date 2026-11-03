@@ -33,7 +33,7 @@ pub struct ResponseReasoningSummaryPartWsDone {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "part")]
-    pub part: Box<models::ResponseReasoningSummaryPartDoneEventPart>,
+    pub part: models::ResponseReasoningSummaryPartDoneEventPart,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -56,7 +56,7 @@ impl ResponseReasoningSummaryPartWsDone {
             summary_index,
             status: None,
             sequence_number,
-            part: Box::new(part),
+            part,
             stream_id: None,
         }
     }

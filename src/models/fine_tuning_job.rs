@@ -21,7 +21,7 @@ pub struct FineTuningJob {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
-    pub error: Option<Box<models::FineTuningJobError>>,
+    pub error: Option<models::FineTuningJobError>,
     /// The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "fine_tuned_model", deserialize_with = "Option::deserialize")]
     pub fine_tuned_model: Option<String>,
@@ -34,7 +34,7 @@ pub struct FineTuningJob {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub hyperparameters: Option<Option<Box<models::FineTuningJobHyperparameters>>>,
+    pub hyperparameters: Option<Option<models::FineTuningJobHyperparameters>>,
     /// The base model that is being fine-tuned.
     #[serde(rename = "model")]
     pub model: String,
@@ -84,7 +84,7 @@ pub struct FineTuningJob {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub method: Option<Option<Box<models::FineTuneMethod>>>,
+    pub method: Option<Option<models::FineTuneMethod>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",
@@ -116,7 +116,7 @@ impl FineTuningJob {
         FineTuningJob {
             id,
             created_at,
-            error: error.map(Box::new),
+            error,
             fine_tuned_model,
             finished_at,
             hyperparameters: None,

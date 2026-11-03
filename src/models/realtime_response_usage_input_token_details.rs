@@ -31,7 +31,7 @@ pub struct RealtimeResponseUsageInputTokenDetails {
         skip_serializing_if = "Option::is_none"
     )]
     pub cached_tokens_details:
-        Option<Box<models::RealtimeBetaResponseUsageInputTokenDetailsCachedTokensDetails>>,
+        Option<models::RealtimeBetaResponseUsageInputTokenDetailsCachedTokensDetails>,
 }
 
 impl RealtimeResponseUsageInputTokenDetails {

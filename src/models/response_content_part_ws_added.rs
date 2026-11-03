@@ -27,7 +27,7 @@ pub struct ResponseContentPartWsAdded {
     #[serde(rename = "content_index")]
     pub content_index: i32,
     #[serde(rename = "part")]
-    pub part: Box<models::OutputContent>,
+    pub part: models::OutputContent,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
@@ -51,7 +51,7 @@ impl ResponseContentPartWsAdded {
             item_id,
             output_index,
             content_index,
-            part: Box::new(part),
+            part,
             sequence_number,
             stream_id: None,
         }

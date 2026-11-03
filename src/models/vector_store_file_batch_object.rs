@@ -30,7 +30,7 @@ pub struct VectorStoreFileBatchObject {
     #[serde(rename = "status")]
     pub status: Status,
     #[serde(rename = "file_counts")]
-    pub file_counts: Box<models::VectorStoreFileBatchObjectFileCounts>,
+    pub file_counts: models::VectorStoreFileBatchObjectFileCounts,
 }
 
 impl VectorStoreFileBatchObject {
@@ -49,7 +49,7 @@ impl VectorStoreFileBatchObject {
             created_at,
             vector_store_id,
             status,
-            file_counts: Box::new(file_counts),
+            file_counts,
         }
     }
 }

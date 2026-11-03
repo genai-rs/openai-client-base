@@ -18,7 +18,7 @@ pub struct RunStepDetailsMessageCreationObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "message_creation")]
-    pub message_creation: Box<models::RunStepDetailsMessageCreationObjectMessageCreation>,
+    pub message_creation: models::RunStepDetailsMessageCreationObjectMessageCreation,
 }
 
 impl RunStepDetailsMessageCreationObject {
@@ -29,7 +29,7 @@ impl RunStepDetailsMessageCreationObject {
     ) -> RunStepDetailsMessageCreationObject {
         RunStepDetailsMessageCreationObject {
             r#type,
-            message_creation: Box::new(message_creation),
+            message_creation,
         }
     }
 }

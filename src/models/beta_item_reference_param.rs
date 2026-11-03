@@ -20,7 +20,7 @@ pub struct BetaItemReferenceParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    pub agent: Option<Option<models::BetaAgentTagParam>>,
     /// The type of item to reference. Always `item_reference`.
     #[serde(
         rename = "type",

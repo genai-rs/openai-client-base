@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseConfigurationUpdate {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The unique ID of the configuration update item.
     #[serde(rename = "id")]
     pub id: String,
@@ -23,7 +23,7 @@ pub struct BetaResponseConfigurationUpdate {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
-    pub reasoning: Option<Box<models::BetaResponseConfigurationUpdateReasoning>>,
+    pub reasoning: Option<models::BetaResponseConfigurationUpdateReasoning>,
 }
 
 impl BetaResponseConfigurationUpdate {

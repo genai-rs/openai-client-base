@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaModeration {
     #[serde(rename = "input")]
-    pub input: Box<models::BetaModerationInput>,
+    pub input: models::BetaModerationInput,
     #[serde(rename = "output")]
-    pub output: Box<models::BetaModerationOutput>,
+    pub output: models::BetaModerationOutput,
 }
 
 impl BetaModeration {
@@ -26,10 +26,7 @@ impl BetaModeration {
         input: models::BetaModerationInput,
         output: models::BetaModerationOutput,
     ) -> BetaModeration {
-        BetaModeration {
-            input: Box::new(input),
-            output: Box::new(output),
-        }
+        BetaModeration { input, output }
     }
 }
 

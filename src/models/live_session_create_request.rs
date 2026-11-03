@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionCreateRequest {
     #[serde(rename = "session")]
-    pub session: Box<models::LiveMediaSessionCreateParams>,
+    pub session: models::LiveMediaSessionCreateParams,
     #[serde(rename = "transport")]
-    pub transport: Box<models::LiveSessionCreateRequestTransport>,
+    pub transport: models::LiveSessionCreateRequestTransport,
 }
 
 impl LiveSessionCreateRequest {
@@ -26,10 +26,7 @@ impl LiveSessionCreateRequest {
         session: models::LiveMediaSessionCreateParams,
         transport: models::LiveSessionCreateRequestTransport,
     ) -> LiveSessionCreateRequest {
-        LiveSessionCreateRequest {
-            session: Box::new(session),
-            transport: Box::new(transport),
-        }
+        LiveSessionCreateRequest { session, transport }
     }
 }
 

@@ -27,12 +27,12 @@ pub struct CompletionUsage {
         rename = "completion_tokens_details",
         skip_serializing_if = "Option::is_none"
     )]
-    pub completion_tokens_details: Option<Box<models::CompletionUsageCompletionTokensDetails>>,
+    pub completion_tokens_details: Option<models::CompletionUsageCompletionTokensDetails>,
     #[serde(
         rename = "prompt_tokens_details",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_tokens_details: Option<Box<models::CompletionUsagePromptTokensDetails>>,
+    pub prompt_tokens_details: Option<models::CompletionUsagePromptTokensDetails>,
 }
 
 impl CompletionUsage {

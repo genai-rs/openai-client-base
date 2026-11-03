@@ -23,7 +23,7 @@ pub struct LiveInlineSkillParam {
     #[serde(rename = "description")]
     pub description: String,
     #[serde(rename = "source")]
-    pub source: Box<models::LiveInlineSkillSourceParam>,
+    pub source: models::LiveInlineSkillSourceParam,
 }
 
 impl LiveInlineSkillParam {
@@ -37,7 +37,7 @@ impl LiveInlineSkillParam {
             r#type,
             name,
             description,
-            source: Box::new(source),
+            source,
         }
     }
 }

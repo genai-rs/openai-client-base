@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateContainerBodySkillsInner {
-    SkillReferenceParam(Box<models::SkillReferenceParam>),
-    InlineSkillParam(Box<models::InlineSkillParam>),
+    SkillReferenceParam(models::SkillReferenceParam),
+    InlineSkillParam(models::InlineSkillParam),
 }
 
 impl Default for CreateContainerBodySkillsInner {

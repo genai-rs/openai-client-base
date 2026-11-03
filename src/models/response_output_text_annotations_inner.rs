@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ResponseOutputTextAnnotationsInner {
-    FileAnnotation(Box<models::FileAnnotation>),
-    UrlAnnotation(Box<models::UrlAnnotation>),
+    FileAnnotation(models::FileAnnotation),
+    UrlAnnotation(models::UrlAnnotation),
 }
 
 impl Default for ResponseOutputTextAnnotationsInner {

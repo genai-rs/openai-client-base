@@ -23,7 +23,7 @@ pub struct DecisionInputFunctionCallOutput {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "output")]
-    pub output: Box<models::DecisionInputToolOutputContent>,
+    pub output: models::DecisionInputToolOutputContent,
     #[serde(
         rename = "status",
         default,
@@ -44,7 +44,7 @@ impl DecisionInputFunctionCallOutput {
         DecisionInputFunctionCallOutput {
             id: None,
             call_id,
-            output: Box::new(output),
+            output,
             status: None,
             r#type,
         }

@@ -21,7 +21,7 @@ pub struct BetaFunctionShellCallOutputContent {
     #[serde(rename = "stderr")]
     pub stderr: String,
     #[serde(rename = "outcome")]
-    pub outcome: Box<models::ShellCallOutcome1>,
+    pub outcome: models::ShellCallOutcome1,
     /// The identifier of the actor that created the item.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -37,7 +37,7 @@ impl BetaFunctionShellCallOutputContent {
         BetaFunctionShellCallOutputContent {
             stdout,
             stderr,
-            outcome: Box::new(outcome),
+            outcome,
             created_by: None,
         }
     }

@@ -20,7 +20,7 @@ pub struct RunStepDeltaStepDetailsToolCallsCodeOutputImageObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
-    pub image: Option<Box<models::RunStepDeltaStepDetailsToolCallsCodeOutputImageObjectImage>>,
+    pub image: Option<models::RunStepDeltaStepDetailsToolCallsCodeOutputImageObjectImage>,
 }
 
 impl RunStepDeltaStepDetailsToolCallsCodeOutputImageObject {

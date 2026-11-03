@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaResponseOutputItemWsDone {
     /// The agent that owns this multi-agent streaming event.
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the event. Always `response.output_item.done`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -27,7 +27,7 @@ pub struct BetaResponseOutputItemWsDone {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "item")]
-    pub item: Box<models::BetaOutputItem>,
+    pub item: models::BetaOutputItem,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -46,7 +46,7 @@ impl BetaResponseOutputItemWsDone {
             r#type,
             output_index,
             sequence_number,
-            item: Box::new(item),
+            item,
             stream_id: None,
         }
     }

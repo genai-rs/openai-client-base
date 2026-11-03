@@ -15,13 +15,13 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum Provider {
     #[serde(rename = "AwsExternalStorageProviderResponse")]
-    AwsExternalStorageProviderResponse(Box<models::AwsExternalStorageProviderResponse>),
+    AwsExternalStorageProviderResponse(models::AwsExternalStorageProviderResponse),
     #[serde(rename = "AzureExternalStorageProviderResponse")]
-    AzureExternalStorageProviderResponse(Box<models::AzureExternalStorageProviderResponse>),
+    AzureExternalStorageProviderResponse(models::AzureExternalStorageProviderResponse),
     #[serde(rename = "GcpExternalStorageProviderResponse")]
-    GcpExternalStorageProviderResponse(Box<models::GcpExternalStorageProviderResponse>),
+    GcpExternalStorageProviderResponse(models::GcpExternalStorageProviderResponse),
     #[serde(rename = "OciExternalStorageProviderResponse")]
-    OciExternalStorageProviderResponse(Box<models::OciExternalStorageProviderResponse>),
+    OciExternalStorageProviderResponse(models::OciExternalStorageProviderResponse),
 }
 
 impl Default for Provider {

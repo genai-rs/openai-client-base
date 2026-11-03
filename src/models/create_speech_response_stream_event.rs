@@ -14,6 +14,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateSpeechResponseStreamEvent {
-    SpeechAudioDeltaEvent(Box<models::SpeechAudioDeltaEvent>),
-    SpeechAudioDoneEvent(Box<models::SpeechAudioDoneEvent>),
+    SpeechAudioDeltaEvent(models::SpeechAudioDeltaEvent),
+    SpeechAudioDoneEvent(models::SpeechAudioDoneEvent),
 }

@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ImageGenStreamEvent {
-    ImageGenPartialImageEvent(Box<models::ImageGenPartialImageEvent>),
-    ImageGenCompletedEvent(Box<models::ImageGenCompletedEvent>),
+    ImageGenPartialImageEvent(models::ImageGenPartialImageEvent),
+    ImageGenCompletedEvent(models::ImageGenCompletedEvent),
 }
 
 /// The quality setting for the generated image.

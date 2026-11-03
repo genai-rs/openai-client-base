@@ -18,16 +18,13 @@ pub struct UrlAnnotation {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "source")]
-    pub source: Box<models::UrlAnnotationSource>,
+    pub source: models::UrlAnnotationSource,
 }
 
 impl UrlAnnotation {
     /// Annotation that references a URL.
     pub fn new(r#type: Type, source: models::UrlAnnotationSource) -> UrlAnnotation {
-        UrlAnnotation {
-            r#type,
-            source: Box::new(source),
-        }
+        UrlAnnotation { r#type, source }
     }
 }
 /// Type discriminator that is always `url` for this annotation.

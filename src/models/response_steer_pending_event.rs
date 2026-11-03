@@ -21,9 +21,9 @@ pub struct ResponseSteerPendingEvent {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "steer")]
-    pub steer: Box<models::ResponseSteerPendingEventSteer>,
+    pub steer: models::ResponseSteerPendingEventSteer,
     #[serde(rename = "reason")]
-    pub reason: Box<models::ResponseSteerPendingReason>,
+    pub reason: models::ResponseSteerPendingReason,
     /// Input stubs identifying outstanding client-owned tool results or approval decisions. Each stub contains identifying fields only; the client supplies the result before including it in `response.create`.
     #[serde(rename = "required_input")]
     pub required_input: Vec<models::ResponseSteerRequiredInput>,
@@ -44,8 +44,8 @@ impl ResponseSteerPendingEvent {
         ResponseSteerPendingEvent {
             r#type,
             sequence_number,
-            steer: Box::new(steer),
-            reason: Box::new(reason),
+            steer,
+            reason,
             required_input,
             stream_id: None,
         }

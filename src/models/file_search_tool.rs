@@ -24,14 +24,14 @@ pub struct FileSearchTool {
     #[serde(rename = "max_num_results", skip_serializing_if = "Option::is_none")]
     pub max_num_results: Option<i32>,
     #[serde(rename = "ranking_options", skip_serializing_if = "Option::is_none")]
-    pub ranking_options: Option<Box<models::RankingOptions>>,
+    pub ranking_options: Option<models::RankingOptions>,
     #[serde(
         rename = "filters",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub filters: Option<Option<Box<models::Filters>>>,
+    pub filters: Option<Option<models::Filters>>,
 }
 
 impl FileSearchTool {

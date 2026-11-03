@@ -18,12 +18,12 @@ pub struct LiveDataChannelConfigParam {
         rename = "allowed_client_events",
         skip_serializing_if = "Option::is_none"
     )]
-    pub allowed_client_events: Option<Box<models::LiveDataChannelConfigParamAllowedClientEvents>>,
+    pub allowed_client_events: Option<models::LiveDataChannelConfigParamAllowedClientEvents>,
     #[serde(
         rename = "allowed_server_events",
         skip_serializing_if = "Option::is_none"
     )]
-    pub allowed_server_events: Option<Box<models::LiveDataChannelConfigParamAllowedServerEvents>>,
+    pub allowed_server_events: Option<models::LiveDataChannelConfigParamAllowedServerEvents>,
 }
 
 impl LiveDataChannelConfigParam {

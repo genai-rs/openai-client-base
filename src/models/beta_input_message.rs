@@ -21,7 +21,7 @@ pub struct BetaInputMessage {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the message input. Always set to `message`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,

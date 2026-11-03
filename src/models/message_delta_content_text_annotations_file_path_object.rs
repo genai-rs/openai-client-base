@@ -24,7 +24,7 @@ pub struct MessageDeltaContentTextAnnotationsFilePathObject {
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
     #[serde(rename = "file_path", skip_serializing_if = "Option::is_none")]
-    pub file_path: Option<Box<models::MessageDeltaContentTextAnnotationsFilePathObjectFilePath>>,
+    pub file_path: Option<models::MessageDeltaContentTextAnnotationsFilePathObjectFilePath>,
     #[serde(rename = "start_index", skip_serializing_if = "Option::is_none")]
     pub start_index: Option<i32>,
     #[serde(rename = "end_index", skip_serializing_if = "Option::is_none")]

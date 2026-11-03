@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVideoExtendJsonBody {
     #[serde(rename = "video")]
-    pub video: Box<models::VideoReferenceInputParam>,
+    pub video: models::VideoReferenceInputParam,
     /// Updated text prompt that directs the extension generation.
     #[serde(rename = "prompt")]
     pub prompt: String,
@@ -31,7 +31,7 @@ impl CreateVideoExtendJsonBody {
         seconds: models::VideoSeconds,
     ) -> CreateVideoExtendJsonBody {
         CreateVideoExtendJsonBody {
-            video: Box::new(video),
+            video,
             prompt,
             seconds,
         }

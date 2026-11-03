@@ -17,7 +17,7 @@ pub struct CreateThreadAndRunRequest {
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
     #[serde(rename = "thread", skip_serializing_if = "Option::is_none")]
-    pub thread: Option<Box<models::CreateThreadRequest>>,
+    pub thread: Option<models::CreateThreadRequest>,
     /// The ID of the [Model](https://developers.openai.com/api/reference/resources/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
@@ -43,7 +43,7 @@ pub struct CreateThreadAndRunRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tool_resources: Option<Option<Box<models::CreateThreadAndRunRequestToolResources>>>,
+    pub tool_resources: Option<Option<models::CreateThreadAndRunRequestToolResources>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",
@@ -96,9 +96,9 @@ pub struct CreateThreadAndRunRequest {
         rename = "truncation_strategy",
         skip_serializing_if = "Option::is_none"
     )]
-    pub truncation_strategy: Option<Box<models::TruncationObject>>,
+    pub truncation_strategy: Option<models::TruncationObject>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
-    pub tool_choice: Option<Box<models::AssistantsApiToolChoiceOption>>,
+    pub tool_choice: Option<models::AssistantsApiToolChoiceOption>,
     /// Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use.
     #[serde(
         rename = "parallel_tool_calls",
@@ -106,7 +106,7 @@ pub struct CreateThreadAndRunRequest {
     )]
     pub parallel_tool_calls: Option<bool>,
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
-    pub response_format: Option<Box<models::AssistantsApiResponseFormatOption>>,
+    pub response_format: Option<models::AssistantsApiResponseFormatOption>,
 }
 
 impl CreateThreadAndRunRequest {

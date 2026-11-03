@@ -14,14 +14,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionsUsageErrorResponse {
     #[serde(rename = "error")]
-    pub error: Box<models::DecisionsUsageErrorDetails>,
+    pub error: models::DecisionsUsageErrorDetails,
 }
 
 impl DecisionsUsageErrorResponse {
     pub fn new(error: models::DecisionsUsageErrorDetails) -> DecisionsUsageErrorResponse {
-        DecisionsUsageErrorResponse {
-            error: Box::new(error),
-        }
+        DecisionsUsageErrorResponse { error }
     }
 }
 

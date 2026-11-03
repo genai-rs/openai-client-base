@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum InputMessagesTemplateTemplateInner {
-    ChatMessage(Box<models::ChatMessage>),
-    EvalItem(Box<models::EvalItem>),
+    ChatMessage(models::ChatMessage),
+    EvalItem(models::EvalItem),
 }
 
 /// The role of the message input. One of `user`, `assistant`, `system`, or `developer`.

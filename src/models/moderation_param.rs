@@ -23,7 +23,7 @@ pub struct ModerationParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub policy: Option<Option<Box<models::ModerationPolicyParam>>>,
+    pub policy: Option<Option<models::ModerationPolicyParam>>,
 }
 
 impl ModerationParam {

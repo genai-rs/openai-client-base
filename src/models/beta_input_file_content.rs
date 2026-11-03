@@ -35,7 +35,7 @@ pub struct BetaInputFileContent {
         rename = "prompt_cache_breakpoint",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_breakpoint: Option<Box<models::BetaPromptCacheBreakpointConfig>>,
+    pub prompt_cache_breakpoint: Option<models::BetaPromptCacheBreakpointConfig>,
     /// The URL of the file to be sent to the model.
     #[serde(rename = "file_url", skip_serializing_if = "Option::is_none")]
     pub file_url: Option<String>,

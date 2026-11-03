@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaApplyPatchToolCall {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The type of the item. Always `apply_patch_call`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -31,11 +31,11 @@ pub struct BetaApplyPatchToolCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::BetaToolCallCaller>>>,
+    pub caller: Option<Option<models::BetaToolCallCaller>>,
     #[serde(rename = "status")]
     pub status: models::BetaApplyPatchCallStatus,
     #[serde(rename = "operation")]
-    pub operation: Box<models::ApplyPatchOperation1>,
+    pub operation: models::ApplyPatchOperation1,
     /// The ID of the entity that created this tool call.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -57,7 +57,7 @@ impl BetaApplyPatchToolCall {
             call_id,
             caller: None,
             status,
-            operation: Box::new(operation),
+            operation,
             created_by: None,
         }
     }

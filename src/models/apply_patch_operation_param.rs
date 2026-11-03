@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ApplyPatchOperationParam {
-    ApplyPatchCreateFileOperationParam(Box<models::ApplyPatchCreateFileOperationParam>),
-    ApplyPatchDeleteFileOperationParam(Box<models::ApplyPatchDeleteFileOperationParam>),
-    ApplyPatchUpdateFileOperationParam(Box<models::ApplyPatchUpdateFileOperationParam>),
+    ApplyPatchCreateFileOperationParam(models::ApplyPatchCreateFileOperationParam),
+    ApplyPatchDeleteFileOperationParam(models::ApplyPatchDeleteFileOperationParam),
+    ApplyPatchUpdateFileOperationParam(models::ApplyPatchUpdateFileOperationParam),
 }
 
 impl Default for ApplyPatchOperationParam {

@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum DecisionInputOneOfInner {
     #[serde(rename = "message")]
-    Message(Box<models::DecisionInputMessage>),
+    Message(models::DecisionInputMessage),
     #[serde(rename = "function_call")]
-    FunctionCall(Box<models::DecisionInputFunctionCall>),
+    FunctionCall(models::DecisionInputFunctionCall),
     #[serde(rename = "function_call_output")]
-    FunctionCallOutput(Box<models::DecisionInputFunctionCallOutput>),
+    FunctionCallOutput(models::DecisionInputFunctionCallOutput),
     #[serde(rename = "custom_tool_call")]
-    CustomToolCall(Box<models::DecisionInputCustomToolCall>),
+    CustomToolCall(models::DecisionInputCustomToolCall),
     #[serde(rename = "custom_tool_call_output")]
-    CustomToolCallOutput(Box<models::DecisionInputCustomToolCallOutput>),
+    CustomToolCallOutput(models::DecisionInputCustomToolCallOutput),
 }
 
 ///

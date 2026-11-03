@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneDpoMethod {
     #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
-    pub hyperparameters: Option<Box<models::FineTuneDpoHyperparameters>>,
+    pub hyperparameters: Option<models::FineTuneDpoHyperparameters>,
 }
 
 impl FineTuneDpoMethod {

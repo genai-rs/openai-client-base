@@ -20,15 +20,15 @@ pub struct FineTuningJobHyperparameters {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub batch_size: Option<Option<Box<models::FineTuningJobHyperparametersBatchSize>>>,
+    pub batch_size: Option<Option<models::FineTuningJobHyperparametersBatchSize>>,
     #[serde(
         rename = "learning_rate_multiplier",
         skip_serializing_if = "Option::is_none"
     )]
     pub learning_rate_multiplier:
-        Option<Box<models::CreateFineTuningJobRequestHyperparametersLearningRateMultiplier>>,
+        Option<models::CreateFineTuningJobRequestHyperparametersLearningRateMultiplier>,
     #[serde(rename = "n_epochs", skip_serializing_if = "Option::is_none")]
-    pub n_epochs: Option<Box<models::CreateFineTuningJobRequestHyperparametersNEpochs>>,
+    pub n_epochs: Option<models::CreateFineTuningJobRequestHyperparametersNEpochs>,
 }
 
 impl FineTuningJobHyperparameters {

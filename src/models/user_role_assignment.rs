@@ -18,19 +18,15 @@ pub struct UserRoleAssignment {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "user")]
-    pub user: Box<models::User>,
+    pub user: models::User,
     #[serde(rename = "role")]
-    pub role: Box<models::Role>,
+    pub role: models::Role,
 }
 
 impl UserRoleAssignment {
     /// Role assignment linking a user to a role.
     pub fn new(object: Object, user: models::User, role: models::Role) -> UserRoleAssignment {
-        UserRoleAssignment {
-            object,
-            user: Box::new(user),
-            role: Box::new(role),
-        }
+        UserRoleAssignment { object, user, role }
     }
 }
 /// Always `user.role`.

@@ -15,11 +15,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AgentToolResource {
-    Function(Box<models::AgentToolResourceFunction>),
-    ProgrammaticToolCalling(Box<models::AgentToolResourceProgrammaticToolCalling>),
-    Mcp(Box<models::AgentToolResourceMcp>),
-    WebSearch(Box<models::AgentToolResourceWebSearch>),
-    ComputerUse(Box<models::AgentToolResourceComputerUse>),
+    Function(models::AgentToolResourceFunction),
+    ProgrammaticToolCalling(models::AgentToolResourceProgrammaticToolCalling),
+    Mcp(models::AgentToolResourceMcp),
+    WebSearch(models::AgentToolResourceWebSearch),
+    ComputerUse(models::AgentToolResourceComputerUse),
 }
 
 impl Default for AgentToolResource {

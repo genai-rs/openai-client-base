@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAgentEnvironmentParams {
     #[serde(rename = "environment")]
-    pub environment: Box<models::CreateEnvironmentParam>,
+    pub environment: models::CreateEnvironmentParam,
     /// The IDs of up to 10 vaults made available to an OpenAI-hosted environment.
     #[serde(
         rename = "vault_ids",
@@ -30,7 +30,7 @@ impl CreateAgentEnvironmentParams {
     /// Parameters for creating an execution environment before its sessions.
     pub fn new(environment: models::CreateEnvironmentParam) -> CreateAgentEnvironmentParams {
         CreateAgentEnvironmentParams {
-            environment: Box::new(environment),
+            environment,
             vault_ids: None,
         }
     }

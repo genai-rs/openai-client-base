@@ -15,22 +15,22 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Tool {
-    FunctionTool(Box<models::FunctionTool>),
-    FileSearchTool(Box<models::FileSearchTool>),
-    ComputerTool(Box<models::ComputerTool>),
-    ComputerUsePreviewTool(Box<models::ComputerUsePreviewTool>),
-    WebSearchTool(Box<models::WebSearchTool>),
-    McpTool(Box<models::McpTool>),
-    CodeInterpreterTool(Box<models::CodeInterpreterTool>),
-    ProgrammaticToolCallingParam(Box<models::ProgrammaticToolCallingParam>),
-    ImageGenTool(Box<models::ImageGenTool>),
-    LocalShellToolParam(Box<models::LocalShellToolParam>),
-    FunctionShellToolParam(Box<models::FunctionShellToolParam>),
-    CustomToolParam(Box<models::CustomToolParam>),
-    NamespaceToolParam(Box<models::NamespaceToolParam>),
-    SearchToolParam(Box<models::ToolSearchToolParam>),
-    WebSearchPreviewTool(Box<models::WebSearchPreviewTool>),
-    ApplyPatchToolParam(Box<models::ApplyPatchToolParam>),
+    FunctionTool(models::FunctionTool),
+    FileSearchTool(models::FileSearchTool),
+    ComputerTool(models::ComputerTool),
+    ComputerUsePreviewTool(models::ComputerUsePreviewTool),
+    WebSearchTool(models::WebSearchTool),
+    McpTool(models::McpTool),
+    CodeInterpreterTool(models::CodeInterpreterTool),
+    ProgrammaticToolCallingParam(models::ProgrammaticToolCallingParam),
+    ImageGenTool(models::ImageGenTool),
+    LocalShellToolParam(models::LocalShellToolParam),
+    FunctionShellToolParam(models::FunctionShellToolParam),
+    CustomToolParam(models::CustomToolParam),
+    NamespaceToolParam(models::NamespaceToolParam),
+    SearchToolParam(models::ToolSearchToolParam),
+    WebSearchPreviewTool(models::WebSearchPreviewTool),
+    ApplyPatchToolParam(models::ApplyPatchToolParam),
 }
 
 /// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](https://developers.openai.com/api/docs/guides/tools-connectors-mcp#connectors).  This field is deprecated for models released after September 1, 2026. Use `server_url` to connect to a remote MCP server, or `tunnel_id` to connect through a Secure MCP Tunnel.  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`

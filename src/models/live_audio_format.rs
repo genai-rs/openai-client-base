@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LiveAudioFormat {
-    LiveSessionAudioFormatPcmParam(Box<models::LiveSessionAudioFormatPcmParam>),
-    LiveSessionAudioFormatPcmuParam(Box<models::LiveSessionAudioFormatPcmuParam>),
-    LiveSessionAudioFormatPcmaParam(Box<models::LiveSessionAudioFormatPcmaParam>),
+    LiveSessionAudioFormatPcmParam(models::LiveSessionAudioFormatPcmParam),
+    LiveSessionAudioFormatPcmuParam(models::LiveSessionAudioFormatPcmuParam),
+    LiveSessionAudioFormatPcmaParam(models::LiveSessionAudioFormatPcmaParam),
 }
 
 impl Default for LiveAudioFormat {

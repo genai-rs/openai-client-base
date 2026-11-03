@@ -16,10 +16,10 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum BetaFunctionShellCallOutputOutcomeParam {
     BetaFunctionShellCallOutputTimeoutOutcomeParam(
-        Box<models::BetaFunctionShellCallOutputTimeoutOutcomeParam>,
+        models::BetaFunctionShellCallOutputTimeoutOutcomeParam,
     ),
     BetaFunctionShellCallOutputExitOutcomeParam(
-        Box<models::BetaFunctionShellCallOutputExitOutcomeParam>,
+        models::BetaFunctionShellCallOutputExitOutcomeParam,
     ),
 }
 

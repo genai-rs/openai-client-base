@@ -20,7 +20,7 @@ pub struct BetaFunctionShellCallOutputItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTagParam>>>,
+    pub agent: Option<Option<models::BetaAgentTagParam>>,
     /// The unique ID of the shell tool call output. Populated when this item is returned via API.
     #[serde(
         rename = "id",
@@ -38,7 +38,7 @@ pub struct BetaFunctionShellCallOutputItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub caller: Option<Option<Box<models::BetaToolCallCallerParam>>>,
+    pub caller: Option<Option<models::BetaToolCallCallerParam>>,
     /// The type of the item. Always `shell_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,

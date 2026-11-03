@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum LiveDecisionQuestion {
-    LiveDecisionChoiceQuestionParam(Box<models::LiveDecisionChoiceQuestionParam>),
-    LiveDecisionPredicateQuestionParam(Box<models::LiveDecisionPredicateQuestionParam>),
-    LiveDecisionScoreQuestionParam(Box<models::LiveDecisionScoreQuestionParam>),
+    LiveDecisionChoiceQuestionParam(models::LiveDecisionChoiceQuestionParam),
+    LiveDecisionPredicateQuestionParam(models::LiveDecisionPredicateQuestionParam),
+    LiveDecisionScoreQuestionParam(models::LiveDecisionScoreQuestionParam),
 }
 
 impl Default for LiveDecisionQuestion {

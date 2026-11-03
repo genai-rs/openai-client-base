@@ -21,7 +21,7 @@ pub struct BetaComparisonFilter {
     #[serde(rename = "key")]
     pub key: String,
     #[serde(rename = "value")]
-    pub value: Box<models::BetaComparisonFilterValue>,
+    pub value: models::BetaComparisonFilterValue,
 }
 
 impl BetaComparisonFilter {
@@ -31,11 +31,7 @@ impl BetaComparisonFilter {
         key: String,
         value: models::BetaComparisonFilterValue,
     ) -> BetaComparisonFilter {
-        BetaComparisonFilter {
-            r#type,
-            key,
-            value: Box::new(value),
-        }
+        BetaComparisonFilter { r#type, key, value }
     }
 }
 /// Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`. - `eq`: equals - `ne`: not equal - `gt`: greater than - `gte`: greater than or equal - `lt`: less than - `lte`: less than or equal - `in`: in - `nin`: not in

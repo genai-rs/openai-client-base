@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaOutputMessageContent {
-    BetaOutputTextContent(Box<models::BetaOutputTextContent>),
-    BetaRefusalContent(Box<models::BetaRefusalContent>),
+    BetaOutputTextContent(models::BetaOutputTextContent),
+    BetaRefusalContent(models::BetaRefusalContent),
 }
 
 impl Default for BetaOutputMessageContent {

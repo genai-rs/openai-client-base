@@ -30,7 +30,7 @@ pub struct ComputerToolCallOutput {
     )]
     pub acknowledged_safety_checks: Option<Vec<models::ComputerCallSafetyCheckParam>>,
     #[serde(rename = "output")]
-    pub output: Box<models::ComputerScreenshotImage>,
+    pub output: models::ComputerScreenshotImage,
     /// The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -48,7 +48,7 @@ impl ComputerToolCallOutput {
             id: None,
             call_id,
             acknowledged_safety_checks: None,
-            output: Box::new(output),
+            output,
             status: None,
         }
     }

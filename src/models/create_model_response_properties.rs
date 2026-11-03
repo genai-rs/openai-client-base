@@ -49,7 +49,7 @@ pub struct CreateModelResponseProperties {
         rename = "prompt_cache_options",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_options: Option<Box<models::PromptCacheOptionsParam>>,
+    pub prompt_cache_options: Option<models::PromptCacheOptionsParam>,
 }
 
 impl CreateModelResponseProperties {

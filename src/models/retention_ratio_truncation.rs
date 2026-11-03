@@ -21,7 +21,7 @@ pub struct RetentionRatioTruncation {
     #[serde(rename = "retention_ratio")]
     pub retention_ratio: f64,
     #[serde(rename = "token_limits", skip_serializing_if = "Option::is_none")]
-    pub token_limits: Option<Box<models::RetentionRatioTruncationTokenLimits>>,
+    pub token_limits: Option<models::RetentionRatioTruncationTokenLimits>,
 }
 
 impl RetentionRatioTruncation {

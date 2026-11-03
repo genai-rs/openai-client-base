@@ -19,7 +19,7 @@ pub struct RankingOptions {
     #[serde(rename = "score_threshold", skip_serializing_if = "Option::is_none")]
     pub score_threshold: Option<f64>,
     #[serde(rename = "hybrid_search", skip_serializing_if = "Option::is_none")]
-    pub hybrid_search: Option<Box<models::HybridSearchOptions>>,
+    pub hybrid_search: Option<models::HybridSearchOptions>,
 }
 
 impl RankingOptions {

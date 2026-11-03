@@ -21,7 +21,7 @@ pub struct BetaResponseCustomToolCallInputDoneEvent {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The event type identifier.
     #[serde(rename = "type")]
     pub r#type: Type,

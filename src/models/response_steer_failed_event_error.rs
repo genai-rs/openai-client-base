@@ -18,7 +18,7 @@ pub struct ResponseSteerFailedEventError {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "code")]
-    pub code: Box<models::ResponseSteerErrorCode>,
+    pub code: models::ResponseSteerErrorCode,
     /// A human-readable description of the error.
     #[serde(rename = "message")]
     pub message: String,
@@ -33,7 +33,7 @@ impl ResponseSteerFailedEventError {
     ) -> ResponseSteerFailedEventError {
         ResponseSteerFailedEventError {
             r#type,
-            code: Box::new(code),
+            code,
             message,
         }
     }

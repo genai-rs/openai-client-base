@@ -21,7 +21,7 @@ pub struct ResponseConfigurationUpdate {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
-    pub reasoning: Option<Box<models::ResponseConfigurationUpdateReasoning>>,
+    pub reasoning: Option<models::ResponseConfigurationUpdateReasoning>,
 }
 
 impl ResponseConfigurationUpdate {

@@ -17,9 +17,9 @@ pub struct ProjectApiKeyOwner {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
-    pub user: Option<Box<models::ProjectApiKeyOwnerUser>>,
+    pub user: Option<models::ProjectApiKeyOwnerUser>,
     #[serde(rename = "service_account", skip_serializing_if = "Option::is_none")]
-    pub service_account: Option<Box<models::ProjectApiKeyOwnerServiceAccount>>,
+    pub service_account: Option<models::ProjectApiKeyOwnerServiceAccount>,
 }
 
 impl ProjectApiKeyOwner {

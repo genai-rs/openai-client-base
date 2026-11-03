@@ -21,7 +21,7 @@ pub struct ResponseFailedEvent {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "response")]
-    pub response: Box<models::Response>,
+    pub response: models::Response,
 }
 
 impl ResponseFailedEvent {
@@ -34,7 +34,7 @@ impl ResponseFailedEvent {
         ResponseFailedEvent {
             r#type,
             sequence_number,
-            response: Box::new(response),
+            response,
         }
     }
 }

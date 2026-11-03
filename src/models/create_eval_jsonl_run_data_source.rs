@@ -18,7 +18,7 @@ pub struct CreateEvalJsonlRunDataSource {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "source")]
-    pub source: Box<models::CreateEvalJsonlRunDataSourceSource>,
+    pub source: models::CreateEvalJsonlRunDataSourceSource,
 }
 
 impl CreateEvalJsonlRunDataSource {
@@ -27,10 +27,7 @@ impl CreateEvalJsonlRunDataSource {
         r#type: Type,
         source: models::CreateEvalJsonlRunDataSourceSource,
     ) -> CreateEvalJsonlRunDataSource {
-        CreateEvalJsonlRunDataSource {
-            r#type,
-            source: Box::new(source),
-        }
+        CreateEvalJsonlRunDataSource { r#type, source }
     }
 }
 /// The type of data source. Always `jsonl`.

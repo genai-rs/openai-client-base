@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ToolCallCallerParam {
-    DirectToolCallCallerParam(Box<models::DirectToolCallCallerParam>),
-    ProgramToolCallCallerParam(Box<models::ProgramToolCallCallerParam>),
+    DirectToolCallCallerParam(models::DirectToolCallCallerParam),
+    ProgramToolCallCallerParam(models::ProgramToolCallCallerParam),
 }
 
 impl Default for ToolCallCallerParam {

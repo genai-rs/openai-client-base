@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum FunctionAndCustomToolCallOutput {
-    InputTextContent(Box<models::InputTextContent>),
-    InputImageContent(Box<models::InputImageContent>),
-    InputFileContent(Box<models::InputFileContent>),
+    InputTextContent(models::InputTextContent),
+    InputImageContent(models::InputImageContent),
+    InputFileContent(models::InputFileContent),
 }
 
 impl Default for FunctionAndCustomToolCallOutput {

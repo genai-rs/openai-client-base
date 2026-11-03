@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunGraderRequest {
     #[serde(rename = "grader")]
-    pub grader: Box<models::FineTuneReinforcementMethodGrader>,
+    pub grader: models::FineTuneReinforcementMethodGrader,
     /// The dataset item provided to the grader. This will be used to populate the `item` namespace. See [the guide](https://developers.openai.com/api/docs/guides/graders) for more details.
     #[serde(rename = "item", skip_serializing_if = "Option::is_none")]
     pub item: Option<serde_json::Value>,
@@ -29,7 +29,7 @@ impl RunGraderRequest {
         model_sample: String,
     ) -> RunGraderRequest {
         RunGraderRequest {
-            grader: Box::new(grader),
+            grader,
             item: None,
             model_sample,
         }

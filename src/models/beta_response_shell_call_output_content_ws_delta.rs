@@ -21,7 +21,7 @@ pub struct BetaResponseShellCallOutputContentWsDelta {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<Box<models::BetaAgentTag>>,
+    pub agent: Option<models::BetaAgentTag>,
     /// The ID of the output item that was updated.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -32,7 +32,7 @@ pub struct BetaResponseShellCallOutputContentWsDelta {
     #[serde(rename = "command_index")]
     pub command_index: i32,
     #[serde(rename = "delta")]
-    pub delta: Box<models::BetaShellCallOutputDelta>,
+    pub delta: models::BetaShellCallOutputDelta,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -55,7 +55,7 @@ impl BetaResponseShellCallOutputContentWsDelta {
             item_id,
             output_index,
             command_index,
-            delta: Box::new(delta),
+            delta,
             stream_id: None,
         }
     }

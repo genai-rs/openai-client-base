@@ -24,7 +24,7 @@ pub struct Eval {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "data_source_config")]
-    pub data_source_config: Box<models::EvalDataSourceConfig>,
+    pub data_source_config: models::EvalDataSourceConfig,
     /// A list of testing criteria.
     #[serde(rename = "testing_criteria")]
     pub testing_criteria: Vec<models::EvalTestingCriteriaInner>,
@@ -51,7 +51,7 @@ impl Eval {
             object,
             id,
             name,
-            data_source_config: Box::new(data_source_config),
+            data_source_config,
             testing_criteria,
             created_at,
             metadata,

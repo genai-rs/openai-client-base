@@ -27,7 +27,7 @@ pub struct WebSearchCallItemResource {
     pub status: models::OutputItemStatusResource,
     /// The action performed by the web search tool.
     #[serde(rename = "action", deserialize_with = "Option::deserialize")]
-    pub action: Option<Box<models::WebSearchActionResource>>,
+    pub action: Option<models::WebSearchActionResource>,
 }
 
 impl WebSearchCallItemResource {
@@ -44,7 +44,7 @@ impl WebSearchCallItemResource {
             id,
             turn_id,
             status,
-            action: action.map(Box::new),
+            action,
         }
     }
 }

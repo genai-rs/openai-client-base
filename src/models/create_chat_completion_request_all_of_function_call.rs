@@ -18,7 +18,7 @@ use serde::{Deserialize, Serialize};
 pub enum CreateChatCompletionRequestAllOfFunctionCall {
     /// `none` means the model will not call a function and instead generates a message. `auto` means the model can pick between generating a message or calling a function.
     Text(String),
-    ChatCompletionFunctionCallOption(Box<models::ChatCompletionFunctionCallOption>),
+    ChatCompletionFunctionCallOption(models::ChatCompletionFunctionCallOption),
 }
 
 impl Default for CreateChatCompletionRequestAllOfFunctionCall {

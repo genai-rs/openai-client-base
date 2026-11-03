@@ -23,7 +23,7 @@ pub struct FunctionToolCallResource {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
-    pub caller: Option<Box<models::ToolCallCaller>>,
+    pub caller: Option<models::ToolCallCaller>,
     /// The namespace of the function to run.
     #[serde(rename = "namespace", skip_serializing_if = "Option::is_none")]
     pub namespace: Option<String>,

@@ -21,9 +21,9 @@ pub struct BetaResponseSteerFailedEvent {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "steer")]
-    pub steer: Box<models::BetaResponseSteerFailedEventSteer>,
+    pub steer: models::BetaResponseSteerFailedEventSteer,
     #[serde(rename = "error")]
-    pub error: Box<models::BetaResponseSteerFailedEventError>,
+    pub error: models::BetaResponseSteerFailedEventError,
     /// The WebSocket lane that emitted this event, when the target response is available and its `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -40,8 +40,8 @@ impl BetaResponseSteerFailedEvent {
         BetaResponseSteerFailedEvent {
             r#type,
             sequence_number,
-            steer: Box::new(steer),
-            error: Box::new(error),
+            steer,
+            error,
             stream_id: None,
         }
     }

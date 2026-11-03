@@ -21,7 +21,7 @@ pub struct BetaWebSearchToolCall {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent: Option<Option<Box<models::BetaAgentTag>>>,
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The unique ID of the web search tool call.
     #[serde(rename = "id")]
     pub id: String,
@@ -31,7 +31,7 @@ pub struct BetaWebSearchToolCall {
     #[serde(rename = "status")]
     pub status: models::BetaWebSearchCallStatus,
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
-    pub action: Option<Box<models::BetaWebSearchToolCallAction>>,
+    pub action: Option<models::BetaWebSearchToolCallAction>,
 }
 
 impl BetaWebSearchToolCall {

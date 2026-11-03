@@ -24,7 +24,7 @@ pub struct ImagesUsage {
     #[serde(rename = "output_tokens")]
     pub output_tokens: i32,
     #[serde(rename = "input_tokens_details")]
-    pub input_tokens_details: Box<models::ImagesUsageInputTokensDetails>,
+    pub input_tokens_details: models::ImagesUsageInputTokensDetails,
 }
 
 impl ImagesUsage {
@@ -39,7 +39,7 @@ impl ImagesUsage {
             total_tokens,
             input_tokens,
             output_tokens,
-            input_tokens_details: Box::new(input_tokens_details),
+            input_tokens_details,
         }
     }
 }

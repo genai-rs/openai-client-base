@@ -14,10 +14,10 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum MessageDeltaObjectDeltaContentInner {
-    MessageDeltaContentImageFileObject(Box<models::MessageDeltaContentImageFileObject>),
-    MessageDeltaContentTextObject(Box<models::MessageDeltaContentTextObject>),
-    MessageDeltaContentRefusalObject(Box<models::MessageDeltaContentRefusalObject>),
-    MessageDeltaContentImageUrlObject(Box<models::MessageDeltaContentImageUrlObject>),
+    MessageDeltaContentImageFileObject(models::MessageDeltaContentImageFileObject),
+    MessageDeltaContentTextObject(models::MessageDeltaContentTextObject),
+    MessageDeltaContentRefusalObject(models::MessageDeltaContentRefusalObject),
+    MessageDeltaContentImageUrlObject(models::MessageDeltaContentImageUrlObject),
 }
 
 impl Default for MessageDeltaObjectDeltaContentInner {

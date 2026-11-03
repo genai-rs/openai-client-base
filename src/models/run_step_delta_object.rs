@@ -21,7 +21,7 @@ pub struct RunStepDeltaObject {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "delta")]
-    pub delta: Box<models::RunStepDeltaObjectDelta>,
+    pub delta: models::RunStepDeltaObjectDelta,
 }
 
 impl RunStepDeltaObject {
@@ -31,11 +31,7 @@ impl RunStepDeltaObject {
         object: Object,
         delta: models::RunStepDeltaObjectDelta,
     ) -> RunStepDeltaObject {
-        RunStepDeltaObject {
-            id,
-            object,
-            delta: Box::new(delta),
-        }
+        RunStepDeltaObject { id, object, delta }
     }
 }
 /// The object type, which is always `thread.run.step.delta`.

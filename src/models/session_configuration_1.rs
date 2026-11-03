@@ -16,9 +16,9 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum SessionConfiguration1 {
     #[serde(rename = "realtime")]
-    Realtime(Box<models::RealtimeSessionCreateResponseGa>),
+    Realtime(models::RealtimeSessionCreateResponseGa),
     #[serde(rename = "transcription")]
-    Transcription(Box<models::RealtimeTranscriptionSessionCreateResponseGa>),
+    Transcription(models::RealtimeTranscriptionSessionCreateResponseGa),
 }
 
 /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.

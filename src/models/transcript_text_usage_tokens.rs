@@ -24,7 +24,7 @@ pub struct TranscriptTextUsageTokens {
         rename = "input_token_details",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_token_details: Option<Box<models::TranscriptTextUsageTokensInputTokenDetails>>,
+    pub input_token_details: Option<models::TranscriptTextUsageTokensInputTokenDetails>,
     /// Number of output tokens generated.
     #[serde(rename = "output_tokens")]
     pub output_tokens: i32,

@@ -20,9 +20,9 @@ pub struct CreateChatCompletionResponseChoicesInner {
     #[serde(rename = "index")]
     pub index: i32,
     #[serde(rename = "message")]
-    pub message: Box<models::ChatCompletionResponseMessage>,
+    pub message: models::ChatCompletionResponseMessage,
     #[serde(rename = "logprobs", deserialize_with = "Option::deserialize")]
-    pub logprobs: Option<Box<models::Object08>>,
+    pub logprobs: Option<models::Object08>,
 }
 
 impl CreateChatCompletionResponseChoicesInner {
@@ -35,8 +35,8 @@ impl CreateChatCompletionResponseChoicesInner {
         CreateChatCompletionResponseChoicesInner {
             finish_reason,
             index,
-            message: Box::new(message),
-            logprobs: logprobs.map(Box::new),
+            message,
+            logprobs,
         }
     }
 }

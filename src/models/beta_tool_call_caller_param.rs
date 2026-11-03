@@ -15,8 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaToolCallCallerParam {
-    BetaDirectToolCallCallerParam(Box<models::BetaDirectToolCallCallerParam>),
-    BetaProgramToolCallCallerParam(Box<models::BetaProgramToolCallCallerParam>),
+    BetaDirectToolCallCallerParam(models::BetaDirectToolCallCallerParam),
+    BetaProgramToolCallCallerParam(models::BetaProgramToolCallCallerParam),
 }
 
 impl Default for BetaToolCallCallerParam {
