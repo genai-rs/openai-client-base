@@ -33,7 +33,7 @@ pub struct MessageObject {
         rename = "incomplete_details",
         deserialize_with = "Option::deserialize"
     )]
-    pub incomplete_details: Option<models::Object012>,
+    pub incomplete_details: Option<models::MessageObjectIncompleteDetails>,
     /// The Unix timestamp (in seconds) for when the message was completed.
     #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
     pub completed_at: Option<i32>,
@@ -54,7 +54,7 @@ pub struct MessageObject {
     pub run_id: Option<String>,
     /// A list of files attached to the message, and the tools they were added to.
     #[serde(rename = "attachments", deserialize_with = "Option::deserialize")]
-    pub attachments: Option<Vec<models::CreateMessageRequestAttachmentsInner>>,
+    pub attachments: Option<Vec<models::MessageObjectAttachmentsInner>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -68,14 +68,14 @@ impl MessageObject {
         created_at: i32,
         thread_id: String,
         status: Status,
-        incomplete_details: Option<models::Object012>,
+        incomplete_details: Option<models::MessageObjectIncompleteDetails>,
         completed_at: Option<i32>,
         incomplete_at: Option<i32>,
         role: Role,
         content: Vec<models::MessageObjectContentInner>,
         assistant_id: Option<String>,
         run_id: Option<String>,
-        attachments: Option<Vec<models::CreateMessageRequestAttachmentsInner>>,
+        attachments: Option<Vec<models::MessageObjectAttachmentsInner>>,
         metadata: Option<std::collections::HashMap<String, String>>,
     ) -> MessageObject {
         MessageObject {

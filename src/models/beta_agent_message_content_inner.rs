@@ -12,7 +12,8 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaAgentMessageContentInner : A content part that makes up an input or output item.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum BetaAgentMessageContentInner {
     BetaInputTextContent(models::BetaInputTextContent),
@@ -25,4 +26,104 @@ pub enum BetaAgentMessageContentInner {
     BetaComputerScreenshotContent(models::BetaComputerScreenshotContent),
     BetaInputFileContent(models::BetaInputFileContent),
     BetaEncryptedContent(models::BetaEncryptedContent),
+}
+
+impl<'de> Deserialize<'de> for BetaAgentMessageContentInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl BetaAgentMessageContentInner {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "BetaAgentMessageContentInner";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("input_text") => dispatch::decode(value, UNION, "BetaInputTextContent")
+                .map(Self::BetaInputTextContent),
+            Tag::Value("output_text") => dispatch::decode(value, UNION, "BetaOutputTextContent")
+                .map(Self::BetaOutputTextContent),
+            Tag::Value("text") => {
+                dispatch::decode(value, UNION, "BetaTextContent").map(Self::BetaTextContent)
+            }
+            Tag::Value("summary_text") => dispatch::decode(value, UNION, "BetaSummaryTextContent")
+                .map(Self::BetaSummaryTextContent),
+            Tag::Value("reasoning_text") => {
+                dispatch::decode(value, UNION, "BetaReasoningTextContent")
+                    .map(Self::BetaReasoningTextContent)
+            }
+            Tag::Value("refusal") => {
+                dispatch::decode(value, UNION, "BetaRefusalContent").map(Self::BetaRefusalContent)
+            }
+            Tag::Value("input_image") => dispatch::decode(value, UNION, "BetaInputImageContent")
+                .map(Self::BetaInputImageContent),
+            Tag::Value("computer_screenshot") => {
+                dispatch::decode(value, UNION, "BetaComputerScreenshotContent")
+                    .map(Self::BetaComputerScreenshotContent)
+            }
+            Tag::Value("input_file") => dispatch::decode(value, UNION, "BetaInputFileContent")
+                .map(Self::BetaInputFileContent),
+            Tag::Value("encrypted_content") => {
+                dispatch::decode(value, UNION, "BetaEncryptedContent")
+                    .map(Self::BetaEncryptedContent)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for BetaAgentMessageContentInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::BetaInputTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaOutputTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaSummaryTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaReasoningTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaRefusalContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaInputImageContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaComputerScreenshotContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaInputFileContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaEncryptedContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

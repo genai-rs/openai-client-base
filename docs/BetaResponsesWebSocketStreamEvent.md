@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **code** | **String** | The final code snippet output by the code interpreter. | 
 **response** | [**models::BetaResponse**](BetaResponse.md) |  | 
 **content_index** | **i32** | The index of the content part within the output item. | 
-**part** | [**models::ResponseReasoningSummaryPartDoneEventPart**](ResponseReasoningSummaryPartDoneEventPart.md) |  | 
+**part** | [**models::BetaResponseReasoningSummaryPartDoneEventPart**](BetaResponseReasoningSummaryPartDoneEventPart.md) |  | 
 **arguments** | **String** | A JSON string containing the finalized arguments for the MCP tool call.  | 
 **command_index** | **i32** | The index of the shell command that produced output. | 
 **command** | **String** | The final shell command that was emitted. | 

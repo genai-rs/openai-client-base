@@ -45,7 +45,7 @@ pub struct BetaResponsesWebSocketStreamEvent {
     #[serde(rename = "content_index")]
     pub content_index: i32,
     #[serde(rename = "part")]
-    pub part: models::ResponseReasoningSummaryPartDoneEventPart,
+    pub part: models::BetaResponseReasoningSummaryPartDoneEventPart,
     /// A JSON string containing the finalized arguments for the MCP tool call.
     #[serde(rename = "arguments")]
     pub arguments: String,
@@ -120,7 +120,7 @@ impl BetaResponsesWebSocketStreamEvent {
         code: String,
         response: models::BetaResponse,
         content_index: i32,
-        part: models::ResponseReasoningSummaryPartDoneEventPart,
+        part: models::BetaResponseReasoningSummaryPartDoneEventPart,
         arguments: String,
         command_index: i32,
         command: String,

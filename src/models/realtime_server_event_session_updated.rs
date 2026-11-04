@@ -21,7 +21,7 @@ pub struct RealtimeServerEventSessionUpdated {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "session")]
-    pub session: models::RealtimeServerEventSessionCreatedSession,
+    pub session: models::RealtimeServerEventSessionUpdatedSession,
 }
 
 impl RealtimeServerEventSessionUpdated {
@@ -29,7 +29,7 @@ impl RealtimeServerEventSessionUpdated {
     pub fn new(
         event_id: String,
         r#type: Type,
-        session: models::RealtimeServerEventSessionCreatedSession,
+        session: models::RealtimeServerEventSessionUpdatedSession,
     ) -> RealtimeServerEventSessionUpdated {
         RealtimeServerEventSessionUpdated {
             event_id,

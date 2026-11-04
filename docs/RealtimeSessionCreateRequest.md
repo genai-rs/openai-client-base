@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **tools** | Option<[**Vec<models::RealtimeSessionCreateRequestToolsInner>**](RealtimeSessionCreateRequestToolsInner.md)> | Tools (functions) available to the model. | [optional]
 **tool_choice** | Option<**String**> | How the model chooses tools. Options are `auto`, `none`, `required`, or specify a function.  | [optional]
 **temperature** | Option<**f64**> | Sampling temperature for the model, limited to [0.6, 1.2]. Defaults to 0.8.  | [optional]
-**max_response_output_tokens** | Option<[**models::RealtimeBetaResponseCreateParamsMaxOutputTokens**](RealtimeBetaResponseCreateParamsMaxOutputTokens.md)> |  | [optional]
+**max_response_output_tokens** | Option<[**models::RealtimeSessionCreateRequestMaxResponseOutputTokens**](RealtimeSessionCreateRequestMaxResponseOutputTokens.md)> |  | [optional]
 **truncation** | Option<[**models::RealtimeTruncation**](RealtimeTruncation.md)> |  | [optional]
 **prompt** | Option<[**models::Prompt**](Prompt.md)> |  | [optional]
 

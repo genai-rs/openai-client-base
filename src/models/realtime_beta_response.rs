@@ -57,7 +57,7 @@ pub struct RealtimeBetaResponse {
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
     pub temperature: Option<f64>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_output_tokens: Option<models::RealtimeBetaResponseMaxOutputTokens>,
+    pub max_output_tokens: Option<models::RealtimeResponseMaxOutputTokens>,
 }
 
 impl RealtimeBetaResponse {

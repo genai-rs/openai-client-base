@@ -12,9 +12,54 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ToolCallCallerParam : The execution context that produced this tool call.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum ToolCallCallerParam {
     DirectToolCallCallerParam(models::DirectToolCallCallerParam),
     ProgramToolCallCallerParam(models::ProgramToolCallCallerParam),
+}
+
+impl<'de> Deserialize<'de> for ToolCallCallerParam {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl ToolCallCallerParam {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "ToolCallCallerParam";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("direct") => dispatch::decode(value, UNION, "DirectToolCallCallerParam")
+                .map(Self::DirectToolCallCallerParam),
+            Tag::Value("program") => dispatch::decode(value, UNION, "ProgramToolCallCallerParam")
+                .map(Self::ProgramToolCallCallerParam),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for ToolCallCallerParam {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::DirectToolCallCallerParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ProgramToolCallCallerParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

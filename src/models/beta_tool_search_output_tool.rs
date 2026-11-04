@@ -12,7 +12,8 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaToolSearchOutputTool : A tool definition returned by a tool search output.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum BetaToolSearchOutputTool {
     BetaFunctionTool(models::BetaFunctionTool),
@@ -33,318 +34,149 @@ pub enum BetaToolSearchOutputTool {
     BetaApplyPatchToolParam(models::BetaApplyPatchToolParam),
 }
 
-/// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](https://developers.openai.com/api/docs/guides/tools-connectors-mcp#connectors).  This field is deprecated for models released after September 1, 2026. Use `server_url` to connect to a remote MCP server, or `tunnel_id` to connect through a Secure MCP Tunnel.  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ConnectorId {
-    ConnectorDropbox,
-    ConnectorGmail,
-    ConnectorGooglecalendar,
-    ConnectorGoogledrive,
-    ConnectorMicrosoftteams,
-    ConnectorOutlookcalendar,
-    ConnectorOutlookemail,
-    ConnectorSharepoint,
-}
-
-/// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Quality {
-    Low,
-    Medium,
-    High,
-    Xhigh,
-    Max,
-    Auto,
-}
-
-/// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum OutputFormat {
-    Png,
-    Webp,
-    Jpeg,
-}
-
-/// Moderation level for the generated image. Default: `auto`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Moderation {
-    Auto,
-    Low,
-}
-
-/// Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Background {
-    Transparent,
-    Opaque,
-    Auto,
-}
-
-impl ::std::fmt::Display for ConnectorId {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::ConnectorDropbox => "ConnectorDropbox",
-            Self::ConnectorGmail => "ConnectorGmail",
-            Self::ConnectorGooglecalendar => "ConnectorGooglecalendar",
-            Self::ConnectorGoogledrive => "ConnectorGoogledrive",
-            Self::ConnectorMicrosoftteams => "ConnectorMicrosoftteams",
-            Self::ConnectorOutlookcalendar => "ConnectorOutlookcalendar",
-            Self::ConnectorOutlookemail => "ConnectorOutlookemail",
-            Self::ConnectorSharepoint => "ConnectorSharepoint",
-        })
+impl<'de> Deserialize<'de> for BetaToolSearchOutputTool {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for ConnectorId {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "ConnectorDropbox" => Ok(Self::ConnectorDropbox),
-            "ConnectorGmail" => Ok(Self::ConnectorGmail),
-            "ConnectorGooglecalendar" => Ok(Self::ConnectorGooglecalendar),
-            "ConnectorGoogledrive" => Ok(Self::ConnectorGoogledrive),
-            "ConnectorMicrosoftteams" => Ok(Self::ConnectorMicrosoftteams),
-            "ConnectorOutlookcalendar" => Ok(Self::ConnectorOutlookcalendar),
-            "ConnectorOutlookemail" => Ok(Self::ConnectorOutlookemail),
-            "ConnectorSharepoint" => Ok(Self::ConnectorSharepoint),
-            _ => Err(crate::models::ParseEnumError::new("ConnectorId", value)),
+impl BetaToolSearchOutputTool {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "BetaToolSearchOutputTool";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("function") => {
+                dispatch::decode(value, UNION, "BetaFunctionTool").map(Self::BetaFunctionTool)
+            }
+            Tag::Value("file_search") => {
+                dispatch::decode(value, UNION, "BetaFileSearchTool").map(Self::BetaFileSearchTool)
+            }
+            Tag::Value("computer") => {
+                dispatch::decode(value, UNION, "BetaComputerTool").map(Self::BetaComputerTool)
+            }
+            Tag::Value("computer_use_preview") => {
+                dispatch::decode(value, UNION, "BetaComputerUsePreviewTool")
+                    .map(Self::BetaComputerUsePreviewTool)
+            }
+            Tag::Value("web_search" | "web_search_2025_08_26") => {
+                dispatch::decode(value, UNION, "BetaWebSearchTool").map(Self::BetaWebSearchTool)
+            }
+            Tag::Value("mcp") => {
+                dispatch::decode(value, UNION, "BetaMcpTool").map(Self::BetaMcpTool)
+            }
+            Tag::Value("code_interpreter") => {
+                dispatch::decode(value, UNION, "BetaCodeInterpreterTool")
+                    .map(Self::BetaCodeInterpreterTool)
+            }
+            Tag::Value("programmatic_tool_calling") => {
+                dispatch::decode(value, UNION, "BetaProgrammaticToolCallingParam")
+                    .map(Self::BetaProgrammaticToolCallingParam)
+            }
+            Tag::Value("image_generation") => {
+                dispatch::decode(value, UNION, "BetaImageGenTool").map(Self::BetaImageGenTool)
+            }
+            Tag::Value("local_shell") => dispatch::decode(value, UNION, "BetaLocalShellToolParam")
+                .map(Self::BetaLocalShellToolParam),
+            Tag::Value("shell") => dispatch::decode(value, UNION, "BetaFunctionShellToolParam")
+                .map(Self::BetaFunctionShellToolParam),
+            Tag::Value("custom") => {
+                dispatch::decode(value, UNION, "BetaCustomToolParam").map(Self::BetaCustomToolParam)
+            }
+            Tag::Value("namespace") => {
+                dispatch::decode(value, UNION, "BetaToolSearchOutputNamespaceToolParam")
+                    .map(Self::BetaToolSearchOutputNamespaceToolParam)
+            }
+            Tag::Value("tool_search") => dispatch::decode(value, UNION, "BetaToolSearchToolParam")
+                .map(Self::BetaToolSearchToolParam),
+            Tag::Value("web_search_preview" | "web_search_preview_2025_03_11") => {
+                dispatch::decode(value, UNION, "BetaWebSearchPreviewTool")
+                    .map(Self::BetaWebSearchPreviewTool)
+            }
+            Tag::Value("apply_patch") => dispatch::decode(value, UNION, "BetaApplyPatchToolParam")
+                .map(Self::BetaApplyPatchToolParam),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for ConnectorId {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for ConnectorId {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for ConnectorId {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Quality {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Low => "Low",
-            Self::Medium => "Medium",
-            Self::High => "High",
-            Self::Xhigh => "Xhigh",
-            Self::Max => "Max",
-            Self::Auto => "Auto",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Quality {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Low" => Ok(Self::Low),
-            "Medium" => Ok(Self::Medium),
-            "High" => Ok(Self::High),
-            "Xhigh" => Ok(Self::Xhigh),
-            "Max" => Ok(Self::Max),
-            "Auto" => Ok(Self::Auto),
-            _ => Err(crate::models::ParseEnumError::new("Quality", value)),
+impl std::fmt::Display for BetaToolSearchOutputTool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::BetaFunctionTool(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaFileSearchTool(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaComputerTool(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaComputerUsePreviewTool(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaWebSearchTool(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaMcpTool(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaCodeInterpreterTool(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaProgrammaticToolCallingParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaImageGenTool(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaLocalShellToolParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaFunctionShellToolParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaCustomToolParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaToolSearchOutputNamespaceToolParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaToolSearchToolParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaWebSearchPreviewTool(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaApplyPatchToolParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Quality {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Quality {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Quality {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for OutputFormat {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Png => "Png",
-            Self::Webp => "Webp",
-            Self::Jpeg => "Jpeg",
-        })
-    }
-}
-
-impl ::std::str::FromStr for OutputFormat {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Png" => Ok(Self::Png),
-            "Webp" => Ok(Self::Webp),
-            "Jpeg" => Ok(Self::Jpeg),
-            _ => Err(crate::models::ParseEnumError::new("OutputFormat", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Moderation {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Auto => "Auto",
-            Self::Low => "Low",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Moderation {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Auto" => Ok(Self::Auto),
-            "Low" => Ok(Self::Low),
-            _ => Err(crate::models::ParseEnumError::new("Moderation", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Moderation {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Moderation {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Moderation {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Background {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Transparent => "Transparent",
-            Self::Opaque => "Opaque",
-            Self::Auto => "Auto",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Background {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Transparent" => Ok(Self::Transparent),
-            "Opaque" => Ok(Self::Opaque),
-            "Auto" => Ok(Self::Auto),
-            _ => Err(crate::models::ParseEnumError::new("Background", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Background {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Background {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Background {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
     }
 }

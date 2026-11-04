@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **object** | **Object** | Always `event`. (enum: event) | 
 **created_at** | **i32** | The Unix timestamp in seconds when the event was created. | 
 **r#type** | **Type** | Always `safety.org_alert.created`. (enum: safety.org_alert.created) | 
-**data** | [**models::WebhookSafetyAlertCreatedData**](WebhookSafetyAlertCreatedData.md) |  | 
+**data** | [**models::WebhookSafetyOrgAlertCreatedData**](WebhookSafetyOrgAlertCreatedData.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

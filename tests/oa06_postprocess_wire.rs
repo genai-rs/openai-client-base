@@ -8,7 +8,8 @@ use std::thread::{self, JoinHandle};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 use openai_client_base::apis::{
-    audio_api, configuration::Configuration, default_api, files_api, realtime_api,
+    audio_api, audit_logs_api, chat_api, configuration::Configuration, default_api, files_api,
+    realtime_api,
 };
 use openai_client_base::models::{self, FileExpirationAfter};
 use url::Url;
@@ -494,7 +495,10 @@ async fn transcription_multipart_sends_declared_fields_and_decodes_response() {
     assert!(request
         .request_line
         .starts_with("POST /audio/transcriptions HTTP/1.1"));
-    assert_eq!(response.text, "mock transcript");
+    assert_eq!(
+        serde_json::to_value(&response).expect("serialize response")["text"],
+        "mock transcript"
+    );
 }
 
 #[tokio::test]
@@ -537,7 +541,7 @@ async fn transcription_timestamp_granularities_omits_empty_and_keeps_embedded_co
 
 #[tokio::test]
 async fn transcription_chunking_strategy_sets_json_only_for_object_variant() {
-    let object = models::CreateTranscriptionRequestChunkingStrategy::Vadconfig(
+    let object = models::CreateTranscriptionRequestChunkingStrategy::VadConfig(
         models::VadConfig::new(models::vad_config::Type::ServerVad),
     );
     let object_request = transcription_chunking_request(object).await;
@@ -666,4 +670,128 @@ async fn unreadable_upload_file_fails_before_any_http_dispatch() {
         Ok(_) => panic!("unreadable file unexpectedly dispatched an HTTP request"),
         Err(error) => panic!("unexpected listener error: {error}"),
     }
+}
+
+#[tokio::test]
+async fn chat_completion_messages_send_each_role_once() {
+    use models::ChatCompletionRequestMessage as Message;
+
+    let (address, captured, server) = request_once(
+        200,
+        "application/json",
+        r#"{"id":"c","object":"chat.completion","created":1,"model":"m","choices":[{"index":0,"finish_reason":"stop","logprobs":null,"message":{"role":"assistant","content":"ok","refusal":null}}]}"#,
+    );
+    let messages = vec![
+        Message::ChatCompletionRequestDeveloperMessage(
+            models::ChatCompletionRequestDeveloperMessage::new(
+                models::ChatCompletionRequestDeveloperMessageContent::new_text("d".to_string()),
+                models::chat_completion_request_developer_message::Role::Developer,
+            ),
+        ),
+        Message::ChatCompletionRequestSystemMessage(
+            models::ChatCompletionRequestSystemMessage::new(
+                models::ChatCompletionRequestSystemMessageContent::new_text("s".to_string()),
+                models::chat_completion_request_system_message::Role::System,
+            ),
+        ),
+        Message::ChatCompletionRequestUserMessage(models::ChatCompletionRequestUserMessage::new(
+            models::ChatCompletionRequestUserMessageContent::new_text("u".to_string()),
+            models::chat_completion_request_user_message::Role::User,
+        )),
+        Message::ChatCompletionRequestAssistantMessage(
+            models::ChatCompletionRequestAssistantMessage::new(
+                models::chat_completion_request_assistant_message::Role::Assistant,
+            ),
+        ),
+        Message::ChatCompletionRequestToolMessage(models::ChatCompletionRequestToolMessage::new(
+            models::chat_completion_request_tool_message::Role::Tool,
+            models::ChatCompletionRequestToolMessageContent::new_text("t".to_string()),
+            "call_1".to_string(),
+        )),
+        Message::ChatCompletionRequestFunctionMessage(
+            models::ChatCompletionRequestFunctionMessage::new(
+                models::chat_completion_request_function_message::Role::Function,
+                Some("f".to_string()),
+                "fn_1".to_string(),
+            ),
+        ),
+    ];
+    let configuration = config(&address);
+    let response = chat_api::create_chat_completion()
+        .configuration(&configuration)
+        .create_chat_completion_request(models::CreateChatCompletionRequest::new(
+            messages,
+            "m".to_string(),
+        ))
+        .call()
+        .await
+        .expect("chat completion response");
+    let request = receive_one(captured, server);
+
+    assert_eq!(response.choices.len(), 1);
+    // Text, not a parsed value: a JSON parser would hide a repeated key.
+    let body = String::from_utf8(request.body).expect("JSON body");
+    assert_eq!(body.matches(r#""role":"#).count(), 6, "{body}");
+    let body: serde_json::Value = serde_json::from_str(&body).expect("JSON body");
+    let roles: Vec<_> = body["messages"]
+        .as_array()
+        .expect("messages")
+        .iter()
+        .map(|message| message["role"].as_str().expect("role"))
+        .collect();
+    assert_eq!(
+        roles,
+        [
+            "developer",
+            "system",
+            "user",
+            "assistant",
+            "tool",
+            "function"
+        ]
+    );
+}
+
+#[tokio::test]
+async fn list_audit_logs_decodes_actors() {
+    let (address, captured, server) = request_once(
+        200,
+        "application/json",
+        r#"{"object":"list","data":[{"id":"a1","type":"api_key.created","effective_at":1,"actor":{"type":"session","session":{"ip_address":"127.0.0.1","user":{"id":"u1","email":"u@example.test"}}}},{"id":"a2","type":"api_key.created","effective_at":2,"actor":{"type":"api_key","api_key":{"id":"k1","type":"user"}}},{"id":"a3","type":"api_key.created","effective_at":3,"actor":{}}],"first_id":"a1","last_id":"a3","has_more":false}"#,
+    );
+    let configuration = config(&address);
+    let response = audit_logs_api::list_audit_logs()
+        .configuration(&configuration)
+        .call()
+        .await
+        .expect("audit log response");
+    receive_one(captured, server);
+
+    let actors: Vec<_> = response
+        .data
+        .into_iter()
+        .map(|log| log.actor.flatten().expect("actor"))
+        .collect();
+    assert_eq!(
+        actors[0].r#type,
+        Some(models::audit_log_actor::Type::Session)
+    );
+    assert_eq!(
+        actors[0]
+            .session
+            .as_ref()
+            .expect("session")
+            .ip_address
+            .as_deref(),
+        Some("127.0.0.1")
+    );
+    assert_eq!(
+        actors[1].r#type,
+        Some(models::audit_log_actor::Type::ApiKey)
+    );
+    assert_eq!(
+        actors[1].api_key.as_ref().expect("api key").id.as_deref(),
+        Some("k1")
+    );
+    assert_eq!(actors[2], models::AuditLogActor::new());
 }

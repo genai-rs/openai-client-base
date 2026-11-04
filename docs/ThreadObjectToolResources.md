@@ -1,0 +1,12 @@
+# ThreadObjectToolResources
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**code_interpreter** | Option<[**models::ThreadObjectToolResourcesCodeInterpreter**](ThreadObjectToolResourcesCodeInterpreter.md)> |  | [optional]
+**file_search** | Option<[**models::ThreadObjectToolResourcesFileSearch**](ThreadObjectToolResourcesFileSearch.md)> |  | [optional]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

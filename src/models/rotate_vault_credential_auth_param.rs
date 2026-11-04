@@ -12,10 +12,64 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RotateVaultCredentialAuthParam : Updates to a vault credential without changing its authentication method or destination configuration.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum RotateVaultCredentialAuthParam {
     McpOauth(models::RotateVaultCredentialAuthParamMcpOauth),
     StaticBearer(models::RotateVaultCredentialAuthParamStaticBearer),
     EnvironmentVariable(models::RotateVaultCredentialAuthParamEnvironmentVariable),
+}
+
+impl<'de> Deserialize<'de> for RotateVaultCredentialAuthParam {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl RotateVaultCredentialAuthParam {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "RotateVaultCredentialAuthParam";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("mcp_oauth") => {
+                dispatch::decode(value, UNION, "McpOauth").map(Self::McpOauth)
+            }
+            Tag::Value("static_bearer") => {
+                dispatch::decode(value, UNION, "StaticBearer").map(Self::StaticBearer)
+            }
+            Tag::Value("environment_variable") => {
+                dispatch::decode(value, UNION, "EnvironmentVariable").map(Self::EnvironmentVariable)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for RotateVaultCredentialAuthParam {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::McpOauth(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::StaticBearer(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::EnvironmentVariable(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

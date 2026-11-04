@@ -38,7 +38,7 @@ pub struct BetaResponseReasoningSummaryPartAddedEvent {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i32,
     #[serde(rename = "part")]
-    pub part: models::ResponseReasoningSummaryPartAddedEventPart,
+    pub part: models::BetaResponseReasoningSummaryPartAddedEventPart,
 }
 
 impl BetaResponseReasoningSummaryPartAddedEvent {
@@ -49,7 +49,7 @@ impl BetaResponseReasoningSummaryPartAddedEvent {
         output_index: i32,
         summary_index: i32,
         sequence_number: i32,
-        part: models::ResponseReasoningSummaryPartAddedEventPart,
+        part: models::BetaResponseReasoningSummaryPartAddedEventPart,
     ) -> BetaResponseReasoningSummaryPartAddedEvent {
         BetaResponseReasoningSummaryPartAddedEvent {
             agent: None,

@@ -12,11 +12,23 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionRequestAllOfFunctionCall : Deprecated in favor of `tool_choice`.  Controls which (if any) function is called by the model.  `none` means the model will not call a function and instead generates a message.  `auto` means the model can pick between generating a message or calling a function.  Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.  `none` is the default when no functions are present. `auto` is the default if functions are present.
-/// Deprecated in favor of `tool_choice`.  Controls which (if any) function is called by the model.  `none` means the model will not call a function and instead generates a message.  `auto` means the model can pick between generating a message or calling a function.  Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.  `none` is the default when no functions are present. `auto` is the default if functions are present.
+pub use crate::models::CreateChatCompletionRequestAllOfFunctionCallTextVariantEnum;
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateChatCompletionRequestAllOfFunctionCall {
-    /// `none` means the model will not call a function and instead generates a message. `auto` means the model can pick between generating a message or calling a function.
-    Text(String),
+    TextVariant(models::CreateChatCompletionRequestAllOfFunctionCallTextVariantEnum),
     ChatCompletionFunctionCallOption(models::ChatCompletionFunctionCallOption),
+}
+
+impl std::fmt::Display for CreateChatCompletionRequestAllOfFunctionCall {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::TextVariant(value) => write!(f, "{}", value),
+            Self::ChatCompletionFunctionCallOption(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

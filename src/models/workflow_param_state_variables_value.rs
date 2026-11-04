@@ -18,3 +18,41 @@ pub enum WorkflowParamStateVariablesValue {
     Boolean(bool),
     Number(f64),
 }
+
+impl WorkflowParamStateVariablesValue {
+    pub fn new_text(text: String) -> Self {
+        Self::Text(text)
+    }
+}
+
+impl From<String> for WorkflowParamStateVariablesValue {
+    fn from(s: String) -> Self {
+        Self::Text(s)
+    }
+}
+
+impl From<&str> for WorkflowParamStateVariablesValue {
+    fn from(s: &str) -> Self {
+        Self::Text(s.to_string())
+    }
+}
+
+impl std::fmt::Display for WorkflowParamStateVariablesValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Text(value) => write!(f, "{}", value),
+            Self::Integer(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Boolean(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Number(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
+}

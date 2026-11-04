@@ -82,7 +82,7 @@ pub struct AuditLog {
     #[serde(rename = "invite.accepted", skip_serializing_if = "Option::is_none")]
     pub invite_accepted: Option<models::AuditLogInviteAccepted>,
     #[serde(rename = "invite.deleted", skip_serializing_if = "Option::is_none")]
-    pub invite_deleted: Option<models::AuditLogInviteAccepted>,
+    pub invite_deleted: Option<models::AuditLogInviteDeleted>,
     #[serde(
         rename = "ip_allowlist.created",
         skip_serializing_if = "Option::is_none"
@@ -117,7 +117,7 @@ pub struct AuditLog {
     #[serde(rename = "logout.succeeded", skip_serializing_if = "Option::is_none")]
     pub logout_succeeded: Option<serde_json::Value>,
     #[serde(rename = "logout.failed", skip_serializing_if = "Option::is_none")]
-    pub logout_failed: Option<models::AuditLogLoginFailed>,
+    pub logout_failed: Option<models::AuditLogLogoutFailed>,
     #[serde(
         rename = "organization.updated",
         skip_serializing_if = "Option::is_none"
@@ -130,7 +130,7 @@ pub struct AuditLog {
     #[serde(rename = "project.archived", skip_serializing_if = "Option::is_none")]
     pub project_archived: Option<models::AuditLogProjectArchived>,
     #[serde(rename = "project.deleted", skip_serializing_if = "Option::is_none")]
-    pub project_deleted: Option<models::AuditLogProjectArchived>,
+    pub project_deleted: Option<models::AuditLogProjectDeleted>,
     #[serde(rename = "rate_limit.updated", skip_serializing_if = "Option::is_none")]
     pub rate_limit_updated: Option<models::AuditLogRateLimitUpdated>,
     #[serde(rename = "rate_limit.deleted", skip_serializing_if = "Option::is_none")]
@@ -224,7 +224,7 @@ pub struct AuditLog {
         rename = "certificate.updated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub certificate_updated: Option<models::AuditLogCertificateCreated>,
+    pub certificate_updated: Option<models::AuditLogCertificateUpdated>,
     #[serde(
         rename = "certificate.deleted",
         skip_serializing_if = "Option::is_none"
@@ -239,7 +239,7 @@ pub struct AuditLog {
         rename = "certificates.deactivated",
         skip_serializing_if = "Option::is_none"
     )]
-    pub certificates_deactivated: Option<models::AuditLogCertificatesActivated>,
+    pub certificates_deactivated: Option<models::AuditLogCertificatesDeactivated>,
 }
 
 impl AuditLog {

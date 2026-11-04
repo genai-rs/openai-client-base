@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **turn_detection** | Option<[**models::RealtimeSessionCreateResponseTurnDetection**](RealtimeSessionCreateResponseTurnDetection.md)> |  | [optional]
 **tools** | Option<[**Vec<models::RealtimeFunctionTool>**](RealtimeFunctionTool.md)> | Tools (functions) available to the model. | [optional]
 **tool_choice** | Option<**String**> | How the model chooses tools. Options are `auto`, `none`, `required`, or specify a function.  | [optional]
-**max_output_tokens** | Option<[**models::RealtimeBetaResponseCreateParamsMaxOutputTokens**](RealtimeBetaResponseCreateParamsMaxOutputTokens.md)> |  | [optional]
+**max_output_tokens** | Option<[**models::RealtimeSessionCreateResponseMaxOutputTokens**](RealtimeSessionCreateResponseMaxOutputTokens.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

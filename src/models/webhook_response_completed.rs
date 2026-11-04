@@ -21,7 +21,7 @@ pub struct WebhookResponseCompleted {
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "data")]
-    pub data: models::WebhookResponseCancelledData,
+    pub data: models::WebhookResponseFailedData,
     /// The object of the event. Always `event`.
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
@@ -35,7 +35,7 @@ impl WebhookResponseCompleted {
     pub fn new(
         created_at: i32,
         id: String,
-        data: models::WebhookResponseCancelledData,
+        data: models::WebhookResponseFailedData,
         r#type: Type,
     ) -> WebhookResponseCompleted {
         WebhookResponseCompleted {

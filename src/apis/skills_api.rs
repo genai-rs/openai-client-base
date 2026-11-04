@@ -10,7 +10,7 @@
 
 #![allow(clippy::needless_return, clippy::into_iter_on_ref)]
 
-use super::{configuration, ContentType, Error};
+use super::{configuration, multipart_helper, ContentType, Error};
 use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
@@ -143,7 +143,17 @@ pub async fn create_skill(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
-    multipart_form = multipart_form.text("files", p_form_files.to_string());
+    match &p_form_files {
+        models::CreateSkillBodyFiles::ArrayOfStrings(value) => {
+            for path in value {
+                multipart_form =
+                    multipart_helper::add_file_to_form(multipart_form, path, "files[]")?;
+            }
+        }
+        models::CreateSkillBodyFiles::Text(value) => {
+            multipart_form = multipart_helper::add_file_to_form(multipart_form, value, "files")?;
+        }
+    }
     req_builder = req_builder.multipart(multipart_form);
 
     let req = req_builder.build()?;
@@ -204,7 +214,16 @@ pub async fn create_skill_version(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
-    multipart_form = multipart_form.text("files", p_form_files.to_string());
+    match &p_form_files {
+        models::CreateSkillVersionBodyFiles::ArrayOfStrings(value) => {
+            for path in value {
+                multipart_form = multipart_helper::add_file_to_form(multipart_form, path, "files")?;
+            }
+        }
+        models::CreateSkillVersionBodyFiles::Text(value) => {
+            multipart_form = multipart_helper::add_file_to_form(multipart_form, value, "files")?;
+        }
+    }
     if let Some(param_value) = p_form_default {
         multipart_form = multipart_form.text("default", param_value.to_string());
     }

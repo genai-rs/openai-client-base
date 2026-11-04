@@ -12,26 +12,177 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// SessionTurnItemResource : An item associated with a session turn.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum SessionTurnItemResource {
-    MessageItemResource(models::MessageItemResource),
-    ReasoningItemResource(models::ReasoningItemResource),
-    FunctionCallItemResource(models::FunctionCallItemResource),
-    FunctionCallOutputItemResource(models::FunctionCallOutputItemResource),
-    AgentMessageItemResource(models::AgentMessageItemResource),
-    McpCallItemResource(models::McpCallItemResource),
-    ComputerUseCallItemResource(models::ComputerUseCallItemResource),
-    BrowserAuthenticationRequestItemResource(models::BrowserAuthenticationRequestItemResource),
-    ComputerUseApprovalRequestResultItemResource(
-        models::ComputerUseApprovalRequestResultItemResource,
-    ),
-    WebSearchCallItemResource(models::WebSearchCallItemResource),
-    CommandExecutionItemResource(models::CommandExecutionItemResource),
-    CreateSubagentCallItemResource(models::CreateSubagentCallItemResource),
-    SendSubagentInputCallItemResource(models::SendSubagentInputCallItemResource),
-    ResumeSubagentCallItemResource(models::ResumeSubagentCallItemResource),
-    WaitForSubagentsCallItemResource(models::WaitForSubagentsCallItemResource),
-    InterruptSubagentCallItemResource(models::InterruptSubagentCallItemResource),
-    CloseSubagentCallItemResource(models::CloseSubagentCallItemResource),
+    Message(models::MessageItemResource),
+    Reasoning(models::ReasoningItemResource),
+    FunctionCall(models::FunctionCallItemResource),
+    FunctionCallOutput(models::FunctionCallOutputItemResource),
+    AgentMessage(models::AgentMessageItemResource),
+    McpCall(models::McpCallItemResource),
+    ComputerUseCall(models::ComputerUseCallItemResource),
+    ComputerUseApprovalRequest(models::BrowserAuthenticationRequestItemResource),
+    ComputerUseApprovalRequestResult(models::ComputerUseApprovalRequestResultItemResource),
+    WebSearchCall(models::WebSearchCallItemResource),
+    CommandExecution(models::CommandExecutionItemResource),
+    CreateSubagentCall(models::CreateSubagentCallItemResource),
+    SendSubagentInputCall(models::SendSubagentInputCallItemResource),
+    ResumeSubagentCall(models::ResumeSubagentCallItemResource),
+    WaitForSubagentsCall(models::WaitForSubagentsCallItemResource),
+    InterruptSubagentCall(models::InterruptSubagentCallItemResource),
+    CloseSubagentCall(models::CloseSubagentCallItemResource),
+}
+
+impl<'de> Deserialize<'de> for SessionTurnItemResource {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl SessionTurnItemResource {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "SessionTurnItemResource";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("message") => dispatch::decode(value, UNION, "Message").map(Self::Message),
+            Tag::Value("reasoning") => {
+                dispatch::decode(value, UNION, "Reasoning").map(Self::Reasoning)
+            }
+            Tag::Value("function_call") => {
+                dispatch::decode(value, UNION, "FunctionCall").map(Self::FunctionCall)
+            }
+            Tag::Value("function_call_output") => {
+                dispatch::decode(value, UNION, "FunctionCallOutput").map(Self::FunctionCallOutput)
+            }
+            Tag::Value("agent_message") => {
+                dispatch::decode(value, UNION, "AgentMessage").map(Self::AgentMessage)
+            }
+            Tag::Value("mcp_call") => dispatch::decode(value, UNION, "McpCall").map(Self::McpCall),
+            Tag::Value("computer_use_call") => {
+                dispatch::decode(value, UNION, "ComputerUseCall").map(Self::ComputerUseCall)
+            }
+            Tag::Value("computer_use_approval_request") => {
+                dispatch::decode(value, UNION, "ComputerUseApprovalRequest")
+                    .map(Self::ComputerUseApprovalRequest)
+            }
+            Tag::Value("computer_use_approval_request_result") => {
+                dispatch::decode(value, UNION, "ComputerUseApprovalRequestResult")
+                    .map(Self::ComputerUseApprovalRequestResult)
+            }
+            Tag::Value("web_search_call") => {
+                dispatch::decode(value, UNION, "WebSearchCall").map(Self::WebSearchCall)
+            }
+            Tag::Value("command_execution") => {
+                dispatch::decode(value, UNION, "CommandExecution").map(Self::CommandExecution)
+            }
+            Tag::Value("create_subagent_call") => {
+                dispatch::decode(value, UNION, "CreateSubagentCall").map(Self::CreateSubagentCall)
+            }
+            Tag::Value("send_subagent_input_call") => {
+                dispatch::decode(value, UNION, "SendSubagentInputCall")
+                    .map(Self::SendSubagentInputCall)
+            }
+            Tag::Value("resume_subagent_call") => {
+                dispatch::decode(value, UNION, "ResumeSubagentCall").map(Self::ResumeSubagentCall)
+            }
+            Tag::Value("wait_for_subagents_call") => {
+                dispatch::decode(value, UNION, "WaitForSubagentsCall")
+                    .map(Self::WaitForSubagentsCall)
+            }
+            Tag::Value("interrupt_subagent_call") => {
+                dispatch::decode(value, UNION, "InterruptSubagentCall")
+                    .map(Self::InterruptSubagentCall)
+            }
+            Tag::Value("close_subagent_call") => {
+                dispatch::decode(value, UNION, "CloseSubagentCall").map(Self::CloseSubagentCall)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for SessionTurnItemResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Message(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Reasoning(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::FunctionCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::FunctionCallOutput(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentMessage(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::McpCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ComputerUseCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ComputerUseApprovalRequest(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ComputerUseApprovalRequestResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::WebSearchCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::CommandExecution(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::CreateSubagentCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::SendSubagentInputCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ResumeSubagentCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::WaitForSubagentsCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::InterruptSubagentCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::CloseSubagentCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

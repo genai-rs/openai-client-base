@@ -33,7 +33,7 @@ pub struct RealtimeTranscriptionSessionCreateResponse {
     )]
     pub input_audio_transcription: Option<models::AudioTranscriptionResponse>,
     #[serde(rename = "turn_detection", skip_serializing_if = "Option::is_none")]
-    pub turn_detection: Option<models::RealtimeSessionCreateRequestTurnDetection>,
+    pub turn_detection: Option<models::RealtimeTranscriptionSessionCreateResponseTurnDetection>,
 }
 
 impl RealtimeTranscriptionSessionCreateResponse {

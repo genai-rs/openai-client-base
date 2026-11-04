@@ -11,71 +11,119 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum RunStreamEvent {
-    Object023(serde_json::Value),
-    Object13(serde_json::Value),
-    Object22(serde_json::Value),
-    Object32(serde_json::Value),
-    Object42(serde_json::Value),
-    Object51(serde_json::Value),
-    Object61(serde_json::Value),
-    Object7(models::Object7),
-    Object8(models::Object8),
-    Object9(models::Object9),
+    Object0(models::RunStreamEventObject0),
+    Object1(models::RunStreamEventObject1),
+    Object2(models::RunStreamEventObject2),
+    Object3(models::RunStreamEventObject3),
+    Object4(models::RunStreamEventObject4),
+    Object5(models::RunStreamEventObject5),
+    Object6(models::RunStreamEventObject6),
+    Object7(models::RunStreamEventObject7),
+    Object8(models::RunStreamEventObject8),
+    Object9(models::RunStreamEventObject9),
 }
 
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Event {
-    #[serde(rename = "thread.run.expired")]
-    ThreadRunExpired,
-}
-
-impl ::std::fmt::Display for Event {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::ThreadRunExpired => "thread.run.expired",
-        })
+impl<'de> Deserialize<'de> for RunStreamEvent {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Event {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "thread.run.expired" => Ok(Self::ThreadRunExpired),
-            _ => Err(crate::models::ParseEnumError::new("Event", value)),
+impl RunStreamEvent {
+    /// Decodes the variant that `event` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "RunStreamEvent";
+        const TAG: &str = "event";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("thread.run.created") => {
+                dispatch::decode(value, UNION, "Object0").map(Self::Object0)
+            }
+            Tag::Value("thread.run.queued") => {
+                dispatch::decode(value, UNION, "Object1").map(Self::Object1)
+            }
+            Tag::Value("thread.run.in_progress") => {
+                dispatch::decode(value, UNION, "Object2").map(Self::Object2)
+            }
+            Tag::Value("thread.run.requires_action") => {
+                dispatch::decode(value, UNION, "Object3").map(Self::Object3)
+            }
+            Tag::Value("thread.run.completed") => {
+                dispatch::decode(value, UNION, "Object4").map(Self::Object4)
+            }
+            Tag::Value("thread.run.incomplete") => {
+                dispatch::decode(value, UNION, "Object5").map(Self::Object5)
+            }
+            Tag::Value("thread.run.failed") => {
+                dispatch::decode(value, UNION, "Object6").map(Self::Object6)
+            }
+            Tag::Value("thread.run.cancelling") => {
+                dispatch::decode(value, UNION, "Object7").map(Self::Object7)
+            }
+            Tag::Value("thread.run.cancelled") => {
+                dispatch::decode(value, UNION, "Object8").map(Self::Object8)
+            }
+            Tag::Value("thread.run.expired") => {
+                dispatch::decode(value, UNION, "Object9").map(Self::Object9)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Event {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Event {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Event {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for RunStreamEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Object0(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object1(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object2(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object3(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object4(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object5(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object6(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object7(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object8(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object9(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
     }
 }

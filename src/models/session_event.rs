@@ -12,7 +12,8 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// SessionEvent : An event emitted by a Managed Agents session.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum SessionEvent {
     Error(models::SessionEventError),
@@ -60,55 +61,304 @@ pub enum SessionEvent {
     ),
 }
 
-/// Present as `incomplete` when summary generation was interrupted.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    Incomplete,
-}
-
-impl ::std::fmt::Display for Status {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Incomplete => "Incomplete",
-        })
+impl<'de> Deserialize<'de> for SessionEvent {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Status {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Incomplete" => Ok(Self::Incomplete),
-            _ => Err(crate::models::ParseEnumError::new("Status", value)),
+impl SessionEvent {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "SessionEvent";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("error") => dispatch::decode(value, UNION, "Error").map(Self::Error),
+            Tag::Value("agent.session.environment.ready") => {
+                dispatch::decode(value, UNION, "AgentSessionEnvironmentReady")
+                    .map(Self::AgentSessionEnvironmentReady)
+            }
+            Tag::Value("agent.session.environment.suspended") => {
+                dispatch::decode(value, UNION, "AgentSessionEnvironmentSuspended")
+                    .map(Self::AgentSessionEnvironmentSuspended)
+            }
+            Tag::Value("agent.session.environment.expired") => {
+                dispatch::decode(value, UNION, "AgentSessionEnvironmentExpired")
+                    .map(Self::AgentSessionEnvironmentExpired)
+            }
+            Tag::Value("agent.session.environment.reset") => {
+                dispatch::decode(value, UNION, "AgentSessionEnvironmentReset")
+                    .map(Self::AgentSessionEnvironmentReset)
+            }
+            Tag::Value("agent.output.command_execution_output.delta") => {
+                dispatch::decode(value, UNION, "AgentOutputCommandExecutionOutputDelta")
+                    .map(Self::AgentOutputCommandExecutionOutputDelta)
+            }
+            Tag::Value("agent.session.created") => {
+                dispatch::decode(value, UNION, "AgentSessionCreated").map(Self::AgentSessionCreated)
+            }
+            Tag::Value("agent.session.turn.created") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnCreated")
+                    .map(Self::AgentSessionTurnCreated)
+            }
+            Tag::Value("agent.session.turn.in_progress") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnInProgress")
+                    .map(Self::AgentSessionTurnInProgress)
+            }
+            Tag::Value("agent.session.turn.completed") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnCompleted")
+                    .map(Self::AgentSessionTurnCompleted)
+            }
+            Tag::Value("agent.session.turn.failed") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnFailed")
+                    .map(Self::AgentSessionTurnFailed)
+            }
+            Tag::Value("agent.session.turn.cancelled") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnCancelled")
+                    .map(Self::AgentSessionTurnCancelled)
+            }
+            Tag::Value("agent.session.turn.item.added") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnItemAdded")
+                    .map(Self::AgentSessionTurnItemAdded)
+            }
+            Tag::Value("agent.session.idle") => {
+                dispatch::decode(value, UNION, "AgentSessionIdle").map(Self::AgentSessionIdle)
+            }
+            Tag::Value("agent.session.in_progress") => {
+                dispatch::decode(value, UNION, "AgentSessionInProgress")
+                    .map(Self::AgentSessionInProgress)
+            }
+            Tag::Value("agent.session.requires_action") => {
+                dispatch::decode(value, UNION, "AgentSessionRequiresAction")
+                    .map(Self::AgentSessionRequiresAction)
+            }
+            Tag::Value("agent.session.failed") => {
+                dispatch::decode(value, UNION, "AgentSessionFailed").map(Self::AgentSessionFailed)
+            }
+            Tag::Value("agent.session.environment.pending") => {
+                dispatch::decode(value, UNION, "AgentSessionEnvironmentPending")
+                    .map(Self::AgentSessionEnvironmentPending)
+            }
+            Tag::Value("agent.session.environment.connected") => {
+                dispatch::decode(value, UNION, "AgentSessionEnvironmentConnected")
+                    .map(Self::AgentSessionEnvironmentConnected)
+            }
+            Tag::Value("agent.session.environment.disconnected") => {
+                dispatch::decode(value, UNION, "AgentSessionEnvironmentDisconnected")
+                    .map(Self::AgentSessionEnvironmentDisconnected)
+            }
+            Tag::Value("agent.session.environment.failed") => {
+                dispatch::decode(value, UNION, "AgentSessionEnvironmentFailed")
+                    .map(Self::AgentSessionEnvironmentFailed)
+            }
+            Tag::Value("agent.session.subagent.created") => {
+                dispatch::decode(value, UNION, "AgentSessionSubagentCreated")
+                    .map(Self::AgentSessionSubagentCreated)
+            }
+            Tag::Value("agent.session.subagent.active") => {
+                dispatch::decode(value, UNION, "AgentSessionSubagentActive")
+                    .map(Self::AgentSessionSubagentActive)
+            }
+            Tag::Value("agent.session.subagent.closed") => {
+                dispatch::decode(value, UNION, "AgentSessionSubagentClosed")
+                    .map(Self::AgentSessionSubagentClosed)
+            }
+            Tag::Value("agent.session.turn.item.done") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnItemDone")
+                    .map(Self::AgentSessionTurnItemDone)
+            }
+            Tag::Value("agent.session.turn.content_part.added") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnContentPartAdded")
+                    .map(Self::AgentSessionTurnContentPartAdded)
+            }
+            Tag::Value("agent.session.turn.content_part.done") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnContentPartDone")
+                    .map(Self::AgentSessionTurnContentPartDone)
+            }
+            Tag::Value("agent.session.turn.output_text.delta") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnOutputTextDelta")
+                    .map(Self::AgentSessionTurnOutputTextDelta)
+            }
+            Tag::Value("agent.session.turn.output_text.done") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnOutputTextDone")
+                    .map(Self::AgentSessionTurnOutputTextDone)
+            }
+            Tag::Value("agent.session.turn.reasoning_summary_part.added") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnReasoningSummaryPartAdded")
+                    .map(Self::AgentSessionTurnReasoningSummaryPartAdded)
+            }
+            Tag::Value("agent.session.turn.reasoning_summary_part.done") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnReasoningSummaryPartDone")
+                    .map(Self::AgentSessionTurnReasoningSummaryPartDone)
+            }
+            Tag::Value("agent.session.turn.reasoning_summary_text.delta") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnReasoningSummaryTextDelta")
+                    .map(Self::AgentSessionTurnReasoningSummaryTextDelta)
+            }
+            Tag::Value("agent.session.turn.reasoning_summary_text.done") => {
+                dispatch::decode(value, UNION, "AgentSessionTurnReasoningSummaryTextDone")
+                    .map(Self::AgentSessionTurnReasoningSummaryTextDone)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Status {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Status {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Status {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for SessionEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Error(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionEnvironmentReady(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionEnvironmentSuspended(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionEnvironmentExpired(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionEnvironmentReset(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentOutputCommandExecutionOutputDelta(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::AgentSessionCreated(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnCreated(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnInProgress(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnCompleted(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnFailed(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnCancelled(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnItemAdded(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionIdle(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionInProgress(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionRequiresAction(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionFailed(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionEnvironmentPending(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionEnvironmentConnected(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionEnvironmentDisconnected(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::AgentSessionEnvironmentFailed(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionSubagentCreated(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionSubagentActive(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionSubagentClosed(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnItemDone(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnContentPartAdded(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnContentPartDone(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnOutputTextDelta(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnOutputTextDone(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AgentSessionTurnReasoningSummaryPartAdded(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::AgentSessionTurnReasoningSummaryPartDone(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::AgentSessionTurnReasoningSummaryTextDelta(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::AgentSessionTurnReasoningSummaryTextDone(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+        }
     }
 }

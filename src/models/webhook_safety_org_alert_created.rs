@@ -27,7 +27,7 @@ pub struct WebhookSafetyOrgAlertCreated {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "data")]
-    pub data: models::WebhookSafetyAlertCreatedData,
+    pub data: models::WebhookSafetyOrgAlertCreatedData,
 }
 
 impl WebhookSafetyOrgAlertCreated {
@@ -37,7 +37,7 @@ impl WebhookSafetyOrgAlertCreated {
         object: Object,
         created_at: i32,
         r#type: Type,
-        data: models::WebhookSafetyAlertCreatedData,
+        data: models::WebhookSafetyOrgAlertCreatedData,
     ) -> WebhookSafetyOrgAlertCreated {
         WebhookSafetyOrgAlertCreated {
             id,

@@ -25,7 +25,7 @@ pub struct TranscriptTextDoneEvent {
     pub languages: Option<Vec<models::TranscriptionLanguage>>,
     /// The log probabilities of the individual tokens in the transcription. Only included if you [create a transcription](https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create) with the `include[]` parameter set to `logprobs`.
     #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
-    pub logprobs: Option<Vec<models::TranscriptTextDeltaEventLogprobsInner>>,
+    pub logprobs: Option<Vec<models::TranscriptTextDoneEventLogprobsInner>>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
     pub usage: Option<models::TranscriptTextUsageTokens>,
 }

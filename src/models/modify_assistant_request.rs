@@ -49,14 +49,14 @@ pub struct ModifyAssistantRequest {
     pub instructions: Option<Option<String>>,
     /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<models::AssistantObjectToolsInner>>,
+    pub tools: Option<Vec<models::ModifyAssistantRequestToolsInner>>,
     #[serde(
         rename = "tool_resources",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tool_resources: Option<Option<models::Object014>>,
+    pub tool_resources: Option<Option<models::ModifyAssistantRequestToolResources>>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(
         rename = "metadata",

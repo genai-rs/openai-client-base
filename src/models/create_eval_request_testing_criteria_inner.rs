@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum CreateEvalRequestTestingCriteriaInner {
     CreateEvalLabelModelGrader(models::CreateEvalLabelModelGrader),
@@ -21,235 +21,69 @@ pub enum CreateEvalRequestTestingCriteriaInner {
     EvalGraderScoreModel(models::EvalGraderScoreModel),
 }
 
-/// The object type, which is always `label_model`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "label_model")]
-    LabelModel,
-    #[serde(rename = "string_check")]
-    StringCheck,
-    #[serde(rename = "text_similarity")]
-    TextSimilarity,
-    #[serde(rename = "python")]
-    Python,
-    #[serde(rename = "score_model")]
-    ScoreModel,
-}
-
-/// The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Operation {
-    #[serde(rename = "eq")]
-    Eq,
-    #[serde(rename = "ne")]
-    Ne,
-    #[serde(rename = "like")]
-    Like,
-    #[serde(rename = "ilike")]
-    Ilike,
-}
-
-/// The evaluation metric to use. One of `cosine`, `fuzzy_match`, `bleu`,  `gleu`, `meteor`, `rouge_1`, `rouge_2`, `rouge_3`, `rouge_4`, `rouge_5`,  or `rouge_l`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum EvaluationMetric {
-    #[serde(rename = "cosine")]
-    Cosine,
-    #[serde(rename = "fuzzy_match")]
-    FuzzyMatch,
-    #[serde(rename = "bleu")]
-    Bleu,
-    #[serde(rename = "gleu")]
-    Gleu,
-    #[serde(rename = "meteor")]
-    Meteor,
-    #[serde(rename = "rouge_1")]
-    Rouge1,
-    #[serde(rename = "rouge_2")]
-    Rouge2,
-    #[serde(rename = "rouge_3")]
-    Rouge3,
-    #[serde(rename = "rouge_4")]
-    Rouge4,
-    #[serde(rename = "rouge_5")]
-    Rouge5,
-    #[serde(rename = "rouge_l")]
-    RougeL,
-}
-
-impl ::std::fmt::Display for Type {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::LabelModel => "label_model",
-            Self::StringCheck => "string_check",
-            Self::TextSimilarity => "text_similarity",
-            Self::Python => "python",
-            Self::ScoreModel => "score_model",
-        })
+impl<'de> Deserialize<'de> for CreateEvalRequestTestingCriteriaInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Type {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "label_model" => Ok(Self::LabelModel),
-            "string_check" => Ok(Self::StringCheck),
-            "text_similarity" => Ok(Self::TextSimilarity),
-            "python" => Ok(Self::Python),
-            "score_model" => Ok(Self::ScoreModel),
-            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+impl CreateEvalRequestTestingCriteriaInner {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "CreateEvalRequestTestingCriteriaInner";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("label_model") => {
+                dispatch::decode(value, UNION, "CreateEvalLabelModelGrader")
+                    .map(Self::CreateEvalLabelModelGrader)
+            }
+            Tag::Value("string_check") => dispatch::decode(value, UNION, "EvalGraderStringCheck")
+                .map(Self::EvalGraderStringCheck),
+            Tag::Value("text_similarity") => {
+                dispatch::decode(value, UNION, "EvalGraderTextSimilarity")
+                    .map(Self::EvalGraderTextSimilarity)
+            }
+            Tag::Value("python") => {
+                dispatch::decode(value, UNION, "EvalGraderPython").map(Self::EvalGraderPython)
+            }
+            Tag::Value("score_model") => dispatch::decode(value, UNION, "EvalGraderScoreModel")
+                .map(Self::EvalGraderScoreModel),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Operation {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Eq => "eq",
-            Self::Ne => "ne",
-            Self::Like => "like",
-            Self::Ilike => "ilike",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Operation {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "eq" => Ok(Self::Eq),
-            "ne" => Ok(Self::Ne),
-            "like" => Ok(Self::Like),
-            "ilike" => Ok(Self::Ilike),
-            _ => Err(crate::models::ParseEnumError::new("Operation", value)),
+impl std::fmt::Display for CreateEvalRequestTestingCriteriaInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::CreateEvalLabelModelGrader(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::EvalGraderStringCheck(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::EvalGraderTextSimilarity(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::EvalGraderPython(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::EvalGraderScoreModel(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Operation {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Operation {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Operation {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for EvaluationMetric {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Cosine => "cosine",
-            Self::FuzzyMatch => "fuzzy_match",
-            Self::Bleu => "bleu",
-            Self::Gleu => "gleu",
-            Self::Meteor => "meteor",
-            Self::Rouge1 => "rouge_1",
-            Self::Rouge2 => "rouge_2",
-            Self::Rouge3 => "rouge_3",
-            Self::Rouge4 => "rouge_4",
-            Self::Rouge5 => "rouge_5",
-            Self::RougeL => "rouge_l",
-        })
-    }
-}
-
-impl ::std::str::FromStr for EvaluationMetric {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "cosine" => Ok(Self::Cosine),
-            "fuzzy_match" => Ok(Self::FuzzyMatch),
-            "bleu" => Ok(Self::Bleu),
-            "gleu" => Ok(Self::Gleu),
-            "meteor" => Ok(Self::Meteor),
-            "rouge_1" => Ok(Self::Rouge1),
-            "rouge_2" => Ok(Self::Rouge2),
-            "rouge_3" => Ok(Self::Rouge3),
-            "rouge_4" => Ok(Self::Rouge4),
-            "rouge_5" => Ok(Self::Rouge5),
-            "rouge_l" => Ok(Self::RougeL),
-            _ => Err(crate::models::ParseEnumError::new(
-                "EvaluationMetric",
-                value,
-            )),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for EvaluationMetric {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for EvaluationMetric {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for EvaluationMetric {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
     }
 }

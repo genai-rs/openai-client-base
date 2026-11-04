@@ -9,14 +9,14 @@ Name | Type | Description | Notes
 **created_at** | **i32** | The Unix timestamp (in seconds) for when the message was created. | 
 **thread_id** | **String** | The [thread](https://developers.openai.com/api/docs/assistants/migration) ID that this message belongs to. | 
 **status** | **Status** | The status of the message, which can be either `in_progress`, `incomplete`, or `completed`. (enum: in_progress, incomplete, completed) | 
-**incomplete_details** | Option<[**models::Object012**](Object012.md)> |  | 
+**incomplete_details** | Option<[**models::MessageObjectIncompleteDetails**](MessageObjectIncompleteDetails.md)> |  | 
 **completed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the message was completed. | 
 **incomplete_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the message was marked as incomplete. | 
 **role** | **Role** | The entity that produced the message. One of `user` or `assistant`. (enum: user, assistant) | 
 **content** | [**Vec<models::MessageObjectContentInner>**](MessageObjectContentInner.md) | The content of the message in array of text and/or images. | 
 **assistant_id** | Option<**String**> | If applicable, the ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) that authored this message. | 
 **run_id** | Option<**String**> | The ID of the [run](https://developers.openai.com/api/docs/assistants/migration) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints. | 
-**attachments** | Option<[**Vec<models::CreateMessageRequestAttachmentsInner>**](CreateMessageRequestAttachmentsInner.md)> | A list of files attached to the message, and the tools they were added to. | 
+**attachments** | Option<[**Vec<models::MessageObjectAttachmentsInner>**](MessageObjectAttachmentsInner.md)> | A list of files attached to the message, and the tools they were added to. | 
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

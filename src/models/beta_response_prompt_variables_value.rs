@@ -20,64 +20,40 @@ pub enum BetaResponsePromptVariablesValue {
     BetaInputFileContent(models::BetaInputFileContent),
 }
 
-/// The type of the input item. Always `input_text`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "input_text")]
-    InputText,
-    #[serde(rename = "input_image")]
-    InputImage,
-    #[serde(rename = "input_file")]
-    InputFile,
-}
-
-impl ::std::fmt::Display for Type {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::InputText => "input_text",
-            Self::InputImage => "input_image",
-            Self::InputFile => "input_file",
-        })
+impl BetaResponsePromptVariablesValue {
+    pub fn new_text(text: String) -> Self {
+        Self::Text(text)
     }
 }
 
-impl ::std::str::FromStr for Type {
-    type Err = crate::models::ParseEnumError;
+impl From<String> for BetaResponsePromptVariablesValue {
+    fn from(s: String) -> Self {
+        Self::Text(s)
+    }
+}
 
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "input_text" => Ok(Self::InputText),
-            "input_image" => Ok(Self::InputImage),
-            "input_file" => Ok(Self::InputFile),
-            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+impl From<&str> for BetaResponsePromptVariablesValue {
+    fn from(s: &str) -> Self {
+        Self::Text(s.to_string())
+    }
+}
+
+impl std::fmt::Display for BetaResponsePromptVariablesValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Text(value) => write!(f, "{}", value),
+            Self::BetaInputTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaInputImageContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaInputFileContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
     }
 }

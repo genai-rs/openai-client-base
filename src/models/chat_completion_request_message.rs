@@ -11,19 +11,98 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "role")]
+#[derive(Clone, Debug, PartialEq, Serialize)]
+#[serde(untagged)]
 pub enum ChatCompletionRequestMessage {
-    #[serde(rename = "developer")]
     ChatCompletionRequestDeveloperMessage(models::ChatCompletionRequestDeveloperMessage),
-    #[serde(rename = "system")]
     ChatCompletionRequestSystemMessage(models::ChatCompletionRequestSystemMessage),
-    #[serde(rename = "user")]
     ChatCompletionRequestUserMessage(models::ChatCompletionRequestUserMessage),
-    #[serde(rename = "assistant")]
     ChatCompletionRequestAssistantMessage(models::ChatCompletionRequestAssistantMessage),
-    #[serde(rename = "tool")]
     ChatCompletionRequestToolMessage(models::ChatCompletionRequestToolMessage),
-    #[serde(rename = "function")]
     ChatCompletionRequestFunctionMessage(models::ChatCompletionRequestFunctionMessage),
+}
+
+impl<'de> Deserialize<'de> for ChatCompletionRequestMessage {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl ChatCompletionRequestMessage {
+    /// Decodes the variant that `role` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "ChatCompletionRequestMessage";
+        const TAG: &str = "role";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("developer") => {
+                dispatch::decode(value, UNION, "ChatCompletionRequestDeveloperMessage")
+                    .map(Self::ChatCompletionRequestDeveloperMessage)
+            }
+            Tag::Value("system") => {
+                dispatch::decode(value, UNION, "ChatCompletionRequestSystemMessage")
+                    .map(Self::ChatCompletionRequestSystemMessage)
+            }
+            Tag::Value("user") => {
+                dispatch::decode(value, UNION, "ChatCompletionRequestUserMessage")
+                    .map(Self::ChatCompletionRequestUserMessage)
+            }
+            Tag::Value("assistant") => {
+                dispatch::decode(value, UNION, "ChatCompletionRequestAssistantMessage")
+                    .map(Self::ChatCompletionRequestAssistantMessage)
+            }
+            Tag::Value("tool") => {
+                dispatch::decode(value, UNION, "ChatCompletionRequestToolMessage")
+                    .map(Self::ChatCompletionRequestToolMessage)
+            }
+            Tag::Value("function") => {
+                dispatch::decode(value, UNION, "ChatCompletionRequestFunctionMessage")
+                    .map(Self::ChatCompletionRequestFunctionMessage)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for ChatCompletionRequestMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::ChatCompletionRequestDeveloperMessage(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::ChatCompletionRequestSystemMessage(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ChatCompletionRequestUserMessage(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ChatCompletionRequestAssistantMessage(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::ChatCompletionRequestToolMessage(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ChatCompletionRequestFunctionMessage(value) => match serde_json::to_string(value)
+            {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

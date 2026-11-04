@@ -21,7 +21,7 @@ pub struct WebhookEvalRunSucceeded {
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "data")]
-    pub data: models::WebhookEvalRunCanceledData,
+    pub data: models::WebhookEvalRunFailedData,
     /// The object of the event. Always `event`.
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
@@ -35,7 +35,7 @@ impl WebhookEvalRunSucceeded {
     pub fn new(
         created_at: i32,
         id: String,
-        data: models::WebhookEvalRunCanceledData,
+        data: models::WebhookEvalRunFailedData,
         r#type: Type,
     ) -> WebhookEvalRunSucceeded {
         WebhookEvalRunSucceeded {

@@ -36,7 +36,7 @@ pub struct CreateThreadAndRunRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tools: Option<Option<Vec<models::AssistantObjectToolsInner>>>,
+    pub tools: Option<Option<Vec<models::CreateThreadAndRunRequestToolsInner>>>,
     #[serde(
         rename = "tool_resources",
         default,

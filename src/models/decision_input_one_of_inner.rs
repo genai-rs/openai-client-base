@@ -11,79 +11,78 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum DecisionInputOneOfInner {
-    #[serde(rename = "message")]
     Message(models::DecisionInputMessage),
-    #[serde(rename = "function_call")]
     FunctionCall(models::DecisionInputFunctionCall),
-    #[serde(rename = "function_call_output")]
     FunctionCallOutput(models::DecisionInputFunctionCallOutput),
-    #[serde(rename = "custom_tool_call")]
     CustomToolCall(models::DecisionInputCustomToolCall),
-    #[serde(rename = "custom_tool_call_output")]
     CustomToolCallOutput(models::DecisionInputCustomToolCallOutput),
 }
 
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    User,
-    Developer,
-    System,
-    Assistant,
-}
-
-impl ::std::fmt::Display for Role {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::User => "User",
-            Self::Developer => "Developer",
-            Self::System => "System",
-            Self::Assistant => "Assistant",
-        })
+impl<'de> Deserialize<'de> for DecisionInputOneOfInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Role {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "User" => Ok(Self::User),
-            "Developer" => Ok(Self::Developer),
-            "System" => Ok(Self::System),
-            "Assistant" => Ok(Self::Assistant),
-            _ => Err(crate::models::ParseEnumError::new("Role", value)),
+impl DecisionInputOneOfInner {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "DecisionInputOneOfInner";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("message") => dispatch::decode(value, UNION, "Message").map(Self::Message),
+            Tag::Value("function_call") => {
+                dispatch::decode(value, UNION, "FunctionCall").map(Self::FunctionCall)
+            }
+            Tag::Value("function_call_output") => {
+                dispatch::decode(value, UNION, "FunctionCallOutput").map(Self::FunctionCallOutput)
+            }
+            Tag::Value("custom_tool_call") => {
+                dispatch::decode(value, UNION, "CustomToolCall").map(Self::CustomToolCall)
+            }
+            Tag::Value("custom_tool_call_output") => {
+                dispatch::decode(value, UNION, "CustomToolCallOutput")
+                    .map(Self::CustomToolCallOutput)
+            }
+            Tag::Missing => dispatch::decode(value, UNION, "Message").map(Self::Message),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for DecisionInputOneOfInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Message(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::FunctionCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::FunctionCallOutput(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::CustomToolCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::CustomToolCallOutput(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
     }
 }

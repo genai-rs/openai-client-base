@@ -12,9 +12,59 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaToolSearchOutputNamespaceToolParamToolsInner : A function or custom tool loaded into a namespace by tool search.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum BetaToolSearchOutputNamespaceToolParamToolsInner {
     BetaToolSearchOutputFunctionToolParam(models::BetaToolSearchOutputFunctionToolParam),
     BetaCustomToolParam(models::BetaCustomToolParam),
+}
+
+impl<'de> Deserialize<'de> for BetaToolSearchOutputNamespaceToolParamToolsInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl BetaToolSearchOutputNamespaceToolParamToolsInner {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "BetaToolSearchOutputNamespaceToolParamToolsInner";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("function") => {
+                dispatch::decode(value, UNION, "BetaToolSearchOutputFunctionToolParam")
+                    .map(Self::BetaToolSearchOutputFunctionToolParam)
+            }
+            Tag::Value("custom") => {
+                dispatch::decode(value, UNION, "BetaCustomToolParam").map(Self::BetaCustomToolParam)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for BetaToolSearchOutputNamespaceToolParamToolsInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::BetaToolSearchOutputFunctionToolParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaCustomToolParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

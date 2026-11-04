@@ -64,7 +64,7 @@ pub struct RunObject {
     pub instructions: String,
     /// The list of tools that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run.
     #[serde(rename = "tools")]
-    pub tools: Vec<models::AssistantObjectToolsInner>,
+    pub tools: Vec<models::RunObjectToolsInner>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -128,7 +128,7 @@ impl RunObject {
         incomplete_details: Option<models::RunObjectIncompleteDetails>,
         model: String,
         instructions: String,
-        tools: Vec<models::AssistantObjectToolsInner>,
+        tools: Vec<models::RunObjectToolsInner>,
         metadata: Option<std::collections::HashMap<String, String>>,
         usage: Option<models::RunCompletionUsage>,
         max_prompt_tokens: Option<i32>,

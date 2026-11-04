@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **usage** | Option<[**models::RealtimeResponseUsage**](RealtimeResponseUsage.md)> |  | [optional]
 **conversation_id** | Option<**String**> | Which conversation the response is added to, determined by the `conversation` field in the `response.create` event. If `auto`, the response will be added to the default conversation and the value of `conversation_id` will be an id like `conv_1234`. If `none`, the response will not be added to any conversation and the value of `conversation_id` will be `null`. If responses are being triggered automatically by VAD the response will be added to the default conversation  | [optional]
 **output_modalities** | Option<**Vec<OutputModalities>**> | The set of modalities the model used to respond, currently the only possible values are `[\\\"audio\\\"]`, `[\\\"text\\\"]`. Audio output always include a text transcript. Setting the output to mode `text` will disable audio output from the model.  (enum: text, audio) | [optional]
-**max_output_tokens** | Option<[**models::RealtimeBetaResponseMaxOutputTokens**](RealtimeBetaResponseMaxOutputTokens.md)> |  | [optional]
+**max_output_tokens** | Option<[**models::RealtimeResponseMaxOutputTokens**](RealtimeResponseMaxOutputTokens.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

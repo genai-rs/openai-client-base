@@ -35,7 +35,7 @@ pub struct BetaApplyPatchToolCall {
     #[serde(rename = "status")]
     pub status: models::BetaApplyPatchCallStatus,
     #[serde(rename = "operation")]
-    pub operation: models::ApplyPatchOperation1,
+    pub operation: models::ApplyPatchOperation,
     /// The ID of the entity that created this tool call.
     #[serde(rename = "created_by", skip_serializing_if = "Option::is_none")]
     pub created_by: Option<String>,
@@ -48,7 +48,7 @@ impl BetaApplyPatchToolCall {
         id: String,
         call_id: String,
         status: models::BetaApplyPatchCallStatus,
-        operation: models::ApplyPatchOperation1,
+        operation: models::ApplyPatchOperation,
     ) -> BetaApplyPatchToolCall {
         BetaApplyPatchToolCall {
             agent: None,

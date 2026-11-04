@@ -21,7 +21,7 @@ pub struct WebhookFineTuningJobFailed {
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "data")]
-    pub data: models::WebhookFineTuningJobCancelledData,
+    pub data: models::WebhookFineTuningJobFailedData,
     /// The object of the event. Always `event`.
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
@@ -35,7 +35,7 @@ impl WebhookFineTuningJobFailed {
     pub fn new(
         created_at: i32,
         id: String,
-        data: models::WebhookFineTuningJobCancelledData,
+        data: models::WebhookFineTuningJobFailedData,
         r#type: Type,
     ) -> WebhookFineTuningJobFailed {
         WebhookFineTuningJobFailed {

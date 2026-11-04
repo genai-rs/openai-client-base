@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum ThreadItem {
     UserMessageItem(models::UserMessageItem),
@@ -22,55 +22,77 @@ pub enum ThreadItem {
     TaskGroupItem(models::TaskGroupItem),
 }
 
-/// Type discriminator that is always `chatkit.thread_item`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Object {
-    ChatkitThreadItem,
-}
-
-impl ::std::fmt::Display for Object {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::ChatkitThreadItem => "ChatkitThreadItem",
-        })
+impl<'de> Deserialize<'de> for ThreadItem {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Object {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "ChatkitThreadItem" => Ok(Self::ChatkitThreadItem),
-            _ => Err(crate::models::ParseEnumError::new("Object", value)),
+impl ThreadItem {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "ThreadItem";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("chatkit.user_message") => {
+                dispatch::decode(value, UNION, "UserMessageItem").map(Self::UserMessageItem)
+            }
+            Tag::Value("chatkit.assistant_message") => {
+                dispatch::decode(value, UNION, "AssistantMessageItem")
+                    .map(Self::AssistantMessageItem)
+            }
+            Tag::Value("chatkit.widget") => {
+                dispatch::decode(value, UNION, "WidgetMessageItem").map(Self::WidgetMessageItem)
+            }
+            Tag::Value("chatkit.client_tool_call") => {
+                dispatch::decode(value, UNION, "ClientToolCallItem").map(Self::ClientToolCallItem)
+            }
+            Tag::Value("chatkit.task") => {
+                dispatch::decode(value, UNION, "TaskItem").map(Self::TaskItem)
+            }
+            Tag::Value("chatkit.task_group") => {
+                dispatch::decode(value, UNION, "TaskGroupItem").map(Self::TaskGroupItem)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Object {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Object {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Object {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for ThreadItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::UserMessageItem(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AssistantMessageItem(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::WidgetMessageItem(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ClientToolCallItem(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::TaskItem(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::TaskGroupItem(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
     }
 }

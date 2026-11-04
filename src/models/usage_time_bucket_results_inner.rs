@@ -11,87 +11,136 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "object")]
+#[derive(Clone, Debug, PartialEq, Serialize)]
+#[serde(untagged)]
 pub enum UsageTimeBucketResultsInner {
-    #[serde(rename = "organization.usage.completions.result")]
     UsageCompletionsResult(models::UsageCompletionsResult),
-    #[serde(rename = "organization.usage.embeddings.result")]
     UsageEmbeddingsResult(models::UsageEmbeddingsResult),
-    #[serde(rename = "organization.usage.moderations.result")]
     UsageModerationsResult(models::UsageModerationsResult),
-    #[serde(rename = "organization.usage.images.result")]
     UsageImagesResult(models::UsageImagesResult),
-    #[serde(rename = "organization.usage.audio_speeches.result")]
     UsageAudioSpeechesResult(models::UsageAudioSpeechesResult),
-    #[serde(rename = "organization.usage.audio_transcriptions.result")]
     UsageAudioTranscriptionsResult(models::UsageAudioTranscriptionsResult),
-    #[serde(rename = "organization.usage.vector_stores.result")]
     UsageVectorStoresResult(models::UsageVectorStoresResult),
-    #[serde(rename = "organization.usage.code_interpreter_sessions.result")]
     UsageCodeInterpreterSessionsResult(models::UsageCodeInterpreterSessionsResult),
-    #[serde(rename = "organization.usage.file_searches.result")]
     UsageFileSearchCallsResult(models::UsageFileSearchCallsResult),
-    #[serde(rename = "organization.usage.web_searches.result")]
     UsageWebSearchCallsResult(models::UsageWebSearchCallsResult),
-    #[serde(rename = "organization.costs.result")]
     CostsResult(models::CostsResult),
 }
 
-/// When grouped by `api_source`, `agents_api` identifies attributed Agents API activity and `unlabeled` includes all records without published source attribution, including historical and unknown origins. Unlabeled does not imply direct API usage. Without source grouping, this field is null.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ApiSource {
-    #[serde(rename = "agents_api")]
-    AgentsApi,
-    #[serde(rename = "unlabeled")]
-    Unlabeled,
-}
-
-impl ::std::fmt::Display for ApiSource {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::AgentsApi => "agents_api",
-            Self::Unlabeled => "unlabeled",
-        })
+impl<'de> Deserialize<'de> for UsageTimeBucketResultsInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for ApiSource {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "agents_api" => Ok(Self::AgentsApi),
-            "unlabeled" => Ok(Self::Unlabeled),
-            _ => Err(crate::models::ParseEnumError::new("ApiSource", value)),
+impl UsageTimeBucketResultsInner {
+    /// Decodes the variant that `object` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "UsageTimeBucketResultsInner";
+        const TAG: &str = "object";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("organization.usage.completions.result") => {
+                dispatch::decode(value, UNION, "UsageCompletionsResult")
+                    .map(Self::UsageCompletionsResult)
+            }
+            Tag::Value("organization.usage.embeddings.result") => {
+                dispatch::decode(value, UNION, "UsageEmbeddingsResult")
+                    .map(Self::UsageEmbeddingsResult)
+            }
+            Tag::Value("organization.usage.moderations.result") => {
+                dispatch::decode(value, UNION, "UsageModerationsResult")
+                    .map(Self::UsageModerationsResult)
+            }
+            Tag::Value("organization.usage.images.result") => {
+                dispatch::decode(value, UNION, "UsageImagesResult").map(Self::UsageImagesResult)
+            }
+            Tag::Value("organization.usage.audio_speeches.result") => {
+                dispatch::decode(value, UNION, "UsageAudioSpeechesResult")
+                    .map(Self::UsageAudioSpeechesResult)
+            }
+            Tag::Value("organization.usage.audio_transcriptions.result") => {
+                dispatch::decode(value, UNION, "UsageAudioTranscriptionsResult")
+                    .map(Self::UsageAudioTranscriptionsResult)
+            }
+            Tag::Value("organization.usage.vector_stores.result") => {
+                dispatch::decode(value, UNION, "UsageVectorStoresResult")
+                    .map(Self::UsageVectorStoresResult)
+            }
+            Tag::Value("organization.usage.code_interpreter_sessions.result") => {
+                dispatch::decode(value, UNION, "UsageCodeInterpreterSessionsResult")
+                    .map(Self::UsageCodeInterpreterSessionsResult)
+            }
+            Tag::Value("organization.usage.file_searches.result") => {
+                dispatch::decode(value, UNION, "UsageFileSearchCallsResult")
+                    .map(Self::UsageFileSearchCallsResult)
+            }
+            Tag::Value("organization.usage.web_searches.result") => {
+                dispatch::decode(value, UNION, "UsageWebSearchCallsResult")
+                    .map(Self::UsageWebSearchCallsResult)
+            }
+            Tag::Value("organization.costs.result") => {
+                dispatch::decode(value, UNION, "CostsResult").map(Self::CostsResult)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for ApiSource {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for ApiSource {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for ApiSource {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for UsageTimeBucketResultsInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::UsageCompletionsResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::UsageEmbeddingsResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::UsageModerationsResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::UsageImagesResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::UsageAudioSpeechesResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::UsageAudioTranscriptionsResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::UsageVectorStoresResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::UsageCodeInterpreterSessionsResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::UsageFileSearchCallsResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::UsageWebSearchCallsResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::CostsResult(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
     }
 }

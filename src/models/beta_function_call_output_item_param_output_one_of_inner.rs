@@ -12,13 +12,65 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaFunctionCallOutputItemParamOutputOneOfInner : A piece of message content, such as text, an image, or a file.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum BetaFunctionCallOutputItemParamOutputOneOfInner {
-    #[serde(rename = "BetaInputTextContentParam")]
     BetaInputTextContentParam(models::BetaInputTextContentParam),
-    #[serde(rename = "BetaInputImageContentParamAutoParam")]
     BetaInputImageContentParamAutoParam(models::BetaInputImageContentParamAutoParam),
-    #[serde(rename = "BetaInputFileContentParam")]
     BetaInputFileContentParam(models::BetaInputFileContentParam),
+}
+
+impl<'de> Deserialize<'de> for BetaFunctionCallOutputItemParamOutputOneOfInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl BetaFunctionCallOutputItemParamOutputOneOfInner {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "BetaFunctionCallOutputItemParamOutputOneOfInner";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("input_text") => dispatch::decode(value, UNION, "BetaInputTextContentParam")
+                .map(Self::BetaInputTextContentParam),
+            Tag::Value("input_image") => {
+                dispatch::decode(value, UNION, "BetaInputImageContentParamAutoParam")
+                    .map(Self::BetaInputImageContentParamAutoParam)
+            }
+            Tag::Value("input_file") => dispatch::decode(value, UNION, "BetaInputFileContentParam")
+                .map(Self::BetaInputFileContentParam),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for BetaFunctionCallOutputItemParamOutputOneOfInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::BetaInputTextContentParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaInputImageContentParamAutoParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaInputFileContentParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

@@ -28,7 +28,7 @@ pub struct BetaAutoCodeInterpreterToolParam {
     )]
     pub memory_limit: Option<Option<models::BetaContainerMemoryLimit>>,
     #[serde(rename = "network_policy", skip_serializing_if = "Option::is_none")]
-    pub network_policy: Option<models::BetaContainerAutoParamNetworkPolicy>,
+    pub network_policy: Option<models::BetaAutoCodeInterpreterToolParamNetworkPolicy>,
 }
 
 impl BetaAutoCodeInterpreterToolParam {

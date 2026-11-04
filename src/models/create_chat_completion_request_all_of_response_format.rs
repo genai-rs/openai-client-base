@@ -12,10 +12,62 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionRequestAllOfResponseFormat : An object specifying the format that the model must output.  Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](https://developers.openai.com/api/docs/guides/structured-outputs).  Setting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum CreateChatCompletionRequestAllOfResponseFormat {
     ResponseFormatText(models::ResponseFormatText),
     ResponseFormatJsonSchema(models::ResponseFormatJsonSchema),
     ResponseFormatJsonObject(models::ResponseFormatJsonObject),
+}
+
+impl<'de> Deserialize<'de> for CreateChatCompletionRequestAllOfResponseFormat {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl CreateChatCompletionRequestAllOfResponseFormat {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "CreateChatCompletionRequestAllOfResponseFormat";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("text") => {
+                dispatch::decode(value, UNION, "ResponseFormatText").map(Self::ResponseFormatText)
+            }
+            Tag::Value("json_schema") => dispatch::decode(value, UNION, "ResponseFormatJsonSchema")
+                .map(Self::ResponseFormatJsonSchema),
+            Tag::Value("json_object") => dispatch::decode(value, UNION, "ResponseFormatJsonObject")
+                .map(Self::ResponseFormatJsonObject),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for CreateChatCompletionRequestAllOfResponseFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::ResponseFormatText(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ResponseFormatJsonSchema(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ResponseFormatJsonObject(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

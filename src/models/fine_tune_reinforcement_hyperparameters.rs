@@ -15,14 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneReinforcementHyperparameters {
     #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
-    pub batch_size: Option<models::FineTuneDpoHyperparametersBatchSize>,
+    pub batch_size: Option<models::FineTuneReinforcementHyperparametersBatchSize>,
     #[serde(
         rename = "learning_rate_multiplier",
         skip_serializing_if = "Option::is_none"
     )]
-    pub learning_rate_multiplier: Option<models::FineTuneDpoHyperparametersLearningRateMultiplier>,
+    pub learning_rate_multiplier:
+        Option<models::FineTuneReinforcementHyperparametersLearningRateMultiplier>,
     #[serde(rename = "n_epochs", skip_serializing_if = "Option::is_none")]
-    pub n_epochs: Option<models::FineTuneDpoHyperparametersNEpochs>,
+    pub n_epochs: Option<models::FineTuneReinforcementHyperparametersNEpochs>,
     /// Level of reasoning effort.
     #[serde(rename = "reasoning_effort", skip_serializing_if = "Option::is_none")]
     pub reasoning_effort: Option<ReasoningEffort>,

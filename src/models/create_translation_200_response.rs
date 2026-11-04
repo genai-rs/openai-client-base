@@ -14,6 +14,22 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTranslation200Response {
-    CreateTranslationResponseJson(models::CreateTranslationResponseJson),
     CreateTranslationResponseVerboseJson(models::CreateTranslationResponseVerboseJson),
+    CreateTranslationResponseJson(models::CreateTranslationResponseJson),
+}
+
+impl std::fmt::Display for CreateTranslation200Response {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::CreateTranslationResponseVerboseJson(value) => match serde_json::to_string(value)
+            {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::CreateTranslationResponseJson(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

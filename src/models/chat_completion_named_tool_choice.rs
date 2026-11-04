@@ -18,14 +18,14 @@ pub struct ChatCompletionNamedToolChoice {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "function")]
-    pub function: models::AssistantsNamedToolChoiceFunction,
+    pub function: models::ChatCompletionNamedToolChoiceFunction,
 }
 
 impl ChatCompletionNamedToolChoice {
     /// Specifies a tool the model should use. Use to force the model to call a specific function.
     pub fn new(
         r#type: Type,
-        function: models::AssistantsNamedToolChoiceFunction,
+        function: models::ChatCompletionNamedToolChoiceFunction,
     ) -> ChatCompletionNamedToolChoice {
         ChatCompletionNamedToolChoice { r#type, function }
     }

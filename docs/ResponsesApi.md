@@ -116,7 +116,7 @@ Name | Type | Description  | Required | Notes
 
 ## beta_delete_response
 
-> models::DeleteResponse200Response beta_delete_response(response_id, openai_beta)
+> models::BetaDeleteResponse200Response beta_delete_response(response_id, openai_beta)
 Delete a model response
 
 Deletes a model response with the given ID. 
@@ -131,7 +131,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteResponse200Response**](deleteResponse_200_response.md)
+[**models::BetaDeleteResponse200Response**](beta_deleteResponse_200_response.md)
 
 ### Authorization
 

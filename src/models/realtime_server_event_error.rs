@@ -21,7 +21,7 @@ pub struct RealtimeServerEventError {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "error")]
-    pub error: models::RealtimeBetaServerEventErrorError,
+    pub error: models::RealtimeServerEventErrorError,
 }
 
 impl RealtimeServerEventError {
@@ -29,7 +29,7 @@ impl RealtimeServerEventError {
     pub fn new(
         event_id: String,
         r#type: Type,
-        error: models::RealtimeBetaServerEventErrorError,
+        error: models::RealtimeServerEventErrorError,
     ) -> RealtimeServerEventError {
         RealtimeServerEventError {
             event_id,

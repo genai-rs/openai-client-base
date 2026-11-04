@@ -17,7 +17,7 @@ pub struct RealtimeCreateClientSecretRequest {
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<models::ClientSecretExpiration>,
     #[serde(rename = "session", skip_serializing_if = "Option::is_none")]
-    pub session: Option<models::SessionConfiguration>,
+    pub session: Option<models::RealtimeCreateClientSecretRequestSession>,
 }
 
 impl RealtimeCreateClientSecretRequest {

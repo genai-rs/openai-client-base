@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct AuditLogIpAllowlistConfigDeactivated {
     /// The configurations that were deactivated.
     #[serde(rename = "configs", skip_serializing_if = "Option::is_none")]
-    pub configs: Option<Vec<models::AuditLogIpAllowlistConfigActivatedConfigsInner>>,
+    pub configs: Option<Vec<models::AuditLogIpAllowlistConfigDeactivatedConfigsInner>>,
 }
 
 impl AuditLogIpAllowlistConfigDeactivated {

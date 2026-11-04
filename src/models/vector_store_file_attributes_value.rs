@@ -17,3 +17,37 @@ pub enum VectorStoreFileAttributesValue {
     Number(f64),
     Boolean(bool),
 }
+
+impl VectorStoreFileAttributesValue {
+    pub fn new_text(text: String) -> Self {
+        Self::Text(text)
+    }
+}
+
+impl From<String> for VectorStoreFileAttributesValue {
+    fn from(s: String) -> Self {
+        Self::Text(s)
+    }
+}
+
+impl From<&str> for VectorStoreFileAttributesValue {
+    fn from(s: &str) -> Self {
+        Self::Text(s.to_string())
+    }
+}
+
+impl std::fmt::Display for VectorStoreFileAttributesValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Text(value) => write!(f, "{}", value),
+            Self::Number(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Boolean(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
+}

@@ -22,7 +22,7 @@ pub struct BetaCompactResponseMethodPublicBody {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input: Option<Option<models::BetaTokenCountsBodyInput>>,
+    pub input: Option<Option<models::BetaCompactResponseMethodPublicBodyInput>>,
     /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",

@@ -12,69 +12,131 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationServerEvent : A Realtime translation server event.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum RealtimeTranslationServerEvent {
     RealtimeServerEventError(models::RealtimeServerEventError),
-    SessionCreated(models::RealtimeTranslationServerEventSessionCreated),
-    SessionUpdated(models::RealtimeTranslationServerEventSessionUpdated),
-    SessionClosed(models::RealtimeTranslationServerEventSessionClosed),
-    SessionInputTranscriptDelta(models::RealtimeTranslationServerEventSessionInputTranscriptDelta),
-    SessionOutputTranscriptDelta(
+    RealtimeTranslationServerEventSessionCreated(
+        models::RealtimeTranslationServerEventSessionCreated,
+    ),
+    RealtimeTranslationServerEventSessionUpdated(
+        models::RealtimeTranslationServerEventSessionUpdated,
+    ),
+    RealtimeTranslationServerEventSessionClosed(
+        models::RealtimeTranslationServerEventSessionClosed,
+    ),
+    RealtimeTranslationServerEventSessionInputTranscriptDelta(
+        models::RealtimeTranslationServerEventSessionInputTranscriptDelta,
+    ),
+    RealtimeTranslationServerEventSessionOutputTranscriptDelta(
         models::RealtimeTranslationServerEventSessionOutputTranscriptDelta,
     ),
-    SessionOutputAudioDelta(models::RealtimeTranslationServerEventSessionOutputAudioDelta),
+    RealtimeTranslationServerEventSessionOutputAudioDelta(
+        models::RealtimeTranslationServerEventSessionOutputAudioDelta,
+    ),
 }
 
-/// Audio encoding for `delta`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Format {
-    Pcm16,
-}
-
-impl ::std::fmt::Display for Format {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Pcm16 => "Pcm16",
-        })
+impl<'de> Deserialize<'de> for RealtimeTranslationServerEvent {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Format {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Pcm16" => Ok(Self::Pcm16),
-            _ => Err(crate::models::ParseEnumError::new("Format", value)),
+impl RealtimeTranslationServerEvent {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "RealtimeTranslationServerEvent";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("error") => dispatch::decode(value, UNION, "RealtimeServerEventError")
+                .map(Self::RealtimeServerEventError),
+            Tag::Value("session.created") => {
+                dispatch::decode(value, UNION, "RealtimeTranslationServerEventSessionCreated")
+                    .map(Self::RealtimeTranslationServerEventSessionCreated)
+            }
+            Tag::Value("session.updated") => {
+                dispatch::decode(value, UNION, "RealtimeTranslationServerEventSessionUpdated")
+                    .map(Self::RealtimeTranslationServerEventSessionUpdated)
+            }
+            Tag::Value("session.closed") => {
+                dispatch::decode(value, UNION, "RealtimeTranslationServerEventSessionClosed")
+                    .map(Self::RealtimeTranslationServerEventSessionClosed)
+            }
+            Tag::Value("session.input_transcript.delta") => dispatch::decode(
+                value,
+                UNION,
+                "RealtimeTranslationServerEventSessionInputTranscriptDelta",
+            )
+            .map(Self::RealtimeTranslationServerEventSessionInputTranscriptDelta),
+            Tag::Value("session.output_transcript.delta") => dispatch::decode(
+                value,
+                UNION,
+                "RealtimeTranslationServerEventSessionOutputTranscriptDelta",
+            )
+            .map(Self::RealtimeTranslationServerEventSessionOutputTranscriptDelta),
+            Tag::Value("session.output_audio.delta") => dispatch::decode(
+                value,
+                UNION,
+                "RealtimeTranslationServerEventSessionOutputAudioDelta",
+            )
+            .map(Self::RealtimeTranslationServerEventSessionOutputAudioDelta),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Format {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Format {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Format {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for RealtimeTranslationServerEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::RealtimeServerEventError(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::RealtimeTranslationServerEventSessionCreated(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::RealtimeTranslationServerEventSessionUpdated(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::RealtimeTranslationServerEventSessionClosed(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::RealtimeTranslationServerEventSessionInputTranscriptDelta(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::RealtimeTranslationServerEventSessionOutputTranscriptDelta(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::RealtimeTranslationServerEventSessionOutputAudioDelta(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+        }
     }
 }

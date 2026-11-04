@@ -12,7 +12,8 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// AgentToolResource : A tool available to the agent.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum AgentToolResource {
     Function(models::AgentToolResourceFunction),
@@ -20,4 +21,70 @@ pub enum AgentToolResource {
     Mcp(models::AgentToolResourceMcp),
     WebSearch(models::AgentToolResourceWebSearch),
     ComputerUse(models::AgentToolResourceComputerUse),
+}
+
+impl<'de> Deserialize<'de> for AgentToolResource {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl AgentToolResource {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "AgentToolResource";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("function") => {
+                dispatch::decode(value, UNION, "Function").map(Self::Function)
+            }
+            Tag::Value("programmatic_tool_calling") => {
+                dispatch::decode(value, UNION, "ProgrammaticToolCalling")
+                    .map(Self::ProgrammaticToolCalling)
+            }
+            Tag::Value("mcp") => dispatch::decode(value, UNION, "Mcp").map(Self::Mcp),
+            Tag::Value("web_search") => {
+                dispatch::decode(value, UNION, "WebSearch").map(Self::WebSearch)
+            }
+            Tag::Value("computer_use") => {
+                dispatch::decode(value, UNION, "ComputerUse").map(Self::ComputerUse)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for AgentToolResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Function(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ProgrammaticToolCalling(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Mcp(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::WebSearch(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ComputerUse(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

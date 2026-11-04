@@ -58,7 +58,7 @@ pub struct RealtimeSessionCreateResponse {
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<String>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
+    pub max_output_tokens: Option<models::RealtimeSessionCreateResponseMaxOutputTokens>,
 }
 
 impl RealtimeSessionCreateResponse {
