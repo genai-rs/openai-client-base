@@ -5,8 +5,7 @@ use openai_client_base::models::{
     CreateImageRequest, CreateRunRequest, CreateThreadAndRunRequest, DecisionRequest,
     DecisionRequestPromptCacheOptions, LiveHostedShellToolInputParam, LiveMcpToolChoiceParam,
     PredictionContent, PromptCacheModeEnum, PromptCacheOptions, PromptCacheOptionsParam,
-    PromptCacheTtlEnum, RealtimeSessionCreateRequestGa, StopConfiguration,
-    UpdateVectorStoreRequest,
+    RealtimeSessionCreateRequestGa, StopConfiguration, UpdateVectorStoreRequest,
 };
 use serde::{de::DeserializeOwned, Serialize};
 use serde_json::{json, Value};
@@ -299,10 +298,10 @@ fn constructors_keep_their_required_arguments_and_usable_defaults() {
         ),
         &["name"],
     );
-    let response_options = PromptCacheOptions::new(
-        PromptCacheTtlEnum::Variant30m,
-        PromptCacheModeEnum::Explicit,
-    );
+    // Built from JSON: the contract is the wire format, and the name of the
+    // generated `ttl` type follows how the upstream spec declares that enum.
+    let response_options: PromptCacheOptions =
+        serde_json::from_value(json!({"ttl": "30m", "mode": "explicit"})).unwrap();
     assert_eq!(
         serde_json::to_value(response_options).unwrap(),
         json!({"ttl": "30m", "mode": "explicit"})
@@ -471,7 +470,6 @@ fn prompt_cache_request_param_keeps_optional_ttl_and_mode() {
 
     let value: PromptCacheOptionsParam =
         serde_json::from_value(json!({"ttl": "30m", "mode": "explicit"})).unwrap();
-    assert_eq!(value.ttl, Some(PromptCacheTtlEnum::Variant30m));
     assert_eq!(value.mode, Some(PromptCacheModeEnum::Explicit));
     assert_eq!(
         serde_json::to_value(value).unwrap(),
