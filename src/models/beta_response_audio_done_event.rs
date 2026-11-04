@@ -27,12 +27,12 @@ pub struct BetaResponseAudioDoneEvent {
     pub r#type: Type,
     /// The sequence number of the delta.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl BetaResponseAudioDoneEvent {
     /// Emitted when the audio response is complete.
-    pub fn new(r#type: Type, sequence_number: i32) -> BetaResponseAudioDoneEvent {
+    pub fn new(r#type: Type, sequence_number: i64) -> BetaResponseAudioDoneEvent {
         BetaResponseAudioDoneEvent {
             agent: None,
             r#type,

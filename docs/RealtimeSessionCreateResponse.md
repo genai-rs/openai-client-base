@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**String**> | Unique identifier for the session that looks like `sess_1234567890abcdef`.  | [optional]
 **object** | Option<**String**> | The object type. Always `realtime.session`. | [optional]
-**expires_at** | Option<**i32**> | Expiration timestamp for the session, in seconds since epoch. | [optional]
+**expires_at** | Option<**i64**> | Expiration timestamp for the session, in seconds since epoch. | [optional]
 **include** | Option<**Vec<Include>**> | Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.  (enum: item.input_audio_transcription.logprobs) | [optional]
 **model** | Option<**String**> | The Realtime model used for this session. | [optional]
 **output_modalities** | Option<**serde_json::Value**> | The set of modalities the model can respond with. To disable audio, set this to [\"text\"].  | [optional]

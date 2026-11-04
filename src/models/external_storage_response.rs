@@ -26,7 +26,7 @@ pub struct ExternalStorageResponse {
     #[serde(rename = "status")]
     pub status: models::ExternalStorageStatus,
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
 }
 
 impl ExternalStorageResponse {
@@ -37,7 +37,7 @@ impl ExternalStorageResponse {
         provider: models::ExternalStorageResponseProvider,
         geography: String,
         status: models::ExternalStorageStatus,
-        created_at: i32,
+        created_at: i64,
     ) -> ExternalStorageResponse {
         ExternalStorageResponse {
             object,

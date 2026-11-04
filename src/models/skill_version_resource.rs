@@ -26,7 +26,7 @@ pub struct SkillVersionResource {
     pub version: String,
     /// Unix timestamp (seconds) for when the version was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// Name of the skill version.
     #[serde(rename = "name")]
     pub name: String,
@@ -41,7 +41,7 @@ impl SkillVersionResource {
         id: String,
         skill_id: String,
         version: String,
-        created_at: i32,
+        created_at: i64,
         name: String,
         description: String,
     ) -> SkillVersionResource {

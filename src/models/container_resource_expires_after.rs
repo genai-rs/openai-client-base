@@ -18,7 +18,7 @@ pub struct ContainerResourceExpiresAfter {
     pub anchor: Option<Anchor>,
     /// The number of minutes after the anchor before the container expires.
     #[serde(rename = "minutes", skip_serializing_if = "Option::is_none")]
-    pub minutes: Option<i32>,
+    pub minutes: Option<i64>,
 }
 
 impl ContainerResourceExpiresAfter {

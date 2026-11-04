@@ -21,10 +21,10 @@ pub struct RealtimeServerEventInputAudioBufferTimeoutTriggered {
     pub r#type: Type,
     /// Millisecond offset of audio written to the input audio buffer that was after the playback time of the last model response.
     #[serde(rename = "audio_start_ms")]
-    pub audio_start_ms: i32,
+    pub audio_start_ms: i64,
     /// Millisecond offset of audio written to the input audio buffer at the time the timeout was triggered.
     #[serde(rename = "audio_end_ms")]
-    pub audio_end_ms: i32,
+    pub audio_end_ms: i64,
     /// The ID of the item associated with this segment.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -35,8 +35,8 @@ impl RealtimeServerEventInputAudioBufferTimeoutTriggered {
     pub fn new(
         event_id: String,
         r#type: Type,
-        audio_start_ms: i32,
-        audio_end_ms: i32,
+        audio_start_ms: i64,
+        audio_end_ms: i64,
         item_id: String,
     ) -> RealtimeServerEventInputAudioBufferTimeoutTriggered {
         RealtimeServerEventInputAudioBufferTimeoutTriggered {

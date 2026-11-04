@@ -15,13 +15,13 @@ pub struct McpProtocolError {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "code")]
-    pub code: i32,
+    pub code: i64,
     #[serde(rename = "message")]
     pub message: String,
 }
 
 impl McpProtocolError {
-    pub fn new(r#type: Type, code: i32, message: String) -> McpProtocolError {
+    pub fn new(r#type: Type, code: i64, message: String) -> McpProtocolError {
         McpProtocolError {
             r#type,
             code,

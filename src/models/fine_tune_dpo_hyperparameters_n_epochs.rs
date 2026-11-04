@@ -18,7 +18,7 @@ pub use crate::models::FineTuneDpoHyperparametersNEpochsTextVariantEnum;
 #[serde(untagged)]
 pub enum FineTuneDpoHyperparametersNEpochs {
     TextVariant(models::FineTuneDpoHyperparametersNEpochsTextVariantEnum),
-    Integer(i32),
+    Integer(i64),
 }
 
 impl std::fmt::Display for FineTuneDpoHyperparametersNEpochs {

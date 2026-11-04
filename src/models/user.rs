@@ -46,13 +46,13 @@ pub struct User {
     pub role: Option<Option<String>>,
     /// The Unix timestamp (in seconds) of when the user was added.
     #[serde(rename = "added_at")]
-    pub added_at: i32,
+    pub added_at: i64,
     /// Whether this is the organization's default user.
     #[serde(rename = "is_default", skip_serializing_if = "Option::is_none")]
     pub is_default: Option<bool>,
     /// The Unix timestamp (in seconds) of when the user was created.
     #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
-    pub created: Option<i32>,
+    pub created: Option<i64>,
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<models::UserUser>,
     /// Whether the user is a service account.
@@ -76,7 +76,7 @@ pub struct User {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub api_key_last_used_at: Option<Option<i32>>,
+    pub api_key_last_used_at: Option<Option<i64>>,
     /// The technical level metadata for the user.
     #[serde(
         rename = "technical_level",
@@ -104,7 +104,7 @@ pub struct User {
 
 impl User {
     /// Represents an individual `user` within an organization.
-    pub fn new(object: Object, id: String, added_at: i32) -> User {
+    pub fn new(object: Object, id: String, added_at: i64) -> User {
         User {
             object,
             id,

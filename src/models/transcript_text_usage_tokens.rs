@@ -19,7 +19,7 @@ pub struct TranscriptTextUsageTokens {
     pub r#type: Type,
     /// Number of input tokens billed for this request.
     #[serde(rename = "input_tokens")]
-    pub input_tokens: i32,
+    pub input_tokens: i64,
     #[serde(
         rename = "input_token_details",
         skip_serializing_if = "Option::is_none"
@@ -27,19 +27,19 @@ pub struct TranscriptTextUsageTokens {
     pub input_token_details: Option<models::TranscriptTextUsageTokensInputTokenDetails>,
     /// Number of output tokens generated.
     #[serde(rename = "output_tokens")]
-    pub output_tokens: i32,
+    pub output_tokens: i64,
     /// Total number of tokens used (input + output).
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
 }
 
 impl TranscriptTextUsageTokens {
     /// Usage statistics for models billed by token usage.
     pub fn new(
         r#type: Type,
-        input_tokens: i32,
-        output_tokens: i32,
-        total_tokens: i32,
+        input_tokens: i64,
+        output_tokens: i64,
+        total_tokens: i64,
     ) -> TranscriptTextUsageTokens {
         TranscriptTextUsageTokens {
             r#type,

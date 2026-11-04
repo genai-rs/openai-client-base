@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
 **r#type** | **Type** | The type of the event. Always `response.reasoning_summary_text.delta`.  (enum: response.reasoning_summary_text.delta) | 
 **item_id** | **String** | The ID of the item this summary text delta is associated with.  | 
-**output_index** | **i32** | The index of the output item this summary text delta is associated with.  | 
-**summary_index** | **i32** | The index of the summary part within the reasoning summary.  | 
+**output_index** | **i64** | The index of the output item this summary text delta is associated with.  | 
+**summary_index** | **i64** | The index of the summary part within the reasoning summary.  | 
 **delta** | **String** | The text delta that was added to the summary.  | 
-**sequence_number** | **i32** | The sequence number of this event.  | 
+**sequence_number** | **i64** | The sequence number of this event.  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

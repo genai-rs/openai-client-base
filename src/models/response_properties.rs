@@ -39,7 +39,7 @@ pub struct ResponseProperties {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_tool_calls: Option<Option<i32>>,
+    pub max_tool_calls: Option<Option<i64>>,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<models::ResponseTextParam>,
     /// An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  We support the following categories of tools: - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](https://developers.openai.com/api/docs/guides/tools-web-search)   or [file search](https://developers.openai.com/api/docs/guides/tools-file-search). Learn more about   [built-in tools](https://developers.openai.com/api/docs/guides/tools). - **MCP Tools**: Integrations with third-party systems via custom MCP servers   or predefined connectors such as Google Drive and SharePoint. Learn more about   [MCP Tools](https://developers.openai.com/api/docs/guides/tools-connectors-mcp). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code with strongly typed arguments   and outputs. Learn more about   [function calling](https://developers.openai.com/api/docs/guides/function-calling). You can also use   custom tools to call your own code.

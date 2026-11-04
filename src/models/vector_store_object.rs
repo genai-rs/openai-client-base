@@ -22,13 +22,13 @@ pub struct VectorStoreObject {
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the vector store was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The name of the vector store.
     #[serde(rename = "name")]
     pub name: String,
     /// The total number of bytes used by the files in the vector store.
     #[serde(rename = "usage_bytes")]
-    pub usage_bytes: i32,
+    pub usage_bytes: i64,
     #[serde(rename = "file_counts")]
     pub file_counts: models::VectorStoreObjectFileCounts,
     /// The status of the vector store, which can be either `expired`, `in_progress`, or `completed`. A status of `completed` indicates that the vector store is ready for use.
@@ -43,10 +43,10 @@ pub struct VectorStoreObject {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub expires_at: Option<Option<i32>>,
+    pub expires_at: Option<Option<i64>>,
     /// The Unix timestamp (in seconds) for when the vector store was last active.
     #[serde(rename = "last_active_at", deserialize_with = "Option::deserialize")]
-    pub last_active_at: Option<i32>,
+    pub last_active_at: Option<i64>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -57,12 +57,12 @@ impl VectorStoreObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: i64,
         name: String,
-        usage_bytes: i32,
+        usage_bytes: i64,
         file_counts: models::VectorStoreObjectFileCounts,
         status: Status,
-        last_active_at: Option<i32>,
+        last_active_at: Option<i64>,
         metadata: Option<std::collections::HashMap<String, String>>,
     ) -> VectorStoreObject {
         VectorStoreObject {

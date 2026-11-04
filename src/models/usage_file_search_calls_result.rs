@@ -17,7 +17,7 @@ pub struct UsageFileSearchCallsResult {
     pub object: Object,
     /// The count of file search calls.
     #[serde(rename = "num_requests")]
-    pub num_requests: i32,
+    pub num_requests: i64,
     /// When `group_by=project_id`, this field provides the project ID of the grouped usage result.
     #[serde(
         rename = "project_id",
@@ -54,7 +54,7 @@ pub struct UsageFileSearchCallsResult {
 
 impl UsageFileSearchCallsResult {
     /// The aggregated file search calls usage details of the specific time bucket.
-    pub fn new(object: Object, num_requests: i32) -> UsageFileSearchCallsResult {
+    pub fn new(object: Object, num_requests: i64) -> UsageFileSearchCallsResult {
         UsageFileSearchCallsResult {
             object,
             num_requests,

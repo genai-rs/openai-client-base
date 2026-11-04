@@ -34,7 +34,7 @@ pub struct EvalStoredCompletionsSource {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub created_after: Option<Option<i32>>,
+    pub created_after: Option<Option<i64>>,
     /// An optional Unix timestamp to filter items created before this time.
     #[serde(
         rename = "created_before",
@@ -42,7 +42,7 @@ pub struct EvalStoredCompletionsSource {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub created_before: Option<Option<i32>>,
+    pub created_before: Option<Option<i64>>,
     /// An optional maximum number of items to return.
     #[serde(
         rename = "limit",
@@ -50,7 +50,7 @@ pub struct EvalStoredCompletionsSource {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub limit: Option<Option<i32>>,
+    pub limit: Option<Option<i64>>,
 }
 
 impl EvalStoredCompletionsSource {

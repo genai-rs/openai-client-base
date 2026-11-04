@@ -23,7 +23,7 @@ pub struct TruncationObject {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub last_messages: Option<Option<i32>>,
+    pub last_messages: Option<Option<i64>>,
 }
 
 impl TruncationObject {

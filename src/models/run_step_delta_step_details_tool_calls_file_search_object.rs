@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 pub struct RunStepDeltaStepDetailsToolCallsFileSearchObject {
     /// The index of the tool call in the tool calls array.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// The ID of the tool call object.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -28,7 +28,7 @@ pub struct RunStepDeltaStepDetailsToolCallsFileSearchObject {
 
 impl RunStepDeltaStepDetailsToolCallsFileSearchObject {
     pub fn new(
-        index: i32,
+        index: i64,
         r#type: Type,
         file_search: serde_json::Value,
     ) -> RunStepDeltaStepDetailsToolCallsFileSearchObject {

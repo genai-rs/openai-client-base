@@ -15,11 +15,11 @@ pub struct BetaTokenCountsResource {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "input_tokens")]
-    pub input_tokens: i32,
+    pub input_tokens: i64,
 }
 
 impl BetaTokenCountsResource {
-    pub fn new(object: Object, input_tokens: i32) -> BetaTokenCountsResource {
+    pub fn new(object: Object, input_tokens: i64) -> BetaTokenCountsResource {
         BetaTokenCountsResource {
             object,
             input_tokens,

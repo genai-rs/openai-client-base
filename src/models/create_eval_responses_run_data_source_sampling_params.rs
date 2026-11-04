@@ -28,13 +28,13 @@ pub struct CreateEvalResponsesRunDataSourceSamplingParams {
         rename = "max_completion_tokens",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_completion_tokens: Option<i32>,
+    pub max_completion_tokens: Option<i64>,
     /// An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
     #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
     pub top_p: Option<f64>,
     /// A seed value to initialize the randomness, during sampling.
     #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
-    pub seed: Option<i32>,
+    pub seed: Option<i64>,
     /// An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  The two categories of tools you can provide the model are:  - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](https://developers.openai.com/api/docs/guides/tools-web-search)   or [file search](https://developers.openai.com/api/docs/guides/tools-file-search). Learn more about   [built-in tools](https://developers.openai.com/api/docs/guides/tools). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code. Learn more about   [function calling](https://developers.openai.com/api/docs/guides/function-calling).
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::Tool>>,

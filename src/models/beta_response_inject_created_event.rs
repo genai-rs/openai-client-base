@@ -21,7 +21,7 @@ pub struct BetaResponseInjectCreatedEvent {
     pub response_id: String,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The multiplexed WebSocket stream that emitted the event. This field is present only when WebSocket multiplexing is enabled separately.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -32,7 +32,7 @@ impl BetaResponseInjectCreatedEvent {
     pub fn new(
         r#type: Type,
         response_id: String,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> BetaResponseInjectCreatedEvent {
         BetaResponseInjectCreatedEvent {
             r#type,

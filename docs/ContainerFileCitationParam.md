@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** | The citation type. Always `container_file_citation`. (enum: container_file_citation) | 
-**start_index** | **i32** | The index of the first character of the citation in the message. | 
-**end_index** | **i32** | The index of the last character of the citation in the message. | 
+**start_index** | **i64** | The index of the first character of the citation in the message. | 
+**end_index** | **i64** | The index of the last character of the citation in the message. | 
 **container_id** | **String** | The ID of the container. | 
 **file_id** | **String** | The ID of the container file. | 
 **filename** | **String** | The filename of the container file cited. | 

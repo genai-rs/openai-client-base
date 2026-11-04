@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
 **r#type** | **Type** | The type of the event. Always `response.content_part.added`.  (enum: response.content_part.added) | 
 **item_id** | **String** | The ID of the output item that the content part was added to.  | 
-**output_index** | **i32** | The index of the output item that the content part was added to.  | 
-**content_index** | **i32** | The index of the content part that was added.  | 
+**output_index** | **i64** | The index of the output item that the content part was added to.  | 
+**content_index** | **i64** | The index of the content part that was added.  | 
 **part** | [**models::BetaOutputContent**](BetaOutputContent.md) |  | 
-**sequence_number** | **i32** | The sequence number of this event. | 
+**sequence_number** | **i64** | The sequence number of this event. | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

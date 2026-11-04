@@ -13,27 +13,27 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunGraderResponseMetadataTokenUsage {
     #[serde(rename = "prompt_tokens")]
-    pub prompt_tokens: i32,
+    pub prompt_tokens: i64,
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
     #[serde(
         rename = "completion_tokens",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub completion_tokens: Option<Option<i32>>,
+    pub completion_tokens: Option<Option<i64>>,
     #[serde(
         rename = "cached_tokens",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub cached_tokens: Option<Option<i32>>,
+    pub cached_tokens: Option<Option<i64>>,
 }
 
 impl RunGraderResponseMetadataTokenUsage {
-    pub fn new(prompt_tokens: i32, total_tokens: i32) -> RunGraderResponseMetadataTokenUsage {
+    pub fn new(prompt_tokens: i64, total_tokens: i64) -> RunGraderResponseMetadataTokenUsage {
         RunGraderResponseMetadataTokenUsage {
             prompt_tokens,
             total_tokens,

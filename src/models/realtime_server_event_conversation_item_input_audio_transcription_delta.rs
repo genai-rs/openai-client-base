@@ -25,7 +25,7 @@ pub struct RealtimeServerEventConversationItemInputAudioTranscriptionDelta {
     pub item_id: String,
     /// The index of the content part in the item's content array.
     #[serde(rename = "content_index", skip_serializing_if = "Option::is_none")]
-    pub content_index: Option<i32>,
+    pub content_index: Option<i64>,
     /// The text delta.
     #[serde(rename = "delta", skip_serializing_if = "Option::is_none")]
     pub delta: Option<String>,

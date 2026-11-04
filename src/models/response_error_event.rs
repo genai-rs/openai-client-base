@@ -27,7 +27,7 @@ pub struct ResponseErrorEvent {
     pub param: Option<String>,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl ResponseErrorEvent {
@@ -37,7 +37,7 @@ impl ResponseErrorEvent {
         code: Option<String>,
         message: String,
         param: Option<String>,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> ResponseErrorEvent {
         ResponseErrorEvent {
             r#type,

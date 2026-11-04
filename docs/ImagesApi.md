@@ -57,16 +57,16 @@ Name | Type | Description  | Required | Notes
 **model** | **String** |  | [required] |
 **mask** | Option<**std::path::PathBuf**> | An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where `image` should be edited. If there are multiple images provided, the mask will be applied on the first image. Must be a valid PNG file, less than 4MB, and have the same dimensions as `image`. |  |
 **background** | Option<**String**> | Set the background of the generated image(s). This parameter is only supported for the GPT image models. Must be one of `transparent`, `opaque`, or `auto` (default value). When `auto` is used, the model will automatically determine the best background for the image.  `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`.  |  |
-**n** | Option<**i32**> | The number of images to generate. Must be between 1 and 10. |  |
+**n** | Option<**i64**> | The number of images to generate. Must be between 1 and 10. |  |
 **size** | Option<[**models::CreateImageEditRequestSize**](CreateImageEditRequestSize.md)> |  |  |
 **response_format** | Option<**String**> | Legacy response format parameter for retired image models. Unsupported for GPT image models, which always return base64-encoded images. |  |
 **output_format** | Option<**String**> | The format in which the generated images are returned. This parameter is only supported for the GPT image models. Must be one of `png`, `jpeg`, or `webp`. The default value is `png`.  |  |
-**output_compression** | Option<**i32**> | The compression level (0-100%) for the generated images. This parameter is only supported for the GPT image models with the `webp` or `jpeg` output formats, and defaults to 100.  |  |
+**output_compression** | Option<**i64**> | The compression level (0-100%) for the generated images. This parameter is only supported for the GPT image models with the `webp` or `jpeg` output formats, and defaults to 100.  |  |
 **safety_identifier** | Option<**String**> | A stable identifier for an end user in your organization, used for safety monitoring and abuse detection. Hash a username or email address to avoid sending identifying information. A non-empty value takes precedence over the deprecated `user` parameter. If omitted, null, or empty, the API uses `user` when available. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers). |  |
 **user** | Option<**String**> | Deprecated: use `safety_identifier` instead. This parameter remains accepted for backward compatibility and is used when `safety_identifier` is omitted, null, or empty. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers). |  |
 **input_fidelity** | Option<[**models::InputFidelity**](InputFidelity.md)> |  |  |
 **stream** | Option<**bool**> | Edit the image in streaming mode. Defaults to `false`. See the [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation) for more information.  |  |
-**partial_images** | Option<**i32**> | The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.  |  |
+**partial_images** | Option<**i64**> | The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.  |  |
 **quality** | Option<**String**> | The quality of the image that will be generated for GPT image models. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Defaults to `auto`.  |  |
 
 ### Return type
@@ -99,7 +99,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **image** | **std::path::PathBuf** | The image to use as the basis for the variation(s). Must be a valid PNG file, less than 4MB, and square. | [required] |
 **model** | Option<**String**> |  |  |
-**n** | Option<**i32**> | The number of images to generate. Must be between 1 and 10. |  |
+**n** | Option<**i64**> | The number of images to generate. Must be between 1 and 10. |  |
 **response_format** | Option<**String**> | The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated. |  |
 **size** | Option<**String**> | The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`. |  |
 **user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).  |  |

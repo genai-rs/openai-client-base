@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct WebhookResponseCompleted {
     /// The Unix timestamp (in seconds) of when the model response was completed.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The unique ID of the event.
     #[serde(rename = "id")]
     pub id: String,
@@ -33,7 +33,7 @@ pub struct WebhookResponseCompleted {
 impl WebhookResponseCompleted {
     /// Sent when a background response has been completed.
     pub fn new(
-        created_at: i32,
+        created_at: i64,
         id: String,
         data: models::WebhookResponseFailedData,
         r#type: Type,

@@ -594,7 +594,7 @@ pub async fn admin_api_keys_list(
     configuration: &configuration::Configuration,
     after: Option<&str>,
     order: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
 ) -> Result<models::ApiKeyList, Error<AdminApiKeysListError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_after = after;
@@ -1769,7 +1769,7 @@ pub async fn getsafetycase(
 pub async fn list_container_files(
     configuration: &configuration::Configuration,
     container_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
 ) -> Result<models::ContainerFileListResource, Error<ListContainerFilesError>> {
@@ -1835,7 +1835,7 @@ pub async fn list_container_files(
 #[bon::builder]
 pub async fn list_containers(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     name: Option<&str>,
@@ -1902,7 +1902,7 @@ pub async fn list_containers(
 pub async fn list_thread_items_method(
     configuration: &configuration::Configuration,
     thread_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<models::OrderEnum>,
     after: Option<&str>,
     before: Option<&str>,
@@ -1973,7 +1973,7 @@ pub async fn list_thread_items_method(
 #[bon::builder]
 pub async fn list_threads_method(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<models::OrderEnum>,
     after: Option<&str>,
     before: Option<&str>,
@@ -2044,7 +2044,7 @@ pub async fn list_threads_method(
 #[bon::builder]
 pub async fn list_webhook_endpoints(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
 ) -> Result<models::WebhookEndpointListResource, Error<ListWebhookEndpointsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -2147,7 +2147,7 @@ pub async fn listexternalstorageconfigurations(
     project_id: Option<&str>,
     after: Option<&str>,
     order: Option<models::ExternalStorageOrder>,
-    limit: Option<i32>,
+    limit: Option<i64>,
 ) -> Result<models::ExternalStorageListResource, Error<ListexternalstorageconfigurationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_project_id = project_id;
@@ -2211,10 +2211,10 @@ pub async fn listexternalstorageconfigurations(
 #[bon::builder]
 pub async fn organization_decisionsusage(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
     project_ids: Option<Vec<String>>,
     group_by: Option<Vec<models::DecisionsUsageGroupBy>>,

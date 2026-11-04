@@ -22,7 +22,7 @@ pub struct OrganizationSpendAlert {
     pub object: Object,
     /// The alert threshold amount, in cents.
     #[serde(rename = "threshold_amount")]
-    pub threshold_amount: i32,
+    pub threshold_amount: i64,
     /// The currency for the threshold amount.
     #[serde(rename = "currency")]
     pub currency: Currency,
@@ -38,7 +38,7 @@ impl OrganizationSpendAlert {
     pub fn new(
         id: String,
         object: Object,
-        threshold_amount: i32,
+        threshold_amount: i64,
         currency: Currency,
         interval: Interval,
         notification_channel: models::SpendAlertNotificationChannel,

@@ -28,7 +28,7 @@ pub struct CreateChatCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub top_logprobs: Option<Option<i32>>,
+    pub top_logprobs: Option<Option<i64>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
     pub temperature: Option<f64>,
@@ -97,7 +97,7 @@ pub struct CreateChatCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_completion_tokens: Option<Option<i32>>,
+    pub max_completion_tokens: Option<Option<i64>>,
     /// Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
     #[serde(
         rename = "frequency_penalty",
@@ -162,7 +162,7 @@ pub struct CreateChatCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub logit_bias: Option<Option<std::collections::HashMap<String, i32>>>,
+    pub logit_bias: Option<Option<std::collections::HashMap<String, i64>>>,
     /// Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the `content` of `message`.
     #[serde(
         rename = "logprobs",
@@ -178,7 +178,7 @@ pub struct CreateChatCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_tokens: Option<Option<i32>>,
+    pub max_tokens: Option<Option<i64>>,
     /// How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep `n` as `1` to minimize costs.
     #[serde(
         rename = "n",
@@ -186,7 +186,7 @@ pub struct CreateChatCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub n: Option<Option<i32>>,
+    pub n: Option<Option<i64>>,
     /// Configuration for a [Predicted Output](https://developers.openai.com/api/docs/guides/predicted-outputs), which can greatly improve response times when large parts of the model response are known ahead of time. This is most common when you are regenerating a file with only minor changes to most of the content.
     #[serde(
         rename = "prediction",

@@ -18,10 +18,10 @@ pub struct ResponseImageGenCallCompletedEvent {
     pub r#type: Type,
     /// The index of the output item in the response's output array.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The unique identifier of the image generation item being processed.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -31,8 +31,8 @@ impl ResponseImageGenCallCompletedEvent {
     /// Emitted when an image generation tool call has completed and the final image is available.
     pub fn new(
         r#type: Type,
-        output_index: i32,
-        sequence_number: i32,
+        output_index: i64,
+        sequence_number: i64,
         item_id: String,
     ) -> ResponseImageGenCallCompletedEvent {
         ResponseImageGenCallCompletedEvent {

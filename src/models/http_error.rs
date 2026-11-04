@@ -15,13 +15,13 @@ pub struct HttpError {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "code")]
-    pub code: i32,
+    pub code: i64,
     #[serde(rename = "message")]
     pub message: String,
 }
 
 impl HttpError {
-    pub fn new(r#type: Type, code: i32, message: String) -> HttpError {
+    pub fn new(r#type: Type, code: i64, message: String) -> HttpError {
         HttpError {
             r#type,
             code,

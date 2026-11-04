@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **i32** |  | 
+**index** | **i64** |  | 
 **id** | Option<**String**> | The ID of the tool call. | [optional]
 **r#type** | Option<**Type**> | The type of the tool. Currently, only `function` is supported. (enum: function) | [optional]
 **function** | Option<[**models::ChatCompletionMessageToolCallChunkFunction**](ChatCompletionMessageToolCallChunkFunction.md)> |  | [optional]

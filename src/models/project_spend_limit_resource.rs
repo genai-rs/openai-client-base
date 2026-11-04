@@ -19,7 +19,7 @@ pub struct ProjectSpendLimitResource {
     pub object: Object,
     /// The hard spend limit amount, in cents.
     #[serde(rename = "threshold_amount")]
-    pub threshold_amount: i32,
+    pub threshold_amount: i64,
     #[serde(rename = "currency")]
     pub currency: models::SpendLimitCurrency,
     #[serde(rename = "interval")]
@@ -32,7 +32,7 @@ impl ProjectSpendLimitResource {
     /// Represents a hard spend limit configured at the project level.
     pub fn new(
         object: Object,
-        threshold_amount: i32,
+        threshold_amount: i64,
         currency: models::SpendLimitCurrency,
         interval: models::SpendLimitInterval,
         enforcement: models::SpendLimitEnforcement,

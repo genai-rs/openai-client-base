@@ -24,7 +24,7 @@ pub struct CompactResource {
     pub output: Vec<models::ItemField>,
     /// Unix timestamp (in seconds) when the compacted conversation was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "usage")]
     pub usage: models::ResponseUsage,
 }
@@ -34,7 +34,7 @@ impl CompactResource {
         id: String,
         object: Object,
         output: Vec<models::ItemField>,
-        created_at: i32,
+        created_at: i64,
         usage: models::ResponseUsage,
     ) -> CompactResource {
         CompactResource {

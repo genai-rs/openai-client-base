@@ -20,14 +20,14 @@ pub struct VideoCharacterResource {
     pub name: Option<String>,
     /// Unix timestamp (in seconds) when the character was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
 }
 
 impl VideoCharacterResource {
     pub fn new(
         id: Option<String>,
         name: Option<String>,
-        created_at: i32,
+        created_at: i64,
     ) -> VideoCharacterResource {
         VideoCharacterResource {
             id,

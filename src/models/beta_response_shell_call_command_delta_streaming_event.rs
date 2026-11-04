@@ -19,15 +19,15 @@ pub struct BetaResponseShellCallCommandDeltaStreamingEvent {
     pub r#type: Type,
     /// The sequence number of the event that was emitted.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
     /// The index of the output item that was updated.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The index of the shell command that was updated.
     #[serde(rename = "command_index")]
-    pub command_index: i32,
+    pub command_index: i64,
     /// The shell command delta that was appended.
     #[serde(rename = "delta")]
     pub delta: String,
@@ -40,9 +40,9 @@ impl BetaResponseShellCallCommandDeltaStreamingEvent {
     /// A streaming event that indicated a shell command was incrementally updated.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
-        output_index: i32,
-        command_index: i32,
+        sequence_number: i64,
+        output_index: i64,
+        command_index: i64,
         delta: String,
     ) -> BetaResponseShellCallCommandDeltaStreamingEvent {
         BetaResponseShellCallCommandDeltaStreamingEvent {

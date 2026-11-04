@@ -468,7 +468,7 @@ pub async fn get_conversation_item(
 pub async fn list_conversation_items(
     configuration: &configuration::Configuration,
     conversation_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     include: Option<Vec<models::IncludeEnum>>,

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**total_tokens** | Option<**i32**> | The total number of tokens in the Response including input and output  text and audio tokens.  | [optional]
-**input_tokens** | Option<**i32**> | The number of input tokens used in the Response, including text and  audio tokens.  | [optional]
-**output_tokens** | Option<**i32**> | The number of output tokens sent in the Response, including text and  audio tokens.  | [optional]
+**total_tokens** | Option<**i64**> | The total number of tokens in the Response including input and output  text and audio tokens.  | [optional]
+**input_tokens** | Option<**i64**> | The number of input tokens used in the Response, including text and  audio tokens.  | [optional]
+**output_tokens** | Option<**i64**> | The number of output tokens sent in the Response, including text and  audio tokens.  | [optional]
 **input_token_details** | Option<[**models::RealtimeBetaResponseUsageInputTokenDetails**](RealtimeBetaResponseUsageInputTokenDetails.md)> |  | [optional]
 **output_token_details** | Option<[**models::RealtimeBetaResponseUsageOutputTokenDetails**](RealtimeBetaResponseUsageOutputTokenDetails.md)> |  | [optional]
 

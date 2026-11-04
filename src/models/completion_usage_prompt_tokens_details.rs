@@ -15,19 +15,19 @@ use serde::{Deserialize, Serialize};
 pub struct CompletionUsagePromptTokensDetails {
     /// Audio input tokens present in the prompt.
     #[serde(rename = "audio_tokens", skip_serializing_if = "Option::is_none")]
-    pub audio_tokens: Option<i32>,
+    pub audio_tokens: Option<i64>,
     /// Cached tokens present in the prompt.
     #[serde(rename = "cached_tokens", skip_serializing_if = "Option::is_none")]
-    pub cached_tokens: Option<i32>,
+    pub cached_tokens: Option<i64>,
     /// Text input tokens present in the prompt.
     #[serde(rename = "text_tokens", skip_serializing_if = "Option::is_none")]
-    pub text_tokens: Option<i32>,
+    pub text_tokens: Option<i64>,
     /// Image input tokens present in the prompt.
     #[serde(rename = "image_tokens", skip_serializing_if = "Option::is_none")]
-    pub image_tokens: Option<i32>,
+    pub image_tokens: Option<i64>,
     /// The unadjusted number of prompt tokens written to cache.
     #[serde(rename = "cache_write_tokens", skip_serializing_if = "Option::is_none")]
-    pub cache_write_tokens: Option<i32>,
+    pub cache_write_tokens: Option<i64>,
 }
 
 impl CompletionUsagePromptTokensDetails {

@@ -21,7 +21,7 @@ pub struct FineTuningJobEvent {
     pub id: String,
     /// The Unix timestamp (in seconds) for when the fine-tuning job was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The log level of the event.
     #[serde(rename = "level")]
     pub level: Level,
@@ -46,7 +46,7 @@ impl FineTuningJobEvent {
     pub fn new(
         object: Object,
         id: String,
-        created_at: i32,
+        created_at: i64,
         level: Level,
         message: String,
     ) -> FineTuningJobEvent {

@@ -347,7 +347,7 @@ pub async fn delete_role(
 pub async fn list_project_roles(
     configuration: &configuration::Configuration,
     project_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::PublicRoleListResource, Error<ListProjectRolesError>> {
@@ -413,7 +413,7 @@ pub async fn list_project_roles(
 #[bon::builder]
 pub async fn list_roles(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::PublicRoleListResource, Error<ListRolesError>> {

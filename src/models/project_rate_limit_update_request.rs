@@ -17,37 +17,37 @@ pub struct ProjectRateLimitUpdateRequest {
         rename = "max_requests_per_1_minute",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_requests_per_1_minute: Option<i32>,
+    pub max_requests_per_1_minute: Option<i64>,
     /// The maximum tokens per minute.
     #[serde(
         rename = "max_tokens_per_1_minute",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_tokens_per_1_minute: Option<i32>,
+    pub max_tokens_per_1_minute: Option<i64>,
     /// The maximum images per minute. Only relevant for certain models.
     #[serde(
         rename = "max_images_per_1_minute",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_images_per_1_minute: Option<i32>,
+    pub max_images_per_1_minute: Option<i64>,
     /// The maximum audio megabytes per minute. Only relevant for certain models.
     #[serde(
         rename = "max_audio_megabytes_per_1_minute",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_audio_megabytes_per_1_minute: Option<i32>,
+    pub max_audio_megabytes_per_1_minute: Option<i64>,
     /// The maximum requests per day. Only relevant for certain models.
     #[serde(
         rename = "max_requests_per_1_day",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_requests_per_1_day: Option<i32>,
+    pub max_requests_per_1_day: Option<i64>,
     /// The maximum batch input tokens per day. Only relevant for certain models.
     #[serde(
         rename = "batch_1_day_max_input_tokens",
         skip_serializing_if = "Option::is_none"
     )]
-    pub batch_1_day_max_input_tokens: Option<i32>,
+    pub batch_1_day_max_input_tokens: Option<i64>,
 }
 
 impl ProjectRateLimitUpdateRequest {

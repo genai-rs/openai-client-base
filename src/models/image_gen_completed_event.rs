@@ -30,7 +30,7 @@ pub struct ImageGenCompletedEvent {
     pub b64_json: String,
     /// The Unix timestamp when the event was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "size")]
     pub size: models::ImageGenCompletedEventSize,
     /// The quality setting for the generated image.
@@ -51,7 +51,7 @@ impl ImageGenCompletedEvent {
     pub fn new(
         r#type: Type,
         b64_json: String,
-        created_at: i32,
+        created_at: i64,
         size: models::ImageGenCompletedEventSize,
         quality: Quality,
         background: Background,

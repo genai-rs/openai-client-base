@@ -19,7 +19,7 @@ pub struct BetaResponseShellCallOutputContentDoneStreamingEvent {
     pub r#type: Type,
     /// The sequence number of the event that was emitted.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
     /// The ID of the output item that was updated.
@@ -27,10 +27,10 @@ pub struct BetaResponseShellCallOutputContentDoneStreamingEvent {
     pub item_id: String,
     /// The index of the output item that was updated.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The index of the shell command that produced output.
     #[serde(rename = "command_index")]
-    pub command_index: i32,
+    pub command_index: i64,
     /// The output contents emitted for the shell command.
     #[serde(rename = "output")]
     pub output: Vec<models::BetaFunctionShellCallOutputContent>,
@@ -40,10 +40,10 @@ impl BetaResponseShellCallOutputContentDoneStreamingEvent {
     /// A streaming event that indicated shell call output was completed.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
+        sequence_number: i64,
         item_id: String,
-        output_index: i32,
-        command_index: i32,
+        output_index: i64,
+        command_index: i64,
         output: Vec<models::BetaFunctionShellCallOutputContent>,
     ) -> BetaResponseShellCallOutputContentDoneStreamingEvent {
         BetaResponseShellCallOutputContentDoneStreamingEvent {

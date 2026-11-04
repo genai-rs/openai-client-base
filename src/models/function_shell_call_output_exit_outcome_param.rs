@@ -18,12 +18,12 @@ pub struct FunctionShellCallOutputExitOutcomeParam {
     pub r#type: Type,
     /// The exit code returned by the shell process.
     #[serde(rename = "exit_code")]
-    pub exit_code: i32,
+    pub exit_code: i64,
 }
 
 impl FunctionShellCallOutputExitOutcomeParam {
     /// Indicates that the shell commands finished and returned an exit code.
-    pub fn new(r#type: Type, exit_code: i32) -> FunctionShellCallOutputExitOutcomeParam {
+    pub fn new(r#type: Type, exit_code: i64) -> FunctionShellCallOutputExitOutcomeParam {
         FunctionShellCallOutputExitOutcomeParam { r#type, exit_code }
     }
 }

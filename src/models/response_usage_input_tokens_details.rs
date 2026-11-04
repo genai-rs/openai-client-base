@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 pub struct ResponseUsageInputTokensDetails {
     /// The number of tokens that were retrieved from the cache. [More on prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching).
     #[serde(rename = "cached_tokens")]
-    pub cached_tokens: i32,
+    pub cached_tokens: i64,
     /// The number of input tokens that were written to the cache.
     #[serde(rename = "cache_write_tokens")]
-    pub cache_write_tokens: i32,
+    pub cache_write_tokens: i64,
 }
 
 impl ResponseUsageInputTokensDetails {
     /// A detailed breakdown of the input tokens.
-    pub fn new(cached_tokens: i32, cache_write_tokens: i32) -> ResponseUsageInputTokensDetails {
+    pub fn new(cached_tokens: i64, cache_write_tokens: i64) -> ResponseUsageInputTokensDetails {
         ResponseUsageInputTokensDetails {
             cached_tokens,
             cache_write_tokens,

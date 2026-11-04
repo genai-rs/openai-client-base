@@ -17,7 +17,7 @@ pub use crate::models::RealtimeSessionCreateRequestMaxResponseOutputTokensTextVa
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeSessionCreateRequestMaxResponseOutputTokens {
-    Integer(i32),
+    Integer(i64),
     TextVariant(models::RealtimeSessionCreateRequestMaxResponseOutputTokensTextVariantEnum),
 }
 

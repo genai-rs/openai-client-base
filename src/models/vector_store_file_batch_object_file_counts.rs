@@ -14,28 +14,28 @@ use serde::{Deserialize, Serialize};
 pub struct VectorStoreFileBatchObjectFileCounts {
     /// The number of files that are currently being processed.
     #[serde(rename = "in_progress")]
-    pub in_progress: i32,
+    pub in_progress: i64,
     /// The number of files that have been processed.
     #[serde(rename = "completed")]
-    pub completed: i32,
+    pub completed: i64,
     /// The number of files that have failed to process.
     #[serde(rename = "failed")]
-    pub failed: i32,
+    pub failed: i64,
     /// The number of files that where cancelled.
     #[serde(rename = "cancelled")]
-    pub cancelled: i32,
+    pub cancelled: i64,
     /// The total number of files.
     #[serde(rename = "total")]
-    pub total: i32,
+    pub total: i64,
 }
 
 impl VectorStoreFileBatchObjectFileCounts {
     pub fn new(
-        in_progress: i32,
-        completed: i32,
-        failed: i32,
-        cancelled: i32,
-        total: i32,
+        in_progress: i64,
+        completed: i64,
+        failed: i64,
+        cancelled: i64,
+        total: i64,
     ) -> VectorStoreFileBatchObjectFileCounts {
         VectorStoreFileBatchObjectFileCounts {
             in_progress,

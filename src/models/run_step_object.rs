@@ -22,7 +22,7 @@ pub struct RunStepObject {
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the run step was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) associated with the run step.
     #[serde(rename = "assistant_id")]
     pub assistant_id: String,
@@ -44,16 +44,16 @@ pub struct RunStepObject {
     pub last_error: Option<models::RunStepObjectLastError>,
     /// The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
     #[serde(rename = "expired_at", deserialize_with = "Option::deserialize")]
-    pub expired_at: Option<i32>,
+    pub expired_at: Option<i64>,
     /// The Unix timestamp (in seconds) for when the run step was cancelled.
     #[serde(rename = "cancelled_at", deserialize_with = "Option::deserialize")]
-    pub cancelled_at: Option<i32>,
+    pub cancelled_at: Option<i64>,
     /// The Unix timestamp (in seconds) for when the run step failed.
     #[serde(rename = "failed_at", deserialize_with = "Option::deserialize")]
-    pub failed_at: Option<i32>,
+    pub failed_at: Option<i64>,
     /// The Unix timestamp (in seconds) for when the run step completed.
     #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
-    pub completed_at: Option<i32>,
+    pub completed_at: Option<i64>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
@@ -66,7 +66,7 @@ impl RunStepObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: i64,
         assistant_id: String,
         thread_id: String,
         run_id: String,
@@ -74,10 +74,10 @@ impl RunStepObject {
         status: Status,
         step_details: models::RunStepObjectStepDetails,
         last_error: Option<models::RunStepObjectLastError>,
-        expired_at: Option<i32>,
-        cancelled_at: Option<i32>,
-        failed_at: Option<i32>,
-        completed_at: Option<i32>,
+        expired_at: Option<i64>,
+        cancelled_at: Option<i64>,
+        failed_at: Option<i64>,
+        completed_at: Option<i64>,
         metadata: Option<std::collections::HashMap<String, String>>,
         usage: Option<models::RunStepCompletionUsage>,
     ) -> RunStepObject {

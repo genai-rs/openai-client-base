@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 pub struct ResponseUsageOutputTokensDetails {
     /// The number of reasoning tokens.
     #[serde(rename = "reasoning_tokens")]
-    pub reasoning_tokens: i32,
+    pub reasoning_tokens: i64,
 }
 
 impl ResponseUsageOutputTokensDetails {
     /// A detailed breakdown of the output tokens.
-    pub fn new(reasoning_tokens: i32) -> ResponseUsageOutputTokensDetails {
+    pub fn new(reasoning_tokens: i64) -> ResponseUsageOutputTokensDetails {
         ResponseUsageOutputTokensDetails { reasoning_tokens }
     }
 }

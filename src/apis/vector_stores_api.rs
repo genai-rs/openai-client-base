@@ -685,7 +685,7 @@ pub async fn list_files_in_vector_store_batch(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     batch_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
@@ -764,7 +764,7 @@ pub async fn list_files_in_vector_store_batch(
 pub async fn list_vector_store_files(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
@@ -840,7 +840,7 @@ pub async fn list_vector_store_files(
 #[bon::builder]
 pub async fn list_vector_stores(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,

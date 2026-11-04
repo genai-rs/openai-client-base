@@ -20,7 +20,7 @@ pub struct UsageAudioTranscriptionsResult {
     pub seconds: i64,
     /// The count of requests made to the model.
     #[serde(rename = "num_model_requests")]
-    pub num_model_requests: i32,
+    pub num_model_requests: i64,
     /// When `group_by=project_id`, this field provides the project ID of the grouped usage result.
     #[serde(
         rename = "project_id",
@@ -55,7 +55,7 @@ impl UsageAudioTranscriptionsResult {
     pub fn new(
         object: Object,
         seconds: i64,
-        num_model_requests: i32,
+        num_model_requests: i64,
     ) -> UsageAudioTranscriptionsResult {
         UsageAudioTranscriptionsResult {
             object,

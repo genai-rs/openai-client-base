@@ -35,13 +35,13 @@ pub struct EvalRunOutputItemSample {
     pub temperature: f64,
     /// The maximum number of tokens allowed for completion.
     #[serde(rename = "max_completion_tokens")]
-    pub max_completion_tokens: i32,
+    pub max_completion_tokens: i64,
     /// The top_p value used for sampling.
     #[serde(rename = "top_p")]
     pub top_p: f64,
     /// The seed used for generating the sample.
     #[serde(rename = "seed")]
-    pub seed: i32,
+    pub seed: i64,
 }
 
 impl EvalRunOutputItemSample {
@@ -54,9 +54,9 @@ impl EvalRunOutputItemSample {
         usage: models::EvalRunOutputItemSampleUsage,
         error: Option<models::EvalApiError>,
         temperature: f64,
-        max_completion_tokens: i32,
+        max_completion_tokens: i64,
         top_p: f64,
-        seed: i32,
+        seed: i64,
     ) -> EvalRunOutputItemSample {
         EvalRunOutputItemSample {
             input,

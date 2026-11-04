@@ -20,10 +20,10 @@ pub struct WebhookEndpointBody {
     pub object: Object,
     /// The Unix timestamp when the endpoint was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The Unix timestamp of the last endpoint configuration or signing-secret change. Initialized at creation; tests and unchanged updates do not advance it.
     #[serde(rename = "updated_at", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<i32>,
+    pub updated_at: Option<i64>,
     /// The human-readable name of the endpoint.
     #[serde(rename = "name")]
     pub name: String,
@@ -45,7 +45,7 @@ impl WebhookEndpointBody {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: i64,
         name: String,
         url: String,
         event_types: Vec<String>,

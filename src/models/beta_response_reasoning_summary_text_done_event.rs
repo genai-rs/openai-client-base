@@ -30,16 +30,16 @@ pub struct BetaResponseReasoningSummaryTextDoneEvent {
     pub item_id: String,
     /// The index of the output item this summary text is associated with.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The index of the summary part within the reasoning summary.
     #[serde(rename = "summary_index")]
-    pub summary_index: i32,
+    pub summary_index: i64,
     /// The full text of the completed reasoning summary.
     #[serde(rename = "text")]
     pub text: String,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl BetaResponseReasoningSummaryTextDoneEvent {
@@ -47,10 +47,10 @@ impl BetaResponseReasoningSummaryTextDoneEvent {
     pub fn new(
         r#type: Type,
         item_id: String,
-        output_index: i32,
-        summary_index: i32,
+        output_index: i64,
+        summary_index: i64,
         text: String,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> BetaResponseReasoningSummaryTextDoneEvent {
         BetaResponseReasoningSummaryTextDoneEvent {
             agent: None,

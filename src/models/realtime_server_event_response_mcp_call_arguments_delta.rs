@@ -27,7 +27,7 @@ pub struct RealtimeServerEventResponseMcpCallArgumentsDelta {
     pub item_id: String,
     /// The index of the output item in the response.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The JSON-encoded arguments delta.
     #[serde(rename = "delta")]
     pub delta: String,
@@ -48,7 +48,7 @@ impl RealtimeServerEventResponseMcpCallArgumentsDelta {
         r#type: Type,
         response_id: String,
         item_id: String,
-        output_index: i32,
+        output_index: i64,
         delta: String,
     ) -> RealtimeServerEventResponseMcpCallArgumentsDelta {
         RealtimeServerEventResponseMcpCallArgumentsDelta {

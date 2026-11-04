@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **r#type** | **Type** | The event type, must be `response.output_text.done`. (enum: response.output_text.done) | 
 **response_id** | **String** | The ID of the response. | 
 **item_id** | **String** | The ID of the item. | 
-**output_index** | **i32** | The index of the output item in the response. | 
-**content_index** | **i32** | The index of the content part in the item's content array. | 
+**output_index** | **i64** | The index of the output item in the response. | 
+**content_index** | **i64** | The index of the content part in the item's content array. | 
 **text** | **String** | The final text content. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

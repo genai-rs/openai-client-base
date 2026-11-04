@@ -566,7 +566,7 @@ pub async fn get_skill_version_content(
 pub async fn list_skill_versions(
     configuration: &configuration::Configuration,
     skill_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<models::OrderEnum>,
     after: Option<&str>,
 ) -> Result<models::SkillVersionListResource, Error<ListSkillVersionsError>> {
@@ -632,7 +632,7 @@ pub async fn list_skill_versions(
 #[bon::builder]
 pub async fn list_skills(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<models::OrderEnum>,
     after: Option<&str>,
 ) -> Result<models::SkillListResource, Error<ListSkillsError>> {

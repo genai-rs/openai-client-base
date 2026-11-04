@@ -55,7 +55,7 @@ Lists the organization roles assigned to a user within the organization.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_id** | **String** | The ID of the user to inspect. | [required] |
-**limit** | Option<**i32**> | A limit on the number of organization role assignments to return. |  |
+**limit** | Option<**i64**> | A limit on the number of organization role assignments to return. |  |
 **after** | Option<**String**> | Cursor for pagination. Provide the value from the previous response's `next` field to continue listing organization roles. |  |
 **order** | Option<**String**> | Sort order for the returned organization roles. |  |
 

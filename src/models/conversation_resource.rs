@@ -23,7 +23,7 @@ pub struct ConversationResource {
     pub metadata: std::collections::HashMap<String, String>,
     /// The time at which the conversation was created, measured in seconds since the Unix epoch.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
 }
 
 impl ConversationResource {
@@ -31,7 +31,7 @@ impl ConversationResource {
         id: String,
         object: Object,
         metadata: std::collections::HashMap<String, String>,
-        created_at: i32,
+        created_at: i64,
     ) -> ConversationResource {
         ConversationResource {
             id,

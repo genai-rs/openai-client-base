@@ -16,27 +16,27 @@ use serde::{Deserialize, Serialize};
 pub struct BetaResponseUsage {
     /// The number of input tokens.
     #[serde(rename = "input_tokens")]
-    pub input_tokens: i32,
+    pub input_tokens: i64,
     #[serde(rename = "input_tokens_details")]
     pub input_tokens_details: models::ResponseUsageInputTokensDetails,
     /// The number of output tokens.
     #[serde(rename = "output_tokens")]
-    pub output_tokens: i32,
+    pub output_tokens: i64,
     #[serde(rename = "output_tokens_details")]
     pub output_tokens_details: models::ResponseUsageOutputTokensDetails,
     /// The total number of tokens used.
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
 }
 
 impl BetaResponseUsage {
     /// Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
     pub fn new(
-        input_tokens: i32,
+        input_tokens: i64,
         input_tokens_details: models::ResponseUsageInputTokensDetails,
-        output_tokens: i32,
+        output_tokens: i64,
         output_tokens_details: models::ResponseUsageOutputTokensDetails,
-        total_tokens: i32,
+        total_tokens: i64,
     ) -> BetaResponseUsage {
         BetaResponseUsage {
             input_tokens,

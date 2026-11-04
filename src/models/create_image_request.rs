@@ -25,7 +25,7 @@ pub struct CreateImageRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub n: Option<Option<i32>>,
+    pub n: Option<Option<i64>>,
     /// The quality of the image that will be generated.  - `auto` (default value) will automatically select the best quality for the given   model. - `high`, `medium` and `low` are supported for the GPT image models. - `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08`   snapshots, also support `xhigh` and `max`.
     #[serde(
         rename = "quality",
@@ -57,7 +57,7 @@ pub struct CreateImageRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_compression: Option<Option<i32>>,
+    pub output_compression: Option<Option<i64>>,
     /// Generate the image in streaming mode. Defaults to `false`. See the [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation) for more information. This parameter is only supported for the GPT image models.
     #[serde(
         rename = "stream",
@@ -73,7 +73,7 @@ pub struct CreateImageRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub partial_images: Option<Option<i32>>,
+    pub partial_images: Option<Option<i64>>,
     #[serde(
         rename = "size",
         default,

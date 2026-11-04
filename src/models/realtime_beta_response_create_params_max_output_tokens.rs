@@ -17,7 +17,7 @@ pub use crate::models::RealtimeBetaResponseCreateParamsMaxOutputTokensTextVarian
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeBetaResponseCreateParamsMaxOutputTokens {
-    Integer(i32),
+    Integer(i64),
     TextVariant(models::RealtimeBetaResponseCreateParamsMaxOutputTokensTextVariantEnum),
 }
 

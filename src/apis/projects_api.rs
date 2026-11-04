@@ -727,7 +727,7 @@ pub async fn delete_project_user(
 pub async fn list_project_api_keys(
     configuration: &configuration::Configuration,
     project_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     owner_project_access: Option<&str>,
 ) -> Result<models::ProjectApiKeyListResponse, Error<ListProjectApiKeysError>> {
@@ -794,7 +794,7 @@ pub async fn list_project_api_keys(
 pub async fn list_project_rate_limits(
     configuration: &configuration::Configuration,
     project_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     before: Option<&str>,
 ) -> Result<models::ProjectRateLimitListResponse, Error<ListProjectRateLimitsError>> {
@@ -861,7 +861,7 @@ pub async fn list_project_rate_limits(
 pub async fn list_project_service_accounts(
     configuration: &configuration::Configuration,
     project_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
 ) -> Result<models::ProjectServiceAccountListResponse, Error<ListProjectServiceAccountsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -923,7 +923,7 @@ pub async fn list_project_service_accounts(
 pub async fn list_project_users(
     configuration: &configuration::Configuration,
     project_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
 ) -> Result<models::ProjectUserListResponse, Error<ListProjectUsersError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -984,7 +984,7 @@ pub async fn list_project_users(
 #[bon::builder]
 pub async fn list_projects(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     include_archived: Option<bool>,
 ) -> Result<models::ProjectListResponse, Error<ListProjectsError>> {

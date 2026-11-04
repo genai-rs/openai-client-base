@@ -15,13 +15,13 @@ pub struct BetaHttpError {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "code")]
-    pub code: i32,
+    pub code: i64,
     #[serde(rename = "message")]
     pub message: String,
 }
 
 impl BetaHttpError {
-    pub fn new(r#type: Type, code: i32, message: String) -> BetaHttpError {
+    pub fn new(r#type: Type, code: i64, message: String) -> BetaHttpError {
         BetaHttpError {
             r#type,
             code,

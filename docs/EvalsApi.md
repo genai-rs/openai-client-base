@@ -280,7 +280,7 @@ Name | Type | Description  | Required | Notes
 **eval_id** | **String** | The ID of the evaluation to retrieve runs for. | [required] |
 **run_id** | **String** | The ID of the run to retrieve output items for. | [required] |
 **after** | Option<**String**> | Identifier for the last output item from the previous pagination request. |  |
-**limit** | Option<**i32**> | Number of output items to retrieve. |  |[default to 20]
+**limit** | Option<**i64**> | Number of output items to retrieve. |  |[default to 20]
 **status** | Option<**String**> | Filter output items by status. Use `failed` to filter by failed output items or `pass` to filter by passed output items.  |  |
 **order** | Option<**String**> | Sort order for output items by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`. |  |[default to asc]
 
@@ -314,7 +314,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **eval_id** | **String** | The ID of the evaluation to retrieve runs for. | [required] |
 **after** | Option<**String**> | Identifier for the last run from the previous pagination request. |  |
-**limit** | Option<**i32**> | Number of runs to retrieve. |  |[default to 20]
+**limit** | Option<**i64**> | Number of runs to retrieve. |  |[default to 20]
 **order** | Option<**String**> | Sort order for runs by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`. |  |[default to asc]
 **status** | Option<**String**> | Filter runs by status. One of `queued` | `in_progress` | `failed` | `completed` | `canceled`. |  |
 
@@ -347,7 +347,7 @@ List evaluations for a project.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **after** | Option<**String**> | Identifier for the last eval from the previous pagination request. |  |
-**limit** | Option<**i32**> | Number of evals to retrieve. |  |[default to 20]
+**limit** | Option<**i64**> | Number of evals to retrieve. |  |[default to 20]
 **order** | Option<**String**> | Sort order for evals by timestamp. Use `asc` for ascending order or `desc` for descending order. |  |[default to asc]
 **order_by** | Option<**String**> | Evals can be ordered by creation time or last updated time. Use `created_at` for creation time or `updated_at` for last updated time.  |  |[default to created_at]
 

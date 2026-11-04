@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**threshold_amount** | **i32** | The hard spend limit amount, in cents. | 
+**threshold_amount** | **i64** | The hard spend limit amount, in cents. | 
 **currency** | **Currency** | The currency for the threshold amount. Currently, only `USD` is supported. (enum: USD) | 
 **interval** | **Interval** | The time interval for evaluating spend against the threshold. Currently, only `month` is supported. (enum: month) | 
 

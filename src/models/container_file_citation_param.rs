@@ -17,10 +17,10 @@ pub struct ContainerFileCitationParam {
     pub r#type: Type,
     /// The index of the first character of the citation in the message.
     #[serde(rename = "start_index")]
-    pub start_index: i32,
+    pub start_index: i64,
     /// The index of the last character of the citation in the message.
     #[serde(rename = "end_index")]
-    pub end_index: i32,
+    pub end_index: i64,
     /// The ID of the container.
     #[serde(rename = "container_id")]
     pub container_id: String,
@@ -35,8 +35,8 @@ pub struct ContainerFileCitationParam {
 impl ContainerFileCitationParam {
     pub fn new(
         r#type: Type,
-        start_index: i32,
-        end_index: i32,
+        start_index: i64,
+        end_index: i64,
         container_id: String,
         file_id: String,
         filename: String,

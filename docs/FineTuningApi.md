@@ -157,7 +157,7 @@ Name | Type | Description  | Required | Notes
 **fine_tuned_model_checkpoint** | **String** | The ID of the fine-tuned model checkpoint to get permissions for.  | [required] |
 **project_id** | Option<**String**> | The ID of the project to get permissions for. |  |
 **after** | Option<**String**> | Identifier for the last permission ID from the previous pagination request. |  |
-**limit** | Option<**i32**> | Number of permissions to retrieve. |  |[default to 10]
+**limit** | Option<**i64**> | Number of permissions to retrieve. |  |[default to 10]
 **order** | Option<**String**> | The order in which to retrieve permissions. |  |[default to descending]
 
 ### Return type
@@ -190,7 +190,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuning_job_id** | **String** | The ID of the fine-tuning job to get events for.  | [required] |
 **after** | Option<**String**> | Identifier for the last event from the previous pagination request. |  |
-**limit** | Option<**i32**> | Number of events to retrieve. |  |[default to 20]
+**limit** | Option<**i64**> | Number of events to retrieve. |  |[default to 20]
 
 ### Return type
 
@@ -222,7 +222,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuning_job_id** | **String** | The ID of the fine-tuning job to get checkpoints for.  | [required] |
 **after** | Option<**String**> | Identifier for the last checkpoint ID from the previous pagination request. |  |
-**limit** | Option<**i32**> | Number of checkpoints to retrieve. |  |[default to 10]
+**limit** | Option<**i64**> | Number of checkpoints to retrieve. |  |[default to 10]
 
 ### Return type
 
@@ -253,7 +253,7 @@ List your organization's fine-tuning jobs
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **after** | Option<**String**> | Identifier for the last job from the previous pagination request. |  |
-**limit** | Option<**i32**> | Number of fine-tuning jobs to retrieve. |  |[default to 20]
+**limit** | Option<**i64**> | Number of fine-tuning jobs to retrieve. |  |[default to 20]
 **metadata** | Option<[**std::collections::HashMap<String, String>**](String.md)> | Optional metadata filter. To filter, use the syntax `metadata[k]=v`. Omitting the parameter or passing an empty object applies no metadata filter. An empty value, such as `metadata[k]=`, filters for that key with an empty string value. To select jobs with null metadata, send the literal query string `metadata=null`. Nullable caller types do not specify how a client serializes null for a deep-object parameter. Use a raw query parameter if the client omits null. Do not combine the two query forms.  |  |
 
 ### Return type

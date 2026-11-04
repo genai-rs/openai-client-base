@@ -57,7 +57,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to inspect. | [required] |
 **group_id** | **String** | The ID of the group to inspect. | [required] |
-**limit** | Option<**i32**> | A limit on the number of project role assignments to return. |  |
+**limit** | Option<**i64**> | A limit on the number of project role assignments to return. |  |
 **after** | Option<**String**> | Cursor for pagination. Provide the value from the previous response's `next` field to continue listing project roles. |  |
 **order** | Option<**String**> | Sort order for the returned project roles. |  |
 

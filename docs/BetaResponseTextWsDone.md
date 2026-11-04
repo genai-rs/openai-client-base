@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
 **r#type** | **Type** | The type of the event. Always `response.output_text.done`.  (enum: response.output_text.done) | 
 **item_id** | **String** | The ID of the output item that the text content is finalized.  | 
-**output_index** | **i32** | The index of the output item that the text content is finalized.  | 
-**content_index** | **i32** | The index of the content part that the text content is finalized.  | 
+**output_index** | **i64** | The index of the output item that the text content is finalized.  | 
+**content_index** | **i64** | The index of the content part that the text content is finalized.  | 
 **text** | **String** | The text content that is finalized.  | 
-**sequence_number** | **i32** | The sequence number for this event. | 
+**sequence_number** | **i64** | The sequence number for this event. | 
 **logprobs** | [**Vec<models::BetaResponseLogProb>**](BetaResponseLogProb.md) | The log probabilities of the tokens in the delta.  | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 

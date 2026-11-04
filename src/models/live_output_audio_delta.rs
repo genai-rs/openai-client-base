@@ -21,10 +21,10 @@ pub struct LiveOutputAudioDelta {
     pub delta: String,
     /// Inclusive session-relative start in milliseconds. Required on reflected sideband events; omitted on the primary WebSocket.
     #[serde(rename = "start_ms", skip_serializing_if = "Option::is_none")]
-    pub start_ms: Option<i32>,
+    pub start_ms: Option<i64>,
     /// Exclusive session-relative end in milliseconds. Required on reflected sideband events; omitted on the primary WebSocket. Dropped output frames leave gaps between reflected ranges.
     #[serde(rename = "end_ms", skip_serializing_if = "Option::is_none")]
-    pub end_ms: Option<i32>,
+    pub end_ms: Option<i64>,
 }
 
 impl LiveOutputAudioDelta {

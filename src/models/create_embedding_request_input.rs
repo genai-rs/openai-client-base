@@ -20,9 +20,9 @@ pub enum CreateEmbeddingRequestInput {
     /// The array of strings that will be turned into an embedding.
     ArrayOfStrings(Vec<String>),
     /// The array of integers that will be turned into an embedding.
-    ArrayOfIntegers(Vec<i32>),
+    ArrayOfIntegers(Vec<i64>),
     /// The array of arrays containing integers that will be turned into an embedding.
-    ArrayOfIntegerArrays(Vec<Vec<i32>>),
+    ArrayOfIntegerArrays(Vec<Vec<i64>>),
 }
 
 impl CreateEmbeddingRequestInput {
@@ -32,10 +32,10 @@ impl CreateEmbeddingRequestInput {
     pub fn new_arrayofstrings(items: Vec<String>) -> Self {
         Self::ArrayOfStrings(items)
     }
-    pub fn new_arrayofintegers(items: Vec<i32>) -> Self {
+    pub fn new_arrayofintegers(items: Vec<i64>) -> Self {
         Self::ArrayOfIntegers(items)
     }
-    pub fn new_arrayofintegerarrays(items: Vec<Vec<i32>>) -> Self {
+    pub fn new_arrayofintegerarrays(items: Vec<Vec<i64>>) -> Self {
         Self::ArrayOfIntegerArrays(items)
     }
 }

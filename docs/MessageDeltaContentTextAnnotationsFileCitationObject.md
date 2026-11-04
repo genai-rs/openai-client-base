@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **i32** | The index of the annotation in the text content part. | 
+**index** | **i64** | The index of the annotation in the text content part. | 
 **r#type** | **Type** | Always `file_citation`. (enum: file_citation) | 
 **text** | Option<**String**> | The text in the message content that needs to be replaced. | [optional]
 **file_citation** | Option<[**models::MessageDeltaContentTextAnnotationsFileCitationObjectFileCitation**](MessageDeltaContentTextAnnotationsFileCitationObjectFileCitation.md)> |  | [optional]
-**start_index** | Option<**i32**> |  | [optional]
-**end_index** | Option<**i32**> |  | [optional]
+**start_index** | Option<**i64**> |  | [optional]
+**end_index** | Option<**i64**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**text_offset** | Option<**Vec<i32>**> |  | [optional]
+**text_offset** | Option<**Vec<i64>**> |  | [optional]
 **token_logprobs** | Option<**Vec<f64>**> |  | [optional]
 **tokens** | Option<**Vec<String>**> |  | [optional]
 **top_logprobs** | Option<**Vec<std::collections::HashMap<String, f64>>**> |  | [optional]

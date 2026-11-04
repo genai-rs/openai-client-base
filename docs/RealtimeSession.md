@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **tool_choice** | Option<**String**> | How the model chooses tools. Options are `auto`, `none`, `required`, or specify a function.  | [optional]
 **temperature** | Option<**f64**> | Sampling temperature for the model, limited to [0.6, 1.2]. For audio models a temperature of 0.8 is highly recommended for best performance.  | [optional]
 **max_response_output_tokens** | Option<[**models::RealtimeSessionMaxResponseOutputTokens**](RealtimeSessionMaxResponseOutputTokens.md)> |  | [optional]
-**expires_at** | Option<**i32**> | Expiration timestamp for the session, in seconds since epoch. | [optional]
+**expires_at** | Option<**i64**> | Expiration timestamp for the session, in seconds since epoch. | [optional]
 **prompt** | Option<[**models::Prompt**](Prompt.md)> |  | [optional]
 **include** | Option<**Vec<Include>**> | Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.  (enum: item.input_audio_transcription.logprobs) | [optional]
 

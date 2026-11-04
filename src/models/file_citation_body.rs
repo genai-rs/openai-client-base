@@ -21,7 +21,7 @@ pub struct FileCitationBody {
     pub file_id: String,
     /// The index in the output text at which to insert the file citation.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// The filename of the file cited.
     #[serde(rename = "filename")]
     pub filename: String,
@@ -29,7 +29,7 @@ pub struct FileCitationBody {
 
 impl FileCitationBody {
     /// A citation to a file.
-    pub fn new(r#type: Type, file_id: String, index: i32, filename: String) -> FileCitationBody {
+    pub fn new(r#type: Type, file_id: String, index: i64, filename: String) -> FileCitationBody {
         FileCitationBody {
             r#type,
             file_id,

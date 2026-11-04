@@ -1,0 +1,1370 @@
+# openai-client-base 0.20.0 → 0.21.0: integers are `i64`
+
+This release generates with `timvw-rust` 0.12.0 and its `integersAsI64` option (Milestone 3.4 of the
+[generator design](https://claude.ai/artifact/ABar8Up91gjVMDHgHL1GE3)). The OpenAI spec is unchanged. An integer is
+`i64` unless the spec says `format: int32`, and the spec says that nowhere, so no `i32` is left in `src/models` or
+`src/apis`. The machine-readable census is `api-diff-0.20.0-to-0.21.0.json` in this folder.
+
+## Why
+
+Most integers in the spec are `type: integer` with no format, which used to become `i32`. Its maximum is 2,147,483,647.
+
+- File sizes can exceed it. The spec allows an Upload of 8 GB, which `CreateUploadRequest::bytes` could not state, and a
+  file's `bytes` could not be read back.
+- Timestamps can exceed it. `created_at`, `expires_at` and the like are Unix seconds, which pass the maximum in
+  January 2038.
+- An overflow failed the whole decode. One field out of range turned the entire response into a
+  `serde_json` error, `invalid value: integer ..., expected i32`, so the rest of the response was lost too.
+
+## What stays the same
+
+- Every type, field, variant and function keeps its name. No model is added or removed.
+- Nothing changes on the wire for values that fit in `i32`: the same field names and the same number text, in JSON
+  bodies, query parameters and multipart parts. No serde attribute or derive changes.
+- Fields that already were `i64` (`format: int64`, such as `seed`) and `number` fields (`f64`) are untouched.
+- The three integer-valued enums keep `#[repr(i64)]`.
+
+## What changes
+
+Only the type, from `i32` to `i64`:
+
+- 1,244 fields in 646 structs, including `Vec<i64>` and `HashMap<String, i64>` (`logit_bias`). The most
+  common are `sequence_number`, `output_index`, `created_at` and `content_index`.
+- 989 `new()` parameters in 547 constructors.
+- 95 parameters of 69 operations in 29 API modules: `limit` (65), `start_time` (12), `end_time` (12), `n` (2),
+  `starting_after` (2), `output_compression` (1) and `partial_images` (1).
+- 24 union variants in 23 unions: 22 `Integer(i64)`, plus `ArrayOfIntegers(Vec<i64>)` and
+  `ArrayOfIntegerArrays(Vec<Vec<i64>>)` with their helpers `new_arrayofintegers` and `new_arrayofintegerarrays`.
+
+### Behaviour to know about
+
+- A value above the `i32` range now decodes, where it failed. Above the `i64` range it still fails, unless the
+  union has a `Number` variant to take it.
+- `ChatkitWorkflowStateVariablesValue` and `WorkflowParamStateVariablesValue` have both `Integer` and `Number`. A whole
+  number above the `i32` range used to fall through to `Number(f64)`, and is now `Integer(i64)`. It keeps its exact
+  value and serializes without a `.0`.
+
+## Migrating
+
+- Literals usually infer, so `Foo::new("a".into(), 3)` and `list_files(&config, None, Some(20), None, None)` compile as they are.
+- An explicit `i32` variable, field, parameter or return type that holds one of these values: make it `i64`. Query
+  parameters such as `limit` are the common case, along with your own structs that copy a field. At a call that keeps
+  an `i32` for its own reasons, `i64::from(x)` is lossless.
+- A value you must narrow: use `i32::try_from(usage.total_tokens)?` and handle the error.
+- Search your code for `as` casts on these values, because they keep compiling. `usage.total_tokens as i32`, `as u32` and
+  `as usize` (on 32-bit targets) can now truncate a value the API sent. `i64::from(usage.total_tokens)` also keeps
+  compiling but no longer does anything, and clippy flags it as `useless_conversion`.
+- `f64::from(usage.total_tokens)` no longer compiles, because `f64` has no `From<i64>`. Use `usage.total_tokens as f64`,
+  which rounds above 2^53.
+- `Vec<i32>` token lists for embeddings and `HashMap<String, i32>` for `logit_bias`: use `i64`.
+- A `match` on a union's `Integer(n)` binds an `i64`.
+
+<details><summary>Operation parameters (95 in 69 operations)</summary>
+
+- `assistants_api::list_assistants`: `limit`
+- `assistants_api::list_messages`: `limit`
+- `assistants_api::list_run_steps`: `limit`
+- `assistants_api::list_runs`: `limit`
+- `audio_api::list_voice_consents`: `limit`
+- `audit_logs_api::list_audit_logs`: `limit`
+- `batch_api::list_batches`: `limit`
+- `certificates_api::list_organization_certificates`: `limit`
+- `certificates_api::list_project_certificates`: `limit`
+- `chat_api::get_chat_completion_messages`: `limit`
+- `chat_api::list_chat_completions`: `limit`
+- `conversations_api::list_conversation_items`: `limit`
+- `default_api::admin_api_keys_list`: `limit`
+- `default_api::list_container_files`: `limit`
+- `default_api::list_containers`: `limit`
+- `default_api::list_thread_items_method`: `limit`
+- `default_api::list_threads_method`: `limit`
+- `default_api::list_webhook_endpoints`: `limit`
+- `default_api::listexternalstorageconfigurations`: `limit`
+- `default_api::organization_decisionsusage`: `start_time`, `end_time`, `limit`
+- `evals_api::get_eval_run_output_items`: `limit`
+- `evals_api::get_eval_runs`: `limit`
+- `evals_api::list_evals`: `limit`
+- `files_api::list_files`: `limit`
+- `fine_tuning_api::list_fine_tuning_checkpoint_permissions`: `limit`
+- `fine_tuning_api::list_fine_tuning_events`: `limit`
+- `fine_tuning_api::list_fine_tuning_job_checkpoints`: `limit`
+- `fine_tuning_api::list_paginated_fine_tuning_jobs`: `limit`
+- `group_organization_role_assignments_api::list_group_role_assignments`: `limit`
+- `group_users_api::list_group_users`: `limit`
+- `groups_api::list_groups`: `limit`
+- `images_api::create_image_edit`: `n`, `output_compression`, `partial_images`
+- `images_api::create_image_variation`: `n`
+- `invites_api::list_invites`: `limit`
+- `project_group_role_assignments_api::list_project_group_role_assignments`: `limit`
+- `project_groups_api::list_project_groups`: `limit`
+- `project_user_role_assignments_api::list_project_user_role_assignments`: `limit`
+- `projects_api::list_project_api_keys`: `limit`
+- `projects_api::list_project_rate_limits`: `limit`
+- `projects_api::list_project_service_accounts`: `limit`
+- `projects_api::list_project_users`: `limit`
+- `projects_api::list_projects`: `limit`
+- `responses_api::beta_get_response`: `starting_after`
+- `responses_api::beta_list_input_items`: `limit`
+- `responses_api::get_response`: `starting_after`
+- `responses_api::list_input_items`: `limit`
+- `roles_api::list_project_roles`: `limit`
+- `roles_api::list_roles`: `limit`
+- `skills_api::list_skill_versions`: `limit`
+- `skills_api::list_skills`: `limit`
+- `spend_alerts_api::list_organization_spend_alerts`: `limit`
+- `spend_alerts_api::list_project_spend_alerts`: `limit`
+- `usage_api::usage_audio_speeches`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_audio_transcriptions`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_code_interpreter_sessions`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_completions`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_costs`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_embeddings`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_file_search_calls`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_images`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_moderations`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_vector_stores`: `start_time`, `end_time`, `limit`
+- `usage_api::usage_web_search_calls`: `start_time`, `end_time`, `limit`
+- `user_organization_role_assignments_api::list_user_role_assignments`: `limit`
+- `users_api::list_users`: `limit`
+- `vector_stores_api::list_files_in_vector_store_batch`: `limit`
+- `vector_stores_api::list_vector_store_files`: `limit`
+- `vector_stores_api::list_vector_stores`: `limit`
+- `videos_api::list_videos`: `limit`
+
+</details>
+
+<details><summary>Struct fields (1,244 in 646 structs)</summary>
+
+- `AdminApiKey`: `created_at`, `expires_at`, `last_used_at`
+- `AdminApiKeyCreateResponse`: `created_at`, `expires_at`, `last_used_at`
+- `AdminApiKeyOwner`: `created_at`
+- `AdminApiKeysCreateRequest`: `expires_in_seconds`
+- `AssignedRoleDetails`: `created_at`, `updated_at`
+- `AssistantMessageItem`: `created_at`
+- `AssistantObject`: `created_at`
+- `AssistantToolsFileSearchFileSearch`: `max_num_results`
+- `AuditLog`: `effective_at`
+- `AuditLogRateLimitUpdatedChangesRequested`: `batch_1_day_max_input_tokens`, `max_audio_megabytes_per_1_minute`, `max_images_per_1_minute`, `max_requests_per_1_day`, `max_requests_per_1_minute`, `max_tokens_per_1_minute`
+- `Batch`: `cancelled_at`, `cancelling_at`, `completed_at`, `created_at`, `expired_at`, `expires_at`, `failed_at`, `finalizing_at`, `in_progress_at`
+- `BatchError`: `line`
+- `BatchRequestCounts`: `completed`, `failed`, `total`
+- `BatchUsage`: `input_tokens`, `output_tokens`, `total_tokens`
+- `BatchUsageInputTokensDetails`: `cached_tokens`
+- `BatchUsageOutputTokensDetails`: `reasoning_tokens`
+- `BetaClickParam`: `x`, `y`
+- `BetaCompactResource`: `created_at`
+- `BetaComputerUsePreviewTool`: `display_height`, `display_width`
+- `BetaContainerFileCitationBody`: `end_index`, `start_index`
+- `BetaContainerFileCitationParam`: `end_index`, `start_index`
+- `BetaContextManagementParam`: `compact_threshold`
+- `BetaCoordParam`: `x`, `y`
+- `BetaCreateModelResponseProperties`: `top_logprobs`
+- `BetaCreateResponse`: `max_output_tokens`, `max_tool_calls`, `top_logprobs`
+- `BetaDoubleClickAction`: `x`, `y`
+- `BetaFileCitationBody`: `index`
+- `BetaFileCitationParam`: `index`
+- `BetaFilePath`: `index`
+- `BetaFileSearchTool`: `max_num_results`
+- `BetaFunctionShellAction`: `max_output_length`, `timeout_ms`
+- `BetaFunctionShellActionParam`: `max_output_length`, `timeout_ms`
+- `BetaFunctionShellCallOutput`: `max_output_length`
+- `BetaFunctionShellCallOutputExitOutcome`: `exit_code`
+- `BetaFunctionShellCallOutputExitOutcomeParam`: `exit_code`
+- `BetaFunctionShellCallOutputItemParam`: `max_output_length`
+- `BetaHttpError`: `code`
+- `BetaImageGenTool`: `output_compression`, `partial_images`
+- `BetaLocalShellExecAction`: `timeout_ms`
+- `BetaLogProb`: `bytes`
+- `BetaMcpProtocolError`: `code`
+- `BetaModelResponseProperties`: `top_logprobs`
+- `BetaMoveParam`: `x`, `y`
+- `BetaMultiAgentParam`: `max_concurrent_subagents`
+- `BetaPromptCacheMissDiagnosticsBody`: `cache_missed_tokens`, `comparison_reusable_tokens`
+- `BetaResponse`: `max_output_tokens`, `max_tool_calls`, `top_logprobs`
+- `BetaResponseAudioDeltaEvent`: `sequence_number`
+- `BetaResponseAudioDoneEvent`: `sequence_number`
+- `BetaResponseAudioTranscriptDeltaEvent`: `sequence_number`
+- `BetaResponseAudioTranscriptDoneEvent`: `sequence_number`
+- `BetaResponseAudioTranscriptWsDelta`: `sequence_number`
+- `BetaResponseAudioTranscriptWsDone`: `sequence_number`
+- `BetaResponseAudioWsDelta`: `sequence_number`
+- `BetaResponseAudioWsDone`: `sequence_number`
+- `BetaResponseCodeInterpreterCallCodeDeltaEvent`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallCodeDoneEvent`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallCodeWsDelta`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallCodeWsDone`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallCompletedEvent`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallInProgressEvent`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallInWsProgress`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallInterpretingEvent`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallWsCompleted`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallWsInterpreting`: `output_index`, `sequence_number`
+- `BetaResponseCompactionCompactingStreamingEvent`: `output_index`, `sequence_number`
+- `BetaResponseCompactionWsCompacting`: `output_index`, `sequence_number`
+- `BetaResponseCompletedEvent`: `sequence_number`
+- `BetaResponseContentPartAddedEvent`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseContentPartDoneEvent`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseContentPartWsAdded`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseContentPartWsDone`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseCreatedEvent`: `sequence_number`
+- `BetaResponseCustomToolCallInputDeltaEvent`: `output_index`, `sequence_number`
+- `BetaResponseCustomToolCallInputDoneEvent`: `output_index`, `sequence_number`
+- `BetaResponseCustomToolCallInputWsDelta`: `output_index`, `sequence_number`
+- `BetaResponseCustomToolCallInputWsDone`: `output_index`, `sequence_number`
+- `BetaResponseErrorEvent`: `sequence_number`
+- `BetaResponseFailedEvent`: `sequence_number`
+- `BetaResponseFileSearchCallCompletedEvent`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallInProgressEvent`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallInWsProgress`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallSearchingEvent`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallWsCompleted`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallWsSearching`: `output_index`, `sequence_number`
+- `BetaResponseFunctionCallArgumentsDeltaEvent`: `output_index`, `sequence_number`
+- `BetaResponseFunctionCallArgumentsDoneEvent`: `output_index`, `sequence_number`
+- `BetaResponseFunctionCallArgumentsWsDelta`: `output_index`, `sequence_number`
+- `BetaResponseFunctionCallArgumentsWsDone`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallCompletedEvent`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallGeneratingEvent`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallInProgressEvent`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallInWsProgress`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallPartialImageEvent`: `output_index`, `partial_image_index`, `sequence_number`
+- `BetaResponseImageGenCallPartialWsImage`: `output_index`, `partial_image_index`, `sequence_number`
+- `BetaResponseImageGenCallWsCompleted`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallWsGenerating`: `output_index`, `sequence_number`
+- `BetaResponseInProgressEvent`: `sequence_number`
+- `BetaResponseInWsProgress`: `sequence_number`
+- `BetaResponseIncompleteEvent`: `sequence_number`
+- `BetaResponseInjectCreatedEvent`: `sequence_number`
+- `BetaResponseInjectFailedEvent`: `sequence_number`
+- `BetaResponseMcpCallArgumentsDeltaEvent`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallArgumentsDoneEvent`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallArgumentsWsDelta`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallArgumentsWsDone`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallCompletedEvent`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallFailedEvent`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallInProgressEvent`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallInWsProgress`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallWsCompleted`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallWsFailed`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsCompletedEvent`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsFailedEvent`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsInProgressEvent`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsInWsProgress`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsWsCompleted`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsWsFailed`: `output_index`, `sequence_number`
+- `BetaResponseOutputItemAddedEvent`: `output_index`, `sequence_number`
+- `BetaResponseOutputItemDoneEvent`: `output_index`, `sequence_number`
+- `BetaResponseOutputItemWsAdded`: `output_index`, `sequence_number`
+- `BetaResponseOutputItemWsDone`: `output_index`, `sequence_number`
+- `BetaResponseOutputTextAnnotationAddedEvent`: `annotation_index`, `content_index`, `output_index`, `sequence_number`
+- `BetaResponseOutputTextAnnotationWsAdded`: `annotation_index`, `content_index`, `output_index`, `sequence_number`
+- `BetaResponseProperties`: `max_tool_calls`
+- `BetaResponseQueuedEvent`: `sequence_number`
+- `BetaResponseReasoningSummaryPartAddedEvent`: `output_index`, `sequence_number`, `summary_index`
+- `BetaResponseReasoningSummaryPartDoneEvent`: `output_index`, `sequence_number`, `summary_index`
+- `BetaResponseReasoningSummaryPartWsAdded`: `output_index`, `sequence_number`, `summary_index`
+- `BetaResponseReasoningSummaryPartWsDone`: `output_index`, `sequence_number`, `summary_index`
+- `BetaResponseReasoningSummaryTextDeltaEvent`: `output_index`, `sequence_number`, `summary_index`
+- `BetaResponseReasoningSummaryTextDoneEvent`: `output_index`, `sequence_number`, `summary_index`
+- `BetaResponseReasoningSummaryTextWsDelta`: `output_index`, `sequence_number`, `summary_index`
+- `BetaResponseReasoningSummaryTextWsDone`: `output_index`, `sequence_number`, `summary_index`
+- `BetaResponseReasoningTextDeltaEvent`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseReasoningTextDoneEvent`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseReasoningTextWsDelta`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseReasoningTextWsDone`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseRefusalDeltaEvent`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseRefusalDoneEvent`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseRefusalWsDelta`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseRefusalWsDone`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallCommandAddedStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallCommandDeltaStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallCommandDoneStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallCommandWsAdded`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallCommandWsDelta`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallCommandWsDone`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallOutputContentDeltaStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallOutputContentDoneStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallOutputContentWsDelta`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseShellCallOutputContentWsDone`: `command_index`, `output_index`, `sequence_number`
+- `BetaResponseSteerAcceptedEvent`: `sequence_number`
+- `BetaResponseSteerFailedEvent`: `sequence_number`
+- `BetaResponseSteerPendingEvent`: `sequence_number`
+- `BetaResponseTextDeltaEvent`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseTextDoneEvent`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseTextWsDelta`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseTextWsDone`: `content_index`, `output_index`, `sequence_number`
+- `BetaResponseUsage`: `input_tokens`, `output_tokens`, `total_tokens`
+- `BetaResponseWebSearchCallCompletedEvent`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallInProgressEvent`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallInWsProgress`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallSearchingEvent`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallWsCompleted`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallWsSearching`: `output_index`, `sequence_number`
+- `BetaResponseWsCompleted`: `sequence_number`
+- `BetaResponseWsCreated`: `sequence_number`
+- `BetaResponseWsError`: `sequence_number`, `status`
+- `BetaResponseWsFailed`: `sequence_number`
+- `BetaResponseWsIncomplete`: `sequence_number`
+- `BetaResponseWsQueued`: `sequence_number`
+- `BetaResponsesClientEventResponseCreate`: `max_output_tokens`, `max_tool_calls`, `top_logprobs`
+- `BetaResponsesWebSocketStreamEvent`: `annotation_index`, `command_index`, `content_index`, `output_index`, `partial_image_index`, `sequence_number`, `summary_index`
+- `BetaScrollParam`: `scroll_x`, `scroll_y`, `x`, `y`
+- `BetaTokenCountsResource`: `input_tokens`
+- `BetaTopLogProb`: `bytes`
+- `BetaUrlCitationBody`: `end_index`, `start_index`
+- `BetaUrlCitationParam`: `end_index`, `start_index`
+- `Certificate`: `created_at`
+- `CertificateCertificateDetails`: `expires_at`, `valid_at`
+- `ChatCompletionMessageToolCallChunk`: `index`
+- `ChatCompletionResponseMessageAnnotationsInnerUrlCitation`: `end_index`, `start_index`
+- `ChatCompletionResponseMessageAudio`: `expires_at`
+- `ChatCompletionStreamResponseDeltaAudio`: `expires_at`
+- `ChatCompletionTokenLogprob`: `bytes`
+- `ChatCompletionTokenLogprobTopLogprobsInner`: `bytes`
+- `ChatSessionFileUpload`: `max_file_size`, `max_files`
+- `ChatSessionHistory`: `recent_threads`
+- `ChatSessionRateLimits`: `max_requests_per_1_minute`
+- `ChatSessionResource`: `expires_at`, `max_requests_per_1_minute`
+- `ClickParam`: `x`, `y`
+- `ClientToolCallItem`: `created_at`
+- `CompactResource`: `created_at`
+- `CompletionUsage`: `completion_tokens`, `prompt_tokens`, `total_tokens`
+- `CompletionUsageCompletionTokensDetails`: `accepted_prediction_tokens`, `audio_tokens`, `reasoning_tokens`, `rejected_prediction_tokens`, `text_tokens`
+- `CompletionUsagePromptTokensDetails`: `audio_tokens`, `cache_write_tokens`, `cached_tokens`, `image_tokens`, `text_tokens`
+- `ComputerUsePreviewTool`: `display_height`, `display_width`
+- `ContainerFileCitationBody`: `end_index`, `start_index`
+- `ContainerFileCitationParam`: `end_index`, `start_index`
+- `ContainerFileResource`: `bytes`, `created_at`
+- `ContainerResource`: `created_at`, `last_active_at`
+- `ContainerResourceExpiresAfter`: `minutes`
+- `ContextManagementParam`: `compact_threshold`
+- `ConversationResource`: `created_at`
+- `CoordParam`: `x`, `y`
+- `CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic`: `chunk_overlap_tokens`, `max_chunk_size_tokens`
+- `CreateChatCompletionRequest`: `logit_bias`, `max_completion_tokens`, `max_tokens`, `n`, `top_logprobs`
+- `CreateChatCompletionResponse`: `created`
+- `CreateChatCompletionResponseChoicesInner`: `index`
+- `CreateChatCompletionStreamResponse`: `created`
+- `CreateChatCompletionStreamResponseChoicesInner`: `index`
+- `CreateCompletionRequest`: `best_of`, `logit_bias`, `logprobs`, `max_tokens`, `n`
+- `CreateCompletionResponse`: `created`
+- `CreateCompletionResponseChoicesInner`: `index`
+- `CreateCompletionResponseChoicesInnerLogprobs`: `text_offset`
+- `CreateContainerBodyExpiresAfter`: `minutes`
+- `CreateEmbeddingRequest`: `dimensions`
+- `CreateEmbeddingResponseUsage`: `prompt_tokens`, `total_tokens`
+- `CreateEvalCompletionsRunDataSourceSamplingParams`: `max_completion_tokens`, `seed`
+- `CreateEvalResponsesRunDataSourceSamplingParams`: `max_completion_tokens`, `seed`
+- `CreateFineTuningJobRequest`: `seed`
+- `CreateImageRequest`: `n`, `output_compression`, `partial_images`
+- `CreateModelResponseProperties`: `top_logprobs`
+- `CreateProjectServiceAccountApiKeyBody`: `expires_in_seconds`
+- `CreateResponse`: `max_output_tokens`, `max_tool_calls`, `top_logprobs`
+- `CreateRunRequest`: `max_completion_tokens`, `max_prompt_tokens`
+- `CreateSpendAlertBody`: `threshold_amount`
+- `CreateThreadAndRunRequest`: `max_completion_tokens`, `max_prompt_tokens`
+- `CreateThreadRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic`: `chunk_overlap_tokens`, `max_chunk_size_tokens`
+- `CreateUploadRequest`: `bytes`
+- `DecisionsUsageBucket`: `end_time`, `start_time`
+- `DecisionsUsageResult`: `input_audio_tokens`, `input_cache_write_12h_tokens`, `input_cache_write_tokens`, `input_cached_audio_tokens`, `input_cached_image_tokens`, `input_cached_text_tokens`, `input_cached_tokens`, `input_image_tokens`, `input_text_tokens`, `input_tokens`, `input_uncached_tokens`, `num_model_requests`, `output_audio_tokens`, `output_image_tokens`, `output_text_tokens`, `output_tokens`
+- `DoubleClickAction`: `x`, `y`
+- `DragPoint`: `x`, `y`
+- `EditImageBodyJsonParam`: `n`, `output_compression`, `partial_images`
+- `Embedding`: `index`
+- `Eval`: `created_at`
+- `EvalResponsesSource`: `created_after`, `created_before`
+- `EvalRun`: `created_at`
+- `EvalRunOutputItem`: `created_at`, `datasource_item_id`
+- `EvalRunOutputItemSample`: `max_completion_tokens`, `seed`
+- `EvalRunOutputItemSampleUsage`: `cached_tokens`, `completion_tokens`, `prompt_tokens`, `total_tokens`
+- `EvalRunPerModelUsageInner`: `cached_tokens`, `completion_tokens`, `invocation_count`, `prompt_tokens`, `total_tokens`
+- `EvalRunPerTestingCriteriaResultsInner`: `failed`, `passed`
+- `EvalRunResultCounts`: `errored`, `failed`, `passed`, `total`
+- `EvalStoredCompletionsSource`: `created_after`, `created_before`, `limit`
+- `ExternalStorageResponse`: `created_at`
+- `FileCitationBody`: `index`
+- `FileCitationParam`: `index`
+- `FilePath`: `index`
+- `FileSearchTool`: `max_num_results`
+- `FileUploadParam`: `max_file_size`, `max_files`
+- `FineTuningCheckpointPermission`: `created_at`
+- `FineTuningJob`: `created_at`, `estimated_finish`, `finished_at`, `seed`, `trained_tokens`
+- `FineTuningJobCheckpoint`: `created_at`, `step_number`
+- `FineTuningJobEvent`: `created_at`
+- `FunctionShellAction`: `max_output_length`, `timeout_ms`
+- `FunctionShellActionParam`: `max_output_length`, `timeout_ms`
+- `FunctionShellCallOutput`: `max_output_length`
+- `FunctionShellCallOutputExitOutcome`: `exit_code`
+- `FunctionShellCallOutputExitOutcomeParam`: `exit_code`
+- `FunctionShellCallOutputItemParam`: `max_output_length`
+- `GraderScoreModelSamplingParams`: `max_completions_tokens`, `seed`
+- `Group`: `created_at`
+- `GroupResourceWithSuccess`: `created_at`
+- `GroupResponse`: `created_at`
+- `HistoryParam`: `recent_threads`
+- `HttpError`: `code`
+- `ImageEditCompletedEvent`: `created_at`
+- `ImageEditPartialImageEvent`: `created_at`, `partial_image_index`
+- `ImageGenCompletedEvent`: `created_at`
+- `ImageGenInputUsageDetails`: `image_tokens`, `text_tokens`
+- `ImageGenOutputTokensDetails`: `image_tokens`, `text_tokens`
+- `ImageGenPartialImageEvent`: `created_at`, `partial_image_index`
+- `ImageGenTool`: `output_compression`, `partial_images`
+- `ImageGenUsage`: `input_tokens`, `output_tokens`, `total_tokens`
+- `ImagesResponse`: `created`
+- `ImagesUsage`: `input_tokens`, `output_tokens`, `total_tokens`
+- `ImagesUsageInputTokensDetails`: `image_tokens`, `text_tokens`
+- `Invite`: `accepted_at`, `created_at`, `expires_at`
+- `ListAuditLogsEffectiveAtParameter`: `gt`, `gte`, `lt`, `lte`
+- `LiveCallRejectRequest`: `status_code`
+- `LiveCommentaryAppended`: `end_ms`, `start_ms`
+- `LiveDelegationCreated`: `offset_ms`
+- `LiveInputTranscriptDelta`: `end_ms`, `start_ms`
+- `LiveInstructionsAppended`: `end_ms`, `start_ms`
+- `LiveOutputAudioDelta`: `end_ms`, `start_ms`
+- `LiveOutputTranscriptDelta`: `end_ms`, `start_ms`
+- `LiveResponsesDelegationSettingsInputParam`: `max_output_tokens`
+- `LiveResponsesDelegationSettingsUpdateInputParam`: `max_output_tokens`
+- `LiveSessionAudioFormatPcmaParam`: `rate`
+- `LiveSessionAudioFormatPcmuParam`: `rate`
+- `LiveSessionResourceParam`: `expires_at`
+- `LiveThinkingAppended`: `end_ms`, `start_ms`
+- `LocalShellExecAction`: `timeout_ms`
+- `LogProb`: `bytes`
+- `LogProbProperties`: `bytes`
+- `McpProtocolError`: `code`
+- `MessageContentTextAnnotationsFileCitationObject`: `end_index`, `start_index`
+- `MessageContentTextAnnotationsFilePathObject`: `end_index`, `start_index`
+- `MessageDeltaContentImageFileObject`: `index`
+- `MessageDeltaContentImageUrlObject`: `index`
+- `MessageDeltaContentRefusalObject`: `index`
+- `MessageDeltaContentTextAnnotationsFileCitationObject`: `end_index`, `index`, `start_index`
+- `MessageDeltaContentTextAnnotationsFilePathObject`: `end_index`, `index`, `start_index`
+- `MessageDeltaContentTextObject`: `index`
+- `MessageObject`: `completed_at`, `created_at`, `incomplete_at`
+- `Model`: `created`
+- `ModelResponseProperties`: `top_logprobs`
+- `MoveParam`: `x`, `y`
+- `OpenAiFile`: `bytes`, `created_at`, `expires_at`
+- `OrganizationCertificate`: `created_at`
+- `OrganizationCertificateCertificateDetails`: `expires_at`, `valid_at`
+- `OrganizationProjectCertificate`: `created_at`
+- `OrganizationProjectCertificateCertificateDetails`: `expires_at`, `valid_at`
+- `OrganizationSpendAlert`: `threshold_amount`
+- `OrganizationSpendLimitResource`: `threshold_amount`
+- `Project`: `archived_at`, `created_at`
+- `ProjectApiKey`: `created_at`, `expires_at`, `last_used_at`
+- `ProjectApiKeyOwnerServiceAccount`: `created_at`
+- `ProjectApiKeyOwnerUser`: `created_at`
+- `ProjectGroup`: `created_at`
+- `ProjectRateLimit`: `batch_1_day_max_input_tokens`, `max_audio_megabytes_per_1_minute`, `max_images_per_1_minute`, `max_requests_per_1_day`, `max_requests_per_1_minute`, `max_tokens_per_1_minute`
+- `ProjectRateLimitUpdateRequest`: `batch_1_day_max_input_tokens`, `max_audio_megabytes_per_1_minute`, `max_images_per_1_minute`, `max_requests_per_1_day`, `max_requests_per_1_minute`, `max_tokens_per_1_minute`
+- `ProjectServiceAccount`: `created_at`
+- `ProjectServiceAccountApiKey`: `created_at`, `expires_at`
+- `ProjectServiceAccountCreateRequest`: `expires_in_seconds`
+- `ProjectServiceAccountCreateResponse`: `created_at`
+- `ProjectSpendAlert`: `threshold_amount`
+- `ProjectSpendLimitResource`: `threshold_amount`
+- `ProjectUser`: `added_at`
+- `PromptCacheMissDiagnosticsBody`: `cache_missed_tokens`, `comparison_reusable_tokens`
+- `ProvenanceResource`: `created_at`
+- `RateLimitsParam`: `max_requests_per_1_minute`
+- `RealtimeBetaClientEventConversationItemTruncate`: `audio_end_ms`, `content_index`
+- `RealtimeBetaResponseUsage`: `input_tokens`, `output_tokens`, `total_tokens`
+- `RealtimeBetaResponseUsageInputTokenDetails`: `audio_tokens`, `cached_tokens`, `image_tokens`, `text_tokens`
+- `RealtimeBetaResponseUsageInputTokenDetailsCachedTokensDetails`: `audio_tokens`, `image_tokens`, `text_tokens`
+- `RealtimeBetaResponseUsageOutputTokenDetails`: `audio_tokens`, `text_tokens`
+- `RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompleted`: `content_index`
+- `RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta`: `content_index`
+- `RealtimeBetaServerEventConversationItemInputAudioTranscriptionFailed`: `content_index`
+- `RealtimeBetaServerEventConversationItemInputAudioTranscriptionSegment`: `content_index`
+- `RealtimeBetaServerEventConversationItemTruncated`: `audio_end_ms`, `content_index`
+- `RealtimeBetaServerEventInputAudioBufferSpeechStarted`: `audio_start_ms`
+- `RealtimeBetaServerEventInputAudioBufferSpeechStopped`: `audio_end_ms`
+- `RealtimeBetaServerEventRateLimitsUpdatedRateLimitsInner`: `limit`, `remaining`
+- `RealtimeBetaServerEventResponseAudioDelta`: `content_index`, `output_index`
+- `RealtimeBetaServerEventResponseAudioDone`: `content_index`, `output_index`
+- `RealtimeBetaServerEventResponseAudioTranscriptDelta`: `content_index`, `output_index`
+- `RealtimeBetaServerEventResponseAudioTranscriptDone`: `content_index`, `output_index`
+- `RealtimeBetaServerEventResponseContentPartAdded`: `content_index`, `output_index`
+- `RealtimeBetaServerEventResponseContentPartDone`: `content_index`, `output_index`
+- `RealtimeBetaServerEventResponseFunctionCallArgumentsDelta`: `output_index`
+- `RealtimeBetaServerEventResponseFunctionCallArgumentsDone`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallArgumentsDelta`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallArgumentsDone`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallCompleted`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallFailed`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallInProgress`: `output_index`
+- `RealtimeBetaServerEventResponseOutputItemAdded`: `output_index`
+- `RealtimeBetaServerEventResponseOutputItemDone`: `output_index`
+- `RealtimeBetaServerEventResponseTextDelta`: `content_index`, `output_index`
+- `RealtimeBetaServerEventResponseTextDone`: `content_index`, `output_index`
+- `RealtimeCallRejectRequest`: `status_code`
+- `RealtimeClientEventConversationItemTruncate`: `audio_end_ms`, `content_index`
+- `RealtimeCreateClientSecretResponse`: `expires_at`
+- `RealtimeMcpProtocolError`: `code`
+- `RealtimeMcphttpError`: `code`
+- `RealtimeResponseUsage`: `input_tokens`, `output_tokens`, `total_tokens`
+- `RealtimeResponseUsageInputTokenDetails`: `audio_tokens`, `cached_tokens`, `image_tokens`, `text_tokens`
+- `RealtimeResponseUsageInputTokenDetailsCachedTokensDetails`: `audio_tokens`, `image_tokens`, `text_tokens`
+- `RealtimeResponseUsageOutputTokenDetails`: `audio_tokens`, `text_tokens`
+- `RealtimeServerEventConversationItemInputAudioTranscriptionCompleted`: `content_index`
+- `RealtimeServerEventConversationItemInputAudioTranscriptionDelta`: `content_index`
+- `RealtimeServerEventConversationItemInputAudioTranscriptionFailed`: `content_index`
+- `RealtimeServerEventConversationItemInputAudioTranscriptionSegment`: `content_index`
+- `RealtimeServerEventConversationItemTruncated`: `audio_end_ms`, `content_index`
+- `RealtimeServerEventInputAudioBufferDtmfEventReceived`: `received_at`
+- `RealtimeServerEventInputAudioBufferSpeechStarted`: `audio_start_ms`
+- `RealtimeServerEventInputAudioBufferSpeechStopped`: `audio_end_ms`
+- `RealtimeServerEventInputAudioBufferTimeoutTriggered`: `audio_end_ms`, `audio_start_ms`
+- `RealtimeServerEventRateLimitsUpdatedRateLimitsInner`: `limit`, `remaining`
+- `RealtimeServerEventResponseAudioDelta`: `content_index`, `output_index`
+- `RealtimeServerEventResponseAudioDone`: `content_index`, `output_index`
+- `RealtimeServerEventResponseAudioTranscriptDelta`: `content_index`, `output_index`
+- `RealtimeServerEventResponseAudioTranscriptDone`: `content_index`, `output_index`
+- `RealtimeServerEventResponseContentPartAdded`: `content_index`, `output_index`
+- `RealtimeServerEventResponseContentPartDone`: `content_index`, `output_index`
+- `RealtimeServerEventResponseFunctionCallArgumentsDelta`: `output_index`
+- `RealtimeServerEventResponseFunctionCallArgumentsDone`: `output_index`
+- `RealtimeServerEventResponseMcpCallArgumentsDelta`: `output_index`
+- `RealtimeServerEventResponseMcpCallArgumentsDone`: `output_index`
+- `RealtimeServerEventResponseMcpCallCompleted`: `output_index`
+- `RealtimeServerEventResponseMcpCallFailed`: `output_index`
+- `RealtimeServerEventResponseMcpCallInProgress`: `output_index`
+- `RealtimeServerEventResponseOutputItemAdded`: `output_index`
+- `RealtimeServerEventResponseOutputItemDone`: `output_index`
+- `RealtimeServerEventResponseTextDelta`: `content_index`, `output_index`
+- `RealtimeServerEventResponseTextDone`: `content_index`, `output_index`
+- `RealtimeSession`: `expires_at`
+- `RealtimeSessionCreateRequestClientSecret`: `expires_at`
+- `RealtimeSessionCreateRequestTurnDetection`: `prefix_padding_ms`, `silence_duration_ms`
+- `RealtimeSessionCreateResponse`: `expires_at`
+- `RealtimeSessionCreateResponseAudioInputTurnDetection`: `prefix_padding_ms`, `silence_duration_ms`
+- `RealtimeSessionCreateResponseGa`: `expires_at`
+- `RealtimeSessionCreateResponseTurnDetection`: `prefix_padding_ms`, `silence_duration_ms`
+- `RealtimeTranscriptionSessionCreateRequestTurnDetection`: `prefix_padding_ms`, `silence_duration_ms`
+- `RealtimeTranscriptionSessionCreateResponseClientSecret`: `expires_at`
+- `RealtimeTranscriptionSessionCreateResponseGa`: `expires_at`
+- `RealtimeTranscriptionSessionCreateResponseGaAudioInputTurnDetection`: `prefix_padding_ms`, `silence_duration_ms`
+- `RealtimeTranscriptionSessionCreateResponseTurnDetection`: `prefix_padding_ms`, `silence_duration_ms`
+- `RealtimeTranslationClientSecretCreateResponse`: `expires_at`
+- `RealtimeTranslationServerEventSessionInputTranscriptDelta`: `elapsed_ms`
+- `RealtimeTranslationServerEventSessionOutputAudioDelta`: `channels`, `elapsed_ms`, `sample_rate`
+- `RealtimeTranslationServerEventSessionOutputTranscriptDelta`: `elapsed_ms`
+- `RealtimeTranslationSession`: `expires_at`
+- `Response`: `max_output_tokens`, `max_tool_calls`, `top_logprobs`
+- `ResponseAudioDeltaEvent`: `sequence_number`
+- `ResponseAudioDoneEvent`: `sequence_number`
+- `ResponseAudioTranscriptDeltaEvent`: `sequence_number`
+- `ResponseAudioTranscriptDoneEvent`: `sequence_number`
+- `ResponseAudioTranscriptWsDelta`: `sequence_number`
+- `ResponseAudioTranscriptWsDone`: `sequence_number`
+- `ResponseAudioWsDelta`: `sequence_number`
+- `ResponseAudioWsDone`: `sequence_number`
+- `ResponseCodeInterpreterCallCodeDeltaEvent`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallCodeDoneEvent`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallCodeWsDelta`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallCodeWsDone`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallCompletedEvent`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallInProgressEvent`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallInWsProgress`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallInterpretingEvent`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallWsCompleted`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallWsInterpreting`: `output_index`, `sequence_number`
+- `ResponseCompactionCompactingEvent`: `output_index`, `sequence_number`
+- `ResponseCompactionCompactingStreamingEvent`: `output_index`, `sequence_number`
+- `ResponseCompactionWsCompacting`: `output_index`, `sequence_number`
+- `ResponseCompletedEvent`: `sequence_number`
+- `ResponseContentPartAddedEvent`: `content_index`, `output_index`, `sequence_number`
+- `ResponseContentPartDoneEvent`: `content_index`, `output_index`, `sequence_number`
+- `ResponseContentPartWsAdded`: `content_index`, `output_index`, `sequence_number`
+- `ResponseContentPartWsDone`: `content_index`, `output_index`, `sequence_number`
+- `ResponseCreatedEvent`: `sequence_number`
+- `ResponseCustomToolCallInputDeltaEvent`: `output_index`, `sequence_number`
+- `ResponseCustomToolCallInputDoneEvent`: `output_index`, `sequence_number`
+- `ResponseCustomToolCallInputWsDelta`: `output_index`, `sequence_number`
+- `ResponseCustomToolCallInputWsDone`: `output_index`, `sequence_number`
+- `ResponseErrorEvent`: `sequence_number`
+- `ResponseFailedEvent`: `sequence_number`
+- `ResponseFileSearchCallCompletedEvent`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallInProgressEvent`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallInWsProgress`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallSearchingEvent`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallWsCompleted`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallWsSearching`: `output_index`, `sequence_number`
+- `ResponseFunctionCallArgumentsDeltaEvent`: `output_index`, `sequence_number`
+- `ResponseFunctionCallArgumentsDoneEvent`: `output_index`, `sequence_number`
+- `ResponseFunctionCallArgumentsWsDelta`: `output_index`, `sequence_number`
+- `ResponseFunctionCallArgumentsWsDone`: `output_index`, `sequence_number`
+- `ResponseImageGenCallCompletedEvent`: `output_index`, `sequence_number`
+- `ResponseImageGenCallGeneratingEvent`: `output_index`, `sequence_number`
+- `ResponseImageGenCallInProgressEvent`: `output_index`, `sequence_number`
+- `ResponseImageGenCallInWsProgress`: `output_index`, `sequence_number`
+- `ResponseImageGenCallPartialImageEvent`: `output_index`, `partial_image_index`, `sequence_number`
+- `ResponseImageGenCallPartialWsImage`: `output_index`, `partial_image_index`, `sequence_number`
+- `ResponseImageGenCallWsCompleted`: `output_index`, `sequence_number`
+- `ResponseImageGenCallWsGenerating`: `output_index`, `sequence_number`
+- `ResponseInProgressEvent`: `sequence_number`
+- `ResponseInWsProgress`: `sequence_number`
+- `ResponseIncompleteEvent`: `sequence_number`
+- `ResponseMcpCallArgumentsDeltaEvent`: `output_index`, `sequence_number`
+- `ResponseMcpCallArgumentsDoneEvent`: `output_index`, `sequence_number`
+- `ResponseMcpCallArgumentsWsDelta`: `output_index`, `sequence_number`
+- `ResponseMcpCallArgumentsWsDone`: `output_index`, `sequence_number`
+- `ResponseMcpCallCompletedEvent`: `output_index`, `sequence_number`
+- `ResponseMcpCallFailedEvent`: `output_index`, `sequence_number`
+- `ResponseMcpCallInProgressEvent`: `output_index`, `sequence_number`
+- `ResponseMcpCallInWsProgress`: `output_index`, `sequence_number`
+- `ResponseMcpCallWsCompleted`: `output_index`, `sequence_number`
+- `ResponseMcpCallWsFailed`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsCompletedEvent`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsFailedEvent`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsInProgressEvent`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsInWsProgress`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsWsCompleted`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsWsFailed`: `output_index`, `sequence_number`
+- `ResponseOutputItemAddedEvent`: `output_index`, `sequence_number`
+- `ResponseOutputItemDoneEvent`: `output_index`, `sequence_number`
+- `ResponseOutputItemWsAdded`: `output_index`, `sequence_number`
+- `ResponseOutputItemWsDone`: `output_index`, `sequence_number`
+- `ResponseOutputTextAnnotationAddedEvent`: `annotation_index`, `content_index`, `output_index`, `sequence_number`
+- `ResponseOutputTextAnnotationWsAdded`: `annotation_index`, `content_index`, `output_index`, `sequence_number`
+- `ResponseProperties`: `max_tool_calls`
+- `ResponseQueuedEvent`: `sequence_number`
+- `ResponseReasoningSummaryPartAddedEvent`: `output_index`, `sequence_number`, `summary_index`
+- `ResponseReasoningSummaryPartDoneEvent`: `output_index`, `sequence_number`, `summary_index`
+- `ResponseReasoningSummaryPartWsAdded`: `output_index`, `sequence_number`, `summary_index`
+- `ResponseReasoningSummaryPartWsDone`: `output_index`, `sequence_number`, `summary_index`
+- `ResponseReasoningSummaryTextDeltaEvent`: `output_index`, `sequence_number`, `summary_index`
+- `ResponseReasoningSummaryTextDoneEvent`: `output_index`, `sequence_number`, `summary_index`
+- `ResponseReasoningSummaryTextWsDelta`: `output_index`, `sequence_number`, `summary_index`
+- `ResponseReasoningSummaryTextWsDone`: `output_index`, `sequence_number`, `summary_index`
+- `ResponseReasoningTextDeltaEvent`: `content_index`, `output_index`, `sequence_number`
+- `ResponseReasoningTextDoneEvent`: `content_index`, `output_index`, `sequence_number`
+- `ResponseReasoningTextWsDelta`: `content_index`, `output_index`, `sequence_number`
+- `ResponseReasoningTextWsDone`: `content_index`, `output_index`, `sequence_number`
+- `ResponseRefusalDeltaEvent`: `content_index`, `output_index`, `sequence_number`
+- `ResponseRefusalDoneEvent`: `content_index`, `output_index`, `sequence_number`
+- `ResponseRefusalWsDelta`: `content_index`, `output_index`, `sequence_number`
+- `ResponseRefusalWsDone`: `content_index`, `output_index`, `sequence_number`
+- `ResponseShellCallCommandAddedStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `ResponseShellCallCommandDeltaStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `ResponseShellCallCommandDoneStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `ResponseShellCallCommandWsAdded`: `command_index`, `output_index`, `sequence_number`
+- `ResponseShellCallCommandWsDelta`: `command_index`, `output_index`, `sequence_number`
+- `ResponseShellCallCommandWsDone`: `command_index`, `output_index`, `sequence_number`
+- `ResponseShellCallOutputContentDeltaStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `ResponseShellCallOutputContentDoneStreamingEvent`: `command_index`, `output_index`, `sequence_number`
+- `ResponseShellCallOutputContentWsDelta`: `command_index`, `output_index`, `sequence_number`
+- `ResponseShellCallOutputContentWsDone`: `command_index`, `output_index`, `sequence_number`
+- `ResponseSteerAcceptedEvent`: `sequence_number`
+- `ResponseSteerFailedEvent`: `sequence_number`
+- `ResponseSteerPendingEvent`: `sequence_number`
+- `ResponseTextDeltaEvent`: `content_index`, `output_index`, `sequence_number`
+- `ResponseTextDoneEvent`: `content_index`, `output_index`, `sequence_number`
+- `ResponseTextWsDelta`: `content_index`, `output_index`, `sequence_number`
+- `ResponseTextWsDone`: `content_index`, `output_index`, `sequence_number`
+- `ResponseUsage`: `input_tokens`, `output_tokens`, `total_tokens`
+- `ResponseUsageInputTokensDetails`: `cache_write_tokens`, `cached_tokens`
+- `ResponseUsageOutputTokensDetails`: `reasoning_tokens`
+- `ResponseWebSearchCallCompletedEvent`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallInProgressEvent`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallInWsProgress`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallSearchingEvent`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallWsCompleted`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallWsSearching`: `output_index`, `sequence_number`
+- `ResponseWsCompleted`: `sequence_number`
+- `ResponseWsCreated`: `sequence_number`
+- `ResponseWsError`: `sequence_number`, `status`
+- `ResponseWsFailed`: `sequence_number`
+- `ResponseWsIncomplete`: `sequence_number`
+- `ResponseWsQueued`: `sequence_number`
+- `ResponsesClientEventResponseCreate`: `max_output_tokens`, `max_tool_calls`, `top_logprobs`
+- `ResponsesWebSocketStreamEvent`: `annotation_index`, `command_index`, `content_index`, `output_index`, `partial_image_index`, `sequence_number`, `summary_index`
+- `RetentionRatioTruncationTokenLimits`: `post_instructions`
+- `RunCompletionUsage`: `completion_tokens`, `prompt_tokens`, `total_tokens`
+- `RunGraderResponseMetadataTokenUsage`: `cached_tokens`, `completion_tokens`, `prompt_tokens`, `total_tokens`
+- `RunObject`: `cancelled_at`, `completed_at`, `created_at`, `expires_at`, `failed_at`, `max_completion_tokens`, `max_prompt_tokens`, `started_at`
+- `RunStepCompletionUsage`: `completion_tokens`, `prompt_tokens`, `total_tokens`
+- `RunStepDeltaStepDetailsToolCallsCodeObject`: `index`
+- `RunStepDeltaStepDetailsToolCallsCodeOutputImageObject`: `index`
+- `RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject`: `index`
+- `RunStepDeltaStepDetailsToolCallsFileSearchObject`: `index`
+- `RunStepDeltaStepDetailsToolCallsFunctionObject`: `index`
+- `RunStepObject`: `cancelled_at`, `completed_at`, `created_at`, `expired_at`, `failed_at`
+- `SafetyAlertResource`: `created_at`
+- `SafetyCaseResource`: `created_at`
+- `ScrollParam`: `scroll_x`, `scroll_y`, `x`, `y`
+- `ServerVad`: `idle_timeout_ms`, `prefix_padding_ms`, `silence_duration_ms`
+- `ServiceAccountApiKeyBody`: `created_at`, `expires_at`
+- `SkillResource`: `created_at`
+- `SkillVersionResource`: `created_at`
+- `SpeechAudioDoneEventUsage`: `input_tokens`, `output_tokens`, `total_tokens`
+- `StaticChunkingStrategy`: `chunk_overlap_tokens`, `max_chunk_size_tokens`
+- `TaskGroupItem`: `created_at`
+- `TaskItem`: `created_at`
+- `ThreadObject`: `created_at`
+- `ThreadResource`: `created_at`
+- `TokenCountsResource`: `input_tokens`
+- `TopLogProb`: `bytes`
+- `TranscriptTextDeltaEventLogprobsInner`: `bytes`
+- `TranscriptTextDoneEventLogprobsInner`: `bytes`
+- `TranscriptTextUsageTokens`: `input_tokens`, `output_tokens`, `total_tokens`
+- `TranscriptTextUsageTokensInputTokenDetails`: `audio_tokens`, `text_tokens`
+- `TranscriptionSegment`: `id`, `seek`, `tokens`
+- `TruncationObject`: `last_messages`
+- `UpdateOrganizationSpendLimitBody`: `threshold_amount`
+- `UpdateProjectApiKeyBody`: `expires_in_seconds`
+- `UpdateProjectSpendLimitBody`: `threshold_amount`
+- `Upload`: `bytes`, `created_at`, `expires_at`
+- `UploadPart`: `created_at`
+- `UrlCitationBody`: `end_index`, `start_index`
+- `UrlCitationParam`: `end_index`, `start_index`
+- `UsageAudioSpeechesResult`: `characters`, `num_model_requests`
+- `UsageAudioTranscriptionsResult`: `num_model_requests`
+- `UsageCodeInterpreterSessionsResult`: `num_sessions`
+- `UsageCompletionsResult`: `input_audio_tokens`, `input_cache_write_12h_tokens`, `input_cache_write_tokens`, `input_cached_audio_tokens`, `input_cached_image_tokens`, `input_cached_text_tokens`, `input_cached_tokens`, `input_image_tokens`, `input_text_tokens`, `input_tokens`, `input_uncached_tokens`, `num_model_requests`, `output_audio_tokens`, `output_image_tokens`, `output_text_tokens`, `output_tokens`
+- `UsageEmbeddingsResult`: `input_tokens`, `num_model_requests`
+- `UsageFileSearchCallsResult`: `num_requests`
+- `UsageImagesResult`: `images`, `num_model_requests`
+- `UsageModerationsResult`: `input_tokens`, `num_model_requests`
+- `UsageTimeBucket`: `end_time`, `start_time`
+- `UsageVectorStoresResult`: `usage_bytes`
+- `UsageWebSearchCallsResult`: `num_model_requests`, `num_requests`
+- `User`: `added_at`, `api_key_last_used_at`, `created`
+- `UserMessageItem`: `created_at`
+- `UserUser`: `banned_at`
+- `VadConfig`: `prefix_padding_ms`, `silence_duration_ms`
+- `VectorStoreExpirationAfter`: `days`
+- `VectorStoreFileBatchObject`: `created_at`
+- `VectorStoreFileBatchObjectFileCounts`: `cancelled`, `completed`, `failed`, `in_progress`, `total`
+- `VectorStoreFileObject`: `created_at`, `usage_bytes`
+- `VectorStoreObject`: `created_at`, `expires_at`, `last_active_at`, `usage_bytes`
+- `VectorStoreObjectFileCounts`: `cancelled`, `completed`, `failed`, `in_progress`, `total`
+- `VectorStoreSearchRequest`: `max_num_results`
+- `VideoCharacterResource`: `created_at`
+- `VideoResource`: `completed_at`, `created_at`, `expires_at`, `progress`
+- `VoiceConsentResource`: `created_at`
+- `VoiceResource`: `created_at`
+- `WebhookAgentEnvironmentExpired`: `created_at`
+- `WebhookAgentEnvironmentFailed`: `created_at`
+- `WebhookAgentEnvironmentReady`: `created_at`
+- `WebhookAgentEnvironmentSuspended`: `created_at`
+- `WebhookAgentSessionActionRequired`: `created_at`
+- `WebhookAgentSessionCreated`: `created_at`
+- `WebhookAgentSessionEnvelope`: `created_at`
+- `WebhookAgentSessionFailed`: `created_at`
+- `WebhookAgentSessionIdle`: `created_at`
+- `WebhookAgentSessionInProgress`: `created_at`
+- `WebhookBatchCancelled`: `created_at`
+- `WebhookBatchCompleted`: `created_at`
+- `WebhookBatchExpired`: `created_at`
+- `WebhookBatchFailed`: `created_at`
+- `WebhookEndpointBody`: `created_at`, `updated_at`
+- `WebhookEndpointTestResultResource`: `status_code`
+- `WebhookEndpointWithSecretResource`: `created_at`, `updated_at`
+- `WebhookEvalRunCanceled`: `created_at`
+- `WebhookEvalRunFailed`: `created_at`
+- `WebhookEvalRunSucceeded`: `created_at`
+- `WebhookFineTuningJobCancelled`: `created_at`
+- `WebhookFineTuningJobFailed`: `created_at`
+- `WebhookFineTuningJobSucceeded`: `created_at`
+- `WebhookLiveCallIncoming`: `created_at`
+- `WebhookLiveTransportIncoming`: `created_at`
+- `WebhookRealtimeCallIncoming`: `created_at`
+- `WebhookResponseCancelled`: `created_at`
+- `WebhookResponseCompleted`: `created_at`
+- `WebhookResponseFailed`: `created_at`
+- `WebhookResponseIncomplete`: `created_at`
+- `WebhookSafetyAlertCreated`: `created_at`
+- `WebhookSafetyDeactivationIssued`: `created_at`
+- `WebhookSafetyOrgAlertCreated`: `created_at`
+- `WebhookSafetyWarningIssued`: `created_at`
+- `WidgetMessageItem`: `created_at`
+
+</details>
+
+<details><summary>Constructor parameters (989 in 547 constructors)</summary>
+
+- `AdminApiKey::new`: `created_at`, `expires_at`
+- `AdminApiKeyCreateResponse::new`: `created_at`, `expires_at`
+- `AssignedRoleDetails::new`: `created_at`, `updated_at`
+- `AssistantMessageItem::new`: `created_at`
+- `AssistantObject::new`: `created_at`
+- `AuditLog::new`: `effective_at`
+- `Batch::new`: `created_at`
+- `BatchRequestCounts::new`: `total`, `completed`, `failed`
+- `BatchUsage::new`: `input_tokens`, `output_tokens`, `total_tokens`
+- `BatchUsageInputTokensDetails::new`: `cached_tokens`
+- `BatchUsageOutputTokensDetails::new`: `reasoning_tokens`
+- `BetaClickParam::new`: `x`, `y`
+- `BetaCompactResource::new`: `created_at`
+- `BetaComputerUsePreviewTool::new`: `display_width`, `display_height`
+- `BetaContainerFileCitationBody::new`: `start_index`, `end_index`
+- `BetaContainerFileCitationParam::new`: `start_index`, `end_index`
+- `BetaCoordParam::new`: `x`, `y`
+- `BetaDoubleClickAction::new`: `x`, `y`
+- `BetaFileCitationBody::new`: `index`
+- `BetaFileCitationParam::new`: `index`
+- `BetaFilePath::new`: `index`
+- `BetaFunctionShellAction::new`: `timeout_ms`, `max_output_length`
+- `BetaFunctionShellCallOutput::new`: `max_output_length`
+- `BetaFunctionShellCallOutputExitOutcome::new`: `exit_code`
+- `BetaFunctionShellCallOutputExitOutcomeParam::new`: `exit_code`
+- `BetaHttpError::new`: `code`
+- `BetaLogProb::new`: `bytes`
+- `BetaMcpProtocolError::new`: `code`
+- `BetaMoveParam::new`: `x`, `y`
+- `BetaPromptCacheMissDiagnosticsBody::new`: `cache_missed_tokens`
+- `BetaResponseAudioDeltaEvent::new`: `sequence_number`
+- `BetaResponseAudioDoneEvent::new`: `sequence_number`
+- `BetaResponseAudioTranscriptDeltaEvent::new`: `sequence_number`
+- `BetaResponseAudioTranscriptDoneEvent::new`: `sequence_number`
+- `BetaResponseAudioTranscriptWsDelta::new`: `sequence_number`
+- `BetaResponseAudioTranscriptWsDone::new`: `sequence_number`
+- `BetaResponseAudioWsDelta::new`: `sequence_number`
+- `BetaResponseAudioWsDone::new`: `sequence_number`
+- `BetaResponseCodeInterpreterCallCodeDeltaEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallCodeDoneEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallCodeWsDelta::new`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallCodeWsDone::new`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallInProgressEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallInWsProgress::new`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallInterpretingEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallWsCompleted::new`: `output_index`, `sequence_number`
+- `BetaResponseCodeInterpreterCallWsInterpreting::new`: `output_index`, `sequence_number`
+- `BetaResponseCompactionCompactingStreamingEvent::new`: `sequence_number`, `output_index`
+- `BetaResponseCompactionWsCompacting::new`: `sequence_number`, `output_index`
+- `BetaResponseCompletedEvent::new`: `sequence_number`
+- `BetaResponseContentPartAddedEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseContentPartDoneEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseContentPartWsAdded::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseContentPartWsDone::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseCreatedEvent::new`: `sequence_number`
+- `BetaResponseCustomToolCallInputDeltaEvent::new`: `sequence_number`, `output_index`
+- `BetaResponseCustomToolCallInputDoneEvent::new`: `sequence_number`, `output_index`
+- `BetaResponseCustomToolCallInputWsDelta::new`: `sequence_number`, `output_index`
+- `BetaResponseCustomToolCallInputWsDone::new`: `sequence_number`, `output_index`
+- `BetaResponseErrorEvent::new`: `sequence_number`
+- `BetaResponseFailedEvent::new`: `sequence_number`
+- `BetaResponseFileSearchCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallInProgressEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallInWsProgress::new`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallSearchingEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallWsCompleted::new`: `output_index`, `sequence_number`
+- `BetaResponseFileSearchCallWsSearching::new`: `output_index`, `sequence_number`
+- `BetaResponseFunctionCallArgumentsDeltaEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseFunctionCallArgumentsDoneEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseFunctionCallArgumentsWsDelta::new`: `output_index`, `sequence_number`
+- `BetaResponseFunctionCallArgumentsWsDone::new`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallGeneratingEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallInProgressEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallInWsProgress::new`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallPartialImageEvent::new`: `output_index`, `sequence_number`, `partial_image_index`
+- `BetaResponseImageGenCallPartialWsImage::new`: `output_index`, `sequence_number`, `partial_image_index`
+- `BetaResponseImageGenCallWsCompleted::new`: `output_index`, `sequence_number`
+- `BetaResponseImageGenCallWsGenerating::new`: `output_index`, `sequence_number`
+- `BetaResponseInProgressEvent::new`: `sequence_number`
+- `BetaResponseInWsProgress::new`: `sequence_number`
+- `BetaResponseIncompleteEvent::new`: `sequence_number`
+- `BetaResponseInjectCreatedEvent::new`: `sequence_number`
+- `BetaResponseInjectFailedEvent::new`: `sequence_number`
+- `BetaResponseMcpCallArgumentsDeltaEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallArgumentsDoneEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallArgumentsWsDelta::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallArgumentsWsDone::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallFailedEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallInProgressEvent::new`: `sequence_number`, `output_index`
+- `BetaResponseMcpCallInWsProgress::new`: `sequence_number`, `output_index`
+- `BetaResponseMcpCallWsCompleted::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpCallWsFailed::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsCompletedEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsFailedEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsInProgressEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsInWsProgress::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsWsCompleted::new`: `output_index`, `sequence_number`
+- `BetaResponseMcpListToolsWsFailed::new`: `output_index`, `sequence_number`
+- `BetaResponseOutputItemAddedEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseOutputItemDoneEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseOutputItemWsAdded::new`: `output_index`, `sequence_number`
+- `BetaResponseOutputItemWsDone::new`: `output_index`, `sequence_number`
+- `BetaResponseOutputTextAnnotationAddedEvent::new`: `output_index`, `content_index`, `annotation_index`, `sequence_number`
+- `BetaResponseOutputTextAnnotationWsAdded::new`: `output_index`, `content_index`, `annotation_index`, `sequence_number`
+- `BetaResponseQueuedEvent::new`: `sequence_number`
+- `BetaResponseReasoningSummaryPartAddedEvent::new`: `output_index`, `summary_index`, `sequence_number`
+- `BetaResponseReasoningSummaryPartDoneEvent::new`: `output_index`, `summary_index`, `sequence_number`
+- `BetaResponseReasoningSummaryPartWsAdded::new`: `output_index`, `summary_index`, `sequence_number`
+- `BetaResponseReasoningSummaryPartWsDone::new`: `output_index`, `summary_index`, `sequence_number`
+- `BetaResponseReasoningSummaryTextDeltaEvent::new`: `output_index`, `summary_index`, `sequence_number`
+- `BetaResponseReasoningSummaryTextDoneEvent::new`: `output_index`, `summary_index`, `sequence_number`
+- `BetaResponseReasoningSummaryTextWsDelta::new`: `output_index`, `summary_index`, `sequence_number`
+- `BetaResponseReasoningSummaryTextWsDone::new`: `output_index`, `summary_index`, `sequence_number`
+- `BetaResponseReasoningTextDeltaEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseReasoningTextDoneEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseReasoningTextWsDelta::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseReasoningTextWsDone::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseRefusalDeltaEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseRefusalDoneEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseRefusalWsDelta::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseRefusalWsDone::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseShellCallCommandAddedStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseShellCallCommandDeltaStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseShellCallCommandDoneStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseShellCallCommandWsAdded::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseShellCallCommandWsDelta::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseShellCallCommandWsDone::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseShellCallOutputContentDeltaStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseShellCallOutputContentDoneStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseShellCallOutputContentWsDelta::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseShellCallOutputContentWsDone::new`: `sequence_number`, `output_index`, `command_index`
+- `BetaResponseSteerAcceptedEvent::new`: `sequence_number`
+- `BetaResponseSteerFailedEvent::new`: `sequence_number`
+- `BetaResponseSteerPendingEvent::new`: `sequence_number`
+- `BetaResponseTextDeltaEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseTextDoneEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseTextWsDelta::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseTextWsDone::new`: `output_index`, `content_index`, `sequence_number`
+- `BetaResponseUsage::new`: `input_tokens`, `output_tokens`, `total_tokens`
+- `BetaResponseWebSearchCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallInProgressEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallInWsProgress::new`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallSearchingEvent::new`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallWsCompleted::new`: `output_index`, `sequence_number`
+- `BetaResponseWebSearchCallWsSearching::new`: `output_index`, `sequence_number`
+- `BetaResponseWsCompleted::new`: `sequence_number`
+- `BetaResponseWsCreated::new`: `sequence_number`
+- `BetaResponseWsFailed::new`: `sequence_number`
+- `BetaResponseWsIncomplete::new`: `sequence_number`
+- `BetaResponseWsQueued::new`: `sequence_number`
+- `BetaResponsesWebSocketStreamEvent::new`: `sequence_number`, `output_index`, `content_index`, `command_index`, `summary_index`, `partial_image_index`, `annotation_index`
+- `BetaScrollParam::new`: `x`, `y`, `scroll_x`, `scroll_y`
+- `BetaTokenCountsResource::new`: `input_tokens`
+- `BetaTopLogProb::new`: `bytes`
+- `BetaUrlCitationBody::new`: `start_index`, `end_index`
+- `BetaUrlCitationParam::new`: `start_index`, `end_index`
+- `Certificate::new`: `created_at`
+- `ChatCompletionMessageToolCallChunk::new`: `index`
+- `ChatCompletionResponseMessageAnnotationsInnerUrlCitation::new`: `end_index`, `start_index`
+- `ChatCompletionResponseMessageAudio::new`: `expires_at`
+- `ChatCompletionTokenLogprob::new`: `bytes`
+- `ChatCompletionTokenLogprobTopLogprobsInner::new`: `bytes`
+- `ChatSessionFileUpload::new`: `max_file_size`, `max_files`
+- `ChatSessionHistory::new`: `recent_threads`
+- `ChatSessionRateLimits::new`: `max_requests_per_1_minute`
+- `ChatSessionResource::new`: `expires_at`, `max_requests_per_1_minute`
+- `ClickParam::new`: `x`, `y`
+- `ClientToolCallItem::new`: `created_at`
+- `CompactResource::new`: `created_at`
+- `CompletionUsage::new`: `completion_tokens`, `prompt_tokens`, `total_tokens`
+- `ComputerUsePreviewTool::new`: `display_width`, `display_height`
+- `ContainerFileCitationBody::new`: `start_index`, `end_index`
+- `ContainerFileCitationParam::new`: `start_index`, `end_index`
+- `ContainerFileResource::new`: `created_at`, `bytes`
+- `ContainerResource::new`: `created_at`
+- `ConversationResource::new`: `created_at`
+- `CoordParam::new`: `x`, `y`
+- `CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic::new`: `max_chunk_size_tokens`, `chunk_overlap_tokens`
+- `CreateChatCompletionResponse::new`: `created`
+- `CreateChatCompletionResponseChoicesInner::new`: `index`
+- `CreateChatCompletionStreamResponse::new`: `created`
+- `CreateChatCompletionStreamResponseChoicesInner::new`: `index`
+- `CreateCompletionResponse::new`: `created`
+- `CreateCompletionResponseChoicesInner::new`: `index`
+- `CreateContainerBodyExpiresAfter::new`: `minutes`
+- `CreateEmbeddingResponseUsage::new`: `prompt_tokens`, `total_tokens`
+- `CreateSpendAlertBody::new`: `threshold_amount`
+- `CreateThreadRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic::new`: `max_chunk_size_tokens`, `chunk_overlap_tokens`
+- `CreateUploadRequest::new`: `bytes`
+- `DecisionsUsageBucket::new`: `start_time`, `end_time`
+- `DecisionsUsageResult::new`: `input_tokens`, `output_tokens`, `num_model_requests`
+- `DoubleClickAction::new`: `x`, `y`
+- `DragPoint::new`: `x`, `y`
+- `Embedding::new`: `index`
+- `Eval::new`: `created_at`
+- `EvalRun::new`: `created_at`
+- `EvalRunOutputItem::new`: `created_at`, `datasource_item_id`
+- `EvalRunOutputItemSample::new`: `max_completion_tokens`, `seed`
+- `EvalRunOutputItemSampleUsage::new`: `total_tokens`, `completion_tokens`, `prompt_tokens`, `cached_tokens`
+- `EvalRunPerModelUsageInner::new`: `invocation_count`, `prompt_tokens`, `completion_tokens`, `total_tokens`, `cached_tokens`
+- `EvalRunPerTestingCriteriaResultsInner::new`: `passed`, `failed`
+- `EvalRunResultCounts::new`: `total`, `errored`, `failed`, `passed`
+- `ExternalStorageResponse::new`: `created_at`
+- `FileCitationBody::new`: `index`
+- `FileCitationParam::new`: `index`
+- `FilePath::new`: `index`
+- `FineTuningCheckpointPermission::new`: `created_at`
+- `FineTuningJob::new`: `created_at`, `finished_at`, `trained_tokens`, `seed`
+- `FineTuningJobCheckpoint::new`: `created_at`, `step_number`
+- `FineTuningJobEvent::new`: `created_at`
+- `FunctionShellAction::new`: `timeout_ms`, `max_output_length`
+- `FunctionShellCallOutput::new`: `max_output_length`
+- `FunctionShellCallOutputExitOutcome::new`: `exit_code`
+- `FunctionShellCallOutputExitOutcomeParam::new`: `exit_code`
+- `Group::new`: `created_at`
+- `GroupResourceWithSuccess::new`: `created_at`
+- `GroupResponse::new`: `created_at`
+- `HttpError::new`: `code`
+- `ImageEditCompletedEvent::new`: `created_at`
+- `ImageEditPartialImageEvent::new`: `created_at`, `partial_image_index`
+- `ImageGenCompletedEvent::new`: `created_at`
+- `ImageGenInputUsageDetails::new`: `text_tokens`, `image_tokens`
+- `ImageGenOutputTokensDetails::new`: `image_tokens`, `text_tokens`
+- `ImageGenPartialImageEvent::new`: `created_at`, `partial_image_index`
+- `ImageGenUsage::new`: `input_tokens`, `total_tokens`, `output_tokens`
+- `ImagesResponse::new`: `created`
+- `ImagesUsage::new`: `total_tokens`, `input_tokens`, `output_tokens`
+- `ImagesUsageInputTokensDetails::new`: `text_tokens`, `image_tokens`
+- `Invite::new`: `created_at`
+- `LiveCallRejectRequest::new`: `status_code`
+- `LiveCommentaryAppended::new`: `start_ms`, `end_ms`
+- `LiveDelegationCreated::new`: `offset_ms`
+- `LiveInputTranscriptDelta::new`: `start_ms`, `end_ms`
+- `LiveInstructionsAppended::new`: `start_ms`, `end_ms`
+- `LiveOutputTranscriptDelta::new`: `start_ms`, `end_ms`
+- `LiveSessionAudioFormatPcmaParam::new`: `rate`
+- `LiveSessionAudioFormatPcmuParam::new`: `rate`
+- `LiveSessionResourceParam::new`: `expires_at`
+- `LiveThinkingAppended::new`: `start_ms`, `end_ms`
+- `LogProb::new`: `bytes`
+- `LogProbProperties::new`: `bytes`
+- `McpProtocolError::new`: `code`
+- `MessageContentTextAnnotationsFileCitationObject::new`: `start_index`, `end_index`
+- `MessageContentTextAnnotationsFilePathObject::new`: `start_index`, `end_index`
+- `MessageDeltaContentImageFileObject::new`: `index`
+- `MessageDeltaContentImageUrlObject::new`: `index`
+- `MessageDeltaContentRefusalObject::new`: `index`
+- `MessageDeltaContentTextAnnotationsFileCitationObject::new`: `index`
+- `MessageDeltaContentTextAnnotationsFilePathObject::new`: `index`
+- `MessageDeltaContentTextObject::new`: `index`
+- `MessageObject::new`: `created_at`, `completed_at`, `incomplete_at`
+- `Model::new`: `created`
+- `MoveParam::new`: `x`, `y`
+- `OpenAiFile::new`: `bytes`, `created_at`
+- `OrganizationCertificate::new`: `created_at`
+- `OrganizationProjectCertificate::new`: `created_at`
+- `OrganizationSpendAlert::new`: `threshold_amount`
+- `OrganizationSpendLimitResource::new`: `threshold_amount`
+- `Project::new`: `created_at`
+- `ProjectApiKey::new`: `created_at`, `last_used_at`
+- `ProjectApiKeyOwnerServiceAccount::new`: `created_at`
+- `ProjectApiKeyOwnerUser::new`: `created_at`
+- `ProjectGroup::new`: `created_at`
+- `ProjectRateLimit::new`: `max_requests_per_1_minute`, `max_tokens_per_1_minute`
+- `ProjectServiceAccount::new`: `created_at`
+- `ProjectServiceAccountApiKey::new`: `created_at`
+- `ProjectServiceAccountCreateResponse::new`: `created_at`
+- `ProjectSpendAlert::new`: `threshold_amount`
+- `ProjectSpendLimitResource::new`: `threshold_amount`
+- `ProjectUser::new`: `added_at`
+- `PromptCacheMissDiagnosticsBody::new`: `cache_missed_tokens`
+- `ProvenanceResource::new`: `created_at`
+- `RealtimeBetaClientEventConversationItemTruncate::new`: `content_index`, `audio_end_ms`
+- `RealtimeBetaServerEventConversationItemInputAudioTranscriptionCompleted::new`: `content_index`
+- `RealtimeBetaServerEventConversationItemInputAudioTranscriptionFailed::new`: `content_index`
+- `RealtimeBetaServerEventConversationItemInputAudioTranscriptionSegment::new`: `content_index`
+- `RealtimeBetaServerEventConversationItemTruncated::new`: `content_index`, `audio_end_ms`
+- `RealtimeBetaServerEventInputAudioBufferSpeechStarted::new`: `audio_start_ms`
+- `RealtimeBetaServerEventInputAudioBufferSpeechStopped::new`: `audio_end_ms`
+- `RealtimeBetaServerEventResponseAudioDelta::new`: `output_index`, `content_index`
+- `RealtimeBetaServerEventResponseAudioDone::new`: `output_index`, `content_index`
+- `RealtimeBetaServerEventResponseAudioTranscriptDelta::new`: `output_index`, `content_index`
+- `RealtimeBetaServerEventResponseAudioTranscriptDone::new`: `output_index`, `content_index`
+- `RealtimeBetaServerEventResponseContentPartAdded::new`: `output_index`, `content_index`
+- `RealtimeBetaServerEventResponseContentPartDone::new`: `output_index`, `content_index`
+- `RealtimeBetaServerEventResponseFunctionCallArgumentsDelta::new`: `output_index`
+- `RealtimeBetaServerEventResponseFunctionCallArgumentsDone::new`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallArgumentsDelta::new`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallArgumentsDone::new`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallCompleted::new`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallFailed::new`: `output_index`
+- `RealtimeBetaServerEventResponseMcpCallInProgress::new`: `output_index`
+- `RealtimeBetaServerEventResponseOutputItemAdded::new`: `output_index`
+- `RealtimeBetaServerEventResponseOutputItemDone::new`: `output_index`
+- `RealtimeBetaServerEventResponseTextDelta::new`: `output_index`, `content_index`
+- `RealtimeBetaServerEventResponseTextDone::new`: `output_index`, `content_index`
+- `RealtimeClientEventConversationItemTruncate::new`: `content_index`, `audio_end_ms`
+- `RealtimeCreateClientSecretResponse::new`: `expires_at`
+- `RealtimeMcpProtocolError::new`: `code`
+- `RealtimeMcphttpError::new`: `code`
+- `RealtimeServerEventConversationItemInputAudioTranscriptionCompleted::new`: `content_index`
+- `RealtimeServerEventConversationItemInputAudioTranscriptionFailed::new`: `content_index`
+- `RealtimeServerEventConversationItemInputAudioTranscriptionSegment::new`: `content_index`
+- `RealtimeServerEventConversationItemTruncated::new`: `content_index`, `audio_end_ms`
+- `RealtimeServerEventInputAudioBufferDtmfEventReceived::new`: `received_at`
+- `RealtimeServerEventInputAudioBufferSpeechStarted::new`: `audio_start_ms`
+- `RealtimeServerEventInputAudioBufferSpeechStopped::new`: `audio_end_ms`
+- `RealtimeServerEventInputAudioBufferTimeoutTriggered::new`: `audio_start_ms`, `audio_end_ms`
+- `RealtimeServerEventResponseAudioDelta::new`: `output_index`, `content_index`
+- `RealtimeServerEventResponseAudioDone::new`: `output_index`, `content_index`
+- `RealtimeServerEventResponseAudioTranscriptDelta::new`: `output_index`, `content_index`
+- `RealtimeServerEventResponseAudioTranscriptDone::new`: `output_index`, `content_index`
+- `RealtimeServerEventResponseContentPartAdded::new`: `output_index`, `content_index`
+- `RealtimeServerEventResponseContentPartDone::new`: `output_index`, `content_index`
+- `RealtimeServerEventResponseFunctionCallArgumentsDelta::new`: `output_index`
+- `RealtimeServerEventResponseFunctionCallArgumentsDone::new`: `output_index`
+- `RealtimeServerEventResponseMcpCallArgumentsDelta::new`: `output_index`
+- `RealtimeServerEventResponseMcpCallArgumentsDone::new`: `output_index`
+- `RealtimeServerEventResponseMcpCallCompleted::new`: `output_index`
+- `RealtimeServerEventResponseMcpCallFailed::new`: `output_index`
+- `RealtimeServerEventResponseMcpCallInProgress::new`: `output_index`
+- `RealtimeServerEventResponseOutputItemAdded::new`: `output_index`
+- `RealtimeServerEventResponseOutputItemDone::new`: `output_index`
+- `RealtimeServerEventResponseTextDelta::new`: `output_index`, `content_index`
+- `RealtimeServerEventResponseTextDone::new`: `output_index`, `content_index`
+- `RealtimeSessionCreateRequestClientSecret::new`: `expires_at`
+- `RealtimeTranscriptionSessionCreateResponseClientSecret::new`: `expires_at`
+- `RealtimeTranslationClientSecretCreateResponse::new`: `expires_at`
+- `RealtimeTranslationSession::new`: `expires_at`
+- `ResponseAudioDeltaEvent::new`: `sequence_number`
+- `ResponseAudioDoneEvent::new`: `sequence_number`
+- `ResponseAudioTranscriptDeltaEvent::new`: `sequence_number`
+- `ResponseAudioTranscriptDoneEvent::new`: `sequence_number`
+- `ResponseAudioTranscriptWsDelta::new`: `sequence_number`
+- `ResponseAudioTranscriptWsDone::new`: `sequence_number`
+- `ResponseAudioWsDelta::new`: `sequence_number`
+- `ResponseAudioWsDone::new`: `sequence_number`
+- `ResponseCodeInterpreterCallCodeDeltaEvent::new`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallCodeDoneEvent::new`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallCodeWsDelta::new`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallCodeWsDone::new`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallInProgressEvent::new`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallInWsProgress::new`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallInterpretingEvent::new`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallWsCompleted::new`: `output_index`, `sequence_number`
+- `ResponseCodeInterpreterCallWsInterpreting::new`: `output_index`, `sequence_number`
+- `ResponseCompactionCompactingEvent::new`: `sequence_number`, `output_index`
+- `ResponseCompactionCompactingStreamingEvent::new`: `sequence_number`, `output_index`
+- `ResponseCompactionWsCompacting::new`: `sequence_number`, `output_index`
+- `ResponseCompletedEvent::new`: `sequence_number`
+- `ResponseContentPartAddedEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseContentPartDoneEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseContentPartWsAdded::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseContentPartWsDone::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseCreatedEvent::new`: `sequence_number`
+- `ResponseCustomToolCallInputDeltaEvent::new`: `sequence_number`, `output_index`
+- `ResponseCustomToolCallInputDoneEvent::new`: `sequence_number`, `output_index`
+- `ResponseCustomToolCallInputWsDelta::new`: `sequence_number`, `output_index`
+- `ResponseCustomToolCallInputWsDone::new`: `sequence_number`, `output_index`
+- `ResponseErrorEvent::new`: `sequence_number`
+- `ResponseFailedEvent::new`: `sequence_number`
+- `ResponseFileSearchCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallInProgressEvent::new`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallInWsProgress::new`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallSearchingEvent::new`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallWsCompleted::new`: `output_index`, `sequence_number`
+- `ResponseFileSearchCallWsSearching::new`: `output_index`, `sequence_number`
+- `ResponseFunctionCallArgumentsDeltaEvent::new`: `output_index`, `sequence_number`
+- `ResponseFunctionCallArgumentsDoneEvent::new`: `output_index`, `sequence_number`
+- `ResponseFunctionCallArgumentsWsDelta::new`: `output_index`, `sequence_number`
+- `ResponseFunctionCallArgumentsWsDone::new`: `output_index`, `sequence_number`
+- `ResponseImageGenCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `ResponseImageGenCallGeneratingEvent::new`: `output_index`, `sequence_number`
+- `ResponseImageGenCallInProgressEvent::new`: `output_index`, `sequence_number`
+- `ResponseImageGenCallInWsProgress::new`: `output_index`, `sequence_number`
+- `ResponseImageGenCallPartialImageEvent::new`: `output_index`, `sequence_number`, `partial_image_index`
+- `ResponseImageGenCallPartialWsImage::new`: `output_index`, `sequence_number`, `partial_image_index`
+- `ResponseImageGenCallWsCompleted::new`: `output_index`, `sequence_number`
+- `ResponseImageGenCallWsGenerating::new`: `output_index`, `sequence_number`
+- `ResponseInProgressEvent::new`: `sequence_number`
+- `ResponseInWsProgress::new`: `sequence_number`
+- `ResponseIncompleteEvent::new`: `sequence_number`
+- `ResponseMcpCallArgumentsDeltaEvent::new`: `output_index`, `sequence_number`
+- `ResponseMcpCallArgumentsDoneEvent::new`: `output_index`, `sequence_number`
+- `ResponseMcpCallArgumentsWsDelta::new`: `output_index`, `sequence_number`
+- `ResponseMcpCallArgumentsWsDone::new`: `output_index`, `sequence_number`
+- `ResponseMcpCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `ResponseMcpCallFailedEvent::new`: `output_index`, `sequence_number`
+- `ResponseMcpCallInProgressEvent::new`: `sequence_number`, `output_index`
+- `ResponseMcpCallInWsProgress::new`: `sequence_number`, `output_index`
+- `ResponseMcpCallWsCompleted::new`: `output_index`, `sequence_number`
+- `ResponseMcpCallWsFailed::new`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsCompletedEvent::new`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsFailedEvent::new`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsInProgressEvent::new`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsInWsProgress::new`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsWsCompleted::new`: `output_index`, `sequence_number`
+- `ResponseMcpListToolsWsFailed::new`: `output_index`, `sequence_number`
+- `ResponseOutputItemAddedEvent::new`: `output_index`, `sequence_number`
+- `ResponseOutputItemDoneEvent::new`: `output_index`, `sequence_number`
+- `ResponseOutputItemWsAdded::new`: `output_index`, `sequence_number`
+- `ResponseOutputItemWsDone::new`: `output_index`, `sequence_number`
+- `ResponseOutputTextAnnotationAddedEvent::new`: `output_index`, `content_index`, `annotation_index`, `sequence_number`
+- `ResponseOutputTextAnnotationWsAdded::new`: `output_index`, `content_index`, `annotation_index`, `sequence_number`
+- `ResponseQueuedEvent::new`: `sequence_number`
+- `ResponseReasoningSummaryPartAddedEvent::new`: `output_index`, `summary_index`, `sequence_number`
+- `ResponseReasoningSummaryPartDoneEvent::new`: `output_index`, `summary_index`, `sequence_number`
+- `ResponseReasoningSummaryPartWsAdded::new`: `output_index`, `summary_index`, `sequence_number`
+- `ResponseReasoningSummaryPartWsDone::new`: `output_index`, `summary_index`, `sequence_number`
+- `ResponseReasoningSummaryTextDeltaEvent::new`: `output_index`, `summary_index`, `sequence_number`
+- `ResponseReasoningSummaryTextDoneEvent::new`: `output_index`, `summary_index`, `sequence_number`
+- `ResponseReasoningSummaryTextWsDelta::new`: `output_index`, `summary_index`, `sequence_number`
+- `ResponseReasoningSummaryTextWsDone::new`: `output_index`, `summary_index`, `sequence_number`
+- `ResponseReasoningTextDeltaEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseReasoningTextDoneEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseReasoningTextWsDelta::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseReasoningTextWsDone::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseRefusalDeltaEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseRefusalDoneEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseRefusalWsDelta::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseRefusalWsDone::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseShellCallCommandAddedStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseShellCallCommandDeltaStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseShellCallCommandDoneStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseShellCallCommandWsAdded::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseShellCallCommandWsDelta::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseShellCallCommandWsDone::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseShellCallOutputContentDeltaStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseShellCallOutputContentDoneStreamingEvent::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseShellCallOutputContentWsDelta::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseShellCallOutputContentWsDone::new`: `sequence_number`, `output_index`, `command_index`
+- `ResponseSteerAcceptedEvent::new`: `sequence_number`
+- `ResponseSteerFailedEvent::new`: `sequence_number`
+- `ResponseSteerPendingEvent::new`: `sequence_number`
+- `ResponseTextDeltaEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseTextDoneEvent::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseTextWsDelta::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseTextWsDone::new`: `output_index`, `content_index`, `sequence_number`
+- `ResponseUsage::new`: `input_tokens`, `output_tokens`, `total_tokens`
+- `ResponseUsageInputTokensDetails::new`: `cached_tokens`, `cache_write_tokens`
+- `ResponseUsageOutputTokensDetails::new`: `reasoning_tokens`
+- `ResponseWebSearchCallCompletedEvent::new`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallInProgressEvent::new`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallInWsProgress::new`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallSearchingEvent::new`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallWsCompleted::new`: `output_index`, `sequence_number`
+- `ResponseWebSearchCallWsSearching::new`: `output_index`, `sequence_number`
+- `ResponseWsCompleted::new`: `sequence_number`
+- `ResponseWsCreated::new`: `sequence_number`
+- `ResponseWsFailed::new`: `sequence_number`
+- `ResponseWsIncomplete::new`: `sequence_number`
+- `ResponseWsQueued::new`: `sequence_number`
+- `ResponsesWebSocketStreamEvent::new`: `sequence_number`, `output_index`, `content_index`, `command_index`, `summary_index`, `partial_image_index`, `annotation_index`
+- `RunCompletionUsage::new`: `completion_tokens`, `prompt_tokens`, `total_tokens`
+- `RunGraderResponseMetadataTokenUsage::new`: `prompt_tokens`, `total_tokens`
+- `RunObject::new`: `created_at`, `expires_at`, `started_at`, `cancelled_at`, `failed_at`, `completed_at`, `max_prompt_tokens`, `max_completion_tokens`
+- `RunStepCompletionUsage::new`: `completion_tokens`, `prompt_tokens`, `total_tokens`
+- `RunStepDeltaStepDetailsToolCallsCodeObject::new`: `index`
+- `RunStepDeltaStepDetailsToolCallsCodeOutputImageObject::new`: `index`
+- `RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject::new`: `index`
+- `RunStepDeltaStepDetailsToolCallsFileSearchObject::new`: `index`
+- `RunStepDeltaStepDetailsToolCallsFunctionObject::new`: `index`
+- `RunStepObject::new`: `created_at`, `expired_at`, `cancelled_at`, `failed_at`, `completed_at`
+- `SafetyAlertResource::new`: `created_at`
+- `SafetyCaseResource::new`: `created_at`
+- `ScrollParam::new`: `x`, `y`, `scroll_x`, `scroll_y`
+- `ServiceAccountApiKeyBody::new`: `created_at`
+- `SkillResource::new`: `created_at`
+- `SkillVersionResource::new`: `created_at`
+- `SpeechAudioDoneEventUsage::new`: `input_tokens`, `output_tokens`, `total_tokens`
+- `StaticChunkingStrategy::new`: `max_chunk_size_tokens`, `chunk_overlap_tokens`
+- `TaskGroupItem::new`: `created_at`
+- `TaskItem::new`: `created_at`
+- `ThreadObject::new`: `created_at`
+- `ThreadResource::new`: `created_at`
+- `TokenCountsResource::new`: `input_tokens`
+- `TopLogProb::new`: `bytes`
+- `TranscriptTextUsageTokens::new`: `input_tokens`, `output_tokens`, `total_tokens`
+- `TranscriptionSegment::new`: `id`, `seek`, `tokens`
+- `UpdateOrganizationSpendLimitBody::new`: `threshold_amount`
+- `UpdateProjectSpendLimitBody::new`: `threshold_amount`
+- `Upload::new`: `created_at`, `bytes`, `expires_at`
+- `UploadPart::new`: `created_at`
+- `UrlCitationBody::new`: `start_index`, `end_index`
+- `UrlCitationParam::new`: `start_index`, `end_index`
+- `UsageAudioSpeechesResult::new`: `characters`, `num_model_requests`
+- `UsageAudioTranscriptionsResult::new`: `num_model_requests`
+- `UsageCodeInterpreterSessionsResult::new`: `num_sessions`
+- `UsageCompletionsResult::new`: `input_tokens`, `output_tokens`, `num_model_requests`
+- `UsageEmbeddingsResult::new`: `input_tokens`, `num_model_requests`
+- `UsageFileSearchCallsResult::new`: `num_requests`
+- `UsageImagesResult::new`: `images`, `num_model_requests`
+- `UsageModerationsResult::new`: `input_tokens`, `num_model_requests`
+- `UsageTimeBucket::new`: `start_time`, `end_time`
+- `UsageVectorStoresResult::new`: `usage_bytes`
+- `UsageWebSearchCallsResult::new`: `num_model_requests`, `num_requests`
+- `User::new`: `added_at`
+- `UserMessageItem::new`: `created_at`
+- `VectorStoreExpirationAfter::new`: `days`
+- `VectorStoreFileBatchObject::new`: `created_at`
+- `VectorStoreFileBatchObjectFileCounts::new`: `in_progress`, `completed`, `failed`, `cancelled`, `total`
+- `VectorStoreFileObject::new`: `usage_bytes`, `created_at`
+- `VectorStoreObject::new`: `created_at`, `usage_bytes`, `last_active_at`
+- `VectorStoreObjectFileCounts::new`: `in_progress`, `completed`, `failed`, `cancelled`, `total`
+- `VideoCharacterResource::new`: `created_at`
+- `VideoResource::new`: `progress`, `created_at`, `completed_at`, `expires_at`
+- `VoiceConsentResource::new`: `created_at`
+- `VoiceResource::new`: `created_at`
+- `WebhookAgentEnvironmentExpired::new`: `created_at`
+- `WebhookAgentEnvironmentFailed::new`: `created_at`
+- `WebhookAgentEnvironmentReady::new`: `created_at`
+- `WebhookAgentEnvironmentSuspended::new`: `created_at`
+- `WebhookAgentSessionActionRequired::new`: `created_at`
+- `WebhookAgentSessionCreated::new`: `created_at`
+- `WebhookAgentSessionEnvelope::new`: `created_at`
+- `WebhookAgentSessionFailed::new`: `created_at`
+- `WebhookAgentSessionIdle::new`: `created_at`
+- `WebhookAgentSessionInProgress::new`: `created_at`
+- `WebhookBatchCancelled::new`: `created_at`
+- `WebhookBatchCompleted::new`: `created_at`
+- `WebhookBatchExpired::new`: `created_at`
+- `WebhookBatchFailed::new`: `created_at`
+- `WebhookEndpointBody::new`: `created_at`
+- `WebhookEndpointTestResultResource::new`: `status_code`
+- `WebhookEndpointWithSecretResource::new`: `created_at`
+- `WebhookEvalRunCanceled::new`: `created_at`
+- `WebhookEvalRunFailed::new`: `created_at`
+- `WebhookEvalRunSucceeded::new`: `created_at`
+- `WebhookFineTuningJobCancelled::new`: `created_at`
+- `WebhookFineTuningJobFailed::new`: `created_at`
+- `WebhookFineTuningJobSucceeded::new`: `created_at`
+- `WebhookLiveCallIncoming::new`: `created_at`
+- `WebhookLiveTransportIncoming::new`: `created_at`
+- `WebhookRealtimeCallIncoming::new`: `created_at`
+- `WebhookResponseCancelled::new`: `created_at`
+- `WebhookResponseCompleted::new`: `created_at`
+- `WebhookResponseFailed::new`: `created_at`
+- `WebhookResponseIncomplete::new`: `created_at`
+- `WebhookSafetyAlertCreated::new`: `created_at`
+- `WebhookSafetyDeactivationIssued::new`: `created_at`
+- `WebhookSafetyOrgAlertCreated::new`: `created_at`
+- `WebhookSafetyWarningIssued::new`: `created_at`
+- `WidgetMessageItem::new`: `created_at`
+
+</details>
+
+<details><summary>Union variants (24 in 23 unions)</summary>
+
+- `ChatkitWorkflowStateVariablesValue::Integer(i64)`
+- `CreateEmbeddingRequestInput::ArrayOfIntegerArrays(Vec<Vec<i64>>)`
+- `CreateEmbeddingRequestInput::ArrayOfIntegers(Vec<i64>)`
+- `CreateFineTuningJobRequestHyperparametersBatchSize::Integer(i64)`
+- `CreateFineTuningJobRequestHyperparametersNEpochs::Integer(i64)`
+- `FineTuneDpoHyperparametersBatchSize::Integer(i64)`
+- `FineTuneDpoHyperparametersNEpochs::Integer(i64)`
+- `FineTuneReinforcementHyperparametersBatchSize::Integer(i64)`
+- `FineTuneReinforcementHyperparametersEvalInterval::Integer(i64)`
+- `FineTuneReinforcementHyperparametersEvalSamples::Integer(i64)`
+- `FineTuneReinforcementHyperparametersNEpochs::Integer(i64)`
+- `FineTuneSupervisedHyperparametersBatchSize::Integer(i64)`
+- `FineTuneSupervisedHyperparametersNEpochs::Integer(i64)`
+- `FineTuningJobHyperparametersBatchSize::Integer(i64)`
+- `FineTuningJobHyperparametersNEpochs::Integer(i64)`
+- `RealtimeBetaResponseCreateParamsMaxOutputTokens::Integer(i64)`
+- `RealtimeResponseCreateParamsMaxOutputTokens::Integer(i64)`
+- `RealtimeResponseMaxOutputTokens::Integer(i64)`
+- `RealtimeSessionCreateRequestGaMaxOutputTokens::Integer(i64)`
+- `RealtimeSessionCreateRequestMaxResponseOutputTokens::Integer(i64)`
+- `RealtimeSessionCreateResponseGaMaxOutputTokens::Integer(i64)`
+- `RealtimeSessionCreateResponseMaxOutputTokens::Integer(i64)`
+- `RealtimeSessionMaxResponseOutputTokens::Integer(i64)`
+- `WorkflowParamStateVariablesValue::Integer(i64)`
+
+</details>
+
+`compare_public_api.py` does not see union variant payloads, and it misses the 2 structs whose names rustfmt
+wraps (`CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic`, `CreateThreadRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic`), so the JSON census counts 1,240 fields in 644 structs. The lists above
+include them.

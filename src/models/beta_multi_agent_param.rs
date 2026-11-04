@@ -21,7 +21,7 @@ pub struct BetaMultiAgentParam {
         rename = "max_concurrent_subagents",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_concurrent_subagents: Option<i32>,
+    pub max_concurrent_subagents: Option<i64>,
 }
 
 impl BetaMultiAgentParam {

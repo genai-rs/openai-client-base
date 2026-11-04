@@ -30,10 +30,10 @@ pub struct BetaResponseMcpListToolsInProgressEvent {
     pub item_id: String,
     /// The index of the output item that is being processed.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl BetaResponseMcpListToolsInProgressEvent {
@@ -41,8 +41,8 @@ impl BetaResponseMcpListToolsInProgressEvent {
     pub fn new(
         r#type: Type,
         item_id: String,
-        output_index: i32,
-        sequence_number: i32,
+        output_index: i64,
+        sequence_number: i64,
     ) -> BetaResponseMcpListToolsInProgressEvent {
         BetaResponseMcpListToolsInProgressEvent {
             agent: None,

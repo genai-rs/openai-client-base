@@ -24,10 +24,10 @@ pub struct RealtimeClientEventConversationItemTruncate {
     pub item_id: String,
     /// The index of the content part to truncate. Set this to `0`.
     #[serde(rename = "content_index")]
-    pub content_index: i32,
+    pub content_index: i64,
     /// Inclusive duration up to which audio is truncated, in milliseconds. If  the audio_end_ms is greater than the actual audio duration, the server  will respond with an error.
     #[serde(rename = "audio_end_ms")]
-    pub audio_end_ms: i32,
+    pub audio_end_ms: i64,
 }
 
 impl RealtimeClientEventConversationItemTruncate {
@@ -35,8 +35,8 @@ impl RealtimeClientEventConversationItemTruncate {
     pub fn new(
         r#type: Type,
         item_id: String,
-        content_index: i32,
-        audio_end_ms: i32,
+        content_index: i64,
+        audio_end_ms: i64,
     ) -> RealtimeClientEventConversationItemTruncate {
         RealtimeClientEventConversationItemTruncate {
             event_id: None,

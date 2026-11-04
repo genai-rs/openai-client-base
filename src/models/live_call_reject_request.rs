@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 pub struct LiveCallRejectRequest {
     /// SIP rejection status sent to the caller. This field is required.
     #[serde(rename = "status_code")]
-    pub status_code: i32,
+    pub status_code: i64,
 }
 
 impl LiveCallRejectRequest {
     /// Parameters used to reject an incoming Live SIP call.
-    pub fn new(status_code: i32) -> LiveCallRejectRequest {
+    pub fn new(status_code: i64) -> LiveCallRejectRequest {
         LiveCallRejectRequest { status_code }
     }
 }

@@ -58,7 +58,7 @@ pub struct UserUser {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub banned_at: Option<Option<i32>>,
+    pub banned_at: Option<Option<i64>>,
 }
 
 impl UserUser {

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **String** |  | 
 **name** | **String** |  | 
 **role** | **Role** | Service accounts created with default project membership have role `member`. Accounts created with `create_service_account_only` have role `none`.  (enum: member, none) | 
-**created_at** | **i32** |  | 
+**created_at** | **i64** |  | 
 **api_key** | Option<[**models::ProjectServiceAccountApiKey**](ProjectServiceAccountApiKey.md)> |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

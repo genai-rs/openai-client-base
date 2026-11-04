@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The identifier of the run step, which can be referenced in API endpoints. | 
 **object** | **Object** | The object type, which is always `thread.run.step`. (enum: thread.run.step) | 
-**created_at** | **i32** | The Unix timestamp (in seconds) for when the run step was created. | 
+**created_at** | **i64** | The Unix timestamp (in seconds) for when the run step was created. | 
 **assistant_id** | **String** | The ID of the [assistant](https://developers.openai.com/api/docs/assistants/migration) associated with the run step. | 
 **thread_id** | **String** | The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) that was run. | 
 **run_id** | **String** | The ID of the [run](https://developers.openai.com/api/docs/assistants/migration) that this run step is a part of. | 
@@ -14,10 +14,10 @@ Name | Type | Description | Notes
 **status** | **Status** | The status of the run step, which can be either `in_progress`, `cancelled`, `failed`, `completed`, or `expired`. (enum: in_progress, cancelled, failed, completed, expired) | 
 **step_details** | [**models::RunStepObjectStepDetails**](RunStepObjectStepDetails.md) |  | 
 **last_error** | Option<[**models::RunStepObjectLastError**](RunStepObjectLastError.md)> |  | 
-**expired_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired. | 
-**cancelled_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step was cancelled. | 
-**failed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step failed. | 
-**completed_at** | Option<**i32**> | The Unix timestamp (in seconds) for when the run step completed. | 
+**expired_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired. | 
+**cancelled_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the run step was cancelled. | 
+**failed_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the run step failed. | 
+**completed_at** | Option<**i64**> | The Unix timestamp (in seconds) for when the run step completed. | 
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | 
 **usage** | Option<[**models::RunStepCompletionUsage**](RunStepCompletionUsage.md)> |  | 
 

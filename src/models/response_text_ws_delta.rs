@@ -22,16 +22,16 @@ pub struct ResponseTextWsDelta {
     pub item_id: String,
     /// The index of the output item that the text delta was added to.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The index of the content part that the text delta was added to.
     #[serde(rename = "content_index")]
-    pub content_index: i32,
+    pub content_index: i64,
     /// The text delta that was added.
     #[serde(rename = "delta")]
     pub delta: String,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The log probabilities of the tokens in the delta.
     #[serde(rename = "logprobs")]
     pub logprobs: Vec<models::ResponseLogProb>,
@@ -45,10 +45,10 @@ impl ResponseTextWsDelta {
     pub fn new(
         r#type: Type,
         item_id: String,
-        output_index: i32,
-        content_index: i32,
+        output_index: i64,
+        content_index: i64,
         delta: String,
-        sequence_number: i32,
+        sequence_number: i64,
         logprobs: Vec<models::ResponseLogProb>,
     ) -> ResponseTextWsDelta {
         ResponseTextWsDelta {

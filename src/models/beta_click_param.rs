@@ -21,10 +21,10 @@ pub struct BetaClickParam {
     pub button: models::BetaClickButtonType,
     /// The x-coordinate where the click occurred.
     #[serde(rename = "x")]
-    pub x: i32,
+    pub x: i64,
     /// The y-coordinate where the click occurred.
     #[serde(rename = "y")]
-    pub y: i32,
+    pub y: i64,
     /// The keys being held while clicking.
     #[serde(
         rename = "keys",
@@ -40,8 +40,8 @@ impl BetaClickParam {
     pub fn new(
         r#type: Type,
         button: models::BetaClickButtonType,
-        x: i32,
-        y: i32,
+        x: i64,
+        y: i64,
     ) -> BetaClickParam {
         BetaClickParam {
             r#type,

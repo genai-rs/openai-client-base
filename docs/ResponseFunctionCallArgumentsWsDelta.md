@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** | The type of the event. Always `response.function_call_arguments.delta`.  (enum: response.function_call_arguments.delta) | 
 **item_id** | **String** | The ID of the output item that the function-call arguments delta is added to.  | 
-**output_index** | **i32** | The index of the output item that the function-call arguments delta is added to.  | 
-**sequence_number** | **i32** | The sequence number of this event. | 
+**output_index** | **i64** | The index of the output item that the function-call arguments delta is added to.  | 
+**sequence_number** | **i64** | The sequence number of this event. | 
 **delta** | **String** | The function-call arguments delta that is added.  | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 

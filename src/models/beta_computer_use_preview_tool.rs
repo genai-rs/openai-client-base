@@ -21,10 +21,10 @@ pub struct BetaComputerUsePreviewTool {
     pub environment: models::BetaComputerEnvironment,
     /// The width of the computer display.
     #[serde(rename = "display_width")]
-    pub display_width: i32,
+    pub display_width: i64,
     /// The height of the computer display.
     #[serde(rename = "display_height")]
-    pub display_height: i32,
+    pub display_height: i64,
 }
 
 impl BetaComputerUsePreviewTool {
@@ -32,8 +32,8 @@ impl BetaComputerUsePreviewTool {
     pub fn new(
         r#type: Type,
         environment: models::BetaComputerEnvironment,
-        display_width: i32,
-        display_height: i32,
+        display_width: i64,
+        display_height: i64,
     ) -> BetaComputerUsePreviewTool {
         BetaComputerUsePreviewTool {
             r#type,

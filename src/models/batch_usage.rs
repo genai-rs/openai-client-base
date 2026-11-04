@@ -16,27 +16,27 @@ use serde::{Deserialize, Serialize};
 pub struct BatchUsage {
     /// The number of input tokens.
     #[serde(rename = "input_tokens")]
-    pub input_tokens: i32,
+    pub input_tokens: i64,
     #[serde(rename = "input_tokens_details")]
     pub input_tokens_details: models::BatchUsageInputTokensDetails,
     /// The number of output tokens.
     #[serde(rename = "output_tokens")]
-    pub output_tokens: i32,
+    pub output_tokens: i64,
     #[serde(rename = "output_tokens_details")]
     pub output_tokens_details: models::BatchUsageOutputTokensDetails,
     /// The total number of tokens used.
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
 }
 
 impl BatchUsage {
     /// Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used. Only populated on batches created after September 7, 2025.
     pub fn new(
-        input_tokens: i32,
+        input_tokens: i64,
         input_tokens_details: models::BatchUsageInputTokensDetails,
-        output_tokens: i32,
+        output_tokens: i64,
         output_tokens_details: models::BatchUsageOutputTokensDetails,
-        total_tokens: i32,
+        total_tokens: i64,
     ) -> BatchUsage {
         BatchUsage {
             input_tokens,

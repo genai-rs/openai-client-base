@@ -24,10 +24,10 @@ pub struct BetaContainerFileCitationBody {
     pub file_id: String,
     /// The index of the first character of the container file citation in the message.
     #[serde(rename = "start_index")]
-    pub start_index: i32,
+    pub start_index: i64,
     /// The index of the last character of the container file citation in the message.
     #[serde(rename = "end_index")]
-    pub end_index: i32,
+    pub end_index: i64,
     /// The filename of the container file cited.
     #[serde(rename = "filename")]
     pub filename: String,
@@ -39,8 +39,8 @@ impl BetaContainerFileCitationBody {
         r#type: Type,
         container_id: String,
         file_id: String,
-        start_index: i32,
-        end_index: i32,
+        start_index: i64,
+        end_index: i64,
         filename: String,
     ) -> BetaContainerFileCitationBody {
         BetaContainerFileCitationBody {

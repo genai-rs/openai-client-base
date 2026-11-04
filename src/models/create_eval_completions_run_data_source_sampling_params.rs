@@ -28,13 +28,13 @@ pub struct CreateEvalCompletionsRunDataSourceSamplingParams {
         rename = "max_completion_tokens",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_completion_tokens: Option<i32>,
+    pub max_completion_tokens: Option<i64>,
     /// An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
     #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
     pub top_p: Option<f64>,
     /// A seed value to initialize the randomness, during sampling.
     #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
-    pub seed: Option<i32>,
+    pub seed: Option<i64>,
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
     pub response_format:
         Option<models::CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat>,

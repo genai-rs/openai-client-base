@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **anchor** | **Anchor** | Time anchor for the expiration time. Currently only 'last_active_at' is supported. (enum: last_active_at) | 
-**minutes** | **i32** |  | 
+**minutes** | **i64** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

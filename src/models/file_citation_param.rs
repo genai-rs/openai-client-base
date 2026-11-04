@@ -17,7 +17,7 @@ pub struct FileCitationParam {
     pub r#type: Type,
     /// The index of the file in the list of files.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// The ID of the file.
     #[serde(rename = "file_id")]
     pub file_id: String,
@@ -27,7 +27,7 @@ pub struct FileCitationParam {
 }
 
 impl FileCitationParam {
-    pub fn new(r#type: Type, index: i32, file_id: String, filename: String) -> FileCitationParam {
+    pub fn new(r#type: Type, index: i64, file_id: String, filename: String) -> FileCitationParam {
         FileCitationParam {
             r#type,
             index,

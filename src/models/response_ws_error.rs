@@ -19,10 +19,10 @@ pub struct ResponseWsError {
     pub r#type: Type,
     /// The HTTP status code associated with a WebSocket protocol error.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<i32>,
+    pub status: Option<i64>,
     /// The sequence number of an error emitted by the response stream.
     #[serde(rename = "sequence_number", skip_serializing_if = "Option::is_none")]
-    pub sequence_number: Option<i32>,
+    pub sequence_number: Option<i64>,
     #[serde(rename = "error")]
     pub error: models::ErrorPayload,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.

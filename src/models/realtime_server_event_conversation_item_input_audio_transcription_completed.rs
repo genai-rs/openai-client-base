@@ -25,7 +25,7 @@ pub struct RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {
     pub item_id: String,
     /// The index of the content part containing the audio.
     #[serde(rename = "content_index")]
-    pub content_index: i32,
+    pub content_index: i64,
     /// The transcribed text.
     #[serde(rename = "transcript")]
     pub transcript: String,
@@ -50,7 +50,7 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {
         event_id: String,
         r#type: Type,
         item_id: String,
-        content_index: i32,
+        content_index: i64,
         transcript: String,
         usage: models::RealtimeServerEventConversationItemInputAudioTranscriptionCompletedUsage,
     ) -> RealtimeServerEventConversationItemInputAudioTranscriptionCompleted {

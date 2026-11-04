@@ -17,7 +17,7 @@ pub use crate::models::RealtimeResponseMaxOutputTokensTextVariantEnum;
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeResponseMaxOutputTokens {
-    Integer(i32),
+    Integer(i64),
     TextVariant(models::RealtimeResponseMaxOutputTokensTextVariantEnum),
 }
 

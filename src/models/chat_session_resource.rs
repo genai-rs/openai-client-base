@@ -22,7 +22,7 @@ pub struct ChatSessionResource {
     pub object: Object,
     /// Unix timestamp (in seconds) for when the session expires.
     #[serde(rename = "expires_at")]
-    pub expires_at: i32,
+    pub expires_at: i64,
     /// Ephemeral client secret that authenticates session requests.
     #[serde(rename = "client_secret")]
     pub client_secret: String,
@@ -35,7 +35,7 @@ pub struct ChatSessionResource {
     pub rate_limits: models::ChatSessionRateLimits,
     /// Convenience copy of the per-minute request limit.
     #[serde(rename = "max_requests_per_1_minute")]
-    pub max_requests_per_1_minute: i32,
+    pub max_requests_per_1_minute: i64,
     #[serde(rename = "status")]
     pub status: models::ChatSessionStatus,
     #[serde(rename = "chatkit_configuration")]
@@ -47,12 +47,12 @@ impl ChatSessionResource {
     pub fn new(
         id: String,
         object: Object,
-        expires_at: i32,
+        expires_at: i64,
         client_secret: String,
         workflow: models::ChatkitWorkflow,
         user: String,
         rate_limits: models::ChatSessionRateLimits,
-        max_requests_per_1_minute: i32,
+        max_requests_per_1_minute: i64,
         status: models::ChatSessionStatus,
         chatkit_configuration: models::ChatSessionChatkitConfiguration,
     ) -> ChatSessionResource {

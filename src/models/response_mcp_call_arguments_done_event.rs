@@ -18,7 +18,7 @@ pub struct ResponseMcpCallArgumentsDoneEvent {
     pub r#type: Type,
     /// The index of the output item in the response's output array.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The unique identifier of the MCP tool call item being processed.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -27,17 +27,17 @@ pub struct ResponseMcpCallArgumentsDoneEvent {
     pub arguments: String,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl ResponseMcpCallArgumentsDoneEvent {
     /// Emitted when the arguments for an MCP tool call are finalized.
     pub fn new(
         r#type: Type,
-        output_index: i32,
+        output_index: i64,
         item_id: String,
         arguments: String,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> ResponseMcpCallArgumentsDoneEvent {
         ResponseMcpCallArgumentsDoneEvent {
             r#type,

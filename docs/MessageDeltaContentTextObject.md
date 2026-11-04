@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **i32** | The index of the content part in the message. | 
+**index** | **i64** | The index of the content part in the message. | 
 **r#type** | **Type** | Always `text`. (enum: text) | 
 **text** | Option<[**models::MessageDeltaContentTextObjectText**](MessageDeltaContentTextObjectText.md)> |  | [optional]
 

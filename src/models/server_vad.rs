@@ -21,13 +21,13 @@ pub struct ServerVad {
     pub threshold: Option<f64>,
     /// Used only for `server_vad` mode. Amount of audio to include before the VAD detected speech (in milliseconds). Defaults to 300ms.
     #[serde(rename = "prefix_padding_ms", skip_serializing_if = "Option::is_none")]
-    pub prefix_padding_ms: Option<i32>,
+    pub prefix_padding_ms: Option<i64>,
     /// Used only for `server_vad` mode. Duration of silence to detect speech stop (in milliseconds). Defaults to 500ms. With shorter values the model will respond more quickly, but may jump in on short pauses from the user.
     #[serde(
         rename = "silence_duration_ms",
         skip_serializing_if = "Option::is_none"
     )]
-    pub silence_duration_ms: Option<i32>,
+    pub silence_duration_ms: Option<i64>,
     /// Whether or not to automatically generate a response when a VAD stop event occurs. If `interrupt_response` is set to `false` this may fail to create a response if the model is already responding.  If both `create_response` and `interrupt_response` are set to `false`, the model will never respond automatically but VAD events will still be emitted.
     #[serde(rename = "create_response", skip_serializing_if = "Option::is_none")]
     pub create_response: Option<bool>,
@@ -41,7 +41,7 @@ pub struct ServerVad {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub idle_timeout_ms: Option<Option<i32>>,
+    pub idle_timeout_ms: Option<Option<i64>>,
 }
 
 impl ServerVad {

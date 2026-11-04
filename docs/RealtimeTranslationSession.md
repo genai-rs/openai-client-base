@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Unique identifier for the session that looks like `sess_1234567890abcdef`.  | 
 **r#type** | **Type** | The session type. Always `translation` for Realtime translation sessions.  (enum: translation) | 
-**expires_at** | **i32** | Expiration timestamp for the session, in seconds since epoch. | 
+**expires_at** | **i64** | Expiration timestamp for the session, in seconds since epoch. | 
 **model** | **String** | The Realtime translation model used for this session. This field is set at session creation and cannot be changed with `session.update`.  | 
 **audio** | [**models::RealtimeTranslationSessionAudio**](RealtimeTranslationSessionAudio.md) |  | 
 

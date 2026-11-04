@@ -17,10 +17,10 @@ pub struct RealtimeBetaServerEventRateLimitsUpdatedRateLimitsInner {
     pub name: Option<Name>,
     /// The maximum allowed value for the rate limit.
     #[serde(rename = "limit", skip_serializing_if = "Option::is_none")]
-    pub limit: Option<i32>,
+    pub limit: Option<i64>,
     /// The remaining value before the limit is reached.
     #[serde(rename = "remaining", skip_serializing_if = "Option::is_none")]
-    pub remaining: Option<i32>,
+    pub remaining: Option<i64>,
     /// Seconds until the rate limit resets.
     #[serde(rename = "reset_seconds", skip_serializing_if = "Option::is_none")]
     pub reset_seconds: Option<f64>,

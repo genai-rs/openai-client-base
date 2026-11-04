@@ -17,7 +17,7 @@ pub struct UsageVectorStoresResult {
     pub object: Object,
     /// The vector stores usage in bytes.
     #[serde(rename = "usage_bytes")]
-    pub usage_bytes: i32,
+    pub usage_bytes: i64,
     /// When `group_by=project_id`, this field provides the project ID of the grouped usage result.
     #[serde(
         rename = "project_id",
@@ -30,7 +30,7 @@ pub struct UsageVectorStoresResult {
 
 impl UsageVectorStoresResult {
     /// The aggregated vector stores usage details of the specific time bucket.
-    pub fn new(object: Object, usage_bytes: i32) -> UsageVectorStoresResult {
+    pub fn new(object: Object, usage_bytes: i64) -> UsageVectorStoresResult {
         UsageVectorStoresResult {
             object,
             usage_bytes,

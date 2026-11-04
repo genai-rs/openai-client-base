@@ -19,7 +19,7 @@ pub struct BetaLogProb {
     #[serde(rename = "logprob")]
     pub logprob: f64,
     #[serde(rename = "bytes")]
-    pub bytes: Vec<i32>,
+    pub bytes: Vec<i64>,
     #[serde(rename = "top_logprobs")]
     pub top_logprobs: Vec<models::BetaTopLogProb>,
 }
@@ -29,7 +29,7 @@ impl BetaLogProb {
     pub fn new(
         token: String,
         logprob: f64,
-        bytes: Vec<i32>,
+        bytes: Vec<i64>,
         top_logprobs: Vec<models::BetaTopLogProb>,
     ) -> BetaLogProb {
         BetaLogProb {

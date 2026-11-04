@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that owns this multi-agent streaming event. | [optional]
 **r#type** | **Type** | The event type identifier. (enum: response.custom_tool_call_input.done) | 
-**sequence_number** | **i32** | The sequence number of this event. | 
-**output_index** | **i32** | The index of the output this event applies to. | 
+**sequence_number** | **i64** | The sequence number of this event. | 
+**output_index** | **i64** | The index of the output this event applies to. | 
 **item_id** | **String** | Unique identifier for the API item associated with this event. | 
 **input** | **String** | The complete input data for the custom tool call. | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]

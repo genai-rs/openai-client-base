@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **i32** | The Unix timestamp (in seconds) of when the model response was cancelled.  | 
+**created_at** | **i64** | The Unix timestamp (in seconds) of when the model response was cancelled.  | 
 **id** | **String** | The unique ID of the event.  | 
 **data** | [**models::WebhookResponseFailedData**](WebhookResponseFailedData.md) |  | 
 **object** | Option<**Object**> | The object of the event. Always `event`.  (enum: event) | [optional]

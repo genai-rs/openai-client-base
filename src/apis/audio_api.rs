@@ -612,7 +612,7 @@ pub async fn get_voice_consent(
 pub async fn list_voice_consents(
     configuration: &configuration::Configuration,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
 ) -> Result<models::VoiceConsentListResource, Error<ListVoiceConsentsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_after = after;

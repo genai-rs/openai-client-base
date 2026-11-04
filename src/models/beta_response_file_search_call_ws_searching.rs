@@ -22,13 +22,13 @@ pub struct BetaResponseFileSearchCallWsSearching {
     pub r#type: Type,
     /// The index of the output item that the file search call is searching.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The ID of the output item that the file search call is initiated.
     #[serde(rename = "item_id")]
     pub item_id: String,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -38,9 +38,9 @@ impl BetaResponseFileSearchCallWsSearching {
     /// Emitted when a file search is currently searching.
     pub fn new(
         r#type: Type,
-        output_index: i32,
+        output_index: i64,
         item_id: String,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> BetaResponseFileSearchCallWsSearching {
         BetaResponseFileSearchCallWsSearching {
             agent: None,

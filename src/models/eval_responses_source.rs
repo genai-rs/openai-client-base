@@ -43,7 +43,7 @@ pub struct EvalResponsesSource {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub created_after: Option<Option<i32>>,
+    pub created_after: Option<Option<i64>>,
     /// Only include items created before this timestamp (inclusive). This is a query parameter used to select responses.
     #[serde(
         rename = "created_before",
@@ -51,7 +51,7 @@ pub struct EvalResponsesSource {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub created_before: Option<Option<i32>>,
+    pub created_before: Option<Option<i64>>,
     #[serde(
         rename = "reasoning_effort",
         default,

@@ -23,7 +23,7 @@ pub struct WebhookEndpointTestResultResource {
     pub event_type: String,
     /// The HTTP status code returned by the endpoint.
     #[serde(rename = "status_code")]
-    pub status_code: i32,
+    pub status_code: i64,
     /// Whether the test request completed. Always true for returned results; use status_code to determine the endpoint response.
     #[serde(rename = "success")]
     pub success: Success,
@@ -34,7 +34,7 @@ impl WebhookEndpointTestResultResource {
         object: Object,
         webhook_endpoint_id: String,
         event_type: String,
-        status_code: i32,
+        status_code: i64,
         success: Success,
     ) -> WebhookEndpointTestResultResource {
         WebhookEndpointTestResultResource {

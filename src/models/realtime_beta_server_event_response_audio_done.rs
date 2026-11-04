@@ -27,10 +27,10 @@ pub struct RealtimeBetaServerEventResponseAudioDone {
     pub item_id: String,
     /// The index of the output item in the response.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The index of the content part in the item's content array.
     #[serde(rename = "content_index")]
-    pub content_index: i32,
+    pub content_index: i64,
 }
 
 impl RealtimeBetaServerEventResponseAudioDone {
@@ -40,8 +40,8 @@ impl RealtimeBetaServerEventResponseAudioDone {
         r#type: Type,
         response_id: String,
         item_id: String,
-        output_index: i32,
-        content_index: i32,
+        output_index: i64,
+        content_index: i64,
     ) -> RealtimeBetaServerEventResponseAudioDone {
         RealtimeBetaServerEventResponseAudioDone {
             event_id,

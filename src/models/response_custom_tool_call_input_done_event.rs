@@ -18,10 +18,10 @@ pub struct ResponseCustomToolCallInputDoneEvent {
     pub r#type: Type,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The index of the output this event applies to.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// Unique identifier for the API item associated with this event.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -34,8 +34,8 @@ impl ResponseCustomToolCallInputDoneEvent {
     /// Event indicating that input for a custom tool call is complete.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
-        output_index: i32,
+        sequence_number: i64,
+        output_index: i64,
         item_id: String,
         input: String,
     ) -> ResponseCustomToolCallInputDoneEvent {

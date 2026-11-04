@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 pub struct CreateEmbeddingResponseUsage {
     /// The number of tokens used by the prompt.
     #[serde(rename = "prompt_tokens")]
-    pub prompt_tokens: i32,
+    pub prompt_tokens: i64,
     /// The total number of tokens used by the request.
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
 }
 
 impl CreateEmbeddingResponseUsage {
     /// The usage information for the request.
-    pub fn new(prompt_tokens: i32, total_tokens: i32) -> CreateEmbeddingResponseUsage {
+    pub fn new(prompt_tokens: i64, total_tokens: i64) -> CreateEmbeddingResponseUsage {
         CreateEmbeddingResponseUsage {
             prompt_tokens,
             total_tokens,

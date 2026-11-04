@@ -578,7 +578,7 @@ pub async fn get_eval_run_output_items(
     eval_id: &str,
     run_id: &str,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     status: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::EvalRunOutputItemList, Error<GetEvalRunOutputItemsError>> {
@@ -652,7 +652,7 @@ pub async fn get_eval_runs(
     configuration: &configuration::Configuration,
     eval_id: &str,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     status: Option<&str>,
 ) -> Result<models::EvalRunList, Error<GetEvalRunsError>> {
@@ -723,7 +723,7 @@ pub async fn get_eval_runs(
 pub async fn list_evals(
     configuration: &configuration::Configuration,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     order_by: Option<&str>,
 ) -> Result<models::EvalList, Error<ListEvalsError>> {

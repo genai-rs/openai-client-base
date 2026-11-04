@@ -22,10 +22,10 @@ pub struct BetaResponseOutputItemWsDone {
     pub r#type: Type,
     /// The index of the output item that was marked done.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "item")]
     pub item: models::BetaOutputItem,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
@@ -37,8 +37,8 @@ impl BetaResponseOutputItemWsDone {
     /// Emitted when an output item is marked done.
     pub fn new(
         r#type: Type,
-        output_index: i32,
-        sequence_number: i32,
+        output_index: i64,
+        sequence_number: i64,
         item: models::BetaOutputItem,
     ) -> BetaResponseOutputItemWsDone {
         BetaResponseOutputItemWsDone {

@@ -6,22 +6,22 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **api_source** | Option<[**models::DecisionsUsageApiSource**](DecisionsUsageApiSource.md)> |  | [optional]
 **object** | **Object** |  (enum: organization.usage.decisions.result) | 
-**input_tokens** | **i32** | The aggregated number of input tokens used, including cached and cache-write tokens. This includes text, audio, and image tokens. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | 
-**input_cached_tokens** | Option<**i32**> | The aggregated number of cached input tokens used across text, audio, and image inputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | [optional]
-**input_cache_write_tokens** | Option<**i32**> | The aggregated number of input tokens written to the cache with a 30-minute retention period. | [optional]
-**input_cache_write_12h_tokens** | Option<**i32**> | The aggregated number of input tokens written to the cache with a 12-hour retention period. | [optional]
-**input_uncached_tokens** | Option<**i32**> | The aggregated number of uncached input tokens used across text, audio, and image inputs, excluding cache-write tokens. | [optional]
-**output_tokens** | **i32** | The aggregated number of output tokens used across text, audio, and image outputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | 
-**input_text_tokens** | Option<**i32**> | The aggregated number of uncached text input tokens used, excluding cache-write tokens. | [optional]
-**output_text_tokens** | Option<**i32**> | The aggregated number of text output tokens used. | [optional]
-**input_cached_text_tokens** | Option<**i32**> | The aggregated number of cached text input tokens used. | [optional]
-**input_audio_tokens** | Option<**i32**> | The aggregated number of uncached audio input tokens used. | [optional]
-**input_cached_audio_tokens** | Option<**i32**> | The aggregated number of cached audio input tokens used. | [optional]
-**output_audio_tokens** | Option<**i32**> | The aggregated number of audio output tokens used. | [optional]
-**input_image_tokens** | Option<**i32**> | The aggregated number of uncached image input tokens used. | [optional]
-**input_cached_image_tokens** | Option<**i32**> | The aggregated number of cached image input tokens used. | [optional]
-**output_image_tokens** | Option<**i32**> | The aggregated number of image output tokens used. | [optional]
-**num_model_requests** | **i32** | The count of requests made to the model. | 
+**input_tokens** | **i64** | The aggregated number of input tokens used, including cached and cache-write tokens. This includes text, audio, and image tokens. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | 
+**input_cached_tokens** | Option<**i64**> | The aggregated number of cached input tokens used across text, audio, and image inputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | [optional]
+**input_cache_write_tokens** | Option<**i64**> | The aggregated number of input tokens written to the cache with a 30-minute retention period. | [optional]
+**input_cache_write_12h_tokens** | Option<**i64**> | The aggregated number of input tokens written to the cache with a 12-hour retention period. | [optional]
+**input_uncached_tokens** | Option<**i64**> | The aggregated number of uncached input tokens used across text, audio, and image inputs, excluding cache-write tokens. | [optional]
+**output_tokens** | **i64** | The aggregated number of output tokens used across text, audio, and image outputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens. | 
+**input_text_tokens** | Option<**i64**> | The aggregated number of uncached text input tokens used, excluding cache-write tokens. | [optional]
+**output_text_tokens** | Option<**i64**> | The aggregated number of text output tokens used. | [optional]
+**input_cached_text_tokens** | Option<**i64**> | The aggregated number of cached text input tokens used. | [optional]
+**input_audio_tokens** | Option<**i64**> | The aggregated number of uncached audio input tokens used. | [optional]
+**input_cached_audio_tokens** | Option<**i64**> | The aggregated number of cached audio input tokens used. | [optional]
+**output_audio_tokens** | Option<**i64**> | The aggregated number of audio output tokens used. | [optional]
+**input_image_tokens** | Option<**i64**> | The aggregated number of uncached image input tokens used. | [optional]
+**input_cached_image_tokens** | Option<**i64**> | The aggregated number of cached image input tokens used. | [optional]
+**output_image_tokens** | Option<**i64**> | The aggregated number of image output tokens used. | [optional]
+**num_model_requests** | **i64** | The count of requests made to the model. | 
 **project_id** | Option<**String**> | When `group_by=project_id`, this field provides the project ID of the grouped usage result. | [optional]
 **user_id** | Option<**String**> | When `group_by=user_id`, this field provides the user ID of the grouped usage result. | [optional]
 **api_key_id** | Option<**String**> | When `group_by=api_key_id`, this field provides the API key ID of the grouped usage result. | [optional]

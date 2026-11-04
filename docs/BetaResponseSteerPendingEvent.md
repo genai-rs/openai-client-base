@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** | The event discriminator. Always `response.steer.pending`. (enum: response.steer.pending) | 
-**sequence_number** | **i32** | The sequence number for this event. | 
+**sequence_number** | **i64** | The sequence number for this event. | 
 **steer** | [**models::ResponseSteerPendingEventSteer**](ResponseSteerPendingEventSteer.md) |  | 
 **reason** | [**models::BetaResponseSteerPendingReason**](BetaResponseSteerPendingReason.md) |  | 
 **required_input** | [**Vec<models::BetaResponseSteerRequiredInput>**](BetaResponseSteerRequiredInput.md) | Input stubs identifying outstanding client-owned tool results or approval decisions. Each stub contains identifying fields only; the client supplies the result before including it in `response.create`.  | 

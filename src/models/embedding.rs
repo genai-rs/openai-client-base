@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct Embedding {
     /// The index of the embedding in the list of embeddings.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     #[serde(rename = "embedding")]
     pub embedding: models::EmbeddingEmbedding,
     /// The object type, which is always \"embedding\".
@@ -26,7 +26,7 @@ pub struct Embedding {
 
 impl Embedding {
     /// Represents an embedding vector returned by embedding endpoint.
-    pub fn new(index: i32, embedding: models::EmbeddingEmbedding, object: Object) -> Embedding {
+    pub fn new(index: i64, embedding: models::EmbeddingEmbedding, object: Object) -> Embedding {
         Embedding {
             index,
             embedding,

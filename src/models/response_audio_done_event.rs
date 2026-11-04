@@ -18,12 +18,12 @@ pub struct ResponseAudioDoneEvent {
     pub r#type: Type,
     /// The sequence number of the delta.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl ResponseAudioDoneEvent {
     /// Emitted when the audio response is complete.
-    pub fn new(r#type: Type, sequence_number: i32) -> ResponseAudioDoneEvent {
+    pub fn new(r#type: Type, sequence_number: i64) -> ResponseAudioDoneEvent {
         ResponseAudioDoneEvent {
             r#type,
             sequence_number,

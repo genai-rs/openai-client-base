@@ -168,7 +168,7 @@ pub async fn invite_user(
 #[bon::builder]
 pub async fn list_invites(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
 ) -> Result<models::InviteListResponse, Error<ListInvitesError>> {
     // add a prefix to parameters to efficiently prevent name collisions

@@ -24,7 +24,7 @@ pub struct ImagesResponse {
     pub safety_identifier: Option<Option<String>>,
     /// The Unix timestamp (in seconds) of when the image was created.
     #[serde(rename = "created")]
-    pub created: i32,
+    pub created: i64,
     /// The list of generated images.
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
     pub data: Option<Vec<models::Image>>,
@@ -45,7 +45,7 @@ pub struct ImagesResponse {
 
 impl ImagesResponse {
     /// The response from the image generation endpoint.
-    pub fn new(created: i32) -> ImagesResponse {
+    pub fn new(created: i64) -> ImagesResponse {
         ImagesResponse {
             safety_identifier: None,
             created,

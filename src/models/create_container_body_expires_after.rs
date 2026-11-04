@@ -17,12 +17,12 @@ pub struct CreateContainerBodyExpiresAfter {
     #[serde(rename = "anchor")]
     pub anchor: Anchor,
     #[serde(rename = "minutes")]
-    pub minutes: i32,
+    pub minutes: i64,
 }
 
 impl CreateContainerBodyExpiresAfter {
     /// Container expiration time in seconds relative to the 'anchor' time.
-    pub fn new(anchor: Anchor, minutes: i32) -> CreateContainerBodyExpiresAfter {
+    pub fn new(anchor: Anchor, minutes: i64) -> CreateContainerBodyExpiresAfter {
         CreateContainerBodyExpiresAfter { anchor, minutes }
     }
 }

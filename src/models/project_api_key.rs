@@ -25,7 +25,7 @@ pub struct ProjectApiKey {
     pub name: String,
     /// The Unix timestamp (in seconds) of when the API key was created
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The Unix timestamp (in seconds) when the API key expires, or null if it does not expire.
     #[serde(
         rename = "expires_at",
@@ -33,10 +33,10 @@ pub struct ProjectApiKey {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub expires_at: Option<Option<i32>>,
+    pub expires_at: Option<Option<i64>>,
     /// The Unix timestamp (in seconds) of when the API key was last used.
     #[serde(rename = "last_used_at", deserialize_with = "Option::deserialize")]
-    pub last_used_at: Option<i32>,
+    pub last_used_at: Option<i64>,
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
     pub id: String,
@@ -53,8 +53,8 @@ impl ProjectApiKey {
         object: Object,
         redacted_value: String,
         name: String,
-        created_at: i32,
-        last_used_at: Option<i32>,
+        created_at: i64,
+        last_used_at: Option<i64>,
         id: String,
         owner_project_access: OwnerProjectAccess,
         owner: models::ProjectApiKeyOwner,

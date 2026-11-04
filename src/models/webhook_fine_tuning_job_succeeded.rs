@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct WebhookFineTuningJobSucceeded {
     /// The Unix timestamp (in seconds) of when the fine-tuning job succeeded.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The unique ID of the event.
     #[serde(rename = "id")]
     pub id: String,
@@ -33,7 +33,7 @@ pub struct WebhookFineTuningJobSucceeded {
 impl WebhookFineTuningJobSucceeded {
     /// Sent when a fine-tuning job has succeeded.
     pub fn new(
-        created_at: i32,
+        created_at: i64,
         id: String,
         data: models::WebhookFineTuningJobFailedData,
         r#type: Type,

@@ -15,21 +15,21 @@ use serde::{Deserialize, Serialize};
 pub struct SpeechAudioDoneEventUsage {
     /// Number of input tokens in the prompt.
     #[serde(rename = "input_tokens")]
-    pub input_tokens: i32,
+    pub input_tokens: i64,
     /// Number of output tokens generated.
     #[serde(rename = "output_tokens")]
-    pub output_tokens: i32,
+    pub output_tokens: i64,
     /// Total number of tokens used (input + output).
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
 }
 
 impl SpeechAudioDoneEventUsage {
     /// Token usage statistics for the request.
     pub fn new(
-        input_tokens: i32,
-        output_tokens: i32,
-        total_tokens: i32,
+        input_tokens: i64,
+        output_tokens: i64,
+        total_tokens: i64,
     ) -> SpeechAudioDoneEventUsage {
         SpeechAudioDoneEventUsage {
             input_tokens,

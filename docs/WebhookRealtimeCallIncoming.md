@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **i32** | The Unix timestamp (in seconds) of when the model response was completed.  | 
+**created_at** | **i64** | The Unix timestamp (in seconds) of when the model response was completed.  | 
 **id** | **String** | The unique ID of the event.  | 
 **data** | [**models::WebhookRealtimeCallIncomingData**](WebhookRealtimeCallIncomingData.md) |  | 
 **object** | Option<**Object**> | The object of the event. Always `event`.  (enum: event) | [optional]

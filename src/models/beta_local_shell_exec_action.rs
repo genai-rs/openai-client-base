@@ -26,7 +26,7 @@ pub struct BetaLocalShellExecAction {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub timeout_ms: Option<Option<i32>>,
+    pub timeout_ms: Option<Option<i64>>,
     /// Optional working directory to run the command in.
     #[serde(
         rename = "working_directory",

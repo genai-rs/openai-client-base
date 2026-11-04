@@ -27,7 +27,7 @@ pub struct ModelResponseProperties {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub top_logprobs: Option<Option<i32>>,
+    pub top_logprobs: Option<Option<i64>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.
     #[serde(
         rename = "temperature",

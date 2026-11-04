@@ -633,7 +633,7 @@ pub async fn get_video_character(
 #[bon::builder]
 pub async fn list_videos(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<models::OrderEnum>,
     after: Option<&str>,
 ) -> Result<models::VideoListResource, Error<ListVideosError>> {

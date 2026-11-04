@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **i32** | The index of the content part in the message. | 
+**index** | **i64** | The index of the content part in the message. | 
 **r#type** | **Type** | Always `image_file`. (enum: image_file) | 
 **image_file** | Option<[**models::MessageDeltaContentImageFileObjectImageFile**](MessageDeltaContentImageFileObjectImageFile.md)> |  | [optional]
 

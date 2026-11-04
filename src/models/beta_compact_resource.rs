@@ -24,7 +24,7 @@ pub struct BetaCompactResource {
     pub output: Vec<models::BetaItemField>,
     /// Unix timestamp (in seconds) when the compacted conversation was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "usage")]
     pub usage: models::BetaResponseUsage,
 }
@@ -34,7 +34,7 @@ impl BetaCompactResource {
         id: String,
         object: Object,
         output: Vec<models::BetaItemField>,
-        created_at: i32,
+        created_at: i64,
         usage: models::BetaResponseUsage,
     ) -> BetaCompactResource {
         BetaCompactResource {

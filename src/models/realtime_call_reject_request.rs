@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct RealtimeCallRejectRequest {
     /// SIP response code to send back to the caller. Defaults to `603` (Decline) when omitted.
     #[serde(rename = "status_code", skip_serializing_if = "Option::is_none")]
-    pub status_code: Option<i32>,
+    pub status_code: Option<i64>,
 }
 
 impl RealtimeCallRejectRequest {

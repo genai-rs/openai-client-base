@@ -124,7 +124,7 @@ pub async fn add_group_user(
 pub async fn list_group_users(
     configuration: &configuration::Configuration,
     group_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::UserListResource, Error<ListGroupUsersError>> {

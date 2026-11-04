@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct MessageDeltaContentRefusalObject {
     /// The index of the refusal part in the message.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// Always `refusal`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -25,7 +25,7 @@ pub struct MessageDeltaContentRefusalObject {
 
 impl MessageDeltaContentRefusalObject {
     /// The refusal content that is part of a message.
-    pub fn new(index: i32, r#type: Type) -> MessageDeltaContentRefusalObject {
+    pub fn new(index: i64, r#type: Type) -> MessageDeltaContentRefusalObject {
         MessageDeltaContentRefusalObject {
             index,
             r#type,

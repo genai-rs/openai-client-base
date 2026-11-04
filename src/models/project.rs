@@ -30,7 +30,7 @@ pub struct Project {
     pub name: Option<Option<String>>,
     /// The Unix timestamp (in seconds) of when the project was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The Unix timestamp (in seconds) of when the project was archived or `null`.
     #[serde(
         rename = "archived_at",
@@ -38,7 +38,7 @@ pub struct Project {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub archived_at: Option<Option<i32>>,
+    pub archived_at: Option<Option<i64>>,
     /// `active` or `archived`
     #[serde(
         rename = "status",
@@ -61,7 +61,7 @@ pub struct Project {
 
 impl Project {
     /// Represents an individual project.
-    pub fn new(id: String, object: Object, created_at: i32) -> Project {
+    pub fn new(id: String, object: Object, created_at: i64) -> Project {
         Project {
             id,
             object,

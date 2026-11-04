@@ -32,13 +32,13 @@ pub struct CreateChatCompletionStreamResponseChoicesInner {
     pub finish_reason: Option<Option<FinishReason>>,
     /// The index of the choice in the list of choices.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
 }
 
 impl CreateChatCompletionStreamResponseChoicesInner {
     pub fn new(
         delta: models::ChatCompletionStreamResponseDelta,
-        index: i32,
+        index: i64,
     ) -> CreateChatCompletionStreamResponseChoicesInner {
         CreateChatCompletionStreamResponseChoicesInner {
             delta,

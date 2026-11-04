@@ -15,21 +15,21 @@ use serde::{Deserialize, Serialize};
 pub struct EvalRunResultCounts {
     /// Total number of executed output items.
     #[serde(rename = "total")]
-    pub total: i32,
+    pub total: i64,
     /// Number of output items that resulted in an error.
     #[serde(rename = "errored")]
-    pub errored: i32,
+    pub errored: i64,
     /// Number of output items that failed to pass the evaluation.
     #[serde(rename = "failed")]
-    pub failed: i32,
+    pub failed: i64,
     /// Number of output items that passed the evaluation.
     #[serde(rename = "passed")]
-    pub passed: i32,
+    pub passed: i64,
 }
 
 impl EvalRunResultCounts {
     /// Counters summarizing the outcomes of the evaluation run.
-    pub fn new(total: i32, errored: i32, failed: i32, passed: i32) -> EvalRunResultCounts {
+    pub fn new(total: i64, errored: i64, failed: i64, passed: i64) -> EvalRunResultCounts {
         EvalRunResultCounts {
             total,
             errored,

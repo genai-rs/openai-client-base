@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct RunStepDeltaStepDetailsToolCallsCodeOutputImageObject {
     /// The index of the output in the outputs array.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// Always `image`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -24,7 +24,7 @@ pub struct RunStepDeltaStepDetailsToolCallsCodeOutputImageObject {
 }
 
 impl RunStepDeltaStepDetailsToolCallsCodeOutputImageObject {
-    pub fn new(index: i32, r#type: Type) -> RunStepDeltaStepDetailsToolCallsCodeOutputImageObject {
+    pub fn new(index: i64, r#type: Type) -> RunStepDeltaStepDetailsToolCallsCodeOutputImageObject {
         RunStepDeltaStepDetailsToolCallsCodeOutputImageObject {
             index,
             r#type,

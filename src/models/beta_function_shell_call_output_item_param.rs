@@ -59,7 +59,7 @@ pub struct BetaFunctionShellCallOutputItemParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_output_length: Option<Option<i32>>,
+    pub max_output_length: Option<Option<i64>>,
 }
 
 impl BetaFunctionShellCallOutputItemParam {

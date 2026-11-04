@@ -16,13 +16,13 @@ use serde::{Deserialize, Serialize};
 pub struct CompletionUsage {
     /// Number of tokens in the generated completion.
     #[serde(rename = "completion_tokens")]
-    pub completion_tokens: i32,
+    pub completion_tokens: i64,
     /// Number of tokens in the prompt.
     #[serde(rename = "prompt_tokens")]
-    pub prompt_tokens: i32,
+    pub prompt_tokens: i64,
     /// Total number of tokens used in the request (prompt + completion).
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
     #[serde(
         rename = "completion_tokens_details",
         skip_serializing_if = "Option::is_none"
@@ -37,7 +37,7 @@ pub struct CompletionUsage {
 
 impl CompletionUsage {
     /// Usage statistics for the completion request.
-    pub fn new(completion_tokens: i32, prompt_tokens: i32, total_tokens: i32) -> CompletionUsage {
+    pub fn new(completion_tokens: i64, prompt_tokens: i64, total_tokens: i64) -> CompletionUsage {
         CompletionUsage {
             completion_tokens,
             prompt_tokens,

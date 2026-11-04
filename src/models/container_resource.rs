@@ -24,13 +24,13 @@ pub struct ContainerResource {
     pub name: String,
     /// Unix timestamp (in seconds) when the container was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// Status of the container (e.g., active, deleted).
     #[serde(rename = "status")]
     pub status: String,
     /// Unix timestamp (in seconds) when the container was last active.
     #[serde(rename = "last_active_at", skip_serializing_if = "Option::is_none")]
-    pub last_active_at: Option<i32>,
+    pub last_active_at: Option<i64>,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<models::ContainerResourceExpiresAfter>,
     /// The memory limit configured for the container.
@@ -45,7 +45,7 @@ impl ContainerResource {
         id: String,
         object: String,
         name: String,
-        created_at: i32,
+        created_at: i64,
         status: String,
     ) -> ContainerResource {
         ContainerResource {

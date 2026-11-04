@@ -18,10 +18,10 @@ pub struct BetaMoveParam {
     pub r#type: Type,
     /// The x-coordinate to move to.
     #[serde(rename = "x")]
-    pub x: i32,
+    pub x: i64,
     /// The y-coordinate to move to.
     #[serde(rename = "y")]
-    pub y: i32,
+    pub y: i64,
     /// The keys being held while moving the mouse.
     #[serde(
         rename = "keys",
@@ -34,7 +34,7 @@ pub struct BetaMoveParam {
 
 impl BetaMoveParam {
     /// A mouse move action.
-    pub fn new(r#type: Type, x: i32, y: i32) -> BetaMoveParam {
+    pub fn new(r#type: Type, x: i64, y: i64) -> BetaMoveParam {
         BetaMoveParam {
             r#type,
             x,

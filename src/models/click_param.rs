@@ -21,10 +21,10 @@ pub struct ClickParam {
     pub button: models::ClickButtonType,
     /// The x-coordinate where the click occurred.
     #[serde(rename = "x")]
-    pub x: i32,
+    pub x: i64,
     /// The y-coordinate where the click occurred.
     #[serde(rename = "y")]
-    pub y: i32,
+    pub y: i64,
     /// The keys being held while clicking.
     #[serde(
         rename = "keys",
@@ -37,7 +37,7 @@ pub struct ClickParam {
 
 impl ClickParam {
     /// A click action.
-    pub fn new(r#type: Type, button: models::ClickButtonType, x: i32, y: i32) -> ClickParam {
+    pub fn new(r#type: Type, button: models::ClickButtonType, x: i64, y: i64) -> ClickParam {
         ClickParam {
             r#type,
             button,

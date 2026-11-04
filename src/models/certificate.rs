@@ -25,7 +25,7 @@ pub struct Certificate {
     pub name: Option<String>,
     /// The Unix timestamp (in seconds) of when the certificate was uploaded.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "certificate_details")]
     pub certificate_details: models::CertificateCertificateDetails,
     /// Whether the certificate is currently active at the specified scope. Not returned when getting details for a specific certificate.
@@ -39,7 +39,7 @@ impl Certificate {
         object: Object,
         id: String,
         name: Option<String>,
-        created_at: i32,
+        created_at: i64,
         certificate_details: models::CertificateCertificateDetails,
     ) -> Certificate {
         Certificate {

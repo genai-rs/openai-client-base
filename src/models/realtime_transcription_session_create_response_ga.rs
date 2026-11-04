@@ -25,7 +25,7 @@ pub struct RealtimeTranscriptionSessionCreateResponseGa {
     pub object: String,
     /// Expiration timestamp for the session, in seconds since epoch.
     #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<i32>,
+    pub expires_at: Option<i64>,
     /// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
     #[serde(
         rename = "include",

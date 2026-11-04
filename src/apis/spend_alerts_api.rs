@@ -336,7 +336,7 @@ pub async fn delete_project_spend_alert(
 #[bon::builder]
 pub async fn list_organization_spend_alerts(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
@@ -403,7 +403,7 @@ pub async fn list_organization_spend_alerts(
 pub async fn list_project_spend_alerts(
     configuration: &configuration::Configuration,
     project_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,

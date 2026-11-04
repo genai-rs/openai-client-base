@@ -22,7 +22,7 @@ pub struct ImageEditPartialImageEvent {
     pub b64_json: String,
     /// The Unix timestamp when the event was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "size")]
     pub size: models::ImageEditPartialImageEventSize,
     /// The quality setting for the requested edited image.
@@ -36,7 +36,7 @@ pub struct ImageEditPartialImageEvent {
     pub output_format: OutputFormat,
     /// 0-based index for the partial image (streaming).
     #[serde(rename = "partial_image_index")]
-    pub partial_image_index: i32,
+    pub partial_image_index: i64,
 }
 
 impl ImageEditPartialImageEvent {
@@ -44,12 +44,12 @@ impl ImageEditPartialImageEvent {
     pub fn new(
         r#type: Type,
         b64_json: String,
-        created_at: i32,
+        created_at: i64,
         size: models::ImageEditPartialImageEventSize,
         quality: Quality,
         background: Background,
         output_format: OutputFormat,
-        partial_image_index: i32,
+        partial_image_index: i64,
     ) -> ImageEditPartialImageEvent {
         ImageEditPartialImageEvent {
             r#type,

@@ -1012,7 +1012,7 @@ pub async fn get_thread(
 #[bon::builder]
 pub async fn list_assistants(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
@@ -1079,7 +1079,7 @@ pub async fn list_assistants(
 pub async fn list_messages(
     configuration: &configuration::Configuration,
     thread_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
@@ -1157,7 +1157,7 @@ pub async fn list_run_steps(
     configuration: &configuration::Configuration,
     thread_id: &str,
     run_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
@@ -1253,7 +1253,7 @@ pub async fn list_run_steps(
 pub async fn list_runs(
     configuration: &configuration::Configuration,
     thread_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,

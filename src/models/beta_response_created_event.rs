@@ -29,7 +29,7 @@ pub struct BetaResponseCreatedEvent {
     pub response: models::BetaResponse,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl BetaResponseCreatedEvent {
@@ -37,7 +37,7 @@ impl BetaResponseCreatedEvent {
     pub fn new(
         r#type: Type,
         response: models::BetaResponse,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> BetaResponseCreatedEvent {
         BetaResponseCreatedEvent {
             agent: None,

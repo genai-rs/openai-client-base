@@ -19,7 +19,7 @@ pub struct ResponseWsFailed {
     pub r#type: Type,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "response")]
     pub response: models::Response,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
@@ -29,7 +29,7 @@ pub struct ResponseWsFailed {
 
 impl ResponseWsFailed {
     /// An event that is emitted when a response fails.
-    pub fn new(r#type: Type, sequence_number: i32, response: models::Response) -> ResponseWsFailed {
+    pub fn new(r#type: Type, sequence_number: i64, response: models::Response) -> ResponseWsFailed {
         ResponseWsFailed {
             r#type,
             sequence_number,

@@ -19,7 +19,7 @@ pub struct ResponsesClientEventResponseCreate {
     pub metadata: Option<std::collections::HashMap<String, String>>,
     /// An integer between 0 and 20 specifying the maximum number of most likely tokens to return at each token position, each with an associated log probability. In some cases, the number of returned tokens may be fewer than requested.
     #[serde(rename = "top_logprobs", skip_serializing_if = "Option::is_none")]
-    pub top_logprobs: Option<i32>,
+    pub top_logprobs: Option<i64>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
     pub temperature: Option<f64>,
@@ -59,7 +59,7 @@ pub struct ResponsesClientEventResponseCreate {
     pub background: Option<bool>,
     /// The maximum number of total calls to built-in tools that can be processed in a response. This maximum number applies across all built-in tool calls, not per individual tool. Any further attempts to call a tool by the model will be ignored.
     #[serde(rename = "max_tool_calls", skip_serializing_if = "Option::is_none")]
-    pub max_tool_calls: Option<i32>,
+    pub max_tool_calls: Option<i64>,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<models::ResponseTextParam>,
     /// An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  We support the following categories of tools: - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](https://developers.openai.com/api/docs/guides/tools-web-search)   or [file search](https://developers.openai.com/api/docs/guides/tools-file-search). Learn more about   [built-in tools](https://developers.openai.com/api/docs/guides/tools). - **MCP Tools**: Integrations with third-party systems via custom MCP servers   or predefined connectors such as Google Drive and SharePoint. Learn more about   [MCP Tools](https://developers.openai.com/api/docs/guides/tools-connectors-mcp). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code with strongly typed arguments   and outputs. Learn more about   [function calling](https://developers.openai.com/api/docs/guides/function-calling). You can also use   custom tools to call your own code.
@@ -124,7 +124,7 @@ pub struct ResponsesClientEventResponseCreate {
     pub context_management: Option<Vec<models::ContextManagementParam>>,
     /// An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](https://developers.openai.com/api/docs/guides/reasoning).
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_output_tokens: Option<i32>,
+    pub max_output_tokens: Option<i64>,
     /// The type of the client event. Always `response.create`.
     #[serde(rename = "type")]
     pub r#type: Type,

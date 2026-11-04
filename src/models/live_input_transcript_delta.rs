@@ -21,10 +21,10 @@ pub struct LiveInputTranscriptDelta {
     pub client_event_id: Option<String>,
     /// The start of this event on the Live session timeline, in milliseconds from the beginning of the session.
     #[serde(rename = "start_ms")]
-    pub start_ms: i32,
+    pub start_ms: i64,
     /// The end of this event on the Live session timeline, in milliseconds from the beginning of the session. For appended context, this can equal start_ms.
     #[serde(rename = "end_ms")]
-    pub end_ms: i32,
+    pub end_ms: i64,
     /// The transcript text fragment for the audio in this time range. Append fragments in delivery order to build the transcript.
     #[serde(rename = "delta")]
     pub delta: String,
@@ -37,8 +37,8 @@ impl LiveInputTranscriptDelta {
     /// A transcript fragment for user input audio in the Live session. Accumulate fragments in delivery order; these events do not define complete turns or include a transcript-done event.
     pub fn new(
         event_id: String,
-        start_ms: i32,
-        end_ms: i32,
+        start_ms: i64,
+        end_ms: i64,
         delta: String,
         r#type: Type,
     ) -> LiveInputTranscriptDelta {

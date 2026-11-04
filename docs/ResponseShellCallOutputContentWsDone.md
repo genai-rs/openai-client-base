@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** | The type of the event, always `response.shell_call_output_content.done`. (enum: response.shell_call_output_content.done) | 
-**sequence_number** | **i32** | The sequence number of the event that was emitted. | 
+**sequence_number** | **i64** | The sequence number of the event that was emitted. | 
 **item_id** | **String** | The ID of the output item that was updated. | 
-**output_index** | **i32** | The index of the output item that was updated. | 
-**command_index** | **i32** | The index of the shell command that produced output. | 
+**output_index** | **i64** | The index of the output item that was updated. | 
+**command_index** | **i64** | The index of the shell command that produced output. | 
 **output** | [**Vec<models::FunctionShellCallOutputContent>**](FunctionShellCallOutputContent.md) | The output contents emitted for the shell command. | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 

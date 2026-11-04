@@ -23,9 +23,9 @@ pub struct MessageContentTextAnnotationsFilePathObject {
     #[serde(rename = "file_path")]
     pub file_path: models::MessageContentTextAnnotationsFilePathObjectFilePath,
     #[serde(rename = "start_index")]
-    pub start_index: i32,
+    pub start_index: i64,
     #[serde(rename = "end_index")]
-    pub end_index: i32,
+    pub end_index: i64,
 }
 
 impl MessageContentTextAnnotationsFilePathObject {
@@ -34,8 +34,8 @@ impl MessageContentTextAnnotationsFilePathObject {
         r#type: Type,
         text: String,
         file_path: models::MessageContentTextAnnotationsFilePathObjectFilePath,
-        start_index: i32,
-        end_index: i32,
+        start_index: i64,
+        end_index: i64,
     ) -> MessageContentTextAnnotationsFilePathObject {
         MessageContentTextAnnotationsFilePathObject {
             r#type,

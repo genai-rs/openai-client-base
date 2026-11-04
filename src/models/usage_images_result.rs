@@ -17,10 +17,10 @@ pub struct UsageImagesResult {
     pub object: Object,
     /// The number of images processed.
     #[serde(rename = "images")]
-    pub images: i32,
+    pub images: i64,
     /// The count of requests made to the model.
     #[serde(rename = "num_model_requests")]
-    pub num_model_requests: i32,
+    pub num_model_requests: i64,
     /// When `group_by=source`, this field provides the source of the grouped usage result, possible values are `image.generation`, `image.edit`, `image.variation`.
     #[serde(
         rename = "source",
@@ -68,7 +68,7 @@ pub struct UsageImagesResult {
 
 impl UsageImagesResult {
     /// The aggregated images usage details of the specific time bucket.
-    pub fn new(object: Object, images: i32, num_model_requests: i32) -> UsageImagesResult {
+    pub fn new(object: Object, images: i64, num_model_requests: i64) -> UsageImagesResult {
         UsageImagesResult {
             object,
             images,

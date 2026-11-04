@@ -17,7 +17,7 @@ pub struct ProvenanceResource {
     pub object: models::ProvenanceCheckObject,
     /// The Unix timestamp, in seconds, when the provenance check was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The provenance results that apply to the uploaded file. Image results include C2PA and SynthID; audio results include SynthID.
     #[serde(rename = "results")]
     pub results: Vec<models::ProvenanceResourceResultsInner>,
@@ -26,7 +26,7 @@ pub struct ProvenanceResource {
 impl ProvenanceResource {
     pub fn new(
         object: models::ProvenanceCheckObject,
-        created_at: i32,
+        created_at: i64,
         results: Vec<models::ProvenanceResourceResultsInner>,
     ) -> ProvenanceResource {
         ProvenanceResource {

@@ -16,13 +16,13 @@ use serde::{Deserialize, Serialize};
 pub struct RealtimeResponseUsage {
     /// The total number of tokens in the Response including input and output  text and audio tokens.
     #[serde(rename = "total_tokens", skip_serializing_if = "Option::is_none")]
-    pub total_tokens: Option<i32>,
+    pub total_tokens: Option<i64>,
     /// The number of input tokens used in the Response, including text and  audio tokens.
     #[serde(rename = "input_tokens", skip_serializing_if = "Option::is_none")]
-    pub input_tokens: Option<i32>,
+    pub input_tokens: Option<i64>,
     /// The number of output tokens sent in the Response, including text and  audio tokens.
     #[serde(rename = "output_tokens", skip_serializing_if = "Option::is_none")]
-    pub output_tokens: Option<i32>,
+    pub output_tokens: Option<i64>,
     #[serde(
         rename = "input_token_details",
         skip_serializing_if = "Option::is_none"

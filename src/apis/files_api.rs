@@ -231,7 +231,7 @@ pub async fn download_file(
 pub async fn list_files(
     configuration: &configuration::Configuration,
     purpose: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
 ) -> Result<models::ListFilesResponse, Error<ListFilesError>> {

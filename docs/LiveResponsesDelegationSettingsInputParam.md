@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **model** | **String** | The model used for server-owned Responses delegations. | 
 **instructions** | Option<**String**> | Instructions for the delegated Responses model, separate from Live instructions. See [backend prompting](https://developers.openai.com/api/docs/guides/live-delegation#start-with-your-existing-backend-prompt). | [optional]
-**max_output_tokens** | Option<**i32**> | Maximum number of output tokens for each delegated response. | [optional]
+**max_output_tokens** | Option<**i64**> | Maximum number of output tokens for each delegated response. | [optional]
 **service_tier** | Option<[**models::LiveResponsesServiceTier**](LiveResponsesServiceTier.md)> |  | [optional]
 **reasoning** | Option<[**models::LiveDelegationReasoningInputParam**](LiveDelegationReasoningInputParam.md)> |  | [optional]
 **text** | Option<[**models::LiveDelegationTextInputParam**](LiveDelegationTextInputParam.md)> |  | [optional]

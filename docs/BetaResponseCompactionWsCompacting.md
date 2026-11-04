@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** | The type of the event, always `response.compaction.compacting`. (enum: response.compaction.compacting) | 
-**sequence_number** | **i32** | The sequence number of the event that was emitted. | 
+**sequence_number** | **i64** | The sequence number of the event that was emitted. | 
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**output_index** | **i32** | The index of the compaction output item. | 
+**output_index** | **i64** | The index of the compaction output item. | 
 **item_id** | **String** | The ID of the compaction output item. | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 

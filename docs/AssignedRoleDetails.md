@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **resource_type** | **String** | Resource type the role applies to. | 
 **predefined_role** | **bool** | Whether the role is predefined by OpenAI. | 
 **description** | Option<**String**> | Description of the role. | 
-**created_at** | Option<**i32**> | When the role was created. | 
-**updated_at** | Option<**i32**> | When the role was last updated. | 
+**created_at** | Option<**i64**> | When the role was created. | 
+**updated_at** | Option<**i64**> | When the role was last updated. | 
 **created_by** | Option<**String**> | Identifier of the actor who created the role. | 
 **created_by_user_obj** | Option<**std::collections::HashMap<String, serde_json::Value>**> | User details for the actor that created the role, when available. | 
 **metadata** | Option<**std::collections::HashMap<String, serde_json::Value>**> | Arbitrary metadata stored on the role. | 

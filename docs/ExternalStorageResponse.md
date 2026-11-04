@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **provider** | [**models::ExternalStorageResponseProvider**](ExternalStorageResponseProvider.md) |  | 
 **geography** | **String** |  | 
 **status** | [**models::ExternalStorageStatus**](ExternalStorageStatus.md) |  | 
-**created_at** | **i32** |  | 
+**created_at** | **i64** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

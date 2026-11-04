@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 pub struct ChatCompletionResponseMessageAnnotationsInnerUrlCitation {
     /// The index of the last character of the URL citation in the message.
     #[serde(rename = "end_index")]
-    pub end_index: i32,
+    pub end_index: i64,
     /// The index of the first character of the URL citation in the message.
     #[serde(rename = "start_index")]
-    pub start_index: i32,
+    pub start_index: i64,
     /// The URL of the web resource.
     #[serde(rename = "url")]
     pub url: String,
@@ -30,8 +30,8 @@ pub struct ChatCompletionResponseMessageAnnotationsInnerUrlCitation {
 impl ChatCompletionResponseMessageAnnotationsInnerUrlCitation {
     /// A URL citation when using web search.
     pub fn new(
-        end_index: i32,
-        start_index: i32,
+        end_index: i64,
+        start_index: i64,
         url: String,
         title: String,
     ) -> ChatCompletionResponseMessageAnnotationsInnerUrlCitation {

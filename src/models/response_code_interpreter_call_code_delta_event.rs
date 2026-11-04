@@ -18,7 +18,7 @@ pub struct ResponseCodeInterpreterCallCodeDeltaEvent {
     pub r#type: Type,
     /// The index of the output item in the response for which the code is being streamed.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The unique identifier of the code interpreter tool call item.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -27,17 +27,17 @@ pub struct ResponseCodeInterpreterCallCodeDeltaEvent {
     pub delta: String,
     /// The sequence number of this event, used to order streaming events.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl ResponseCodeInterpreterCallCodeDeltaEvent {
     /// Emitted when a partial code snippet is streamed by the code interpreter.
     pub fn new(
         r#type: Type,
-        output_index: i32,
+        output_index: i64,
         item_id: String,
         delta: String,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> ResponseCodeInterpreterCallCodeDeltaEvent {
         ResponseCodeInterpreterCallCodeDeltaEvent {
             r#type,

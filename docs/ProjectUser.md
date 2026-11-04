@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **name** | Option<**String**> | The name of the user | [optional]
 **email** | Option<**String**> | The email address of the user | [optional]
 **role** | **String** | `owner` or `member` | 
-**added_at** | **i32** | The Unix timestamp (in seconds) of when the project was added. | 
+**added_at** | **i64** | The Unix timestamp (in seconds) of when the project was added. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct MessageDeltaContentTextAnnotationsFilePathObject {
     /// The index of the annotation in the text content part.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// Always `file_path`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -26,14 +26,14 @@ pub struct MessageDeltaContentTextAnnotationsFilePathObject {
     #[serde(rename = "file_path", skip_serializing_if = "Option::is_none")]
     pub file_path: Option<models::MessageDeltaContentTextAnnotationsFilePathObjectFilePath>,
     #[serde(rename = "start_index", skip_serializing_if = "Option::is_none")]
-    pub start_index: Option<i32>,
+    pub start_index: Option<i64>,
     #[serde(rename = "end_index", skip_serializing_if = "Option::is_none")]
-    pub end_index: Option<i32>,
+    pub end_index: Option<i64>,
 }
 
 impl MessageDeltaContentTextAnnotationsFilePathObject {
     /// A URL for the file that's generated when the assistant used the `code_interpreter` tool to generate a file.
-    pub fn new(index: i32, r#type: Type) -> MessageDeltaContentTextAnnotationsFilePathObject {
+    pub fn new(index: i64, r#type: Type) -> MessageDeltaContentTextAnnotationsFilePathObject {
         MessageDeltaContentTextAnnotationsFilePathObject {
             index,
             r#type,

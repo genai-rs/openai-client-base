@@ -18,12 +18,12 @@ pub struct LiveSessionAudioFormatPcmuParam {
     pub r#type: Type,
     /// Audio sample rate in hertz. G.711 audio uses 8000 Hz.
     #[serde(rename = "rate")]
-    pub rate: i32,
+    pub rate: i64,
 }
 
 impl LiveSessionAudioFormatPcmuParam {
     /// Raw, mono G.711 μ-law audio for a Live WebSocket connection.
-    pub fn new(r#type: Type, rate: i32) -> LiveSessionAudioFormatPcmuParam {
+    pub fn new(r#type: Type, rate: i64) -> LiveSessionAudioFormatPcmuParam {
         LiveSessionAudioFormatPcmuParam { r#type, rate }
     }
 }

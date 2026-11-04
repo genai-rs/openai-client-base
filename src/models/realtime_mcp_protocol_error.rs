@@ -15,13 +15,13 @@ pub struct RealtimeMcpProtocolError {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "code")]
-    pub code: i32,
+    pub code: i64,
     #[serde(rename = "message")]
     pub message: String,
 }
 
 impl RealtimeMcpProtocolError {
-    pub fn new(r#type: Type, code: i32, message: String) -> RealtimeMcpProtocolError {
+    pub fn new(r#type: Type, code: i64, message: String) -> RealtimeMcpProtocolError {
         RealtimeMcpProtocolError {
             r#type,
             code,

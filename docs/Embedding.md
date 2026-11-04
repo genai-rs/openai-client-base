@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **i32** | The index of the embedding in the list of embeddings. | 
+**index** | **i64** | The index of the embedding in the list of embeddings. | 
 **embedding** | [**models::EmbeddingEmbedding**](EmbeddingEmbedding.md) |  | 
 **object** | **Object** | The object type, which is always \"embedding\". (enum: embedding) | 
 

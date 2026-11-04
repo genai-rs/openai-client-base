@@ -167,7 +167,7 @@ pub async fn create_batch(
 pub async fn list_batches(
     configuration: &configuration::Configuration,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
 ) -> Result<models::ListBatchesResponse, Error<ListBatchesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_after = after;

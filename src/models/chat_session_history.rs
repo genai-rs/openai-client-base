@@ -18,12 +18,12 @@ pub struct ChatSessionHistory {
     pub enabled: bool,
     /// Number of prior threads surfaced in history views. Defaults to null when all history is retained.
     #[serde(rename = "recent_threads", deserialize_with = "Option::deserialize")]
-    pub recent_threads: Option<i32>,
+    pub recent_threads: Option<i64>,
 }
 
 impl ChatSessionHistory {
     /// History retention preferences returned for the session.
-    pub fn new(enabled: bool, recent_threads: Option<i32>) -> ChatSessionHistory {
+    pub fn new(enabled: bool, recent_threads: Option<i64>) -> ChatSessionHistory {
         ChatSessionHistory {
             enabled,
             recent_threads,
