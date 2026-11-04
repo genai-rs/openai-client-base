@@ -31,8 +31,46 @@ impl std::fmt::Display for VideoContentVariant {
     }
 }
 
-impl Default for VideoContentVariant {
-    fn default() -> VideoContentVariant {
-        Self::Video
+impl ::std::str::FromStr for VideoContentVariant {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "video" => Ok(Self::Video),
+            "thumbnail" => Ok(Self::Thumbnail),
+            "spritesheet" => Ok(Self::Spritesheet),
+            _ => Err(crate::models::ParseEnumError::new(
+                "VideoContentVariant",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for VideoContentVariant {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for VideoContentVariant {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for VideoContentVariant {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

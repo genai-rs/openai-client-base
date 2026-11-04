@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// LiveDecisionQuestionsInputParam2 : Questions evaluated using the current transcript and the session's shared Decision items.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionQuestionsInputParam2 {
     /// Native Decision API questions evaluated together, in order.
     #[serde(rename = "questions")]
@@ -23,14 +23,5 @@ impl LiveDecisionQuestionsInputParam2 {
     /// Questions evaluated using the current transcript and the session's shared Decision items.
     pub fn new(questions: Vec<models::QuestionParam>) -> LiveDecisionQuestionsInputParam2 {
         LiveDecisionQuestionsInputParam2 { questions }
-    }
-}
-
-impl std::fmt::Display for LiveDecisionQuestionsInputParam2 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

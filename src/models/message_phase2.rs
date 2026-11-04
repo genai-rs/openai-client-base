@@ -28,8 +28,42 @@ impl std::fmt::Display for MessagePhase2 {
     }
 }
 
-impl Default for MessagePhase2 {
-    fn default() -> MessagePhase2 {
-        Self::Commentary
+impl ::std::str::FromStr for MessagePhase2 {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "commentary" => Ok(Self::Commentary),
+            "final_answer" => Ok(Self::FinalAnswer),
+            _ => Err(crate::models::ParseEnumError::new("MessagePhase2", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for MessagePhase2 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for MessagePhase2 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for MessagePhase2 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

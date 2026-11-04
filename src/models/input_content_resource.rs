@@ -18,9 +18,3 @@ pub enum InputContentResource {
     InputText(models::InputContentResourceInputText),
     InputImage(models::InputContentResourceInputImage),
 }
-
-impl Default for InputContentResource {
-    fn default() -> Self {
-        Self::InputText(Default::default())
-    }
-}

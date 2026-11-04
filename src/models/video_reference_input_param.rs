@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// VideoReferenceInputParam : Reference to the completed video.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VideoReferenceInputParam {
     /// The identifier of the completed video.
     #[serde(rename = "id")]
@@ -22,14 +22,5 @@ impl VideoReferenceInputParam {
     /// Reference to the completed video.
     pub fn new(id: String) -> VideoReferenceInputParam {
         VideoReferenceInputParam { id }
-    }
-}
-
-impl std::fmt::Display for VideoReferenceInputParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

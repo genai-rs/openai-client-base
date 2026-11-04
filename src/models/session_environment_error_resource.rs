@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// SessionEnvironmentErrorResource : An error reported while preparing a session environment.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEnvironmentErrorResource {
     /// The error type.
     #[serde(rename = "type")]
@@ -31,15 +31,6 @@ impl SessionEnvironmentErrorResource {
             r#type,
             code,
             message,
-        }
-    }
-}
-
-impl std::fmt::Display for SessionEnvironmentErrorResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

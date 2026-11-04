@@ -43,8 +43,50 @@ impl std::fmt::Display for DecisionsUsageGroupBy {
     }
 }
 
-impl Default for DecisionsUsageGroupBy {
-    fn default() -> DecisionsUsageGroupBy {
-        Self::ProjectId
+impl ::std::str::FromStr for DecisionsUsageGroupBy {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "project_id" => Ok(Self::ProjectId),
+            "user_id" => Ok(Self::UserId),
+            "api_key_id" => Ok(Self::ApiKeyId),
+            "model" => Ok(Self::Model),
+            "batch" => Ok(Self::Batch),
+            "service_tier" => Ok(Self::ServiceTier),
+            "api_source" => Ok(Self::ApiSource),
+            _ => Err(crate::models::ParseEnumError::new(
+                "DecisionsUsageGroupBy",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for DecisionsUsageGroupBy {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for DecisionsUsageGroupBy {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for DecisionsUsageGroupBy {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

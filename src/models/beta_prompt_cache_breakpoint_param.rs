@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BetaPromptCacheBreakpointParam : Marks the exact end of a reusable prompt prefix. The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaPromptCacheBreakpointParam {
     /// The breakpoint mode. Always `explicit`.
     #[serde(rename = "mode")]
@@ -31,17 +31,49 @@ pub enum Mode {
     Explicit,
 }
 
-impl Default for Mode {
-    fn default() -> Mode {
-        Self::Explicit
+impl ::std::fmt::Display for Mode {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Explicit => "explicit",
+        })
     }
 }
 
-impl std::fmt::Display for BetaPromptCacheBreakpointParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Mode {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "explicit" => Ok(Self::Explicit),
+            _ => Err(crate::models::ParseEnumError::new("Mode", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Mode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Mode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Mode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

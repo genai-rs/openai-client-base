@@ -20,9 +20,3 @@ pub enum AnswerResource {
     Score(models::AnswerResourceScore),
     Refusal(models::AnswerResourceRefusal),
 }
-
-impl Default for AnswerResource {
-    fn default() -> Self {
-        Self::Predicate(Default::default())
-    }
-}

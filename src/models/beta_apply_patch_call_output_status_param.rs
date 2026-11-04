@@ -29,8 +29,45 @@ impl std::fmt::Display for BetaApplyPatchCallOutputStatusParam {
     }
 }
 
-impl Default for BetaApplyPatchCallOutputStatusParam {
-    fn default() -> BetaApplyPatchCallOutputStatusParam {
-        Self::Completed
+impl ::std::str::FromStr for BetaApplyPatchCallOutputStatusParam {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "completed" => Ok(Self::Completed),
+            "failed" => Ok(Self::Failed),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaApplyPatchCallOutputStatusParam",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaApplyPatchCallOutputStatusParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaApplyPatchCallOutputStatusParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaApplyPatchCallOutputStatusParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

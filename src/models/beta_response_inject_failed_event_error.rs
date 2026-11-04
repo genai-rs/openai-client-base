@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BetaResponseInjectFailedEventError : Information about why the input was not committed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseInjectFailedEventError {
     /// A machine-readable error code.
     #[serde(rename = "code")]
@@ -36,17 +36,51 @@ pub enum Code {
     ResponseNotFound,
 }
 
-impl Default for Code {
-    fn default() -> Code {
-        Self::ResponseAlreadyCompleted
+impl ::std::fmt::Display for Code {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ResponseAlreadyCompleted => "response_already_completed",
+            Self::ResponseNotFound => "response_not_found",
+        })
     }
 }
 
-impl std::fmt::Display for BetaResponseInjectFailedEventError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Code {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "response_already_completed" => Ok(Self::ResponseAlreadyCompleted),
+            "response_not_found" => Ok(Self::ResponseNotFound),
+            _ => Err(crate::models::ParseEnumError::new("Code", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Code {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Code {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Code {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

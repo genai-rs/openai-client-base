@@ -28,8 +28,45 @@ impl std::fmt::Display for BetaToolSearchExecutionType {
     }
 }
 
-impl Default for BetaToolSearchExecutionType {
-    fn default() -> BetaToolSearchExecutionType {
-        Self::Server
+impl ::std::str::FromStr for BetaToolSearchExecutionType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "server" => Ok(Self::Server),
+            "client" => Ok(Self::Client),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaToolSearchExecutionType",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaToolSearchExecutionType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaToolSearchExecutionType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaToolSearchExecutionType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

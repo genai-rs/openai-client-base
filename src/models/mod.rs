@@ -5600,3 +5600,5 @@ pub mod workflow_param_state_variables_value;
 pub use self::workflow_param_state_variables_value::WorkflowParamStateVariablesValue;
 pub mod workflow_tracing_param;
 pub use self::workflow_tracing_param::WorkflowTracingParam;
+pub mod parse_enum_error;
+pub use self::parse_enum_error::ParseEnumError;

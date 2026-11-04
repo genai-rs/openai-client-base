@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// Object14 : Custom voice reference.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object14 {
     /// The custom voice ID, e.g. `voice_1234`.
     #[serde(rename = "id")]
@@ -22,14 +22,5 @@ impl Object14 {
     /// Custom voice reference.
     pub fn new(id: String) -> Object14 {
         Object14 { id }
-    }
-}
-
-impl std::fmt::Display for Object14 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

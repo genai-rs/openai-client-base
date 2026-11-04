@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalJsonlFileContentSourceContentInner {
     #[serde(rename = "item")]
     pub item: std::collections::HashMap<String, serde_json::Value>,
@@ -23,14 +23,5 @@ impl EvalJsonlFileContentSourceContentInner {
         item: std::collections::HashMap<String, serde_json::Value>,
     ) -> EvalJsonlFileContentSourceContentInner {
         EvalJsonlFileContentSourceContentInner { item, sample: None }
-    }
-}
-
-impl std::fmt::Display for EvalJsonlFileContentSourceContentInner {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

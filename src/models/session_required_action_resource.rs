@@ -19,9 +19,3 @@ pub enum SessionRequiredActionResource {
     FunctionCall(models::SessionRequiredActionResourceFunctionCall),
     EnvironmentConnection(models::SessionRequiredActionResourceEnvironmentConnection),
 }
-
-impl Default for SessionRequiredActionResource {
-    fn default() -> Self {
-        Self::ComputerUseApprovalRequest(Default::default())
-    }
-}

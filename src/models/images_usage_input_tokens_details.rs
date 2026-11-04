@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ImagesUsageInputTokensDetails : The input tokens detailed information for the image generation.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImagesUsageInputTokensDetails {
     /// The number of text tokens in the input prompt.
     #[serde(rename = "text_tokens")]
@@ -27,15 +27,6 @@ impl ImagesUsageInputTokensDetails {
         ImagesUsageInputTokensDetails {
             text_tokens,
             image_tokens,
-        }
-    }
-}
-
-impl std::fmt::Display for ImagesUsageInputTokensDetails {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

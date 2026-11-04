@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// CreateModerationResponseResultsInnerCategoryAppliedInputTypes : A list of the categories along with the input type(s) that the score applies to.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateModerationResponseResultsInnerCategoryAppliedInputTypes {
     /// The applied input type(s) for the category 'hate'.
     #[serde(rename = "hate")]
@@ -95,11 +95,6 @@ pub enum Hate {
     Text,
 }
 
-impl Default for Hate {
-    fn default() -> Hate {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'hate/threatening'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum HateSlashThreatening {
@@ -107,11 +102,6 @@ pub enum HateSlashThreatening {
     Text,
 }
 
-impl Default for HateSlashThreatening {
-    fn default() -> HateSlashThreatening {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'harassment'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Harassment {
@@ -119,11 +109,6 @@ pub enum Harassment {
     Text,
 }
 
-impl Default for Harassment {
-    fn default() -> Harassment {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'harassment/threatening'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum HarassmentSlashThreatening {
@@ -131,11 +116,6 @@ pub enum HarassmentSlashThreatening {
     Text,
 }
 
-impl Default for HarassmentSlashThreatening {
-    fn default() -> HarassmentSlashThreatening {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'illicit'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Illicit {
@@ -143,11 +123,6 @@ pub enum Illicit {
     Text,
 }
 
-impl Default for Illicit {
-    fn default() -> Illicit {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'illicit/violent'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum IllicitSlashViolent {
@@ -155,11 +130,6 @@ pub enum IllicitSlashViolent {
     Text,
 }
 
-impl Default for IllicitSlashViolent {
-    fn default() -> IllicitSlashViolent {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'self-harm'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum SelfHarm {
@@ -169,11 +139,6 @@ pub enum SelfHarm {
     Image,
 }
 
-impl Default for SelfHarm {
-    fn default() -> SelfHarm {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'self-harm/intent'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum SelfHarmSlashIntent {
@@ -183,11 +148,6 @@ pub enum SelfHarmSlashIntent {
     Image,
 }
 
-impl Default for SelfHarmSlashIntent {
-    fn default() -> SelfHarmSlashIntent {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'self-harm/instructions'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum SelfHarmSlashInstructions {
@@ -197,11 +157,6 @@ pub enum SelfHarmSlashInstructions {
     Image,
 }
 
-impl Default for SelfHarmSlashInstructions {
-    fn default() -> SelfHarmSlashInstructions {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'sexual'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Sexual {
@@ -211,11 +166,6 @@ pub enum Sexual {
     Image,
 }
 
-impl Default for Sexual {
-    fn default() -> Sexual {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'sexual/minors'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum SexualSlashMinors {
@@ -223,11 +173,6 @@ pub enum SexualSlashMinors {
     Text,
 }
 
-impl Default for SexualSlashMinors {
-    fn default() -> SexualSlashMinors {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'violence'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Violence {
@@ -237,11 +182,6 @@ pub enum Violence {
     Image,
 }
 
-impl Default for Violence {
-    fn default() -> Violence {
-        Self::Text
-    }
-}
 /// The applied input type(s) for the category 'violence/graphic'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ViolenceSlashGraphic {
@@ -251,17 +191,646 @@ pub enum ViolenceSlashGraphic {
     Image,
 }
 
-impl Default for ViolenceSlashGraphic {
-    fn default() -> ViolenceSlashGraphic {
-        Self::Text
+impl ::std::fmt::Display for Hate {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+        })
     }
 }
 
-impl std::fmt::Display for CreateModerationResponseResultsInnerCategoryAppliedInputTypes {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Hate {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            _ => Err(crate::models::ParseEnumError::new("Hate", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Hate {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Hate {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Hate {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for HateSlashThreatening {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+        })
+    }
+}
+
+impl ::std::str::FromStr for HateSlashThreatening {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            _ => Err(crate::models::ParseEnumError::new(
+                "HateSlashThreatening",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for HateSlashThreatening {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for HateSlashThreatening {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for HateSlashThreatening {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Harassment {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Harassment {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            _ => Err(crate::models::ParseEnumError::new("Harassment", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Harassment {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Harassment {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Harassment {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for HarassmentSlashThreatening {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+        })
+    }
+}
+
+impl ::std::str::FromStr for HarassmentSlashThreatening {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            _ => Err(crate::models::ParseEnumError::new(
+                "HarassmentSlashThreatening",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for HarassmentSlashThreatening {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for HarassmentSlashThreatening {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for HarassmentSlashThreatening {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Illicit {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Illicit {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            _ => Err(crate::models::ParseEnumError::new("Illicit", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Illicit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Illicit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Illicit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for IllicitSlashViolent {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+        })
+    }
+}
+
+impl ::std::str::FromStr for IllicitSlashViolent {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            _ => Err(crate::models::ParseEnumError::new(
+                "IllicitSlashViolent",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for IllicitSlashViolent {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for IllicitSlashViolent {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for IllicitSlashViolent {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for SelfHarm {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::Image => "image",
+        })
+    }
+}
+
+impl ::std::str::FromStr for SelfHarm {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "image" => Ok(Self::Image),
+            _ => Err(crate::models::ParseEnumError::new("SelfHarm", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SelfHarm {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SelfHarm {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SelfHarm {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for SelfHarmSlashIntent {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::Image => "image",
+        })
+    }
+}
+
+impl ::std::str::FromStr for SelfHarmSlashIntent {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "image" => Ok(Self::Image),
+            _ => Err(crate::models::ParseEnumError::new(
+                "SelfHarmSlashIntent",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SelfHarmSlashIntent {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SelfHarmSlashIntent {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SelfHarmSlashIntent {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for SelfHarmSlashInstructions {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::Image => "image",
+        })
+    }
+}
+
+impl ::std::str::FromStr for SelfHarmSlashInstructions {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "image" => Ok(Self::Image),
+            _ => Err(crate::models::ParseEnumError::new(
+                "SelfHarmSlashInstructions",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SelfHarmSlashInstructions {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SelfHarmSlashInstructions {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SelfHarmSlashInstructions {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Sexual {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::Image => "image",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Sexual {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "image" => Ok(Self::Image),
+            _ => Err(crate::models::ParseEnumError::new("Sexual", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Sexual {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Sexual {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Sexual {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for SexualSlashMinors {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+        })
+    }
+}
+
+impl ::std::str::FromStr for SexualSlashMinors {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            _ => Err(crate::models::ParseEnumError::new(
+                "SexualSlashMinors",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SexualSlashMinors {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SexualSlashMinors {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SexualSlashMinors {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Violence {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::Image => "image",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Violence {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "image" => Ok(Self::Image),
+            _ => Err(crate::models::ParseEnumError::new("Violence", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Violence {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Violence {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Violence {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for ViolenceSlashGraphic {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::Image => "image",
+        })
+    }
+}
+
+impl ::std::str::FromStr for ViolenceSlashGraphic {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "image" => Ok(Self::Image),
+            _ => Err(crate::models::ParseEnumError::new(
+                "ViolenceSlashGraphic",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ViolenceSlashGraphic {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ViolenceSlashGraphic {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ViolenceSlashGraphic {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

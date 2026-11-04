@@ -37,8 +37,45 @@ impl std::fmt::Display for ServiceTierEnum {
     }
 }
 
-impl Default for ServiceTierEnum {
-    fn default() -> ServiceTierEnum {
-        Self::Auto
+impl ::std::str::FromStr for ServiceTierEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "auto" => Ok(Self::Auto),
+            "default" => Ok(Self::Default),
+            "fast" => Ok(Self::Fast),
+            "flex" => Ok(Self::Flex),
+            "priority" => Ok(Self::Priority),
+            _ => Err(crate::models::ParseEnumError::new("ServiceTierEnum", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ServiceTierEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ServiceTierEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ServiceTierEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

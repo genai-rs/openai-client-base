@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateResponse : A Realtime session configuration object.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateResponse {
     /// Unique identifier for the session that looks like `sess_1234567890abcdef`.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -88,17 +88,51 @@ pub enum Include {
     ItemInputAudioTranscriptionLogprobs,
 }
 
-impl Default for Include {
-    fn default() -> Include {
-        Self::ItemInputAudioTranscriptionLogprobs
+impl ::std::fmt::Display for Include {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ItemInputAudioTranscriptionLogprobs => "item.input_audio_transcription.logprobs",
+        })
     }
 }
 
-impl std::fmt::Display for RealtimeSessionCreateResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Include {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "item.input_audio_transcription.logprobs" => {
+                Ok(Self::ItemInputAudioTranscriptionLogprobs)
+            }
+            _ => Err(crate::models::ParseEnumError::new("Include", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Include {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Include {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Include {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

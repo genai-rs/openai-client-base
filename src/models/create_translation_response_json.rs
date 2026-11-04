@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateTranslationResponseJson {
     #[serde(rename = "text")]
     pub text: String,
@@ -19,14 +19,5 @@ pub struct CreateTranslationResponseJson {
 impl CreateTranslationResponseJson {
     pub fn new(text: String) -> CreateTranslationResponseJson {
         CreateTranslationResponseJson { text }
-    }
-}
-
-impl std::fmt::Display for CreateTranslationResponseJson {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

@@ -18,9 +18,3 @@ pub enum BetaNamespaceToolParamToolsInner {
     BetaFunctionToolParam(models::BetaFunctionToolParam),
     BetaCustomToolParam(models::BetaCustomToolParam),
 }
-
-impl Default for BetaNamespaceToolParamToolsInner {
-    fn default() -> Self {
-        Self::BetaFunctionToolParam(Default::default())
-    }
-}

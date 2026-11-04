@@ -17,9 +17,3 @@ pub enum BetaCodeInterpreterToolCallOutputsInner {
     BetaCodeInterpreterOutputLogs(models::BetaCodeInterpreterOutputLogs),
     BetaCodeInterpreterOutputImage(models::BetaCodeInterpreterOutputImage),
 }
-
-impl Default for BetaCodeInterpreterToolCallOutputsInner {
-    fn default() -> Self {
-        Self::BetaCodeInterpreterOutputLogs(Default::default())
-    }
-}

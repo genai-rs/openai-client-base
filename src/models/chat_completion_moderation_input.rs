@@ -18,9 +18,3 @@ pub enum ChatCompletionModerationInput {
     ChatCompletionModerationResults(models::ChatCompletionModerationResults),
     ChatCompletionModerationError(models::ChatCompletionModerationError),
 }
-
-impl Default for ChatCompletionModerationInput {
-    fn default() -> Self {
-        Self::ChatCompletionModerationResults(Default::default())
-    }
-}

@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BatchUsageInputTokensDetails : A detailed breakdown of the input tokens.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BatchUsageInputTokensDetails {
     /// The number of tokens that were retrieved from the cache. [More on prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching).
     #[serde(rename = "cached_tokens")]
@@ -22,14 +22,5 @@ impl BatchUsageInputTokensDetails {
     /// A detailed breakdown of the input tokens.
     pub fn new(cached_tokens: i32) -> BatchUsageInputTokensDetails {
         BatchUsageInputTokensDetails { cached_tokens }
-    }
-}
-
-impl std::fmt::Display for BatchUsageInputTokensDetails {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

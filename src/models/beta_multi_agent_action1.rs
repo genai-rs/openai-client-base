@@ -40,8 +40,49 @@ impl std::fmt::Display for BetaMultiAgentAction1 {
     }
 }
 
-impl Default for BetaMultiAgentAction1 {
-    fn default() -> BetaMultiAgentAction1 {
-        Self::SpawnAgent
+impl ::std::str::FromStr for BetaMultiAgentAction1 {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "spawn_agent" => Ok(Self::SpawnAgent),
+            "interrupt_agent" => Ok(Self::InterruptAgent),
+            "list_agents" => Ok(Self::ListAgents),
+            "send_message" => Ok(Self::SendMessage),
+            "followup_task" => Ok(Self::FollowupTask),
+            "wait_agent" => Ok(Self::WaitAgent),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaMultiAgentAction1",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaMultiAgentAction1 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaMultiAgentAction1 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaMultiAgentAction1 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

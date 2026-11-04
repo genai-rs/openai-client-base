@@ -18,9 +18,3 @@ pub enum BetaOutputTextContentParamAnnotationsInner {
     BetaUrlCitationParam(models::BetaUrlCitationParam),
     BetaContainerFileCitationParam(models::BetaContainerFileCitationParam),
 }
-
-impl Default for BetaOutputTextContentParamAnnotationsInner {
-    fn default() -> Self {
-        Self::BetaFileCitationParam(Default::default())
-    }
-}

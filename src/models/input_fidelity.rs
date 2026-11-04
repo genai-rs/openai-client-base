@@ -29,8 +29,42 @@ impl std::fmt::Display for InputFidelity {
     }
 }
 
-impl Default for InputFidelity {
-    fn default() -> InputFidelity {
-        Self::High
+impl ::std::str::FromStr for InputFidelity {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "high" => Ok(Self::High),
+            "low" => Ok(Self::Low),
+            _ => Err(crate::models::ParseEnumError::new("InputFidelity", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for InputFidelity {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for InputFidelity {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for InputFidelity {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

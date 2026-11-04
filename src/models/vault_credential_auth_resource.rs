@@ -19,9 +19,3 @@ pub enum VaultCredentialAuthResource {
     StaticBearer(models::VaultCredentialAuthResourceStaticBearer),
     EnvironmentVariable(models::VaultCredentialAuthResourceEnvironmentVariable),
 }
-
-impl Default for VaultCredentialAuthResource {
-    fn default() -> Self {
-        Self::McpOauth(Default::default())
-    }
-}

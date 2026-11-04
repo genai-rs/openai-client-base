@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ChatCompletionFunctionCallOption : Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionFunctionCallOption {
     /// The name of the function to call.
     #[serde(rename = "name")]
@@ -22,14 +22,5 @@ impl ChatCompletionFunctionCallOption {
     /// Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.
     pub fn new(name: String) -> ChatCompletionFunctionCallOption {
         ChatCompletionFunctionCallOption { name }
-    }
-}
-
-impl std::fmt::Display for ChatCompletionFunctionCallOption {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

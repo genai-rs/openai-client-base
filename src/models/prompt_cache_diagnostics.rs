@@ -22,9 +22,3 @@ pub enum PromptCacheDiagnostics {
     ),
     PromptCacheUnavailableDiagnosticsBody(models::PromptCacheUnavailableDiagnosticsBody),
 }
-
-impl Default for PromptCacheDiagnostics {
-    fn default() -> Self {
-        Self::PromptCacheMissDiagnosticsBody(Default::default())
-    }
-}

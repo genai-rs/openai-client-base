@@ -28,8 +28,42 @@ impl std::fmt::Display for TaskType {
     }
 }
 
-impl Default for TaskType {
-    fn default() -> TaskType {
-        Self::Custom
+impl ::std::str::FromStr for TaskType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "custom" => Ok(Self::Custom),
+            "thought" => Ok(Self::Thought),
+            _ => Err(crate::models::ParseEnumError::new("TaskType", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for TaskType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for TaskType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for TaskType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

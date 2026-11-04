@@ -31,8 +31,43 @@ impl std::fmt::Display for VideoSeconds {
     }
 }
 
-impl Default for VideoSeconds {
-    fn default() -> VideoSeconds {
-        Self::Variant4
+impl ::std::str::FromStr for VideoSeconds {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "4" => Ok(Self::Variant4),
+            "8" => Ok(Self::Variant8),
+            "12" => Ok(Self::Variant12),
+            _ => Err(crate::models::ParseEnumError::new("VideoSeconds", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for VideoSeconds {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for VideoSeconds {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for VideoSeconds {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// Object011 : For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object011 {
     /// A machine-readable error code.
     #[serde(rename = "code")]
@@ -31,15 +31,6 @@ impl Object011 {
             code,
             message,
             param,
-        }
-    }
-}
-
-impl std::fmt::Display for Object011 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

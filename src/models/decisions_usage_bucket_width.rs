@@ -31,8 +31,46 @@ impl std::fmt::Display for DecisionsUsageBucketWidth {
     }
 }
 
-impl Default for DecisionsUsageBucketWidth {
-    fn default() -> DecisionsUsageBucketWidth {
-        Self::Variant1m
+impl ::std::str::FromStr for DecisionsUsageBucketWidth {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "1m" => Ok(Self::Variant1m),
+            "1h" => Ok(Self::Variant1h),
+            "1d" => Ok(Self::Variant1d),
+            _ => Err(crate::models::ParseEnumError::new(
+                "DecisionsUsageBucketWidth",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for DecisionsUsageBucketWidth {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for DecisionsUsageBucketWidth {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for DecisionsUsageBucketWidth {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

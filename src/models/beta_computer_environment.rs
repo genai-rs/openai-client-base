@@ -37,8 +37,48 @@ impl std::fmt::Display for BetaComputerEnvironment {
     }
 }
 
-impl Default for BetaComputerEnvironment {
-    fn default() -> BetaComputerEnvironment {
-        Self::Windows
+impl ::std::str::FromStr for BetaComputerEnvironment {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "windows" => Ok(Self::Windows),
+            "mac" => Ok(Self::Mac),
+            "linux" => Ok(Self::Linux),
+            "ubuntu" => Ok(Self::Ubuntu),
+            "browser" => Ok(Self::Browser),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaComputerEnvironment",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaComputerEnvironment {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaComputerEnvironment {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaComputerEnvironment {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

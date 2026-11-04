@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ChatSessionAutomaticThreadTitling : Automatic thread title preferences for the session.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatSessionAutomaticThreadTitling {
     /// Whether automatic thread titling is enabled.
     #[serde(rename = "enabled")]
@@ -22,14 +22,5 @@ impl ChatSessionAutomaticThreadTitling {
     /// Automatic thread title preferences for the session.
     pub fn new(enabled: bool) -> ChatSessionAutomaticThreadTitling {
         ChatSessionAutomaticThreadTitling { enabled }
-    }
-}
-
-impl std::fmt::Display for ChatSessionAutomaticThreadTitling {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

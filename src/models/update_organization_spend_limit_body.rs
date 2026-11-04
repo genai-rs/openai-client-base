@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// UpdateOrganizationSpendLimitBody : Parameters for the hard spend limit you want to create or replace.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateOrganizationSpendLimitBody {
     /// The hard spend limit amount, in cents.
     #[serde(rename = "threshold_amount")]
@@ -45,11 +45,6 @@ pub enum Currency {
     Usd,
 }
 
-impl Default for Currency {
-    fn default() -> Currency {
-        Self::Usd
-    }
-}
 /// The time interval for evaluating spend against the threshold. Currently, only `month` is supported.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Interval {
@@ -57,17 +52,96 @@ pub enum Interval {
     Month,
 }
 
-impl Default for Interval {
-    fn default() -> Interval {
-        Self::Month
+impl ::std::fmt::Display for Currency {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Usd => "USD",
+        })
     }
 }
 
-impl std::fmt::Display for UpdateOrganizationSpendLimitBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Currency {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "USD" => Ok(Self::Usd),
+            _ => Err(crate::models::ParseEnumError::new("Currency", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Currency {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Currency {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Currency {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Interval {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Month => "month",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Interval {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "month" => Ok(Self::Month),
+            _ => Err(crate::models::ParseEnumError::new("Interval", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Interval {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Interval {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Interval {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

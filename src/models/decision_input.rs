@@ -8,12 +8,6 @@ pub enum DecisionInput {
     Arrayofitems(Vec<serde_json::Value>),
 }
 
-impl Default for DecisionInput {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl DecisionInput {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

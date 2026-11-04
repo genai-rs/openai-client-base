@@ -44,8 +44,50 @@ impl std::fmt::Display for SessionEnvironmentStatusResource {
     }
 }
 
-impl Default for SessionEnvironmentStatusResource {
-    fn default() -> SessionEnvironmentStatusResource {
-        Self::Pending
+impl ::std::str::FromStr for SessionEnvironmentStatusResource {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "pending" => Ok(Self::Pending),
+            "ready" => Ok(Self::Ready),
+            "connected" => Ok(Self::Connected),
+            "disconnected" => Ok(Self::Disconnected),
+            "suspended" => Ok(Self::Suspended),
+            "expired" => Ok(Self::Expired),
+            "failed" => Ok(Self::Failed),
+            _ => Err(crate::models::ParseEnumError::new(
+                "SessionEnvironmentStatusResource",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SessionEnvironmentStatusResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SessionEnvironmentStatusResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SessionEnvironmentStatusResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

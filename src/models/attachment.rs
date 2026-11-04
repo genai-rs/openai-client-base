@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// Attachment : Attachment metadata included on thread items.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Attachment {
     #[serde(rename = "type")]
     pub r#type: models::AttachmentType,
@@ -45,15 +45,6 @@ impl Attachment {
             name,
             mime_type,
             preview_url,
-        }
-    }
-}
-
-impl std::fmt::Display for Attachment {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

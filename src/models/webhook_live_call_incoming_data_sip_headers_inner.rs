@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// WebhookLiveCallIncomingDataSipHeadersInner : A header from the SIP Invite.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookLiveCallIncomingDataSipHeadersInner {
     /// Name of the SIP Header.
     #[serde(rename = "name")]
@@ -25,14 +25,5 @@ impl WebhookLiveCallIncomingDataSipHeadersInner {
     /// A header from the SIP Invite.
     pub fn new(name: String, value: String) -> WebhookLiveCallIncomingDataSipHeadersInner {
         WebhookLiveCallIncomingDataSipHeadersInner { name, value }
-    }
-}
-
-impl std::fmt::Display for WebhookLiveCallIncomingDataSipHeadersInner {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

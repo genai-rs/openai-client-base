@@ -8,12 +8,6 @@ pub enum PersonalityEnumTextVariantEnum {
     Pragmatic,
 }
 
-impl Default for PersonalityEnumTextVariantEnum {
-    fn default() -> Self {
-        Self::Friendly
-    }
-}
-
 impl std::fmt::Display for PersonalityEnumTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -21,5 +15,48 @@ impl std::fmt::Display for PersonalityEnumTextVariantEnum {
             PersonalityEnumTextVariantEnum::Pragmatic => "pragmatic",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for PersonalityEnumTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "friendly" => Ok(Self::Friendly),
+            "pragmatic" => Ok(Self::Pragmatic),
+            _ => Err(crate::models::ParseEnumError::new(
+                "PersonalityEnumTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for PersonalityEnumTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for PersonalityEnumTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for PersonalityEnumTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

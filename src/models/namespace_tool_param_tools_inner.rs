@@ -18,9 +18,3 @@ pub enum NamespaceToolParamToolsInner {
     FunctionToolParam(models::FunctionToolParam),
     CustomToolParam(models::CustomToolParam),
 }
-
-impl Default for NamespaceToolParamToolsInner {
-    fn default() -> Self {
-        Self::FunctionToolParam(Default::default())
-    }
-}

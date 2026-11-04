@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ContextManagementParam {
     /// The context management entry type. Currently only 'compaction' is supported.
     #[serde(rename = "type")]
@@ -30,15 +30,6 @@ impl ContextManagementParam {
         ContextManagementParam {
             r#type,
             compact_threshold: None,
-        }
-    }
-}
-
-impl std::fmt::Display for ContextManagementParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

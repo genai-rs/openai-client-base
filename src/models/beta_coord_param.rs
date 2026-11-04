@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BetaCoordParam : An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCoordParam {
     /// The x-coordinate.
     #[serde(rename = "x")]
@@ -25,14 +25,5 @@ impl BetaCoordParam {
     /// An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
     pub fn new(x: i32, y: i32) -> BetaCoordParam {
         BetaCoordParam { x, y }
-    }
-}
-
-impl std::fmt::Display for BetaCoordParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

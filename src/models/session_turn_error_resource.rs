@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// SessionTurnErrorResource : A customer-safe error describing why a session request failed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionTurnErrorResource {
     #[serde(rename = "code")]
     pub code: models::SessionTurnErrorCodeResource,
@@ -28,14 +28,5 @@ impl SessionTurnErrorResource {
         message: String,
     ) -> SessionTurnErrorResource {
         SessionTurnErrorResource { code, message }
-    }
-}
-
-impl std::fmt::Display for SessionTurnErrorResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

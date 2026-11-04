@@ -17,9 +17,3 @@ pub enum ProvenanceResourceResultsInner {
     C2PaProvenanceResult(models::C2PaProvenanceResult),
     SynthIdProvenanceResult(models::SynthIdProvenanceResult),
 }
-
-impl Default for ProvenanceResourceResultsInner {
-    fn default() -> Self {
-        Self::C2PaProvenanceResult(Default::default())
-    }
-}

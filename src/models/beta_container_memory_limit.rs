@@ -34,8 +34,47 @@ impl std::fmt::Display for BetaContainerMemoryLimit {
     }
 }
 
-impl Default for BetaContainerMemoryLimit {
-    fn default() -> BetaContainerMemoryLimit {
-        Self::Variant1g
+impl ::std::str::FromStr for BetaContainerMemoryLimit {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "1g" => Ok(Self::Variant1g),
+            "4g" => Ok(Self::Variant4g),
+            "16g" => Ok(Self::Variant16g),
+            "64g" => Ok(Self::Variant64g),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaContainerMemoryLimit",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaContainerMemoryLimit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaContainerMemoryLimit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaContainerMemoryLimit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

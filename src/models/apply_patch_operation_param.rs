@@ -19,9 +19,3 @@ pub enum ApplyPatchOperationParam {
     ApplyPatchDeleteFileOperationParam(models::ApplyPatchDeleteFileOperationParam),
     ApplyPatchUpdateFileOperationParam(models::ApplyPatchUpdateFileOperationParam),
 }
-
-impl Default for ApplyPatchOperationParam {
-    fn default() -> Self {
-        Self::ApplyPatchCreateFileOperationParam(Default::default())
-    }
-}

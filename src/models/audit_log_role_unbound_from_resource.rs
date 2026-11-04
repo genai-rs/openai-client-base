@@ -77,17 +77,57 @@ pub enum Source {
     ConnectorPublish,
 }
 
-impl Default for Source {
-    fn default() -> Source {
-        Self::RoleToggle
+impl ::std::fmt::Display for Source {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::RoleToggle => "role_toggle",
+            Self::RoleConnectorUpdate => "role_connector_update",
+            Self::RoleDelete => "role_delete",
+            Self::WorkspacePermissions => "workspace_permissions",
+            Self::ConnectorPublish => "connector_publish",
+        })
     }
 }
 
-impl std::fmt::Display for AuditLogRoleUnboundFromResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Source {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "role_toggle" => Ok(Self::RoleToggle),
+            "role_connector_update" => Ok(Self::RoleConnectorUpdate),
+            "role_delete" => Ok(Self::RoleDelete),
+            "workspace_permissions" => Ok(Self::WorkspacePermissions),
+            "connector_publish" => Ok(Self::ConnectorPublish),
+            _ => Err(crate::models::ParseEnumError::new("Source", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Source {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Source {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Source {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

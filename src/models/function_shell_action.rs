@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// FunctionShellAction : Execute a shell command.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionShellAction {
     #[serde(rename = "commands")]
     pub commands: Vec<String>,
@@ -34,15 +34,6 @@ impl FunctionShellAction {
             commands,
             timeout_ms,
             max_output_length,
-        }
-    }
-}
-
-impl std::fmt::Display for FunctionShellAction {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

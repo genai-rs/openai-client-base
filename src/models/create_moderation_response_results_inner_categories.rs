@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// CreateModerationResponseResultsInnerCategories : A list of the categories, and whether they are flagged or not.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateModerationResponseResultsInnerCategories {
     /// Content that expresses, incites, or promotes hate based on race, gender, ethnicity, religion, nationality, sexual orientation, disability status, or caste. Hateful content aimed at non-protected groups (e.g., chess players) is harassment.
     #[serde(rename = "hate")]
@@ -85,15 +85,6 @@ impl CreateModerationResponseResultsInnerCategories {
             sexual_slash_minors,
             violence,
             violence_slash_graphic,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateModerationResponseResultsInnerCategories {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object02 {
     #[serde(rename = "data")]
     pub data: String,
@@ -21,14 +21,5 @@ pub struct Object02 {
 impl Object02 {
     pub fn new(data: String, format: String) -> Object02 {
         Object02 { data, format }
-    }
-}
-
-impl std::fmt::Display for Object02 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

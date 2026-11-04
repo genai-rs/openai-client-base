@@ -18,9 +18,3 @@ pub enum BetaCustomToolParamFormat {
     BetaCustomTextFormatParam(models::BetaCustomTextFormatParam),
     BetaCustomGrammarFormatParam(models::BetaCustomGrammarFormatParam),
 }
-
-impl Default for BetaCustomToolParamFormat {
-    fn default() -> Self {
-        Self::BetaCustomTextFormatParam(Default::default())
-    }
-}

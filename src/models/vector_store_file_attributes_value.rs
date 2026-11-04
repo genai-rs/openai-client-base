@@ -17,9 +17,3 @@ pub enum VectorStoreFileAttributesValue {
     Number(f64),
     Boolean(bool),
 }
-
-impl Default for VectorStoreFileAttributesValue {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

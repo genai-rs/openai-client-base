@@ -8,12 +8,6 @@ pub enum VectorStoreSearchRequestQuery {
     ArrayOfStrings(Vec<String>),
 }
 
-impl Default for VectorStoreSearchRequestQuery {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl VectorStoreSearchRequestQuery {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

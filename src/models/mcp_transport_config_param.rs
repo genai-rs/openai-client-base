@@ -18,9 +18,3 @@ pub enum McpTransportConfigParam {
     Http(models::McpTransportConfigParamHttp),
     Stdio(models::McpTransportConfigParamStdio),
 }
-
-impl Default for McpTransportConfigParam {
-    fn default() -> Self {
-        Self::Http(Default::default())
-    }
-}

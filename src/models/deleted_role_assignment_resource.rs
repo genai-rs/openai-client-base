@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// DeletedRoleAssignmentResource : Confirmation payload returned after unassigning a role.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DeletedRoleAssignmentResource {
     /// Identifier for the deleted assignment, such as `group.role.deleted` or `user.role.deleted`.
     #[serde(rename = "object")]
@@ -25,14 +25,5 @@ impl DeletedRoleAssignmentResource {
     /// Confirmation payload returned after unassigning a role.
     pub fn new(object: String, deleted: bool) -> DeletedRoleAssignmentResource {
         DeletedRoleAssignmentResource { object, deleted }
-    }
-}
-
-impl std::fmt::Display for DeletedRoleAssignmentResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

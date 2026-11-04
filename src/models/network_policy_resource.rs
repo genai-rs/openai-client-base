@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// NetworkPolicyResource : Network access for an OpenAI-hosted environment.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct NetworkPolicyResource {
     #[serde(rename = "access")]
     pub access: models::NetworkAccessResource,
@@ -30,15 +30,6 @@ impl NetworkPolicyResource {
         NetworkPolicyResource {
             access,
             allowed_domains,
-        }
-    }
-}
-
-impl std::fmt::Display for NetworkPolicyResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

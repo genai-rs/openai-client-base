@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// InferenceOptions : Model and tool overrides applied when generating the assistant response.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InferenceOptions {
     #[serde(rename = "tool_choice", deserialize_with = "Option::deserialize")]
     pub tool_choice: Option<models::ToolChoice>,
@@ -25,14 +25,5 @@ impl InferenceOptions {
     /// Model and tool overrides applied when generating the assistant response.
     pub fn new(tool_choice: Option<models::ToolChoice>, model: String) -> InferenceOptions {
         InferenceOptions { tool_choice, model }
-    }
-}
-
-impl std::fmt::Display for InferenceOptions {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

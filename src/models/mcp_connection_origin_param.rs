@@ -29,8 +29,45 @@ impl std::fmt::Display for McpConnectionOriginParam {
     }
 }
 
-impl Default for McpConnectionOriginParam {
-    fn default() -> McpConnectionOriginParam {
-        Self::Service
+impl ::std::str::FromStr for McpConnectionOriginParam {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "service" => Ok(Self::Service),
+            "environment" => Ok(Self::Environment),
+            _ => Err(crate::models::ParseEnumError::new(
+                "McpConnectionOriginParam",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for McpConnectionOriginParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for McpConnectionOriginParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for McpConnectionOriginParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

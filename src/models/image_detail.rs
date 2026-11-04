@@ -34,8 +34,44 @@ impl std::fmt::Display for ImageDetail {
     }
 }
 
-impl Default for ImageDetail {
-    fn default() -> ImageDetail {
-        Self::Low
+impl ::std::str::FromStr for ImageDetail {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "low" => Ok(Self::Low),
+            "high" => Ok(Self::High),
+            "auto" => Ok(Self::Auto),
+            "original" => Ok(Self::Original),
+            _ => Err(crate::models::ParseEnumError::new("ImageDetail", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ImageDetail {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ImageDetail {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ImageDetail {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

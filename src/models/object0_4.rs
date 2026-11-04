@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// Object04 : Data about a previous audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object04 {
     /// Unique identifier for a previous audio response from the model.
     #[serde(rename = "id")]
@@ -22,14 +22,5 @@ impl Object04 {
     /// Data about a previous audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
     pub fn new(id: String) -> Object04 {
         Object04 { id }
-    }
-}
-
-impl std::fmt::Display for Object04 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

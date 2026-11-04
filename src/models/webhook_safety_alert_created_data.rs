@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookSafetyAlertCreatedData {
     /// The safety alert ID to pass to `GET /v1/safety/alerts/{id}`.
     #[serde(rename = "id")]
@@ -20,14 +20,5 @@ pub struct WebhookSafetyAlertCreatedData {
 impl WebhookSafetyAlertCreatedData {
     pub fn new(id: String) -> WebhookSafetyAlertCreatedData {
         WebhookSafetyAlertCreatedData { id }
-    }
-}
-
-impl std::fmt::Display for WebhookSafetyAlertCreatedData {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

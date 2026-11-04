@@ -18,9 +18,3 @@ pub enum McpTransportResource {
     Http(models::McpTransportResourceHttp),
     Stdio(models::McpTransportResourceStdio),
 }
-
-impl Default for McpTransportResource {
-    fn default() -> Self {
-        Self::Http(Default::default())
-    }
-}

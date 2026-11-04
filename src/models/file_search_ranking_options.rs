@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FileSearchRankingOptions : The ranking options for the file search. If not specified, the file search tool will use the `auto` ranker and a score_threshold of 0.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FileSearchRankingOptions {
     #[serde(rename = "ranker", skip_serializing_if = "Option::is_none")]
     pub ranker: Option<models::FileSearchRanker>,
@@ -27,15 +27,6 @@ impl FileSearchRankingOptions {
         FileSearchRankingOptions {
             ranker: None,
             score_threshold,
-        }
-    }
-}
-
-impl std::fmt::Display for FileSearchRankingOptions {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

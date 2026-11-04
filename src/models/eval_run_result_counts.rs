@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// EvalRunResultCounts : Counters summarizing the outcomes of the evaluation run.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalRunResultCounts {
     /// Total number of executed output items.
     #[serde(rename = "total")]
@@ -35,15 +35,6 @@ impl EvalRunResultCounts {
             errored,
             failed,
             passed,
-        }
-    }
-}
-
-impl std::fmt::Display for EvalRunResultCounts {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ExpiresAfterParam : Controls when the session expires relative to an anchor timestamp.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ExpiresAfterParam {
     /// Base timestamp used to calculate expiration. Currently fixed to `created_at`.
     #[serde(rename = "anchor")]
@@ -34,17 +34,49 @@ pub enum Anchor {
     CreatedAt,
 }
 
-impl Default for Anchor {
-    fn default() -> Anchor {
-        Self::CreatedAt
+impl ::std::fmt::Display for Anchor {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::CreatedAt => "created_at",
+        })
     }
 }
 
-impl std::fmt::Display for ExpiresAfterParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Anchor {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "created_at" => Ok(Self::CreatedAt),
+            _ => Err(crate::models::ParseEnumError::new("Anchor", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Anchor {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Anchor {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Anchor {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

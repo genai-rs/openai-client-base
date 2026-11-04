@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AgentSessionCreatedPayloadResource {
     /// The ID of the session.
     #[serde(rename = "id")]
@@ -33,15 +33,6 @@ impl AgentSessionCreatedPayloadResource {
             environment_id: None,
             environment_type,
             connect: None,
-        }
-    }
-}
-
-impl std::fmt::Display for AgentSessionCreatedPayloadResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

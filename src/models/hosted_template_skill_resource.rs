@@ -18,9 +18,3 @@ pub enum HostedTemplateSkillResource {
     SkillReference(models::HostedTemplateSkillResourceSkillReference),
     Inline(models::HostedTemplateSkillResourceInline),
 }
-
-impl Default for HostedTemplateSkillResource {
-    fn default() -> Self {
-        Self::SkillReference(Default::default())
-    }
-}

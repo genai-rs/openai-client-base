@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaServerEventErrorError : Details of the error.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeBetaServerEventErrorError {
     /// The type of error (e.g., \"invalid_request_error\", \"server_error\").
     #[serde(rename = "type")]
@@ -54,15 +54,6 @@ impl RealtimeBetaServerEventErrorError {
             message,
             param: None,
             event_id: None,
-        }
-    }
-}
-
-impl std::fmt::Display for RealtimeBetaServerEventErrorError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

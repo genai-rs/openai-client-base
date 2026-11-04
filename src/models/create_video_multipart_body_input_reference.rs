@@ -9,12 +9,6 @@ pub enum CreateVideoMultipartBodyInputReference {
     Imagerefparam2(models::ImageRefParam2),
 }
 
-impl Default for CreateVideoMultipartBodyInputReference {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl CreateVideoMultipartBodyInputReference {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

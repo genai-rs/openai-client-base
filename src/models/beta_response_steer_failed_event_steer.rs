@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaResponseSteerFailedEventSteer : The steering submission that could not be committed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseSteerFailedEventSteer {
     /// The ID assigned to the steering submission, if one was allocated.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -34,15 +34,6 @@ impl BetaResponseSteerFailedEventSteer {
             id: None,
             previous_response_id,
             input,
-        }
-    }
-}
-
-impl std::fmt::Display for BetaResponseSteerFailedEventSteer {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

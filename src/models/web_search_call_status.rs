@@ -37,8 +37,48 @@ impl std::fmt::Display for WebSearchCallStatus {
     }
 }
 
-impl Default for WebSearchCallStatus {
-    fn default() -> WebSearchCallStatus {
-        Self::InProgress
+impl ::std::str::FromStr for WebSearchCallStatus {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "in_progress" => Ok(Self::InProgress),
+            "searching" => Ok(Self::Searching),
+            "completed" => Ok(Self::Completed),
+            "failed" => Ok(Self::Failed),
+            "incomplete" => Ok(Self::Incomplete),
+            _ => Err(crate::models::ParseEnumError::new(
+                "WebSearchCallStatus",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for WebSearchCallStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for WebSearchCallStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for WebSearchCallStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

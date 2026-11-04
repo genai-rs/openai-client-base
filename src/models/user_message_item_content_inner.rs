@@ -18,9 +18,3 @@ pub enum UserMessageItemContentInner {
     UserMessageInputText(models::UserMessageInputText),
     UserMessageQuotedText(models::UserMessageQuotedText),
 }
-
-impl Default for UserMessageItemContentInner {
-    fn default() -> Self {
-        Self::UserMessageInputText(Default::default())
-    }
-}

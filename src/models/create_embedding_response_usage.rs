@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// CreateEmbeddingResponseUsage : The usage information for the request.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEmbeddingResponseUsage {
     /// The number of tokens used by the prompt.
     #[serde(rename = "prompt_tokens")]
@@ -27,15 +27,6 @@ impl CreateEmbeddingResponseUsage {
         CreateEmbeddingResponseUsage {
             prompt_tokens,
             total_tokens,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateEmbeddingResponseUsage {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

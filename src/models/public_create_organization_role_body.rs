@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// PublicCreateOrganizationRoleBody : Request payload for creating a custom role.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PublicCreateOrganizationRoleBody {
     /// Unique name for the role.
     #[serde(rename = "role_name")]
@@ -36,15 +36,6 @@ impl PublicCreateOrganizationRoleBody {
             role_name,
             permissions,
             description: None,
-        }
-    }
-}
-
-impl std::fmt::Display for PublicCreateOrganizationRoleBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

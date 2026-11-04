@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMisalignmentSteer {
     /// The public continuation instruction.
     #[serde(rename = "message")]
@@ -20,14 +20,5 @@ pub struct BetaMisalignmentSteer {
 impl BetaMisalignmentSteer {
     pub fn new(message: String) -> BetaMisalignmentSteer {
         BetaMisalignmentSteer { message }
-    }
-}
-
-impl std::fmt::Display for BetaMisalignmentSteer {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

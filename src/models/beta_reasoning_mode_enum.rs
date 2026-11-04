@@ -8,12 +8,6 @@ pub enum BetaReasoningModeEnum {
     TextVariant(BetaReasoningModeEnumTextVariantEnum),
 }
 
-impl Default for BetaReasoningModeEnum {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl BetaReasoningModeEnum {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)
@@ -48,12 +42,6 @@ pub enum BetaReasoningModeEnumTextVariantEnum {
     Pro,
 }
 
-impl Default for BetaReasoningModeEnumTextVariantEnum {
-    fn default() -> Self {
-        Self::Standard
-    }
-}
-
 impl std::fmt::Display for BetaReasoningModeEnumTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -61,5 +49,48 @@ impl std::fmt::Display for BetaReasoningModeEnumTextVariantEnum {
             BetaReasoningModeEnumTextVariantEnum::Pro => "pro",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for BetaReasoningModeEnumTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "standard" => Ok(Self::Standard),
+            "pro" => Ok(Self::Pro),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaReasoningModeEnumTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaReasoningModeEnumTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaReasoningModeEnumTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaReasoningModeEnumTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

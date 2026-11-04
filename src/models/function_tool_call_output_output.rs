@@ -9,12 +9,6 @@ pub enum FunctionToolCallOutputOutput {
     OutputContentList(Vec<models::FunctionAndCustomToolCallOutput>),
 }
 
-impl Default for FunctionToolCallOutputOutput {
-    fn default() -> Self {
-        Self::StringOutput(String::new())
-    }
-}
-
 impl FunctionToolCallOutputOutput {
     pub fn new_text(text: String) -> Self {
         Self::StringOutput(text)

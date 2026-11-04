@@ -18,9 +18,3 @@ pub enum TextFormatParam {
     Text(models::TextFormatParamText),
     JsonSchema(models::TextFormatParamJsonSchema),
 }
-
-impl Default for TextFormatParam {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

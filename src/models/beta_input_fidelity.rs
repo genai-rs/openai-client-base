@@ -29,8 +29,45 @@ impl std::fmt::Display for BetaInputFidelity {
     }
 }
 
-impl Default for BetaInputFidelity {
-    fn default() -> BetaInputFidelity {
-        Self::High
+impl ::std::str::FromStr for BetaInputFidelity {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "high" => Ok(Self::High),
+            "low" => Ok(Self::Low),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaInputFidelity",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaInputFidelity {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaInputFidelity {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaInputFidelity {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

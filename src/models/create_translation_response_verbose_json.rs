@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateTranslationResponseVerboseJson {
     /// The language of the output translation (always `english`).
     #[serde(rename = "language")]
@@ -38,15 +38,6 @@ impl CreateTranslationResponseVerboseJson {
             duration,
             text,
             segments: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateTranslationResponseVerboseJson {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

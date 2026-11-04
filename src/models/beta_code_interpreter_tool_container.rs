@@ -9,12 +9,6 @@ pub enum BetaCodeInterpreterToolContainer {
     Betaautocodeinterpretertoolparam(models::BetaAutoCodeInterpreterToolParam),
 }
 
-impl Default for BetaCodeInterpreterToolContainer {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl BetaCodeInterpreterToolContainer {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVectorStoreRequest {
     /// A list of [File](https://developers.openai.com/api/reference/resources/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
@@ -45,15 +45,6 @@ impl CreateVectorStoreRequest {
             expires_after: None,
             chunking_strategy: None,
             metadata: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateVectorStoreRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

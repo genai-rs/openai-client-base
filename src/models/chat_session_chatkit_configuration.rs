@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ChatSessionChatkitConfiguration : ChatKit configuration for the session.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatSessionChatkitConfiguration {
     #[serde(rename = "automatic_thread_titling")]
     pub automatic_thread_titling: models::ChatSessionAutomaticThreadTitling,
@@ -33,15 +33,6 @@ impl ChatSessionChatkitConfiguration {
             automatic_thread_titling,
             file_upload,
             history,
-        }
-    }
-}
-
-impl std::fmt::Display for ChatSessionChatkitConfiguration {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

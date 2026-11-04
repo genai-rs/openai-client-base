@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeResponseCreateParams : Create a new Realtime response with these parameters
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeResponseCreateParams {
     /// The set of modalities the model used to respond, currently the only possible values are `[\\\"audio\\\"]`, `[\\\"text\\\"]`. Audio output always include a text transcript. Setting the output to mode `text` will disable audio output from the model.
     #[serde(rename = "output_modalities", skip_serializing_if = "Option::is_none")]
@@ -87,17 +87,54 @@ pub enum OutputModalities {
     Audio,
 }
 
-impl Default for OutputModalities {
-    fn default() -> OutputModalities {
-        Self::Text
+impl ::std::fmt::Display for OutputModalities {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::Audio => "audio",
+        })
     }
 }
 
-impl std::fmt::Display for RealtimeResponseCreateParams {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for OutputModalities {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "audio" => Ok(Self::Audio),
+            _ => Err(crate::models::ParseEnumError::new(
+                "OutputModalities",
+                value,
+            )),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for OutputModalities {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for OutputModalities {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for OutputModalities {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

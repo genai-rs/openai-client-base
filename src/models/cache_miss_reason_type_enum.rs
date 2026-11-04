@@ -49,8 +49,52 @@ impl std::fmt::Display for CacheMissReasonTypeEnum {
     }
 }
 
-impl Default for CacheMissReasonTypeEnum {
-    fn default() -> CacheMissReasonTypeEnum {
-        Self::ModelChanged
+impl ::std::str::FromStr for CacheMissReasonTypeEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "model_changed" => Ok(Self::ModelChanged),
+            "prompt_cache_key_changed" => Ok(Self::PromptCacheKeyChanged),
+            "tools_changed" => Ok(Self::ToolsChanged),
+            "text_format_changed" => Ok(Self::TextFormatChanged),
+            "reasoning_effort_changed" => Ok(Self::ReasoningEffortChanged),
+            "verbosity_changed" => Ok(Self::VerbosityChanged),
+            "context_compacted" => Ok(Self::ContextCompacted),
+            "input_changed" => Ok(Self::InputChanged),
+            "service_tier_changed" => Ok(Self::ServiceTierChanged),
+            _ => Err(crate::models::ParseEnumError::new(
+                "CacheMissReasonTypeEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for CacheMissReasonTypeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for CacheMissReasonTypeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for CacheMissReasonTypeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

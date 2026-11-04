@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaResponseLogProb : A logprob is the logarithmic probability that the model assigns to producing  a particular token at a given position in the sequence. Less-negative (higher)  logprob values indicate greater model confidence in that token choice.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseLogProb {
     /// A possible text token.
     #[serde(rename = "token")]
@@ -32,15 +32,6 @@ impl BetaResponseLogProb {
             token,
             logprob,
             top_logprobs: None,
-        }
-    }
-}
-
-impl std::fmt::Display for BetaResponseLogProb {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

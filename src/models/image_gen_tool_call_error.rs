@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenToolCallError {
     /// The error code.
     #[serde(rename = "code", deserialize_with = "Option::deserialize")]
@@ -42,15 +42,6 @@ impl ImageGenToolCallError {
             message,
             param,
             moderation_details: None,
-        }
-    }
-}
-
-impl std::fmt::Display for ImageGenToolCallError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

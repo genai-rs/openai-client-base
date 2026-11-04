@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct OutputTokensDetailsResource {
     #[serde(rename = "reasoning_tokens")]
     pub reasoning_tokens: i64,
@@ -19,14 +19,5 @@ pub struct OutputTokensDetailsResource {
 impl OutputTokensDetailsResource {
     pub fn new(reasoning_tokens: i64) -> OutputTokensDetailsResource {
         OutputTokensDetailsResource { reasoning_tokens }
-    }
-}
-
-impl std::fmt::Display for OutputTokensDetailsResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

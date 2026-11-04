@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaModeration : Moderation results or errors for the response input and output.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaModeration {
     #[serde(rename = "input")]
     pub input: models::BetaModerationInput,
@@ -27,14 +27,5 @@ impl BetaModeration {
         output: models::BetaModerationOutput,
     ) -> BetaModeration {
         BetaModeration { input, output }
-    }
-}
-
-impl std::fmt::Display for BetaModeration {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// LiveAllowedServerEventParam : A Live server event selector for the WebRTC frontend data channel.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveAllowedServerEventParam {
     /// The outer Live server event type. Use 'response.event' for Responses events.
     #[serde(rename = "type")]
@@ -27,15 +27,6 @@ impl LiveAllowedServerEventParam {
         LiveAllowedServerEventParam {
             r#type,
             response_event: None,
-        }
-    }
-}
-
-impl std::fmt::Display for LiveAllowedServerEventParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

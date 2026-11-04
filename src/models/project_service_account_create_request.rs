@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectServiceAccountCreateRequest {
     /// The name of the service account being created.
     #[serde(rename = "name")]
@@ -39,15 +39,6 @@ impl ProjectServiceAccountCreateRequest {
             name,
             create_service_account_only: None,
             expires_in_seconds: None,
-        }
-    }
-}
-
-impl std::fmt::Display for ProjectServiceAccountCreateRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

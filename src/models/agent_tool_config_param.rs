@@ -22,9 +22,3 @@ pub enum AgentToolConfigParam {
     WebSearch(models::AgentToolConfigParamWebSearch),
     ComputerUse(models::AgentToolConfigParamComputerUse),
 }
-
-impl Default for AgentToolConfigParam {
-    fn default() -> Self {
-        Self::Function(Default::default())
-    }
-}

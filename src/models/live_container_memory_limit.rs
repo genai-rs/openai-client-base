@@ -34,8 +34,47 @@ impl std::fmt::Display for LiveContainerMemoryLimit {
     }
 }
 
-impl Default for LiveContainerMemoryLimit {
-    fn default() -> LiveContainerMemoryLimit {
-        Self::Variant1g
+impl ::std::str::FromStr for LiveContainerMemoryLimit {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "1g" => Ok(Self::Variant1g),
+            "4g" => Ok(Self::Variant4g),
+            "16g" => Ok(Self::Variant16g),
+            "64g" => Ok(Self::Variant64g),
+            _ => Err(crate::models::ParseEnumError::new(
+                "LiveContainerMemoryLimit",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for LiveContainerMemoryLimit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for LiveContainerMemoryLimit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for LiveContainerMemoryLimit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

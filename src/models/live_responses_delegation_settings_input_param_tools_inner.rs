@@ -28,9 +28,3 @@ pub enum LiveResponsesDelegationSettingsInputParamToolsInner {
     LiveComputerToolInputParam(models::LiveComputerToolInputParam),
     LiveApplyPatchToolInputParam(models::LiveApplyPatchToolInputParam),
 }
-
-impl Default for LiveResponsesDelegationSettingsInputParamToolsInner {
-    fn default() -> Self {
-        Self::LiveFunctionToolInputParam(Default::default())
-    }
-}

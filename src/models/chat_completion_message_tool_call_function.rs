@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ChatCompletionMessageToolCallFunction : The function that the model called.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionMessageToolCallFunction {
     /// The name of the function to call.
     #[serde(rename = "name")]
@@ -25,14 +25,5 @@ impl ChatCompletionMessageToolCallFunction {
     /// The function that the model called.
     pub fn new(name: String, arguments: String) -> ChatCompletionMessageToolCallFunction {
         ChatCompletionMessageToolCallFunction { name, arguments }
-    }
-}
-
-impl std::fmt::Display for ChatCompletionMessageToolCallFunction {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

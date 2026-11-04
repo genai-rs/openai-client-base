@@ -19,9 +19,3 @@ pub enum McpOauthTokenEndpointAuthResource {
     ClientSecretBasic(models::McpOauthTokenEndpointAuthResourceClientSecretBasic),
     ClientSecretPost(models::McpOauthTokenEndpointAuthResourceClientSecretPost),
 }
-
-impl Default for McpOauthTokenEndpointAuthResource {
-    fn default() -> Self {
-        Self::None(Default::default())
-    }
-}

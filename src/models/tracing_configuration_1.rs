@@ -20,9 +20,3 @@ pub enum TracingConfiguration1 {
     Auto(String),
     TracingConfiguration(models::TracingConfiguration),
 }
-
-impl Default for TracingConfiguration1 {
-    fn default() -> Self {
-        Self::Auto(Default::default())
-    }
-}

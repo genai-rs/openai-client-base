@@ -18,9 +18,3 @@ pub enum BetaContainerAutoParamNetworkPolicy {
     BetaContainerNetworkPolicyDisabledParam(models::BetaContainerNetworkPolicyDisabledParam),
     BetaContainerNetworkPolicyAllowlistParam(models::BetaContainerNetworkPolicyAllowlistParam),
 }
-
-impl Default for BetaContainerAutoParamNetworkPolicy {
-    fn default() -> Self {
-        Self::BetaContainerNetworkPolicyDisabledParam(Default::default())
-    }
-}

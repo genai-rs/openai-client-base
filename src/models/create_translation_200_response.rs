@@ -17,9 +17,3 @@ pub enum CreateTranslation200Response {
     CreateTranslationResponseJson(models::CreateTranslationResponseJson),
     CreateTranslationResponseVerboseJson(models::CreateTranslationResponseVerboseJson),
 }
-
-impl Default for CreateTranslation200Response {
-    fn default() -> Self {
-        Self::CreateTranslationResponseJson(Default::default())
-    }
-}

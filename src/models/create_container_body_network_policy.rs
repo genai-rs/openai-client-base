@@ -18,9 +18,3 @@ pub enum CreateContainerBodyNetworkPolicy {
     ContainerNetworkPolicyDisabledParam(models::ContainerNetworkPolicyDisabledParam),
     ContainerNetworkPolicyAllowlistParam(models::ContainerNetworkPolicyAllowlistParam),
 }
-
-impl Default for CreateContainerBodyNetworkPolicy {
-    fn default() -> Self {
-        Self::ContainerNetworkPolicyDisabledParam(Default::default())
-    }
-}

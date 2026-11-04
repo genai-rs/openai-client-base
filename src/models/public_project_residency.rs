@@ -67,8 +67,58 @@ impl std::fmt::Display for PublicProjectResidency {
     }
 }
 
-impl Default for PublicProjectResidency {
-    fn default() -> PublicProjectResidency {
-        Self::Global
+impl ::std::str::FromStr for PublicProjectResidency {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "GLOBAL" => Ok(Self::Global),
+            "US_STORAGE_PROCESSING" => Ok(Self::UsStorageProcessing),
+            "EU_STORAGE_PROCESSING" => Ok(Self::EuStorageProcessing),
+            "JP_STORAGE" => Ok(Self::JpStorage),
+            "JP_STORAGE_PROCESSING" => Ok(Self::JpStorageProcessing),
+            "KR_STORAGE" => Ok(Self::KrStorage),
+            "CA_STORAGE" => Ok(Self::CaStorage),
+            "SG_STORAGE" => Ok(Self::SgStorage),
+            "IN_STORAGE" => Ok(Self::InStorage),
+            "IN_STORAGE_PROCESSING" => Ok(Self::InStorageProcessing),
+            "AU_STORAGE" => Ok(Self::AuStorage),
+            "AU_STORAGE_PROCESSING" => Ok(Self::AuStorageProcessing),
+            "GB_STORAGE" => Ok(Self::GbStorage),
+            "AE_STORAGE" => Ok(Self::AeStorage),
+            "AE_STORAGE_PROCESSING" => Ok(Self::AeStorageProcessing),
+            _ => Err(crate::models::ParseEnumError::new(
+                "PublicProjectResidency",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for PublicProjectResidency {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for PublicProjectResidency {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for PublicProjectResidency {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

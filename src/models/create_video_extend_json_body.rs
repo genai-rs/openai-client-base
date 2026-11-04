@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateVideoExtendJsonBody : JSON parameters for extending an existing generated video.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVideoExtendJsonBody {
     #[serde(rename = "video")]
     pub video: models::VideoReferenceInputParam,
@@ -34,15 +34,6 @@ impl CreateVideoExtendJsonBody {
             video,
             prompt,
             seconds,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateVideoExtendJsonBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

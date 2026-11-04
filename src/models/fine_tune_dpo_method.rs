@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuneDpoMethod : Configuration for the DPO fine-tuning method.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneDpoMethod {
     #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
     pub hyperparameters: Option<models::FineTuneDpoHyperparameters>,
@@ -23,15 +23,6 @@ impl FineTuneDpoMethod {
     pub fn new() -> FineTuneDpoMethod {
         FineTuneDpoMethod {
             hyperparameters: None,
-        }
-    }
-}
-
-impl std::fmt::Display for FineTuneDpoMethod {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

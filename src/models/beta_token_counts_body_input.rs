@@ -10,12 +10,6 @@ pub enum BetaTokenCountsBodyInput {
     Null,
 }
 
-impl Default for BetaTokenCountsBodyInput {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl BetaTokenCountsBodyInput {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

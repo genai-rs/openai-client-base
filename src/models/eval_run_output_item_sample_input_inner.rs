@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// EvalRunOutputItemSampleInputInner : An input message.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalRunOutputItemSampleInputInner {
     /// The role of the message sender (e.g., system, user, developer).
     #[serde(rename = "role")]
@@ -25,14 +25,5 @@ impl EvalRunOutputItemSampleInputInner {
     /// An input message.
     pub fn new(role: String, content: String) -> EvalRunOutputItemSampleInputInner {
         EvalRunOutputItemSampleInputInner { role, content }
-    }
-}
-
-impl std::fmt::Display for EvalRunOutputItemSampleInputInner {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// LiveCallRejectRequest : Parameters used to reject an incoming Live SIP call.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveCallRejectRequest {
     /// SIP rejection status sent to the caller. This field is required.
     #[serde(rename = "status_code")]
@@ -22,14 +22,5 @@ impl LiveCallRejectRequest {
     /// Parameters used to reject an incoming Live SIP call.
     pub fn new(status_code: i32) -> LiveCallRejectRequest {
         LiveCallRejectRequest { status_code }
-    }
-}
-
-impl std::fmt::Display for LiveCallRejectRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

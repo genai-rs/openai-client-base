@@ -19,9 +19,3 @@ pub enum EnvironmentResource {
     OpenaiHosted(models::EnvironmentResourceOpenaiHosted),
     SelfHosted(models::EnvironmentResourceSelfHosted),
 }
-
-impl Default for EnvironmentResource {
-    fn default() -> Self {
-        Self::None(Default::default())
-    }
-}

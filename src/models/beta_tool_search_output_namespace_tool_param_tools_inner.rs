@@ -18,9 +18,3 @@ pub enum BetaToolSearchOutputNamespaceToolParamToolsInner {
     BetaToolSearchOutputFunctionToolParam(models::BetaToolSearchOutputFunctionToolParam),
     BetaCustomToolParam(models::BetaCustomToolParam),
 }
-
-impl Default for BetaToolSearchOutputNamespaceToolParamToolsInner {
-    fn default() -> Self {
-        Self::BetaToolSearchOutputFunctionToolParam(Default::default())
-    }
-}

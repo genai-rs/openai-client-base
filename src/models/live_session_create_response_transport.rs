@@ -20,9 +20,3 @@ pub enum LiveSessionCreateResponseTransport {
     #[serde(rename = "Object1")]
     Object1(models::Object1),
 }
-
-impl Default for LiveSessionCreateResponseTransport {
-    fn default() -> Self {
-        Self::LiveWebRtcTransport(Default::default())
-    }
-}

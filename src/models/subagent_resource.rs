@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// SubagentResource : A subagent created within a session.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SubagentResource {
     /// The ID of the subagent.
     #[serde(rename = "id")]
@@ -64,15 +64,6 @@ impl SubagentResource {
             status,
             opened_at,
             closed_at,
-        }
-    }
-}
-
-impl std::fmt::Display for SubagentResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

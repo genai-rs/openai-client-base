@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionChoiceParam {
     #[serde(rename = "value")]
     pub value: models::LiveDecisionChoiceParamValue,
@@ -24,15 +24,6 @@ impl LiveDecisionChoiceParam {
         LiveDecisionChoiceParam {
             value,
             description: None,
-        }
-    }
-}
-
-impl std::fmt::Display for LiveDecisionChoiceParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

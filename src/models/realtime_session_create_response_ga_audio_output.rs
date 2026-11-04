@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateResponseGaAudioOutput {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<models::RealtimeAudioFormats>,
@@ -29,15 +29,6 @@ impl RealtimeSessionCreateResponseGaAudioOutput {
             format: None,
             voice: None,
             speed: None,
-        }
-    }
-}
-
-impl std::fmt::Display for RealtimeSessionCreateResponseGaAudioOutput {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

@@ -21,11 +21,6 @@ pub enum CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
     ResponseFormatJsonObject(models::ResponseFormatJsonObject),
 }
 
-impl Default for CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
-    fn default() -> Self {
-        Self::ResponseFormatText(Default::default())
-    }
-}
 /// The type of response format being defined. Always `text`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
@@ -37,8 +32,53 @@ pub enum Type {
     JsonObject,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::Text
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::JsonSchema => "json_schema",
+            Self::JsonObject => "json_object",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "json_schema" => Ok(Self::JsonSchema),
+            "json_object" => Ok(Self::JsonObject),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

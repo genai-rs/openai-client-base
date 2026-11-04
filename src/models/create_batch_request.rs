@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateBatchRequest {
     /// The ID of an uploaded file that contains requests for the new batch.  See [upload file](https://developers.openai.com/api/reference/resources/files/methods/create) for how to upload a file.  Your input file must be formatted as a [JSONL file](https://developers.openai.com/api/docs/guides/batch#1-prepare-your-batch-file), and must be uploaded with the purpose `batch`. The file can contain up to 50,000 requests, and can be up to 200 MB in size.
     #[serde(rename = "input_file_id")]
@@ -73,11 +73,6 @@ pub enum Endpoint {
     SlashV1SlashVideos,
 }
 
-impl Default for Endpoint {
-    fn default() -> Endpoint {
-        Self::SlashV1SlashResponses
-    }
-}
 /// The time frame within which the batch should be processed. Currently only `24h` is supported.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CompletionWindow {
@@ -85,17 +80,113 @@ pub enum CompletionWindow {
     Variant24h,
 }
 
-impl Default for CompletionWindow {
-    fn default() -> CompletionWindow {
-        Self::Variant24h
+impl ::std::fmt::Display for Endpoint {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::SlashV1SlashResponses => "/v1/responses",
+            Self::SlashV1SlashChatSlashCompletions => "/v1/chat/completions",
+            Self::SlashV1SlashEmbeddings => "/v1/embeddings",
+            Self::SlashV1SlashCompletions => "/v1/completions",
+            Self::SlashV1SlashModerations => "/v1/moderations",
+            Self::SlashV1SlashImagesSlashGenerations => "/v1/images/generations",
+            Self::SlashV1SlashImagesSlashEdits => "/v1/images/edits",
+            Self::SlashV1SlashVideos => "/v1/videos",
+        })
     }
 }
 
-impl std::fmt::Display for CreateBatchRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Endpoint {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "/v1/responses" => Ok(Self::SlashV1SlashResponses),
+            "/v1/chat/completions" => Ok(Self::SlashV1SlashChatSlashCompletions),
+            "/v1/embeddings" => Ok(Self::SlashV1SlashEmbeddings),
+            "/v1/completions" => Ok(Self::SlashV1SlashCompletions),
+            "/v1/moderations" => Ok(Self::SlashV1SlashModerations),
+            "/v1/images/generations" => Ok(Self::SlashV1SlashImagesSlashGenerations),
+            "/v1/images/edits" => Ok(Self::SlashV1SlashImagesSlashEdits),
+            "/v1/videos" => Ok(Self::SlashV1SlashVideos),
+            _ => Err(crate::models::ParseEnumError::new("Endpoint", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Endpoint {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Endpoint {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Endpoint {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for CompletionWindow {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Variant24h => "24h",
+        })
+    }
+}
+
+impl ::std::str::FromStr for CompletionWindow {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "24h" => Ok(Self::Variant24h),
+            _ => Err(crate::models::ParseEnumError::new(
+                "CompletionWindow",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for CompletionWindow {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for CompletionWindow {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for CompletionWindow {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

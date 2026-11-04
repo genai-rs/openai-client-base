@@ -18,9 +18,3 @@ pub enum ToolSearchOutputNamespaceToolParamToolsInner {
     ToolSearchOutputFunctionToolParam(models::ToolSearchOutputFunctionToolParam),
     CustomToolParam(models::CustomToolParam),
 }
-
-impl Default for ToolSearchOutputNamespaceToolParamToolsInner {
-    fn default() -> Self {
-        Self::ToolSearchOutputFunctionToolParam(Default::default())
-    }
-}

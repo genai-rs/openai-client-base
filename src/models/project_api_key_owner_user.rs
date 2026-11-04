@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ProjectApiKeyOwnerUser : The user that owns a project API key.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectApiKeyOwnerUser {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
@@ -45,15 +45,6 @@ impl ProjectApiKeyOwnerUser {
             name,
             created_at,
             role,
-        }
-    }
-}
-
-impl std::fmt::Display for ProjectApiKeyOwnerUser {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

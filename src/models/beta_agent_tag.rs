@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaAgentTag {
     /// The canonical name of the agent that produced this item.
     #[serde(rename = "agent_name")]
@@ -20,14 +20,5 @@ pub struct BetaAgentTag {
 impl BetaAgentTag {
     pub fn new(agent_name: String) -> BetaAgentTag {
         BetaAgentTag { agent_name }
-    }
-}
-
-impl std::fmt::Display for BetaAgentTag {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

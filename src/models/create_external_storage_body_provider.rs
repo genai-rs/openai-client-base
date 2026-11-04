@@ -19,9 +19,3 @@ pub enum CreateExternalStorageBodyProvider {
     GcpExternalStorageProviderParams(models::GcpExternalStorageProviderParams),
     OciExternalStorageProviderParams(models::OciExternalStorageProviderParams),
 }
-
-impl Default for CreateExternalStorageBodyProvider {
-    fn default() -> Self {
-        Self::AwsExternalStorageProviderParams(Default::default())
-    }
-}

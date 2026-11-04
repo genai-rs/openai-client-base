@@ -18,9 +18,3 @@ pub enum PersistedMcpTransportResource {
     Http(models::PersistedMcpTransportResourceHttp),
     Stdio(models::PersistedMcpTransportResourceStdio),
 }
-
-impl Default for PersistedMcpTransportResource {
-    fn default() -> Self {
-        Self::Http(Default::default())
-    }
-}

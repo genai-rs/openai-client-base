@@ -19,12 +19,6 @@ pub enum CostsResultQuantityUnitTextVariantEnum {
     Characters,
 }
 
-impl Default for CostsResultQuantityUnitTextVariantEnum {
-    fn default() -> Self {
-        Self::Tokens
-    }
-}
-
 impl std::fmt::Display for CostsResultQuantityUnitTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -38,5 +32,54 @@ impl std::fmt::Display for CostsResultQuantityUnitTextVariantEnum {
             CostsResultQuantityUnitTextVariantEnum::Characters => "characters",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for CostsResultQuantityUnitTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "tokens" => Ok(Self::Tokens),
+            "1000_tokens" => Ok(Self::Variant1000Tokens),
+            "duration_seconds" => Ok(Self::DurationSeconds),
+            "duration_minutes" => Ok(Self::DurationMinutes),
+            "duration_hours" => Ok(Self::DurationHours),
+            "gibibyte_hours" => Ok(Self::GibibyteHours),
+            "images" => Ok(Self::Images),
+            "characters" => Ok(Self::Characters),
+            _ => Err(crate::models::ParseEnumError::new(
+                "CostsResultQuantityUnitTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for CostsResultQuantityUnitTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for CostsResultQuantityUnitTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for CostsResultQuantityUnitTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

@@ -7,12 +7,6 @@ pub enum FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEn
     Auto,
 }
 
-impl Default for FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum {
-    fn default() -> Self {
-        Self::Auto
-    }
-}
-
 impl std::fmt::Display
     for FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum
 {
@@ -23,5 +17,55 @@ impl std::fmt::Display
             }
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr
+    for FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum
+{
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "auto" => Ok(Self::Auto),
+            _ => Err(crate::models::ParseEnumError::new(
+                "FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str>
+    for FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String>
+    for FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String>
+    for FineTuneReinforcementHyperparametersLearningRateMultiplierTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

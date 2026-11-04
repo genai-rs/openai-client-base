@@ -31,8 +31,46 @@ impl std::fmt::Display for LiveReasoningSummary {
     }
 }
 
-impl Default for LiveReasoningSummary {
-    fn default() -> LiveReasoningSummary {
-        Self::Concise
+impl ::std::str::FromStr for LiveReasoningSummary {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "concise" => Ok(Self::Concise),
+            "detailed" => Ok(Self::Detailed),
+            "auto" => Ok(Self::Auto),
+            _ => Err(crate::models::ParseEnumError::new(
+                "LiveReasoningSummary",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for LiveReasoningSummary {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for LiveReasoningSummary {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for LiveReasoningSummary {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

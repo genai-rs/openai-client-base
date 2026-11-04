@@ -18,9 +18,3 @@ pub enum HostedEnvironmentFileResource {
     FileId(models::HostedEnvironmentFileResourceFileId),
     Inline(models::HostedEnvironmentFileResourceInline),
 }
-
-impl Default for HostedEnvironmentFileResource {
-    fn default() -> Self {
-        Self::FileId(Default::default())
-    }
-}

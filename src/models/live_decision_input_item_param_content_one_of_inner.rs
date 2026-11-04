@@ -19,9 +19,3 @@ pub enum LiveDecisionInputItemParamContentOneOfInner {
     #[serde(rename = "LiveDecisionInputImageParam")]
     LiveDecisionInputImageParam(models::LiveDecisionInputImageParam),
 }
-
-impl Default for LiveDecisionInputItemParamContentOneOfInner {
-    fn default() -> Self {
-        Self::LiveDecisionInputTextParam(Default::default())
-    }
-}

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateContainerBody {
     /// Name of the container to create.
     #[serde(rename = "name")]
@@ -56,17 +56,55 @@ pub enum MemoryLimit {
     Variant64g,
 }
 
-impl Default for MemoryLimit {
-    fn default() -> MemoryLimit {
-        Self::Variant1g
+impl ::std::fmt::Display for MemoryLimit {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Variant1g => "1g",
+            Self::Variant4g => "4g",
+            Self::Variant16g => "16g",
+            Self::Variant64g => "64g",
+        })
     }
 }
 
-impl std::fmt::Display for CreateContainerBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for MemoryLimit {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "1g" => Ok(Self::Variant1g),
+            "4g" => Ok(Self::Variant4g),
+            "16g" => Ok(Self::Variant16g),
+            "64g" => Ok(Self::Variant64g),
+            _ => Err(crate::models::ParseEnumError::new("MemoryLimit", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for MemoryLimit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for MemoryLimit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for MemoryLimit {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

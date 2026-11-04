@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// AssignedRoleDetails : Detailed information about a role assignment entry returned when listing assignments.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AssignedRoleDetails {
     /// Identifier for the role.
     #[serde(rename = "id")]
@@ -87,15 +87,6 @@ impl AssignedRoleDetails {
             created_by_user_obj,
             metadata,
             assignment_sources,
-        }
-    }
-}
-
-impl std::fmt::Display for AssignedRoleDetails {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

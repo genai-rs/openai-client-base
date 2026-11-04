@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct StaticChunkingStrategyStatic {
     /// The maximum number of tokens in each chunk. The default value is `800`. The minimum value is `100` and the maximum value is `4096`.
     #[serde(rename = "max_chunk_size_tokens")]
@@ -28,15 +28,6 @@ impl StaticChunkingStrategyStatic {
         StaticChunkingStrategyStatic {
             max_chunk_size_tokens,
             chunk_overlap_tokens,
-        }
-    }
-}
-
-impl std::fmt::Display for StaticChunkingStrategyStatic {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

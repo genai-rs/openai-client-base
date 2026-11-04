@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// Error2 : An error that occurred while generating the response.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Error2 {
     /// A machine-readable error code that was returned.
     #[serde(rename = "code")]
@@ -53,15 +53,6 @@ impl Error2 {
             message,
             headers: None,
             misalignment: None,
-        }
-    }
-}
-
-impl std::fmt::Display for Error2 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

@@ -31,8 +31,43 @@ impl std::fmt::Display for ImageBackground {
     }
 }
 
-impl Default for ImageBackground {
-    fn default() -> ImageBackground {
-        Self::Transparent
+impl ::std::str::FromStr for ImageBackground {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "transparent" => Ok(Self::Transparent),
+            "opaque" => Ok(Self::Opaque),
+            "auto" => Ok(Self::Auto),
+            _ => Err(crate::models::ParseEnumError::new("ImageBackground", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ImageBackground {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ImageBackground {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ImageBackground {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

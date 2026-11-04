@@ -9,12 +9,6 @@ pub enum BetaResponseSteerInput {
     Betaresponsesteerinputitemlist(Vec<models::BetaResponseSteerInputItem>),
 }
 
-impl Default for BetaResponseSteerInput {
-    fn default() -> Self {
-        Self::TextInput(String::new())
-    }
-}
-
 impl BetaResponseSteerInput {
     pub fn new_text(text: String) -> Self {
         Self::TextInput(text)

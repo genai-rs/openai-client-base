@@ -7,12 +7,6 @@ pub enum BetaPrompt {
     Null,
 }
 
-impl Default for BetaPrompt {
-    fn default() -> Self {
-        Self::Null
-    }
-}
-
 impl std::fmt::Display for BetaPrompt {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

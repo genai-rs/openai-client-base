@@ -19,9 +19,3 @@ pub enum CreateChatCompletionRequestAllOfResponseFormat {
     ResponseFormatJsonSchema(models::ResponseFormatJsonSchema),
     ResponseFormatJsonObject(models::ResponseFormatJsonObject),
 }
-
-impl Default for CreateChatCompletionRequestAllOfResponseFormat {
-    fn default() -> Self {
-        Self::ResponseFormatText(Default::default())
-    }
-}

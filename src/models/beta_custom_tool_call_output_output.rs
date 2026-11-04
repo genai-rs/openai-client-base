@@ -9,12 +9,6 @@ pub enum BetaCustomToolCallOutputOutput {
     OutputContentList(Vec<models::BetaFunctionAndCustomToolCallOutput>),
 }
 
-impl Default for BetaCustomToolCallOutputOutput {
-    fn default() -> Self {
-        Self::StringOutput(String::new())
-    }
-}
-
 impl BetaCustomToolCallOutputOutput {
     pub fn new_text(text: String) -> Self {
         Self::StringOutput(text)

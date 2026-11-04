@@ -22,9 +22,3 @@ pub enum FunctionCallOutputItemParamOutputOneOfInner {
     #[serde(rename = "InputFileContentParam")]
     InputFileContentParam(models::InputFileContentParam),
 }
-
-impl Default for FunctionCallOutputItemParamOutputOneOfInner {
-    fn default() -> Self {
-        Self::InputTextContentParam(Default::default())
-    }
-}

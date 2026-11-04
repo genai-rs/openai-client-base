@@ -31,8 +31,46 @@ impl std::fmt::Display for ImageGenActionEnum {
     }
 }
 
-impl Default for ImageGenActionEnum {
-    fn default() -> ImageGenActionEnum {
-        Self::Generate
+impl ::std::str::FromStr for ImageGenActionEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "generate" => Ok(Self::Generate),
+            "edit" => Ok(Self::Edit),
+            "auto" => Ok(Self::Auto),
+            _ => Err(crate::models::ParseEnumError::new(
+                "ImageGenActionEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ImageGenActionEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ImageGenActionEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ImageGenActionEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

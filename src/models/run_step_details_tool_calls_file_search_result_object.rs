@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsFileSearchResultObject : A result instance of the file search.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDetailsToolCallsFileSearchResultObject {
     /// The ID of the file that result was found in.
     #[serde(rename = "file_id")]
@@ -40,15 +40,6 @@ impl RunStepDetailsToolCallsFileSearchResultObject {
             file_name,
             score,
             content: None,
-        }
-    }
-}
-
-impl std::fmt::Display for RunStepDetailsToolCallsFileSearchResultObject {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

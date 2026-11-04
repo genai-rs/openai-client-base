@@ -31,8 +31,46 @@ impl std::fmt::Display for AgentSessionRequiredActionTypeResource {
     }
 }
 
-impl Default for AgentSessionRequiredActionTypeResource {
-    fn default() -> AgentSessionRequiredActionTypeResource {
-        Self::ComputerUseApprovalRequest
+impl ::std::str::FromStr for AgentSessionRequiredActionTypeResource {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "computer_use_approval_request" => Ok(Self::ComputerUseApprovalRequest),
+            "function_call" => Ok(Self::FunctionCall),
+            "environment_connection" => Ok(Self::EnvironmentConnection),
+            _ => Err(crate::models::ParseEnumError::new(
+                "AgentSessionRequiredActionTypeResource",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for AgentSessionRequiredActionTypeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for AgentSessionRequiredActionTypeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for AgentSessionRequiredActionTypeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

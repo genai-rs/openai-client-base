@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ImagesUsage : For the GPT image models only, the token usage information for the image generation.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImagesUsage {
     /// The total number of tokens (images and text) used for the image generation.
     #[serde(rename = "total_tokens")]
@@ -40,15 +40,6 @@ impl ImagesUsage {
             input_tokens,
             output_tokens,
             input_tokens_details,
-        }
-    }
-}
-
-impl std::fmt::Display for ImagesUsage {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

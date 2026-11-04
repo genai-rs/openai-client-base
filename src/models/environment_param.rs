@@ -19,9 +19,3 @@ pub enum EnvironmentParam {
     OpenaiHosted(models::EnvironmentParamOpenaiHosted),
     SelfHosted(models::EnvironmentParamSelfHosted),
 }
-
-impl Default for EnvironmentParam {
-    fn default() -> Self {
-        Self::None(Default::default())
-    }
-}

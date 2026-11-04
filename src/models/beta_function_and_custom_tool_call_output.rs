@@ -18,9 +18,3 @@ pub enum BetaFunctionAndCustomToolCallOutput {
     BetaInputImageContent(models::BetaInputImageContent),
     BetaInputFileContent(models::BetaInputFileContent),
 }
-
-impl Default for BetaFunctionAndCustomToolCallOutput {
-    fn default() -> Self {
-        Self::BetaInputTextContent(Default::default())
-    }
-}

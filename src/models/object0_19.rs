@@ -37,17 +37,55 @@ pub enum Reason {
     Steered,
 }
 
-impl Default for Reason {
-    fn default() -> Reason {
-        Self::MaxOutputTokens
+impl ::std::fmt::Display for Reason {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::MaxOutputTokens => "max_output_tokens",
+            Self::MaxMessages => "max_messages",
+            Self::ContentFilter => "content_filter",
+            Self::Steered => "steered",
+        })
     }
 }
 
-impl std::fmt::Display for Object019 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Reason {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "max_output_tokens" => Ok(Self::MaxOutputTokens),
+            "max_messages" => Ok(Self::MaxMessages),
+            "content_filter" => Ok(Self::ContentFilter),
+            "steered" => Ok(Self::Steered),
+            _ => Err(crate::models::ParseEnumError::new("Reason", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Reason {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Reason {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Reason {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

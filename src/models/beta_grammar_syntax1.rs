@@ -28,8 +28,45 @@ impl std::fmt::Display for BetaGrammarSyntax1 {
     }
 }
 
-impl Default for BetaGrammarSyntax1 {
-    fn default() -> BetaGrammarSyntax1 {
-        Self::Lark
+impl ::std::str::FromStr for BetaGrammarSyntax1 {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "lark" => Ok(Self::Lark),
+            "regex" => Ok(Self::Regex),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaGrammarSyntax1",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaGrammarSyntax1 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaGrammarSyntax1 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaGrammarSyntax1 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

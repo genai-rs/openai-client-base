@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WebhookLiveCallIncomingData : Event data payload.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookLiveCallIncomingData {
     /// The `live_...` ID of the pending SIP session. Pass this value unchanged to Live call controls and sideband connections. The corresponding `realtime.call.incoming` event uses a separate `rtc_...` call ID.
     #[serde(rename = "session_id")]
@@ -34,15 +34,6 @@ impl WebhookLiveCallIncomingData {
             session_id,
             sip_media_security: None,
             sip_headers,
-        }
-    }
-}
-
-impl std::fmt::Display for WebhookLiveCallIncomingData {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

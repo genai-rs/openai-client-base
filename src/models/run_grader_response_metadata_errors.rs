@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunGraderResponseMetadataErrors {
     #[serde(rename = "formula_parse_error")]
     pub formula_parse_error: bool,
@@ -83,15 +83,6 @@ impl RunGraderResponseMetadataErrors {
             model_grader_refusal_error,
             model_grader_parse_error,
             model_grader_server_error_details,
-        }
-    }
-}
-
-impl std::fmt::Display for RunGraderResponseMetadataErrors {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

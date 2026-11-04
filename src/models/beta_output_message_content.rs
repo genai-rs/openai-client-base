@@ -17,9 +17,3 @@ pub enum BetaOutputMessageContent {
     BetaOutputTextContent(models::BetaOutputTextContent),
     BetaRefusalContent(models::BetaRefusalContent),
 }
-
-impl Default for BetaOutputMessageContent {
-    fn default() -> Self {
-        Self::BetaOutputTextContent(Default::default())
-    }
-}

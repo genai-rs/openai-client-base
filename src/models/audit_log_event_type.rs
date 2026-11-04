@@ -558,8 +558,246 @@ impl std::fmt::Display for AuditLogEventType {
     }
 }
 
-impl Default for AuditLogEventType {
-    fn default() -> AuditLogEventType {
-        Self::ApiKeyCreated
+impl ::std::str::FromStr for AuditLogEventType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "api_key.created" => Ok(Self::ApiKeyCreated),
+            "api_key.updated" => Ok(Self::ApiKeyUpdated),
+            "api_key.deleted" => Ok(Self::ApiKeyDeleted),
+            "certificate.created" => Ok(Self::CertificateCreated),
+            "certificate.updated" => Ok(Self::CertificateUpdated),
+            "certificate.deleted" => Ok(Self::CertificateDeleted),
+            "certificates.activated" => Ok(Self::CertificatesActivated),
+            "certificates.deactivated" => Ok(Self::CertificatesDeactivated),
+            "checkpoint.permission.created" => Ok(Self::CheckpointPermissionCreated),
+            "checkpoint.permission.deleted" => Ok(Self::CheckpointPermissionDeleted),
+            "external_key.registered" => Ok(Self::ExternalKeyRegistered),
+            "external_key.removed" => Ok(Self::ExternalKeyRemoved),
+            "external_storage.registered" => Ok(Self::ExternalStorageRegistered),
+            "external_storage.removed" => Ok(Self::ExternalStorageRemoved),
+            "group.created" => Ok(Self::GroupCreated),
+            "group.updated" => Ok(Self::GroupUpdated),
+            "group.deleted" => Ok(Self::GroupDeleted),
+            "invite.sent" => Ok(Self::InviteSent),
+            "invite.accepted" => Ok(Self::InviteAccepted),
+            "invite.deleted" => Ok(Self::InviteDeleted),
+            "ip_allowlist.created" => Ok(Self::IpAllowlistCreated),
+            "ip_allowlist.updated" => Ok(Self::IpAllowlistUpdated),
+            "ip_allowlist.deleted" => Ok(Self::IpAllowlistDeleted),
+            "ip_allowlist.config.activated" => Ok(Self::IpAllowlistConfigActivated),
+            "ip_allowlist.config.deactivated" => Ok(Self::IpAllowlistConfigDeactivated),
+            "login.succeeded" => Ok(Self::LoginSucceeded),
+            "login.failed" => Ok(Self::LoginFailed),
+            "logout.succeeded" => Ok(Self::LogoutSucceeded),
+            "logout.failed" => Ok(Self::LogoutFailed),
+            "organization.updated" => Ok(Self::OrganizationUpdated),
+            "project.created" => Ok(Self::ProjectCreated),
+            "project.updated" => Ok(Self::ProjectUpdated),
+            "project.archived" => Ok(Self::ProjectArchived),
+            "project.deleted" => Ok(Self::ProjectDeleted),
+            "rate_limit.updated" => Ok(Self::RateLimitUpdated),
+            "rate_limit.deleted" => Ok(Self::RateLimitDeleted),
+            "resource.deleted" => Ok(Self::ResourceDeleted),
+            "tunnel.created" => Ok(Self::TunnelCreated),
+            "tunnel.updated" => Ok(Self::TunnelUpdated),
+            "tunnel.deleted" => Ok(Self::TunnelDeleted),
+            "workload_identity_provider.created" => Ok(Self::WorkloadIdentityProviderCreated),
+            "workload_identity_provider.updated" => Ok(Self::WorkloadIdentityProviderUpdated),
+            "workload_identity_provider.deleted" => Ok(Self::WorkloadIdentityProviderDeleted),
+            "workload_identity_provider_mapping.created" => {
+                Ok(Self::WorkloadIdentityProviderMappingCreated)
+            }
+            "workload_identity_provider_mapping.updated" => {
+                Ok(Self::WorkloadIdentityProviderMappingUpdated)
+            }
+            "workload_identity_provider_mapping.deleted" => {
+                Ok(Self::WorkloadIdentityProviderMappingDeleted)
+            }
+            "role.created" => Ok(Self::RoleCreated),
+            "role.updated" => Ok(Self::RoleUpdated),
+            "role.deleted" => Ok(Self::RoleDeleted),
+            "role.assignment.created" => Ok(Self::RoleAssignmentCreated),
+            "role.assignment.deleted" => Ok(Self::RoleAssignmentDeleted),
+            "role.bound_to_resource" => Ok(Self::RoleBoundToResource),
+            "role.unbound_from_resource" => Ok(Self::RoleUnboundFromResource),
+            "scim.enabled" => Ok(Self::ScimEnabled),
+            "scim.disabled" => Ok(Self::ScimDisabled),
+            "service_account.created" => Ok(Self::ServiceAccountCreated),
+            "service_account.updated" => Ok(Self::ServiceAccountUpdated),
+            "service_account.deleted" => Ok(Self::ServiceAccountDeleted),
+            "user.added" => Ok(Self::UserAdded),
+            "user.updated" => Ok(Self::UserUpdated),
+            "user.deleted" => Ok(Self::UserDeleted),
+            "tenant.metadata.updated" => Ok(Self::TenantMetadataUpdated),
+            "tenant.microsoft_entra_mapping.upserted" => {
+                Ok(Self::TenantMicrosoftEntraMappingUpserted)
+            }
+            "tenant.microsoft_entra_mapping.deleted" => {
+                Ok(Self::TenantMicrosoftEntraMappingDeleted)
+            }
+            "tenant.workload_identity.provider.created" => {
+                Ok(Self::TenantWorkloadIdentityProviderCreated)
+            }
+            "tenant.workload_identity.provider.updated" => {
+                Ok(Self::TenantWorkloadIdentityProviderUpdated)
+            }
+            "tenant.workload_identity.provider.archived" => {
+                Ok(Self::TenantWorkloadIdentityProviderArchived)
+            }
+            "tenant.workload_identity.mapping.created" => {
+                Ok(Self::TenantWorkloadIdentityMappingCreated)
+            }
+            "tenant.workload_identity.mapping.updated" => {
+                Ok(Self::TenantWorkloadIdentityMappingUpdated)
+            }
+            "tenant.workload_identity.mapping.archived" => {
+                Ok(Self::TenantWorkloadIdentityMappingArchived)
+            }
+            "tenant.workload_identity.binding.created" => {
+                Ok(Self::TenantWorkloadIdentityBindingCreated)
+            }
+            "tenant.workload_identity.principal.provisioned" => {
+                Ok(Self::TenantWorkloadIdentityPrincipalProvisioned)
+            }
+            "tenant.workload_identity.access_token.issued" => {
+                Ok(Self::TenantWorkloadIdentityAccessTokenIssued)
+            }
+            "tenant.admin_api_key.created" => Ok(Self::TenantAdminApiKeyCreated),
+            "tenant.admin_api_key.updated" => Ok(Self::TenantAdminApiKeyUpdated),
+            "tenant.admin_api_key.deleted" => Ok(Self::TenantAdminApiKeyDeleted),
+            "tenant.project_api_key.created" => Ok(Self::TenantProjectApiKeyCreated),
+            "tenant.trusted_access.business_verification.started" => {
+                Ok(Self::TenantTrustedAccessBusinessVerificationStarted)
+            }
+            "tenant.trusted_access.application.submitted" => {
+                Ok(Self::TenantTrustedAccessApplicationSubmitted)
+            }
+            "tenant.chatgpt_access_token.revoked" => Ok(Self::TenantChatgptAccessTokenRevoked),
+            "tenant.migration.completed" => Ok(Self::TenantMigrationCompleted),
+            "tenant.sso.migrated" => Ok(Self::TenantSsoMigrated),
+            "tenant.domains.migrated" => Ok(Self::TenantDomainsMigrated),
+            "tenant.sso_connection.created" => Ok(Self::TenantSsoConnectionCreated),
+            "tenant.sso_connection.updated" => Ok(Self::TenantSsoConnectionUpdated),
+            "tenant.sso_connection.deleted" => Ok(Self::TenantSsoConnectionDeleted),
+            "tenant.sso_connection.setup.started" => Ok(Self::TenantSsoConnectionSetupStarted),
+            "tenant.policy.created" => Ok(Self::TenantPolicyCreated),
+            "tenant.policy.updated" => Ok(Self::TenantPolicyUpdated),
+            "tenant.policy.deleted" => Ok(Self::TenantPolicyDeleted),
+            "tenant.policy.attached" => Ok(Self::TenantPolicyAttached),
+            "tenant.policy.detached" => Ok(Self::TenantPolicyDetached),
+            "tenant.principal_authentication_policy.resolved" => {
+                Ok(Self::TenantPrincipalAuthenticationPolicyResolved)
+            }
+            "tenant.scim.setup.started" => Ok(Self::TenantScimSetupStarted),
+            "tenant.scim.deletion.requested" => Ok(Self::TenantScimDeletionRequested),
+            "tenant.scim.directory.created" => Ok(Self::TenantScimDirectoryCreated),
+            "tenant.product_access_policy.updated" => Ok(Self::TenantProductAccessPolicyUpdated),
+            "tenant.resource_share_grant.created" => Ok(Self::TenantResourceShareGrantCreated),
+            "tenant.resource_share_grant.updated" => Ok(Self::TenantResourceShareGrantUpdated),
+            "tenant.resource_share_grant.accepted" => Ok(Self::TenantResourceShareGrantAccepted),
+            "tenant.resource_share_grant.declined" => Ok(Self::TenantResourceShareGrantDeclined),
+            "tenant.resource_share_grant.revoked" => Ok(Self::TenantResourceShareGrantRevoked),
+            "tenant.resource_share_grant.deleted" => Ok(Self::TenantResourceShareGrantDeleted),
+            "tenant.service_account.updated" => Ok(Self::TenantServiceAccountUpdated),
+            "tenant.service_account.deleted" => Ok(Self::TenantServiceAccountDeleted),
+            "tenant.service_account.token.revoked" => Ok(Self::TenantServiceAccountTokenRevoked),
+            "tenant.billing.overage_limit.updated" => Ok(Self::TenantBillingOverageLimitUpdated),
+            "tenant.billing.alerts.updated" => Ok(Self::TenantBillingAlertsUpdated),
+            "tenant.billing.info.updated" => Ok(Self::TenantBillingInfoUpdated),
+            "tenant.usage_limit.workspace.updated" => Ok(Self::TenantUsageLimitWorkspaceUpdated),
+            "tenant.usage_limit.group.updated" => Ok(Self::TenantUsageLimitGroupUpdated),
+            "tenant.usage_limit.user.updated" => Ok(Self::TenantUsageLimitUserUpdated),
+            "tenant.usage_limit.increase_request.updated" => {
+                Ok(Self::TenantUsageLimitIncreaseRequestUpdated)
+            }
+            "tenant.usage_limit.increase_request.resolved" => {
+                Ok(Self::TenantUsageLimitIncreaseRequestResolved)
+            }
+            "tenant.group.created" => Ok(Self::TenantGroupCreated),
+            "tenant.group.updated" => Ok(Self::TenantGroupUpdated),
+            "tenant.group.deleted" => Ok(Self::TenantGroupDeleted),
+            "tenant.group.member.added" => Ok(Self::TenantGroupMemberAdded),
+            "tenant.group.member.removed" => Ok(Self::TenantGroupMemberRemoved),
+            "tenant.migration_rollout.status.updated" => {
+                Ok(Self::TenantMigrationRolloutStatusUpdated)
+            }
+            "tenant.migration_rollout.tier.updated" => Ok(Self::TenantMigrationRolloutTierUpdated),
+            "tenant.role.metadata.updated" => Ok(Self::TenantRoleMetadataUpdated),
+            "tenant.custom_role.created" => Ok(Self::TenantCustomRoleCreated),
+            "tenant.custom_role.updated" => Ok(Self::TenantCustomRoleUpdated),
+            "tenant.custom_role.deleted" => Ok(Self::TenantCustomRoleDeleted),
+            "tenant.role_assignment.created" => Ok(Self::TenantRoleAssignmentCreated),
+            "tenant.role_assignment.deleted" => Ok(Self::TenantRoleAssignmentDeleted),
+            "tenant.resource_role_assignment.created" => {
+                Ok(Self::TenantResourceRoleAssignmentCreated)
+            }
+            "tenant.resource_role_assignment.deleted" => {
+                Ok(Self::TenantResourceRoleAssignmentDeleted)
+            }
+            "tenant.resource_access.updated" => Ok(Self::TenantResourceAccessUpdated),
+            "tenant.resource_access.deleted" => Ok(Self::TenantResourceAccessDeleted),
+            "tenant.ads_account.onboarding.redemption" => {
+                Ok(Self::TenantAdsAccountOnboardingRedemption)
+            }
+            "tenant.session_policy.created" => Ok(Self::TenantSessionPolicyCreated),
+            "tenant.session_policy.updated" => Ok(Self::TenantSessionPolicyUpdated),
+            "tenant.session_policy.deleted" => Ok(Self::TenantSessionPolicyDeleted),
+            "tenant.session_revocation.started" => Ok(Self::TenantSessionRevocationStarted),
+            "tenant.third_party_app_policy.updated" => Ok(Self::TenantThirdPartyAppPolicyUpdated),
+            "tenant.user.added" => Ok(Self::TenantUserAdded),
+            "tenant.user.updated" => Ok(Self::TenantUserUpdated),
+            "tenant.user.removed" => Ok(Self::TenantUserRemoved),
+            "tenant.user.looked_up" => Ok(Self::TenantUserLookedUp),
+            "tenant.user.invited" => Ok(Self::TenantUserInvited),
+            "tenant.membership.revoked" => Ok(Self::TenantMembershipRevoked),
+            "tenant.api_organization_invite.upserted" => {
+                Ok(Self::TenantApiOrganizationInviteUpserted)
+            }
+            "tenant.api_organization_invite.deleted" => {
+                Ok(Self::TenantApiOrganizationInviteDeleted)
+            }
+            "tenant.chatgpt_workspace_invite.upserted" => {
+                Ok(Self::TenantChatgptWorkspaceInviteUpserted)
+            }
+            "tenant.membership.accepted" => Ok(Self::TenantMembershipAccepted),
+            "tenant.membership.declined" => Ok(Self::TenantMembershipDeclined),
+            "tenant.workspace_invite_email_settings.updated" => {
+                Ok(Self::TenantWorkspaceInviteEmailSettingsUpdated)
+            }
+            _ => Err(crate::models::ParseEnumError::new(
+                "AuditLogEventType",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for AuditLogEventType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for AuditLogEventType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for AuditLogEventType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

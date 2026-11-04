@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// LiveLiveError : Details of an error encountered by the Live session, including the affected parameter or client command when available.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveLiveError {
     /// The category of error, such as `invalid_request_error` for an invalid Live client command.
     #[serde(rename = "type")]
@@ -39,15 +39,6 @@ impl LiveLiveError {
             message,
             param: None,
             client_event_id: None,
-        }
-    }
-}
-
-impl std::fmt::Display for LiveLiveError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

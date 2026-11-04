@@ -18,9 +18,3 @@ pub enum HostedEnvironmentFileParam {
     FileId(models::HostedEnvironmentFileParamFileId),
     Inline(models::HostedEnvironmentFileParamInline),
 }
-
-impl Default for HostedEnvironmentFileParam {
-    fn default() -> Self {
-        Self::FileId(Default::default())
-    }
-}

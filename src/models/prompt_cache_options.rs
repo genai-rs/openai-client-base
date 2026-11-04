@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// PromptCacheOptions : The prompt-caching options that were applied to the response. Supported for `gpt-5.6` and later models.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PromptCacheOptions {
     #[serde(rename = "ttl")]
     pub ttl: models::PromptCacheTtlEnum,
@@ -38,15 +38,6 @@ impl PromptCacheOptions {
             ttl,
             mode,
             comparison_response_id: None,
-        }
-    }
-}
-
-impl std::fmt::Display for PromptCacheOptions {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

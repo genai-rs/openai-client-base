@@ -17,9 +17,3 @@ pub enum CompoundFilterFiltersInner {
     ComparisonFilter(models::ComparisonFilter),
     CompoundFilter(models::CompoundFilter),
 }
-
-impl Default for CompoundFilterFiltersInner {
-    fn default() -> Self {
-        Self::ComparisonFilter(Default::default())
-    }
-}

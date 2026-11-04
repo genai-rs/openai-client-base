@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateMcpOauthRefreshParam : Configuration for refreshing the access token of an MCP OAuth credential.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateMcpOauthRefreshParam {
     /// The HTTPS OAuth token endpoint used to exchange the refresh token for a new access token.
     #[serde(rename = "token_endpoint")]
@@ -58,15 +58,6 @@ impl CreateMcpOauthRefreshParam {
             scope: None,
             refresh_token,
             token_endpoint_auth,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateMcpOauthRefreshParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

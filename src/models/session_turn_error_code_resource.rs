@@ -92,8 +92,66 @@ impl std::fmt::Display for SessionTurnErrorCodeResource {
     }
 }
 
-impl Default for SessionTurnErrorCodeResource {
-    fn default() -> SessionTurnErrorCodeResource {
-        Self::ContextLengthExceeded
+impl ::std::str::FromStr for SessionTurnErrorCodeResource {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "context_length_exceeded" => Ok(Self::ContextLengthExceeded),
+            "session_budget_exceeded" => Ok(Self::SessionBudgetExceeded),
+            "usage_limit_exceeded" => Ok(Self::UsageLimitExceeded),
+            "project_spend_limit_exceeded" => Ok(Self::ProjectSpendLimitExceeded),
+            "organization_spend_limit_exceeded" => Ok(Self::OrganizationSpendLimitExceeded),
+            "organization_usage_limit_exceeded" => Ok(Self::OrganizationUsageLimitExceeded),
+            "billing_not_active" => Ok(Self::BillingNotActive),
+            "credit_balance_exhausted" => Ok(Self::CreditBalanceExhausted),
+            "rate_limit_exceeded" => Ok(Self::RateLimitExceeded),
+            "flex_unavailable" => Ok(Self::FlexUnavailable),
+            "server_overloaded" => Ok(Self::ServerOverloaded),
+            "cyber_policy" => Ok(Self::CyberPolicy),
+            "misalignment_policy_violation" => Ok(Self::MisalignmentPolicyViolation),
+            "connection_failed" => Ok(Self::ConnectionFailed),
+            "server_error" => Ok(Self::ServerError),
+            "authentication_error" => Ok(Self::AuthenticationError),
+            "invalid_request" => Ok(Self::InvalidRequest),
+            "resource_not_found" => Ok(Self::ResourceNotFound),
+            "sandbox_error" => Ok(Self::SandboxError),
+            "executor_version_incompatible" => Ok(Self::ExecutorVersionIncompatible),
+            "active_turn_not_steerable" => Ok(Self::ActiveTurnNotSteerable),
+            "request_timeout" => Ok(Self::RequestTimeout),
+            "internal_error" => Ok(Self::InternalError),
+            _ => Err(crate::models::ParseEnumError::new(
+                "SessionTurnErrorCodeResource",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SessionTurnErrorCodeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SessionTurnErrorCodeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SessionTurnErrorCodeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

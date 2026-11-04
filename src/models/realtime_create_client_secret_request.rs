@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeCreateClientSecretRequest : Create a session and client secret for the Realtime API. The request can specify either a realtime or a transcription session configuration. [Learn more about the Realtime API](https://developers.openai.com/api/docs/guides/realtime).
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeCreateClientSecretRequest {
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<models::ClientSecretExpiration>,
@@ -26,15 +26,6 @@ impl RealtimeCreateClientSecretRequest {
         RealtimeCreateClientSecretRequest {
             expires_after: None,
             session: None,
-        }
-    }
-}
-
-impl std::fmt::Display for RealtimeCreateClientSecretRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

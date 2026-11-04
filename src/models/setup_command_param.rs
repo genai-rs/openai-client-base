@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// SetupCommandParam : A confidential setup command executed before the hosted agent starts.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SetupCommandParam {
     /// The shell command to execute.
     #[serde(rename = "command")]
@@ -30,14 +30,5 @@ impl SetupCommandParam {
     /// A confidential setup command executed before the hosted agent starts.
     pub fn new(command: String) -> SetupCommandParam {
         SetupCommandParam { command, cwd: None }
-    }
-}
-
-impl std::fmt::Display for SetupCommandParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

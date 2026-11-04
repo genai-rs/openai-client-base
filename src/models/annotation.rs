@@ -20,9 +20,3 @@ pub enum Annotation {
     ContainerFileCitationBody(models::ContainerFileCitationBody),
     FilePath(models::FilePath),
 }
-
-impl Default for Annotation {
-    fn default() -> Self {
-        Self::FileCitationBody(Default::default())
-    }
-}

@@ -19,9 +19,3 @@ pub enum CreateVaultCredentialAuthParam {
     StaticBearer(models::CreateVaultCredentialAuthParamStaticBearer),
     EnvironmentVariable(models::CreateVaultCredentialAuthParamEnvironmentVariable),
 }
-
-impl Default for CreateVaultCredentialAuthParam {
-    fn default() -> Self {
-        Self::McpOauth(Default::default())
-    }
-}

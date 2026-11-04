@@ -18,9 +18,3 @@ pub enum BetaInputContent {
     BetaInputImageContent(models::BetaInputImageContent),
     BetaInputFileContent(models::BetaInputFileContent),
 }
-
-impl Default for BetaInputContent {
-    fn default() -> Self {
-        Self::BetaInputTextContent(Default::default())
-    }
-}

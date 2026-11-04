@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// EnvironmentFileListResource : A paginated list of live execution environment files.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentFileListResource {
     #[serde(rename = "object")]
     pub object: models::EnvironmentFilePageObjectResource,
@@ -40,15 +40,6 @@ impl EnvironmentFileListResource {
             data,
             next,
             has_more,
-        }
-    }
-}
-
-impl std::fmt::Display for EnvironmentFileListResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

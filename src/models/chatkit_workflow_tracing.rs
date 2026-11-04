@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ChatkitWorkflowTracing : Controls diagnostic tracing during the session.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatkitWorkflowTracing {
     /// Indicates whether tracing is enabled.
     #[serde(rename = "enabled")]
@@ -22,14 +22,5 @@ impl ChatkitWorkflowTracing {
     /// Controls diagnostic tracing during the session.
     pub fn new(enabled: bool) -> ChatkitWorkflowTracing {
         ChatkitWorkflowTracing { enabled }
-    }
-}
-
-impl std::fmt::Display for ChatkitWorkflowTracing {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

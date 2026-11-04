@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSpeechRequest {
     /// One of the available [TTS models](https://developers.openai.com/api/docs/guides/text-to-speech): `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`.
     #[serde(rename = "model")]
@@ -65,11 +65,6 @@ pub enum ResponseFormat {
     Pcm,
 }
 
-impl Default for ResponseFormat {
-    fn default() -> ResponseFormat {
-        Self::Mp3
-    }
-}
 /// The format to stream the audio in. Supported formats are `sse` and `audio`. `sse` is not supported for `tts-1` or `tts-1-hd`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum StreamFormat {
@@ -79,17 +74,108 @@ pub enum StreamFormat {
     Audio,
 }
 
-impl Default for StreamFormat {
-    fn default() -> StreamFormat {
-        Self::Sse
+impl ::std::fmt::Display for ResponseFormat {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Mp3 => "mp3",
+            Self::Opus => "opus",
+            Self::Aac => "aac",
+            Self::Flac => "flac",
+            Self::Wav => "wav",
+            Self::Pcm => "pcm",
+        })
     }
 }
 
-impl std::fmt::Display for CreateSpeechRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for ResponseFormat {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "mp3" => Ok(Self::Mp3),
+            "opus" => Ok(Self::Opus),
+            "aac" => Ok(Self::Aac),
+            "flac" => Ok(Self::Flac),
+            "wav" => Ok(Self::Wav),
+            "pcm" => Ok(Self::Pcm),
+            _ => Err(crate::models::ParseEnumError::new("ResponseFormat", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ResponseFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ResponseFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ResponseFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for StreamFormat {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Sse => "sse",
+            Self::Audio => "audio",
+        })
+    }
+}
+
+impl ::std::str::FromStr for StreamFormat {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "sse" => Ok(Self::Sse),
+            "audio" => Ok(Self::Audio),
+            _ => Err(crate::models::ParseEnumError::new("StreamFormat", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for StreamFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for StreamFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for StreamFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

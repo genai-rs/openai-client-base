@@ -9,12 +9,6 @@ pub enum FunctionCallOutputParam {
     Arrayofinputcontentparams(Vec<models::InputContentParam>),
 }
 
-impl Default for FunctionCallOutputParam {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl FunctionCallOutputParam {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

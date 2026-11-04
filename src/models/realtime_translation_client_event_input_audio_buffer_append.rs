@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationClientEventInputAudioBufferAppend : Send this event to append audio bytes to the translation session input audio buffer.  WebSocket translation sessions accept base64-encoded 24 kHz PCM16 mono little-endian raw audio bytes. Unsupported websocket audio formats return a validation error because lower-quality audio materially degrades translation quality.  Translation consumes 200 ms engine frames. For best realtime behavior, append audio in 200 ms chunks. If a chunk is shorter, the server buffers it until it has enough audio for one frame. If a chunk is longer, the server splits it into 200 ms frames and enqueues them back-to-back.  Keep appending silence while the session is active. If a client stops sending audio and later resumes, model time treats the resumed audio as contiguous with the previous audio rather than as a real-world pause.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranslationClientEventInputAudioBufferAppend {
     /// Optional client-generated ID used to identify this event.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
@@ -44,17 +44,49 @@ pub enum Type {
     SessionInputAudioBufferAppend,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::SessionInputAudioBufferAppend
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::SessionInputAudioBufferAppend => "session.input_audio_buffer.append",
+        })
     }
 }
 
-impl std::fmt::Display for RealtimeTranslationClientEventInputAudioBufferAppend {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "session.input_audio_buffer.append" => Ok(Self::SessionInputAudioBufferAppend),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

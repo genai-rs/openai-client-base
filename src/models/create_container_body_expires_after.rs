@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// CreateContainerBodyExpiresAfter : Container expiration time in seconds relative to the 'anchor' time.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateContainerBodyExpiresAfter {
     /// Time anchor for the expiration time. Currently only 'last_active_at' is supported.
     #[serde(rename = "anchor")]
@@ -33,17 +33,49 @@ pub enum Anchor {
     LastActiveAt,
 }
 
-impl Default for Anchor {
-    fn default() -> Anchor {
-        Self::LastActiveAt
+impl ::std::fmt::Display for Anchor {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::LastActiveAt => "last_active_at",
+        })
     }
 }
 
-impl std::fmt::Display for CreateContainerBodyExpiresAfter {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Anchor {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "last_active_at" => Ok(Self::LastActiveAt),
+            _ => Err(crate::models::ParseEnumError::new("Anchor", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Anchor {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Anchor {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Anchor {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

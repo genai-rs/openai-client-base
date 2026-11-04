@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// LiveSessionCreateResponse : The created Live session and its transport. WebRTC creation returns 201 Created with an SDP answer. Outbound SIP creation returns 201 Created after initialization, before the callee necessarily answers, without SDP or trunk credentials.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionCreateResponse {
     #[serde(rename = "session")]
     pub session: models::Session,
@@ -27,14 +27,5 @@ impl LiveSessionCreateResponse {
         transport: models::LiveSessionCreateResponseTransport,
     ) -> LiveSessionCreateResponse {
         LiveSessionCreateResponse { session, transport }
-    }
-}
-
-impl std::fmt::Display for LiveSessionCreateResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

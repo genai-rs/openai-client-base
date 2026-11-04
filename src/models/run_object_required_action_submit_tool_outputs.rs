@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunObjectRequiredActionSubmitToolOutputs : Details on the tool outputs needed for this run to continue.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunObjectRequiredActionSubmitToolOutputs {
     /// A list of the relevant tool calls.
     #[serde(rename = "tool_calls")]
@@ -25,14 +25,5 @@ impl RunObjectRequiredActionSubmitToolOutputs {
         tool_calls: Vec<models::RunToolCallObject>,
     ) -> RunObjectRequiredActionSubmitToolOutputs {
         RunObjectRequiredActionSubmitToolOutputs { tool_calls }
-    }
-}
-
-impl std::fmt::Display for RunObjectRequiredActionSubmitToolOutputs {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

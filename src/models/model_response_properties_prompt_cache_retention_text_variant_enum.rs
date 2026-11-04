@@ -10,12 +10,6 @@ pub enum ModelResponsePropertiesPromptCacheRetentionTextVariantEnum {
     Variant24h,
 }
 
-impl Default for ModelResponsePropertiesPromptCacheRetentionTextVariantEnum {
-    fn default() -> Self {
-        Self::InMemory
-    }
-}
-
 impl std::fmt::Display for ModelResponsePropertiesPromptCacheRetentionTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -23,5 +17,52 @@ impl std::fmt::Display for ModelResponsePropertiesPromptCacheRetentionTextVarian
             ModelResponsePropertiesPromptCacheRetentionTextVariantEnum::Variant24h => "24h",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for ModelResponsePropertiesPromptCacheRetentionTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "in_memory" => Ok(Self::InMemory),
+            "24h" => Ok(Self::Variant24h),
+            _ => Err(crate::models::ParseEnumError::new(
+                "ModelResponsePropertiesPromptCacheRetentionTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ModelResponsePropertiesPromptCacheRetentionTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String>
+    for ModelResponsePropertiesPromptCacheRetentionTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String>
+    for ModelResponsePropertiesPromptCacheRetentionTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ChatkitWorkflow : Workflow metadata and state returned for the session.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatkitWorkflow {
     /// Identifier of the workflow backing the session.
     #[serde(rename = "id")]
@@ -40,15 +40,6 @@ impl ChatkitWorkflow {
             version,
             state_variables,
             tracing,
-        }
-    }
-}
-
-impl std::fmt::Display for ChatkitWorkflow {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

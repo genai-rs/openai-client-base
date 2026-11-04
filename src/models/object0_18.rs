@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// Object018 : Optional input noise reduction.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object018 {
     #[serde(rename = "type")]
     pub r#type: models::NoiseReductionType,
@@ -22,14 +22,5 @@ impl Object018 {
     /// Optional input noise reduction.
     pub fn new(r#type: models::NoiseReductionType) -> Object018 {
         Object018 { r#type }
-    }
-}
-
-impl std::fmt::Display for Object018 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// WebhookBatchCancelledData : Event data payload.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookBatchCancelledData {
     /// The unique ID of the batch API request.
     #[serde(rename = "id")]
@@ -22,14 +22,5 @@ impl WebhookBatchCancelledData {
     /// Event data payload.
     pub fn new(id: String) -> WebhookBatchCancelledData {
         WebhookBatchCancelledData { id }
-    }
-}
-
-impl std::fmt::Display for WebhookBatchCancelledData {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

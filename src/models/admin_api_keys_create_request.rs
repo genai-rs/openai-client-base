@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AdminApiKeysCreateRequest {
     #[serde(rename = "name")]
     pub name: String,
@@ -24,15 +24,6 @@ impl AdminApiKeysCreateRequest {
         AdminApiKeysCreateRequest {
             name,
             expires_in_seconds: None,
-        }
-    }
-}
-
-impl std::fmt::Display for AdminApiKeysCreateRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

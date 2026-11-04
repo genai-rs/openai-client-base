@@ -17,9 +17,3 @@ pub enum LiveHostedShellContainerAutoParamSkillsInner {
     LiveSkillReferenceParam(models::LiveSkillReferenceParam),
     LiveInlineSkillParam(models::LiveInlineSkillParam),
 }
-
-impl Default for LiveHostedShellContainerAutoParamSkillsInner {
-    fn default() -> Self {
-        Self::LiveSkillReferenceParam(Default::default())
-    }
-}

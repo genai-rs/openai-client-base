@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// JsonSchema : Structured Outputs configuration options, including a JSON Schema.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct JsonSchema {
     /// A description of what the response format is for, used by the model to determine how to respond in the format.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -40,15 +40,6 @@ impl JsonSchema {
             name,
             schema: None,
             strict: None,
-        }
-    }
-}
-
-impl std::fmt::Display for JsonSchema {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

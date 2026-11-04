@@ -21,9 +21,3 @@ pub enum AgentToolResource {
     WebSearch(models::AgentToolResourceWebSearch),
     ComputerUse(models::AgentToolResourceComputerUse),
 }
-
-impl Default for AgentToolResource {
-    fn default() -> Self {
-        Self::Function(Default::default())
-    }
-}

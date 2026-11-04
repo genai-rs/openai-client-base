@@ -40,8 +40,49 @@ impl std::fmt::Display for SafetyAlertErrorType {
     }
 }
 
-impl Default for SafetyAlertErrorType {
-    fn default() -> SafetyAlertErrorType {
-        Self::PotentiallyUnintendedDataTransfer
+impl ::std::str::FromStr for SafetyAlertErrorType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "potentially_unintended_data_transfer" => Ok(Self::PotentiallyUnintendedDataTransfer),
+            "potentially_unintended_data_access" => Ok(Self::PotentiallyUnintendedDataAccess),
+            "potentially_unintended_destructive_activity" => {
+                Ok(Self::PotentiallyUnintendedDestructiveActivity)
+            }
+            "other" => Ok(Self::Other),
+            _ => Err(crate::models::ParseEnumError::new(
+                "SafetyAlertErrorType",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SafetyAlertErrorType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SafetyAlertErrorType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SafetyAlertErrorType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

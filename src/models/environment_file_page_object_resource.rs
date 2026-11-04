@@ -26,8 +26,44 @@ impl std::fmt::Display for EnvironmentFilePageObjectResource {
     }
 }
 
-impl Default for EnvironmentFilePageObjectResource {
-    fn default() -> EnvironmentFilePageObjectResource {
-        Self::Page
+impl ::std::str::FromStr for EnvironmentFilePageObjectResource {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "page" => Ok(Self::Page),
+            _ => Err(crate::models::ParseEnumError::new(
+                "EnvironmentFilePageObjectResource",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for EnvironmentFilePageObjectResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for EnvironmentFilePageObjectResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for EnvironmentFilePageObjectResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

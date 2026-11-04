@@ -17,9 +17,3 @@ pub enum BetaCompoundFilterFiltersInner {
     BetaComparisonFilter(models::BetaComparisonFilter),
     BetaCompoundFilter(models::BetaCompoundFilter),
 }
-
-impl Default for BetaCompoundFilterFiltersInner {
-    fn default() -> Self {
-        Self::BetaComparisonFilter(Default::default())
-    }
-}

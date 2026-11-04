@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// UpdateProjectDataRetentionBody : Parameters for updating project data retention controls.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateProjectDataRetentionBody {
     /// The desired project data retention type.
     #[serde(rename = "retention_type")]
@@ -41,17 +41,59 @@ pub enum RetentionType {
     EnhancedModifiedAbuseMonitoring,
 }
 
-impl Default for RetentionType {
-    fn default() -> RetentionType {
-        Self::OrganizationDefault
+impl ::std::fmt::Display for RetentionType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::OrganizationDefault => "organization_default",
+            Self::None => "none",
+            Self::ZeroDataRetention => "zero_data_retention",
+            Self::ModifiedAbuseMonitoring => "modified_abuse_monitoring",
+            Self::EnhancedZeroDataRetention => "enhanced_zero_data_retention",
+            Self::EnhancedModifiedAbuseMonitoring => "enhanced_modified_abuse_monitoring",
+        })
     }
 }
 
-impl std::fmt::Display for UpdateProjectDataRetentionBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for RetentionType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "organization_default" => Ok(Self::OrganizationDefault),
+            "none" => Ok(Self::None),
+            "zero_data_retention" => Ok(Self::ZeroDataRetention),
+            "modified_abuse_monitoring" => Ok(Self::ModifiedAbuseMonitoring),
+            "enhanced_zero_data_retention" => Ok(Self::EnhancedZeroDataRetention),
+            "enhanced_modified_abuse_monitoring" => Ok(Self::EnhancedModifiedAbuseMonitoring),
+            _ => Err(crate::models::ParseEnumError::new("RetentionType", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for RetentionType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for RetentionType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for RetentionType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

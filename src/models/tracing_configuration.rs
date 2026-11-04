@@ -20,9 +20,3 @@ pub enum TracingConfiguration {
     Text(String),
     TracingConfiguration(Box<models::TracingConfiguration>),
 }
-
-impl Default for TracingConfiguration {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

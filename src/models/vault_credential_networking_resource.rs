@@ -18,9 +18,3 @@ pub enum VaultCredentialNetworkingResource {
     Unrestricted(models::VaultCredentialNetworkingResourceUnrestricted),
     Limited(models::VaultCredentialNetworkingResourceLimited),
 }
-
-impl Default for VaultCredentialNetworkingResource {
-    fn default() -> Self {
-        Self::Unrestricted(Default::default())
-    }
-}

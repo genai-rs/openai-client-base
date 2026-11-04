@@ -31,8 +31,46 @@ impl std::fmt::Display for BetaImageOutputFormat {
     }
 }
 
-impl Default for BetaImageOutputFormat {
-    fn default() -> BetaImageOutputFormat {
-        Self::Png
+impl ::std::str::FromStr for BetaImageOutputFormat {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "png" => Ok(Self::Png),
+            "webp" => Ok(Self::Webp),
+            "jpeg" => Ok(Self::Jpeg),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaImageOutputFormat",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaImageOutputFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaImageOutputFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaImageOutputFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

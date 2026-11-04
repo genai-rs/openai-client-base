@@ -17,9 +17,3 @@ pub enum CreateContainerBodySkillsInner {
     SkillReferenceParam(models::SkillReferenceParam),
     InlineSkillParam(models::InlineSkillParam),
 }
-
-impl Default for CreateContainerBodySkillsInner {
-    fn default() -> Self {
-        Self::SkillReferenceParam(Default::default())
-    }
-}

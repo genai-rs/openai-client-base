@@ -32,8 +32,46 @@ impl std::fmt::Display for BrowserOriginAccessDecisionParam {
     }
 }
 
-impl Default for BrowserOriginAccessDecisionParam {
-    fn default() -> BrowserOriginAccessDecisionParam {
-        Self::Approve
+impl ::std::str::FromStr for BrowserOriginAccessDecisionParam {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "approve" => Ok(Self::Approve),
+            "deny" => Ok(Self::Deny),
+            "cancel" => Ok(Self::Cancel),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BrowserOriginAccessDecisionParam",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BrowserOriginAccessDecisionParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BrowserOriginAccessDecisionParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BrowserOriginAccessDecisionParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

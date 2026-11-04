@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateChatCompletionStreamResponseChoicesInnerLogprobs : Log probability information for the choice.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateChatCompletionStreamResponseChoicesInnerLogprobs {
     /// A list of message content tokens with log probability information.
     #[serde(rename = "content", deserialize_with = "Option::deserialize")]
@@ -29,14 +29,5 @@ impl CreateChatCompletionStreamResponseChoicesInnerLogprobs {
         refusal: Option<Vec<models::ChatCompletionTokenLogprob>>,
     ) -> CreateChatCompletionStreamResponseChoicesInnerLogprobs {
         CreateChatCompletionStreamResponseChoicesInnerLogprobs { content, refusal }
-    }
-}
-
-impl std::fmt::Display for CreateChatCompletionStreamResponseChoicesInnerLogprobs {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

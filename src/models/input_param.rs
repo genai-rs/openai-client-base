@@ -9,12 +9,6 @@ pub enum InputParam {
     InputItemList(Vec<models::InputItem>),
 }
 
-impl Default for InputParam {
-    fn default() -> Self {
-        Self::TextInput(String::new())
-    }
-}
-
 impl InputParam {
     pub fn new_text(text: String) -> Self {
         Self::TextInput(text)

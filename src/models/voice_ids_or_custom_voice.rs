@@ -7,12 +7,6 @@ pub enum VoiceIdsOrCustomVoice {
     Text(String),
 }
 
-impl Default for VoiceIdsOrCustomVoice {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl std::fmt::Display for VoiceIdsOrCustomVoice {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

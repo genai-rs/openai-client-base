@@ -9,12 +9,6 @@ pub enum ResponseSteerInput {
     Responsesteerinputitemlist(Vec<models::ResponseSteerInputItem>),
 }
 
-impl Default for ResponseSteerInput {
-    fn default() -> Self {
-        Self::TextInput(String::new())
-    }
-}
-
 impl ResponseSteerInput {
     pub fn new_text(text: String) -> Self {
         Self::TextInput(text)

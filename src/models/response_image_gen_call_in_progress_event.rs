@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ResponseImageGenCallInProgressEvent : Emitted when an image generation tool call is in progress.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseImageGenCallInProgressEvent {
     /// The type of the event. Always 'response.image_generation_call.in_progress'.
     #[serde(rename = "type")]
@@ -50,17 +50,53 @@ pub enum Type {
     ResponseImageGenerationCallInProgress,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::ResponseImageGenerationCallInProgress
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ResponseImageGenerationCallInProgress => {
+                "response.image_generation_call.in_progress"
+            }
+        })
     }
 }
 
-impl std::fmt::Display for ResponseImageGenCallInProgressEvent {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "response.image_generation_call.in_progress" => {
+                Ok(Self::ResponseImageGenerationCallInProgress)
+            }
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

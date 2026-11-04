@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// CreateGroupUserBody : Request payload for adding a user to a group.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateGroupUserBody {
     /// Identifier of the user to add to the group.
     #[serde(rename = "user_id")]
@@ -22,14 +22,5 @@ impl CreateGroupUserBody {
     /// Request payload for adding a user to a group.
     pub fn new(user_id: String) -> CreateGroupUserBody {
         CreateGroupUserBody { user_id }
-    }
-}
-
-impl std::fmt::Display for CreateGroupUserBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

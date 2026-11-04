@@ -47,8 +47,51 @@ pub enum ApiSource {
     Unlabeled,
 }
 
-impl Default for ApiSource {
-    fn default() -> ApiSource {
-        Self::AgentsApi
+impl ::std::fmt::Display for ApiSource {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::AgentsApi => "agents_api",
+            Self::Unlabeled => "unlabeled",
+        })
+    }
+}
+
+impl ::std::str::FromStr for ApiSource {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "agents_api" => Ok(Self::AgentsApi),
+            "unlabeled" => Ok(Self::Unlabeled),
+            _ => Err(crate::models::ParseEnumError::new("ApiSource", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ApiSource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ApiSource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ApiSource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

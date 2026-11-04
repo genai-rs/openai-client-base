@@ -41,8 +41,49 @@ impl std::fmt::Display for AudioResponseFormat {
     }
 }
 
-impl Default for AudioResponseFormat {
-    fn default() -> AudioResponseFormat {
-        Self::Json
+impl ::std::str::FromStr for AudioResponseFormat {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "json" => Ok(Self::Json),
+            "text" => Ok(Self::Text),
+            "srt" => Ok(Self::Srt),
+            "verbose_json" => Ok(Self::VerboseJson),
+            "vtt" => Ok(Self::Vtt),
+            "diarized_json" => Ok(Self::DiarizedJson),
+            _ => Err(crate::models::ParseEnumError::new(
+                "AudioResponseFormat",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for AudioResponseFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for AudioResponseFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for AudioResponseFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

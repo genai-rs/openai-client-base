@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsCodeObjectCodeInterpreter : The Code Interpreter tool call definition.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDetailsToolCallsCodeObjectCodeInterpreter {
     /// The input to the Code Interpreter tool call.
     #[serde(rename = "input")]
@@ -29,14 +29,5 @@ impl RunStepDetailsToolCallsCodeObjectCodeInterpreter {
         outputs: Vec<models::RunStepDetailsToolCallsCodeObjectCodeInterpreterOutputsInner>,
     ) -> RunStepDetailsToolCallsCodeObjectCodeInterpreter {
         RunStepDetailsToolCallsCodeObjectCodeInterpreter { input, outputs }
-    }
-}
-
-impl std::fmt::Display for RunStepDetailsToolCallsCodeObjectCodeInterpreter {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

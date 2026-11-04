@@ -18,9 +18,3 @@ pub enum HostedTemplateFileResource {
     FileId(models::HostedTemplateFileResourceFileId),
     Inline(models::HostedTemplateFileResourceInline),
 }
-
-impl Default for HostedTemplateFileResource {
-    fn default() -> Self {
-        Self::FileId(Default::default())
-    }
-}

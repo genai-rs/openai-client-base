@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// LiveResponsesDelegationSettingsUpdateInputParam : Updates to the Responses backend of an existing Live session. Omitted settings retain their current values.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveResponsesDelegationSettingsUpdateInputParam {
     /// The Responses backend model to use for subsequent delegated requests. Omit to keep the current backend model.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
@@ -82,15 +82,6 @@ impl LiveResponsesDelegationSettingsUpdateInputParam {
             tools: None,
             tool_choice: None,
             parallel_tool_calls: None,
-        }
-    }
-}
-
-impl std::fmt::Display for LiveResponsesDelegationSettingsUpdateInputParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

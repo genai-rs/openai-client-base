@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateVideoJsonBody : JSON parameters for creating a new video generation job.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVideoJsonBody {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<models::VideoModel>,
@@ -36,15 +36,6 @@ impl CreateVideoJsonBody {
             input_reference: None,
             seconds: None,
             size: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateVideoJsonBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

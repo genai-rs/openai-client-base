@@ -9,12 +9,6 @@ pub enum StopConfiguration {
     Null,
 }
 
-impl Default for StopConfiguration {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl StopConfiguration {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

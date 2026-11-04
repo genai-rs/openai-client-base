@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationClientSecretCreateRequest : Create a translation session and client secret for the Realtime API.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranslationClientSecretCreateRequest {
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
     pub expires_after: Option<models::ClientSecretExpiration>,
@@ -28,15 +28,6 @@ impl RealtimeTranslationClientSecretCreateRequest {
         RealtimeTranslationClientSecretCreateRequest {
             expires_after: None,
             session,
-        }
-    }
-}
-
-impl std::fmt::Display for RealtimeTranslationClientSecretCreateRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

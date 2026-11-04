@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// InviteProjectGroupBody : Request payload for granting a group access to a project.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InviteProjectGroupBody {
     /// Identifier of the group to add to the project.
     #[serde(rename = "group_id")]
@@ -25,14 +25,5 @@ impl InviteProjectGroupBody {
     /// Request payload for granting a group access to a project.
     pub fn new(group_id: String, role: String) -> InviteProjectGroupBody {
         InviteProjectGroupBody { group_id, role }
-    }
-}
-
-impl std::fmt::Display for InviteProjectGroupBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

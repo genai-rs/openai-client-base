@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateEvalResponsesRunDataSourceSamplingParamsText : Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text) - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEvalResponsesRunDataSourceSamplingParamsText {
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<models::TextResponseFormatConfiguration>,
@@ -22,14 +22,5 @@ impl CreateEvalResponsesRunDataSourceSamplingParamsText {
     /// Configuration options for a text response from the model. Can be plain text or structured JSON data. Learn more: - [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text) - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
     pub fn new() -> CreateEvalResponsesRunDataSourceSamplingParamsText {
         CreateEvalResponsesRunDataSourceSamplingParamsText { format: None }
-    }
-}
-
-impl std::fmt::Display for CreateEvalResponsesRunDataSourceSamplingParamsText {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

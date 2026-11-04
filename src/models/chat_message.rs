@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatMessage {
     /// The role of the message (e.g. \"system\", \"assistant\", \"user\").
     #[serde(rename = "role")]
@@ -23,14 +23,5 @@ pub struct ChatMessage {
 impl ChatMessage {
     pub fn new(role: String, content: String) -> ChatMessage {
         ChatMessage { role, content }
-    }
-}
-
-impl std::fmt::Display for ChatMessage {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

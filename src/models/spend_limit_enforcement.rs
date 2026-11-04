@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// SpendLimitEnforcement : The current enforcement state of a hard spend limit.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SpendLimitEnforcement {
     #[serde(rename = "status")]
     pub status: models::SpendLimitEnforcementStatus,
@@ -22,14 +22,5 @@ impl SpendLimitEnforcement {
     /// The current enforcement state of a hard spend limit.
     pub fn new(status: models::SpendLimitEnforcementStatus) -> SpendLimitEnforcement {
         SpendLimitEnforcement { status }
-    }
-}
-
-impl std::fmt::Display for SpendLimitEnforcement {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

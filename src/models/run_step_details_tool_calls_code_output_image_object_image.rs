@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDetailsToolCallsCodeOutputImageObjectImage {
     /// The [file](https://developers.openai.com/api/reference/resources/files) ID of the image.
     #[serde(rename = "file_id")]
@@ -20,14 +20,5 @@ pub struct RunStepDetailsToolCallsCodeOutputImageObjectImage {
 impl RunStepDetailsToolCallsCodeOutputImageObjectImage {
     pub fn new(file_id: String) -> RunStepDetailsToolCallsCodeOutputImageObjectImage {
         RunStepDetailsToolCallsCodeOutputImageObjectImage { file_id }
-    }
-}
-
-impl std::fmt::Display for RunStepDetailsToolCallsCodeOutputImageObjectImage {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

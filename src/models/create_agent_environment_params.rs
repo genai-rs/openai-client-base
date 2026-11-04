@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateAgentEnvironmentParams : Parameters for creating an execution environment before its sessions.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAgentEnvironmentParams {
     #[serde(rename = "environment")]
     pub environment: models::CreateEnvironmentParam,
@@ -32,15 +32,6 @@ impl CreateAgentEnvironmentParams {
         CreateAgentEnvironmentParams {
             environment,
             vault_ids: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateAgentEnvironmentParams {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

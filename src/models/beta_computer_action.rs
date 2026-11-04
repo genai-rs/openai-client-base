@@ -24,9 +24,3 @@ pub enum BetaComputerAction {
     BetaTypeParam(models::BetaTypeParam),
     BetaWaitParam(models::BetaWaitParam),
 }
-
-impl Default for BetaComputerAction {
-    fn default() -> Self {
-        Self::BetaClickParam(Default::default())
-    }
-}

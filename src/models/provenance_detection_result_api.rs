@@ -28,8 +28,45 @@ impl std::fmt::Display for ProvenanceDetectionResultApi {
     }
 }
 
-impl Default for ProvenanceDetectionResultApi {
-    fn default() -> ProvenanceDetectionResultApi {
-        Self::Detected
+impl ::std::str::FromStr for ProvenanceDetectionResultApi {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "detected" => Ok(Self::Detected),
+            "not_detected" => Ok(Self::NotDetected),
+            _ => Err(crate::models::ParseEnumError::new(
+                "ProvenanceDetectionResultApi",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ProvenanceDetectionResultApi {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ProvenanceDetectionResultApi {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ProvenanceDetectionResultApi {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

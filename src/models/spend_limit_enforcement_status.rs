@@ -8,12 +8,6 @@ pub enum SpendLimitEnforcementStatus {
     TextVariant(SpendLimitEnforcementStatusTextVariantEnum),
 }
 
-impl Default for SpendLimitEnforcementStatus {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl SpendLimitEnforcementStatus {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)
@@ -48,12 +42,6 @@ pub enum SpendLimitEnforcementStatusTextVariantEnum {
     Enforcing,
 }
 
-impl Default for SpendLimitEnforcementStatusTextVariantEnum {
-    fn default() -> Self {
-        Self::Inactive
-    }
-}
-
 impl std::fmt::Display for SpendLimitEnforcementStatusTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -61,5 +49,50 @@ impl std::fmt::Display for SpendLimitEnforcementStatusTextVariantEnum {
             SpendLimitEnforcementStatusTextVariantEnum::Enforcing => "enforcing",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for SpendLimitEnforcementStatusTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "inactive" => Ok(Self::Inactive),
+            "enforcing" => Ok(Self::Enforcing),
+            _ => Err(crate::models::ParseEnumError::new(
+                "SpendLimitEnforcementStatusTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SpendLimitEnforcementStatusTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String>
+    for SpendLimitEnforcementStatusTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SpendLimitEnforcementStatusTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

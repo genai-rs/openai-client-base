@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// Object06 : If the audio output modality is requested, this object contains data about the audio response from the model. [Learn more](https://developers.openai.com/api/docs/guides/audio).
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object06 {
     /// Unique identifier for this audio response.
     #[serde(rename = "id")]
@@ -35,15 +35,6 @@ impl Object06 {
             expires_at,
             data,
             transcript,
-        }
-    }
-}
-
-impl std::fmt::Display for Object06 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

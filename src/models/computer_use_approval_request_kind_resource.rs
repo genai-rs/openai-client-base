@@ -17,9 +17,3 @@ pub enum ComputerUseApprovalRequestKindResource {
     BrowserAuthentication(models::ComputerUseApprovalRequestKindResourceBrowserAuthentication),
     BrowserOriginAccess(models::ComputerUseApprovalRequestKindResourceBrowserOriginAccess),
 }
-
-impl Default for ComputerUseApprovalRequestKindResource {
-    fn default() -> Self {
-        Self::BrowserAuthentication(Default::default())
-    }
-}

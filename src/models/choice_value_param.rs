@@ -7,12 +7,6 @@ pub enum ChoiceValueParam {
     Text(String),
 }
 
-impl Default for ChoiceValueParam {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl std::fmt::Display for ChoiceValueParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

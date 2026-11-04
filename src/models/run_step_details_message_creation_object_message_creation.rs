@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDetailsMessageCreationObjectMessageCreation {
     /// The ID of the message that was created by this run step.
     #[serde(rename = "message_id")]
@@ -20,14 +20,5 @@ pub struct RunStepDetailsMessageCreationObjectMessageCreation {
 impl RunStepDetailsMessageCreationObjectMessageCreation {
     pub fn new(message_id: String) -> RunStepDetailsMessageCreationObjectMessageCreation {
         RunStepDetailsMessageCreationObjectMessageCreation { message_id }
-    }
-}
-
-impl std::fmt::Display for RunStepDetailsMessageCreationObjectMessageCreation {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }
