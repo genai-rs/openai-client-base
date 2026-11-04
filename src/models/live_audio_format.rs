@@ -12,10 +12,67 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// LiveAudioFormat : Audio encoding and sample rate for audio sent and received over a Live WebSocket connection. WebRTC and SIP negotiate their media format separately.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum LiveAudioFormat {
     LiveSessionAudioFormatPcmParam(models::LiveSessionAudioFormatPcmParam),
     LiveSessionAudioFormatPcmuParam(models::LiveSessionAudioFormatPcmuParam),
     LiveSessionAudioFormatPcmaParam(models::LiveSessionAudioFormatPcmaParam),
+}
+
+impl<'de> Deserialize<'de> for LiveAudioFormat {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl LiveAudioFormat {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "LiveAudioFormat";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("audio/pcm") => {
+                dispatch::decode(value, UNION, "LiveSessionAudioFormatPcmParam")
+                    .map(Self::LiveSessionAudioFormatPcmParam)
+            }
+            Tag::Value("audio/pcmu") => {
+                dispatch::decode(value, UNION, "LiveSessionAudioFormatPcmuParam")
+                    .map(Self::LiveSessionAudioFormatPcmuParam)
+            }
+            Tag::Value("audio/pcma") => {
+                dispatch::decode(value, UNION, "LiveSessionAudioFormatPcmaParam")
+                    .map(Self::LiveSessionAudioFormatPcmaParam)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for LiveAudioFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::LiveSessionAudioFormatPcmParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSessionAudioFormatPcmuParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSessionAudioFormatPcmaParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

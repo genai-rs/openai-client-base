@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **item_id** | **String** | The ID of the item to which the content part was added. | 
 **output_index** | **i32** | The index of the output item in the response. | 
 **content_index** | **i32** | The index of the content part in the item's content array. | 
-**part** | [**models::RealtimeBetaServerEventResponseContentPartAddedPart**](RealtimeBetaServerEventResponseContentPartAddedPart.md) |  | 
+**part** | [**models::RealtimeServerEventResponseContentPartAddedPart**](RealtimeServerEventResponseContentPartAddedPart.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

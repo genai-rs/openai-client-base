@@ -24,7 +24,7 @@ pub struct ImageGenPartialImageEvent {
     #[serde(rename = "created_at")]
     pub created_at: i32,
     #[serde(rename = "size")]
-    pub size: models::ImageEditCompletedEventSize,
+    pub size: models::ImageGenPartialImageEventSize,
     /// The quality setting for the requested image.
     #[serde(rename = "quality")]
     pub quality: Quality,
@@ -45,7 +45,7 @@ impl ImageGenPartialImageEvent {
         r#type: Type,
         b64_json: String,
         created_at: i32,
-        size: models::ImageEditCompletedEventSize,
+        size: models::ImageGenPartialImageEventSize,
         quality: Quality,
         background: Background,
         output_format: OutputFormat,

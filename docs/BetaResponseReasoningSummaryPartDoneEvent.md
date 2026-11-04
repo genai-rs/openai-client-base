@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **summary_index** | **i32** | The index of the summary part within the reasoning summary.  | 
 **status** | Option<**Status**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  (enum: incomplete) | [optional]
 **sequence_number** | **i32** | The sequence number of this event.  | 
-**part** | [**models::ResponseReasoningSummaryPartDoneEventPart**](ResponseReasoningSummaryPartDoneEventPart.md) |  | 
+**part** | [**models::BetaResponseReasoningSummaryPartDoneEventPart**](BetaResponseReasoningSummaryPartDoneEventPart.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

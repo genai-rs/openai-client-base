@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum BetaComputerAction {
     BetaClickParam(models::BetaClickParam),
@@ -23,4 +23,98 @@ pub enum BetaComputerAction {
     BetaScrollParam(models::BetaScrollParam),
     BetaTypeParam(models::BetaTypeParam),
     BetaWaitParam(models::BetaWaitParam),
+}
+
+impl<'de> Deserialize<'de> for BetaComputerAction {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl BetaComputerAction {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "BetaComputerAction";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("click") => {
+                dispatch::decode(value, UNION, "BetaClickParam").map(Self::BetaClickParam)
+            }
+            Tag::Value("double_click") => dispatch::decode(value, UNION, "BetaDoubleClickAction")
+                .map(Self::BetaDoubleClickAction),
+            Tag::Value("drag") => {
+                dispatch::decode(value, UNION, "BetaDragParam").map(Self::BetaDragParam)
+            }
+            Tag::Value("keypress") => {
+                dispatch::decode(value, UNION, "BetaKeyPressAction").map(Self::BetaKeyPressAction)
+            }
+            Tag::Value("move") => {
+                dispatch::decode(value, UNION, "BetaMoveParam").map(Self::BetaMoveParam)
+            }
+            Tag::Value("screenshot") => {
+                dispatch::decode(value, UNION, "BetaScreenshotParam").map(Self::BetaScreenshotParam)
+            }
+            Tag::Value("scroll") => {
+                dispatch::decode(value, UNION, "BetaScrollParam").map(Self::BetaScrollParam)
+            }
+            Tag::Value("type") => {
+                dispatch::decode(value, UNION, "BetaTypeParam").map(Self::BetaTypeParam)
+            }
+            Tag::Value("wait") => {
+                dispatch::decode(value, UNION, "BetaWaitParam").map(Self::BetaWaitParam)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for BetaComputerAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::BetaClickParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaDoubleClickAction(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaDragParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaKeyPressAction(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaMoveParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaScreenshotParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaScrollParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaTypeParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaWaitParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

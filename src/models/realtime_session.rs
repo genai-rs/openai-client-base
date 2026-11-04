@@ -70,7 +70,7 @@ pub struct RealtimeSession {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tracing: Option<Option<models::TracingConfiguration>>,
+    pub tracing: Option<Option<models::RealtimeSessionTracing>>,
     /// Tools (functions) available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeFunctionTool>>,
@@ -84,7 +84,7 @@ pub struct RealtimeSession {
         rename = "max_response_output_tokens",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_response_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
+    pub max_response_output_tokens: Option<models::RealtimeSessionMaxResponseOutputTokens>,
     /// Expiration timestamp for the session, in seconds since epoch.
     #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
     pub expires_at: Option<i32>,

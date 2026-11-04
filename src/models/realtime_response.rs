@@ -47,7 +47,7 @@ pub struct RealtimeResponse {
     #[serde(rename = "output_modalities", skip_serializing_if = "Option::is_none")]
     pub output_modalities: Option<Vec<OutputModalities>>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_output_tokens: Option<models::RealtimeBetaResponseMaxOutputTokens>,
+    pub max_output_tokens: Option<models::RealtimeResponseMaxOutputTokens>,
 }
 
 impl RealtimeResponse {

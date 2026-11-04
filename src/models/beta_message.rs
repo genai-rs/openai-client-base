@@ -28,7 +28,7 @@ pub struct BetaMessage {
     pub role: models::BetaMessageRole,
     /// The content of the message
     #[serde(rename = "content")]
-    pub content: Vec<models::BetaAgentMessageContentInner>,
+    pub content: Vec<models::BetaMessageContentInner>,
     #[serde(
         rename = "phase",
         default,
@@ -45,7 +45,7 @@ impl BetaMessage {
         id: String,
         status: models::BetaMessageStatus,
         role: models::BetaMessageRole,
-        content: Vec<models::BetaAgentMessageContentInner>,
+        content: Vec<models::BetaMessageContentInner>,
     ) -> BetaMessage {
         BetaMessage {
             agent: None,

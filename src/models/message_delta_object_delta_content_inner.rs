@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum MessageDeltaObjectDeltaContentInner {
     MessageDeltaContentImageFileObject(models::MessageDeltaContentImageFileObject),
@@ -20,68 +20,64 @@ pub enum MessageDeltaObjectDeltaContentInner {
     MessageDeltaContentImageUrlObject(models::MessageDeltaContentImageUrlObject),
 }
 
-/// Always `image_file`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "image_file")]
-    ImageFile,
-    #[serde(rename = "text")]
-    Text,
-    #[serde(rename = "refusal")]
-    Refusal,
-    #[serde(rename = "image_url")]
-    ImageUrl,
-}
-
-impl ::std::fmt::Display for Type {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::ImageFile => "image_file",
-            Self::Text => "text",
-            Self::Refusal => "refusal",
-            Self::ImageUrl => "image_url",
-        })
+impl<'de> Deserialize<'de> for MessageDeltaObjectDeltaContentInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Type {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "image_file" => Ok(Self::ImageFile),
-            "text" => Ok(Self::Text),
-            "refusal" => Ok(Self::Refusal),
-            "image_url" => Ok(Self::ImageUrl),
-            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+impl MessageDeltaObjectDeltaContentInner {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "MessageDeltaObjectDeltaContentInner";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("image_file") => {
+                dispatch::decode(value, UNION, "MessageDeltaContentImageFileObject")
+                    .map(Self::MessageDeltaContentImageFileObject)
+            }
+            Tag::Value("text") => dispatch::decode(value, UNION, "MessageDeltaContentTextObject")
+                .map(Self::MessageDeltaContentTextObject),
+            Tag::Value("refusal") => {
+                dispatch::decode(value, UNION, "MessageDeltaContentRefusalObject")
+                    .map(Self::MessageDeltaContentRefusalObject)
+            }
+            Tag::Value("image_url") => {
+                dispatch::decode(value, UNION, "MessageDeltaContentImageUrlObject")
+                    .map(Self::MessageDeltaContentImageUrlObject)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for MessageDeltaObjectDeltaContentInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::MessageDeltaContentImageFileObject(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::MessageDeltaContentTextObject(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::MessageDeltaContentRefusalObject(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::MessageDeltaContentImageUrlObject(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
     }
 }

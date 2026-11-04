@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **api_key_last_used_at** | Option<**i32**> | The Unix timestamp (in seconds) of the user's last API key usage. | [optional]
 **technical_level** | Option<**String**> | The technical level metadata for the user. | [optional]
 **developer_persona** | Option<**String**> | The developer persona metadata for the user. | [optional]
-**projects** | Option<[**models::Object024**](Object024.md)> |  | [optional]
+**projects** | Option<[**models::UserProjects**](UserProjects.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

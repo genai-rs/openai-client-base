@@ -324,7 +324,7 @@ pub async fn beta_delete_response(
     configuration: &configuration::Configuration,
     response_id: &str,
     openai_beta: Option<Vec<String>>,
-) -> Result<models::DeleteResponse200Response, Error<BetaDeleteResponseError>> {
+) -> Result<models::BetaDeleteResponse200Response, Error<BetaDeleteResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
     let p_header_openai_beta = openai_beta;
@@ -363,8 +363,8 @@ pub async fn beta_delete_response(
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteResponse200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteResponse200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BetaDeleteResponse200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BetaDeleteResponse200Response`")))),
         }
     } else {
         let content = resp.text().await?;

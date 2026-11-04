@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **moderation** | Option<**Moderation**> | Moderation level for the generated image. Default: `auto`.  (enum: auto, low) | [optional]
 **background** | Option<**Background**> | Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.  (enum: transparent, opaque, auto) | [optional]
 **input_fidelity** | Option<[**models::BetaInputFidelity**](BetaInputFidelity.md)> |  | [optional]
-**input_image_mask** | Option<[**models::ImageGenToolInputImageMask**](ImageGenToolInputImageMask.md)> |  | [optional]
+**input_image_mask** | Option<[**models::BetaImageGenToolInputImageMask**](BetaImageGenToolInputImageMask.md)> |  | [optional]
 **partial_images** | Option<**i32**> | Number of partial images to generate in streaming mode, from 0 (default value) to 3.  | [optional]
 **action** | Option<[**models::BetaImageGenActionEnum**](BetaImageGenActionEnum.md)> |  | [optional]
 

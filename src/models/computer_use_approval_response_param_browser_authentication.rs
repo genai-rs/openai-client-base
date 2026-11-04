@@ -11,65 +11,51 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "action")]
+#[derive(Clone, Debug, PartialEq, Serialize)]
+#[serde(untagged)]
 pub enum ComputerUseApprovalResponseParamBrowserAuthentication {
-    #[serde(rename = "submit")]
-    SubmitParam(models::ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam),
-    #[serde(rename = "cancel")]
-    CancelParam(models::ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam),
+    Submit(models::ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam),
+    Cancel(models::ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam),
 }
 
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "browser_authentication")]
-    BrowserAuthentication,
-}
-
-impl ::std::fmt::Display for Type {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::BrowserAuthentication => "browser_authentication",
-        })
+impl<'de> Deserialize<'de> for ComputerUseApprovalResponseParamBrowserAuthentication {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Type {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "browser_authentication" => Ok(Self::BrowserAuthentication),
-            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+impl ComputerUseApprovalResponseParamBrowserAuthentication {
+    /// Decodes the variant that `action` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "ComputerUseApprovalResponseParamBrowserAuthentication";
+        const TAG: &str = "action";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("submit") => dispatch::decode(value, UNION, "Submit").map(Self::Submit),
+            Tag::Value("cancel") => dispatch::decode(value, UNION, "Cancel").map(Self::Cancel),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for ComputerUseApprovalResponseParamBrowserAuthentication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Submit(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Cancel(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
     }
 }

@@ -12,7 +12,8 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// PromptCacheDiagnostics : Prompt cache diagnostics requested for this response.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum PromptCacheDiagnostics {
     PromptCacheMissDiagnosticsBody(models::PromptCacheMissDiagnosticsBody),
@@ -21,4 +22,74 @@ pub enum PromptCacheDiagnostics {
         models::PromptCacheComparisonResponseNotFoundDiagnosticsBody,
     ),
     PromptCacheUnavailableDiagnosticsBody(models::PromptCacheUnavailableDiagnosticsBody),
+}
+
+impl<'de> Deserialize<'de> for PromptCacheDiagnostics {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl PromptCacheDiagnostics {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "PromptCacheDiagnostics";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("cache_miss") => {
+                dispatch::decode(value, UNION, "PromptCacheMissDiagnosticsBody")
+                    .map(Self::PromptCacheMissDiagnosticsBody)
+            }
+            Tag::Value("cache_hit") => {
+                dispatch::decode(value, UNION, "PromptCacheHitDiagnosticsBody")
+                    .map(Self::PromptCacheHitDiagnosticsBody)
+            }
+            Tag::Value("comparison_response_not_found") => dispatch::decode(
+                value,
+                UNION,
+                "PromptCacheComparisonResponseNotFoundDiagnosticsBody",
+            )
+            .map(Self::PromptCacheComparisonResponseNotFoundDiagnosticsBody),
+            Tag::Value("unavailable") => {
+                dispatch::decode(value, UNION, "PromptCacheUnavailableDiagnosticsBody")
+                    .map(Self::PromptCacheUnavailableDiagnosticsBody)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for PromptCacheDiagnostics {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::PromptCacheMissDiagnosticsBody(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::PromptCacheHitDiagnosticsBody(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::PromptCacheComparisonResponseNotFoundDiagnosticsBody(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::PromptCacheUnavailableDiagnosticsBody(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+        }
+    }
 }

@@ -51,16 +51,16 @@ pub struct RealtimeSessionCreateResponseGa {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tracing: Option<Option<models::TracingConfiguration1>>,
+    pub tracing: Option<Option<models::RealtimeSessionCreateResponseGaTracing>>,
     /// Tools available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<models::RealtimeResponseCreateParamsToolsInner>>,
+    pub tools: Option<Vec<models::RealtimeSessionCreateResponseGaToolsInner>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
-    pub tool_choice: Option<models::RealtimeBetaResponseCreateParamsToolChoice>,
+    pub tool_choice: Option<models::RealtimeSessionCreateResponseGaToolChoice>,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
     pub reasoning: Option<models::RealtimeReasoning>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
+    pub max_output_tokens: Option<models::RealtimeSessionCreateResponseGaMaxOutputTokens>,
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
     pub truncation: Option<models::RealtimeTruncation>,
     #[serde(

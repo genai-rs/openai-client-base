@@ -12,9 +12,62 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaContainerAutoParamNetworkPolicy : Network access policy for the container.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum BetaContainerAutoParamNetworkPolicy {
     BetaContainerNetworkPolicyDisabledParam(models::BetaContainerNetworkPolicyDisabledParam),
     BetaContainerNetworkPolicyAllowlistParam(models::BetaContainerNetworkPolicyAllowlistParam),
+}
+
+impl<'de> Deserialize<'de> for BetaContainerAutoParamNetworkPolicy {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl BetaContainerAutoParamNetworkPolicy {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "BetaContainerAutoParamNetworkPolicy";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("disabled") => {
+                dispatch::decode(value, UNION, "BetaContainerNetworkPolicyDisabledParam")
+                    .map(Self::BetaContainerNetworkPolicyDisabledParam)
+            }
+            Tag::Value("allowlist") => {
+                dispatch::decode(value, UNION, "BetaContainerNetworkPolicyAllowlistParam")
+                    .map(Self::BetaContainerNetworkPolicyAllowlistParam)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for BetaContainerAutoParamNetworkPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::BetaContainerNetworkPolicyDisabledParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaContainerNetworkPolicyAllowlistParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+        }
+    }
 }

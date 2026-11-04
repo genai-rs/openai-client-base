@@ -212,7 +212,7 @@ pub struct CreateChatCompletionRequest {
     pub stream_options: Option<Option<models::ChatCompletionStreamOptions>>,
     /// A list of tools the model may call. You can provide either [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools) or [function tools](https://developers.openai.com/api/docs/guides/function-calling).
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<models::CreateChatCompletionRequestAllOfTools>>,
+    pub tools: Option<Vec<models::CreateChatCompletionRequestAllOfToolsInner>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<models::ChatCompletionToolChoiceOption>,
     /// Whether to enable [parallel function calling](https://developers.openai.com/api/docs/guides/function-calling#parallel-function-calling) during tool use.

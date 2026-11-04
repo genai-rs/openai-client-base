@@ -27,7 +27,7 @@ pub struct WebhookSafetyWarningIssued {
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "data")]
-    pub data: models::WebhookSafetyDeactivationIssuedData,
+    pub data: models::WebhookSafetyWarningIssuedData,
 }
 
 impl WebhookSafetyWarningIssued {
@@ -37,7 +37,7 @@ impl WebhookSafetyWarningIssued {
         object: Object,
         created_at: i32,
         r#type: Type,
-        data: models::WebhookSafetyDeactivationIssuedData,
+        data: models::WebhookSafetyWarningIssuedData,
     ) -> WebhookSafetyWarningIssued {
         WebhookSafetyWarningIssued {
             id,

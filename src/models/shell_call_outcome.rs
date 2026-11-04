@@ -12,11 +12,60 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ShellCallOutcome : Represents either an exit outcome (with an exit code) or a timeout outcome for a shell call output chunk.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum ShellCallOutcome {
-    #[serde(rename = "FunctionShellCallOutputTimeoutOutcome")]
     FunctionShellCallOutputTimeoutOutcome(models::FunctionShellCallOutputTimeoutOutcome),
-    #[serde(rename = "FunctionShellCallOutputExitOutcome")]
     FunctionShellCallOutputExitOutcome(models::FunctionShellCallOutputExitOutcome),
+}
+
+impl<'de> Deserialize<'de> for ShellCallOutcome {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl ShellCallOutcome {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "ShellCallOutcome";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("timeout") => {
+                dispatch::decode(value, UNION, "FunctionShellCallOutputTimeoutOutcome")
+                    .map(Self::FunctionShellCallOutputTimeoutOutcome)
+            }
+            Tag::Value("exit") => {
+                dispatch::decode(value, UNION, "FunctionShellCallOutputExitOutcome")
+                    .map(Self::FunctionShellCallOutputExitOutcome)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for ShellCallOutcome {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::FunctionShellCallOutputTimeoutOutcome(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::FunctionShellCallOutputExitOutcome(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

@@ -29,7 +29,7 @@ pub struct BetaWebSearchTool {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub filters: Option<Option<models::Object026>>,
+    pub filters: Option<Option<models::BetaWebSearchToolFilters>>,
     #[serde(
         rename = "user_location",
         default,

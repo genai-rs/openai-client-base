@@ -12,181 +12,132 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeConversationItem : A single item within a Realtime conversation.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum RealtimeConversationItem {
-    MessageSystem(models::RealtimeConversationItemMessageSystem),
-    MessageUser(models::RealtimeConversationItemMessageUser),
-    MessageAssistant(models::RealtimeConversationItemMessageAssistant),
-    FunctionCall(models::RealtimeConversationItemFunctionCall),
-    FunctionCallOutput(models::RealtimeConversationItemFunctionCallOutput),
+    RealtimeConversationItemMessageSystem(models::RealtimeConversationItemMessageSystem),
+    RealtimeConversationItemMessageUser(models::RealtimeConversationItemMessageUser),
+    RealtimeConversationItemMessageAssistant(models::RealtimeConversationItemMessageAssistant),
+    RealtimeConversationItemFunctionCall(models::RealtimeConversationItemFunctionCall),
+    RealtimeConversationItemFunctionCallOutput(models::RealtimeConversationItemFunctionCallOutput),
     RealtimeMcpApprovalResponse(models::RealtimeMcpApprovalResponse),
     RealtimeMcpListTools(models::RealtimeMcpListTools),
     RealtimeMcpToolCall(models::RealtimeMcpToolCall),
     RealtimeMcpApprovalRequest(models::RealtimeMcpApprovalRequest),
 }
 
-/// Identifier for the API object being returned - always `realtime.item`. Optional when creating a new item.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Object {
-    RealtimeItem,
-}
-
-/// The status of the item. Has no effect on the conversation.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    Completed,
-    Incomplete,
-    InProgress,
-}
-
-/// The role of the message sender. Always `assistant`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    Assistant,
-}
-
-impl ::std::fmt::Display for Object {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::RealtimeItem => "RealtimeItem",
-        })
+impl<'de> Deserialize<'de> for RealtimeConversationItem {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Object {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "RealtimeItem" => Ok(Self::RealtimeItem),
-            _ => Err(crate::models::ParseEnumError::new("Object", value)),
+impl RealtimeConversationItem {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "RealtimeConversationItem";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("message") => dispatch::first_of(
+                value,
+                UNION,
+                TAG,
+                &[
+                    ("RealtimeConversationItemMessageSystem", |v| {
+                        serde_json::from_value(v).map(Self::RealtimeConversationItemMessageSystem)
+                    }),
+                    ("RealtimeConversationItemMessageUser", |v| {
+                        serde_json::from_value(v).map(Self::RealtimeConversationItemMessageUser)
+                    }),
+                    ("RealtimeConversationItemMessageAssistant", |v| {
+                        serde_json::from_value(v)
+                            .map(Self::RealtimeConversationItemMessageAssistant)
+                    }),
+                ],
+            ),
+            Tag::Value("function_call") => {
+                dispatch::decode(value, UNION, "RealtimeConversationItemFunctionCall")
+                    .map(Self::RealtimeConversationItemFunctionCall)
+            }
+            Tag::Value("function_call_output") => {
+                dispatch::decode(value, UNION, "RealtimeConversationItemFunctionCallOutput")
+                    .map(Self::RealtimeConversationItemFunctionCallOutput)
+            }
+            Tag::Value("mcp_approval_response") => {
+                dispatch::decode(value, UNION, "RealtimeMcpApprovalResponse")
+                    .map(Self::RealtimeMcpApprovalResponse)
+            }
+            Tag::Value("mcp_list_tools") => dispatch::decode(value, UNION, "RealtimeMcpListTools")
+                .map(Self::RealtimeMcpListTools),
+            Tag::Value("mcp_call") => {
+                dispatch::decode(value, UNION, "RealtimeMcpToolCall").map(Self::RealtimeMcpToolCall)
+            }
+            Tag::Value("mcp_approval_request") => {
+                dispatch::decode(value, UNION, "RealtimeMcpApprovalRequest")
+                    .map(Self::RealtimeMcpApprovalRequest)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Object {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Object {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Object {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Status {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Completed => "Completed",
-            Self::Incomplete => "Incomplete",
-            Self::InProgress => "InProgress",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Status {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Completed" => Ok(Self::Completed),
-            "Incomplete" => Ok(Self::Incomplete),
-            "InProgress" => Ok(Self::InProgress),
-            _ => Err(crate::models::ParseEnumError::new("Status", value)),
+impl std::fmt::Display for RealtimeConversationItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::RealtimeConversationItemMessageSystem(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::RealtimeConversationItemMessageUser(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::RealtimeConversationItemMessageAssistant(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::RealtimeConversationItemFunctionCall(value) => match serde_json::to_string(value)
+            {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::RealtimeConversationItemFunctionCallOutput(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::RealtimeMcpApprovalResponse(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::RealtimeMcpListTools(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::RealtimeMcpToolCall(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::RealtimeMcpApprovalRequest(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Status {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Status {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Status {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Role {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Assistant => "Assistant",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Role {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Assistant" => Ok(Self::Assistant),
-            _ => Err(crate::models::ParseEnumError::new("Role", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
     }
 }

@@ -20,7 +20,8 @@ pub struct RealtimeTranscriptionSessionCreateRequest {
         rename = "input_audio_noise_reduction",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio_noise_reduction: Option<models::RealtimeSessionInputAudioNoiseReduction>,
+    pub input_audio_noise_reduction:
+        Option<models::RealtimeTranscriptionSessionCreateRequestInputAudioNoiseReduction>,
     /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.
     #[serde(rename = "input_audio_format", skip_serializing_if = "Option::is_none")]
     pub input_audio_format: Option<InputAudioFormat>,

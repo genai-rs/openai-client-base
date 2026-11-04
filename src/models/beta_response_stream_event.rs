@@ -12,7 +12,8 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaResponseStreamEvent : Event emitted while a response is streamed.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum BetaResponseStreamEvent {
     BetaResponseAudioDeltaEvent(models::BetaResponseAudioDeltaEvent),
@@ -100,55 +101,599 @@ pub enum BetaResponseStreamEvent {
     BetaResponseCustomToolCallInputDoneEvent(models::BetaResponseCustomToolCallInputDoneEvent),
 }
 
-/// The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    Incomplete,
-}
-
-impl ::std::fmt::Display for Status {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Incomplete => "Incomplete",
-        })
+impl<'de> Deserialize<'de> for BetaResponseStreamEvent {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Status {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Incomplete" => Ok(Self::Incomplete),
-            _ => Err(crate::models::ParseEnumError::new("Status", value)),
+impl BetaResponseStreamEvent {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "BetaResponseStreamEvent";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("response.audio.delta") => {
+                dispatch::decode(value, UNION, "BetaResponseAudioDeltaEvent")
+                    .map(Self::BetaResponseAudioDeltaEvent)
+            }
+            Tag::Value("response.audio.done") => {
+                dispatch::decode(value, UNION, "BetaResponseAudioDoneEvent")
+                    .map(Self::BetaResponseAudioDoneEvent)
+            }
+            Tag::Value("response.audio.transcript.delta") => {
+                dispatch::decode(value, UNION, "BetaResponseAudioTranscriptDeltaEvent")
+                    .map(Self::BetaResponseAudioTranscriptDeltaEvent)
+            }
+            Tag::Value("response.audio.transcript.done") => {
+                dispatch::decode(value, UNION, "BetaResponseAudioTranscriptDoneEvent")
+                    .map(Self::BetaResponseAudioTranscriptDoneEvent)
+            }
+            Tag::Value("response.code_interpreter_call_code.delta") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseCodeInterpreterCallCodeDeltaEvent",
+            )
+            .map(Self::BetaResponseCodeInterpreterCallCodeDeltaEvent),
+            Tag::Value("response.code_interpreter_call_code.done") => {
+                dispatch::decode(value, UNION, "BetaResponseCodeInterpreterCallCodeDoneEvent")
+                    .map(Self::BetaResponseCodeInterpreterCallCodeDoneEvent)
+            }
+            Tag::Value("response.code_interpreter_call.completed") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseCodeInterpreterCallCompletedEvent",
+            )
+            .map(Self::BetaResponseCodeInterpreterCallCompletedEvent),
+            Tag::Value("response.code_interpreter_call.in_progress") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseCodeInterpreterCallInProgressEvent",
+            )
+            .map(Self::BetaResponseCodeInterpreterCallInProgressEvent),
+            Tag::Value("response.code_interpreter_call.interpreting") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseCodeInterpreterCallInterpretingEvent",
+            )
+            .map(Self::BetaResponseCodeInterpreterCallInterpretingEvent),
+            Tag::Value("response.compaction.compacting") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseCompactionCompactingStreamingEvent",
+            )
+            .map(Self::BetaResponseCompactionCompactingStreamingEvent),
+            Tag::Value("response.completed") => {
+                dispatch::decode(value, UNION, "BetaResponseCompletedEvent")
+                    .map(Self::BetaResponseCompletedEvent)
+            }
+            Tag::Value("response.content_part.added") => {
+                dispatch::decode(value, UNION, "BetaResponseContentPartAddedEvent")
+                    .map(Self::BetaResponseContentPartAddedEvent)
+            }
+            Tag::Value("response.content_part.done") => {
+                dispatch::decode(value, UNION, "BetaResponseContentPartDoneEvent")
+                    .map(Self::BetaResponseContentPartDoneEvent)
+            }
+            Tag::Value("response.created") => {
+                dispatch::decode(value, UNION, "BetaResponseCreatedEvent")
+                    .map(Self::BetaResponseCreatedEvent)
+            }
+            Tag::Value("error") => dispatch::decode(value, UNION, "BetaResponseErrorEvent")
+                .map(Self::BetaResponseErrorEvent),
+            Tag::Value("response.file_search_call.completed") => {
+                dispatch::decode(value, UNION, "BetaResponseFileSearchCallCompletedEvent")
+                    .map(Self::BetaResponseFileSearchCallCompletedEvent)
+            }
+            Tag::Value("response.file_search_call.in_progress") => {
+                dispatch::decode(value, UNION, "BetaResponseFileSearchCallInProgressEvent")
+                    .map(Self::BetaResponseFileSearchCallInProgressEvent)
+            }
+            Tag::Value("response.file_search_call.searching") => {
+                dispatch::decode(value, UNION, "BetaResponseFileSearchCallSearchingEvent")
+                    .map(Self::BetaResponseFileSearchCallSearchingEvent)
+            }
+            Tag::Value("response.function_call_arguments.delta") => {
+                dispatch::decode(value, UNION, "BetaResponseFunctionCallArgumentsDeltaEvent")
+                    .map(Self::BetaResponseFunctionCallArgumentsDeltaEvent)
+            }
+            Tag::Value("response.function_call_arguments.done") => {
+                dispatch::decode(value, UNION, "BetaResponseFunctionCallArgumentsDoneEvent")
+                    .map(Self::BetaResponseFunctionCallArgumentsDoneEvent)
+            }
+            Tag::Value("response.shell_call_command.added") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseShellCallCommandAddedStreamingEvent",
+            )
+            .map(Self::BetaResponseShellCallCommandAddedStreamingEvent),
+            Tag::Value("response.shell_call_command.delta") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseShellCallCommandDeltaStreamingEvent",
+            )
+            .map(Self::BetaResponseShellCallCommandDeltaStreamingEvent),
+            Tag::Value("response.shell_call_command.done") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseShellCallCommandDoneStreamingEvent",
+            )
+            .map(Self::BetaResponseShellCallCommandDoneStreamingEvent),
+            Tag::Value("response.shell_call_output_content.delta") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseShellCallOutputContentDeltaStreamingEvent",
+            )
+            .map(Self::BetaResponseShellCallOutputContentDeltaStreamingEvent),
+            Tag::Value("response.shell_call_output_content.done") => dispatch::decode(
+                value,
+                UNION,
+                "BetaResponseShellCallOutputContentDoneStreamingEvent",
+            )
+            .map(Self::BetaResponseShellCallOutputContentDoneStreamingEvent),
+            Tag::Value("response.in_progress") => {
+                dispatch::decode(value, UNION, "BetaResponseInProgressEvent")
+                    .map(Self::BetaResponseInProgressEvent)
+            }
+            Tag::Value("response.failed") => {
+                dispatch::decode(value, UNION, "BetaResponseFailedEvent")
+                    .map(Self::BetaResponseFailedEvent)
+            }
+            Tag::Value("response.incomplete") => {
+                dispatch::decode(value, UNION, "BetaResponseIncompleteEvent")
+                    .map(Self::BetaResponseIncompleteEvent)
+            }
+            Tag::Value("response.output_item.added") => {
+                dispatch::decode(value, UNION, "BetaResponseOutputItemAddedEvent")
+                    .map(Self::BetaResponseOutputItemAddedEvent)
+            }
+            Tag::Value("response.output_item.done") => {
+                dispatch::decode(value, UNION, "BetaResponseOutputItemDoneEvent")
+                    .map(Self::BetaResponseOutputItemDoneEvent)
+            }
+            Tag::Value("response.reasoning_summary_part.added") => {
+                dispatch::decode(value, UNION, "BetaResponseReasoningSummaryPartAddedEvent")
+                    .map(Self::BetaResponseReasoningSummaryPartAddedEvent)
+            }
+            Tag::Value("response.reasoning_summary_part.done") => {
+                dispatch::decode(value, UNION, "BetaResponseReasoningSummaryPartDoneEvent")
+                    .map(Self::BetaResponseReasoningSummaryPartDoneEvent)
+            }
+            Tag::Value("response.reasoning_summary_text.delta") => {
+                dispatch::decode(value, UNION, "BetaResponseReasoningSummaryTextDeltaEvent")
+                    .map(Self::BetaResponseReasoningSummaryTextDeltaEvent)
+            }
+            Tag::Value("response.reasoning_summary_text.done") => {
+                dispatch::decode(value, UNION, "BetaResponseReasoningSummaryTextDoneEvent")
+                    .map(Self::BetaResponseReasoningSummaryTextDoneEvent)
+            }
+            Tag::Value("response.reasoning_text.delta") => {
+                dispatch::decode(value, UNION, "BetaResponseReasoningTextDeltaEvent")
+                    .map(Self::BetaResponseReasoningTextDeltaEvent)
+            }
+            Tag::Value("response.reasoning_text.done") => {
+                dispatch::decode(value, UNION, "BetaResponseReasoningTextDoneEvent")
+                    .map(Self::BetaResponseReasoningTextDoneEvent)
+            }
+            Tag::Value("response.refusal.delta") => {
+                dispatch::decode(value, UNION, "BetaResponseRefusalDeltaEvent")
+                    .map(Self::BetaResponseRefusalDeltaEvent)
+            }
+            Tag::Value("response.refusal.done") => {
+                dispatch::decode(value, UNION, "BetaResponseRefusalDoneEvent")
+                    .map(Self::BetaResponseRefusalDoneEvent)
+            }
+            Tag::Value("response.output_text.delta") => {
+                dispatch::decode(value, UNION, "BetaResponseTextDeltaEvent")
+                    .map(Self::BetaResponseTextDeltaEvent)
+            }
+            Tag::Value("response.output_text.done") => {
+                dispatch::decode(value, UNION, "BetaResponseTextDoneEvent")
+                    .map(Self::BetaResponseTextDoneEvent)
+            }
+            Tag::Value("response.web_search_call.completed") => {
+                dispatch::decode(value, UNION, "BetaResponseWebSearchCallCompletedEvent")
+                    .map(Self::BetaResponseWebSearchCallCompletedEvent)
+            }
+            Tag::Value("response.web_search_call.in_progress") => {
+                dispatch::decode(value, UNION, "BetaResponseWebSearchCallInProgressEvent")
+                    .map(Self::BetaResponseWebSearchCallInProgressEvent)
+            }
+            Tag::Value("response.web_search_call.searching") => {
+                dispatch::decode(value, UNION, "BetaResponseWebSearchCallSearchingEvent")
+                    .map(Self::BetaResponseWebSearchCallSearchingEvent)
+            }
+            Tag::Value("response.image_generation_call.completed") => {
+                dispatch::decode(value, UNION, "BetaResponseImageGenCallCompletedEvent")
+                    .map(Self::BetaResponseImageGenCallCompletedEvent)
+            }
+            Tag::Value("response.image_generation_call.generating") => {
+                dispatch::decode(value, UNION, "BetaResponseImageGenCallGeneratingEvent")
+                    .map(Self::BetaResponseImageGenCallGeneratingEvent)
+            }
+            Tag::Value("response.image_generation_call.in_progress") => {
+                dispatch::decode(value, UNION, "BetaResponseImageGenCallInProgressEvent")
+                    .map(Self::BetaResponseImageGenCallInProgressEvent)
+            }
+            Tag::Value("response.image_generation_call.partial_image") => {
+                dispatch::decode(value, UNION, "BetaResponseImageGenCallPartialImageEvent")
+                    .map(Self::BetaResponseImageGenCallPartialImageEvent)
+            }
+            Tag::Value("response.mcp_call_arguments.delta") => {
+                dispatch::decode(value, UNION, "BetaResponseMcpCallArgumentsDeltaEvent")
+                    .map(Self::BetaResponseMcpCallArgumentsDeltaEvent)
+            }
+            Tag::Value("response.mcp_call_arguments.done") => {
+                dispatch::decode(value, UNION, "BetaResponseMcpCallArgumentsDoneEvent")
+                    .map(Self::BetaResponseMcpCallArgumentsDoneEvent)
+            }
+            Tag::Value("response.mcp_call.completed") => {
+                dispatch::decode(value, UNION, "BetaResponseMcpCallCompletedEvent")
+                    .map(Self::BetaResponseMcpCallCompletedEvent)
+            }
+            Tag::Value("response.mcp_call.failed") => {
+                dispatch::decode(value, UNION, "BetaResponseMcpCallFailedEvent")
+                    .map(Self::BetaResponseMcpCallFailedEvent)
+            }
+            Tag::Value("response.mcp_call.in_progress") => {
+                dispatch::decode(value, UNION, "BetaResponseMcpCallInProgressEvent")
+                    .map(Self::BetaResponseMcpCallInProgressEvent)
+            }
+            Tag::Value("response.mcp_list_tools.completed") => {
+                dispatch::decode(value, UNION, "BetaResponseMcpListToolsCompletedEvent")
+                    .map(Self::BetaResponseMcpListToolsCompletedEvent)
+            }
+            Tag::Value("response.mcp_list_tools.failed") => {
+                dispatch::decode(value, UNION, "BetaResponseMcpListToolsFailedEvent")
+                    .map(Self::BetaResponseMcpListToolsFailedEvent)
+            }
+            Tag::Value("response.mcp_list_tools.in_progress") => {
+                dispatch::decode(value, UNION, "BetaResponseMcpListToolsInProgressEvent")
+                    .map(Self::BetaResponseMcpListToolsInProgressEvent)
+            }
+            Tag::Value("response.output_text.annotation.added") => {
+                dispatch::decode(value, UNION, "BetaResponseOutputTextAnnotationAddedEvent")
+                    .map(Self::BetaResponseOutputTextAnnotationAddedEvent)
+            }
+            Tag::Value("response.queued") => {
+                dispatch::decode(value, UNION, "BetaResponseQueuedEvent")
+                    .map(Self::BetaResponseQueuedEvent)
+            }
+            Tag::Value("response.custom_tool_call_input.delta") => {
+                dispatch::decode(value, UNION, "BetaResponseCustomToolCallInputDeltaEvent")
+                    .map(Self::BetaResponseCustomToolCallInputDeltaEvent)
+            }
+            Tag::Value("response.custom_tool_call_input.done") => {
+                dispatch::decode(value, UNION, "BetaResponseCustomToolCallInputDoneEvent")
+                    .map(Self::BetaResponseCustomToolCallInputDoneEvent)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Status {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Status {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Status {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for BetaResponseStreamEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::BetaResponseAudioDeltaEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseAudioDoneEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseAudioTranscriptDeltaEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseAudioTranscriptDoneEvent(value) => match serde_json::to_string(value)
+            {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseCodeInterpreterCallCodeDeltaEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseCodeInterpreterCallCodeDoneEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseCodeInterpreterCallCompletedEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseCodeInterpreterCallInProgressEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseCodeInterpreterCallInterpretingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseCompactionCompactingStreamingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseCompletedEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseContentPartAddedEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseContentPartDoneEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseCreatedEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseErrorEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseFileSearchCallCompletedEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseFileSearchCallInProgressEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseFileSearchCallSearchingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseFunctionCallArgumentsDeltaEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseFunctionCallArgumentsDoneEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseShellCallCommandAddedStreamingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseShellCallCommandDeltaStreamingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseShellCallCommandDoneStreamingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseShellCallOutputContentDeltaStreamingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseShellCallOutputContentDoneStreamingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseInProgressEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseFailedEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseIncompleteEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseOutputItemAddedEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseOutputItemDoneEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseReasoningSummaryPartAddedEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseReasoningSummaryPartDoneEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseReasoningSummaryTextDeltaEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseReasoningSummaryTextDoneEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseReasoningTextDeltaEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseReasoningTextDoneEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseRefusalDeltaEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseRefusalDoneEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseTextDeltaEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseTextDoneEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseWebSearchCallCompletedEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseWebSearchCallInProgressEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseWebSearchCallSearchingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseImageGenCallCompletedEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseImageGenCallGeneratingEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseImageGenCallInProgressEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseImageGenCallPartialImageEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseMcpCallArgumentsDeltaEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseMcpCallArgumentsDoneEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseMcpCallCompletedEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseMcpCallFailedEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseMcpCallInProgressEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseMcpListToolsCompletedEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseMcpListToolsFailedEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseMcpListToolsInProgressEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseOutputTextAnnotationAddedEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseQueuedEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::BetaResponseCustomToolCallInputDeltaEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::BetaResponseCustomToolCallInputDoneEvent(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+        }
     }
 }

@@ -19,14 +19,14 @@ pub struct RealtimeTranslationSessionAudioInput {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub transcription: Option<Option<models::Object017>>,
+    pub transcription: Option<Option<models::RealtimeTranslationSessionAudioInputTranscription>>,
     #[serde(
         rename = "noise_reduction",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub noise_reduction: Option<Option<models::Object018>>,
+    pub noise_reduction: Option<Option<models::RealtimeTranslationSessionAudioInputNoiseReduction>>,
 }
 
 impl RealtimeTranslationSessionAudioInput {

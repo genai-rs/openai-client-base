@@ -12,14 +12,45 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaResponseAllOfInstructions : A system (or developer) message inserted into the model's context.  When using along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses.
-/// A system (or developer) message inserted into the model's context.  When using along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses.
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum BetaResponseAllOfInstructions {
-    BetaEasyInputMessage(models::BetaEasyInputMessage),
-    BetaItem(models::BetaItem),
-    BetaCompactionTriggerItemParam(models::BetaCompactionTriggerItemParam),
-    BetaItemReferenceParam(models::BetaItemReferenceParam),
-    BetaProgramItemParam(models::BetaProgramItemParam),
-    BetaProgramOutputItemParam(models::BetaProgramOutputItemParam),
+    /// A text input to the model, equivalent to a text input with the `developer` role.
+    Text(String),
+    /// A list of one or many input items to the model, containing different content types.
+    InputItemList(Vec<models::BetaInputItem>),
+}
+
+impl BetaResponseAllOfInstructions {
+    pub fn new_text(text: String) -> Self {
+        Self::Text(text)
+    }
+    pub fn new_inputitemlist(items: Vec<models::BetaInputItem>) -> Self {
+        Self::InputItemList(items)
+    }
+}
+
+impl From<String> for BetaResponseAllOfInstructions {
+    fn from(s: String) -> Self {
+        Self::Text(s)
+    }
+}
+
+impl From<&str> for BetaResponseAllOfInstructions {
+    fn from(s: &str) -> Self {
+        Self::Text(s.to_string())
+    }
+}
+
+impl std::fmt::Display for BetaResponseAllOfInstructions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Text(value) => write!(f, "{}", value),
+            Self::InputItemList(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **modalities** | Option<**Vec<Modalities>**> | The set of modalities the model used to respond. If there are multiple modalities, the model will pick one, for example if `modalities` is `[\"text\", \"audio\"]`, the model could be responding in either text or audio.  (enum: text, audio) | [optional]
 **output_audio_format** | Option<**OutputAudioFormat**> | The format of output audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.  (enum: pcm16, g711_ulaw, g711_alaw) | [optional]
 **temperature** | Option<**f64**> | Sampling temperature for the model, limited to [0.6, 1.2]. Defaults to 0.8.  | [optional]
-**max_output_tokens** | Option<[**models::RealtimeBetaResponseMaxOutputTokens**](RealtimeBetaResponseMaxOutputTokens.md)> |  | [optional]
+**max_output_tokens** | Option<[**models::RealtimeResponseMaxOutputTokens**](RealtimeResponseMaxOutputTokens.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -12,9 +12,54 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CustomToolParamFormat : The input format for the custom tool. Default is unconstrained text.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum CustomToolParamFormat {
     CustomTextFormatParam(models::CustomTextFormatParam),
     CustomGrammarFormatParam(models::CustomGrammarFormatParam),
+}
+
+impl<'de> Deserialize<'de> for CustomToolParamFormat {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl CustomToolParamFormat {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "CustomToolParamFormat";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("text") => dispatch::decode(value, UNION, "CustomTextFormatParam")
+                .map(Self::CustomTextFormatParam),
+            Tag::Value("grammar") => dispatch::decode(value, UNION, "CustomGrammarFormatParam")
+                .map(Self::CustomGrammarFormatParam),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for CustomToolParamFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::CustomTextFormatParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::CustomGrammarFormatParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

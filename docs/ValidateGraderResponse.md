@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**grader** | Option<[**models::FineTuneReinforcementMethodGrader**](FineTuneReinforcementMethodGrader.md)> |  | [optional]
+**grader** | Option<[**models::ValidateGraderResponseGrader**](ValidateGraderResponseGrader.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

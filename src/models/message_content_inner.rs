@@ -12,7 +12,8 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// MessageContentInner : A content part that makes up an input or output item.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum MessageContentInner {
     InputTextContent(models::InputTextContent),
@@ -24,4 +25,99 @@ pub enum MessageContentInner {
     InputImageContent(models::InputImageContent),
     ComputerScreenshotContent(models::ComputerScreenshotContent),
     InputFileContent(models::InputFileContent),
+}
+
+impl<'de> Deserialize<'de> for MessageContentInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl MessageContentInner {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "MessageContentInner";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("input_text") => {
+                dispatch::decode(value, UNION, "InputTextContent").map(Self::InputTextContent)
+            }
+            Tag::Value("output_text") => {
+                dispatch::decode(value, UNION, "OutputTextContent").map(Self::OutputTextContent)
+            }
+            Tag::Value("text") => {
+                dispatch::decode(value, UNION, "TextContent").map(Self::TextContent)
+            }
+            Tag::Value("summary_text") => {
+                dispatch::decode(value, UNION, "SummaryTextContent").map(Self::SummaryTextContent)
+            }
+            Tag::Value("reasoning_text") => dispatch::decode(value, UNION, "ReasoningTextContent")
+                .map(Self::ReasoningTextContent),
+            Tag::Value("refusal") => {
+                dispatch::decode(value, UNION, "RefusalContent").map(Self::RefusalContent)
+            }
+            Tag::Value("input_image") => {
+                dispatch::decode(value, UNION, "InputImageContent").map(Self::InputImageContent)
+            }
+            Tag::Value("computer_screenshot") => {
+                dispatch::decode(value, UNION, "ComputerScreenshotContent")
+                    .map(Self::ComputerScreenshotContent)
+            }
+            Tag::Value("input_file") => {
+                dispatch::decode(value, UNION, "InputFileContent").map(Self::InputFileContent)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for MessageContentInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::InputTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::OutputTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::TextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::SummaryTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ReasoningTextContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::RefusalContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::InputImageContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ComputerScreenshotContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::InputFileContent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

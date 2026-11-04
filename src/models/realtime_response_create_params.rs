@@ -26,7 +26,7 @@ pub struct RealtimeResponseCreateParams {
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeResponseCreateParamsToolsInner>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
-    pub tool_choice: Option<models::RealtimeBetaResponseCreateParamsToolChoice>,
+    pub tool_choice: Option<models::RealtimeResponseCreateParamsToolChoice>,
     /// Whether the model may call multiple tools in parallel. Only supported by reasoning Realtime models such as `gpt-realtime-2`.
     #[serde(
         rename = "parallel_tool_calls",
@@ -36,7 +36,7 @@ pub struct RealtimeResponseCreateParams {
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
     pub reasoning: Option<models::RealtimeReasoning>,
     #[serde(rename = "max_output_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
+    pub max_output_tokens: Option<models::RealtimeResponseCreateParamsMaxOutputTokens>,
     #[serde(rename = "conversation", skip_serializing_if = "Option::is_none")]
     pub conversation: Option<String>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.

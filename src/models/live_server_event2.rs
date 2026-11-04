@@ -12,117 +12,274 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// LiveServerEvent2 : An event sent by the Live API on a primary WebSocket or sideband connection.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum LiveServerEvent2 {
-    #[serde(rename = "LiveSessionStarted")]
     LiveSessionStarted(models::LiveSessionStarted),
-    #[serde(rename = "LiveSessionUpdated")]
     LiveSessionUpdated(models::LiveSessionUpdated),
-    #[serde(rename = "LiveInputAudioMuted")]
     LiveInputAudioMuted(models::LiveInputAudioMuted),
-    #[serde(rename = "LiveInputAudioUnmuted")]
     LiveInputAudioUnmuted(models::LiveInputAudioUnmuted),
-    #[serde(rename = "LiveOutputAudioFixturePlaying")]
     LiveOutputAudioFixturePlaying(models::LiveOutputAudioFixturePlaying),
-    #[serde(rename = "LiveOutputAudioFixturePlayed")]
     LiveOutputAudioFixturePlayed(models::LiveOutputAudioFixturePlayed),
-    #[serde(rename = "LiveInstructionsAppended")]
     LiveInstructionsAppended(models::LiveInstructionsAppended),
-    #[serde(rename = "LiveThinkingAppended")]
     LiveThinkingAppended(models::LiveThinkingAppended),
-    #[serde(rename = "LiveCommentaryAppended")]
     LiveCommentaryAppended(models::LiveCommentaryAppended),
-    #[serde(rename = "LiveInputAudioAppend")]
     LiveInputAudioAppend(models::LiveInputAudioAppend),
-    #[serde(rename = "LiveOutputAudioDelta")]
     LiveOutputAudioDelta(models::LiveOutputAudioDelta),
-    #[serde(rename = "LiveInputTranscriptDelta")]
     LiveInputTranscriptDelta(models::LiveInputTranscriptDelta),
-    #[serde(rename = "LiveOutputTranscriptDelta")]
     LiveOutputTranscriptDelta(models::LiveOutputTranscriptDelta),
-    #[serde(rename = "LiveDelegationCreated")]
     LiveDelegationCreated(models::LiveDelegationCreated),
-    #[serde(rename = "LiveDecisionEvent")]
     LiveDecisionEvent(models::LiveDecisionEvent),
-    #[serde(rename = "LiveDecisionItemCreated")]
     LiveDecisionItemCreated(models::LiveDecisionItemCreated),
-    #[serde(rename = "LiveDecisionItemDeleted")]
     LiveDecisionItemDeleted(models::LiveDecisionItemDeleted),
-    #[serde(rename = "LiveResponseEvent")]
     LiveResponseEvent(models::LiveResponseEvent),
-    #[serde(rename = "LiveSessionUsageUpdated")]
     LiveSessionUsageUpdated(models::LiveSessionUsageUpdated),
-    #[serde(rename = "LiveSessionClosed")]
     LiveSessionClosed(models::LiveSessionClosed),
-    #[serde(rename = "LiveErrorEvent")]
     LiveErrorEvent(models::LiveErrorEvent),
-    #[serde(rename = "LiveInfoEvent")]
     LiveInfoEvent(models::LiveInfoEvent),
-    #[serde(rename = "LiveTransportDTMFReceived")]
     LiveTransportDtmfReceived(models::LiveTransportDtmfReceived),
-    #[serde(rename = "LiveTransportDTMFSend")]
     LiveTransportDtmfSend(models::LiveTransportDtmfSend),
-    #[serde(rename = "LiveTransportRinging")]
     LiveTransportRinging(models::LiveTransportRinging),
-    #[serde(rename = "LiveTransportAnswered")]
     LiveTransportAnswered(models::LiveTransportAnswered),
-    #[serde(rename = "LiveTransportFailed")]
     LiveTransportFailed(models::LiveTransportFailed),
 }
 
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum SourceEventType {
-    SessionInputTranscriptDelta,
-    SessionOutputTranscriptDelta,
-}
-
-impl ::std::fmt::Display for SourceEventType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::SessionInputTranscriptDelta => "SessionInputTranscriptDelta",
-            Self::SessionOutputTranscriptDelta => "SessionOutputTranscriptDelta",
-        })
+impl<'de> Deserialize<'de> for LiveServerEvent2 {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for SourceEventType {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "SessionInputTranscriptDelta" => Ok(Self::SessionInputTranscriptDelta),
-            "SessionOutputTranscriptDelta" => Ok(Self::SessionOutputTranscriptDelta),
-            _ => Err(crate::models::ParseEnumError::new("SourceEventType", value)),
+impl LiveServerEvent2 {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "LiveServerEvent2";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("session.started") => {
+                dispatch::decode(value, UNION, "LiveSessionStarted").map(Self::LiveSessionStarted)
+            }
+            Tag::Value("session.updated") => {
+                dispatch::decode(value, UNION, "LiveSessionUpdated").map(Self::LiveSessionUpdated)
+            }
+            Tag::Value("session.input_audio.muted") => {
+                dispatch::decode(value, UNION, "LiveInputAudioMuted").map(Self::LiveInputAudioMuted)
+            }
+            Tag::Value("session.input_audio.unmuted") => {
+                dispatch::decode(value, UNION, "LiveInputAudioUnmuted")
+                    .map(Self::LiveInputAudioUnmuted)
+            }
+            Tag::Value("session.output_audio.fixture.playing") => {
+                dispatch::decode(value, UNION, "LiveOutputAudioFixturePlaying")
+                    .map(Self::LiveOutputAudioFixturePlaying)
+            }
+            Tag::Value("session.output_audio.fixture.played") => {
+                dispatch::decode(value, UNION, "LiveOutputAudioFixturePlayed")
+                    .map(Self::LiveOutputAudioFixturePlayed)
+            }
+            Tag::Value("session.instructions.appended") => {
+                dispatch::decode(value, UNION, "LiveInstructionsAppended")
+                    .map(Self::LiveInstructionsAppended)
+            }
+            Tag::Value("session.thinking.appended") => {
+                dispatch::decode(value, UNION, "LiveThinkingAppended")
+                    .map(Self::LiveThinkingAppended)
+            }
+            Tag::Value("session.commentary.appended") => {
+                dispatch::decode(value, UNION, "LiveCommentaryAppended")
+                    .map(Self::LiveCommentaryAppended)
+            }
+            Tag::Value("session.input_audio.append") => {
+                dispatch::decode(value, UNION, "LiveInputAudioAppend")
+                    .map(Self::LiveInputAudioAppend)
+            }
+            Tag::Value("session.output_audio.delta") => {
+                dispatch::decode(value, UNION, "LiveOutputAudioDelta")
+                    .map(Self::LiveOutputAudioDelta)
+            }
+            Tag::Value("session.input_transcript.delta") => {
+                dispatch::decode(value, UNION, "LiveInputTranscriptDelta")
+                    .map(Self::LiveInputTranscriptDelta)
+            }
+            Tag::Value("session.output_transcript.delta") => {
+                dispatch::decode(value, UNION, "LiveOutputTranscriptDelta")
+                    .map(Self::LiveOutputTranscriptDelta)
+            }
+            Tag::Value("session.delegation.created") => {
+                dispatch::decode(value, UNION, "LiveDelegationCreated")
+                    .map(Self::LiveDelegationCreated)
+            }
+            Tag::Value("decision.event") => {
+                dispatch::decode(value, UNION, "LiveDecisionEvent").map(Self::LiveDecisionEvent)
+            }
+            Tag::Value("decision.item.created") => {
+                dispatch::decode(value, UNION, "LiveDecisionItemCreated")
+                    .map(Self::LiveDecisionItemCreated)
+            }
+            Tag::Value("decision.item.deleted") => {
+                dispatch::decode(value, UNION, "LiveDecisionItemDeleted")
+                    .map(Self::LiveDecisionItemDeleted)
+            }
+            Tag::Value("response.event") => {
+                dispatch::decode(value, UNION, "LiveResponseEvent").map(Self::LiveResponseEvent)
+            }
+            Tag::Value("session.usage.updated") => {
+                dispatch::decode(value, UNION, "LiveSessionUsageUpdated")
+                    .map(Self::LiveSessionUsageUpdated)
+            }
+            Tag::Value("session.closed") => {
+                dispatch::decode(value, UNION, "LiveSessionClosed").map(Self::LiveSessionClosed)
+            }
+            Tag::Value("error") => {
+                dispatch::decode(value, UNION, "LiveErrorEvent").map(Self::LiveErrorEvent)
+            }
+            Tag::Value("info") => {
+                dispatch::decode(value, UNION, "LiveInfoEvent").map(Self::LiveInfoEvent)
+            }
+            Tag::Value("transport.dtmf.received") => {
+                dispatch::decode(value, UNION, "LiveTransportDtmfReceived")
+                    .map(Self::LiveTransportDtmfReceived)
+            }
+            Tag::Value("transport.dtmf.send") => {
+                dispatch::decode(value, UNION, "LiveTransportDtmfSend")
+                    .map(Self::LiveTransportDtmfSend)
+            }
+            Tag::Value("transport.ringing") => {
+                dispatch::decode(value, UNION, "LiveTransportRinging")
+                    .map(Self::LiveTransportRinging)
+            }
+            Tag::Value("transport.answered") => {
+                dispatch::decode(value, UNION, "LiveTransportAnswered")
+                    .map(Self::LiveTransportAnswered)
+            }
+            Tag::Value("transport.failed") => {
+                dispatch::decode(value, UNION, "LiveTransportFailed").map(Self::LiveTransportFailed)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for SourceEventType {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for SourceEventType {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for SourceEventType {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for LiveServerEvent2 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::LiveSessionStarted(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSessionUpdated(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveInputAudioMuted(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveInputAudioUnmuted(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveOutputAudioFixturePlaying(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveOutputAudioFixturePlayed(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveInstructionsAppended(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveThinkingAppended(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveCommentaryAppended(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveInputAudioAppend(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveOutputAudioDelta(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveInputTranscriptDelta(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveOutputTranscriptDelta(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveDelegationCreated(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveDecisionEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveDecisionItemCreated(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveDecisionItemDeleted(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveResponseEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSessionUsageUpdated(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSessionClosed(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveErrorEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveInfoEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveTransportDtmfReceived(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveTransportDtmfSend(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveTransportRinging(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveTransportAnswered(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveTransportFailed(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
     }
 }

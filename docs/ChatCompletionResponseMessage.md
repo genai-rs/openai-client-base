@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **annotations** | Option<[**Vec<models::ChatCompletionResponseMessageAnnotationsInner>**](ChatCompletionResponseMessageAnnotationsInner.md)> | Annotations for the message, when applicable, as when using the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).  | [optional]
 **role** | **Role** | The role of the author of this message. (enum: assistant) | 
 **function_call** | Option<[**models::ChatCompletionResponseMessageFunctionCall**](ChatCompletionResponseMessageFunctionCall.md)> |  | [optional]
-**audio** | Option<[**models::Object06**](Object06.md)> |  | [optional]
+**audio** | Option<[**models::ChatCompletionResponseMessageAudio**](ChatCompletionResponseMessageAudio.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

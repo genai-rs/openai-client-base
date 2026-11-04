@@ -12,124 +12,57 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ResponsesClientEvent : Client events accepted by the Responses WebSocket server.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum ResponsesClientEvent {
-    ResponseCreate(models::ResponsesClientEventResponseCreate),
+    ResponsesClientEventResponseCreate(models::ResponsesClientEventResponseCreate),
     ResponseSteerEvent(models::ResponseSteerEvent),
 }
 
-/// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum PromptCacheRetention {
-    InMemory,
-    Variant24h,
-}
-
-/// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Truncation {
-    Auto,
-    Disabled,
-}
-
-impl ::std::fmt::Display for PromptCacheRetention {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::InMemory => "InMemory",
-            Self::Variant24h => "Variant24h",
-        })
+impl<'de> Deserialize<'de> for ResponsesClientEvent {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for PromptCacheRetention {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "InMemory" => Ok(Self::InMemory),
-            "Variant24h" => Ok(Self::Variant24h),
-            _ => Err(crate::models::ParseEnumError::new(
-                "PromptCacheRetention",
-                value,
-            )),
+impl ResponsesClientEvent {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "ResponsesClientEvent";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("response.create") => {
+                dispatch::decode(value, UNION, "ResponsesClientEventResponseCreate")
+                    .map(Self::ResponsesClientEventResponseCreate)
+            }
+            Tag::Value("response.steer") => {
+                dispatch::decode(value, UNION, "ResponseSteerEvent").map(Self::ResponseSteerEvent)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for PromptCacheRetention {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for PromptCacheRetention {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for PromptCacheRetention {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Truncation {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Auto => "Auto",
-            Self::Disabled => "Disabled",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Truncation {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Auto" => Ok(Self::Auto),
-            "Disabled" => Ok(Self::Disabled),
-            _ => Err(crate::models::ParseEnumError::new("Truncation", value)),
+impl std::fmt::Display for ResponsesClientEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::ResponsesClientEventResponseCreate(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ResponseSteerEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Truncation {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Truncation {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Truncation {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
     }
 }

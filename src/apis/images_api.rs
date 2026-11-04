@@ -170,7 +170,7 @@ pub async fn create_image_edit(
         multipart_form = multipart_form.text("n", param_value.to_string());
     }
     if let Some(param_value) = p_form_size {
-        multipart_form = multipart_form.text("size", serde_json::to_string(&param_value)?);
+        multipart_form = multipart_form.text("size", param_value.to_string());
     }
     if let Some(param_value) = p_form_response_format {
         multipart_form = multipart_form.text("response_format", param_value.to_string());

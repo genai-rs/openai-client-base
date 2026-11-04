@@ -12,11 +12,54 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// LiveSessionCreateResponseTransport : WebRTC transport with an SDP answer, or SIP transport without SDP or trunk credentials. For SIP, attach a sideband using session.id to receive transport.ringing, transport.answered, and transport.failed notifications.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum LiveSessionCreateResponseTransport {
-    #[serde(rename = "LiveWebRTCTransport")]
     LiveWebRtcTransport(models::LiveWebRtcTransport),
-    #[serde(rename = "Object1")]
-    Object1(models::Object1),
+    Object1(models::LiveSessionCreateResponseTransportObject1),
+}
+
+impl<'de> Deserialize<'de> for LiveSessionCreateResponseTransport {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl LiveSessionCreateResponseTransport {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "LiveSessionCreateResponseTransport";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("webrtc") => {
+                dispatch::decode(value, UNION, "LiveWebRtcTransport").map(Self::LiveWebRtcTransport)
+            }
+            Tag::Value("sip") => dispatch::decode(value, UNION, "Object1").map(Self::Object1),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for LiveSessionCreateResponseTransport {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::LiveWebRtcTransport(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Object1(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

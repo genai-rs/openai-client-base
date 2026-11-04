@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum AssistantObjectToolsInner {
     AssistantToolsCode(models::AssistantToolsCode),
@@ -19,64 +19,53 @@ pub enum AssistantObjectToolsInner {
     AssistantToolsFunction(models::AssistantToolsFunction),
 }
 
-/// The type of tool being defined: `code_interpreter`
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "code_interpreter")]
-    CodeInterpreter,
-    #[serde(rename = "file_search")]
-    FileSearch,
-    #[serde(rename = "function")]
-    Function,
-}
-
-impl ::std::fmt::Display for Type {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::CodeInterpreter => "code_interpreter",
-            Self::FileSearch => "file_search",
-            Self::Function => "function",
-        })
+impl<'de> Deserialize<'de> for AssistantObjectToolsInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Type {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "code_interpreter" => Ok(Self::CodeInterpreter),
-            "file_search" => Ok(Self::FileSearch),
-            "function" => Ok(Self::Function),
-            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+impl AssistantObjectToolsInner {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "AssistantObjectToolsInner";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("code_interpreter") => {
+                dispatch::decode(value, UNION, "AssistantToolsCode").map(Self::AssistantToolsCode)
+            }
+            Tag::Value("file_search") => dispatch::decode(value, UNION, "AssistantToolsFileSearch")
+                .map(Self::AssistantToolsFileSearch),
+            Tag::Value("function") => dispatch::decode(value, UNION, "AssistantToolsFunction")
+                .map(Self::AssistantToolsFunction),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
+impl std::fmt::Display for AssistantObjectToolsInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::AssistantToolsCode(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AssistantToolsFileSearch(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::AssistantToolsFunction(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
     }
 }

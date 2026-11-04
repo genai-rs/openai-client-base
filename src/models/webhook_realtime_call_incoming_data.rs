@@ -18,17 +18,17 @@ pub struct WebhookRealtimeCallIncomingData {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "sip_media_security", skip_serializing_if = "Option::is_none")]
-    pub sip_media_security: Option<models::WebhookLiveCallIncomingDataSipMediaSecurity>,
+    pub sip_media_security: Option<models::WebhookRealtimeCallIncomingDataSipMediaSecurity>,
     /// Headers from the SIP INVITE, excluding SIP authorization headers. Retained names, values, repeated entries, and order are preserved. Treat these values as untrusted call metadata.
     #[serde(rename = "sip_headers")]
-    pub sip_headers: Vec<models::WebhookLiveCallIncomingDataSipHeadersInner>,
+    pub sip_headers: Vec<models::WebhookRealtimeCallIncomingDataSipHeadersInner>,
 }
 
 impl WebhookRealtimeCallIncomingData {
     /// Event data payload.
     pub fn new(
         call_id: String,
-        sip_headers: Vec<models::WebhookLiveCallIncomingDataSipHeadersInner>,
+        sip_headers: Vec<models::WebhookRealtimeCallIncomingDataSipHeadersInner>,
     ) -> WebhookRealtimeCallIncomingData {
         WebhookRealtimeCallIncomingData {
             call_id,

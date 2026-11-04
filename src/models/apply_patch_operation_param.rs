@@ -12,10 +12,67 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ApplyPatchOperationParam : One of the create_file, delete_file, or update_file operations supplied to the apply_patch tool.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum ApplyPatchOperationParam {
     ApplyPatchCreateFileOperationParam(models::ApplyPatchCreateFileOperationParam),
     ApplyPatchDeleteFileOperationParam(models::ApplyPatchDeleteFileOperationParam),
     ApplyPatchUpdateFileOperationParam(models::ApplyPatchUpdateFileOperationParam),
+}
+
+impl<'de> Deserialize<'de> for ApplyPatchOperationParam {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl ApplyPatchOperationParam {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "ApplyPatchOperationParam";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("create_file") => {
+                dispatch::decode(value, UNION, "ApplyPatchCreateFileOperationParam")
+                    .map(Self::ApplyPatchCreateFileOperationParam)
+            }
+            Tag::Value("delete_file") => {
+                dispatch::decode(value, UNION, "ApplyPatchDeleteFileOperationParam")
+                    .map(Self::ApplyPatchDeleteFileOperationParam)
+            }
+            Tag::Value("update_file") => {
+                dispatch::decode(value, UNION, "ApplyPatchUpdateFileOperationParam")
+                    .map(Self::ApplyPatchUpdateFileOperationParam)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for ApplyPatchOperationParam {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::ApplyPatchCreateFileOperationParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ApplyPatchDeleteFileOperationParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ApplyPatchUpdateFileOperationParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

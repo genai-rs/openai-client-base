@@ -11,107 +11,33 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct CreateTranscription200Response {
-    /// The transcribed text.
-    #[serde(rename = "text")]
-    pub text: String,
-    /// The languages detected in the audio. Returned by `gpt-transcribe`. An empty array indicates that no language could be reliably detected.
-    #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
-    pub languages: Option<Vec<models::TranscriptionLanguage>>,
-    /// The log probabilities of the tokens in the transcription. Only returned with the models `gpt-4o-transcribe` and `gpt-4o-mini-transcribe` if `logprobs` is added to the `include` array.
-    #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
-    pub logprobs: Option<Vec<models::CreateTranscriptionResponseJsonLogprobsInner>>,
-    #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
-    pub usage: Option<models::TranscriptTextUsageDuration>,
-    /// The type of task that was run. Always `transcribe`.
-    #[serde(rename = "task")]
-    pub task: Task,
-    /// The duration of the input audio.
-    #[serde(rename = "duration")]
-    pub duration: f64,
-    /// Segments of the transcribed text and their corresponding details.
-    #[serde(rename = "segments")]
-    pub segments: Vec<models::TranscriptionSegment>,
-    /// The language of the input audio.
-    #[serde(rename = "language")]
-    pub language: String,
-    /// Extracted words and their corresponding timestamps.
-    #[serde(rename = "words", skip_serializing_if = "Option::is_none")]
-    pub words: Option<Vec<models::TranscriptionWord>>,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateTranscription200Response {
+    CreateTranscriptionResponseDiarizedJson(models::CreateTranscriptionResponseDiarizedJson),
+    CreateTranscriptionResponseVerboseJson(models::CreateTranscriptionResponseVerboseJson),
+    CreateTranscriptionResponseJson(models::CreateTranscriptionResponseJson),
 }
 
-impl CreateTranscription200Response {
-    pub fn new(
-        text: String,
-        task: Task,
-        duration: f64,
-        segments: Vec<models::TranscriptionSegment>,
-        language: String,
-    ) -> CreateTranscription200Response {
-        CreateTranscription200Response {
-            text,
-            languages: None,
-            logprobs: None,
-            usage: None,
-            task,
-            duration,
-            segments,
-            language,
-            words: None,
+impl std::fmt::Display for CreateTranscription200Response {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::CreateTranscriptionResponseDiarizedJson(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::CreateTranscriptionResponseVerboseJson(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::CreateTranscriptionResponseJson(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
-    }
-}
-/// The type of task that was run. Always `transcribe`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Task {
-    #[serde(rename = "transcribe")]
-    Transcribe,
-}
-
-impl ::std::fmt::Display for Task {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Transcribe => "transcribe",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Task {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "transcribe" => Ok(Self::Transcribe),
-            _ => Err(crate::models::ParseEnumError::new("Task", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Task {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Task {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Task {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
     }
 }

@@ -22,7 +22,7 @@ pub struct RealtimeServerEventRateLimitsUpdated {
     pub r#type: Type,
     /// List of rate limit information.
     #[serde(rename = "rate_limits")]
-    pub rate_limits: Vec<models::RealtimeBetaServerEventRateLimitsUpdatedRateLimitsInner>,
+    pub rate_limits: Vec<models::RealtimeServerEventRateLimitsUpdatedRateLimitsInner>,
 }
 
 impl RealtimeServerEventRateLimitsUpdated {
@@ -30,7 +30,7 @@ impl RealtimeServerEventRateLimitsUpdated {
     pub fn new(
         event_id: String,
         r#type: Type,
-        rate_limits: Vec<models::RealtimeBetaServerEventRateLimitsUpdatedRateLimitsInner>,
+        rate_limits: Vec<models::RealtimeServerEventRateLimitsUpdatedRateLimitsInner>,
     ) -> RealtimeServerEventRateLimitsUpdated {
         RealtimeServerEventRateLimitsUpdated {
             event_id,

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **output_index** | **i32** | The index of the output item this summary part is associated with.  | 
 **summary_index** | **i32** | The index of the summary part within the reasoning summary.  | 
 **sequence_number** | **i32** | The sequence number of this event.  | 
-**part** | [**models::ResponseReasoningSummaryPartAddedEventPart**](ResponseReasoningSummaryPartAddedEventPart.md) |  | 
+**part** | [**models::BetaResponseReasoningSummaryPartAddedEventPart**](BetaResponseReasoningSummaryPartAddedEventPart.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

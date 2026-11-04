@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum LiveAllowedToolsChoiceParamToolsInner {
     LiveFunctionToolChoiceParam(models::LiveFunctionToolChoiceParam),
@@ -26,4 +26,124 @@ pub enum LiveAllowedToolsChoiceParamToolsInner {
     LiveSpecificFunctionShellParam(models::LiveSpecificFunctionShellParam),
     LiveSpecificCustomToolParam(models::LiveSpecificCustomToolParam),
     LiveSpecificApplyPatchParam(models::LiveSpecificApplyPatchParam),
+}
+
+impl<'de> Deserialize<'de> for LiveAllowedToolsChoiceParamToolsInner {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
+}
+
+impl LiveAllowedToolsChoiceParamToolsInner {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "LiveAllowedToolsChoiceParamToolsInner";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("function") => dispatch::decode(value, UNION, "LiveFunctionToolChoiceParam")
+                .map(Self::LiveFunctionToolChoiceParam),
+            Tag::Value("mcp") => dispatch::decode(value, UNION, "LiveMcpToolChoiceParam")
+                .map(Self::LiveMcpToolChoiceParam),
+            Tag::Value("file_search") => {
+                dispatch::decode(value, UNION, "LiveSpecificFileSearchParam")
+                    .map(Self::LiveSpecificFileSearchParam)
+            }
+            Tag::Value("web_search") => {
+                dispatch::decode(value, UNION, "LiveSpecificWebSearchParam")
+                    .map(Self::LiveSpecificWebSearchParam)
+            }
+            Tag::Value("web_search_preview") => {
+                dispatch::decode(value, UNION, "LiveSpecificWebSearchPreviewParam")
+                    .map(Self::LiveSpecificWebSearchPreviewParam)
+            }
+            Tag::Value("image_generation") => {
+                dispatch::decode(value, UNION, "LiveSpecificImageGenParam")
+                    .map(Self::LiveSpecificImageGenParam)
+            }
+            Tag::Value("computer") => dispatch::decode(value, UNION, "LiveSpecificComputerParam")
+                .map(Self::LiveSpecificComputerParam),
+            Tag::Value("code_interpreter") => {
+                dispatch::decode(value, UNION, "LiveSpecificCodeInterpreterParam")
+                    .map(Self::LiveSpecificCodeInterpreterParam)
+            }
+            Tag::Value("programmatic_tool_calling") => {
+                dispatch::decode(value, UNION, "LiveSpecificProgrammaticToolCallingParam")
+                    .map(Self::LiveSpecificProgrammaticToolCallingParam)
+            }
+            Tag::Value("shell") => dispatch::decode(value, UNION, "LiveSpecificFunctionShellParam")
+                .map(Self::LiveSpecificFunctionShellParam),
+            Tag::Value("custom") => dispatch::decode(value, UNION, "LiveSpecificCustomToolParam")
+                .map(Self::LiveSpecificCustomToolParam),
+            Tag::Value("apply_patch") => {
+                dispatch::decode(value, UNION, "LiveSpecificApplyPatchParam")
+                    .map(Self::LiveSpecificApplyPatchParam)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for LiveAllowedToolsChoiceParamToolsInner {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::LiveFunctionToolChoiceParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveMcpToolChoiceParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSpecificFileSearchParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSpecificWebSearchParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSpecificWebSearchPreviewParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSpecificImageGenParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSpecificComputerParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSpecificCodeInterpreterParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSpecificProgrammaticToolCallingParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::LiveSpecificFunctionShellParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSpecificCustomToolParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveSpecificApplyPatchParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+        }
+    }
 }

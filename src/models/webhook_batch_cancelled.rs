@@ -21,7 +21,7 @@ pub struct WebhookBatchCancelled {
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "data")]
-    pub data: models::WebhookBatchCancelledData,
+    pub data: models::WebhookBatchFailedData,
     /// The object of the event. Always `event`.
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
@@ -35,7 +35,7 @@ impl WebhookBatchCancelled {
     pub fn new(
         created_at: i32,
         id: String,
-        data: models::WebhookBatchCancelledData,
+        data: models::WebhookBatchFailedData,
         r#type: Type,
     ) -> WebhookBatchCancelled {
         WebhookBatchCancelled {

@@ -11,195 +11,57 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum ImageEditStreamEvent {
     ImageEditPartialImageEvent(models::ImageEditPartialImageEvent),
     ImageEditCompletedEvent(models::ImageEditCompletedEvent),
 }
 
-/// The quality setting for the edited image.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Quality {
-    Low,
-    Medium,
-    High,
-    Xhigh,
-    Max,
-    Auto,
-}
-
-/// The background setting for the edited image.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Background {
-    Transparent,
-    Opaque,
-    Auto,
-}
-
-/// The output format for the edited image.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum OutputFormat {
-    Png,
-    Webp,
-    Jpeg,
-}
-
-impl ::std::fmt::Display for Quality {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Low => "Low",
-            Self::Medium => "Medium",
-            Self::High => "High",
-            Self::Xhigh => "Xhigh",
-            Self::Max => "Max",
-            Self::Auto => "Auto",
-        })
+impl<'de> Deserialize<'de> for ImageEditStreamEvent {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
     }
 }
 
-impl ::std::str::FromStr for Quality {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Low" => Ok(Self::Low),
-            "Medium" => Ok(Self::Medium),
-            "High" => Ok(Self::High),
-            "Xhigh" => Ok(Self::Xhigh),
-            "Max" => Ok(Self::Max),
-            "Auto" => Ok(Self::Auto),
-            _ => Err(crate::models::ParseEnumError::new("Quality", value)),
+impl ImageEditStreamEvent {
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "ImageEditStreamEvent";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("image_edit.partial_image") => {
+                dispatch::decode(value, UNION, "ImageEditPartialImageEvent")
+                    .map(Self::ImageEditPartialImageEvent)
+            }
+            Tag::Value("image_edit.completed") => {
+                dispatch::decode(value, UNION, "ImageEditCompletedEvent")
+                    .map(Self::ImageEditCompletedEvent)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
 }
 
-impl ::std::convert::TryFrom<&str> for Quality {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Quality {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Quality {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Background {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Transparent => "Transparent",
-            Self::Opaque => "Opaque",
-            Self::Auto => "Auto",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Background {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Transparent" => Ok(Self::Transparent),
-            "Opaque" => Ok(Self::Opaque),
-            "Auto" => Ok(Self::Auto),
-            _ => Err(crate::models::ParseEnumError::new("Background", value)),
+impl std::fmt::Display for ImageEditStreamEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::ImageEditPartialImageEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::ImageEditCompletedEvent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Background {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Background {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Background {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for OutputFormat {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Png => "Png",
-            Self::Webp => "Webp",
-            Self::Jpeg => "Jpeg",
-        })
-    }
-}
-
-impl ::std::str::FromStr for OutputFormat {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "Png" => Ok(Self::Png),
-            "Webp" => Ok(Self::Webp),
-            "Jpeg" => Ok(Self::Jpeg),
-            _ => Err(crate::models::ParseEnumError::new("OutputFormat", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
     }
 }

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **object** | **Object** | Always `event`. (enum: event) | 
 **created_at** | **i32** | The Unix timestamp in seconds when the event was created. | 
 **r#type** | **Type** | Always `safety.warning_issued`. (enum: safety.warning_issued) | 
-**data** | [**models::WebhookSafetyDeactivationIssuedData**](WebhookSafetyDeactivationIssuedData.md) |  | 
+**data** | [**models::WebhookSafetyWarningIssuedData**](WebhookSafetyWarningIssuedData.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -5,7 +5,7 @@
 | Name | Description |
 |---- | -----|
 | String | The value to compare against the attribute key; supports string, number, or boolean types. |
-| Vec<models::ComparisonFilterValueOneOfInner> | The value to compare against the attribute key; supports string, number, or boolean types. |
+| Vec<models::BetaComparisonFilterValueOneOfInner> | The value to compare against the attribute key; supports string, number, or boolean types. |
 | bool | The value to compare against the attribute key; supports string, number, or boolean types. |
 | f64 | The value to compare against the attribute key; supports string, number, or boolean types. |
 

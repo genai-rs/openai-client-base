@@ -152,12 +152,24 @@ pub async fn create_video(
     };
     let mut multipart_form = reqwest::multipart::Form::new();
     if let Some(param_value) = p_form_model {
-        multipart_form = multipart_form.text("model", serde_json::to_string(&param_value)?);
+        multipart_form = multipart_form.text("model", param_value.to_string());
     }
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
-    if let Some(param_value) = p_form_input_reference {
-        multipart_form =
-            multipart_form.text("input_reference", serde_json::to_string(&param_value)?);
+    if let Some(ref param_value) = p_form_input_reference {
+        match param_value {
+            models::CreateVideoMultipartBodyInputReference::Text(value) => {
+                multipart_form =
+                    multipart_helper::add_file_to_form(multipart_form, value, "input_reference")?;
+            }
+            models::CreateVideoMultipartBodyInputReference::ImageRefParam2(value) => {
+                multipart_form = multipart_helper::add_schema_value_to_form(
+                    multipart_form,
+                    "input_reference",
+                    serde_json::to_value(value)?,
+                    None,
+                )?;
+            }
+        }
     }
     if let Some(param_value) = p_form_seconds {
         multipart_form = multipart_form.text("seconds", param_value.to_string());
@@ -278,7 +290,19 @@ pub async fn create_video_edit(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
-    multipart_form = multipart_form.text("video", p_form_video.to_string());
+    match &p_form_video {
+        models::CreateVideoEditMultipartBodyVideo::Text(value) => {
+            multipart_form = multipart_helper::add_file_to_form(multipart_form, value, "video")?;
+        }
+        models::CreateVideoEditMultipartBodyVideo::VideoReferenceInputParam(value) => {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "video",
+                serde_json::to_value(value)?,
+                None,
+            )?;
+        }
+    }
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
@@ -337,7 +361,19 @@ pub async fn create_video_extend(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
-    multipart_form = multipart_form.text("video", p_form_video.to_string());
+    match &p_form_video {
+        models::CreateVideoExtendMultipartBodyVideo::VideoReferenceInputParam(value) => {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "video",
+                serde_json::to_value(value)?,
+                None,
+            )?;
+        }
+        models::CreateVideoExtendMultipartBodyVideo::Text(value) => {
+            multipart_form = multipart_helper::add_file_to_form(multipart_form, value, "video")?;
+        }
+    }
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     multipart_form = multipart_form.text("seconds", p_form_seconds.to_string());
     req_builder = req_builder.multipart(multipart_form);

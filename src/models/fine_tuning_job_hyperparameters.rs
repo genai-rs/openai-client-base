@@ -26,9 +26,9 @@ pub struct FineTuningJobHyperparameters {
         skip_serializing_if = "Option::is_none"
     )]
     pub learning_rate_multiplier:
-        Option<models::CreateFineTuningJobRequestHyperparametersLearningRateMultiplier>,
+        Option<models::FineTuningJobHyperparametersLearningRateMultiplier>,
     #[serde(rename = "n_epochs", skip_serializing_if = "Option::is_none")]
-    pub n_epochs: Option<models::CreateFineTuningJobRequestHyperparametersNEpochs>,
+    pub n_epochs: Option<models::FineTuningJobHyperparametersNEpochs>,
 }
 
 impl FineTuningJobHyperparameters {

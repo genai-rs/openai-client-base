@@ -59,7 +59,8 @@ pub struct RealtimeSessionCreateRequest {
         rename = "max_response_output_tokens",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_response_output_tokens: Option<models::RealtimeBetaResponseCreateParamsMaxOutputTokens>,
+    pub max_response_output_tokens:
+        Option<models::RealtimeSessionCreateRequestMaxResponseOutputTokens>,
     #[serde(rename = "truncation", skip_serializing_if = "Option::is_none")]
     pub truncation: Option<models::RealtimeTruncation>,
     #[serde(

@@ -56,9 +56,9 @@ pub struct LiveResponsesDelegationSettingsUpdateInputParam {
     pub text: Option<Option<models::LiveDelegationTextInputParam>>,
     /// Tools available to the Responses backend while it handles tasks delegated by the Live model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
-    pub tools: Option<Vec<models::LiveResponsesDelegationSettingsInputParamToolsInner>>,
+    pub tools: Option<Vec<models::LiveResponsesDelegationSettingsUpdateInputParamToolsInner>>,
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
-    pub tool_choice: Option<models::LiveResponsesDelegationSettingsInputParamToolChoice>,
+    pub tool_choice: Option<models::LiveResponsesDelegationSettingsUpdateInputParamToolChoice>,
     /// Whether the delegated Responses model may request multiple tool calls in a single response.
     #[serde(
         rename = "parallel_tool_calls",

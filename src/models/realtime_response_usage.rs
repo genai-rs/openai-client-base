@@ -32,7 +32,7 @@ pub struct RealtimeResponseUsage {
         rename = "output_token_details",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_token_details: Option<models::RealtimeBetaResponseUsageOutputTokenDetails>,
+    pub output_token_details: Option<models::RealtimeResponseUsageOutputTokenDetails>,
 }
 
 impl RealtimeResponseUsage {
