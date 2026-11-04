@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.19.0](https://github.com/genai-rs/openai-client-base/compare/v0.18.0...v0.19.0) - 2026-11-04
+
+### Added
+
+- [**breaking**] Default only where valid, FromStr on enums, no struct Display
+
+### Other
+
+- keep the prompt-cache contract independent of generated type names
+
 ## [0.18.0](https://github.com/genai-rs/openai-client-base/compare/v0.17.0...v0.18.0) - 2026-11-03
 
 ### Added
