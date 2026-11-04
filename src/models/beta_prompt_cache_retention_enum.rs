@@ -28,8 +28,45 @@ impl std::fmt::Display for BetaPromptCacheRetentionEnum {
     }
 }
 
-impl Default for BetaPromptCacheRetentionEnum {
-    fn default() -> BetaPromptCacheRetentionEnum {
-        Self::InMemory
+impl ::std::str::FromStr for BetaPromptCacheRetentionEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "in_memory" => Ok(Self::InMemory),
+            "24h" => Ok(Self::Variant24h),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaPromptCacheRetentionEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaPromptCacheRetentionEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaPromptCacheRetentionEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaPromptCacheRetentionEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

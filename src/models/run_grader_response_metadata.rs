@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunGraderResponseMetadata {
     #[serde(rename = "name")]
     pub name: String,
@@ -50,15 +50,6 @@ impl RunGraderResponseMetadata {
             scores,
             token_usage,
             sampled_model_name,
-        }
-    }
-}
-
-impl std::fmt::Display for RunGraderResponseMetadata {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

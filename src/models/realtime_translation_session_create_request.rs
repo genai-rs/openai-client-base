@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeTranslationSessionCreateRequest : Realtime translation session configuration. Translation sessions stream source audio in and translated audio plus transcript deltas out continuously.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranslationSessionCreateRequest {
     /// The Realtime translation model used for this session.
     #[serde(rename = "model")]
@@ -25,14 +25,5 @@ impl RealtimeTranslationSessionCreateRequest {
     /// Realtime translation session configuration. Translation sessions stream source audio in and translated audio plus transcript deltas out continuously.
     pub fn new(model: String) -> RealtimeTranslationSessionCreateRequest {
         RealtimeTranslationSessionCreateRequest { model, audio: None }
-    }
-}
-
-impl std::fmt::Display for RealtimeTranslationSessionCreateRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

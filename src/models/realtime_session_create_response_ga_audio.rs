@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeSessionCreateResponseGaAudio : Configuration for input and output audio.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSessionCreateResponseGaAudio {
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
     pub input: Option<models::RealtimeSessionCreateResponseGaAudioInput>,
@@ -26,15 +26,6 @@ impl RealtimeSessionCreateResponseGaAudio {
         RealtimeSessionCreateResponseGaAudio {
             input: None,
             output: None,
-        }
-    }
-}
-
-impl std::fmt::Display for RealtimeSessionCreateResponseGaAudio {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

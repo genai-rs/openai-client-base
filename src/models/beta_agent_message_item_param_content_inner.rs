@@ -19,9 +19,3 @@ pub enum BetaAgentMessageItemParamContentInner {
     BetaInputImageContentParamAutoParam(models::BetaInputImageContentParamAutoParam),
     BetaEncryptedContentParam(models::BetaEncryptedContentParam),
 }
-
-impl Default for BetaAgentMessageItemParamContentInner {
-    fn default() -> Self {
-        Self::BetaInputTextContentParam(Default::default())
-    }
-}

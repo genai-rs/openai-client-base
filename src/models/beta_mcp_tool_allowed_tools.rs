@@ -10,12 +10,6 @@ pub enum BetaMcpToolAllowedTools {
     Null,
 }
 
-impl Default for BetaMcpToolAllowedTools {
-    fn default() -> Self {
-        Self::ArrayOfStrings(Vec::new())
-    }
-}
-
 impl std::fmt::Display for BetaMcpToolAllowedTools {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

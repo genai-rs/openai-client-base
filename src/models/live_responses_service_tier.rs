@@ -40,8 +40,49 @@ impl std::fmt::Display for LiveResponsesServiceTier {
     }
 }
 
-impl Default for LiveResponsesServiceTier {
-    fn default() -> LiveResponsesServiceTier {
-        Self::Auto
+impl ::std::str::FromStr for LiveResponsesServiceTier {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "auto" => Ok(Self::Auto),
+            "default" => Ok(Self::Default),
+            "fast_tier_temp_pilot" => Ok(Self::FastTierTempPilot),
+            "flex" => Ok(Self::Flex),
+            "priority" => Ok(Self::Priority),
+            "ultrafast" => Ok(Self::Ultrafast),
+            _ => Err(crate::models::ParseEnumError::new(
+                "LiveResponsesServiceTier",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for LiveResponsesServiceTier {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for LiveResponsesServiceTier {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for LiveResponsesServiceTier {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

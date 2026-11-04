@@ -22,9 +22,3 @@ pub enum BetaFunctionCallOutputItemParamOutputOneOfInner {
     #[serde(rename = "BetaInputFileContentParam")]
     BetaInputFileContentParam(models::BetaInputFileContentParam),
 }
-
-impl Default for BetaFunctionCallOutputItemParamOutputOneOfInner {
-    fn default() -> Self {
-        Self::BetaInputTextContentParam(Default::default())
-    }
-}

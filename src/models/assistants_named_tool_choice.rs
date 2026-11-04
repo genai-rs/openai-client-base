@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// AssistantsNamedToolChoice : Specifies a tool the model should use. Use to force the model to call a specific tool.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AssistantsNamedToolChoice {
     /// The type of the tool. If type is `function`, the function name must be set
     #[serde(rename = "type")]
@@ -41,17 +41,53 @@ pub enum Type {
     FileSearch,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::Function
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Function => "function",
+            Self::CodeInterpreter => "code_interpreter",
+            Self::FileSearch => "file_search",
+        })
     }
 }
 
-impl std::fmt::Display for AssistantsNamedToolChoice {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "function" => Ok(Self::Function),
+            "code_interpreter" => Ok(Self::CodeInterpreter),
+            "file_search" => Ok(Self::FileSearch),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// WebSearchLocationResource : Approximate user location used to localize web search results.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchLocationResource {
     /// The two-letter ISO country code, such as `US`.
     #[serde(rename = "country", deserialize_with = "Option::deserialize")]
@@ -40,15 +40,6 @@ impl WebSearchLocationResource {
             region,
             city,
             timezone,
-        }
-    }
-}
-
-impl std::fmt::Display for WebSearchLocationResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

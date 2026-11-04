@@ -20,9 +20,3 @@ pub enum CreateChatCompletionRequestAllOfFunctionCall {
     Text(String),
     ChatCompletionFunctionCallOption(models::ChatCompletionFunctionCallOption),
 }
-
-impl Default for CreateChatCompletionRequestAllOfFunctionCall {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

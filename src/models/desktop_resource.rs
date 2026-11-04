@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// DesktopResource : The effective desktop configuration for an OpenAI-hosted environment.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DesktopResource {
     /// Whether the environment provisions a desktop and browser proxy.
     #[serde(rename = "enabled")]
@@ -22,14 +22,5 @@ impl DesktopResource {
     /// The effective desktop configuration for an OpenAI-hosted environment.
     pub fn new(enabled: bool) -> DesktopResource {
         DesktopResource { enabled }
-    }
-}
-
-impl std::fmt::Display for DesktopResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

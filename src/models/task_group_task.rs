@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// TaskGroupTask : Task entry that appears within a TaskGroup.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TaskGroupTask {
     #[serde(rename = "type")]
     pub r#type: models::TaskType,
@@ -35,15 +35,6 @@ impl TaskGroupTask {
             r#type,
             heading,
             summary,
-        }
-    }
-}
-
-impl std::fmt::Display for TaskGroupTask {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

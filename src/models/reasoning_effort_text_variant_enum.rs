@@ -13,12 +13,6 @@ pub enum ReasoningEffortTextVariantEnum {
     Max,
 }
 
-impl Default for ReasoningEffortTextVariantEnum {
-    fn default() -> Self {
-        Self::None
-    }
-}
-
 impl std::fmt::Display for ReasoningEffortTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -31,5 +25,53 @@ impl std::fmt::Display for ReasoningEffortTextVariantEnum {
             ReasoningEffortTextVariantEnum::Max => "max",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for ReasoningEffortTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "none" => Ok(Self::None),
+            "minimal" => Ok(Self::Minimal),
+            "low" => Ok(Self::Low),
+            "medium" => Ok(Self::Medium),
+            "high" => Ok(Self::High),
+            "xhigh" => Ok(Self::Xhigh),
+            "max" => Ok(Self::Max),
+            _ => Err(crate::models::ParseEnumError::new(
+                "ReasoningEffortTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ReasoningEffortTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ReasoningEffortTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ReasoningEffortTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

@@ -9,12 +9,6 @@ pub enum CreateImageRequestSize {
     Null,
 }
 
-impl Default for CreateImageRequestSize {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl CreateImageRequestSize {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)
@@ -63,12 +57,6 @@ pub enum CreateImageRequestSizeTextVariantEnum {
     Variant1024x1792,
 }
 
-impl Default for CreateImageRequestSizeTextVariantEnum {
-    fn default() -> Self {
-        Self::Auto
-    }
-}
-
 impl std::fmt::Display for CreateImageRequestSizeTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -82,5 +70,54 @@ impl std::fmt::Display for CreateImageRequestSizeTextVariantEnum {
             CreateImageRequestSizeTextVariantEnum::Variant1024x1792 => "1024x1792",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for CreateImageRequestSizeTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "auto" => Ok(Self::Auto),
+            "1024x1024" => Ok(Self::Variant1024x1024),
+            "1536x1024" => Ok(Self::Variant1536x1024),
+            "1024x1536" => Ok(Self::Variant1024x1536),
+            "256x256" => Ok(Self::Variant256x256),
+            "512x512" => Ok(Self::Variant512x512),
+            "1792x1024" => Ok(Self::Variant1792x1024),
+            "1024x1792" => Ok(Self::Variant1024x1792),
+            _ => Err(crate::models::ParseEnumError::new(
+                "CreateImageRequestSizeTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for CreateImageRequestSizeTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for CreateImageRequestSizeTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for CreateImageRequestSizeTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

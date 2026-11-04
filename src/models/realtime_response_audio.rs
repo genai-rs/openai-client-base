@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeResponseAudio : Configuration for audio output.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeResponseAudio {
     #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
     pub output: Option<models::RealtimeResponseAudioOutput>,
@@ -22,14 +22,5 @@ impl RealtimeResponseAudio {
     /// Configuration for audio output.
     pub fn new() -> RealtimeResponseAudio {
         RealtimeResponseAudio { output: None }
-    }
-}
-
-impl std::fmt::Display for RealtimeResponseAudio {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

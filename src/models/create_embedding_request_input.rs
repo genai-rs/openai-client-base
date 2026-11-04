@@ -10,12 +10,6 @@ pub enum CreateEmbeddingRequestInput {
     ArrayOfIntegerArrays(Vec<Vec<i32>>),
 }
 
-impl Default for CreateEmbeddingRequestInput {
-    fn default() -> Self {
-        Self::String(String::new())
-    }
-}
-
 impl CreateEmbeddingRequestInput {
     pub fn new_text(text: String) -> Self {
         Self::String(text)

@@ -18,9 +18,3 @@ pub enum ToolCallCaller {
     DirectToolCallCaller(models::DirectToolCallCaller),
     ProgramToolCallCaller(models::ProgramToolCallCaller),
 }
-
-impl Default for ToolCallCaller {
-    fn default() -> Self {
-        Self::DirectToolCallCaller(Default::default())
-    }
-}

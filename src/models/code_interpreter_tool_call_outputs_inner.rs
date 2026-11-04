@@ -17,9 +17,3 @@ pub enum CodeInterpreterToolCallOutputsInner {
     CodeInterpreterOutputLogs(models::CodeInterpreterOutputLogs),
     CodeInterpreterOutputImage(models::CodeInterpreterOutputImage),
 }
-
-impl Default for CodeInterpreterToolCallOutputsInner {
-    fn default() -> Self {
-        Self::CodeInterpreterOutputLogs(Default::default())
-    }
-}

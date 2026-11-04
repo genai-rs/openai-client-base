@@ -103,8 +103,70 @@ impl std::fmt::Display for ProjectEventTypeEnum {
     }
 }
 
-impl Default for ProjectEventTypeEnum {
-    fn default() -> ProjectEventTypeEnum {
-        Self::BatchCompleted
+impl ::std::str::FromStr for ProjectEventTypeEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "batch.completed" => Ok(Self::BatchCompleted),
+            "batch.failed" => Ok(Self::BatchFailed),
+            "batch.expired" => Ok(Self::BatchExpired),
+            "batch.cancelled" => Ok(Self::BatchCancelled),
+            "response.completed" => Ok(Self::ResponseCompleted),
+            "response.failed" => Ok(Self::ResponseFailed),
+            "response.cancelled" => Ok(Self::ResponseCancelled),
+            "response.incomplete" => Ok(Self::ResponseIncomplete),
+            "eval.run.succeeded" => Ok(Self::EvalRunSucceeded),
+            "eval.run.failed" => Ok(Self::EvalRunFailed),
+            "eval.run.canceled" => Ok(Self::EvalRunCanceled),
+            "fine_tuning.job.succeeded" => Ok(Self::FineTuningJobSucceeded),
+            "fine_tuning.job.failed" => Ok(Self::FineTuningJobFailed),
+            "fine_tuning.job.cancelled" => Ok(Self::FineTuningJobCancelled),
+            "realtime.call.incoming" => Ok(Self::RealtimeCallIncoming),
+            "video.completed" => Ok(Self::VideoCompleted),
+            "video.failed" => Ok(Self::VideoFailed),
+            "agent.environment.ready" => Ok(Self::AgentEnvironmentReady),
+            "agent.environment.failed" => Ok(Self::AgentEnvironmentFailed),
+            "agent.environment.suspended" => Ok(Self::AgentEnvironmentSuspended),
+            "agent.environment.expired" => Ok(Self::AgentEnvironmentExpired),
+            "agent.session.created" => Ok(Self::AgentSessionCreated),
+            "agent.session.action_required" => Ok(Self::AgentSessionActionRequired),
+            "agent.session.in_progress" => Ok(Self::AgentSessionInProgress),
+            "agent.session.idle" => Ok(Self::AgentSessionIdle),
+            "agent.session.failed" => Ok(Self::AgentSessionFailed),
+            "safety.alert.created" => Ok(Self::SafetyAlertCreated),
+            _ => Err(crate::models::ParseEnumError::new(
+                "ProjectEventTypeEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ProjectEventTypeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ProjectEventTypeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ProjectEventTypeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

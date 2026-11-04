@@ -28,8 +28,42 @@ impl std::fmt::Display for GrammarSyntax1 {
     }
 }
 
-impl Default for GrammarSyntax1 {
-    fn default() -> GrammarSyntax1 {
-        Self::Lark
+impl ::std::str::FromStr for GrammarSyntax1 {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "lark" => Ok(Self::Lark),
+            "regex" => Ok(Self::Regex),
+            _ => Err(crate::models::ParseEnumError::new("GrammarSyntax1", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for GrammarSyntax1 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for GrammarSyntax1 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for GrammarSyntax1 {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

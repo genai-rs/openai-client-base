@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaModerationConfigParam : The moderation policy for the response input.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaModerationConfigParam {
     #[serde(rename = "mode")]
     pub mode: models::BetaModerationMode,
@@ -22,14 +22,5 @@ impl BetaModerationConfigParam {
     /// The moderation policy for the response input.
     pub fn new(mode: models::BetaModerationMode) -> BetaModerationConfigParam {
         BetaModerationConfigParam { mode }
-    }
-}
-
-impl std::fmt::Display for BetaModerationConfigParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

@@ -9,12 +9,6 @@ pub enum CreateSessionInputParam {
     Arrayofinputmessageparams(Vec<models::InputMessageParam>),
 }
 
-impl Default for CreateSessionInputParam {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl CreateSessionInputParam {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

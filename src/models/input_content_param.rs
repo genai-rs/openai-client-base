@@ -18,9 +18,3 @@ pub enum InputContentParam {
     InputText(models::InputContentParamInputText),
     InputImage(models::InputContentParamInputImage),
 }
-
-impl Default for InputContentParam {
-    fn default() -> Self {
-        Self::InputText(Default::default())
-    }
-}

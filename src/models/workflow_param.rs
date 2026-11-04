@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// WorkflowParam : Workflow reference and overrides applied to the chat session.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WorkflowParam {
     /// Identifier for the workflow invoked by the session.
     #[serde(rename = "id")]
@@ -36,15 +36,6 @@ impl WorkflowParam {
             version: None,
             state_variables: None,
             tracing: None,
-        }
-    }
-}
-
-impl std::fmt::Display for WorkflowParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

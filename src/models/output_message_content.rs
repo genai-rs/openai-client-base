@@ -17,9 +17,3 @@ pub enum OutputMessageContent {
     OutputTextContent(models::OutputTextContent),
     RefusalContent(models::RefusalContent),
 }
-
-impl Default for OutputMessageContent {
-    fn default() -> Self {
-        Self::OutputTextContent(Default::default())
-    }
-}

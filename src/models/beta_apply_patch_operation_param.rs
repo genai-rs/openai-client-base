@@ -19,9 +19,3 @@ pub enum BetaApplyPatchOperationParam {
     BetaApplyPatchDeleteFileOperationParam(models::BetaApplyPatchDeleteFileOperationParam),
     BetaApplyPatchUpdateFileOperationParam(models::BetaApplyPatchUpdateFileOperationParam),
 }
-
-impl Default for BetaApplyPatchOperationParam {
-    fn default() -> Self {
-        Self::BetaApplyPatchCreateFileOperationParam(Default::default())
-    }
-}

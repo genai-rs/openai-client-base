@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// LiveInlineSkillSourceParam : Inline skill payload
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInlineSkillSourceParam {
     /// The type of the inline skill source. Must be `base64`.
     #[serde(rename = "type")]
@@ -41,11 +41,6 @@ pub enum Type {
     Base64,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::Base64
-    }
-}
 /// The media type of the inline skill payload. Must be `application/zip`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MediaType {
@@ -53,17 +48,96 @@ pub enum MediaType {
     ApplicationSlashZip,
 }
 
-impl Default for MediaType {
-    fn default() -> MediaType {
-        Self::ApplicationSlashZip
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Base64 => "base64",
+        })
     }
 }
 
-impl std::fmt::Display for LiveInlineSkillSourceParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "base64" => Ok(Self::Base64),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for MediaType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ApplicationSlashZip => "application/zip",
+        })
+    }
+}
+
+impl ::std::str::FromStr for MediaType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "application/zip" => Ok(Self::ApplicationSlashZip),
+            _ => Err(crate::models::ParseEnumError::new("MediaType", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for MediaType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for MediaType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for MediaType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

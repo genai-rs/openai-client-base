@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// CreateModerationResponseResultsInnerCategoryScores : A list of the categories along with their scores as predicted by model.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateModerationResponseResultsInnerCategoryScores {
     /// The score for the category 'hate'.
     #[serde(rename = "hate")]
@@ -85,15 +85,6 @@ impl CreateModerationResponseResultsInnerCategoryScores {
             sexual_slash_minors,
             violence,
             violence_slash_graphic,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateModerationResponseResultsInnerCategoryScores {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

@@ -16,9 +16,3 @@ pub enum ComparisonFilterValueOneOfInner {
     Text(String),
     Number(f64),
 }
-
-impl Default for ComparisonFilterValueOneOfInner {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

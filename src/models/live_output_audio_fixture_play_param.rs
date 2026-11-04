@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// LiveOutputAudioFixturePlayParam : Play one complete audio fixture through the session output. Send this event over the primary WebSocket or a server sideband. Audio must be raw mono PCM16 little-endian at 24 kHz, regardless of the session audio format, and at most 30 seconds. The entire payload is validated before model speech is interrupted and input is muted. Only one fixture can be active. fixture.playing acknowledges acceptance and fixture.played reports server mixer drain. These notifications are not exact transport-media boundaries. Input arriving during playback is dropped and not replayed.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveOutputAudioFixturePlayParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
     #[serde(
@@ -45,17 +45,49 @@ pub enum Type {
     SessionOutputAudioFixturePlay,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::SessionOutputAudioFixturePlay
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::SessionOutputAudioFixturePlay => "session.output_audio.fixture.play",
+        })
     }
 }
 
-impl std::fmt::Display for LiveOutputAudioFixturePlayParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "session.output_audio.fixture.play" => Ok(Self::SessionOutputAudioFixturePlay),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

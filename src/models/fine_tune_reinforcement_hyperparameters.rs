@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuneReinforcementHyperparameters : The hyperparameters used for the reinforcement fine-tuning job.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneReinforcementHyperparameters {
     #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
     pub batch_size: Option<models::FineTuneDpoHyperparametersBatchSize>,
@@ -61,17 +61,55 @@ pub enum ReasoningEffort {
     High,
 }
 
-impl Default for ReasoningEffort {
-    fn default() -> ReasoningEffort {
-        Self::Default
+impl ::std::fmt::Display for ReasoningEffort {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Default => "default",
+            Self::Low => "low",
+            Self::Medium => "medium",
+            Self::High => "high",
+        })
     }
 }
 
-impl std::fmt::Display for FineTuneReinforcementHyperparameters {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for ReasoningEffort {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "default" => Ok(Self::Default),
+            "low" => Ok(Self::Low),
+            "medium" => Ok(Self::Medium),
+            "high" => Ok(Self::High),
+            _ => Err(crate::models::ParseEnumError::new("ReasoningEffort", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ReasoningEffort {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ReasoningEffort {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ReasoningEffort {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

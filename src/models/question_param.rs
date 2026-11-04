@@ -19,9 +19,3 @@ pub enum QuestionParam {
     Choice(models::QuestionParamChoice),
     Score(models::QuestionParamScore),
 }
-
-impl Default for QuestionParam {
-    fn default() -> Self {
-        Self::Predicate(Default::default())
-    }
-}

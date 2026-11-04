@@ -19,9 +19,3 @@ pub enum MessageContentResource {
     InputImage(models::MessageContentResourceInputImage),
     OutputText(models::MessageContentResourceOutputText),
 }
-
-impl Default for MessageContentResource {
-    fn default() -> Self {
-        Self::InputText(Default::default())
-    }
-}

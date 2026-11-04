@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// LiveMediaSessionForkParams : Optional overrides for a stored Live session. Omitted settings are inherited. The model, voice, frontend instructions, and prior conversation come from the stored session. WebRTC negotiates its audio format; audio.format is only supported on WebSocket forks.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveMediaSessionForkParams {
     /// Whether to store the forked session. Omission inherits the stored session's setting.
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
@@ -30,15 +30,6 @@ impl LiveMediaSessionForkParams {
             store: None,
             delegation: None,
             client: None,
-        }
-    }
-}
-
-impl std::fmt::Display for LiveMediaSessionForkParams {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

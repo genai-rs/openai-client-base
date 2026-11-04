@@ -17,9 +17,3 @@ pub enum LiveInitialAssistantMessageItemParamContentInner {
     LiveInitialTextContentPartParam(models::LiveInitialTextContentPartParam),
     LiveInitialOutputTextContentPartParam(models::LiveInitialOutputTextContentPartParam),
 }
-
-impl Default for LiveInitialAssistantMessageItemParamContentInner {
-    fn default() -> Self {
-        Self::LiveInitialTextContentPartParam(Default::default())
-    }
-}

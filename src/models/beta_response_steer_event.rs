@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaResponseSteerEvent : Queues user input to steer a response on this WebSocket connection. Input can contain text, images, and files. Steering is supported only for single-agent responses on models and execution modes that support steering. Responses bound to a conversation or using automatic compaction do not support steering.  A `response.steer.accepted` event acknowledges that the server owns the queued input, not that it has been applied. The successor's `response.created` event is the commit point. Input that cannot be committed is returned in `response.steer.failed`.  Steering may cause the active response to finish at a safe output boundary with `response.incomplete` and `incomplete_details.reason` set to `steered`, followed automatically by a successor `response.created`. Normal completion can also be followed by an automatic successor. Automatic successors inherit the previous response's settings and continue from it with the queued input.  If the response stops for client-owned tool output or approval, accepted steering input remains queued and `response.steer.pending` is emitted after `response.completed`. Fill the `required_input` stubs from that event with saved tool results or approval decisions, and send one explicit `response.create` per parent with the same `previous_response_id` and WebSocket lane. Do not rerun tools or resend accepted steering input. The queued input is prepended in submission order to that request's input, and the explicit request retains its own settings.  This event accepts only `type`, `previous_response_id`, and `input`. Do not send `stream_id`; the target response determines the WebSocket lane.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseSteerEvent {
     /// The event discriminator. Always `response.steer`.
     #[serde(rename = "type")]
@@ -45,17 +45,49 @@ pub enum Type {
     ResponseSteer,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::ResponseSteer
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ResponseSteer => "response.steer",
+        })
     }
 }
 
-impl std::fmt::Display for BetaResponseSteerEvent {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "response.steer" => Ok(Self::ResponseSteer),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

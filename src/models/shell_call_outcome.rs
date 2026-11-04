@@ -20,9 +20,3 @@ pub enum ShellCallOutcome {
     #[serde(rename = "FunctionShellCallOutputExitOutcome")]
     FunctionShellCallOutputExitOutcome(models::FunctionShellCallOutputExitOutcome),
 }
-
-impl Default for ShellCallOutcome {
-    fn default() -> Self {
-        Self::FunctionShellCallOutputTimeoutOutcome(Default::default())
-    }
-}

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ReasoningResource : The reasoning configuration used by an agent.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ReasoningResource {
     /// The requested reasoning effort, or `null` when the model selects its own default.
     #[serde(rename = "effort", deserialize_with = "Option::deserialize")]
@@ -29,14 +29,5 @@ impl ReasoningResource {
         summary: Option<models::ReasoningSummaryResource>,
     ) -> ReasoningResource {
         ReasoningResource { effort, summary }
-    }
-}
-
-impl std::fmt::Display for ReasoningResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

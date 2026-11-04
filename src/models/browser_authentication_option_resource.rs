@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BrowserAuthenticationOptionResource : A sign-in method and the fields that belong to it.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BrowserAuthenticationOptionResource {
     /// The option ID to submit as selected_option.
     #[serde(rename = "id")]
@@ -35,15 +35,6 @@ impl BrowserAuthenticationOptionResource {
             id,
             label,
             field_ids,
-        }
-    }
-}
-
-impl std::fmt::Display for BrowserAuthenticationOptionResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

@@ -18,9 +18,3 @@ pub enum FineTuningJobHyperparametersBatchSize {
     Text(String),
     Integer(i32),
 }
-
-impl Default for FineTuningJobHyperparametersBatchSize {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

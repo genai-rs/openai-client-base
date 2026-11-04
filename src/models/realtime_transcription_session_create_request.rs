@@ -57,11 +57,6 @@ pub enum InputAudioFormat {
     G711Alaw,
 }
 
-impl Default for InputAudioFormat {
-    fn default() -> InputAudioFormat {
-        Self::Pcm16
-    }
-}
 /// The set of items to include in the transcription. Current available items are: `item.input_audio_transcription.logprobs`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Include {
@@ -69,17 +64,105 @@ pub enum Include {
     ItemInputAudioTranscriptionLogprobs,
 }
 
-impl Default for Include {
-    fn default() -> Include {
-        Self::ItemInputAudioTranscriptionLogprobs
+impl ::std::fmt::Display for InputAudioFormat {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Pcm16 => "pcm16",
+            Self::G711Ulaw => "g711_ulaw",
+            Self::G711Alaw => "g711_alaw",
+        })
     }
 }
 
-impl std::fmt::Display for RealtimeTranscriptionSessionCreateRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for InputAudioFormat {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "pcm16" => Ok(Self::Pcm16),
+            "g711_ulaw" => Ok(Self::G711Ulaw),
+            "g711_alaw" => Ok(Self::G711Alaw),
+            _ => Err(crate::models::ParseEnumError::new(
+                "InputAudioFormat",
+                value,
+            )),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for InputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for InputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for InputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Include {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ItemInputAudioTranscriptionLogprobs => "item.input_audio_transcription.logprobs",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Include {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "item.input_audio_transcription.logprobs" => {
+                Ok(Self::ItemInputAudioTranscriptionLogprobs)
+            }
+            _ => Err(crate::models::ParseEnumError::new("Include", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Include {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Include {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Include {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

@@ -28,8 +28,45 @@ impl std::fmt::Display for BetaModerationMode {
     }
 }
 
-impl Default for BetaModerationMode {
-    fn default() -> BetaModerationMode {
-        Self::Score
+impl ::std::str::FromStr for BetaModerationMode {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "score" => Ok(Self::Score),
+            "block" => Ok(Self::Block),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaModerationMode",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaModerationMode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaModerationMode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaModerationMode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

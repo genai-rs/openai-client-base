@@ -28,8 +28,45 @@ impl std::fmt::Display for PromptCacheModeEnum {
     }
 }
 
-impl Default for PromptCacheModeEnum {
-    fn default() -> PromptCacheModeEnum {
-        Self::Implicit
+impl ::std::str::FromStr for PromptCacheModeEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "implicit" => Ok(Self::Implicit),
+            "explicit" => Ok(Self::Explicit),
+            _ => Err(crate::models::ParseEnumError::new(
+                "PromptCacheModeEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for PromptCacheModeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for PromptCacheModeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for PromptCacheModeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

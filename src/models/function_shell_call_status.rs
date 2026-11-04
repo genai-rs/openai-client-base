@@ -31,8 +31,46 @@ impl std::fmt::Display for FunctionShellCallStatus {
     }
 }
 
-impl Default for FunctionShellCallStatus {
-    fn default() -> FunctionShellCallStatus {
-        Self::InProgress
+impl ::std::str::FromStr for FunctionShellCallStatus {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "in_progress" => Ok(Self::InProgress),
+            "completed" => Ok(Self::Completed),
+            "incomplete" => Ok(Self::Incomplete),
+            _ => Err(crate::models::ParseEnumError::new(
+                "FunctionShellCallStatus",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for FunctionShellCallStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for FunctionShellCallStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for FunctionShellCallStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

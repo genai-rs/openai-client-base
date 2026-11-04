@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BatchUsageOutputTokensDetails : A detailed breakdown of the output tokens.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BatchUsageOutputTokensDetails {
     /// The number of reasoning tokens.
     #[serde(rename = "reasoning_tokens")]
@@ -22,14 +22,5 @@ impl BatchUsageOutputTokensDetails {
     /// A detailed breakdown of the output tokens.
     pub fn new(reasoning_tokens: i32) -> BatchUsageOutputTokensDetails {
         BatchUsageOutputTokensDetails { reasoning_tokens }
-    }
-}
-
-impl std::fmt::Display for BatchUsageOutputTokensDetails {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

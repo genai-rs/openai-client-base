@@ -18,9 +18,3 @@ pub enum InputContent {
     InputImageContent(models::InputImageContent),
     InputFileContent(models::InputFileContent),
 }
-
-impl Default for InputContent {
-    fn default() -> Self {
-        Self::InputTextContent(Default::default())
-    }
-}

@@ -22,9 +22,3 @@ pub enum ApplyPatchOperation1 {
     #[serde(rename = "BetaApplyPatchUpdateFileOperation")]
     BetaApplyPatchUpdateFileOperation(models::BetaApplyPatchUpdateFileOperation),
 }
-
-impl Default for ApplyPatchOperation1 {
-    fn default() -> Self {
-        Self::BetaApplyPatchCreateFileOperation(Default::default())
-    }
-}

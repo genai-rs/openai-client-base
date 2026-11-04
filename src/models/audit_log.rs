@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// AuditLog : A log of a user action or configuration change within this organization.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AuditLog {
     /// The ID of this log.
     #[serde(rename = "id")]
@@ -308,15 +308,6 @@ impl AuditLog {
             certificate_deleted: None,
             certificates_activated: None,
             certificates_deactivated: None,
-        }
-    }
-}
-
-impl std::fmt::Display for AuditLog {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

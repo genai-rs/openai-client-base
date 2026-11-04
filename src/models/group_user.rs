@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// GroupUser : Represents an individual user returned when inspecting group membership.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct GroupUser {
     /// The identifier, which can be referenced in API endpoints
     #[serde(rename = "id")]
@@ -28,14 +28,5 @@ impl GroupUser {
     /// Represents an individual user returned when inspecting group membership.
     pub fn new(id: String, name: String, email: Option<String>) -> GroupUser {
         GroupUser { id, name, email }
-    }
-}
-
-impl std::fmt::Display for GroupUser {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

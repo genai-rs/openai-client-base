@@ -34,8 +34,44 @@ impl std::fmt::Display for VideoSize {
     }
 }
 
-impl Default for VideoSize {
-    fn default() -> VideoSize {
-        Self::Variant720x1280
+impl ::std::str::FromStr for VideoSize {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "720x1280" => Ok(Self::Variant720x1280),
+            "1280x720" => Ok(Self::Variant1280x720),
+            "1024x1792" => Ok(Self::Variant1024x1792),
+            "1792x1024" => Ok(Self::Variant1792x1024),
+            _ => Err(crate::models::ParseEnumError::new("VideoSize", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for VideoSize {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for VideoSize {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for VideoSize {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

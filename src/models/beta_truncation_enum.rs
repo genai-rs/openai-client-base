@@ -28,8 +28,45 @@ impl std::fmt::Display for BetaTruncationEnum {
     }
 }
 
-impl Default for BetaTruncationEnum {
-    fn default() -> BetaTruncationEnum {
-        Self::Auto
+impl ::std::str::FromStr for BetaTruncationEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "auto" => Ok(Self::Auto),
+            "disabled" => Ok(Self::Disabled),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaTruncationEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaTruncationEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaTruncationEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaTruncationEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

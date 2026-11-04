@@ -46,8 +46,48 @@ impl std::fmt::Display for MessageRole {
     }
 }
 
-impl Default for MessageRole {
-    fn default() -> MessageRole {
-        Self::Unknown
+impl ::std::str::FromStr for MessageRole {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "unknown" => Ok(Self::Unknown),
+            "user" => Ok(Self::User),
+            "assistant" => Ok(Self::Assistant),
+            "system" => Ok(Self::System),
+            "critic" => Ok(Self::Critic),
+            "discriminator" => Ok(Self::Discriminator),
+            "developer" => Ok(Self::Developer),
+            "tool" => Ok(Self::Tool),
+            _ => Err(crate::models::ParseEnumError::new("MessageRole", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for MessageRole {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for MessageRole {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for MessageRole {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateUploadRequest {
     /// The name of the file to upload.
     #[serde(rename = "filename")]
@@ -58,17 +58,55 @@ pub enum Purpose {
     Vision,
 }
 
-impl Default for Purpose {
-    fn default() -> Purpose {
-        Self::Assistants
+impl ::std::fmt::Display for Purpose {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Assistants => "assistants",
+            Self::Batch => "batch",
+            Self::FineTune => "fine-tune",
+            Self::Vision => "vision",
+        })
     }
 }
 
-impl std::fmt::Display for CreateUploadRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Purpose {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "assistants" => Ok(Self::Assistants),
+            "batch" => Ok(Self::Batch),
+            "fine-tune" => Ok(Self::FineTune),
+            "vision" => Ok(Self::Vision),
+            _ => Err(crate::models::ParseEnumError::new("Purpose", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Purpose {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Purpose {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Purpose {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

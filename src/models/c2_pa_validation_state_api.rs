@@ -34,8 +34,47 @@ impl std::fmt::Display for C2PaValidationStateApi {
     }
 }
 
-impl Default for C2PaValidationStateApi {
-    fn default() -> C2PaValidationStateApi {
-        Self::Trusted
+impl ::std::str::FromStr for C2PaValidationStateApi {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "trusted" => Ok(Self::Trusted),
+            "valid" => Ok(Self::Valid),
+            "invalid" => Ok(Self::Invalid),
+            "not_present" => Ok(Self::NotPresent),
+            _ => Err(crate::models::ParseEnumError::new(
+                "C2PaValidationStateApi",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for C2PaValidationStateApi {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for C2PaValidationStateApi {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for C2PaValidationStateApi {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

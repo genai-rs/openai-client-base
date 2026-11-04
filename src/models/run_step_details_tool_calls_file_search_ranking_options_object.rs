@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsFileSearchRankingOptionsObject : The ranking options for the file search.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDetailsToolCallsFileSearchRankingOptionsObject {
     #[serde(rename = "ranker")]
     pub ranker: models::FileSearchRanker,
@@ -30,15 +30,6 @@ impl RunStepDetailsToolCallsFileSearchRankingOptionsObject {
         RunStepDetailsToolCallsFileSearchRankingOptionsObject {
             ranker,
             score_threshold,
-        }
-    }
-}
-
-impl std::fmt::Display for RunStepDetailsToolCallsFileSearchRankingOptionsObject {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

@@ -19,9 +19,3 @@ pub enum BetaWebSearchToolCallAction {
     BetaWebSearchActionOpenPage(models::BetaWebSearchActionOpenPage),
     BetaWebSearchActionFind(models::BetaWebSearchActionFind),
 }
-
-impl Default for BetaWebSearchToolCallAction {
-    fn default() -> Self {
-        Self::BetaWebSearchActionSearch(Default::default())
-    }
-}

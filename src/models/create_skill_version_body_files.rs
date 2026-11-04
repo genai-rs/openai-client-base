@@ -8,12 +8,6 @@ pub enum CreateSkillVersionBodyFiles {
     Text(String),
 }
 
-impl Default for CreateSkillVersionBodyFiles {
-    fn default() -> Self {
-        Self::ArrayOfStrings(Vec::new())
-    }
-}
-
 impl std::fmt::Display for CreateSkillVersionBodyFiles {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

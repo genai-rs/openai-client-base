@@ -8,12 +8,6 @@ pub enum BetaComparisonFilterValue {
     Arrayofitems(Vec<serde_json::Value>),
 }
 
-impl Default for BetaComparisonFilterValue {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl BetaComparisonFilterValue {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

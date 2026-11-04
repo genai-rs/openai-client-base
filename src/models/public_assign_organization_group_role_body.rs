@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// PublicAssignOrganizationGroupRoleBody : Request payload for assigning a role to a group or user.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PublicAssignOrganizationGroupRoleBody {
     /// Identifier of the role to assign.
     #[serde(rename = "role_id")]
@@ -22,14 +22,5 @@ impl PublicAssignOrganizationGroupRoleBody {
     /// Request payload for assigning a role to a group or user.
     pub fn new(role_id: String) -> PublicAssignOrganizationGroupRoleBody {
         PublicAssignOrganizationGroupRoleBody { role_id }
-    }
-}
-
-impl std::fmt::Display for PublicAssignOrganizationGroupRoleBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

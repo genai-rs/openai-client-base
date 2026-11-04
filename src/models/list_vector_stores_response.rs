@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ListVectorStoresResponse {
     #[serde(rename = "object")]
     pub object: String,
@@ -39,15 +39,6 @@ impl ListVectorStoresResponse {
             first_id,
             last_id,
             has_more,
-        }
-    }
-}
-
-impl std::fmt::Display for ListVectorStoresResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

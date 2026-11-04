@@ -26,8 +26,44 @@ impl std::fmt::Display for EnvironmentTypeParam {
     }
 }
 
-impl Default for EnvironmentTypeParam {
-    fn default() -> EnvironmentTypeParam {
-        Self::OpenaiHosted
+impl ::std::str::FromStr for EnvironmentTypeParam {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "openai_hosted" => Ok(Self::OpenaiHosted),
+            _ => Err(crate::models::ParseEnumError::new(
+                "EnvironmentTypeParam",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for EnvironmentTypeParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for EnvironmentTypeParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for EnvironmentTypeParam {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

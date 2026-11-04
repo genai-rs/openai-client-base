@@ -19,9 +19,3 @@ pub enum CreateMcpOauthTokenEndpointAuthParam {
     ClientSecretBasic(models::CreateMcpOauthTokenEndpointAuthParamClientSecretBasic),
     ClientSecretPost(models::CreateMcpOauthTokenEndpointAuthParamClientSecretPost),
 }
-
-impl Default for CreateMcpOauthTokenEndpointAuthParam {
-    fn default() -> Self {
-        Self::None(Default::default())
-    }
-}

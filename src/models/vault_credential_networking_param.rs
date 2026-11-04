@@ -18,9 +18,3 @@ pub enum VaultCredentialNetworkingParam {
     Unrestricted(models::VaultCredentialNetworkingParamUnrestricted),
     Limited(models::VaultCredentialNetworkingParamLimited),
 }
-
-impl Default for VaultCredentialNetworkingParam {
-    fn default() -> Self {
-        Self::Unrestricted(Default::default())
-    }
-}

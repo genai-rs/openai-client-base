@@ -28,8 +28,45 @@ impl std::fmt::Display for PromptCacheRetentionEnum {
     }
 }
 
-impl Default for PromptCacheRetentionEnum {
-    fn default() -> PromptCacheRetentionEnum {
-        Self::InMemory
+impl ::std::str::FromStr for PromptCacheRetentionEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "in_memory" => Ok(Self::InMemory),
+            "24h" => Ok(Self::Variant24h),
+            _ => Err(crate::models::ParseEnumError::new(
+                "PromptCacheRetentionEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for PromptCacheRetentionEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for PromptCacheRetentionEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for PromptCacheRetentionEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

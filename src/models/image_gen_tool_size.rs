@@ -8,12 +8,6 @@ pub enum ImageGenToolSize {
     TextVariant(ImageGenToolSizeTextVariantEnum),
 }
 
-impl Default for ImageGenToolSize {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl ImageGenToolSize {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)
@@ -53,12 +47,6 @@ pub enum ImageGenToolSizeTextVariantEnum {
     Auto,
 }
 
-impl Default for ImageGenToolSizeTextVariantEnum {
-    fn default() -> Self {
-        Self::Variant1024x1024
-    }
-}
-
 impl std::fmt::Display for ImageGenToolSizeTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -68,5 +56,50 @@ impl std::fmt::Display for ImageGenToolSizeTextVariantEnum {
             ImageGenToolSizeTextVariantEnum::Auto => "auto",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for ImageGenToolSizeTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "1024x1024" => Ok(Self::Variant1024x1024),
+            "1024x1536" => Ok(Self::Variant1024x1536),
+            "1536x1024" => Ok(Self::Variant1536x1024),
+            "auto" => Ok(Self::Auto),
+            _ => Err(crate::models::ParseEnumError::new(
+                "ImageGenToolSizeTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ImageGenToolSizeTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ImageGenToolSizeTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ImageGenToolSizeTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

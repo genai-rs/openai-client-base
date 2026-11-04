@@ -17,9 +17,3 @@ pub enum BetaContainerAutoParamSkillsInner {
     BetaSkillReferenceParam(models::BetaSkillReferenceParam),
     BetaInlineSkillParam(models::BetaInlineSkillParam),
 }
-
-impl Default for BetaContainerAutoParamSkillsInner {
-    fn default() -> Self {
-        Self::BetaSkillReferenceParam(Default::default())
-    }
-}

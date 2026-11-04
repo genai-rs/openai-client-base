@@ -19,9 +19,3 @@ pub enum ExternalStorageResponseProvider {
     GcpExternalStorageProviderResponse(models::GcpExternalStorageProviderResponse),
     OciExternalStorageProviderResponse(models::OciExternalStorageProviderResponse),
 }
-
-impl Default for ExternalStorageResponseProvider {
-    fn default() -> Self {
-        Self::AwsExternalStorageProviderResponse(Default::default())
-    }
-}

@@ -35,8 +35,47 @@ impl std::fmt::Display for SessionStatusResource {
     }
 }
 
-impl Default for SessionStatusResource {
-    fn default() -> SessionStatusResource {
-        Self::Idle
+impl ::std::str::FromStr for SessionStatusResource {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "idle" => Ok(Self::Idle),
+            "in_progress" => Ok(Self::InProgress),
+            "requires_action" => Ok(Self::RequiresAction),
+            "failed" => Ok(Self::Failed),
+            _ => Err(crate::models::ParseEnumError::new(
+                "SessionStatusResource",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SessionStatusResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SessionStatusResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SessionStatusResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

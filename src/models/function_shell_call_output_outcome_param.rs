@@ -18,9 +18,3 @@ pub enum FunctionShellCallOutputOutcomeParam {
     FunctionShellCallOutputTimeoutOutcomeParam(models::FunctionShellCallOutputTimeoutOutcomeParam),
     FunctionShellCallOutputExitOutcomeParam(models::FunctionShellCallOutputExitOutcomeParam),
 }
-
-impl Default for FunctionShellCallOutputOutcomeParam {
-    fn default() -> Self {
-        Self::FunctionShellCallOutputTimeoutOutcomeParam(Default::default())
-    }
-}

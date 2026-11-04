@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CustomToolProperties : Properties of the custom tool.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CustomToolProperties {
     /// The name of the custom tool, used to identify it in tool calls.
     #[serde(rename = "name")]
@@ -31,15 +31,6 @@ impl CustomToolProperties {
             name,
             description: None,
             format: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CustomToolProperties {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

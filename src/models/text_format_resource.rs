@@ -18,9 +18,3 @@ pub enum TextFormatResource {
     Text(models::TextFormatResourceText),
     JsonSchema(models::TextFormatResourceJsonSchema),
 }
-
-impl Default for TextFormatResource {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

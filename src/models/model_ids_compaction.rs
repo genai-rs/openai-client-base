@@ -9,12 +9,6 @@ pub enum ModelIdsCompaction {
     Null,
 }
 
-impl Default for ModelIdsCompaction {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl ModelIdsCompaction {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

@@ -27,9 +27,3 @@ pub enum LiveAllowedToolsChoiceParamToolsInner {
     LiveSpecificCustomToolParam(models::LiveSpecificCustomToolParam),
     LiveSpecificApplyPatchParam(models::LiveSpecificApplyPatchParam),
 }
-
-impl Default for LiveAllowedToolsChoiceParamToolsInner {
-    fn default() -> Self {
-        Self::LiveFunctionToolChoiceParam(Default::default())
-    }
-}

@@ -9,12 +9,6 @@ pub enum FunctionCallOutputResource {
     Arrayofinputcontentresources(Vec<models::InputContentResource>),
 }
 
-impl Default for FunctionCallOutputResource {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl FunctionCallOutputResource {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

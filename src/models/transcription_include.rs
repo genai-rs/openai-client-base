@@ -25,8 +25,44 @@ impl std::fmt::Display for TranscriptionInclude {
     }
 }
 
-impl Default for TranscriptionInclude {
-    fn default() -> TranscriptionInclude {
-        Self::Logprobs
+impl ::std::str::FromStr for TranscriptionInclude {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "logprobs" => Ok(Self::Logprobs),
+            _ => Err(crate::models::ParseEnumError::new(
+                "TranscriptionInclude",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for TranscriptionInclude {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for TranscriptionInclude {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for TranscriptionInclude {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

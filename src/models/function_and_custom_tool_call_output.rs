@@ -18,9 +18,3 @@ pub enum FunctionAndCustomToolCallOutput {
     InputImageContent(models::InputImageContent),
     InputFileContent(models::InputFileContent),
 }
-
-impl Default for FunctionAndCustomToolCallOutput {
-    fn default() -> Self {
-        Self::InputTextContent(Default::default())
-    }
-}

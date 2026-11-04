@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateModerationResponse : Represents if a given text input is potentially harmful.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateModerationResponse {
     /// The unique identifier for the moderation request.
     #[serde(rename = "id")]
@@ -33,14 +33,5 @@ impl CreateModerationResponse {
         results: Vec<models::CreateModerationResponseResultsInner>,
     ) -> CreateModerationResponse {
         CreateModerationResponse { id, model, results }
-    }
-}
-
-impl std::fmt::Display for CreateModerationResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

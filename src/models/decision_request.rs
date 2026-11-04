@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionRequest {
     /// The model to use. Only `gpt-6-luna` is supported.
     #[serde(rename = "model")]
@@ -59,15 +59,6 @@ impl DecisionRequest {
             safety_identifier: None,
             prompt_cache_key: None,
             prompt_cache_options: None,
-        }
-    }
-}
-
-impl std::fmt::Display for DecisionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

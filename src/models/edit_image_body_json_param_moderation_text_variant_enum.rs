@@ -8,12 +8,6 @@ pub enum EditImageBodyJsonParamModerationTextVariantEnum {
     Auto,
 }
 
-impl Default for EditImageBodyJsonParamModerationTextVariantEnum {
-    fn default() -> Self {
-        Self::Low
-    }
-}
-
 impl std::fmt::Display for EditImageBodyJsonParamModerationTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -21,5 +15,52 @@ impl std::fmt::Display for EditImageBodyJsonParamModerationTextVariantEnum {
             EditImageBodyJsonParamModerationTextVariantEnum::Auto => "auto",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for EditImageBodyJsonParamModerationTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "low" => Ok(Self::Low),
+            "auto" => Ok(Self::Auto),
+            _ => Err(crate::models::ParseEnumError::new(
+                "EditImageBodyJsonParamModerationTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for EditImageBodyJsonParamModerationTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String>
+    for EditImageBodyJsonParamModerationTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String>
+    for EditImageBodyJsonParamModerationTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

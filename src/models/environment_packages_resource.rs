@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// EnvironmentPackagesResource : Packages installed in an OpenAI-hosted environment.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentPackagesResource {
     /// Python packages installed in the environment.
     #[serde(rename = "python")]
@@ -35,15 +35,6 @@ impl EnvironmentPackagesResource {
             python,
             system,
             npm,
-        }
-    }
-}
-
-impl std::fmt::Display for EnvironmentPackagesResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

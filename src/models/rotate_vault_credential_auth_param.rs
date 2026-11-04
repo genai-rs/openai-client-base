@@ -19,9 +19,3 @@ pub enum RotateVaultCredentialAuthParam {
     StaticBearer(models::RotateVaultCredentialAuthParamStaticBearer),
     EnvironmentVariable(models::RotateVaultCredentialAuthParamEnvironmentVariable),
 }
-
-impl Default for RotateVaultCredentialAuthParam {
-    fn default() -> Self {
-        Self::McpOauth(Default::default())
-    }
-}

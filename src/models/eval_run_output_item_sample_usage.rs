@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// EvalRunOutputItemSampleUsage : Token usage details for the sample.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalRunOutputItemSampleUsage {
     /// The total number of tokens used.
     #[serde(rename = "total_tokens")]
@@ -40,15 +40,6 @@ impl EvalRunOutputItemSampleUsage {
             completion_tokens,
             prompt_tokens,
             cached_tokens,
-        }
-    }
-}
-
-impl std::fmt::Display for EvalRunOutputItemSampleUsage {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

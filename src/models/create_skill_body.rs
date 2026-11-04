@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateSkillBody : Uploads a skill either as a directory (multipart `files[]`) or as a single zip file.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSkillBody {
     #[serde(rename = "files")]
     pub files: models::CreateSkillBodyFiles,
@@ -22,14 +22,5 @@ impl CreateSkillBody {
     /// Uploads a skill either as a directory (multipart `files[]`) or as a single zip file.
     pub fn new(files: models::CreateSkillBodyFiles) -> CreateSkillBody {
         CreateSkillBody { files }
-    }
-}
-
-impl std::fmt::Display for CreateSkillBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

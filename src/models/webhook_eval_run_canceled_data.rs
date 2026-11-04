@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// WebhookEvalRunCanceledData : Event data payload.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookEvalRunCanceledData {
     /// The unique ID of the eval run.
     #[serde(rename = "id")]
@@ -22,14 +22,5 @@ impl WebhookEvalRunCanceledData {
     /// Event data payload.
     pub fn new(id: String) -> WebhookEvalRunCanceledData {
         WebhookEvalRunCanceledData { id }
-    }
-}
-
-impl std::fmt::Display for WebhookEvalRunCanceledData {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

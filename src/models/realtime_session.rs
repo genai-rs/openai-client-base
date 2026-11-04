@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeSession : Realtime session object for the beta interface.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeSession {
     /// Unique identifier for the session that looks like `sess_1234567890abcdef`.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -139,11 +139,6 @@ pub enum Object {
     RealtimeSession,
 }
 
-impl Default for Object {
-    fn default() -> Object {
-        Self::RealtimeSession
-    }
-}
 /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Modalities {
@@ -153,11 +148,6 @@ pub enum Modalities {
     Audio,
 }
 
-impl Default for Modalities {
-    fn default() -> Modalities {
-        Self::Text
-    }
-}
 /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum InputAudioFormat {
@@ -169,11 +159,6 @@ pub enum InputAudioFormat {
     G711Alaw,
 }
 
-impl Default for InputAudioFormat {
-    fn default() -> InputAudioFormat {
-        Self::Pcm16
-    }
-}
 /// The format of output audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, output audio is sampled at a rate of 24kHz.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputAudioFormat {
@@ -185,11 +170,6 @@ pub enum OutputAudioFormat {
     G711Alaw,
 }
 
-impl Default for OutputAudioFormat {
-    fn default() -> OutputAudioFormat {
-        Self::Pcm16
-    }
-}
 /// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Include {
@@ -197,17 +177,255 @@ pub enum Include {
     ItemInputAudioTranscriptionLogprobs,
 }
 
-impl Default for Include {
-    fn default() -> Include {
-        Self::ItemInputAudioTranscriptionLogprobs
+impl ::std::fmt::Display for Object {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::RealtimeSession => "realtime.session",
+        })
     }
 }
 
-impl std::fmt::Display for RealtimeSession {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Object {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "realtime.session" => Ok(Self::RealtimeSession),
+            _ => Err(crate::models::ParseEnumError::new("Object", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Modalities {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::Audio => "audio",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Modalities {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "audio" => Ok(Self::Audio),
+            _ => Err(crate::models::ParseEnumError::new("Modalities", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Modalities {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Modalities {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Modalities {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for InputAudioFormat {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Pcm16 => "pcm16",
+            Self::G711Ulaw => "g711_ulaw",
+            Self::G711Alaw => "g711_alaw",
+        })
+    }
+}
+
+impl ::std::str::FromStr for InputAudioFormat {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "pcm16" => Ok(Self::Pcm16),
+            "g711_ulaw" => Ok(Self::G711Ulaw),
+            "g711_alaw" => Ok(Self::G711Alaw),
+            _ => Err(crate::models::ParseEnumError::new(
+                "InputAudioFormat",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for InputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for InputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for InputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for OutputAudioFormat {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Pcm16 => "pcm16",
+            Self::G711Ulaw => "g711_ulaw",
+            Self::G711Alaw => "g711_alaw",
+        })
+    }
+}
+
+impl ::std::str::FromStr for OutputAudioFormat {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "pcm16" => Ok(Self::Pcm16),
+            "g711_ulaw" => Ok(Self::G711Ulaw),
+            "g711_alaw" => Ok(Self::G711Alaw),
+            _ => Err(crate::models::ParseEnumError::new(
+                "OutputAudioFormat",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for OutputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for OutputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for OutputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Include {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ItemInputAudioTranscriptionLogprobs => "item.input_audio_transcription.logprobs",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Include {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "item.input_audio_transcription.logprobs" => {
+                Ok(Self::ItemInputAudioTranscriptionLogprobs)
+            }
+            _ => Err(crate::models::ParseEnumError::new("Include", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Include {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Include {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Include {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

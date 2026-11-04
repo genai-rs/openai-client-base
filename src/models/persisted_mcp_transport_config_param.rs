@@ -18,9 +18,3 @@ pub enum PersistedMcpTransportConfigParam {
     Http(models::PersistedMcpTransportConfigParamHttp),
     Stdio(models::PersistedMcpTransportConfigParamStdio),
 }
-
-impl Default for PersistedMcpTransportConfigParam {
-    fn default() -> Self {
-        Self::Http(Default::default())
-    }
-}

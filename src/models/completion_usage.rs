@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CompletionUsage : Usage statistics for the completion request.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompletionUsage {
     /// Number of tokens in the generated completion.
     #[serde(rename = "completion_tokens")]
@@ -44,15 +44,6 @@ impl CompletionUsage {
             total_tokens,
             completion_tokens_details: None,
             prompt_tokens_details: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CompletionUsage {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

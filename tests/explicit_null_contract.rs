@@ -230,21 +230,6 @@ fn constructors_keep_their_required_arguments_and_usable_defaults() {
         ],
     );
     assert_omitted_fields(
-        CreateImageRequest::default(),
-        &[
-            "n",
-            "quality",
-            "response_format",
-            "output_format",
-            "output_compression",
-            "stream",
-            "size",
-            "moderation",
-            "background",
-            "style",
-        ],
-    );
-    assert_omitted_fields(
         CreateRunRequest::new("asst_test".to_owned()),
         &[
             "instructions",

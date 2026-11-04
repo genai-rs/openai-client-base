@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ChatCompletionResponseMessageAnnotationsInnerUrlCitation : A URL citation when using web search.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionResponseMessageAnnotationsInnerUrlCitation {
     /// The index of the last character of the URL citation in the message.
     #[serde(rename = "end_index")]
@@ -40,15 +40,6 @@ impl ChatCompletionResponseMessageAnnotationsInnerUrlCitation {
             start_index,
             url,
             title,
-        }
-    }
-}
-
-impl std::fmt::Display for ChatCompletionResponseMessageAnnotationsInnerUrlCitation {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

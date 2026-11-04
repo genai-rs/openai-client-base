@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// LiveCallAcceptRequest : Accept an incoming SIP call with Live startup configuration.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveCallAcceptRequest {
     #[serde(rename = "session")]
     pub session: models::LiveCallAcceptSession,
@@ -22,14 +22,5 @@ impl LiveCallAcceptRequest {
     /// Accept an incoming SIP call with Live startup configuration.
     pub fn new(session: models::LiveCallAcceptSession) -> LiveCallAcceptRequest {
         LiveCallAcceptRequest { session }
-    }
-}
-
-impl std::fmt::Display for LiveCallAcceptRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

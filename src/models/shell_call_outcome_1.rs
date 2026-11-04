@@ -20,9 +20,3 @@ pub enum ShellCallOutcome1 {
     #[serde(rename = "BetaFunctionShellCallOutputExitOutcome")]
     BetaFunctionShellCallOutputExitOutcome(models::BetaFunctionShellCallOutputExitOutcome),
 }
-
-impl Default for ShellCallOutcome1 {
-    fn default() -> Self {
-        Self::BetaFunctionShellCallOutputTimeoutOutcome(Default::default())
-    }
-}

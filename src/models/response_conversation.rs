@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ResponseConversation : The conversation that this response belonged to. Input items and output items from this response were automatically added to this conversation.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseConversation {
     /// The unique ID of the conversation that this response was associated with.
     #[serde(rename = "id")]
@@ -22,14 +22,5 @@ impl ResponseConversation {
     /// The conversation that this response belonged to. Input items and output items from this response were automatically added to this conversation.
     pub fn new(id: String) -> ResponseConversation {
         ResponseConversation { id }
-    }
-}
-
-impl std::fmt::Display for ResponseConversation {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

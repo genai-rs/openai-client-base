@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// TokenUsageResource : Recorded token usage for a session or turn. Usage is best effort and may change.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TokenUsageResource {
     /// The number of input tokens used by the agent.
     #[serde(rename = "input_tokens")]
@@ -44,15 +44,6 @@ impl TokenUsageResource {
             output_tokens,
             output_tokens_details,
             total_tokens,
-        }
-    }
-}
-
-impl std::fmt::Display for TokenUsageResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

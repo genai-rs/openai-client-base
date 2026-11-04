@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// OutputTokensDetailsResource2 : A breakdown of output token usage for a session or turn.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct OutputTokensDetailsResource2 {
     /// The number of output tokens used for reasoning.
     #[serde(rename = "reasoning_tokens")]
@@ -22,14 +22,5 @@ impl OutputTokensDetailsResource2 {
     /// A breakdown of output token usage for a session or turn.
     pub fn new(reasoning_tokens: i64) -> OutputTokensDetailsResource2 {
         OutputTokensDetailsResource2 { reasoning_tokens }
-    }
-}
-
-impl std::fmt::Display for OutputTokensDetailsResource2 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

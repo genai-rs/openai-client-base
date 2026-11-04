@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ResponseSteerPendingEventSteer : The steering submission that remains queued.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseSteerPendingEventSteer {
     /// The ID assigned to the steering submission.
     #[serde(rename = "id")]
@@ -27,15 +27,6 @@ impl ResponseSteerPendingEventSteer {
         ResponseSteerPendingEventSteer {
             id,
             previous_response_id,
-        }
-    }
-}
-
-impl std::fmt::Display for ResponseSteerPendingEventSteer {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

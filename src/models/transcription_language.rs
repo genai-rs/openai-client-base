@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// TranscriptionLanguage : A language detected in transcribed audio.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TranscriptionLanguage {
     /// The code of a language detected in the audio.
     #[serde(rename = "code")]
@@ -22,14 +22,5 @@ impl TranscriptionLanguage {
     /// A language detected in transcribed audio.
     pub fn new(code: String) -> TranscriptionLanguage {
         TranscriptionLanguage { code }
-    }
-}
-
-impl std::fmt::Display for TranscriptionLanguage {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

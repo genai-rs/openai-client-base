@@ -7,12 +7,6 @@ pub enum FineTuningJobError {
     Null,
 }
 
-impl Default for FineTuningJobError {
-    fn default() -> Self {
-        Self::Null
-    }
-}
-
 impl std::fmt::Display for FineTuningJobError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

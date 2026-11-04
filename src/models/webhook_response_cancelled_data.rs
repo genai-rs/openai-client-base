@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// WebhookResponseCancelledData : Event data payload.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookResponseCancelledData {
     /// The unique ID of the model response.
     #[serde(rename = "id")]
@@ -22,14 +22,5 @@ impl WebhookResponseCancelledData {
     /// Event data payload.
     pub fn new(id: String) -> WebhookResponseCancelledData {
         WebhookResponseCancelledData { id }
-    }
-}
-
-impl std::fmt::Display for WebhookResponseCancelledData {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeBetaResponseCreateParams : Create a new Realtime response with these parameters
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeBetaResponseCreateParams {
     /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
     #[serde(rename = "modalities", skip_serializing_if = "Option::is_none")]
@@ -88,11 +88,6 @@ pub enum Modalities {
     Audio,
 }
 
-impl Default for Modalities {
-    fn default() -> Modalities {
-        Self::Text
-    }
-}
 /// The format of output audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputAudioFormat {
@@ -104,17 +99,105 @@ pub enum OutputAudioFormat {
     G711Alaw,
 }
 
-impl Default for OutputAudioFormat {
-    fn default() -> OutputAudioFormat {
-        Self::Pcm16
+impl ::std::fmt::Display for Modalities {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Text => "text",
+            Self::Audio => "audio",
+        })
     }
 }
 
-impl std::fmt::Display for RealtimeBetaResponseCreateParams {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Modalities {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "text" => Ok(Self::Text),
+            "audio" => Ok(Self::Audio),
+            _ => Err(crate::models::ParseEnumError::new("Modalities", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Modalities {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Modalities {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Modalities {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for OutputAudioFormat {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Pcm16 => "pcm16",
+            Self::G711Ulaw => "g711_ulaw",
+            Self::G711Alaw => "g711_alaw",
+        })
+    }
+}
+
+impl ::std::str::FromStr for OutputAudioFormat {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "pcm16" => Ok(Self::Pcm16),
+            "g711_ulaw" => Ok(Self::G711Ulaw),
+            "g711_alaw" => Ok(Self::G711Alaw),
+            _ => Err(crate::models::ParseEnumError::new(
+                "OutputAudioFormat",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for OutputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for OutputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for OutputAudioFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

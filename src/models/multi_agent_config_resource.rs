@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// MultiAgentConfigResource : The resolved configuration for creating and coordinating subagents.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MultiAgentConfigResource {
     /// Whether subagent tools are enabled. Defaults to false.
     #[serde(rename = "enabled")]
@@ -30,15 +30,6 @@ impl MultiAgentConfigResource {
         MultiAgentConfigResource {
             enabled,
             max_concurrent_subagents,
-        }
-    }
-}
-
-impl std::fmt::Display for MultiAgentConfigResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

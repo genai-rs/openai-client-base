@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CodeInterpreterFileOutputFilesInner {
     /// The MIME type of the file.
     #[serde(rename = "mime_type")]
@@ -23,14 +23,5 @@ pub struct CodeInterpreterFileOutputFilesInner {
 impl CodeInterpreterFileOutputFilesInner {
     pub fn new(mime_type: String, file_id: String) -> CodeInterpreterFileOutputFilesInner {
         CodeInterpreterFileOutputFilesInner { mime_type, file_id }
-    }
-}
-
-impl std::fmt::Display for CodeInterpreterFileOutputFilesInner {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

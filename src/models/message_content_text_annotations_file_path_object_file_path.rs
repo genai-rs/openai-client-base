@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageContentTextAnnotationsFilePathObjectFilePath {
     /// The ID of the file that was generated.
     #[serde(rename = "file_id")]
@@ -20,14 +20,5 @@ pub struct MessageContentTextAnnotationsFilePathObjectFilePath {
 impl MessageContentTextAnnotationsFilePathObjectFilePath {
     pub fn new(file_id: String) -> MessageContentTextAnnotationsFilePathObjectFilePath {
         MessageContentTextAnnotationsFilePathObjectFilePath { file_id }
-    }
-}
-
-impl std::fmt::Display for MessageContentTextAnnotationsFilePathObjectFilePath {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

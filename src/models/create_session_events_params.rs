@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateSessionEventsParams : Input events submitted to an existing session.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSessionEventsParams {
     /// The input events to submit to the session.
     #[serde(rename = "events")]
@@ -23,14 +23,5 @@ impl CreateSessionEventsParams {
     /// Input events submitted to an existing session.
     pub fn new(events: Vec<models::SessionInputParam>) -> CreateSessionEventsParams {
         CreateSessionEventsParams { events }
-    }
-}
-
-impl std::fmt::Display for CreateSessionEventsParams {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

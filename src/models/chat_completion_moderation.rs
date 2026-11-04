@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// ChatCompletionModeration : Moderation results or errors for the request input and generated output.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionModeration {
     #[serde(rename = "input")]
     pub input: models::ChatCompletionModerationInput,
@@ -27,14 +27,5 @@ impl ChatCompletionModeration {
         output: models::ChatCompletionModerationOutput,
     ) -> ChatCompletionModeration {
         ChatCompletionModeration { input, output }
-    }
-}
-
-impl std::fmt::Display for ChatCompletionModeration {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

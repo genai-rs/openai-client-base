@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// Object012 : On an incomplete message, details about why the message is incomplete.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Object012 {
     /// The reason the message is incomplete.
     #[serde(rename = "reason")]
@@ -39,17 +39,57 @@ pub enum Reason {
     RunFailed,
 }
 
-impl Default for Reason {
-    fn default() -> Reason {
-        Self::ContentFilter
+impl ::std::fmt::Display for Reason {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ContentFilter => "content_filter",
+            Self::MaxTokens => "max_tokens",
+            Self::RunCancelled => "run_cancelled",
+            Self::RunExpired => "run_expired",
+            Self::RunFailed => "run_failed",
+        })
     }
 }
 
-impl std::fmt::Display for Object012 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Reason {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "content_filter" => Ok(Self::ContentFilter),
+            "max_tokens" => Ok(Self::MaxTokens),
+            "run_cancelled" => Ok(Self::RunCancelled),
+            "run_expired" => Ok(Self::RunExpired),
+            "run_failed" => Ok(Self::RunFailed),
+            _ => Err(crate::models::ParseEnumError::new("Reason", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Reason {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Reason {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Reason {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

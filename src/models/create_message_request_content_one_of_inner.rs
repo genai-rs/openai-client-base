@@ -19,11 +19,6 @@ pub enum CreateMessageRequestContentOneOfInner {
     MessageRequestContentTextObject(models::MessageRequestContentTextObject),
 }
 
-impl Default for CreateMessageRequestContentOneOfInner {
-    fn default() -> Self {
-        Self::MessageContentImageFileObject(Default::default())
-    }
-}
 /// Always `image_file`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
@@ -35,8 +30,53 @@ pub enum Type {
     Text,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::ImageFile
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ImageFile => "image_file",
+            Self::ImageUrl => "image_url",
+            Self::Text => "text",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "image_file" => Ok(Self::ImageFile),
+            "image_url" => Ok(Self::ImageUrl),
+            "text" => Ok(Self::Text),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

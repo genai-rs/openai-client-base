@@ -25,12 +25,6 @@ pub enum BetaResponseSteerPendingReasonTextVariantEnum {
     WaitingForRequiredInput,
 }
 
-impl Default for BetaResponseSteerPendingReasonTextVariantEnum {
-    fn default() -> Self {
-        Self::WaitingForRequiredInput
-    }
-}
-
 impl std::fmt::Display for BetaResponseSteerPendingReasonTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -39,5 +33,51 @@ impl std::fmt::Display for BetaResponseSteerPendingReasonTextVariantEnum {
             }
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for BetaResponseSteerPendingReasonTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "waiting_for_required_input" => Ok(Self::WaitingForRequiredInput),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaResponseSteerPendingReasonTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaResponseSteerPendingReasonTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String>
+    for BetaResponseSteerPendingReasonTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String>
+    for BetaResponseSteerPendingReasonTextVariantEnum
+{
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

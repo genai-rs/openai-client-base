@@ -22,9 +22,3 @@ pub enum BetaPromptCacheDiagnostics {
     ),
     BetaPromptCacheUnavailableDiagnosticsBody(models::BetaPromptCacheUnavailableDiagnosticsBody),
 }
-
-impl Default for BetaPromptCacheDiagnostics {
-    fn default() -> Self {
-        Self::BetaPromptCacheMissDiagnosticsBody(Default::default())
-    }
-}

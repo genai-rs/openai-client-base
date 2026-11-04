@@ -28,8 +28,45 @@ impl std::fmt::Display for SafetyCaseNoticeType {
     }
 }
 
-impl Default for SafetyCaseNoticeType {
-    fn default() -> SafetyCaseNoticeType {
-        Self::Warning
+impl ::std::str::FromStr for SafetyCaseNoticeType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "warning" => Ok(Self::Warning),
+            "deactivation" => Ok(Self::Deactivation),
+            _ => Err(crate::models::ParseEnumError::new(
+                "SafetyCaseNoticeType",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SafetyCaseNoticeType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SafetyCaseNoticeType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SafetyCaseNoticeType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

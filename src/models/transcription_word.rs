@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TranscriptionWord {
     /// The text content of the word.
     #[serde(rename = "word")]
@@ -26,14 +26,5 @@ pub struct TranscriptionWord {
 impl TranscriptionWord {
     pub fn new(word: String, start: f64, end: f64) -> TranscriptionWord {
         TranscriptionWord { word, start, end }
-    }
-}
-
-impl std::fmt::Display for TranscriptionWord {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

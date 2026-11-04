@@ -9,12 +9,6 @@ pub enum BetaInputParam {
     InputItemList(Vec<models::BetaInputItem>),
 }
 
-impl Default for BetaInputParam {
-    fn default() -> Self {
-        Self::TextInput(String::new())
-    }
-}
-
 impl BetaInputParam {
     pub fn new_text(text: String) -> Self {
         Self::TextInput(text)

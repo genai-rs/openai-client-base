@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateSkillVersionBody : Uploads a new immutable version of a skill.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSkillVersionBody {
     #[serde(rename = "files")]
     pub files: models::CreateSkillVersionBodyFiles,
@@ -27,15 +27,6 @@ impl CreateSkillVersionBody {
         CreateSkillVersionBody {
             files,
             default: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateSkillVersionBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

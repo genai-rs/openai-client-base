@@ -10,12 +10,6 @@ pub enum TokenCountsBodyInput {
     Null,
 }
 
-impl Default for TokenCountsBodyInput {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl TokenCountsBodyInput {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

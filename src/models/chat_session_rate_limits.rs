@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ChatSessionRateLimits : Active per-minute request limit for the session.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatSessionRateLimits {
     /// Maximum allowed requests per one-minute window.
     #[serde(rename = "max_requests_per_1_minute")]
@@ -23,15 +23,6 @@ impl ChatSessionRateLimits {
     pub fn new(max_requests_per_1_minute: i32) -> ChatSessionRateLimits {
         ChatSessionRateLimits {
             max_requests_per_1_minute,
-        }
-    }
-}
-
-impl std::fmt::Display for ChatSessionRateLimits {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

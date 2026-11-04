@@ -20,9 +20,3 @@ pub enum WebSearchActionResource {
     FindInPage(models::WebSearchActionResourceFindInPage),
     Other(models::WebSearchActionResourceOther),
 }
-
-impl Default for WebSearchActionResource {
-    fn default() -> Self {
-        Self::Search(Default::default())
-    }
-}

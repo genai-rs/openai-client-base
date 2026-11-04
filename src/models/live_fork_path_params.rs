@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// LiveForkPathParams : Identifies the stored Live session whose conversation and configuration are used to create a fork.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveForkPathParams {
     /// The ID of the stored Live session to fork.
     #[serde(rename = "session_id")]
@@ -22,14 +22,5 @@ impl LiveForkPathParams {
     /// Identifies the stored Live session whose conversation and configuration are used to create a fork.
     pub fn new(session_id: String) -> LiveForkPathParams {
         LiveForkPathParams { session_id }
-    }
-}
-
-impl std::fmt::Display for LiveForkPathParams {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

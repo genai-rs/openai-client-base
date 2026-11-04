@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompleteUploadRequest {
     /// The ordered list of Part IDs.
     #[serde(rename = "part_ids")]
@@ -25,15 +25,6 @@ impl CompleteUploadRequest {
         CompleteUploadRequest {
             part_ids,
             md5: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CompleteUploadRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

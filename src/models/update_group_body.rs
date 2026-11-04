@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// UpdateGroupBody : Request payload for updating the details of an existing group.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateGroupBody {
     /// New display name for the group.
     #[serde(rename = "name")]
@@ -22,14 +22,5 @@ impl UpdateGroupBody {
     /// Request payload for updating the details of an existing group.
     pub fn new(name: String) -> UpdateGroupBody {
         UpdateGroupBody { name }
-    }
-}
-
-impl std::fmt::Display for UpdateGroupBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

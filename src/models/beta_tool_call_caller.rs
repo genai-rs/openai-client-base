@@ -18,9 +18,3 @@ pub enum BetaToolCallCaller {
     BetaDirectToolCallCaller(models::BetaDirectToolCallCaller),
     BetaProgramToolCallCaller(models::BetaProgramToolCallCaller),
 }
-
-impl Default for BetaToolCallCaller {
-    fn default() -> Self {
-        Self::BetaDirectToolCallCaller(Default::default())
-    }
-}

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// TurnResource : The canonical public representation of a session turn.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TurnResource {
     /// The ID of the turn.
     #[serde(rename = "id")]
@@ -74,15 +74,6 @@ impl TurnResource {
             completed_at,
             error,
             usage,
-        }
-    }
-}
-
-impl std::fmt::Display for TurnResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

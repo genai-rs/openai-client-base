@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// RealtimeTranscriptionSessionCreateResponseClientSecret : Ephemeral key returned by the API. Only present when the session is created on the server via REST API.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranscriptionSessionCreateResponseClientSecret {
     /// Ephemeral key usable in client environments to authenticate connections to the Realtime API. Use this in client-side environments rather than a standard API token, which should only be used server-side.
     #[serde(rename = "value")]
@@ -28,14 +28,5 @@ impl RealtimeTranscriptionSessionCreateResponseClientSecret {
         expires_at: i32,
     ) -> RealtimeTranscriptionSessionCreateResponseClientSecret {
         RealtimeTranscriptionSessionCreateResponseClientSecret { value, expires_at }
-    }
-}
-
-impl std::fmt::Display for RealtimeTranscriptionSessionCreateResponseClientSecret {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

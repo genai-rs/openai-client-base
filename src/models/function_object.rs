@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionObject {
     /// A description of what the function does, used by the model to choose when and how to call the function.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -38,15 +38,6 @@ impl FunctionObject {
             name,
             parameters: None,
             strict: None,
-        }
-    }
-}
-
-impl std::fmt::Display for FunctionObject {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

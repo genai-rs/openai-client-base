@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// DoneEvent : Occurs when a stream ends.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DoneEvent {
     #[serde(rename = "event")]
     pub event: Event,
@@ -32,11 +32,6 @@ pub enum Event {
     Done,
 }
 
-impl Default for Event {
-    fn default() -> Event {
-        Self::Done
-    }
-}
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Data {
@@ -44,17 +39,96 @@ pub enum Data {
     LeftSquareBracketDoneRightSquareBracket,
 }
 
-impl Default for Data {
-    fn default() -> Data {
-        Self::LeftSquareBracketDoneRightSquareBracket
+impl ::std::fmt::Display for Event {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Done => "done",
+        })
     }
 }
 
-impl std::fmt::Display for DoneEvent {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Event {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "done" => Ok(Self::Done),
+            _ => Err(crate::models::ParseEnumError::new("Event", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Event {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Event {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Event {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Data {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::LeftSquareBracketDoneRightSquareBracket => "[DONE]",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Data {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "[DONE]" => Ok(Self::LeftSquareBracketDoneRightSquareBracket),
+            _ => Err(crate::models::ParseEnumError::new("Data", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Data {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Data {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Data {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

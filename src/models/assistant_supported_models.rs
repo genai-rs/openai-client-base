@@ -148,8 +148,85 @@ impl std::fmt::Display for AssistantSupportedModels {
     }
 }
 
-impl Default for AssistantSupportedModels {
-    fn default() -> AssistantSupportedModels {
-        Self::Gpt5
+impl ::std::str::FromStr for AssistantSupportedModels {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "gpt-5" => Ok(Self::Gpt5),
+            "gpt-5-mini" => Ok(Self::Gpt5Mini),
+            "gpt-5-nano" => Ok(Self::Gpt5Nano),
+            "gpt-5-2025-08-07" => Ok(Self::Gpt520250807),
+            "gpt-5-mini-2025-08-07" => Ok(Self::Gpt5Mini20250807),
+            "gpt-5-nano-2025-08-07" => Ok(Self::Gpt5Nano20250807),
+            "gpt-4.1" => Ok(Self::Gpt41),
+            "gpt-4.1-mini" => Ok(Self::Gpt41Mini),
+            "gpt-4.1-nano" => Ok(Self::Gpt41Nano),
+            "gpt-4.1-2025-04-14" => Ok(Self::Gpt4120250414),
+            "gpt-4.1-mini-2025-04-14" => Ok(Self::Gpt41Mini20250414),
+            "gpt-4.1-nano-2025-04-14" => Ok(Self::Gpt41Nano20250414),
+            "o3-mini" => Ok(Self::O3Mini),
+            "o3-mini-2025-01-31" => Ok(Self::O3Mini20250131),
+            "o1" => Ok(Self::O1),
+            "o1-2024-12-17" => Ok(Self::O120241217),
+            "gpt-4o" => Ok(Self::Gpt4o),
+            "gpt-4o-2024-11-20" => Ok(Self::Gpt4o20241120),
+            "gpt-4o-2024-08-06" => Ok(Self::Gpt4o20240806),
+            "gpt-4o-2024-05-13" => Ok(Self::Gpt4o20240513),
+            "gpt-4o-mini" => Ok(Self::Gpt4oMini),
+            "gpt-4o-mini-2024-07-18" => Ok(Self::Gpt4oMini20240718),
+            "gpt-4.5-preview" => Ok(Self::Gpt45Preview),
+            "gpt-4.5-preview-2025-02-27" => Ok(Self::Gpt45Preview20250227),
+            "gpt-4-turbo" => Ok(Self::Gpt4Turbo),
+            "gpt-4-turbo-2024-04-09" => Ok(Self::Gpt4Turbo20240409),
+            "gpt-4-0125-preview" => Ok(Self::Gpt40125Preview),
+            "gpt-4-turbo-preview" => Ok(Self::Gpt4TurboPreview),
+            "gpt-4-1106-preview" => Ok(Self::Gpt41106Preview),
+            "gpt-4-vision-preview" => Ok(Self::Gpt4VisionPreview),
+            "gpt-4" => Ok(Self::Gpt4),
+            "gpt-4-0314" => Ok(Self::Gpt40314),
+            "gpt-4-0613" => Ok(Self::Gpt40613),
+            "gpt-4-32k" => Ok(Self::Gpt432k),
+            "gpt-4-32k-0314" => Ok(Self::Gpt432k0314),
+            "gpt-4-32k-0613" => Ok(Self::Gpt432k0613),
+            "gpt-3.5-turbo" => Ok(Self::Gpt35Turbo),
+            "gpt-3.5-turbo-16k" => Ok(Self::Gpt35Turbo16k),
+            "gpt-3.5-turbo-0613" => Ok(Self::Gpt35Turbo0613),
+            "gpt-3.5-turbo-1106" => Ok(Self::Gpt35Turbo1106),
+            "gpt-3.5-turbo-0125" => Ok(Self::Gpt35Turbo0125),
+            "gpt-3.5-turbo-16k-0613" => Ok(Self::Gpt35Turbo16k0613),
+            _ => Err(crate::models::ParseEnumError::new(
+                "AssistantSupportedModels",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for AssistantSupportedModels {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for AssistantSupportedModels {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for AssistantSupportedModels {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

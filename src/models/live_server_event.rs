@@ -23,3 +23,52 @@ pub enum SourceEventType {
     #[serde(rename = "session.output_transcript.delta")]
     SessionOutputTranscriptDelta,
 }
+
+impl ::std::fmt::Display for SourceEventType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::SessionInputTranscriptDelta => "session.input_transcript.delta",
+            Self::SessionOutputTranscriptDelta => "session.output_transcript.delta",
+        })
+    }
+}
+
+impl ::std::str::FromStr for SourceEventType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "session.input_transcript.delta" => Ok(Self::SessionInputTranscriptDelta),
+            "session.output_transcript.delta" => Ok(Self::SessionOutputTranscriptDelta),
+            _ => Err(crate::models::ParseEnumError::new("SourceEventType", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for SourceEventType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for SourceEventType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for SourceEventType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}

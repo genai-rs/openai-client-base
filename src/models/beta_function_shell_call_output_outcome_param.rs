@@ -22,9 +22,3 @@ pub enum BetaFunctionShellCallOutputOutcomeParam {
         models::BetaFunctionShellCallOutputExitOutcomeParam,
     ),
 }
-
-impl Default for BetaFunctionShellCallOutputOutcomeParam {
-    fn default() -> Self {
-        Self::BetaFunctionShellCallOutputTimeoutOutcomeParam(Default::default())
-    }
-}

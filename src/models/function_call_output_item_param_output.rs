@@ -8,12 +8,6 @@ pub enum FunctionCallOutputItemParamOutput {
     Arrayofitems(Vec<serde_json::Value>),
 }
 
-impl Default for FunctionCallOutputItemParamOutput {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl FunctionCallOutputItemParamOutput {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

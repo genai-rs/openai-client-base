@@ -18,9 +18,3 @@ pub enum WorkflowParamStateVariablesValue {
     Boolean(bool),
     Number(f64),
 }
-
-impl Default for WorkflowParamStateVariablesValue {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

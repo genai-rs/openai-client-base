@@ -9,12 +9,6 @@ pub enum CreateModerationRequestInput {
     Arrayofitems(Vec<serde_json::Value>),
 }
 
-impl Default for CreateModerationRequestInput {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl CreateModerationRequestInput {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

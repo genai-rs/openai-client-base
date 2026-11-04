@@ -31,8 +31,46 @@ impl std::fmt::Display for ComputerCallOutputStatus {
     }
 }
 
-impl Default for ComputerCallOutputStatus {
-    fn default() -> ComputerCallOutputStatus {
-        Self::Completed
+impl ::std::str::FromStr for ComputerCallOutputStatus {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "completed" => Ok(Self::Completed),
+            "incomplete" => Ok(Self::Incomplete),
+            "failed" => Ok(Self::Failed),
+            _ => Err(crate::models::ParseEnumError::new(
+                "ComputerCallOutputStatus",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ComputerCallOutputStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ComputerCallOutputStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ComputerCallOutputStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

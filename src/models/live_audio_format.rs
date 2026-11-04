@@ -19,9 +19,3 @@ pub enum LiveAudioFormat {
     LiveSessionAudioFormatPcmuParam(models::LiveSessionAudioFormatPcmuParam),
     LiveSessionAudioFormatPcmaParam(models::LiveSessionAudioFormatPcmaParam),
 }
-
-impl Default for LiveAudioFormat {
-    fn default() -> Self {
-        Self::LiveSessionAudioFormatPcmParam(Default::default())
-    }
-}

@@ -31,8 +31,43 @@ impl std::fmt::Display for FileInputDetail {
     }
 }
 
-impl Default for FileInputDetail {
-    fn default() -> FileInputDetail {
-        Self::Auto
+impl ::std::str::FromStr for FileInputDetail {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "auto" => Ok(Self::Auto),
+            "low" => Ok(Self::Low),
+            "high" => Ok(Self::High),
+            _ => Err(crate::models::ParseEnumError::new("FileInputDetail", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for FileInputDetail {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for FileInputDetail {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for FileInputDetail {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

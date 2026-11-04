@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BetaFunctionShellActionParam : Commands and limits describing how to run the shell tool call.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionShellActionParam {
     /// Ordered shell commands for the execution environment to run.
     #[serde(rename = "commands")]
@@ -41,15 +41,6 @@ impl BetaFunctionShellActionParam {
             commands,
             timeout_ms: None,
             max_output_length: None,
-        }
-    }
-}
-
-impl std::fmt::Display for BetaFunctionShellActionParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

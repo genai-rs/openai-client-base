@@ -8,12 +8,6 @@ pub enum BetaFunctionCallOutputItemParamOutput {
     Arrayofitems(Vec<serde_json::Value>),
 }
 
-impl Default for BetaFunctionCallOutputItemParamOutput {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl BetaFunctionCallOutputItemParamOutput {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

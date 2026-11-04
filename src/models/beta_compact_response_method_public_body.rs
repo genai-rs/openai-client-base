@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCompactResponseMethodPublicBody {
     /// ID of the model to use
     #[serde(rename = "model")]
@@ -81,15 +81,6 @@ impl BetaCompactResponseMethodPublicBody {
             prompt_cache_retention: None,
             prompt_cache_options: None,
             service_tier: None,
-        }
-    }
-}
-
-impl std::fmt::Display for BetaCompactResponseMethodPublicBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

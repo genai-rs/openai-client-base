@@ -20,9 +20,3 @@ pub enum BetaAnnotation {
     BetaContainerFileCitationBody(models::BetaContainerFileCitationBody),
     BetaFilePath(models::BetaFilePath),
 }
-
-impl Default for BetaAnnotation {
-    fn default() -> Self {
-        Self::BetaFileCitationBody(Default::default())
-    }
-}

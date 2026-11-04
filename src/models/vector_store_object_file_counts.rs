@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VectorStoreObjectFileCounts {
     /// The number of files that are currently being processed.
     #[serde(rename = "in_progress")]
@@ -43,15 +43,6 @@ impl VectorStoreObjectFileCounts {
             failed,
             cancelled,
             total,
-        }
-    }
-}
-
-impl std::fmt::Display for VectorStoreObjectFileCounts {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

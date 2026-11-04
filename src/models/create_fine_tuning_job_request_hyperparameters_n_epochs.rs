@@ -18,9 +18,3 @@ pub enum CreateFineTuningJobRequestHyperparametersNEpochs {
     Text(String),
     Integer(i32),
 }
-
-impl Default for CreateFineTuningJobRequestHyperparametersNEpochs {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

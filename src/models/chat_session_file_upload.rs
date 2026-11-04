@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ChatSessionFileUpload : Upload permissions and limits applied to the session.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatSessionFileUpload {
     /// Indicates if uploads are enabled for the session.
     #[serde(rename = "enabled")]
@@ -35,15 +35,6 @@ impl ChatSessionFileUpload {
             enabled,
             max_file_size,
             max_files,
-        }
-    }
-}
-
-impl std::fmt::Display for ChatSessionFileUpload {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

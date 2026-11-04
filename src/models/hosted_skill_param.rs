@@ -18,9 +18,3 @@ pub enum HostedSkillParam {
     SkillReference(models::HostedSkillParamSkillReference),
     Inline(models::HostedSkillParamInline),
 }
-
-impl Default for HostedSkillParam {
-    fn default() -> Self {
-        Self::SkillReference(Default::default())
-    }
-}

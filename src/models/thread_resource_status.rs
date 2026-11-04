@@ -19,9 +19,3 @@ pub enum ThreadResourceStatus {
     LockedStatus(models::LockedStatus),
     ClosedStatus(models::ClosedStatus),
 }
-
-impl Default for ThreadResourceStatus {
-    fn default() -> Self {
-        Self::ActiveStatus(Default::default())
-    }
-}

@@ -18,9 +18,3 @@ pub enum ChunkingStrategyRequestParam {
     AutoChunkingStrategyRequestParam(models::AutoChunkingStrategyRequestParam),
     StaticChunkingStrategyRequestParam(models::StaticChunkingStrategyRequestParam),
 }
-
-impl Default for ChunkingStrategyRequestParam {
-    fn default() -> Self {
-        Self::AutoChunkingStrategyRequestParam(Default::default())
-    }
-}

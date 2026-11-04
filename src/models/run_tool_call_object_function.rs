@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// RunToolCallObjectFunction : The function definition.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunToolCallObjectFunction {
     /// The name of the function.
     #[serde(rename = "name")]
@@ -25,14 +25,5 @@ impl RunToolCallObjectFunction {
     /// The function definition.
     pub fn new(name: String, arguments: String) -> RunToolCallObjectFunction {
         RunToolCallObjectFunction { name, arguments }
-    }
-}
-
-impl std::fmt::Display for RunToolCallObjectFunction {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

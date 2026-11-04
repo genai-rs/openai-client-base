@@ -23,9 +23,3 @@ pub enum Provider {
     #[serde(rename = "OciExternalStorageProviderResponse")]
     OciExternalStorageProviderResponse(models::OciExternalStorageProviderResponse),
 }
-
-impl Default for Provider {
-    fn default() -> Self {
-        Self::AwsExternalStorageProviderResponse(Default::default())
-    }
-}

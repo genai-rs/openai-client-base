@@ -32,8 +32,46 @@ impl std::fmt::Display for BetaToolChoiceOptions {
     }
 }
 
-impl Default for BetaToolChoiceOptions {
-    fn default() -> BetaToolChoiceOptions {
-        Self::None
+impl ::std::str::FromStr for BetaToolChoiceOptions {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "none" => Ok(Self::None),
+            "auto" => Ok(Self::Auto),
+            "required" => Ok(Self::Required),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaToolChoiceOptions",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaToolChoiceOptions {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaToolChoiceOptions {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaToolChoiceOptions {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

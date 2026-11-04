@@ -18,9 +18,3 @@ pub enum LiveSessionCreateRequestTransport {
     LiveWebRtcTransport(models::LiveWebRtcTransport),
     LiveSipTransport(models::LiveSipTransport),
 }
-
-impl Default for LiveSessionCreateRequestTransport {
-    fn default() -> Self {
-        Self::LiveWebRtcTransport(Default::default())
-    }
-}

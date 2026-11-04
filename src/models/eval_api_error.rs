@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// EvalApiError : An object representing an error response from the Eval API.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalApiError {
     /// The error code.
     #[serde(rename = "code")]
@@ -25,14 +25,5 @@ impl EvalApiError {
     /// An object representing an error response from the Eval API.
     pub fn new(code: String, message: String) -> EvalApiError {
         EvalApiError { code, message }
-    }
-}
-
-impl std::fmt::Display for EvalApiError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

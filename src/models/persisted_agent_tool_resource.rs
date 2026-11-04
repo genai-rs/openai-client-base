@@ -22,9 +22,3 @@ pub enum PersistedAgentToolResource {
     WebSearch(models::PersistedAgentToolResourceWebSearch),
     ComputerUse(models::PersistedAgentToolResourceComputerUse),
 }
-
-impl Default for PersistedAgentToolResource {
-    fn default() -> Self {
-        Self::Function(Default::default())
-    }
-}

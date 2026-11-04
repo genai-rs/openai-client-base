@@ -49,8 +49,48 @@ impl std::fmt::Display for BetaIncludeEnum {
     }
 }
 
-impl Default for BetaIncludeEnum {
-    fn default() -> BetaIncludeEnum {
-        Self::FileSearchCallResults
+impl ::std::str::FromStr for BetaIncludeEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "file_search_call.results" => Ok(Self::FileSearchCallResults),
+            "web_search_call.results" => Ok(Self::WebSearchCallResults),
+            "web_search_call.action.sources" => Ok(Self::WebSearchCallActionSources),
+            "message.input_image.image_url" => Ok(Self::MessageInputImageImageUrl),
+            "computer_call_output.output.image_url" => Ok(Self::ComputerCallOutputOutputImageUrl),
+            "code_interpreter_call.outputs" => Ok(Self::CodeInterpreterCallOutputs),
+            "reasoning.encrypted_content" => Ok(Self::ReasoningEncryptedContent),
+            "message.output_text.logprobs" => Ok(Self::MessageOutputTextLogprobs),
+            _ => Err(crate::models::ParseEnumError::new("BetaIncludeEnum", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaIncludeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaIncludeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaIncludeEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

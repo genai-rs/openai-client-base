@@ -19,9 +19,3 @@ pub enum WebSearchToolCallAction {
     WebSearchActionOpenPage(models::WebSearchActionOpenPage),
     WebSearchActionFind(models::WebSearchActionFind),
 }
-
-impl Default for WebSearchToolCallAction {
-    fn default() -> Self {
-        Self::WebSearchActionSearch(Default::default())
-    }
-}

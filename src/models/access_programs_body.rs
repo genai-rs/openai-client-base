@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AccessProgramsBody {
     #[serde(rename = "cyber")]
     pub cyber: models::CyberAccessProgramEnum,
@@ -20,14 +20,5 @@ pub struct AccessProgramsBody {
 impl AccessProgramsBody {
     pub fn new(cyber: models::CyberAccessProgramEnum) -> AccessProgramsBody {
         AccessProgramsBody { cyber }
-    }
-}
-
-impl std::fmt::Display for AccessProgramsBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

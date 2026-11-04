@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuneDpoHyperparameters : The hyperparameters used for the DPO fine-tuning job.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneDpoHyperparameters {
     #[serde(rename = "beta", skip_serializing_if = "Option::is_none")]
     pub beta: Option<models::FineTuneDpoHyperparametersBeta>,
@@ -35,15 +35,6 @@ impl FineTuneDpoHyperparameters {
             batch_size: None,
             learning_rate_multiplier: None,
             n_epochs: None,
-        }
-    }
-}
-
-impl std::fmt::Display for FineTuneDpoHyperparameters {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

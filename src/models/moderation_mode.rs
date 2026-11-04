@@ -28,8 +28,42 @@ impl std::fmt::Display for ModerationMode {
     }
 }
 
-impl Default for ModerationMode {
-    fn default() -> ModerationMode {
-        Self::Score
+impl ::std::str::FromStr for ModerationMode {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "score" => Ok(Self::Score),
+            "block" => Ok(Self::Block),
+            _ => Err(crate::models::ParseEnumError::new("ModerationMode", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ModerationMode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ModerationMode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ModerationMode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

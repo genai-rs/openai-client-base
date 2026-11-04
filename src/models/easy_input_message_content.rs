@@ -9,12 +9,6 @@ pub enum EasyInputMessageContent {
     Inputmessagecontentlist(Vec<models::InputContent>),
 }
 
-impl Default for EasyInputMessageContent {
-    fn default() -> Self {
-        Self::TextInput(String::new())
-    }
-}
-
 impl EasyInputMessageContent {
     pub fn new_text(text: String) -> Self {
         Self::TextInput(text)

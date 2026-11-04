@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateVaultCredentialParams : Parameters for storing a credential for an MCP server or an OpenAI-hosted environment.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVaultCredentialParams {
     /// The name is trimmed before storage. It must contain 1 to 256 UTF-8 bytes after trimming.
     #[serde(rename = "name")]
@@ -34,15 +34,6 @@ impl CreateVaultCredentialParams {
             name,
             auth,
             metadata: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateVaultCredentialParams {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

@@ -31,8 +31,46 @@ impl std::fmt::Display for BetaFunctionCallStatus {
     }
 }
 
-impl Default for BetaFunctionCallStatus {
-    fn default() -> BetaFunctionCallStatus {
-        Self::InProgress
+impl ::std::str::FromStr for BetaFunctionCallStatus {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "in_progress" => Ok(Self::InProgress),
+            "completed" => Ok(Self::Completed),
+            "incomplete" => Ok(Self::Incomplete),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaFunctionCallStatus",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaFunctionCallStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaFunctionCallStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaFunctionCallStatus {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

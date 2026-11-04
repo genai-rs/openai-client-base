@@ -8,12 +8,6 @@ pub enum ComparisonFilterValue {
     Arrayofitems(Vec<serde_json::Value>),
 }
 
-impl Default for ComparisonFilterValue {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl ComparisonFilterValue {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

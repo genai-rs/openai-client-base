@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// LiveCreateResponseSession : The newly created Live session. Use its ID for session controls and sideband connections.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveCreateResponseSession {
     /// Opaque session identifier. Preserve the returned value unchanged, including its prefix.
     #[serde(rename = "id")]
@@ -22,14 +22,5 @@ impl LiveCreateResponseSession {
     /// The newly created Live session. Use its ID for session controls and sideband connections.
     pub fn new(id: String) -> LiveCreateResponseSession {
         LiveCreateResponseSession { id }
-    }
-}
-
-impl std::fmt::Display for LiveCreateResponseSession {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

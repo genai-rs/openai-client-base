@@ -180,11 +180,6 @@ pub enum Object {
     Batch,
 }
 
-impl Default for Object {
-    fn default() -> Object {
-        Self::Batch
-    }
-}
 /// The current status of the batch.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
@@ -206,17 +201,110 @@ pub enum Status {
     Cancelled,
 }
 
-impl Default for Status {
-    fn default() -> Status {
-        Self::Validating
+impl ::std::fmt::Display for Object {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Batch => "batch",
+        })
     }
 }
 
-impl std::fmt::Display for Batch {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Object {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "batch" => Ok(Self::Batch),
+            _ => Err(crate::models::ParseEnumError::new("Object", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Status {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Validating => "validating",
+            Self::Failed => "failed",
+            Self::InProgress => "in_progress",
+            Self::Finalizing => "finalizing",
+            Self::Completed => "completed",
+            Self::Expired => "expired",
+            Self::Cancelling => "cancelling",
+            Self::Cancelled => "cancelled",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Status {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "validating" => Ok(Self::Validating),
+            "failed" => Ok(Self::Failed),
+            "in_progress" => Ok(Self::InProgress),
+            "finalizing" => Ok(Self::Finalizing),
+            "completed" => Ok(Self::Completed),
+            "expired" => Ok(Self::Expired),
+            "cancelling" => Ok(Self::Cancelling),
+            "cancelled" => Ok(Self::Cancelled),
+            _ => Err(crate::models::ParseEnumError::new("Status", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Status {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Status {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Status {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

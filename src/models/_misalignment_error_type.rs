@@ -8,12 +8,6 @@ pub enum MisalignmentErrorType {
     TextVariant(MisalignmentErrorTypeTextVariantEnum),
 }
 
-impl Default for MisalignmentErrorType {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl MisalignmentErrorType {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)
@@ -53,12 +47,6 @@ pub enum MisalignmentErrorTypeTextVariantEnum {
     Other,
 }
 
-impl Default for MisalignmentErrorTypeTextVariantEnum {
-    fn default() -> Self {
-        Self::PotentiallyUnintendedDataTransfer
-    }
-}
-
 impl std::fmt::Display for MisalignmentErrorTypeTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -74,5 +62,52 @@ impl std::fmt::Display for MisalignmentErrorTypeTextVariantEnum {
             MisalignmentErrorTypeTextVariantEnum::Other => "other",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for MisalignmentErrorTypeTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "potentially_unintended_data_transfer" => Ok(Self::PotentiallyUnintendedDataTransfer),
+            "potentially_unintended_data_access" => Ok(Self::PotentiallyUnintendedDataAccess),
+            "potentially_unintended_destructive_activity" => {
+                Ok(Self::PotentiallyUnintendedDestructiveActivity)
+            }
+            "other" => Ok(Self::Other),
+            _ => Err(crate::models::ParseEnumError::new(
+                "MisalignmentErrorTypeTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for MisalignmentErrorTypeTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for MisalignmentErrorTypeTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for MisalignmentErrorTypeTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

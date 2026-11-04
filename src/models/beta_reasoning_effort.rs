@@ -30,12 +30,6 @@ pub enum BetaReasoningEffortTextVariantEnum {
     Max,
 }
 
-impl Default for BetaReasoningEffortTextVariantEnum {
-    fn default() -> Self {
-        Self::None
-    }
-}
-
 impl std::fmt::Display for BetaReasoningEffortTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -48,5 +42,53 @@ impl std::fmt::Display for BetaReasoningEffortTextVariantEnum {
             BetaReasoningEffortTextVariantEnum::Max => "max",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for BetaReasoningEffortTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "none" => Ok(Self::None),
+            "minimal" => Ok(Self::Minimal),
+            "low" => Ok(Self::Low),
+            "medium" => Ok(Self::Medium),
+            "high" => Ok(Self::High),
+            "xhigh" => Ok(Self::Xhigh),
+            "max" => Ok(Self::Max),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaReasoningEffortTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaReasoningEffortTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaReasoningEffortTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaReasoningEffortTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

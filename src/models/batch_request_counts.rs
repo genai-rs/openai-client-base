@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BatchRequestCounts : The request counts for different statuses within the batch.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BatchRequestCounts {
     /// Total number of requests in the batch.
     #[serde(rename = "total")]
@@ -31,15 +31,6 @@ impl BatchRequestCounts {
             total,
             completed,
             failed,
-        }
-    }
-}
-
-impl std::fmt::Display for BatchRequestCounts {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

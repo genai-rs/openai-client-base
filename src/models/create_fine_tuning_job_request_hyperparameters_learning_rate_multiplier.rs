@@ -18,9 +18,3 @@ pub enum CreateFineTuningJobRequestHyperparametersLearningRateMultiplier {
     Text(String),
     Number(f64),
 }
-
-impl Default for CreateFineTuningJobRequestHyperparametersLearningRateMultiplier {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

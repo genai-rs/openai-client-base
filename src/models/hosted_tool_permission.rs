@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// HostedToolPermission : Permission state for a single hosted tool on a project.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct HostedToolPermission {
     /// Whether the hosted tool is enabled for the project.
     #[serde(rename = "enabled")]
@@ -22,14 +22,5 @@ impl HostedToolPermission {
     /// Permission state for a single hosted tool on a project.
     pub fn new(enabled: bool) -> HostedToolPermission {
         HostedToolPermission { enabled }
-    }
-}
-
-impl std::fmt::Display for HostedToolPermission {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

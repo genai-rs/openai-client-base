@@ -9,12 +9,6 @@ pub enum BetaConversationParam {
     Betaconversationparam2(models::BetaConversationParam2),
 }
 
-impl Default for BetaConversationParam {
-    fn default() -> Self {
-        Self::ConversationId(String::new())
-    }
-}
-
 impl BetaConversationParam {
     pub fn new_text(text: String) -> Self {
         Self::ConversationId(text)

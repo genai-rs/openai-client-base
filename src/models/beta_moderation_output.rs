@@ -18,9 +18,3 @@ pub enum BetaModerationOutput {
     BetaModerationResultBody(models::BetaModerationResultBody),
     BetaModerationErrorBody(models::BetaModerationErrorBody),
 }
-
-impl Default for BetaModerationOutput {
-    fn default() -> Self {
-        Self::BetaModerationResultBody(Default::default())
-    }
-}

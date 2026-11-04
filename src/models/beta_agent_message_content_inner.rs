@@ -26,9 +26,3 @@ pub enum BetaAgentMessageContentInner {
     BetaInputFileContent(models::BetaInputFileContent),
     BetaEncryptedContent(models::BetaEncryptedContent),
 }
-
-impl Default for BetaAgentMessageContentInner {
-    fn default() -> Self {
-        Self::BetaInputTextContent(Default::default())
-    }
-}

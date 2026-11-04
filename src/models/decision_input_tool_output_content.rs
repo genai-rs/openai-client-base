@@ -8,12 +8,6 @@ pub enum DecisionInputToolOutputContent {
     Decisioninputtooloutputcontentparts(Vec<serde_json::Value>),
 }
 
-impl Default for DecisionInputToolOutputContent {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl DecisionInputToolOutputContent {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

@@ -8,12 +8,6 @@ pub enum VideoModel {
     TextVariant(VideoModelTextVariantEnum),
 }
 
-impl Default for VideoModel {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl VideoModel {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)
@@ -56,12 +50,6 @@ pub enum VideoModelTextVariantEnum {
     Sora220251208,
 }
 
-impl Default for VideoModelTextVariantEnum {
-    fn default() -> Self {
-        Self::Sora2
-    }
-}
-
 impl std::fmt::Display for VideoModelTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
@@ -72,5 +60,51 @@ impl std::fmt::Display for VideoModelTextVariantEnum {
             VideoModelTextVariantEnum::Sora220251208 => "sora-2-2025-12-08",
         };
         write!(f, "{}", value)
+    }
+}
+
+impl ::std::str::FromStr for VideoModelTextVariantEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "sora-2" => Ok(Self::Sora2),
+            "sora-2-pro" => Ok(Self::Sora2Pro),
+            "sora-2-2025-10-06" => Ok(Self::Sora220251006),
+            "sora-2-pro-2025-10-06" => Ok(Self::Sora2Pro20251006),
+            "sora-2-2025-12-08" => Ok(Self::Sora220251208),
+            _ => Err(crate::models::ParseEnumError::new(
+                "VideoModelTextVariantEnum",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for VideoModelTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for VideoModelTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for VideoModelTextVariantEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

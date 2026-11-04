@@ -86,8 +86,64 @@ impl std::fmt::Display for BetaResponseErrorCode {
     }
 }
 
-impl Default for BetaResponseErrorCode {
-    fn default() -> BetaResponseErrorCode {
-        Self::ServerError
+impl ::std::str::FromStr for BetaResponseErrorCode {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "server_error" => Ok(Self::ServerError),
+            "rate_limit_exceeded" => Ok(Self::RateLimitExceeded),
+            "invalid_prompt" => Ok(Self::InvalidPrompt),
+            "data_residency_mismatch" => Ok(Self::DataResidencyMismatch),
+            "bio_policy" => Ok(Self::BioPolicy),
+            "misalignment_policy_violation" => Ok(Self::MisalignmentPolicyViolation),
+            "vector_store_timeout" => Ok(Self::VectorStoreTimeout),
+            "invalid_image" => Ok(Self::InvalidImage),
+            "invalid_image_format" => Ok(Self::InvalidImageFormat),
+            "invalid_base64_image" => Ok(Self::InvalidBase64Image),
+            "invalid_image_url" => Ok(Self::InvalidImageUrl),
+            "image_too_large" => Ok(Self::ImageTooLarge),
+            "image_too_small" => Ok(Self::ImageTooSmall),
+            "image_parse_error" => Ok(Self::ImageParseError),
+            "image_content_policy_violation" => Ok(Self::ImageContentPolicyViolation),
+            "invalid_image_mode" => Ok(Self::InvalidImageMode),
+            "image_file_too_large" => Ok(Self::ImageFileTooLarge),
+            "unsupported_image_media_type" => Ok(Self::UnsupportedImageMediaType),
+            "empty_image_file" => Ok(Self::EmptyImageFile),
+            "failed_to_download_image" => Ok(Self::FailedToDownloadImage),
+            "image_file_not_found" => Ok(Self::ImageFileNotFound),
+            _ => Err(crate::models::ParseEnumError::new(
+                "BetaResponseErrorCode",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for BetaResponseErrorCode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for BetaResponseErrorCode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for BetaResponseErrorCode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

@@ -18,9 +18,3 @@ pub enum RotateMcpOauthTokenEndpointAuthParam {
     ClientSecretBasic(models::RotateMcpOauthTokenEndpointAuthParamClientSecretBasic),
     ClientSecretPost(models::RotateMcpOauthTokenEndpointAuthParamClientSecretPost),
 }
-
-impl Default for RotateMcpOauthTokenEndpointAuthParam {
-    fn default() -> Self {
-        Self::ClientSecretBasic(Default::default())
-    }
-}

@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// TextResource : The text configuration used by an agent.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TextResource {
     #[serde(rename = "format")]
     pub format: models::TextFormatResource,
@@ -27,14 +27,5 @@ impl TextResource {
         verbosity: models::VerbosityResource,
     ) -> TextResource {
         TextResource { format, verbosity }
-    }
-}
-
-impl std::fmt::Display for TextResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

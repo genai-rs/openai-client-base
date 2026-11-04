@@ -10,7 +10,7 @@
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ToggleCertificatesRequest {
     #[serde(rename = "certificate_ids")]
     pub certificate_ids: Vec<String>,
@@ -19,14 +19,5 @@ pub struct ToggleCertificatesRequest {
 impl ToggleCertificatesRequest {
     pub fn new(certificate_ids: Vec<String>) -> ToggleCertificatesRequest {
         ToggleCertificatesRequest { certificate_ids }
-    }
-}
-
-impl std::fmt::Display for ToggleCertificatesRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

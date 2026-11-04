@@ -8,12 +8,6 @@ pub enum LiveDecisionStoredInputItemParamContent {
     Arrayofitems(Vec<serde_json::Value>),
 }
 
-impl Default for LiveDecisionStoredInputItemParamContent {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl LiveDecisionStoredInputItemParamContent {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

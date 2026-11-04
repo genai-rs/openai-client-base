@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BrowserAuthenticationFieldValueParam : One user-entered value, including non-password fields such as an email address.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BrowserAuthenticationFieldValueParam {
     /// The field ID from the required action.
     #[serde(rename = "field_id")]
@@ -25,14 +25,5 @@ impl BrowserAuthenticationFieldValueParam {
     /// One user-entered value, including non-password fields such as an email address.
     pub fn new(field_id: String, value: String) -> BrowserAuthenticationFieldValueParam {
         BrowserAuthenticationFieldValueParam { field_id, value }
-    }
-}
-
-impl std::fmt::Display for BrowserAuthenticationFieldValueParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

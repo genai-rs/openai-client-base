@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ToolChoice : Tool selection that the assistant should honor when executing the item.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ToolChoice {
     /// Identifier of the requested tool.
     #[serde(rename = "id")]
@@ -22,14 +22,5 @@ impl ToolChoice {
     /// Tool selection that the assistant should honor when executing the item.
     pub fn new(id: String) -> ToolChoice {
         ToolChoice { id }
-    }
-}
-
-impl std::fmt::Display for ToolChoice {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

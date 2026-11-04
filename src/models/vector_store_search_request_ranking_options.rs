@@ -40,17 +40,53 @@ pub enum Ranker {
     Default20241115,
 }
 
-impl Default for Ranker {
-    fn default() -> Ranker {
-        Self::None
+impl ::std::fmt::Display for Ranker {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::None => "none",
+            Self::Auto => "auto",
+            Self::Default20241115 => "default-2024-11-15",
+        })
     }
 }
 
-impl std::fmt::Display for VectorStoreSearchRequestRankingOptions {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Ranker {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "none" => Ok(Self::None),
+            "auto" => Ok(Self::Auto),
+            "default-2024-11-15" => Ok(Self::Default20241115),
+            _ => Err(crate::models::ParseEnumError::new("Ranker", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Ranker {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Ranker {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Ranker {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

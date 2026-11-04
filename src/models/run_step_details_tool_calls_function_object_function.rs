@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// RunStepDetailsToolCallsFunctionObjectFunction : The definition of the function that was called.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RunStepDetailsToolCallsFunctionObjectFunction {
     /// The name of the function.
     #[serde(rename = "name")]
@@ -35,15 +35,6 @@ impl RunStepDetailsToolCallsFunctionObjectFunction {
             name,
             arguments,
             output,
-        }
-    }
-}
-
-impl std::fmt::Display for RunStepDetailsToolCallsFunctionObjectFunction {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

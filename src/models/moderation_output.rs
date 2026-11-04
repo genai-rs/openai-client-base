@@ -18,9 +18,3 @@ pub enum ModerationOutput {
     ModerationResultBody(models::ModerationResultBody),
     ModerationErrorBody(models::ModerationErrorBody),
 }
-
-impl Default for ModerationOutput {
-    fn default() -> Self {
-        Self::ModerationResultBody(Default::default())
-    }
-}

@@ -44,3 +44,162 @@ pub enum OutputFormat {
     Webp,
     Jpeg,
 }
+
+impl ::std::fmt::Display for Quality {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Low => "Low",
+            Self::Medium => "Medium",
+            Self::High => "High",
+            Self::Xhigh => "Xhigh",
+            Self::Max => "Max",
+            Self::Auto => "Auto",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Quality {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "Low" => Ok(Self::Low),
+            "Medium" => Ok(Self::Medium),
+            "High" => Ok(Self::High),
+            "Xhigh" => Ok(Self::Xhigh),
+            "Max" => Ok(Self::Max),
+            "Auto" => Ok(Self::Auto),
+            _ => Err(crate::models::ParseEnumError::new("Quality", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Quality {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Quality {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Quality {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Background {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Transparent => "Transparent",
+            Self::Opaque => "Opaque",
+            Self::Auto => "Auto",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Background {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "Transparent" => Ok(Self::Transparent),
+            "Opaque" => Ok(Self::Opaque),
+            "Auto" => Ok(Self::Auto),
+            _ => Err(crate::models::ParseEnumError::new("Background", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Background {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Background {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Background {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for OutputFormat {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Png => "Png",
+            Self::Webp => "Webp",
+            Self::Jpeg => "Jpeg",
+        })
+    }
+}
+
+impl ::std::str::FromStr for OutputFormat {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "Png" => Ok(Self::Png),
+            "Webp" => Ok(Self::Webp),
+            "Jpeg" => Ok(Self::Jpeg),
+            _ => Err(crate::models::ParseEnumError::new("OutputFormat", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for OutputFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for OutputFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for OutputFormat {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}

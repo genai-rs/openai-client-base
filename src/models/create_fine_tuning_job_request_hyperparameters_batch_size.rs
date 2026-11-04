@@ -18,9 +18,3 @@ pub enum CreateFineTuningJobRequestHyperparametersBatchSize {
     Text(String),
     Integer(i32),
 }
-
-impl Default for CreateFineTuningJobRequestHyperparametersBatchSize {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}

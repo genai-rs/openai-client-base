@@ -54,11 +54,6 @@ pub enum Object {
     OrganizationProjectServiceAccount,
 }
 
-impl Default for Object {
-    fn default() -> Object {
-        Self::OrganizationProjectServiceAccount
-    }
-}
 /// Service accounts created with default project membership have role `member`. Accounts created with `create_service_account_only` have role `none`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
@@ -68,17 +63,98 @@ pub enum Role {
     None,
 }
 
-impl Default for Role {
-    fn default() -> Role {
-        Self::Member
+impl ::std::fmt::Display for Object {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::OrganizationProjectServiceAccount => "organization.project.service_account",
+        })
     }
 }
 
-impl std::fmt::Display for ProjectServiceAccountCreateResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Object {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "organization.project.service_account" => Ok(Self::OrganizationProjectServiceAccount),
+            _ => Err(crate::models::ParseEnumError::new("Object", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Role {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Member => "member",
+            Self::None => "none",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Role {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "member" => Ok(Self::Member),
+            "none" => Ok(Self::None),
+            _ => Err(crate::models::ParseEnumError::new("Role", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Role {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Role {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Role {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

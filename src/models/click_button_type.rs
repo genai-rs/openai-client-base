@@ -37,8 +37,45 @@ impl std::fmt::Display for ClickButtonType {
     }
 }
 
-impl Default for ClickButtonType {
-    fn default() -> ClickButtonType {
-        Self::Left
+impl ::std::str::FromStr for ClickButtonType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "left" => Ok(Self::Left),
+            "right" => Ok(Self::Right),
+            "wheel" => Ok(Self::Wheel),
+            "back" => Ok(Self::Back),
+            "forward" => Ok(Self::Forward),
+            _ => Err(crate::models::ParseEnumError::new("ClickButtonType", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ClickButtonType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ClickButtonType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ClickButtonType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

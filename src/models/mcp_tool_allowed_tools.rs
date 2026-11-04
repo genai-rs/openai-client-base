@@ -10,12 +10,6 @@ pub enum McpToolAllowedTools {
     Null,
 }
 
-impl Default for McpToolAllowedTools {
-    fn default() -> Self {
-        Self::ArrayOfStrings(Vec::new())
-    }
-}
-
 impl std::fmt::Display for McpToolAllowedTools {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

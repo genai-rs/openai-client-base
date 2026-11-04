@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// BetaLogProb : The log probability of a token.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaLogProb {
     #[serde(rename = "token")]
     pub token: String,
@@ -37,15 +37,6 @@ impl BetaLogProb {
             logprob,
             bytes,
             top_logprobs,
-        }
-    }
-}
-
-impl std::fmt::Display for BetaLogProb {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

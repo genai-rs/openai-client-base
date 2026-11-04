@@ -9,12 +9,6 @@ pub enum ConversationParam {
     Conversationparam2(models::ConversationParam2),
 }
 
-impl Default for ConversationParam {
-    fn default() -> Self {
-        Self::ConversationId(String::new())
-    }
-}
-
 impl ConversationParam {
     pub fn new_text(text: String) -> Self {
         Self::ConversationId(text)

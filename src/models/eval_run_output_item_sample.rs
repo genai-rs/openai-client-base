@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// EvalRunOutputItemSample : A sample containing the input and output of the evaluation run.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalRunOutputItemSample {
     /// An array of input messages.
     #[serde(rename = "input")]
@@ -69,15 +69,6 @@ impl EvalRunOutputItemSample {
             max_completion_tokens,
             top_p,
             seed,
-        }
-    }
-}
-
-impl std::fmt::Display for EvalRunOutputItemSample {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

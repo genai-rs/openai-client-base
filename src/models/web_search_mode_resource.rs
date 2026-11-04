@@ -32,8 +32,46 @@ impl std::fmt::Display for WebSearchModeResource {
     }
 }
 
-impl Default for WebSearchModeResource {
-    fn default() -> WebSearchModeResource {
-        Self::Disabled
+impl ::std::str::FromStr for WebSearchModeResource {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "disabled" => Ok(Self::Disabled),
+            "cached" => Ok(Self::Cached),
+            "live" => Ok(Self::Live),
+            _ => Err(crate::models::ParseEnumError::new(
+                "WebSearchModeResource",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for WebSearchModeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for WebSearchModeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for WebSearchModeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

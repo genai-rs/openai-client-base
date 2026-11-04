@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// GroupResourceWithSuccess : Response returned after updating a group.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct GroupResourceWithSuccess {
     /// Identifier for the group.
     #[serde(rename = "id")]
@@ -40,15 +40,6 @@ impl GroupResourceWithSuccess {
             name,
             created_at,
             is_scim_managed,
-        }
-    }
-}
-
-impl std::fmt::Display for GroupResourceWithSuccess {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

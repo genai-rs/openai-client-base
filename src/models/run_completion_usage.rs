@@ -7,12 +7,6 @@ pub enum RunCompletionUsage {
     Null,
 }
 
-impl Default for RunCompletionUsage {
-    fn default() -> Self {
-        Self::Null
-    }
-}
-
 impl std::fmt::Display for RunCompletionUsage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

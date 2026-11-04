@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BrowserAuthenticationFieldResource : A control in a registered browser-login form.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BrowserAuthenticationFieldResource {
     /// The field ID to submit as field_id in a fields entry.
     #[serde(rename = "id")]
@@ -40,15 +40,6 @@ impl BrowserAuthenticationFieldResource {
             label,
             r#type,
             required,
-        }
-    }
-}
-
-impl std::fmt::Display for BrowserAuthenticationFieldResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

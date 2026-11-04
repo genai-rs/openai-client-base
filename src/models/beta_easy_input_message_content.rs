@@ -9,12 +9,6 @@ pub enum BetaEasyInputMessageContent {
     Betainputmessagecontentlist(Vec<models::BetaInputContent>),
 }
 
-impl Default for BetaEasyInputMessageContent {
-    fn default() -> Self {
-        Self::TextInput(String::new())
-    }
-}
-
 impl BetaEasyInputMessageContent {
     pub fn new_text(text: String) -> Self {
         Self::TextInput(text)

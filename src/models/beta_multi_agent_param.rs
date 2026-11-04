@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BetaMultiAgentParam : Configuration for server-hosted multi-agent execution.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMultiAgentParam {
     /// Whether to enable server-hosted multi-agent execution for this response.
     #[serde(rename = "enabled")]
@@ -30,15 +30,6 @@ impl BetaMultiAgentParam {
         BetaMultiAgentParam {
             enabled,
             max_concurrent_subagents: None,
-        }
-    }
-}
-
-impl std::fmt::Display for BetaMultiAgentParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

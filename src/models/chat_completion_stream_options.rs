@@ -7,12 +7,6 @@ pub enum ChatCompletionStreamOptions {
     Null,
 }
 
-impl Default for ChatCompletionStreamOptions {
-    fn default() -> Self {
-        Self::Null
-    }
-}
-
 impl std::fmt::Display for ChatCompletionStreamOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

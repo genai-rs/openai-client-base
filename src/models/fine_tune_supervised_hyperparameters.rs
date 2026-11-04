@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// FineTuneSupervisedHyperparameters : The hyperparameters used for the fine-tuning job.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FineTuneSupervisedHyperparameters {
     #[serde(rename = "batch_size", skip_serializing_if = "Option::is_none")]
     pub batch_size: Option<models::FineTuneDpoHyperparametersBatchSize>,
@@ -32,15 +32,6 @@ impl FineTuneSupervisedHyperparameters {
             batch_size: None,
             learning_rate_multiplier: None,
             n_epochs: None,
-        }
-    }
-}
-
-impl std::fmt::Display for FineTuneSupervisedHyperparameters {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

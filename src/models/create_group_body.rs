@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// CreateGroupBody : Request payload for creating a new group in the organization.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateGroupBody {
     /// Human readable name for the group.
     #[serde(rename = "name")]
@@ -22,14 +22,5 @@ impl CreateGroupBody {
     /// Request payload for creating a new group in the organization.
     pub fn new(name: String) -> CreateGroupBody {
         CreateGroupBody { name }
-    }
-}
-
-impl std::fmt::Display for CreateGroupBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

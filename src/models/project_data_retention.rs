@@ -34,11 +34,6 @@ pub enum Object {
     ProjectDataRetention,
 }
 
-impl Default for Object {
-    fn default() -> Object {
-        Self::ProjectDataRetention
-    }
-}
 /// The configured project data retention type.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
@@ -56,17 +51,106 @@ pub enum Type {
     EnhancedModifiedAbuseMonitoring,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::OrganizationDefault
+impl ::std::fmt::Display for Object {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ProjectDataRetention => "project.data_retention",
+        })
     }
 }
 
-impl std::fmt::Display for ProjectDataRetention {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Object {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "project.data_retention" => Ok(Self::ProjectDataRetention),
+            _ => Err(crate::models::ParseEnumError::new("Object", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Object {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::OrganizationDefault => "organization_default",
+            Self::None => "none",
+            Self::ZeroDataRetention => "zero_data_retention",
+            Self::ModifiedAbuseMonitoring => "modified_abuse_monitoring",
+            Self::EnhancedZeroDataRetention => "enhanced_zero_data_retention",
+            Self::EnhancedModifiedAbuseMonitoring => "enhanced_modified_abuse_monitoring",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "organization_default" => Ok(Self::OrganizationDefault),
+            "none" => Ok(Self::None),
+            "zero_data_retention" => Ok(Self::ZeroDataRetention),
+            "modified_abuse_monitoring" => Ok(Self::ModifiedAbuseMonitoring),
+            "enhanced_zero_data_retention" => Ok(Self::EnhancedZeroDataRetention),
+            "enhanced_modified_abuse_monitoring" => Ok(Self::EnhancedModifiedAbuseMonitoring),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

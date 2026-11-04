@@ -28,8 +28,42 @@ impl std::fmt::Display for AttachmentType {
     }
 }
 
-impl Default for AttachmentType {
-    fn default() -> AttachmentType {
-        Self::Image
+impl ::std::str::FromStr for AttachmentType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "image" => Ok(Self::Image),
+            "file" => Ok(Self::File),
+            _ => Err(crate::models::ParseEnumError::new("AttachmentType", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for AttachmentType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for AttachmentType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for AttachmentType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

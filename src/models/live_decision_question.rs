@@ -18,9 +18,3 @@ pub enum LiveDecisionQuestion {
     LiveDecisionPredicateQuestionParam(models::LiveDecisionPredicateQuestionParam),
     LiveDecisionScoreQuestionParam(models::LiveDecisionScoreQuestionParam),
 }
-
-impl Default for LiveDecisionQuestion {
-    fn default() -> Self {
-        Self::LiveDecisionChoiceQuestionParam(Default::default())
-    }
-}

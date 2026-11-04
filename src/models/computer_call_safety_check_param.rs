@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// ComputerCallSafetyCheckParam : A pending safety check for the computer call.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerCallSafetyCheckParam {
     /// The ID of the pending safety check.
     #[serde(rename = "id")]
@@ -41,15 +41,6 @@ impl ComputerCallSafetyCheckParam {
             id,
             code: None,
             message: None,
-        }
-    }
-}
-
-impl std::fmt::Display for ComputerCallSafetyCheckParam {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

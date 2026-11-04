@@ -20,11 +20,6 @@ pub enum ResponsePromptVariablesValue {
     InputFileContent(models::InputFileContent),
 }
 
-impl Default for ResponsePromptVariablesValue {
-    fn default() -> Self {
-        Self::Text(Default::default())
-    }
-}
 /// The type of the input item. Always `input_text`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
@@ -36,8 +31,53 @@ pub enum Type {
     InputFile,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::InputText
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::InputText => "input_text",
+            Self::InputImage => "input_image",
+            Self::InputFile => "input_file",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "input_text" => Ok(Self::InputText),
+            "input_image" => Ok(Self::InputImage),
+            "input_file" => Ok(Self::InputFile),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

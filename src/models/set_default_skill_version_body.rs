@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// SetDefaultSkillVersionBody : Updates the default version pointer for a skill.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SetDefaultSkillVersionBody {
     /// The skill version number to set as default.
     #[serde(rename = "default_version")]
@@ -22,14 +22,5 @@ impl SetDefaultSkillVersionBody {
     /// Updates the default version pointer for a skill.
     pub fn new(default_version: String) -> SetDefaultSkillVersionBody {
         SetDefaultSkillVersionBody { default_version }
-    }
-}
-
-impl std::fmt::Display for SetDefaultSkillVersionBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

@@ -33,17 +33,49 @@ pub enum Event {
     ThreadRunStepCompleted,
 }
 
-impl Default for Event {
-    fn default() -> Event {
-        Self::ThreadRunStepCompleted
+impl ::std::fmt::Display for Event {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ThreadRunStepCompleted => "thread.run.step.completed",
+        })
     }
 }
 
-impl std::fmt::Display for Object31 {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Event {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "thread.run.step.completed" => Ok(Self::ThreadRunStepCompleted),
+            _ => Err(crate::models::ParseEnumError::new("Event", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Event {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Event {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Event {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

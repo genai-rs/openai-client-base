@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// RealtimeTranscriptionSessionCreateResponse : A new Realtime transcription session configuration.  When a session is created on the server via REST API, the session object also contains an ephemeral key. Default TTL for keys is 10 minutes. This property is not present when a session is updated via the WebSocket API.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeTranscriptionSessionCreateResponse {
     #[serde(rename = "client_secret")]
     pub client_secret: models::RealtimeTranscriptionSessionCreateResponseClientSecret,
@@ -47,15 +47,6 @@ impl RealtimeTranscriptionSessionCreateResponse {
             input_audio_format: None,
             input_audio_transcription: None,
             turn_detection: None,
-        }
-    }
-}
-
-impl std::fmt::Display for RealtimeTranscriptionSessionCreateResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PublicTestEndpointBody {
     #[serde(rename = "event_type")]
     pub event_type: models::ProjectEventTypeEnum,
@@ -20,14 +20,5 @@ pub struct PublicTestEndpointBody {
 impl PublicTestEndpointBody {
     pub fn new(event_type: models::ProjectEventTypeEnum) -> PublicTestEndpointBody {
         PublicTestEndpointBody { event_type }
-    }
-}
-
-impl std::fmt::Display for PublicTestEndpointBody {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
-        }
     }
 }

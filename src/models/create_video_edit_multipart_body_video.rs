@@ -9,12 +9,6 @@ pub enum CreateVideoEditMultipartBodyVideo {
     Videoreferenceinputparam(models::VideoReferenceInputParam),
 }
 
-impl Default for CreateVideoEditMultipartBodyVideo {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl CreateVideoEditMultipartBodyVideo {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

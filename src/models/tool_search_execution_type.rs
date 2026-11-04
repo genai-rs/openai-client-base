@@ -28,8 +28,45 @@ impl std::fmt::Display for ToolSearchExecutionType {
     }
 }
 
-impl Default for ToolSearchExecutionType {
-    fn default() -> ToolSearchExecutionType {
-        Self::Server
+impl ::std::str::FromStr for ToolSearchExecutionType {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "server" => Ok(Self::Server),
+            "client" => Ok(Self::Client),
+            _ => Err(crate::models::ParseEnumError::new(
+                "ToolSearchExecutionType",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ToolSearchExecutionType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ToolSearchExecutionType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ToolSearchExecutionType {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

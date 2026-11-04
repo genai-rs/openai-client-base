@@ -8,12 +8,6 @@ pub enum DecisionInputContent {
     Decisioninputcontentparts(Vec<serde_json::Value>),
 }
 
-impl Default for DecisionInputContent {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl DecisionInputContent {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

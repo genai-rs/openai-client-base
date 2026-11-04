@@ -11,7 +11,7 @@
 use serde::{Deserialize, Serialize};
 
 /// BetaToolChoiceTypes : Indicates that the model should use a built-in tool to generate a response. [Learn more about built-in tools](https://developers.openai.com/api/docs/guides/tools).
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaToolChoiceTypes {
     /// The type of hosted tool the model should to use. Learn more about [built-in tools](https://developers.openai.com/api/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer` - `computer_use_preview` - `computer_use` - `code_interpreter` - `image_generation`
     #[serde(rename = "type")]
@@ -45,17 +45,63 @@ pub enum Type {
     CodeInterpreter,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::FileSearch
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::FileSearch => "file_search",
+            Self::WebSearchPreview => "web_search_preview",
+            Self::Computer => "computer",
+            Self::ComputerUsePreview => "computer_use_preview",
+            Self::ComputerUse => "computer_use",
+            Self::WebSearchPreview20250311 => "web_search_preview_2025_03_11",
+            Self::ImageGeneration => "image_generation",
+            Self::CodeInterpreter => "code_interpreter",
+        })
     }
 }
 
-impl std::fmt::Display for BetaToolChoiceTypes {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "file_search" => Ok(Self::FileSearch),
+            "web_search_preview" => Ok(Self::WebSearchPreview),
+            "computer" => Ok(Self::Computer),
+            "computer_use_preview" => Ok(Self::ComputerUsePreview),
+            "computer_use" => Ok(Self::ComputerUse),
+            "web_search_preview_2025_03_11" => Ok(Self::WebSearchPreview20250311),
+            "image_generation" => Ok(Self::ImageGeneration),
+            "code_interpreter" => Ok(Self::CodeInterpreter),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

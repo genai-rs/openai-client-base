@@ -7,12 +7,6 @@ pub enum RunStepCompletionUsage {
     Null,
 }
 
-impl Default for RunStepCompletionUsage {
-    fn default() -> Self {
-        Self::Null
-    }
-}
-
 impl std::fmt::Display for RunStepCompletionUsage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {

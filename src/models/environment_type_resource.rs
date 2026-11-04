@@ -29,8 +29,45 @@ impl std::fmt::Display for EnvironmentTypeResource {
     }
 }
 
-impl Default for EnvironmentTypeResource {
-    fn default() -> EnvironmentTypeResource {
-        Self::OpenaiHosted
+impl ::std::str::FromStr for EnvironmentTypeResource {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "openai_hosted" => Ok(Self::OpenaiHosted),
+            "self_hosted" => Ok(Self::SelfHosted),
+            _ => Err(crate::models::ParseEnumError::new(
+                "EnvironmentTypeResource",
+                value,
+            )),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for EnvironmentTypeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for EnvironmentTypeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for EnvironmentTypeResource {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

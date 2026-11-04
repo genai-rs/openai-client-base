@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// McpTool : Give the model access to additional tools via remote Model Context Protocol (MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct McpTool {
     /// The type of the MCP tool. Always `mcp`.
     #[serde(rename = "type")]
@@ -96,11 +96,6 @@ pub enum Type {
     Mcp,
 }
 
-impl Default for Type {
-    fn default() -> Type {
-        Self::Mcp
-    }
-}
 /// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](https://developers.openai.com/api/docs/guides/tools-connectors-mcp#connectors).  This field is deprecated for models released after September 1, 2026. Use `server_url` to connect to a remote MCP server, or `tunnel_id` to connect through a Secure MCP Tunnel.  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ConnectorId {
@@ -122,17 +117,110 @@ pub enum ConnectorId {
     ConnectorSharepoint,
 }
 
-impl Default for ConnectorId {
-    fn default() -> ConnectorId {
-        Self::ConnectorDropbox
+impl ::std::fmt::Display for Type {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Mcp => "mcp",
+        })
     }
 }
 
-impl std::fmt::Display for McpTool {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
+impl ::std::str::FromStr for Type {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "mcp" => Ok(Self::Mcp),
+            _ => Err(crate::models::ParseEnumError::new("Type", value)),
         }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Type {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for ConnectorId {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::ConnectorDropbox => "connector_dropbox",
+            Self::ConnectorGmail => "connector_gmail",
+            Self::ConnectorGooglecalendar => "connector_googlecalendar",
+            Self::ConnectorGoogledrive => "connector_googledrive",
+            Self::ConnectorMicrosoftteams => "connector_microsoftteams",
+            Self::ConnectorOutlookcalendar => "connector_outlookcalendar",
+            Self::ConnectorOutlookemail => "connector_outlookemail",
+            Self::ConnectorSharepoint => "connector_sharepoint",
+        })
+    }
+}
+
+impl ::std::str::FromStr for ConnectorId {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "connector_dropbox" => Ok(Self::ConnectorDropbox),
+            "connector_gmail" => Ok(Self::ConnectorGmail),
+            "connector_googlecalendar" => Ok(Self::ConnectorGooglecalendar),
+            "connector_googledrive" => Ok(Self::ConnectorGoogledrive),
+            "connector_microsoftteams" => Ok(Self::ConnectorMicrosoftteams),
+            "connector_outlookcalendar" => Ok(Self::ConnectorOutlookcalendar),
+            "connector_outlookemail" => Ok(Self::ConnectorOutlookemail),
+            "connector_sharepoint" => Ok(Self::ConnectorSharepoint),
+            _ => Err(crate::models::ParseEnumError::new("ConnectorId", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for ConnectorId {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for ConnectorId {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for ConnectorId {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

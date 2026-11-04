@@ -9,12 +9,6 @@ pub enum CodeInterpreterToolContainer {
     Autocodeinterpretertoolparam(models::AutoCodeInterpreterToolParam),
 }
 
-impl Default for CodeInterpreterToolContainer {
-    fn default() -> Self {
-        Self::Text(String::new())
-    }
-}
-
 impl CodeInterpreterToolContainer {
     pub fn new_text(text: String) -> Self {
         Self::Text(text)

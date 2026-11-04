@@ -12,7 +12,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 /// CreateTranscriptionResponseVerboseJson : Represents a verbose json transcription response returned by model, based on the provided input.
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateTranscriptionResponseVerboseJson {
     /// The language of the input audio.
     #[serde(rename = "language")]
@@ -47,15 +47,6 @@ impl CreateTranscriptionResponseVerboseJson {
             words: None,
             segments: None,
             usage: None,
-        }
-    }
-}
-
-impl std::fmt::Display for CreateTranscriptionResponseVerboseJson {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }

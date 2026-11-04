@@ -28,8 +28,42 @@ impl std::fmt::Display for TruncationEnum {
     }
 }
 
-impl Default for TruncationEnum {
-    fn default() -> TruncationEnum {
-        Self::Auto
+impl ::std::str::FromStr for TruncationEnum {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "auto" => Ok(Self::Auto),
+            "disabled" => Ok(Self::Disabled),
+            _ => Err(crate::models::ParseEnumError::new("TruncationEnum", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for TruncationEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for TruncationEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for TruncationEnum {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

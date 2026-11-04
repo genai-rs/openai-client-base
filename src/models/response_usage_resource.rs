@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseUsageResource {
     #[serde(rename = "input_tokens")]
     pub input_tokens: i64,
@@ -39,15 +39,6 @@ impl ResponseUsageResource {
             output_tokens,
             output_tokens_details,
             total_tokens,
-        }
-    }
-}
-
-impl std::fmt::Display for ResponseUsageResource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match serde_json::to_string(self) {
-            Ok(s) => write!(f, "{}", s),
-            Err(_) => Err(std::fmt::Error),
         }
     }
 }
