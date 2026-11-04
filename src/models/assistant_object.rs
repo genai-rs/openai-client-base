@@ -22,7 +22,7 @@ pub struct AssistantObject {
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the assistant was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The name of the assistant. The maximum length is 256 characters.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
@@ -78,7 +78,7 @@ impl AssistantObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: i64,
         name: Option<String>,
         description: Option<String>,
         model: String,

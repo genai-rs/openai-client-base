@@ -21,13 +21,13 @@ pub struct RealtimeSessionCreateResponseTurnDetection {
     pub threshold: Option<f64>,
     /// Amount of audio to include before the VAD detected speech (in milliseconds). Defaults to 300ms.
     #[serde(rename = "prefix_padding_ms", skip_serializing_if = "Option::is_none")]
-    pub prefix_padding_ms: Option<i32>,
+    pub prefix_padding_ms: Option<i64>,
     /// Duration of silence to detect speech stop (in milliseconds). Defaults to 500ms. With shorter values the model will respond more quickly, but may jump in on short pauses from the user.
     #[serde(
         rename = "silence_duration_ms",
         skip_serializing_if = "Option::is_none"
     )]
-    pub silence_duration_ms: Option<i32>,
+    pub silence_duration_ms: Option<i64>,
 }
 
 impl RealtimeSessionCreateResponseTurnDetection {

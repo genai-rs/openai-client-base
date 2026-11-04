@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct CreateSpendAlertBody {
     /// The alert threshold amount, in cents.
     #[serde(rename = "threshold_amount")]
-    pub threshold_amount: i32,
+    pub threshold_amount: i64,
     /// The currency for the threshold amount.
     #[serde(rename = "currency")]
     pub currency: Currency,
@@ -30,7 +30,7 @@ pub struct CreateSpendAlertBody {
 impl CreateSpendAlertBody {
     /// Parameters for creating or updating a spend alert.
     pub fn new(
-        threshold_amount: i32,
+        threshold_amount: i64,
         currency: Currency,
         interval: Interval,
         notification_channel: models::SpendAlertNotificationChannel,

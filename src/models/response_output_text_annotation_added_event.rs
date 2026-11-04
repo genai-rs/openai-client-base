@@ -22,16 +22,16 @@ pub struct ResponseOutputTextAnnotationAddedEvent {
     pub item_id: String,
     /// The index of the output item in the response's output array.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The index of the content part within the output item.
     #[serde(rename = "content_index")]
-    pub content_index: i32,
+    pub content_index: i64,
     /// The index of the annotation within the content part.
     #[serde(rename = "annotation_index")]
-    pub annotation_index: i32,
+    pub annotation_index: i64,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The annotation object being added. (See annotation schema for details.)
     #[serde(rename = "annotation", deserialize_with = "Option::deserialize")]
     pub annotation: Option<models::Annotation>,
@@ -42,10 +42,10 @@ impl ResponseOutputTextAnnotationAddedEvent {
     pub fn new(
         r#type: Type,
         item_id: String,
-        output_index: i32,
-        content_index: i32,
-        annotation_index: i32,
-        sequence_number: i32,
+        output_index: i64,
+        content_index: i64,
+        annotation_index: i64,
+        sequence_number: i64,
         annotation: Option<models::Annotation>,
     ) -> ResponseOutputTextAnnotationAddedEvent {
         ResponseOutputTextAnnotationAddedEvent {

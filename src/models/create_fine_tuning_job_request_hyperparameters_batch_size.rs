@@ -18,7 +18,7 @@ pub use crate::models::CreateFineTuningJobRequestHyperparametersBatchSizeTextVar
 #[serde(untagged)]
 pub enum CreateFineTuningJobRequestHyperparametersBatchSize {
     TextVariant(models::CreateFineTuningJobRequestHyperparametersBatchSizeTextVariantEnum),
-    Integer(i32),
+    Integer(i64),
 }
 
 impl std::fmt::Display for CreateFineTuningJobRequestHyperparametersBatchSize {

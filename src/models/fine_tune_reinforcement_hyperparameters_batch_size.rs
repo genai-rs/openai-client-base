@@ -18,7 +18,7 @@ pub use crate::models::FineTuneReinforcementHyperparametersBatchSizeTextVariantE
 #[serde(untagged)]
 pub enum FineTuneReinforcementHyperparametersBatchSize {
     TextVariant(models::FineTuneReinforcementHyperparametersBatchSizeTextVariantEnum),
-    Integer(i32),
+    Integer(i64),
 }
 
 impl std::fmt::Display for FineTuneReinforcementHyperparametersBatchSize {

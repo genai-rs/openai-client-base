@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct RetentionRatioTruncationTokenLimits {
     /// Maximum tokens allowed in the conversation after instructions (which including tool definitions). For example, setting this to 5,000 would mean that truncation would occur when the conversation exceeds 5,000 tokens after instructions. This cannot be higher than the model's context window size minus the maximum output tokens.
     #[serde(rename = "post_instructions", skip_serializing_if = "Option::is_none")]
-    pub post_instructions: Option<i32>,
+    pub post_instructions: Option<i64>,
 }
 
 impl RetentionRatioTruncationTokenLimits {

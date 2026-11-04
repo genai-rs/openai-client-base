@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The permission identifier, which can be referenced in the API endpoints. | 
-**created_at** | **i32** | The Unix timestamp (in seconds) for when the permission was created. | 
+**created_at** | **i64** | The Unix timestamp (in seconds) for when the permission was created. | 
 **project_id** | **String** | The project identifier that the permission is for. | 
 **object** | **Object** | The object type, which is always \"checkpoint.permission\". (enum: checkpoint.permission) | 
 

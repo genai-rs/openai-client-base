@@ -34,7 +34,7 @@ pub struct EvalRun {
     pub name: Option<String>,
     /// Unix timestamp (in seconds) when the evaluation run was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The URL to the rendered evaluation run report on the UI dashboard.
     #[serde(rename = "report_url")]
     pub report_url: String,
@@ -67,7 +67,7 @@ impl EvalRun {
         status: String,
         model: Option<String>,
         name: Option<String>,
-        created_at: i32,
+        created_at: i64,
         report_url: String,
         result_counts: models::EvalRunResultCounts,
         per_model_usage: Option<Vec<models::EvalRunPerModelUsageInner>>,

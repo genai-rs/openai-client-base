@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Identifier for the group. | 
 **name** | **String** | Display name of the group. | 
-**created_at** | **i32** | Unix timestamp (in seconds) when the group was created. | 
+**created_at** | **i64** | Unix timestamp (in seconds) when the group was created. | 
 **is_scim_managed** | **bool** | Whether the group is managed through SCIM and controlled by your identity provider. | 
 **group_type** | **GroupType** | The type of the group. (enum: group, tenant_group) | 
 

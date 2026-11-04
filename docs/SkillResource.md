@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **object** | **Object** | The object type, which is `skill`. (enum: skill) | 
 **name** | **String** | Name of the skill. | 
 **description** | **String** | Description of the skill. | 
-**created_at** | **i32** | Unix timestamp (seconds) for when the skill was created. | 
+**created_at** | **i64** | Unix timestamp (seconds) for when the skill was created. | 
 **default_version** | **String** | Default version for the skill. | 
 **latest_version** | **String** | Latest version for the skill. | 
 

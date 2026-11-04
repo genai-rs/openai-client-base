@@ -15,25 +15,25 @@ use serde::{Deserialize, Serialize};
 pub struct EvalRunOutputItemSampleUsage {
     /// The total number of tokens used.
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
     /// The number of completion tokens generated.
     #[serde(rename = "completion_tokens")]
-    pub completion_tokens: i32,
+    pub completion_tokens: i64,
     /// The number of prompt tokens used.
     #[serde(rename = "prompt_tokens")]
-    pub prompt_tokens: i32,
+    pub prompt_tokens: i64,
     /// The number of tokens retrieved from cache.
     #[serde(rename = "cached_tokens")]
-    pub cached_tokens: i32,
+    pub cached_tokens: i64,
 }
 
 impl EvalRunOutputItemSampleUsage {
     /// Token usage details for the sample.
     pub fn new(
-        total_tokens: i32,
-        completion_tokens: i32,
-        prompt_tokens: i32,
-        cached_tokens: i32,
+        total_tokens: i64,
+        completion_tokens: i64,
+        prompt_tokens: i64,
+        cached_tokens: i64,
     ) -> EvalRunOutputItemSampleUsage {
         EvalRunOutputItemSampleUsage {
             total_tokens,

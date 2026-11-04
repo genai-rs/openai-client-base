@@ -154,7 +154,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **after** | Option<**String**> |  |  |
 **order** | Option<**String**> |  |  |[default to asc]
-**limit** | Option<**i32**> |  |  |[default to 20]
+**limit** | Option<**i64**> |  |  |[default to 20]
 
 ### Return type
 
@@ -813,7 +813,7 @@ List Container files
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **container_id** | **String** |  | [required] |
-**limit** | Option<**i32**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
+**limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
 **order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  |  |[default to desc]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 
@@ -845,7 +845,7 @@ List Containers
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i32**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
+**limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
 **order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  |  |[default to desc]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **name** | Option<**String**> | Filter results by container name. |  |
@@ -879,7 +879,7 @@ List items that belong to a ChatKit thread.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | Identifier of the ChatKit thread whose items are requested. | [required] |
-**limit** | Option<**i32**> | Maximum number of thread items to return. Defaults to 20. |  |
+**limit** | Option<**i64**> | Maximum number of thread items to return. Defaults to 20. |  |
 **order** | Option<[**OrderEnum**](OrderEnum.md)> | Sort order for results by creation time. Defaults to `desc`. |  |
 **after** | Option<**String**> | List items created after this thread item ID. Defaults to null for the first page. |  |
 **before** | Option<**String**> | List items created before this thread item ID. Defaults to null for the newest results. |  |
@@ -912,7 +912,7 @@ List ChatKit threads with optional pagination and user filters.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i32**> | Maximum number of thread items to return. Defaults to 20. |  |
+**limit** | Option<**i64**> | Maximum number of thread items to return. Defaults to 20. |  |
 **order** | Option<[**OrderEnum**](OrderEnum.md)> | Sort order for results by creation time. Defaults to `desc`. |  |
 **after** | Option<**String**> | List items created after this thread item ID. Defaults to null for the first page. |  |
 **before** | Option<**String**> | List items created before this thread item ID. Defaults to null for the newest results. |  |
@@ -946,7 +946,7 @@ Returns webhook endpoints for the authenticated project in newest-first order.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i32**> | Maximum number of webhook endpoints to return. Defaults to 20. |  |
+**limit** | Option<**i64**> | Maximum number of webhook endpoints to return. Defaults to 20. |  |
 **after** | Option<**String**> | ID of the last webhook endpoint from the previous page. |  |
 
 ### Return type
@@ -1007,7 +1007,7 @@ Name | Type | Description  | Required | Notes
 **project_id** | Option<**String**> |  |  |
 **after** | Option<**String**> | Return external storage configurations after this ID. |  |
 **order** | Option<[**ExternalStorageOrder**](ExternalStorageOrder.md)> |  |  |
-**limit** | Option<**i32**> |  |  |
+**limit** | Option<**i64**> |  |  |
 
 ### Return type
 
@@ -1037,10 +1037,10 @@ Get Decisions API usage details for the organization.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**start_time** | **i32** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
-**end_time** | Option<**i32**> | End time (Unix seconds) of the query time range, exclusive. |  |
+**start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
+**end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |
-**limit** | Option<**i32**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440 |  |
+**limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440 |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 **project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
 **group_by** | Option<[**Vec<models::DecisionsUsageGroupBy>**](Models__DecisionsUsageGroupBy.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |

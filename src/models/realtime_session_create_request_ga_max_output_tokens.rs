@@ -17,7 +17,7 @@ pub use crate::models::RealtimeSessionCreateRequestGaMaxOutputTokensTextVariantE
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RealtimeSessionCreateRequestGaMaxOutputTokens {
-    Integer(i32),
+    Integer(i64),
     TextVariant(models::RealtimeSessionCreateRequestGaMaxOutputTokensTextVariantEnum),
 }
 

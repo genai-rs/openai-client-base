@@ -25,7 +25,7 @@ pub struct CreateCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub best_of: Option<Option<i32>>,
+    pub best_of: Option<Option<i64>>,
     /// Echo back the prompt in addition to the completion
     #[serde(
         rename = "echo",
@@ -49,7 +49,7 @@ pub struct CreateCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub logit_bias: Option<Option<std::collections::HashMap<String, i32>>>,
+    pub logit_bias: Option<Option<std::collections::HashMap<String, i64>>>,
     /// Include the log probabilities on the `logprobs` most likely output tokens, as well the chosen tokens. For example, if `logprobs` is 5, the API will return a list of the 5 most likely tokens. The API will always return the `logprob` of the sampled token, so there may be up to `logprobs+1` elements in the response.  The maximum value for `logprobs` is 5.
     #[serde(
         rename = "logprobs",
@@ -57,7 +57,7 @@ pub struct CreateCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub logprobs: Option<Option<i32>>,
+    pub logprobs: Option<Option<i64>>,
     /// The maximum number of [tokens](https://platform.openai.com/tokenizer) that can be generated in the completion.  The token count of your prompt plus `max_tokens` cannot exceed the model's context length. [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken) for counting tokens.
     #[serde(
         rename = "max_tokens",
@@ -65,7 +65,7 @@ pub struct CreateCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_tokens: Option<Option<i32>>,
+    pub max_tokens: Option<Option<i64>>,
     /// How many completions to generate for each prompt.  **Note:** Because this parameter generates many completions, it can quickly consume your token quota. Use carefully and ensure that you have reasonable settings for `max_tokens` and `stop`.
     #[serde(
         rename = "n",
@@ -73,7 +73,7 @@ pub struct CreateCompletionRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub n: Option<Option<i32>>,
+    pub n: Option<Option<i64>>,
     /// Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.  [See more information about frequency and presence penalties.](https://developers.openai.com/api/docs/guides/text)
     #[serde(
         rename = "presence_penalty",

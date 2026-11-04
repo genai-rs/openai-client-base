@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **i32** | Unique identifier of the segment. | 
-**seek** | **i32** | Seek offset of the segment. | 
+**id** | **i64** | Unique identifier of the segment. | 
+**seek** | **i64** | Seek offset of the segment. | 
 **start** | **f64** | Start time of the segment in seconds. | 
 **end** | **f64** | End time of the segment in seconds. | 
 **text** | **String** | Text content of the segment. | 
-**tokens** | **Vec<i32>** | Array of token IDs for the text content. | 
+**tokens** | **Vec<i64>** | Array of token IDs for the text content. | 
 **temperature** | **f32** | Temperature parameter used for generating the segment. | 
 **avg_logprob** | **f32** | Average logprob of the segment. If the value is lower than -1, consider the logprobs failed. | 
 **compression_ratio** | **f32** | Compression ratio of the segment. If the value is greater than 2.4, consider the compression failed. | 

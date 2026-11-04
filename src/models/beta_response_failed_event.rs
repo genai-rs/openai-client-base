@@ -27,7 +27,7 @@ pub struct BetaResponseFailedEvent {
     pub r#type: Type,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "response")]
     pub response: models::BetaResponse,
 }
@@ -36,7 +36,7 @@ impl BetaResponseFailedEvent {
     /// An event that is emitted when a response fails.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
+        sequence_number: i64,
         response: models::BetaResponse,
     ) -> BetaResponseFailedEvent {
         BetaResponseFailedEvent {

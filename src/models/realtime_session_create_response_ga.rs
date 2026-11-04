@@ -25,7 +25,7 @@ pub struct RealtimeSessionCreateResponseGa {
     pub object: Object,
     /// Expiration timestamp for the session, in seconds since epoch.
     #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<i32>,
+    pub expires_at: Option<i64>,
     /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.
     #[serde(rename = "output_modalities", skip_serializing_if = "Option::is_none")]
     pub output_modalities: Option<Vec<OutputModalities>>,

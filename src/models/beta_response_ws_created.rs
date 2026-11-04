@@ -24,7 +24,7 @@ pub struct BetaResponseWsCreated {
     pub response: models::BetaResponse,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -35,7 +35,7 @@ impl BetaResponseWsCreated {
     pub fn new(
         r#type: Type,
         response: models::BetaResponse,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> BetaResponseWsCreated {
         BetaResponseWsCreated {
             agent: None,

@@ -19,13 +19,13 @@ pub struct FineTuningJobCheckpoint {
     pub id: String,
     /// The Unix timestamp (in seconds) for when the checkpoint was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The name of the fine-tuned checkpoint model that is created.
     #[serde(rename = "fine_tuned_model_checkpoint")]
     pub fine_tuned_model_checkpoint: String,
     /// The step number that the checkpoint was created at.
     #[serde(rename = "step_number")]
-    pub step_number: i32,
+    pub step_number: i64,
     #[serde(rename = "metrics")]
     pub metrics: models::FineTuningJobCheckpointMetrics,
     /// The name of the fine-tuning job that this checkpoint was created from.
@@ -40,9 +40,9 @@ impl FineTuningJobCheckpoint {
     /// The `fine_tuning.job.checkpoint` object represents a model checkpoint for a fine-tuning job that is ready to use.
     pub fn new(
         id: String,
-        created_at: i32,
+        created_at: i64,
         fine_tuned_model_checkpoint: String,
-        step_number: i32,
+        step_number: i64,
         metrics: models::FineTuningJobCheckpointMetrics,
         fine_tuning_job_id: String,
         object: Object,

@@ -21,7 +21,7 @@ pub struct GraderScoreModelSamplingParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub seed: Option<Option<i32>>,
+    pub seed: Option<Option<i64>>,
     /// An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
     #[serde(
         rename = "top_p",
@@ -45,7 +45,7 @@ pub struct GraderScoreModelSamplingParams {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_completions_tokens: Option<Option<i32>>,
+    pub max_completions_tokens: Option<Option<i64>>,
     #[serde(
         rename = "reasoning_effort",
         default,

@@ -26,16 +26,16 @@ pub struct VideoResource {
     pub status: models::VideoStatus,
     /// Approximate completion percentage for the generation task.
     #[serde(rename = "progress")]
-    pub progress: i32,
+    pub progress: i64,
     /// Unix timestamp (seconds) for when the job was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// Unix timestamp (seconds) for when the job completed, if finished.
     #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
-    pub completed_at: Option<i32>,
+    pub completed_at: Option<i64>,
     /// Unix timestamp (seconds) for when the downloadable assets expire, if set.
     #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
-    pub expires_at: Option<i32>,
+    pub expires_at: Option<i64>,
     /// The prompt that was used to generate the video.
     #[serde(rename = "prompt", deserialize_with = "Option::deserialize")]
     pub prompt: Option<String>,
@@ -61,10 +61,10 @@ impl VideoResource {
         object: Object,
         model: models::VideoModel,
         status: models::VideoStatus,
-        progress: i32,
-        created_at: i32,
-        completed_at: Option<i32>,
-        expires_at: Option<i32>,
+        progress: i64,
+        created_at: i64,
+        completed_at: Option<i64>,
+        expires_at: Option<i64>,
         prompt: Option<String>,
         size: models::VideoSize,
         seconds: String,

@@ -30,7 +30,7 @@ pub struct ProjectServiceAccountCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub expires_in_seconds: Option<Option<i32>>,
+    pub expires_in_seconds: Option<Option<i64>>,
 }
 
 impl ProjectServiceAccountCreateRequest {

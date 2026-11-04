@@ -21,16 +21,16 @@ pub struct ResponseReasoningTextWsDone {
     pub item_id: String,
     /// The index of the output item this reasoning text is associated with.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The index of the reasoning content part.
     #[serde(rename = "content_index")]
-    pub content_index: i32,
+    pub content_index: i64,
     /// The full text of the completed reasoning content.
     #[serde(rename = "text")]
     pub text: String,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -41,10 +41,10 @@ impl ResponseReasoningTextWsDone {
     pub fn new(
         r#type: Type,
         item_id: String,
-        output_index: i32,
-        content_index: i32,
+        output_index: i64,
+        content_index: i64,
         text: String,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> ResponseReasoningTextWsDone {
         ResponseReasoningTextWsDone {
             r#type,

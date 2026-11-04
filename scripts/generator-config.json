@@ -23,6 +23,7 @@
   "qualifiedInlineNames": true,
   "modelUnions": true,
   "unionDispatch": true,
+  "integersAsI64": true,
   "preprocessedSpecFile": "target/specs/l2_rust_compatible.json",
   "stringIdSchemas": [
     "ModelIds=Model identifier as string",

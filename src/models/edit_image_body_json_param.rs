@@ -32,7 +32,7 @@ pub struct EditImageBodyJsonParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub n: Option<Option<i32>>,
+    pub n: Option<Option<i64>>,
     /// Output quality for GPT image models. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Defaults to `auto`.
     #[serde(
         rename = "quality",
@@ -82,7 +82,7 @@ pub struct EditImageBodyJsonParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_compression: Option<Option<i32>>,
+    pub output_compression: Option<Option<i64>>,
     /// Moderation level for GPT image models.
     #[serde(
         rename = "moderation",
@@ -114,7 +114,7 @@ pub struct EditImageBodyJsonParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub partial_images: Option<Option<i32>>,
+    pub partial_images: Option<Option<i64>>,
 }
 
 impl EditImageBodyJsonParam {

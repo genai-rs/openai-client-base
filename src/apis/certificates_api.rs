@@ -495,7 +495,7 @@ pub async fn get_certificate(
 #[bon::builder]
 pub async fn list_organization_certificates(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::ListCertificatesResponse, Error<ListOrganizationCertificatesError>> {
@@ -557,7 +557,7 @@ pub async fn list_organization_certificates(
 pub async fn list_project_certificates(
     configuration: &configuration::Configuration,
     project_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::ListProjectCertificatesResponse, Error<ListProjectCertificatesError>> {

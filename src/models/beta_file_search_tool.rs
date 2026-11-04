@@ -22,7 +22,7 @@ pub struct BetaFileSearchTool {
     pub vector_store_ids: Vec<String>,
     /// The maximum number of results to return. This number should be between 1 and 50 inclusive.
     #[serde(rename = "max_num_results", skip_serializing_if = "Option::is_none")]
-    pub max_num_results: Option<i32>,
+    pub max_num_results: Option<i64>,
     #[serde(rename = "ranking_options", skip_serializing_if = "Option::is_none")]
     pub ranking_options: Option<models::BetaRankingOptions>,
     #[serde(

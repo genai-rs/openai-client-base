@@ -27,10 +27,10 @@ pub struct BetaResponseOutputItemAddedEvent {
     pub r#type: Type,
     /// The index of the output item that was added.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "item")]
     pub item: models::BetaOutputItem,
 }
@@ -39,8 +39,8 @@ impl BetaResponseOutputItemAddedEvent {
     /// Emitted when a new output item is added.
     pub fn new(
         r#type: Type,
-        output_index: i32,
-        sequence_number: i32,
+        output_index: i64,
+        sequence_number: i64,
         item: models::BetaOutputItem,
     ) -> BetaResponseOutputItemAddedEvent {
         BetaResponseOutputItemAddedEvent {

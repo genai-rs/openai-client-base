@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct WebhookBatchFailed {
     /// The Unix timestamp (in seconds) of when the batch API request failed.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The unique ID of the event.
     #[serde(rename = "id")]
     pub id: String,
@@ -33,7 +33,7 @@ pub struct WebhookBatchFailed {
 impl WebhookBatchFailed {
     /// Sent when a batch API request has failed.
     pub fn new(
-        created_at: i32,
+        created_at: i64,
         id: String,
         data: models::WebhookBatchFailedData,
         r#type: Type,

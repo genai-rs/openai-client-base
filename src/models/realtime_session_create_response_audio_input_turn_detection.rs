@@ -19,12 +19,12 @@ pub struct RealtimeSessionCreateResponseAudioInputTurnDetection {
     #[serde(rename = "threshold", skip_serializing_if = "Option::is_none")]
     pub threshold: Option<f64>,
     #[serde(rename = "prefix_padding_ms", skip_serializing_if = "Option::is_none")]
-    pub prefix_padding_ms: Option<i32>,
+    pub prefix_padding_ms: Option<i64>,
     #[serde(
         rename = "silence_duration_ms",
         skip_serializing_if = "Option::is_none"
     )]
-    pub silence_duration_ms: Option<i32>,
+    pub silence_duration_ms: Option<i64>,
 }
 
 impl RealtimeSessionCreateResponseAudioInputTurnDetection {

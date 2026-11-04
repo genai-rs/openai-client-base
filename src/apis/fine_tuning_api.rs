@@ -374,7 +374,7 @@ pub async fn list_fine_tuning_checkpoint_permissions(
     fine_tuned_model_checkpoint: &str,
     project_id: Option<&str>,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
 ) -> Result<
     models::ListFineTuningCheckpointPermissionResponse,
@@ -449,7 +449,7 @@ pub async fn list_fine_tuning_events(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
 ) -> Result<models::ListFineTuningJobEventsResponse, Error<ListFineTuningEventsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_fine_tuning_job_id = fine_tuning_job_id;
@@ -511,7 +511,7 @@ pub async fn list_fine_tuning_job_checkpoints(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
 ) -> Result<models::ListFineTuningJobCheckpointsResponse, Error<ListFineTuningJobCheckpointsError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -573,7 +573,7 @@ pub async fn list_fine_tuning_job_checkpoints(
 pub async fn list_paginated_fine_tuning_jobs(
     configuration: &configuration::Configuration,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     metadata: Option<std::collections::HashMap<String, String>>,
 ) -> Result<models::ListPaginatedFineTuningJobsResponse, Error<ListPaginatedFineTuningJobsError>> {
     // add a prefix to parameters to efficiently prevent name collisions

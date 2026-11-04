@@ -126,7 +126,7 @@ pub async fn list_project_group_role_assignments(
     configuration: &configuration::Configuration,
     project_id: &str,
     group_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::RoleListResource, Error<ListProjectGroupRoleAssignmentsError>> {

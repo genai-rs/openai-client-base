@@ -18,12 +18,12 @@ pub struct VectorStoreExpirationAfter {
     pub anchor: Anchor,
     /// The number of days after the anchor time that the vector store will expire.
     #[serde(rename = "days")]
-    pub days: i32,
+    pub days: i64,
 }
 
 impl VectorStoreExpirationAfter {
     /// The expiration policy for a vector store.
-    pub fn new(anchor: Anchor, days: i32) -> VectorStoreExpirationAfter {
+    pub fn new(anchor: Anchor, days: i64) -> VectorStoreExpirationAfter {
         VectorStoreExpirationAfter { anchor, days }
     }
 }

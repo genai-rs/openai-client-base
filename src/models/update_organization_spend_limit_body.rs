@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct UpdateOrganizationSpendLimitBody {
     /// The hard spend limit amount, in cents.
     #[serde(rename = "threshold_amount")]
-    pub threshold_amount: i32,
+    pub threshold_amount: i64,
     /// The currency for the threshold amount. Currently, only `USD` is supported.
     #[serde(rename = "currency")]
     pub currency: Currency,
@@ -27,7 +27,7 @@ pub struct UpdateOrganizationSpendLimitBody {
 impl UpdateOrganizationSpendLimitBody {
     /// Parameters for the hard spend limit you want to create or replace.
     pub fn new(
-        threshold_amount: i32,
+        threshold_amount: i64,
         currency: Currency,
         interval: Interval,
     ) -> UpdateOrganizationSpendLimitBody {

@@ -24,7 +24,7 @@ pub struct RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
     pub item_id: String,
     /// The index of the input audio content part within the item.
     #[serde(rename = "content_index")]
-    pub content_index: i32,
+    pub content_index: i64,
     /// The text for this segment.
     #[serde(rename = "text")]
     pub text: String,
@@ -48,7 +48,7 @@ impl RealtimeServerEventConversationItemInputAudioTranscriptionSegment {
         event_id: String,
         r#type: Type,
         item_id: String,
-        content_index: i32,
+        content_index: i64,
         text: String,
         id: String,
         speaker: String,

@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **email** | **String** | The email address of the individual to whom the invite was sent | 
 **role** | **Role** | `owner` or `reader` (enum: owner, reader) | 
 **status** | **Status** | `accepted`,`expired`, or `pending` (enum: accepted, expired, pending) | 
-**created_at** | **i32** | The Unix timestamp (in seconds) of when the invite was sent. | 
-**expires_at** | Option<**i32**> | The Unix timestamp (in seconds) of when the invite expires. | [optional]
-**accepted_at** | Option<**i32**> | The Unix timestamp (in seconds) of when the invite was accepted. | [optional]
+**created_at** | **i64** | The Unix timestamp (in seconds) of when the invite was sent. | 
+**expires_at** | Option<**i64**> | The Unix timestamp (in seconds) of when the invite expires. | [optional]
+**accepted_at** | Option<**i64**> | The Unix timestamp (in seconds) of when the invite was accepted. | [optional]
 **projects** | [**Vec<models::InviteProjectsInner>**](InviteProjectsInner.md) | The projects that were granted membership upon acceptance of the invite. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

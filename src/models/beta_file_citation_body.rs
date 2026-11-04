@@ -21,7 +21,7 @@ pub struct BetaFileCitationBody {
     pub file_id: String,
     /// The index in the output text at which to insert the file citation.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// The filename of the file cited.
     #[serde(rename = "filename")]
     pub filename: String,
@@ -32,7 +32,7 @@ impl BetaFileCitationBody {
     pub fn new(
         r#type: Type,
         file_id: String,
-        index: i32,
+        index: i64,
         filename: String,
     ) -> BetaFileCitationBody {
         BetaFileCitationBody {

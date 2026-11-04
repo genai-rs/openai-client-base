@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 pub struct ChatSessionRateLimits {
     /// Maximum allowed requests per one-minute window.
     #[serde(rename = "max_requests_per_1_minute")]
-    pub max_requests_per_1_minute: i32,
+    pub max_requests_per_1_minute: i64,
 }
 
 impl ChatSessionRateLimits {
     /// Active per-minute request limit for the session.
-    pub fn new(max_requests_per_1_minute: i32) -> ChatSessionRateLimits {
+    pub fn new(max_requests_per_1_minute: i64) -> ChatSessionRateLimits {
         ChatSessionRateLimits {
             max_requests_per_1_minute,
         }

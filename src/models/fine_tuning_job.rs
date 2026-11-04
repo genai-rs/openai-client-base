@@ -19,7 +19,7 @@ pub struct FineTuningJob {
     pub id: String,
     /// The Unix timestamp (in seconds) for when the fine-tuning job was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<models::FineTuningJobError>,
     /// The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
@@ -27,7 +27,7 @@ pub struct FineTuningJob {
     pub fine_tuned_model: Option<String>,
     /// The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "finished_at", deserialize_with = "Option::deserialize")]
-    pub finished_at: Option<i32>,
+    pub finished_at: Option<i64>,
     #[serde(
         rename = "hyperparameters",
         default,
@@ -52,7 +52,7 @@ pub struct FineTuningJob {
     pub status: Status,
     /// The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
     #[serde(rename = "trained_tokens", deserialize_with = "Option::deserialize")]
-    pub trained_tokens: Option<i32>,
+    pub trained_tokens: Option<i64>,
     /// The file ID used for training. You can retrieve the training data with the [Files API](https://developers.openai.com/api/reference/resources/files/methods/content).
     #[serde(rename = "training_file")]
     pub training_file: String,
@@ -69,7 +69,7 @@ pub struct FineTuningJob {
     pub integrations: Option<Option<Vec<models::FineTuningIntegration>>>,
     /// The seed used for the fine-tuning job.
     #[serde(rename = "seed", deserialize_with = "Option::deserialize")]
-    pub seed: Option<i32>,
+    pub seed: Option<i64>,
     /// The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running.
     #[serde(
         rename = "estimated_finish",
@@ -77,7 +77,7 @@ pub struct FineTuningJob {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub estimated_finish: Option<Option<i32>>,
+    pub estimated_finish: Option<Option<i64>>,
     #[serde(
         rename = "method",
         default,
@@ -99,19 +99,19 @@ impl FineTuningJob {
     /// The `fine_tuning.job` object represents a fine-tuning job that has been created through the API.
     pub fn new(
         id: String,
-        created_at: i32,
+        created_at: i64,
         error: Option<models::FineTuningJobError>,
         fine_tuned_model: Option<String>,
-        finished_at: Option<i32>,
+        finished_at: Option<i64>,
         model: String,
         object: Object,
         organization_id: String,
         result_files: Vec<String>,
         status: Status,
-        trained_tokens: Option<i32>,
+        trained_tokens: Option<i64>,
         training_file: String,
         validation_file: Option<String>,
-        seed: Option<i32>,
+        seed: Option<i64>,
     ) -> FineTuningJob {
         FineTuningJob {
             id,

@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 pub struct BatchUsageInputTokensDetails {
     /// The number of tokens that were retrieved from the cache. [More on prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching).
     #[serde(rename = "cached_tokens")]
-    pub cached_tokens: i32,
+    pub cached_tokens: i64,
 }
 
 impl BatchUsageInputTokensDetails {
     /// A detailed breakdown of the input tokens.
-    pub fn new(cached_tokens: i32) -> BatchUsageInputTokensDetails {
+    pub fn new(cached_tokens: i64) -> BatchUsageInputTokensDetails {
         BatchUsageInputTokensDetails { cached_tokens }
     }
 }

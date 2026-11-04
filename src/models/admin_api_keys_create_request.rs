@@ -16,7 +16,7 @@ pub struct AdminApiKeysCreateRequest {
     pub name: String,
     /// The number of seconds until the API key expires. Omit this field for a key that does not expire.
     #[serde(rename = "expires_in_seconds", skip_serializing_if = "Option::is_none")]
-    pub expires_in_seconds: Option<i32>,
+    pub expires_in_seconds: Option<i64>,
 }
 
 impl AdminApiKeysCreateRequest {

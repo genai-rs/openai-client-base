@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **status** | **String** | The status of the evaluation run. | 
 **model** | Option<**String**> | The model that is evaluated, if applicable. | 
 **name** | Option<**String**> | The name of the evaluation run. | 
-**created_at** | **i32** | Unix timestamp (in seconds) when the evaluation run was created. | 
+**created_at** | **i64** | Unix timestamp (in seconds) when the evaluation run was created. | 
 **report_url** | **String** | The URL to the rendered evaluation run report on the UI dashboard. | 
 **result_counts** | [**models::EvalRunResultCounts**](EvalRunResultCounts.md) |  | 
 **per_model_usage** | Option<[**Vec<models::EvalRunPerModelUsageInner>**](EvalRunPerModelUsageInner.md)> | Usage statistics for each model during the evaluation run. | 

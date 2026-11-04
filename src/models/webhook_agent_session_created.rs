@@ -22,7 +22,7 @@ pub struct WebhookAgentSessionCreated {
     pub object: Object,
     /// The Unix timestamp, in seconds, when the event was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The event type. Always `agent.session.created`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -35,7 +35,7 @@ impl WebhookAgentSessionCreated {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: i64,
         r#type: Type,
         data: models::AgentSessionCreatedPayloadResource,
     ) -> WebhookAgentSessionCreated {

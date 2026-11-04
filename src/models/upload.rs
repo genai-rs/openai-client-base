@@ -19,13 +19,13 @@ pub struct Upload {
     pub id: String,
     /// The Unix timestamp (in seconds) for when the Upload was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The name of the file to be uploaded.
     #[serde(rename = "filename")]
     pub filename: String,
     /// The intended number of bytes to be uploaded.
     #[serde(rename = "bytes")]
-    pub bytes: i32,
+    pub bytes: i64,
     /// The intended purpose of the file. [Please refer here](https://developers.openai.com/api/reference/resources/files#%28resource%29%20files%20%3E%20%28model%29%20file_object%20%3E%20%28schema%29%20%3E%20%28property%29%20purpose) for acceptable values.
     #[serde(rename = "purpose")]
     pub purpose: String,
@@ -34,7 +34,7 @@ pub struct Upload {
     pub status: Status,
     /// The Unix timestamp (in seconds) for when the Upload will expire.
     #[serde(rename = "expires_at")]
-    pub expires_at: i32,
+    pub expires_at: i64,
     /// The object type, which is always \"upload\".
     #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
     pub object: Option<Object>,
@@ -52,12 +52,12 @@ impl Upload {
     /// The Upload object can accept byte chunks in the form of Parts.
     pub fn new(
         id: String,
-        created_at: i32,
+        created_at: i64,
         filename: String,
-        bytes: i32,
+        bytes: i64,
         purpose: String,
         status: Status,
-        expires_at: i32,
+        expires_at: i64,
     ) -> Upload {
         Upload {
             id,

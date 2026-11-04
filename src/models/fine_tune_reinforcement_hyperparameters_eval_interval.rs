@@ -18,7 +18,7 @@ pub use crate::models::FineTuneReinforcementHyperparametersEvalIntervalTextVaria
 #[serde(untagged)]
 pub enum FineTuneReinforcementHyperparametersEvalInterval {
     TextVariant(models::FineTuneReinforcementHyperparametersEvalIntervalTextVariantEnum),
-    Integer(i32),
+    Integer(i64),
 }
 
 impl std::fmt::Display for FineTuneReinforcementHyperparametersEvalInterval {

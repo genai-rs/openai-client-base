@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionMessageToolCallChunk {
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// The ID of the tool call.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -26,7 +26,7 @@ pub struct ChatCompletionMessageToolCallChunk {
 }
 
 impl ChatCompletionMessageToolCallChunk {
-    pub fn new(index: i32) -> ChatCompletionMessageToolCallChunk {
+    pub fn new(index: i64) -> ChatCompletionMessageToolCallChunk {
         ChatCompletionMessageToolCallChunk {
             index,
             id: None,

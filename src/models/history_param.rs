@@ -18,7 +18,7 @@ pub struct HistoryParam {
     pub enabled: Option<bool>,
     /// Number of recent ChatKit threads users have access to. Defaults to unlimited when unset.
     #[serde(rename = "recent_threads", skip_serializing_if = "Option::is_none")]
-    pub recent_threads: Option<i32>,
+    pub recent_threads: Option<i64>,
 }
 
 impl HistoryParam {

@@ -21,7 +21,7 @@ pub struct RealtimeServerEventInputAudioBufferSpeechStarted {
     pub r#type: Type,
     /// Milliseconds from the start of all audio written to the buffer during the  session when speech was first detected. This will correspond to the  beginning of audio sent to the model, and thus includes the  `prefix_padding_ms` configured in the Session.
     #[serde(rename = "audio_start_ms")]
-    pub audio_start_ms: i32,
+    pub audio_start_ms: i64,
     /// The ID of the user message item that will be created when speech stops.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -32,7 +32,7 @@ impl RealtimeServerEventInputAudioBufferSpeechStarted {
     pub fn new(
         event_id: String,
         r#type: Type,
-        audio_start_ms: i32,
+        audio_start_ms: i64,
         item_id: String,
     ) -> RealtimeServerEventInputAudioBufferSpeechStarted {
         RealtimeServerEventInputAudioBufferSpeechStarted {

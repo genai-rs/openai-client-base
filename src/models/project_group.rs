@@ -30,7 +30,7 @@ pub struct ProjectGroup {
     pub group_type: GroupType,
     /// Unix timestamp (in seconds) when the group was granted project access.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
 }
 
 impl ProjectGroup {
@@ -41,7 +41,7 @@ impl ProjectGroup {
         group_id: String,
         group_name: String,
         group_type: GroupType,
-        created_at: i32,
+        created_at: i64,
     ) -> ProjectGroup {
         ProjectGroup {
             object,

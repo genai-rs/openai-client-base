@@ -22,7 +22,7 @@ pub struct BetaResponseWsFailed {
     pub r#type: Type,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "response")]
     pub response: models::BetaResponse,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
@@ -34,7 +34,7 @@ impl BetaResponseWsFailed {
     /// An event that is emitted when a response fails.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
+        sequence_number: i64,
         response: models::BetaResponse,
     ) -> BetaResponseWsFailed {
         BetaResponseWsFailed {

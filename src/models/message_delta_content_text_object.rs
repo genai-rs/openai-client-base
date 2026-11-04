@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct MessageDeltaContentTextObject {
     /// The index of the content part in the message.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// Always `text`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -26,7 +26,7 @@ pub struct MessageDeltaContentTextObject {
 
 impl MessageDeltaContentTextObject {
     /// The text content that is part of a message.
-    pub fn new(index: i32, r#type: Type) -> MessageDeltaContentTextObject {
+    pub fn new(index: i64, r#type: Type) -> MessageDeltaContentTextObject {
         MessageDeltaContentTextObject {
             index,
             r#type,

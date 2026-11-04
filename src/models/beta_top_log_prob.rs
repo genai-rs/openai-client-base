@@ -18,12 +18,12 @@ pub struct BetaTopLogProb {
     #[serde(rename = "logprob")]
     pub logprob: f64,
     #[serde(rename = "bytes")]
-    pub bytes: Vec<i32>,
+    pub bytes: Vec<i64>,
 }
 
 impl BetaTopLogProb {
     /// The top log probability of a token.
-    pub fn new(token: String, logprob: f64, bytes: Vec<i32>) -> BetaTopLogProb {
+    pub fn new(token: String, logprob: f64, bytes: Vec<i64>) -> BetaTopLogProb {
         BetaTopLogProb {
             token,
             logprob,

@@ -24,10 +24,10 @@ pub struct RealtimeTranslationServerEventSessionOutputAudioDelta {
     pub delta: String,
     /// Sample rate of the audio delta.
     #[serde(rename = "sample_rate", skip_serializing_if = "Option::is_none")]
-    pub sample_rate: Option<i32>,
+    pub sample_rate: Option<i64>,
     /// Number of audio channels.
     #[serde(rename = "channels", skip_serializing_if = "Option::is_none")]
-    pub channels: Option<i32>,
+    pub channels: Option<i64>,
     /// Audio encoding for `delta`.
     #[serde(rename = "format", skip_serializing_if = "Option::is_none")]
     pub format: Option<Format>,
@@ -38,7 +38,7 @@ pub struct RealtimeTranslationServerEventSessionOutputAudioDelta {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub elapsed_ms: Option<Option<i32>>,
+    pub elapsed_ms: Option<Option<i64>>,
 }
 
 impl RealtimeTranslationServerEventSessionOutputAudioDelta {

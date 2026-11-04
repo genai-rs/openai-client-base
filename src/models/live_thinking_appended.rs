@@ -21,10 +21,10 @@ pub struct LiveThinkingAppended {
     pub client_event_id: Option<String>,
     /// The start of this event on the Live session timeline, in milliseconds from the beginning of the session.
     #[serde(rename = "start_ms")]
-    pub start_ms: i32,
+    pub start_ms: i64,
     /// The end of this event on the Live session timeline, in milliseconds from the beginning of the session. For appended context, this can equal start_ms.
     #[serde(rename = "end_ms")]
-    pub end_ms: i32,
+    pub end_ms: i64,
     /// The event type, always `session.thinking.appended`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -32,7 +32,7 @@ pub struct LiveThinkingAppended {
 
 impl LiveThinkingAppended {
     /// Returned when a session.thinking.append command is accepted into the Live session timeline. Acknowledges the added reasoning context without guaranteeing any spoken output.
-    pub fn new(event_id: String, start_ms: i32, end_ms: i32, r#type: Type) -> LiveThinkingAppended {
+    pub fn new(event_id: String, start_ms: i64, end_ms: i64, r#type: Type) -> LiveThinkingAppended {
         LiveThinkingAppended {
             event_id,
             client_event_id: None,

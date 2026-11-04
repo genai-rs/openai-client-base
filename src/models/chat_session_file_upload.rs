@@ -18,18 +18,18 @@ pub struct ChatSessionFileUpload {
     pub enabled: bool,
     /// Maximum upload size in megabytes.
     #[serde(rename = "max_file_size", deserialize_with = "Option::deserialize")]
-    pub max_file_size: Option<i32>,
+    pub max_file_size: Option<i64>,
     /// Maximum number of uploads allowed during the session.
     #[serde(rename = "max_files", deserialize_with = "Option::deserialize")]
-    pub max_files: Option<i32>,
+    pub max_files: Option<i64>,
 }
 
 impl ChatSessionFileUpload {
     /// Upload permissions and limits applied to the session.
     pub fn new(
         enabled: bool,
-        max_file_size: Option<i32>,
-        max_files: Option<i32>,
+        max_file_size: Option<i64>,
+        max_files: Option<i64>,
     ) -> ChatSessionFileUpload {
         ChatSessionFileUpload {
             enabled,

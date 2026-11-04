@@ -18,14 +18,14 @@ pub struct RealtimeTranscriptionSessionCreateResponseClientSecret {
     pub value: String,
     /// Timestamp for when the token expires. Currently, all tokens expire after one minute.
     #[serde(rename = "expires_at")]
-    pub expires_at: i32,
+    pub expires_at: i64,
 }
 
 impl RealtimeTranscriptionSessionCreateResponseClientSecret {
     /// Ephemeral key returned by the API. Only present when the session is created on the server via REST API.
     pub fn new(
         value: String,
-        expires_at: i32,
+        expires_at: i64,
     ) -> RealtimeTranscriptionSessionCreateResponseClientSecret {
         RealtimeTranscriptionSessionCreateResponseClientSecret { value, expires_at }
     }

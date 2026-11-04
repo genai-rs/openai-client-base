@@ -15,18 +15,18 @@ use serde::{Deserialize, Serialize};
 pub struct BatchRequestCounts {
     /// Total number of requests in the batch.
     #[serde(rename = "total")]
-    pub total: i32,
+    pub total: i64,
     /// Number of requests that have been completed successfully.
     #[serde(rename = "completed")]
-    pub completed: i32,
+    pub completed: i64,
     /// Number of requests that have failed.
     #[serde(rename = "failed")]
-    pub failed: i32,
+    pub failed: i64,
 }
 
 impl BatchRequestCounts {
     /// The request counts for different statuses within the batch.
-    pub fn new(total: i32, completed: i32, failed: i32) -> BatchRequestCounts {
+    pub fn new(total: i64, completed: i64, failed: i64) -> BatchRequestCounts {
         BatchRequestCounts {
             total,
             completed,

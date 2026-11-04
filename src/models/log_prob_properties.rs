@@ -21,12 +21,12 @@ pub struct LogProbProperties {
     pub logprob: f64,
     /// The bytes that were used to generate the log probability.
     #[serde(rename = "bytes")]
-    pub bytes: Vec<i32>,
+    pub bytes: Vec<i64>,
 }
 
 impl LogProbProperties {
     /// A log probability object.
-    pub fn new(token: String, logprob: f64, bytes: Vec<i32>) -> LogProbProperties {
+    pub fn new(token: String, logprob: f64, bytes: Vec<i64>) -> LogProbProperties {
         LogProbProperties {
             token,
             logprob,

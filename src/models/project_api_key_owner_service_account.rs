@@ -21,7 +21,7 @@ pub struct ProjectApiKeyOwnerServiceAccount {
     pub name: String,
     /// The Unix timestamp (in seconds) of when the service account was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The service account's project role.
     #[serde(rename = "role")]
     pub role: String,
@@ -32,7 +32,7 @@ impl ProjectApiKeyOwnerServiceAccount {
     pub fn new(
         id: String,
         name: String,
-        created_at: i32,
+        created_at: i64,
         role: String,
     ) -> ProjectApiKeyOwnerServiceAccount {
         ProjectApiKeyOwnerServiceAccount {

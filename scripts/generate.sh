@@ -30,7 +30,7 @@ SPEC_IN="$PROJECT_ROOT/stainless.yaml"
 SPEC_IN_JSON="$GEN_SPEC_DIR/stainless.json"
 # The spec as the generator sees it after its spec rules (webhook routing, string
 # ids, union titles, ...; see scripts/generator-config.json). Written by the
-# generator (preprocessedSpecFile) for the union scripts that still read it.
+# generator (preprocessedSpecFile) for debugging; no script reads it any more.
 SPEC_OUT="$GEN_SPEC_DIR/l2_rust_compatible.json"
 OUT_DIR="$PROJECT_ROOT"
 
@@ -101,9 +101,11 @@ docker run --rm \
     -c "/local/scripts/generator-config.json" \
     --skip-validate-spec
 
-# Step 4: Self-test the remaining generation scripts. The model rewrites the
-# post-processing scripts used to do (union enums, Display and Default impls,
-# imports) run inside the generator (legacyModelRewrites).
+# Step 4: Self-test the remaining generation scripts. The generator renders
+# unions (modelUnions, unionDispatch) and decides Default (defaultOnlyWhereValid)
+# and Display (noStructDisplay) itself. What is left of the post-processing
+# scripts (bon builders, enum variant names, recursive types, doc links, unused
+# imports) runs inside it (legacyModelRewrites).
 echo ""
 echo "🧪 Testing generation scripts..."
 uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"

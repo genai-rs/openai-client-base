@@ -122,7 +122,7 @@ pub async fn add_project_group(
 pub async fn list_project_groups(
     configuration: &configuration::Configuration,
     project_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::ProjectGroupListResource, Error<ListProjectGroupsError>> {

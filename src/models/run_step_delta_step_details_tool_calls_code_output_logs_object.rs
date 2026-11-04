@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject {
     /// The index of the output in the outputs array.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// Always `logs`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -26,7 +26,7 @@ pub struct RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject {
 
 impl RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject {
     /// Text output from the Code Interpreter tool call as part of a run step.
-    pub fn new(index: i32, r#type: Type) -> RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject {
+    pub fn new(index: i64, r#type: Type) -> RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject {
         RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject {
             index,
             r#type,

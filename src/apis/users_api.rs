@@ -115,7 +115,7 @@ pub async fn delete_user(
 #[bon::builder]
 pub async fn list_users(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     emails: Option<Vec<String>>,
 ) -> Result<models::UserListResponse, Error<ListUsersError>> {

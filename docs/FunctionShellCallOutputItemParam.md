@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **r#type** | **Type** | The type of the item. Always `shell_call_output`. (enum: shell_call_output) | 
 **output** | [**Vec<models::FunctionShellCallOutputContentParam>**](FunctionShellCallOutputContentParam.md) | Captured chunks of stdout and stderr output, along with their associated outcomes. | 
 **status** | Option<[**models::FunctionShellCallItemStatus**](FunctionShellCallItemStatus.md)> |  | [optional]
-**max_output_length** | Option<**i32**> | The maximum number of UTF-8 characters captured for this shell call's combined output. | [optional]
+**max_output_length** | Option<**i64**> | The maximum number of UTF-8 characters captured for this shell call's combined output. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

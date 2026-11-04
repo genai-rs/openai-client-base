@@ -23,7 +23,7 @@ pub struct BetaFunctionShellActionParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub timeout_ms: Option<Option<i32>>,
+    pub timeout_ms: Option<Option<i64>>,
     /// Maximum number of UTF-8 characters to capture from combined stdout and stderr output.
     #[serde(
         rename = "max_output_length",
@@ -31,7 +31,7 @@ pub struct BetaFunctionShellActionParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_output_length: Option<Option<i32>>,
+    pub max_output_length: Option<Option<i64>>,
 }
 
 impl BetaFunctionShellActionParam {

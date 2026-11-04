@@ -384,7 +384,7 @@ pub async fn beta_get_response(
     response_id: &str,
     include: Option<Vec<models::BetaIncludeEnum>>,
     stream: Option<bool>,
-    starting_after: Option<i32>,
+    starting_after: Option<i64>,
     include_obfuscation: Option<bool>,
     openai_beta: Option<Vec<String>>,
 ) -> Result<models::BetaResponse, Error<BetaGetResponseError>> {
@@ -534,7 +534,7 @@ pub async fn beta_getinputtokencounts(
 pub async fn beta_list_input_items(
     configuration: &configuration::Configuration,
     response_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     include: Option<Vec<models::BetaIncludeEnum>>,
@@ -839,7 +839,7 @@ pub async fn get_response(
     response_id: &str,
     include: Option<Vec<models::IncludeEnum>>,
     stream: Option<bool>,
-    starting_after: Option<i32>,
+    starting_after: Option<i64>,
     include_obfuscation: Option<bool>,
 ) -> Result<models::Response, Error<GetResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -976,7 +976,7 @@ pub async fn getinputtokencounts(
 pub async fn list_input_items(
     configuration: &configuration::Configuration,
     response_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
     include: Option<Vec<models::IncludeEnum>>,

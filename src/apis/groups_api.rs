@@ -183,7 +183,7 @@ pub async fn delete_group(
 #[bon::builder]
 pub async fn list_groups(
     configuration: &configuration::Configuration,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::GroupListResource, Error<ListGroupsError>> {

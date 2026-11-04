@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **usage** | [**models::EvalRunOutputItemSampleUsage**](EvalRunOutputItemSampleUsage.md) |  | 
 **error** | Option<[**models::EvalApiError**](EvalApiError.md)> |  | 
 **temperature** | **f64** | The sampling temperature used. | 
-**max_completion_tokens** | **i32** | The maximum number of tokens allowed for completion. | 
+**max_completion_tokens** | **i64** | The maximum number of tokens allowed for completion. | 
 **top_p** | **f64** | The top_p value used for sampling. | 
-**seed** | **i32** | The seed used for generating the sample. | 
+**seed** | **i64** | The seed used for generating the sample. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

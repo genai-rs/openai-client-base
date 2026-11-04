@@ -33,7 +33,7 @@ pub struct BatchError {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub line: Option<Option<i32>>,
+    pub line: Option<Option<i64>>,
 }
 
 impl BatchError {

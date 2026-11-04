@@ -244,7 +244,7 @@ pub async fn get_chat_completion_messages(
     configuration: &configuration::Configuration,
     completion_id: &str,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
 ) -> Result<models::ChatCompletionMessageList, Error<GetChatCompletionMessagesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -312,7 +312,7 @@ pub async fn list_chat_completions(
     model: Option<&str>,
     metadata: Option<&str>,
     after: Option<&str>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     order: Option<&str>,
 ) -> Result<models::ChatCompletionList, Error<ListChatCompletionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions

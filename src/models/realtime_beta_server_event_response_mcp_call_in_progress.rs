@@ -21,7 +21,7 @@ pub struct RealtimeBetaServerEventResponseMcpCallInProgress {
     pub r#type: Type,
     /// The index of the output item in the response.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The ID of the MCP tool call item.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -32,7 +32,7 @@ impl RealtimeBetaServerEventResponseMcpCallInProgress {
     pub fn new(
         event_id: String,
         r#type: Type,
-        output_index: i32,
+        output_index: i64,
         item_id: String,
     ) -> RealtimeBetaServerEventResponseMcpCallInProgress {
         RealtimeBetaServerEventResponseMcpCallInProgress {

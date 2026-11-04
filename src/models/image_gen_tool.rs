@@ -30,7 +30,7 @@ pub struct ImageGenTool {
     pub output_format: Option<OutputFormat>,
     /// Compression level for the output image. Default: 100.
     #[serde(rename = "output_compression", skip_serializing_if = "Option::is_none")]
-    pub output_compression: Option<i32>,
+    pub output_compression: Option<i64>,
     /// Moderation level for the generated image. Default: `auto`.
     #[serde(rename = "moderation", skip_serializing_if = "Option::is_none")]
     pub moderation: Option<Moderation>,
@@ -48,7 +48,7 @@ pub struct ImageGenTool {
     pub input_image_mask: Option<models::ImageGenToolInputImageMask>,
     /// Number of partial images to generate in streaming mode, from 0 (default value) to 3.
     #[serde(rename = "partial_images", skip_serializing_if = "Option::is_none")]
-    pub partial_images: Option<i32>,
+    pub partial_images: Option<i64>,
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
     pub action: Option<models::ImageGenActionEnum>,
 }

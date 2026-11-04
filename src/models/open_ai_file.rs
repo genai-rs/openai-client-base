@@ -18,13 +18,13 @@ pub struct OpenAiFile {
     pub id: String,
     /// The size of the file, in bytes. In a completed file upload response, this can be null when the file size is not yet available.
     #[serde(rename = "bytes", deserialize_with = "Option::deserialize")]
-    pub bytes: Option<i32>,
+    pub bytes: Option<i64>,
     /// The Unix timestamp (in seconds) for when the file was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The Unix timestamp (in seconds) for when the file will expire. In a completed file upload response, this can be null when no expiry is set.
     #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<i32>,
+    pub expires_at: Option<i64>,
     /// The name of the file.
     #[serde(rename = "filename")]
     pub filename: String,
@@ -46,8 +46,8 @@ impl OpenAiFile {
     /// The `File` object represents a document that has been uploaded to OpenAI.
     pub fn new(
         id: String,
-        bytes: Option<i32>,
-        created_at: i32,
+        bytes: Option<i64>,
+        created_at: i64,
         filename: String,
         object: Object,
         purpose: Purpose,

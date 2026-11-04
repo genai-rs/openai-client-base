@@ -25,10 +25,10 @@ pub struct BetaResponseFunctionCallArgumentsWsDelta {
     pub item_id: String,
     /// The index of the output item that the function-call arguments delta is added to.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The function-call arguments delta that is added.
     #[serde(rename = "delta")]
     pub delta: String,
@@ -42,8 +42,8 @@ impl BetaResponseFunctionCallArgumentsWsDelta {
     pub fn new(
         r#type: Type,
         item_id: String,
-        output_index: i32,
-        sequence_number: i32,
+        output_index: i64,
+        sequence_number: i64,
         delta: String,
     ) -> BetaResponseFunctionCallArgumentsWsDelta {
         BetaResponseFunctionCallArgumentsWsDelta {

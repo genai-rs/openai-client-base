@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created_at** | **i32** | The Unix timestamp (in seconds) of when the fine-tuning job succeeded.  | 
+**created_at** | **i64** | The Unix timestamp (in seconds) of when the fine-tuning job succeeded.  | 
 **id** | **String** | The unique ID of the event.  | 
 **data** | [**models::WebhookFineTuningJobFailedData**](WebhookFineTuningJobFailedData.md) |  | 
 **object** | Option<**Object**> | The object of the event. Always `event`.  (enum: event) | [optional]

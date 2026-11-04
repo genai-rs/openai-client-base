@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum WorkflowParamStateVariablesValue {
     Text(String),
-    Integer(i32),
+    Integer(i64),
     Boolean(bool),
     Number(f64),
 }

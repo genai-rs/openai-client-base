@@ -19,20 +19,20 @@ pub struct BetaPromptCacheMissDiagnosticsBody {
     pub reason: models::BetaCacheMissReasonTypeEnum,
     /// The estimated number of input tokens affected after the first detected divergence.
     #[serde(rename = "cache_missed_tokens")]
-    pub cache_missed_tokens: i32,
+    pub cache_missed_tokens: i64,
     /// The raw token count of the reusable prefix in the compared response.
     #[serde(
         rename = "comparison_reusable_tokens",
         skip_serializing_if = "Option::is_none"
     )]
-    pub comparison_reusable_tokens: Option<i32>,
+    pub comparison_reusable_tokens: Option<i64>,
 }
 
 impl BetaPromptCacheMissDiagnosticsBody {
     pub fn new(
         r#type: Type,
         reason: models::BetaCacheMissReasonTypeEnum,
-        cache_missed_tokens: i32,
+        cache_missed_tokens: i64,
     ) -> BetaPromptCacheMissDiagnosticsBody {
         BetaPromptCacheMissDiagnosticsBody {
             r#type,

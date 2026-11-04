@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 pub struct BetaCoordParam {
     /// The x-coordinate.
     #[serde(rename = "x")]
-    pub x: i32,
+    pub x: i64,
     /// The y-coordinate.
     #[serde(rename = "y")]
-    pub y: i32,
+    pub y: i64,
 }
 
 impl BetaCoordParam {
     /// An x/y coordinate pair, e.g. `{ x: 100, y: 200 }`.
-    pub fn new(x: i32, y: i32) -> BetaCoordParam {
+    pub fn new(x: i64, y: i64) -> BetaCoordParam {
         BetaCoordParam { x, y }
     }
 }

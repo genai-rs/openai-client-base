@@ -14,10 +14,10 @@ use serde::{Deserialize, Serialize};
 pub struct CertificateCertificateDetails {
     /// The Unix timestamp (in seconds) of when the certificate becomes valid.
     #[serde(rename = "valid_at", skip_serializing_if = "Option::is_none")]
-    pub valid_at: Option<i32>,
+    pub valid_at: Option<i64>,
     /// The Unix timestamp (in seconds) of when the certificate expires.
     #[serde(rename = "expires_at", skip_serializing_if = "Option::is_none")]
-    pub expires_at: Option<i32>,
+    pub expires_at: Option<i64>,
     /// The content of the certificate in PEM format.
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,

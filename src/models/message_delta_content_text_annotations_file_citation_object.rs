@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct MessageDeltaContentTextAnnotationsFileCitationObject {
     /// The index of the annotation in the text content part.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// Always `file_citation`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -27,14 +27,14 @@ pub struct MessageDeltaContentTextAnnotationsFileCitationObject {
     pub file_citation:
         Option<models::MessageDeltaContentTextAnnotationsFileCitationObjectFileCitation>,
     #[serde(rename = "start_index", skip_serializing_if = "Option::is_none")]
-    pub start_index: Option<i32>,
+    pub start_index: Option<i64>,
     #[serde(rename = "end_index", skip_serializing_if = "Option::is_none")]
-    pub end_index: Option<i32>,
+    pub end_index: Option<i64>,
 }
 
 impl MessageDeltaContentTextAnnotationsFileCitationObject {
     /// A citation within the message that points to a specific quote from a specific File associated with the assistant or the message. Generated when the assistant uses the \"file_search\" tool to search files.
-    pub fn new(index: i32, r#type: Type) -> MessageDeltaContentTextAnnotationsFileCitationObject {
+    pub fn new(index: i64, r#type: Type) -> MessageDeltaContentTextAnnotationsFileCitationObject {
         MessageDeltaContentTextAnnotationsFileCitationObject {
             index,
             r#type,

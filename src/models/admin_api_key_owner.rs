@@ -26,7 +26,7 @@ pub struct AdminApiKeyOwner {
     pub name: Option<String>,
     /// The Unix timestamp (in seconds) of when the user was created
     #[serde(rename = "created_at", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<i32>,
+    pub created_at: Option<i64>,
     /// Always `owner`
     #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,

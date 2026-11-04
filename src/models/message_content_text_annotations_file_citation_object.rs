@@ -23,9 +23,9 @@ pub struct MessageContentTextAnnotationsFileCitationObject {
     #[serde(rename = "file_citation")]
     pub file_citation: models::MessageContentTextAnnotationsFileCitationObjectFileCitation,
     #[serde(rename = "start_index")]
-    pub start_index: i32,
+    pub start_index: i64,
     #[serde(rename = "end_index")]
-    pub end_index: i32,
+    pub end_index: i64,
 }
 
 impl MessageContentTextAnnotationsFileCitationObject {
@@ -34,8 +34,8 @@ impl MessageContentTextAnnotationsFileCitationObject {
         r#type: Type,
         text: String,
         file_citation: models::MessageContentTextAnnotationsFileCitationObjectFileCitation,
-        start_index: i32,
-        end_index: i32,
+        start_index: i64,
+        end_index: i64,
     ) -> MessageContentTextAnnotationsFileCitationObject {
         MessageContentTextAnnotationsFileCitationObject {
             r#type,

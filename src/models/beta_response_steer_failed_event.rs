@@ -19,7 +19,7 @@ pub struct BetaResponseSteerFailedEvent {
     pub r#type: Type,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "steer")]
     pub steer: models::BetaResponseSteerFailedEventSteer,
     #[serde(rename = "error")]
@@ -33,7 +33,7 @@ impl BetaResponseSteerFailedEvent {
     /// Emitted when steering input is rejected or cannot be committed to a successor response. Returns the original, uncommitted input so the client can carry it into `response.create` when appropriate. Invalid input must be corrected before retrying.  Failures after acceptance include the same steering ID. Failures before an ID is allocated omit `steer.id`. A lost connection or missing acknowledgement leaves the outcome unknown; it is not proof that the input was rejected.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
+        sequence_number: i64,
         steer: models::BetaResponseSteerFailedEventSteer,
         error: models::BetaResponseSteerFailedEventError,
     ) -> BetaResponseSteerFailedEvent {

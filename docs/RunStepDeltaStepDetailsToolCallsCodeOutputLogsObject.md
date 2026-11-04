@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**index** | **i32** | The index of the output in the outputs array. | 
+**index** | **i64** | The index of the output in the outputs array. | 
 **r#type** | **Type** | Always `logs`. (enum: logs) | 
 **logs** | Option<**String**> | The text output from the Code Interpreter tool call. | [optional]
 

@@ -25,10 +25,10 @@ pub struct UsageWebSearchCallsResult {
     pub object: Object,
     /// The count of model requests.
     #[serde(rename = "num_model_requests")]
-    pub num_model_requests: i32,
+    pub num_model_requests: i64,
     /// The count of web search calls.
     #[serde(rename = "num_requests")]
-    pub num_requests: i32,
+    pub num_requests: i64,
     /// When `group_by=project_id`, this field provides the project ID of the grouped usage result.
     #[serde(
         rename = "project_id",
@@ -70,8 +70,8 @@ impl UsageWebSearchCallsResult {
     /// The aggregated web search calls usage details of the specific time bucket.
     pub fn new(
         object: Object,
-        num_model_requests: i32,
-        num_requests: i32,
+        num_model_requests: i64,
+        num_requests: i64,
     ) -> UsageWebSearchCallsResult {
         UsageWebSearchCallsResult {
             api_source: None,

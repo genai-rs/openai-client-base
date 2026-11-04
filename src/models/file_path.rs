@@ -21,12 +21,12 @@ pub struct FilePath {
     pub file_id: String,
     /// The index of the file in the list of files.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
 }
 
 impl FilePath {
     /// A path to a file.
-    pub fn new(r#type: Type, file_id: String, index: i32) -> FilePath {
+    pub fn new(r#type: Type, file_id: String, index: i64) -> FilePath {
         FilePath {
             r#type,
             file_id,

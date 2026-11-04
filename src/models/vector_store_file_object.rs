@@ -22,10 +22,10 @@ pub struct VectorStoreFileObject {
     pub object: Object,
     /// The total vector store usage in bytes. Note that this may be different from the original file size.
     #[serde(rename = "usage_bytes")]
-    pub usage_bytes: i32,
+    pub usage_bytes: i64,
     /// The Unix timestamp (in seconds) for when the vector store file was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The ID of the [vector store](https://developers.openai.com/api/reference/resources/vector_stores) that the [File](https://developers.openai.com/api/reference/resources/files) is attached to.
     #[serde(rename = "vector_store_id")]
     pub vector_store_id: String,
@@ -52,8 +52,8 @@ impl VectorStoreFileObject {
     pub fn new(
         id: String,
         object: Object,
-        usage_bytes: i32,
-        created_at: i32,
+        usage_bytes: i64,
+        created_at: i64,
         vector_store_id: String,
         status: Status,
         last_error: Option<models::VectorStoreFileObjectLastError>,

@@ -23,10 +23,10 @@ pub struct ContainerFileResource {
     pub container_id: String,
     /// Unix timestamp (in seconds) when the file was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// Size of the file in bytes.
     #[serde(rename = "bytes")]
-    pub bytes: i32,
+    pub bytes: i64,
     /// Path of the file in the container.
     #[serde(rename = "path")]
     pub path: String,
@@ -40,8 +40,8 @@ impl ContainerFileResource {
         id: String,
         object: String,
         container_id: String,
-        created_at: i32,
-        bytes: i32,
+        created_at: i64,
+        bytes: i64,
         path: String,
         source: String,
     ) -> ContainerFileResource {

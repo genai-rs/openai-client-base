@@ -18,13 +18,13 @@ pub struct ResponseImageGenCallWsGenerating {
     pub r#type: Type,
     /// The index of the output item in the response's output array.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The unique identifier of the image generation item being processed.
     #[serde(rename = "item_id")]
     pub item_id: String,
     /// The sequence number of the image generation item being processed.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -34,9 +34,9 @@ impl ResponseImageGenCallWsGenerating {
     /// Emitted when an image generation tool call is actively generating an image (intermediate state).
     pub fn new(
         r#type: Type,
-        output_index: i32,
+        output_index: i64,
         item_id: String,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> ResponseImageGenCallWsGenerating {
         ResponseImageGenCallWsGenerating {
             r#type,

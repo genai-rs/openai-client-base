@@ -21,7 +21,7 @@ pub struct CreateUploadRequest {
     pub purpose: Purpose,
     /// The number of bytes in the file you are uploading.
     #[serde(rename = "bytes")]
-    pub bytes: i32,
+    pub bytes: i64,
     /// The MIME type of the file.   This must fall within the supported MIME types for your file purpose. See the supported MIME types for assistants and vision.
     #[serde(rename = "mime_type")]
     pub mime_type: String,
@@ -33,7 +33,7 @@ impl CreateUploadRequest {
     pub fn new(
         filename: String,
         purpose: Purpose,
-        bytes: i32,
+        bytes: i64,
         mime_type: String,
     ) -> CreateUploadRequest {
         CreateUploadRequest {

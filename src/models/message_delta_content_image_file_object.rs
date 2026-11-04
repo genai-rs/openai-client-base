@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct MessageDeltaContentImageFileObject {
     /// The index of the content part in the message.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// Always `image_file`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -26,7 +26,7 @@ pub struct MessageDeltaContentImageFileObject {
 
 impl MessageDeltaContentImageFileObject {
     /// References an image [File](https://developers.openai.com/api/reference/resources/files) in the content of a message.
-    pub fn new(index: i32, r#type: Type) -> MessageDeltaContentImageFileObject {
+    pub fn new(index: i64, r#type: Type) -> MessageDeltaContentImageFileObject {
         MessageDeltaContentImageFileObject {
             index,
             r#type,

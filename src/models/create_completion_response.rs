@@ -22,7 +22,7 @@ pub struct CreateCompletionResponse {
     pub choices: Vec<models::CreateCompletionResponseChoicesInner>,
     /// The Unix timestamp (in seconds) of when the completion was created.
     #[serde(rename = "created")]
-    pub created: i32,
+    pub created: i64,
     /// The model used for completion.
     #[serde(rename = "model")]
     pub model: String,
@@ -41,7 +41,7 @@ impl CreateCompletionResponse {
     pub fn new(
         id: String,
         choices: Vec<models::CreateCompletionResponseChoicesInner>,
-        created: i32,
+        created: i64,
         model: String,
         object: Object,
     ) -> CreateCompletionResponse {

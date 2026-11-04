@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **event_id** | **String** | The unique ID of the server event. | 
 **r#type** | **Type** | The event type, must be `conversation.item.input_audio_transcription.delta`. (enum: conversation.item.input_audio_transcription.delta) | 
 **item_id** | **String** | The ID of the item. | 
-**content_index** | Option<**i32**> | The index of the content part in the item's content array. | [optional]
+**content_index** | Option<**i64**> | The index of the content part in the item's content array. | [optional]
 **delta** | Option<**String**> | The text delta. | [optional]
 **logprobs** | Option<[**Vec<models::LogProbProperties>**](LogProbProperties.md)> | The log probabilities of the transcription. | [optional]
 

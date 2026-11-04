@@ -21,7 +21,7 @@ pub struct RealtimeServerEventInputAudioBufferDtmfEventReceived {
     pub event: String,
     /// UTC Unix Timestamp when DTMF Event was received by server.
     #[serde(rename = "received_at")]
-    pub received_at: i32,
+    pub received_at: i64,
 }
 
 impl RealtimeServerEventInputAudioBufferDtmfEventReceived {
@@ -29,7 +29,7 @@ impl RealtimeServerEventInputAudioBufferDtmfEventReceived {
     pub fn new(
         r#type: Type,
         event: String,
-        received_at: i32,
+        received_at: i64,
     ) -> RealtimeServerEventInputAudioBufferDtmfEventReceived {
         RealtimeServerEventInputAudioBufferDtmfEventReceived {
             r#type,

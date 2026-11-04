@@ -16,13 +16,13 @@ use serde::{Deserialize, Serialize};
 pub struct ImagesUsage {
     /// The total number of tokens (images and text) used for the image generation.
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
     /// The number of tokens (images and text) in the input prompt.
     #[serde(rename = "input_tokens")]
-    pub input_tokens: i32,
+    pub input_tokens: i64,
     /// The number of image tokens in the output image.
     #[serde(rename = "output_tokens")]
-    pub output_tokens: i32,
+    pub output_tokens: i64,
     #[serde(rename = "input_tokens_details")]
     pub input_tokens_details: models::ImagesUsageInputTokensDetails,
 }
@@ -30,9 +30,9 @@ pub struct ImagesUsage {
 impl ImagesUsage {
     /// For the GPT image models only, the token usage information for the image generation.
     pub fn new(
-        total_tokens: i32,
-        input_tokens: i32,
-        output_tokens: i32,
+        total_tokens: i64,
+        input_tokens: i64,
+        output_tokens: i64,
         input_tokens_details: models::ImagesUsageInputTokensDetails,
     ) -> ImagesUsage {
         ImagesUsage {

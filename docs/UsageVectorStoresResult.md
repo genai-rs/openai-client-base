@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **object** | **Object** |  (enum: organization.usage.vector_stores.result) | 
-**usage_bytes** | **i32** | The vector stores usage in bytes. | 
+**usage_bytes** | **i64** | The vector stores usage in bytes. | 
 **project_id** | Option<**String**> | When `group_by=project_id`, this field provides the project ID of the grouped usage result. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

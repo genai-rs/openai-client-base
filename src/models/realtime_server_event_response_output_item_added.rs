@@ -25,7 +25,7 @@ pub struct RealtimeServerEventResponseOutputItemAdded {
     pub response_id: String,
     /// The index of the output item in the Response.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     #[serde(rename = "item")]
     pub item: models::RealtimeConversationItem,
 }
@@ -36,7 +36,7 @@ impl RealtimeServerEventResponseOutputItemAdded {
         event_id: String,
         r#type: Type,
         response_id: String,
-        output_index: i32,
+        output_index: i64,
         item: models::RealtimeConversationItem,
     ) -> RealtimeServerEventResponseOutputItemAdded {
         RealtimeServerEventResponseOutputItemAdded {

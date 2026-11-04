@@ -27,7 +27,7 @@ pub struct RealtimeBetaServerEventResponseMcpCallArgumentsDone {
     pub item_id: String,
     /// The index of the output item in the response.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The final JSON-encoded arguments string.
     #[serde(rename = "arguments")]
     pub arguments: String,
@@ -40,7 +40,7 @@ impl RealtimeBetaServerEventResponseMcpCallArgumentsDone {
         r#type: Type,
         response_id: String,
         item_id: String,
-        output_index: i32,
+        output_index: i64,
         arguments: String,
     ) -> RealtimeBetaServerEventResponseMcpCallArgumentsDone {
         RealtimeBetaServerEventResponseMcpCallArgumentsDone {

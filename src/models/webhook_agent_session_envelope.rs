@@ -20,11 +20,11 @@ pub struct WebhookAgentSessionEnvelope {
     pub object: Object,
     /// The Unix timestamp, in seconds, when the event was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
 }
 
 impl WebhookAgentSessionEnvelope {
-    pub fn new(id: String, object: Object, created_at: i32) -> WebhookAgentSessionEnvelope {
+    pub fn new(id: String, object: Object, created_at: i64) -> WebhookAgentSessionEnvelope {
         WebhookAgentSessionEnvelope {
             id,
             object,

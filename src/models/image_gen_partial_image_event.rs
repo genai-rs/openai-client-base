@@ -22,7 +22,7 @@ pub struct ImageGenPartialImageEvent {
     pub b64_json: String,
     /// The Unix timestamp when the event was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "size")]
     pub size: models::ImageGenPartialImageEventSize,
     /// The quality setting for the requested image.
@@ -36,7 +36,7 @@ pub struct ImageGenPartialImageEvent {
     pub output_format: OutputFormat,
     /// 0-based index for the partial image (streaming).
     #[serde(rename = "partial_image_index")]
-    pub partial_image_index: i32,
+    pub partial_image_index: i64,
 }
 
 impl ImageGenPartialImageEvent {
@@ -44,12 +44,12 @@ impl ImageGenPartialImageEvent {
     pub fn new(
         r#type: Type,
         b64_json: String,
-        created_at: i32,
+        created_at: i64,
         size: models::ImageGenPartialImageEventSize,
         quality: Quality,
         background: Background,
         output_format: OutputFormat,
-        partial_image_index: i32,
+        partial_image_index: i64,
     ) -> ImageGenPartialImageEvent {
         ImageGenPartialImageEvent {
             r#type,

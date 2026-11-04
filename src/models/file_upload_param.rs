@@ -18,10 +18,10 @@ pub struct FileUploadParam {
     pub enabled: Option<bool>,
     /// Maximum size in megabytes for each uploaded file. Defaults to 512 MB, which is the maximum allowable size.
     #[serde(rename = "max_file_size", skip_serializing_if = "Option::is_none")]
-    pub max_file_size: Option<i32>,
+    pub max_file_size: Option<i64>,
     /// Maximum number of files that can be uploaded to the session. Defaults to 10.
     #[serde(rename = "max_files", skip_serializing_if = "Option::is_none")]
-    pub max_files: Option<i32>,
+    pub max_files: Option<i64>,
 }
 
 impl FileUploadParam {

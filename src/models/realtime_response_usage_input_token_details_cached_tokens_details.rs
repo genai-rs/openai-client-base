@@ -15,13 +15,13 @@ use serde::{Deserialize, Serialize};
 pub struct RealtimeResponseUsageInputTokenDetailsCachedTokensDetails {
     /// The number of cached text tokens used as input for the Response.
     #[serde(rename = "text_tokens", skip_serializing_if = "Option::is_none")]
-    pub text_tokens: Option<i32>,
+    pub text_tokens: Option<i64>,
     /// The number of cached image tokens used as input for the Response.
     #[serde(rename = "image_tokens", skip_serializing_if = "Option::is_none")]
-    pub image_tokens: Option<i32>,
+    pub image_tokens: Option<i64>,
     /// The number of cached audio tokens used as input for the Response.
     #[serde(rename = "audio_tokens", skip_serializing_if = "Option::is_none")]
-    pub audio_tokens: Option<i32>,
+    pub audio_tokens: Option<i64>,
 }
 
 impl RealtimeResponseUsageInputTokenDetailsCachedTokensDetails {

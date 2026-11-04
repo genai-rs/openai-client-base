@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **object** | **Object** | The object type, which is always `organization.certificate`. (enum: organization.certificate) | 
 **id** | **String** | The identifier, which can be referenced in API endpoints | 
 **name** | Option<**String**> | The name of the certificate. | 
-**created_at** | **i32** | The Unix timestamp (in seconds) of when the certificate was uploaded. | 
+**created_at** | **i64** | The Unix timestamp (in seconds) of when the certificate was uploaded. | 
 **certificate_details** | [**models::OrganizationCertificateCertificateDetails**](OrganizationCertificateCertificateDetails.md) |  | 
 **active** | **bool** | Whether the certificate is currently active at the organization level. | 
 

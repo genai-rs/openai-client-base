@@ -16,9 +16,9 @@ pub struct DecisionsUsageBucket {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "start_time")]
-    pub start_time: i32,
+    pub start_time: i64,
     #[serde(rename = "end_time")]
-    pub end_time: i32,
+    pub end_time: i64,
     #[serde(rename = "results")]
     pub results: Vec<models::DecisionsUsageResult>,
 }
@@ -26,8 +26,8 @@ pub struct DecisionsUsageBucket {
 impl DecisionsUsageBucket {
     pub fn new(
         object: Object,
-        start_time: i32,
-        end_time: i32,
+        start_time: i64,
+        end_time: i64,
         results: Vec<models::DecisionsUsageResult>,
     ) -> DecisionsUsageBucket {
         DecisionsUsageBucket {

@@ -18,7 +18,7 @@ pub struct FineTuningCheckpointPermission {
     pub id: String,
     /// The Unix timestamp (in seconds) for when the permission was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The project identifier that the permission is for.
     #[serde(rename = "project_id")]
     pub project_id: String,
@@ -31,7 +31,7 @@ impl FineTuningCheckpointPermission {
     /// The `checkpoint.permission` object represents a permission for a fine-tuned model checkpoint.
     pub fn new(
         id: String,
-        created_at: i32,
+        created_at: i64,
         project_id: String,
         object: Object,
     ) -> FineTuningCheckpointPermission {

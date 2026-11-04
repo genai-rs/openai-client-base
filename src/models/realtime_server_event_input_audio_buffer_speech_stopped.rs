@@ -21,7 +21,7 @@ pub struct RealtimeServerEventInputAudioBufferSpeechStopped {
     pub r#type: Type,
     /// Milliseconds since the session started when speech stopped. This will  correspond to the end of audio sent to the model, and thus includes the  `min_silence_duration_ms` configured in the Session.
     #[serde(rename = "audio_end_ms")]
-    pub audio_end_ms: i32,
+    pub audio_end_ms: i64,
     /// The ID of the user message item that will be created.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -32,7 +32,7 @@ impl RealtimeServerEventInputAudioBufferSpeechStopped {
     pub fn new(
         event_id: String,
         r#type: Type,
-        audio_end_ms: i32,
+        audio_end_ms: i64,
         item_id: String,
     ) -> RealtimeServerEventInputAudioBufferSpeechStopped {
         RealtimeServerEventInputAudioBufferSpeechStopped {

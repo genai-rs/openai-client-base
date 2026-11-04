@@ -17,7 +17,7 @@ pub struct UsageCodeInterpreterSessionsResult {
     pub object: Object,
     /// The number of code interpreter sessions.
     #[serde(rename = "num_sessions")]
-    pub num_sessions: i32,
+    pub num_sessions: i64,
     /// When `group_by=project_id`, this field provides the project ID of the grouped usage result.
     #[serde(
         rename = "project_id",
@@ -30,7 +30,7 @@ pub struct UsageCodeInterpreterSessionsResult {
 
 impl UsageCodeInterpreterSessionsResult {
     /// The aggregated code interpreter sessions usage details of the specific time bucket.
-    pub fn new(object: Object, num_sessions: i32) -> UsageCodeInterpreterSessionsResult {
+    pub fn new(object: Object, num_sessions: i64) -> UsageCodeInterpreterSessionsResult {
         UsageCodeInterpreterSessionsResult {
             object,
             num_sessions,

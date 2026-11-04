@@ -18,12 +18,12 @@ pub struct ResponseAudioTranscriptDoneEvent {
     pub r#type: Type,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl ResponseAudioTranscriptDoneEvent {
     /// Emitted when the full audio transcript is completed.
-    pub fn new(r#type: Type, sequence_number: i32) -> ResponseAudioTranscriptDoneEvent {
+    pub fn new(r#type: Type, sequence_number: i64) -> ResponseAudioTranscriptDoneEvent {
         ResponseAudioTranscriptDoneEvent {
             r#type,
             sequence_number,

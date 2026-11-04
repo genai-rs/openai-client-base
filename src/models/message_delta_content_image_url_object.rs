@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct MessageDeltaContentImageUrlObject {
     /// The index of the content part in the message.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     /// Always `image_url`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -26,7 +26,7 @@ pub struct MessageDeltaContentImageUrlObject {
 
 impl MessageDeltaContentImageUrlObject {
     /// References an image URL in the content of a message.
-    pub fn new(index: i32, r#type: Type) -> MessageDeltaContentImageUrlObject {
+    pub fn new(index: i64, r#type: Type) -> MessageDeltaContentImageUrlObject {
         MessageDeltaContentImageUrlObject {
             index,
             r#type,

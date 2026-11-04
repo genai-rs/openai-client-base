@@ -18,12 +18,12 @@ pub struct BetaFunctionShellCallOutputExitOutcomeParam {
     pub r#type: Type,
     /// The exit code returned by the shell process.
     #[serde(rename = "exit_code")]
-    pub exit_code: i32,
+    pub exit_code: i64,
 }
 
 impl BetaFunctionShellCallOutputExitOutcomeParam {
     /// Indicates that the shell commands finished and returned an exit code.
-    pub fn new(r#type: Type, exit_code: i32) -> BetaFunctionShellCallOutputExitOutcomeParam {
+    pub fn new(r#type: Type, exit_code: i64) -> BetaFunctionShellCallOutputExitOutcomeParam {
         BetaFunctionShellCallOutputExitOutcomeParam { r#type, exit_code }
     }
 }

@@ -22,7 +22,7 @@ pub struct UserMessageItem {
     pub object: Object,
     /// Unix timestamp (in seconds) for when the item was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// Identifier of the parent thread.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
@@ -43,7 +43,7 @@ impl UserMessageItem {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: i64,
         thread_id: String,
         r#type: Type,
         content: Vec<models::UserMessageItemContentInner>,

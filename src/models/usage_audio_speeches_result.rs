@@ -17,10 +17,10 @@ pub struct UsageAudioSpeechesResult {
     pub object: Object,
     /// The number of characters processed.
     #[serde(rename = "characters")]
-    pub characters: i32,
+    pub characters: i64,
     /// The count of requests made to the model.
     #[serde(rename = "num_model_requests")]
-    pub num_model_requests: i32,
+    pub num_model_requests: i64,
     /// When `group_by=project_id`, this field provides the project ID of the grouped usage result.
     #[serde(
         rename = "project_id",
@@ -54,8 +54,8 @@ impl UsageAudioSpeechesResult {
     /// The aggregated audio speeches usage details of the specific time bucket.
     pub fn new(
         object: Object,
-        characters: i32,
-        num_model_requests: i32,
+        characters: i64,
+        num_model_requests: i64,
     ) -> UsageAudioSpeechesResult {
         UsageAudioSpeechesResult {
             object,

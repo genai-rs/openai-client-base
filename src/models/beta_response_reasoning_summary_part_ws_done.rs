@@ -25,16 +25,16 @@ pub struct BetaResponseReasoningSummaryPartWsDone {
     pub item_id: String,
     /// The index of the output item this summary part is associated with.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The index of the summary part within the reasoning summary.
     #[serde(rename = "summary_index")]
-    pub summary_index: i32,
+    pub summary_index: i64,
     /// The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "part")]
     pub part: models::BetaResponseReasoningSummaryPartDoneEventPart,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
@@ -47,9 +47,9 @@ impl BetaResponseReasoningSummaryPartWsDone {
     pub fn new(
         r#type: Type,
         item_id: String,
-        output_index: i32,
-        summary_index: i32,
-        sequence_number: i32,
+        output_index: i64,
+        summary_index: i64,
+        sequence_number: i64,
         part: models::BetaResponseReasoningSummaryPartDoneEventPart,
     ) -> BetaResponseReasoningSummaryPartWsDone {
         BetaResponseReasoningSummaryPartWsDone {

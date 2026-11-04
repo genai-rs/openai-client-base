@@ -276,7 +276,7 @@ List skill versions for a skill.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **skill_id** | **String** | The identifier of the skill. | [required] |
-**limit** | Option<**i32**> | Number of versions to retrieve. |  |
+**limit** | Option<**i64**> | Number of versions to retrieve. |  |
 **order** | Option<[**OrderEnum**](OrderEnum.md)> | Sort order of results by version number. |  |
 **after** | Option<**String**> | The skill version ID to start after. |  |
 
@@ -308,7 +308,7 @@ List all skills for the current project.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i32**> | Number of items to retrieve |  |
+**limit** | Option<**i64**> | Number of items to retrieve |  |
 **order** | Option<[**OrderEnum**](OrderEnum.md)> | Sort order of results by timestamp. Use `asc` for ascending order or `desc` for descending order. |  |
 **after** | Option<**String**> | Identifier for the last item from the previous pagination request |  |
 

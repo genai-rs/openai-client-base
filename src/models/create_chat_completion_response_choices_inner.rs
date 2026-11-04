@@ -18,7 +18,7 @@ pub struct CreateChatCompletionResponseChoicesInner {
     pub finish_reason: FinishReason,
     /// The index of the choice in the list of choices.
     #[serde(rename = "index")]
-    pub index: i32,
+    pub index: i64,
     #[serde(rename = "message")]
     pub message: models::ChatCompletionResponseMessage,
     #[serde(rename = "logprobs", deserialize_with = "Option::deserialize")]
@@ -28,7 +28,7 @@ pub struct CreateChatCompletionResponseChoicesInner {
 impl CreateChatCompletionResponseChoicesInner {
     pub fn new(
         finish_reason: FinishReason,
-        index: i32,
+        index: i64,
         message: models::ChatCompletionResponseMessage,
         logprobs: Option<models::CreateChatCompletionResponseChoicesInnerLogprobs>,
     ) -> CreateChatCompletionResponseChoicesInner {

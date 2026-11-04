@@ -18,16 +18,16 @@ pub struct ScrollParam {
     pub r#type: Type,
     /// The x-coordinate where the scroll occurred.
     #[serde(rename = "x")]
-    pub x: i32,
+    pub x: i64,
     /// The y-coordinate where the scroll occurred.
     #[serde(rename = "y")]
-    pub y: i32,
+    pub y: i64,
     /// The horizontal scroll distance.
     #[serde(rename = "scroll_x")]
-    pub scroll_x: i32,
+    pub scroll_x: i64,
     /// The vertical scroll distance.
     #[serde(rename = "scroll_y")]
-    pub scroll_y: i32,
+    pub scroll_y: i64,
     /// The keys being held while scrolling.
     #[serde(
         rename = "keys",
@@ -40,7 +40,7 @@ pub struct ScrollParam {
 
 impl ScrollParam {
     /// A scroll action.
-    pub fn new(r#type: Type, x: i32, y: i32, scroll_x: i32, scroll_y: i32) -> ScrollParam {
+    pub fn new(r#type: Type, x: i64, y: i64, scroll_x: i64, scroll_y: i64) -> ScrollParam {
         ScrollParam {
             r#type,
             x,

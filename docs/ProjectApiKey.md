@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **object** | **Object** | The object type, which is always `organization.project.api_key` (enum: organization.project.api_key) | 
 **redacted_value** | **String** | The redacted value of the API key | 
 **name** | **String** | The name of the API key | 
-**created_at** | **i32** | The Unix timestamp (in seconds) of when the API key was created | 
-**expires_at** | Option<**i32**> | The Unix timestamp (in seconds) when the API key expires, or null if it does not expire. | [optional]
-**last_used_at** | Option<**i32**> | The Unix timestamp (in seconds) of when the API key was last used. | 
+**created_at** | **i64** | The Unix timestamp (in seconds) of when the API key was created | 
+**expires_at** | Option<**i64**> | The Unix timestamp (in seconds) when the API key expires, or null if it does not expire. | [optional]
+**last_used_at** | Option<**i64**> | The Unix timestamp (in seconds) of when the API key was last used. | 
 **id** | **String** | The identifier, which can be referenced in API endpoints | 
 **owner_project_access** | **OwnerProjectAccess** | Whether the API key's owner currently has effective access to the project. (enum: active, inactive) | 
 **owner** | [**models::ProjectApiKeyOwner**](ProjectApiKeyOwner.md) |  | 

@@ -18,7 +18,7 @@ pub struct RateLimitsParam {
         rename = "max_requests_per_1_minute",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_requests_per_1_minute: Option<i32>,
+    pub max_requests_per_1_minute: Option<i64>,
 }
 
 impl RateLimitsParam {

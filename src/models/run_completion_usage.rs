@@ -15,21 +15,21 @@ use serde::{Deserialize, Serialize};
 pub struct RunCompletionUsage {
     /// Number of completion tokens used over the course of the run.
     #[serde(rename = "completion_tokens")]
-    pub completion_tokens: i32,
+    pub completion_tokens: i64,
     /// Number of prompt tokens used over the course of the run.
     #[serde(rename = "prompt_tokens")]
-    pub prompt_tokens: i32,
+    pub prompt_tokens: i64,
     /// Total number of tokens used (prompt + completion).
     #[serde(rename = "total_tokens")]
-    pub total_tokens: i32,
+    pub total_tokens: i64,
 }
 
 impl RunCompletionUsage {
     /// Usage statistics related to the run. This value will be `null` if the run is not in a terminal state (i.e. `in_progress`, `queued`, etc.).
     pub fn new(
-        completion_tokens: i32,
-        prompt_tokens: i32,
-        total_tokens: i32,
+        completion_tokens: i64,
+        prompt_tokens: i64,
+        total_tokens: i64,
     ) -> RunCompletionUsage {
         RunCompletionUsage {
             completion_tokens,

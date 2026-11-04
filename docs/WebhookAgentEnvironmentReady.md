@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The unique ID of the event. | 
 **object** | **Object** | The object type. Always `event`. (enum: event) | 
-**created_at** | **i32** | The Unix timestamp, in seconds, when the event was created. | 
+**created_at** | **i64** | The Unix timestamp, in seconds, when the event was created. | 
 **r#type** | **Type** | The event type. Always `agent.environment.ready`. (enum: agent.environment.ready) | 
 **data** | [**models::AgentEnvironmentEvent**](AgentEnvironmentEvent.md) |  | 
 

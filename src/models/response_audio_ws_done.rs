@@ -18,7 +18,7 @@ pub struct ResponseAudioWsDone {
     pub r#type: Type,
     /// The sequence number of the delta.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -26,7 +26,7 @@ pub struct ResponseAudioWsDone {
 
 impl ResponseAudioWsDone {
     /// Emitted when the audio response is complete.
-    pub fn new(r#type: Type, sequence_number: i32) -> ResponseAudioWsDone {
+    pub fn new(r#type: Type, sequence_number: i64) -> ResponseAudioWsDone {
         ResponseAudioWsDone {
             r#type,
             sequence_number,

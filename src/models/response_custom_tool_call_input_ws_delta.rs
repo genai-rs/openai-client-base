@@ -18,10 +18,10 @@ pub struct ResponseCustomToolCallInputWsDelta {
     pub r#type: Type,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The index of the output this delta applies to.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// Unique identifier for the API item associated with this event.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -37,8 +37,8 @@ impl ResponseCustomToolCallInputWsDelta {
     /// Event representing a delta (partial update) to the input of a custom tool call.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
-        output_index: i32,
+        sequence_number: i64,
+        output_index: i64,
         item_id: String,
         delta: String,
     ) -> ResponseCustomToolCallInputWsDelta {

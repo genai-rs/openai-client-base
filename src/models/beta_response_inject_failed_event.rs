@@ -27,7 +27,7 @@ pub struct BetaResponseInjectFailedEvent {
     pub error: models::BetaResponseInjectFailedEventError,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The multiplexed WebSocket stream that emitted the event. This field is present only when WebSocket multiplexing is enabled separately.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -40,7 +40,7 @@ impl BetaResponseInjectFailedEvent {
         response_id: String,
         input: Vec<models::BetaInputItem>,
         error: models::BetaResponseInjectFailedEventError,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> BetaResponseInjectFailedEvent {
         BetaResponseInjectFailedEvent {
             r#type,

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The identifier, which can be referenced in API endpoints. | 
 **object** | **Object** | The object type, which is always `assistant`. (enum: assistant) | 
-**created_at** | **i32** | The Unix timestamp (in seconds) for when the assistant was created. | 
+**created_at** | **i64** | The Unix timestamp (in seconds) for when the assistant was created. | 
 **name** | Option<**String**> | The name of the assistant. The maximum length is 256 characters.  | 
 **description** | Option<**String**> | The description of the assistant. The maximum length is 512 characters.  | 
 **model** | **String** | ID of the model to use. You can use the [List models](https://developers.openai.com/api/reference/resources/models/methods/list) API to see all of your available models, or see our [Model overview](https://developers.openai.com/api/docs/models) for descriptions of them.  | 

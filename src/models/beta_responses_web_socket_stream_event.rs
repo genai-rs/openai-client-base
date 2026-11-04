@@ -26,13 +26,13 @@ pub struct BetaResponsesWebSocketStreamEvent {
     pub r#type: Type,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The incremental input data (delta) for the custom tool call.
     #[serde(rename = "delta")]
     pub delta: String,
     /// The index of the output this event applies to.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// Unique identifier for the API item associated with this event.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -43,7 +43,7 @@ pub struct BetaResponsesWebSocketStreamEvent {
     pub response: models::BetaResponse,
     /// The index of the content part within the output item.
     #[serde(rename = "content_index")]
-    pub content_index: i32,
+    pub content_index: i64,
     #[serde(rename = "part")]
     pub part: models::BetaResponseReasoningSummaryPartDoneEventPart,
     /// A JSON string containing the finalized arguments for the MCP tool call.
@@ -51,7 +51,7 @@ pub struct BetaResponsesWebSocketStreamEvent {
     pub arguments: String,
     /// The index of the shell command that produced output.
     #[serde(rename = "command_index")]
-    pub command_index: i32,
+    pub command_index: i64,
     /// The final shell command that was emitted.
     #[serde(rename = "command")]
     pub command: String,
@@ -65,7 +65,7 @@ pub struct BetaResponsesWebSocketStreamEvent {
     pub item: models::BetaOutputItem,
     /// The index of the summary part within the reasoning summary.
     #[serde(rename = "summary_index")]
-    pub summary_index: i32,
+    pub summary_index: i64,
     /// The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -80,7 +80,7 @@ pub struct BetaResponsesWebSocketStreamEvent {
     pub logprobs: Vec<models::BetaResponseLogProb>,
     /// 0-based index for the partial image (backend is 1-based, but this is 0-based for the user).
     #[serde(rename = "partial_image_index")]
-    pub partial_image_index: i32,
+    pub partial_image_index: i64,
     /// Base64-encoded partial image data, suitable for rendering as an image.
     #[serde(rename = "partial_image_b64")]
     pub partial_image_b64: String,
@@ -98,7 +98,7 @@ pub struct BetaResponsesWebSocketStreamEvent {
     pub output_format: Option<String>,
     /// The index of the annotation within the content part.
     #[serde(rename = "annotation_index")]
-    pub annotation_index: i32,
+    pub annotation_index: i64,
     /// The annotation object being added. (See annotation schema for details.)
     #[serde(rename = "annotation", deserialize_with = "Option::deserialize")]
     pub annotation: Option<models::BetaAnnotation>,
@@ -113,26 +113,26 @@ pub struct BetaResponsesWebSocketStreamEvent {
 impl BetaResponsesWebSocketStreamEvent {
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
+        sequence_number: i64,
         delta: String,
-        output_index: i32,
+        output_index: i64,
         item_id: String,
         code: String,
         response: models::BetaResponse,
-        content_index: i32,
+        content_index: i64,
         part: models::BetaResponseReasoningSummaryPartDoneEventPart,
         arguments: String,
-        command_index: i32,
+        command_index: i64,
         command: String,
         output: Vec<models::BetaFunctionShellCallOutputContent>,
         item: models::BetaOutputItem,
-        summary_index: i32,
+        summary_index: i64,
         text: String,
         refusal: String,
         logprobs: Vec<models::BetaResponseLogProb>,
-        partial_image_index: i32,
+        partial_image_index: i64,
         partial_image_b64: String,
-        annotation_index: i32,
+        annotation_index: i64,
         annotation: Option<models::BetaAnnotation>,
         input: String,
     ) -> BetaResponsesWebSocketStreamEvent {

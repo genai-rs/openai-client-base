@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** | The type of the event, always `response.shell_call_command.added`. (enum: response.shell_call_command.added) | 
-**sequence_number** | **i32** | The sequence number of the event that was emitted. | 
-**output_index** | **i32** | The index of the output item that was updated. | 
-**command_index** | **i32** | The index of the shell command that was added. | 
+**sequence_number** | **i64** | The sequence number of the event that was emitted. | 
+**output_index** | **i64** | The index of the output item that was updated. | 
+**command_index** | **i64** | The index of the shell command that was added. | 
 **command** | **String** | The shell command that was added. | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 

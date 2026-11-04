@@ -18,10 +18,10 @@ pub struct DoubleClickAction {
     pub r#type: Type,
     /// The x-coordinate where the double click occurred.
     #[serde(rename = "x")]
-    pub x: i32,
+    pub x: i64,
     /// The y-coordinate where the double click occurred.
     #[serde(rename = "y")]
-    pub y: i32,
+    pub y: i64,
     /// The keys being held while double-clicking.
     #[serde(rename = "keys", deserialize_with = "Option::deserialize")]
     pub keys: Option<Vec<String>>,
@@ -29,7 +29,7 @@ pub struct DoubleClickAction {
 
 impl DoubleClickAction {
     /// A double click action.
-    pub fn new(r#type: Type, x: i32, y: i32, keys: Option<Vec<String>>) -> DoubleClickAction {
+    pub fn new(r#type: Type, x: i64, y: i64, keys: Option<Vec<String>>) -> DoubleClickAction {
         DoubleClickAction { r#type, x, y, keys }
     }
 }

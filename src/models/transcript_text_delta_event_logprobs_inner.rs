@@ -20,7 +20,7 @@ pub struct TranscriptTextDeltaEventLogprobsInner {
     pub logprob: Option<f64>,
     /// The bytes that were used to generate the log probability.
     #[serde(rename = "bytes", skip_serializing_if = "Option::is_none")]
-    pub bytes: Option<Vec<i32>>,
+    pub bytes: Option<Vec<i64>>,
 }
 
 impl TranscriptTextDeltaEventLogprobsInner {

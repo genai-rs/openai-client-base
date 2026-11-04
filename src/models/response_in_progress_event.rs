@@ -21,7 +21,7 @@ pub struct ResponseInProgressEvent {
     pub response: models::Response,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl ResponseInProgressEvent {
@@ -29,7 +29,7 @@ impl ResponseInProgressEvent {
     pub fn new(
         r#type: Type,
         response: models::Response,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> ResponseInProgressEvent {
         ResponseInProgressEvent {
             r#type,

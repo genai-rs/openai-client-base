@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct WebhookEvalRunSucceeded {
     /// The Unix timestamp (in seconds) of when the eval run succeeded.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The unique ID of the event.
     #[serde(rename = "id")]
     pub id: String,
@@ -33,7 +33,7 @@ pub struct WebhookEvalRunSucceeded {
 impl WebhookEvalRunSucceeded {
     /// Sent when an eval run has succeeded.
     pub fn new(
-        created_at: i32,
+        created_at: i64,
         id: String,
         data: models::WebhookEvalRunFailedData,
         r#type: Type,

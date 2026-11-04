@@ -20,7 +20,7 @@ pub struct ProjectServiceAccountApiKey {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The Unix timestamp (in seconds) when the API key expires, or null if it does not expire.
     #[serde(
         rename = "expires_at",
@@ -28,7 +28,7 @@ pub struct ProjectServiceAccountApiKey {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub expires_at: Option<Option<i32>>,
+    pub expires_at: Option<Option<i64>>,
     #[serde(rename = "id")]
     pub id: String,
 }
@@ -38,7 +38,7 @@ impl ProjectServiceAccountApiKey {
         object: Object,
         value: String,
         name: String,
-        created_at: i32,
+        created_at: i64,
         id: String,
     ) -> ProjectServiceAccountApiKey {
         ProjectServiceAccountApiKey {

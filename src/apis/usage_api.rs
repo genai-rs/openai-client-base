@@ -129,15 +129,15 @@ pub enum UsageWebSearchCallsError {
 #[bon::builder]
 pub async fn usage_audio_speeches(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     user_ids: Option<Vec<String>>,
     api_key_ids: Option<Vec<String>>,
     models: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageAudioSpeechesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -306,15 +306,15 @@ pub async fn usage_audio_speeches(
 #[bon::builder]
 pub async fn usage_audio_transcriptions(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     user_ids: Option<Vec<String>>,
     api_key_ids: Option<Vec<String>>,
     models: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageAudioTranscriptionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -483,12 +483,12 @@ pub async fn usage_audio_transcriptions(
 #[bon::builder]
 pub async fn usage_code_interpreter_sessions(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageCodeInterpreterSessionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -597,8 +597,8 @@ pub async fn usage_code_interpreter_sessions(
 #[bon::builder]
 pub async fn usage_completions(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     user_ids: Option<Vec<String>>,
@@ -606,7 +606,7 @@ pub async fn usage_completions(
     models: Option<Vec<String>>,
     batch: Option<bool>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageCompletionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -776,14 +776,14 @@ pub async fn usage_completions(
 #[bon::builder]
 pub async fn usage_costs(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     api_key_ids: Option<Vec<String>>,
     line_items: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageCostsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -929,15 +929,15 @@ pub async fn usage_costs(
 #[bon::builder]
 pub async fn usage_embeddings(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     user_ids: Option<Vec<String>>,
     api_key_ids: Option<Vec<String>>,
     models: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageEmbeddingsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1103,15 +1103,15 @@ pub async fn usage_embeddings(
 #[bon::builder]
 pub async fn usage_file_search_calls(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     user_ids: Option<Vec<String>>,
     api_key_ids: Option<Vec<String>>,
     vector_store_ids: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageFileSearchCallsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1280,8 +1280,8 @@ pub async fn usage_file_search_calls(
 #[bon::builder]
 pub async fn usage_images(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     sources: Option<Vec<String>>,
     sizes: Option<Vec<String>>,
@@ -1290,7 +1290,7 @@ pub async fn usage_images(
     api_key_ids: Option<Vec<String>>,
     models: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageImagesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1496,15 +1496,15 @@ pub async fn usage_images(
 #[bon::builder]
 pub async fn usage_moderations(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     user_ids: Option<Vec<String>>,
     api_key_ids: Option<Vec<String>>,
     models: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageModerationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1670,12 +1670,12 @@ pub async fn usage_moderations(
 #[bon::builder]
 pub async fn usage_vector_stores(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageVectorStoresError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1784,8 +1784,8 @@ pub async fn usage_vector_stores(
 #[bon::builder]
 pub async fn usage_web_search_calls(
     configuration: &configuration::Configuration,
-    start_time: i32,
-    end_time: Option<i32>,
+    start_time: i64,
+    end_time: Option<i64>,
     bucket_width: Option<&str>,
     project_ids: Option<Vec<String>>,
     user_ids: Option<Vec<String>>,
@@ -1793,7 +1793,7 @@ pub async fn usage_web_search_calls(
     models: Option<Vec<String>>,
     context_levels: Option<Vec<String>>,
     group_by: Option<Vec<String>>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     page: Option<&str>,
 ) -> Result<models::UsageResponse, Error<UsageWebSearchCallsError>> {
     // add a prefix to parameters to efficiently prevent name collisions

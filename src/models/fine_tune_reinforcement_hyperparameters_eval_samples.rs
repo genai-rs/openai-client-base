@@ -18,7 +18,7 @@ pub use crate::models::FineTuneReinforcementHyperparametersEvalSamplesTextVarian
 #[serde(untagged)]
 pub enum FineTuneReinforcementHyperparametersEvalSamples {
     TextVariant(models::FineTuneReinforcementHyperparametersEvalSamplesTextVariantEnum),
-    Integer(i32),
+    Integer(i64),
 }
 
 impl std::fmt::Display for FineTuneReinforcementHyperparametersEvalSamples {

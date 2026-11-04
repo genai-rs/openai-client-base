@@ -58,7 +58,7 @@ pub struct Batch {
     pub error_file_id: Option<Option<String>>,
     /// The Unix timestamp (in seconds) for when the batch was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The Unix timestamp (in seconds) for when the batch started processing.
     #[serde(
         rename = "in_progress_at",
@@ -66,7 +66,7 @@ pub struct Batch {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub in_progress_at: Option<Option<i32>>,
+    pub in_progress_at: Option<Option<i64>>,
     /// The Unix timestamp (in seconds) for when the batch will expire.
     #[serde(
         rename = "expires_at",
@@ -74,7 +74,7 @@ pub struct Batch {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub expires_at: Option<Option<i32>>,
+    pub expires_at: Option<Option<i64>>,
     /// The Unix timestamp (in seconds) for when the batch started finalizing.
     #[serde(
         rename = "finalizing_at",
@@ -82,7 +82,7 @@ pub struct Batch {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub finalizing_at: Option<Option<i32>>,
+    pub finalizing_at: Option<Option<i64>>,
     /// The Unix timestamp (in seconds) for when the batch was completed.
     #[serde(
         rename = "completed_at",
@@ -90,7 +90,7 @@ pub struct Batch {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub completed_at: Option<Option<i32>>,
+    pub completed_at: Option<Option<i64>>,
     /// The Unix timestamp (in seconds) for when the batch failed.
     #[serde(
         rename = "failed_at",
@@ -98,7 +98,7 @@ pub struct Batch {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub failed_at: Option<Option<i32>>,
+    pub failed_at: Option<Option<i64>>,
     /// The Unix timestamp (in seconds) for when the batch expired.
     #[serde(
         rename = "expired_at",
@@ -106,7 +106,7 @@ pub struct Batch {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub expired_at: Option<Option<i32>>,
+    pub expired_at: Option<Option<i64>>,
     /// The Unix timestamp (in seconds) for when the batch started cancelling.
     #[serde(
         rename = "cancelling_at",
@@ -114,7 +114,7 @@ pub struct Batch {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub cancelling_at: Option<Option<i32>>,
+    pub cancelling_at: Option<Option<i64>>,
     /// The Unix timestamp (in seconds) for when the batch was cancelled.
     #[serde(
         rename = "cancelled_at",
@@ -122,7 +122,7 @@ pub struct Batch {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub cancelled_at: Option<Option<i32>>,
+    pub cancelled_at: Option<Option<i64>>,
     #[serde(rename = "request_counts", skip_serializing_if = "Option::is_none")]
     pub request_counts: Option<models::BatchRequestCounts>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
@@ -145,7 +145,7 @@ impl Batch {
         input_file_id: String,
         completion_window: String,
         status: Status,
-        created_at: i32,
+        created_at: i64,
     ) -> Batch {
         Batch {
             id,

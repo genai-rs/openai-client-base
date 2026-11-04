@@ -18,7 +18,7 @@ pub struct Model {
     pub id: String,
     /// The Unix timestamp (in seconds) when the model was created.
     #[serde(rename = "created")]
-    pub created: i32,
+    pub created: i64,
     /// The object type, which is always \"model\".
     #[serde(rename = "object")]
     pub object: Object,
@@ -37,7 +37,7 @@ pub struct Model {
 
 impl Model {
     /// Describes an OpenAI model offering that can be used with the API.
-    pub fn new(id: String, created: i32, object: Object, owned_by: String) -> Model {
+    pub fn new(id: String, created: i64, object: Object, owned_by: String) -> Model {
         Model {
             id,
             created,

@@ -22,7 +22,7 @@ pub struct BetaContextManagementParam {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub compact_threshold: Option<Option<i32>>,
+    pub compact_threshold: Option<Option<i64>>,
 }
 
 impl BetaContextManagementParam {

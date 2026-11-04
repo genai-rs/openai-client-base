@@ -27,7 +27,7 @@ pub struct RealtimeServerEventResponseFunctionCallArgumentsDelta {
     pub item_id: String,
     /// The index of the output item in the response.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The ID of the function call.
     #[serde(rename = "call_id")]
     pub call_id: String,
@@ -43,7 +43,7 @@ impl RealtimeServerEventResponseFunctionCallArgumentsDelta {
         r#type: Type,
         response_id: String,
         item_id: String,
-        output_index: i32,
+        output_index: i64,
         call_id: String,
         delta: String,
     ) -> RealtimeServerEventResponseFunctionCallArgumentsDelta {

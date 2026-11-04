@@ -21,7 +21,7 @@ pub struct ResponseAudioTranscriptDeltaEvent {
     pub delta: String,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl ResponseAudioTranscriptDeltaEvent {
@@ -29,7 +29,7 @@ impl ResponseAudioTranscriptDeltaEvent {
     pub fn new(
         r#type: Type,
         delta: String,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> ResponseAudioTranscriptDeltaEvent {
         ResponseAudioTranscriptDeltaEvent {
             r#type,

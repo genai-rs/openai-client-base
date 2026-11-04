@@ -55,7 +55,7 @@ Lists the users assigned to a group.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | The ID of the group to inspect. | [required] |
-**limit** | Option<**i32**> | A limit on the number of users to be returned. Limit can range between 0 and 1000, and the default is 100.  |  |[default to 100]
+**limit** | Option<**i64**> | A limit on the number of users to be returned. Limit can range between 0 and 1000, and the default is 100.  |  |[default to 100]
 **after** | Option<**String**> | A cursor for use in pagination. Provide the ID of the last user from the previous list response to retrieve the next page.  |  |
 **order** | Option<**String**> | Specifies the sort order of users in the list. |  |[default to desc]
 

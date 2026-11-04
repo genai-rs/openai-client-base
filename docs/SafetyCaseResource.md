@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
 **object** | **Object** |  (enum: safety.case) | 
-**created_at** | **i32** |  | 
+**created_at** | **i64** |  | 
 **entity_identifier** | **String** |  | 
 **reason** | Option<**String**> |  | 
 **notice** | [**models::SafetyCaseNotice**](SafetyCaseNotice.md) |  | 

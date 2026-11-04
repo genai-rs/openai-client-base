@@ -18,16 +18,16 @@ pub struct ResponseImageGenCallPartialImageEvent {
     pub r#type: Type,
     /// The index of the output item in the response's output array.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The unique identifier of the image generation item being processed.
     #[serde(rename = "item_id")]
     pub item_id: String,
     /// The sequence number of the image generation item being processed.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// 0-based index for the partial image (backend is 1-based, but this is 0-based for the user).
     #[serde(rename = "partial_image_index")]
-    pub partial_image_index: i32,
+    pub partial_image_index: i64,
     /// Base64-encoded partial image data, suitable for rendering as an image.
     #[serde(rename = "partial_image_b64")]
     pub partial_image_b64: String,
@@ -49,10 +49,10 @@ impl ResponseImageGenCallPartialImageEvent {
     /// Emitted when a partial image is available during image generation streaming.
     pub fn new(
         r#type: Type,
-        output_index: i32,
+        output_index: i64,
         item_id: String,
-        sequence_number: i32,
-        partial_image_index: i32,
+        sequence_number: i64,
+        partial_image_index: i64,
         partial_image_b64: String,
     ) -> ResponseImageGenCallPartialImageEvent {
         ResponseImageGenCallPartialImageEvent {

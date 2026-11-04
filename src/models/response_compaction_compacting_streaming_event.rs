@@ -18,10 +18,10 @@ pub struct ResponseCompactionCompactingStreamingEvent {
     pub r#type: Type,
     /// The sequence number of the event that was emitted.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The index of the compaction output item.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The ID of the compaction output item.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -31,8 +31,8 @@ impl ResponseCompactionCompactingStreamingEvent {
     /// Emitted when new summary content is sampled for a compaction trigger. Contains no summary content.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
-        output_index: i32,
+        sequence_number: i64,
+        output_index: i64,
         item_id: String,
     ) -> ResponseCompactionCompactingStreamingEvent {
         ResponseCompactionCompactingStreamingEvent {

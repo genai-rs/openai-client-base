@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 pub struct TranscriptTextUsageTokensInputTokenDetails {
     /// Number of text tokens billed for this request.
     #[serde(rename = "text_tokens", skip_serializing_if = "Option::is_none")]
-    pub text_tokens: Option<i32>,
+    pub text_tokens: Option<i64>,
     /// Number of audio tokens billed for this request.
     #[serde(rename = "audio_tokens", skip_serializing_if = "Option::is_none")]
-    pub audio_tokens: Option<i32>,
+    pub audio_tokens: Option<i64>,
 }
 
 impl TranscriptTextUsageTokensInputTokenDetails {

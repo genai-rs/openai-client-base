@@ -8,10 +8,10 @@ Name | Type | Description | Notes
 **object** | **Object** | The object type, which is always `video`. (enum: video) | 
 **model** | [**models::VideoModel**](VideoModel.md) |  | 
 **status** | [**models::VideoStatus**](VideoStatus.md) |  | 
-**progress** | **i32** | Approximate completion percentage for the generation task. | 
-**created_at** | **i32** | Unix timestamp (seconds) for when the job was created. | 
-**completed_at** | Option<**i32**> | Unix timestamp (seconds) for when the job completed, if finished. | 
-**expires_at** | Option<**i32**> | Unix timestamp (seconds) for when the downloadable assets expire, if set. | 
+**progress** | **i64** | Approximate completion percentage for the generation task. | 
+**created_at** | **i64** | Unix timestamp (seconds) for when the job was created. | 
+**completed_at** | Option<**i64**> | Unix timestamp (seconds) for when the job completed, if finished. | 
+**expires_at** | Option<**i64**> | Unix timestamp (seconds) for when the downloadable assets expire, if set. | 
 **prompt** | Option<**String**> | The prompt that was used to generate the video. | 
 **size** | [**models::VideoSize**](VideoSize.md) |  | 
 **seconds** | **String** | Duration of the generated clip in seconds. For extensions, this is the stitched total duration. | 

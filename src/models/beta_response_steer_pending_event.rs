@@ -19,7 +19,7 @@ pub struct BetaResponseSteerPendingEvent {
     pub r#type: Type,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "steer")]
     pub steer: models::ResponseSteerPendingEventSteer,
     #[serde(rename = "reason")]
@@ -36,7 +36,7 @@ impl BetaResponseSteerPendingEvent {
     /// Emitted when accepted steering input remains queued after the target response completes. The server still owns the input. Do not resend it. The successor's `response.created` event is the commit point.  When `reason` is `waiting_for_required_input`, this event follows `response.completed` while the response waits for the tool results or approval decisions identified by `required_input`. Copy those stubs, fill their result fields using the ordinary `response.create` input schemas, and submit one continuation per parent with the same `previous_response_id` and WebSocket lane. Use saved results without rerunning tools. The queued steering input is prepended in submission order to the continuation's input. That explicit request retains its own settings.  This notification is emitted at most once per steering submission. Multiple submissions for the same parent can report the same required inputs; they do not each require a separate continuation.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
+        sequence_number: i64,
         steer: models::ResponseSteerPendingEventSteer,
         reason: models::BetaResponseSteerPendingReason,
         required_input: Vec<models::BetaResponseSteerRequiredInput>,

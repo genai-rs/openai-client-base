@@ -22,7 +22,7 @@ pub struct RunObject {
     pub object: Object,
     /// The Unix timestamp (in seconds) for when the run was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) that was executed on as a part of this run.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
@@ -38,19 +38,19 @@ pub struct RunObject {
     pub last_error: Option<models::RunObjectLastError>,
     /// The Unix timestamp (in seconds) for when the run will expire.
     #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
-    pub expires_at: Option<i32>,
+    pub expires_at: Option<i64>,
     /// The Unix timestamp (in seconds) for when the run was started.
     #[serde(rename = "started_at", deserialize_with = "Option::deserialize")]
-    pub started_at: Option<i32>,
+    pub started_at: Option<i64>,
     /// The Unix timestamp (in seconds) for when the run was cancelled.
     #[serde(rename = "cancelled_at", deserialize_with = "Option::deserialize")]
-    pub cancelled_at: Option<i32>,
+    pub cancelled_at: Option<i64>,
     /// The Unix timestamp (in seconds) for when the run failed.
     #[serde(rename = "failed_at", deserialize_with = "Option::deserialize")]
-    pub failed_at: Option<i32>,
+    pub failed_at: Option<i64>,
     /// The Unix timestamp (in seconds) for when the run was completed.
     #[serde(rename = "completed_at", deserialize_with = "Option::deserialize")]
-    pub completed_at: Option<i32>,
+    pub completed_at: Option<i64>,
     #[serde(
         rename = "incomplete_details",
         deserialize_with = "Option::deserialize"
@@ -88,13 +88,13 @@ pub struct RunObject {
     pub top_p: Option<Option<f64>>,
     /// The maximum number of prompt tokens specified to have been used over the course of the run.
     #[serde(rename = "max_prompt_tokens", deserialize_with = "Option::deserialize")]
-    pub max_prompt_tokens: Option<i32>,
+    pub max_prompt_tokens: Option<i64>,
     /// The maximum number of completion tokens specified to have been used over the course of the run.
     #[serde(
         rename = "max_completion_tokens",
         deserialize_with = "Option::deserialize"
     )]
-    pub max_completion_tokens: Option<i32>,
+    pub max_completion_tokens: Option<i64>,
     #[serde(
         rename = "truncation_strategy",
         deserialize_with = "Option::deserialize"
@@ -114,25 +114,25 @@ impl RunObject {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: i64,
         thread_id: String,
         assistant_id: String,
         status: Status,
         required_action: Option<models::RunObjectRequiredAction>,
         last_error: Option<models::RunObjectLastError>,
-        expires_at: Option<i32>,
-        started_at: Option<i32>,
-        cancelled_at: Option<i32>,
-        failed_at: Option<i32>,
-        completed_at: Option<i32>,
+        expires_at: Option<i64>,
+        started_at: Option<i64>,
+        cancelled_at: Option<i64>,
+        failed_at: Option<i64>,
+        completed_at: Option<i64>,
         incomplete_details: Option<models::RunObjectIncompleteDetails>,
         model: String,
         instructions: String,
         tools: Vec<models::RunObjectToolsInner>,
         metadata: Option<std::collections::HashMap<String, String>>,
         usage: Option<models::RunCompletionUsage>,
-        max_prompt_tokens: Option<i32>,
-        max_completion_tokens: Option<i32>,
+        max_prompt_tokens: Option<i64>,
+        max_completion_tokens: Option<i64>,
         truncation_strategy: Option<models::TruncationObject>,
         tool_choice: Option<models::AssistantsApiToolChoiceOption>,
         parallel_tool_calls: bool,

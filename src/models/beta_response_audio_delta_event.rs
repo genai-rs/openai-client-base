@@ -27,7 +27,7 @@ pub struct BetaResponseAudioDeltaEvent {
     pub r#type: Type,
     /// A sequence number for this chunk of the stream response.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// A chunk of Base64 encoded response audio bytes.
     #[serde(rename = "delta")]
     pub delta: String,
@@ -35,7 +35,7 @@ pub struct BetaResponseAudioDeltaEvent {
 
 impl BetaResponseAudioDeltaEvent {
     /// Emitted when there is a partial audio response.
-    pub fn new(r#type: Type, sequence_number: i32, delta: String) -> BetaResponseAudioDeltaEvent {
+    pub fn new(r#type: Type, sequence_number: i64, delta: String) -> BetaResponseAudioDeltaEvent {
         BetaResponseAudioDeltaEvent {
             agent: None,
             r#type,

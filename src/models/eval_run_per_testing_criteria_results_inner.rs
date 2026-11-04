@@ -17,17 +17,17 @@ pub struct EvalRunPerTestingCriteriaResultsInner {
     pub testing_criteria: String,
     /// Number of tests passed for this criteria.
     #[serde(rename = "passed")]
-    pub passed: i32,
+    pub passed: i64,
     /// Number of tests failed for this criteria.
     #[serde(rename = "failed")]
-    pub failed: i32,
+    pub failed: i64,
 }
 
 impl EvalRunPerTestingCriteriaResultsInner {
     pub fn new(
         testing_criteria: String,
-        passed: i32,
-        failed: i32,
+        passed: i64,
+        failed: i64,
     ) -> EvalRunPerTestingCriteriaResultsInner {
         EvalRunPerTestingCriteriaResultsInner {
             testing_criteria,

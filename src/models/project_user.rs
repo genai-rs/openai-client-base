@@ -40,12 +40,12 @@ pub struct ProjectUser {
     pub role: String,
     /// The Unix timestamp (in seconds) of when the project was added.
     #[serde(rename = "added_at")]
-    pub added_at: i32,
+    pub added_at: i64,
 }
 
 impl ProjectUser {
     /// Represents an individual user in a project.
-    pub fn new(object: Object, id: String, role: String, added_at: i32) -> ProjectUser {
+    pub fn new(object: Object, id: String, role: String, added_at: i64) -> ProjectUser {
         ProjectUser {
             object,
             id,

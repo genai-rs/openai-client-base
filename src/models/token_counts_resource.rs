@@ -15,11 +15,11 @@ pub struct TokenCountsResource {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "input_tokens")]
-    pub input_tokens: i32,
+    pub input_tokens: i64,
 }
 
 impl TokenCountsResource {
-    pub fn new(object: Object, input_tokens: i32) -> TokenCountsResource {
+    pub fn new(object: Object, input_tokens: i64) -> TokenCountsResource {
         TokenCountsResource {
             object,
             input_tokens,

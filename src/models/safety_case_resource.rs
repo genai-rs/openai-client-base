@@ -18,7 +18,7 @@ pub struct SafetyCaseResource {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "entity_identifier")]
     pub entity_identifier: String,
     #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
@@ -31,7 +31,7 @@ impl SafetyCaseResource {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: i64,
         entity_identifier: String,
         reason: Option<String>,
         notice: models::SafetyCaseNotice,

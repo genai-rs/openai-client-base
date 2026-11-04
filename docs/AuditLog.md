@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The ID of this log. | 
 **r#type** | [**models::AuditLogEventType**](AuditLogEventType.md) |  | 
-**effective_at** | **i32** | The Unix timestamp (in seconds) of the event. | 
+**effective_at** | **i64** | The Unix timestamp (in seconds) of the event. | 
 **project** | Option<[**models::AuditLogProject**](AuditLogProject.md)> |  | [optional]
 **actor** | Option<[**models::AuditLogActor**](AuditLogActor.md)> |  | [optional]
 **api_key_created** | Option<[**models::AuditLogApiKeyCreated**](AuditLogApiKeyCreated.md)> |  | [optional]

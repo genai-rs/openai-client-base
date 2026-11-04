@@ -15,15 +15,15 @@ use serde::{Deserialize, Serialize};
 pub struct ImagesUsageInputTokensDetails {
     /// The number of text tokens in the input prompt.
     #[serde(rename = "text_tokens")]
-    pub text_tokens: i32,
+    pub text_tokens: i64,
     /// The number of image tokens in the input prompt.
     #[serde(rename = "image_tokens")]
-    pub image_tokens: i32,
+    pub image_tokens: i64,
 }
 
 impl ImagesUsageInputTokensDetails {
     /// The input tokens detailed information for the image generation.
-    pub fn new(text_tokens: i32, image_tokens: i32) -> ImagesUsageInputTokensDetails {
+    pub fn new(text_tokens: i64, image_tokens: i64) -> ImagesUsageInputTokensDetails {
         ImagesUsageInputTokensDetails {
             text_tokens,
             image_tokens,

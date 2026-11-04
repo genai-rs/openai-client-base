@@ -24,10 +24,10 @@ pub struct RealtimeServerEventConversationItemTruncated {
     pub item_id: String,
     /// The index of the content part that was truncated.
     #[serde(rename = "content_index")]
-    pub content_index: i32,
+    pub content_index: i64,
     /// The duration up to which the audio was truncated, in milliseconds.
     #[serde(rename = "audio_end_ms")]
-    pub audio_end_ms: i32,
+    pub audio_end_ms: i64,
 }
 
 impl RealtimeServerEventConversationItemTruncated {
@@ -36,8 +36,8 @@ impl RealtimeServerEventConversationItemTruncated {
         event_id: String,
         r#type: Type,
         item_id: String,
-        content_index: i32,
-        audio_end_ms: i32,
+        content_index: i64,
+        audio_end_ms: i64,
     ) -> RealtimeServerEventConversationItemTruncated {
         RealtimeServerEventConversationItemTruncated {
             event_id,

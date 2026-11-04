@@ -24,7 +24,7 @@ pub struct Group {
     pub name: String,
     /// Unix timestamp (in seconds) when the group was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// Whether the group is managed through SCIM.
     #[serde(rename = "scim_managed")]
     pub scim_managed: bool,
@@ -36,7 +36,7 @@ impl Group {
         object: Object,
         id: String,
         name: String,
-        created_at: i32,
+        created_at: i64,
         scim_managed: bool,
     ) -> Group {
         Group {

@@ -21,7 +21,7 @@ pub struct ResponseCompletedEvent {
     pub response: models::Response,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl ResponseCompletedEvent {
@@ -29,7 +29,7 @@ impl ResponseCompletedEvent {
     pub fn new(
         r#type: Type,
         response: models::Response,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> ResponseCompletedEvent {
         ResponseCompletedEvent {
             r#type,

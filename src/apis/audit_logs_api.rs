@@ -36,7 +36,7 @@ pub async fn list_audit_logs(
     actor_emails_left_square_bracket_right_square_bracket: Option<Vec<String>>,
     resource_ids_left_square_bracket_right_square_bracket: Option<Vec<String>>,
     tenant_only: Option<bool>,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     before: Option<&str>,
 ) -> Result<models::ListAuditLogsResponse, Error<ListAuditLogsError>> {

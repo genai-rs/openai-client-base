@@ -25,7 +25,7 @@ pub struct LiveDelegationCreated {
     pub r#type: Type,
     /// The position on the Live session timeline where the delegation was created, in milliseconds from the beginning of the session.
     #[serde(rename = "offset_ms")]
-    pub offset_ms: i32,
+    pub offset_ms: i64,
     #[serde(rename = "delegation")]
     pub delegation: models::LiveDelegationItem,
 }
@@ -35,7 +35,7 @@ impl LiveDelegationCreated {
     pub fn new(
         event_id: String,
         r#type: Type,
-        offset_ms: i32,
+        offset_ms: i64,
         delegation: models::LiveDelegationItem,
     ) -> LiveDelegationCreated {
         LiveDelegationCreated {

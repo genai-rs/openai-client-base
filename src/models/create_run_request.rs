@@ -97,7 +97,7 @@ pub struct CreateRunRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_prompt_tokens: Option<Option<i32>>,
+    pub max_prompt_tokens: Option<Option<i64>>,
     /// The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
     #[serde(
         rename = "max_completion_tokens",
@@ -105,7 +105,7 @@ pub struct CreateRunRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub max_completion_tokens: Option<Option<i32>>,
+    pub max_completion_tokens: Option<Option<i64>>,
     #[serde(
         rename = "truncation_strategy",
         skip_serializing_if = "Option::is_none"

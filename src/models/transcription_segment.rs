@@ -14,10 +14,10 @@ use serde::{Deserialize, Serialize};
 pub struct TranscriptionSegment {
     /// Unique identifier of the segment.
     #[serde(rename = "id")]
-    pub id: i32,
+    pub id: i64,
     /// Seek offset of the segment.
     #[serde(rename = "seek")]
-    pub seek: i32,
+    pub seek: i64,
     /// Start time of the segment in seconds.
     #[serde(rename = "start")]
     pub start: f64,
@@ -29,7 +29,7 @@ pub struct TranscriptionSegment {
     pub text: String,
     /// Array of token IDs for the text content.
     #[serde(rename = "tokens")]
-    pub tokens: Vec<i32>,
+    pub tokens: Vec<i64>,
     /// Temperature parameter used for generating the segment.
     #[serde(rename = "temperature")]
     pub temperature: f32,
@@ -46,12 +46,12 @@ pub struct TranscriptionSegment {
 
 impl TranscriptionSegment {
     pub fn new(
-        id: i32,
-        seek: i32,
+        id: i64,
+        seek: i64,
         start: f64,
         end: f64,
         text: String,
-        tokens: Vec<i32>,
+        tokens: Vec<i64>,
         temperature: f32,
         avg_logprob: f32,
         compression_ratio: f32,

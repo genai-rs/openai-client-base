@@ -28,13 +28,13 @@ pub struct EvalRunOutputItem {
     pub eval_id: String,
     /// Unix timestamp (in seconds) when the evaluation run was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     /// The status of the evaluation run.
     #[serde(rename = "status")]
     pub status: String,
     /// The identifier for the data source item.
     #[serde(rename = "datasource_item_id")]
-    pub datasource_item_id: i32,
+    pub datasource_item_id: i64,
     /// Details of the input data source item.
     #[serde(rename = "datasource_item")]
     pub datasource_item: std::collections::HashMap<String, serde_json::Value>,
@@ -52,9 +52,9 @@ impl EvalRunOutputItem {
         id: String,
         run_id: String,
         eval_id: String,
-        created_at: i32,
+        created_at: i64,
         status: String,
-        datasource_item_id: i32,
+        datasource_item_id: i64,
         datasource_item: std::collections::HashMap<String, serde_json::Value>,
         results: Vec<models::EvalRunOutputItemResult>,
         sample: models::EvalRunOutputItemSample,

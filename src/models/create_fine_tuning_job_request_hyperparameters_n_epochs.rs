@@ -18,7 +18,7 @@ pub use crate::models::CreateFineTuningJobRequestHyperparametersNEpochsTextVaria
 #[serde(untagged)]
 pub enum CreateFineTuningJobRequestHyperparametersNEpochs {
     TextVariant(models::CreateFineTuningJobRequestHyperparametersNEpochsTextVariantEnum),
-    Integer(i32),
+    Integer(i64),
 }
 
 impl std::fmt::Display for CreateFineTuningJobRequestHyperparametersNEpochs {

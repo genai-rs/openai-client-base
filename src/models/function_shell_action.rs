@@ -17,18 +17,18 @@ pub struct FunctionShellAction {
     pub commands: Vec<String>,
     /// Optional timeout in milliseconds for the commands.
     #[serde(rename = "timeout_ms", deserialize_with = "Option::deserialize")]
-    pub timeout_ms: Option<i32>,
+    pub timeout_ms: Option<i64>,
     /// Optional maximum number of characters to return from each command.
     #[serde(rename = "max_output_length", deserialize_with = "Option::deserialize")]
-    pub max_output_length: Option<i32>,
+    pub max_output_length: Option<i64>,
 }
 
 impl FunctionShellAction {
     /// Execute a shell command.
     pub fn new(
         commands: Vec<String>,
-        timeout_ms: Option<i32>,
-        max_output_length: Option<i32>,
+        timeout_ms: Option<i64>,
+        max_output_length: Option<i64>,
     ) -> FunctionShellAction {
         FunctionShellAction {
             commands,

@@ -15,12 +15,12 @@ use serde::{Deserialize, Serialize};
 pub struct BatchUsageOutputTokensDetails {
     /// The number of reasoning tokens.
     #[serde(rename = "reasoning_tokens")]
-    pub reasoning_tokens: i32,
+    pub reasoning_tokens: i64,
 }
 
 impl BatchUsageOutputTokensDetails {
     /// A detailed breakdown of the output tokens.
-    pub fn new(reasoning_tokens: i32) -> BatchUsageOutputTokensDetails {
+    pub fn new(reasoning_tokens: i64) -> BatchUsageOutputTokensDetails {
         BatchUsageOutputTokensDetails { reasoning_tokens }
     }
 }

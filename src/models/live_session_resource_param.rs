@@ -49,7 +49,7 @@ pub struct LiveSessionResourceParam {
     pub id: String,
     /// The Unix timestamp, in seconds, at which the Live session expires.
     #[serde(rename = "expires_at")]
-    pub expires_at: i32,
+    pub expires_at: i64,
     /// The status of the session snapshot. Always `active`, including the final snapshot in session.closed; use the event type to determine that the session has closed.
     #[serde(rename = "status")]
     pub status: Status,
@@ -60,7 +60,7 @@ impl LiveSessionResourceParam {
     pub fn new(
         model: models::ModelIdsLive,
         id: String,
-        expires_at: i32,
+        expires_at: i64,
         status: Status,
     ) -> LiveSessionResourceParam {
         LiveSessionResourceParam {

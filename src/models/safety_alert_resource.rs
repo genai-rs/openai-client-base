@@ -18,7 +18,7 @@ pub struct SafetyAlertResource {
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "response_id")]
@@ -47,7 +47,7 @@ impl SafetyAlertResource {
     pub fn new(
         id: String,
         object: Object,
-        created_at: i32,
+        created_at: i64,
         request_id: String,
         response_id: String,
         model: String,

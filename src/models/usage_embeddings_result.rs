@@ -17,10 +17,10 @@ pub struct UsageEmbeddingsResult {
     pub object: Object,
     /// The aggregated number of input tokens used.
     #[serde(rename = "input_tokens")]
-    pub input_tokens: i32,
+    pub input_tokens: i64,
     /// The count of requests made to the model.
     #[serde(rename = "num_model_requests")]
-    pub num_model_requests: i32,
+    pub num_model_requests: i64,
     /// When `group_by=project_id`, this field provides the project ID of the grouped usage result.
     #[serde(
         rename = "project_id",
@@ -54,8 +54,8 @@ impl UsageEmbeddingsResult {
     /// The aggregated embeddings usage details of the specific time bucket.
     pub fn new(
         object: Object,
-        input_tokens: i32,
-        num_model_requests: i32,
+        input_tokens: i64,
+        num_model_requests: i64,
     ) -> UsageEmbeddingsResult {
         UsageEmbeddingsResult {
             object,

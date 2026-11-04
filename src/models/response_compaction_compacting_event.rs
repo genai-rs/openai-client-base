@@ -17,10 +17,10 @@ pub struct ResponseCompactionCompactingEvent {
     pub r#type: Type,
     /// The sequence number of the event that was emitted.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     /// The index of the compaction output item.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The ID of the compaction output item.
     #[serde(rename = "item_id")]
     pub item_id: String,
@@ -29,8 +29,8 @@ pub struct ResponseCompactionCompactingEvent {
 impl ResponseCompactionCompactingEvent {
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
-        output_index: i32,
+        sequence_number: i64,
+        output_index: i64,
         item_id: String,
     ) -> ResponseCompactionCompactingEvent {
         ResponseCompactionCompactingEvent {

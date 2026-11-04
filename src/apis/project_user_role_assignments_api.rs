@@ -126,7 +126,7 @@ pub async fn list_project_user_role_assignments(
     configuration: &configuration::Configuration,
     project_id: &str,
     user_id: &str,
-    limit: Option<i32>,
+    limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
 ) -> Result<models::RoleListResource, Error<ListProjectUserRoleAssignmentsError>> {

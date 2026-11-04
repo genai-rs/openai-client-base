@@ -30,16 +30,16 @@ pub struct BetaResponseReasoningSummaryTextDeltaEvent {
     pub item_id: String,
     /// The index of the output item this summary text delta is associated with.
     #[serde(rename = "output_index")]
-    pub output_index: i32,
+    pub output_index: i64,
     /// The index of the summary part within the reasoning summary.
     #[serde(rename = "summary_index")]
-    pub summary_index: i32,
+    pub summary_index: i64,
     /// The text delta that was added to the summary.
     #[serde(rename = "delta")]
     pub delta: String,
     /// The sequence number of this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
 }
 
 impl BetaResponseReasoningSummaryTextDeltaEvent {
@@ -47,10 +47,10 @@ impl BetaResponseReasoningSummaryTextDeltaEvent {
     pub fn new(
         r#type: Type,
         item_id: String,
-        output_index: i32,
-        summary_index: i32,
+        output_index: i64,
+        summary_index: i64,
         delta: String,
-        sequence_number: i32,
+        sequence_number: i64,
     ) -> BetaResponseReasoningSummaryTextDeltaEvent {
         BetaResponseReasoningSummaryTextDeltaEvent {
             agent: None,

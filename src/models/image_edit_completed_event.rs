@@ -30,7 +30,7 @@ pub struct ImageEditCompletedEvent {
     pub b64_json: String,
     /// The Unix timestamp when the event was created.
     #[serde(rename = "created_at")]
-    pub created_at: i32,
+    pub created_at: i64,
     #[serde(rename = "size")]
     pub size: models::ImageEditCompletedEventSize,
     /// The quality setting for the edited image.
@@ -51,7 +51,7 @@ impl ImageEditCompletedEvent {
     pub fn new(
         r#type: Type,
         b64_json: String,
-        created_at: i32,
+        created_at: i64,
         size: models::ImageEditCompletedEventSize,
         quality: Quality,
         background: Background,

@@ -19,7 +19,7 @@ pub struct ResponseSteerAcceptedEvent {
     pub r#type: Type,
     /// The sequence number for this event.
     #[serde(rename = "sequence_number")]
-    pub sequence_number: i32,
+    pub sequence_number: i64,
     #[serde(rename = "steer")]
     pub steer: models::ResponseSteerAcceptedEventSteer,
     /// The WebSocket lane that emitted this event. This field is present when the target response's `response.create` event supplied a `stream_id`.
@@ -31,7 +31,7 @@ impl ResponseSteerAcceptedEvent {
     /// Emitted when steering input has been validated and queued. Acceptance means the server owns the input, not that it has been applied. The successor's `response.created` event is the commit point. If accepted input cannot be committed, `response.steer.failed` returns it with the same steering ID.  When the response stops for client-owned tool output or approval, the input remains queued and `response.steer.pending` is emitted after `response.completed`. Fill the pending event's `required_input` stubs with saved results and send one matching explicit `response.create` per parent. Do not resend accepted input while it is still queued.
     pub fn new(
         r#type: Type,
-        sequence_number: i32,
+        sequence_number: i64,
         steer: models::ResponseSteerAcceptedEventSteer,
     ) -> ResponseSteerAcceptedEvent {
         ResponseSteerAcceptedEvent {

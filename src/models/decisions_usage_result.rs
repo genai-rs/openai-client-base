@@ -25,7 +25,7 @@ pub struct DecisionsUsageResult {
     pub object: Object,
     /// The aggregated number of input tokens used, including cached and cache-write tokens. This includes text, audio, and image tokens. For customers subscribed to Scale Tier, this includes Scale Tier tokens.
     #[serde(rename = "input_tokens")]
-    pub input_tokens: i32,
+    pub input_tokens: i64,
     /// The aggregated number of cached input tokens used across text, audio, and image inputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens.
     #[serde(
         rename = "input_cached_tokens",
@@ -33,7 +33,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_cached_tokens: Option<Option<i32>>,
+    pub input_cached_tokens: Option<Option<i64>>,
     /// The aggregated number of input tokens written to the cache with a 30-minute retention period.
     #[serde(
         rename = "input_cache_write_tokens",
@@ -41,7 +41,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_cache_write_tokens: Option<Option<i32>>,
+    pub input_cache_write_tokens: Option<Option<i64>>,
     /// The aggregated number of input tokens written to the cache with a 12-hour retention period.
     #[serde(
         rename = "input_cache_write_12h_tokens",
@@ -49,7 +49,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_cache_write_12h_tokens: Option<Option<i32>>,
+    pub input_cache_write_12h_tokens: Option<Option<i64>>,
     /// The aggregated number of uncached input tokens used across text, audio, and image inputs, excluding cache-write tokens.
     #[serde(
         rename = "input_uncached_tokens",
@@ -57,10 +57,10 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_uncached_tokens: Option<Option<i32>>,
+    pub input_uncached_tokens: Option<Option<i64>>,
     /// The aggregated number of output tokens used across text, audio, and image outputs. For customers subscribed to Scale Tier, this includes Scale Tier tokens.
     #[serde(rename = "output_tokens")]
-    pub output_tokens: i32,
+    pub output_tokens: i64,
     /// The aggregated number of uncached text input tokens used, excluding cache-write tokens.
     #[serde(
         rename = "input_text_tokens",
@@ -68,7 +68,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_text_tokens: Option<Option<i32>>,
+    pub input_text_tokens: Option<Option<i64>>,
     /// The aggregated number of text output tokens used.
     #[serde(
         rename = "output_text_tokens",
@@ -76,7 +76,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_text_tokens: Option<Option<i32>>,
+    pub output_text_tokens: Option<Option<i64>>,
     /// The aggregated number of cached text input tokens used.
     #[serde(
         rename = "input_cached_text_tokens",
@@ -84,7 +84,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_cached_text_tokens: Option<Option<i32>>,
+    pub input_cached_text_tokens: Option<Option<i64>>,
     /// The aggregated number of uncached audio input tokens used.
     #[serde(
         rename = "input_audio_tokens",
@@ -92,7 +92,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_audio_tokens: Option<Option<i32>>,
+    pub input_audio_tokens: Option<Option<i64>>,
     /// The aggregated number of cached audio input tokens used.
     #[serde(
         rename = "input_cached_audio_tokens",
@@ -100,7 +100,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_cached_audio_tokens: Option<Option<i32>>,
+    pub input_cached_audio_tokens: Option<Option<i64>>,
     /// The aggregated number of audio output tokens used.
     #[serde(
         rename = "output_audio_tokens",
@@ -108,7 +108,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_audio_tokens: Option<Option<i32>>,
+    pub output_audio_tokens: Option<Option<i64>>,
     /// The aggregated number of uncached image input tokens used.
     #[serde(
         rename = "input_image_tokens",
@@ -116,7 +116,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_image_tokens: Option<Option<i32>>,
+    pub input_image_tokens: Option<Option<i64>>,
     /// The aggregated number of cached image input tokens used.
     #[serde(
         rename = "input_cached_image_tokens",
@@ -124,7 +124,7 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub input_cached_image_tokens: Option<Option<i32>>,
+    pub input_cached_image_tokens: Option<Option<i64>>,
     /// The aggregated number of image output tokens used.
     #[serde(
         rename = "output_image_tokens",
@@ -132,10 +132,10 @@ pub struct DecisionsUsageResult {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_image_tokens: Option<Option<i32>>,
+    pub output_image_tokens: Option<Option<i64>>,
     /// The count of requests made to the model.
     #[serde(rename = "num_model_requests")]
-    pub num_model_requests: i32,
+    pub num_model_requests: i64,
     /// When `group_by=project_id`, this field provides the project ID of the grouped usage result.
     #[serde(
         rename = "project_id",
@@ -185,9 +185,9 @@ impl DecisionsUsageResult {
     /// The aggregated Decisions API usage details of the specific time bucket.
     pub fn new(
         object: Object,
-        input_tokens: i32,
-        output_tokens: i32,
-        num_model_requests: i32,
+        input_tokens: i64,
+        output_tokens: i64,
+        num_model_requests: i64,
     ) -> DecisionsUsageResult {
         DecisionsUsageResult {
             api_source: None,
