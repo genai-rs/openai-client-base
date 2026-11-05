@@ -100,6 +100,9 @@ impl RealtimeSessionCreateResponseGa {
 pub enum Type {
     #[serde(rename = "realtime")]
     Realtime,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The object type. Always `realtime.session`.
@@ -107,6 +110,9 @@ pub enum Type {
 pub enum Object {
     #[serde(rename = "realtime.session")]
     RealtimeSession,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.
@@ -116,6 +122,9 @@ pub enum OutputModalities {
     Text,
     #[serde(rename = "audio")]
     Audio,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Additional fields to include in server outputs.  `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
@@ -123,12 +132,16 @@ pub enum OutputModalities {
 pub enum Include {
     #[serde(rename = "item.input_audio_transcription.logprobs")]
     ItemInputAudioTranscriptionLogprobs,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Realtime => "realtime",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -176,6 +189,7 @@ impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::RealtimeSession => "realtime.session",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -224,6 +238,7 @@ impl ::std::fmt::Display for OutputModalities {
         f.write_str(match self {
             Self::Text => "text",
             Self::Audio => "audio",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -275,6 +290,7 @@ impl ::std::fmt::Display for Include {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ItemInputAudioTranscriptionLogprobs => "item.input_audio_transcription.logprobs",
+            Self::Unknown => "unknown",
         })
     }
 }

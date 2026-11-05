@@ -43,6 +43,9 @@ impl SemanticVad {
 pub enum Type {
     #[serde(rename = "semantic_vad")]
     SemanticVad,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Used only for `semantic_vad` mode. The eagerness of the model to respond. `low` will wait longer for the user to continue speaking, `high` will respond more quickly. `auto` is the default and is equivalent to `medium`. `low`, `medium`, and `high` have max timeouts of 8s, 4s, and 2s respectively.
@@ -56,12 +59,16 @@ pub enum Eagerness {
     High,
     #[serde(rename = "auto")]
     Auto,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::SemanticVad => "semantic_vad",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -112,6 +119,7 @@ impl ::std::fmt::Display for Eagerness {
             Self::Medium => "medium",
             Self::High => "high",
             Self::Auto => "auto",
+            Self::Unknown => "unknown",
         })
     }
 }

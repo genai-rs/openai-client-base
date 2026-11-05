@@ -19,6 +19,8 @@ pub enum EvalDataSourceConfig {
     EvalCustomDataSourceConfig(models::EvalCustomDataSourceConfig),
     EvalLogsDataSourceConfig(models::EvalLogsDataSourceConfig),
     EvalStoredCompletionsDataSourceConfig(models::EvalStoredCompletionsDataSourceConfig),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for EvalDataSourceConfig {
@@ -47,7 +49,7 @@ impl EvalDataSourceConfig {
                 dispatch::decode(value, UNION, "EvalStoredCompletionsDataSourceConfig")
                     .map(Self::EvalStoredCompletionsDataSourceConfig)
             }
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -71,6 +73,7 @@ impl std::fmt::Display for EvalDataSourceConfig {
                     Err(_) => Err(std::fmt::Error),
                 }
             }
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

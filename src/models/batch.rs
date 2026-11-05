@@ -178,6 +178,9 @@ impl Batch {
 pub enum Object {
     #[serde(rename = "batch")]
     Batch,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The current status of the batch.
@@ -199,12 +202,16 @@ pub enum Status {
     Cancelling,
     #[serde(rename = "cancelled")]
     Cancelled,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Batch => "batch",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -259,6 +266,7 @@ impl ::std::fmt::Display for Status {
             Self::Expired => "expired",
             Self::Cancelling => "cancelling",
             Self::Cancelled => "cancelled",
+            Self::Unknown => "unknown",
         })
     }
 }

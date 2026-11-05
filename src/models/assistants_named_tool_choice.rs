@@ -39,6 +39,9 @@ pub enum Type {
     CodeInterpreter,
     #[serde(rename = "file_search")]
     FileSearch,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -47,6 +50,7 @@ impl ::std::fmt::Display for Type {
             Self::Function => "function",
             Self::CodeInterpreter => "code_interpreter",
             Self::FileSearch => "file_search",
+            Self::Unknown => "unknown",
         })
     }
 }

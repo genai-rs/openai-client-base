@@ -20,6 +20,10 @@ pub enum BetaToolChoiceOptions {
     Auto,
     #[serde(rename = "required")]
     Required,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaToolChoiceOptions {
@@ -28,6 +32,7 @@ impl std::fmt::Display for BetaToolChoiceOptions {
             Self::None => write!(f, "none"),
             Self::Auto => write!(f, "auto"),
             Self::Required => write!(f, "required"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

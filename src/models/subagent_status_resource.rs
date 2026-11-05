@@ -18,6 +18,10 @@ pub enum SubagentStatusResource {
     Active,
     #[serde(rename = "closed")]
     Closed,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for SubagentStatusResource {
@@ -25,6 +29,7 @@ impl std::fmt::Display for SubagentStatusResource {
         match self {
             Self::Active => write!(f, "active"),
             Self::Closed => write!(f, "closed"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

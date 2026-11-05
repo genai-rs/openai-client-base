@@ -312,6 +312,10 @@ pub enum AuditLogEventType {
     TenantMembershipDeclined,
     #[serde(rename = "tenant.workspace_invite_email_settings.updated")]
     TenantWorkspaceInviteEmailSettingsUpdated,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for AuditLogEventType {
@@ -554,6 +558,7 @@ impl std::fmt::Display for AuditLogEventType {
             Self::TenantWorkspaceInviteEmailSettingsUpdated => {
                 write!(f, "tenant.workspace_invite_email_settings.updated")
             }
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

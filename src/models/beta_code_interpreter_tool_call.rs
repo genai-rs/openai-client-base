@@ -68,6 +68,9 @@ impl BetaCodeInterpreterToolCall {
 pub enum Type {
     #[serde(rename = "code_interpreter_call")]
     CodeInterpreterCall,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The status of the code interpreter tool call. Valid values are `in_progress`, `completed`, `incomplete`, `interpreting`, and `failed`.
@@ -83,12 +86,16 @@ pub enum Status {
     Interpreting,
     #[serde(rename = "failed")]
     Failed,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::CodeInterpreterCall => "code_interpreter_call",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -140,6 +147,7 @@ impl ::std::fmt::Display for Status {
             Self::Incomplete => "incomplete",
             Self::Interpreting => "interpreting",
             Self::Failed => "failed",
+            Self::Unknown => "unknown",
         })
     }
 }

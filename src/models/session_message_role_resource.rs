@@ -18,6 +18,10 @@ pub enum SessionMessageRoleResource {
     User,
     #[serde(rename = "assistant")]
     Assistant,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for SessionMessageRoleResource {
@@ -25,6 +29,7 @@ impl std::fmt::Display for SessionMessageRoleResource {
         match self {
             Self::User => write!(f, "user"),
             Self::Assistant => write!(f, "assistant"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

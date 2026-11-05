@@ -37,6 +37,9 @@ pub enum Type {
     Allowlist,
     #[serde(rename = "disabled")]
     Disabled,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -44,6 +47,7 @@ impl ::std::fmt::Display for Type {
         f.write_str(match self {
             Self::Allowlist => "allowlist",
             Self::Disabled => "disabled",
+            Self::Unknown => "unknown",
         })
     }
 }

@@ -77,6 +77,9 @@ impl ImageGenTool {
 pub enum Type {
     #[serde(rename = "image_generation")]
     ImageGeneration,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.
@@ -94,6 +97,9 @@ pub enum Quality {
     Max,
     #[serde(rename = "auto")]
     Auto,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
@@ -105,6 +111,9 @@ pub enum OutputFormat {
     Webp,
     #[serde(rename = "jpeg")]
     Jpeg,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Moderation level for the generated image. Default: `auto`.
@@ -114,6 +123,9 @@ pub enum Moderation {
     Auto,
     #[serde(rename = "low")]
     Low,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.
@@ -125,12 +137,16 @@ pub enum Background {
     Opaque,
     #[serde(rename = "auto")]
     Auto,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ImageGeneration => "image_generation",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -183,6 +199,7 @@ impl ::std::fmt::Display for Quality {
             Self::Xhigh => "xhigh",
             Self::Max => "max",
             Self::Auto => "auto",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -237,6 +254,7 @@ impl ::std::fmt::Display for OutputFormat {
             Self::Png => "png",
             Self::Webp => "webp",
             Self::Jpeg => "jpeg",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -287,6 +305,7 @@ impl ::std::fmt::Display for Moderation {
         f.write_str(match self {
             Self::Auto => "auto",
             Self::Low => "low",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -337,6 +356,7 @@ impl ::std::fmt::Display for Background {
             Self::Transparent => "transparent",
             Self::Opaque => "opaque",
             Self::Auto => "auto",
+            Self::Unknown => "unknown",
         })
     }
 }

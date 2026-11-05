@@ -53,6 +53,9 @@ impl GraderTextSimilarity {
 pub enum Type {
     #[serde(rename = "text_similarity")]
     TextSimilarity,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The evaluation metric to use. One of `cosine`, `fuzzy_match`, `bleu`,  `gleu`, `meteor`, `rouge_1`, `rouge_2`, `rouge_3`, `rouge_4`, `rouge_5`,  or `rouge_l`.
@@ -80,12 +83,16 @@ pub enum EvaluationMetric {
     Rouge5,
     #[serde(rename = "rouge_l")]
     RougeL,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::TextSimilarity => "text_similarity",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -143,6 +150,7 @@ impl ::std::fmt::Display for EvaluationMetric {
             Self::Rouge4 => "rouge_4",
             Self::Rouge5 => "rouge_5",
             Self::RougeL => "rouge_l",
+            Self::Unknown => "unknown",
         })
     }
 }

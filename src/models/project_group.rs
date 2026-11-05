@@ -58,6 +58,9 @@ impl ProjectGroup {
 pub enum Object {
     #[serde(rename = "project.group")]
     ProjectGroup,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The type of the group.
@@ -67,12 +70,16 @@ pub enum GroupType {
     Group,
     #[serde(rename = "tenant_group")]
     TenantGroup,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ProjectGroup => "project.group",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -121,6 +128,7 @@ impl ::std::fmt::Display for GroupType {
         f.write_str(match self {
             Self::Group => "group",
             Self::TenantGroup => "tenant_group",
+            Self::Unknown => "unknown",
         })
     }
 }

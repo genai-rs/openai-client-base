@@ -19,6 +19,10 @@ pub enum AgentSessionRequiredActionTypeResource {
     FunctionCall,
     #[serde(rename = "environment_connection")]
     EnvironmentConnection,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for AgentSessionRequiredActionTypeResource {
@@ -27,6 +31,7 @@ impl std::fmt::Display for AgentSessionRequiredActionTypeResource {
             Self::ComputerUseApprovalRequest => write!(f, "computer_use_approval_request"),
             Self::FunctionCall => write!(f, "function_call"),
             Self::EnvironmentConnection => write!(f, "environment_connection"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

@@ -23,6 +23,10 @@ pub enum BetaComputerEnvironment {
     Ubuntu,
     #[serde(rename = "browser")]
     Browser,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaComputerEnvironment {
@@ -33,6 +37,7 @@ impl std::fmt::Display for BetaComputerEnvironment {
             Self::Linux => write!(f, "linux"),
             Self::Ubuntu => write!(f, "ubuntu"),
             Self::Browser => write!(f, "browser"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

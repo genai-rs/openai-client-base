@@ -18,6 +18,8 @@ use serde::{Deserialize, Serialize};
 pub enum BetaContainerAutoParamNetworkPolicy {
     BetaContainerNetworkPolicyDisabledParam(models::BetaContainerNetworkPolicyDisabledParam),
     BetaContainerNetworkPolicyAllowlistParam(models::BetaContainerNetworkPolicyAllowlistParam),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for BetaContainerAutoParamNetworkPolicy {
@@ -46,7 +48,7 @@ impl BetaContainerAutoParamNetworkPolicy {
                 dispatch::decode(value, UNION, "BetaContainerNetworkPolicyAllowlistParam")
                     .map(Self::BetaContainerNetworkPolicyAllowlistParam)
             }
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -68,6 +70,7 @@ impl std::fmt::Display for BetaContainerAutoParamNetworkPolicy {
                     Err(_) => Err(std::fmt::Error),
                 }
             }
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

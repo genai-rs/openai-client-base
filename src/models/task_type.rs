@@ -17,6 +17,10 @@ pub enum TaskType {
     Custom,
     #[serde(rename = "thought")]
     Thought,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for TaskType {
@@ -24,6 +28,7 @@ impl std::fmt::Display for TaskType {
         match self {
             Self::Custom => write!(f, "custom"),
             Self::Thought => write!(f, "thought"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

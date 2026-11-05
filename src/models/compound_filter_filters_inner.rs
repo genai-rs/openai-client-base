@@ -16,6 +16,8 @@ use serde::{Deserialize, Serialize};
 pub enum CompoundFilterFiltersInner {
     ComparisonFilter(models::ComparisonFilter),
     CompoundFilter(models::CompoundFilter),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for CompoundFilterFiltersInner {
@@ -42,7 +44,7 @@ impl CompoundFilterFiltersInner {
             Tag::Value("and" | "or") => {
                 dispatch::decode(value, UNION, "CompoundFilter").map(Self::CompoundFilter)
             }
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -60,6 +62,7 @@ impl std::fmt::Display for CompoundFilterFiltersInner {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

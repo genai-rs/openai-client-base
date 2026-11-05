@@ -19,6 +19,8 @@ pub enum CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
     ResponseFormatText(models::ResponseFormatText),
     ResponseFormatJsonSchema(models::ResponseFormatJsonSchema),
     ResponseFormatJsonObject(models::ResponseFormatJsonObject),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
@@ -46,7 +48,7 @@ impl CreateEvalCompletionsRunDataSourceSamplingParamsResponseFormat {
                 .map(Self::ResponseFormatJsonSchema),
             Tag::Value("json_object") => dispatch::decode(value, UNION, "ResponseFormatJsonObject")
                 .map(Self::ResponseFormatJsonObject),
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -68,6 +70,7 @@ impl std::fmt::Display for CreateEvalCompletionsRunDataSourceSamplingParamsRespo
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

@@ -87,12 +87,16 @@ impl UsageImagesResult {
 pub enum Object {
     #[serde(rename = "organization.usage.images.result")]
     OrganizationUsageImagesResult,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::OrganizationUsageImagesResult => "organization.usage.images.result",
+            Self::Unknown => "unknown",
         })
     }
 }

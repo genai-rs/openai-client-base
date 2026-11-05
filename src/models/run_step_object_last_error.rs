@@ -34,6 +34,9 @@ pub enum Code {
     ServerError,
     #[serde(rename = "rate_limit_exceeded")]
     RateLimitExceeded,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Code {
@@ -41,6 +44,7 @@ impl ::std::fmt::Display for Code {
         f.write_str(match self {
             Self::ServerError => "server_error",
             Self::RateLimitExceeded => "rate_limit_exceeded",
+            Self::Unknown => "unknown",
         })
     }
 }

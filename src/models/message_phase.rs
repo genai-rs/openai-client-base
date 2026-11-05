@@ -18,6 +18,10 @@ pub enum MessagePhase {
     Commentary,
     #[serde(rename = "final_answer")]
     FinalAnswer,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for MessagePhase {
@@ -25,6 +29,7 @@ impl std::fmt::Display for MessagePhase {
         match self {
             Self::Commentary => write!(f, "commentary"),
             Self::FinalAnswer => write!(f, "final_answer"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

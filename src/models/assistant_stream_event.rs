@@ -22,6 +22,8 @@ pub enum AssistantStreamEvent {
     MessageStreamEvent(models::MessageStreamEvent),
     ErrorEvent(models::ErrorEvent),
     DoneEvent(models::DoneEvent),
+    /// A `event` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for AssistantStreamEvent {
@@ -77,7 +79,7 @@ impl AssistantStreamEvent {
                 dispatch::decode(value, UNION, "ErrorEvent").map(Self::ErrorEvent)
             }
             Tag::Value("done") => dispatch::decode(value, UNION, "DoneEvent").map(Self::DoneEvent),
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -102,6 +104,7 @@ impl std::fmt::Display for AssistantStreamEvent {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

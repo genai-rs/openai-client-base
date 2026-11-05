@@ -22,6 +22,10 @@ pub enum SessionStatusResource {
     RequiresAction,
     #[serde(rename = "failed")]
     Failed,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for SessionStatusResource {
@@ -31,6 +35,7 @@ impl std::fmt::Display for SessionStatusResource {
             Self::InProgress => write!(f, "in_progress"),
             Self::RequiresAction => write!(f, "requires_action"),
             Self::Failed => write!(f, "failed"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

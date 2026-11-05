@@ -20,6 +20,10 @@ pub enum BetaVerbosity {
     Medium,
     #[serde(rename = "high")]
     High,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaVerbosity {
@@ -28,6 +32,7 @@ impl std::fmt::Display for BetaVerbosity {
             Self::Low => write!(f, "low"),
             Self::Medium => write!(f, "medium"),
             Self::High => write!(f, "high"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

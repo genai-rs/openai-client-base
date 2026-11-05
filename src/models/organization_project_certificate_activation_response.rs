@@ -33,6 +33,9 @@ impl OrganizationProjectCertificateActivationResponse {
 pub enum Object {
     #[serde(rename = "organization.project.certificate.activation")]
     OrganizationProjectCertificateActivation,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
@@ -41,6 +44,7 @@ impl ::std::fmt::Display for Object {
             Self::OrganizationProjectCertificateActivation => {
                 "organization.project.certificate.activation"
             }
+            Self::Unknown => "unknown",
         })
     }
 }

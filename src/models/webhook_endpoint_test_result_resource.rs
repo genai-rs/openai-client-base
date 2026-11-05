@@ -51,6 +51,9 @@ impl WebhookEndpointTestResultResource {
 pub enum Object {
     #[serde(rename = "webhook_endpoint.test")]
     WebhookEndpointTest,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Whether the test request completed. Always true for returned results; use status_code to determine the endpoint response.
@@ -58,12 +61,16 @@ pub enum Object {
 pub enum Success {
     #[serde(rename = "true")]
     True,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::WebhookEndpointTest => "webhook_endpoint.test",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -111,6 +118,7 @@ impl ::std::fmt::Display for Success {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::True => "true",
+            Self::Unknown => "unknown",
         })
     }
 }

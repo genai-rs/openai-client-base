@@ -60,6 +60,10 @@ pub enum SessionTurnErrorCodeResource {
     RequestTimeout,
     #[serde(rename = "internal_error")]
     InternalError,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for SessionTurnErrorCodeResource {
@@ -88,6 +92,7 @@ impl std::fmt::Display for SessionTurnErrorCodeResource {
             Self::ActiveTurnNotSteerable => write!(f, "active_turn_not_steerable"),
             Self::RequestTimeout => write!(f, "request_timeout"),
             Self::InternalError => write!(f, "internal_error"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

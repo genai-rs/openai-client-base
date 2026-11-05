@@ -70,6 +70,9 @@ pub enum Summary {
     Concise,
     #[serde(rename = "detailed")]
     Detailed,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Controls which reasoning items are rendered back to the model on later turns. If omitted or set to `auto`, the model determines the context mode. The `gpt-5.6` model family defaults to `all_turns`; earlier models default to `current_turn`.  When returned on a response, this is the effective reasoning context mode used for the response.
@@ -81,6 +84,9 @@ pub enum Context {
     CurrentTurn,
     #[serde(rename = "all_turns")]
     AllTurns,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// **Deprecated:** use `summary` instead.  A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. One of `auto`, `concise`, or `detailed`.
@@ -92,6 +98,9 @@ pub enum GenerateSummary {
     Concise,
     #[serde(rename = "detailed")]
     Detailed,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Summary {
@@ -100,6 +109,7 @@ impl ::std::fmt::Display for Summary {
             Self::Auto => "auto",
             Self::Concise => "concise",
             Self::Detailed => "detailed",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -151,6 +161,7 @@ impl ::std::fmt::Display for Context {
             Self::Auto => "auto",
             Self::CurrentTurn => "current_turn",
             Self::AllTurns => "all_turns",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -202,6 +213,7 @@ impl ::std::fmt::Display for GenerateSummary {
             Self::Auto => "auto",
             Self::Concise => "concise",
             Self::Detailed => "detailed",
+            Self::Unknown => "unknown",
         })
     }
 }

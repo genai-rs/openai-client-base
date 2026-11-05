@@ -25,6 +25,10 @@ pub enum BetaMultiAgentAction {
     FollowupTask,
     #[serde(rename = "wait_agent")]
     WaitAgent,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaMultiAgentAction {
@@ -36,6 +40,7 @@ impl std::fmt::Display for BetaMultiAgentAction {
             Self::SendMessage => write!(f, "send_message"),
             Self::FollowupTask => write!(f, "followup_task"),
             Self::WaitAgent => write!(f, "wait_agent"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

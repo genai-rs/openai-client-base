@@ -48,6 +48,9 @@ pub enum FinishReason {
     Length,
     #[serde(rename = "content_filter")]
     ContentFilter,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for FinishReason {
@@ -56,6 +59,7 @@ impl ::std::fmt::Display for FinishReason {
             Self::Stop => "stop",
             Self::Length => "length",
             Self::ContentFilter => "content_filter",
+            Self::Unknown => "unknown",
         })
     }
 }

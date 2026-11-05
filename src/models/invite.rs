@@ -82,6 +82,9 @@ impl Invite {
 pub enum Object {
     #[serde(rename = "organization.invite")]
     OrganizationInvite,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// `owner` or `reader`
@@ -91,6 +94,9 @@ pub enum Role {
     Owner,
     #[serde(rename = "reader")]
     Reader,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// `accepted`,`expired`, or `pending`
@@ -102,12 +108,16 @@ pub enum Status {
     Expired,
     #[serde(rename = "pending")]
     Pending,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::OrganizationInvite => "organization.invite",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -156,6 +166,7 @@ impl ::std::fmt::Display for Role {
         f.write_str(match self {
             Self::Owner => "owner",
             Self::Reader => "reader",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -206,6 +217,7 @@ impl ::std::fmt::Display for Status {
             Self::Accepted => "accepted",
             Self::Expired => "expired",
             Self::Pending => "pending",
+            Self::Unknown => "unknown",
         })
     }
 }

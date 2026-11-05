@@ -63,6 +63,9 @@ pub enum UserType {
     User,
     #[serde(rename = "tenant_user")]
     TenantUser,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for UserType {
@@ -70,6 +73,7 @@ impl ::std::fmt::Display for UserType {
         f.write_str(match self {
             Self::User => "user",
             Self::TenantUser => "tenant_user",
+            Self::Unknown => "unknown",
         })
     }
 }

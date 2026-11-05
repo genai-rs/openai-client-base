@@ -17,6 +17,8 @@ pub enum RunStepDetailsToolCallsObjectToolCallsInner {
     RunStepDetailsToolCallsCodeObject(models::RunStepDetailsToolCallsCodeObject),
     RunStepDetailsToolCallsFileSearchObject(models::RunStepDetailsToolCallsFileSearchObject),
     RunStepDetailsToolCallsFunctionObject(models::RunStepDetailsToolCallsFunctionObject),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for RunStepDetailsToolCallsObjectToolCallsInner {
@@ -49,7 +51,7 @@ impl RunStepDetailsToolCallsObjectToolCallsInner {
                 dispatch::decode(value, UNION, "RunStepDetailsToolCallsFunctionObject")
                     .map(Self::RunStepDetailsToolCallsFunctionObject)
             }
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -75,6 +77,7 @@ impl std::fmt::Display for RunStepDetailsToolCallsObjectToolCallsInner {
                     Err(_) => Err(std::fmt::Error),
                 }
             }
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

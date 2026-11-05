@@ -77,6 +77,9 @@ impl ProjectApiKey {
 pub enum Object {
     #[serde(rename = "organization.project.api_key")]
     OrganizationProjectApiKey,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Whether the API key's owner currently has effective access to the project.
@@ -86,12 +89,16 @@ pub enum OwnerProjectAccess {
     Active,
     #[serde(rename = "inactive")]
     Inactive,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::OrganizationProjectApiKey => "organization.project.api_key",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -140,6 +147,7 @@ impl ::std::fmt::Display for OwnerProjectAccess {
         f.write_str(match self {
             Self::Active => "active",
             Self::Inactive => "inactive",
+            Self::Unknown => "unknown",
         })
     }
 }

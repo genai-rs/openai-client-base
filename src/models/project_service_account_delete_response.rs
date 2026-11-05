@@ -34,6 +34,9 @@ impl ProjectServiceAccountDeleteResponse {
 pub enum Object {
     #[serde(rename = "organization.project.service_account.deleted")]
     OrganizationProjectServiceAccountDeleted,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
@@ -42,6 +45,7 @@ impl ::std::fmt::Display for Object {
             Self::OrganizationProjectServiceAccountDeleted => {
                 "organization.project.service_account.deleted"
             }
+            Self::Unknown => "unknown",
         })
     }
 }

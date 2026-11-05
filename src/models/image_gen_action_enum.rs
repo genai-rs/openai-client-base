@@ -19,6 +19,10 @@ pub enum ImageGenActionEnum {
     Edit,
     #[serde(rename = "auto")]
     Auto,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ImageGenActionEnum {
@@ -27,6 +31,7 @@ impl std::fmt::Display for ImageGenActionEnum {
             Self::Generate => write!(f, "generate"),
             Self::Edit => write!(f, "edit"),
             Self::Auto => write!(f, "auto"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

@@ -20,6 +20,10 @@ pub enum NetworkAccessResource {
     Disabled,
     #[serde(rename = "restricted")]
     Restricted,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for NetworkAccessResource {
@@ -28,6 +32,7 @@ impl std::fmt::Display for NetworkAccessResource {
             Self::Enabled => write!(f, "enabled"),
             Self::Disabled => write!(f, "disabled"),
             Self::Restricted => write!(f, "restricted"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

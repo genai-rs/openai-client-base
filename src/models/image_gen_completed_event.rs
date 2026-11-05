@@ -76,6 +76,9 @@ impl ImageGenCompletedEvent {
 pub enum Type {
     #[serde(rename = "image_generation.completed")]
     ImageGenerationCompleted,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The quality setting for the generated image.
@@ -93,6 +96,9 @@ pub enum Quality {
     Max,
     #[serde(rename = "auto")]
     Auto,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The background setting for the generated image.
@@ -104,6 +110,9 @@ pub enum Background {
     Opaque,
     #[serde(rename = "auto")]
     Auto,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The output format for the generated image.
@@ -115,12 +124,16 @@ pub enum OutputFormat {
     Webp,
     #[serde(rename = "jpeg")]
     Jpeg,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ImageGenerationCompleted => "image_generation.completed",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -173,6 +186,7 @@ impl ::std::fmt::Display for Quality {
             Self::Xhigh => "xhigh",
             Self::Max => "max",
             Self::Auto => "auto",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -227,6 +241,7 @@ impl ::std::fmt::Display for Background {
             Self::Transparent => "transparent",
             Self::Opaque => "opaque",
             Self::Auto => "auto",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -278,6 +293,7 @@ impl ::std::fmt::Display for OutputFormat {
             Self::Png => "png",
             Self::Webp => "webp",
             Self::Jpeg => "jpeg",
+            Self::Unknown => "unknown",
         })
     }
 }

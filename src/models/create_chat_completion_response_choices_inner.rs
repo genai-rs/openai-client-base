@@ -53,6 +53,9 @@ pub enum FinishReason {
     ContentFilter,
     #[serde(rename = "function_call")]
     FunctionCall,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for FinishReason {
@@ -63,6 +66,7 @@ impl ::std::fmt::Display for FinishReason {
             Self::ToolCalls => "tool_calls",
             Self::ContentFilter => "content_filter",
             Self::FunctionCall => "function_call",
+            Self::Unknown => "unknown",
         })
     }
 }

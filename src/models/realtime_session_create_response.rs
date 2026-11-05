@@ -86,12 +86,16 @@ impl RealtimeSessionCreateResponse {
 pub enum Include {
     #[serde(rename = "item.input_audio_transcription.logprobs")]
     ItemInputAudioTranscriptionLogprobs,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Include {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ItemInputAudioTranscriptionLogprobs => "item.input_audio_transcription.logprobs",
+            Self::Unknown => "unknown",
         })
     }
 }

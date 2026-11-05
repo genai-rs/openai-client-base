@@ -63,6 +63,9 @@ impl SessionEventAgentOutputCommandExecutionOutputDelta {
 pub enum Type {
     #[serde(rename = "agent.output.command_execution_output.delta")]
     AgentOutputCommandExecutionOutputDelta,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -71,6 +74,7 @@ impl ::std::fmt::Display for Type {
             Self::AgentOutputCommandExecutionOutputDelta => {
                 "agent.output.command_execution_output.delta"
             }
+            Self::Unknown => "unknown",
         })
     }
 }

@@ -32,6 +32,9 @@ pub enum Format {
     Mp3,
     #[serde(rename = "wav")]
     Wav,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Format {
@@ -39,6 +42,7 @@ impl ::std::fmt::Display for Format {
         f.write_str(match self {
             Self::Mp3 => "mp3",
             Self::Wav => "wav",
+            Self::Unknown => "unknown",
         })
     }
 }

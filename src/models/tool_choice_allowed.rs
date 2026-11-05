@@ -43,6 +43,9 @@ impl ToolChoiceAllowed {
 pub enum Type {
     #[serde(rename = "allowed_tools")]
     AllowedTools,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Constrains the tools available to the model to a pre-defined set.  `auto` allows the model to pick from among the allowed tools and generate a message.  `required` requires the model to call one or more of the allowed tools.
@@ -52,12 +55,16 @@ pub enum Mode {
     Auto,
     #[serde(rename = "required")]
     Required,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::AllowedTools => "allowed_tools",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -106,6 +113,7 @@ impl ::std::fmt::Display for Mode {
         f.write_str(match self {
             Self::Auto => "auto",
             Self::Required => "required",
+            Self::Unknown => "unknown",
         })
     }
 }

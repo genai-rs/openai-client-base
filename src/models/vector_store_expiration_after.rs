@@ -32,12 +32,16 @@ impl VectorStoreExpirationAfter {
 pub enum Anchor {
     #[serde(rename = "last_active_at")]
     LastActiveAt,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Anchor {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::LastActiveAt => "last_active_at",
+            Self::Unknown => "unknown",
         })
     }
 }

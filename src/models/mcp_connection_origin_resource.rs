@@ -18,6 +18,10 @@ pub enum McpConnectionOriginResource {
     Service,
     #[serde(rename = "environment")]
     Environment,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for McpConnectionOriginResource {
@@ -25,6 +29,7 @@ impl std::fmt::Display for McpConnectionOriginResource {
         match self {
             Self::Service => write!(f, "service"),
             Self::Environment => write!(f, "environment"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

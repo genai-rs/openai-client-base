@@ -58,6 +58,9 @@ impl VectorStoreFileBatchObject {
 pub enum Object {
     #[serde(rename = "vector_store.file_batch")]
     VectorStoreFileBatch,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The status of the vector store files batch, which can be either `in_progress`, `completed`, `cancelled` or `failed`.
@@ -71,12 +74,16 @@ pub enum Status {
     Cancelled,
     #[serde(rename = "failed")]
     Failed,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::VectorStoreFileBatch => "vector_store.file_batch",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -127,6 +134,7 @@ impl ::std::fmt::Display for Status {
             Self::Completed => "completed",
             Self::Cancelled => "cancelled",
             Self::Failed => "failed",
+            Self::Unknown => "unknown",
         })
     }
 }

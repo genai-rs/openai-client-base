@@ -38,6 +38,9 @@ pub enum Type {
     And,
     #[serde(rename = "or")]
     Or,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -45,6 +48,7 @@ impl ::std::fmt::Display for Type {
         f.write_str(match self {
             Self::And => "and",
             Self::Or => "or",
+            Self::Unknown => "unknown",
         })
     }
 }

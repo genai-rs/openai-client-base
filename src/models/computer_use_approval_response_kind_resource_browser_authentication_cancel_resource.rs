@@ -34,6 +34,9 @@ impl ComputerUseApprovalResponseKindResourceBrowserAuthenticationCancelResource 
 pub enum Type {
     #[serde(rename = "browser_authentication")]
     BrowserAuthentication,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 ///
@@ -41,12 +44,16 @@ pub enum Type {
 pub enum Action {
     #[serde(rename = "cancel")]
     Cancel,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::BrowserAuthentication => "browser_authentication",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -94,6 +101,7 @@ impl ::std::fmt::Display for Action {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Cancel => "cancel",
+            Self::Unknown => "unknown",
         })
     }
 }

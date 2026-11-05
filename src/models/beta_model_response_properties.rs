@@ -99,6 +99,9 @@ pub enum PromptCacheRetention {
     InMemory,
     #[serde(rename = "24h")]
     Variant24h,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for PromptCacheRetention {
@@ -106,6 +109,7 @@ impl ::std::fmt::Display for PromptCacheRetention {
         f.write_str(match self {
             Self::InMemory => "in_memory",
             Self::Variant24h => "24h",
+            Self::Unknown => "unknown",
         })
     }
 }

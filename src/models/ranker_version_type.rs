@@ -17,6 +17,10 @@ pub enum RankerVersionType {
     Auto,
     #[serde(rename = "default-2024-11-15")]
     Default20241115,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for RankerVersionType {
@@ -24,6 +28,7 @@ impl std::fmt::Display for RankerVersionType {
         match self {
             Self::Auto => write!(f, "auto"),
             Self::Default20241115 => write!(f, "default-2024-11-15"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

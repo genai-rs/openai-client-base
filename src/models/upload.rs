@@ -83,6 +83,9 @@ pub enum Status {
     Cancelled,
     #[serde(rename = "expired")]
     Expired,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The object type, which is always \"upload\".
@@ -90,6 +93,9 @@ pub enum Status {
 pub enum Object {
     #[serde(rename = "upload")]
     Upload,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Status {
@@ -99,6 +105,7 @@ impl ::std::fmt::Display for Status {
             Self::Completed => "completed",
             Self::Cancelled => "cancelled",
             Self::Expired => "expired",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -149,6 +156,7 @@ impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Upload => "upload",
+            Self::Unknown => "unknown",
         })
     }
 }

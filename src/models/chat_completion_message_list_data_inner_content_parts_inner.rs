@@ -69,6 +69,9 @@ pub enum Type {
     InputAudio,
     #[serde(rename = "file")]
     File,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -78,6 +81,7 @@ impl ::std::fmt::Display for Type {
             Self::ImageUrl => "image_url",
             Self::InputAudio => "input_audio",
             Self::File => "file",
+            Self::Unknown => "unknown",
         })
     }
 }

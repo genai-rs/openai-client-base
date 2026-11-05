@@ -56,6 +56,9 @@ impl ProjectServiceAccountApiKey {
 pub enum Object {
     #[serde(rename = "organization.project.service_account.api_key")]
     OrganizationProjectServiceAccountApiKey,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
@@ -64,6 +67,7 @@ impl ::std::fmt::Display for Object {
             Self::OrganizationProjectServiceAccountApiKey => {
                 "organization.project.service_account.api_key"
             }
+            Self::Unknown => "unknown",
         })
     }
 }

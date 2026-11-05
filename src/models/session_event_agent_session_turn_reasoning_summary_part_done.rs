@@ -73,6 +73,9 @@ impl SessionEventAgentSessionTurnReasoningSummaryPartDone {
 pub enum Type {
     #[serde(rename = "agent.session.turn.reasoning_summary_part.done")]
     AgentSessionTurnReasoningSummaryPartDone,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Present as `incomplete` when summary generation was interrupted.
@@ -80,6 +83,9 @@ pub enum Type {
 pub enum Status {
     #[serde(rename = "incomplete")]
     Incomplete,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -88,6 +94,7 @@ impl ::std::fmt::Display for Type {
             Self::AgentSessionTurnReasoningSummaryPartDone => {
                 "agent.session.turn.reasoning_summary_part.done"
             }
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -137,6 +144,7 @@ impl ::std::fmt::Display for Status {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Incomplete => "incomplete",
+            Self::Unknown => "unknown",
         })
     }
 }

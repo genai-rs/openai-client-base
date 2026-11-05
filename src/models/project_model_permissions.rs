@@ -39,6 +39,9 @@ impl ProjectModelPermissions {
 pub enum Object {
     #[serde(rename = "project.model_permissions")]
     ProjectModelPermissions,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Whether the project uses an allowlist or a denylist.
@@ -48,12 +51,16 @@ pub enum Mode {
     AllowList,
     #[serde(rename = "deny_list")]
     DenyList,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ProjectModelPermissions => "project.model_permissions",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -102,6 +109,7 @@ impl ::std::fmt::Display for Mode {
         f.write_str(match self {
             Self::AllowList => "allow_list",
             Self::DenyList => "deny_list",
+            Self::Unknown => "unknown",
         })
     }
 }

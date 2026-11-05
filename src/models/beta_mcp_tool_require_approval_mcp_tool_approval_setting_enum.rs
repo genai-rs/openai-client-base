@@ -18,6 +18,10 @@ pub enum BetaMcpToolRequireApprovalMcpToolApprovalSettingEnum {
     Always,
     #[serde(rename = "never")]
     Never,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaMcpToolRequireApprovalMcpToolApprovalSettingEnum {
@@ -25,6 +29,7 @@ impl std::fmt::Display for BetaMcpToolRequireApprovalMcpToolApprovalSettingEnum 
         match self {
             Self::Always => write!(f, "always"),
             Self::Never => write!(f, "never"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

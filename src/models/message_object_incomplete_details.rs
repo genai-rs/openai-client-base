@@ -37,6 +37,9 @@ pub enum Reason {
     RunExpired,
     #[serde(rename = "run_failed")]
     RunFailed,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Reason {
@@ -47,6 +50,7 @@ impl ::std::fmt::Display for Reason {
             Self::RunCancelled => "run_cancelled",
             Self::RunExpired => "run_expired",
             Self::RunFailed => "run_failed",
+            Self::Unknown => "unknown",
         })
     }
 }

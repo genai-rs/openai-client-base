@@ -23,6 +23,10 @@ pub enum BetaClickButtonType {
     Back,
     #[serde(rename = "forward")]
     Forward,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaClickButtonType {
@@ -33,6 +37,7 @@ impl std::fmt::Display for BetaClickButtonType {
             Self::Wheel => write!(f, "wheel"),
             Self::Back => write!(f, "back"),
             Self::Forward => write!(f, "forward"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

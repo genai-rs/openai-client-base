@@ -32,6 +32,9 @@ pub enum Role {
     Member,
     #[serde(rename = "owner")]
     Owner,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Role {
@@ -39,6 +42,7 @@ impl ::std::fmt::Display for Role {
         f.write_str(match self {
             Self::Member => "member",
             Self::Owner => "owner",
+            Self::Unknown => "unknown",
         })
     }
 }

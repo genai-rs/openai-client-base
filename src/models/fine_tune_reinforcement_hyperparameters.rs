@@ -60,6 +60,9 @@ pub enum ReasoningEffort {
     Medium,
     #[serde(rename = "high")]
     High,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for ReasoningEffort {
@@ -69,6 +72,7 @@ impl ::std::fmt::Display for ReasoningEffort {
             Self::Low => "low",
             Self::Medium => "medium",
             Self::High => "high",
+            Self::Unknown => "unknown",
         })
     }
 }

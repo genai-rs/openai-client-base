@@ -24,6 +24,10 @@ pub enum RealtimeReasoningEffort {
     High,
     #[serde(rename = "xhigh")]
     Xhigh,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for RealtimeReasoningEffort {
@@ -34,6 +38,7 @@ impl std::fmt::Display for RealtimeReasoningEffort {
             Self::Medium => write!(f, "medium"),
             Self::High => write!(f, "high"),
             Self::Xhigh => write!(f, "xhigh"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

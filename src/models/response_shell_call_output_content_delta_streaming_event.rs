@@ -58,12 +58,16 @@ impl ResponseShellCallOutputContentDeltaStreamingEvent {
 pub enum Type {
     #[serde(rename = "response.shell_call_output_content.delta")]
     ResponseShellCallOutputContentDelta,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ResponseShellCallOutputContentDelta => "response.shell_call_output_content.delta",
+            Self::Unknown => "unknown",
         })
     }
 }

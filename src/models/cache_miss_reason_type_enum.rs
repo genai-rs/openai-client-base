@@ -31,6 +31,10 @@ pub enum CacheMissReasonTypeEnum {
     InputChanged,
     #[serde(rename = "service_tier_changed")]
     ServiceTierChanged,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for CacheMissReasonTypeEnum {
@@ -45,6 +49,7 @@ impl std::fmt::Display for CacheMissReasonTypeEnum {
             Self::ContextCompacted => write!(f, "context_compacted"),
             Self::InputChanged => write!(f, "input_changed"),
             Self::ServiceTierChanged => write!(f, "service_tier_changed"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

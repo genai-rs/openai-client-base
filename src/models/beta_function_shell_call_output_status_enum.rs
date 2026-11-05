@@ -19,6 +19,10 @@ pub enum BetaFunctionShellCallOutputStatusEnum {
     Completed,
     #[serde(rename = "incomplete")]
     Incomplete,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaFunctionShellCallOutputStatusEnum {
@@ -27,6 +31,7 @@ impl std::fmt::Display for BetaFunctionShellCallOutputStatusEnum {
             Self::InProgress => write!(f, "in_progress"),
             Self::Completed => write!(f, "completed"),
             Self::Incomplete => write!(f, "incomplete"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

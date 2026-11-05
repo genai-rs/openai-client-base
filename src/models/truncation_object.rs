@@ -42,6 +42,9 @@ pub enum Type {
     Auto,
     #[serde(rename = "last_messages")]
     LastMessages,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -49,6 +52,7 @@ impl ::std::fmt::Display for Type {
         f.write_str(match self {
             Self::Auto => "auto",
             Self::LastMessages => "last_messages",
+            Self::Unknown => "unknown",
         })
     }
 }

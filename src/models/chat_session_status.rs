@@ -19,6 +19,10 @@ pub enum ChatSessionStatus {
     Expired,
     #[serde(rename = "cancelled")]
     Cancelled,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ChatSessionStatus {
@@ -27,6 +31,7 @@ impl std::fmt::Display for ChatSessionStatus {
             Self::Active => write!(f, "active"),
             Self::Expired => write!(f, "expired"),
             Self::Cancelled => write!(f, "cancelled"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

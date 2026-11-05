@@ -66,6 +66,9 @@ impl FineTuningJobEvent {
 pub enum Object {
     #[serde(rename = "fine_tuning.job.event")]
     FineTuningJobEvent,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The log level of the event.
@@ -77,6 +80,9 @@ pub enum Level {
     Warn,
     #[serde(rename = "error")]
     Error,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The type of event.
@@ -86,12 +92,16 @@ pub enum Type {
     Message,
     #[serde(rename = "metrics")]
     Metrics,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::FineTuningJobEvent => "fine_tuning.job.event",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -141,6 +151,7 @@ impl ::std::fmt::Display for Level {
             Self::Info => "info",
             Self::Warn => "warn",
             Self::Error => "error",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -191,6 +202,7 @@ impl ::std::fmt::Display for Type {
         f.write_str(match self {
             Self::Message => "message",
             Self::Metrics => "metrics",
+            Self::Unknown => "unknown",
         })
     }
 }

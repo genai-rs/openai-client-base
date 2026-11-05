@@ -62,6 +62,9 @@ impl OutputMessage {
 pub enum Type {
     #[serde(rename = "message")]
     Message,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The role of the output message. Always `assistant`.
@@ -69,6 +72,9 @@ pub enum Type {
 pub enum Role {
     #[serde(rename = "assistant")]
     Assistant,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.
@@ -80,12 +86,16 @@ pub enum Status {
     Completed,
     #[serde(rename = "incomplete")]
     Incomplete,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Message => "message",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -133,6 +143,7 @@ impl ::std::fmt::Display for Role {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Assistant => "assistant",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -182,6 +193,7 @@ impl ::std::fmt::Display for Status {
             Self::InProgress => "in_progress",
             Self::Completed => "completed",
             Self::Incomplete => "incomplete",
+            Self::Unknown => "unknown",
         })
     }
 }

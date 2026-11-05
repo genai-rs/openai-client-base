@@ -36,6 +36,9 @@ pub enum Code {
     UnsupportedFile,
     #[serde(rename = "invalid_file")]
     InvalidFile,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Code {
@@ -44,6 +47,7 @@ impl ::std::fmt::Display for Code {
             Self::ServerError => "server_error",
             Self::UnsupportedFile => "unsupported_file",
             Self::InvalidFile => "invalid_file",
+            Self::Unknown => "unknown",
         })
     }
 }

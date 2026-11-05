@@ -21,6 +21,10 @@ pub enum SafetyAlertErrorType {
     PotentiallyUnintendedDestructiveActivity,
     #[serde(rename = "other")]
     Other,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for SafetyAlertErrorType {
@@ -36,6 +40,7 @@ impl std::fmt::Display for SafetyAlertErrorType {
                 write!(f, "potentially_unintended_destructive_activity")
             }
             Self::Other => write!(f, "other"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

@@ -17,6 +17,10 @@ pub enum CallableToolAllowedCaller {
     Direct,
     #[serde(rename = "programmatic")]
     Programmatic,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for CallableToolAllowedCaller {
@@ -24,6 +28,7 @@ impl std::fmt::Display for CallableToolAllowedCaller {
         match self {
             Self::Direct => write!(f, "direct"),
             Self::Programmatic => write!(f, "programmatic"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

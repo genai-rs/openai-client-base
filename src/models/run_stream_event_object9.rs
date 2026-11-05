@@ -31,12 +31,16 @@ impl RunStreamEventObject9 {
 pub enum Event {
     #[serde(rename = "thread.run.expired")]
     ThreadRunExpired,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Event {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ThreadRunExpired => "thread.run.expired",
+            Self::Unknown => "unknown",
         })
     }
 }

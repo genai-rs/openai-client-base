@@ -20,6 +20,10 @@ pub enum ContainerSizeResource {
     Medium,
     #[serde(rename = "large")]
     Large,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ContainerSizeResource {
@@ -28,6 +32,7 @@ impl std::fmt::Display for ContainerSizeResource {
             Self::Small => write!(f, "small"),
             Self::Medium => write!(f, "medium"),
             Self::Large => write!(f, "large"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

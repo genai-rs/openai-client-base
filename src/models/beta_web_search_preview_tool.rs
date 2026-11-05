@@ -54,6 +54,9 @@ pub enum Type {
     WebSearchPreview,
     #[serde(rename = "web_search_preview_2025_03_11")]
     WebSearchPreview20250311,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -61,6 +64,7 @@ impl ::std::fmt::Display for Type {
         f.write_str(match self {
             Self::WebSearchPreview => "web_search_preview",
             Self::WebSearchPreview20250311 => "web_search_preview_2025_03_11",
+            Self::Unknown => "unknown",
         })
     }
 }

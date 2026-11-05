@@ -75,6 +75,9 @@ pub enum Source {
     WorkspacePermissions,
     #[serde(rename = "connector_publish")]
     ConnectorPublish,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Source {
@@ -85,6 +88,7 @@ impl ::std::fmt::Display for Source {
             Self::RoleDelete => "role_delete",
             Self::WorkspacePermissions => "workspace_permissions",
             Self::ConnectorPublish => "connector_publish",
+            Self::Unknown => "unknown",
         })
     }
 }

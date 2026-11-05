@@ -35,6 +35,9 @@ pub enum Reason {
     ContentFilter,
     #[serde(rename = "steered")]
     Steered,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Reason {
@@ -44,6 +47,7 @@ impl ::std::fmt::Display for Reason {
             Self::MaxMessages => "max_messages",
             Self::ContentFilter => "content_filter",
             Self::Steered => "steered",
+            Self::Unknown => "unknown",
         })
     }
 }

@@ -106,6 +106,9 @@ impl RunStepObject {
 pub enum Object {
     #[serde(rename = "thread.run.step")]
     ThreadRunStep,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The type of run step, which can be either `message_creation` or `tool_calls`.
@@ -115,6 +118,9 @@ pub enum Type {
     MessageCreation,
     #[serde(rename = "tool_calls")]
     ToolCalls,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The status of the run step, which can be either `in_progress`, `cancelled`, `failed`, `completed`, or `expired`.
@@ -130,12 +136,16 @@ pub enum Status {
     Completed,
     #[serde(rename = "expired")]
     Expired,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ThreadRunStep => "thread.run.step",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -184,6 +194,7 @@ impl ::std::fmt::Display for Type {
         f.write_str(match self {
             Self::MessageCreation => "message_creation",
             Self::ToolCalls => "tool_calls",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -236,6 +247,7 @@ impl ::std::fmt::Display for Status {
             Self::Failed => "failed",
             Self::Completed => "completed",
             Self::Expired => "expired",
+            Self::Unknown => "unknown",
         })
     }
 }

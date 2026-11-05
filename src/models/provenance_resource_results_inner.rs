@@ -16,6 +16,8 @@ use serde::{Deserialize, Serialize};
 pub enum ProvenanceResourceResultsInner {
     C2PaProvenanceResult(models::C2PaProvenanceResult),
     SynthIdProvenanceResult(models::SynthIdProvenanceResult),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for ProvenanceResourceResultsInner {
@@ -40,7 +42,7 @@ impl ProvenanceResourceResultsInner {
                 .map(Self::C2PaProvenanceResult),
             Tag::Value("synthid") => dispatch::decode(value, UNION, "SynthIdProvenanceResult")
                 .map(Self::SynthIdProvenanceResult),
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -58,6 +60,7 @@ impl std::fmt::Display for ProvenanceResourceResultsInner {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

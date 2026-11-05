@@ -16,12 +16,17 @@ use serde::{Deserialize, Serialize};
 pub enum EnvironmentFilePageObjectResource {
     #[serde(rename = "page")]
     Page,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for EnvironmentFilePageObjectResource {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::Page => write!(f, "page"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

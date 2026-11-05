@@ -26,6 +26,10 @@ pub enum TurnStatusResource {
     Failed,
     #[serde(rename = "cancelled")]
     Cancelled,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for TurnStatusResource {
@@ -37,6 +41,7 @@ impl std::fmt::Display for TurnStatusResource {
             Self::Completed => write!(f, "completed"),
             Self::Failed => write!(f, "failed"),
             Self::Cancelled => write!(f, "cancelled"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }
