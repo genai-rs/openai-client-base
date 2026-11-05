@@ -85,6 +85,9 @@ impl VectorStoreObject {
 pub enum Object {
     #[serde(rename = "vector_store")]
     VectorStore,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The status of the vector store, which can be either `expired`, `in_progress`, or `completed`. A status of `completed` indicates that the vector store is ready for use.
@@ -96,12 +99,16 @@ pub enum Status {
     InProgress,
     #[serde(rename = "completed")]
     Completed,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::VectorStore => "vector_store",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -151,6 +158,7 @@ impl ::std::fmt::Display for Status {
             Self::Expired => "expired",
             Self::InProgress => "in_progress",
             Self::Completed => "completed",
+            Self::Unknown => "unknown",
         })
     }
 }

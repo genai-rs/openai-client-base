@@ -20,6 +20,10 @@ pub enum WebSearchModeResource {
     Cached,
     #[serde(rename = "live")]
     Live,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for WebSearchModeResource {
@@ -28,6 +32,7 @@ impl std::fmt::Display for WebSearchModeResource {
             Self::Disabled => write!(f, "disabled"),
             Self::Cached => write!(f, "cached"),
             Self::Live => write!(f, "live"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

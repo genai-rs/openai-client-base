@@ -21,6 +21,10 @@ pub enum VideoSize {
     Variant1024x1792,
     #[serde(rename = "1792x1024")]
     Variant1792x1024,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for VideoSize {
@@ -30,6 +34,7 @@ impl std::fmt::Display for VideoSize {
             Self::Variant1280x720 => write!(f, "1280x720"),
             Self::Variant1024x1792 => write!(f, "1024x1792"),
             Self::Variant1792x1024 => write!(f, "1792x1024"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

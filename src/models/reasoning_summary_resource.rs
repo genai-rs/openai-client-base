@@ -20,6 +20,10 @@ pub enum ReasoningSummaryResource {
     Detailed,
     #[serde(rename = "auto")]
     Auto,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ReasoningSummaryResource {
@@ -28,6 +32,7 @@ impl std::fmt::Display for ReasoningSummaryResource {
             Self::Concise => write!(f, "concise"),
             Self::Detailed => write!(f, "detailed"),
             Self::Auto => write!(f, "auto"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

@@ -18,6 +18,10 @@ pub enum RealtimeTruncationTextVariantEnum {
     Auto,
     #[serde(rename = "disabled")]
     Disabled,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for RealtimeTruncationTextVariantEnum {
@@ -25,6 +29,7 @@ impl std::fmt::Display for RealtimeTruncationTextVariantEnum {
         match self {
             Self::Auto => write!(f, "auto"),
             Self::Disabled => write!(f, "disabled"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

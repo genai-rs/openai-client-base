@@ -17,6 +17,10 @@ pub enum BetaToolSearchExecutionType {
     Server,
     #[serde(rename = "client")]
     Client,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaToolSearchExecutionType {
@@ -24,6 +28,7 @@ impl std::fmt::Display for BetaToolSearchExecutionType {
         match self {
             Self::Server => write!(f, "server"),
             Self::Client => write!(f, "client"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

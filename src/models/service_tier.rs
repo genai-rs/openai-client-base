@@ -26,6 +26,10 @@ pub enum ServiceTier {
     Priority,
     #[serde(rename = "fast")]
     Fast,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ServiceTier {
@@ -37,6 +41,7 @@ impl std::fmt::Display for ServiceTier {
             Self::Scale => write!(f, "scale"),
             Self::Priority => write!(f, "priority"),
             Self::Fast => write!(f, "fast"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

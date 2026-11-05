@@ -28,6 +28,10 @@ pub enum SessionEnvironmentStatusResource {
     Expired,
     #[serde(rename = "failed")]
     Failed,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for SessionEnvironmentStatusResource {
@@ -40,6 +44,7 @@ impl std::fmt::Display for SessionEnvironmentStatusResource {
             Self::Suspended => write!(f, "suspended"),
             Self::Expired => write!(f, "expired"),
             Self::Failed => write!(f, "failed"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

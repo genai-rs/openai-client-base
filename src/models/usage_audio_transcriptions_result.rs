@@ -73,6 +73,9 @@ impl UsageAudioTranscriptionsResult {
 pub enum Object {
     #[serde(rename = "organization.usage.audio_transcriptions.result")]
     OrganizationUsageAudioTranscriptionsResult,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
@@ -81,6 +84,7 @@ impl ::std::fmt::Display for Object {
             Self::OrganizationUsageAudioTranscriptionsResult => {
                 "organization.usage.audio_transcriptions.result"
             }
+            Self::Unknown => "unknown",
         })
     }
 }

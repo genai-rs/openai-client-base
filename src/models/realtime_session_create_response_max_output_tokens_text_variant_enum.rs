@@ -15,12 +15,17 @@ use serde::{Deserialize, Serialize};
 pub enum RealtimeSessionCreateResponseMaxOutputTokensTextVariantEnum {
     #[serde(rename = "inf")]
     Inf,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for RealtimeSessionCreateResponseMaxOutputTokensTextVariantEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::Inf => write!(f, "inf"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

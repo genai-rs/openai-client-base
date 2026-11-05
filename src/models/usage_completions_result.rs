@@ -186,6 +186,9 @@ pub enum ApiSource {
     AgentsApi,
     #[serde(rename = "unlabeled")]
     Unlabeled,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 ///
@@ -193,6 +196,9 @@ pub enum ApiSource {
 pub enum Object {
     #[serde(rename = "organization.usage.completions.result")]
     OrganizationUsageCompletionsResult,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for ApiSource {
@@ -200,6 +206,7 @@ impl ::std::fmt::Display for ApiSource {
         f.write_str(match self {
             Self::AgentsApi => "agents_api",
             Self::Unlabeled => "unlabeled",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -248,6 +255,7 @@ impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::OrganizationUsageCompletionsResult => "organization.usage.completions.result",
+            Self::Unknown => "unknown",
         })
     }
 }

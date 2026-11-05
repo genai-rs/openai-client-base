@@ -23,6 +23,10 @@ pub enum McpToolCallStatus {
     Calling,
     #[serde(rename = "failed")]
     Failed,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for McpToolCallStatus {
@@ -33,6 +37,7 @@ impl std::fmt::Display for McpToolCallStatus {
             Self::Incomplete => write!(f, "incomplete"),
             Self::Calling => write!(f, "calling"),
             Self::Failed => write!(f, "failed"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

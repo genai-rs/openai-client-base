@@ -72,6 +72,9 @@ pub enum MemoryLimit {
     Variant16g,
     #[serde(rename = "64g")]
     Variant64g,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for MemoryLimit {
@@ -81,6 +84,7 @@ impl ::std::fmt::Display for MemoryLimit {
             Self::Variant4g => "4g",
             Self::Variant16g => "16g",
             Self::Variant64g => "64g",
+            Self::Unknown => "unknown",
         })
     }
 }

@@ -17,6 +17,10 @@ pub enum DecisionsUsageApiSource {
     AgentsApi,
     #[serde(rename = "unlabeled")]
     Unlabeled,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for DecisionsUsageApiSource {
@@ -24,6 +28,7 @@ impl std::fmt::Display for DecisionsUsageApiSource {
         match self {
             Self::AgentsApi => write!(f, "agents_api"),
             Self::Unlabeled => write!(f, "unlabeled"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

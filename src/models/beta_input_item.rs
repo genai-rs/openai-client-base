@@ -20,6 +20,8 @@ pub enum BetaInputItem {
     BetaItemReferenceParam(models::BetaItemReferenceParam),
     BetaProgramItemParam(models::BetaProgramItemParam),
     BetaProgramOutputItemParam(models::BetaProgramOutputItemParam),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for BetaInputItem {
@@ -114,7 +116,7 @@ impl BetaInputItem {
                     }),
                 ],
             ),
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
     }
@@ -144,6 +146,7 @@ impl std::fmt::Display for BetaInputItem {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

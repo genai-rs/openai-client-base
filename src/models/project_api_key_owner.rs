@@ -38,6 +38,9 @@ pub enum Type {
     User,
     #[serde(rename = "service_account")]
     ServiceAccount,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -45,6 +48,7 @@ impl ::std::fmt::Display for Type {
         f.write_str(match self {
             Self::User => "user",
             Self::ServiceAccount => "service_account",
+            Self::Unknown => "unknown",
         })
     }
 }

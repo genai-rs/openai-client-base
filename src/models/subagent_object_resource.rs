@@ -16,12 +16,17 @@ use serde::{Deserialize, Serialize};
 pub enum SubagentObjectResource {
     #[serde(rename = "agent.session.subagent")]
     AgentSessionSubagent,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for SubagentObjectResource {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::AgentSessionSubagent => write!(f, "agent.session.subagent"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

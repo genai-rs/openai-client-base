@@ -174,6 +174,9 @@ impl RunObject {
 pub enum Object {
     #[serde(rename = "thread.run")]
     ThreadRun,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.
@@ -197,12 +200,16 @@ pub enum Status {
     Incomplete,
     #[serde(rename = "expired")]
     Expired,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ThreadRun => "thread.run",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -258,6 +265,7 @@ impl ::std::fmt::Display for Status {
             Self::Completed => "completed",
             Self::Incomplete => "incomplete",
             Self::Expired => "expired",
+            Self::Unknown => "unknown",
         })
     }
 }

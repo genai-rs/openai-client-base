@@ -71,6 +71,9 @@ impl OpenAiFile {
 pub enum Object {
     #[serde(rename = "file")]
     File,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The intended purpose of the file. Supported values are `assistants`, `assistants_output`, `batch`, `batch_output`, `fine-tune`, `fine-tune-results`, `vision`, and `user_data`.
@@ -92,6 +95,9 @@ pub enum Purpose {
     Vision,
     #[serde(rename = "user_data")]
     UserData,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Deprecated. The current status of the file, which can be either `uploaded`, `processed`, or `error`.
@@ -103,12 +109,16 @@ pub enum Status {
     Processed,
     #[serde(rename = "error")]
     Error,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::File => "file",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -163,6 +173,7 @@ impl ::std::fmt::Display for Purpose {
             Self::FineTuneResults => "fine-tune-results",
             Self::Vision => "vision",
             Self::UserData => "user_data",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -219,6 +230,7 @@ impl ::std::fmt::Display for Status {
             Self::Uploaded => "uploaded",
             Self::Processed => "processed",
             Self::Error => "error",
+            Self::Unknown => "unknown",
         })
     }
 }

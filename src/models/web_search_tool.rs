@@ -64,6 +64,9 @@ pub enum Type {
     WebSearch,
     #[serde(rename = "web_search_2025_08_26")]
     WebSearch20250826,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
@@ -75,6 +78,9 @@ pub enum SearchContextSize {
     Medium,
     #[serde(rename = "high")]
     High,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -82,6 +88,7 @@ impl ::std::fmt::Display for Type {
         f.write_str(match self {
             Self::WebSearch => "web_search",
             Self::WebSearch20250826 => "web_search_2025_08_26",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -132,6 +139,7 @@ impl ::std::fmt::Display for SearchContextSize {
             Self::Low => "low",
             Self::Medium => "medium",
             Self::High => "high",
+            Self::Unknown => "unknown",
         })
     }
 }

@@ -17,6 +17,10 @@ pub enum AttachmentType {
     Image,
     #[serde(rename = "file")]
     File,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for AttachmentType {
@@ -24,6 +28,7 @@ impl std::fmt::Display for AttachmentType {
         match self {
             Self::Image => write!(f, "image"),
             Self::File => write!(f, "file"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

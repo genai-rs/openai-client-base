@@ -93,6 +93,9 @@ impl CreateModerationResponseResultsInnerCategoryAppliedInputTypes {
 pub enum Hate {
     #[serde(rename = "text")]
     Text,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'hate/threatening'.
@@ -100,6 +103,9 @@ pub enum Hate {
 pub enum HateSlashThreatening {
     #[serde(rename = "text")]
     Text,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'harassment'.
@@ -107,6 +113,9 @@ pub enum HateSlashThreatening {
 pub enum Harassment {
     #[serde(rename = "text")]
     Text,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'harassment/threatening'.
@@ -114,6 +123,9 @@ pub enum Harassment {
 pub enum HarassmentSlashThreatening {
     #[serde(rename = "text")]
     Text,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'illicit'.
@@ -121,6 +133,9 @@ pub enum HarassmentSlashThreatening {
 pub enum Illicit {
     #[serde(rename = "text")]
     Text,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'illicit/violent'.
@@ -128,6 +143,9 @@ pub enum Illicit {
 pub enum IllicitSlashViolent {
     #[serde(rename = "text")]
     Text,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'self-harm'.
@@ -137,6 +155,9 @@ pub enum SelfHarm {
     Text,
     #[serde(rename = "image")]
     Image,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'self-harm/intent'.
@@ -146,6 +167,9 @@ pub enum SelfHarmSlashIntent {
     Text,
     #[serde(rename = "image")]
     Image,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'self-harm/instructions'.
@@ -155,6 +179,9 @@ pub enum SelfHarmSlashInstructions {
     Text,
     #[serde(rename = "image")]
     Image,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'sexual'.
@@ -164,6 +191,9 @@ pub enum Sexual {
     Text,
     #[serde(rename = "image")]
     Image,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'sexual/minors'.
@@ -171,6 +201,9 @@ pub enum Sexual {
 pub enum SexualSlashMinors {
     #[serde(rename = "text")]
     Text,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'violence'.
@@ -180,6 +213,9 @@ pub enum Violence {
     Text,
     #[serde(rename = "image")]
     Image,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The applied input type(s) for the category 'violence/graphic'.
@@ -189,12 +225,16 @@ pub enum ViolenceSlashGraphic {
     Text,
     #[serde(rename = "image")]
     Image,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Hate {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Text => "text",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -242,6 +282,7 @@ impl ::std::fmt::Display for HateSlashThreatening {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Text => "text",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -292,6 +333,7 @@ impl ::std::fmt::Display for Harassment {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Text => "text",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -339,6 +381,7 @@ impl ::std::fmt::Display for HarassmentSlashThreatening {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Text => "text",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -389,6 +432,7 @@ impl ::std::fmt::Display for Illicit {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Text => "text",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -436,6 +480,7 @@ impl ::std::fmt::Display for IllicitSlashViolent {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Text => "text",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -487,6 +532,7 @@ impl ::std::fmt::Display for SelfHarm {
         f.write_str(match self {
             Self::Text => "text",
             Self::Image => "image",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -536,6 +582,7 @@ impl ::std::fmt::Display for SelfHarmSlashIntent {
         f.write_str(match self {
             Self::Text => "text",
             Self::Image => "image",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -588,6 +635,7 @@ impl ::std::fmt::Display for SelfHarmSlashInstructions {
         f.write_str(match self {
             Self::Text => "text",
             Self::Image => "image",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -640,6 +688,7 @@ impl ::std::fmt::Display for Sexual {
         f.write_str(match self {
             Self::Text => "text",
             Self::Image => "image",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -688,6 +737,7 @@ impl ::std::fmt::Display for SexualSlashMinors {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Text => "text",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -739,6 +789,7 @@ impl ::std::fmt::Display for Violence {
         f.write_str(match self {
             Self::Text => "text",
             Self::Image => "image",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -788,6 +839,7 @@ impl ::std::fmt::Display for ViolenceSlashGraphic {
         f.write_str(match self {
             Self::Text => "text",
             Self::Image => "image",
+            Self::Unknown => "unknown",
         })
     }
 }

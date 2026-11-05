@@ -17,6 +17,10 @@ pub enum ModerationInputType {
     Text,
     #[serde(rename = "image")]
     Image,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ModerationInputType {
@@ -24,6 +28,7 @@ impl std::fmt::Display for ModerationInputType {
         match self {
             Self::Text => write!(f, "text"),
             Self::Image => write!(f, "image"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

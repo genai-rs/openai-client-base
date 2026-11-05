@@ -17,6 +17,10 @@ pub enum ApplyPatchCallOutputStatus {
     Completed,
     #[serde(rename = "failed")]
     Failed,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ApplyPatchCallOutputStatus {
@@ -24,6 +28,7 @@ impl std::fmt::Display for ApplyPatchCallOutputStatus {
         match self {
             Self::Completed => write!(f, "completed"),
             Self::Failed => write!(f, "failed"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

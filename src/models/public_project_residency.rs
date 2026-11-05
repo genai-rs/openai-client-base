@@ -43,6 +43,10 @@ pub enum PublicProjectResidency {
     AeStorage,
     #[serde(rename = "AE_STORAGE_PROCESSING")]
     AeStorageProcessing,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for PublicProjectResidency {
@@ -63,6 +67,7 @@ impl std::fmt::Display for PublicProjectResidency {
             Self::GbStorage => write!(f, "GB_STORAGE"),
             Self::AeStorage => write!(f, "AE_STORAGE"),
             Self::AeStorageProcessing => write!(f, "AE_STORAGE_PROCESSING"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

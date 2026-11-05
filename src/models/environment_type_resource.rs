@@ -18,6 +18,10 @@ pub enum EnvironmentTypeResource {
     OpenaiHosted,
     #[serde(rename = "self_hosted")]
     SelfHosted,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for EnvironmentTypeResource {
@@ -25,6 +29,7 @@ impl std::fmt::Display for EnvironmentTypeResource {
         match self {
             Self::OpenaiHosted => write!(f, "openai_hosted"),
             Self::SelfHosted => write!(f, "self_hosted"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

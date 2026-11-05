@@ -40,6 +40,9 @@ pub enum ModerationStage {
     Output,
     #[serde(rename = "unknown")]
     Unknown,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown_value"`, which the API does not list.
+    #[serde(rename = "unknown_value", other)]
+    UnknownValue,
 }
 
 impl ::std::fmt::Display for ModerationStage {
@@ -48,6 +51,7 @@ impl ::std::fmt::Display for ModerationStage {
             Self::Input => "input",
             Self::Output => "output",
             Self::Unknown => "unknown",
+            Self::UnknownValue => "unknown_value",
         })
     }
 }

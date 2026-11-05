@@ -19,6 +19,10 @@ pub enum BetaImageOutputFormat {
     Webp,
     #[serde(rename = "jpeg")]
     Jpeg,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaImageOutputFormat {
@@ -27,6 +31,7 @@ impl std::fmt::Display for BetaImageOutputFormat {
             Self::Png => write!(f, "png"),
             Self::Webp => write!(f, "webp"),
             Self::Jpeg => write!(f, "jpeg"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

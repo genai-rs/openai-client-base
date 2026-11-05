@@ -53,6 +53,9 @@ pub enum Type {
     In,
     #[serde(rename = "nin")]
     Nin,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -66,6 +69,7 @@ impl ::std::fmt::Display for Type {
             Self::Lte => "lte",
             Self::In => "in",
             Self::Nin => "nin",
+            Self::Unknown => "unknown",
         })
     }
 }

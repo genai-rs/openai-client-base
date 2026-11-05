@@ -67,12 +67,16 @@ impl BetaApplyPatchToolCall {
 pub enum Type {
     #[serde(rename = "apply_patch_call")]
     ApplyPatchCall,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ApplyPatchCall => "apply_patch_call",
+            Self::Unknown => "unknown",
         })
     }
 }

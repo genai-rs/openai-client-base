@@ -24,6 +24,8 @@ pub enum RunStreamEvent {
     Object7(models::RunStreamEventObject7),
     Object8(models::RunStreamEventObject8),
     Object9(models::RunStreamEventObject9),
+    /// A `event` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for RunStreamEvent {
@@ -74,7 +76,7 @@ impl RunStreamEvent {
             Tag::Value("thread.run.expired") => {
                 dispatch::decode(value, UNION, "Object9").map(Self::Object9)
             }
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -124,6 +126,7 @@ impl std::fmt::Display for RunStreamEvent {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

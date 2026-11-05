@@ -67,6 +67,9 @@ pub enum Role {
     Assistant,
     #[serde(rename = "tool")]
     Tool,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Role {
@@ -77,6 +80,7 @@ impl ::std::fmt::Display for Role {
             Self::User => "user",
             Self::Assistant => "assistant",
             Self::Tool => "tool",
+            Self::Unknown => "unknown",
         })
     }
 }

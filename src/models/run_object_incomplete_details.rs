@@ -31,6 +31,9 @@ pub enum Reason {
     MaxCompletionTokens,
     #[serde(rename = "max_prompt_tokens")]
     MaxPromptTokens,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Reason {
@@ -38,6 +41,7 @@ impl ::std::fmt::Display for Reason {
         f.write_str(match self {
             Self::MaxCompletionTokens => "max_completion_tokens",
             Self::MaxPromptTokens => "max_prompt_tokens",
+            Self::Unknown => "unknown",
         })
     }
 }

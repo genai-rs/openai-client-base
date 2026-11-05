@@ -58,6 +58,9 @@ impl FileSearchToolCall {
 pub enum Type {
     #[serde(rename = "file_search_call")]
     FileSearchCall,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The status of the file search tool call. One of `in_progress`, `searching`, `incomplete` or `failed`,
@@ -73,12 +76,16 @@ pub enum Status {
     Incomplete,
     #[serde(rename = "failed")]
     Failed,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::FileSearchCall => "file_search_call",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -130,6 +137,7 @@ impl ::std::fmt::Display for Status {
             Self::Completed => "completed",
             Self::Incomplete => "incomplete",
             Self::Failed => "failed",
+            Self::Unknown => "unknown",
         })
     }
 }

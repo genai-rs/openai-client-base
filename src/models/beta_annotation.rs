@@ -20,6 +20,8 @@ pub enum BetaAnnotation {
     BetaUrlCitationBody(models::BetaUrlCitationBody),
     BetaContainerFileCitationBody(models::BetaContainerFileCitationBody),
     BetaFilePath(models::BetaFilePath),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for BetaAnnotation {
@@ -52,7 +54,7 @@ impl BetaAnnotation {
             Tag::Value("file_path") => {
                 dispatch::decode(value, UNION, "BetaFilePath").map(Self::BetaFilePath)
             }
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -78,6 +80,7 @@ impl std::fmt::Display for BetaAnnotation {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

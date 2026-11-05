@@ -29,6 +29,10 @@ pub enum BetaMessageRole {
     Developer,
     #[serde(rename = "tool")]
     Tool,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown_value"`, which the API does not list.
+    #[serde(rename = "unknown_value", other)]
+    UnknownValue,
 }
 
 impl std::fmt::Display for BetaMessageRole {
@@ -42,6 +46,7 @@ impl std::fmt::Display for BetaMessageRole {
             Self::Discriminator => write!(f, "discriminator"),
             Self::Developer => write!(f, "developer"),
             Self::Tool => write!(f, "tool"),
+            Self::UnknownValue => write!(f, "unknown_value"),
         }
     }
 }

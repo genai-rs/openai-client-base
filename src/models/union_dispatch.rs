@@ -76,6 +76,7 @@ pub(crate) fn first_of<U>(
 }
 
 /// The error of a tag no variant has.
+#[allow(dead_code)]
 pub(crate) fn unknown_tag(union: &str, tag: &str, value: &str) -> String {
     format!("{union}: unknown `{tag}` value {value:?}")
 }

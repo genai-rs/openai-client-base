@@ -19,6 +19,10 @@ pub enum CyberAccessProgramEnum {
     DaybreakBlue,
     #[serde(rename = "daybreak_red")]
     DaybreakRed,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for CyberAccessProgramEnum {
@@ -27,6 +31,7 @@ impl std::fmt::Display for CyberAccessProgramEnum {
             Self::Standard => write!(f, "standard"),
             Self::DaybreakBlue => write!(f, "daybreak_blue"),
             Self::DaybreakRed => write!(f, "daybreak_red"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

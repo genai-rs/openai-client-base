@@ -53,6 +53,9 @@ impl WebhookSafetyWarningIssued {
 pub enum Object {
     #[serde(rename = "event")]
     Event,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Always `safety.warning_issued`.
@@ -60,12 +63,16 @@ pub enum Object {
 pub enum Type {
     #[serde(rename = "safety.warning_issued")]
     SafetyWarningIssued,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Event => "event",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -113,6 +120,7 @@ impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::SafetyWarningIssued => "safety.warning_issued",
+            Self::Unknown => "unknown",
         })
     }
 }

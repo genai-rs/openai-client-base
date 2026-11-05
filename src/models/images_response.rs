@@ -65,6 +65,9 @@ pub enum Background {
     Transparent,
     #[serde(rename = "opaque")]
     Opaque,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The output format of the image generation. Either `png`, `webp`, or `jpeg`.
@@ -76,6 +79,9 @@ pub enum OutputFormat {
     Webp,
     #[serde(rename = "jpeg")]
     Jpeg,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The quality of the image generated. One of `low`, `medium`, `high`, `xhigh`, or `max`.
@@ -91,6 +97,9 @@ pub enum Quality {
     Xhigh,
     #[serde(rename = "max")]
     Max,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Background {
@@ -98,6 +107,7 @@ impl ::std::fmt::Display for Background {
         f.write_str(match self {
             Self::Transparent => "transparent",
             Self::Opaque => "opaque",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -148,6 +158,7 @@ impl ::std::fmt::Display for OutputFormat {
             Self::Png => "png",
             Self::Webp => "webp",
             Self::Jpeg => "jpeg",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -201,6 +212,7 @@ impl ::std::fmt::Display for Quality {
             Self::High => "high",
             Self::Xhigh => "xhigh",
             Self::Max => "max",
+            Self::Unknown => "unknown",
         })
     }
 }

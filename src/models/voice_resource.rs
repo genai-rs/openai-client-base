@@ -57,6 +57,9 @@ impl VoiceResource {
 pub enum Object {
     #[serde(rename = "audio.voice")]
     AudioVoice,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// How the voice was created.
@@ -66,12 +69,16 @@ pub enum Type {
     AudioSample,
     #[serde(rename = "prompt")]
     Prompt,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::AudioVoice => "audio.voice",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -120,6 +127,7 @@ impl ::std::fmt::Display for Type {
         f.write_str(match self {
             Self::AudioSample => "audio_sample",
             Self::Prompt => "prompt",
+            Self::Unknown => "unknown",
         })
     }
 }

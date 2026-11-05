@@ -52,6 +52,9 @@ impl ProjectServiceAccountCreateResponse {
 pub enum Object {
     #[serde(rename = "organization.project.service_account")]
     OrganizationProjectServiceAccount,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Service accounts created with default project membership have role `member`. Accounts created with `create_service_account_only` have role `none`.
@@ -61,12 +64,16 @@ pub enum Role {
     Member,
     #[serde(rename = "none")]
     None,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::OrganizationProjectServiceAccount => "organization.project.service_account",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -115,6 +122,7 @@ impl ::std::fmt::Display for Role {
         f.write_str(match self {
             Self::Member => "member",
             Self::None => "none",
+            Self::Unknown => "unknown",
         })
     }
 }

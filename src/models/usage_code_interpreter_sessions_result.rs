@@ -43,6 +43,9 @@ impl UsageCodeInterpreterSessionsResult {
 pub enum Object {
     #[serde(rename = "organization.usage.code_interpreter_sessions.result")]
     OrganizationUsageCodeInterpreterSessionsResult,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
@@ -51,6 +54,7 @@ impl ::std::fmt::Display for Object {
             Self::OrganizationUsageCodeInterpreterSessionsResult => {
                 "organization.usage.code_interpreter_sessions.result"
             }
+            Self::Unknown => "unknown",
         })
     }
 }

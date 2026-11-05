@@ -18,6 +18,10 @@ pub enum FileSearchRanker {
     Auto,
     #[serde(rename = "default_2024_08_21")]
     Default20240821,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for FileSearchRanker {
@@ -25,6 +29,7 @@ impl std::fmt::Display for FileSearchRanker {
         match self {
             Self::Auto => write!(f, "auto"),
             Self::Default20240821 => write!(f, "default_2024_08_21"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

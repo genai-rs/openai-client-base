@@ -39,6 +39,9 @@ impl BetaInlineSkillSourceParam {
 pub enum Type {
     #[serde(rename = "base64")]
     Base64,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The media type of the inline skill payload. Must be `application/zip`.
@@ -46,12 +49,16 @@ pub enum Type {
 pub enum MediaType {
     #[serde(rename = "application/zip")]
     ApplicationSlashZip,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Base64 => "base64",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -99,6 +106,7 @@ impl ::std::fmt::Display for MediaType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ApplicationSlashZip => "application/zip",
+            Self::Unknown => "unknown",
         })
     }
 }

@@ -35,12 +35,16 @@ impl InviteDeleteResponse {
 pub enum Object {
     #[serde(rename = "organization.invite.deleted")]
     OrganizationInviteDeleted,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::OrganizationInviteDeleted => "organization.invite.deleted",
+            Self::Unknown => "unknown",
         })
     }
 }

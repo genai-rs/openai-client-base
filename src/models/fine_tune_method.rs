@@ -45,6 +45,9 @@ pub enum Type {
     Dpo,
     #[serde(rename = "reinforcement")]
     Reinforcement,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -53,6 +56,7 @@ impl ::std::fmt::Display for Type {
             Self::Supervised => "supervised",
             Self::Dpo => "dpo",
             Self::Reinforcement => "reinforcement",
+            Self::Unknown => "unknown",
         })
     }
 }

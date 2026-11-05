@@ -17,6 +17,10 @@ pub enum SafetyCaseNoticeType {
     Warning,
     #[serde(rename = "deactivation")]
     Deactivation,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for SafetyCaseNoticeType {
@@ -24,6 +28,7 @@ impl std::fmt::Display for SafetyCaseNoticeType {
         match self {
             Self::Warning => write!(f, "warning"),
             Self::Deactivation => write!(f, "deactivation"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

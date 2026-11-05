@@ -30,6 +30,9 @@ impl DoneEvent {
 pub enum Event {
     #[serde(rename = "done")]
     Done,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 ///
@@ -37,12 +40,16 @@ pub enum Event {
 pub enum Data {
     #[serde(rename = "[DONE]")]
     LeftSquareBracketDoneRightSquareBracket,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Event {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Done => "done",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -90,6 +97,7 @@ impl ::std::fmt::Display for Data {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::LeftSquareBracketDoneRightSquareBracket => "[DONE]",
+            Self::Unknown => "unknown",
         })
     }
 }

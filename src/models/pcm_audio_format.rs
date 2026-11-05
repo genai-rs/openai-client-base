@@ -46,6 +46,9 @@ pub enum Type {
 )]
 pub enum Rate {
     Variant24000 = 24000,
+    /// A value this client does not know. It is not kept: this serializes as `i64::MAX`, which the API does not list.
+    #[serde(other)]
+    Unknown = i64::MAX,
 }
 
 impl std::fmt::Display for Rate {
@@ -55,6 +58,7 @@ impl std::fmt::Display for Rate {
             "{}",
             match self {
                 Self::Variant24000 => "24000",
+                Self::Unknown => "unknown",
             }
         )
     }

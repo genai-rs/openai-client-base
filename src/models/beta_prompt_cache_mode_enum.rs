@@ -17,6 +17,10 @@ pub enum BetaPromptCacheModeEnum {
     Implicit,
     #[serde(rename = "explicit")]
     Explicit,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaPromptCacheModeEnum {
@@ -24,6 +28,7 @@ impl std::fmt::Display for BetaPromptCacheModeEnum {
         match self {
             Self::Implicit => write!(f, "implicit"),
             Self::Explicit => write!(f, "explicit"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

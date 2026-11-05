@@ -16,12 +16,17 @@ use serde::{Deserialize, Serialize};
 pub enum RealtimeSessionCreateResponseGaTracingAutoEnum {
     #[serde(rename = "auto")]
     Auto,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for RealtimeSessionCreateResponseGaTracingAutoEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::Auto => write!(f, "auto"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

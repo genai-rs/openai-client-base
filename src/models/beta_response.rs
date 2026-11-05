@@ -243,6 +243,9 @@ pub enum PromptCacheRetention {
     InMemory,
     #[serde(rename = "24h")]
     Variant24h,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
@@ -252,6 +255,9 @@ pub enum Truncation {
     Auto,
     #[serde(rename = "disabled")]
     Disabled,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The object type of this resource - always set to `response`.
@@ -259,6 +265,9 @@ pub enum Truncation {
 pub enum Object {
     #[serde(rename = "response")]
     Response,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.
@@ -276,6 +285,9 @@ pub enum Status {
     Queued,
     #[serde(rename = "incomplete")]
     Incomplete,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for PromptCacheRetention {
@@ -283,6 +295,7 @@ impl ::std::fmt::Display for PromptCacheRetention {
         f.write_str(match self {
             Self::InMemory => "in_memory",
             Self::Variant24h => "24h",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -335,6 +348,7 @@ impl ::std::fmt::Display for Truncation {
         f.write_str(match self {
             Self::Auto => "auto",
             Self::Disabled => "disabled",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -383,6 +397,7 @@ impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Response => "response",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -435,6 +450,7 @@ impl ::std::fmt::Display for Status {
             Self::Cancelled => "cancelled",
             Self::Queued => "queued",
             Self::Incomplete => "incomplete",
+            Self::Unknown => "unknown",
         })
     }
 }

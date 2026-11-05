@@ -21,6 +21,10 @@ pub enum ExternalStorageStatus {
     Degraded,
     #[serde(rename = "unhealthy")]
     Unhealthy,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ExternalStorageStatus {
@@ -30,6 +34,7 @@ impl std::fmt::Display for ExternalStorageStatus {
             Self::Validated => write!(f, "validated"),
             Self::Degraded => write!(f, "degraded"),
             Self::Unhealthy => write!(f, "unhealthy"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

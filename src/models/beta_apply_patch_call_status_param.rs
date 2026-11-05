@@ -18,6 +18,10 @@ pub enum BetaApplyPatchCallStatusParam {
     InProgress,
     #[serde(rename = "completed")]
     Completed,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaApplyPatchCallStatusParam {
@@ -25,6 +29,7 @@ impl std::fmt::Display for BetaApplyPatchCallStatusParam {
         match self {
             Self::InProgress => write!(f, "in_progress"),
             Self::Completed => write!(f, "completed"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

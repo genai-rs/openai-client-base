@@ -21,6 +21,10 @@ pub enum BetaImageDetail {
     Auto,
     #[serde(rename = "original")]
     Original,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for BetaImageDetail {
@@ -30,6 +34,7 @@ impl std::fmt::Display for BetaImageDetail {
             Self::High => write!(f, "high"),
             Self::Auto => write!(f, "auto"),
             Self::Original => write!(f, "original"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

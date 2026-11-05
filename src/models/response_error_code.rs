@@ -56,6 +56,10 @@ pub enum ResponseErrorCode {
     FailedToDownloadImage,
     #[serde(rename = "image_file_not_found")]
     ImageFileNotFound,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ResponseErrorCode {
@@ -82,6 +86,7 @@ impl std::fmt::Display for ResponseErrorCode {
             Self::EmptyImageFile => write!(f, "empty_image_file"),
             Self::FailedToDownloadImage => write!(f, "failed_to_download_image"),
             Self::ImageFileNotFound => write!(f, "image_file_not_found"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

@@ -78,6 +78,9 @@ impl ClientToolCallItem {
 pub enum Object {
     #[serde(rename = "chatkit.thread_item")]
     ChatkitThreadItem,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Type discriminator that is always `chatkit.client_tool_call`.
@@ -85,12 +88,16 @@ pub enum Object {
 pub enum Type {
     #[serde(rename = "chatkit.client_tool_call")]
     ChatkitClientToolCall,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ChatkitThreadItem => "chatkit.thread_item",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -138,6 +145,7 @@ impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ChatkitClientToolCall => "chatkit.client_tool_call",
+            Self::Unknown => "unknown",
         })
     }
 }

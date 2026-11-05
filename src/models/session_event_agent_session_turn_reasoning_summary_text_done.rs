@@ -68,6 +68,9 @@ impl SessionEventAgentSessionTurnReasoningSummaryTextDone {
 pub enum Type {
     #[serde(rename = "agent.session.turn.reasoning_summary_text.done")]
     AgentSessionTurnReasoningSummaryTextDone,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -76,6 +79,7 @@ impl ::std::fmt::Display for Type {
             Self::AgentSessionTurnReasoningSummaryTextDone => {
                 "agent.session.turn.reasoning_summary_text.done"
             }
+            Self::Unknown => "unknown",
         })
     }
 }

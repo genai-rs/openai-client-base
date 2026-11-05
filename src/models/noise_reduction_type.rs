@@ -18,6 +18,10 @@ pub enum NoiseReductionType {
     NearField,
     #[serde(rename = "far_field")]
     FarField,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for NoiseReductionType {
@@ -25,6 +29,7 @@ impl std::fmt::Display for NoiseReductionType {
         match self {
             Self::NearField => write!(f, "near_field"),
             Self::FarField => write!(f, "far_field"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

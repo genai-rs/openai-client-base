@@ -18,6 +18,8 @@ use serde::{Deserialize, Serialize};
 pub enum RunStepObjectStepDetails {
     RunStepDetailsMessageCreationObject(models::RunStepDetailsMessageCreationObject),
     RunStepDetailsToolCallsObject(models::RunStepDetailsToolCallsObject),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for RunStepObjectStepDetails {
@@ -46,7 +48,7 @@ impl RunStepObjectStepDetails {
                 dispatch::decode(value, UNION, "RunStepDetailsToolCallsObject")
                     .map(Self::RunStepDetailsToolCallsObject)
             }
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -66,6 +68,7 @@ impl std::fmt::Display for RunStepObjectStepDetails {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

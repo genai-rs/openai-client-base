@@ -18,6 +18,8 @@ use serde::{Deserialize, Serialize};
 pub enum LiveSessionCreateResponseTransport {
     LiveWebRtcTransport(models::LiveWebRtcTransport),
     Object1(models::LiveSessionCreateResponseTransportObject1),
+    /// A `type` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for LiveSessionCreateResponseTransport {
@@ -42,7 +44,7 @@ impl LiveSessionCreateResponseTransport {
                 dispatch::decode(value, UNION, "LiveWebRtcTransport").map(Self::LiveWebRtcTransport)
             }
             Tag::Value("sip") => dispatch::decode(value, UNION, "Object1").map(Self::Object1),
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -60,6 +62,7 @@ impl std::fmt::Display for LiveSessionCreateResponseTransport {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

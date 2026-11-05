@@ -94,6 +94,9 @@ impl BetaMcpTool {
 pub enum Type {
     #[serde(rename = "mcp")]
     Mcp,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// Identifier for service connectors, like those available in ChatGPT. One of `server_url`, `connector_id`, or `tunnel_id` must be provided. Learn more about service connectors [here](https://developers.openai.com/api/docs/guides/tools-connectors-mcp#connectors).  This field is deprecated for models released after September 1, 2026. Use `server_url` to connect to a remote MCP server, or `tunnel_id` to connect through a Secure MCP Tunnel.  Currently supported `connector_id` values are:  - Dropbox: `connector_dropbox` - Gmail: `connector_gmail` - Google Calendar: `connector_googlecalendar` - Google Drive: `connector_googledrive` - Microsoft Teams: `connector_microsoftteams` - Outlook Calendar: `connector_outlookcalendar` - Outlook Email: `connector_outlookemail` - SharePoint: `connector_sharepoint`
@@ -115,12 +118,16 @@ pub enum ConnectorId {
     ConnectorOutlookemail,
     #[serde(rename = "connector_sharepoint")]
     ConnectorSharepoint,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Mcp => "mcp",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -175,6 +182,7 @@ impl ::std::fmt::Display for ConnectorId {
             Self::ConnectorOutlookcalendar => "connector_outlookcalendar",
             Self::ConnectorOutlookemail => "connector_outlookemail",
             Self::ConnectorSharepoint => "connector_sharepoint",
+            Self::Unknown => "unknown",
         })
     }
 }

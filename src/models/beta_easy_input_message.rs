@@ -53,6 +53,9 @@ pub enum Role {
     System,
     #[serde(rename = "developer")]
     Developer,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The type of the message input. Always `message`.
@@ -60,6 +63,9 @@ pub enum Role {
 pub enum Type {
     #[serde(rename = "message")]
     Message,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Role {
@@ -69,6 +75,7 @@ impl ::std::fmt::Display for Role {
             Self::Assistant => "assistant",
             Self::System => "system",
             Self::Developer => "developer",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -119,6 +126,7 @@ impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Message => "message",
+            Self::Unknown => "unknown",
         })
     }
 }

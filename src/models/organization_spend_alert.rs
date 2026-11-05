@@ -58,6 +58,9 @@ impl OrganizationSpendAlert {
 pub enum Object {
     #[serde(rename = "organization.spend_alert")]
     OrganizationSpendAlert,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The currency for the threshold amount.
@@ -65,6 +68,9 @@ pub enum Object {
 pub enum Currency {
     #[serde(rename = "USD")]
     Usd,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The time interval for evaluating spend against the threshold.
@@ -72,12 +78,16 @@ pub enum Currency {
 pub enum Interval {
     #[serde(rename = "month")]
     Month,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::OrganizationSpendAlert => "organization.spend_alert",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -125,6 +135,7 @@ impl ::std::fmt::Display for Currency {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Usd => "USD",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -172,6 +183,7 @@ impl ::std::fmt::Display for Interval {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Month => "month",
+            Self::Unknown => "unknown",
         })
     }
 }

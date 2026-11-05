@@ -101,6 +101,9 @@ impl MessageObject {
 pub enum Object {
     #[serde(rename = "thread.message")]
     ThreadMessage,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The status of the message, which can be either `in_progress`, `incomplete`, or `completed`.
@@ -112,6 +115,9 @@ pub enum Status {
     Incomplete,
     #[serde(rename = "completed")]
     Completed,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The entity that produced the message. One of `user` or `assistant`.
@@ -121,12 +127,16 @@ pub enum Role {
     User,
     #[serde(rename = "assistant")]
     Assistant,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Object {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ThreadMessage => "thread.message",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -176,6 +186,7 @@ impl ::std::fmt::Display for Status {
             Self::InProgress => "in_progress",
             Self::Incomplete => "incomplete",
             Self::Completed => "completed",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -226,6 +237,7 @@ impl ::std::fmt::Display for Role {
         f.write_str(match self {
             Self::User => "user",
             Self::Assistant => "assistant",
+            Self::Unknown => "unknown",
         })
     }
 }

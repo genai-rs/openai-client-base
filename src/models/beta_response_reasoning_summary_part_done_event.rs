@@ -71,6 +71,9 @@ impl BetaResponseReasoningSummaryPartDoneEvent {
 pub enum Type {
     #[serde(rename = "response.reasoning_summary_part.done")]
     ResponseReasoningSummaryPartDone,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.
@@ -78,12 +81,16 @@ pub enum Type {
 pub enum Status {
     #[serde(rename = "incomplete")]
     Incomplete,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::ResponseReasoningSummaryPartDone => "response.reasoning_summary_part.done",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -131,6 +138,7 @@ impl ::std::fmt::Display for Status {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Incomplete => "incomplete",
+            Self::Unknown => "unknown",
         })
     }
 }

@@ -15,12 +15,17 @@ use serde::{Deserialize, Serialize};
 pub enum PromptCacheTtlEnum {
     #[serde(rename = "30m")]
     Variant30m,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for PromptCacheTtlEnum {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::Variant30m => write!(f, "30m"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

@@ -21,6 +21,10 @@ pub enum C2PaValidationStateApi {
     Invalid,
     #[serde(rename = "not_present")]
     NotPresent,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for C2PaValidationStateApi {
@@ -30,6 +34,7 @@ impl std::fmt::Display for C2PaValidationStateApi {
             Self::Valid => write!(f, "valid"),
             Self::Invalid => write!(f, "invalid"),
             Self::NotPresent => write!(f, "not_present"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

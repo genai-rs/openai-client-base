@@ -17,6 +17,10 @@ pub enum ProvenanceDetectionResultApi {
     Detected,
     #[serde(rename = "not_detected")]
     NotDetected,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for ProvenanceDetectionResultApi {
@@ -24,6 +28,7 @@ impl std::fmt::Display for ProvenanceDetectionResultApi {
         match self {
             Self::Detected => write!(f, "detected"),
             Self::NotDetected => write!(f, "not_detected"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

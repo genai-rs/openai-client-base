@@ -19,6 +19,8 @@ pub enum MessageStreamEvent {
     Object2(models::MessageStreamEventObject2),
     Object3(models::MessageStreamEventObject3),
     Object4(models::MessageStreamEventObject4),
+    /// A `event` this client does not know, holding the value as it came, which is what it serializes to.
+    Unknown(serde_json::Value),
 }
 
 impl<'de> Deserialize<'de> for MessageStreamEvent {
@@ -54,7 +56,7 @@ impl MessageStreamEvent {
             Tag::Value("thread.message.incomplete") => {
                 dispatch::decode(value, UNION, "Object4").map(Self::Object4)
             }
-            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Value(_) => Ok(Self::Unknown(value)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
         }
@@ -84,6 +86,7 @@ impl std::fmt::Display for MessageStreamEvent {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::Unknown(value) => write!(f, "{}", value),
         }
     }
 }

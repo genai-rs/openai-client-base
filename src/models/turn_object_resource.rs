@@ -16,12 +16,17 @@ use serde::{Deserialize, Serialize};
 pub enum TurnObjectResource {
     #[serde(rename = "agent.session.turn")]
     AgentSessionTurn,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for TurnObjectResource {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::AgentSessionTurn => write!(f, "agent.session.turn"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }

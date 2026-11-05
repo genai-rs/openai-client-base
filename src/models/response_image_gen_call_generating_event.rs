@@ -48,6 +48,9 @@ impl ResponseImageGenCallGeneratingEvent {
 pub enum Type {
     #[serde(rename = "response.image_generation_call.generating")]
     ResponseImageGenerationCallGenerating,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Type {
@@ -56,6 +59,7 @@ impl ::std::fmt::Display for Type {
             Self::ResponseImageGenerationCallGenerating => {
                 "response.image_generation_call.generating"
             }
+            Self::Unknown => "unknown",
         })
     }
 }
