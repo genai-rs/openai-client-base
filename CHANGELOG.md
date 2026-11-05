@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.22.0](https://github.com/genai-rs/openai-client-base/compare/v0.21.0...v0.22.0) - 2026-11-05
+
+### Added
+
+- [**breaking**] a new value no longer fails a response
+
 ## [0.21.0](https://github.com/genai-rs/openai-client-base/compare/v0.20.0...v0.21.0) - 2026-11-04
 
 ### Added
