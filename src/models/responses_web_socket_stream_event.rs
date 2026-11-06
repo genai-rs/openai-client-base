@@ -54,7 +54,7 @@ pub struct ResponsesWebSocketStreamEvent {
     #[serde(rename = "output")]
     pub output: Vec<models::FunctionShellCallOutputContent>,
     #[serde(rename = "item")]
-    pub item: serde_json::Value,
+    pub item: models::OutputItem,
     /// The index of the summary part within the reasoning summary.
     #[serde(rename = "summary_index")]
     pub summary_index: i64,
@@ -117,7 +117,7 @@ impl ResponsesWebSocketStreamEvent {
         command_index: i64,
         command: String,
         output: Vec<models::FunctionShellCallOutputContent>,
-        item: serde_json::Value,
+        item: models::OutputItem,
         summary_index: i64,
         text: String,
         refusal: String,

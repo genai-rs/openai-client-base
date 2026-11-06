@@ -24,10 +24,10 @@ pub struct ComputerToolCall {
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
-    pub action: Option<serde_json::Value>,
+    pub action: Option<models::ComputerAction>,
     /// Flattened batched actions for `computer_use`. Each action includes an `type` discriminator and action-specific fields.
     #[serde(rename = "actions", skip_serializing_if = "Option::is_none")]
-    pub actions: Option<Vec<serde_json::Value>>,
+    pub actions: Option<Vec<models::ComputerAction>>,
     /// The pending safety checks for the computer call.
     #[serde(rename = "pending_safety_checks")]
     pub pending_safety_checks: Vec<models::ComputerCallSafetyCheckParam>,

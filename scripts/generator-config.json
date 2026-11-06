@@ -72,14 +72,6 @@
   "fileProperties": [
     "CreateImageEditRequest.image"
   ],
-  "jsonValueSchemas": [
-    "CreateTranscriptionResponseStreamEvent",
-    "OutputItem",
-    "RealtimeClientEvent",
-    "RealtimeServerEvent",
-    "ResponseStreamEvent",
-    "ComputerAction"
-  ],
   "deepObjectQueryParameters": [
     "/fine_tuning/jobs?metadata",
     "/organization/audit_logs?effective_at"
