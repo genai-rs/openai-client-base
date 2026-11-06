@@ -185,6 +185,59 @@ pub async fn create_skill(
     }
 }
 
+/// Create a new skill.
+///
+/// Sends the request body as `application/json`; `create_skill` sends it as `multipart/form-data`.
+#[bon::builder]
+pub async fn create_skill_json(
+    configuration: &configuration::Configuration,
+    create_skill_body: Option<models::CreateSkillBody>,
+) -> Result<models::SkillResource, Error<CreateSkillError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_skill_body = create_skill_body;
+
+    let uri_str = format!("{}/skills", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_skill_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SkillResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SkillResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateSkillError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
 /// Create a new immutable skill version.
 #[bon::builder]
 pub async fn create_skill_version(
@@ -228,6 +281,65 @@ pub async fn create_skill_version(
         multipart_form = multipart_form.text("default", param_value.to_string());
     }
     req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SkillVersionResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SkillVersionResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateSkillVersionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Create a new immutable skill version.
+///
+/// Sends the request body as `application/json`; `create_skill_version` sends it as `multipart/form-data`.
+#[bon::builder]
+pub async fn create_skill_version_json(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    create_skill_version_body: Option<models::CreateSkillVersionBody>,
+) -> Result<models::SkillVersionResource, Error<CreateSkillVersionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+    let p_body_create_skill_version_body = create_skill_version_body;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/versions",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_skill_version_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -462,6 +574,60 @@ pub async fn get_skill_content(
     }
 }
 
+/// Download a skill zip bundle by its ID.
+///
+/// Decodes the `application/json` form of the response; `get_skill_content` decodes `application/zip`.
+#[bon::builder]
+pub async fn get_skill_content_json(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+) -> Result<String, Error<GetSkillContentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/content",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `String`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetSkillContentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
 /// Get a specific skill version.
 #[bon::builder]
 pub async fn get_skill_version(
@@ -550,6 +716,63 @@ pub async fn get_skill_version_content(
 
     if !status.is_client_error() && !status.is_server_error() {
         Ok(resp)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetSkillVersionContentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Download a skill version zip bundle.
+///
+/// Decodes the `application/json` form of the response; `get_skill_version_content` decodes `application/zip`.
+#[bon::builder]
+pub async fn get_skill_version_content_json(
+    configuration: &configuration::Configuration,
+    skill_id: &str,
+    version: &str,
+) -> Result<String, Error<GetSkillVersionContentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_skill_id = skill_id;
+    let p_path_version = version;
+
+    let uri_str = format!(
+        "{}/skills/{skill_id}/versions/{version}/content",
+        configuration.base_path,
+        skill_id = crate::apis::urlencode(p_path_skill_id),
+        version = crate::apis::urlencode(p_path_version)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `String`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<GetSkillVersionContentError> = serde_json::from_str(&content).ok();

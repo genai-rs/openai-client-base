@@ -176,6 +176,28 @@ def webhook_inventory(spec: dict[str, Any]) -> list[dict[str, str]]:
     return result
 
 
+def content_type_methods(operation: dict[str, str], candidates: list[dict[str, str]]
+                         ) -> tuple[dict[str, str] | None, list[dict[str, str]]]:
+    """Split the functions of one method/path into the operation's own and its content-type methods.
+
+    With the generator's contentTypeMethods and typedEventStreams options an operation has one function per request
+    media type and response shape, named after the operation with a suffix (create_image_edit_json, create_response_stream)
+    and generated into the same module. A single function is the operation's own whatever its name; with more, exactly
+    one must carry the operation's name and the others its name plus a suffix, in the same module, or the operation is
+    ambiguous.
+    """
+    if len(candidates) == 1:
+        return candidates[0], []
+    name = rust_operation_name(operation["operation_id"])
+    own = [entry for entry in candidates if entry["function"] == name]
+    if len(own) != 1:
+        return None, []
+    others = [entry for entry in candidates if entry is not own[0]]
+    if all(entry["module"] == own[0]["module"] and entry["function"].startswith(name + "_") for entry in others):
+        return own[0], others
+    return None, []
+
+
 def audit(spec: dict[str, Any], apis_dir: Path, webhook_module: str) -> dict[str, Any]:
     expected, invalid = input_inventory(spec)
     generated, unparsed = extract_functions(apis_dir)
@@ -196,12 +218,16 @@ def audit(spec: dict[str, Any], apis_dir: Path, webhook_module: str) -> dict[str
     for operation in expected:
         key = (operation["method"], operation["normalized_path"])
         candidates = generated_by_key.get(key, [])
+        own, methods = content_type_methods(operation, candidates)
         if not candidates:
             missing.append(operation)
-        elif len(candidates) > 1:
+        elif own is None:
             ambiguous.append({"operation": operation, "generated": candidates})
         else:
-            matches.append({"operation": operation, "generated": candidates[0]})
+            match = {"operation": operation, "generated": own}
+            if methods:
+                match["content_type_methods"] = methods
+            matches.append(match)
 
     missing_webhooks = []
     ambiguous_webhooks = []

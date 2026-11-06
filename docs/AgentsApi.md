@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**create_agent_environment_template**](AgentsApi.md#create_agent_environment_template) | **POST** /agents/environments/templates | Create an agent environment template
 [**create_agent_session**](AgentsApi.md#create_agent_session) | **POST** /agents/sessions | Create an agent session
 [**create_agent_session_events**](AgentsApi.md#create_agent_session_events) | **POST** /agents/sessions/{session_id}/events | Create agent session input events
+[**create_agent_session_stream**](AgentsApi.md#create_agent_session_stream) | **POST** /agents/sessions | Create an agent session
 [**delete_agent**](AgentsApi.md#delete_agent) | **DELETE** /agents/{agent_id} | Delete an agent
 [**delete_agent_environment_template**](AgentsApi.md#delete_agent_environment_template) | **DELETE** /agents/environments/templates/{environment_template_id} | Delete an agent environment template
 [**delete_agent_session**](AgentsApi.md#delete_agent_session) | **DELETE** /agents/sessions/{session_id} | Delete an agent session
@@ -224,6 +225,36 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_agent_session_stream
+
+> models::SessionEvent create_agent_session_stream(create_agent_session_params)
+Create an agent session
+
+Creates a managed agent session, optionally submits initial input, and returns the session or streams its events when stream is true. See [running sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_agent_session_params** | Option<[**CreateAgentSessionParams**](CreateAgentSessionParams.md)> |  |  |
+
+### Return type
+
+[**models::SessionEvent**](SessionEvent.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: text/event-stream, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

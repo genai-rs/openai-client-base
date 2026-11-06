@@ -35,7 +35,8 @@ This crate provides the foundational types and API client implementation for Ope
 - **Auto-generated**: always up-to-date with the latest API changes
 - **Pure Rust**: type-safe bindings with serde serialization
 - **Async/await**: full async support with tokio and reqwest
-- **Streaming support**: server-sent events for compatible endpoints
+- **Typed streaming**: a `text/event-stream` response is a method returning `apis::sse::EventStream` of the spec's event type (`create_response_stream` yields `ResponseStreamEvent`s, `create_chat_completion_stream` `CreateChatCompletionStreamResponse`s)
+- **One method per media type**: an operation that takes or returns more than one media type has a method per media type (`create_image_edit` sends multipart, `create_image_edit_json` JSON)
 - **Customisable**: use as a foundation for your own client
 
 ## Generation Pipeline
@@ -46,7 +47,7 @@ The client is generated from OpenAI's current published OpenAPI specification:
    - Source: `https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml`
    - Missing schema references stop generation so upstream issues remain visible
 
-2. **Generate Rust Code**: Run the [timvw-rust](https://github.com/timvw/openapi-generator-timvw-rust) generator (a Docker image bundling OpenAPI Generator) on the raw spec. The spec decisions this crate takes (webhook module, model and voice ids as `String`, free-form event unions, deepObject query parameters) are generator options in `scripts/generator-config.json`; the generator writes the spec as it saw it to `target/specs/l2_rust_compatible.json`.
+2. **Generate Rust Code**: Run the [timvw-rust](https://github.com/timvw/openapi-generator-timvw-rust) generator (a Docker image bundling OpenAPI Generator) on the raw spec. The spec decisions this crate takes (webhook module, model and voice ids as `String`, typed event streams and per-media-type methods, deepObject query parameters) are generator options in `scripts/generator-config.json`; the generator writes the spec as it saw it to `target/specs/l2_rust_compatible.json`.
 
 3. **Format and audit**: `cargo fmt`, then an audit that every upstream path operation and webhook has a generated function (`check_openapi_coverage.py`).
 
@@ -60,6 +61,35 @@ openai-client-base = "0.16"
 ```
 
 Git dependencies are only meant for pre-release testing.
+
+Streaming a response (`futures-util` for `StreamExt`):
+
+```rust
+use futures_util::StreamExt;
+use openai_client_base::apis::{configuration::Configuration, responses_api};
+use openai_client_base::models::{CreateResponse, ResponseStreamEvent};
+
+async fn stream(configuration: &Configuration) -> Result<(), Box<dyn std::error::Error>> {
+    let mut request = CreateResponse::new();
+    request.model = Some("gpt-5".to_owned());
+    request.stream = Some(Some(true));
+    let mut events = responses_api::create_response_stream()
+        .configuration(configuration)
+        .create_response(request)
+        .call()
+        .await?;
+    while let Some(event) = events.next().await {
+        if let ResponseStreamEvent::ResponseTextDeltaEvent(delta) = event? {
+            print!("{}", delta.delta);
+        }
+    }
+    Ok(())
+}
+```
+
+Each `data:` payload decodes to the event type by its `type` field (a type this client does not know is
+`ResponseStreamEvent::Unknown`); `data: [DONE]` ends the stream. An error status is the operation's typed error, as
+for `create_response`.
 
 ## Regenerating the Client
 

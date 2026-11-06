@@ -318,6 +318,63 @@ pub async fn beta_create_response(
     }
 }
 
+/// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::BetaResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn beta_create_response_stream(
+    configuration: &configuration::Configuration,
+    beta_create_response: models::BetaCreateResponse,
+    openai_beta: Option<Vec<String>>,
+) -> Result<
+    super::sse::EventStream<models::BetaResponseStreamEvent, BetaCreateResponseError>,
+    Error<BetaCreateResponseError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_beta_create_response = beta_create_response;
+    let p_header_openai_beta = openai_beta;
+
+    let uri_str = format!("{}/responses?beta=true", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_openai_beta {
+        req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_beta_create_response);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<BetaCreateResponseError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::BetaResponseStreamEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}
+
 /// Deletes a model response with the given ID.
 #[bon::builder]
 pub async fn beta_delete_response(
@@ -468,6 +525,100 @@ pub async fn beta_get_response(
             entity,
         })))
     }
+}
+
+/// Retrieves a model response with the given ID.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::BetaResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn beta_get_response_stream(
+    configuration: &configuration::Configuration,
+    response_id: &str,
+    include: Option<Vec<models::BetaIncludeEnum>>,
+    stream: Option<bool>,
+    starting_after: Option<i64>,
+    include_obfuscation: Option<bool>,
+    openai_beta: Option<Vec<String>>,
+) -> Result<
+    super::sse::EventStream<models::BetaResponseStreamEvent, BetaGetResponseError>,
+    Error<BetaGetResponseError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_response_id = response_id;
+    let p_query_include = include;
+    let p_query_stream = stream;
+    let p_query_starting_after = starting_after;
+    let p_query_include_obfuscation = include_obfuscation;
+    let p_header_openai_beta = openai_beta;
+
+    let uri_str = format!(
+        "{}/responses/{response_id}?beta=true",
+        configuration.base_path,
+        response_id = crate::apis::urlencode(p_path_response_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_include {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("include".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "include",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_stream {
+        req_builder = req_builder.query(&[("stream", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_starting_after {
+        req_builder = req_builder.query(&[("starting_after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_include_obfuscation {
+        req_builder = req_builder.query(&[("include_obfuscation", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_openai_beta {
+        req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<BetaGetResponseError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::BetaResponseStreamEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
 }
 
 /// Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.
@@ -778,6 +929,58 @@ pub async fn create_response(
     }
 }
 
+/// Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn create_response_stream(
+    configuration: &configuration::Configuration,
+    create_response: models::CreateResponse,
+) -> Result<
+    super::sse::EventStream<models::ResponseStreamEvent, CreateResponseError>,
+    Error<CreateResponseError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_response = create_response;
+
+    let uri_str = format!("{}/responses", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_response);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateResponseError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::ResponseStreamEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}
+
 /// Deletes a model response with the given ID.
 #[bon::builder]
 pub async fn delete_response(
@@ -918,6 +1121,95 @@ pub async fn get_response(
             entity,
         })))
     }
+}
+
+/// Retrieves a model response with the given ID.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn get_response_stream(
+    configuration: &configuration::Configuration,
+    response_id: &str,
+    include: Option<Vec<models::IncludeEnum>>,
+    stream: Option<bool>,
+    starting_after: Option<i64>,
+    include_obfuscation: Option<bool>,
+) -> Result<
+    super::sse::EventStream<models::ResponseStreamEvent, GetResponseError>,
+    Error<GetResponseError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_response_id = response_id;
+    let p_query_include = include;
+    let p_query_stream = stream;
+    let p_query_starting_after = starting_after;
+    let p_query_include_obfuscation = include_obfuscation;
+
+    let uri_str = format!(
+        "{}/responses/{response_id}",
+        configuration.base_path,
+        response_id = crate::apis::urlencode(p_path_response_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_include {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("include".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>(),
+            ),
+            _ => req_builder.query(&[(
+                "include",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string(),
+            )]),
+        };
+    }
+    if let Some(ref param_value) = p_query_stream {
+        req_builder = req_builder.query(&[("stream", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_starting_after {
+        req_builder = req_builder.query(&[("starting_after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_include_obfuscation {
+        req_builder = req_builder.query(&[("include_obfuscation", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<GetResponseError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::ResponseStreamEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
 }
 
 /// Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.

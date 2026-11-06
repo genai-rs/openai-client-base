@@ -7,15 +7,19 @@ Method | HTTP request | Description
 [**beta_cancel_response**](ResponsesApi.md#beta_cancel_response) | **POST** /responses/{response_id}/cancel?beta=true | Cancel a response
 [**beta_compactconversation**](ResponsesApi.md#beta_compactconversation) | **POST** /responses/compact?beta=true | Compact conversation
 [**beta_create_response**](ResponsesApi.md#beta_create_response) | **POST** /responses?beta=true | Create a model response
+[**beta_create_response_stream**](ResponsesApi.md#beta_create_response_stream) | **POST** /responses?beta=true | Create a model response
 [**beta_delete_response**](ResponsesApi.md#beta_delete_response) | **DELETE** /responses/{response_id}?beta=true | Delete a model response
 [**beta_get_response**](ResponsesApi.md#beta_get_response) | **GET** /responses/{response_id}?beta=true | Get a model response
+[**beta_get_response_stream**](ResponsesApi.md#beta_get_response_stream) | **GET** /responses/{response_id}?beta=true | Get a model response
 [**beta_getinputtokencounts**](ResponsesApi.md#beta_getinputtokencounts) | **POST** /responses/input_tokens?beta=true | Get input token counts
 [**beta_list_input_items**](ResponsesApi.md#beta_list_input_items) | **GET** /responses/{response_id}/input_items?beta=true | List input items
 [**cancel_response**](ResponsesApi.md#cancel_response) | **POST** /responses/{response_id}/cancel | Cancel a response
 [**compactconversation**](ResponsesApi.md#compactconversation) | **POST** /responses/compact | Compact conversation
 [**create_response**](ResponsesApi.md#create_response) | **POST** /responses | Create a model response
+[**create_response_stream**](ResponsesApi.md#create_response_stream) | **POST** /responses | Create a model response
 [**delete_response**](ResponsesApi.md#delete_response) | **DELETE** /responses/{response_id} | Delete a model response
 [**get_response**](ResponsesApi.md#get_response) | **GET** /responses/{response_id} | Get a model response
+[**get_response_stream**](ResponsesApi.md#get_response_stream) | **GET** /responses/{response_id} | Get a model response
 [**getinputtokencounts**](ResponsesApi.md#getinputtokencounts) | **POST** /responses/input_tokens | Get input token counts
 [**list_input_items**](ResponsesApi.md#list_input_items) | **GET** /responses/{response_id}/input_items | List input items
 
@@ -114,6 +118,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## beta_create_response_stream
+
+> models::BetaResponseStreamEvent beta_create_response_stream(beta_create_response, openai_beta)
+Create a model response
+
+Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**beta_create_response** | [**BetaCreateResponse**](BetaCreateResponse.md) |  | [required] |
+**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+
+### Return type
+
+[**models::BetaResponseStreamEvent**](BetaResponseStreamEvent.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: text/event-stream, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## beta_delete_response
 
 > models::BetaDeleteResponse200Response beta_delete_response(response_id, openai_beta)
@@ -176,6 +211,41 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, text/event-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## beta_get_response_stream
+
+> models::BetaResponseStreamEvent beta_get_response_stream(response_id, include, stream, starting_after, include_obfuscation, openai_beta)
+Get a model response
+
+Retrieves a model response with the given ID. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**response_id** | **String** | The ID of the response to retrieve. | [required] |
+**include** | Option<[**Vec<models::BetaIncludeEnum>**](Models__BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.  |  |
+**starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
+**include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
+**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+
+### Return type
+
+[**models::BetaResponseStreamEvent**](BetaResponseStreamEvent.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -336,6 +406,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_response_stream
+
+> models::ResponseStreamEvent create_response_stream(create_response)
+Create a model response
+
+Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_response** | [**CreateResponse**](CreateResponse.md) |  | [required] |
+
+### Return type
+
+[**models::ResponseStreamEvent**](ResponseStreamEvent.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: text/event-stream, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## delete_response
 
 > models::DeleteResponse200Response delete_response(response_id)
@@ -396,6 +496,40 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, text/event-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_response_stream
+
+> models::ResponseStreamEvent get_response_stream(response_id, include, stream, starting_after, include_obfuscation)
+Get a model response
+
+Retrieves a model response with the given ID. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**response_id** | **String** | The ID of the response to retrieve. | [required] |
+**include** | Option<[**Vec<models::IncludeEnum>**](Models__IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.  |  |
+**starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
+**include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
+
+### Return type
+
+[**models::ResponseStreamEvent**](ResponseStreamEvent.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/event-stream, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

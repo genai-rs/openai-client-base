@@ -220,6 +220,35 @@ class OperationCoverageTests(unittest.TestCase):
         self.assertEqual("fail", result["status"])
         self.assertEqual(1, len(result["ambiguous_normal_operations"]))
 
+    def test_content_type_methods_of_an_operation_match_it(self):
+        def function(name):
+            return (f'pub async fn {name}() {{ let uri_str = format!("{{}}/items/{{id}}", base); '
+                    'client.request(reqwest::Method::GET, &uri_str); }\n')
+        result = self.run_audit({
+            "default_api.rs": function("read_item") + function("read_item_stream") + function("read_item_json"),
+            "probe_api.rs": (
+                'pub async fn read_tagged() { let uri_str = format!("{}/tagged", base); '
+                'client.request(reqwest::Method::GET, &uri_str); }\n'
+            ),
+            "webhooks_api.rs": (
+                'pub async fn event_received() { let uri_str = format!("{}/event", base); '
+                'client.request(reqwest::Method::POST, &uri_str); }\n'
+            ),
+        })
+        self.assertEqual("pass", result["status"])
+        item = [m for m in result["matched_normal_operations"] if m["operation"]["operation_id"] == "readItem"][0]
+        self.assertEqual("read_item", item["generated"]["function"])
+        self.assertEqual(["read_item_stream", "read_item_json"],
+                         [entry["function"] for entry in item["content_type_methods"]])
+
+    def test_a_suffixed_function_in_another_module_is_ambiguous(self):
+        def function(name):
+            return (f'pub async fn {name}() {{ let uri_str = format!("{{}}/items/{{id}}", base); '
+                    'client.request(reqwest::Method::GET, &uri_str); }\n')
+        result = self.run_audit({"one_api.rs": function("read_item"), "two_api.rs": function("read_item_stream")})
+        self.assertEqual("fail", result["status"])
+        self.assertEqual(1, len(result["ambiguous_normal_operations"]))
+
     def test_unparseable_generated_function_fails_closed(self):
         result = self.run_audit({"default_api.rs": "pub async fn mystery() {}\n"})
         self.assertEqual("fail", result["status"])

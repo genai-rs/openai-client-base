@@ -174,4 +174,6 @@ pub mod configuration;
 // Internal helper module for multipart file handling
 pub(crate) mod multipart_helper;
 
+pub mod sse;
+
 pub mod open_ai_client_base_webhooks_api;

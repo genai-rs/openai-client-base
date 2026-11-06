@@ -851,6 +851,58 @@ pub async fn create_agent_session_events(
     }
 }
 
+/// Creates a managed agent session, optionally submits initial input, and returns the session or streams its events when stream is true. See [running sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions).
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::SessionEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn create_agent_session_stream(
+    configuration: &configuration::Configuration,
+    create_agent_session_params: Option<models::CreateAgentSessionParams>,
+) -> Result<
+    super::sse::EventStream<models::SessionEvent, CreateAgentSessionError>,
+    Error<CreateAgentSessionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_agent_session_params = create_agent_session_params;
+
+    let uri_str = format!("{}/agents/sessions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_agent_session_params);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentSessionError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::SessionEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}
+
 /// Deletes a reusable agent. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 #[bon::builder]
 pub async fn delete_agent(
@@ -1345,11 +1397,16 @@ pub async fn list_agent_session_artifacts(
 }
 
 /// Streams live events for an agent session. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::SessionEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
 #[bon::builder]
 pub async fn list_agent_session_events(
     configuration: &configuration::Configuration,
     session_id: &str,
-) -> Result<models::SessionEvent, Error<ListAgentSessionEventsError>> {
+) -> Result<
+    super::sse::EventStream<models::SessionEvent, ListAgentSessionEventsError>,
+    Error<ListAgentSessionEventsError>,
+> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
 
@@ -1367,33 +1424,29 @@ pub async fn list_agent_session_events(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
 
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionEventsError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
     let content_type = resp
         .headers()
         .get("content-type")
         .and_then(|v| v.to_str().ok())
         .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionEvent`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionEvent`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ListAgentSessionEventsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(Box::new(ResponseContent {
-            status,
-            content,
-            entity,
-        })))
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::SessionEvent` was expected (does the request ask for a stream?)"))));
     }
+    Ok(super::sse::EventStream::from_response(resp))
 }
 
 /// Lists items produced by the session's root agent, including its interactions with subagents. Each subagent has its own item history. See [inspecting agent output](https://developers.openai.com/api/docs/guides/agents-api/observability).

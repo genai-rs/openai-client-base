@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**create_chat_session_method**](DefaultApi.md#create_chat_session_method) | **POST** /chatkit/sessions | Create a ChatKit session
 [**create_container**](DefaultApi.md#create_container) | **POST** /containers | Create container
 [**create_container_file**](DefaultApi.md#create_container_file) | **POST** /containers/{container_id}/files | Create container file
+[**create_container_file_multipart**](DefaultApi.md#create_container_file_multipart) | **POST** /containers/{container_id}/files | Create container file
 [**create_webhook_endpoint**](DefaultApi.md#create_webhook_endpoint) | **POST** /webhook_endpoints | Create Webhook Endpoint
 [**createan_ap_ikeyforaserviceaccount**](DefaultApi.md#createan_ap_ikeyforaserviceaccount) | **POST** /organization/projects/{project_id}/service_accounts/{service_account_id}/api_keys | Create an API key for a service account
 [**createanexternalstorageconfiguration**](DefaultApi.md#createanexternalstorageconfiguration) | **POST** /organization/external_storage | Create an external storage configuration
@@ -288,6 +289,38 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json, multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_container_file_multipart
+
+> models::ContainerFileResource create_container_file_multipart(container_id, file_id, file)
+Create container file
+
+Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**container_id** | **String** |  | [required] |
+**file_id** | Option<**String**> | Name of the file to create. |  |
+**file** | Option<**std::path::PathBuf**> | The File object (not file name) to be uploaded.  |  |
+
+### Return type
+
+[**models::ContainerFileResource**](ContainerFileResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

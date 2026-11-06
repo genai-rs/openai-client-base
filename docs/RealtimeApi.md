@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accept_realtime_call**](RealtimeApi.md#accept_realtime_call) | **POST** /realtime/calls/{call_id}/accept | Accept call
 [**create_realtime_call**](RealtimeApi.md#create_realtime_call) | **POST** /realtime/calls | Create call
+[**create_realtime_call_sdp**](RealtimeApi.md#create_realtime_call_sdp) | **POST** /realtime/calls | Create call
 [**create_realtime_client_secret**](RealtimeApi.md#create_realtime_client_secret) | **POST** /realtime/client_secrets | Create client secret
 [**create_realtime_session**](RealtimeApi.md#create_realtime_session) | **POST** /realtime/sessions | Create session
 [**create_realtime_transcription_session**](RealtimeApi.md#create_realtime_transcription_session) | **POST** /realtime/transcription_sessions | Create transcription session
@@ -73,6 +74,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data, application/sdp
+- **Accept**: application/sdp
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_realtime_call_sdp
+
+> String create_realtime_call_sdp(body)
+Create call
+
+Create a new Realtime API call over WebRTC and receive the SDP answer needed to complete the peer connection.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**body** | **String** |  | [required] |
+
+### Return type
+
+**String**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/sdp
 - **Accept**: application/sdp
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

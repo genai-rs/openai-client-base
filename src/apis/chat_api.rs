@@ -132,6 +132,58 @@ pub async fn create_chat_completion(
     }
 }
 
+/// **Starting a new project?** We recommend trying [Responses](https://developers.openai.com/api/reference/resources/responses) to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://developers.openai.com/api/docs/guides/text), [vision](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).  Returns a chat completion object, or a streamed sequence of chat completion chunk objects if the request is streamed.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::CreateChatCompletionStreamResponse`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn create_chat_completion_stream(
+    configuration: &configuration::Configuration,
+    create_chat_completion_request: models::CreateChatCompletionRequest,
+) -> Result<
+    super::sse::EventStream<models::CreateChatCompletionStreamResponse, CreateChatCompletionError>,
+    Error<CreateChatCompletionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_chat_completion_request = create_chat_completion_request;
+
+    let uri_str = format!("{}/chat/completions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_chat_completion_request);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateChatCompletionError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::CreateChatCompletionStreamResponse` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}
+
 /// Delete a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be deleted.
 #[bon::builder]
 pub async fn delete_chat_completion(
