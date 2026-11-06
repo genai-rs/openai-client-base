@@ -5,6 +5,7 @@ All URIs are relative to *https://api.openai.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_chat_completion**](ChatApi.md#create_chat_completion) | **POST** /chat/completions | Create chat completion
+[**create_chat_completion_stream**](ChatApi.md#create_chat_completion_stream) | **POST** /chat/completions | Create chat completion
 [**delete_chat_completion**](ChatApi.md#delete_chat_completion) | **DELETE** /chat/completions/{completion_id} | Delete chat completion
 [**get_chat_completion**](ChatApi.md#get_chat_completion) | **GET** /chat/completions/{completion_id} | Get chat completion
 [**get_chat_completion_messages**](ChatApi.md#get_chat_completion_messages) | **GET** /chat/completions/{completion_id}/messages | Get chat messages
@@ -39,6 +40,36 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json, text/event-stream, text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_chat_completion_stream
+
+> models::CreateChatCompletionStreamResponse create_chat_completion_stream(create_chat_completion_request)
+Create chat completion
+
+**Starting a new project?** We recommend trying [Responses](https://developers.openai.com/api/reference/resources/responses) to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://developers.openai.com/api/docs/guides/text), [vision](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).  Returns a chat completion object, or a streamed sequence of chat completion chunk objects if the request is streamed. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_chat_completion_request** | [**CreateChatCompletionRequest**](CreateChatCompletionRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateChatCompletionStreamResponse**](CreateChatCompletionStreamResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: text/event-stream, application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

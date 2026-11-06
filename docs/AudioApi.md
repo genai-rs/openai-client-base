@@ -5,10 +5,15 @@ All URIs are relative to *https://api.openai.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_speech**](AudioApi.md#create_speech) | **POST** /audio/speech | Create speech
+[**create_speech_stream**](AudioApi.md#create_speech_stream) | **POST** /audio/speech | Create speech
 [**create_transcription**](AudioApi.md#create_transcription) | **POST** /audio/transcriptions | Create transcription
+[**create_transcription_stream**](AudioApi.md#create_transcription_stream) | **POST** /audio/transcriptions | Create transcription
+[**create_transcription_text**](AudioApi.md#create_transcription_text) | **POST** /audio/transcriptions | Create transcription
 [**create_translation**](AudioApi.md#create_translation) | **POST** /audio/translations | Create translation
+[**create_translation_text**](AudioApi.md#create_translation_text) | **POST** /audio/translations | Create translation
 [**create_voice**](AudioApi.md#create_voice) | **POST** /audio/voices | Create voice
 [**create_voice_consent**](AudioApi.md#create_voice_consent) | **POST** /audio/voice_consents | Create voice consent
+[**create_voice_multipart**](AudioApi.md#create_voice_multipart) | **POST** /audio/voices | Create voice
 [**delete_voice_consent**](AudioApi.md#delete_voice_consent) | **DELETE** /audio/voice_consents/{consent_id} | Delete voice consent
 [**get_voice_consent**](AudioApi.md#get_voice_consent) | **GET** /audio/voice_consents/{consent_id} | Retrieve voice consent
 [**list_voice_consents**](AudioApi.md#list_voice_consents) | **GET** /audio/voice_consents | List voice consents
@@ -42,6 +47,36 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/octet-stream, audio/mpeg, audio/aac, audio/opus, audio/flac, audio/pcm, audio/wav, text/event-stream, application/json, text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_speech_stream
+
+> models::CreateSpeechResponseStreamEvent create_speech_stream(create_speech_request)
+Create speech
+
+Generates audio from the input text.  Returns the audio file content, or a stream of audio events. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_speech_request** | [**CreateSpeechRequest**](CreateSpeechRequest.md) |  | [required] |
+
+### Return type
+
+[**models::CreateSpeechResponseStreamEvent**](CreateSpeechResponseStreamEvent.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: text/event-stream, application/json, text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -89,6 +124,92 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_transcription_stream
+
+> models::CreateTranscriptionResponseStreamEvent create_transcription_stream(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references)
+Create transcription
+
+Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**file** | **std::path::PathBuf** | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
+**model** | **String** |  | [required] |
+**language** | Option<**String**> | The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.  |  |
+**languages** | Option<[**Vec<String>**](String.md)> | Possible languages of the input audio, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Supported by `gpt-transcribe`.  |  |
+**keywords** | Option<[**Vec<String>**](String.md)> | Words or phrases to guide transcription of the input audio. Supported by `gpt-transcribe`.  |  |
+**prompt** | Option<**String**> | An optional text to guide the model's style or continue a previous audio segment. The [prompt](https://developers.openai.com/api/docs/guides/speech-to-text#prompting) should match the audio language. This field is not supported when using `gpt-4o-transcribe-diarize`.  |  |
+**response_format** | Option<[**models::AudioResponseFormat**](AudioResponseFormat.md)> |  |  |
+**temperature** | Option<**f64**> | The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use [log probability](https://en.wikipedia.org/wiki/Log_probability) to automatically increase the temperature until certain thresholds are hit.  |  |
+**include** | Option<[**Vec<models::TranscriptionInclude>**](Models__TranscriptionInclude.md)> | Additional information to include in the transcription response. `logprobs` will return the log probabilities of the tokens in the response to understand the model's confidence in the transcription. `logprobs` only works with response_format set to `json` and only with the models `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, and `gpt-4o-mini-transcribe-2025-12-15`. This field is not supported when using `gpt-4o-transcribe-diarize`.  |  |
+**timestamp_granularities** | Option<[**Vec<String>**](String.md)> | The timestamp granularities to populate for this transcription. `response_format` must be set `verbose_json` to use timestamp granularities. Either or both of these options are supported: `word`, or `segment`. Note: There is no additional latency for segment timestamps, but generating word timestamps incurs additional latency. This option is not available for `gpt-4o-transcribe-diarize`.  |  |
+**stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section of the Speech-to-Text guide](https://developers.openai.com/api/docs/guides/speech-to-text?lang=curl#streaming) for more information.  Note: Streaming is not supported for the `whisper-1` model and will be ignored.  |  |
+**chunking_strategy** | Option<[**models::CreateTranscriptionRequestChunkingStrategy**](CreateTranscriptionRequestChunkingStrategy.md)> |  |  |
+**known_speaker_names** | Option<[**Vec<String>**](String.md)> | Optional list of speaker names that correspond to the audio samples provided in `known_speaker_references[]`. Each entry should be a short identifier (for example `customer` or `agent`). Up to 4 speakers are supported.  |  |
+**known_speaker_references** | Option<[**Vec<String>**](String.md)> | Optional list of audio samples (as [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)) that contain known speaker references matching `known_speaker_names[]`. Each sample must be between 2 and 10 seconds, and can use any of the same input audio formats supported by `file`.  |  |
+
+### Return type
+
+[**models::CreateTranscriptionResponseStreamEvent**](CreateTranscriptionResponseStreamEvent.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: text/event-stream, application/json, text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_transcription_text
+
+> String create_transcription_text(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references)
+Create transcription
+
+Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**file** | **std::path::PathBuf** | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
+**model** | **String** |  | [required] |
+**language** | Option<**String**> | The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.  |  |
+**languages** | Option<[**Vec<String>**](String.md)> | Possible languages of the input audio, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Supported by `gpt-transcribe`.  |  |
+**keywords** | Option<[**Vec<String>**](String.md)> | Words or phrases to guide transcription of the input audio. Supported by `gpt-transcribe`.  |  |
+**prompt** | Option<**String**> | An optional text to guide the model's style or continue a previous audio segment. The [prompt](https://developers.openai.com/api/docs/guides/speech-to-text#prompting) should match the audio language. This field is not supported when using `gpt-4o-transcribe-diarize`.  |  |
+**response_format** | Option<[**models::AudioResponseFormat**](AudioResponseFormat.md)> |  |  |
+**temperature** | Option<**f64**> | The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use [log probability](https://en.wikipedia.org/wiki/Log_probability) to automatically increase the temperature until certain thresholds are hit.  |  |
+**include** | Option<[**Vec<models::TranscriptionInclude>**](Models__TranscriptionInclude.md)> | Additional information to include in the transcription response. `logprobs` will return the log probabilities of the tokens in the response to understand the model's confidence in the transcription. `logprobs` only works with response_format set to `json` and only with the models `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, and `gpt-4o-mini-transcribe-2025-12-15`. This field is not supported when using `gpt-4o-transcribe-diarize`.  |  |
+**timestamp_granularities** | Option<[**Vec<String>**](String.md)> | The timestamp granularities to populate for this transcription. `response_format` must be set `verbose_json` to use timestamp granularities. Either or both of these options are supported: `word`, or `segment`. Note: There is no additional latency for segment timestamps, but generating word timestamps incurs additional latency. This option is not available for `gpt-4o-transcribe-diarize`.  |  |
+**stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section of the Speech-to-Text guide](https://developers.openai.com/api/docs/guides/speech-to-text?lang=curl#streaming) for more information.  Note: Streaming is not supported for the `whisper-1` model and will be ignored.  |  |
+**chunking_strategy** | Option<[**models::CreateTranscriptionRequestChunkingStrategy**](CreateTranscriptionRequestChunkingStrategy.md)> |  |  |
+**known_speaker_names** | Option<[**Vec<String>**](String.md)> | Optional list of speaker names that correspond to the audio samples provided in `known_speaker_references[]`. Each entry should be a short identifier (for example `customer` or `agent`). Up to 4 speakers are supported.  |  |
+**known_speaker_references** | Option<[**Vec<String>**](String.md)> | Optional list of audio samples (as [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)) that contain known speaker references matching `known_speaker_names[]`. Each sample must be between 2 and 10 seconds, and can use any of the same input audio formats supported by `file`.  |  |
+
+### Return type
+
+**String**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: text/plain, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_translation
 
 > models::CreateTranslation200Response create_translation(file, model, prompt, response_format, temperature)
@@ -119,6 +240,40 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: multipart/form-data
 - **Accept**: application/json, text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_translation_text
+
+> String create_translation_text(file, model, prompt, response_format, temperature)
+Create translation
+
+Translates audio into English.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**file** | **std::path::PathBuf** | The audio file object (not file name) translate, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
+**model** | **String** |  | [required] |
+**prompt** | Option<**String**> | An optional text to guide the model's style or continue a previous audio segment. The [prompt](https://developers.openai.com/api/docs/guides/speech-to-text#prompting) should be in English.  |  |
+**response_format** | Option<**String**> | The format of the output, in one of these options: `json`, `text`, `srt`, `verbose_json`, or `vtt`.  |  |
+**temperature** | Option<**f64**> | The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use [log probability](https://en.wikipedia.org/wiki/Log_probability) to automatically increase the temperature until certain thresholds are hit.  |  |
+
+### Return type
+
+**String**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: text/plain, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -172,6 +327,42 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::VoiceConsentResource**](VoiceConsentResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_voice_multipart
+
+> models::VoiceResource create_voice_multipart(r#type, name, audio_sample, consent, prompt, script_hint, model)
+Create voice
+
+Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**r#type** | Option<**String**> | Set to `prompt` to create a voice from a text description. |  |
+**name** | Option<**String**> | The name of the new voice. |  |
+**audio_sample** | Option<**std::path::PathBuf**> | The sample audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  |  |
+**consent** | Option<**String**> | The consent recording ID (for example, `cons_1234`). |  |
+**prompt** | Option<**String**> | A description of the desired voice. Must not contain only whitespace. |  |
+**script_hint** | Option<**String**> | Optional text for the voice to speak during creation. If omitted, a script is generated from the prompt. Must not be blank after trimming whitespace; scripts that are too short are rejected. |  |
+**model** | Option<**String**> | The voice creation model to use. Defaults to `auto`. |  |
+
+### Return type
+
+[**models::VoiceResource**](VoiceResource.md)
 
 ### Authorization
 

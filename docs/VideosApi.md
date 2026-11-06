@@ -7,13 +7,18 @@ Method | HTTP request | Description
 [**create_video**](VideosApi.md#create_video) | **POST** /videos | Create a video
 [**create_video_character**](VideosApi.md#create_video_character) | **POST** /videos/characters | Create a character
 [**create_video_edit**](VideosApi.md#create_video_edit) | **POST** /videos/edits | Create a video edit
+[**create_video_edit_json**](VideosApi.md#create_video_edit_json) | **POST** /videos/edits | Create a video edit
 [**create_video_extend**](VideosApi.md#create_video_extend) | **POST** /videos/extensions | Create a video extension
+[**create_video_extend_json**](VideosApi.md#create_video_extend_json) | **POST** /videos/extensions | Create a video extension
+[**create_video_json**](VideosApi.md#create_video_json) | **POST** /videos | Create a video
 [**create_video_remix**](VideosApi.md#create_video_remix) | **POST** /videos/{video_id}/remix | Create a video remix
+[**create_video_remix_json**](VideosApi.md#create_video_remix_json) | **POST** /videos/{video_id}/remix | Create a video remix
 [**delete_video**](VideosApi.md#delete_video) | **DELETE** /videos/{video_id} | Delete a video
 [**get_video**](VideosApi.md#get_video) | **GET** /videos/{video_id} | Retrieve a video
 [**get_video_character**](VideosApi.md#get_video_character) | **GET** /videos/characters/{character_id} | Retrieve a character
 [**list_videos**](VideosApi.md#list_videos) | **GET** /videos | List videos
 [**retrieve_video_content**](VideosApi.md#retrieve_video_content) | **GET** /videos/{video_id}/content | Download video content
+[**retrieve_video_content_json**](VideosApi.md#retrieve_video_content_json) | **GET** /videos/{video_id}/content | Download video content
 
 
 
@@ -113,6 +118,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_video_edit_json
+
+> models::VideoResource create_video_edit_json(create_video_edit_json_body)
+Create a video edit
+
+Create a new video generation job by editing a source video or existing generated video.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_video_edit_json_body** | Option<[**CreateVideoEditJsonBody**](CreateVideoEditJsonBody.md)> |  |  |
+
+### Return type
+
+[**models::VideoResource**](VideoResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_video_extend
 
 > models::VideoResource create_video_extend(video, prompt, seconds)
@@ -145,6 +180,66 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_video_extend_json
+
+> models::VideoResource create_video_extend_json(create_video_extend_json_body)
+Create a video extension
+
+Create an extension of a completed video.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_video_extend_json_body** | Option<[**CreateVideoExtendJsonBody**](CreateVideoExtendJsonBody.md)> |  |  |
+
+### Return type
+
+[**models::VideoResource**](VideoResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_video_json
+
+> models::VideoResource create_video_json(create_video_json_body)
+Create a video
+
+Create a new video generation job from a prompt and optional reference assets.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_video_json_body** | Option<[**CreateVideoJsonBody**](CreateVideoJsonBody.md)> |  |  |
+
+### Return type
+
+[**models::VideoResource**](VideoResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_video_remix
 
 > models::VideoResource create_video_remix(video_id, prompt)
@@ -171,6 +266,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data, application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_video_remix_json
+
+> models::VideoResource create_video_remix_json(video_id, create_video_remix_body)
+Create a video remix
+
+Create a remix of a completed video using a refreshed prompt.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**video_id** | **String** | The identifier of the completed video to remix. | [required] |
+**create_video_remix_body** | Option<[**CreateVideoRemixBody**](CreateVideoRemixBody.md)> |  |  |
+
+### Return type
+
+[**models::VideoResource**](VideoResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -325,6 +451,37 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: video/mp4, image/webp, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_video_content_json
+
+> String retrieve_video_content_json(video_id, variant)
+Download video content
+
+Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**video_id** | **String** | The identifier of the video whose media to download. | [required] |
+**variant** | Option<[**VideoContentVariant**](VideoContentVariant.md)> | Which downloadable asset to return. Defaults to the MP4 video. |  |
+
+### Return type
+
+**String**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

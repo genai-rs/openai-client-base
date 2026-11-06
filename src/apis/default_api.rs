@@ -862,6 +862,75 @@ pub async fn create_container_file(
     }
 }
 
+/// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
+///
+/// Sends the request body as `multipart/form-data`; `create_container_file` sends it as `application/json`.
+#[bon::builder]
+pub async fn create_container_file_multipart(
+    configuration: &configuration::Configuration,
+    container_id: &str,
+    file_id: Option<&str>,
+    file: Option<std::path::PathBuf>,
+) -> Result<models::ContainerFileResource, Error<CreateContainerFileError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_container_id = container_id;
+    let p_form_file_id = file_id;
+    let p_form_file = file;
+
+    let uri_str = format!(
+        "{}/containers/{container_id}/files",
+        configuration.base_path,
+        container_id = crate::apis::urlencode(p_path_container_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    if let Some(param_value) = p_form_file_id {
+        multipart_form = multipart_form.text("file_id", param_value.to_string());
+    }
+    if let Some(ref param_value) = p_form_file {
+        // Add file to multipart form
+        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "file")?;
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ContainerFileResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ContainerFileResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateContainerFileError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
 /// Creates a webhook endpoint for the authenticated project.
 #[bon::builder]
 pub async fn create_webhook_endpoint(

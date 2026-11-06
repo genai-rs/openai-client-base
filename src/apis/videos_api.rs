@@ -335,6 +335,60 @@ pub async fn create_video_edit(
     }
 }
 
+/// Create a new video generation job by editing a source video or existing generated video.
+///
+/// Sends the request body as `application/json`; `create_video_edit` sends it as `multipart/form-data`.
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_edit_json(
+    configuration: &configuration::Configuration,
+    create_video_edit_json_body: Option<models::CreateVideoEditJsonBody>,
+) -> Result<models::VideoResource, Error<CreateVideoEditError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_video_edit_json_body = create_video_edit_json_body;
+
+    let uri_str = format!("{}/videos/edits", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_video_edit_json_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoEditError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
 /// Create an extension of a completed video.
 #[deprecated]
 #[bon::builder]
@@ -407,6 +461,114 @@ pub async fn create_video_extend(
     }
 }
 
+/// Create an extension of a completed video.
+///
+/// Sends the request body as `application/json`; `create_video_extend` sends it as `multipart/form-data`.
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_extend_json(
+    configuration: &configuration::Configuration,
+    create_video_extend_json_body: Option<models::CreateVideoExtendJsonBody>,
+) -> Result<models::VideoResource, Error<CreateVideoExtendError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_video_extend_json_body = create_video_extend_json_body;
+
+    let uri_str = format!("{}/videos/extensions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_video_extend_json_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoExtendError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Create a new video generation job from a prompt and optional reference assets.
+///
+/// Sends the request body as `application/json`; `create_video` sends it as `multipart/form-data`.
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_json(
+    configuration: &configuration::Configuration,
+    create_video_json_body: Option<models::CreateVideoJsonBody>,
+) -> Result<models::VideoResource, Error<CreateVideoError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_video_json_body = create_video_json_body;
+
+    let uri_str = format!("{}/videos", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_video_json_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
 /// Create a remix of a completed video using a refreshed prompt.
 #[deprecated]
 #[bon::builder]
@@ -437,6 +599,66 @@ pub async fn create_video_remix(
     let mut multipart_form = reqwest::multipart::Form::new();
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoRemixError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Create a remix of a completed video using a refreshed prompt.
+///
+/// Sends the request body as `application/json`; `create_video_remix` sends it as `multipart/form-data`.
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_remix_json(
+    configuration: &configuration::Configuration,
+    video_id: &str,
+    create_video_remix_body: Option<models::CreateVideoRemixBody>,
+) -> Result<models::VideoResource, Error<CreateVideoRemixError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_video_id = video_id;
+    let p_body_create_video_remix_body = create_video_remix_body;
+
+    let uri_str = format!(
+        "{}/videos/{video_id}/remix",
+        configuration.base_path,
+        video_id = crate::apis::urlencode(p_path_video_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_video_remix_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -726,6 +948,66 @@ pub async fn retrieve_video_content(
 
     if !status.is_client_error() && !status.is_server_error() {
         Ok(resp)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RetrieveVideoContentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
+///
+/// Decodes the `application/json` form of the response; `retrieve_video_content` decodes `video/mp4`.
+#[deprecated]
+#[bon::builder]
+pub async fn retrieve_video_content_json(
+    configuration: &configuration::Configuration,
+    video_id: &str,
+    variant: Option<models::VideoContentVariant>,
+) -> Result<String, Error<RetrieveVideoContentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_video_id = video_id;
+    let p_query_variant = variant;
+
+    let uri_str = format!(
+        "{}/videos/{video_id}/content",
+        configuration.base_path,
+        video_id = crate::apis::urlencode(p_path_video_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_variant {
+        req_builder = req_builder.query(&[("variant", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `String`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<RetrieveVideoContentError> = serde_json::from_str(&content).ok();

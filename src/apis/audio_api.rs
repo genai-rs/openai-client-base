@@ -153,6 +153,58 @@ pub async fn create_speech(
     }
 }
 
+/// Generates audio from the input text.  Returns the audio file content, or a stream of audio events.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::CreateSpeechResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn create_speech_stream(
+    configuration: &configuration::Configuration,
+    create_speech_request: models::CreateSpeechRequest,
+) -> Result<
+    super::sse::EventStream<models::CreateSpeechResponseStreamEvent, CreateSpeechError>,
+    Error<CreateSpeechError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_speech_request = create_speech_request;
+
+    let uri_str = format!("{}/audio/speech", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_speech_request);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateSpeechError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::CreateSpeechResponseStreamEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}
+
 /// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
 #[bon::builder]
 pub async fn create_transcription(
@@ -317,6 +369,340 @@ pub async fn create_transcription(
     }
 }
 
+/// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::CreateTranscriptionResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn create_transcription_stream(
+    configuration: &configuration::Configuration,
+    file: std::path::PathBuf,
+    model: &str,
+    language: Option<&str>,
+    languages: Option<Vec<String>>,
+    keywords: Option<Vec<String>>,
+    prompt: Option<&str>,
+    response_format: Option<models::AudioResponseFormat>,
+    temperature: Option<f64>,
+    include: Option<Vec<models::TranscriptionInclude>>,
+    timestamp_granularities: Option<Vec<String>>,
+    stream: Option<bool>,
+    chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>,
+    known_speaker_names: Option<Vec<String>>,
+    known_speaker_references: Option<Vec<String>>,
+) -> Result<
+    super::sse::EventStream<
+        models::CreateTranscriptionResponseStreamEvent,
+        CreateTranscriptionError,
+    >,
+    Error<CreateTranscriptionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_file = file;
+    let p_form_model = model;
+    let p_form_language = language;
+    let p_form_languages = languages;
+    let p_form_keywords = keywords;
+    let p_form_prompt = prompt;
+    let p_form_response_format = response_format;
+    let p_form_temperature = temperature;
+    let p_form_include = include;
+    let p_form_timestamp_granularities = timestamp_granularities;
+    let p_form_stream = stream;
+    let p_form_chunking_strategy = chunking_strategy;
+    let p_form_known_speaker_names = known_speaker_names;
+    let p_form_known_speaker_references = known_speaker_references;
+
+    let uri_str = format!("{}/audio/transcriptions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
+    if let Some(param_value) = p_form_language {
+        multipart_form = multipart_form.text("language", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_languages {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "languages",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_keywords {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "keywords",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_prompt {
+        multipart_form = multipart_form.text("prompt", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_temperature {
+        multipart_form = multipart_form.text("temperature", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_include {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "include",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_timestamp_granularities {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "timestamp_granularities",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_stream {
+        multipart_form = multipart_form.text("stream", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_chunking_strategy {
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "chunking_strategy",
+            serde_json::to_value(param_value)?,
+            None,
+        )?;
+    }
+    if let Some(param_value) = p_form_known_speaker_names {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_names",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_known_speaker_references {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_references",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateTranscriptionError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::CreateTranscriptionResponseStreamEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}
+
+/// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
+///
+/// Decodes the `text/plain` form of the response; `create_transcription` decodes `application/json`.
+#[bon::builder]
+pub async fn create_transcription_text(
+    configuration: &configuration::Configuration,
+    file: std::path::PathBuf,
+    model: &str,
+    language: Option<&str>,
+    languages: Option<Vec<String>>,
+    keywords: Option<Vec<String>>,
+    prompt: Option<&str>,
+    response_format: Option<models::AudioResponseFormat>,
+    temperature: Option<f64>,
+    include: Option<Vec<models::TranscriptionInclude>>,
+    timestamp_granularities: Option<Vec<String>>,
+    stream: Option<bool>,
+    chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>,
+    known_speaker_names: Option<Vec<String>>,
+    known_speaker_references: Option<Vec<String>>,
+) -> Result<String, Error<CreateTranscriptionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_file = file;
+    let p_form_model = model;
+    let p_form_language = language;
+    let p_form_languages = languages;
+    let p_form_keywords = keywords;
+    let p_form_prompt = prompt;
+    let p_form_response_format = response_format;
+    let p_form_temperature = temperature;
+    let p_form_include = include;
+    let p_form_timestamp_granularities = timestamp_granularities;
+    let p_form_stream = stream;
+    let p_form_chunking_strategy = chunking_strategy;
+    let p_form_known_speaker_names = known_speaker_names;
+    let p_form_known_speaker_references = known_speaker_references;
+
+    let uri_str = format!("{}/audio/transcriptions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
+    if let Some(param_value) = p_form_language {
+        multipart_form = multipart_form.text("language", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_languages {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "languages",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_keywords {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "keywords",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_prompt {
+        multipart_form = multipart_form.text("prompt", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_temperature {
+        multipart_form = multipart_form.text("temperature", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_include {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "include",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_timestamp_granularities {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "timestamp_granularities",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_stream {
+        multipart_form = multipart_form.text("stream", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_chunking_strategy {
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "chunking_strategy",
+            serde_json::to_value(param_value)?,
+            None,
+        )?;
+    }
+    if let Some(param_value) = p_form_known_speaker_names {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_names",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_known_speaker_references {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_references",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Ok(content),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateTranscriptionError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
 /// Translates audio into English.
 #[bon::builder]
 pub async fn create_translation(
@@ -377,6 +763,80 @@ pub async fn create_translation(
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateTranslation200Response`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateTranslation200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateTranslationError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Translates audio into English.
+///
+/// Decodes the `text/plain` form of the response; `create_translation` decodes `application/json`.
+#[bon::builder]
+pub async fn create_translation_text(
+    configuration: &configuration::Configuration,
+    file: std::path::PathBuf,
+    model: &str,
+    prompt: Option<&str>,
+    response_format: Option<&str>,
+    temperature: Option<f64>,
+) -> Result<String, Error<CreateTranslationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_file = file;
+    let p_form_model = model;
+    let p_form_prompt = prompt;
+    let p_form_response_format = response_format;
+    let p_form_temperature = temperature;
+
+    let uri_str = format!("{}/audio/translations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
+    if let Some(param_value) = p_form_prompt {
+        multipart_form = multipart_form.text("prompt", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_temperature {
+        multipart_form = multipart_form.text("temperature", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Ok(content),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -493,6 +953,95 @@ pub async fn create_voice_consent(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateVoiceConsentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
+///
+/// Sends the request body as `multipart/form-data`; `create_voice` sends it as `application/json`.
+#[bon::builder]
+pub async fn create_voice_multipart(
+    configuration: &configuration::Configuration,
+    r#type: Option<&str>,
+    name: Option<&str>,
+    audio_sample: Option<std::path::PathBuf>,
+    consent: Option<&str>,
+    prompt: Option<&str>,
+    script_hint: Option<&str>,
+    model: Option<&str>,
+) -> Result<models::VoiceResource, Error<CreateVoiceError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_type = r#type;
+    let p_form_name = name;
+    let p_form_audio_sample = audio_sample;
+    let p_form_consent = consent;
+    let p_form_prompt = prompt;
+    let p_form_script_hint = script_hint;
+    let p_form_model = model;
+
+    let uri_str = format!("{}/audio/voices", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    if let Some(param_value) = p_form_type {
+        multipart_form = multipart_form.text("type", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_name {
+        multipart_form = multipart_form.text("name", param_value.to_string());
+    }
+    if let Some(ref param_value) = p_form_audio_sample {
+        // Add file to multipart form
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "audio_sample")?;
+    }
+    if let Some(param_value) = p_form_consent {
+        multipart_form = multipart_form.text("consent", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_prompt {
+        multipart_form = multipart_form.text("prompt", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_script_hint {
+        multipart_form = multipart_form.text("script_hint", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_model {
+        multipart_form = multipart_form.text("model", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceResource`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceResource`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVoiceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,

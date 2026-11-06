@@ -79,3 +79,55 @@ pub async fn create_completion(
         })))
     }
 }
+
+/// Creates a completion for the provided prompt and parameters.  Returns a completion object, or a sequence of completion objects if the request is streamed.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::CreateCompletionResponse`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn create_completion_stream(
+    configuration: &configuration::Configuration,
+    create_completion_request: models::CreateCompletionRequest,
+) -> Result<
+    super::sse::EventStream<models::CreateCompletionResponse, CreateCompletionError>,
+    Error<CreateCompletionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_completion_request = create_completion_request;
+
+    let uri_str = format!("{}/completions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_completion_request);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateCompletionError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::CreateCompletionResponse` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}

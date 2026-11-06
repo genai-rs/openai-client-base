@@ -230,6 +230,292 @@ pub async fn create_image_edit(
     }
 }
 
+/// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
+///
+/// Sends the request body as `application/json`; `create_image_edit` sends it as `multipart/form-data`.
+#[bon::builder]
+pub async fn create_image_edit_json(
+    configuration: &configuration::Configuration,
+    edit_image_body_json_param: models::EditImageBodyJsonParam,
+) -> Result<models::ImagesResponse, Error<CreateImageEditError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_edit_image_body_json_param = edit_image_body_json_param;
+
+    let uri_str = format!("{}/images/edits", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_edit_image_body_json_param);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImagesResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImagesResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateImageEditError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })))
+    }
+}
+
+/// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
+///
+/// Sends the request body as `application/json`; `create_image_edit` sends it as `multipart/form-data`.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ImageEditStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn create_image_edit_json_stream(
+    configuration: &configuration::Configuration,
+    edit_image_body_json_param: models::EditImageBodyJsonParam,
+) -> Result<
+    super::sse::EventStream<models::ImageEditStreamEvent, CreateImageEditError>,
+    Error<CreateImageEditError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_edit_image_body_json_param = edit_image_body_json_param;
+
+    let uri_str = format!("{}/images/edits", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_edit_image_body_json_param);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateImageEditError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::ImageEditStreamEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}
+
+/// Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ImageEditStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn create_image_edit_stream(
+    configuration: &configuration::Configuration,
+    image: std::path::PathBuf,
+    prompt: &str,
+    model: &str,
+    mask: Option<std::path::PathBuf>,
+    background: Option<&str>,
+    n: Option<i64>,
+    size: Option<models::CreateImageEditRequestSize>,
+    response_format: Option<&str>,
+    output_format: Option<&str>,
+    output_compression: Option<i64>,
+    safety_identifier: Option<&str>,
+    user: Option<&str>,
+    input_fidelity: Option<models::InputFidelity>,
+    stream: Option<bool>,
+    partial_images: Option<i64>,
+    quality: Option<&str>,
+) -> Result<
+    super::sse::EventStream<models::ImageEditStreamEvent, CreateImageEditError>,
+    Error<CreateImageEditError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_image = image;
+    let p_form_prompt = prompt;
+    let p_form_model = model;
+    let p_form_mask = mask;
+    let p_form_background = background;
+    let p_form_n = n;
+    let p_form_size = size;
+    let p_form_response_format = response_format;
+    let p_form_output_format = output_format;
+    let p_form_output_compression = output_compression;
+    let p_form_safety_identifier = safety_identifier;
+    let p_form_user = user;
+    let p_form_input_fidelity = input_fidelity;
+    let p_form_stream = stream;
+    let p_form_partial_images = partial_images;
+    let p_form_quality = quality;
+
+    let uri_str = format!("{}/images/edits", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    let mut multipart_form = reqwest::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image")?;
+    multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
+    if let Some(ref param_value) = p_form_mask {
+        // Add file to multipart form
+        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "mask")?;
+    }
+    if let Some(param_value) = p_form_background {
+        multipart_form = multipart_form.text("background", param_value.to_string());
+    }
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
+    if let Some(param_value) = p_form_n {
+        multipart_form = multipart_form.text("n", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_size {
+        multipart_form = multipart_form.text("size", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_output_format {
+        multipart_form = multipart_form.text("output_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_output_compression {
+        multipart_form = multipart_form.text("output_compression", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_safety_identifier {
+        multipart_form = multipart_form.text("safety_identifier", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_user {
+        multipart_form = multipart_form.text("user", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_input_fidelity {
+        multipart_form = multipart_form.text("input_fidelity", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_stream {
+        multipart_form = multipart_form.text("stream", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_partial_images {
+        multipart_form = multipart_form.text("partial_images", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_quality {
+        multipart_form = multipart_form.text("quality", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateImageEditError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::ImageEditStreamEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}
+
+/// Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision).
+///
+/// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::ImageGenStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
+#[bon::builder]
+pub async fn create_image_stream(
+    configuration: &configuration::Configuration,
+    create_image_request: models::CreateImageRequest,
+) -> Result<
+    super::sse::EventStream<models::ImageGenStreamEvent, CreateImageError>,
+    Error<CreateImageError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_image_request = create_image_request;
+
+    let uri_str = format!("{}/images/generations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_image_request);
+
+    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    if status.is_client_error() || status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateImageError> = serde_json::from_str(&content).ok();
+        return Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+        })));
+    }
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    if !content_type.starts_with("text/event-stream") {
+        return Err(Error::from(serde_json::Error::custom(format!("Received `{content_type}` content type response where a `text/event-stream` of `models::ImageGenStreamEvent` was expected (does the request ask for a stream?)"))));
+    }
+    Ok(super::sse::EventStream::from_response(resp))
+}
+
 /// This endpoint is retired and no longer available. Use the image edits endpoint with a GPT Image model and a prompt to create a variation of an image. The request and response schemas below describe the legacy contract.
 #[deprecated]
 #[bon::builder]

@@ -5,13 +5,17 @@ All URIs are relative to *https://api.openai.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_skill**](SkillsApi.md#create_skill) | **POST** /skills | Create Skill
+[**create_skill_json**](SkillsApi.md#create_skill_json) | **POST** /skills | Create Skill
 [**create_skill_version**](SkillsApi.md#create_skill_version) | **POST** /skills/{skill_id}/versions | Create Skill Version
+[**create_skill_version_json**](SkillsApi.md#create_skill_version_json) | **POST** /skills/{skill_id}/versions | Create Skill Version
 [**delete_skill**](SkillsApi.md#delete_skill) | **DELETE** /skills/{skill_id} | Delete Skill
 [**delete_skill_version**](SkillsApi.md#delete_skill_version) | **DELETE** /skills/{skill_id}/versions/{version} | Delete Skill Version
 [**get_skill**](SkillsApi.md#get_skill) | **GET** /skills/{skill_id} | Get Skill
 [**get_skill_content**](SkillsApi.md#get_skill_content) | **GET** /skills/{skill_id}/content | Get Skill Content
+[**get_skill_content_json**](SkillsApi.md#get_skill_content_json) | **GET** /skills/{skill_id}/content | Get Skill Content
 [**get_skill_version**](SkillsApi.md#get_skill_version) | **GET** /skills/{skill_id}/versions/{version} | Get Skill Version
 [**get_skill_version_content**](SkillsApi.md#get_skill_version_content) | **GET** /skills/{skill_id}/versions/{version}/content | Get Skill Version Content
+[**get_skill_version_content_json**](SkillsApi.md#get_skill_version_content_json) | **GET** /skills/{skill_id}/versions/{version}/content | Get Skill Version Content
 [**list_skill_versions**](SkillsApi.md#list_skill_versions) | **GET** /skills/{skill_id}/versions | List Skill Versions
 [**list_skills**](SkillsApi.md#list_skills) | **GET** /skills | List Skills
 [**update_skill_default_version**](SkillsApi.md#update_skill_default_version) | **POST** /skills/{skill_id} | Update Skill Default Version
@@ -48,6 +52,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_skill_json
+
+> models::SkillResource create_skill_json(create_skill_body)
+Create Skill
+
+Create a new skill.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_skill_body** | Option<[**CreateSkillBody**](CreateSkillBody.md)> |  |  |
+
+### Return type
+
+[**models::SkillResource**](SkillResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_skill_version
 
 > models::SkillVersionResource create_skill_version(skill_id, files, default)
@@ -75,6 +109,37 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data, application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_skill_version_json
+
+> models::SkillVersionResource create_skill_version_json(skill_id, create_skill_version_body)
+Create Skill Version
+
+Create a new immutable skill version.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**skill_id** | **String** | The identifier of the skill to version. | [required] |
+**create_skill_version_body** | Option<[**CreateSkillVersionBody**](CreateSkillVersionBody.md)> |  |  |
+
+### Return type
+
+[**models::SkillVersionResource**](SkillVersionResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -201,6 +266,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_skill_content_json
+
+> String get_skill_content_json(skill_id)
+Get Skill Content
+
+Download a skill zip bundle by its ID.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**skill_id** | **String** | The identifier of the skill to download. | [required] |
+
+### Return type
+
+**String**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_skill_version
 
 > models::SkillVersionResource get_skill_version(skill_id, version)
@@ -259,6 +354,37 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/zip, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_skill_version_content_json
+
+> String get_skill_version_content_json(skill_id, version)
+Get Skill Version Content
+
+Download a skill version zip bundle.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**skill_id** | **String** | The identifier of the skill. | [required] |
+**version** | **String** | The skill version number. | [required] |
+
+### Return type
+
+**String**
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
