@@ -59,7 +59,7 @@ else
 fi
 
 # Step 2: Validate the spec and hand it to the generator as JSON. The spec
-# decisions (webhook module, string ids, free-form schemas, deepObject query
+# decisions (webhook module, string ids, deepObject query
 # parameters) are options of the generator, in scripts/generator-config.json.
 echo ""
 echo "🔧 Preparing spec..."

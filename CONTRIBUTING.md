@@ -14,7 +14,7 @@ If you find issues with the generated code:
 
 1. **DO NOT** modify the generated Rust code directly
 2. Instead, contribute to the generation pipeline:
-   - Spec decisions (webhook module, schemas and properties rendered as `String`, free-form schemas, deepObject query parameters) are options of the generator in `scripts/generator-config.json`
+   - Spec decisions (webhook module, schemas and properties rendered as `String`, deepObject query parameters) are options of the generator in `scripts/generator-config.json`
    - Rendering rules belong in the generator itself, [timvw-rust](https://github.com/timvw/openapi-generator-timvw-rust)
 
 ### For Documentation

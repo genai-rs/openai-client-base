@@ -18,7 +18,7 @@ no script edits the generated code afterwards.
    (`ghcr.io/timvw/openapi-generator-timvw-rust:<TIMVW_RUST_VERSION>-og<OPENAPI_GENERATOR_VERSION>`).
    Every decision the crate takes about the spec and its rendering is a
    generator option in `scripts/generator-config.json`: webhook module, string
-   ids, free-form schemas, deep-object query parameters, multipart handling,
+   ids, deep-object query parameters, multipart handling,
    error boxing, lint allows, boxing only on cycles (`boxOnlyCycles`) and the
    transitional `legacyModelRewrites`. The generator writes the spec after its
    spec rules to `target/specs/l2_rust_compatible.json`. Hand-maintained files

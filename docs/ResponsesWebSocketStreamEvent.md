@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **command** | **String** | The final shell command that was emitted. | 
 **obfuscation** | Option<**String**> | An obfuscation string that was added to pad the event payload. | [optional]
 **output** | [**Vec<models::FunctionShellCallOutputContent>**](FunctionShellCallOutputContent.md) | The output contents emitted for the shell command. | 
-**item** | **serde_json::Value** |  | 
+**item** | [**models::OutputItem**](OutputItem.md) |  | 
 **summary_index** | **i64** | The index of the summary part within the reasoning summary.  | 
 **status** | Option<**Status**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  (enum: incomplete) | [optional]
 **text** | **String** | The text content that is finalized.  | 
