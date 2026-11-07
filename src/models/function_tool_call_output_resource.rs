@@ -28,8 +28,13 @@ pub struct FunctionToolCallOutputResource {
     /// The namespace of the tool that produced the output.
     #[serde(rename = "namespace", skip_serializing_if = "Option::is_none")]
     pub namespace: Option<String>,
-    #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
-    pub caller: Option<models::ToolCallCallerParam>,
+    #[serde(
+        rename = "caller",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub caller: Option<Option<models::ToolCallCallerParam>>,
     #[serde(rename = "output")]
     pub output: models::FunctionToolCallOutputOutput,
     #[serde(rename = "status")]

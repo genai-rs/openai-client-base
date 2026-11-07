@@ -23,8 +23,13 @@ pub struct FineTuneChatCompletionRequestAssistantMessage {
     )]
     pub content: Option<Option<models::ChatCompletionRequestAssistantMessageContent>>,
     /// The refusal message by the assistant.
-    #[serde(rename = "refusal", skip_serializing_if = "Option::is_none")]
-    pub refusal: Option<String>,
+    #[serde(
+        rename = "refusal",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub refusal: Option<Option<String>>,
     /// The role of the messages author, in this case `assistant`.
     #[serde(rename = "role")]
     pub role: Role,

@@ -15,8 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseOutputTextAnnotationWsAdded {
     /// The agent that owns this multi-agent streaming event.
-    #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<models::BetaAgentTag>,
+    #[serde(
+        rename = "agent",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the event. Always 'response.output_text.annotation.added'.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -36,8 +41,8 @@ pub struct BetaResponseOutputTextAnnotationWsAdded {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i64,
     /// The annotation object being added. (See annotation schema for details.)
-    #[serde(rename = "annotation")]
-    pub annotation: models::BetaAnnotation,
+    #[serde(rename = "annotation", deserialize_with = "Option::deserialize")]
+    pub annotation: Option<models::BetaAnnotation>,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -52,7 +57,7 @@ impl BetaResponseOutputTextAnnotationWsAdded {
         content_index: i64,
         annotation_index: i64,
         sequence_number: i64,
-        annotation: models::BetaAnnotation,
+        annotation: Option<models::BetaAnnotation>,
     ) -> BetaResponseOutputTextAnnotationWsAdded {
         BetaResponseOutputTextAnnotationWsAdded {
             agent: None,

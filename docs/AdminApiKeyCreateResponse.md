@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **name** | Option<**String**> | The name of the API key | [optional]
 **redacted_value** | **String** | The redacted value of the API key | 
 **created_at** | **i64** | The Unix timestamp (in seconds) of when the API key was created | 
-**expires_at** | **i64** | The Unix timestamp (in seconds) of when the API key expires | 
+**expires_at** | Option<**i64**> | The Unix timestamp (in seconds) of when the API key expires | 
 **last_used_at** | Option<**i64**> | The Unix timestamp (in seconds) of when the API key was last used | [optional]
 **owner** | [**models::AdminApiKeyOwner**](AdminApiKeyOwner.md) |  | 
 **value** | **String** | The value of the API key. Only shown on create. | 

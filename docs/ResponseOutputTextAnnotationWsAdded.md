@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **content_index** | **i64** | The index of the content part within the output item. | 
 **annotation_index** | **i64** | The index of the annotation within the content part. | 
 **sequence_number** | **i64** | The sequence number of this event. | 
-**annotation** | [**models::Annotation**](Annotation.md) | The annotation object being added. (See annotation schema for details.) | 
+**annotation** | Option<[**models::Annotation**](Annotation.md)> | The annotation object being added. (See annotation schema for details.) | 
 **stream_id** | Option<**String**> | The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

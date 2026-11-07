@@ -15,8 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseImageGenCallInWsProgress {
     /// The agent that owns this multi-agent streaming event.
-    #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<models::BetaAgentTag>,
+    #[serde(
+        rename = "agent",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the event. Always 'response.image_generation_call.in_progress'.
     #[serde(rename = "type")]
     pub r#type: Type,
