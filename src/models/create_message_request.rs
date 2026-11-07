@@ -17,7 +17,7 @@ pub struct CreateMessageRequest {
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
-    pub content: serde_json::Value,
+    pub content: models::CreateMessageRequestContent,
     /// A list of files attached to the message, and the tools they should be added to.
     #[serde(
         rename = "attachments",
@@ -37,7 +37,7 @@ pub struct CreateMessageRequest {
 }
 
 impl CreateMessageRequest {
-    pub fn new(role: Role, content: serde_json::Value) -> CreateMessageRequest {
+    pub fn new(role: Role, content: models::CreateMessageRequestContent) -> CreateMessageRequest {
         CreateMessageRequest {
             role,
             content,

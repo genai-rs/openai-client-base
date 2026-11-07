@@ -8,7 +8,6 @@
   "useSingleRequestParameter": false,
   "useChrono": false,
   "titleNaming": false,
-  "legacyModelRewrites": true,
   "multipartHelper": true,
   "boxOnlyCycles": true,
   "defaultOnlyWhereValid": true,
@@ -67,8 +66,6 @@
     "CreateModerationRequest.model",
     "CreateResponse.model",
     "CreateResponse.input",
-    "CreateMessageRequest.content",
-    "PredictionContent.content",
     "Response.instructions"
   ],
   "fileProperties": [
