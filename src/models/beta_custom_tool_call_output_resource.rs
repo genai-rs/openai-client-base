@@ -14,8 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCustomToolCallOutputResource {
     /// The agent that produced this item.
-    #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<models::BetaAgentTag>,
+    #[serde(
+        rename = "agent",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The type of the custom tool call output. Always `custom_tool_call_output`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -25,8 +30,13 @@ pub struct BetaCustomToolCallOutputResource {
     /// The call ID, used to map this custom tool call output to a custom tool call.
     #[serde(rename = "call_id")]
     pub call_id: String,
-    #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
-    pub caller: Option<models::BetaToolCallCallerParam>,
+    #[serde(
+        rename = "caller",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub caller: Option<Option<models::BetaToolCallCallerParam>>,
     #[serde(rename = "output")]
     pub output: models::BetaCustomToolCallOutputOutput,
     #[serde(rename = "status")]

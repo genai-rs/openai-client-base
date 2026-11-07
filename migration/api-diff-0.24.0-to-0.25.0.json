@@ -1,0 +1,2729 @@
+{
+  "source_heads": {
+    "reference": "openai-client-base 0.24.0",
+    "candidate": "generated with openapi-generator 7.27.0 (timvw-rust 0.16.0)"
+  },
+  "method": "Source declaration census of public model exports, struct fields, enum variant names, and function signatures, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derive or macro-generated builders, enumerate trait implementations, or resolve every visibility/re-export interaction.",
+  "registry_source_rs_files": 2941,
+  "current_source_rs_files": 2941,
+  "source_files_added": [],
+  "source_files_removed": [],
+  "source_files_modified": [
+    "apis/configuration.rs",
+    "apis/fine_tuning_api.rs",
+    "models/admin_api_key_create_response.rs",
+    "models/beta_computer_tool_call_output_resource.rs",
+    "models/beta_create_model_response_properties.rs",
+    "models/beta_create_response.rs",
+    "models/beta_custom_tool_call_output_resource.rs",
+    "models/beta_custom_tool_call_resource.rs",
+    "models/beta_function_tool_call_output_resource.rs",
+    "models/beta_function_tool_call_resource.rs",
+    "models/beta_input_message_resource.rs",
+    "models/beta_response.rs",
+    "models/beta_response_audio_transcript_ws_delta.rs",
+    "models/beta_response_audio_transcript_ws_done.rs",
+    "models/beta_response_audio_ws_delta.rs",
+    "models/beta_response_audio_ws_done.rs",
+    "models/beta_response_code_interpreter_call_code_ws_delta.rs",
+    "models/beta_response_code_interpreter_call_code_ws_done.rs",
+    "models/beta_response_code_interpreter_call_in_ws_progress.rs",
+    "models/beta_response_code_interpreter_call_ws_completed.rs",
+    "models/beta_response_code_interpreter_call_ws_interpreting.rs",
+    "models/beta_response_content_part_ws_added.rs",
+    "models/beta_response_content_part_ws_done.rs",
+    "models/beta_response_custom_tool_call_input_ws_delta.rs",
+    "models/beta_response_custom_tool_call_input_ws_done.rs",
+    "models/beta_response_file_search_call_in_ws_progress.rs",
+    "models/beta_response_file_search_call_ws_completed.rs",
+    "models/beta_response_file_search_call_ws_searching.rs",
+    "models/beta_response_function_call_arguments_ws_delta.rs",
+    "models/beta_response_function_call_arguments_ws_done.rs",
+    "models/beta_response_image_gen_call_in_ws_progress.rs",
+    "models/beta_response_image_gen_call_partial_ws_image.rs",
+    "models/beta_response_image_gen_call_ws_completed.rs",
+    "models/beta_response_image_gen_call_ws_generating.rs",
+    "models/beta_response_in_ws_progress.rs",
+    "models/beta_response_mcp_call_arguments_ws_delta.rs",
+    "models/beta_response_mcp_call_arguments_ws_done.rs",
+    "models/beta_response_mcp_call_in_ws_progress.rs",
+    "models/beta_response_mcp_call_ws_completed.rs",
+    "models/beta_response_mcp_call_ws_failed.rs",
+    "models/beta_response_mcp_list_tools_in_ws_progress.rs",
+    "models/beta_response_mcp_list_tools_ws_completed.rs",
+    "models/beta_response_mcp_list_tools_ws_failed.rs",
+    "models/beta_response_output_item_ws_added.rs",
+    "models/beta_response_output_item_ws_done.rs",
+    "models/beta_response_output_text_annotation_ws_added.rs",
+    "models/beta_response_reasoning_summary_part_ws_added.rs",
+    "models/beta_response_reasoning_summary_part_ws_done.rs",
+    "models/beta_response_reasoning_summary_text_ws_delta.rs",
+    "models/beta_response_reasoning_summary_text_ws_done.rs",
+    "models/beta_response_reasoning_text_ws_delta.rs",
+    "models/beta_response_reasoning_text_ws_done.rs",
+    "models/beta_response_refusal_ws_delta.rs",
+    "models/beta_response_refusal_ws_done.rs",
+    "models/beta_response_text_ws_delta.rs",
+    "models/beta_response_text_ws_done.rs",
+    "models/beta_response_web_search_call_in_ws_progress.rs",
+    "models/beta_response_web_search_call_ws_completed.rs",
+    "models/beta_response_web_search_call_ws_searching.rs",
+    "models/beta_response_ws_completed.rs",
+    "models/beta_response_ws_created.rs",
+    "models/beta_response_ws_failed.rs",
+    "models/beta_response_ws_incomplete.rs",
+    "models/beta_response_ws_queued.rs",
+    "models/beta_responses_client_event_response_create.rs",
+    "models/create_chat_completion_request.rs",
+    "models/create_environment_param.rs",
+    "models/create_model_response_properties.rs",
+    "models/create_response.rs",
+    "models/custom_tool_call_output_resource.rs",
+    "models/custom_tool_call_resource.rs",
+    "models/fine_tune_chat_completion_request_assistant_message.rs",
+    "models/function_tool_call_output_resource.rs",
+    "models/function_tool_call_resource.rs",
+    "models/response.rs",
+    "models/response_output_text_annotation_ws_added.rs",
+    "models/responses_client_event_response_create.rs"
+  ],
+  "model_exports_added": [],
+  "model_exports_removed": [],
+  "public_functions_added_or_signature_changed": [
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, redacted_value: String, created_at: i64, expires_at: Option<i64>, owner: models::AdminApiKeyOwner, value: String, ) -> AdminApiKeyCreateResponse"
+    },
+    {
+      "file": "models/beta_response_output_text_annotation_ws_added.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, annotation_index: i64, sequence_number: i64, annotation: Option<models::BetaAnnotation>, ) -> BetaResponseOutputTextAnnotationWsAdded"
+    },
+    {
+      "file": "models/response_output_text_annotation_ws_added.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, annotation_index: i64, sequence_number: i64, annotation: Option<models::Annotation>, ) -> ResponseOutputTextAnnotationWsAdded"
+    }
+  ],
+  "public_functions_removed_or_signature_changed": [
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "name": "new",
+      "signature": "pub fn new( object: Object, id: String, redacted_value: String, created_at: i64, expires_at: i64, owner: models::AdminApiKeyOwner, value: String, ) -> AdminApiKeyCreateResponse"
+    },
+    {
+      "file": "models/beta_response_output_text_annotation_ws_added.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, annotation_index: i64, sequence_number: i64, annotation: models::BetaAnnotation, ) -> BetaResponseOutputTextAnnotationWsAdded"
+    },
+    {
+      "file": "models/response_output_text_annotation_ws_added.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, annotation_index: i64, sequence_number: i64, annotation: models::Annotation, ) -> ResponseOutputTextAnnotationWsAdded"
+    }
+  ],
+  "public_model_field_changes": [
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "expires_at",
+      "registry": "i64",
+      "current": "Option<i64>"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "last_used_at",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "name",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_computer_tool_call_output_resource.rs",
+      "model": "BetaComputerToolCallOutputResource",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "metadata",
+      "registry": "Option<std::collections::HashMap<String, String>>",
+      "current": "Option<Option<std::collections::HashMap<String, String>>>"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "prompt_cache_key",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "prompt_cache_retention",
+      "registry": "Option<PromptCacheRetention>",
+      "current": "Option<Option<PromptCacheRetention>>"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "safety_identifier",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "temperature",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "top_p",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "user",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "background",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "max_tool_calls",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "metadata",
+      "registry": "Option<std::collections::HashMap<String, String>>",
+      "current": "Option<Option<std::collections::HashMap<String, String>>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "previous_response_id",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "prompt_cache_key",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "prompt_cache_retention",
+      "registry": "Option<PromptCacheRetention>",
+      "current": "Option<Option<PromptCacheRetention>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "safety_identifier",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "temperature",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "top_p",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "user",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_custom_tool_call_output_resource.rs",
+      "model": "BetaCustomToolCallOutputResource",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_custom_tool_call_output_resource.rs",
+      "model": "BetaCustomToolCallOutputResource",
+      "field": "caller",
+      "registry": "Option<models::BetaToolCallCallerParam>",
+      "current": "Option<Option<models::BetaToolCallCallerParam>>"
+    },
+    {
+      "file": "models/beta_custom_tool_call_resource.rs",
+      "model": "BetaCustomToolCallResource",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_custom_tool_call_resource.rs",
+      "model": "BetaCustomToolCallResource",
+      "field": "caller",
+      "registry": "Option<models::BetaToolCallCaller>",
+      "current": "Option<Option<models::BetaToolCallCaller>>"
+    },
+    {
+      "file": "models/beta_function_tool_call_output_resource.rs",
+      "model": "BetaFunctionToolCallOutputResource",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_function_tool_call_output_resource.rs",
+      "model": "BetaFunctionToolCallOutputResource",
+      "field": "caller",
+      "registry": "Option<models::BetaToolCallCallerParam>",
+      "current": "Option<Option<models::BetaToolCallCallerParam>>"
+    },
+    {
+      "file": "models/beta_function_tool_call_resource.rs",
+      "model": "BetaFunctionToolCallResource",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_function_tool_call_resource.rs",
+      "model": "BetaFunctionToolCallResource",
+      "field": "caller",
+      "registry": "Option<models::BetaToolCallCaller>",
+      "current": "Option<Option<models::BetaToolCallCaller>>"
+    },
+    {
+      "file": "models/beta_input_message_resource.rs",
+      "model": "BetaInputMessageResource",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "background",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "max_tool_calls",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "previous_response_id",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "prompt_cache_key",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "prompt_cache_retention",
+      "registry": "Option<PromptCacheRetention>",
+      "current": "Option<Option<PromptCacheRetention>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "safety_identifier",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "temperature",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "top_logprobs",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "top_p",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "user",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_response_audio_transcript_ws_delta.rs",
+      "model": "BetaResponseAudioTranscriptWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_audio_transcript_ws_done.rs",
+      "model": "BetaResponseAudioTranscriptWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_audio_ws_delta.rs",
+      "model": "BetaResponseAudioWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_audio_ws_done.rs",
+      "model": "BetaResponseAudioWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_code_ws_delta.rs",
+      "model": "BetaResponseCodeInterpreterCallCodeWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_code_ws_done.rs",
+      "model": "BetaResponseCodeInterpreterCallCodeWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_in_ws_progress.rs",
+      "model": "BetaResponseCodeInterpreterCallInWsProgress",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_ws_completed.rs",
+      "model": "BetaResponseCodeInterpreterCallWsCompleted",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_ws_interpreting.rs",
+      "model": "BetaResponseCodeInterpreterCallWsInterpreting",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_content_part_ws_added.rs",
+      "model": "BetaResponseContentPartWsAdded",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_content_part_ws_done.rs",
+      "model": "BetaResponseContentPartWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_custom_tool_call_input_ws_delta.rs",
+      "model": "BetaResponseCustomToolCallInputWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_custom_tool_call_input_ws_done.rs",
+      "model": "BetaResponseCustomToolCallInputWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_file_search_call_in_ws_progress.rs",
+      "model": "BetaResponseFileSearchCallInWsProgress",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_file_search_call_ws_completed.rs",
+      "model": "BetaResponseFileSearchCallWsCompleted",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_file_search_call_ws_searching.rs",
+      "model": "BetaResponseFileSearchCallWsSearching",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_function_call_arguments_ws_delta.rs",
+      "model": "BetaResponseFunctionCallArgumentsWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_function_call_arguments_ws_done.rs",
+      "model": "BetaResponseFunctionCallArgumentsWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_image_gen_call_in_ws_progress.rs",
+      "model": "BetaResponseImageGenCallInWsProgress",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_image_gen_call_partial_ws_image.rs",
+      "model": "BetaResponseImageGenCallPartialWsImage",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_image_gen_call_ws_completed.rs",
+      "model": "BetaResponseImageGenCallWsCompleted",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_image_gen_call_ws_generating.rs",
+      "model": "BetaResponseImageGenCallWsGenerating",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_in_ws_progress.rs",
+      "model": "BetaResponseInWsProgress",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_mcp_call_arguments_ws_delta.rs",
+      "model": "BetaResponseMcpCallArgumentsWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_mcp_call_arguments_ws_done.rs",
+      "model": "BetaResponseMcpCallArgumentsWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_mcp_call_in_ws_progress.rs",
+      "model": "BetaResponseMcpCallInWsProgress",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_mcp_call_ws_completed.rs",
+      "model": "BetaResponseMcpCallWsCompleted",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_mcp_call_ws_failed.rs",
+      "model": "BetaResponseMcpCallWsFailed",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_mcp_list_tools_in_ws_progress.rs",
+      "model": "BetaResponseMcpListToolsInWsProgress",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_mcp_list_tools_ws_completed.rs",
+      "model": "BetaResponseMcpListToolsWsCompleted",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_mcp_list_tools_ws_failed.rs",
+      "model": "BetaResponseMcpListToolsWsFailed",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_output_item_ws_added.rs",
+      "model": "BetaResponseOutputItemWsAdded",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_output_item_ws_done.rs",
+      "model": "BetaResponseOutputItemWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_output_text_annotation_ws_added.rs",
+      "model": "BetaResponseOutputTextAnnotationWsAdded",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_output_text_annotation_ws_added.rs",
+      "model": "BetaResponseOutputTextAnnotationWsAdded",
+      "field": "annotation",
+      "registry": "models::BetaAnnotation",
+      "current": "Option<models::BetaAnnotation>"
+    },
+    {
+      "file": "models/beta_response_reasoning_summary_part_ws_added.rs",
+      "model": "BetaResponseReasoningSummaryPartWsAdded",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_reasoning_summary_part_ws_done.rs",
+      "model": "BetaResponseReasoningSummaryPartWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_reasoning_summary_text_ws_delta.rs",
+      "model": "BetaResponseReasoningSummaryTextWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_reasoning_summary_text_ws_done.rs",
+      "model": "BetaResponseReasoningSummaryTextWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_reasoning_text_ws_delta.rs",
+      "model": "BetaResponseReasoningTextWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_reasoning_text_ws_done.rs",
+      "model": "BetaResponseReasoningTextWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_refusal_ws_delta.rs",
+      "model": "BetaResponseRefusalWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_refusal_ws_done.rs",
+      "model": "BetaResponseRefusalWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_text_ws_delta.rs",
+      "model": "BetaResponseTextWsDelta",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_text_ws_done.rs",
+      "model": "BetaResponseTextWsDone",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_web_search_call_in_ws_progress.rs",
+      "model": "BetaResponseWebSearchCallInWsProgress",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_web_search_call_ws_completed.rs",
+      "model": "BetaResponseWebSearchCallWsCompleted",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_web_search_call_ws_searching.rs",
+      "model": "BetaResponseWebSearchCallWsSearching",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_ws_completed.rs",
+      "model": "BetaResponseWsCompleted",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_ws_created.rs",
+      "model": "BetaResponseWsCreated",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_ws_failed.rs",
+      "model": "BetaResponseWsFailed",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_ws_incomplete.rs",
+      "model": "BetaResponseWsIncomplete",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_response_ws_queued.rs",
+      "model": "BetaResponseWsQueued",
+      "field": "agent",
+      "registry": "Option<models::BetaAgentTag>",
+      "current": "Option<Option<models::BetaAgentTag>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "background",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "context_management",
+      "registry": "Option<Vec<models::BetaContextManagementParam>>",
+      "current": "Option<Option<Vec<models::BetaContextManagementParam>>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "conversation",
+      "registry": "Option<models::BetaConversationParam>",
+      "current": "Option<Option<models::BetaConversationParam>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "include",
+      "registry": "Option<Vec<models::BetaIncludeEnum>>",
+      "current": "Option<Option<Vec<models::BetaIncludeEnum>>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "instructions",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "max_output_tokens",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "max_tool_calls",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "metadata",
+      "registry": "Option<std::collections::HashMap<String, String>>",
+      "current": "Option<Option<std::collections::HashMap<String, String>>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "moderation",
+      "registry": "Option<models::BetaModerationParam>",
+      "current": "Option<Option<models::BetaModerationParam>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "multi_agent",
+      "registry": "Option<models::BetaMultiAgentParam>",
+      "current": "Option<Option<models::BetaMultiAgentParam>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "parallel_tool_calls",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "previous_response_id",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "prompt_cache_key",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "prompt_cache_retention",
+      "registry": "Option<PromptCacheRetention>",
+      "current": "Option<Option<PromptCacheRetention>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "reasoning",
+      "registry": "Option<models::BetaReasoning>",
+      "current": "Option<Option<models::BetaReasoning>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "safety_identifier",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "store",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "stream",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "temperature",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "top_p",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "truncation",
+      "registry": "Option<Truncation>",
+      "current": "Option<Option<Truncation>>"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "user",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "prompt_cache_key",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "prompt_cache_retention",
+      "registry": "Option<PromptCacheRetention>",
+      "current": "Option<Option<PromptCacheRetention>>"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "safety_identifier",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "temperature",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "top_p",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "user",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "capability_directories",
+      "registry": "Option<Vec<String>>",
+      "current": "Option<Option<Vec<String>>>"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "desktop",
+      "registry": "Option<models::DesktopParam>",
+      "current": "Option<Option<models::DesktopParam>>"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "env",
+      "registry": "Option<std::collections::HashMap<String, String>>",
+      "current": "Option<Option<std::collections::HashMap<String, String>>>"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "files",
+      "registry": "Option<Vec<models::HostedEnvironmentFileParam>>",
+      "current": "Option<Option<Vec<models::HostedEnvironmentFileParam>>>"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "network",
+      "registry": "Option<models::NetworkPolicyParam>",
+      "current": "Option<Option<models::NetworkPolicyParam>>"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "packages",
+      "registry": "Option<models::EnvironmentPackagesParam>",
+      "current": "Option<Option<models::EnvironmentPackagesParam>>"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "plugins",
+      "registry": "Option<Vec<models::HostedPluginParam>>",
+      "current": "Option<Option<Vec<models::HostedPluginParam>>>"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "setup_commands",
+      "registry": "Option<Vec<models::SetupCommandParam>>",
+      "current": "Option<Option<Vec<models::SetupCommandParam>>>"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "skills",
+      "registry": "Option<Vec<models::HostedSkillParam>>",
+      "current": "Option<Option<Vec<models::HostedSkillParam>>>"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "prompt_cache_key",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "prompt_cache_retention",
+      "registry": "Option<PromptCacheRetention>",
+      "current": "Option<Option<PromptCacheRetention>>"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "safety_identifier",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "temperature",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "top_p",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "user",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "background",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "max_tool_calls",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "previous_response_id",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "prompt_cache_key",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "prompt_cache_retention",
+      "registry": "Option<PromptCacheRetention>",
+      "current": "Option<Option<PromptCacheRetention>>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "safety_identifier",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "temperature",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "top_p",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "user",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/custom_tool_call_output_resource.rs",
+      "model": "CustomToolCallOutputResource",
+      "field": "caller",
+      "registry": "Option<models::ToolCallCallerParam>",
+      "current": "Option<Option<models::ToolCallCallerParam>>"
+    },
+    {
+      "file": "models/custom_tool_call_resource.rs",
+      "model": "CustomToolCallResource",
+      "field": "caller",
+      "registry": "Option<models::ToolCallCaller>",
+      "current": "Option<Option<models::ToolCallCaller>>"
+    },
+    {
+      "file": "models/fine_tune_chat_completion_request_assistant_message.rs",
+      "model": "FineTuneChatCompletionRequestAssistantMessage",
+      "field": "refusal",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/function_tool_call_output_resource.rs",
+      "model": "FunctionToolCallOutputResource",
+      "field": "caller",
+      "registry": "Option<models::ToolCallCallerParam>",
+      "current": "Option<Option<models::ToolCallCallerParam>>"
+    },
+    {
+      "file": "models/function_tool_call_resource.rs",
+      "model": "FunctionToolCallResource",
+      "field": "caller",
+      "registry": "Option<models::ToolCallCaller>",
+      "current": "Option<Option<models::ToolCallCaller>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "background",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "max_tool_calls",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "metadata",
+      "registry": "Option<std::collections::HashMap<String, String>>",
+      "current": "Option<Option<std::collections::HashMap<String, String>>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "previous_response_id",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "prompt_cache_key",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "prompt_cache_retention",
+      "registry": "Option<PromptCacheRetention>",
+      "current": "Option<Option<PromptCacheRetention>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "safety_identifier",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "temperature",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "top_logprobs",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "top_p",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "user",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/response_output_text_annotation_ws_added.rs",
+      "model": "ResponseOutputTextAnnotationWsAdded",
+      "field": "annotation",
+      "registry": "models::Annotation",
+      "current": "Option<models::Annotation>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "background",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "context_management",
+      "registry": "Option<Vec<models::ContextManagementParam>>",
+      "current": "Option<Option<Vec<models::ContextManagementParam>>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "conversation",
+      "registry": "Option<models::ConversationParam>",
+      "current": "Option<Option<models::ConversationParam>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "include",
+      "registry": "Option<Vec<models::IncludeEnum>>",
+      "current": "Option<Option<Vec<models::IncludeEnum>>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "instructions",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "max_output_tokens",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "max_tool_calls",
+      "registry": "Option<i64>",
+      "current": "Option<Option<i64>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "metadata",
+      "registry": "Option<std::collections::HashMap<String, String>>",
+      "current": "Option<Option<std::collections::HashMap<String, String>>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "moderation",
+      "registry": "Option<models::ModerationParam>",
+      "current": "Option<Option<models::ModerationParam>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "parallel_tool_calls",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "previous_response_id",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "prompt_cache_key",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "prompt_cache_retention",
+      "registry": "Option<PromptCacheRetention>",
+      "current": "Option<Option<PromptCacheRetention>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "reasoning",
+      "registry": "Option<models::Reasoning>",
+      "current": "Option<Option<models::Reasoning>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "safety_identifier",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "store",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "stream",
+      "registry": "Option<bool>",
+      "current": "Option<Option<bool>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "temperature",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "top_p",
+      "registry": "Option<f64>",
+      "current": "Option<Option<f64>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "truncation",
+      "registry": "Option<Truncation>",
+      "current": "Option<Option<Truncation>>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "user",
+      "registry": "Option<String>",
+      "current": "Option<Option<String>>"
+    }
+  ],
+  "public_enum_variant_changes": [],
+  "public_derive_changes": [
+    {
+      "file": "apis/configuration.rs",
+      "type": "ApiKey",
+      "registry": [
+        "Clone",
+        "Debug"
+      ],
+      "current": [
+        "Clone"
+      ]
+    },
+    {
+      "file": "apis/configuration.rs",
+      "type": "Configuration",
+      "registry": [
+        "Clone",
+        "Debug"
+      ],
+      "current": [
+        "Clone"
+      ]
+    }
+  ],
+  "serde_field_attribute_changes": [
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "expires_at",
+      "registry": "#[serde(rename = \"expires_at\")]",
+      "current": "#[serde(rename = \"expires_at\", deserialize_with = \"Option::deserialize\")]"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "last_used_at",
+      "registry": "#[serde(rename = \"last_used_at\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"last_used_at\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/admin_api_key_create_response.rs",
+      "model": "AdminApiKeyCreateResponse",
+      "field": "name",
+      "registry": "#[serde(rename = \"name\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"name\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_computer_tool_call_output_resource.rs",
+      "model": "BetaComputerToolCallOutputResource",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "metadata",
+      "registry": "#[serde(rename = \"metadata\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"metadata\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "prompt_cache_key",
+      "registry": "#[serde(rename = \"prompt_cache_key\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"prompt_cache_key\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "prompt_cache_retention",
+      "registry": "#[serde( rename = \"prompt_cache_retention\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"prompt_cache_retention\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "safety_identifier",
+      "registry": "#[serde(rename = \"safety_identifier\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"safety_identifier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "temperature",
+      "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "top_p",
+      "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_model_response_properties.rs",
+      "model": "BetaCreateModelResponseProperties",
+      "field": "user",
+      "registry": "#[serde(rename = \"user\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"user\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "background",
+      "registry": "#[serde(rename = \"background\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"background\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "max_tool_calls",
+      "registry": "#[serde(rename = \"max_tool_calls\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"max_tool_calls\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "metadata",
+      "registry": "#[serde(rename = \"metadata\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"metadata\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "previous_response_id",
+      "registry": "#[serde( rename = \"previous_response_id\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"previous_response_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "prompt_cache_key",
+      "registry": "#[serde(rename = \"prompt_cache_key\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"prompt_cache_key\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "prompt_cache_retention",
+      "registry": "#[serde( rename = \"prompt_cache_retention\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"prompt_cache_retention\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "safety_identifier",
+      "registry": "#[serde(rename = \"safety_identifier\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"safety_identifier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "temperature",
+      "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "top_p",
+      "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_create_response.rs",
+      "model": "BetaCreateResponse",
+      "field": "user",
+      "registry": "#[serde(rename = \"user\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"user\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_custom_tool_call_output_resource.rs",
+      "model": "BetaCustomToolCallOutputResource",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_custom_tool_call_output_resource.rs",
+      "model": "BetaCustomToolCallOutputResource",
+      "field": "caller",
+      "registry": "#[serde(rename = \"caller\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"caller\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_custom_tool_call_resource.rs",
+      "model": "BetaCustomToolCallResource",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_custom_tool_call_resource.rs",
+      "model": "BetaCustomToolCallResource",
+      "field": "caller",
+      "registry": "#[serde(rename = \"caller\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"caller\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_function_tool_call_output_resource.rs",
+      "model": "BetaFunctionToolCallOutputResource",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_function_tool_call_output_resource.rs",
+      "model": "BetaFunctionToolCallOutputResource",
+      "field": "caller",
+      "registry": "#[serde(rename = \"caller\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"caller\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_function_tool_call_resource.rs",
+      "model": "BetaFunctionToolCallResource",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_function_tool_call_resource.rs",
+      "model": "BetaFunctionToolCallResource",
+      "field": "caller",
+      "registry": "#[serde(rename = \"caller\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"caller\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_input_message_resource.rs",
+      "model": "BetaInputMessageResource",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "background",
+      "registry": "#[serde(rename = \"background\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"background\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "max_tool_calls",
+      "registry": "#[serde(rename = \"max_tool_calls\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"max_tool_calls\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "previous_response_id",
+      "registry": "#[serde( rename = \"previous_response_id\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"previous_response_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "prompt_cache_key",
+      "registry": "#[serde(rename = \"prompt_cache_key\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"prompt_cache_key\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "prompt_cache_retention",
+      "registry": "#[serde( rename = \"prompt_cache_retention\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"prompt_cache_retention\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "safety_identifier",
+      "registry": "#[serde(rename = \"safety_identifier\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"safety_identifier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "temperature",
+      "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "top_logprobs",
+      "registry": "#[serde(rename = \"top_logprobs\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_logprobs\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "top_p",
+      "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "user",
+      "registry": "#[serde(rename = \"user\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"user\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_audio_transcript_ws_delta.rs",
+      "model": "BetaResponseAudioTranscriptWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_audio_transcript_ws_done.rs",
+      "model": "BetaResponseAudioTranscriptWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_audio_ws_delta.rs",
+      "model": "BetaResponseAudioWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_audio_ws_done.rs",
+      "model": "BetaResponseAudioWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_code_ws_delta.rs",
+      "model": "BetaResponseCodeInterpreterCallCodeWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_code_ws_done.rs",
+      "model": "BetaResponseCodeInterpreterCallCodeWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_in_ws_progress.rs",
+      "model": "BetaResponseCodeInterpreterCallInWsProgress",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_ws_completed.rs",
+      "model": "BetaResponseCodeInterpreterCallWsCompleted",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_code_interpreter_call_ws_interpreting.rs",
+      "model": "BetaResponseCodeInterpreterCallWsInterpreting",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_content_part_ws_added.rs",
+      "model": "BetaResponseContentPartWsAdded",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_content_part_ws_done.rs",
+      "model": "BetaResponseContentPartWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_custom_tool_call_input_ws_delta.rs",
+      "model": "BetaResponseCustomToolCallInputWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_custom_tool_call_input_ws_done.rs",
+      "model": "BetaResponseCustomToolCallInputWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_file_search_call_in_ws_progress.rs",
+      "model": "BetaResponseFileSearchCallInWsProgress",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_file_search_call_ws_completed.rs",
+      "model": "BetaResponseFileSearchCallWsCompleted",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_file_search_call_ws_searching.rs",
+      "model": "BetaResponseFileSearchCallWsSearching",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_function_call_arguments_ws_delta.rs",
+      "model": "BetaResponseFunctionCallArgumentsWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_function_call_arguments_ws_done.rs",
+      "model": "BetaResponseFunctionCallArgumentsWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_image_gen_call_in_ws_progress.rs",
+      "model": "BetaResponseImageGenCallInWsProgress",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_image_gen_call_partial_ws_image.rs",
+      "model": "BetaResponseImageGenCallPartialWsImage",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_image_gen_call_ws_completed.rs",
+      "model": "BetaResponseImageGenCallWsCompleted",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_image_gen_call_ws_generating.rs",
+      "model": "BetaResponseImageGenCallWsGenerating",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_in_ws_progress.rs",
+      "model": "BetaResponseInWsProgress",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_mcp_call_arguments_ws_delta.rs",
+      "model": "BetaResponseMcpCallArgumentsWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_mcp_call_arguments_ws_done.rs",
+      "model": "BetaResponseMcpCallArgumentsWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_mcp_call_in_ws_progress.rs",
+      "model": "BetaResponseMcpCallInWsProgress",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_mcp_call_ws_completed.rs",
+      "model": "BetaResponseMcpCallWsCompleted",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_mcp_call_ws_failed.rs",
+      "model": "BetaResponseMcpCallWsFailed",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_mcp_list_tools_in_ws_progress.rs",
+      "model": "BetaResponseMcpListToolsInWsProgress",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_mcp_list_tools_ws_completed.rs",
+      "model": "BetaResponseMcpListToolsWsCompleted",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_mcp_list_tools_ws_failed.rs",
+      "model": "BetaResponseMcpListToolsWsFailed",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_output_item_ws_added.rs",
+      "model": "BetaResponseOutputItemWsAdded",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_output_item_ws_done.rs",
+      "model": "BetaResponseOutputItemWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_output_text_annotation_ws_added.rs",
+      "model": "BetaResponseOutputTextAnnotationWsAdded",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_output_text_annotation_ws_added.rs",
+      "model": "BetaResponseOutputTextAnnotationWsAdded",
+      "field": "annotation",
+      "registry": "#[serde(rename = \"annotation\")]",
+      "current": "#[serde(rename = \"annotation\", deserialize_with = \"Option::deserialize\")]"
+    },
+    {
+      "file": "models/beta_response_reasoning_summary_part_ws_added.rs",
+      "model": "BetaResponseReasoningSummaryPartWsAdded",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_reasoning_summary_part_ws_done.rs",
+      "model": "BetaResponseReasoningSummaryPartWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_reasoning_summary_text_ws_delta.rs",
+      "model": "BetaResponseReasoningSummaryTextWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_reasoning_summary_text_ws_done.rs",
+      "model": "BetaResponseReasoningSummaryTextWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_reasoning_text_ws_delta.rs",
+      "model": "BetaResponseReasoningTextWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_reasoning_text_ws_done.rs",
+      "model": "BetaResponseReasoningTextWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_refusal_ws_delta.rs",
+      "model": "BetaResponseRefusalWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_refusal_ws_done.rs",
+      "model": "BetaResponseRefusalWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_text_ws_delta.rs",
+      "model": "BetaResponseTextWsDelta",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_text_ws_done.rs",
+      "model": "BetaResponseTextWsDone",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_web_search_call_in_ws_progress.rs",
+      "model": "BetaResponseWebSearchCallInWsProgress",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_web_search_call_ws_completed.rs",
+      "model": "BetaResponseWebSearchCallWsCompleted",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_web_search_call_ws_searching.rs",
+      "model": "BetaResponseWebSearchCallWsSearching",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_ws_completed.rs",
+      "model": "BetaResponseWsCompleted",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_ws_created.rs",
+      "model": "BetaResponseWsCreated",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_ws_failed.rs",
+      "model": "BetaResponseWsFailed",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_ws_incomplete.rs",
+      "model": "BetaResponseWsIncomplete",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_ws_queued.rs",
+      "model": "BetaResponseWsQueued",
+      "field": "agent",
+      "registry": "#[serde(rename = \"agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "background",
+      "registry": "#[serde(rename = \"background\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"background\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "context_management",
+      "registry": "#[serde(rename = \"context_management\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"context_management\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "conversation",
+      "registry": "#[serde(rename = \"conversation\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"conversation\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "include",
+      "registry": "#[serde(rename = \"include\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"include\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "instructions",
+      "registry": "#[serde(rename = \"instructions\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"instructions\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "max_output_tokens",
+      "registry": "#[serde(rename = \"max_output_tokens\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"max_output_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "max_tool_calls",
+      "registry": "#[serde(rename = \"max_tool_calls\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"max_tool_calls\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "metadata",
+      "registry": "#[serde(rename = \"metadata\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"metadata\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "moderation",
+      "registry": "#[serde(rename = \"moderation\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"moderation\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "multi_agent",
+      "registry": "#[serde(rename = \"multi_agent\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"multi_agent\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "parallel_tool_calls",
+      "registry": "#[serde( rename = \"parallel_tool_calls\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"parallel_tool_calls\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "previous_response_id",
+      "registry": "#[serde( rename = \"previous_response_id\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"previous_response_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "prompt_cache_key",
+      "registry": "#[serde(rename = \"prompt_cache_key\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"prompt_cache_key\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "prompt_cache_retention",
+      "registry": "#[serde( rename = \"prompt_cache_retention\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"prompt_cache_retention\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "reasoning",
+      "registry": "#[serde(rename = \"reasoning\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"reasoning\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "safety_identifier",
+      "registry": "#[serde(rename = \"safety_identifier\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"safety_identifier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "store",
+      "registry": "#[serde(rename = \"store\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"store\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "stream",
+      "registry": "#[serde(rename = \"stream\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"stream\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "temperature",
+      "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "top_p",
+      "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "truncation",
+      "registry": "#[serde(rename = \"truncation\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"truncation\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_responses_client_event_response_create.rs",
+      "model": "BetaResponsesClientEventResponseCreate",
+      "field": "user",
+      "registry": "#[serde(rename = \"user\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"user\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "prompt_cache_key",
+      "registry": "#[serde(rename = \"prompt_cache_key\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"prompt_cache_key\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "prompt_cache_retention",
+      "registry": "#[serde( rename = \"prompt_cache_retention\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"prompt_cache_retention\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "safety_identifier",
+      "registry": "#[serde(rename = \"safety_identifier\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"safety_identifier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "temperature",
+      "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "top_p",
+      "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_chat_completion_request.rs",
+      "model": "CreateChatCompletionRequest",
+      "field": "user",
+      "registry": "#[serde(rename = \"user\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"user\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "capability_directories",
+      "registry": "#[serde( rename = \"capability_directories\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"capability_directories\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "desktop",
+      "registry": "#[serde(rename = \"desktop\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"desktop\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "env",
+      "registry": "#[serde(rename = \"env\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"env\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "files",
+      "registry": "#[serde(rename = \"files\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"files\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "network",
+      "registry": "#[serde(rename = \"network\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"network\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "packages",
+      "registry": "#[serde(rename = \"packages\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"packages\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "plugins",
+      "registry": "#[serde(rename = \"plugins\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"plugins\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "setup_commands",
+      "registry": "#[serde(rename = \"setup_commands\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"setup_commands\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_environment_param.rs",
+      "model": "CreateEnvironmentParam",
+      "field": "skills",
+      "registry": "#[serde(rename = \"skills\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"skills\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "prompt_cache_key",
+      "registry": "#[serde(rename = \"prompt_cache_key\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"prompt_cache_key\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "prompt_cache_retention",
+      "registry": "#[serde( rename = \"prompt_cache_retention\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"prompt_cache_retention\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "safety_identifier",
+      "registry": "#[serde(rename = \"safety_identifier\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"safety_identifier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "temperature",
+      "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "top_p",
+      "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_model_response_properties.rs",
+      "model": "CreateModelResponseProperties",
+      "field": "user",
+      "registry": "#[serde(rename = \"user\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"user\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "background",
+      "registry": "#[serde(rename = \"background\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"background\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "max_tool_calls",
+      "registry": "#[serde(rename = \"max_tool_calls\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"max_tool_calls\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "previous_response_id",
+      "registry": "#[serde( rename = \"previous_response_id\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"previous_response_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "prompt_cache_key",
+      "registry": "#[serde(rename = \"prompt_cache_key\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"prompt_cache_key\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "prompt_cache_retention",
+      "registry": "#[serde( rename = \"prompt_cache_retention\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"prompt_cache_retention\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "safety_identifier",
+      "registry": "#[serde(rename = \"safety_identifier\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"safety_identifier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "temperature",
+      "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "top_p",
+      "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "user",
+      "registry": "#[serde(rename = \"user\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"user\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/custom_tool_call_output_resource.rs",
+      "model": "CustomToolCallOutputResource",
+      "field": "caller",
+      "registry": "#[serde(rename = \"caller\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"caller\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/custom_tool_call_resource.rs",
+      "model": "CustomToolCallResource",
+      "field": "caller",
+      "registry": "#[serde(rename = \"caller\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"caller\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/fine_tune_chat_completion_request_assistant_message.rs",
+      "model": "FineTuneChatCompletionRequestAssistantMessage",
+      "field": "refusal",
+      "registry": "#[serde(rename = \"refusal\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"refusal\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/function_tool_call_output_resource.rs",
+      "model": "FunctionToolCallOutputResource",
+      "field": "caller",
+      "registry": "#[serde(rename = \"caller\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"caller\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/function_tool_call_resource.rs",
+      "model": "FunctionToolCallResource",
+      "field": "caller",
+      "registry": "#[serde(rename = \"caller\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"caller\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "background",
+      "registry": "#[serde(rename = \"background\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"background\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "max_tool_calls",
+      "registry": "#[serde(rename = \"max_tool_calls\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"max_tool_calls\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "metadata",
+      "registry": "#[serde(rename = \"metadata\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"metadata\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "previous_response_id",
+      "registry": "#[serde( rename = \"previous_response_id\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"previous_response_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "prompt_cache_key",
+      "registry": "#[serde(rename = \"prompt_cache_key\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"prompt_cache_key\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "prompt_cache_retention",
+      "registry": "#[serde( rename = \"prompt_cache_retention\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"prompt_cache_retention\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "safety_identifier",
+      "registry": "#[serde(rename = \"safety_identifier\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"safety_identifier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "temperature",
+      "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "top_logprobs",
+      "registry": "#[serde(rename = \"top_logprobs\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_logprobs\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "top_p",
+      "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "user",
+      "registry": "#[serde(rename = \"user\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"user\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response_output_text_annotation_ws_added.rs",
+      "model": "ResponseOutputTextAnnotationWsAdded",
+      "field": "annotation",
+      "registry": "#[serde(rename = \"annotation\")]",
+      "current": "#[serde(rename = \"annotation\", deserialize_with = \"Option::deserialize\")]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "background",
+      "registry": "#[serde(rename = \"background\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"background\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "context_management",
+      "registry": "#[serde(rename = \"context_management\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"context_management\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "conversation",
+      "registry": "#[serde(rename = \"conversation\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"conversation\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "include",
+      "registry": "#[serde(rename = \"include\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"include\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "instructions",
+      "registry": "#[serde(rename = \"instructions\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"instructions\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "max_output_tokens",
+      "registry": "#[serde(rename = \"max_output_tokens\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"max_output_tokens\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "max_tool_calls",
+      "registry": "#[serde(rename = \"max_tool_calls\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"max_tool_calls\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "metadata",
+      "registry": "#[serde(rename = \"metadata\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"metadata\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "moderation",
+      "registry": "#[serde(rename = \"moderation\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"moderation\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "parallel_tool_calls",
+      "registry": "#[serde( rename = \"parallel_tool_calls\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"parallel_tool_calls\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "previous_response_id",
+      "registry": "#[serde( rename = \"previous_response_id\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"previous_response_id\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "prompt_cache_key",
+      "registry": "#[serde(rename = \"prompt_cache_key\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"prompt_cache_key\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "prompt_cache_retention",
+      "registry": "#[serde( rename = \"prompt_cache_retention\", skip_serializing_if = \"Option::is_none\" )]",
+      "current": "#[serde( rename = \"prompt_cache_retention\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "reasoning",
+      "registry": "#[serde(rename = \"reasoning\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"reasoning\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "safety_identifier",
+      "registry": "#[serde(rename = \"safety_identifier\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"safety_identifier\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "store",
+      "registry": "#[serde(rename = \"store\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"store\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "stream",
+      "registry": "#[serde(rename = \"stream\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"stream\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "temperature",
+      "registry": "#[serde(rename = \"temperature\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"temperature\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "top_p",
+      "registry": "#[serde(rename = \"top_p\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"top_p\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "truncation",
+      "registry": "#[serde(rename = \"truncation\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"truncation\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "user",
+      "registry": "#[serde(rename = \"user\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde( rename = \"user\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    }
+  ],
+  "counts": {
+    "model_exports_added": 0,
+    "model_exports_removed": 0,
+    "public_functions_added_or_signature_changed": 3,
+    "public_functions_removed_or_signature_changed": 3,
+    "public_model_field_changes": 183,
+    "public_enum_types_with_variant_changes": 0,
+    "public_enum_variants_added": 0,
+    "public_enum_variants_removed": 0,
+    "public_derive_changes": 2,
+    "serde_field_attribute_changes": 183
+  }
+}

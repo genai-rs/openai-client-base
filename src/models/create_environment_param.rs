@@ -18,35 +18,77 @@ pub struct CreateEnvironmentParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Packages to install in the environment. Defaults to empty package lists.
-    #[serde(rename = "packages", skip_serializing_if = "Option::is_none")]
-    pub packages: Option<models::EnvironmentPackagesParam>,
+    #[serde(
+        rename = "packages",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub packages: Option<Option<models::EnvironmentPackagesParam>>,
     /// Ordered, confidential setup commands. Command bodies are never returned.
-    #[serde(rename = "setup_commands", skip_serializing_if = "Option::is_none")]
-    pub setup_commands: Option<Vec<models::SetupCommandParam>>,
+    #[serde(
+        rename = "setup_commands",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub setup_commands: Option<Option<Vec<models::SetupCommandParam>>>,
     /// Network access policy for the environment. If omitted, the API version determines whether network access is enabled or disabled.
-    #[serde(rename = "network", skip_serializing_if = "Option::is_none")]
-    pub network: Option<models::NetworkPolicyParam>,
+    #[serde(
+        rename = "network",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub network: Option<Option<models::NetworkPolicyParam>>,
     /// Desktop provisioning. Omission or null inherits the template setting, or defaults to disabled.
-    #[serde(rename = "desktop", skip_serializing_if = "Option::is_none")]
-    pub desktop: Option<models::DesktopParam>,
+    #[serde(
+        rename = "desktop",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub desktop: Option<Option<models::DesktopParam>>,
     /// Environment variables made available to the agent.
-    #[serde(rename = "env", skip_serializing_if = "Option::is_none")]
-    pub env: Option<std::collections::HashMap<String, String>>,
+    #[serde(
+        rename = "env",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub env: Option<Option<std::collections::HashMap<String, String>>>,
     /// Directories that contain capabilities exposed to the agent. Defaults to an empty list.
     #[serde(
         rename = "capability_directories",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub capability_directories: Option<Vec<String>>,
+    pub capability_directories: Option<Option<Vec<String>>>,
     /// Skills referenced by ID or provided as inline ZIP archives. Defaults to an empty list.
-    #[serde(rename = "skills", skip_serializing_if = "Option::is_none")]
-    pub skills: Option<Vec<models::HostedSkillParam>>,
+    #[serde(
+        rename = "skills",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub skills: Option<Option<Vec<models::HostedSkillParam>>>,
     /// Plugins provided as inline ZIP archives. Defaults to an empty list.
-    #[serde(rename = "plugins", skip_serializing_if = "Option::is_none")]
-    pub plugins: Option<Vec<models::HostedPluginParam>>,
+    #[serde(
+        rename = "plugins",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub plugins: Option<Option<Vec<models::HostedPluginParam>>>,
     /// Files available before the agent starts. Defaults to an empty list.
-    #[serde(rename = "files", skip_serializing_if = "Option::is_none")]
-    pub files: Option<Vec<models::HostedEnvironmentFileParam>>,
+    #[serde(
+        rename = "files",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub files: Option<Option<Vec<models::HostedEnvironmentFileParam>>>,
     /// A reusable hosted template applied before inline configuration. Omitted fields inherit the template; network overrides cannot broaden its policy.
     #[serde(
         rename = "environment_template_id",

@@ -591,11 +591,9 @@ pub async fn list_paginated_fine_tuning_jobs(
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref param_value) = p_query_metadata {
-        let mut query_params = Vec::with_capacity(param_value.len());
-        for (key, value) in param_value.iter() {
-            query_params.push((key.to_string(), serde_json::to_string(value)?));
-        }
-        req_builder = req_builder.query(&query_params);
+        let params =
+            crate::apis::parse_deep_object("metadata", &serde_json::to_value(param_value)?);
+        req_builder = req_builder.query(&params);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());

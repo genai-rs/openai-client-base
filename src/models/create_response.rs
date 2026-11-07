@@ -25,26 +25,53 @@ pub struct CreateResponse {
     #[serde(rename = "top_logprobs", skip_serializing_if = "Option::is_none")]
     pub top_logprobs: Option<i64>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.
-    #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
-    pub temperature: Option<f64>,
+    #[serde(
+        rename = "temperature",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub temperature: Option<Option<f64>>,
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or `temperature` but not both.
-    #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
-    pub top_p: Option<f64>,
+    #[serde(
+        rename = "top_p",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub top_p: Option<Option<f64>>,
     /// This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use `prompt_cache_key` instead to maintain caching optimizations. A stable identifier for your end-users. Used to boost cache hit rates by better bucketing similar requests and  to help OpenAI detect and prevent abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
-    #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
-    pub user: Option<String>,
+    #[serde(
+        rename = "user",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub user: Option<Option<String>>,
     /// A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies. The IDs should be a string that uniquely identifies each user, with a maximum length of 128 characters. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
-    #[serde(rename = "safety_identifier", skip_serializing_if = "Option::is_none")]
-    pub safety_identifier: Option<String>,
+    #[serde(
+        rename = "safety_identifier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub safety_identifier: Option<Option<String>>,
     /// Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the `user` field. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching).
-    #[serde(rename = "prompt_cache_key", skip_serializing_if = "Option::is_none")]
-    pub prompt_cache_key: Option<String>,
+    #[serde(
+        rename = "prompt_cache_key",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_key: Option<Option<String>>,
     /// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
     #[serde(
         rename = "prompt_cache_retention",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub prompt_cache_retention: Option<PromptCacheRetention>,
+    pub prompt_cache_retention: Option<Option<PromptCacheRetention>>,
     #[serde(
         rename = "prompt_cache_options",
         skip_serializing_if = "Option::is_none"
@@ -53,17 +80,29 @@ pub struct CreateResponse {
     /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub previous_response_id: Option<String>,
+    pub previous_response_id: Option<Option<String>>,
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Whether to run the model response in the background. [Learn more](https://developers.openai.com/api/docs/guides/background).
-    #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
-    pub background: Option<bool>,
+    #[serde(
+        rename = "background",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub background: Option<Option<bool>>,
     /// The maximum number of total calls to built-in tools that can be processed in a response. This maximum number applies across all built-in tool calls, not per individual tool. Any further attempts to call a tool by the model will be ignored.
-    #[serde(rename = "max_tool_calls", skip_serializing_if = "Option::is_none")]
-    pub max_tool_calls: Option<i64>,
+    #[serde(
+        rename = "max_tool_calls",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_tool_calls: Option<Option<i64>>,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<models::ResponseTextParam>,
     /// An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.  We support the following categories of tools: - **Built-in tools**: Tools that are provided by OpenAI that extend the   model's capabilities, like [web search](https://developers.openai.com/api/docs/guides/tools-web-search)   or [file search](https://developers.openai.com/api/docs/guides/tools-file-search). Learn more about   [built-in tools](https://developers.openai.com/api/docs/guides/tools). - **MCP Tools**: Integrations with third-party systems via custom MCP servers   or predefined connectors such as Google Drive and SharePoint. Learn more about   [MCP Tools](https://developers.openai.com/api/docs/guides/tools-connectors-mcp). - **Function calls (custom tools)**: Functions that are defined by you,   enabling the model to call your own code with strongly typed arguments   and outputs. Learn more about   [function calling](https://developers.openai.com/api/docs/guides/function-calling). You can also use   custom tools to call your own code.

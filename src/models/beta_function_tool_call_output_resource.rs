@@ -14,8 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionToolCallOutputResource {
     /// The agent that produced this item.
-    #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
-    pub agent: Option<models::BetaAgentTag>,
+    #[serde(
+        rename = "agent",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub agent: Option<Option<models::BetaAgentTag>>,
     /// The unique ID of the function call tool output.
     #[serde(rename = "id")]
     pub id: String,
@@ -31,8 +36,13 @@ pub struct BetaFunctionToolCallOutputResource {
     /// The namespace of the tool that produced the output.
     #[serde(rename = "namespace", skip_serializing_if = "Option::is_none")]
     pub namespace: Option<String>,
-    #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
-    pub caller: Option<models::BetaToolCallCallerParam>,
+    #[serde(
+        rename = "caller",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub caller: Option<Option<models::BetaToolCallCallerParam>>,
     #[serde(rename = "output")]
     pub output: models::BetaFunctionToolCallOutputOutput,
     #[serde(rename = "status")]

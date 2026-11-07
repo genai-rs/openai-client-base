@@ -20,8 +20,13 @@ pub struct AdminApiKeyCreateResponse {
     #[serde(rename = "id")]
     pub id: String,
     /// The name of the API key
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    #[serde(
+        rename = "name",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub name: Option<Option<String>>,
     /// The redacted value of the API key
     #[serde(rename = "redacted_value")]
     pub redacted_value: String,
@@ -29,11 +34,16 @@ pub struct AdminApiKeyCreateResponse {
     #[serde(rename = "created_at")]
     pub created_at: i64,
     /// The Unix timestamp (in seconds) of when the API key expires
-    #[serde(rename = "expires_at")]
-    pub expires_at: i64,
+    #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
+    pub expires_at: Option<i64>,
     /// The Unix timestamp (in seconds) of when the API key was last used
-    #[serde(rename = "last_used_at", skip_serializing_if = "Option::is_none")]
-    pub last_used_at: Option<i64>,
+    #[serde(
+        rename = "last_used_at",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_used_at: Option<Option<i64>>,
     #[serde(rename = "owner")]
     pub owner: models::AdminApiKeyOwner,
     /// The value of the API key. Only shown on create.
@@ -47,7 +57,7 @@ impl AdminApiKeyCreateResponse {
         id: String,
         redacted_value: String,
         created_at: i64,
-        expires_at: i64,
+        expires_at: Option<i64>,
         owner: models::AdminApiKeyOwner,
         value: String,
     ) -> AdminApiKeyCreateResponse {

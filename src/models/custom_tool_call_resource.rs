@@ -22,8 +22,13 @@ pub struct CustomToolCallResource {
     /// An identifier used to map this custom tool call to a tool call output.
     #[serde(rename = "call_id")]
     pub call_id: String,
-    #[serde(rename = "caller", skip_serializing_if = "Option::is_none")]
-    pub caller: Option<models::ToolCallCaller>,
+    #[serde(
+        rename = "caller",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub caller: Option<Option<models::ToolCallCaller>>,
     /// The namespace of the custom tool being called.
     #[serde(rename = "namespace", skip_serializing_if = "Option::is_none")]
     pub namespace: Option<String>,
