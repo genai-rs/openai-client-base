@@ -301,7 +301,7 @@ fn constructors_keep_their_required_arguments_and_usable_defaults() {
 
     let prediction = PredictionContent::new(
         openai_client_base::models::prediction_content::Type::Content,
-        json!(""),
+        "".into(),
     );
     assert_eq!(
         serde_json::to_value(prediction).unwrap(),

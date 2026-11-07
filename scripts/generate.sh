@@ -7,7 +7,7 @@ OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.27.0}"
 # https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
 # <generator version>-og<openapi-generator version>. Override for local builds,
 # e.g. GENERATOR_IMAGE=timvw-rust:dev.
-TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.16.0}"
+TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.17.0}"
 GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:${TIMVW_RUST_VERSION}-og${OPENAPI_GENERATOR_VERSION}}"
 GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
@@ -103,9 +103,8 @@ docker run --rm \
 
 # Step 4: Self-test the remaining generation scripts. The generator renders
 # unions (modelUnions, unionDispatch) and decides Default (defaultOnlyWhereValid)
-# and Display (noStructDisplay) itself. What is left of the post-processing
-# scripts (bon builders, enum variant names, recursive types, doc links, unused
-# imports) runs inside it (legacyModelRewrites).
+# and Display (noStructDisplay) itself, and writes only the imports a file
+# uses. Nothing rewrites the generated code afterwards any more.
 echo ""
 echo "🧪 Testing generation scripts..."
 uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"

@@ -1,0 +1,72 @@
+{
+  "source_heads": {
+    "reference": "openai-client-base 0.25.0",
+    "candidate": "generated with timvw-rust 0.17.0, without legacyModelRewrites"
+  },
+  "method": "Source declaration census of public model exports, struct fields, enum variant names, and function signatures, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derive or macro-generated builders, enumerate trait implementations, or resolve every visibility/re-export interaction.",
+  "registry_source_rs_files": 2941,
+  "current_source_rs_files": 2941,
+  "source_files_added": [],
+  "source_files_removed": [],
+  "source_files_modified": [
+    "models/create_message_request.rs",
+    "models/prediction_content.rs"
+  ],
+  "model_exports_added": [],
+  "model_exports_removed": [],
+  "public_functions_added_or_signature_changed": [
+    {
+      "file": "models/create_message_request.rs",
+      "name": "new",
+      "signature": "pub fn new(role: Role, content: models::CreateMessageRequestContent) -> CreateMessageRequest"
+    },
+    {
+      "file": "models/prediction_content.rs",
+      "name": "new",
+      "signature": "pub fn new(r#type: Type, content: models::PredictionContentContent) -> PredictionContent"
+    }
+  ],
+  "public_functions_removed_or_signature_changed": [
+    {
+      "file": "models/create_message_request.rs",
+      "name": "new",
+      "signature": "pub fn new(role: Role, content: serde_json::Value) -> CreateMessageRequest"
+    },
+    {
+      "file": "models/prediction_content.rs",
+      "name": "new",
+      "signature": "pub fn new(r#type: Type, content: serde_json::Value) -> PredictionContent"
+    }
+  ],
+  "public_model_field_changes": [
+    {
+      "file": "models/create_message_request.rs",
+      "model": "CreateMessageRequest",
+      "field": "content",
+      "registry": "serde_json::Value",
+      "current": "models::CreateMessageRequestContent"
+    },
+    {
+      "file": "models/prediction_content.rs",
+      "model": "PredictionContent",
+      "field": "content",
+      "registry": "serde_json::Value",
+      "current": "models::PredictionContentContent"
+    }
+  ],
+  "public_enum_variant_changes": [],
+  "public_derive_changes": [],
+  "serde_field_attribute_changes": [],
+  "counts": {
+    "model_exports_added": 0,
+    "model_exports_removed": 0,
+    "public_functions_added_or_signature_changed": 2,
+    "public_functions_removed_or_signature_changed": 2,
+    "public_model_field_changes": 2,
+    "public_enum_types_with_variant_changes": 0,
+    "public_enum_variants_added": 0,
+    "public_enum_variants_removed": 0,
+    "public_derive_changes": 0,
+    "serde_field_attribute_changes": 0
+  }
+}

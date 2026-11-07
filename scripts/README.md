@@ -39,11 +39,10 @@ Publishing is restricted to `main`, either on schedule or with `publish: true`.
 
 ## Model rewrites
 
-Union enums, JSON `Display` impls, the `Default` analysis, helper impls and
-unused-import pruning are done by the generator (`legacyModelRewrites` in
-`generator-config.json`): Java ports of the scripts that used to run here,
-checked byte for byte against their output. They are transitional; the
-generator's Milestone 3 replaces them with model-level rules.
+None. Unions, `Default`, `Display` and imports are decided by the generator's
+model-level rules (the options in `generator-config.json`). The transitional
+`legacyModelRewrites` (Java ports of the scripts that used to run here) was
+turned off in 0.26.0 and removed from timvw-rust 0.17.0.
 
 ## Documentation build
 
