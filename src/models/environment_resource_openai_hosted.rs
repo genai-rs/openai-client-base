@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// EnvironmentResourceOpenaiHosted : An environment hosted by OpenAI.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentResourceOpenaiHosted {
-    /// The type of the object. Always `openai_hosted`.
+    /// The type of the object. Always `openai_hosted`.  Defaults to `\"openai_hosted\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The public ID of the environment.
@@ -75,7 +75,7 @@ impl EnvironmentResourceOpenaiHosted {
         }
     }
 }
-/// The type of the object. Always `openai_hosted`.
+/// The type of the object. Always `openai_hosted`.  Defaults to `\"openai_hosted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "openai_hosted")]

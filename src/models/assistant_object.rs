@@ -35,7 +35,7 @@ pub struct AssistantObject {
     /// The system instructions that the assistant uses. The maximum length is 256,000 characters.
     #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
     pub instructions: Option<String>,
-    /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
+    /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.  Defaults to `[]`.
     #[serde(rename = "tools")]
     pub tools: Vec<models::AssistantObjectToolsInner>,
     #[serde(

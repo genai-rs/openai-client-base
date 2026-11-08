@@ -17,7 +17,7 @@ pub struct RealtimeSessionCreateRequestGa {
     /// The type of session to create. Always `realtime` for the Realtime API.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.
+    /// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.  Defaults to `[\"audio\"]`.
     #[serde(rename = "output_modalities", skip_serializing_if = "Option::is_none")]
     pub output_modalities: Option<Vec<OutputModalities>>,
     /// The Realtime model used for this session.
@@ -92,7 +92,7 @@ pub enum Type {
     Realtime,
 }
 
-/// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.
+/// The set of modalities the model can respond with. It defaults to `[\"audio\"]`, indicating that the model will respond with audio plus a transcript. `[\"text\"]` can be used to make the model respond with text only. It is not possible to request both `text` and `audio` at the same time.  Defaults to `[\"audio\"]`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputModalities {
     #[serde(rename = "text")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionTurnContentPartDone : Emitted when an output content part is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionTurnContentPartDone {
-    /// The type of the object. Always `agent.session.turn.content_part.done`.
+    /// The type of the object. Always `agent.session.turn.content_part.done`.  Defaults to `\"agent.session.turn.content_part.done\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -63,7 +63,7 @@ impl SessionEventAgentSessionTurnContentPartDone {
         }
     }
 }
-/// The type of the object. Always `agent.session.turn.content_part.done`.
+/// The type of the object. Always `agent.session.turn.content_part.done`.  Defaults to `\"agent.session.turn.content_part.done\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.turn.content_part.done")]

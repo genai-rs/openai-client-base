@@ -20,6 +20,7 @@ pub struct LiveDecisionItemCreated {
     /// The event_id of the client command associated with this server event, when supplied.
     #[serde(rename = "client_event_id", skip_serializing_if = "Option::is_none")]
     pub client_event_id: Option<String>,
+    /// Defaults to `\"decision.item.created\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "item")]
@@ -41,6 +42,7 @@ impl LiveDecisionItemCreated {
         }
     }
 }
+/// Defaults to `\"decision.item.created\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "decision.item.created")]

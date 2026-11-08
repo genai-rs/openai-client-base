@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaUrlCitationBody : A citation for a web resource used to generate a model response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaUrlCitationBody {
-    /// The type of the URL citation. Always `url_citation`.
+    /// The type of the URL citation. Always `url_citation`.  Defaults to `\"url_citation\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the web resource.
@@ -48,7 +48,7 @@ impl BetaUrlCitationBody {
         }
     }
 }
-/// The type of the URL citation. Always `url_citation`.
+/// The type of the URL citation. Always `url_citation`.  Defaults to `\"url_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "url_citation")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct C2PaProvenanceResult {
-    /// The provenance signal type. Always `c2pa`.
+    /// The provenance signal type. Always `c2pa`.  Defaults to `\"c2pa\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "outcome")]
@@ -50,7 +50,7 @@ impl C2PaProvenanceResult {
         }
     }
 }
-/// The provenance signal type. Always `c2pa`.
+/// The provenance signal type. Always `c2pa`.  Defaults to `\"c2pa\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "c2pa")]

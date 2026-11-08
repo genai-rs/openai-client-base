@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// EncryptedContentResource : Encrypted content exchanged between agents.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EncryptedContentResource {
-    /// The content type. Always `encrypted_content`.
+    /// The content type. Always `encrypted_content`.  Defaults to `\"encrypted_content\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The encrypted content payload.
@@ -30,7 +30,7 @@ impl EncryptedContentResource {
         }
     }
 }
-/// The content type. Always `encrypted_content`.
+/// The content type. Always `encrypted_content`.  Defaults to `\"encrypted_content\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "encrypted_content")]

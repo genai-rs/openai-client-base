@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// LiveSessionStarted : Returned when a Live session has started. Contains the resolved session configuration, including server defaults.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionStarted {
-    /// The event type, always `session.started`.
+    /// The event type, always `session.started`.  Defaults to `\"session.started\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the Live server event.
@@ -42,7 +42,7 @@ impl LiveSessionStarted {
         }
     }
 }
-/// The event type, always `session.started`.
+/// The event type, always `session.started`.  Defaults to `\"session.started\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.started")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionInputParamAgentSessionInputComputerUseApprovalRequestResult : Responds to a pending Computer Use approval request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
-    /// The type of the object. Always `agent.session.input.computer_use_approval_request_result`.
+    /// The type of the object. Always `agent.session.input.computer_use_approval_request_result`.  Defaults to `\"agent.session.input.computer_use_approval_request_result\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The registered request ID from the required action.
@@ -38,7 +38,7 @@ impl SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
         }
     }
 }
-/// The type of the object. Always `agent.session.input.computer_use_approval_request_result`.
+/// The type of the object. Always `agent.session.input.computer_use_approval_request_result`.  Defaults to `\"agent.session.input.computer_use_approval_request_result\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.input.computer_use_approval_request_result")]

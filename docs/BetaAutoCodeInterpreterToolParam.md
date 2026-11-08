@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | Always `auto`. (enum: auto) | 
+**r#type** | **Type** | Always `auto`.  Defaults to `\"auto\"`. (enum: auto) | 
 **file_ids** | Option<**Vec<String>**> | An optional list of uploaded files to make available to your code. | [optional]
 **memory_limit** | Option<[**models::BetaContainerMemoryLimit**](BetaContainerMemoryLimit.md)> |  | [optional]
 **network_policy** | Option<[**models::BetaAutoCodeInterpreterToolParamNetworkPolicy**](BetaAutoCodeInterpreterToolParamNetworkPolicy.md)> |  | [optional]

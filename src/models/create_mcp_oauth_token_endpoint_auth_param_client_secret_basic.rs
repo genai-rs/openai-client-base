@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// CreateMcpOauthTokenEndpointAuthParamClientSecretBasic : Sends the client ID and secret using HTTP Basic authentication.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateMcpOauthTokenEndpointAuthParamClientSecretBasic {
-    /// The type of the object. Always `client_secret_basic`.
+    /// The type of the object. Always `client_secret_basic`.  Defaults to `\"client_secret_basic\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The OAuth client secret to store. Never returned in credential resources.
@@ -33,7 +33,7 @@ impl CreateMcpOauthTokenEndpointAuthParamClientSecretBasic {
         }
     }
 }
-/// The type of the object. Always `client_secret_basic`.
+/// The type of the object. Always `client_secret_basic`.  Defaults to `\"client_secret_basic\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "client_secret_basic")]

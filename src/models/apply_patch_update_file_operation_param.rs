@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ApplyPatchUpdateFileOperationParam : Instruction for updating an existing file via the apply_patch tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApplyPatchUpdateFileOperationParam {
-    /// The operation type. Always `update_file`.
+    /// The operation type. Always `update_file`.  Defaults to `\"update_file\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Path of the file to update relative to the workspace root.
@@ -30,7 +30,7 @@ impl ApplyPatchUpdateFileOperationParam {
         ApplyPatchUpdateFileOperationParam { r#type, path, diff }
     }
 }
-/// The operation type. Always `update_file`.
+/// The operation type. Always `update_file`.  Defaults to `\"update_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "update_file")]

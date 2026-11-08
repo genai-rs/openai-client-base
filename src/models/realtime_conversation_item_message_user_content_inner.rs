@@ -24,7 +24,7 @@ pub struct RealtimeConversationItemMessageUserContentInner {
     /// Base64-encoded image bytes (for `input_image`) as a data URI. For example `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...`. Supported formats are PNG and JPEG.
     #[serde(rename = "image_url", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
-    /// The detail level of the image (for `input_image`). `auto` will default to `high`.
+    /// The detail level of the image (for `input_image`). `auto` will default to `high`.  Defaults to `\"auto\"`.
     #[serde(rename = "detail", skip_serializing_if = "Option::is_none")]
     pub detail: Option<Detail>,
     /// Transcript of the audio (for `input_audio`). This is not sent to the model, but will be attached to the message item for reference.
@@ -55,7 +55,7 @@ pub enum Type {
     InputImage,
 }
 
-/// The detail level of the image (for `input_image`). `auto` will default to `high`.
+/// The detail level of the image (for `input_image`). `auto` will default to `high`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Detail {
     #[serde(rename = "auto")]

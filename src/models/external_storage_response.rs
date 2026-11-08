@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ExternalStorageResponse {
+    /// Defaults to `\"organization.external_storage\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "id")]
@@ -50,6 +51,7 @@ impl ExternalStorageResponse {
         }
     }
 }
+/// Defaults to `\"organization.external_storage\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "organization.external_storage")]

@@ -16,7 +16,7 @@ pub struct DeletedThreadResource {
     /// Identifier of the deleted thread.
     #[serde(rename = "id")]
     pub id: String,
-    /// Type discriminator that is always `chatkit.thread.deleted`.
+    /// Type discriminator that is always `chatkit.thread.deleted`.  Defaults to `\"chatkit.thread.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Indicates that the thread has been deleted.
@@ -34,7 +34,7 @@ impl DeletedThreadResource {
         }
     }
 }
-/// Type discriminator that is always `chatkit.thread.deleted`.
+/// Type discriminator that is always `chatkit.thread.deleted`.  Defaults to `\"chatkit.thread.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "chatkit.thread.deleted")]

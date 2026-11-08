@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveFunctionToolChoiceParam {
-    /// The tool to call. Always `function`.
+    /// The tool to call. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the function tool to call.
@@ -25,7 +25,7 @@ impl LiveFunctionToolChoiceParam {
         LiveFunctionToolChoiceParam { r#type, name }
     }
 }
-/// The tool to call. Always `function`.
+/// The tool to call. Always `function`.  Defaults to `\"function\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function")]

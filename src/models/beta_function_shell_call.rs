@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaFunctionShellCall {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
-    /// The type of the item. Always `shell_call`.
+    /// The type of the item. Always `shell_call`.  Defaults to `\"shell_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the shell tool call. Populated when this item is returned via API.
@@ -66,7 +66,7 @@ impl BetaFunctionShellCall {
         }
     }
 }
-/// The type of the item. Always `shell_call`.
+/// The type of the item. Always `shell_call`.  Defaults to `\"shell_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "shell_call")]

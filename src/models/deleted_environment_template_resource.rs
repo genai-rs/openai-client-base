@@ -16,7 +16,7 @@ pub struct DeletedEnvironmentTemplateResource {
     /// The ID of the deleted environment template.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `agent.environment.template.deleted`.
+    /// The object type. Always `agent.environment.template.deleted`.  Defaults to `\"agent.environment.template.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Whether the environment template was deleted. Always `true`.
@@ -34,7 +34,7 @@ impl DeletedEnvironmentTemplateResource {
         }
     }
 }
-/// The object type. Always `agent.environment.template.deleted`.
+/// The object type. Always `agent.environment.template.deleted`.  Defaults to `\"agent.environment.template.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.environment.template.deleted")]

@@ -17,7 +17,7 @@ pub struct LiveDelegationItem {
     /// The unique ID of the delegation. Use this as delegation_id when replying to client-owned work or correlating backend events.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type, always `delegation`.
+    /// The object type, always `delegation`.  Defaults to `\"delegation\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "target")]
@@ -42,7 +42,7 @@ impl LiveDelegationItem {
         }
     }
 }
-/// The object type, always `delegation`.
+/// The object type, always `delegation`.  Defaults to `\"delegation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "delegation")]

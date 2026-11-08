@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: decisions) | 
+**r#type** | **Type** | Defaults to `\"decisions\"`. (enum: decisions) | 
 **event_type** | **EventType** |  (enum: session.input_transcript.delta, session.output_transcript.delta) | 
 **decisions** | [**models::LiveDecisionQuestionsInputParam**](LiveDecisionQuestionsInputParam.md) |  | 
 

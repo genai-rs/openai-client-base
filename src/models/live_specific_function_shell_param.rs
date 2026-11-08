@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveSpecificFunctionShellParam : Forces the model to call the shell tool when a tool call is required.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSpecificFunctionShellParam {
-    /// The tool to call. Always `shell`.
+    /// The tool to call. Always `shell`.  Defaults to `\"shell\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl LiveSpecificFunctionShellParam {
         LiveSpecificFunctionShellParam { r#type }
     }
 }
-/// The tool to call. Always `shell`.
+/// The tool to call. Always `shell`.  Defaults to `\"shell\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "shell")]

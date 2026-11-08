@@ -20,21 +20,21 @@ pub struct ImageGenTool {
     /// ID of the model to use
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
-    /// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.
+    /// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.  Defaults to `\"auto\"`.
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<models::ImageGenToolSize>,
-    /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
+    /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.  Defaults to `\"png\"`.
     #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
     pub output_format: Option<OutputFormat>,
-    /// Compression level for the output image. Default: 100.
+    /// Compression level for the output image. Default: 100.  Defaults to `100`.
     #[serde(rename = "output_compression", skip_serializing_if = "Option::is_none")]
     pub output_compression: Option<i64>,
-    /// Moderation level for the generated image. Default: `auto`.
+    /// Moderation level for the generated image. Default: `auto`.  Defaults to `\"auto\"`.
     #[serde(rename = "moderation", skip_serializing_if = "Option::is_none")]
     pub moderation: Option<Moderation>,
-    /// Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.
+    /// Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.  Defaults to `\"auto\"`.
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<Background>,
     #[serde(
@@ -46,7 +46,7 @@ pub struct ImageGenTool {
     pub input_fidelity: Option<Option<models::InputFidelity>>,
     #[serde(rename = "input_image_mask", skip_serializing_if = "Option::is_none")]
     pub input_image_mask: Option<models::ImageGenToolInputImageMask>,
-    /// Number of partial images to generate in streaming mode, from 0 (default value) to 3.
+    /// Number of partial images to generate in streaming mode, from 0 (default value) to 3.  Defaults to `0`.
     #[serde(rename = "partial_images", skip_serializing_if = "Option::is_none")]
     pub partial_images: Option<i64>,
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
@@ -82,7 +82,7 @@ pub enum Type {
     Unknown,
 }
 
-/// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.
+/// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
     #[serde(rename = "low")]
@@ -102,7 +102,7 @@ pub enum Quality {
     Unknown,
 }
 
-/// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.
+/// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.  Defaults to `\"png\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputFormat {
     #[serde(rename = "png")]
@@ -116,7 +116,7 @@ pub enum OutputFormat {
     Unknown,
 }
 
-/// Moderation level for the generated image. Default: `auto`.
+/// Moderation level for the generated image. Default: `auto`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Moderation {
     #[serde(rename = "auto")]
@@ -128,7 +128,7 @@ pub enum Moderation {
     Unknown,
 }
 
-/// Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.
+/// Set the background of the generated image. One of `transparent`, `opaque`, or `auto`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, support `opaque` and `transparent` backgrounds. Transparent backgrounds are available for supported GPT Image models. For `gpt-image-2` and `gpt-image-2-2026-04-21`, this support is in preview. When using `transparent`, set the output format to `png` or `webp`. Default: `auto`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Background {
     #[serde(rename = "transparent")]

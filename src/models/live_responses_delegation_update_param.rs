@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// LiveResponsesDelegationUpdateParam : Update the Responses backend for an existing Live session without changing delegation ownership.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveResponsesDelegationUpdateParam {
-    /// The delegation owner. Always `responses` for tasks handled by the Responses API.
+    /// The delegation owner. Always `responses` for tasks handled by the Responses API.  Defaults to `\"responses\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "responses", skip_serializing_if = "Option::is_none")]
@@ -30,7 +30,7 @@ impl LiveResponsesDelegationUpdateParam {
         }
     }
 }
-/// The delegation owner. Always `responses` for tasks handled by the Responses API.
+/// The delegation owner. Always `responses` for tasks handled by the Responses API.  Defaults to `\"responses\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "responses")]

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | Specifies the event type. For a scroll action, this property is always set to `scroll`. (enum: scroll) | 
+**r#type** | **Type** | Specifies the event type. For a scroll action, this property is always set to `scroll`.  Defaults to `\"scroll\"`. (enum: scroll) | 
 **x** | **i64** | The x-coordinate where the scroll occurred. | 
 **y** | **i64** | The y-coordinate where the scroll occurred. | 
 **scroll_x** | **i64** | The horizontal scroll distance. | 

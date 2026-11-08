@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of data source. Always `custom`. (enum: custom) | 
+**r#type** | **Type** | The type of data source. Always `custom`.  Defaults to `\"custom\"`. (enum: custom) | 
 **item_schema** | **std::collections::HashMap<String, serde_json::Value>** | The json schema for each row in the data source. | 
-**include_sample_schema** | Option<**bool**> | Whether the eval should expect you to populate the sample namespace (ie, by generating responses off of your data source) | [optional]
+**include_sample_schema** | Option<**bool**> | Whether the eval should expect you to populate the sample namespace (ie, by generating responses off of your data source)  Defaults to `false`. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ServiceAccountApiKeyBody {
-    /// The object type, which is always `organization.project.service_account.api_key`
+    /// The object type, which is always `organization.project.service_account.api_key`  Defaults to `\"organization.project.service_account.api_key\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The unredacted API key value.
@@ -55,7 +55,7 @@ impl ServiceAccountApiKeyBody {
         }
     }
 }
-/// The object type, which is always `organization.project.service_account.api_key`
+/// The object type, which is always `organization.project.service_account.api_key`  Defaults to `\"organization.project.service_account.api_key\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "organization.project.service_account.api_key")]

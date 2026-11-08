@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaScreenshotParam : A screenshot action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaScreenshotParam {
-    /// Specifies the event type. For a screenshot action, this property is always set to `screenshot`.
+    /// Specifies the event type. For a screenshot action, this property is always set to `screenshot`.  Defaults to `\"screenshot\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl BetaScreenshotParam {
         BetaScreenshotParam { r#type }
     }
 }
-/// Specifies the event type. For a screenshot action, this property is always set to `screenshot`.
+/// Specifies the event type. For a screenshot action, this property is always set to `screenshot`.  Defaults to `\"screenshot\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "screenshot")]

@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AnswerResourcePredicate {
-    /// The type of the object. Always `predicate`.
+    /// The type of the object. Always `predicate`.  Defaults to `\"predicate\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
@@ -30,7 +30,7 @@ impl AnswerResourcePredicate {
         }
     }
 }
-/// The type of the object. Always `predicate`.
+/// The type of the object. Always `predicate`.  Defaults to `\"predicate\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "predicate")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SpecificApplyPatchParam : Forces the model to call the apply_patch tool when executing a tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SpecificApplyPatchParam {
-    /// The tool to call. Always `apply_patch`.
+    /// The tool to call. Always `apply_patch`.  Defaults to `\"apply_patch\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl SpecificApplyPatchParam {
         SpecificApplyPatchParam { r#type }
     }
 }
-/// The tool to call. Always `apply_patch`.
+/// The tool to call. Always `apply_patch`.  Defaults to `\"apply_patch\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "apply_patch")]

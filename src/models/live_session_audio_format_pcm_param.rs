@@ -15,7 +15,7 @@ use serde_repr::{Deserialize_repr, Serialize_repr};
 /// LiveSessionAudioFormatPcmParam : Raw, mono 16-bit little-endian PCM audio for a Live WebSocket connection.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionAudioFormatPcmParam {
-    /// The audio encoding. Always `audio/pcm`.
+    /// The audio encoding. Always `audio/pcm`.  Defaults to `\"audio/pcm\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Audio sample rate in hertz. Live WebSocket PCM audio supports 16000 or 24000 Hz.
@@ -29,7 +29,7 @@ impl LiveSessionAudioFormatPcmParam {
         LiveSessionAudioFormatPcmParam { r#type, rate }
     }
 }
-/// The audio encoding. Always `audio/pcm`.
+/// The audio encoding. Always `audio/pcm`.  Defaults to `\"audio/pcm\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "audio/pcm")]

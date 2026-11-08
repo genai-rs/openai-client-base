@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaProgrammaticToolCallingParam {
-    /// The type of the tool. Always `programmatic_tool_calling`.
+    /// The type of the tool. Always `programmatic_tool_calling`.  Defaults to `\"programmatic_tool_calling\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -22,7 +22,7 @@ impl BetaProgrammaticToolCallingParam {
         BetaProgrammaticToolCallingParam { r#type }
     }
 }
-/// The type of the tool. Always `programmatic_tool_calling`.
+/// The type of the tool. Always `programmatic_tool_calling`.  Defaults to `\"programmatic_tool_calling\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "programmatic_tool_calling")]

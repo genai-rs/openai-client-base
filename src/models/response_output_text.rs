@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ResponseOutputText : Assistant response text accompanied by optional annotations.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseOutputText {
-    /// Type discriminator that is always `output_text`.
+    /// Type discriminator that is always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Assistant generated text.
@@ -39,7 +39,7 @@ impl ResponseOutputText {
         }
     }
 }
-/// Type discriminator that is always `output_text`.
+/// Type discriminator that is always `output_text`.  Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "output_text")]

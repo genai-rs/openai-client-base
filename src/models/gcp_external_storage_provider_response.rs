@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct GcpExternalStorageProviderResponse {
+    /// Defaults to `\"gcp\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "bucket")]
@@ -49,6 +50,7 @@ impl GcpExternalStorageProviderResponse {
         }
     }
 }
+/// Defaults to `\"gcp\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "gcp")]

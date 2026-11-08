@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionInputRefusal {
+    /// Defaults to `\"refusal\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "refusal")]
@@ -23,6 +24,7 @@ impl DecisionInputRefusal {
         DecisionInputRefusal { r#type, refusal }
     }
 }
+/// Defaults to `\"refusal\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "refusal")]

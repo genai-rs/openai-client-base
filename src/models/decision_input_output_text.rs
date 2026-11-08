@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionInputOutputText {
+    /// Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "text")]
@@ -23,6 +24,7 @@ impl DecisionInputOutputText {
         DecisionInputOutputText { r#type, text }
     }
 }
+/// Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "output_text")]

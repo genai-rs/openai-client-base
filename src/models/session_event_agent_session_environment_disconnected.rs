@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionEnvironmentDisconnected : Emitted when a session environment disconnects.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionEnvironmentDisconnected {
-    /// The type of the object. Always `agent.session.environment.disconnected`.
+    /// The type of the object. Always `agent.session.environment.disconnected`.  Defaults to `\"agent.session.environment.disconnected\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -48,7 +48,7 @@ impl SessionEventAgentSessionEnvironmentDisconnected {
         }
     }
 }
-/// The type of the object. Always `agent.session.environment.disconnected`.
+/// The type of the object. Always `agent.session.environment.disconnected`.  Defaults to `\"agent.session.environment.disconnected\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.environment.disconnected")]

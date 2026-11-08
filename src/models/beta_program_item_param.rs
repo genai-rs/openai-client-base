@@ -23,7 +23,7 @@ pub struct BetaProgramItemParam {
     /// The unique ID of this program item.
     #[serde(rename = "id")]
     pub id: String,
-    /// The item type. Always `program`.
+    /// The item type. Always `program`.  Defaults to `\"program\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The stable call ID of the program item.
@@ -55,7 +55,7 @@ impl BetaProgramItemParam {
         }
     }
 }
-/// The item type. Always `program`.
+/// The item type. Always `program`.  Defaults to `\"program\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "program")]

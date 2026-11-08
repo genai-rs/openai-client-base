@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTagParam**](BetaAgentTagParam.md)> |  | [optional]
 **id** | Option<**String**> | The unique ID of this agent message item. | [optional]
-**r#type** | **Type** | The item type. Always `agent_message`. (enum: agent_message) | 
+**r#type** | **Type** | The item type. Always `agent_message`.  Defaults to `\"agent_message\"`. (enum: agent_message) | 
 **author** | **String** | The sending agent identity. | 
 **recipient** | **String** | The destination agent identity. | 
 **content** | [**Vec<models::BetaAgentMessageItemParamContentInner>**](BetaAgentMessageItemParamContentInner.md) | Plaintext, image, or encrypted content sent between agents. | 

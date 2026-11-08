@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> | The agent that produced this item. | [optional]
-**r#type** | **Type** | The type of the code interpreter tool call. Always `code_interpreter_call`.  (enum: code_interpreter_call) | 
+**r#type** | **Type** | The type of the code interpreter tool call. Always `code_interpreter_call`.  Defaults to `\"code_interpreter_call\"`. (enum: code_interpreter_call) | 
 **id** | **String** | The unique ID of the code interpreter tool call.  | 
 **status** | **Status** | The status of the code interpreter tool call. Valid values are `in_progress`, `completed`, `incomplete`, `interpreting`, and `failed`.  (enum: in_progress, completed, incomplete, interpreting, failed) | 
 **container_id** | **String** | The ID of the container used to run the code.  | 

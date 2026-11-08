@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `search`. (enum: search) | 
+**r#type** | **Type** | The type of the object. Always `search`.  Defaults to `\"search\"`. (enum: search) | 
 **query** | Option<**String**> | The search query, when a single query was used. | 
 **queries** | Option<**Vec<String>**> | The search queries, when multiple queries were used. | 
 

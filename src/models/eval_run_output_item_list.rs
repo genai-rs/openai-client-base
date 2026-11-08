@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// EvalRunOutputItemList : An object representing a list of output items for an evaluation run.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalRunOutputItemList {
-    /// The type of this object. It is always set to \"list\".
+    /// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// An array of eval run output item objects.
@@ -49,7 +49,7 @@ impl EvalRunOutputItemList {
         }
     }
 }
-/// The type of this object. It is always set to \"list\".
+/// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "list")]

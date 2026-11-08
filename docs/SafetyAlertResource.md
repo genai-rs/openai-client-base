@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**object** | **Object** |  (enum: safety.alert) | 
+**object** | **Object** | Defaults to `\"safety.alert\"`. (enum: safety.alert) | 
 **created_at** | **i64** |  | 
 **request_id** | **String** |  | 
 **response_id** | **String** |  | 

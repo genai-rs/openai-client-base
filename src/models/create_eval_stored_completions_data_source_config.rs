@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// CreateEvalStoredCompletionsDataSourceConfig : Deprecated in favor of LogsDataSourceConfig.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEvalStoredCompletionsDataSourceConfig {
-    /// The type of data source. Always `stored_completions`.
+    /// The type of data source. Always `stored_completions`.  Defaults to `\"stored_completions\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Metadata filters for the stored completions data source.
@@ -30,7 +30,7 @@ impl CreateEvalStoredCompletionsDataSourceConfig {
         }
     }
 }
-/// The type of data source. Always `stored_completions`.
+/// The type of data source. Always `stored_completions`.  Defaults to `\"stored_completions\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "stored_completions")]

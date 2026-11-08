@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionsUsageBucket {
+    /// Defaults to `\"bucket\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "start_time")]
@@ -38,6 +39,7 @@ impl DecisionsUsageBucket {
         }
     }
 }
+/// Defaults to `\"bucket\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "bucket")]

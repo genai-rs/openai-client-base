@@ -20,7 +20,7 @@ pub struct CreateEvalCompletionsRunDataSourceSamplingParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub reasoning_effort: Option<Option<models::ReasoningEffort>>,
-    /// A higher temperature increases randomness in the outputs.
+    /// A higher temperature increases randomness in the outputs.  Defaults to `1`.
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
     pub temperature: Option<f64>,
     /// The maximum number of tokens in the generated output.
@@ -29,10 +29,10 @@ pub struct CreateEvalCompletionsRunDataSourceSamplingParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub max_completion_tokens: Option<i64>,
-    /// An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+    /// An alternative to temperature for nucleus sampling; 1.0 includes all tokens.  Defaults to `1`.
     #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
     pub top_p: Option<f64>,
-    /// A seed value to initialize the randomness, during sampling.
+    /// A seed value to initialize the randomness, during sampling.  Defaults to `42`.
     #[serde(rename = "seed", skip_serializing_if = "Option::is_none")]
     pub seed: Option<i64>,
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]

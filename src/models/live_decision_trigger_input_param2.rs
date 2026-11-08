@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionTriggerInputParam2 {
+    /// Defaults to `\"decisions\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "event_type")]
@@ -34,6 +35,7 @@ impl LiveDecisionTriggerInputParam2 {
         }
     }
 }
+/// Defaults to `\"decisions\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "decisions")]

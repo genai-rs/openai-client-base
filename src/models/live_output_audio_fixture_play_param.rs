@@ -21,6 +21,7 @@ pub struct LiveOutputAudioFixturePlayParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub event_id: Option<Option<String>>,
+    /// Defaults to `\"session.output_audio.fixture.play\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Base64-encoded raw mono PCM16 audio, little-endian, at 24 kHz. Do not include a WAV or other container header.
@@ -38,6 +39,7 @@ impl LiveOutputAudioFixturePlayParam {
         }
     }
 }
+/// Defaults to `\"session.output_audio.fixture.play\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.output_audio.fixture.play")]

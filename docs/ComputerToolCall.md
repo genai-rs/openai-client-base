@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the computer call. Always `computer_call`. (enum: computer_call) | 
+**r#type** | **Type** | The type of the computer call. Always `computer_call`.  Defaults to `\"computer_call\"`. (enum: computer_call) | 
 **id** | **String** | The unique ID of the computer call. | 
 **call_id** | **String** | An identifier used when responding to the tool call with output.  | 
 **action** | Option<[**models::ComputerAction**](ComputerAction.md)> |  | [optional]

@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSpecificFileSearchParam {
-    /// The tool to call. Always `file_search`.
+    /// The tool to call. Always `file_search`.  Defaults to `\"file_search\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -22,7 +22,7 @@ impl LiveSpecificFileSearchParam {
         LiveSpecificFileSearchParam { r#type }
     }
 }
-/// The tool to call. Always `file_search`.
+/// The tool to call. Always `file_search`.  Defaults to `\"file_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "file_search")]

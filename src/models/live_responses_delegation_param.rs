@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// LiveResponsesDelegationParam : Delegate tasks to a Responses model managed by the Live session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveResponsesDelegationParam {
-    /// The delegation owner. Always `responses` for tasks handled by the Responses API.
+    /// The delegation owner. Always `responses` for tasks handled by the Responses API.  Defaults to `\"responses\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "responses")]
@@ -30,7 +30,7 @@ impl LiveResponsesDelegationParam {
         LiveResponsesDelegationParam { r#type, responses }
     }
 }
-/// The delegation owner. Always `responses` for tasks handled by the Responses API.
+/// The delegation owner. Always `responses` for tasks handled by the Responses API.  Defaults to `\"responses\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "responses")]

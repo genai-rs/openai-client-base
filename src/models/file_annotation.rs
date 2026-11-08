@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// FileAnnotation : Annotation that references an uploaded file.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FileAnnotation {
-    /// Type discriminator that is always `file` for this annotation.
+    /// Type discriminator that is always `file` for this annotation.  Defaults to `\"file\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "source")]
@@ -27,7 +27,7 @@ impl FileAnnotation {
         FileAnnotation { r#type, source }
     }
 }
-/// Type discriminator that is always `file` for this annotation.
+/// Type discriminator that is always `file` for this annotation.  Defaults to `\"file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "file")]

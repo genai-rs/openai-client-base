@@ -18,6 +18,7 @@ pub struct LiveTransportAnswered {
     /// The canonical Live session ID.
     #[serde(rename = "session_id")]
     pub session_id: String,
+    /// Defaults to `\"transport.answered\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -32,6 +33,7 @@ impl LiveTransportAnswered {
         }
     }
 }
+/// Defaults to `\"transport.answered\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "transport.answered")]

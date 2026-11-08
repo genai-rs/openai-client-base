@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaCodeInterpreterOutputLogs : The logs output from the code interpreter.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCodeInterpreterOutputLogs {
-    /// The type of the output. Always `logs`.
+    /// The type of the output. Always `logs`.  Defaults to `\"logs\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The logs output from the code interpreter.
@@ -27,7 +27,7 @@ impl BetaCodeInterpreterOutputLogs {
         BetaCodeInterpreterOutputLogs { r#type, logs }
     }
 }
-/// The type of the output. Always `logs`.
+/// The type of the output. Always `logs`.  Defaults to `\"logs\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "logs")]

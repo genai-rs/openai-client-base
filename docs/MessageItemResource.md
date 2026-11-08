@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The item type. Always `message`. (enum: message) | 
+**r#type** | **Type** | The item type. Always `message`.  Defaults to `\"message\"`. (enum: message) | 
 **id** | Option<**String**> | The ID of this item, or null for legacy user messages whose ID was not recorded. | 
 **turn_id** | **String** | The ID of the turn that contains this item. | 
 **role** | [**models::SessionMessageRoleResource**](SessionMessageRoleResource.md) |  | 

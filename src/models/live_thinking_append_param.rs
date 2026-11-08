@@ -21,7 +21,7 @@ pub struct LiveThinkingAppendParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub event_id: Option<Option<String>>,
-    /// The Live client event type. Always `session.thinking.append`.
+    /// The Live client event type. Always `session.thinking.append`.  Defaults to `\"session.thinking.append\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Required, nullable. Set null for general session context, or use the ID from session.delegation.created for an existing client delegation. Non-null IDs are not accepted with Responses delegation.
@@ -47,7 +47,7 @@ impl LiveThinkingAppendParam {
         }
     }
 }
-/// The Live client event type. Always `session.thinking.append`.
+/// The Live client event type. Always `session.thinking.append`.  Defaults to `\"session.thinking.append\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.thinking.append")]

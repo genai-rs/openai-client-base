@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaOutputTextContent : A text output from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaOutputTextContent {
-    /// The type of the output text. Always `output_text`.
+    /// The type of the output text. Always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text output from the model.
@@ -43,7 +43,7 @@ impl BetaOutputTextContent {
         }
     }
 }
-/// The type of the output text. Always `output_text`.
+/// The type of the output text. Always `output_text`.  Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "output_text")]

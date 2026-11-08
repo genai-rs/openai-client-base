@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ScrollParam : A scroll action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ScrollParam {
-    /// Specifies the event type. For a scroll action, this property is always set to `scroll`.
+    /// Specifies the event type. For a scroll action, this property is always set to `scroll`.  Defaults to `\"scroll\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The x-coordinate where the scroll occurred.
@@ -51,7 +51,7 @@ impl ScrollParam {
         }
     }
 }
-/// Specifies the event type. For a scroll action, this property is always set to `scroll`.
+/// Specifies the event type. For a scroll action, this property is always set to `scroll`.  Defaults to `\"scroll\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "scroll")]

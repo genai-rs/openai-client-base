@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaLocalShellExecAction : Execute a shell command on the server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaLocalShellExecAction {
-    /// The type of the local shell action. Always `exec`.
+    /// The type of the local shell action. Always `exec`.  Defaults to `\"exec\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The command to run.
@@ -65,7 +65,7 @@ impl BetaLocalShellExecAction {
         }
     }
 }
-/// The type of the local shell action. Always `exec`.
+/// The type of the local shell action. Always `exec`.  Defaults to `\"exec\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "exec")]

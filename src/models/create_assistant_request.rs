@@ -47,7 +47,7 @@ pub struct CreateAssistantRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub reasoning_effort: Option<Option<models::ReasoningEffort>>,
-    /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
+    /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.  Defaults to `[]`.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::CreateAssistantRequestToolsInner>>,
     #[serde(

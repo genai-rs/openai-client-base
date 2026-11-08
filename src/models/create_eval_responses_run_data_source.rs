@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// CreateEvalResponsesRunDataSource : A ResponsesRunDataSource object describing a model sampling configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEvalResponsesRunDataSource {
-    /// The type of run data source. Always `responses`.
+    /// The type of run data source. Always `responses`.  Defaults to `\"responses\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "input_messages", skip_serializing_if = "Option::is_none")]
@@ -43,7 +43,7 @@ impl CreateEvalResponsesRunDataSource {
         }
     }
 }
-/// The type of run data source. Always `responses`.
+/// The type of run data source. Always `responses`.  Defaults to `\"responses\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "responses")]

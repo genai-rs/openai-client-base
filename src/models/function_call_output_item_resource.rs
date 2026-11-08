@@ -20,7 +20,7 @@ pub struct FunctionCallOutputItemResource {
     /// The ID of the turn that contains this item.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
-    /// The item type. Always `function_call_output`.
+    /// The item type. Always `function_call_output`.  Defaults to `\"function_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the function call that produced this output.
@@ -58,7 +58,7 @@ impl FunctionCallOutputItemResource {
         }
     }
 }
-/// The item type. Always `function_call_output`.
+/// The item type. Always `function_call_output`.  Defaults to `\"function_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function_call_output")]

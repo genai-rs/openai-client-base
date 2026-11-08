@@ -19,7 +19,7 @@ pub struct LiveInfoEvent {
     /// The event_id of the client command associated with this server event, when supplied.
     #[serde(rename = "client_event_id", skip_serializing_if = "Option::is_none")]
     pub client_event_id: Option<String>,
-    /// The event type, always `info`.
+    /// The event type, always `info`.  Defaults to `\"info\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// A machine-readable code for the notice, such as `data_channel_permissions`.
@@ -42,7 +42,7 @@ impl LiveInfoEvent {
         }
     }
 }
-/// The event type, always `info`.
+/// The event type, always `info`.  Defaults to `\"info\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "info")]

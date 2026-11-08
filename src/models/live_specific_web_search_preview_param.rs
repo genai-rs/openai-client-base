@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSpecificWebSearchPreviewParam {
-    /// The tool to call. Always `web_search_preview`.
+    /// The tool to call. Always `web_search_preview`.  Defaults to `\"web_search_preview\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -22,7 +22,7 @@ impl LiveSpecificWebSearchPreviewParam {
         LiveSpecificWebSearchPreviewParam { r#type }
     }
 }
-/// The tool to call. Always `web_search_preview`.
+/// The tool to call. Always `web_search_preview`.  Defaults to `\"web_search_preview\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "web_search_preview")]

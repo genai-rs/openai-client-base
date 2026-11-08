@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ExternalStorageDeletedResource {
+    /// Defaults to `\"organization.external_storage.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "id")]
@@ -29,6 +30,7 @@ impl ExternalStorageDeletedResource {
         }
     }
 }
+/// Defaults to `\"organization.external_storage.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "organization.external_storage.deleted")]

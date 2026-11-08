@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// HostedSkillParamSkillReference : References a skill uploaded through the Skills API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct HostedSkillParamSkillReference {
-    /// The type of the object. Always `skill_reference`.
+    /// The type of the object. Always `skill_reference`.  Defaults to `\"skill_reference\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the skill created through `/v1/skills`.
@@ -39,7 +39,7 @@ impl HostedSkillParamSkillReference {
         }
     }
 }
-/// The type of the object. Always `skill_reference`.
+/// The type of the object. Always `skill_reference`.  Defaults to `\"skill_reference\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "skill_reference")]

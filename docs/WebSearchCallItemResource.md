@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The item type. Always `web_search_call`. (enum: web_search_call) | 
+**r#type** | **Type** | The item type. Always `web_search_call`.  Defaults to `\"web_search_call\"`. (enum: web_search_call) | 
 **id** | **String** | The ID of the web search call. | 
 **turn_id** | **String** | The ID of the turn that contains this item. | 
 **status** | [**models::OutputItemStatusResource**](OutputItemStatusResource.md) |  | 

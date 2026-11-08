@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 /// CompletionUsagePromptTokensDetails : Breakdown of tokens used in the prompt.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompletionUsagePromptTokensDetails {
-    /// Audio input tokens present in the prompt.
+    /// Audio input tokens present in the prompt.  Defaults to `0`.
     #[serde(rename = "audio_tokens", skip_serializing_if = "Option::is_none")]
     pub audio_tokens: Option<i64>,
-    /// Cached tokens present in the prompt.
+    /// Cached tokens present in the prompt.  Defaults to `0`.
     #[serde(rename = "cached_tokens", skip_serializing_if = "Option::is_none")]
     pub cached_tokens: Option<i64>,
     /// Text input tokens present in the prompt.
@@ -25,7 +25,7 @@ pub struct CompletionUsagePromptTokensDetails {
     /// Image input tokens present in the prompt.
     #[serde(rename = "image_tokens", skip_serializing_if = "Option::is_none")]
     pub image_tokens: Option<i64>,
-    /// The unadjusted number of prompt tokens written to cache.
+    /// The unadjusted number of prompt tokens written to cache.  Defaults to `0`.
     #[serde(rename = "cache_write_tokens", skip_serializing_if = "Option::is_none")]
     pub cache_write_tokens: Option<i64>,
 }

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: mcp_protocol_error) | 
+**r#type** | **Type** | Defaults to `\"mcp_protocol_error\"`. (enum: mcp_protocol_error) | 
 **code** | **i64** |  | 
 **message** | **String** |  | 
 

@@ -152,9 +152,9 @@ Lists the roles configured for a project.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to inspect. | [required] |
-**limit** | Option<**i64**> | A limit on the number of roles to return. Defaults to 1000. |  |[default to 1000]
+**limit** | Option<**i64**> | A limit on the number of roles to return. Defaults to 1000.  Defaults to `1000`. |  |[default to 1000]
 **after** | Option<**String**> | Cursor for pagination. Provide the value from the previous response's `next` field to continue listing roles. |  |
-**order** | Option<**String**> | Sort order for the returned roles. |  |[default to asc]
+**order** | Option<**String**> | Sort order for the returned roles.  Defaults to `\"asc\"`. |  |[default to asc]
 
 ### Return type
 
@@ -184,9 +184,9 @@ Lists the roles configured for the organization.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i64**> | A limit on the number of roles to return. Defaults to 1000. |  |[default to 1000]
+**limit** | Option<**i64**> | A limit on the number of roles to return. Defaults to 1000.  Defaults to `1000`. |  |[default to 1000]
 **after** | Option<**String**> | Cursor for pagination. Provide the value from the previous response's `next` field to continue listing roles. |  |
-**order** | Option<**String**> | Sort order for the returned roles. |  |[default to asc]
+**order** | Option<**String**> | Sort order for the returned roles.  Defaults to `\"asc\"`. |  |[default to asc]
 
 ### Return type
 

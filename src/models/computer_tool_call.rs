@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ComputerToolCall : A tool call to a computer use tool. See the [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerToolCall {
-    /// The type of the computer call. Always `computer_call`.
+    /// The type of the computer call. Always `computer_call`.  Defaults to `\"computer_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the computer call.
@@ -56,7 +56,7 @@ impl ComputerToolCall {
         }
     }
 }
-/// The type of the computer call. Always `computer_call`.
+/// The type of the computer call. Always `computer_call`.  Defaults to `\"computer_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_call")]

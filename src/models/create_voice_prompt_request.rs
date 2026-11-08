@@ -25,7 +25,7 @@ pub struct CreateVoicePromptRequest {
     /// Optional text for the voice to speak during creation. If omitted, a script is generated from the prompt. Must not be blank after trimming whitespace; scripts that are too short are rejected.
     #[serde(rename = "script_hint", skip_serializing_if = "Option::is_none")]
     pub script_hint: Option<String>,
-    /// The voice creation model to use. Defaults to `auto`.
+    /// The voice creation model to use. Defaults to `auto`.  Defaults to `\"auto\"`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
 }

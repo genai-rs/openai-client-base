@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// FunctionShellCall : A tool call that executes one or more shell commands in a managed environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionShellCall {
-    /// The type of the item. Always `shell_call`.
+    /// The type of the item. Always `shell_call`.  Defaults to `\"shell_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the shell tool call. Populated when this item is returned via API.
@@ -63,7 +63,7 @@ impl FunctionShellCall {
         }
     }
 }
-/// The type of the item. Always `shell_call`.
+/// The type of the item. Always `shell_call`.  Defaults to `\"shell_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "shell_call")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// EnvironmentFileResource : A live file in an execution environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentFileResource {
-    /// The object type. Always `agent.environment.file`.
+    /// The object type. Always `agent.environment.file`.  Defaults to `\"agent.environment.file\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The ID of the environment containing this file.
@@ -43,7 +43,7 @@ impl EnvironmentFileResource {
         }
     }
 }
-/// The object type. Always `agent.environment.file`.
+/// The object type. Always `agent.environment.file`.  Defaults to `\"agent.environment.file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.environment.file")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseShellCallCommandWsDone : A streaming event that indicated a shell command was completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseShellCallCommandWsDone {
-    /// The type of the event, always `response.shell_call_command.done`.
+    /// The type of the event, always `response.shell_call_command.done`.  Defaults to `\"response.shell_call_command.done\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The sequence number of the event that was emitted.
@@ -56,7 +56,7 @@ impl BetaResponseShellCallCommandWsDone {
         }
     }
 }
-/// The type of the event, always `response.shell_call_command.done`.
+/// The type of the event, always `response.shell_call_command.done`.  Defaults to `\"response.shell_call_command.done\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "response.shell_call_command.done")]

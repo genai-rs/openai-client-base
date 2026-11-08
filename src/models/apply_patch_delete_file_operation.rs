@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ApplyPatchDeleteFileOperation : Instruction describing how to delete a file via the apply_patch tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApplyPatchDeleteFileOperation {
-    /// Delete the specified file.
+    /// Delete the specified file.  Defaults to `\"delete_file\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Path of the file to delete.
@@ -27,7 +27,7 @@ impl ApplyPatchDeleteFileOperation {
         ApplyPatchDeleteFileOperation { r#type, path }
     }
 }
-/// Delete the specified file.
+/// Delete the specified file.  Defaults to `\"delete_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "delete_file")]

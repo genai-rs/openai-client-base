@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FineTuneSupervisedHyperparametersBatchSize : Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance.
+/// FineTuneSupervisedHyperparametersBatchSize : Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance.  Defaults to `\"auto\"`.
 pub use crate::models::FineTuneSupervisedHyperparametersBatchSizeTextVariantEnum;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

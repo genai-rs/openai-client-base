@@ -22,7 +22,7 @@ pub struct BetaComputerToolCallOutput {
         skip_serializing_if = "Option::is_none"
     )]
     pub agent: Option<Option<models::BetaAgentTag>>,
-    /// The type of the computer tool call output. Always `computer_call_output`.
+    /// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the computer tool call output.
@@ -62,7 +62,7 @@ impl BetaComputerToolCallOutput {
         }
     }
 }
-/// The type of the computer tool call output. Always `computer_call_output`.
+/// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_call_output")]

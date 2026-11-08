@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionTurnCancelled : Emitted when a turn is cancelled.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionTurnCancelled {
-    /// The type of the object. Always `agent.session.turn.cancelled`.
+    /// The type of the object. Always `agent.session.turn.cancelled`.  Defaults to `\"agent.session.turn.cancelled\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -53,7 +53,7 @@ impl SessionEventAgentSessionTurnCancelled {
         }
     }
 }
-/// The type of the object. Always `agent.session.turn.cancelled`.
+/// The type of the object. Always `agent.session.turn.cancelled`.  Defaults to `\"agent.session.turn.cancelled\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.turn.cancelled")]

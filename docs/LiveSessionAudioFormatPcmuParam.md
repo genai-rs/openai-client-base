@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The audio encoding. Always `audio/pcmu`. (enum: audio/pcmu) | 
+**r#type** | **Type** | The audio encoding. Always `audio/pcmu`.  Defaults to `\"audio/pcmu\"`. (enum: audio/pcmu) | 
 **rate** | **i64** | Audio sample rate in hertz. G.711 audio uses 8000 Hz. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaReasoningTextContent : Reasoning text from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaReasoningTextContent {
-    /// The type of the reasoning text. Always `reasoning_text`.
+    /// The type of the reasoning text. Always `reasoning_text`.  Defaults to `\"reasoning_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The reasoning text from the model.
@@ -27,7 +27,7 @@ impl BetaReasoningTextContent {
         BetaReasoningTextContent { r#type, text }
     }
 }
-/// The type of the reasoning text. Always `reasoning_text`.
+/// The type of the reasoning text. Always `reasoning_text`.  Defaults to `\"reasoning_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "reasoning_text")]

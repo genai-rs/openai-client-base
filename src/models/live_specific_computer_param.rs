@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSpecificComputerParam {
-    /// The tool to call. Always `computer`.
+    /// The tool to call. Always `computer`.  Defaults to `\"computer\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -22,7 +22,7 @@ impl LiveSpecificComputerParam {
         LiveSpecificComputerParam { r#type }
     }
 }
-/// The tool to call. Always `computer`.
+/// The tool to call. Always `computer`.  Defaults to `\"computer\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer")]

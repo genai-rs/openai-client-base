@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaCodeInterpreterOutputImage : The image output from the code interpreter.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCodeInterpreterOutputImage {
-    /// The type of the output. Always `image`.
+    /// The type of the output. Always `image`.  Defaults to `\"image\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the image output from the code interpreter.
@@ -27,7 +27,7 @@ impl BetaCodeInterpreterOutputImage {
         BetaCodeInterpreterOutputImage { r#type, url }
     }
 }
-/// The type of the output. Always `image`.
+/// The type of the output. Always `image`.  Defaults to `\"image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "image")]

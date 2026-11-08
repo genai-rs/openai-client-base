@@ -16,7 +16,7 @@ pub struct SessionArtifactResource {
     /// The immutable artifact ID.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `agent.session.artifact`.
+    /// The object type. Always `agent.session.artifact`.  Defaults to `\"agent.session.artifact\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The ID of the session that owns the artifact.
@@ -63,7 +63,7 @@ impl SessionArtifactResource {
         }
     }
 }
-/// The object type. Always `agent.session.artifact`.
+/// The object type. Always `agent.session.artifact`.  Defaults to `\"agent.session.artifact\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.session.artifact")]

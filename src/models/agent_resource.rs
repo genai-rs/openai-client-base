@@ -17,7 +17,7 @@ pub struct AgentResource {
     /// The ID of the reusable agent.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `agent`.
+    /// The object type. Always `agent`.  Defaults to `\"agent\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp, in seconds, when the agent was created.
@@ -85,7 +85,7 @@ impl AgentResource {
         }
     }
 }
-/// The object type. Always `agent`.
+/// The object type. Always `agent`.  Defaults to `\"agent\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent")]

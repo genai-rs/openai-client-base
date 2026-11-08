@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ApplyPatchToolCall : A tool call that applies file diffs by creating, deleting, or updating files.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApplyPatchToolCall {
-    /// The type of the item. Always `apply_patch_call`.
+    /// The type of the item. Always `apply_patch_call`.  Defaults to `\"apply_patch_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the apply patch tool call. Populated when this item is returned via API.
@@ -59,7 +59,7 @@ impl ApplyPatchToolCall {
         }
     }
 }
-/// The type of the item. Always `apply_patch_call`.
+/// The type of the item. Always `apply_patch_call`.  Defaults to `\"apply_patch_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "apply_patch_call")]

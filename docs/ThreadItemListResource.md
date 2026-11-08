@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** | The type of object returned, must be `list`. (enum: list) | 
+**object** | **Object** | The type of object returned, must be `list`.  Defaults to `\"list\"`. (enum: list) | 
 **data** | [**Vec<models::ThreadItem>**](ThreadItem.md) | A list of items | 
 **first_id** | Option<**String**> | The ID of the first item in the list. | 
 **last_id** | Option<**String**> | The ID of the last item in the list. | 

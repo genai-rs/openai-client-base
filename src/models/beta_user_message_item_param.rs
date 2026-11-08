@@ -28,10 +28,10 @@ pub struct BetaUserMessageItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
-    /// The item type. Always `message`.
+    /// The item type. Always `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The message role. Always `user`.
+    /// The message role. Always `user`.  Defaults to `\"user\"`.
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
@@ -62,14 +62,14 @@ impl BetaUserMessageItemParam {
         }
     }
 }
-/// The item type. Always `message`.
+/// The item type. Always `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "message")]
     Message,
 }
 
-/// The message role. Always `user`.
+/// The message role. Always `user`.  Defaults to `\"user\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
     #[serde(rename = "user")]

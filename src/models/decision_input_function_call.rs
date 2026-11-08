@@ -40,6 +40,7 @@ pub struct DecisionInputFunctionCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub status: Option<Option<models::FunctionCallStatusParam>>,
+    /// Defaults to `\"function_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -62,6 +63,7 @@ impl DecisionInputFunctionCall {
         }
     }
 }
+/// Defaults to `\"function_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function_call")]

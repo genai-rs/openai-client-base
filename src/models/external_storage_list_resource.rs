@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ExternalStorageListResource {
+    /// Defaults to `\"list\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "data")]
@@ -42,6 +43,7 @@ impl ExternalStorageListResource {
         }
     }
 }
+/// Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "list")]

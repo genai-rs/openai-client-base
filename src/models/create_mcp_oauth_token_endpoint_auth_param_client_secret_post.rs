@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// CreateMcpOauthTokenEndpointAuthParamClientSecretPost : Sends the client ID and secret in the token request body.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateMcpOauthTokenEndpointAuthParamClientSecretPost {
-    /// The type of the object. Always `client_secret_post`.
+    /// The type of the object. Always `client_secret_post`.  Defaults to `\"client_secret_post\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The OAuth client secret to store. Never returned in credential resources.
@@ -33,7 +33,7 @@ impl CreateMcpOauthTokenEndpointAuthParamClientSecretPost {
         }
     }
 }
-/// The type of the object. Always `client_secret_post`.
+/// The type of the object. Always `client_secret_post`.  Defaults to `\"client_secret_post\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "client_secret_post")]

@@ -29,7 +29,7 @@ pub struct BetaAgentMessageItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
-    /// The item type. Always `agent_message`.
+    /// The item type. Always `agent_message`.  Defaults to `\"agent_message\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The sending agent identity.
@@ -61,7 +61,7 @@ impl BetaAgentMessageItemParam {
         }
     }
 }
-/// The item type. Always `agent_message`.
+/// The item type. Always `agent_message`.  Defaults to `\"agent_message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent_message")]

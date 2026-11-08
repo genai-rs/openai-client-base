@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// RotateVaultCredentialAuthParamStaticBearer : Replace the bearer token for the credential's MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RotateVaultCredentialAuthParamStaticBearer {
-    /// The type of the object. Always `static_bearer`.
+    /// The type of the object. Always `static_bearer`.  Defaults to `\"static_bearer\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The replacement bearer token. This secret is never returned in credential resources.
@@ -27,7 +27,7 @@ impl RotateVaultCredentialAuthParamStaticBearer {
         RotateVaultCredentialAuthParamStaticBearer { r#type, token }
     }
 }
-/// The type of the object. Always `static_bearer`.
+/// The type of the object. Always `static_bearer`.  Defaults to `\"static_bearer\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "static_bearer")]

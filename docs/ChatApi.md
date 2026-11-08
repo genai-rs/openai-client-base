@@ -148,8 +148,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **completion_id** | **String** | The ID of the chat completion to retrieve messages from. | [required] |
 **after** | Option<**String**> | Identifier for the last message from the previous pagination request. |  |
-**limit** | Option<**i64**> | Number of messages to retrieve. |  |[default to 20]
-**order** | Option<**String**> | Sort order for messages by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`. |  |[default to asc]
+**limit** | Option<**i64**> | Number of messages to retrieve.  Defaults to `20`. |  |[default to 20]
+**order** | Option<**String**> | Sort order for messages by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`.  Defaults to `\"asc\"`. |  |[default to asc]
 
 ### Return type
 
@@ -182,8 +182,8 @@ Name | Type | Description  | Required | Notes
 **model** | Option<**String**> | The model used to generate the Chat Completions. |  |
 **metadata** | Option<**String**> | A list of metadata keys to filter the Chat Completions by. Example:  `metadata[key1]=value1&metadata[key2]=value2`  |  |
 **after** | Option<**String**> | Identifier for the last chat completion from the previous pagination request. |  |
-**limit** | Option<**i64**> | Number of Chat Completions to retrieve. |  |[default to 20]
-**order** | Option<**String**> | Sort order for Chat Completions by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`. |  |[default to asc]
+**limit** | Option<**i64**> | Number of Chat Completions to retrieve.  Defaults to `20`. |  |[default to 20]
+**order** | Option<**String**> | Sort order for Chat Completions by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`.  Defaults to `\"asc\"`. |  |[default to asc]
 
 ### Return type
 

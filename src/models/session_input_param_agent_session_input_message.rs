@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionInputParamAgentSessionInputMessage : Adds one or more user messages and starts a turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionInputParamAgentSessionInputMessage {
-    /// The type of the object. Always `agent.session.input.message`.
+    /// The type of the object. Always `agent.session.input.message`.  Defaults to `\"agent.session.input.message\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The user messages to add to the session.
@@ -31,7 +31,7 @@ impl SessionInputParamAgentSessionInputMessage {
         SessionInputParamAgentSessionInputMessage { r#type, input }
     }
 }
-/// The type of the object. Always `agent.session.input.message`.
+/// The type of the object. Always `agent.session.input.message`.  Defaults to `\"agent.session.input.message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.input.message")]

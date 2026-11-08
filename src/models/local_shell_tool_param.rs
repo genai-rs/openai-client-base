@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LocalShellToolParam : A tool that allows the model to execute shell commands in a local environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LocalShellToolParam {
-    /// The type of the local shell tool. Always `local_shell`.
+    /// The type of the local shell tool. Always `local_shell`.  Defaults to `\"local_shell\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl LocalShellToolParam {
         LocalShellToolParam { r#type }
     }
 }
-/// The type of the local shell tool. Always `local_shell`.
+/// The type of the local shell tool. Always `local_shell`.  Defaults to `\"local_shell\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "local_shell")]

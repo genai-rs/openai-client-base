@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** | The type of the object. Always \"eval.run\". (enum: eval.run) | 
+**object** | **Object** | The type of the object. Always \"eval.run\".  Defaults to `\"eval.run\"`. (enum: eval.run) | 
 **id** | **String** | Unique identifier for the evaluation run. | 
 **eval_id** | **String** | The identifier of the associated evaluation. | 
 **status** | **String** | The status of the evaluation run. | 

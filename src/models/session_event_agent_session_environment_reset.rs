@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionEnvironmentReset : Emitted after a hosted sandbox is replaced. Conversation history survives; changes to the previous sandbox's files and processes do not.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionEnvironmentReset {
-    /// The type of the object. Always `agent.session.environment.reset`.
+    /// The type of the object. Always `agent.session.environment.reset`.  Defaults to `\"agent.session.environment.reset\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -53,7 +53,7 @@ impl SessionEventAgentSessionEnvironmentReset {
         }
     }
 }
-/// The type of the object. Always `agent.session.environment.reset`.
+/// The type of the object. Always `agent.session.environment.reset`.  Defaults to `\"agent.session.environment.reset\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.environment.reset")]

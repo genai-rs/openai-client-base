@@ -15,7 +15,7 @@ pub struct SkillResource {
     /// Unique identifier for the skill.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type, which is `skill`.
+    /// The object type, which is `skill`.  Defaults to `\"skill\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Name of the skill.
@@ -56,7 +56,7 @@ impl SkillResource {
         }
     }
 }
-/// The object type, which is `skill`.
+/// The object type, which is `skill`.  Defaults to `\"skill\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "skill")]

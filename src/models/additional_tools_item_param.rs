@@ -21,10 +21,10 @@ pub struct AdditionalToolsItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
-    /// The item type. Always `additional_tools`.
+    /// The item type. Always `additional_tools`.  Defaults to `\"additional_tools\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The role that provided the additional tools. Only `developer` is supported.
+    /// The role that provided the additional tools. Only `developer` is supported.  Defaults to `\"developer\"`.
     #[serde(rename = "role")]
     pub role: Role,
     /// A list of additional tools made available at this item.
@@ -42,14 +42,14 @@ impl AdditionalToolsItemParam {
         }
     }
 }
-/// The item type. Always `additional_tools`.
+/// The item type. Always `additional_tools`.  Defaults to `\"additional_tools\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "additional_tools")]
     AdditionalTools,
 }
 
-/// The role that provided the additional tools. Only `developer` is supported.
+/// The role that provided the additional tools. Only `developer` is supported.  Defaults to `\"developer\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
     #[serde(rename = "developer")]

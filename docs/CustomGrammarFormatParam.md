@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | Grammar format. Always `grammar`. (enum: grammar) | 
+**r#type** | **Type** | Grammar format. Always `grammar`.  Defaults to `\"grammar\"`. (enum: grammar) | 
 **syntax** | [**models::GrammarSyntax1**](GrammarSyntax1.md) |  | 
 **definition** | **String** | The grammar definition. | 
 

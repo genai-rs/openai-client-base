@@ -20,7 +20,7 @@ pub struct LiveDelegationCreated {
     /// The event_id of the client command associated with this server event, when supplied.
     #[serde(rename = "client_event_id", skip_serializing_if = "Option::is_none")]
     pub client_event_id: Option<String>,
-    /// The event type, always `session.delegation.created`.
+    /// The event type, always `session.delegation.created`.  Defaults to `\"session.delegation.created\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The position on the Live session timeline where the delegation was created, in milliseconds from the beginning of the session.
@@ -47,7 +47,7 @@ impl LiveDelegationCreated {
         }
     }
 }
-/// The event type, always `session.delegation.created`.
+/// The event type, always `session.delegation.created`.  Defaults to `\"session.delegation.created\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.delegation.created")]

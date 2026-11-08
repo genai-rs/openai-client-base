@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// QuestionParamPredicate : Estimate how likely it is that a statement about the input is true.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct QuestionParamPredicate {
-    /// The type of the object. Always `predicate`.
+    /// The type of the object. Always `predicate`.  Defaults to `\"predicate\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -32,7 +32,7 @@ impl QuestionParamPredicate {
         }
     }
 }
-/// The type of the object. Always `predicate`.
+/// The type of the object. Always `predicate`.  Defaults to `\"predicate\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "predicate")]

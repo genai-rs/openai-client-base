@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AnswerResourceScore {
-    /// The type of the object. Always `score`.
+    /// The type of the object. Always `score`.  Defaults to `\"score\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
@@ -43,7 +43,7 @@ impl AnswerResourceScore {
         }
     }
 }
-/// The type of the object. Always `score`.
+/// The type of the object. Always `score`.  Defaults to `\"score\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "score")]

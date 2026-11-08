@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// DoubleClickAction : A double click action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DoubleClickAction {
-    /// Specifies the event type. For a double click action, this property is always set to `double_click`.
+    /// Specifies the event type. For a double click action, this property is always set to `double_click`.  Defaults to `\"double_click\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The x-coordinate where the double click occurred.
@@ -33,7 +33,7 @@ impl DoubleClickAction {
         DoubleClickAction { r#type, x, y, keys }
     }
 }
-/// Specifies the event type. For a double click action, this property is always set to `double_click`.
+/// Specifies the event type. For a double click action, this property is always set to `double_click`.  Defaults to `\"double_click\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "double_click")]

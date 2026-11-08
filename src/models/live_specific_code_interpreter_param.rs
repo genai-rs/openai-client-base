@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSpecificCodeInterpreterParam {
-    /// The tool to call. Always `code_interpreter`.
+    /// The tool to call. Always `code_interpreter`.  Defaults to `\"code_interpreter\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -22,7 +22,7 @@ impl LiveSpecificCodeInterpreterParam {
         LiveSpecificCodeInterpreterParam { r#type }
     }
 }
-/// The tool to call. Always `code_interpreter`.
+/// The tool to call. Always `code_interpreter`.  Defaults to `\"code_interpreter\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "code_interpreter")]

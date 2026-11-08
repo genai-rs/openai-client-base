@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveSessionAudioFormatPcmuParam : Raw, mono G.711 μ-law audio for a Live WebSocket connection.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionAudioFormatPcmuParam {
-    /// The audio encoding. Always `audio/pcmu`.
+    /// The audio encoding. Always `audio/pcmu`.  Defaults to `\"audio/pcmu\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Audio sample rate in hertz. G.711 audio uses 8000 Hz.
@@ -27,7 +27,7 @@ impl LiveSessionAudioFormatPcmuParam {
         LiveSessionAudioFormatPcmuParam { r#type, rate }
     }
 }
-/// The audio encoding. Always `audio/pcmu`.
+/// The audio encoding. Always `audio/pcmu`.  Defaults to `\"audio/pcmu\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "audio/pcmu")]

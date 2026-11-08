@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionRequiresAction : Emitted when a session is waiting for one or more required actions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionRequiresAction {
-    /// The type of the object. Always `agent.session.requires_action`.
+    /// The type of the object. Always `agent.session.requires_action`.  Defaults to `\"agent.session.requires_action\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -38,7 +38,7 @@ impl SessionEventAgentSessionRequiresAction {
         }
     }
 }
-/// The type of the object. Always `agent.session.requires_action`.
+/// The type of the object. Always `agent.session.requires_action`.  Defaults to `\"agent.session.requires_action\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.requires_action")]

@@ -21,9 +21,10 @@ pub struct LiveDecisionInputItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
+    /// Defaults to `\"message\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
-    /// The message role. Always `user`.
+    /// The message role. Always `user`.  Defaults to `\"user\"`.
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
@@ -43,13 +44,14 @@ impl LiveDecisionInputItemParam {
         }
     }
 }
+/// Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "message")]
     Message,
 }
 
-/// The message role. Always `user`.
+/// The message role. Always `user`.  Defaults to `\"user\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
     #[serde(rename = "user")]

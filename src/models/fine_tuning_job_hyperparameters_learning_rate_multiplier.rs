@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FineTuningJobHyperparametersLearningRateMultiplier : Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting.
+/// FineTuningJobHyperparametersLearningRateMultiplier : Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting.  Defaults to `\"auto\"`.
 pub use crate::models::FineTuningJobHyperparametersLearningRateMultiplierTextVariantEnum;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

@@ -20,7 +20,7 @@ pub struct EnvironmentTemplateResource {
     /// An optional human-readable display name for the template.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
-    /// The object type. Always `agent.environment.template`.
+    /// The object type. Always `agent.environment.template`.  Defaults to `\"agent.environment.template\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp, in seconds, when the template was created.
@@ -81,7 +81,7 @@ impl EnvironmentTemplateResource {
         }
     }
 }
-/// The object type. Always `agent.environment.template`.
+/// The object type. Always `agent.environment.template`.  Defaults to `\"agent.environment.template\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.environment.template")]

@@ -20,7 +20,7 @@ pub struct LiveSessionClosed {
     /// The event_id of the client command associated with this server event, when supplied.
     #[serde(rename = "client_event_id", skip_serializing_if = "Option::is_none")]
     pub client_event_id: Option<String>,
-    /// The event type, always `session.closed`.
+    /// The event type, always `session.closed`.  Defaults to `\"session.closed\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "reason")]
@@ -50,7 +50,7 @@ impl LiveSessionClosed {
         }
     }
 }
-/// The event type, always `session.closed`.
+/// The event type, always `session.closed`.  Defaults to `\"session.closed\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.closed")]

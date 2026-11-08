@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// PersistedAgentToolConfigParamToolSearch : Discovers deferred function tools and loads them into the model context.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PersistedAgentToolConfigParamToolSearch {
-    /// The type of the object. Always `tool_search`.
+    /// The type of the object. Always `tool_search`.  Defaults to `\"tool_search\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl PersistedAgentToolConfigParamToolSearch {
         PersistedAgentToolConfigParamToolSearch { r#type }
     }
 }
-/// The type of the object. Always `tool_search`.
+/// The type of the object. Always `tool_search`.  Defaults to `\"tool_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "tool_search")]

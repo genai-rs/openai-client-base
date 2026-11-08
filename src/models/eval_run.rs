@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// EvalRun : A schema representing an evaluation run.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalRun {
-    /// The type of the object. Always \"eval.run\".
+    /// The type of the object. Always \"eval.run\".  Defaults to `\"eval.run\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Unique identifier for the evaluation run.
@@ -94,7 +94,7 @@ impl EvalRun {
         }
     }
 }
-/// The type of the object. Always \"eval.run\".
+/// The type of the object. Always \"eval.run\".  Defaults to `\"eval.run\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "eval.run")]

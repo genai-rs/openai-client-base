@@ -22,10 +22,10 @@ pub struct RealtimeTranslationServerEventSessionOutputAudioDelta {
     /// Base64-encoded translated audio data.
     #[serde(rename = "delta")]
     pub delta: String,
-    /// Sample rate of the audio delta.
+    /// Sample rate of the audio delta.  Defaults to `24000`.
     #[serde(rename = "sample_rate", skip_serializing_if = "Option::is_none")]
     pub sample_rate: Option<i64>,
-    /// Number of audio channels.
+    /// Number of audio channels.  Defaults to `1`.
     #[serde(rename = "channels", skip_serializing_if = "Option::is_none")]
     pub channels: Option<i64>,
     /// Audio encoding for `delta`.

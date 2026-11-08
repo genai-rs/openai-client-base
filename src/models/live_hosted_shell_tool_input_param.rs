@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// LiveHostedShellToolInputParam : A Responses shell tool. Use a hosted container or return local shell results with response.item.create. Domain secrets are not supported.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveHostedShellToolInputParam {
+    /// Defaults to `\"shell\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(
@@ -34,6 +35,7 @@ impl LiveHostedShellToolInputParam {
         }
     }
 }
+/// Defaults to `\"shell\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "shell")]

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the tool. Always `namespace`. (enum: namespace) | 
+**r#type** | **Type** | The type of the tool. Always `namespace`.  Defaults to `\"namespace\"`. (enum: namespace) | 
 **name** | **String** | The namespace name used in tool calls (for example, `crm`). | 
 **description** | **String** | A description of the namespace shown to the model. | 
 **tools** | [**Vec<models::BetaToolSearchOutputNamespaceToolParamToolsInner>**](BetaToolSearchOutputNamespaceToolParamToolsInner.md) | The function/custom tools loaded inside this namespace. | 

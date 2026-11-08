@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ComputerUseApprovalRequestKindResourceBrowserOriginAccess : A browser origin awaiting the application's approval decision.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUseApprovalRequestKindResourceBrowserOriginAccess {
-    /// The type of the object. Always `browser_origin_access`.
+    /// The type of the object. Always `browser_origin_access`.  Defaults to `\"browser_origin_access\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The browser's explanation for this request, or null when unavailable.
@@ -38,7 +38,7 @@ impl ComputerUseApprovalRequestKindResourceBrowserOriginAccess {
         }
     }
 }
-/// The type of the object. Always `browser_origin_access`.
+/// The type of the object. Always `browser_origin_access`.  Defaults to `\"browser_origin_access\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "browser_origin_access")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// CreateSubagentCallItemResource : A request to spawn a subagent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSubagentCallItemResource {
-    /// The item type. Always `create_subagent_call`.
+    /// The item type. Always `create_subagent_call`.  Defaults to `\"create_subagent_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the tool call item.
@@ -63,7 +63,7 @@ impl CreateSubagentCallItemResource {
         }
     }
 }
-/// The item type. Always `create_subagent_call`.
+/// The item type. Always `create_subagent_call`.  Defaults to `\"create_subagent_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "create_subagent_call")]

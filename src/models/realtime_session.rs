@@ -32,10 +32,10 @@ pub struct RealtimeSession {
     /// The voice the model uses to respond. Voice cannot be changed during the session once the model has responded with audio at least once. Current voice options are `alloy`, `ash`, `ballad`, `coral`, `echo`, `sage`, `shimmer`, and `verse`.
     #[serde(rename = "voice", skip_serializing_if = "Option::is_none")]
     pub voice: Option<String>,
-    /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.
+    /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.  Defaults to `\"pcm16\"`.
     #[serde(rename = "input_audio_format", skip_serializing_if = "Option::is_none")]
     pub input_audio_format: Option<InputAudioFormat>,
-    /// The format of output audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, output audio is sampled at a rate of 24kHz.
+    /// The format of output audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, output audio is sampled at a rate of 24kHz.  Defaults to `\"pcm16\"`.
     #[serde(
         rename = "output_audio_format",
         skip_serializing_if = "Option::is_none"
@@ -61,7 +61,7 @@ pub struct RealtimeSession {
         skip_serializing_if = "Option::is_none"
     )]
     pub input_audio_noise_reduction: Option<models::RealtimeSessionInputAudioNoiseReduction>,
-    /// The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.
+    /// The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.  Defaults to `1`.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
     #[serde(
@@ -74,10 +74,10 @@ pub struct RealtimeSession {
     /// Tools (functions) available to the model.
     #[serde(rename = "tools", skip_serializing_if = "Option::is_none")]
     pub tools: Option<Vec<models::RealtimeFunctionTool>>,
-    /// How the model chooses tools. Options are `auto`, `none`, `required`, or specify a function.
+    /// How the model chooses tools. Options are `auto`, `none`, `required`, or specify a function.  Defaults to `\"auto\"`.
     #[serde(rename = "tool_choice", skip_serializing_if = "Option::is_none")]
     pub tool_choice: Option<String>,
-    /// Sampling temperature for the model, limited to [0.6, 1.2]. For audio models a temperature of 0.8 is highly recommended for best performance.
+    /// Sampling temperature for the model, limited to [0.6, 1.2]. For audio models a temperature of 0.8 is highly recommended for best performance.  Defaults to `0.8`.
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
     pub temperature: Option<f64>,
     #[serde(
@@ -148,7 +148,7 @@ pub enum Modalities {
     Audio,
 }
 
-/// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.
+/// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.  Defaults to `\"pcm16\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum InputAudioFormat {
     #[serde(rename = "pcm16")]
@@ -159,7 +159,7 @@ pub enum InputAudioFormat {
     G711Alaw,
 }
 
-/// The format of output audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, output audio is sampled at a rate of 24kHz.
+/// The format of output audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, output audio is sampled at a rate of 24kHz.  Defaults to `\"pcm16\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputAudioFormat {
     #[serde(rename = "pcm16")]

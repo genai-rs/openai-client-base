@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SessionRequiredActionResourceFunctionCall : Run a function tool and submit its result.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionRequiredActionResourceFunctionCall {
-    /// The type of the object. Always `function_call`.
+    /// The type of the object. Always `function_call`.  Defaults to `\"function_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the turn that requested the function call.
@@ -48,7 +48,7 @@ impl SessionRequiredActionResourceFunctionCall {
         }
     }
 }
-/// The type of the object. Always `function_call`.
+/// The type of the object. Always `function_call`.  Defaults to `\"function_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function_call")]

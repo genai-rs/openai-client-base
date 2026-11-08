@@ -16,7 +16,7 @@ pub struct DeletedSessionArtifactResource {
     /// The ID of the deleted session artifact.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `agent.session.artifact.deleted`.
+    /// The object type. Always `agent.session.artifact.deleted`.  Defaults to `\"agent.session.artifact.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Whether the session artifact was deleted. Always `true`.
@@ -34,7 +34,7 @@ impl DeletedSessionArtifactResource {
         }
     }
 }
-/// The object type. Always `agent.session.artifact.deleted`.
+/// The object type. Always `agent.session.artifact.deleted`.  Defaults to `\"agent.session.artifact.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.session.artifact.deleted")]

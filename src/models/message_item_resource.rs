@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// MessageItemResource : A user or assistant message recorded in a session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageItemResource {
-    /// The item type. Always `message`.
+    /// The item type. Always `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of this item, or null for legacy user messages whose ID was not recorded.
@@ -57,7 +57,7 @@ impl MessageItemResource {
         }
     }
 }
-/// The item type. Always `message`.
+/// The item type. Always `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "message")]

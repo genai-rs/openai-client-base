@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ComputerUseCallItemResource : One execution of the platform-provided computer-use capability.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUseCallItemResource {
-    /// The item type. Always `computer_use_call`.
+    /// The item type. Always `computer_use_call`.  Defaults to `\"computer_use_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the activity item.
@@ -53,7 +53,7 @@ impl ComputerUseCallItemResource {
         }
     }
 }
-/// The item type. Always `computer_use_call`.
+/// The item type. Always `computer_use_call`.  Defaults to `\"computer_use_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_use_call")]

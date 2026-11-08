@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DeletedConversationResource {
+    /// Defaults to `\"conversation.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "deleted")]
@@ -29,6 +30,7 @@ impl DeletedConversationResource {
         }
     }
 }
+/// Defaults to `\"conversation.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "conversation.deleted")]

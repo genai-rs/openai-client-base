@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaRefusalContent : A refusal from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaRefusalContent {
-    /// The type of the refusal. Always `refusal`.
+    /// The type of the refusal. Always `refusal`.  Defaults to `\"refusal\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The refusal explanation from the model.
@@ -27,7 +27,7 @@ impl BetaRefusalContent {
         BetaRefusalContent { r#type, refusal }
     }
 }
-/// The type of the refusal. Always `refusal`.
+/// The type of the refusal. Always `refusal`.  Defaults to `\"refusal\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "refusal")]

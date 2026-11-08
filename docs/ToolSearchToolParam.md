@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the tool. Always `tool_search`. (enum: tool_search) | 
+**r#type** | **Type** | The type of the tool. Always `tool_search`.  Defaults to `\"tool_search\"`. (enum: tool_search) | 
 **execution** | Option<[**models::ToolSearchExecutionType**](ToolSearchExecutionType.md)> |  | [optional]
 **description** | Option<**String**> | Description shown to the model for a client-executed tool search tool. | [optional]
 **parameters** | Option<**serde_json::Value**> |  | [optional]

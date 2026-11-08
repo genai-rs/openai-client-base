@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaFunctionShellToolParam : A tool that allows the model to execute shell commands.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionShellToolParam {
-    /// The type of the shell tool. Always `shell`.
+    /// The type of the shell tool. Always `shell`.  Defaults to `\"shell\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(
@@ -44,7 +44,7 @@ impl BetaFunctionShellToolParam {
         }
     }
 }
-/// The type of the shell tool. Always `shell`.
+/// The type of the shell tool. Always `shell`.  Defaults to `\"shell\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "shell")]

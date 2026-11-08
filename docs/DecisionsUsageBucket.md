@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** |  (enum: bucket) | 
+**object** | **Object** | Defaults to `\"bucket\"`. (enum: bucket) | 
 **start_time** | **i64** |  | 
 **end_time** | **i64** |  | 
 **results** | [**Vec<models::DecisionsUsageResult>**](DecisionsUsageResult.md) |  | 

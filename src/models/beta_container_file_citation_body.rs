@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaContainerFileCitationBody : A citation for a container file used to generate a model response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaContainerFileCitationBody {
-    /// The type of the container file citation. Always `container_file_citation`.
+    /// The type of the container file citation. Always `container_file_citation`.  Defaults to `\"container_file_citation\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the container file.
@@ -53,7 +53,7 @@ impl BetaContainerFileCitationBody {
         }
     }
 }
-/// The type of the container file citation. Always `container_file_citation`.
+/// The type of the container file citation. Always `container_file_citation`.  Defaults to `\"container_file_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "container_file_citation")]

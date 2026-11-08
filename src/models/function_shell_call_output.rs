@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// FunctionShellCallOutput : The output of a shell tool call that was emitted.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionShellCallOutput {
-    /// The type of the shell call output. Always `shell_call_output`.
+    /// The type of the shell call output. Always `shell_call_output`.  Defaults to `\"shell_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the shell call output. Populated when this item is returned via API.
@@ -65,7 +65,7 @@ impl FunctionShellCallOutput {
         }
     }
 }
-/// The type of the shell call output. Always `shell_call_output`.
+/// The type of the shell call output. Always `shell_call_output`.  Defaults to `\"shell_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "shell_call_output")]

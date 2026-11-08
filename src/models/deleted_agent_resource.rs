@@ -16,7 +16,7 @@ pub struct DeletedAgentResource {
     /// The ID of the deleted agent.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `agent.deleted`.
+    /// The object type. Always `agent.deleted`.  Defaults to `\"agent.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Whether the agent was deleted. Always `true`.
@@ -34,7 +34,7 @@ impl DeletedAgentResource {
         }
     }
 }
-/// The object type. Always `agent.deleted`.
+/// The object type. Always `agent.deleted`.  Defaults to `\"agent.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.deleted")]

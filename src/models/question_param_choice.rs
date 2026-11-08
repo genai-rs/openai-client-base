@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// QuestionParamChoice : Choose from the supplied options based on the input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct QuestionParamChoice {
-    /// The type of the object. Always `choice`.
+    /// The type of the object. Always `choice`.  Defaults to `\"choice\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -41,7 +41,7 @@ impl QuestionParamChoice {
         }
     }
 }
-/// The type of the object. Always `choice`.
+/// The type of the object. Always `choice`.  Defaults to `\"choice\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "choice")]

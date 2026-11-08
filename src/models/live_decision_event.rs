@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 /// LiveDecisionEvent : A Decision API event for a Live delegation or transcript trigger. For a trigger, source_event_id identifies the transcript delta that caused this evaluation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionEvent {
+    /// Defaults to `\"decision.event\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of this Live server event.
@@ -56,6 +57,7 @@ impl LiveDecisionEvent {
         }
     }
 }
+/// Defaults to `\"decision.event\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "decision.event")]

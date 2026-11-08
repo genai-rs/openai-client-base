@@ -37,7 +37,7 @@ pub struct BetaFunctionCallOutputItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub call_id: Option<Option<String>>,
-    /// The type of the function tool call output. Always `function_call_output`.
+    /// The type of the function tool call output. Always `function_call_output`.  Defaults to `\"function_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "output")]
@@ -93,7 +93,7 @@ impl BetaFunctionCallOutputItemParam {
         }
     }
 }
-/// The type of the function tool call output. Always `function_call_output`.
+/// The type of the function tool call output. Always `function_call_output`.  Defaults to `\"function_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function_call_output")]

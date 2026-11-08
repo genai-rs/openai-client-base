@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionCompleted {
+    /// Defaults to `\"decision.completed\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "decision")]
@@ -24,6 +25,7 @@ impl LiveDecisionCompleted {
         LiveDecisionCompleted { r#type, decision }
     }
 }
+/// Defaults to `\"decision.completed\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "decision.completed")]

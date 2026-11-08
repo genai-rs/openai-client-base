@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveProgrammaticToolInputParam {
+    /// Defaults to `\"programmatic_tool_calling\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -21,6 +22,7 @@ impl LiveProgrammaticToolInputParam {
         LiveProgrammaticToolInputParam { r#type }
     }
 }
+/// Defaults to `\"programmatic_tool_calling\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "programmatic_tool_calling")]

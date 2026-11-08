@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the shell tool. Always `shell`. (enum: shell) | 
+**r#type** | **Type** | The type of the shell tool. Always `shell`.  Defaults to `\"shell\"`. (enum: shell) | 
 **environment** | Option<[**models::BetaFunctionShellToolParamEnvironment**](BetaFunctionShellToolParamEnvironment.md)> |  | [optional]
 **allowed_callers** | Option<[**Vec<models::BetaCallableToolAllowedCaller>**](BetaCallableToolAllowedCaller.md)> | The tool invocation context(s). | [optional]
 

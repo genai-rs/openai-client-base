@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **batch_size** | Option<[**models::FineTuneReinforcementHyperparametersBatchSize**](FineTuneReinforcementHyperparametersBatchSize.md)> |  | [optional]
 **learning_rate_multiplier** | Option<[**models::FineTuneReinforcementHyperparametersLearningRateMultiplier**](FineTuneReinforcementHyperparametersLearningRateMultiplier.md)> |  | [optional]
 **n_epochs** | Option<[**models::FineTuneReinforcementHyperparametersNEpochs**](FineTuneReinforcementHyperparametersNEpochs.md)> |  | [optional]
-**reasoning_effort** | Option<**ReasoningEffort**> | Level of reasoning effort.  (enum: default, low, medium, high) | [optional]
+**reasoning_effort** | Option<**ReasoningEffort**> | Level of reasoning effort.  Defaults to `\"default\"`. (enum: default, low, medium, high) | [optional]
 **compute_multiplier** | Option<[**models::FineTuneReinforcementHyperparametersComputeMultiplier**](FineTuneReinforcementHyperparametersComputeMultiplier.md)> |  | [optional]
 **eval_interval** | Option<[**models::FineTuneReinforcementHyperparametersEvalInterval**](FineTuneReinforcementHyperparametersEvalInterval.md)> |  | [optional]
 **eval_samples** | Option<[**models::FineTuneReinforcementHyperparametersEvalSamples**](FineTuneReinforcementHyperparametersEvalSamples.md)> |  | [optional]

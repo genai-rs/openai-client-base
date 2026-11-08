@@ -14,13 +14,13 @@ use serde::{Deserialize, Serialize};
 /// CompletionUsage : Usage statistics for the completion request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompletionUsage {
-    /// Number of tokens in the generated completion.
+    /// Number of tokens in the generated completion.  Defaults to `0`.
     #[serde(rename = "completion_tokens")]
     pub completion_tokens: i64,
-    /// Number of tokens in the prompt.
+    /// Number of tokens in the prompt.  Defaults to `0`.
     #[serde(rename = "prompt_tokens")]
     pub prompt_tokens: i64,
-    /// Total number of tokens used in the request (prompt + completion).
+    /// Total number of tokens used in the request (prompt + completion).  Defaults to `0`.
     #[serde(rename = "total_tokens")]
     pub total_tokens: i64,
     #[serde(

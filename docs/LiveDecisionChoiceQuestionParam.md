@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: choice) | 
+**r#type** | **Type** | Defaults to `\"choice\"`. (enum: choice) | 
 **name** | Option<**String**> |  | [optional]
 **instructions** | **String** |  | 
 **choices** | [**Vec<models::LiveDecisionChoiceParam>**](LiveDecisionChoiceParam.md) |  | 

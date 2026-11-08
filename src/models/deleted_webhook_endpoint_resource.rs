@@ -15,7 +15,7 @@ pub struct DeletedWebhookEndpointResource {
     /// The ID of the deleted webhook endpoint.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type, which is always webhook_endpoint.deleted.
+    /// The object type, which is always webhook_endpoint.deleted.  Defaults to `\"webhook_endpoint.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Whether the endpoint was deleted.
@@ -32,7 +32,7 @@ impl DeletedWebhookEndpointResource {
         }
     }
 }
-/// The object type, which is always webhook_endpoint.deleted.
+/// The object type, which is always webhook_endpoint.deleted.  Defaults to `\"webhook_endpoint.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "webhook_endpoint.deleted")]

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The ID of the function call output item. | 
 **turn_id** | **String** | The ID of the turn that contains this item. | 
-**r#type** | **Type** | The item type. Always `function_call_output`. (enum: function_call_output) | 
+**r#type** | **Type** | The item type. Always `function_call_output`.  Defaults to `\"function_call_output\"`. (enum: function_call_output) | 
 **call_id** | **String** | The ID of the function call that produced this output. | 
 **status** | [**models::FunctionCallStatusResource**](FunctionCallStatusResource.md) |  | 
 **output** | Option<[**models::FunctionCallOutputResource**](FunctionCallOutputResource.md)> | The function result, if the call succeeded. | 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `agent.session.failed`. (enum: agent.session.failed) | 
+**r#type** | **Type** | The type of the object. Always `agent.session.failed`.  Defaults to `\"agent.session.failed\"`. (enum: agent.session.failed) | 
 **event_id** | **String** | The unique ID of the event. | 
 **session** | [**models::SessionResource**](SessionResource.md) |  | 
 

@@ -21,7 +21,7 @@ pub struct LiveResponseCreateParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub event_id: Option<Option<String>>,
-    /// The Live client event type. Always `response.create`.
+    /// The Live client event type. Always `response.create`.  Defaults to `\"response.create\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -35,7 +35,7 @@ impl LiveResponseCreateParam {
         }
     }
 }
-/// The Live client event type. Always `response.create`.
+/// The Live client event type. Always `response.create`.  Defaults to `\"response.create\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "response.create")]

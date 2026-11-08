@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the event, always `response.shell_call_output_content.done`. (enum: response.shell_call_output_content.done) | 
+**r#type** | **Type** | The type of the event, always `response.shell_call_output_content.done`.  Defaults to `\"response.shell_call_output_content.done\"`. (enum: response.shell_call_output_content.done) | 
 **sequence_number** | **i64** | The sequence number of the event that was emitted. | 
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
 **item_id** | **String** | The ID of the output item that was updated. | 

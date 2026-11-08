@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** |  (enum: organization.external_storage) | 
+**object** | **Object** | Defaults to `\"organization.external_storage\"`. (enum: organization.external_storage) | 
 **id** | **String** |  | 
 **project_id** | **String** |  | 
 **provider** | [**models::ExternalStorageResponseProvider**](ExternalStorageResponseProvider.md) |  | 

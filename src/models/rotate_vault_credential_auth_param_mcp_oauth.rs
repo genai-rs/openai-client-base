@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// RotateVaultCredentialAuthParamMcpOauth : Rotate an OAuth credential for an HTTPS MCP destination.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RotateVaultCredentialAuthParamMcpOauth {
-    /// The type of the object. Always `mcp_oauth`.
+    /// The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// A write-only replacement OAuth access token.
@@ -54,7 +54,7 @@ impl RotateVaultCredentialAuthParamMcpOauth {
         }
     }
 }
-/// The type of the object. Always `mcp_oauth`.
+/// The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp_oauth")]

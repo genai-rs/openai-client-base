@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionSubagentClosed : Emitted when a subagent is closed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionSubagentClosed {
-    /// The type of the object. Always `agent.session.subagent.closed`.
+    /// The type of the object. Always `agent.session.subagent.closed`.  Defaults to `\"agent.session.subagent.closed\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -38,7 +38,7 @@ impl SessionEventAgentSessionSubagentClosed {
         }
     }
 }
-/// The type of the object. Always `agent.session.subagent.closed`.
+/// The type of the object. Always `agent.session.subagent.closed`.  Defaults to `\"agent.session.subagent.closed\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.subagent.closed")]

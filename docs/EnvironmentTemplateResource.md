@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | The ID of the reusable environment template. | 
 **name** | Option<**String**> | An optional human-readable display name for the template. | 
-**object** | **Object** | The object type. Always `agent.environment.template`. (enum: agent.environment.template) | 
+**object** | **Object** | The object type. Always `agent.environment.template`.  Defaults to `\"agent.environment.template\"`. (enum: agent.environment.template) | 
 **created_at** | **i64** | The Unix timestamp, in seconds, when the template was created. | 
 **updated_at** | **i64** | The Unix timestamp, in seconds, when the template was last updated. | 
 **packages** | [**models::EnvironmentPackagesResource**](EnvironmentPackagesResource.md) |  | 

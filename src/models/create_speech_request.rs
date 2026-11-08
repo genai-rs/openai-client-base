@@ -24,13 +24,13 @@ pub struct CreateSpeechRequest {
     /// The voice to use when generating the audio. Supported built-in voices are `alloy`, `ash`, `ballad`, `coral`, `echo`, `fable`, `onyx`, `nova`, `sage`, `shimmer`, `verse`, `marin`, and `cedar`. You may also provide a custom voice object with an `id`, for example `{ \"id\": \"voice_1234\" }`. Previews of the voices are available in the [Text to speech guide](https://developers.openai.com/api/docs/guides/text-to-speech#voice-options). Custom voices must be created from audio samples. Voices created from text prompts are supported only in Live.
     #[serde(rename = "voice")]
     pub voice: String,
-    /// The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`.
+    /// The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`.  Defaults to `\"mp3\"`.
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
     pub response_format: Option<ResponseFormat>,
-    /// The speed of the generated audio. Select a value from `0.25` to `4.0`. `1.0` is the default.
+    /// The speed of the generated audio. Select a value from `0.25` to `4.0`. `1.0` is the default.  Defaults to `1`.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
-    /// The format to stream the audio in. Supported formats are `sse` and `audio`. `sse` is not supported for `tts-1` or `tts-1-hd`.
+    /// The format to stream the audio in. Supported formats are `sse` and `audio`. `sse` is not supported for `tts-1` or `tts-1-hd`.  Defaults to `\"audio\"`.
     #[serde(rename = "stream_format", skip_serializing_if = "Option::is_none")]
     pub stream_format: Option<StreamFormat>,
 }
@@ -48,7 +48,7 @@ impl CreateSpeechRequest {
         }
     }
 }
-/// The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`.
+/// The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`.  Defaults to `\"mp3\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ResponseFormat {
     #[serde(rename = "mp3")]
@@ -65,7 +65,7 @@ pub enum ResponseFormat {
     Pcm,
 }
 
-/// The format to stream the audio in. Supported formats are `sse` and `audio`. `sse` is not supported for `tts-1` or `tts-1-hd`.
+/// The format to stream the audio in. Supported formats are `sse` and `audio`. `sse` is not supported for `tts-1` or `tts-1-hd`.  Defaults to `\"audio\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum StreamFormat {
     #[serde(rename = "sse")]

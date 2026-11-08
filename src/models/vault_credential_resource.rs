@@ -17,7 +17,7 @@ pub struct VaultCredentialResource {
     /// The ID of the credential.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `vault.credential`.
+    /// The object type. Always `vault.credential`.  Defaults to `\"vault.credential\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The ID of the vault containing this credential.
@@ -63,7 +63,7 @@ impl VaultCredentialResource {
         }
     }
 }
-/// The object type. Always `vault.credential`.
+/// The object type. Always `vault.credential`.  Defaults to `\"vault.credential\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "vault.credential")]

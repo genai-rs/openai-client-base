@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveHostedShellContainerAutoParam {
-    /// Automatically creates a container for this request
+    /// Automatically creates a container for this request  Defaults to `\"container_auto\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// An optional list of uploaded files to make available to your code.
@@ -59,7 +59,7 @@ impl LiveHostedShellContainerAutoParam {
         }
     }
 }
-/// Automatically creates a container for this request
+/// Automatically creates a container for this request  Defaults to `\"container_auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "container_auto")]

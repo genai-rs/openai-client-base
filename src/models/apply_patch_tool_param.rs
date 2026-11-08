@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ApplyPatchToolParam : Allows the assistant to create, delete, or update files using unified diffs.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApplyPatchToolParam {
-    /// The type of the tool. Always `apply_patch`.
+    /// The type of the tool. Always `apply_patch`.  Defaults to `\"apply_patch\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The tool invocation context(s).
@@ -36,7 +36,7 @@ impl ApplyPatchToolParam {
         }
     }
 }
-/// The type of the tool. Always `apply_patch`.
+/// The type of the tool. Always `apply_patch`.  Defaults to `\"apply_patch\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "apply_patch")]

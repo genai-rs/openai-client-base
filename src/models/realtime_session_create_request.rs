@@ -39,7 +39,7 @@ pub struct RealtimeSessionCreateRequest {
     )]
     pub input_audio_transcription:
         Option<models::RealtimeSessionCreateRequestInputAudioTranscription>,
-    /// The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.
+    /// The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.  Defaults to `1`.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]

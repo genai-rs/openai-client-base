@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaProgramToolCallCallerParam {
-    /// The caller type. Always `program`.
+    /// The caller type. Always `program`.  Defaults to `\"program\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The call ID of the program item that produced this tool call.
@@ -25,7 +25,7 @@ impl BetaProgramToolCallCallerParam {
         BetaProgramToolCallCallerParam { r#type, caller_id }
     }
 }
-/// The caller type. Always `program`.
+/// The caller type. Always `program`.  Defaults to `\"program\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "program")]

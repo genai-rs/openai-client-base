@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// UserMessageQuotedText : Quoted snippet that the user referenced in their message.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UserMessageQuotedText {
-    /// Type discriminator that is always `quoted_text`.
+    /// Type discriminator that is always `quoted_text`.  Defaults to `\"quoted_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Quoted text content.
@@ -27,7 +27,7 @@ impl UserMessageQuotedText {
         UserMessageQuotedText { r#type, text }
     }
 }
-/// Type discriminator that is always `quoted_text`.
+/// Type discriminator that is always `quoted_text`.  Defaults to `\"quoted_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "quoted_text")]

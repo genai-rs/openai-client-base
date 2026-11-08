@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **metadata** | **std::collections::HashMap<String, String>** | Custom string key-value pairs attached to the session. | 
 **id** | **String** | The ID of the session. | 
-**object** | **Object** | The object type. Always `agent.session`. (enum: agent.session) | 
+**object** | **Object** | The object type. Always `agent.session`.  Defaults to `\"agent.session\"`. (enum: agent.session) | 
 **created_at** | **i64** | The Unix timestamp, in seconds, when the session was created. | 
 **last_active_at** | **i64** | The Unix timestamp, in seconds, when the session was last active. | 
 **status** | [**models::SessionStatusResource**](SessionStatusResource.md) |  | 

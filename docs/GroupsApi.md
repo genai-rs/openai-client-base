@@ -84,9 +84,9 @@ Lists all groups in the organization.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i64**> | A limit on the number of groups to be returned. Limit can range between 0 and 1000, and the default is 100.  |  |[default to 100]
+**limit** | Option<**i64**> | A limit on the number of groups to be returned. Limit can range between 0 and 1000, and the default is 100.  Defaults to `100`. |  |[default to 100]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is a group ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with group_abc, your subsequent call can include `after=group_abc` in order to fetch the next page of the list.  |  |
-**order** | Option<**String**> | Specifies the sort order of the returned groups. |  |[default to asc]
+**order** | Option<**String**> | Specifies the sort order of the returned groups.  Defaults to `\"asc\"`. |  |[default to asc]
 
 ### Return type
 

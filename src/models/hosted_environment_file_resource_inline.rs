@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// HostedEnvironmentFileResourceInline : A file supplied inline when the session was created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct HostedEnvironmentFileResourceInline {
-    /// The type of the object. Always `inline`.
+    /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The session-scoped ID of the file in the execution environment.
@@ -43,7 +43,7 @@ impl HostedEnvironmentFileResourceInline {
         }
     }
 }
-/// The type of the object. Always `inline`.
+/// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "inline")]

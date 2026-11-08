@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaPromptCacheHitDiagnosticsBody {
+    /// Defaults to `\"cache_hit\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -21,6 +22,7 @@ impl BetaPromptCacheHitDiagnosticsBody {
         BetaPromptCacheHitDiagnosticsBody { r#type }
     }
 }
+/// Defaults to `\"cache_hit\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "cache_hit")]

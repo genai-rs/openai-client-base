@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** |  (enum: organization.external_storage.deleted) | 
+**object** | **Object** | Defaults to `\"organization.external_storage.deleted\"`. (enum: organization.external_storage.deleted) | 
 **id** | **String** |  | 
 **deleted** | **bool** |  | 
 

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveWebSearchToolInputParam : A web search tool available to the Live session’s Responses backend.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveWebSearchToolInputParam {
-    /// The tool type. Always `web_search`.
+    /// The tool type. Always `web_search`.  Defaults to `\"web_search\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl LiveWebSearchToolInputParam {
         LiveWebSearchToolInputParam { r#type }
     }
 }
-/// The tool type. Always `web_search`.
+/// The tool type. Always `web_search`.  Defaults to `\"web_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "web_search")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// GraderTextSimilarity : A TextSimilarityGrader object which grades text based on similarity metrics.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct GraderTextSimilarity {
-    /// The type of grader.
+    /// The type of grader.  Defaults to `\"text_similarity\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the grader.
@@ -48,7 +48,7 @@ impl GraderTextSimilarity {
         }
     }
 }
-/// The type of grader.
+/// The type of grader.  Defaults to `\"text_similarity\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "text_similarity")]

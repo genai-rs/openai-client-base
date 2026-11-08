@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveTransportCallError {
+    /// Defaults to `\"call_error\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The call setup failure code.
@@ -34,6 +35,7 @@ impl LiveTransportCallError {
         }
     }
 }
+/// Defaults to `\"call_error\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "call_error")]

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The object type, which was always `error` for moderation failures. (enum: error) | 
+**r#type** | **Type** | The object type, which was always `error` for moderation failures.  Defaults to `\"error\"`. (enum: error) | 
 **code** | **String** | The error code. | 
 **message** | **String** | The error message. | 
 

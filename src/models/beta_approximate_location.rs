@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaApproximateLocation {
-    /// The type of location approximation. Always `approximate`.
+    /// The type of location approximation. Always `approximate`.  Defaults to `\"approximate\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
@@ -60,7 +60,7 @@ impl BetaApproximateLocation {
         }
     }
 }
-/// The type of location approximation. Always `approximate`.
+/// The type of location approximation. Always `approximate`.  Defaults to `\"approximate\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "approximate")]

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **triggers** | Option<[**Vec<models::LiveDecisionTriggerInputParam>**](LiveDecisionTriggerInputParam.md)> | At most one Decisions trigger per transcript event type. Triggers run independently of delegation. On update, omit triggers to keep the current configuration, send a list to replace it, or send an empty list to disable triggers. | [optional]
 **store** | Option<**bool**> | Whether to store the session for later forking and recording download. Defaults to false for new sessions. | [optional]
 **input** | Option<[**Vec<models::LiveInitialItem>**](LiveInitialItem.md)> | Ordered text-only history supplied before startup. Supports developer, user, and assistant messages with one text part each; at most 128 messages and a configured rendered-token limit (8,192 by default). | [optional]
-**r#type** | **Type** | The session type. Always `live`. (enum: live) | 
+**r#type** | **Type** | The session type. Always `live`.  Defaults to `\"live\"`. (enum: live) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

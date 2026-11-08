@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveAllowedToolsChoiceParam {
-    /// The tool choice type. Always `allowed_tools`.
+    /// The tool choice type. Always `allowed_tools`.  Defaults to `\"allowed_tools\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The tools that the delegated Responses model may call.
@@ -40,7 +40,7 @@ impl LiveAllowedToolsChoiceParam {
         }
     }
 }
-/// The tool choice type. Always `allowed_tools`.
+/// The tool choice type. Always `allowed_tools`.  Defaults to `\"allowed_tools\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "allowed_tools")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// FunctionCallItemResource : A function call produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionCallItemResource {
-    /// The item type. Always `function_call`.
+    /// The item type. Always `function_call`.  Defaults to `\"function_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the function call item.
@@ -58,7 +58,7 @@ impl FunctionCallItemResource {
         }
     }
 }
-/// The item type. Always `function_call`.
+/// The item type. Always `function_call`.  Defaults to `\"function_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function_call")]

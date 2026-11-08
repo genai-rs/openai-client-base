@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTagParam**](BetaAgentTagParam.md)> |  | [optional]
 **id** | Option<**String**> | The unique ID of this message item. | [optional]
-**r#type** | **Type** | The item type. Always `message`. (enum: message) | 
-**role** | **Role** | The message role. Always `user`. (enum: user) | 
+**r#type** | **Type** | The item type. Always `message`.  Defaults to `\"message\"`. (enum: message) | 
+**role** | **Role** | The message role. Always `user`.  Defaults to `\"user\"`. (enum: user) | 
 **content** | [**models::BetaUserMessageItemParamContent**](BetaUserMessageItemParamContent.md) |  | 
 **status** | Option<**String**> | The status of the message item. | [optional]
 

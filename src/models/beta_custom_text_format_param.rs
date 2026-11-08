@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaCustomTextFormatParam : Unconstrained free-form text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCustomTextFormatParam {
-    /// Unconstrained text format. Always `text`.
+    /// Unconstrained text format. Always `text`.  Defaults to `\"text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl BetaCustomTextFormatParam {
         BetaCustomTextFormatParam { r#type }
     }
 }
-/// Unconstrained text format. Always `text`.
+/// Unconstrained text format. Always `text`.  Defaults to `\"text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "text")]

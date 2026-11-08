@@ -17,7 +17,7 @@ pub struct ThreadResource {
     /// Identifier of the thread.
     #[serde(rename = "id")]
     pub id: String,
-    /// Type discriminator that is always `chatkit.thread`.
+    /// Type discriminator that is always `chatkit.thread`.  Defaults to `\"chatkit.thread\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Unix timestamp (in seconds) for when the thread was created.
@@ -53,7 +53,7 @@ impl ThreadResource {
         }
     }
 }
-/// Type discriminator that is always `chatkit.thread`.
+/// Type discriminator that is always `chatkit.thread`.  Defaults to `\"chatkit.thread\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "chatkit.thread")]

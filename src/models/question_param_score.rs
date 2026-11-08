@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// QuestionParamScore : Rate the input against the supplied ordered levels.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct QuestionParamScore {
-    /// The type of the object. Always `score`.
+    /// The type of the object. Always `score`.  Defaults to `\"score\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
@@ -40,7 +40,7 @@ impl QuestionParamScore {
         }
     }
 }
-/// The type of the object. Always `score`.
+/// The type of the object. Always `score`.  Defaults to `\"score\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "score")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionIdle : Emitted when a session becomes idle.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionIdle {
-    /// The type of the object. Always `agent.session.idle`.
+    /// The type of the object. Always `agent.session.idle`.  Defaults to `\"agent.session.idle\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -38,7 +38,7 @@ impl SessionEventAgentSessionIdle {
         }
     }
 }
-/// The type of the object. Always `agent.session.idle`.
+/// The type of the object. Always `agent.session.idle`.  Defaults to `\"agent.session.idle\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.idle")]

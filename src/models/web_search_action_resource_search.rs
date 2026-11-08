@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// WebSearchActionResourceSearch : A search query or group of search queries.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchActionResourceSearch {
-    /// The type of the object. Always `search`.
+    /// The type of the object. Always `search`.  Defaults to `\"search\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The search query, when a single query was used.
@@ -38,7 +38,7 @@ impl WebSearchActionResourceSearch {
         }
     }
 }
-/// The type of the object. Always `search`.
+/// The type of the object. Always `search`.  Defaults to `\"search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "search")]

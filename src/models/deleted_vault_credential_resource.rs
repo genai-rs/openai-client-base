@@ -16,7 +16,7 @@ pub struct DeletedVaultCredentialResource {
     /// The ID of the deleted credential.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `vault.credential.deleted`.
+    /// The object type. Always `vault.credential.deleted`.  Defaults to `\"vault.credential.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Whether the resource was deleted. Always `true`.
@@ -34,7 +34,7 @@ impl DeletedVaultCredentialResource {
         }
     }
 }
-/// The object type. Always `vault.credential.deleted`.
+/// The object type. Always `vault.credential.deleted`.  Defaults to `\"vault.credential.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "vault.credential.deleted")]

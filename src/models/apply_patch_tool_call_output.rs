@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ApplyPatchToolCallOutput : The output emitted by an apply patch tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApplyPatchToolCallOutput {
-    /// The type of the item. Always `apply_patch_call_output`.
+    /// The type of the item. Always `apply_patch_call_output`.  Defaults to `\"apply_patch_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the apply patch tool call output. Populated when this item is returned via API.
@@ -64,7 +64,7 @@ impl ApplyPatchToolCallOutput {
         }
     }
 }
-/// The type of the item. Always `apply_patch_call_output`.
+/// The type of the item. Always `apply_patch_call_output`.  Defaults to `\"apply_patch_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "apply_patch_call_output")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// InterruptSubagentCallItemResource : A request to interrupt a subagent's current turn. The subagent remains available.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InterruptSubagentCallItemResource {
-    /// The item type. Always `interrupt_subagent_call`.
+    /// The item type. Always `interrupt_subagent_call`.  Defaults to `\"interrupt_subagent_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the tool call item.
@@ -53,7 +53,7 @@ impl InterruptSubagentCallItemResource {
         }
     }
 }
-/// The item type. Always `interrupt_subagent_call`.
+/// The item type. Always `interrupt_subagent_call`.  Defaults to `\"interrupt_subagent_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "interrupt_subagent_call")]

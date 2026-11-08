@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveTransportDtmfSend : A SIP DTMF keypress successfully sent to the SIP trunk. Delivered only to sideband observers; this is not a client command.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveTransportDtmfSend {
+    /// Defaults to `\"transport.dtmf.send\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "event_id")]
@@ -35,6 +36,7 @@ impl LiveTransportDtmfSend {
         }
     }
 }
+/// Defaults to `\"transport.dtmf.send\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "transport.dtmf.send")]

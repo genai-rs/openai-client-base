@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// McpTransportResourceStdio : Starts an MCP server as a local process.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct McpTransportResourceStdio {
-    /// The type of the object. Always `stdio`.
+    /// The type of the object. Always `stdio`.  Defaults to `\"stdio\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The command used to start the MCP server.
@@ -48,7 +48,7 @@ impl McpTransportResourceStdio {
         }
     }
 }
-/// The type of the object. Always `stdio`.
+/// The type of the object. Always `stdio`.  Defaults to `\"stdio\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "stdio")]

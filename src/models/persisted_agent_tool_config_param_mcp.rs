@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// PersistedAgentToolConfigParamMcp : Tools provided by a remote MCP server without stored credentials.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PersistedAgentToolConfigParamMcp {
-    /// The type of the object. Always `mcp`.
+    /// The type of the object. Always `mcp`.  Defaults to `\"mcp\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// A label used to identify the MCP server in tool calls.
@@ -78,7 +78,7 @@ impl PersistedAgentToolConfigParamMcp {
         }
     }
 }
-/// The type of the object. Always `mcp`.
+/// The type of the object. Always `mcp`.  Defaults to `\"mcp\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp")]

@@ -44,11 +44,27 @@ model-level rules (the options in `generator-config.json`). The transitional
 `legacyModelRewrites` (Java ports of the scripts that used to run here) was
 turned off in 0.26.0 and removed from timvw-rust 0.17.0.
 
-The options timvw-rust 0.18.0 added (`typedEnumParameters`,
-`nullableUnionFields`, `schemaDefaultDocs`, `deprecatedAttributes`,
-`pruneAllHelpers`) are not set: each changes the public API or what a
-`-D warnings` consumer such as openai-ergonomic sees. The generator's README
-shows what each renders ("Renderings from the generator comparison").
+Of the options timvw-rust 0.18.0 added, two are set:
+
+- `schemaDefaultDocs`: a property's or parameter's `default` is noted in its
+  documentation (``Defaults to `false`.``). Documentation only.
+- `nullableUnionFields`: a nullable union field is `Option<Option<U>>`, so a
+  request can send `null`. The current spec has no such field, so it changes
+  nothing yet; it decides how one renders when the spec adds it.
+
+Three are not:
+
+- `pruneAllHelpers`: `tests/oa06_postprocess_wire.rs` includes
+  `src/apis/multipart_helper.rs` and calls one helper; without the helpers kept
+  on purpose, the others are unused there and clippy `-D warnings` fails.
+- `typedEnumParameters` (66 functions take enums instead of `&str`) and
+  `deprecatedAttributes` (45 `#[deprecated]` marks) change what
+  openai-ergonomic compiles against: 34 type errors and 19 deprecation
+  warnings, which its clippy `-D warnings` rejects. They come with a breaking
+  release and the matching openai-ergonomic changes.
+
+The generator's README shows what each option renders ("Renderings from the
+generator comparison").
 
 ## Documentation build
 

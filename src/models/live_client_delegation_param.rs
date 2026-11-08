@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveClientDelegationParam : Delegate tasks to your application. The Live session emits delegation events that your backend handles.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveClientDelegationParam {
-    /// The delegation owner. Always `client` for tasks handled by your application.
+    /// The delegation owner. Always `client` for tasks handled by your application.  Defaults to `\"client\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl LiveClientDelegationParam {
         LiveClientDelegationParam { r#type }
     }
 }
-/// The delegation owner. Always `client` for tasks handled by your application.
+/// The delegation owner. Always `client` for tasks handled by your application.  Defaults to `\"client\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "client")]

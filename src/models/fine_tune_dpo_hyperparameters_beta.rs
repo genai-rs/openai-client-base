@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FineTuneDpoHyperparametersBeta : The beta value for the DPO method. A higher beta value will increase the weight of the penalty between the policy and reference model.
+/// FineTuneDpoHyperparametersBeta : The beta value for the DPO method. A higher beta value will increase the weight of the penalty between the policy and reference model.  Defaults to `\"auto\"`.
 pub use crate::models::FineTuneDpoHyperparametersBetaTextVariantEnum;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

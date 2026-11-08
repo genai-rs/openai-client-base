@@ -15,6 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct SafetyAlertResource {
     #[serde(rename = "id")]
     pub id: String,
+    /// Defaults to `\"safety.alert\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "created_at")]
@@ -69,6 +70,7 @@ impl SafetyAlertResource {
         }
     }
 }
+/// Defaults to `\"safety.alert\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "safety.alert")]

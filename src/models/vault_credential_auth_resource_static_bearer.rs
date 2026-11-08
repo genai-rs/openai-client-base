@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// VaultCredentialAuthResourceStaticBearer : Metadata for a bearer-token credential, without automatic OAuth refresh.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VaultCredentialAuthResourceStaticBearer {
-    /// The type of the object. Always `static_bearer`.
+    /// The type of the object. Always `static_bearer`.  Defaults to `\"static_bearer\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The HTTPS MCP server URL authorized by this credential.
@@ -30,7 +30,7 @@ impl VaultCredentialAuthResourceStaticBearer {
         }
     }
 }
-/// The type of the object. Always `static_bearer`.
+/// The type of the object. Always `static_bearer`.  Defaults to `\"static_bearer\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "static_bearer")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ModerationResultBody : A moderation result produced for the response input or output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ModerationResultBody {
-    /// The object type, which was always `moderation_result` for successful moderation results.
+    /// The object type, which was always `moderation_result` for successful moderation results.  Defaults to `\"moderation_result\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The moderation model that produced this result.
@@ -58,7 +58,7 @@ impl ModerationResultBody {
         }
     }
 }
-/// The object type, which was always `moderation_result` for successful moderation results.
+/// The object type, which was always `moderation_result` for successful moderation results.  Defaults to `\"moderation_result\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "moderation_result")]

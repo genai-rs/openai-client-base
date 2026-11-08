@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ModerationErrorBody : An error produced while attempting moderation for the response input or output.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ModerationErrorBody {
-    /// The object type, which was always `error` for moderation failures.
+    /// The object type, which was always `error` for moderation failures.  Defaults to `\"error\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The error code.
@@ -34,7 +34,7 @@ impl ModerationErrorBody {
         }
     }
 }
-/// The object type, which was always `error` for moderation failures.
+/// The object type, which was always `error` for moderation failures.  Defaults to `\"error\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "error")]

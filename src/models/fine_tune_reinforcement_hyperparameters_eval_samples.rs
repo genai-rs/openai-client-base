@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FineTuneReinforcementHyperparametersEvalSamples : Number of evaluation samples to generate per training step.
+/// FineTuneReinforcementHyperparametersEvalSamples : Number of evaluation samples to generate per training step.  Defaults to `\"auto\"`.
 pub use crate::models::FineTuneReinforcementHyperparametersEvalSamplesTextVariantEnum;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

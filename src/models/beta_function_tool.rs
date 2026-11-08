@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaFunctionTool : Defines a function in your own code the model can choose to call. Learn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionTool {
-    /// The type of the function tool. Always `function`.
+    /// The type of the function tool. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the function to call.
@@ -78,7 +78,7 @@ impl BetaFunctionTool {
         }
     }
 }
-/// The type of the function tool. Always `function`.
+/// The type of the function tool. Always `function`.  Defaults to `\"function\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function")]

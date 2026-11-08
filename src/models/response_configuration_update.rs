@@ -17,7 +17,7 @@ pub struct ResponseConfigurationUpdate {
     /// The unique ID of the configuration update item.
     #[serde(rename = "id")]
     pub id: String,
-    /// The item type. Always `configuration_update`.
+    /// The item type. Always `configuration_update`.  Defaults to `\"configuration_update\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
@@ -34,7 +34,7 @@ impl ResponseConfigurationUpdate {
         }
     }
 }
-/// The item type. Always `configuration_update`.
+/// The item type. Always `configuration_update`.  Defaults to `\"configuration_update\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "configuration_update")]

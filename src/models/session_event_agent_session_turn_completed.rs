@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionTurnCompleted : Emitted when a turn completes.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionTurnCompleted {
-    /// The type of the object. Always `agent.session.turn.completed`.
+    /// The type of the object. Always `agent.session.turn.completed`.  Defaults to `\"agent.session.turn.completed\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -53,7 +53,7 @@ impl SessionEventAgentSessionTurnCompleted {
         }
     }
 }
-/// The type of the object. Always `agent.session.turn.completed`.
+/// The type of the object. Always `agent.session.turn.completed`.  Defaults to `\"agent.session.turn.completed\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.turn.completed")]

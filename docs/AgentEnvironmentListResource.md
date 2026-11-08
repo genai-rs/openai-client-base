@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** | The object type, which is always `list`. (enum: list) | 
+**object** | **Object** | The object type, which is always `list`.  Defaults to `\"list\"`. (enum: list) | 
 **data** | [**Vec<models::PublicEnvironmentResource>**](PublicEnvironmentResource.md) | The resources returned in this page, in the requested sort order. | 
 **first_id** | Option<**String**> | The ID of the first resource in `data`, or `null` if the page is empty. | 
 **last_id** | Option<**String**> | The ID of the last resource in `data`, or `null` if the page is empty. Pass this as `after` with the same order and filters. | 

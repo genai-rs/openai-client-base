@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaInputImageContentParamAutoParam : An image input to the model. Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision)
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaInputImageContentParamAutoParam {
-    /// The type of the input item. Always `input_image`.
+    /// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
@@ -61,7 +61,7 @@ impl BetaInputImageContentParamAutoParam {
         }
     }
 }
-/// The type of the input item. Always `input_image`.
+/// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_image")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// MoveParam : A mouse move action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MoveParam {
-    /// Specifies the event type. For a move action, this property is always set to `move`.
+    /// Specifies the event type. For a move action, this property is always set to `move`.  Defaults to `\"move\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The x-coordinate to move to.
@@ -43,7 +43,7 @@ impl MoveParam {
         }
     }
 }
-/// Specifies the event type. For a move action, this property is always set to `move`.
+/// Specifies the event type. For a move action, this property is always set to `move`.  Defaults to `\"move\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "move")]

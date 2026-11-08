@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ApplyPatchToolCallItemParam : A tool call representing a request to create, delete, or update files using diff patches.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApplyPatchToolCallItemParam {
-    /// The type of the item. Always `apply_patch_call`.
+    /// The type of the item. Always `apply_patch_call`.  Defaults to `\"apply_patch_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the apply patch tool call. Populated when this item is returned via API.
@@ -59,7 +59,7 @@ impl ApplyPatchToolCallItemParam {
         }
     }
 }
-/// The type of the item. Always `apply_patch_call`.
+/// The type of the item. Always `apply_patch_call`.  Defaults to `\"apply_patch_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "apply_patch_call")]

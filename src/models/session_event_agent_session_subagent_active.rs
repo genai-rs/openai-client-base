@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionSubagentActive : Emitted when a closed subagent successfully resumes.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionSubagentActive {
-    /// The type of the object. Always `agent.session.subagent.active`.
+    /// The type of the object. Always `agent.session.subagent.active`.  Defaults to `\"agent.session.subagent.active\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -38,7 +38,7 @@ impl SessionEventAgentSessionSubagentActive {
         }
     }
 }
-/// The type of the object. Always `agent.session.subagent.active`.
+/// The type of the object. Always `agent.session.subagent.active`.  Defaults to `\"agent.session.subagent.active\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.subagent.active")]

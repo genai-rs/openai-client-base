@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AdditionalTools {
-    /// The type of the item. Always `additional_tools`.
+    /// The type of the item. Always `additional_tools`.  Defaults to `\"additional_tools\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the additional tools item.
@@ -41,7 +41,7 @@ impl AdditionalTools {
         }
     }
 }
-/// The type of the item. Always `additional_tools`.
+/// The type of the item. Always `additional_tools`.  Defaults to `\"additional_tools\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "additional_tools")]

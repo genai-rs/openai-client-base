@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveMcpToolChoiceParam {
-    /// The tool to call. Always `mcp`.
+    /// The tool to call. Always `mcp`.  Defaults to `\"mcp\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The label of the MCP server to call.
@@ -37,7 +37,7 @@ impl LiveMcpToolChoiceParam {
         }
     }
 }
-/// The tool to call. Always `mcp`.
+/// The tool to call. Always `mcp`.  Defaults to `\"mcp\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp")]

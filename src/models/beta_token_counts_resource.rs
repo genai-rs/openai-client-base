@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaTokenCountsResource {
+    /// Defaults to `\"response.input_tokens\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "input_tokens")]
@@ -26,6 +27,7 @@ impl BetaTokenCountsResource {
         }
     }
 }
+/// Defaults to `\"response.input_tokens\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "response.input_tokens")]

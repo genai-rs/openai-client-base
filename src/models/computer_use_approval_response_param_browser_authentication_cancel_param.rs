@@ -12,8 +12,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam {
+    /// Defaults to `\"browser_authentication\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Defaults to `\"cancel\"`.
     #[serde(rename = "action")]
     pub action: Action,
 }
@@ -26,12 +28,14 @@ impl ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam {
         ComputerUseApprovalResponseParamBrowserAuthenticationCancelParam { r#type, action }
     }
 }
+/// Defaults to `\"browser_authentication\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "browser_authentication")]
     BrowserAuthentication,
 }
 
+/// Defaults to `\"cancel\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Action {
     #[serde(rename = "cancel")]

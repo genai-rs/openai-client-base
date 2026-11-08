@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: aws) | 
+**r#type** | **Type** | Defaults to `\"aws\"`. (enum: aws) | 
 **bucket** | **String** |  | 
 **role_arn** | **String** |  | 
 

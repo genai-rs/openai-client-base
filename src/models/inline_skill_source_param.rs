@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 /// InlineSkillSourceParam : Inline skill payload
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InlineSkillSourceParam {
-    /// The type of the inline skill source. Must be `base64`.
+    /// The type of the inline skill source. Must be `base64`.  Defaults to `\"base64\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The media type of the inline skill payload. Must be `application/zip`.
+    /// The media type of the inline skill payload. Must be `application/zip`.  Defaults to `\"application/zip\"`.
     #[serde(rename = "media_type")]
     pub media_type: MediaType,
     /// Base64-encoded skill zip bundle.
@@ -34,7 +34,7 @@ impl InlineSkillSourceParam {
         }
     }
 }
-/// The type of the inline skill source. Must be `base64`.
+/// The type of the inline skill source. Must be `base64`.  Defaults to `\"base64\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "base64")]
@@ -44,7 +44,7 @@ pub enum Type {
     Unknown,
 }
 
-/// The media type of the inline skill payload. Must be `application/zip`.
+/// The media type of the inline skill payload. Must be `application/zip`.  Defaults to `\"application/zip\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MediaType {
     #[serde(rename = "application/zip")]

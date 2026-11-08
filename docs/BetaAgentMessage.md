@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **Type** | The type of the item. Always `agent_message`. (enum: agent_message) | 
+**r#type** | **Type** | The type of the item. Always `agent_message`.  Defaults to `\"agent_message\"`. (enum: agent_message) | 
 **id** | **String** | The unique ID of the agent message. | 
 **author** | **String** | The sending agent identity. | 
 **recipient** | **String** | The destination agent identity. | 

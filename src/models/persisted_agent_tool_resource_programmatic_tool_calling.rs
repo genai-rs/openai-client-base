@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// PersistedAgentToolResourceProgrammaticToolCalling : Enables calling tools from model-generated code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PersistedAgentToolResourceProgrammaticToolCalling {
-    /// The type of the object. Always `programmatic_tool_calling`.
+    /// The type of the object. Always `programmatic_tool_calling`.  Defaults to `\"programmatic_tool_calling\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Whether tools can be called from model-generated code.
@@ -27,7 +27,7 @@ impl PersistedAgentToolResourceProgrammaticToolCalling {
         PersistedAgentToolResourceProgrammaticToolCalling { r#type, enabled }
     }
 }
-/// The type of the object. Always `programmatic_tool_calling`.
+/// The type of the object. Always `programmatic_tool_calling`.  Defaults to `\"programmatic_tool_calling\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "programmatic_tool_calling")]

@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UrlCitationParam {
-    /// The citation type. Always `url_citation`.
+    /// The citation type. Always `url_citation`.  Defaults to `\"url_citation\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The index of the first character of the citation in the message.
@@ -46,7 +46,7 @@ impl UrlCitationParam {
         }
     }
 }
-/// The citation type. Always `url_citation`.
+/// The citation type. Always `url_citation`.  Defaults to `\"url_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "url_citation")]

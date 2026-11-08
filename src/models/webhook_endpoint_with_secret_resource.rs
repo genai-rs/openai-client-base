@@ -15,7 +15,7 @@ pub struct WebhookEndpointWithSecretResource {
     /// The unique ID of the webhook endpoint.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type, which is always webhook_endpoint.
+    /// The object type, which is always webhook_endpoint.  Defaults to `\"webhook_endpoint\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp when the endpoint was created.
@@ -68,7 +68,7 @@ impl WebhookEndpointWithSecretResource {
         }
     }
 }
-/// The object type, which is always webhook_endpoint.
+/// The object type, which is always webhook_endpoint.  Defaults to `\"webhook_endpoint\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "webhook_endpoint")]

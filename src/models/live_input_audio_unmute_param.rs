@@ -21,7 +21,7 @@ pub struct LiveInputAudioUnmuteParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub event_id: Option<Option<String>>,
-    /// The Live client event type. Always `session.input_audio.unmute`.
+    /// The Live client event type. Always `session.input_audio.unmute`.  Defaults to `\"session.input_audio.unmute\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -35,7 +35,7 @@ impl LiveInputAudioUnmuteParam {
         }
     }
 }
-/// The Live client event type. Always `session.input_audio.unmute`.
+/// The Live client event type. Always `session.input_audio.unmute`.  Defaults to `\"session.input_audio.unmute\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.input_audio.unmute")]

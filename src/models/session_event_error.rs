@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventError : Emitted when a turn or session fails.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventError {
-    /// The type of the object. Always `error`.
+    /// The type of the object. Always `error`.  Defaults to `\"error\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -43,7 +43,7 @@ impl SessionEventError {
         }
     }
 }
-/// The type of the object. Always `error`.
+/// The type of the object. Always `error`.  Defaults to `\"error\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "error")]

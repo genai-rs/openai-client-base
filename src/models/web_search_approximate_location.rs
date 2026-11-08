@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// WebSearchApproximateLocation : The approximate location of the user.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchApproximateLocation {
-    /// The type of location approximation. Always `approximate`.
+    /// The type of location approximation. Always `approximate`.  Defaults to `\"approximate\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
     /// The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
@@ -62,7 +62,7 @@ impl WebSearchApproximateLocation {
         }
     }
 }
-/// The type of location approximation. Always `approximate`.
+/// The type of location approximation. Always `approximate`.  Defaults to `\"approximate\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "approximate")]

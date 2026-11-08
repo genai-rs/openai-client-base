@@ -15,7 +15,7 @@ pub struct ConversationResource {
     /// The unique ID of the conversation.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type, which is always `conversation`.
+    /// The object type, which is always `conversation`.  Defaults to `\"conversation\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Set of 16 key-value pairs that can be attached to an object. This can be         useful for storing additional information about the object in a structured         format, and querying for objects via API or the dashboard.         Keys are strings with a maximum length of 64 characters. Values are strings         with a maximum length of 512 characters.
@@ -41,7 +41,7 @@ impl ConversationResource {
         }
     }
 }
-/// The object type, which is always `conversation`.
+/// The object type, which is always `conversation`.  Defaults to `\"conversation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "conversation")]

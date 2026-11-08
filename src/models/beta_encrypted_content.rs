@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaEncryptedContent : Opaque encrypted content that Responses API decrypts inside trusted model execution.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaEncryptedContent {
-    /// The type of the input item. Always `encrypted_content`.
+    /// The type of the input item. Always `encrypted_content`.  Defaults to `\"encrypted_content\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Opaque encrypted content.
@@ -30,7 +30,7 @@ impl BetaEncryptedContent {
         }
     }
 }
-/// The type of the input item. Always `encrypted_content`.
+/// The type of the input item. Always `encrypted_content`.  Defaults to `\"encrypted_content\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "encrypted_content")]

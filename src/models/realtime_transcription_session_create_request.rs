@@ -22,7 +22,7 @@ pub struct RealtimeTranscriptionSessionCreateRequest {
     )]
     pub input_audio_noise_reduction:
         Option<models::RealtimeTranscriptionSessionCreateRequestInputAudioNoiseReduction>,
-    /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.
+    /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.  Defaults to `\"pcm16\"`.
     #[serde(rename = "input_audio_format", skip_serializing_if = "Option::is_none")]
     pub input_audio_format: Option<InputAudioFormat>,
     #[serde(
@@ -47,7 +47,7 @@ impl RealtimeTranscriptionSessionCreateRequest {
         }
     }
 }
-/// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.
+/// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.  Defaults to `\"pcm16\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum InputAudioFormat {
     #[serde(rename = "pcm16")]

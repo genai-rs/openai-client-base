@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FineTuneSupervisedHyperparametersNEpochs : The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
+/// FineTuneSupervisedHyperparametersNEpochs : The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.  Defaults to `\"auto\"`.
 pub use crate::models::FineTuneSupervisedHyperparametersNEpochsTextVariantEnum;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

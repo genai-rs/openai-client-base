@@ -17,7 +17,7 @@ pub struct ChatSessionResource {
     /// Identifier for the ChatKit session.
     #[serde(rename = "id")]
     pub id: String,
-    /// Type discriminator that is always `chatkit.session`.
+    /// Type discriminator that is always `chatkit.session`.  Defaults to `\"chatkit.session\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Unix timestamp (in seconds) for when the session expires.
@@ -70,7 +70,7 @@ impl ChatSessionResource {
         }
     }
 }
-/// Type discriminator that is always `chatkit.session`.
+/// Type discriminator that is always `chatkit.session`.  Defaults to `\"chatkit.session\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "chatkit.session")]

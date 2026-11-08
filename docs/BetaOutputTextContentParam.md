@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The content type. Always `output_text`. (enum: output_text) | 
+**r#type** | **Type** | The content type. Always `output_text`.  Defaults to `\"output_text\"`. (enum: output_text) | 
 **text** | **String** | The text content. | 
 **annotations** | Option<[**Vec<models::BetaOutputTextContentParamAnnotationsInner>**](BetaOutputTextContentParamAnnotationsInner.md)> | Citations associated with the text content. | [optional]
 

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaWaitParam : A wait action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaWaitParam {
-    /// Specifies the event type. For a wait action, this property is always set to `wait`.
+    /// Specifies the event type. For a wait action, this property is always set to `wait`.  Defaults to `\"wait\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl BetaWaitParam {
         BetaWaitParam { r#type }
     }
 }
-/// Specifies the event type. For a wait action, this property is always set to `wait`.
+/// Specifies the event type. For a wait action, this property is always set to `wait`.  Defaults to `\"wait\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "wait")]

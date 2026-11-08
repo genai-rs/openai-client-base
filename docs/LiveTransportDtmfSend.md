@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: transport.dtmf.send) | 
+**r#type** | **Type** | Defaults to `\"transport.dtmf.send\"`. (enum: transport.dtmf.send) | 
 **event_id** | **String** |  | 
 **event** | **String** |  | 
 **client_event_id** | Option<**String**> | The event_id of the client command, when supplied. | [optional]

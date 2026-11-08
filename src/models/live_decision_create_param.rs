@@ -15,6 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct LiveDecisionCreateParam {
     #[serde(rename = "event_id")]
     pub event_id: String,
+    /// Defaults to `\"decision.create\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -25,6 +26,7 @@ impl LiveDecisionCreateParam {
         LiveDecisionCreateParam { event_id, r#type }
     }
 }
+/// Defaults to `\"decision.create\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "decision.create")]

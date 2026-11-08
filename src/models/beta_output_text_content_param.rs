@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaOutputTextContentParam {
-    /// The content type. Always `output_text`.
+    /// The content type. Always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text content.
@@ -33,7 +33,7 @@ impl BetaOutputTextContentParam {
         }
     }
 }
-/// The content type. Always `output_text`.
+/// The content type. Always `output_text`.  Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "output_text")]

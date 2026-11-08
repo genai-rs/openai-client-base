@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeSessionCreateRequestGaTracing : Realtime API can write session traces to the [Traces Dashboard](https://platform.openai.com/logs?api=traces). Set to null to disable tracing. Once tracing is enabled for a session, the configuration cannot be modified.  `auto` will create a trace for the session with default values for the workflow name, group id, and metadata.
+/// RealtimeSessionCreateRequestGaTracing : Realtime API can write session traces to the [Traces Dashboard](https://platform.openai.com/logs?api=traces). Set to null to disable tracing. Once tracing is enabled for a session, the configuration cannot be modified.  `auto` will create a trace for the session with default values for the workflow name, group id, and metadata.  Defaults to `null`.
 pub use crate::models::RealtimeSessionCreateRequestGaTracingAutoEnum;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

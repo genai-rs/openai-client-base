@@ -32,7 +32,7 @@ pub struct FunctionShellCallItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub caller: Option<Option<models::ToolCallCallerParam>>,
-    /// The type of the item. Always `shell_call`.
+    /// The type of the item. Always `shell_call`.  Defaults to `\"shell_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "action")]
@@ -71,7 +71,7 @@ impl FunctionShellCallItemParam {
         }
     }
 }
-/// The type of the item. Always `shell_call`.
+/// The type of the item. Always `shell_call`.  Defaults to `\"shell_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "shell_call")]

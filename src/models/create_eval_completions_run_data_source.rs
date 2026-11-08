@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// CreateEvalCompletionsRunDataSource : A CompletionsRunDataSource object describing a model sampling configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEvalCompletionsRunDataSource {
-    /// The type of run data source. Always `completions`.
+    /// The type of run data source. Always `completions`.  Defaults to `\"completions\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "input_messages", skip_serializing_if = "Option::is_none")]
@@ -43,7 +43,7 @@ impl CreateEvalCompletionsRunDataSource {
         }
     }
 }
-/// The type of run data source. Always `completions`.
+/// The type of run data source. Always `completions`.  Defaults to `\"completions\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "completions")]

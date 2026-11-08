@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// CreateMcpOauthTokenEndpointAuthParamNone : Sends the client ID without a client secret.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateMcpOauthTokenEndpointAuthParamNone {
-    /// The type of the object. Always `none`.
+    /// The type of the object. Always `none`.  Defaults to `\"none\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl CreateMcpOauthTokenEndpointAuthParamNone {
         CreateMcpOauthTokenEndpointAuthParamNone { r#type }
     }
 }
-/// The type of the object. Always `none`.
+/// The type of the object. Always `none`.  Defaults to `\"none\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "none")]

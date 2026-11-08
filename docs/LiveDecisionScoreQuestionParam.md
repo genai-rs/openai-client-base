@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: score) | 
+**r#type** | **Type** | Defaults to `\"score\"`. (enum: score) | 
 **name** | Option<**String**> |  | [optional]
 **instructions** | **String** |  | 
 **levels** | [**Vec<models::LiveDecisionScoreLevelParam>**](LiveDecisionScoreLevelParam.md) |  | 

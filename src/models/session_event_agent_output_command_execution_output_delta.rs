@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentOutputCommandExecutionOutputDelta : Emitted when command execution produces an output delta.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentOutputCommandExecutionOutputDelta {
-    /// The type of the object. Always `agent.output.command_execution_output.delta`.
+    /// The type of the object. Always `agent.output.command_execution_output.delta`.  Defaults to `\"agent.output.command_execution_output.delta\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -58,7 +58,7 @@ impl SessionEventAgentOutputCommandExecutionOutputDelta {
         }
     }
 }
-/// The type of the object. Always `agent.output.command_execution_output.delta`.
+/// The type of the object. Always `agent.output.command_execution_output.delta`.  Defaults to `\"agent.output.command_execution_output.delta\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.output.command_execution_output.delta")]

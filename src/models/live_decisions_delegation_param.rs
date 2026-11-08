@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionsDelegationParam {
+    /// Defaults to `\"decisions\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "decisions")]
@@ -27,6 +28,7 @@ impl LiveDecisionsDelegationParam {
         LiveDecisionsDelegationParam { r#type, decisions }
     }
 }
+/// Defaults to `\"decisions\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "decisions")]

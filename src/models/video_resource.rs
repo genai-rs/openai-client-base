@@ -17,7 +17,7 @@ pub struct VideoResource {
     /// Unique identifier for the video job.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type, which is always `video`.
+    /// The object type, which is always `video`.  Defaults to `\"video\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "model")]
@@ -88,7 +88,7 @@ impl VideoResource {
         }
     }
 }
-/// The object type, which is always `video`.
+/// The object type, which is always `video`.  Defaults to `\"video\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "video")]

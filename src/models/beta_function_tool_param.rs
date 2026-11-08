@@ -37,6 +37,7 @@ pub struct BetaFunctionToolParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub strict: Option<Option<bool>>,
+    /// Defaults to `\"function\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Whether the tool response can be returned asynchronously versus immediately returned on next response creation.
@@ -78,6 +79,7 @@ impl BetaFunctionToolParam {
         }
     }
 }
+/// Defaults to `\"function\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// EnvironmentParamNone : Runs the agent without an execution environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentParamNone {
-    /// The type of the object. Always `none`.
+    /// The type of the object. Always `none`.  Defaults to `\"none\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl EnvironmentParamNone {
         EnvironmentParamNone { r#type }
     }
 }
-/// The type of the object. Always `none`.
+/// The type of the object. Always `none`.  Defaults to `\"none\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "none")]

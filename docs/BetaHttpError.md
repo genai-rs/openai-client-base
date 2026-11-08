@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: http_error) | 
+**r#type** | **Type** | Defaults to `\"http_error\"`. (enum: http_error) | 
 **code** | **i64** |  | 
 **message** | **String** |  | 
 

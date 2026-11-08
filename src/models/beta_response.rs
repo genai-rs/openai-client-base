@@ -206,7 +206,7 @@ pub struct BetaResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub moderation: Option<Option<models::BetaModeration>>,
-    /// Whether to allow the model to run tool calls in parallel.
+    /// Whether to allow the model to run tool calls in parallel.  Defaults to `true`.
     #[serde(rename = "parallel_tool_calls")]
     pub parallel_tool_calls: bool,
     #[serde(

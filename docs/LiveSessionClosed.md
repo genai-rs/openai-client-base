@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **event_id** | **String** | The unique ID of the Live server event. | 
 **client_event_id** | Option<**String**> | The event_id of the client command associated with this server event, when supplied. | [optional]
-**r#type** | **Type** | The event type, always `session.closed`. (enum: session.closed) | 
+**r#type** | **Type** | The event type, always `session.closed`.  Defaults to `\"session.closed\"`. (enum: session.closed) | 
 **reason** | [**models::LiveSessionClosedReason**](LiveSessionClosedReason.md) |  | 
 **session** | [**models::LiveSessionResourceParam**](LiveSessionResourceParam.md) |  | 
 **usage** | [**models::LiveSessionUsage**](LiveSessionUsage.md) |  | 

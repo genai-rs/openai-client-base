@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaWebSearchPreviewTool : This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaWebSearchPreviewTool {
-    /// The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`.
+    /// The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`.  Defaults to `\"web_search_preview\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(
@@ -47,7 +47,7 @@ impl BetaWebSearchPreviewTool {
         }
     }
 }
-/// The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`.
+/// The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`.  Defaults to `\"web_search_preview\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "web_search_preview")]

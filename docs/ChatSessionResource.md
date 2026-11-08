@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Identifier for the ChatKit session. | 
-**object** | **Object** | Type discriminator that is always `chatkit.session`. (enum: chatkit.session) | 
+**object** | **Object** | Type discriminator that is always `chatkit.session`.  Defaults to `\"chatkit.session\"`. (enum: chatkit.session) | 
 **expires_at** | **i64** | Unix timestamp (in seconds) for when the session expires. | 
 **client_secret** | **String** | Ephemeral client secret that authenticates session requests. | 
 **workflow** | [**models::ChatkitWorkflow**](ChatkitWorkflow.md) |  | 

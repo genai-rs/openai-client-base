@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// VaultCredentialNetworkingParamLimited : Allows substitution only for the listed hosts. The environment network policy must also allow these hosts.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VaultCredentialNetworkingParamLimited {
-    /// The type of the object. Always `limited`.
+    /// The type of the object. Always `limited`.  Defaults to `\"limited\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The 1 to 16 distinct allowed hostnames or IPv4 addresses, normalized to lowercase. Entries contain no scheme, path, port, or wildcard. IPv6 addresses are not supported.
@@ -30,7 +30,7 @@ impl VaultCredentialNetworkingParamLimited {
         }
     }
 }
-/// The type of the object. Always `limited`.
+/// The type of the object. Always `limited`.  Defaults to `\"limited\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "limited")]

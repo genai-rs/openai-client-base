@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionTurnOutputTextDelta : Emitted when text is appended to an output text content part.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionTurnOutputTextDelta {
-    /// The type of the object. Always `agent.session.turn.output_text.delta`.
+    /// The type of the object. Always `agent.session.turn.output_text.delta`.  Defaults to `\"agent.session.turn.output_text.delta\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -63,7 +63,7 @@ impl SessionEventAgentSessionTurnOutputTextDelta {
         }
     }
 }
-/// The type of the object. Always `agent.session.turn.output_text.delta`.
+/// The type of the object. Always `agent.session.turn.output_text.delta`.  Defaults to `\"agent.session.turn.output_text.delta\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.turn.output_text.delta")]

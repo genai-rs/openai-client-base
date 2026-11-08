@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: browser_authentication) | 
-**action** | **Action** |  (enum: submit) | 
+**r#type** | **Type** | Defaults to `\"browser_authentication\"`. (enum: browser_authentication) | 
+**action** | **Action** | Defaults to `\"submit\"`. (enum: submit) | 
 **fields** | [**Vec<models::BrowserAuthenticationFieldValueParam>**](BrowserAuthenticationFieldValueParam.md) | Values for up to six active fields in the required action. The submitted field-value mapping and selected option must fit within 120 KiB of JSON. | 
 **selected_option** | Option<**String**> | The chosen method. Required when the required action contains options. | [optional]
 

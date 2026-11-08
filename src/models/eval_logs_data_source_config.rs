@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// EvalLogsDataSourceConfig : A LogsDataSourceConfig which specifies the metadata property of your logs query. This is usually metadata like `usecase=chatbot` or `prompt-version=v2`, etc. The schema returned by this data source config is used to defined what variables are available in your evals. `item` and `sample` are both defined when using this data source config.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalLogsDataSourceConfig {
-    /// The type of data source. Always `logs`.
+    /// The type of data source. Always `logs`.  Defaults to `\"logs\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
@@ -42,7 +42,7 @@ impl EvalLogsDataSourceConfig {
         }
     }
 }
-/// The type of data source. Always `logs`.
+/// The type of data source. Always `logs`.  Defaults to `\"logs\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "logs")]

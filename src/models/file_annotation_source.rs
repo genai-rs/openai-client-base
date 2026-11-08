@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// FileAnnotationSource : Attachment source referenced by an annotation.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FileAnnotationSource {
-    /// Type discriminator that is always `file`.
+    /// Type discriminator that is always `file`.  Defaults to `\"file\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Filename referenced by the annotation.
@@ -27,7 +27,7 @@ impl FileAnnotationSource {
         FileAnnotationSource { r#type, filename }
     }
 }
-/// Type discriminator that is always `file`.
+/// Type discriminator that is always `file`.  Defaults to `\"file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "file")]

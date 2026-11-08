@@ -23,7 +23,7 @@ pub struct BrowserAuthenticationRequestItemResource {
     /// The stable history item ID.
     #[serde(rename = "id")]
     pub id: String,
-    /// The item type. Always computer_use_approval_request.
+    /// The item type. Always computer_use_approval_request.  Defaults to `\"computer_use_approval_request\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -46,7 +46,7 @@ impl BrowserAuthenticationRequestItemResource {
         }
     }
 }
-/// The item type. Always computer_use_approval_request.
+/// The item type. Always computer_use_approval_request.  Defaults to `\"computer_use_approval_request\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_use_approval_request")]

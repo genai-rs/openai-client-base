@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// InputContentParamInputText : Text input to the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InputContentParamInputText {
-    /// The type of the object. Always `input_text`.
+    /// The type of the object. Always `input_text`.  Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text sent to the model.
@@ -27,7 +27,7 @@ impl InputContentParamInputText {
         InputContentParamInputText { r#type, text }
     }
 }
-/// The type of the object. Always `input_text`.
+/// The type of the object. Always `input_text`.  Defaults to `\"input_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_text")]
