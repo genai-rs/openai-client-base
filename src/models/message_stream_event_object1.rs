@@ -26,7 +26,6 @@ impl MessageStreamEventObject1 {
         MessageStreamEventObject1 { event, data }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
     #[serde(rename = "thread.message.in_progress")]

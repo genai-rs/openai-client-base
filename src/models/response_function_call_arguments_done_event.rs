@@ -47,7 +47,6 @@ impl ResponseFunctionCallArgumentsDoneEvent {
         }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "response.function_call_arguments.done")]

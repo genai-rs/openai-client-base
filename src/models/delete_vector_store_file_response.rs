@@ -29,7 +29,6 @@ impl DeleteVectorStoreFileResponse {
         }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "vector_store.file.deleted")]

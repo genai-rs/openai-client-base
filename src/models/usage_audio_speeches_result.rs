@@ -68,7 +68,6 @@ impl UsageAudioSpeechesResult {
         }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "organization.usage.audio_speeches.result")]

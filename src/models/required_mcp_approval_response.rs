@@ -28,7 +28,6 @@ impl RequiredMcpApprovalResponse {
         }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp_approval_response")]

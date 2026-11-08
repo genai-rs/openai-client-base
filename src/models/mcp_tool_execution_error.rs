@@ -23,7 +23,6 @@ impl McpToolExecutionError {
         McpToolExecutionError { r#type, content }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp_tool_execution_error")]

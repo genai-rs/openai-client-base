@@ -25,7 +25,6 @@ impl RequiredApplyPatchToolCallOutput {
         RequiredApplyPatchToolCallOutput { r#type, call_id }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "apply_patch_call_output")]

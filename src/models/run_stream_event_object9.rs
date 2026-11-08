@@ -26,7 +26,6 @@ impl RunStreamEventObject9 {
         RunStreamEventObject9 { event, data }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
     #[serde(rename = "thread.run.expired")]

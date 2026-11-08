@@ -23,7 +23,6 @@ impl RealtimeMcpToolExecutionError {
         RealtimeMcpToolExecutionError { r#type, message }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "tool_execution_error")]

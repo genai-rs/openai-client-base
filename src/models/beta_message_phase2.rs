@@ -10,7 +10,6 @@
 
 use serde::{Deserialize, Serialize};
 
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BetaMessagePhase2 {
     #[serde(rename = "commentary")]
