@@ -1,7 +1,7 @@
 # openai-client-base 0.21.0 → 0.22.0: a new value no longer fails a response
 
 This release generates with `timvw-rust` 0.13.1 and its `openEnums` option (Milestone 3.5 of the
-[generator design](https://claude.ai/artifact/ABar8Up91gjVMDHgHL1GE3)). The OpenAI spec is unchanged. An enum or tagged
+[generator](https://github.com/timvw/openapi-generator-timvw-rust#readme)). The OpenAI spec is unchanged. An enum or tagged
 union that a response or webhook can hold gets a catch-all variant for values the spec does not list. The
 machine-readable census is `api-diff-0.21.0-to-0.22.0.json` in this folder.
 

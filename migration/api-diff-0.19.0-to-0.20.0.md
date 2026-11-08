@@ -1,7 +1,7 @@
 # openai-client-base 0.19.0 → 0.20.0: stable names, unions from the model, decoding by tag
 
 This release generates with `timvw-rust` 0.12.0 and its `qualifiedInlineNames`, `modelUnions` and `unionDispatch`
-options (Milestone 3.3 of the [generator design](https://claude.ai/artifact/ABar8Up91gjVMDHgHL1GE3)). The OpenAI spec
+options (Milestone 3.3 of the [generator](https://github.com/timvw/openapi-generator-timvw-rust#readme)). The OpenAI spec
 is unchanged. The machine-readable census is `api-diff-0.19.0-to-0.20.0.json` in this folder; its `renames` key holds
 the maps below.
 

@@ -1,7 +1,7 @@
 # openai-client-base 0.17.0 → 0.18.0: `Box` only where a type contains itself
 
 This release generates with `timvw-rust` 0.10.0 and its `boxOnlyCycles` option (Milestone 3.1 of the
-[generator design](https://claude.ai/artifact/ABar8Up91gjVMDHgHL1GE3)). The OpenAI spec is unchanged.
+[generator](https://github.com/timvw/openapi-generator-timvw-rust#readme)). The OpenAI spec is unchanged.
 
 Until now, every field or enum variant that holds another model held it as `Box<T>`. Now a model is boxed only
 where the type graph needs it: a type that contains itself, directly or through other types, has no finite size

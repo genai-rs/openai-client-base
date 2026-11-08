@@ -1,7 +1,7 @@
 # openai-client-base 0.20.0 → 0.21.0: integers are `i64`
 
 This release generates with `timvw-rust` 0.12.0 and its `integersAsI64` option (Milestone 3.4 of the
-[generator design](https://claude.ai/artifact/ABar8Up91gjVMDHgHL1GE3)). The OpenAI spec is unchanged. An integer is
+[generator](https://github.com/timvw/openapi-generator-timvw-rust#readme)). The OpenAI spec is unchanged. An integer is
 `i64` unless the spec says `format: int32`, and the spec says that nowhere, so no `i32` is left in `src/models` or
 `src/apis`. The machine-readable census is `api-diff-0.20.0-to-0.21.0.json` in this folder.
 
