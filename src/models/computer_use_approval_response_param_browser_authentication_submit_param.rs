@@ -44,14 +44,12 @@ impl ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam {
         }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "browser_authentication")]
     BrowserAuthentication,
 }
 
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Action {
     #[serde(rename = "submit")]

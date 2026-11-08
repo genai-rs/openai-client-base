@@ -44,6 +44,12 @@ model-level rules (the options in `generator-config.json`). The transitional
 `legacyModelRewrites` (Java ports of the scripts that used to run here) was
 turned off in 0.26.0 and removed from timvw-rust 0.17.0.
 
+The options timvw-rust 0.18.0 added (`typedEnumParameters`,
+`nullableUnionFields`, `schemaDefaultDocs`, `deprecatedAttributes`,
+`pruneAllHelpers`) are not set: each changes the public API or what a
+`-D warnings` consumer such as openai-ergonomic sees. The generator's README
+shows what each renders ("Renderings from the generator comparison").
+
 ## Documentation build
 
 Run `cargo doc --no-deps --all-features` on a machine with sufficient memory

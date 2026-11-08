@@ -47,7 +47,6 @@ impl ComputerUseApprovalRequestResultItemResource {
         }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_use_approval_request_result")]

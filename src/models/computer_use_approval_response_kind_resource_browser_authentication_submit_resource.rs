@@ -34,7 +34,6 @@ impl ComputerUseApprovalResponseKindResourceBrowserAuthenticationSubmitResource 
         }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "browser_authentication")]
@@ -44,7 +43,6 @@ pub enum Type {
     Unknown,
 }
 
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Action {
     #[serde(rename = "submit")]

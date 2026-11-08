@@ -72,7 +72,6 @@ pub enum Object {
     Unknown,
 }
 
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "chatkit.user_message")]

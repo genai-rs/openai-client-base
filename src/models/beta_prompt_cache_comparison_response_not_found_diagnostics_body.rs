@@ -21,7 +21,6 @@ impl BetaPromptCacheComparisonResponseNotFoundDiagnosticsBody {
         BetaPromptCacheComparisonResponseNotFoundDiagnosticsBody { r#type }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "comparison_response_not_found")]

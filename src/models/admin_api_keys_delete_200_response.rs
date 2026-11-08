@@ -29,7 +29,6 @@ impl AdminApiKeysDelete200Response {
         }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "organization.admin_api_key.deleted")]

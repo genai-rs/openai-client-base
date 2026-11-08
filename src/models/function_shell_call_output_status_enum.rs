@@ -10,7 +10,6 @@
 
 use serde::{Deserialize, Serialize};
 
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum FunctionShellCallOutputStatusEnum {
     #[serde(rename = "in_progress")]

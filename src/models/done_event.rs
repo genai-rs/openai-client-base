@@ -25,7 +25,6 @@ impl DoneEvent {
         DoneEvent { event, data }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
     #[serde(rename = "done")]
@@ -35,7 +34,6 @@ pub enum Event {
     Unknown,
 }
 
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Data {
     #[serde(rename = "[DONE]")]

@@ -23,7 +23,6 @@ impl DecisionInputRefusal {
         DecisionInputRefusal { r#type, refusal }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "refusal")]

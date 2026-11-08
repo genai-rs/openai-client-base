@@ -26,7 +26,6 @@ impl RunStepStreamEventObject1 {
         RunStepStreamEventObject1 { event, data }
     }
 }
-///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
     #[serde(rename = "thread.run.step.in_progress")]
