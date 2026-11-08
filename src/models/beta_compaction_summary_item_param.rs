@@ -29,7 +29,7 @@ pub struct BetaCompactionSummaryItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
-    /// The type of the item. Always `compaction`.
+    /// The type of the item. Always `compaction`.  Defaults to `\"compaction\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The encrypted content of the compaction summary.
@@ -48,7 +48,7 @@ impl BetaCompactionSummaryItemParam {
         }
     }
 }
-/// The type of the item. Always `compaction`.
+/// The type of the item. Always `compaction`.  Defaults to `\"compaction\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "compaction")]

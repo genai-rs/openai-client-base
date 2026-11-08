@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 /// TextContent : A text content.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TextContent {
+    /// Defaults to `\"text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "text")]
@@ -25,6 +26,7 @@ impl TextContent {
         TextContent { r#type, text }
     }
 }
+/// Defaults to `\"text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "text")]

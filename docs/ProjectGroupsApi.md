@@ -55,9 +55,9 @@ Lists the groups that have access to a project.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to inspect. | [required] |
-**limit** | Option<**i64**> | A limit on the number of project groups to return. Defaults to 20. |  |[default to 20]
+**limit** | Option<**i64**> | A limit on the number of project groups to return. Defaults to 20.  Defaults to `20`. |  |[default to 20]
 **after** | Option<**String**> | Cursor for pagination. Provide the ID of the last group from the previous response to fetch the next page. |  |
-**order** | Option<**String**> | Sort order for the returned groups. |  |[default to asc]
+**order** | Option<**String**> | Sort order for the returned groups.  Defaults to `\"asc\"`. |  |[default to asc]
 
 ### Return type
 
@@ -120,7 +120,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to inspect. | [required] |
 **group_id** | **String** | The ID of the group to retrieve. | [required] |
-**group_type** | Option<**String**> | The type of group to retrieve. |  |[default to group]
+**group_type** | Option<**String**> | The type of group to retrieve.  Defaults to `\"group\"`. |  |[default to group]
 
 ### Return type
 

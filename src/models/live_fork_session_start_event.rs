@@ -22,7 +22,7 @@ pub struct LiveForkSessionStartEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub event_id: Option<Option<String>>,
-    /// The Live client event type. Always `session.start`.
+    /// The Live client event type. Always `session.start`.  Defaults to `\"session.start\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "session")]
@@ -42,7 +42,7 @@ impl LiveForkSessionStartEvent {
         }
     }
 }
-/// The Live client event type. Always `session.start`.
+/// The Live client event type. Always `session.start`.  Defaults to `\"session.start\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.start")]

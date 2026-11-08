@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// LiveSessionUpdated : Returned when a Live session update is accepted. Contains the resolved session configuration after the update.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSessionUpdated {
-    /// The event type, always `session.updated`.
+    /// The event type, always `session.updated`.  Defaults to `\"session.updated\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the Live server event.
@@ -42,7 +42,7 @@ impl LiveSessionUpdated {
         }
     }
 }
-/// The event type, always `session.updated`.
+/// The event type, always `session.updated`.  Defaults to `\"session.updated\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.updated")]

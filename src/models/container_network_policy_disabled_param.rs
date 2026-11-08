@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ContainerNetworkPolicyDisabledParam {
-    /// Disable outbound network access. Always `disabled`.
+    /// Disable outbound network access. Always `disabled`.  Defaults to `\"disabled\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -22,7 +22,7 @@ impl ContainerNetworkPolicyDisabledParam {
         ContainerNetworkPolicyDisabledParam { r#type }
     }
 }
-/// Disable outbound network access. Always `disabled`.
+/// Disable outbound network access. Always `disabled`.  Defaults to `\"disabled\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "disabled")]

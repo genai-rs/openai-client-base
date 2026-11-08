@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// CodeInterpreterToolCall : A tool call to run code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CodeInterpreterToolCall {
-    /// The type of the code interpreter tool call. Always `code_interpreter_call`.
+    /// The type of the code interpreter tool call. Always `code_interpreter_call`.  Defaults to `\"code_interpreter_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the code interpreter tool call.
@@ -54,7 +54,7 @@ impl CodeInterpreterToolCall {
         }
     }
 }
-/// The type of the code interpreter tool call. Always `code_interpreter_call`.
+/// The type of the code interpreter tool call. Always `code_interpreter_call`.  Defaults to `\"code_interpreter_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "code_interpreter_call")]

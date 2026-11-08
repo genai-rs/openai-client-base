@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AwsExternalStorageProviderResponse {
+    /// Defaults to `\"aws\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "account_id")]
@@ -45,6 +46,7 @@ impl AwsExternalStorageProviderResponse {
         }
     }
 }
+/// Defaults to `\"aws\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "aws")]

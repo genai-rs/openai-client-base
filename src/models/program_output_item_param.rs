@@ -16,7 +16,7 @@ pub struct ProgramOutputItemParam {
     /// The unique ID of this program output item.
     #[serde(rename = "id")]
     pub id: String,
-    /// The item type. Always `program_output`.
+    /// The item type. Always `program_output`.  Defaults to `\"program_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The call ID of the program item.
@@ -46,7 +46,7 @@ impl ProgramOutputItemParam {
         }
     }
 }
-/// The item type. Always `program_output`.
+/// The item type. Always `program_output`.  Defaults to `\"program_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "program_output")]

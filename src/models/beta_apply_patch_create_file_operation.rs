@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaApplyPatchCreateFileOperation : Instruction describing how to create a file via the apply_patch tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaApplyPatchCreateFileOperation {
-    /// Create a new file with the provided diff.
+    /// Create a new file with the provided diff.  Defaults to `\"create_file\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Path of the file to create.
@@ -30,7 +30,7 @@ impl BetaApplyPatchCreateFileOperation {
         BetaApplyPatchCreateFileOperation { r#type, path, diff }
     }
 }
-/// Create a new file with the provided diff.
+/// Create a new file with the provided diff.  Defaults to `\"create_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "create_file")]

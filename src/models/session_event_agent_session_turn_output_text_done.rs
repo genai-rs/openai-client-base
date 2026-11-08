@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionTurnOutputTextDone : Emitted when an output text content part is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionTurnOutputTextDone {
-    /// The type of the object. Always `agent.session.turn.output_text.done`.
+    /// The type of the object. Always `agent.session.turn.output_text.done`.  Defaults to `\"agent.session.turn.output_text.done\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -63,7 +63,7 @@ impl SessionEventAgentSessionTurnOutputTextDone {
         }
     }
 }
-/// The type of the object. Always `agent.session.turn.output_text.done`.
+/// The type of the object. Always `agent.session.turn.output_text.done`.  Defaults to `\"agent.session.turn.output_text.done\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.turn.output_text.done")]

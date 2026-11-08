@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// McpCallItemResource : A call to a tool on an MCP server.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct McpCallItemResource {
-    /// The item type. Always `mcp_call`.
+    /// The item type. Always `mcp_call`.  Defaults to `\"mcp_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the MCP call item.
@@ -68,7 +68,7 @@ impl McpCallItemResource {
         }
     }
 }
-/// The item type. Always `mcp_call`.
+/// The item type. Always `mcp_call`.  Defaults to `\"mcp_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp_call")]

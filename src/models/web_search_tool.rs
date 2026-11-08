@@ -14,10 +14,10 @@ use serde::{Deserialize, Serialize};
 /// WebSearchTool : Search the Internet for sources related to the prompt. Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchTool {
-    /// The type of the web search tool. One of `web_search` or `web_search_2025_08_26`.
+    /// The type of the web search tool. One of `web_search` or `web_search_2025_08_26`.  Defaults to `\"web_search\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// Allow live internet access for web search. Defaults to true when omitted. When false, the web search tool runs in offline/cache-only mode and will not fetch new external content.
+    /// Allow live internet access for web search. Defaults to true when omitted. When false, the web search tool runs in offline/cache-only mode and will not fetch new external content.  Defaults to `true`.
     #[serde(
         rename = "external_web_access",
         skip_serializing_if = "Option::is_none"
@@ -37,7 +37,7 @@ pub struct WebSearchTool {
         skip_serializing_if = "Option::is_none"
     )]
     pub user_location: Option<Option<models::WebSearchApproximateLocation>>,
-    /// High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+    /// High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.  Defaults to `\"medium\"`.
     #[serde(
         rename = "search_context_size",
         skip_serializing_if = "Option::is_none"
@@ -57,7 +57,7 @@ impl WebSearchTool {
         }
     }
 }
-/// The type of the web search tool. One of `web_search` or `web_search_2025_08_26`.
+/// The type of the web search tool. One of `web_search` or `web_search_2025_08_26`.  Defaults to `\"web_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "web_search")]
@@ -69,7 +69,7 @@ pub enum Type {
     Unknown,
 }
 
-/// High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+/// High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.  Defaults to `\"medium\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum SearchContextSize {
     #[serde(rename = "low")]

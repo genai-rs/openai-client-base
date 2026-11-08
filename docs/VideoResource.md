@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Unique identifier for the video job. | 
-**object** | **Object** | The object type, which is always `video`. (enum: video) | 
+**object** | **Object** | The object type, which is always `video`.  Defaults to `\"video\"`. (enum: video) | 
 **model** | [**models::VideoModel**](VideoModel.md) |  | 
 **status** | [**models::VideoStatus**](VideoStatus.md) |  | 
 **progress** | **i64** | Approximate completion percentage for the generation task. | 

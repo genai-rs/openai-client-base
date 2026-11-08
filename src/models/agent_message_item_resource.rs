@@ -20,7 +20,7 @@ pub struct AgentMessageItemResource {
     /// The ID of the turn that contains this item.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
-    /// The item type. Always `agent_message`.
+    /// The item type. Always `agent_message`.  Defaults to `\"agent_message\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID or name of the sending agent.
@@ -54,7 +54,7 @@ impl AgentMessageItemResource {
         }
     }
 }
-/// The item type. Always `agent_message`.
+/// The item type. Always `agent_message`.  Defaults to `\"agent_message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent_message")]

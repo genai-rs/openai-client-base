@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerToolCallOutputResource {
-    /// The type of the computer tool call output. Always `computer_call_output`.
+    /// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the computer tool call output.
@@ -55,7 +55,7 @@ impl ComputerToolCallOutputResource {
         }
     }
 }
-/// The type of the computer tool call output. Always `computer_call_output`.
+/// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_call_output")]

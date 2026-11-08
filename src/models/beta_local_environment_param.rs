@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaLocalEnvironmentParam {
-    /// Use a local computer environment.
+    /// Use a local computer environment.  Defaults to `\"local\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// An optional list of skills.
@@ -29,7 +29,7 @@ impl BetaLocalEnvironmentParam {
         }
     }
 }
-/// Use a local computer environment.
+/// Use a local computer environment.  Defaults to `\"local\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "local")]

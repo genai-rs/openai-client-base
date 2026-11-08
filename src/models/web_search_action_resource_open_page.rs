@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// WebSearchActionResourceOpenPage : Opens a web page.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchActionResourceOpenPage {
-    /// The type of the object. Always `open_page`.
+    /// The type of the object. Always `open_page`.  Defaults to `\"open_page\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the page that was opened.
@@ -27,7 +27,7 @@ impl WebSearchActionResourceOpenPage {
         WebSearchActionResourceOpenPage { r#type, url }
     }
 }
-/// The type of the object. Always `open_page`.
+/// The type of the object. Always `open_page`.  Defaults to `\"open_page\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "open_page")]

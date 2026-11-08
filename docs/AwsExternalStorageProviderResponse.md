@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: aws) | 
+**r#type** | **Type** | Defaults to `\"aws\"`. (enum: aws) | 
 **account_id** | **String** |  | 
 **region** | **String** |  | 
 **bucket** | **String** |  | 

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PromptCacheComparisonResponseNotFoundDiagnosticsBody {
+    /// Defaults to `\"comparison_response_not_found\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -21,6 +22,7 @@ impl PromptCacheComparisonResponseNotFoundDiagnosticsBody {
         PromptCacheComparisonResponseNotFoundDiagnosticsBody { r#type }
     }
 }
+/// Defaults to `\"comparison_response_not_found\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "comparison_response_not_found")]

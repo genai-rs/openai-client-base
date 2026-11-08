@@ -22,7 +22,7 @@ pub struct ResponseConfigurationUpdateItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
-    /// The item type. Always `configuration_update`.
+    /// The item type. Always `configuration_update`.  Defaults to `\"configuration_update\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
@@ -39,7 +39,7 @@ impl ResponseConfigurationUpdateItemParam {
         }
     }
 }
-/// The item type. Always `configuration_update`.
+/// The item type. Always `configuration_update`.  Defaults to `\"configuration_update\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "configuration_update")]

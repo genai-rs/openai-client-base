@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `mcp`. (enum: mcp) | 
+**r#type** | **Type** | The type of the object. Always `mcp`.  Defaults to `\"mcp\"`. (enum: mcp) | 
 **server_label** | **String** | A label used to identify the MCP server in tool calls. | 
 **credential_id** | Option<**String**> | The attached vault credential used to authenticate this MCP server. Optional when exactly one attached credential matches the server URL. | [optional]
 **transport** | [**models::McpTransportConfigParam**](McpTransportConfigParam.md) |  | 

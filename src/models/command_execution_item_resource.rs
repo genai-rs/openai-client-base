@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// CommandExecutionItemResource : A command execution produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CommandExecutionItemResource {
-    /// The item type. Always `command_execution`.
+    /// The item type. Always `command_execution`.  Defaults to `\"command_execution\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the command execution item.
@@ -68,7 +68,7 @@ impl CommandExecutionItemResource {
         }
     }
 }
-/// The item type. Always `command_execution`.
+/// The item type. Always `command_execution`.  Defaults to `\"command_execution\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "command_execution")]

@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFileCitationParam {
-    /// The citation type. Always `file_citation`.
+    /// The citation type. Always `file_citation`.  Defaults to `\"file_citation\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The index of the file in the list of files.
@@ -41,7 +41,7 @@ impl BetaFileCitationParam {
         }
     }
 }
-/// The citation type. Always `file_citation`.
+/// The citation type. Always `file_citation`.  Defaults to `\"file_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "file_citation")]

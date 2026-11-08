@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// HostedPluginResourceInline : A plugin installed from an inline ZIP archive.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct HostedPluginResourceInline {
-    /// The type of the object. Always `inline`.
+    /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The installed plugin name.
@@ -34,7 +34,7 @@ impl HostedPluginResourceInline {
         }
     }
 }
-/// The type of the object. Always `inline`.
+/// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "inline")]

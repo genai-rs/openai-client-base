@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseShellCallCommandDeltaStreamingEvent : A streaming event that indicated a shell command was incrementally updated.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseShellCallCommandDeltaStreamingEvent {
-    /// The type of the event, always `response.shell_call_command.delta`.
+    /// The type of the event, always `response.shell_call_command.delta`.  Defaults to `\"response.shell_call_command.delta\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The sequence number of the event that was emitted.
@@ -56,7 +56,7 @@ impl BetaResponseShellCallCommandDeltaStreamingEvent {
         }
     }
 }
-/// The type of the event, always `response.shell_call_command.delta`.
+/// The type of the event, always `response.shell_call_command.delta`.  Defaults to `\"response.shell_call_command.delta\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "response.shell_call_command.delta")]

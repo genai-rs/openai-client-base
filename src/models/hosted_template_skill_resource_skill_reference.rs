@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// HostedTemplateSkillResourceSkillReference : A skill resolved afresh from the Skills API whenever a session starts.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct HostedTemplateSkillResourceSkillReference {
-    /// The type of the object. Always `skill_reference`.
+    /// The type of the object. Always `skill_reference`.  Defaults to `\"skill_reference\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The referenced skill ID.
@@ -38,7 +38,7 @@ impl HostedTemplateSkillResourceSkillReference {
         }
     }
 }
-/// The type of the object. Always `skill_reference`.
+/// The type of the object. Always `skill_reference`.  Defaults to `\"skill_reference\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "skill_reference")]

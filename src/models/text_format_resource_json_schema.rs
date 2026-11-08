@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// TextFormatResourceJsonSchema : Constrains generated text to a JSON Schema.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TextFormatResourceJsonSchema {
-    /// The type of the object. Always `json_schema`.
+    /// The type of the object. Always `json_schema`.  Defaults to `\"json_schema\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The JSON Schema that generated text must match.
@@ -30,7 +30,7 @@ impl TextFormatResourceJsonSchema {
         TextFormatResourceJsonSchema { r#type, schema }
     }
 }
-/// The type of the object. Always `json_schema`.
+/// The type of the object. Always `json_schema`.  Defaults to `\"json_schema\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "json_schema")]

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveMcpToolInputParam {
+    /// Defaults to `\"mcp\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -21,6 +22,7 @@ impl LiveMcpToolInputParam {
         LiveMcpToolInputParam { r#type }
     }
 }
+/// Defaults to `\"mcp\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp")]

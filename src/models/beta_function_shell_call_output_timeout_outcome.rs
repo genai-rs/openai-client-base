@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaFunctionShellCallOutputTimeoutOutcome : Indicates that the shell call exceeded its configured time limit.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionShellCallOutputTimeoutOutcome {
-    /// The outcome type. Always `timeout`.
+    /// The outcome type. Always `timeout`.  Defaults to `\"timeout\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl BetaFunctionShellCallOutputTimeoutOutcome {
         BetaFunctionShellCallOutputTimeoutOutcome { r#type }
     }
 }
-/// The outcome type. Always `timeout`.
+/// The outcome type. Always `timeout`.  Defaults to `\"timeout\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "timeout")]

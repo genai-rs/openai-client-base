@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProgramOutput {
-    /// The type of the item. Always `program_output`.
+    /// The type of the item. Always `program_output`.  Defaults to `\"program_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the program output item.
@@ -46,7 +46,7 @@ impl ProgramOutput {
         }
     }
 }
-/// The type of the item. Always `program_output`.
+/// The type of the item. Always `program_output`.  Defaults to `\"program_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "program_output")]

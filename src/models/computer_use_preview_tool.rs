@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ComputerUsePreviewTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUsePreviewTool {
-    /// The type of the computer use tool. Always `computer_use_preview`.
+    /// The type of the computer use tool. Always `computer_use_preview`.  Defaults to `\"computer_use_preview\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "environment")]
@@ -43,7 +43,7 @@ impl ComputerUsePreviewTool {
         }
     }
 }
-/// The type of the computer use tool. Always `computer_use_preview`.
+/// The type of the computer use tool. Always `computer_use_preview`.  Defaults to `\"computer_use_preview\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_use_preview")]

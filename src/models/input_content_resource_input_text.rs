@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// InputContentResourceInputText : Text input recorded in a session item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InputContentResourceInputText {
-    /// The type of the object. Always `input_text`.
+    /// The type of the object. Always `input_text`.  Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text supplied to the agent.
@@ -27,7 +27,7 @@ impl InputContentResourceInputText {
         InputContentResourceInputText { r#type, text }
     }
 }
-/// The type of the object. Always `input_text`.
+/// The type of the object. Always `input_text`.  Defaults to `\"input_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_text")]

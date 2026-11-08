@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMcpProtocolError {
+    /// Defaults to `\"mcp_protocol_error\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "code")]
@@ -29,6 +30,7 @@ impl BetaMcpProtocolError {
         }
     }
 }
+/// Defaults to `\"mcp_protocol_error\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp_protocol_error")]

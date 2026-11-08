@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `inline`. (enum: inline) | 
+**r#type** | **Type** | The type of the object. Always `inline`.  Defaults to `\"inline\"`. (enum: inline) | 
 **name** | **String** | The installed skill name. | 
 **description** | **String** | The installed skill description. | 
 

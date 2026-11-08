@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// VaultCredentialAuthResourceMcpOauth : Public metadata for an OAuth credential; tokens and client secrets are never returned.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VaultCredentialAuthResourceMcpOauth {
-    /// The type of the object. Always `mcp_oauth`.
+    /// The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The HTTPS MCP server URL authorized by this credential.
@@ -44,7 +44,7 @@ impl VaultCredentialAuthResourceMcpOauth {
         }
     }
 }
-/// The type of the object. Always `mcp_oauth`.
+/// The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp_oauth")]

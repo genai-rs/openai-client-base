@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FineTuneReinforcementHyperparametersComputeMultiplier : Multiplier on amount of compute used for exploring search space during training.
+/// FineTuneReinforcementHyperparametersComputeMultiplier : Multiplier on amount of compute used for exploring search space during training.  Defaults to `\"auto\"`.
 pub use crate::models::FineTuneReinforcementHyperparametersComputeMultiplierTextVariantEnum;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

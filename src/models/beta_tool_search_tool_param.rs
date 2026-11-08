@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaToolSearchToolParam : Hosted or BYOT tool search configuration for deferred tools.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaToolSearchToolParam {
-    /// The type of the tool. Always `tool_search`.
+    /// The type of the tool. Always `tool_search`.  Defaults to `\"tool_search\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "execution", skip_serializing_if = "Option::is_none")]
@@ -47,7 +47,7 @@ impl BetaToolSearchToolParam {
         }
     }
 }
-/// The type of the tool. Always `tool_search`.
+/// The type of the tool. Always `tool_search`.  Defaults to `\"tool_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "tool_search")]

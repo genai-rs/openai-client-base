@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | Specifies the event type. For a double click action, this property is always set to `double_click`. (enum: double_click) | 
+**r#type** | **Type** | Specifies the event type. For a double click action, this property is always set to `double_click`.  Defaults to `\"double_click\"`. (enum: double_click) | 
 **x** | **i64** | The x-coordinate where the double click occurred. | 
 **y** | **i64** | The y-coordinate where the double click occurred. | 
 **keys** | Option<**Vec<String>**> | The keys being held while double-clicking. | 

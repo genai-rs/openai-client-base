@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionInProgress : Emitted when a session starts processing a turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionInProgress {
-    /// The type of the object. Always `agent.session.in_progress`.
+    /// The type of the object. Always `agent.session.in_progress`.  Defaults to `\"agent.session.in_progress\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -38,7 +38,7 @@ impl SessionEventAgentSessionInProgress {
         }
     }
 }
-/// The type of the object. Always `agent.session.in_progress`.
+/// The type of the object. Always `agent.session.in_progress`.  Defaults to `\"agent.session.in_progress\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.in_progress")]

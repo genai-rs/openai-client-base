@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveInitialOutputTextContentPartParam : Assistant output text supplied as conversation history when starting a Live session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInitialOutputTextContentPartParam {
-    /// The text content type. Always `output_text`.
+    /// The text content type. Always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The message text to include in the Live session’s initial conversation history.
@@ -27,7 +27,7 @@ impl LiveInitialOutputTextContentPartParam {
         LiveInitialOutputTextContentPartParam { r#type, text }
     }
 }
-/// The text content type. Always `output_text`.
+/// The text content type. Always `output_text`.  Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "output_text")]

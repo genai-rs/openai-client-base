@@ -42,7 +42,7 @@ pub struct LiveCallAcceptSession {
     /// Ordered text-only history supplied before startup. Supports developer, user, and assistant messages with one text part each; at most 128 messages and a configured rendered-token limit (8,192 by default).
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
     pub input: Option<Vec<models::LiveInitialItem>>,
-    /// The session type. Always `live`.
+    /// The session type. Always `live`.  Defaults to `\"live\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -62,7 +62,7 @@ impl LiveCallAcceptSession {
         }
     }
 }
-/// The session type. Always `live`.
+/// The session type. Always `live`.  Defaults to `\"live\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "live")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaCustomGrammarFormatParam : A grammar defined by the user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCustomGrammarFormatParam {
-    /// Grammar format. Always `grammar`.
+    /// Grammar format. Always `grammar`.  Defaults to `\"grammar\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "syntax")]
@@ -38,7 +38,7 @@ impl BetaCustomGrammarFormatParam {
         }
     }
 }
-/// Grammar format. Always `grammar`.
+/// Grammar format. Always `grammar`.  Defaults to `\"grammar\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "grammar")]

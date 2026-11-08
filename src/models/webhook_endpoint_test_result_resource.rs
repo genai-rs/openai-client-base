@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookEndpointTestResultResource {
-    /// The object type, which is always webhook_endpoint.test.
+    /// The object type, which is always webhook_endpoint.test.  Defaults to `\"webhook_endpoint.test\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The ID of the webhook endpoint that received the test.
@@ -24,7 +24,7 @@ pub struct WebhookEndpointTestResultResource {
     /// The HTTP status code returned by the endpoint.
     #[serde(rename = "status_code")]
     pub status_code: i64,
-    /// Whether the test request completed. Always true for returned results; use status_code to determine the endpoint response.
+    /// Whether the test request completed. Always true for returned results; use status_code to determine the endpoint response.  Defaults to `true`.
     #[serde(rename = "success")]
     pub success: Success,
 }
@@ -46,7 +46,7 @@ impl WebhookEndpointTestResultResource {
         }
     }
 }
-/// The object type, which is always webhook_endpoint.test.
+/// The object type, which is always webhook_endpoint.test.  Defaults to `\"webhook_endpoint.test\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "webhook_endpoint.test")]
@@ -56,7 +56,7 @@ pub enum Object {
     Unknown,
 }
 
-/// Whether the test request completed. Always true for returned results; use status_code to determine the endpoint response.
+/// Whether the test request completed. Always true for returned results; use status_code to determine the endpoint response.  Defaults to `true`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Success {
     #[serde(rename = "true")]

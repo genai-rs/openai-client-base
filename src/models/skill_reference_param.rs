@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SkillReferenceParam {
-    /// References a skill created with the /v1/skills endpoint.
+    /// References a skill created with the /v1/skills endpoint.  Defaults to `\"skill_reference\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the referenced skill.
@@ -32,7 +32,7 @@ impl SkillReferenceParam {
         }
     }
 }
-/// References a skill created with the /v1/skills endpoint.
+/// References a skill created with the /v1/skills endpoint.  Defaults to `\"skill_reference\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "skill_reference")]

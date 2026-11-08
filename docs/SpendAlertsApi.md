@@ -152,7 +152,7 @@ Lists organization spend alerts.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i64**> | A limit on the number of spend alerts to return. Defaults to 20. |  |
-**order** | Option<**String**> | Sort order for the returned spend alerts. |  |[default to asc]
+**order** | Option<**String**> | Sort order for the returned spend alerts.  Defaults to `\"asc\"`. |  |[default to asc]
 **after** | Option<**String**> | Cursor for pagination. Provide the ID of the last spend alert from the previous response to fetch the next page. |  |
 **before** | Option<**String**> | Cursor for pagination. Provide the ID of the first spend alert from the previous response to fetch the previous page. |  |
 
@@ -186,7 +186,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to inspect. | [required] |
 **limit** | Option<**i64**> | A limit on the number of spend alerts to return. Defaults to 20. |  |
-**order** | Option<**String**> | Sort order for the returned spend alerts. |  |[default to asc]
+**order** | Option<**String**> | Sort order for the returned spend alerts.  Defaults to `\"asc\"`. |  |[default to asc]
 **after** | Option<**String**> | Cursor for pagination. Provide the ID of the last spend alert from the previous response to fetch the next page. |  |
 **before** | Option<**String**> | Cursor for pagination. Provide the ID of the first spend alert from the previous response to fetch the previous page. |  |
 

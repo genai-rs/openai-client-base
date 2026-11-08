@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PublicDecisionsUsageResponseResource {
+    /// Defaults to `\"page\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "has_more")]
@@ -38,6 +39,7 @@ impl PublicDecisionsUsageResponseResource {
         }
     }
 }
+/// Defaults to `\"page\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "page")]

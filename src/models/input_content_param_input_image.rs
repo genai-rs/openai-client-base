@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// InputContentParamInputImage : Image input to the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InputContentParamInputImage {
-    /// The type of the object. Always `input_image`.
+    /// The type of the object. Always `input_image`.  Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the image sent to the model.
@@ -27,7 +27,7 @@ impl InputContentParamInputImage {
         InputContentParamInputImage { r#type, image_url }
     }
 }
-/// The type of the object. Always `input_image`.
+/// The type of the object. Always `input_image`.  Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_image")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// EnvironmentParamSelfHosted : An application-hosted environment configured inline.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentParamSelfHosted {
-    /// The type of the object. Always `self_hosted`.
+    /// The type of the object. Always `self_hosted`.  Defaults to `\"self_hosted\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Directories that contain capabilities exposed to the agent. Defaults to an empty list.
@@ -39,7 +39,7 @@ impl EnvironmentParamSelfHosted {
         }
     }
 }
-/// The type of the object. Always `self_hosted`.
+/// The type of the object. Always `self_hosted`.  Defaults to `\"self_hosted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "self_hosted")]

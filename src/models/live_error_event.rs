@@ -20,7 +20,7 @@ pub struct LiveErrorEvent {
     /// The event_id of the client command associated with this server event, when supplied.
     #[serde(rename = "client_event_id", skip_serializing_if = "Option::is_none")]
     pub client_event_id: Option<String>,
-    /// The event type, always `error`.
+    /// The event type, always `error`.  Defaults to `\"error\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "error")]
@@ -38,7 +38,7 @@ impl LiveErrorEvent {
         }
     }
 }
-/// The event type, always `error`.
+/// The event type, always `error`.  Defaults to `\"error\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "error")]

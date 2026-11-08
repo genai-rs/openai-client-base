@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The item type. Always `reasoning`. (enum: reasoning) | 
+**r#type** | **Type** | The item type. Always `reasoning`.  Defaults to `\"reasoning\"`. (enum: reasoning) | 
 **id** | **String** | The ID of the reasoning item. | 
 **turn_id** | **String** | The ID of the turn that contains this item. | 
 **summary** | [**Vec<models::SummaryTextResource>**](SummaryTextResource.md) | The reasoning summaries produced by the agent. | 

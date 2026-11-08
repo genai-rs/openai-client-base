@@ -22,7 +22,7 @@ pub struct LiveInitialDeveloperMessageItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
-    /// The history item type. Always `message`.
+    /// The history item type. Always `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
     #[serde(
@@ -32,7 +32,7 @@ pub struct LiveInitialDeveloperMessageItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub status: Option<Option<models::LiveInitialMessageStatus>>,
-    /// The author of this history message. Always `developer`.
+    /// The author of this history message. Always `developer`.  Defaults to `\"developer\"`.
     #[serde(rename = "role")]
     pub role: Role,
     /// The message content. Supply exactly one text part for the initial Live conversation history.
@@ -55,14 +55,14 @@ impl LiveInitialDeveloperMessageItemParam {
         }
     }
 }
-/// The history item type. Always `message`.
+/// The history item type. Always `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "message")]
     Message,
 }
 
-/// The author of this history message. Always `developer`.
+/// The author of this history message. Always `developer`.  Defaults to `\"developer\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
     #[serde(rename = "developer")]

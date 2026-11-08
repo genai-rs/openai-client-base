@@ -21,7 +21,7 @@ pub struct BetaApplyPatchToolCallOutputItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub agent: Option<Option<models::BetaAgentTagParam>>,
-    /// The type of the item. Always `apply_patch_call_output`.
+    /// The type of the item. Always `apply_patch_call_output`.  Defaults to `\"apply_patch_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the apply patch tool call output. Populated when this item is returned via API.
@@ -72,7 +72,7 @@ impl BetaApplyPatchToolCallOutputItemParam {
         }
     }
 }
-/// The type of the item. Always `apply_patch_call_output`.
+/// The type of the item. Always `apply_patch_call_output`.  Defaults to `\"apply_patch_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "apply_patch_call_output")]

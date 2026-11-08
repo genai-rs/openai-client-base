@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `none`. (enum: none) | 
+**r#type** | **Type** | The type of the object. Always `none`.  Defaults to `\"none\"`. (enum: none) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

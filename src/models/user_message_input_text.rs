@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// UserMessageInputText : Text block that a user contributed to the thread.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UserMessageInputText {
-    /// Type discriminator that is always `input_text`.
+    /// Type discriminator that is always `input_text`.  Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Plain-text content supplied by the user.
@@ -27,7 +27,7 @@ impl UserMessageInputText {
         UserMessageInputText { r#type, text }
     }
 }
-/// Type discriminator that is always `input_text`.
+/// Type discriminator that is always `input_text`.  Defaults to `\"input_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_text")]

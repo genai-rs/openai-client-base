@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveFunctionToolInputParam : A function tool available to the Responses backend when the Live model delegates a task.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveFunctionToolInputParam {
-    /// The tool type. Always `function`.
+    /// The tool type. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name the delegated Responses model uses when calling this function.
@@ -57,7 +57,7 @@ impl LiveFunctionToolInputParam {
         }
     }
 }
-/// The tool type. Always `function`.
+/// The tool type. Always `function`.  Defaults to `\"function\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function")]

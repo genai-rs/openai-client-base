@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionTurnReasoningSummaryPartDone : Emitted when a reasoning summary part is complete.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionTurnReasoningSummaryPartDone {
-    /// The type of the object. Always `agent.session.turn.reasoning_summary_part.done`.
+    /// The type of the object. Always `agent.session.turn.reasoning_summary_part.done`.  Defaults to `\"agent.session.turn.reasoning_summary_part.done\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -68,7 +68,7 @@ impl SessionEventAgentSessionTurnReasoningSummaryPartDone {
         }
     }
 }
-/// The type of the object. Always `agent.session.turn.reasoning_summary_part.done`.
+/// The type of the object. Always `agent.session.turn.reasoning_summary_part.done`.  Defaults to `\"agent.session.turn.reasoning_summary_part.done\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.turn.reasoning_summary_part.done")]

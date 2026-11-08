@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** |  (enum: skill.version.deleted) | 
+**object** | **Object** | Defaults to `\"skill.version.deleted\"`. (enum: skill.version.deleted) | 
 **deleted** | **bool** |  | 
 **id** | **String** |  | 
 **version** | **String** | The deleted skill version. | 

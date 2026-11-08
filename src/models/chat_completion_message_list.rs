@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ChatCompletionMessageList : An object representing a list of chat completion messages.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ChatCompletionMessageList {
-    /// The type of this object. It is always set to \"list\".
+    /// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// An array of chat completion message objects.
@@ -49,7 +49,7 @@ impl ChatCompletionMessageList {
         }
     }
 }
-/// The type of this object. It is always set to \"list\".
+/// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "list")]

@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveHostedShellNetworkPolicyAllowlistParam {
-    /// Allow outbound network access only to specified domains. Always `allowlist`.
+    /// Allow outbound network access only to specified domains. Always `allowlist`.  Defaults to `\"allowlist\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// A list of allowed domains when type is `allowlist`.
@@ -31,7 +31,7 @@ impl LiveHostedShellNetworkPolicyAllowlistParam {
         }
     }
 }
-/// Allow outbound network access only to specified domains. Always `allowlist`.
+/// Allow outbound network access only to specified domains. Always `allowlist`.  Defaults to `\"allowlist\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "allowlist")]

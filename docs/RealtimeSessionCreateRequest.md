@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **input_audio_format** | Option<**String**> | The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.  | [optional]
 **output_audio_format** | Option<**String**> | The format of output audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.  | [optional]
 **input_audio_transcription** | Option<[**models::RealtimeSessionCreateRequestInputAudioTranscription**](RealtimeSessionCreateRequestInputAudioTranscription.md)> |  | [optional]
-**speed** | Option<**f64**> | The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.  | [optional]
+**speed** | Option<**f64**> | The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.  Defaults to `1`. | [optional]
 **tracing** | Option<[**models::RealtimeSessionCreateRequestTracing**](RealtimeSessionCreateRequestTracing.md)> |  | [optional]
 **turn_detection** | Option<[**models::RealtimeSessionCreateRequestTurnDetection**](RealtimeSessionCreateRequestTurnDetection.md)> |  | [optional]
 **tools** | Option<[**Vec<models::RealtimeSessionCreateRequestToolsInner>**](RealtimeSessionCreateRequestToolsInner.md)> | Tools (functions) available to the model. | [optional]

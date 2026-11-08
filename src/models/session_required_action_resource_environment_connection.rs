@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SessionRequiredActionResourceEnvironmentConnection : Reconnect a session environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionRequiredActionResourceEnvironmentConnection {
-    /// The type of the object. Always `environment_connection`.
+    /// The type of the object. Always `environment_connection`.  Defaults to `\"environment_connection\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the environment to reconnect.
@@ -33,7 +33,7 @@ impl SessionRequiredActionResourceEnvironmentConnection {
         }
     }
 }
-/// The type of the object. Always `environment_connection`.
+/// The type of the object. Always `environment_connection`.  Defaults to `\"environment_connection\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "environment_connection")]

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: azure) | 
+**r#type** | **Type** | Defaults to `\"azure\"`. (enum: azure) | 
 **tenant_id** | **String** |  | 
 **subscription_id** | **String** |  | 
 **resource_group** | **String** |  | 

@@ -21,7 +21,7 @@ pub struct LiveInputAudioAppendEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub event_id: Option<Option<String>>,
-    /// The Live client event type. Always `session.input_audio.append`.
+    /// The Live client event type. Always `session.input_audio.append`.  Defaults to `\"session.input_audio.append\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Base64-encoded raw audio in the startup-selected format, without a WAV or other container header. Primary WebSocket only; media transports use their audio track. Audio appends have no acknowledgment. Reflected sideband server events reuse this event type and audio key, with no timestamps or event_id; their audio is always mono PCM16LE at 24 kHz.
@@ -39,7 +39,7 @@ impl LiveInputAudioAppendEvent {
         }
     }
 }
-/// The Live client event type. Always `session.input_audio.append`.
+/// The Live client event type. Always `session.input_audio.append`.  Defaults to `\"session.input_audio.append\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.input_audio.append")]

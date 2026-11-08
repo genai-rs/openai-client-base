@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// WebSearchActionResourceOther : Another web search action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchActionResourceOther {
-    /// The type of the object. Always `other`.
+    /// The type of the object. Always `other`.  Defaults to `\"other\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl WebSearchActionResourceOther {
         WebSearchActionResourceOther { r#type }
     }
 }
-/// The type of the object. Always `other`.
+/// The type of the object. Always `other`.  Defaults to `\"other\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "other")]

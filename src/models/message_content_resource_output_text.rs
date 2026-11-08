@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// MessageContentResourceOutputText : Text produced by the assistant.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageContentResourceOutputText {
-    /// The type of the object. Always `output_text`.
+    /// The type of the object. Always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text produced by the assistant.
@@ -27,7 +27,7 @@ impl MessageContentResourceOutputText {
         MessageContentResourceOutputText { r#type, text }
     }
 }
-/// The type of the object. Always `output_text`.
+/// The type of the object. Always `output_text`.  Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "output_text")]

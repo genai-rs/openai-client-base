@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// AssistantMessageItemResource : An assistant message produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AssistantMessageItemResource {
-    /// The item type. Always `message`.
+    /// The item type. Always `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the message.
@@ -23,7 +23,7 @@ pub struct AssistantMessageItemResource {
     /// The ID of the turn that contains this item.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
-    /// The role of the message author. Always `assistant`.
+    /// The role of the message author. Always `assistant`.  Defaults to `\"assistant\"`.
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "status")]
@@ -58,7 +58,7 @@ impl AssistantMessageItemResource {
         }
     }
 }
-/// The item type. Always `message`.
+/// The item type. Always `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "message")]
@@ -68,7 +68,7 @@ pub enum Type {
     Unknown,
 }
 
-/// The role of the message author. Always `assistant`.
+/// The role of the message author. Always `assistant`.  Defaults to `\"assistant\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
     #[serde(rename = "assistant")]

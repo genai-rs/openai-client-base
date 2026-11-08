@@ -31,7 +31,7 @@ pub struct BetaMultiAgentCallItemParam {
     /// The unique ID linking this call to its output.
     #[serde(rename = "call_id")]
     pub call_id: String,
-    /// The item type. Always `multi_agent_call`.
+    /// The item type. Always `multi_agent_call`.  Defaults to `\"multi_agent_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "action")]
@@ -58,7 +58,7 @@ impl BetaMultiAgentCallItemParam {
         }
     }
 }
-/// The item type. Always `multi_agent_call`.
+/// The item type. Always `multi_agent_call`.  Defaults to `\"multi_agent_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "multi_agent_call")]

@@ -25,7 +25,7 @@ pub struct LiveThinkingAppended {
     /// The end of this event on the Live session timeline, in milliseconds from the beginning of the session. For appended context, this can equal start_ms.
     #[serde(rename = "end_ms")]
     pub end_ms: i64,
-    /// The event type, always `session.thinking.appended`.
+    /// The event type, always `session.thinking.appended`.  Defaults to `\"session.thinking.appended\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -42,7 +42,7 @@ impl LiveThinkingAppended {
         }
     }
 }
-/// The event type, always `session.thinking.appended`.
+/// The event type, always `session.thinking.appended`.  Defaults to `\"session.thinking.appended\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.thinking.appended")]

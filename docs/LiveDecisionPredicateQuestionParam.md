@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: predicate) | 
+**r#type** | **Type** | Defaults to `\"predicate\"`. (enum: predicate) | 
 **name** | Option<**String**> |  | [optional]
 **instructions** | **String** |  | 
 

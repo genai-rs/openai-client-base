@@ -15,10 +15,10 @@ use serde::{Deserialize, Serialize};
 pub struct VectorStoreSearchRequest {
     #[serde(rename = "query")]
     pub query: models::VectorStoreSearchRequestQuery,
-    /// Whether to rewrite the natural language query for vector search.
+    /// Whether to rewrite the natural language query for vector search.  Defaults to `false`.
     #[serde(rename = "rewrite_query", skip_serializing_if = "Option::is_none")]
     pub rewrite_query: Option<bool>,
-    /// The maximum number of results to return. This number should be between 1 and 50 inclusive.
+    /// The maximum number of results to return. This number should be between 1 and 50 inclusive.  Defaults to `10`.
     #[serde(rename = "max_num_results", skip_serializing_if = "Option::is_none")]
     pub max_num_results: Option<i64>,
     #[serde(rename = "filters", skip_serializing_if = "Option::is_none")]

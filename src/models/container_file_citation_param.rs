@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ContainerFileCitationParam {
-    /// The citation type. Always `container_file_citation`.
+    /// The citation type. Always `container_file_citation`.  Defaults to `\"container_file_citation\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The index of the first character of the citation in the message.
@@ -51,7 +51,7 @@ impl ContainerFileCitationParam {
         }
     }
 }
-/// The citation type. Always `container_file_citation`.
+/// The citation type. Always `container_file_citation`.  Defaults to `\"container_file_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "container_file_citation")]

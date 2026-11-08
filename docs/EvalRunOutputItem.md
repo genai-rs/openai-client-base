@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** | The type of the object. Always \"eval.run.output_item\". (enum: eval.run.output_item) | 
+**object** | **Object** | The type of the object. Always \"eval.run.output_item\".  Defaults to `\"eval.run.output_item\"`. (enum: eval.run.output_item) | 
 **id** | **String** | Unique identifier for the evaluation run output item. | 
 **run_id** | **String** | The identifier of the evaluation run associated with this output item. | 
 **eval_id** | **String** | The identifier of the evaluation group. | 

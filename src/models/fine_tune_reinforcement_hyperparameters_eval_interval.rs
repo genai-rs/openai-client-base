@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FineTuneReinforcementHyperparametersEvalInterval : The number of training steps between evaluation runs.
+/// FineTuneReinforcementHyperparametersEvalInterval : The number of training steps between evaluation runs.  Defaults to `\"auto\"`.
 pub use crate::models::FineTuneReinforcementHyperparametersEvalIntervalTextVariantEnum;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

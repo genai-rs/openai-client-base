@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSpecificWebSearchParam {
-    /// The tool to call. Always `web_search`.
+    /// The tool to call. Always `web_search`.  Defaults to `\"web_search\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -22,7 +22,7 @@ impl LiveSpecificWebSearchParam {
         LiveSpecificWebSearchParam { r#type }
     }
 }
-/// The tool to call. Always `web_search`.
+/// The tool to call. Always `web_search`.  Defaults to `\"web_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "web_search")]

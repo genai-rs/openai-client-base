@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSpecificImageGenParam {
-    /// The tool to call. Always `image_generation`.
+    /// The tool to call. Always `image_generation`.  Defaults to `\"image_generation\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -22,7 +22,7 @@ impl LiveSpecificImageGenParam {
         LiveSpecificImageGenParam { r#type }
     }
 }
-/// The tool to call. Always `image_generation`.
+/// The tool to call. Always `image_generation`.  Defaults to `\"image_generation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "image_generation")]

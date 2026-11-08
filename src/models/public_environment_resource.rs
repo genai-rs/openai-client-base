@@ -19,7 +19,7 @@ pub struct PublicEnvironmentResource {
     /// The ID of the environment.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `agent.environment`.
+    /// The object type. Always `agent.environment`.  Defaults to `\"agent.environment\"`.
     #[serde(rename = "object")]
     pub object: Object,
     #[serde(rename = "status")]
@@ -57,7 +57,7 @@ impl PublicEnvironmentResource {
         }
     }
 }
-/// The object type. Always `agent.environment`.
+/// The object type. Always `agent.environment`.  Defaults to `\"agent.environment\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.environment")]

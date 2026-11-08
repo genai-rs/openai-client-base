@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaLocalEnvironmentResource : Represents the use of a local environment to perform shell actions.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaLocalEnvironmentResource {
-    /// The environment type. Always `local`.
+    /// The environment type. Always `local`.  Defaults to `\"local\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl BetaLocalEnvironmentResource {
         BetaLocalEnvironmentResource { r#type }
     }
 }
-/// The environment type. Always `local`.
+/// The environment type. Always `local`.  Defaults to `\"local\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "local")]

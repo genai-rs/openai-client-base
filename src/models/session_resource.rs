@@ -20,7 +20,7 @@ pub struct SessionResource {
     /// The ID of the session.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `agent.session`.
+    /// The object type. Always `agent.session`.  Defaults to `\"agent.session\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The Unix timestamp, in seconds, when the session was created.
@@ -81,7 +81,7 @@ impl SessionResource {
         }
     }
 }
-/// The object type. Always `agent.session`.
+/// The object type. Always `agent.session`.  Defaults to `\"agent.session\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.session")]

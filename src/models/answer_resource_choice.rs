@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AnswerResourceChoice {
-    /// The type of the object. Always `choice`.
+    /// The type of the object. Always `choice`.  Defaults to `\"choice\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
@@ -43,7 +43,7 @@ impl AnswerResourceChoice {
         }
     }
 }
-/// The type of the object. Always `choice`.
+/// The type of the object. Always `choice`.  Defaults to `\"choice\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "choice")]

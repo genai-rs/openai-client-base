@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionItemListResource : A page of messages, reasoning, and tool calls from a session's item history.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionItemListResource {
-    /// The object type, which is always `list`.
+    /// The object type, which is always `list`.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The resources returned in this page, in the requested sort order.
@@ -49,7 +49,7 @@ impl SessionItemListResource {
         }
     }
 }
-/// The object type, which is always `list`.
+/// The object type, which is always `list`.  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "list")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// VaultCredentialNetworkingParamUnrestricted : Allows substitution for destinations permitted by the environment network policy. Requires `environment.network.access` to be `restricted`, with explicit `allowed_domains`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VaultCredentialNetworkingParamUnrestricted {
-    /// The type of the object. Always `unrestricted`.
+    /// The type of the object. Always `unrestricted`.  Defaults to `\"unrestricted\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl VaultCredentialNetworkingParamUnrestricted {
         VaultCredentialNetworkingParamUnrestricted { r#type }
     }
 }
-/// The type of the object. Always `unrestricted`.
+/// The type of the object. Always `unrestricted`.  Defaults to `\"unrestricted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "unrestricted")]

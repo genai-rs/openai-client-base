@@ -15,7 +15,7 @@ pub struct MessageDeltaContentImageUrlObjectImageUrl {
     /// The URL of the image, must be a supported image types: jpeg, jpg, png, gif, webp.
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
-    /// Specifies the detail level of the image. `low` uses fewer tokens, you can opt in to high resolution using `high`.
+    /// Specifies the detail level of the image. `low` uses fewer tokens, you can opt in to high resolution using `high`.  Defaults to `\"auto\"`.
     #[serde(rename = "detail", skip_serializing_if = "Option::is_none")]
     pub detail: Option<Detail>,
 }
@@ -28,7 +28,7 @@ impl MessageDeltaContentImageUrlObjectImageUrl {
         }
     }
 }
-/// Specifies the detail level of the image. `low` uses fewer tokens, you can opt in to high resolution using `high`.
+/// Specifies the detail level of the image. `low` uses fewer tokens, you can opt in to high resolution using `high`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Detail {
     #[serde(rename = "auto")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// GraderMulti : A MultiGrader object combines the output of multiple graders to produce a single score.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct GraderMulti {
-    /// The object type, which is always `multi`.
+    /// The object type, which is always `multi`.  Defaults to `\"multi\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the grader.
@@ -43,7 +43,7 @@ impl GraderMulti {
         }
     }
 }
-/// The object type, which is always `multi`.
+/// The object type, which is always `multi`.  Defaults to `\"multi\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "multi")]

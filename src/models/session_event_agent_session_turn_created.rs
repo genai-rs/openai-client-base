@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionTurnCreated : Emitted when a turn is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionTurnCreated {
-    /// The type of the object. Always `agent.session.turn.created`.
+    /// The type of the object. Always `agent.session.turn.created`.  Defaults to `\"agent.session.turn.created\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -48,7 +48,7 @@ impl SessionEventAgentSessionTurnCreated {
         }
     }
 }
-/// The type of the object. Always `agent.session.turn.created`.
+/// The type of the object. Always `agent.session.turn.created`.  Defaults to `\"agent.session.turn.created\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.turn.created")]

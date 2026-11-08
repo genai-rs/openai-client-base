@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// HostedPluginParam : A plugin installed in an OpenAI-hosted environment.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct HostedPluginParam {
-    /// The type of the object. Always `inline`.
+    /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The plugin name declared in `.codex-plugin/plugin.json`.
@@ -43,7 +43,7 @@ impl HostedPluginParam {
         }
     }
 }
-/// The type of the object. Always `inline`.
+/// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "inline")]

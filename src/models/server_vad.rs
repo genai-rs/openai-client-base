@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ServerVad : Server-side voice activity detection (VAD) which flips on when user speech is detected and off after a period of silence.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ServerVad {
-    /// Type of turn detection, `server_vad` to turn on simple Server VAD.
+    /// Type of turn detection, `server_vad` to turn on simple Server VAD.  Defaults to `\"server_vad\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Used only for `server_vad` mode. Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A higher threshold will require louder audio to activate the model, and thus might perform better in noisy environments.
@@ -28,10 +28,10 @@ pub struct ServerVad {
         skip_serializing_if = "Option::is_none"
     )]
     pub silence_duration_ms: Option<i64>,
-    /// Whether or not to automatically generate a response when a VAD stop event occurs. If `interrupt_response` is set to `false` this may fail to create a response if the model is already responding.  If both `create_response` and `interrupt_response` are set to `false`, the model will never respond automatically but VAD events will still be emitted.
+    /// Whether or not to automatically generate a response when a VAD stop event occurs. If `interrupt_response` is set to `false` this may fail to create a response if the model is already responding.  If both `create_response` and `interrupt_response` are set to `false`, the model will never respond automatically but VAD events will still be emitted.  Defaults to `true`.
     #[serde(rename = "create_response", skip_serializing_if = "Option::is_none")]
     pub create_response: Option<bool>,
-    /// Whether or not to automatically interrupt (cancel) any ongoing response with output to the default conversation (i.e. `conversation` of `auto`) when a VAD start event occurs. If `true` then the response will be cancelled, otherwise it will continue until complete.  If both `create_response` and `interrupt_response` are set to `false`, the model will never respond automatically but VAD events will still be emitted.
+    /// Whether or not to automatically interrupt (cancel) any ongoing response with output to the default conversation (i.e. `conversation` of `auto`) when a VAD start event occurs. If `true` then the response will be cancelled, otherwise it will continue until complete.  If both `create_response` and `interrupt_response` are set to `false`, the model will never respond automatically but VAD events will still be emitted.  Defaults to `true`.
     #[serde(rename = "interrupt_response", skip_serializing_if = "Option::is_none")]
     pub interrupt_response: Option<bool>,
     /// Optional timeout after which a model response will be triggered automatically. This is useful for situations in which a long pause from the user is unexpected, such as a phone call. The model will effectively prompt the user to continue the conversation based on the current context.  The timeout value will be applied after the last model response's audio has finished playing, i.e. it's set to the `response.done` time plus audio playback duration.  An `input_audio_buffer.timeout_triggered` event (plus events associated with the Response) will be emitted when the timeout is reached. Idle timeout is currently only supported for `server_vad` mode.
@@ -58,7 +58,7 @@ impl ServerVad {
         }
     }
 }
-/// Type of turn detection, `server_vad` to turn on simple Server VAD.
+/// Type of turn detection, `server_vad` to turn on simple Server VAD.  Defaults to `\"server_vad\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "server_vad")]

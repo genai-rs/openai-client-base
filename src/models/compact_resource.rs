@@ -16,7 +16,7 @@ pub struct CompactResource {
     /// The unique identifier for the compacted response.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `response.compaction`.
+    /// The object type. Always `response.compaction`.  Defaults to `\"response.compaction\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The compacted list of output items.
@@ -46,7 +46,7 @@ impl CompactResource {
         }
     }
 }
-/// The object type. Always `response.compaction`.
+/// The object type. Always `response.compaction`.  Defaults to `\"response.compaction\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "response.compaction")]

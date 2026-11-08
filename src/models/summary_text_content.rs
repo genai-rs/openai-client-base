@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SummaryTextContent : A summary text from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SummaryTextContent {
-    /// The type of the object. Always `summary_text`.
+    /// The type of the object. Always `summary_text`.  Defaults to `\"summary_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// A summary of the reasoning output from the model so far.
@@ -27,7 +27,7 @@ impl SummaryTextContent {
         SummaryTextContent { r#type, text }
     }
 }
-/// The type of the object. Always `summary_text`.
+/// The type of the object. Always `summary_text`.  Defaults to `\"summary_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "summary_text")]

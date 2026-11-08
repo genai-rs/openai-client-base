@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// CreateVaultCredentialAuthParamEnvironmentVariable : An HTTP credential for OpenAI-hosted environments only. The sandbox receives an environment variable containing a placeholder, not the secret. Use the placeholder unchanged in outgoing requests. The egress proxy replaces the placeholder with the secret for allowed HTTPS destinations on ports 443 and 8443. Sandbox code cannot read the real secret or use it for local computation, such as signing a request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVaultCredentialAuthParamEnvironmentVariable {
-    /// The type of the object. Always `environment_variable`.
+    /// The type of the object. Always `environment_variable`.  Defaults to `\"environment_variable\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The environment variable name that receives the placeholder, such as `SERVICE_API_KEY`. Use ASCII letters, digits, and underscores, starting with a letter or underscore. Names starting with `CODEX_` and managed proxy or certificate variable names are reserved.
@@ -43,7 +43,7 @@ impl CreateVaultCredentialAuthParamEnvironmentVariable {
         }
     }
 }
-/// The type of the object. Always `environment_variable`.
+/// The type of the object. Always `environment_variable`.  Defaults to `\"environment_variable\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "environment_variable")]

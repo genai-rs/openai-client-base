@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveInputAudioAppend : Input audio received from the primary transport and reflected to a Live sideband connection before model-input muting.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInputAudioAppend {
-    /// The event type, always `session.input_audio.append`.
+    /// The event type, always `session.input_audio.append`.  Defaults to `\"session.input_audio.append\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Base64-encoded raw mono PCM16LE at 24 kHz received from the primary transport, reflected to the sideband before model-input muting. This server event uses the same audio key as the client command, but is not an acknowledgment of it.
@@ -27,7 +27,7 @@ impl LiveInputAudioAppend {
         LiveInputAudioAppend { r#type, audio }
     }
 }
-/// The event type, always `session.input_audio.append`.
+/// The event type, always `session.input_audio.append`.  Defaults to `\"session.input_audio.append\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.input_audio.append")]

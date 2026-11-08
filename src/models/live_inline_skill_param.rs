@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInlineSkillParam {
-    /// Defines an inline skill for this request.
+    /// Defines an inline skill for this request.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the skill.
@@ -41,7 +41,7 @@ impl LiveInlineSkillParam {
         }
     }
 }
-/// Defines an inline skill for this request.
+/// Defines an inline skill for this request.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "inline")]

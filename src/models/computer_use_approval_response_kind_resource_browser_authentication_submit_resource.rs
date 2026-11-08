@@ -12,8 +12,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUseApprovalResponseKindResourceBrowserAuthenticationSubmitResource {
+    /// Defaults to `\"browser_authentication\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Defaults to `\"submit\"`.
     #[serde(rename = "action")]
     pub action: Action,
     /// The chosen sign-in method, or null when no options were offered.
@@ -34,6 +36,7 @@ impl ComputerUseApprovalResponseKindResourceBrowserAuthenticationSubmitResource 
         }
     }
 }
+/// Defaults to `\"browser_authentication\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "browser_authentication")]
@@ -43,6 +46,7 @@ pub enum Type {
     Unknown,
 }
 
+/// Defaults to `\"submit\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Action {
     #[serde(rename = "submit")]

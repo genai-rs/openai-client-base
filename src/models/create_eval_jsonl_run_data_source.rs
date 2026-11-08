@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// CreateEvalJsonlRunDataSource : A JsonlRunDataSource object with that specifies a JSONL file that matches the eval  
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEvalJsonlRunDataSource {
-    /// The type of data source. Always `jsonl`.
+    /// The type of data source. Always `jsonl`.  Defaults to `\"jsonl\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "source")]
@@ -30,7 +30,7 @@ impl CreateEvalJsonlRunDataSource {
         CreateEvalJsonlRunDataSource { r#type, source }
     }
 }
-/// The type of data source. Always `jsonl`.
+/// The type of data source. Always `jsonl`.  Defaults to `\"jsonl\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "jsonl")]

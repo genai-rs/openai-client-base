@@ -19,6 +19,7 @@ pub struct LiveOutputAudioFixturePlaying {
     /// The event_id of the client command associated with this server event, when supplied.
     #[serde(rename = "client_event_id", skip_serializing_if = "Option::is_none")]
     pub client_event_id: Option<String>,
+    /// Defaults to `\"session.output_audio.fixture.playing\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -33,6 +34,7 @@ impl LiveOutputAudioFixturePlaying {
         }
     }
 }
+/// Defaults to `\"session.output_audio.fixture.playing\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.output_audio.fixture.playing")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// CloseSubagentCallItemResource : A request to close a subagent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CloseSubagentCallItemResource {
-    /// The item type. Always `close_subagent_call`.
+    /// The item type. Always `close_subagent_call`.  Defaults to `\"close_subagent_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the tool call item.
@@ -53,7 +53,7 @@ impl CloseSubagentCallItemResource {
         }
     }
 }
-/// The item type. Always `close_subagent_call`.
+/// The item type. Always `close_subagent_call`.  Defaults to `\"close_subagent_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "close_subagent_call")]

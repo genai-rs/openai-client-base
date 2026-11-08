@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The item type. Always `computer_use_call`. (enum: computer_use_call) | 
+**r#type** | **Type** | The item type. Always `computer_use_call`.  Defaults to `\"computer_use_call\"`. (enum: computer_use_call) | 
 **id** | **String** | The ID of the activity item. | 
 **turn_id** | **String** | The ID of the turn that contains this item. | 
 **title** | Option<**String**> | A model-generated description of the activity, when available. | 

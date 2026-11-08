@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// HostedTemplateSkillResourceInline : Safe metadata for an inline skill archive.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct HostedTemplateSkillResourceInline {
-    /// The type of the object. Always `inline`.
+    /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The skill name declared in `SKILL.md`.
@@ -38,7 +38,7 @@ impl HostedTemplateSkillResourceInline {
         }
     }
 }
-/// The type of the object. Always `inline`.
+/// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "inline")]

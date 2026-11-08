@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// UrlAnnotationSource : URL backing an annotation entry.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UrlAnnotationSource {
-    /// Type discriminator that is always `url`.
+    /// Type discriminator that is always `url`.  Defaults to `\"url\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// URL referenced by the annotation.
@@ -27,7 +27,7 @@ impl UrlAnnotationSource {
         UrlAnnotationSource { r#type, url }
     }
 }
-/// Type discriminator that is always `url`.
+/// Type discriminator that is always `url`.  Defaults to `\"url\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "url")]

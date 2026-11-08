@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// KeyPressAction : A collection of keypresses the model would like to perform.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct KeyPressAction {
-    /// Specifies the event type. For a keypress action, this property is always set to `keypress`.
+    /// Specifies the event type. For a keypress action, this property is always set to `keypress`.  Defaults to `\"keypress\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The combination of keys the model is requesting to be pressed. This is an array of strings, each representing a key.
@@ -27,7 +27,7 @@ impl KeyPressAction {
         KeyPressAction { r#type, keys }
     }
 }
-/// Specifies the event type. For a keypress action, this property is always set to `keypress`.
+/// Specifies the event type. For a keypress action, this property is always set to `keypress`.  Defaults to `\"keypress\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "keypress")]

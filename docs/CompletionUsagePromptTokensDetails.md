@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**audio_tokens** | Option<**i64**> | Audio input tokens present in the prompt. | [optional]
-**cached_tokens** | Option<**i64**> | Cached tokens present in the prompt. | [optional]
+**audio_tokens** | Option<**i64**> | Audio input tokens present in the prompt.  Defaults to `0`. | [optional]
+**cached_tokens** | Option<**i64**> | Cached tokens present in the prompt.  Defaults to `0`. | [optional]
 **text_tokens** | Option<**i64**> | Text input tokens present in the prompt. | [optional]
 **image_tokens** | Option<**i64**> | Image input tokens present in the prompt. | [optional]
-**cache_write_tokens** | Option<**i64**> | The unadjusted number of prompt tokens written to cache. | [optional]
+**cache_write_tokens** | Option<**i64**> | The unadjusted number of prompt tokens written to cache.  Defaults to `0`. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the item. Always `program`. (enum: program) | 
+**r#type** | **Type** | The type of the item. Always `program`.  Defaults to `\"program\"`. (enum: program) | 
 **id** | **String** | The unique ID of the program item. | 
 **call_id** | **String** | The stable call ID of the program item. | 
 **code** | **String** | The JavaScript source executed by programmatic tool calling. | 

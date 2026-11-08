@@ -17,7 +17,7 @@ pub struct DecisionInputImage {
     /// A base64-encoded image in a data URL or a publicly accessible HTTP(S) image URL.
     #[serde(rename = "image_url")]
     pub image_url: String,
-    /// The image detail level, using the selected model's image profile. Defaults to auto.
+    /// The image detail level, using the selected model's image profile. Defaults to auto.  Defaults to `\"auto\"`.
     #[serde(
         rename = "detail",
         default,
@@ -32,6 +32,7 @@ pub struct DecisionInputImage {
         skip_serializing_if = "Option::is_none"
     )]
     pub prompt_cache_breakpoint: Option<Option<models::PromptCacheBreakpoint>>,
+    /// Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -47,6 +48,7 @@ impl DecisionInputImage {
         }
     }
 }
+/// Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_image")]

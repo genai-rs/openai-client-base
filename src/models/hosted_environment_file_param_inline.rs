@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// HostedEnvironmentFileParamInline : A file supplied directly as standard-base64 data.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct HostedEnvironmentFileParamInline {
-    /// The type of the object. Always `inline`.
+    /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The standard-base64-encoded file contents.
@@ -30,7 +30,7 @@ impl HostedEnvironmentFileParamInline {
         HostedEnvironmentFileParamInline { r#type, data, path }
     }
 }
-/// The type of the object. Always `inline`.
+/// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "inline")]

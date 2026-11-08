@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LockedStatus : Indicates that a thread is locked and cannot accept new input.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LockedStatus {
-    /// Status discriminator that is always `locked`.
+    /// Status discriminator that is always `locked`.  Defaults to `\"locked\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Reason that the thread was locked. Defaults to null when no reason is recorded.
@@ -27,7 +27,7 @@ impl LockedStatus {
         LockedStatus { r#type, reason }
     }
 }
-/// Status discriminator that is always `locked`.
+/// Status discriminator that is always `locked`.  Defaults to `\"locked\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "locked")]

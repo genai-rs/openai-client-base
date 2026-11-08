@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `agent.session.input.tool_result`. (enum: agent.session.input.tool_result) | 
+**r#type** | **Type** | The type of the object. Always `agent.session.input.tool_result`.  Defaults to `\"agent.session.input.tool_result\"`. (enum: agent.session.input.tool_result) | 
 **turn_id** | **String** | The ID of the turn that requested the function call. | 
 **call_id** | **String** | The ID of the function call. | 
 **success** | **bool** | Whether the function call succeeded. | 

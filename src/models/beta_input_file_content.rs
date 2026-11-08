@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaInputFileContent : A file input to the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaInputFileContent {
-    /// The type of the input item. Always `input_file`.
+    /// The type of the input item. Always `input_file`.  Defaults to `\"input_file\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the file to be sent to the model.
@@ -57,7 +57,7 @@ impl BetaInputFileContent {
         }
     }
 }
-/// The type of the input item. Always `input_file`.
+/// The type of the input item. Always `input_file`.  Defaults to `\"input_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_file")]

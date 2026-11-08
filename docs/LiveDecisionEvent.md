@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: decision.event) | 
+**r#type** | **Type** | Defaults to `\"decision.event\"`. (enum: decision.event) | 
 **event_id** | **String** | The unique ID of this Live server event. | 
 **delegation_id** | Option<**String**> | The Live delegation ID, or null for a transcript trigger. | 
 **trigger_id** | Option<**String**> | The Live-assigned ID of this trigger firing, or null for a delegation. | 

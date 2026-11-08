@@ -28,7 +28,7 @@ pub struct LiveInputTranscriptDelta {
     /// The transcript text fragment for the audio in this time range. Append fragments in delivery order to build the transcript.
     #[serde(rename = "delta")]
     pub delta: String,
-    /// The event type, always `session.input_transcript.delta`.
+    /// The event type, always `session.input_transcript.delta`.  Defaults to `\"session.input_transcript.delta\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -52,7 +52,7 @@ impl LiveInputTranscriptDelta {
         }
     }
 }
-/// The event type, always `session.input_transcript.delta`.
+/// The event type, always `session.input_transcript.delta`.  Defaults to `\"session.input_transcript.delta\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.input_transcript.delta")]

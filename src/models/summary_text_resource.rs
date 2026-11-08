@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SummaryTextResource : A reasoning summary content part.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SummaryTextResource {
-    /// The content type. Always `summary_text`.
+    /// The content type. Always `summary_text`.  Defaults to `\"summary_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The reasoning summary text.
@@ -27,7 +27,7 @@ impl SummaryTextResource {
         SummaryTextResource { r#type, text }
     }
 }
-/// The content type. Always `summary_text`.
+/// The content type. Always `summary_text`.  Defaults to `\"summary_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "summary_text")]

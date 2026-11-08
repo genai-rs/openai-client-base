@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ReasoningItemResource : A reasoning item produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ReasoningItemResource {
-    /// The item type. Always `reasoning`.
+    /// The item type. Always `reasoning`.  Defaults to `\"reasoning\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the reasoning item.
@@ -49,7 +49,7 @@ impl ReasoningItemResource {
         }
     }
 }
-/// The item type. Always `reasoning`.
+/// The item type. Always `reasoning`.  Defaults to `\"reasoning\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "reasoning")]

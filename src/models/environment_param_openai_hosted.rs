@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// EnvironmentParamOpenaiHosted : An existing OpenAI-hosted environment or new inline/template-based hosted configuration.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentParamOpenaiHosted {
-    /// The type of the object. Always `openai_hosted`.
+    /// The type of the object. Always `openai_hosted`.  Defaults to `\"openai_hosted\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Packages to install in the environment. Defaults to empty package lists.
@@ -122,7 +122,7 @@ impl EnvironmentParamOpenaiHosted {
         }
     }
 }
-/// The type of the object. Always `openai_hosted`.
+/// The type of the object. Always `openai_hosted`.  Defaults to `\"openai_hosted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "openai_hosted")]

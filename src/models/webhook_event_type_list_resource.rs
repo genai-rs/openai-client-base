@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookEventTypeListResource {
-    /// The object type, which is always list.
+    /// The object type, which is always list.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The webhook event types available to the authenticated project.
@@ -25,7 +25,7 @@ impl WebhookEventTypeListResource {
         WebhookEventTypeListResource { object, data }
     }
 }
-/// The object type, which is always list.
+/// The object type, which is always list.  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "list")]

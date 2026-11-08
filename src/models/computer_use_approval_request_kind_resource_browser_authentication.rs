@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ComputerUseApprovalRequestKindResourceBrowserAuthentication : A registered form awaiting the application's response.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUseApprovalRequestKindResourceBrowserAuthentication {
-    /// The type of the object. Always `browser_authentication`.
+    /// The type of the object. Always `browser_authentication`.  Defaults to `\"browser_authentication\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Why the agent needs the user to sign in.
@@ -49,7 +49,7 @@ impl ComputerUseApprovalRequestKindResourceBrowserAuthentication {
         }
     }
 }
-/// The type of the object. Always `browser_authentication`.
+/// The type of the object. Always `browser_authentication`.  Defaults to `\"browser_authentication\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "browser_authentication")]

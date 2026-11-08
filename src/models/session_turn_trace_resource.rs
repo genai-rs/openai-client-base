@@ -15,7 +15,7 @@ pub struct SessionTurnTraceResource {
     /// The root turn ID. Use this ID as the pagination anchor.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type, which is always `agent.session.trace`.
+    /// The object type, which is always `agent.session.trace`.  Defaults to `\"agent.session.trace\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The session that owns this trace.
@@ -46,7 +46,7 @@ impl SessionTurnTraceResource {
         }
     }
 }
-/// The object type, which is always `agent.session.trace`.
+/// The object type, which is always `agent.session.trace`.  Defaults to `\"agent.session.trace\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.session.trace")]

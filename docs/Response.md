@@ -38,7 +38,7 @@ Name | Type | Description | Notes
 **prompt_cache_options** | Option<[**models::PromptCacheOptions**](PromptCacheOptions.md)> |  | [optional]
 **prompt_cache_diagnostics** | Option<[**models::PromptCacheDiagnostics**](PromptCacheDiagnostics.md)> |  | [optional]
 **moderation** | Option<[**models::Moderation**](Moderation.md)> |  | [optional]
-**parallel_tool_calls** | **bool** | Whether to allow the model to run tool calls in parallel.  | 
+**parallel_tool_calls** | **bool** | Whether to allow the model to run tool calls in parallel.  Defaults to `true`. | 
 **conversation** | Option<[**models::ResponseConversation**](ResponseConversation.md)> |  | [optional]
 **max_output_tokens** | Option<**i64**> | An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](https://developers.openai.com/api/docs/guides/reasoning).  | [optional]
 

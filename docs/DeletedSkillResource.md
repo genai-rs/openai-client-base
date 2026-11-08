@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** |  (enum: skill.deleted) | 
+**object** | **Object** | Defaults to `\"skill.deleted\"`. (enum: skill.deleted) | 
 **deleted** | **bool** |  | 
 **id** | **String** |  | 
 

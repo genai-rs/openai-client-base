@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionRequiredActionResourceComputerUseApprovalRequest : Respond to a computer-use request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionRequiredActionResourceComputerUseApprovalRequest {
-    /// The type of the object. Always `computer_use_approval_request`.
+    /// The type of the object. Always `computer_use_approval_request`.  Defaults to `\"computer_use_approval_request\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The turn that requested approval.
@@ -43,7 +43,7 @@ impl SessionRequiredActionResourceComputerUseApprovalRequest {
         }
     }
 }
-/// The type of the object. Always `computer_use_approval_request`.
+/// The type of the object. Always `computer_use_approval_request`.  Defaults to `\"computer_use_approval_request\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_use_approval_request")]

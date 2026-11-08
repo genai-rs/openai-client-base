@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaContainerReferenceParam {
-    /// References a container created with the /v1/containers endpoint
+    /// References a container created with the /v1/containers endpoint  Defaults to `\"container_reference\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the referenced container.
@@ -28,7 +28,7 @@ impl BetaContainerReferenceParam {
         }
     }
 }
-/// References a container created with the /v1/containers endpoint
+/// References a container created with the /v1/containers endpoint  Defaults to `\"container_reference\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "container_reference")]

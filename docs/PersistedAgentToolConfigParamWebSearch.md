@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `web_search`. (enum: web_search) | 
+**r#type** | **Type** | The type of the object. Always `web_search`.  Defaults to `\"web_search\"`. (enum: web_search) | 
 **mode** | Option<[**models::WebSearchModeParam**](WebSearchModeParam.md)> | The source used for web search results. Defaults to `live`. | [optional]
 **context_size** | Option<[**models::WebSearchContextSizeParam**](WebSearchContextSizeParam.md)> | The amount of search context made available to the model. Defaults to `medium`. | [optional]
 **allowed_domains** | Option<**Vec<String>**> | Domains the search may include. | [optional]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ComputerScreenshotImage : A computer screenshot image used with the computer use tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerScreenshotImage {
-    /// Specifies the event type. For a computer screenshot, this property is  always set to `computer_screenshot`.
+    /// Specifies the event type. For a computer screenshot, this property is  always set to `computer_screenshot`.  Defaults to `\"computer_screenshot\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the screenshot image.
@@ -34,7 +34,7 @@ impl ComputerScreenshotImage {
         }
     }
 }
-/// Specifies the event type. For a computer screenshot, this property is  always set to `computer_screenshot`.
+/// Specifies the event type. For a computer screenshot, this property is  always set to `computer_screenshot`.  Defaults to `\"computer_screenshot\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_screenshot")]

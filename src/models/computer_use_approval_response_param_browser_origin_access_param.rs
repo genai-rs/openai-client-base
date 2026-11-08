@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUseApprovalResponseParamBrowserOriginAccessParam {
+    /// Defaults to `\"browser_origin_access\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "decision")]
@@ -27,6 +28,7 @@ impl ComputerUseApprovalResponseParamBrowserOriginAccessParam {
         ComputerUseApprovalResponseParamBrowserOriginAccessParam { r#type, decision }
     }
 }
+/// Defaults to `\"browser_origin_access\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "browser_origin_access")]

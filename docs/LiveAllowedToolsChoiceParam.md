@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The tool choice type. Always `allowed_tools`. (enum: allowed_tools) | 
+**r#type** | **Type** | The tool choice type. Always `allowed_tools`.  Defaults to `\"allowed_tools\"`. (enum: allowed_tools) | 
 **tools** | [**Vec<models::LiveAllowedToolsChoiceParamToolsInner>**](LiveAllowedToolsChoiceParamToolsInner.md) | The tools that the delegated Responses model may call. | 
 **mode** | Option<[**models::LiveToolChoiceValueEnum**](LiveToolChoiceValueEnum.md)> |  | [optional]
 

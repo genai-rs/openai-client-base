@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ComputerScreenshotResource : A browser screenshot emitted by the model during computer use.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerScreenshotResource {
-    /// The content type. Always `computer_screenshot`.
+    /// The content type. Always `computer_screenshot`.  Defaults to `\"computer_screenshot\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The complete JPEG image as a base64 data URL.
@@ -27,7 +27,7 @@ impl ComputerScreenshotResource {
         ComputerScreenshotResource { r#type, image_url }
     }
 }
-/// The content type. Always `computer_screenshot`.
+/// The content type. Always `computer_screenshot`.  Defaults to `\"computer_screenshot\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_screenshot")]

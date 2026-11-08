@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// EnvironmentResourceSelfHosted : An environment hosted by the application.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentResourceSelfHosted {
-    /// The type of the object. Always `self_hosted`.
+    /// The type of the object. Always `self_hosted`.  Defaults to `\"self_hosted\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Pass this URL unchanged to `codex exec-server --remote` when connecting this environment.
@@ -48,7 +48,7 @@ impl EnvironmentResourceSelfHosted {
         }
     }
 }
-/// The type of the object. Always `self_hosted`.
+/// The type of the object. Always `self_hosted`.  Defaults to `\"self_hosted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "self_hosted")]

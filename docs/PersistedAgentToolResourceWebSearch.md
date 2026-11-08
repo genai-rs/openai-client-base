@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `web_search`. (enum: web_search) | 
+**r#type** | **Type** | The type of the object. Always `web_search`.  Defaults to `\"web_search\"`. (enum: web_search) | 
 **mode** | [**models::WebSearchModeResource**](WebSearchModeResource.md) |  | 
 **context_size** | [**models::WebSearchContextSizeResource**](WebSearchContextSizeResource.md) |  | 
 **allowed_domains** | Option<**Vec<String>**> | Allowed search domains, or `null` when the search is unrestricted. | 

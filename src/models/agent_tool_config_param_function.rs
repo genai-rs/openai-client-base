@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// AgentToolConfigParamFunction : A function defined by the application.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AgentToolConfigParamFunction {
-    /// The type of the object. Always `function`.
+    /// The type of the object. Always `function`.  Defaults to `\"function\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the function.
@@ -47,7 +47,7 @@ impl AgentToolConfigParamFunction {
         }
     }
 }
-/// The type of the object. Always `function`.
+/// The type of the object. Always `function`.  Defaults to `\"function\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function")]

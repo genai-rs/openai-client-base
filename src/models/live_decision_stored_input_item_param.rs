@@ -16,9 +16,10 @@ pub struct LiveDecisionStoredInputItemParam {
     /// The ID of the stored Decision input item.
     #[serde(rename = "id")]
     pub id: String,
+    /// Defaults to `\"message\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
-    /// The message role. Always `user`.
+    /// The message role. Always `user`.  Defaults to `\"user\"`.
     #[serde(rename = "role")]
     pub role: Role,
     #[serde(rename = "content")]
@@ -39,13 +40,14 @@ impl LiveDecisionStoredInputItemParam {
         }
     }
 }
+/// Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "message")]
     Message,
 }
 
-/// The message role. Always `user`.
+/// The message role. Always `user`.  Defaults to `\"user\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
     #[serde(rename = "user")]

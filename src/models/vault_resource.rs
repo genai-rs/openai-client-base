@@ -16,7 +16,7 @@ pub struct VaultResource {
     /// The ID of the vault.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `vault`.
+    /// The object type. Always `vault`.  Defaults to `\"vault\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The human-readable name of the vault, if set.
@@ -48,7 +48,7 @@ impl VaultResource {
         }
     }
 }
-/// The object type. Always `vault`.
+/// The object type. Always `vault`.  Defaults to `\"vault\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "vault")]

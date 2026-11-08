@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// BetaComputerTool : A tool that controls a virtual computer. Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaComputerTool {
-    /// The type of the computer tool. Always `computer`.
+    /// The type of the computer tool. Always `computer`.  Defaults to `\"computer\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl BetaComputerTool {
         BetaComputerTool { r#type }
     }
 }
-/// The type of the computer tool. Always `computer`.
+/// The type of the computer tool. Always `computer`.  Defaults to `\"computer\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer")]

@@ -13,8 +13,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam {
+    /// Defaults to `\"browser_authentication\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Defaults to `\"submit\"`.
     #[serde(rename = "action")]
     pub action: Action,
     /// Values for up to six active fields in the required action. The submitted field-value mapping and selected option must fit within 120 KiB of JSON.
@@ -44,12 +46,14 @@ impl ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam {
         }
     }
 }
+/// Defaults to `\"browser_authentication\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "browser_authentication")]
     BrowserAuthentication,
 }
 
+/// Defaults to `\"submit\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Action {
     #[serde(rename = "submit")]

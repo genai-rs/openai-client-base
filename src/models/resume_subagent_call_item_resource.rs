@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ResumeSubagentCallItemResource : A request to resume a subagent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResumeSubagentCallItemResource {
-    /// The item type. Always `resume_subagent_call`.
+    /// The item type. Always `resume_subagent_call`.  Defaults to `\"resume_subagent_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the tool call item.
@@ -53,7 +53,7 @@ impl ResumeSubagentCallItemResource {
         }
     }
 }
-/// The item type. Always `resume_subagent_call`.
+/// The item type. Always `resume_subagent_call`.  Defaults to `\"resume_subagent_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "resume_subagent_call")]

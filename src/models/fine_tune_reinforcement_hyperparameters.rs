@@ -24,7 +24,7 @@ pub struct FineTuneReinforcementHyperparameters {
         Option<models::FineTuneReinforcementHyperparametersLearningRateMultiplier>,
     #[serde(rename = "n_epochs", skip_serializing_if = "Option::is_none")]
     pub n_epochs: Option<models::FineTuneReinforcementHyperparametersNEpochs>,
-    /// Level of reasoning effort.
+    /// Level of reasoning effort.  Defaults to `\"default\"`.
     #[serde(rename = "reasoning_effort", skip_serializing_if = "Option::is_none")]
     pub reasoning_effort: Option<ReasoningEffort>,
     #[serde(rename = "compute_multiplier", skip_serializing_if = "Option::is_none")]
@@ -49,7 +49,7 @@ impl FineTuneReinforcementHyperparameters {
         }
     }
 }
-/// Level of reasoning effort.
+/// Level of reasoning effort.  Defaults to `\"default\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ReasoningEffort {
     #[serde(rename = "default")]

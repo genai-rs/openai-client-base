@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSpecificCustomToolParam {
-    /// The tool to call. Always `custom`.
+    /// The tool to call. Always `custom`.  Defaults to `\"custom\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the custom tool to call.
@@ -25,7 +25,7 @@ impl LiveSpecificCustomToolParam {
         LiveSpecificCustomToolParam { r#type, name }
     }
 }
-/// The tool to call. Always `custom`.
+/// The tool to call. Always `custom`.  Defaults to `\"custom\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "custom")]

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** |  (enum: conversation.deleted) | 
+**object** | **Object** | Defaults to `\"conversation.deleted\"`. (enum: conversation.deleted) | 
 **deleted** | **bool** |  | 
 **id** | **String** |  | 
 

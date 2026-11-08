@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaCustomToolParam : A custom tool that processes input using a specified format. Learn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaCustomToolParam {
-    /// The type of the custom tool. Always `custom`.
+    /// The type of the custom tool. Always `custom`.  Defaults to `\"custom\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the custom tool, used to identify it in tool calls.
@@ -55,7 +55,7 @@ impl BetaCustomToolParam {
         }
     }
 }
-/// The type of the custom tool. Always `custom`.
+/// The type of the custom tool. Always `custom`.  Defaults to `\"custom\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "custom")]

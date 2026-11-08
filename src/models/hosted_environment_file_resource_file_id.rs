@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// HostedEnvironmentFileResourceFileId : A file copied from the OpenAI Files API.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct HostedEnvironmentFileResourceFileId {
-    /// The type of the object. Always `file_id`.
+    /// The type of the object. Always `file_id`.  Defaults to `\"file_id\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The session-scoped ID of the file in the execution environment.
@@ -48,7 +48,7 @@ impl HostedEnvironmentFileResourceFileId {
         }
     }
 }
-/// The type of the object. Always `file_id`.
+/// The type of the object. Always `file_id`.  Defaults to `\"file_id\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "file_id")]

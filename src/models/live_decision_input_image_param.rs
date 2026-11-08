@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionInputImageParam {
-    /// The type of the input item. Always `input_image`.
+    /// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// An inline image encoded as a data URL.
@@ -37,7 +37,7 @@ impl LiveDecisionInputImageParam {
         }
     }
 }
-/// The type of the input item. Always `input_image`.
+/// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_image")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// OutputTextResource : A text content part produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct OutputTextResource {
-    /// The content type. Always `output_text`.
+    /// The content type. Always `output_text`.  Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text produced by the agent.
@@ -27,7 +27,7 @@ impl OutputTextResource {
         OutputTextResource { r#type, text }
     }
 }
-/// The content type. Always `output_text`.
+/// The content type. Always `output_text`.  Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "output_text")]

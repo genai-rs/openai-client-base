@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// EvalList : An object representing a list of evals.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalList {
-    /// The type of this object. It is always set to \"list\".
+    /// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// An array of eval objects.
@@ -49,7 +49,7 @@ impl EvalList {
         }
     }
 }
-/// The type of this object. It is always set to \"list\".
+/// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "list")]

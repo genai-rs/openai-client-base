@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveInitialInputTextContentPartParam : Text supplied in a developer or user message when starting a Live session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInitialInputTextContentPartParam {
-    /// The text content type. Always `input_text`.
+    /// The text content type. Always `input_text`.  Defaults to `\"input_text\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
     /// The message text to include in the Live session’s initial conversation history.
@@ -27,7 +27,7 @@ impl LiveInitialInputTextContentPartParam {
         LiveInitialInputTextContentPartParam { r#type: None, text }
     }
 }
-/// The text content type. Always `input_text`.
+/// The text content type. Always `input_text`.  Defaults to `\"input_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_text")]

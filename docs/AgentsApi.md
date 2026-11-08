@@ -426,8 +426,8 @@ Lists reusable environment templates without returning confidential values. See 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type
@@ -458,8 +458,8 @@ Lists OpenAI-hosted environments owned by the authenticated principal. Requires 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 **r#type** | Option<[**EnvironmentTypeParam**](EnvironmentTypeParam.md)> | The hosting type to list. Defaults to `openai_hosted`. |  |
 
@@ -492,8 +492,8 @@ Lists immutable artifacts published by completed hosted session turns. See [sess
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 **environment_id** | Option<**String**> | Restrict the listing to artifacts produced by this environment. |  |
 
@@ -556,8 +556,8 @@ Lists items produced by the session's root agent, including its interactions wit
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type
@@ -590,8 +590,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
 **subagent_id** | **String** | The ID of the subagent in this session. | [required] |
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type
@@ -625,8 +625,8 @@ Name | Type | Description  | Required | Notes
 **session_id** | **String** | The ID of the session. | [required] |
 **subagent_id** | **String** | The ID of the subagent in this session. | [required] |
 **turn_id** | **String** | The ID of a turn belonging to this subagent. | [required] |
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type
@@ -659,8 +659,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
 **subagent_id** | **String** | The ID of the subagent in this session. | [required] |
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type
@@ -692,8 +692,8 @@ Lists subagents in a session, including nested and closed subagents. See [subage
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type
@@ -725,8 +725,8 @@ Lists published root-turn traces as OTLP JSON, ordered by turn creation time and
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type
@@ -759,8 +759,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session that owns the turn. | [required] |
 **turn_id** | **String** | The ID of the turn. | [required] |
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type
@@ -792,8 +792,8 @@ Lists turns by creation time and turn ID. The after cursor is exclusive in the s
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type
@@ -824,8 +824,8 @@ Lists managed agent sessions using ID-based pagination and the requested sort or
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 **agent_id** | Option<**String**> | Only return sessions whose root agent has this ID. Omit to return sessions for all agents. |  |
 
@@ -857,8 +857,8 @@ Lists reusable agents in the current project. See [agent configuration](https://
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20. |  |[default to 20]
-**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`. |  |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 
 ### Return type

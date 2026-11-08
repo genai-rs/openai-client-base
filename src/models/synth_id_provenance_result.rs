@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SynthIdProvenanceResult {
-    /// The provenance signal type. Always `synthid`.
+    /// The provenance signal type. Always `synthid`.  Defaults to `\"synthid\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "outcome")]
@@ -41,7 +41,7 @@ impl SynthIdProvenanceResult {
         }
     }
 }
-/// The provenance signal type. Always `synthid`.
+/// The provenance signal type. Always `synthid`.  Defaults to `\"synthid\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "synthid")]

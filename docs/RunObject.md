@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **incomplete_details** | Option<[**models::RunObjectIncompleteDetails**](RunObjectIncompleteDetails.md)> |  | 
 **model** | **String** | The model that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
 **instructions** | **String** | The instructions that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
-**tools** | [**Vec<models::RunObjectToolsInner>**](RunObjectToolsInner.md) | The list of tools that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run. | 
+**tools** | [**Vec<models::RunObjectToolsInner>**](RunObjectToolsInner.md) | The list of tools that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run.  Defaults to `[]`. | 
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.  | 
 **usage** | Option<[**models::RunCompletionUsage**](RunCompletionUsage.md)> |  | 
 **temperature** | Option<**f64**> | The sampling temperature used for this run. If not set, defaults to 1. | [optional]

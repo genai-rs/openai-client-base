@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SendSubagentInputCallItemResource : A request to send input to another agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SendSubagentInputCallItemResource {
-    /// The item type. Always `send_subagent_input_call`.
+    /// The item type. Always `send_subagent_input_call`.  Defaults to `\"send_subagent_input_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the tool call item.
@@ -58,7 +58,7 @@ impl SendSubagentInputCallItemResource {
         }
     }
 }
-/// The item type. Always `send_subagent_input_call`.
+/// The item type. Always `send_subagent_input_call`.  Defaults to `\"send_subagent_input_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "send_subagent_input_call")]

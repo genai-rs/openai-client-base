@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// VaultListResource : A page of Agents API resources, with IDs for retrieving additional pages.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VaultListResource {
-    /// The object type, which is always `list`.
+    /// The object type, which is always `list`.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The resources returned in this page, in the requested sort order.
@@ -49,7 +49,7 @@ impl VaultListResource {
         }
     }
 }
-/// The object type, which is always `list`.
+/// The object type, which is always `list`.  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "list")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionEnvironmentExpired : Emitted after a suspended hosted session environment and its checkpoint expire.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionEnvironmentExpired {
-    /// The type of the object. Always `agent.session.environment.expired`.
+    /// The type of the object. Always `agent.session.environment.expired`.  Defaults to `\"agent.session.environment.expired\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -48,7 +48,7 @@ impl SessionEventAgentSessionEnvironmentExpired {
         }
     }
 }
-/// The type of the object. Always `agent.session.environment.expired`.
+/// The type of the object. Always `agent.session.environment.expired`.  Defaults to `\"agent.session.environment.expired\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.environment.expired")]

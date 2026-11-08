@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ExpiresAfterParam : Controls when the session expires relative to an anchor timestamp.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ExpiresAfterParam {
-    /// Base timestamp used to calculate expiration. Currently fixed to `created_at`.
+    /// Base timestamp used to calculate expiration. Currently fixed to `created_at`.  Defaults to `\"created_at\"`.
     #[serde(rename = "anchor")]
     pub anchor: Anchor,
     /// Number of seconds after the anchor when the session expires.
@@ -27,7 +27,7 @@ impl ExpiresAfterParam {
         ExpiresAfterParam { anchor, seconds }
     }
 }
-/// Base timestamp used to calculate expiration. Currently fixed to `created_at`.
+/// Base timestamp used to calculate expiration. Currently fixed to `created_at`.  Defaults to `\"created_at\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Anchor {
     #[serde(rename = "created_at")]

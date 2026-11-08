@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTagParam**](BetaAgentTagParam.md)> |  | [optional]
 **id** | Option<**String**> | The ID of the compaction item. | [optional]
-**r#type** | **Type** | The type of the item. Always `compaction`. (enum: compaction) | 
+**r#type** | **Type** | The type of the item. Always `compaction`.  Defaults to `\"compaction\"`. (enum: compaction) | 
 **encrypted_content** | **String** | The encrypted content of the compaction summary. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

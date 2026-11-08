@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseCompactionWsCompacting : Emitted when new summary content is sampled for a compaction trigger. Contains no summary content.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseCompactionWsCompacting {
-    /// The type of the event, always `response.compaction.compacting`.
+    /// The type of the event, always `response.compaction.compacting`.  Defaults to `\"response.compaction.compacting\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The sequence number of the event that was emitted.
@@ -51,7 +51,7 @@ impl BetaResponseCompactionWsCompacting {
         }
     }
 }
-/// The type of the event, always `response.compaction.compacting`.
+/// The type of the event, always `response.compaction.compacting`.  Defaults to `\"response.compaction.compacting\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "response.compaction.compacting")]

@@ -17,6 +17,7 @@ pub struct ComputerUseApprovalRequestResultItemResource {
     /// The stable history item ID.
     #[serde(rename = "id")]
     pub id: String,
+    /// Defaults to `\"computer_use_approval_request_result\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the turn that contains this item.
@@ -47,6 +48,7 @@ impl ComputerUseApprovalRequestResultItemResource {
         }
     }
 }
+/// Defaults to `\"computer_use_approval_request_result\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_use_approval_request_result")]

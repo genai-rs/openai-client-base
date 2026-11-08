@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The item type. Always `function_call`. (enum: function_call) | 
+**r#type** | **Type** | The item type. Always `function_call`.  Defaults to `\"function_call\"`. (enum: function_call) | 
 **id** | **String** | The ID of the function call item. | 
 **turn_id** | **String** | The ID of the turn that contains this item. | 
 **call_id** | **String** | The ID used to submit the function result. | 

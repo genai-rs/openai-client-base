@@ -39,7 +39,7 @@ pub struct BetaFunctionShellCallOutputItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub caller: Option<Option<models::BetaToolCallCallerParam>>,
-    /// The type of the item. Always `shell_call_output`.
+    /// The type of the item. Always `shell_call_output`.  Defaults to `\"shell_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Captured chunks of stdout and stderr output, along with their associated outcomes.
@@ -81,7 +81,7 @@ impl BetaFunctionShellCallOutputItemParam {
         }
     }
 }
-/// The type of the item. Always `shell_call_output`.
+/// The type of the item. Always `shell_call_output`.  Defaults to `\"shell_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "shell_call_output")]

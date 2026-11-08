@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ResponseShellCallOutputContentWsDone : A streaming event that indicated shell call output was completed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseShellCallOutputContentWsDone {
-    /// The type of the event, always `response.shell_call_output_content.done`.
+    /// The type of the event, always `response.shell_call_output_content.done`.  Defaults to `\"response.shell_call_output_content.done\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The sequence number of the event that was emitted.
@@ -58,7 +58,7 @@ impl ResponseShellCallOutputContentWsDone {
         }
     }
 }
-/// The type of the event, always `response.shell_call_output_content.done`.
+/// The type of the event, always `response.shell_call_output_content.done`.  Defaults to `\"response.shell_call_output_content.done\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "response.shell_call_output_content.done")]

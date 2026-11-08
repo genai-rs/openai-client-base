@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The tool type. Always `function`. (enum: function) | 
+**r#type** | **Type** | The tool type. Always `function`.  Defaults to `\"function\"`. (enum: function) | 
 **name** | **String** | The name the delegated Responses model uses when calling this function. | 
 **description** | Option<**String**> | What the function does and when the delegated Responses model should call it. | [optional]
 **parameters** | Option<**std::collections::HashMap<String, serde_json::Value>**> | A JSON Schema object describing the arguments accepted by the function. | [optional]

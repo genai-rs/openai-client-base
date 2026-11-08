@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaPromptCacheMissDiagnosticsBody {
+    /// Defaults to `\"cache_miss\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "reason")]
@@ -42,6 +43,7 @@ impl BetaPromptCacheMissDiagnosticsBody {
         }
     }
 }
+/// Defaults to `\"cache_miss\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "cache_miss")]

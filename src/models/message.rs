@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// Message : A message to or from the model.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Message {
-    /// The type of the message. Always set to `message`.
+    /// The type of the message. Always set to `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the message.
@@ -55,7 +55,7 @@ impl Message {
         }
     }
 }
-/// The type of the message. Always set to `message`.
+/// The type of the message. Always set to `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "message")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionEnvironmentReady : Emitted when a hosted session environment is ready to connect.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionEnvironmentReady {
-    /// The type of the object. Always `agent.session.environment.ready`.
+    /// The type of the object. Always `agent.session.environment.ready`.  Defaults to `\"agent.session.environment.ready\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -48,7 +48,7 @@ impl SessionEventAgentSessionEnvironmentReady {
         }
     }
 }
-/// The type of the object. Always `agent.session.environment.ready`.
+/// The type of the object. Always `agent.session.environment.ready`.  Defaults to `\"agent.session.environment.ready\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.environment.ready")]

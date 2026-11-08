@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Identifier of the thread item. | 
-**object** | **Object** | Type discriminator that is always `chatkit.thread_item`. (enum: chatkit.thread_item) | 
+**object** | **Object** | Type discriminator that is always `chatkit.thread_item`.  Defaults to `\"chatkit.thread_item\"`. (enum: chatkit.thread_item) | 
 **created_at** | **i64** | Unix timestamp (in seconds) for when the item was created. | 
 **thread_id** | **String** | Identifier of the parent thread. | 
-**r#type** | **Type** | Type discriminator that is always `chatkit.client_tool_call`. (enum: chatkit.client_tool_call) | 
+**r#type** | **Type** | Type discriminator that is always `chatkit.client_tool_call`.  Defaults to `\"chatkit.client_tool_call\"`. (enum: chatkit.client_tool_call) | 
 **status** | [**models::ClientToolCallStatus**](ClientToolCallStatus.md) |  | 
 **call_id** | **String** | Identifier for the client tool call. | 
 **name** | **String** | Tool name that was invoked. | 

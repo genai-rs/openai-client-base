@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// TypeParam : An action to type in text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TypeParam {
-    /// Specifies the event type. For a type action, this property is always set to `type`.
+    /// Specifies the event type. For a type action, this property is always set to `type`.  Defaults to `\"type\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text to type.
@@ -27,7 +27,7 @@ impl TypeParam {
         TypeParam { r#type, text }
     }
 }
-/// Specifies the event type. For a type action, this property is always set to `type`.
+/// Specifies the event type. For a type action, this property is always set to `type`.  Defaults to `\"type\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "type")]

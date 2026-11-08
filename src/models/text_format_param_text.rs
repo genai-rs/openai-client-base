@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// TextFormatParamText : Generates ordinary text without a structured-output constraint.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TextFormatParamText {
-    /// The type of the object. Always `text`.
+    /// The type of the object. Always `text`.  Defaults to `\"text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl TextFormatParamText {
         TextFormatParamText { r#type }
     }
 }
-/// The type of the object. Always `text`.
+/// The type of the object. Always `text`.  Defaults to `\"text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "text")]

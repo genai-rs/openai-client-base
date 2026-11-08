@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaResponseShellCallCommandAddedStreamingEvent : A streaming event that indicated a shell command was added to a tool call.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseShellCallCommandAddedStreamingEvent {
-    /// The type of the event, always `response.shell_call_command.added`.
+    /// The type of the event, always `response.shell_call_command.added`.  Defaults to `\"response.shell_call_command.added\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The sequence number of the event that was emitted.
@@ -52,7 +52,7 @@ impl BetaResponseShellCallCommandAddedStreamingEvent {
         }
     }
 }
-/// The type of the event, always `response.shell_call_command.added`.
+/// The type of the event, always `response.shell_call_command.added`.  Defaults to `\"response.shell_call_command.added\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "response.shell_call_command.added")]

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `openai_hosted`. (enum: openai_hosted) | 
+**r#type** | **Type** | The type of the object. Always `openai_hosted`.  Defaults to `\"openai_hosted\"`. (enum: openai_hosted) | 
 **id** | **String** | The public ID of the environment. | 
 **container_size** | Option<[**models::ContainerSizeResource**](ContainerSizeResource.md)> | The effective CPU and memory tier, or null when unknown or outside the public tiers. | [optional]
 **packages** | [**models::EnvironmentPackagesResource**](EnvironmentPackagesResource.md) |  | 

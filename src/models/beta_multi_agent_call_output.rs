@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaMultiAgentCallOutput {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
-    /// The type of the multi-agent result. Always `multi_agent_call_output`.
+    /// The type of the multi-agent result. Always `multi_agent_call_output`.  Defaults to `\"multi_agent_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the multi-agent call output item.
@@ -49,7 +49,7 @@ impl BetaMultiAgentCallOutput {
         }
     }
 }
-/// The type of the multi-agent result. Always `multi_agent_call_output`.
+/// The type of the multi-agent result. Always `multi_agent_call_output`.  Defaults to `\"multi_agent_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "multi_agent_call_output")]

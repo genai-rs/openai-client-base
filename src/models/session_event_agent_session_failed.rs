@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionFailed : Emitted when a session fails.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionFailed {
-    /// The type of the object. Always `agent.session.failed`.
+    /// The type of the object. Always `agent.session.failed`.  Defaults to `\"agent.session.failed\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -38,7 +38,7 @@ impl SessionEventAgentSessionFailed {
         }
     }
 }
-/// The type of the object. Always `agent.session.failed`.
+/// The type of the object. Always `agent.session.failed`.  Defaults to `\"agent.session.failed\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.failed")]

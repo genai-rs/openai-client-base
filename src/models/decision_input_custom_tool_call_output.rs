@@ -31,6 +31,7 @@ pub struct DecisionInputCustomToolCallOutput {
         skip_serializing_if = "Option::is_none"
     )]
     pub status: Option<Option<models::FunctionCallStatusParam>>,
+    /// Defaults to `\"custom_tool_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -50,6 +51,7 @@ impl DecisionInputCustomToolCallOutput {
         }
     }
 }
+/// Defaults to `\"custom_tool_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "custom_tool_call_output")]

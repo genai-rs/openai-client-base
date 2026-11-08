@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the event, always `response.compaction.compacting`. (enum: response.compaction.compacting) | 
+**r#type** | **Type** | The type of the event, always `response.compaction.compacting`.  Defaults to `\"response.compaction.compacting\"`. (enum: response.compaction.compacting) | 
 **sequence_number** | **i64** | The sequence number of the event that was emitted. | 
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
 **output_index** | **i64** | The index of the compaction output item. | 

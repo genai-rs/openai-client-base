@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: call_error) | 
+**r#type** | **Type** | Defaults to `\"call_error\"`. (enum: call_error) | 
 **code** | **String** | The call setup failure code. | 
 **message** | **String** |  | 
 **param** | Option<**String**> | The parameter related to the error, if any. Empty when no parameter applies. | [optional]

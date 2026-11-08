@@ -294,7 +294,7 @@ Returns a list of input items for a given response.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to retrieve input items for. | [required] |
-**limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
+**limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **order** | Option<**String**> | The order to return the input items in. Default is `desc`. - `asc`: Return the input items in ascending order. - `desc`: Return the input items in descending order.  |  |
 **after** | Option<**String**> | An item ID to list items after, used in pagination.  |  |
 **include** | Option<[**Vec<models::BetaIncludeEnum>**](Models__BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
@@ -577,7 +577,7 @@ Returns a list of input items for a given response.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to retrieve input items for. | [required] |
-**limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  |  |[default to 20]
+**limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **order** | Option<**String**> | The order to return the input items in. Default is `desc`. - `asc`: Return the input items in ascending order. - `desc`: Return the input items in descending order.  |  |
 **after** | Option<**String**> | An item ID to list items after, used in pagination.  |  |
 **include** | Option<[**Vec<models::IncludeEnum>**](Models__IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |

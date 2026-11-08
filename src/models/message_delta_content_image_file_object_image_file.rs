@@ -15,7 +15,7 @@ pub struct MessageDeltaContentImageFileObjectImageFile {
     /// The [File](https://developers.openai.com/api/reference/resources/files) ID of the image in the message content. Set `purpose=\"vision\"` when uploading the File if you need to later display the file content.
     #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
     pub file_id: Option<String>,
-    /// Specifies the detail level of the image if specified by the user. `low` uses fewer tokens, you can opt in to high resolution using `high`.
+    /// Specifies the detail level of the image if specified by the user. `low` uses fewer tokens, you can opt in to high resolution using `high`.  Defaults to `\"auto\"`.
     #[serde(rename = "detail", skip_serializing_if = "Option::is_none")]
     pub detail: Option<Detail>,
 }
@@ -28,7 +28,7 @@ impl MessageDeltaContentImageFileObjectImageFile {
         }
     }
 }
-/// Specifies the detail level of the image if specified by the user. `low` uses fewer tokens, you can opt in to high resolution using `high`.
+/// Specifies the detail level of the image if specified by the user. `low` uses fewer tokens, you can opt in to high resolution using `high`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Detail {
     #[serde(rename = "auto")]

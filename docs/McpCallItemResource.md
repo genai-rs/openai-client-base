@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The item type. Always `mcp_call`. (enum: mcp_call) | 
+**r#type** | **Type** | The item type. Always `mcp_call`.  Defaults to `\"mcp_call\"`. (enum: mcp_call) | 
 **id** | **String** | The ID of the MCP call item. | 
 **turn_id** | **String** | The ID of the turn that contains this item. | 
 **server_label** | **String** | The label of the MCP server. | 

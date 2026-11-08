@@ -13,13 +13,13 @@ use serde::{Deserialize, Serialize};
 /// CreateEvalCustomDataSourceConfig : A CustomDataSourceConfig object that defines the schema for the data source used for the evaluation runs. This schema is used to define the shape of the data that will be: - Used to define your testing criteria and - What data is required when creating a run
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEvalCustomDataSourceConfig {
-    /// The type of data source. Always `custom`.
+    /// The type of data source. Always `custom`.  Defaults to `\"custom\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The json schema for each row in the data source.
     #[serde(rename = "item_schema")]
     pub item_schema: std::collections::HashMap<String, serde_json::Value>,
-    /// Whether the eval should expect you to populate the sample namespace (ie, by generating responses off of your data source)
+    /// Whether the eval should expect you to populate the sample namespace (ie, by generating responses off of your data source)  Defaults to `false`.
     #[serde(
         rename = "include_sample_schema",
         skip_serializing_if = "Option::is_none"
@@ -40,7 +40,7 @@ impl CreateEvalCustomDataSourceConfig {
         }
     }
 }
-/// The type of data source. Always `custom`.
+/// The type of data source. Always `custom`.  Defaults to `\"custom\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "custom")]

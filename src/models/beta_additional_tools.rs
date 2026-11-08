@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaAdditionalTools {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
-    /// The type of the item. Always `additional_tools`.
+    /// The type of the item. Always `additional_tools`.  Defaults to `\"additional_tools\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the additional tools item.
@@ -44,7 +44,7 @@ impl BetaAdditionalTools {
         }
     }
 }
-/// The type of the item. Always `additional_tools`.
+/// The type of the item. Always `additional_tools`.  Defaults to `\"additional_tools\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "additional_tools")]

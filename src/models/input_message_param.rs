@@ -14,10 +14,10 @@ use serde::{Deserialize, Serialize};
 /// InputMessageParam : A user message submitted to a session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InputMessageParam {
-    /// The type of the input item. Always `message`.
+    /// The type of the input item. Always `message`.  Defaults to `\"message\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
-    /// The role of the message author. Always `user`.
+    /// The role of the message author. Always `user`.  Defaults to `\"user\"`.
     #[serde(rename = "role")]
     pub role: Role,
     /// The content of the message.
@@ -35,14 +35,14 @@ impl InputMessageParam {
         }
     }
 }
-/// The type of the input item. Always `message`.
+/// The type of the input item. Always `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "message")]
     Message,
 }
 
-/// The role of the message author. Always `user`.
+/// The role of the message author. Always `user`.  Defaults to `\"user\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {
     #[serde(rename = "user")]

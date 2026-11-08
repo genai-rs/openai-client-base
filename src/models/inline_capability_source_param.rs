@@ -13,10 +13,10 @@ use serde::{Deserialize, Serialize};
 /// InlineCapabilitySourceParam : The encoded ZIP archive for an inline skill or plugin.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InlineCapabilitySourceParam {
-    /// The type of the object. Always `base64`.
+    /// The type of the object. Always `base64`.  Defaults to `\"base64\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// The archive media type, always `application/zip`.
+    /// The archive media type, always `application/zip`.  Defaults to `\"application/zip\"`.
     #[serde(rename = "media_type")]
     pub media_type: MediaType,
     /// Standard-base64 encoded ZIP archive bytes.
@@ -34,14 +34,14 @@ impl InlineCapabilitySourceParam {
         }
     }
 }
-/// The type of the object. Always `base64`.
+/// The type of the object. Always `base64`.  Defaults to `\"base64\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "base64")]
     Base64,
 }
 
-/// The archive media type, always `application/zip`.
+/// The archive media type, always `application/zip`.  Defaults to `\"application/zip\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MediaType {
     #[serde(rename = "application/zip")]

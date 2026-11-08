@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ClosedStatus : Indicates that a thread has been closed.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ClosedStatus {
-    /// Status discriminator that is always `closed`.
+    /// Status discriminator that is always `closed`.  Defaults to `\"closed\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Reason that the thread was closed. Defaults to null when no reason is recorded.
@@ -27,7 +27,7 @@ impl ClosedStatus {
         ClosedStatus { r#type, reason }
     }
 }
-/// Status discriminator that is always `closed`.
+/// Status discriminator that is always `closed`.  Defaults to `\"closed\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "closed")]

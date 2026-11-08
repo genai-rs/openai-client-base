@@ -21,6 +21,7 @@ pub struct LiveDecisionItemDeleteParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub event_id: Option<Option<String>>,
+    /// Defaults to `\"decision.item.delete\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "item_id")]
@@ -37,6 +38,7 @@ impl LiveDecisionItemDeleteParam {
         }
     }
 }
+/// Defaults to `\"decision.item.delete\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "decision.item.delete")]

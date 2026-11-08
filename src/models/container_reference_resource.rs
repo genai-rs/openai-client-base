@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ContainerReferenceResource : Represents a container created with /v1/containers.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ContainerReferenceResource {
-    /// The environment type. Always `container_reference`.
+    /// The environment type. Always `container_reference`.  Defaults to `\"container_reference\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "container_id")]
@@ -29,7 +29,7 @@ impl ContainerReferenceResource {
         }
     }
 }
-/// The environment type. Always `container_reference`.
+/// The environment type. Always `container_reference`.  Defaults to `\"container_reference\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "container_reference")]

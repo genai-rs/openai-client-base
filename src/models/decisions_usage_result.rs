@@ -21,6 +21,7 @@ pub struct DecisionsUsageResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub api_source: Option<Option<models::DecisionsUsageApiSource>>,
+    /// Defaults to `\"organization.usage.decisions.result\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The aggregated number of input tokens used, including cached and cache-write tokens. This includes text, audio, and image tokens. For customers subscribed to Scale Tier, this includes Scale Tier tokens.
@@ -217,6 +218,7 @@ impl DecisionsUsageResult {
         }
     }
 }
+/// Defaults to `\"organization.usage.decisions.result\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "organization.usage.decisions.result")]

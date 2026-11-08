@@ -21,7 +21,7 @@ pub struct CreateFineTuningJobRequest {
     pub training_file: String,
     #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
     pub hyperparameters: Option<models::CreateFineTuningJobRequestHyperparameters>,
-    /// A string of up to 64 characters that will be added to your fine-tuned model name.  For example, a `suffix` of \"custom-model-name\" would produce a model name like `ft:gpt-4o-mini:openai:custom-model-name:7p4lURel`.
+    /// A string of up to 64 characters that will be added to your fine-tuned model name.  For example, a `suffix` of \"custom-model-name\" would produce a model name like `ft:gpt-4o-mini:openai:custom-model-name:7p4lURel`.  Defaults to `null`.
     #[serde(
         rename = "suffix",
         default,

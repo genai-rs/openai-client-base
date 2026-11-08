@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `inline`. (enum: inline) | 
+**r#type** | **Type** | The type of the object. Always `inline`.  Defaults to `\"inline\"`. (enum: inline) | 
 **data** | **String** | The standard-base64-encoded file contents. | 
 **path** | **String** | The absolute destination path inside `/workspace`. | 
 

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ActiveStatus : Indicates that a thread is active.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ActiveStatus {
-    /// Status discriminator that is always `active`.
+    /// Status discriminator that is always `active`.  Defaults to `\"active\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl ActiveStatus {
         ActiveStatus { r#type }
     }
 }
-/// Status discriminator that is always `active`.
+/// Status discriminator that is always `active`.  Defaults to `\"active\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "active")]

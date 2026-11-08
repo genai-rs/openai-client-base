@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ClickParam : A click action.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ClickParam {
-    /// Specifies the event type. For a click action, this property is always `click`.
+    /// Specifies the event type. For a click action, this property is always `click`.  Defaults to `\"click\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "button")]
@@ -47,7 +47,7 @@ impl ClickParam {
         }
     }
 }
-/// Specifies the event type. For a click action, this property is always `click`.
+/// Specifies the event type. For a click action, this property is always `click`.  Defaults to `\"click\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "click")]

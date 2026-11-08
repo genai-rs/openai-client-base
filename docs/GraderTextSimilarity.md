@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of grader. (enum: text_similarity) | 
+**r#type** | **Type** | The type of grader.  Defaults to `\"text_similarity\"`. (enum: text_similarity) | 
 **name** | **String** | The name of the grader. | 
 **input** | **String** | The text being graded. | 
 **reference** | **String** | The text being graded against. | 

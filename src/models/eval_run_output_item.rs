@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// EvalRunOutputItem : A schema representing an evaluation run output item.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalRunOutputItem {
-    /// The type of the object. Always \"eval.run.output_item\".
+    /// The type of the object. Always \"eval.run.output_item\".  Defaults to `\"eval.run.output_item\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Unique identifier for the evaluation run output item.
@@ -73,7 +73,7 @@ impl EvalRunOutputItem {
         }
     }
 }
-/// The type of the object. Always \"eval.run.output_item\".
+/// The type of the object. Always \"eval.run.output_item\".  Defaults to `\"eval.run.output_item\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "eval.run.output_item")]

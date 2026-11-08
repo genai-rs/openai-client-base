@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `function`. (enum: function) | 
+**r#type** | **Type** | The type of the object. Always `function`.  Defaults to `\"function\"`. (enum: function) | 
 **name** | **String** | The name of the function. | 
 **description** | **String** | A description of what the function does. | 
 **parameters** | **std::collections::HashMap<String, serde_json::Value>** | A JSON Schema object describing the function's arguments. | 

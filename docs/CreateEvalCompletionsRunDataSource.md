@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of run data source. Always `completions`. (enum: completions) | 
+**r#type** | **Type** | The type of run data source. Always `completions`.  Defaults to `\"completions\"`. (enum: completions) | 
 **input_messages** | Option<[**models::CreateEvalCompletionsRunDataSourceInputMessages**](CreateEvalCompletionsRunDataSourceInputMessages.md)> |  | [optional]
 **sampling_params** | Option<[**models::CreateEvalCompletionsRunDataSourceSamplingParams**](CreateEvalCompletionsRunDataSourceSamplingParams.md)> |  | [optional]
 **model** | Option<**String**> | The name of the model to use for generating completions (e.g. \"o3-mini\"). | [optional]

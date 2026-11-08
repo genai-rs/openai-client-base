@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// WebSearchActionResourceFindInPage : Finds text within a web page.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchActionResourceFindInPage {
-    /// The type of the object. Always `find_in_page`.
+    /// The type of the object. Always `find_in_page`.  Defaults to `\"find_in_page\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the page that was searched.
@@ -38,7 +38,7 @@ impl WebSearchActionResourceFindInPage {
         }
     }
 }
-/// The type of the object. Always `find_in_page`.
+/// The type of the object. Always `find_in_page`.  Defaults to `\"find_in_page\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "find_in_page")]

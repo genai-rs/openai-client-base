@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// WaitForSubagentsCallItemResource : A request to wait for one or more subagents.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WaitForSubagentsCallItemResource {
-    /// The item type. Always `wait_for_subagents_call`.
+    /// The item type. Always `wait_for_subagents_call`.  Defaults to `\"wait_for_subagents_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the tool call item.
@@ -53,7 +53,7 @@ impl WaitForSubagentsCallItemResource {
         }
     }
 }
-/// The item type. Always `wait_for_subagents_call`.
+/// The item type. Always `wait_for_subagents_call`.  Defaults to `\"wait_for_subagents_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "wait_for_subagents_call")]

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: gcp) | 
+**r#type** | **Type** | Defaults to `\"gcp\"`. (enum: gcp) | 
 **bucket** | **String** |  | 
 **workload_identity_project_number** | **String** |  | 
 **workload_identity_pool_id** | **String** |  | 

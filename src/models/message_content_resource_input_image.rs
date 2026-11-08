@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// MessageContentResourceInputImage : An image supplied by the user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct MessageContentResourceInputImage {
-    /// The type of the object. Always `input_image`.
+    /// The type of the object. Always `input_image`.  Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the image supplied by the user, which may be a base64-encoded data URL.
@@ -27,7 +27,7 @@ impl MessageContentResourceInputImage {
         MessageContentResourceInputImage { r#type, image_url }
     }
 }
-/// The type of the object. Always `input_image`.
+/// The type of the object. Always `input_image`.  Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_image")]

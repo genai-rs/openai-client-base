@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// SessionInputParamAgentSessionInputCancel : Cancels the session's active turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionInputParamAgentSessionInputCancel {
-    /// The type of the object. Always `agent.session.input.cancel`.
+    /// The type of the object. Always `agent.session.input.cancel`.  Defaults to `\"agent.session.input.cancel\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -24,7 +24,7 @@ impl SessionInputParamAgentSessionInputCancel {
         SessionInputParamAgentSessionInputCancel { r#type }
     }
 }
-/// The type of the object. Always `agent.session.input.cancel`.
+/// The type of the object. Always `agent.session.input.cancel`.  Defaults to `\"agent.session.input.cancel\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.input.cancel")]

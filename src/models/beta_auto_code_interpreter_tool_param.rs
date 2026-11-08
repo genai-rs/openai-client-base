@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// BetaAutoCodeInterpreterToolParam : Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaAutoCodeInterpreterToolParam {
-    /// Always `auto`.
+    /// Always `auto`.  Defaults to `\"auto\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// An optional list of uploaded files to make available to your code.
@@ -42,7 +42,7 @@ impl BetaAutoCodeInterpreterToolParam {
         }
     }
 }
-/// Always `auto`.
+/// Always `auto`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "auto")]

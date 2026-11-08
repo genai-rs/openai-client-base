@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ProjectSpendLimitResource : Represents a hard spend limit configured at the project level.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ProjectSpendLimitResource {
-    /// The object type, which is always `project.spend_limit`.
+    /// The object type, which is always `project.spend_limit`.  Defaults to `\"project.spend_limit\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The hard spend limit amount, in cents.
@@ -46,7 +46,7 @@ impl ProjectSpendLimitResource {
         }
     }
 }
-/// The object type, which is always `project.spend_limit`.
+/// The object type, which is always `project.spend_limit`.  Defaults to `\"project.spend_limit\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "project.spend_limit")]

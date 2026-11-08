@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalJsonlFileContentSource {
-    /// The type of jsonl source. Always `file_content`.
+    /// The type of jsonl source. Always `file_content`.  Defaults to `\"file_content\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The content of the jsonl file.
@@ -29,7 +29,7 @@ impl EvalJsonlFileContentSource {
         EvalJsonlFileContentSource { r#type, content }
     }
 }
-/// The type of jsonl source. Always `file_content`.
+/// The type of jsonl source. Always `file_content`.  Defaults to `\"file_content\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "file_content")]

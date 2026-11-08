@@ -13,9 +13,10 @@ use serde::{Deserialize, Serialize};
 /// VectorStoreSearchRequestRankingOptions : Ranking options for search.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VectorStoreSearchRequestRankingOptions {
-    /// Enable re-ranking; set to `none` to disable, which can help reduce latency.
+    /// Enable re-ranking; set to `none` to disable, which can help reduce latency.  Defaults to `\"auto\"`.
     #[serde(rename = "ranker", skip_serializing_if = "Option::is_none")]
     pub ranker: Option<Ranker>,
+    /// Defaults to `0`.
     #[serde(rename = "score_threshold", skip_serializing_if = "Option::is_none")]
     pub score_threshold: Option<f64>,
 }
@@ -29,7 +30,7 @@ impl VectorStoreSearchRequestRankingOptions {
         }
     }
 }
-/// Enable re-ranking; set to `none` to disable, which can help reduce latency.
+/// Enable re-ranking; set to `none` to disable, which can help reduce latency.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Ranker {
     #[serde(rename = "none")]

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionTurnItemAdded : Emitted when an item is added to a turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionTurnItemAdded {
-    /// The type of the object. Always `agent.session.turn.item.added`.
+    /// The type of the object. Always `agent.session.turn.item.added`.  Defaults to `\"agent.session.turn.item.added\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -53,7 +53,7 @@ impl SessionEventAgentSessionTurnItemAdded {
         }
     }
 }
-/// The type of the object. Always `agent.session.turn.item.added`.
+/// The type of the object. Always `agent.session.turn.item.added`.  Defaults to `\"agent.session.turn.item.added\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.turn.item.added")]

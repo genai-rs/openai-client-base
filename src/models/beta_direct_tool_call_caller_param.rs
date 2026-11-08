@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaDirectToolCallCallerParam {
-    /// The caller type. Always `direct`.
+    /// The caller type. Always `direct`.  Defaults to `\"direct\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -22,7 +22,7 @@ impl BetaDirectToolCallCallerParam {
         BetaDirectToolCallCallerParam { r#type }
     }
 }
-/// The caller type. Always `direct`.
+/// The caller type. Always `direct`.  Defaults to `\"direct\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "direct")]

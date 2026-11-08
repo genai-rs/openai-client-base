@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the custom tool. Always `custom`. (enum: custom) | 
+**r#type** | **Type** | The type of the custom tool. Always `custom`.  Defaults to `\"custom\"`. (enum: custom) | 
 **name** | **String** | The name of the custom tool, used to identify it in tool calls. | 
 **r#async** | Option<**bool**> | Whether the tool response can be returned asynchronously versus immediately returned on next response creation. | [optional]
 **description** | Option<**String**> | Optional description of the custom tool, used to provide more context. | [optional]

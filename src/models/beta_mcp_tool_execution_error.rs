@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMcpToolExecutionError {
+    /// Defaults to `\"mcp_tool_execution_error\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "content", deserialize_with = "Option::deserialize")]
@@ -23,6 +24,7 @@ impl BetaMcpToolExecutionError {
         BetaMcpToolExecutionError { r#type, content }
     }
 }
+/// Defaults to `\"mcp_tool_execution_error\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "mcp_tool_execution_error")]

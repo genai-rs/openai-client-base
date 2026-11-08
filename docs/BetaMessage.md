@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **agent** | Option<[**models::BetaAgentTag**](BetaAgentTag.md)> |  | [optional]
-**r#type** | **Type** | The type of the message. Always set to `message`. (enum: message) | 
+**r#type** | **Type** | The type of the message. Always set to `message`.  Defaults to `\"message\"`. (enum: message) | 
 **id** | **String** | The unique ID of the message. | 
 **status** | [**models::BetaMessageStatus**](BetaMessageStatus.md) |  | 
 **role** | [**models::BetaMessageRole**](BetaMessageRole.md) |  | 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **description** | Option<**String**> |  | [optional]
 **parameters** | Option<**serde_json::Value**> |  | [optional]
 **strict** | Option<**bool**> | Whether to enforce strict parameter validation. If omitted, Responses attempts to use strict validation when the schema is compatible, and falls back to non-strict validation otherwise. | [optional]
-**r#type** | **Type** |  (enum: function) | 
+**r#type** | **Type** | Defaults to `\"function\"`. (enum: function) | 
 **r#async** | Option<**bool**> | Whether the tool response can be returned asynchronously versus immediately returned on next response creation. | [optional]
 **output_schema** | Option<**std::collections::HashMap<String, serde_json::Value>**> | A JSON Schema describing the JSON value encoded in string outputs for this function tool. This does not describe content-array outputs. | [optional]
 **defer_loading** | Option<**bool**> | Whether this function should be deferred and discovered via tool search. | [optional]

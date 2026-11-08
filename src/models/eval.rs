@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// Eval : An Eval object with a data source config and testing criteria. An Eval represents a task to be done for your LLM integration. Like:  - Improve the quality of my chatbot  - See how well my chatbot handles customer support  - Check if o4-mini is better at my usecase than gpt-6-astra
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct Eval {
-    /// The object type.
+    /// The object type.  Defaults to `\"eval\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Unique identifier for the evaluation.
@@ -58,7 +58,7 @@ impl Eval {
         }
     }
 }
-/// The object type.
+/// The object type.  Defaults to `\"eval\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "eval")]

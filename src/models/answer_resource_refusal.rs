@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// AnswerResourceRefusal : The model declined to answer this question. Other questions in the same request can still receive answers.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AnswerResourceRefusal {
-    /// The type of the object. Always `refusal`.
+    /// The type of the object. Always `refusal`.  Defaults to `\"refusal\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
@@ -26,7 +26,7 @@ impl AnswerResourceRefusal {
         AnswerResourceRefusal { r#type, name }
     }
 }
-/// The type of the object. Always `refusal`.
+/// The type of the object. Always `refusal`.  Defaults to `\"refusal\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "refusal")]

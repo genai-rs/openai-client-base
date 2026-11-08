@@ -22,7 +22,7 @@ pub struct BetaComputerToolCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub agent: Option<Option<models::BetaAgentTag>>,
-    /// The type of the computer call. Always `computer_call`.
+    /// The type of the computer call. Always `computer_call`.  Defaults to `\"computer_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the computer call.
@@ -65,7 +65,7 @@ impl BetaComputerToolCall {
         }
     }
 }
-/// The type of the computer call. Always `computer_call`.
+/// The type of the computer call. Always `computer_call`.  Defaults to `\"computer_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_call")]

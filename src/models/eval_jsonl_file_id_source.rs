@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalJsonlFileIdSource {
-    /// The type of jsonl source. Always `file_id`.
+    /// The type of jsonl source. Always `file_id`.  Defaults to `\"file_id\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The identifier of the file.
@@ -25,7 +25,7 @@ impl EvalJsonlFileIdSource {
         EvalJsonlFileIdSource { r#type, id }
     }
 }
-/// The type of jsonl source. Always `file_id`.
+/// The type of jsonl source. Always `file_id`.  Defaults to `\"file_id\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "file_id")]

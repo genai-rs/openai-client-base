@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionEnvironmentPending : Emitted while a session environment is being prepared.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionEnvironmentPending {
-    /// The type of the object. Always `agent.session.environment.pending`.
+    /// The type of the object. Always `agent.session.environment.pending`.  Defaults to `\"agent.session.environment.pending\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -48,7 +48,7 @@ impl SessionEventAgentSessionEnvironmentPending {
         }
     }
 }
-/// The type of the object. Always `agent.session.environment.pending`.
+/// The type of the object. Always `agent.session.environment.pending`.  Defaults to `\"agent.session.environment.pending\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.environment.pending")]

@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct BetaAgentMessage {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::BetaAgentTag>,
-    /// The type of the item. Always `agent_message`.
+    /// The type of the item. Always `agent_message`.  Defaults to `\"agent_message\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the agent message.
@@ -50,7 +50,7 @@ impl BetaAgentMessage {
         }
     }
 }
-/// The type of the item. Always `agent_message`.
+/// The type of the item. Always `agent_message`.  Defaults to `\"agent_message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent_message")]

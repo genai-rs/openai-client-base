@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **client** | Option<[**models::LiveClientConfigParam**](LiveClientConfigParam.md)> |  | [optional]
 **id** | **String** | The unique ID of the Live session. Use this ID for sideband connections, forking, and recording download. | 
 **expires_at** | **i64** | The Unix timestamp, in seconds, at which the Live session expires. | 
-**status** | **Status** | The status of the session snapshot. Always `active`, including the final snapshot in session.closed; use the event type to determine that the session has closed. (enum: active) | 
+**status** | **Status** | The status of the session snapshot. Always `active`, including the final snapshot in session.closed; use the event type to determine that the session has closed.  Defaults to `\"active\"`. (enum: active) | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

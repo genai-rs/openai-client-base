@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// PersistedAgentToolResourceWebSearch : Web search.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PersistedAgentToolResourceWebSearch {
-    /// The type of the object. Always `web_search`.
+    /// The type of the object. Always `web_search`.  Defaults to `\"web_search\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "mode")]
@@ -47,7 +47,7 @@ impl PersistedAgentToolResourceWebSearch {
         }
     }
 }
-/// The type of the object. Always `web_search`.
+/// The type of the object. Always `web_search`.  Defaults to `\"web_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "web_search")]

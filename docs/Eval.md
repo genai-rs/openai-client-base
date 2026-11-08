@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** | The object type. (enum: eval) | 
+**object** | **Object** | The object type.  Defaults to `\"eval\"`. (enum: eval) | 
 **id** | **String** | Unique identifier for the evaluation. | 
 **name** | **String** | The name of the evaluation. | 
 **data_source_config** | [**models::EvalDataSourceConfig**](EvalDataSourceConfig.md) |  | 

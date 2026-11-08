@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// AgentToolConfigParamComputerUse : Browser use in an OpenAI-hosted session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AgentToolConfigParamComputerUse {
-    /// The type of the object. Always `computer_use`.
+    /// The type of the object. Always `computer_use`.  Defaults to `\"computer_use\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Whether computer tool outputs include screenshots. Defaults to `false`.
@@ -33,7 +33,7 @@ impl AgentToolConfigParamComputerUse {
         }
     }
 }
-/// The type of the object. Always `computer_use`.
+/// The type of the object. Always `computer_use`.  Defaults to `\"computer_use\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_use")]

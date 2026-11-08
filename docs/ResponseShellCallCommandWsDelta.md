@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the event, always `response.shell_call_command.delta`. (enum: response.shell_call_command.delta) | 
+**r#type** | **Type** | The type of the event, always `response.shell_call_command.delta`.  Defaults to `\"response.shell_call_command.delta\"`. (enum: response.shell_call_command.delta) | 
 **sequence_number** | **i64** | The sequence number of the event that was emitted. | 
 **output_index** | **i64** | The index of the output item that was updated. | 
 **command_index** | **i64** | The index of the shell command that was updated. | 

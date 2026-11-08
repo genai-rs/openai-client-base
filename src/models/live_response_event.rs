@@ -19,7 +19,7 @@ pub struct LiveResponseEvent {
     /// The event_id of the client command associated with this server event, when supplied.
     #[serde(rename = "client_event_id", skip_serializing_if = "Option::is_none")]
     pub client_event_id: Option<String>,
-    /// The event type, always `response.event`.
+    /// The event type, always `response.event`.  Defaults to `\"response.event\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The Live delegation associated with the nested Responses event. May be null or omitted when the event cannot be correlated with a delegation.
@@ -51,7 +51,7 @@ impl LiveResponseEvent {
         }
     }
 }
-/// The event type, always `response.event`.
+/// The event type, always `response.event`.  Defaults to `\"response.event\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "response.event")]

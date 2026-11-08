@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// ApplyPatchCreateFileOperationParam : Instruction for creating a new file via the apply_patch tool.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ApplyPatchCreateFileOperationParam {
-    /// The operation type. Always `create_file`.
+    /// The operation type. Always `create_file`.  Defaults to `\"create_file\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Path of the file to create relative to the workspace root.
@@ -30,7 +30,7 @@ impl ApplyPatchCreateFileOperationParam {
         ApplyPatchCreateFileOperationParam { r#type, path, diff }
     }
 }
-/// The operation type. Always `create_file`.
+/// The operation type. Always `create_file`.  Defaults to `\"create_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "create_file")]

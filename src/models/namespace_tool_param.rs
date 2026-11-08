@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// NamespaceToolParam : Groups function/custom tools under a shared namespace.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct NamespaceToolParam {
-    /// The type of the tool. Always `namespace`.
+    /// The type of the tool. Always `namespace`.  Defaults to `\"namespace\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The namespace name used in tool calls (for example, `crm`).
@@ -44,7 +44,7 @@ impl NamespaceToolParam {
         }
     }
 }
-/// The type of the tool. Always `namespace`.
+/// The type of the tool. Always `namespace`.  Defaults to `\"namespace\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "namespace")]

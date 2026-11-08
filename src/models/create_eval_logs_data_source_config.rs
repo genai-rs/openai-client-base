@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// CreateEvalLogsDataSourceConfig : A data source config which specifies the metadata property of your logs query. This is usually metadata like `usecase=chatbot` or `prompt-version=v2`, etc.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateEvalLogsDataSourceConfig {
-    /// The type of data source. Always `logs`.
+    /// The type of data source. Always `logs`.  Defaults to `\"logs\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Metadata filters for the logs data source.
@@ -30,7 +30,7 @@ impl CreateEvalLogsDataSourceConfig {
         }
     }
 }
-/// The type of data source. Always `logs`.
+/// The type of data source. Always `logs`.  Defaults to `\"logs\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "logs")]

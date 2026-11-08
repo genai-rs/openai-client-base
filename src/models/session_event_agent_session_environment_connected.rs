@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionEnvironmentConnected : Emitted when a session environment connects.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionEnvironmentConnected {
-    /// The type of the object. Always `agent.session.environment.connected`.
+    /// The type of the object. Always `agent.session.environment.connected`.  Defaults to `\"agent.session.environment.connected\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -48,7 +48,7 @@ impl SessionEventAgentSessionEnvironmentConnected {
         }
     }
 }
-/// The type of the object. Always `agent.session.environment.connected`.
+/// The type of the object. Always `agent.session.environment.connected`.  Defaults to `\"agent.session.environment.connected\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.environment.connected")]

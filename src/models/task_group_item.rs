@@ -17,7 +17,7 @@ pub struct TaskGroupItem {
     /// Identifier of the thread item.
     #[serde(rename = "id")]
     pub id: String,
-    /// Type discriminator that is always `chatkit.thread_item`.
+    /// Type discriminator that is always `chatkit.thread_item`.  Defaults to `\"chatkit.thread_item\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Unix timestamp (in seconds) for when the item was created.
@@ -26,7 +26,7 @@ pub struct TaskGroupItem {
     /// Identifier of the parent thread.
     #[serde(rename = "thread_id")]
     pub thread_id: String,
-    /// Type discriminator that is always `chatkit.task_group`.
+    /// Type discriminator that is always `chatkit.task_group`.  Defaults to `\"chatkit.task_group\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Tasks included in the group.
@@ -54,7 +54,7 @@ impl TaskGroupItem {
         }
     }
 }
-/// Type discriminator that is always `chatkit.thread_item`.
+/// Type discriminator that is always `chatkit.thread_item`.  Defaults to `\"chatkit.thread_item\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "chatkit.thread_item")]
@@ -64,7 +64,7 @@ pub enum Object {
     Unknown,
 }
 
-/// Type discriminator that is always `chatkit.task_group`.
+/// Type discriminator that is always `chatkit.task_group`.  Defaults to `\"chatkit.task_group\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "chatkit.task_group")]

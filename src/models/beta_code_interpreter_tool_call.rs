@@ -22,7 +22,7 @@ pub struct BetaCodeInterpreterToolCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub agent: Option<Option<models::BetaAgentTag>>,
-    /// The type of the code interpreter tool call. Always `code_interpreter_call`.
+    /// The type of the code interpreter tool call. Always `code_interpreter_call`.  Defaults to `\"code_interpreter_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the code interpreter tool call.
@@ -63,7 +63,7 @@ impl BetaCodeInterpreterToolCall {
         }
     }
 }
-/// The type of the code interpreter tool call. Always `code_interpreter_call`.
+/// The type of the code interpreter tool call. Always `code_interpreter_call`.  Defaults to `\"code_interpreter_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "code_interpreter_call")]

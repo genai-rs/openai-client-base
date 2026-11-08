@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// OrganizationSpendLimitDeletedResource : Confirmation payload returned after deleting an organization hard spend limit.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct OrganizationSpendLimitDeletedResource {
-    /// The object type, which is always `organization.spend_limit.deleted`.
+    /// The object type, which is always `organization.spend_limit.deleted`.  Defaults to `\"organization.spend_limit.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Whether the hard spend limit was deleted.
@@ -27,7 +27,7 @@ impl OrganizationSpendLimitDeletedResource {
         OrganizationSpendLimitDeletedResource { object, deleted }
     }
 }
-/// The object type, which is always `organization.spend_limit.deleted`.
+/// The object type, which is always `organization.spend_limit.deleted`.  Defaults to `\"organization.spend_limit.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "organization.spend_limit.deleted")]

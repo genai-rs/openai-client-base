@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// McpTransportConfigParamHttp : Connects to an MCP server over HTTP.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct McpTransportConfigParamHttp {
-    /// The type of the object. Always `http`.
+    /// The type of the object. Always `http`.  Defaults to `\"http\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the MCP server.
@@ -48,7 +48,7 @@ impl McpTransportConfigParamHttp {
         }
     }
 }
-/// The type of the object. Always `http`.
+/// The type of the object. Always `http`.  Defaults to `\"http\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "http")]

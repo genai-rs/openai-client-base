@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// PromptCacheBreakpoint : Marks the exact end of a reusable prompt prefix. The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PromptCacheBreakpoint {
-    /// The breakpoint mode. Always `explicit`.
+    /// The breakpoint mode. Always `explicit`.  Defaults to `\"explicit\"`.
     #[serde(rename = "mode")]
     pub mode: Mode,
 }
@@ -24,7 +24,7 @@ impl PromptCacheBreakpoint {
         PromptCacheBreakpoint { mode }
     }
 }
-/// The breakpoint mode. Always `explicit`.
+/// The breakpoint mode. Always `explicit`.  Defaults to `\"explicit\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Mode {
     #[serde(rename = "explicit")]

@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PromptCacheUnavailableDiagnosticsBody {
+    /// Defaults to `\"unavailable\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -21,6 +22,7 @@ impl PromptCacheUnavailableDiagnosticsBody {
         PromptCacheUnavailableDiagnosticsBody { r#type }
     }
 }
+/// Defaults to `\"unavailable\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "unavailable")]

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// EvalCustomDataSourceConfig : A CustomDataSourceConfig which specifies the schema of your `item` and optionally `sample` namespaces. The response schema defines the shape of the data that will be: - Used to define your testing criteria and - What data is required when creating a run
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EvalCustomDataSourceConfig {
-    /// The type of data source. Always `custom`.
+    /// The type of data source. Always `custom`.  Defaults to `\"custom\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The json schema for the run data source items. Learn how to build JSON schemas [here](https://json-schema.org/).
@@ -30,7 +30,7 @@ impl EvalCustomDataSourceConfig {
         EvalCustomDataSourceConfig { r#type, schema }
     }
 }
-/// The type of data source. Always `custom`.
+/// The type of data source. Always `custom`.  Defaults to `\"custom\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "custom")]

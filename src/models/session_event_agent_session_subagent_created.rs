@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionSubagentCreated : Emitted when a subagent is created.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionSubagentCreated {
-    /// The type of the object. Always `agent.session.subagent.created`.
+    /// The type of the object. Always `agent.session.subagent.created`.  Defaults to `\"agent.session.subagent.created\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -38,7 +38,7 @@ impl SessionEventAgentSessionSubagentCreated {
         }
     }
 }
-/// The type of the object. Always `agent.session.subagent.created`.
+/// The type of the object. Always `agent.session.subagent.created`.  Defaults to `\"agent.session.subagent.created\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.subagent.created")]

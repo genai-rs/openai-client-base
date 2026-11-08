@@ -26,6 +26,7 @@ pub struct DecisionInputMessage {
         skip_serializing_if = "Option::is_none"
     )]
     pub phase: Option<Option<models::MessagePhaseParam>>,
+    /// Defaults to `\"message\"`.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<Type>,
 }
@@ -53,6 +54,7 @@ pub enum Role {
     Assistant,
 }
 
+/// Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "message")]

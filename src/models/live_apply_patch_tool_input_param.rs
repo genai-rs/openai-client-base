@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveApplyPatchToolInputParam {
+    /// Defaults to `\"apply_patch\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
 }
@@ -21,6 +22,7 @@ impl LiveApplyPatchToolInputParam {
         LiveApplyPatchToolInputParam { r#type }
     }
 }
+/// Defaults to `\"apply_patch\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "apply_patch")]

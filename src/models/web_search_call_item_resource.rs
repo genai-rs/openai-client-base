@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// WebSearchCallItemResource : A web search call produced by the agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchCallItemResource {
-    /// The item type. Always `web_search_call`.
+    /// The item type. Always `web_search_call`.  Defaults to `\"web_search_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the web search call.
@@ -48,7 +48,7 @@ impl WebSearchCallItemResource {
         }
     }
 }
-/// The item type. Always `web_search_call`.
+/// The item type. Always `web_search_call`.  Defaults to `\"web_search_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "web_search_call")]

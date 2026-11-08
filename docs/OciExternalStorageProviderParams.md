@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: oci) | 
+**r#type** | **Type** | Defaults to `\"oci\"`. (enum: oci) | 
 **tenancy_ocid** | **String** |  | 
 **region** | **String** |  | 
 **bucket** | **String** |  | 

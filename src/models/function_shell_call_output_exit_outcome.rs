@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// FunctionShellCallOutputExitOutcome : Indicates that the shell commands finished and returned an exit code.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionShellCallOutputExitOutcome {
-    /// The outcome type. Always `exit`.
+    /// The outcome type. Always `exit`.  Defaults to `\"exit\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Exit code from the shell process.
@@ -27,7 +27,7 @@ impl FunctionShellCallOutputExitOutcome {
         FunctionShellCallOutputExitOutcome { r#type, exit_code }
     }
 }
-/// The outcome type. Always `exit`.
+/// The outcome type. Always `exit`.  Defaults to `\"exit\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "exit")]

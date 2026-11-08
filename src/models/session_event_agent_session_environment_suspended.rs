@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// SessionEventAgentSessionEnvironmentSuspended : Emitted after an idle hosted session environment is checkpointed and stopped.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionEventAgentSessionEnvironmentSuspended {
-    /// The type of the object. Always `agent.session.environment.suspended`.
+    /// The type of the object. Always `agent.session.environment.suspended`.  Defaults to `\"agent.session.environment.suspended\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
@@ -48,7 +48,7 @@ impl SessionEventAgentSessionEnvironmentSuspended {
         }
     }
 }
-/// The type of the object. Always `agent.session.environment.suspended`.
+/// The type of the object. Always `agent.session.environment.suspended`.  Defaults to `\"agent.session.environment.suspended\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent.session.environment.suspended")]

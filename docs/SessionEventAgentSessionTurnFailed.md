@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `agent.session.turn.failed`. (enum: agent.session.turn.failed) | 
+**r#type** | **Type** | The type of the object. Always `agent.session.turn.failed`.  Defaults to `\"agent.session.turn.failed\"`. (enum: agent.session.turn.failed) | 
 **event_id** | **String** | The unique ID of the event. | 
 **session_id** | **String** | The ID of the session associated with the event. | 
 **turn_id** | **String** | The ID of the turn associated with the event. | 

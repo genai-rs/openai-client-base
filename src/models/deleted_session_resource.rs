@@ -16,7 +16,7 @@ pub struct DeletedSessionResource {
     /// The ID of the deleted session.
     #[serde(rename = "id")]
     pub id: String,
-    /// The object type. Always `agent.session.deleted`.
+    /// The object type. Always `agent.session.deleted`.  Defaults to `\"agent.session.deleted\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Whether the session has been removed from the public API. Always `true`. Physical cleanup may still be in progress.
@@ -34,7 +34,7 @@ impl DeletedSessionResource {
         }
     }
 }
-/// The object type. Always `agent.session.deleted`.
+/// The object type. Always `agent.session.deleted`.  Defaults to `\"agent.session.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "agent.session.deleted")]

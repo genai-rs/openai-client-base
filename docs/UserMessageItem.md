@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Identifier of the thread item. | 
-**object** | **Object** | Type discriminator that is always `chatkit.thread_item`. (enum: chatkit.thread_item) | 
+**object** | **Object** | Type discriminator that is always `chatkit.thread_item`.  Defaults to `\"chatkit.thread_item\"`. (enum: chatkit.thread_item) | 
 **created_at** | **i64** | Unix timestamp (in seconds) for when the item was created. | 
 **thread_id** | **String** | Identifier of the parent thread. | 
-**r#type** | **Type** |  (enum: chatkit.user_message) | 
+**r#type** | **Type** | Defaults to `\"chatkit.user_message\"`. (enum: chatkit.user_message) | 
 **content** | [**Vec<models::UserMessageItemContentInner>**](UserMessageItemContentInner.md) | Ordered content elements supplied by the user. | 
 **attachments** | [**Vec<models::Attachment>**](Attachment.md) | Attachments associated with the user message. Defaults to an empty list. | 
 **inference_options** | Option<[**models::InferenceOptions**](InferenceOptions.md)> |  | 

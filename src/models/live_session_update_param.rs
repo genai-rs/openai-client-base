@@ -22,7 +22,7 @@ pub struct LiveSessionUpdateParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub event_id: Option<Option<String>>,
-    /// The Live client event type. Always `session.update`.
+    /// The Live client event type. Always `session.update`.  Defaults to `\"session.update\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "session")]
@@ -39,7 +39,7 @@ impl LiveSessionUpdateParam {
         }
     }
 }
-/// The Live client event type. Always `session.update`.
+/// The Live client event type. Always `session.update`.  Defaults to `\"session.update\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "session.update")]

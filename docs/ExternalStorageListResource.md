@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **Object** |  (enum: list) | 
+**object** | **Object** | Defaults to `\"list\"`. (enum: list) | 
 **data** | [**Vec<models::ExternalStorageResponse>**](ExternalStorageResponse.md) |  | 
 **first_id** | Option<**String**> |  | 
 **last_id** | Option<**String**> |  | 

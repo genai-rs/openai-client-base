@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SkillVersionResource {
-    /// The object type, which is `skill.version`.
+    /// The object type, which is `skill.version`.  Defaults to `\"skill.version\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// Unique identifier for the skill version.
@@ -56,7 +56,7 @@ impl SkillVersionResource {
         }
     }
 }
-/// The object type, which is `skill.version`.
+/// The object type, which is `skill.version`.  Defaults to `\"skill.version\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "skill.version")]

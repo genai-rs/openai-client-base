@@ -25,7 +25,7 @@ pub struct ComputerCallOutputItemParam {
     /// The ID of the computer tool call that produced the output.
     #[serde(rename = "call_id")]
     pub call_id: String,
-    /// The type of the computer tool call output. Always `computer_call_output`.
+    /// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "output")]
@@ -64,7 +64,7 @@ impl ComputerCallOutputItemParam {
         }
     }
 }
-/// The type of the computer tool call output. Always `computer_call_output`.
+/// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "computer_call_output")]

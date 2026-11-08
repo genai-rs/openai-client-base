@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** | The type of the object. Always `mcp_oauth`. (enum: mcp_oauth) | 
+**r#type** | **Type** | The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`. (enum: mcp_oauth) | 
 **mcp_server_url** | **String** | The HTTPS MCP server URL authorized by this credential. | 
 **access_token** | **String** | A write-only OAuth access token; never returned by credential resources. | 
 **expires_at** | Option<**String**> | When the OAuth access token expires, as an RFC 3339 timestamp, if known. | [optional]

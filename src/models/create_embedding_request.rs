@@ -17,7 +17,7 @@ pub struct CreateEmbeddingRequest {
     pub input: models::CreateEmbeddingRequestInput,
     #[serde(rename = "model")]
     pub model: String,
-    /// The format to return the embeddings in. Can be either `float` or [`base64`](https://pypi.org/project/pybase64/).
+    /// The format to return the embeddings in. Can be either `float` or [`base64`](https://pypi.org/project/pybase64/).  Defaults to `\"float\"`.
     #[serde(rename = "encoding_format", skip_serializing_if = "Option::is_none")]
     pub encoding_format: Option<EncodingFormat>,
     /// The number of dimensions the resulting output embeddings should have. Only supported in `text-embedding-3` and later models.
@@ -42,7 +42,7 @@ impl CreateEmbeddingRequest {
         }
     }
 }
-/// The format to return the embeddings in. Can be either `float` or [`base64`](https://pypi.org/project/pybase64/).
+/// The format to return the embeddings in. Can be either `float` or [`base64`](https://pypi.org/project/pybase64/).  Defaults to `\"float\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum EncodingFormat {
     #[serde(rename = "float")]

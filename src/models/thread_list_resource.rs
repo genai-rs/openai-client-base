@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 /// ThreadListResource : A paginated list of ChatKit threads.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ThreadListResource {
-    /// The type of object returned, must be `list`.
+    /// The type of object returned, must be `list`.  Defaults to `\"list\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// A list of items
@@ -49,7 +49,7 @@ impl ThreadListResource {
         }
     }
 }
-/// The type of object returned, must be `list`.
+/// The type of object returned, must be `list`.  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {
     #[serde(rename = "list")]

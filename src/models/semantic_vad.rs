@@ -16,13 +16,13 @@ pub struct SemanticVad {
     /// Type of turn detection, `semantic_vad` to turn on Semantic VAD.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// Used only for `semantic_vad` mode. The eagerness of the model to respond. `low` will wait longer for the user to continue speaking, `high` will respond more quickly. `auto` is the default and is equivalent to `medium`. `low`, `medium`, and `high` have max timeouts of 8s, 4s, and 2s respectively.
+    /// Used only for `semantic_vad` mode. The eagerness of the model to respond. `low` will wait longer for the user to continue speaking, `high` will respond more quickly. `auto` is the default and is equivalent to `medium`. `low`, `medium`, and `high` have max timeouts of 8s, 4s, and 2s respectively.  Defaults to `\"auto\"`.
     #[serde(rename = "eagerness", skip_serializing_if = "Option::is_none")]
     pub eagerness: Option<Eagerness>,
-    /// Whether or not to automatically generate a response when a VAD stop event occurs.
+    /// Whether or not to automatically generate a response when a VAD stop event occurs.  Defaults to `true`.
     #[serde(rename = "create_response", skip_serializing_if = "Option::is_none")]
     pub create_response: Option<bool>,
-    /// Whether or not to automatically interrupt any ongoing response with output to the default conversation (i.e. `conversation` of `auto`) when a VAD start event occurs.
+    /// Whether or not to automatically interrupt any ongoing response with output to the default conversation (i.e. `conversation` of `auto`) when a VAD start event occurs.  Defaults to `true`.
     #[serde(rename = "interrupt_response", skip_serializing_if = "Option::is_none")]
     pub interrupt_response: Option<bool>,
 }
@@ -48,7 +48,7 @@ pub enum Type {
     Unknown,
 }
 
-/// Used only for `semantic_vad` mode. The eagerness of the model to respond. `low` will wait longer for the user to continue speaking, `high` will respond more quickly. `auto` is the default and is equivalent to `medium`. `low`, `medium`, and `high` have max timeouts of 8s, 4s, and 2s respectively.
+/// Used only for `semantic_vad` mode. The eagerness of the model to respond. `low` will wait longer for the user to continue speaking, `high` will respond more quickly. `auto` is the default and is equivalent to `medium`. `low`, `medium`, and `high` have max timeouts of 8s, 4s, and 2s respectively.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Eagerness {
     #[serde(rename = "low")]

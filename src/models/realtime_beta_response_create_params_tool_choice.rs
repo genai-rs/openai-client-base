@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// RealtimeBetaResponseCreateParamsToolChoice : How the model chooses tools. Provide one of the string modes or force a specific function/MCP tool.
+/// RealtimeBetaResponseCreateParamsToolChoice : How the model chooses tools. Provide one of the string modes or force a specific function/MCP tool.  Defaults to `\"auto\"`.
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]

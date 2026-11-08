@@ -29,7 +29,7 @@ pub struct ToolSearchCallItemParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub call_id: Option<Option<String>>,
-    /// The item type. Always `tool_search_call`.
+    /// The item type. Always `tool_search_call`.  Defaults to `\"tool_search_call\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     #[serde(rename = "execution", skip_serializing_if = "Option::is_none")]
@@ -57,7 +57,7 @@ impl ToolSearchCallItemParam {
         }
     }
 }
-/// The item type. Always `tool_search_call`.
+/// The item type. Always `tool_search_call`.  Defaults to `\"tool_search_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "tool_search_call")]

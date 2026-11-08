@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **Type** |  (enum: input_text) | 
+**r#type** | **Type** | Defaults to `\"input_text\"`. (enum: input_text) | 
 **text** | **String** |  | 
 **prompt_cache_breakpoint** | Option<[**models::PromptCacheBreakpoint**](PromptCacheBreakpoint.md)> |  | [optional]
 
