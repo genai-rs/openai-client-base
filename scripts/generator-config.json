@@ -1,11 +1,6 @@
 {
   "packageName": "openai-client-base",
   "packageVersion": "0.1.0",
-  "library": "reqwest",
-  "supportAsync": true,
-  "supportMiddleware": true,
-  "preferUnsignedInt": false,
-  "useSingleRequestParameter": false,
   "useChrono": false,
   "titleNaming": false,
   "multipartHelper": true,
