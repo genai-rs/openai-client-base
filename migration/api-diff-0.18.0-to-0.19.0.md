@@ -2,7 +2,7 @@
 
 This release generates with `timvw-rust` 0.11.0 and its `defaultOnlyWhereValid`, `enumFromStr` and `noStructDisplay`
 options (Milestone 3.2 of the
-[generator design](https://claude.ai/artifact/ABar8Up91gjVMDHgHL1GE3)). The OpenAI spec is unchanged.
+[generator](https://github.com/timvw/openapi-generator-timvw-rust#readme)). The OpenAI spec is unchanged.
 The machine-readable census is `api-diff-0.18.0-to-0.19.0.json` in this folder.
 
 ## What stays the same
