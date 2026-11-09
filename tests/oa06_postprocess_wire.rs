@@ -719,7 +719,7 @@ async fn chat_completion_messages_send_each_role_once() {
     let configuration = config(&address);
     let response = chat_api::create_chat_completion()
         .configuration(&configuration)
-        .create_chat_completion_request(models::CreateChatCompletionRequest::new(
+        .create_chat_completion_request(&models::CreateChatCompletionRequest::new(
             messages,
             "m".to_string(),
         ))

@@ -14,10 +14,10 @@ fn response_error_preserves_payload_and_display() {
         status: reqwest::StatusCode::BAD_REQUEST,
         content: String::from("original body"),
         entity: Some([7_u8; 4096]),
+        headers: reqwest::header::HeaderMap::new(),
     };
-    // Into also compiles before boxing, so the size regression fails on the
-    // original implementation rather than merely failing to compile.
-    let error = Error::ResponseError(response.into());
+    // The generator always boxes the response error.
+    let error = Error::ResponseError(Box::new(response));
     assert_eq!(
         error.to_string(),
         "error in response: status code 400 Bad Request"
