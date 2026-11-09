@@ -3,11 +3,11 @@ set -euo pipefail
 
 # Config
 OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-7.27.0}"
-# Custom generator image (timvw-rust extends the stock rust generator; see
+# Custom generator image (timvw-rust is a standalone OpenAPI Generator plugin; see
 # https://github.com/timvw/openapi-generator-timvw-rust). Image tags are
 # <generator version>-og<openapi-generator version>. Override for local builds,
 # e.g. GENERATOR_IMAGE=timvw-rust:dev.
-TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.19.0}"
+TIMVW_RUST_VERSION="${TIMVW_RUST_VERSION:-0.20.0}"
 GENERATOR_IMAGE="${GENERATOR_IMAGE:-ghcr.io/timvw/openapi-generator-timvw-rust:${TIMVW_RUST_VERSION}-og${OPENAPI_GENERATOR_VERSION}}"
 GENERATOR_NAME="${GENERATOR_NAME:-timvw-rust}"
 # Control openapi-generator verbosity (values: error|warn|info|debug|trace)
