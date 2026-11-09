@@ -15,9 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionResource {
     /// Custom string key-value pairs attached to the session.
+    ///
+    /// Validation: `minProperties: 0`; each value: `minLength: 0`.
     #[serde(rename = "metadata")]
     pub metadata: std::collections::HashMap<String, String>,
     /// The ID of the session.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type. Always `agent.session`.  Defaults to `\"agent.session\"`.
@@ -32,9 +36,13 @@ pub struct SessionResource {
     #[serde(rename = "status")]
     pub status: models::SessionStatusResource,
     /// Actions that must be completed before the session can continue.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "required_actions")]
     pub required_actions: Vec<models::SessionRequiredActionResource>,
     /// The error that caused the session to fail, if any.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<String>,
     #[serde(rename = "agent")]
@@ -42,6 +50,8 @@ pub struct SessionResource {
     #[serde(rename = "environment")]
     pub environment: models::EnvironmentResource,
     /// The IDs of vaults made available to the session.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "vault_ids")]
     pub vault_ids: Vec<String>,
     /// Best-effort token usage for the session, or null if unknown. Recorded usage may change.
@@ -81,6 +91,76 @@ impl SessionResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::properties(
+            self.metadata.len(),
+            Some(0),
+            None,
+            &path.field("metadata"),
+            errors,
+        );
+        let start0 = errors.len();
+        for (key0, entry0) in &self.metadata {
+            crate::models::validation::length(
+                entry0,
+                Some(0),
+                None,
+                &path.field("metadata").key(key0),
+                errors,
+            );
+        }
+        crate::models::validation::sort_by_key(errors, start0, &path.field("metadata"));
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::items(
+            self.required_actions.len(),
+            Some(0),
+            Some(2000),
+            &path.field("required_actions"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.required_actions,
+            &path.field("required_actions"),
+            errors,
+        );
+        if let Some(value0) = &self.error {
+            crate::models::validation::length(value0, Some(0), None, &path.field("error"), errors);
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.agent,
+            &path.field("agent"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.environment,
+            &path.field("environment"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.vault_ids.len(),
+            Some(0),
+            Some(2000),
+            &path.field("vault_ids"),
+            errors,
+        );
+        for (index0, item0) in self.vault_ids.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                None,
+                &path.field("vault_ids").index(index0),
+                errors,
+            );
+        }
+    }
+}
+
 /// The object type. Always `agent.session`.  Defaults to `\"agent.session\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

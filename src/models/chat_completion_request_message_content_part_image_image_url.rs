@@ -25,6 +25,16 @@ impl ChatCompletionRequestMessageContentPartImageImageUrl {
         ChatCompletionRequestMessageContentPartImageImageUrl { url, detail: None }
     }
 }
+
+impl crate::models::validation::Validate for ChatCompletionRequestMessageContentPartImageImageUrl {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Specifies the detail level of the image. Learn more in the [Vision guide](https://developers.openai.com/api/docs/guides/images-vision#choose-an-image-detail-level).  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Detail {

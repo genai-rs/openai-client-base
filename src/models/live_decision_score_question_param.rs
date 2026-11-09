@@ -20,6 +20,7 @@ pub struct LiveDecisionScoreQuestionParam {
     pub name: Option<String>,
     #[serde(rename = "instructions")]
     pub instructions: String,
+    /// Validation: `minItems: 2`, `maxItems: 10`.
     #[serde(rename = "levels")]
     pub levels: Vec<models::LiveDecisionScoreLevelParam>,
 }
@@ -38,6 +39,23 @@ impl LiveDecisionScoreQuestionParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionScoreQuestionParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.levels.len(),
+            Some(2),
+            Some(10),
+            &path.field("levels"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"score\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -33,3 +33,15 @@ impl std::fmt::Display for CreateSkillBodyFiles {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateSkillBodyFiles {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::ArrayOfStrings(value) = self {
+            crate::models::validation::items(value.len(), None, Some(500), path, errors);
+        }
+    }
+}

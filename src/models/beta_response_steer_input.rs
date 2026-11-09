@@ -56,3 +56,16 @@ impl std::fmt::Display for BetaResponseSteerInput {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseSteerInput {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::BetaResponseSteerInputItemList(value) = self {
+            crate::models::validation::items(value.len(), Some(1), None, path, errors);
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

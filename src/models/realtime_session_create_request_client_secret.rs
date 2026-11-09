@@ -27,3 +27,12 @@ impl RealtimeSessionCreateRequestClientSecret {
         RealtimeSessionCreateRequestClientSecret { value, expires_at }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeSessionCreateRequestClientSecret {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

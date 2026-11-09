@@ -47,6 +47,16 @@ impl BetaWebSearchPreviewTool {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaWebSearchPreviewTool {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`.  Defaults to `\"web_search_preview\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

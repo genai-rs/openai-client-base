@@ -39,6 +39,16 @@ impl VadConfig {
         }
     }
 }
+
+impl crate::models::validation::Validate for VadConfig {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Must be set to `server_vad` to enable manual chunking using server side VAD.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

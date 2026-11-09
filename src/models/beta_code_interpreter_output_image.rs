@@ -27,6 +27,16 @@ impl BetaCodeInterpreterOutputImage {
         BetaCodeInterpreterOutputImage { r#type, url }
     }
 }
+
+impl crate::models::validation::Validate for BetaCodeInterpreterOutputImage {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the output. Always `image`.  Defaults to `\"image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

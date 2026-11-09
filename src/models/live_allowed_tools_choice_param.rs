@@ -17,6 +17,8 @@ pub struct LiveAllowedToolsChoiceParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The tools that the delegated Responses model may call.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 128`.
     #[serde(rename = "tools")]
     pub tools: Vec<models::LiveAllowedToolsChoiceParamToolsInner>,
     #[serde(
@@ -40,6 +42,23 @@ impl LiveAllowedToolsChoiceParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveAllowedToolsChoiceParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.tools.len(),
+            Some(1),
+            Some(128),
+            &path.field("tools"),
+            errors,
+        );
+    }
+}
+
 /// The tool choice type. Always `allowed_tools`.  Defaults to `\"allowed_tools\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -17,9 +17,13 @@ pub struct FileUploadParam {
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
     /// Maximum size in megabytes for each uploaded file. Defaults to 512 MB, which is the maximum allowable size.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 512`.
     #[serde(rename = "max_file_size", skip_serializing_if = "Option::is_none")]
     pub max_file_size: Option<i64>,
     /// Maximum number of files that can be uploaded to the session. Defaults to 10.
+    ///
+    /// Validation: `minimum: 1`.
     #[serde(rename = "max_files", skip_serializing_if = "Option::is_none")]
     pub max_files: Option<i64>,
 }
@@ -31,6 +35,22 @@ impl FileUploadParam {
             enabled: None,
             max_file_size: None,
             max_files: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for FileUploadParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.max_file_size {
+            crate::models::validation::minimum(*value0, 1, &path.field("max_file_size"), errors);
+            crate::models::validation::maximum(*value0, 512, &path.field("max_file_size"), errors);
+        }
+        if let Some(value0) = &self.max_files {
+            crate::models::validation::minimum(*value0, 1, &path.field("max_files"), errors);
         }
     }
 }

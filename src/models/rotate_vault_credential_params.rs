@@ -17,6 +17,8 @@ pub struct RotateVaultCredentialParams {
     #[serde(rename = "auth", skip_serializing_if = "Option::is_none")]
     pub auth: Option<models::RotateVaultCredentialAuthParam>,
     /// Replaces all metadata. Omit to preserve it, or pass {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
 }
@@ -27,6 +29,36 @@ impl RotateVaultCredentialParams {
         RotateVaultCredentialParams {
             auth: None,
             metadata: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for RotateVaultCredentialParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(&self.auth, &path.field("auth"), errors);
+        if let Some(value0) = &self.metadata {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(16),
+                &path.field("metadata"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(512),
+                    &path.field("metadata").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("metadata"));
         }
     }
 }

@@ -18,21 +18,33 @@ pub struct SessionEventAgentSessionTurnContentPartDone {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "event_id")]
     pub event_id: String,
     /// The ID of the session associated with the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "session_id")]
     pub session_id: String,
     /// The ID of the turn associated with the event, when applicable.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id", deserialize_with = "Option::deserialize")]
     pub turn_id: Option<String>,
     /// The ID of the message item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "item_id")]
     pub item_id: String,
     /// The index of the item in the turn output.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 4294967295`.
     #[serde(rename = "output_index")]
     pub output_index: i64,
     /// The index of the content part in the message.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 4294967295`.
     #[serde(rename = "content_index")]
     pub content_index: i64,
     #[serde(rename = "part")]
@@ -63,6 +75,71 @@ impl SessionEventAgentSessionTurnContentPartDone {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionEventAgentSessionTurnContentPartDone {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.event_id,
+            Some(0),
+            None,
+            &path.field("event_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.session_id,
+            Some(0),
+            None,
+            &path.field("session_id"),
+            errors,
+        );
+        if let Some(value0) = &self.turn_id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("turn_id"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.item_id,
+            Some(0),
+            None,
+            &path.field("item_id"),
+            errors,
+        );
+        crate::models::validation::minimum(
+            self.output_index,
+            0,
+            &path.field("output_index"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.output_index,
+            4294967295,
+            &path.field("output_index"),
+            errors,
+        );
+        crate::models::validation::minimum(
+            self.content_index,
+            0,
+            &path.field("content_index"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.content_index,
+            4294967295,
+            &path.field("content_index"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(&self.part, &path.field("part"), errors);
+    }
+}
+
 /// The type of the object. Always `agent.session.turn.content_part.done`.  Defaults to `\"agent.session.turn.content_part.done\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

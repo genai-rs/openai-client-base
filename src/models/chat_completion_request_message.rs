@@ -106,3 +106,30 @@ impl std::fmt::Display for ChatCompletionRequestMessage {
         }
     }
 }
+
+impl crate::models::validation::Validate for ChatCompletionRequestMessage {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::ChatCompletionRequestDeveloperMessage(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ChatCompletionRequestSystemMessage(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ChatCompletionRequestUserMessage(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ChatCompletionRequestAssistantMessage(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ChatCompletionRequestToolMessage(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

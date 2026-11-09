@@ -41,6 +41,15 @@ impl std::fmt::Display for ComputerEnvironment {
     }
 }
 
+impl crate::models::validation::Validate for ComputerEnvironment {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ComputerEnvironment {
     type Err = crate::models::ParseEnumError;
 

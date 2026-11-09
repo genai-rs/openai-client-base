@@ -13,12 +13,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaContainerNetworkPolicyDomainSecretParam {
     /// The domain associated with the secret.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "domain")]
     pub domain: String,
     /// The name of the secret to inject for the domain.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "name")]
     pub name: String,
     /// The secret value to inject for the domain.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 10485760`.
     #[serde(rename = "value")]
     pub value: String,
 }
@@ -34,5 +40,29 @@ impl BetaContainerNetworkPolicyDomainSecretParam {
             name,
             value,
         }
+    }
+}
+
+impl crate::models::validation::Validate for BetaContainerNetworkPolicyDomainSecretParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.domain,
+            Some(1),
+            None,
+            &path.field("domain"),
+            errors,
+        );
+        crate::models::validation::length(&self.name, Some(1), None, &path.field("name"), errors);
+        crate::models::validation::length(
+            &self.value,
+            Some(1),
+            Some(10485760),
+            &path.field("value"),
+            errors,
+        );
     }
 }

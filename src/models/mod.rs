@@ -5782,4 +5782,5 @@ pub mod workflow_tracing_param;
 pub use self::workflow_tracing_param::WorkflowTracingParam;
 pub mod parse_enum_error;
 pub(crate) mod union_dispatch;
+pub mod validation;
 pub use self::parse_enum_error::ParseEnumError;

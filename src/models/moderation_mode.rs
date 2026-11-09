@@ -27,6 +27,15 @@ impl std::fmt::Display for ModerationMode {
     }
 }
 
+impl crate::models::validation::Validate for ModerationMode {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ModerationMode {
     type Err = crate::models::ParseEnumError;
 

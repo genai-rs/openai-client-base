@@ -16,9 +16,13 @@ pub struct ContainerFileCitationParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The index of the first character of the citation in the message.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "start_index")]
     pub start_index: i64,
     /// The index of the last character of the citation in the message.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "end_index")]
     pub end_index: i64,
     /// The ID of the container.
@@ -51,6 +55,18 @@ impl ContainerFileCitationParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ContainerFileCitationParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.start_index, 0, &path.field("start_index"), errors);
+        crate::models::validation::minimum(self.end_index, 0, &path.field("end_index"), errors);
+    }
+}
+
 /// The citation type. Always `container_file_citation`.  Defaults to `\"container_file_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

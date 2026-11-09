@@ -32,3 +32,35 @@ impl std::fmt::Display for LiveDataChannelConfigParamAllowedClientEvents {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDataChannelConfigParamAllowedClientEvents {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::ArrayOfStrings(value) = self {
+            crate::models::validation::items(value.len(), None, Some(256), path, errors);
+            for (index0, item0) in value.iter().enumerate() {
+                crate::models::validation::length(
+                    item0,
+                    Some(1),
+                    Some(256),
+                    &path.index(index0),
+                    errors,
+                );
+                crate::models::validation::pattern(
+                    item0,
+                    &PATTERN_0,
+                    r"^(?:error|info|[a-z][a-z0-9_-]*(?:\.[a-z0-9_-]+)+)$",
+                    &path.index(index0),
+                    errors,
+                );
+            }
+        }
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> = std::sync::LazyLock::new(|| {
+    regex::Regex::new(r"^(?:error|info|[a-z][a-z0-9_-]*(?:\.[a-z0-9_-]+)+)$").ok()
+});

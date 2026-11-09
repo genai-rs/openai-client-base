@@ -24,6 +24,16 @@ impl MessageObjectIncompleteDetails {
         MessageObjectIncompleteDetails { reason }
     }
 }
+
+impl crate::models::validation::Validate for MessageObjectIncompleteDetails {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The reason the message is incomplete.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Reason {

@@ -30,6 +30,16 @@ impl CreateEvalStoredCompletionsDataSourceConfig {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateEvalStoredCompletionsDataSourceConfig {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of data source. Always `stored_completions`.  Defaults to `\"stored_completions\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

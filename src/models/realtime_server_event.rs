@@ -616,3 +616,21 @@ impl std::fmt::Display for RealtimeServerEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeServerEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::RealtimeServerEventSessionCreated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeServerEventSessionUpdated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

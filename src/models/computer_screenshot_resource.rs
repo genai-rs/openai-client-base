@@ -17,6 +17,8 @@ pub struct ComputerScreenshotResource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The complete JPEG image as a base64 data URL.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "image_url")]
     pub image_url: String,
 }
@@ -27,6 +29,23 @@ impl ComputerScreenshotResource {
         ComputerScreenshotResource { r#type, image_url }
     }
 }
+
+impl crate::models::validation::Validate for ComputerScreenshotResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.image_url,
+            Some(0),
+            None,
+            &path.field("image_url"),
+            errors,
+        );
+    }
+}
+
 /// The content type. Always `computer_screenshot`.  Defaults to `\"computer_screenshot\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

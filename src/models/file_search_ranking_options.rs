@@ -17,6 +17,8 @@ pub struct FileSearchRankingOptions {
     #[serde(rename = "ranker", skip_serializing_if = "Option::is_none")]
     pub ranker: Option<models::FileSearchRanker>,
     /// The score threshold for the file search. All values must be a floating point number between 0 and 1.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(rename = "score_threshold")]
     pub score_threshold: f64,
 }
@@ -28,5 +30,26 @@ impl FileSearchRankingOptions {
             ranker: None,
             score_threshold,
         }
+    }
+}
+
+impl crate::models::validation::Validate for FileSearchRankingOptions {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(
+            self.score_threshold,
+            0.0,
+            &path.field("score_threshold"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.score_threshold,
+            1.0,
+            &path.field("score_threshold"),
+            errors,
+        );
     }
 }

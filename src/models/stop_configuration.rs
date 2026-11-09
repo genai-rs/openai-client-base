@@ -51,3 +51,15 @@ impl std::fmt::Display for StopConfiguration {
         }
     }
 }
+
+impl crate::models::validation::Validate for StopConfiguration {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::ArrayOfStrings(value) = self {
+            crate::models::validation::items(value.len(), Some(1), Some(4), path, errors);
+        }
+    }
+}

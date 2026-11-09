@@ -17,6 +17,8 @@ pub struct VectorStoreExpirationAfter {
     #[serde(rename = "anchor")]
     pub anchor: Anchor,
     /// The number of days after the anchor time that the vector store will expire.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 365`.
     #[serde(rename = "days")]
     pub days: i64,
 }
@@ -27,6 +29,18 @@ impl VectorStoreExpirationAfter {
         VectorStoreExpirationAfter { anchor, days }
     }
 }
+
+impl crate::models::validation::Validate for VectorStoreExpirationAfter {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.days, 1, &path.field("days"), errors);
+        crate::models::validation::maximum(self.days, 365, &path.field("days"), errors);
+    }
+}
+
 /// Anchor timestamp after which the expiration policy applies. Supported anchors: `last_active_at`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Anchor {

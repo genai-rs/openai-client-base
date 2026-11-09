@@ -81,6 +81,21 @@ impl RealtimeSessionCreateResponse {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeSessionCreateResponse {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.audio,
+            &path.field("audio"),
+            errors,
+        );
+    }
+}
+
 /// Additional fields to include in server outputs. - `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Include {

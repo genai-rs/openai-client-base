@@ -17,6 +17,8 @@ pub struct NetworkPolicyParam {
     #[serde(rename = "access")]
     pub access: models::NetworkAccessParam,
     /// Domains the environment may access when network access is restricted.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "allowed_domains",
         default,
@@ -25,6 +27,8 @@ pub struct NetworkPolicyParam {
     )]
     pub allowed_domains: Option<Option<Vec<String>>>,
     /// Domains blocked for both executor and browser when access is restricted. A nonempty list requires `access: restricted` and cannot be combined with nonempty `allowed_domains`. Wildcard domains are not supported.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 100`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "blocked_domains",
         default,
@@ -41,6 +45,51 @@ impl NetworkPolicyParam {
             access,
             allowed_domains: None,
             blocked_domains: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for NetworkPolicyParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.allowed_domains {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("allowed_domains"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("allowed_domains").index(index1),
+                    errors,
+                );
+            }
+        }
+        if let Some(Some(value0)) = &self.blocked_domains {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(100),
+                &path.field("blocked_domains"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("blocked_domains").index(index1),
+                    errors,
+                );
+            }
         }
     }
 }

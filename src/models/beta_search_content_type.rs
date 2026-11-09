@@ -32,6 +32,15 @@ impl std::fmt::Display for BetaSearchContentType {
     }
 }
 
+impl crate::models::validation::Validate for BetaSearchContentType {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for BetaSearchContentType {
     type Err = crate::models::ParseEnumError;
 

@@ -17,15 +17,23 @@ pub struct PersistedMcpTransportResourceStdio {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The command used to start the MCP server.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "command")]
     pub command: String,
     /// Arguments passed to the MCP server command.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "args")]
     pub args: Vec<String>,
     /// The working directory used to start the MCP server.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "cwd")]
     pub cwd: String,
     /// Environment variable names inherited from the execution environment.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "env_vars")]
     pub env_vars: Vec<String>,
 }
@@ -48,6 +56,56 @@ impl PersistedMcpTransportResourceStdio {
         }
     }
 }
+
+impl crate::models::validation::Validate for PersistedMcpTransportResourceStdio {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.command,
+            Some(0),
+            None,
+            &path.field("command"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.args.len(),
+            Some(0),
+            Some(2000),
+            &path.field("args"),
+            errors,
+        );
+        for (index0, item0) in self.args.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                None,
+                &path.field("args").index(index0),
+                errors,
+            );
+        }
+        crate::models::validation::length(&self.cwd, Some(0), None, &path.field("cwd"), errors);
+        crate::models::validation::items(
+            self.env_vars.len(),
+            Some(0),
+            Some(2000),
+            &path.field("env_vars"),
+            errors,
+        );
+        for (index0, item0) in self.env_vars.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                None,
+                &path.field("env_vars").index(index0),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the object. Always `stdio`.  Defaults to `\"stdio\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

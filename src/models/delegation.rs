@@ -74,3 +74,21 @@ impl std::fmt::Display for Delegation {
         }
     }
 }
+
+impl crate::models::validation::Validate for Delegation {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::LiveResponsesDelegationParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionsDelegationParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

@@ -62,6 +62,16 @@ impl AuditLogRoleUnboundFromResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for AuditLogRoleUnboundFromResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The connector role mutation path that produced the event.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Source {

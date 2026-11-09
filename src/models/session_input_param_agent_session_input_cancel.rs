@@ -24,6 +24,16 @@ impl SessionInputParamAgentSessionInputCancel {
         SessionInputParamAgentSessionInputCancel { r#type }
     }
 }
+
+impl crate::models::validation::Validate for SessionInputParamAgentSessionInputCancel {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the object. Always `agent.session.input.cancel`.  Defaults to `\"agent.session.input.cancel\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

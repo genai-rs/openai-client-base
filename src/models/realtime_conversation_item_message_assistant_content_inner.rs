@@ -36,6 +36,16 @@ impl RealtimeConversationItemMessageAssistantContentInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeConversationItemMessageAssistantContentInner {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The content type, `output_text` or `output_audio` depending on the session `output_modalities` configuration.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

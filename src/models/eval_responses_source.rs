@@ -37,6 +37,8 @@ pub struct EvalResponsesSource {
     )]
     pub instructions_search: Option<Option<String>>,
     /// Only include items created after this timestamp (inclusive). This is a query parameter used to select responses.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(
         rename = "created_after",
         default,
@@ -45,6 +47,8 @@ pub struct EvalResponsesSource {
     )]
     pub created_after: Option<Option<i64>>,
     /// Only include items created before this timestamp (inclusive). This is a query parameter used to select responses.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(
         rename = "created_before",
         default,
@@ -111,6 +115,22 @@ impl EvalResponsesSource {
         }
     }
 }
+
+impl crate::models::validation::Validate for EvalResponsesSource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.created_after {
+            crate::models::validation::minimum(*value0, 0, &path.field("created_after"), errors);
+        }
+        if let Some(Some(value0)) = &self.created_before {
+            crate::models::validation::minimum(*value0, 0, &path.field("created_before"), errors);
+        }
+    }
+}
+
 /// The type of run data source. Always `responses`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

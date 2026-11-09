@@ -24,6 +24,15 @@ impl std::fmt::Display for LiveSessionClosedReasonTextVariant5Enum {
     }
 }
 
+impl crate::models::validation::Validate for LiveSessionClosedReasonTextVariant5Enum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for LiveSessionClosedReasonTextVariant5Enum {
     type Err = crate::models::ParseEnumError;
 

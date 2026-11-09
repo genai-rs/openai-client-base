@@ -54,6 +54,16 @@ impl BetaInputMessageResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaInputMessageResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the message input. Always set to `message`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

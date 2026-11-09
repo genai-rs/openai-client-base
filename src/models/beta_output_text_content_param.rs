@@ -17,6 +17,8 @@ pub struct BetaOutputTextContentParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text content.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "text")]
     pub text: String,
     /// Citations associated with the text content.
@@ -33,6 +35,28 @@ impl BetaOutputTextContentParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaOutputTextContentParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.text,
+            None,
+            Some(10485760),
+            &path.field("text"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.annotations,
+            &path.field("annotations"),
+            errors,
+        );
+    }
+}
+
 /// The content type. Always `output_text`.  Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

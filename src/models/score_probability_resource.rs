@@ -14,6 +14,7 @@ use serde::{Deserialize, Serialize};
 pub struct ScoreProbabilityResource {
     #[serde(rename = "value")]
     pub value: i64,
+    /// Validation: `minLength: 0`.
     #[serde(rename = "label")]
     pub label: String,
     #[serde(rename = "probability")]
@@ -27,5 +28,15 @@ impl ScoreProbabilityResource {
             label,
             probability,
         }
+    }
+}
+
+impl crate::models::validation::Validate for ScoreProbabilityResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.label, Some(0), None, &path.field("label"), errors);
     }
 }

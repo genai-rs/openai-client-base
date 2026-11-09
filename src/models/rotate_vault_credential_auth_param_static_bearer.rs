@@ -17,6 +17,8 @@ pub struct RotateVaultCredentialAuthParamStaticBearer {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The replacement bearer token. This secret is never returned in credential resources.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "token")]
     pub token: String,
 }
@@ -27,6 +29,23 @@ impl RotateVaultCredentialAuthParamStaticBearer {
         RotateVaultCredentialAuthParamStaticBearer { r#type, token }
     }
 }
+
+impl crate::models::validation::Validate for RotateVaultCredentialAuthParamStaticBearer {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.token,
+            Some(0),
+            Some(1048576),
+            &path.field("token"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `static_bearer`.  Defaults to `\"static_bearer\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -26,6 +26,17 @@ impl std::fmt::Display for CreateTranscriptionRequestChunkingStrategyTextVariant
     }
 }
 
+impl crate::models::validation::Validate
+    for CreateTranscriptionRequestChunkingStrategyTextVariantEnum
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for CreateTranscriptionRequestChunkingStrategyTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

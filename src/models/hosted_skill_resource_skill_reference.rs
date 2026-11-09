@@ -17,15 +17,23 @@ pub struct HostedSkillResourceSkillReference {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The referenced skill ID.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "skill_id")]
     pub skill_id: String,
     /// The concrete skill version installed for this session.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "version")]
     pub version: String,
     /// The installed skill name.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name")]
     pub name: String,
     /// The installed skill description.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "description")]
     pub description: String,
 }
@@ -48,6 +56,38 @@ impl HostedSkillResourceSkillReference {
         }
     }
 }
+
+impl crate::models::validation::Validate for HostedSkillResourceSkillReference {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.skill_id,
+            Some(0),
+            None,
+            &path.field("skill_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.version,
+            Some(0),
+            None,
+            &path.field("version"),
+            errors,
+        );
+        crate::models::validation::length(&self.name, Some(0), None, &path.field("name"), errors);
+        crate::models::validation::length(
+            &self.description,
+            Some(0),
+            None,
+            &path.field("description"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `skill_reference`.  Defaults to `\"skill_reference\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

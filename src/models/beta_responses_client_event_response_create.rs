@@ -23,9 +23,13 @@ pub struct BetaResponsesClientEventResponseCreate {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     /// An integer between 0 and 20 specifying the maximum number of most likely tokens to return at each token position, each with an associated log probability. In some cases, the number of returned tokens may be fewer than requested.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 20`.
     #[serde(rename = "top_logprobs", skip_serializing_if = "Option::is_none")]
     pub top_logprobs: Option<i64>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 2`.
     #[serde(
         rename = "temperature",
         default,
@@ -34,6 +38,8 @@ pub struct BetaResponsesClientEventResponseCreate {
     )]
     pub temperature: Option<Option<f64>>,
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or `temperature` but not both.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(
         rename = "top_p",
         default,
@@ -50,6 +56,8 @@ pub struct BetaResponsesClientEventResponseCreate {
     )]
     pub user: Option<Option<String>>,
     /// A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies. The IDs should be a string that uniquely identifies each user, with a maximum length of 128 characters. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
+    ///
+    /// Validation: `maxLength: 128`.
     #[serde(
         rename = "safety_identifier",
         default,
@@ -207,6 +215,8 @@ pub struct BetaResponsesClientEventResponseCreate {
     )]
     pub conversation: Option<Option<models::BetaConversationParam>>,
     /// Context management configuration for this request.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(
         rename = "context_management",
         default,
@@ -215,6 +225,8 @@ pub struct BetaResponsesClientEventResponseCreate {
     )]
     pub context_management: Option<Option<Vec<models::BetaContextManagementParam>>>,
     /// An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](https://developers.openai.com/api/docs/guides/reasoning).
+    ///
+    /// Validation: `minimum: 16`.
     #[serde(
         rename = "max_output_tokens",
         default,
@@ -233,6 +245,8 @@ pub struct BetaResponsesClientEventResponseCreate {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The WebSocket lane for this response. Requests with the same `stream_id` are processed FIFO, and events for the response echo the same `stream_id`.  `stream_id` controls routing; `previous_response_id` controls conversation lineage, so a new lane can fork from a response created on another lane.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 256`, `pattern: ^[A-Za-z0-9_.-]+$`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
 }
@@ -279,6 +293,93 @@ impl BetaResponsesClientEventResponseCreate {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponsesClientEventResponseCreate {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.top_logprobs {
+            crate::models::validation::minimum(*value0, 0, &path.field("top_logprobs"), errors);
+            crate::models::validation::maximum(*value0, 20, &path.field("top_logprobs"), errors);
+        }
+        if let Some(Some(value0)) = &self.temperature {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("temperature"), errors);
+            crate::models::validation::maximum(*value0, 2.0, &path.field("temperature"), errors);
+        }
+        if let Some(Some(value0)) = &self.top_p {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("top_p"), errors);
+            crate::models::validation::maximum(*value0, 1.0, &path.field("top_p"), errors);
+        }
+        if let Some(Some(value0)) = &self.safety_identifier {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(128),
+                &path.field("safety_identifier"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.context_management {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("context_management"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("context_management"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.max_output_tokens {
+            crate::models::validation::minimum(
+                *value0,
+                16,
+                &path.field("max_output_tokens"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.multi_agent,
+            &path.field("multi_agent"),
+            errors,
+        );
+        if let Some(value0) = &self.stream_id {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(256),
+                &path.field("stream_id"),
+                errors,
+            );
+            crate::models::validation::pattern(
+                value0,
+                &PATTERN_0,
+                r"^[A-Za-z0-9_.-]+$",
+                &path.field("stream_id"),
+                errors,
+            );
+        }
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^[A-Za-z0-9_.-]+$").ok());
+
 /// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum PromptCacheRetention {

@@ -67,3 +67,15 @@ impl std::fmt::Display for ChunkingStrategyRequestParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ChunkingStrategyRequestParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::StaticChunkingStrategyRequestParam(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

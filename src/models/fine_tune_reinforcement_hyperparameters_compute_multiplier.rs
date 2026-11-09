@@ -32,3 +32,16 @@ impl std::fmt::Display for FineTuneReinforcementHyperparametersComputeMultiplier
         }
     }
 }
+
+impl crate::models::validation::Validate for FineTuneReinforcementHyperparametersComputeMultiplier {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Number(value) = self {
+            crate::models::validation::exclusive_minimum(*value, 1.0e-5, path, errors);
+            crate::models::validation::maximum(*value, 10.0, path, errors);
+        }
+    }
+}

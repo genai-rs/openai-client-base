@@ -27,6 +27,16 @@ impl ApplyPatchDeleteFileOperation {
         ApplyPatchDeleteFileOperation { r#type, path }
     }
 }
+
+impl crate::models::validation::Validate for ApplyPatchDeleteFileOperation {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Delete the specified file.  Defaults to `\"delete_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

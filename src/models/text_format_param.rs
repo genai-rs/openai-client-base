@@ -63,3 +63,15 @@ impl std::fmt::Display for TextFormatParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for TextFormatParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::JsonSchema(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

@@ -15,20 +15,30 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SubagentResource {
     /// The ID of the subagent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "object")]
     pub object: models::SubagentObjectResource,
     /// The ID of the session that owns the subagent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "session_id")]
     pub session_id: String,
     /// The runner-assigned nickname, or null when unavailable.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     /// Initial task content, or null when unavailable. Text may contain placeholders for images or audio when only a preview is available.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
     pub instructions: Option<Vec<models::AgentContentResource>>,
     /// The ID of the agent that created this subagent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "parent_agent_id")]
     pub parent_agent_id: String,
     #[serde(rename = "status")]
@@ -65,5 +75,46 @@ impl SubagentResource {
             opened_at,
             closed_at,
         }
+    }
+}
+
+impl crate::models::validation::Validate for SubagentResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.session_id,
+            Some(0),
+            None,
+            &path.field("session_id"),
+            errors,
+        );
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(value0, Some(0), None, &path.field("name"), errors);
+        }
+        if let Some(value0) = &self.instructions {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(2000),
+                &path.field("instructions"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("instructions"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.parent_agent_id,
+            Some(0),
+            None,
+            &path.field("parent_agent_id"),
+            errors,
+        );
     }
 }

@@ -15,15 +15,21 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionCallOutputItemResource {
     /// The ID of the function call output item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The item type. Always `function_call_output`.  Defaults to `\"function_call_output\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the function call that produced this output.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "status")]
@@ -32,6 +38,8 @@ pub struct FunctionCallOutputItemResource {
     #[serde(rename = "output", deserialize_with = "Option::deserialize")]
     pub output: Option<models::FunctionCallOutputResource>,
     /// The error message, if the call failed.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "error", deserialize_with = "Option::deserialize")]
     pub error: Option<String>,
 }
@@ -58,6 +66,39 @@ impl FunctionCallOutputItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for FunctionCallOutputItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.call_id,
+            Some(0),
+            None,
+            &path.field("call_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.output,
+            &path.field("output"),
+            errors,
+        );
+        if let Some(value0) = &self.error {
+            crate::models::validation::length(value0, Some(0), None, &path.field("error"), errors);
+        }
+    }
+}
+
 /// The item type. Always `function_call_output`.  Defaults to `\"function_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

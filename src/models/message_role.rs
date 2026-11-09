@@ -50,6 +50,15 @@ impl std::fmt::Display for MessageRole {
     }
 }
 
+impl crate::models::validation::Validate for MessageRole {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for MessageRole {
     type Err = crate::models::ParseEnumError;
 

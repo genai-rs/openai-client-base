@@ -66,3 +66,15 @@ impl std::fmt::Display for LiveSessionCreateResponseTransport {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveSessionCreateResponseTransport {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::LiveWebRtcTransport(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

@@ -95,6 +95,31 @@ impl RealtimeSessionCreateResponseGa {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeSessionCreateResponseGa {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.audio,
+            &path.field("audio"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.truncation,
+            &path.field("truncation"),
+            errors,
+        );
+    }
+}
+
 /// The type of session to create. Always `realtime` for the Realtime API.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

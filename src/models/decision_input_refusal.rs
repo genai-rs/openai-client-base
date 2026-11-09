@@ -15,6 +15,7 @@ pub struct DecisionInputRefusal {
     /// Defaults to `\"refusal\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Validation: `minLength: 0`, `maxLength: 10485760`.
     #[serde(rename = "refusal")]
     pub refusal: String,
 }
@@ -24,6 +25,23 @@ impl DecisionInputRefusal {
         DecisionInputRefusal { r#type, refusal }
     }
 }
+
+impl crate::models::validation::Validate for DecisionInputRefusal {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.refusal,
+            Some(0),
+            Some(10485760),
+            &path.field("refusal"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"refusal\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

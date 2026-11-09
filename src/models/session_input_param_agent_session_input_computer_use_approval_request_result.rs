@@ -18,6 +18,8 @@ pub struct SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The registered request ID from the required action.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "response")]
@@ -38,6 +40,30 @@ impl SessionInputParamAgentSessionInputComputerUseApprovalRequestResult {
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for SessionInputParamAgentSessionInputComputerUseApprovalRequestResult
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.request_id,
+            Some(0),
+            Some(1048576),
+            &path.field("request_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.response,
+            &path.field("response"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `agent.session.input.computer_use_approval_request_result`.  Defaults to `\"agent.session.input.computer_use_approval_request_result\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

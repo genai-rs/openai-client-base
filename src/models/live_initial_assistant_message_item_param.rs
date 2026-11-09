@@ -36,6 +36,8 @@ pub struct LiveInitialAssistantMessageItemParam {
     #[serde(rename = "role")]
     pub role: Role,
     /// The message content. Supply exactly one text part for the initial Live conversation history.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 1`.
     #[serde(rename = "content")]
     pub content: Vec<models::LiveInitialAssistantMessageItemParamContentInner>,
 }
@@ -55,6 +57,23 @@ impl LiveInitialAssistantMessageItemParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveInitialAssistantMessageItemParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.content.len(),
+            Some(1),
+            Some(1),
+            &path.field("content"),
+            errors,
+        );
+    }
+}
+
 /// The history item type. Always `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

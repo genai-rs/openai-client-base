@@ -24,3 +24,17 @@ impl CreateSkillBody {
         CreateSkillBody { files }
     }
 }
+
+impl crate::models::validation::Validate for CreateSkillBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.files,
+            &path.field("files"),
+            errors,
+        );
+    }
+}

@@ -58,6 +58,21 @@ impl Eval {
         }
     }
 }
+
+impl crate::models::validation::Validate for Eval {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.testing_criteria,
+            &path.field("testing_criteria"),
+            errors,
+        );
+    }
+}
+
 /// The object type.  Defaults to `\"eval\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

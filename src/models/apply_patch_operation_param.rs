@@ -76,3 +76,23 @@ impl std::fmt::Display for ApplyPatchOperationParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ApplyPatchOperationParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::ApplyPatchCreateFileOperationParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ApplyPatchDeleteFileOperationParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ApplyPatchUpdateFileOperationParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

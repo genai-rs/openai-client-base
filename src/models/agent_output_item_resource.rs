@@ -164,3 +164,57 @@ impl std::fmt::Display for AgentOutputItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for AgentOutputItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Message(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Reasoning(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::FunctionCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::McpCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ComputerUseCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ComputerUseApprovalRequest(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::WebSearchCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::CommandExecution(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::CreateSubagentCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::SendSubagentInputCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResumeSubagentCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::WaitForSubagentsCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::InterruptSubagentCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::CloseSubagentCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

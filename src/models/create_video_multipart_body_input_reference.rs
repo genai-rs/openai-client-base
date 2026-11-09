@@ -33,3 +33,15 @@ impl std::fmt::Display for CreateVideoMultipartBodyInputReference {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateVideoMultipartBodyInputReference {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::ImageRefParam2(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

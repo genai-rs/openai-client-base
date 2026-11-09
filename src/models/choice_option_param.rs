@@ -15,6 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct ChoiceOptionParam {
     #[serde(rename = "value")]
     pub value: models::ChoiceValueParam,
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
@@ -24,6 +25,29 @@ impl ChoiceOptionParam {
         ChoiceOptionParam {
             value,
             description: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for ChoiceOptionParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.value,
+            &path.field("value"),
+            errors,
+        );
+        if let Some(value0) = &self.description {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("description"),
+                errors,
+            );
         }
     }
 }

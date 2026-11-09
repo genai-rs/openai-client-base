@@ -53,6 +53,16 @@ impl ComputerToolCallOutput {
         }
     }
 }
+
+impl crate::models::validation::Validate for ComputerToolCallOutput {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -21,6 +21,8 @@ pub struct WorkflowParam {
     #[serde(rename = "version", skip_serializing_if = "Option::is_none")]
     pub version: Option<String>,
     /// State variables forwarded to the workflow. Keys may be up to 64 characters, values must be primitive types, and the map defaults to an empty object.
+    ///
+    /// Validation: `maxProperties: 64`.
     #[serde(rename = "state_variables", skip_serializing_if = "Option::is_none")]
     pub state_variables:
         Option<std::collections::HashMap<String, models::WorkflowParamStateVariablesValue>>,
@@ -36,6 +38,29 @@ impl WorkflowParam {
             version: None,
             state_variables: None,
             tracing: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for WorkflowParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.state_variables {
+            crate::models::validation::properties(
+                value0.len(),
+                None,
+                Some(64),
+                &path.field("state_variables"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("state_variables"),
+                errors,
+            );
         }
     }
 }

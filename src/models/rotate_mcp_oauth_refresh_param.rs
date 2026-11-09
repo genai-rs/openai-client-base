@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RotateMcpOauthRefreshParam {
     /// The replacement refresh token. Omit or pass `null` to keep the stored token. This secret is never returned in resources.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "refresh_token",
         default,
@@ -23,6 +25,8 @@ pub struct RotateMcpOauthRefreshParam {
     )]
     pub refresh_token: Option<Option<String>>,
     /// Replacement space-separated OAuth scopes for refresh requests. Omit to keep the scopes, or pass `null` to stop sending a scope parameter.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "scope",
         default,
@@ -48,5 +52,37 @@ impl RotateMcpOauthRefreshParam {
             scope: None,
             token_endpoint_auth: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for RotateMcpOauthRefreshParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.refresh_token {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("refresh_token"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.scope {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("scope"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.token_endpoint_auth,
+            &path.field("token_endpoint_auth"),
+            errors,
+        );
     }
 }

@@ -17,6 +17,8 @@ pub struct BetaMultiAgentParam {
     #[serde(rename = "enabled")]
     pub enabled: bool,
     /// `max_concurrent_subagents` sets the maximum number of subagents that can be active simultaneously across the entire agent tree. It includes all descendants—children, grandchildren, and deeper subagents—but excludes the root agent. The API does not impose a fixed upper bound on this setting. The default is `3`, which is recommended for most workloads. Multi-agent runs also have no fixed limit on tree depth or the total number of subagents created during a run.
+    ///
+    /// Validation: `minimum: 1`.
     #[serde(
         rename = "max_concurrent_subagents",
         skip_serializing_if = "Option::is_none"
@@ -30,6 +32,23 @@ impl BetaMultiAgentParam {
         BetaMultiAgentParam {
             enabled,
             max_concurrent_subagents: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for BetaMultiAgentParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.max_concurrent_subagents {
+            crate::models::validation::minimum(
+                *value0,
+                1,
+                &path.field("max_concurrent_subagents"),
+                errors,
+            );
         }
     }
 }

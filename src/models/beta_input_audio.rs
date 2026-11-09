@@ -30,6 +30,16 @@ impl BetaInputAudio {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaInputAudio {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the input item. Always `input_audio`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

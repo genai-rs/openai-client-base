@@ -16,6 +16,7 @@ pub struct DecisionInputText {
     /// Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Validation: `minLength: 0`, `maxLength: 10485760`.
     #[serde(rename = "text")]
     pub text: String,
     #[serde(
@@ -36,6 +37,23 @@ impl DecisionInputText {
         }
     }
 }
+
+impl crate::models::validation::Validate for DecisionInputText {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.text,
+            Some(0),
+            Some(10485760),
+            &path.field("text"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"input_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

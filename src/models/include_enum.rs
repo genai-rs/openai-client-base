@@ -49,6 +49,15 @@ impl std::fmt::Display for IncludeEnum {
     }
 }
 
+impl crate::models::validation::Validate for IncludeEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for IncludeEnum {
     type Err = crate::models::ParseEnumError;
 

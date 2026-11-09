@@ -68,3 +68,21 @@ impl std::fmt::Display for NamespaceToolParamToolsInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for NamespaceToolParamToolsInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::FunctionToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::CustomToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

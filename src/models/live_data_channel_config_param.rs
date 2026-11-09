@@ -35,3 +35,22 @@ impl LiveDataChannelConfigParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDataChannelConfigParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.allowed_client_events,
+            &path.field("allowed_client_events"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.allowed_server_events,
+            &path.field("allowed_server_events"),
+            errors,
+        );
+    }
+}

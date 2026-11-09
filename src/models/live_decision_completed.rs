@@ -25,6 +25,21 @@ impl LiveDecisionCompleted {
         LiveDecisionCompleted { r#type, decision }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionCompleted {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.decision,
+            &path.field("decision"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"decision.completed\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

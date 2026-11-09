@@ -25,6 +25,16 @@ impl MessageContentImageUrlObjectImageUrl {
         MessageContentImageUrlObjectImageUrl { url, detail: None }
     }
 }
+
+impl crate::models::validation::Validate for MessageContentImageUrlObjectImageUrl {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Specifies the detail level of the image. `low` uses fewer tokens, you can opt in to high resolution using `high`. Default value is `auto`  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Detail {

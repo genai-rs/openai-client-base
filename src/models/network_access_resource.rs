@@ -37,6 +37,15 @@ impl std::fmt::Display for NetworkAccessResource {
     }
 }
 
+impl crate::models::validation::Validate for NetworkAccessResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for NetworkAccessResource {
     type Err = crate::models::ParseEnumError;
 

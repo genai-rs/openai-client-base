@@ -52,3 +52,21 @@ impl std::fmt::Display for FunctionCallOutputResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for FunctionCallOutputResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Text(value) => {
+                crate::models::validation::length(value, Some(0), None, path, errors);
+            }
+            Self::ArrayOfInputContentResources(value) => {
+                crate::models::validation::items(value.len(), Some(0), Some(2000), path, errors);
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

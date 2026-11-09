@@ -48,6 +48,21 @@ impl ThreadObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for ThreadObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.tool_resources,
+            &path.field("tool_resources"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always `thread`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

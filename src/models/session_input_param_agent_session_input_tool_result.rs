@@ -18,9 +18,13 @@ pub struct SessionInputParamAgentSessionInputToolResult {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the turn that requested the function call.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The ID of the function call.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "call_id")]
     pub call_id: String,
     /// Whether the function call succeeded.
@@ -35,6 +39,8 @@ pub struct SessionInputParamAgentSessionInputToolResult {
     )]
     pub output: Option<Option<models::FunctionCallOutputParam>>,
     /// The error message when the call failed.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "error",
         default,
@@ -62,6 +68,44 @@ impl SessionInputParamAgentSessionInputToolResult {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionInputParamAgentSessionInputToolResult {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            Some(1048576),
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.call_id,
+            Some(0),
+            Some(1048576),
+            &path.field("call_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.output,
+            &path.field("output"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.error {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("error"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the object. Always `agent.session.input.tool_result`.  Defaults to `\"agent.session.input.tool_result\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

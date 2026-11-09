@@ -29,3 +29,22 @@ impl CreateThreadRequestToolResources {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateThreadRequestToolResources {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.code_interpreter,
+            &path.field("code_interpreter"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.file_search,
+            &path.field("file_search"),
+            errors,
+        );
+    }
+}

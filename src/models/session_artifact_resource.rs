@@ -14,24 +14,36 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionArtifactResource {
     /// The immutable artifact ID.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type. Always `agent.session.artifact`.  Defaults to `\"agent.session.artifact\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The ID of the session that owns the artifact.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "session_id")]
     pub session_id: String,
     /// The ID of the environment that produced the artifact.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "environment_id")]
     pub environment_id: String,
     /// The ID of the completed turn that published the artifact.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The original absolute file path in the execution environment.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "path")]
     pub path: String,
     /// The immutable artifact size in bytes.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "size_bytes")]
     pub size_bytes: i64,
     /// The Unix timestamp, in seconds, when the artifact was published.
@@ -63,6 +75,40 @@ impl SessionArtifactResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionArtifactResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.session_id,
+            Some(0),
+            None,
+            &path.field("session_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.environment_id,
+            Some(0),
+            None,
+            &path.field("environment_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(&self.path, Some(0), None, &path.field("path"), errors);
+        crate::models::validation::minimum(self.size_bytes, 0, &path.field("size_bytes"), errors);
+    }
+}
+
 /// The object type. Always `agent.session.artifact`.  Defaults to `\"agent.session.artifact\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

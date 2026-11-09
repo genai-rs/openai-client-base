@@ -18,6 +18,8 @@ pub struct RotateVaultCredentialAuthParamMcpOauth {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// A write-only replacement OAuth access token.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "access_token",
         default,
@@ -26,6 +28,8 @@ pub struct RotateVaultCredentialAuthParamMcpOauth {
     )]
     pub access_token: Option<Option<String>>,
     /// The replacement expiry as an RFC 3339 timestamp, or `null` to clear it. Omitting this field preserves the expiry unless a new access token is supplied, in which case the expiry is cleared.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "expires_at",
         default,
@@ -54,6 +58,39 @@ impl RotateVaultCredentialAuthParamMcpOauth {
         }
     }
 }
+
+impl crate::models::validation::Validate for RotateVaultCredentialAuthParamMcpOauth {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.access_token {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("access_token"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.expires_at {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("expires_at"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.refresh,
+            &path.field("refresh"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -59,3 +59,15 @@ impl std::fmt::Display for ComputerUseApprovalResponseParamBrowserAuthentication
         }
     }
 }
+
+impl crate::models::validation::Validate for ComputerUseApprovalResponseParamBrowserAuthentication {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Submit(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

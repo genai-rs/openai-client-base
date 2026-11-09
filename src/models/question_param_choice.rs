@@ -17,11 +17,15 @@ pub struct QuestionParamChoice {
     /// The type of the object. Always `choice`.  Defaults to `\"choice\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "instructions")]
     pub instructions: String,
     /// Provide between 2 and 255 choices. Each choice must be unique.
+    ///
+    /// Validation: `minItems: 2`, `maxItems: 255`.
     #[serde(rename = "choices")]
     pub choices: Vec<models::ChoiceOptionParam>,
 }
@@ -41,6 +45,44 @@ impl QuestionParamChoice {
         }
     }
 }
+
+impl crate::models::validation::Validate for QuestionParamChoice {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("name"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.instructions,
+            Some(0),
+            Some(1048576),
+            &path.field("instructions"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.choices.len(),
+            Some(2),
+            Some(255),
+            &path.field("choices"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.choices,
+            &path.field("choices"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `choice`.  Defaults to `\"choice\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -38,3 +38,17 @@ impl ModifyThreadRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for ModifyThreadRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.tool_resources,
+            &path.field("tool_resources"),
+            errors,
+        );
+    }
+}

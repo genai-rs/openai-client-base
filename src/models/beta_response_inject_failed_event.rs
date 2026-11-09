@@ -52,6 +52,21 @@ impl BetaResponseInjectFailedEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseInjectFailedEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
+    }
+}
+
 /// The event discriminator. Always `response.inject.failed`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

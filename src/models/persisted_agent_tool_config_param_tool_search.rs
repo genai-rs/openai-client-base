@@ -24,6 +24,16 @@ impl PersistedAgentToolConfigParamToolSearch {
         PersistedAgentToolConfigParamToolSearch { r#type }
     }
 }
+
+impl crate::models::validation::Validate for PersistedAgentToolConfigParamToolSearch {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the object. Always `tool_search`.  Defaults to `\"tool_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

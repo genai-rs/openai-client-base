@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAgentParams {
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Omission or null defaults to an empty map.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
     #[serde(
         rename = "metadata",
         default,
@@ -23,6 +25,8 @@ pub struct CreateAgentParams {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     /// A human-readable name for the agent. Omission or null leaves the agent unnamed.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 128`.
     #[serde(
         rename = "name",
         default,
@@ -31,6 +35,8 @@ pub struct CreateAgentParams {
     )]
     pub name: Option<Option<String>>,
     /// The model to use for the agent. The requested model name is preserved.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "model")]
     pub model: String,
     /// Configuration for model reasoning. Omission uses the model's default effort.
@@ -58,6 +64,8 @@ pub struct CreateAgentParams {
     )]
     pub service_tier: Option<Option<models::ServiceTierParam>>,
     /// Additional instructions appended to the agent's default base instructions. Omit or set to null to add no custom instructions.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "instructions",
         default,
@@ -66,6 +74,8 @@ pub struct CreateAgentParams {
     )]
     pub instructions: Option<Option<String>>,
     /// Tools available to the agent. Defaults to an empty list. The tool list must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(
         rename = "tools",
         default,
@@ -97,5 +107,79 @@ impl CreateAgentParams {
             tools: None,
             multi_agent: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for CreateAgentParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.metadata {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(16),
+                &path.field("metadata"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(512),
+                    &path.field("metadata").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("metadata"));
+        }
+        if let Some(Some(value0)) = &self.name {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(128),
+                &path.field("name"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.model,
+            Some(0),
+            Some(1048576),
+            &path.field("model"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(&self.text, &path.field("text"), errors);
+        if let Some(Some(value0)) = &self.instructions {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("instructions"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.tools {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(2000),
+                &path.field("tools"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("tools"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.multi_agent,
+            &path.field("multi_agent"),
+            errors,
+        );
     }
 }

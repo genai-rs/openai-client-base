@@ -31,6 +31,16 @@ impl BetaImageGenToolCallModerationDetails {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaImageGenToolCallModerationDetails {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The stage where moderation blocked the image generation call.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ModerationStage {

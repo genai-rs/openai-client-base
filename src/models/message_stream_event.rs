@@ -90,3 +90,30 @@ impl std::fmt::Display for MessageStreamEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for MessageStreamEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Object0(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Object1(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Object2(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Object3(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Object4(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

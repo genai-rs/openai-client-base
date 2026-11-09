@@ -12,8 +12,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct InputTokensDetailsResource {
+    /// Validation: `minimum: -2147483648`, `maximum: 2147483647`.
     #[serde(rename = "cached_tokens")]
     pub cached_tokens: i64,
+    /// Validation: `minimum: -2147483648`, `maximum: 2147483647`.
     #[serde(rename = "cache_write_tokens")]
     pub cache_write_tokens: i64,
 }
@@ -24,5 +26,38 @@ impl InputTokensDetailsResource {
             cached_tokens,
             cache_write_tokens,
         }
+    }
+}
+
+impl crate::models::validation::Validate for InputTokensDetailsResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(
+            self.cached_tokens,
+            -2147483648,
+            &path.field("cached_tokens"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.cached_tokens,
+            2147483647,
+            &path.field("cached_tokens"),
+            errors,
+        );
+        crate::models::validation::minimum(
+            self.cache_write_tokens,
+            -2147483648,
+            &path.field("cache_write_tokens"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.cache_write_tokens,
+            2147483647,
+            &path.field("cache_write_tokens"),
+            errors,
+        );
     }
 }

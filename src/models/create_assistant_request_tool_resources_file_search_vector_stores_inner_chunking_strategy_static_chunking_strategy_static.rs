@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 pub struct CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic
 {
     /// The maximum number of tokens in each chunk. The default value is `800`. The minimum value is `100` and the maximum value is `4096`.
+    ///
+    /// Validation: `minimum: 100`, `maximum: 4096`.
     #[serde(rename = "max_chunk_size_tokens")]
     pub max_chunk_size_tokens: i64,
     /// The number of tokens that overlap between chunks. The default value is `400`.  Note that the overlap must not exceed half of `max_chunk_size_tokens`.
@@ -27,5 +29,16 @@ impl CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrat
             max_chunk_size_tokens,
             chunk_overlap_tokens,
         }
+    }
+}
+
+impl crate::models::validation::Validate for CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategyStaticChunkingStrategyStatic {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.max_chunk_size_tokens, 100, &path.field("max_chunk_size_tokens"), errors);
+        crate::models::validation::maximum(self.max_chunk_size_tokens, 4096, &path.field("max_chunk_size_tokens"), errors);
     }
 }

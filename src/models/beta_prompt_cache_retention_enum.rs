@@ -27,6 +27,15 @@ impl std::fmt::Display for BetaPromptCacheRetentionEnum {
     }
 }
 
+impl crate::models::validation::Validate for BetaPromptCacheRetentionEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for BetaPromptCacheRetentionEnum {
     type Err = crate::models::ParseEnumError;
 

@@ -15,12 +15,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateMcpOauthRefreshParam {
     /// The HTTPS OAuth token endpoint used to exchange the refresh token for a new access token.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "token_endpoint")]
     pub token_endpoint: String,
     /// The OAuth client ID used when requesting a new access token.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "client_id")]
     pub client_id: String,
     /// The resource URI to send to the OAuth token endpoint during refresh, if required.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "resource",
         default,
@@ -29,6 +35,8 @@ pub struct CreateMcpOauthRefreshParam {
     )]
     pub resource: Option<Option<String>>,
     /// Space-separated OAuth scopes to request during refresh, if required.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "scope",
         default,
@@ -37,6 +45,8 @@ pub struct CreateMcpOauthRefreshParam {
     )]
     pub scope: Option<Option<String>>,
     /// The refresh token to store. This secret is never returned in credential resources.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "refresh_token")]
     pub refresh_token: String,
     #[serde(rename = "token_endpoint_auth")]
@@ -59,5 +69,58 @@ impl CreateMcpOauthRefreshParam {
             refresh_token,
             token_endpoint_auth,
         }
+    }
+}
+
+impl crate::models::validation::Validate for CreateMcpOauthRefreshParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.token_endpoint,
+            Some(0),
+            Some(1048576),
+            &path.field("token_endpoint"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.client_id,
+            Some(0),
+            Some(1048576),
+            &path.field("client_id"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.resource {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("resource"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.scope {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("scope"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.refresh_token,
+            Some(0),
+            Some(1048576),
+            &path.field("refresh_token"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.token_endpoint_auth,
+            &path.field("token_endpoint_auth"),
+            errors,
+        );
     }
 }

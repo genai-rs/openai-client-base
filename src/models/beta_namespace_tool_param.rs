@@ -18,12 +18,16 @@ pub struct BetaNamespaceToolParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The namespace name used in tool calls (for example, `crm`).
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "name")]
     pub name: String,
     /// A description of the namespace shown to the model.
     #[serde(rename = "description")]
     pub description: String,
     /// The function/custom tools available inside this namespace.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "tools")]
     pub tools: Vec<models::BetaNamespaceToolParamToolsInner>,
 }
@@ -44,6 +48,29 @@ impl BetaNamespaceToolParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaNamespaceToolParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.name, Some(1), None, &path.field("name"), errors);
+        crate::models::validation::items(
+            self.tools.len(),
+            Some(1),
+            None,
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+    }
+}
+
 /// The type of the tool. Always `namespace`.  Defaults to `\"namespace\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

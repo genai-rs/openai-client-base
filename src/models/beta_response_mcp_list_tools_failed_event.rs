@@ -53,6 +53,16 @@ impl BetaResponseMcpListToolsFailedEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseMcpListToolsFailedEvent {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the event. Always 'response.mcp_list_tools.failed'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -24,3 +24,12 @@ impl BetaAgentTagParam {
         BetaAgentTagParam { agent_name }
     }
 }
+
+impl crate::models::validation::Validate for BetaAgentTagParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

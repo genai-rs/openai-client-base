@@ -27,6 +27,16 @@ impl ProjectSpendLimitDeletedResource {
         ProjectSpendLimitDeletedResource { object, deleted }
     }
 }
+
+impl crate::models::validation::Validate for ProjectSpendLimitDeletedResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which is always `project.spend_limit.deleted`.  Defaults to `\"project.spend_limit.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

@@ -15,12 +15,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionAgentResource {
     /// The ID of the agent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The reusable agent's name when the session was created, or null if no name was saved. Later changes to the agent's name do not affect this value.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     /// The model used by the agent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "reasoning")]
@@ -30,9 +36,13 @@ pub struct SessionAgentResource {
     #[serde(rename = "service_tier")]
     pub service_tier: models::ServiceTierResource,
     /// Custom instructions appended to the agent's default base instructions.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
     pub instructions: Option<String>,
     /// Tools available to the agent.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "tools")]
     pub tools: Vec<models::AgentToolResource>,
     #[serde(rename = "multi_agent")]
@@ -63,5 +73,46 @@ impl SessionAgentResource {
             tools,
             multi_agent,
         }
+    }
+}
+
+impl crate::models::validation::Validate for SessionAgentResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(value0, Some(0), None, &path.field("name"), errors);
+        }
+        crate::models::validation::length(&self.model, Some(0), None, &path.field("model"), errors);
+        crate::models::validation::Validate::validate_into(&self.text, &path.field("text"), errors);
+        if let Some(value0) = &self.instructions {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("instructions"),
+                errors,
+            );
+        }
+        crate::models::validation::items(
+            self.tools.len(),
+            Some(0),
+            Some(2000),
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.multi_agent,
+            &path.field("multi_agent"),
+            errors,
+        );
     }
 }

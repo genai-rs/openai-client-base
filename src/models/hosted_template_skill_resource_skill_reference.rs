@@ -17,9 +17,13 @@ pub struct HostedTemplateSkillResourceSkillReference {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The referenced skill ID.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "skill_id")]
     pub skill_id: String,
     /// The requested version selector, including `latest`.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "version", deserialize_with = "Option::deserialize")]
     pub version: Option<String>,
 }
@@ -38,6 +42,32 @@ impl HostedTemplateSkillResourceSkillReference {
         }
     }
 }
+
+impl crate::models::validation::Validate for HostedTemplateSkillResourceSkillReference {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.skill_id,
+            Some(0),
+            None,
+            &path.field("skill_id"),
+            errors,
+        );
+        if let Some(value0) = &self.version {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("version"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the object. Always `skill_reference`.  Defaults to `\"skill_reference\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

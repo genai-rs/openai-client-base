@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateEnvironmentTemplateParams {
     /// A replacement human-readable display name, or `null` to clear the name.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(
         rename = "name",
         default,
@@ -31,6 +33,8 @@ pub struct UpdateEnvironmentTemplateParams {
     )]
     pub packages: Option<Option<models::EnvironmentPackagesParam>>,
     /// Replacement confidential setup commands, never included in returned resources.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16`.
     #[serde(
         rename = "setup_commands",
         default,
@@ -55,6 +59,8 @@ pub struct UpdateEnvironmentTemplateParams {
     )]
     pub desktop: Option<Option<models::DesktopParam>>,
     /// Replacement confidential environment values.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 1024`; each value: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "env",
         default,
@@ -63,6 +69,8 @@ pub struct UpdateEnvironmentTemplateParams {
     )]
     pub env: Option<Option<std::collections::HashMap<String, String>>>,
     /// Directories that expose capabilities to the agent.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "capability_directories",
         default,
@@ -71,6 +79,8 @@ pub struct UpdateEnvironmentTemplateParams {
     )]
     pub capability_directories: Option<Option<Vec<String>>>,
     /// Replacement skill configuration installed for each new session.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 200`.
     #[serde(
         rename = "skills",
         default,
@@ -79,6 +89,8 @@ pub struct UpdateEnvironmentTemplateParams {
     )]
     pub skills: Option<Option<Vec<models::HostedSkillParam>>>,
     /// Replacement plugin configuration installed for each new session.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 32`.
     #[serde(
         rename = "plugins",
         default,
@@ -87,6 +99,8 @@ pub struct UpdateEnvironmentTemplateParams {
     )]
     pub plugins: Option<Option<Vec<models::HostedPluginParam>>>,
     /// Replacement file configuration materialized for each new session.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 50`.
     #[serde(
         rename = "files",
         default,
@@ -110,6 +124,128 @@ impl UpdateEnvironmentTemplateParams {
             skills: None,
             plugins: None,
             files: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for UpdateEnvironmentTemplateParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.name {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(256),
+                &path.field("name"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.packages,
+            &path.field("packages"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.setup_commands {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16),
+                &path.field("setup_commands"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("setup_commands"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.network,
+            &path.field("network"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.env {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(1024),
+                &path.field("env"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("env").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("env"));
+        }
+        if let Some(Some(value0)) = &self.capability_directories {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("capability_directories"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("capability_directories").index(index1),
+                    errors,
+                );
+            }
+        }
+        if let Some(Some(value0)) = &self.skills {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(200),
+                &path.field("skills"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("skills"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.plugins {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(32),
+                &path.field("plugins"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("plugins"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.files {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(50),
+                &path.field("files"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("files"),
+                errors,
+            );
         }
     }
 }

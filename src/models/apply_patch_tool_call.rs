@@ -59,6 +59,16 @@ impl ApplyPatchToolCall {
         }
     }
 }
+
+impl crate::models::validation::Validate for ApplyPatchToolCall {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the item. Always `apply_patch_call`.  Defaults to `\"apply_patch_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

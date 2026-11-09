@@ -76,3 +76,12 @@ impl std::fmt::Display for RunStepDeltaObjectDeltaStepDetails {
         }
     }
 }
+
+impl crate::models::validation::Validate for RunStepDeltaObjectDeltaStepDetails {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

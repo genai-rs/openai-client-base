@@ -31,3 +31,15 @@ impl std::fmt::Display for VaultStatusFilterParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for VaultStatusFilterParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::ArrayOfVaultStatusParams(value) = self {
+            crate::models::validation::items(value.len(), Some(0), Some(16384), path, errors);
+        }
+    }
+}

@@ -54,3 +54,15 @@ impl std::fmt::Display for CreateMessageRequestContent {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateMessageRequestContent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::ArrayOfContentParts(value) = self {
+            crate::models::validation::items(value.len(), Some(1), None, path, errors);
+        }
+    }
+}

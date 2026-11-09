@@ -78,3 +78,27 @@ impl std::fmt::Display for AnswerResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for AnswerResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Predicate(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Choice(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Score(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Refusal(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

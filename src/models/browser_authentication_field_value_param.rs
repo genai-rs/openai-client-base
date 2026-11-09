@@ -14,9 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BrowserAuthenticationFieldValueParam {
     /// The field ID from the required action.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "field_id")]
     pub field_id: String,
     /// The value to enter into the registered control.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 16384`.
     #[serde(rename = "value")]
     pub value: String,
 }
@@ -25,5 +29,28 @@ impl BrowserAuthenticationFieldValueParam {
     /// One user-entered value, including non-password fields such as an email address.
     pub fn new(field_id: String, value: String) -> BrowserAuthenticationFieldValueParam {
         BrowserAuthenticationFieldValueParam { field_id, value }
+    }
+}
+
+impl crate::models::validation::Validate for BrowserAuthenticationFieldValueParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.field_id,
+            Some(0),
+            Some(1048576),
+            &path.field("field_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.value,
+            Some(0),
+            Some(16384),
+            &path.field("value"),
+            errors,
+        );
     }
 }

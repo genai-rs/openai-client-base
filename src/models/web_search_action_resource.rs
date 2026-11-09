@@ -80,3 +80,24 @@ impl std::fmt::Display for WebSearchActionResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for WebSearchActionResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Search(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::OpenPage(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::FindInPage(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

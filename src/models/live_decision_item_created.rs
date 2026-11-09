@@ -42,6 +42,17 @@ impl LiveDecisionItemCreated {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionItemCreated {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(&self.item, &path.field("item"), errors);
+    }
+}
+
 /// Defaults to `\"decision.item.created\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

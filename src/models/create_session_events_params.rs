@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSessionEventsParams {
     /// The input events to submit to the session.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`.
     #[serde(rename = "events")]
     pub events: Vec<models::SessionInputParam>,
 }
@@ -23,5 +25,26 @@ impl CreateSessionEventsParams {
     /// Input events submitted to an existing session.
     pub fn new(events: Vec<models::SessionInputParam>) -> CreateSessionEventsParams {
         CreateSessionEventsParams { events }
+    }
+}
+
+impl crate::models::validation::Validate for CreateSessionEventsParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.events.len(),
+            Some(0),
+            Some(16384),
+            &path.field("events"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.events,
+            &path.field("events"),
+            errors,
+        );
     }
 }

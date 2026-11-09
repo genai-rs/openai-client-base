@@ -43,6 +43,16 @@ impl BetaMoveParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaMoveParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Specifies the event type. For a move action, this property is always set to `move`.  Defaults to `\"move\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

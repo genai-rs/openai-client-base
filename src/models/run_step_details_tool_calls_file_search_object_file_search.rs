@@ -30,3 +30,22 @@ impl RunStepDetailsToolCallsFileSearchObjectFileSearch {
         }
     }
 }
+
+impl crate::models::validation::Validate for RunStepDetailsToolCallsFileSearchObjectFileSearch {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.ranking_options,
+            &path.field("ranking_options"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.results,
+            &path.field("results"),
+            errors,
+        );
+    }
+}

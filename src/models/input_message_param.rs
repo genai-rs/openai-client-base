@@ -21,6 +21,8 @@ pub struct InputMessageParam {
     #[serde(rename = "role")]
     pub role: Role,
     /// The content of the message.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`.
     #[serde(rename = "content")]
     pub content: Vec<models::InputContentParam>,
 }
@@ -35,6 +37,28 @@ impl InputMessageParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for InputMessageParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.content.len(),
+            Some(0),
+            Some(16384),
+            &path.field("content"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.content,
+            &path.field("content"),
+            errors,
+        );
+    }
+}
+
 /// The type of the input item. Always `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

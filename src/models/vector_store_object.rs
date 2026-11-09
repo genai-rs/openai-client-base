@@ -80,6 +80,21 @@ impl VectorStoreObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for VectorStoreObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.expires_after,
+            &path.field("expires_after"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always `vector_store`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

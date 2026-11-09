@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionInputFunctionCall {
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "id",
         default,
@@ -20,8 +21,10 @@ pub struct DecisionInputFunctionCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "call_id")]
     pub call_id: String,
+    /// Validation: `minLength: 1`, `maxLength: 64`, `pattern: ^[a-zA-Z0-9_-]+$`.
     #[serde(
         rename = "namespace",
         default,
@@ -29,8 +32,10 @@ pub struct DecisionInputFunctionCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub namespace: Option<Option<String>>,
+    /// Validation: `minLength: 1`, `maxLength: 128`, `pattern: ^[a-zA-Z0-9_.-]+$`.
     #[serde(rename = "name")]
     pub name: String,
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "arguments")]
     pub arguments: String,
     #[serde(
@@ -63,6 +68,74 @@ impl DecisionInputFunctionCall {
         }
     }
 }
+
+impl crate::models::validation::Validate for DecisionInputFunctionCall {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("id"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.call_id,
+            Some(1),
+            Some(64),
+            &path.field("call_id"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.namespace {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(64),
+                &path.field("namespace"),
+                errors,
+            );
+            crate::models::validation::pattern(
+                value0,
+                &PATTERN_0,
+                r"^[a-zA-Z0-9_-]+$",
+                &path.field("namespace"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.name,
+            Some(1),
+            Some(128),
+            &path.field("name"),
+            errors,
+        );
+        crate::models::validation::pattern(
+            &self.name,
+            &PATTERN_1,
+            r"^[a-zA-Z0-9_.-]+$",
+            &path.field("name"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.arguments,
+            Some(0),
+            Some(1048576),
+            &path.field("arguments"),
+            errors,
+        );
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^[a-zA-Z0-9_-]+$").ok());
+static PATTERN_1: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^[a-zA-Z0-9_.-]+$").ok());
+
 /// Defaults to `\"function_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInstructionsAppendParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
+    ///
+    /// Validation: `maxLength: 512`.
     #[serde(
         rename = "event_id",
         default,
@@ -25,6 +27,8 @@ pub struct LiveInstructionsAppendParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Required, nullable. Set null for general session context, or use the ID from session.delegation.created for an existing client delegation. Non-null IDs are not accepted with Responses delegation.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "delegation_id", deserialize_with = "Option::deserialize")]
     pub delegation_id: Option<String>,
     /// Instruction text to append, limited to 500 tokens. This is a plain string, not an array of content parts.
@@ -47,6 +51,34 @@ impl LiveInstructionsAppendParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveInstructionsAppendParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.event_id {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(512),
+                &path.field("event_id"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.delegation_id {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                None,
+                &path.field("delegation_id"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The Live client event type. Always `session.instructions.append`.  Defaults to `\"session.instructions.append\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RetentionRatioTruncationTokenLimits {
     /// Maximum tokens allowed in the conversation after instructions (which including tool definitions). For example, setting this to 5,000 would mean that truncation would occur when the conversation exceeds 5,000 tokens after instructions. This cannot be higher than the model's context window size minus the maximum output tokens.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "post_instructions", skip_serializing_if = "Option::is_none")]
     pub post_instructions: Option<i64>,
 }
@@ -23,6 +25,23 @@ impl RetentionRatioTruncationTokenLimits {
     pub fn new() -> RetentionRatioTruncationTokenLimits {
         RetentionRatioTruncationTokenLimits {
             post_instructions: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for RetentionRatioTruncationTokenLimits {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.post_instructions {
+            crate::models::validation::minimum(
+                *value0,
+                0,
+                &path.field("post_instructions"),
+                errors,
+            );
         }
     }
 }

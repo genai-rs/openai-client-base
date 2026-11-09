@@ -24,3 +24,12 @@ impl InputTokensDetailsResource2 {
         InputTokensDetailsResource2 { cached_tokens }
     }
 }
+
+impl crate::models::validation::Validate for InputTokensDetailsResource2 {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

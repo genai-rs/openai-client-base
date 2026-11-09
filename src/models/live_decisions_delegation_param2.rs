@@ -28,6 +28,21 @@ impl LiveDecisionsDelegationParam2 {
         LiveDecisionsDelegationParam2 { r#type, decisions }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionsDelegationParam2 {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.decisions,
+            &path.field("decisions"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"decisions\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

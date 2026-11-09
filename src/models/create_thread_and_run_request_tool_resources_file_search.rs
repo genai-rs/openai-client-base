@@ -13,6 +13,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateThreadAndRunRequestToolResourcesFileSearch {
     /// The ID of the [vector store](https://developers.openai.com/api/reference/resources/vector_stores) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
+    ///
+    /// Validation: `maxItems: 1`.
     #[serde(rename = "vector_store_ids", skip_serializing_if = "Option::is_none")]
     pub vector_store_ids: Option<Vec<String>>,
 }
@@ -21,6 +23,24 @@ impl CreateThreadAndRunRequestToolResourcesFileSearch {
     pub fn new() -> CreateThreadAndRunRequestToolResourcesFileSearch {
         CreateThreadAndRunRequestToolResourcesFileSearch {
             vector_store_ids: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CreateThreadAndRunRequestToolResourcesFileSearch {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.vector_store_ids {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(1),
+                &path.field("vector_store_ids"),
+                errors,
+            );
         }
     }
 }

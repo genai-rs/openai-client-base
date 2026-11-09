@@ -27,6 +27,16 @@ impl MessageRequestContentTextObject {
         MessageRequestContentTextObject { r#type, text }
     }
 }
+
+impl crate::models::validation::Validate for MessageRequestContentTextObject {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Always `text`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

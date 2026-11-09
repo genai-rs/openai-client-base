@@ -27,6 +27,21 @@ impl PredictionContent {
         PredictionContent { r#type, content }
     }
 }
+
+impl crate::models::validation::Validate for PredictionContent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.content,
+            &path.field("content"),
+            errors,
+        );
+    }
+}
+
 /// The type of the predicted content you want to provide. This type is currently always `content`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

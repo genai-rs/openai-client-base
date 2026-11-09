@@ -28,6 +28,16 @@ impl CreateFineTuningJobRequestIntegrationsInner {
         CreateFineTuningJobRequestIntegrationsInner { r#type, wandb }
     }
 }
+
+impl crate::models::validation::Validate for CreateFineTuningJobRequestIntegrationsInner {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of integration to enable. Currently, only \"wandb\" (Weights and Biases) is supported.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

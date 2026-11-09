@@ -17,6 +17,8 @@ pub struct CreateVideoEditJsonBody {
     #[serde(rename = "video")]
     pub video: models::VideoReferenceInputParam,
     /// Text prompt that describes how to edit the source video.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 32000`.
     #[serde(rename = "prompt")]
     pub prompt: String,
 }
@@ -25,5 +27,21 @@ impl CreateVideoEditJsonBody {
     /// JSON parameters for editing an existing generated video.
     pub fn new(video: models::VideoReferenceInputParam, prompt: String) -> CreateVideoEditJsonBody {
         CreateVideoEditJsonBody { video, prompt }
+    }
+}
+
+impl crate::models::validation::Validate for CreateVideoEditJsonBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.prompt,
+            Some(1),
+            Some(32000),
+            &path.field("prompt"),
+            errors,
+        );
     }
 }

@@ -60,6 +60,8 @@ pub struct FineTuningJob {
     #[serde(rename = "validation_file", deserialize_with = "Option::deserialize")]
     pub validation_file: Option<String>,
     /// A list of integrations to enable for this fine-tuning job.
+    ///
+    /// Validation: `maxItems: 5`.
     #[serde(
         rename = "integrations",
         default,
@@ -136,6 +138,35 @@ impl FineTuningJob {
         }
     }
 }
+
+impl crate::models::validation::Validate for FineTuningJob {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.hyperparameters,
+            &path.field("hyperparameters"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.integrations {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(5),
+                &path.field("integrations"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.method,
+            &path.field("method"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always \"fine_tuning.job\".
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

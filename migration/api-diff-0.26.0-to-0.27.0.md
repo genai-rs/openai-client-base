@@ -2,7 +2,8 @@
 
 This release generates with `timvw-rust` 0.21.0. The OpenAI spec (`stainless.yaml`) and openapi-generator (7.27.0) are
 unchanged. The machine-readable census is `api-diff-0.26.0-to-0.27.0.json` in this folder (`compare_public_api.py`
-against 0.26.0).
+against 0.26.0). The generator's own guide, [migrating from 0.20 to 0.21](https://github.com/timvw/openapi-generator-timvw-rust/blob/main/docs/guides/migration.md), shows every change with
+the code before and after.
 
 `timvw-rust` 0.21.0 makes the renderings this crate already switched on (`boxOnlyCycles`, `defaultOnlyWhereValid`,
 `enumFromStr`, `noStructDisplay`, `integersAsI64`, `qualifiedInlineNames`, `modelUnions`, `unionDispatch`, `openEnums`,
@@ -36,12 +37,16 @@ of its range, else `DefaultResponse`, decoded as that response's type; a body th
 `metadata: Option<HashMap<String, String>>` instead of `Option<&str>` and send it as `metadata[key]=value`, as the spec
 declares (`style: deepObject`). The string was sent as one `metadata=<text>` parameter before.
 
+**Vault `status` filters are sent as plain text.** The same two functions keep their signature, but a single status goes
+out as `status=active` instead of the quoted JSON `status=%22active%22`. A list of statuses is still sent as its JSON.
+
 **Audit log `effective_at` is sent as `effective_at[gt]=...`.** `audit_logs_api::list_audit_logs` keeps its signature;
 the filter went out as flat `gt=...` keys before.
 
 **Every model implements `models::validation::Validate`.** `validate()` checks the spec's `minLength`, `maxLength`,
-`pattern`, `minimum`, `maximum`, `minItems`, `maxItems`, `uniqueItems`, ... recursively and returns the first
-`models::validation::ValidationError` (path, rule, value). Nothing calls it for you. The crate now depends on `regex`.
+`pattern`, `minimum`, `maximum`, `minItems`, `maxItems`, `uniqueItems`, ... recursively and returns every violation as
+`models::validation::ValidationErrors`, a non-empty list of `ValidationError` (path, rule, value) with `len()`, `iter()`,
+`into_vec()` and a `Display` of one line per error. Nothing calls it for you. The crate now depends on `regex`.
 
 **A nested union prints itself.** A union variant that holds another union (for example
 `LiveResponsesDelegationSettingsInputParamToolChoice::OneOf`) is printed with that union's `Display` instead of its

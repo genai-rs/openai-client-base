@@ -33,6 +33,15 @@ impl std::fmt::Display for ImageDetail {
     }
 }
 
+impl crate::models::validation::Validate for ImageDetail {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ImageDetail {
     type Err = crate::models::ParseEnumError;
 

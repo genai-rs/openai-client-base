@@ -14,9 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveAllowedServerEventParam {
     /// The outer Live server event type. Use 'response.event' for Responses events.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "type")]
     pub r#type: String,
     /// The nested Responses event type. Required when type is 'response.event'; forbidden for other event types.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "response_event", skip_serializing_if = "Option::is_none")]
     pub response_event: Option<String>,
 }
@@ -27,6 +31,31 @@ impl LiveAllowedServerEventParam {
         LiveAllowedServerEventParam {
             r#type,
             response_event: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for LiveAllowedServerEventParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.r#type,
+            Some(1),
+            Some(256),
+            &path.field("type"),
+            errors,
+        );
+        if let Some(value0) = &self.response_event {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(256),
+                &path.field("response_event"),
+                errors,
+            );
         }
     }
 }

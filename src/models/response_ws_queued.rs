@@ -38,6 +38,21 @@ impl ResponseWsQueued {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponseWsQueued {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.response,
+            &path.field("response"),
+            errors,
+        );
+    }
+}
+
 /// The type of the event. Always 'response.queued'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

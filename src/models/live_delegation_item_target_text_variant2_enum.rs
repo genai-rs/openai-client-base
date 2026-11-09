@@ -24,6 +24,15 @@ impl std::fmt::Display for LiveDelegationItemTargetTextVariant2Enum {
     }
 }
 
+impl crate::models::validation::Validate for LiveDelegationItemTargetTextVariant2Enum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for LiveDelegationItemTargetTextVariant2Enum {
     type Err = crate::models::ParseEnumError;
 

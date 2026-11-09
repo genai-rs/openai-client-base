@@ -30,3 +30,12 @@ impl UpdateSessionReasoningParam {
         UpdateSessionReasoningParam { effort: None }
     }
 }
+
+impl crate::models::validation::Validate for UpdateSessionReasoningParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

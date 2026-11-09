@@ -34,6 +34,21 @@ impl MessageDeltaObject {
         MessageDeltaObject { id, object, delta }
     }
 }
+
+impl crate::models::validation::Validate for MessageDeltaObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.delta,
+            &path.field("delta"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always `thread.message.delta`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

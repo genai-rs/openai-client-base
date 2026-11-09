@@ -39,6 +39,8 @@ pub struct CompactResponseMethodPublicBody {
     )]
     pub instructions: Option<Option<String>>,
     /// A key to use when reading from or writing to the prompt cache.
+    ///
+    /// Validation: `maxLength: 64`.
     #[serde(
         rename = "prompt_cache_key",
         default,
@@ -80,6 +82,29 @@ impl CompactResponseMethodPublicBody {
             prompt_cache_retention: None,
             prompt_cache_options: None,
             service_tier: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CompactResponseMethodPublicBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.prompt_cache_key {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(64),
+                &path.field("prompt_cache_key"),
+                errors,
+            );
         }
     }
 }

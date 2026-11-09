@@ -13,6 +13,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageRefParam2 {
     /// A fully qualified URL or base64-encoded data URL.
+    ///
+    /// Validation: `maxLength: 20971520`.
     #[serde(rename = "image_url", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
@@ -24,6 +26,24 @@ impl ImageRefParam2 {
         ImageRefParam2 {
             image_url: None,
             file_id: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for ImageRefParam2 {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.image_url {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(20971520),
+                &path.field("image_url"),
+                errors,
+            );
         }
     }
 }

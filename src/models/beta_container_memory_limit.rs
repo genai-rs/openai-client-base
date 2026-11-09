@@ -38,6 +38,15 @@ impl std::fmt::Display for BetaContainerMemoryLimit {
     }
 }
 
+impl crate::models::validation::Validate for BetaContainerMemoryLimit {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for BetaContainerMemoryLimit {
     type Err = crate::models::ParseEnumError;
 

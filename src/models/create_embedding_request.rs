@@ -21,6 +21,8 @@ pub struct CreateEmbeddingRequest {
     #[serde(rename = "encoding_format", skip_serializing_if = "Option::is_none")]
     pub encoding_format: Option<EncodingFormat>,
     /// The number of dimensions the resulting output embeddings should have. Only supported in `text-embedding-3` and later models.
+    ///
+    /// Validation: `minimum: 1`.
     #[serde(rename = "dimensions", skip_serializing_if = "Option::is_none")]
     pub dimensions: Option<i64>,
     /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
@@ -42,6 +44,24 @@ impl CreateEmbeddingRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateEmbeddingRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
+        if let Some(value0) = &self.dimensions {
+            crate::models::validation::minimum(*value0, 1, &path.field("dimensions"), errors);
+        }
+    }
+}
+
 /// The format to return the embeddings in. Can be either `float` or [`base64`](https://pypi.org/project/pybase64/).  Defaults to `\"float\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum EncodingFormat {

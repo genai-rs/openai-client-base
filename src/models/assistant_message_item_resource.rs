@@ -18,9 +18,13 @@ pub struct AssistantMessageItemResource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the message.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The role of the message author. Always `assistant`.  Defaults to `\"assistant\"`.
@@ -29,6 +33,8 @@ pub struct AssistantMessageItemResource {
     #[serde(rename = "status")]
     pub status: models::OutputItemStatusResource,
     /// The content of the message.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "content")]
     pub content: Vec<models::OutputTextResource>,
     /// The phase of the assistant message.
@@ -58,6 +64,36 @@ impl AssistantMessageItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for AssistantMessageItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.content.len(),
+            Some(0),
+            Some(2000),
+            &path.field("content"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.content,
+            &path.field("content"),
+            errors,
+        );
+    }
+}
+
 /// The item type. Always `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

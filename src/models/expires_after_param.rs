@@ -17,6 +17,8 @@ pub struct ExpiresAfterParam {
     #[serde(rename = "anchor")]
     pub anchor: Anchor,
     /// Number of seconds after the anchor when the session expires.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 600`.
     #[serde(rename = "seconds")]
     pub seconds: i64,
 }
@@ -27,6 +29,18 @@ impl ExpiresAfterParam {
         ExpiresAfterParam { anchor, seconds }
     }
 }
+
+impl crate::models::validation::Validate for ExpiresAfterParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.seconds, 1, &path.field("seconds"), errors);
+        crate::models::validation::maximum(self.seconds, 600, &path.field("seconds"), errors);
+    }
+}
+
 /// Base timestamp used to calculate expiration. Currently fixed to `created_at`.  Defaults to `\"created_at\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Anchor {

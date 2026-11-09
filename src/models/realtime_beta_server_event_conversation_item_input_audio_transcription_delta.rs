@@ -56,6 +56,18 @@ impl RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta {
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, must be `conversation.item.input_audio_transcription.delta`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

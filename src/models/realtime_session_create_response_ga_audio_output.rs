@@ -19,6 +19,8 @@ pub struct RealtimeSessionCreateResponseGaAudioOutput {
     #[serde(rename = "voice", skip_serializing_if = "Option::is_none")]
     pub voice: Option<String>,
     /// The speed of the model's spoken response as a multiple of the original speed. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.  This parameter is a post-processing adjustment to the audio after it is generated, it's also possible to prompt the model to speak faster or slower.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 0.25`, `maximum: 1.5`.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
 }
@@ -29,6 +31,19 @@ impl RealtimeSessionCreateResponseGaAudioOutput {
             format: None,
             voice: None,
             speed: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for RealtimeSessionCreateResponseGaAudioOutput {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.speed {
+            crate::models::validation::minimum(*value0, 0.25, &path.field("speed"), errors);
+            crate::models::validation::maximum(*value0, 1.5, &path.field("speed"), errors);
         }
     }
 }

@@ -42,6 +42,16 @@ impl ResponseSteerAcceptedEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponseSteerAcceptedEvent {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event discriminator. Always `response.steer.accepted`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

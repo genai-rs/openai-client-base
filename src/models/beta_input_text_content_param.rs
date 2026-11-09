@@ -18,6 +18,8 @@ pub struct BetaInputTextContentParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text input to the model.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "text")]
     pub text: String,
     #[serde(
@@ -39,6 +41,23 @@ impl BetaInputTextContentParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaInputTextContentParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.text,
+            None,
+            Some(10485760),
+            &path.field("text"),
+            errors,
+        );
+    }
+}
+
 /// The type of the input item. Always `input_text`.  Defaults to `\"input_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

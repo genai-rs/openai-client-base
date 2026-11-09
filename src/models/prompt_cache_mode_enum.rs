@@ -32,6 +32,15 @@ impl std::fmt::Display for PromptCacheModeEnum {
     }
 }
 
+impl crate::models::validation::Validate for PromptCacheModeEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for PromptCacheModeEnum {
     type Err = crate::models::ParseEnumError;
 

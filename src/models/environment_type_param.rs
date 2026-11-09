@@ -26,6 +26,15 @@ impl std::fmt::Display for EnvironmentTypeParam {
     }
 }
 
+impl crate::models::validation::Validate for EnvironmentTypeParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for EnvironmentTypeParam {
     type Err = crate::models::ParseEnumError;
 

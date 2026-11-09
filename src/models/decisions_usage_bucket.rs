@@ -39,6 +39,16 @@ impl DecisionsUsageBucket {
         }
     }
 }
+
+impl crate::models::validation::Validate for DecisionsUsageBucket {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Defaults to `\"bucket\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

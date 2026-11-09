@@ -22,6 +22,16 @@ impl AssistantToolsFileSearchTypeOnly {
         AssistantToolsFileSearchTypeOnly { r#type }
     }
 }
+
+impl crate::models::validation::Validate for AssistantToolsFileSearchTypeOnly {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of tool being defined: `file_search`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

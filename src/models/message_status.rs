@@ -35,6 +35,15 @@ impl std::fmt::Display for MessageStatus {
     }
 }
 
+impl crate::models::validation::Validate for MessageStatus {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for MessageStatus {
     type Err = crate::models::ParseEnumError;
 

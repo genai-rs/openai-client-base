@@ -53,6 +53,16 @@ impl BetaLocalShellToolCallOutput {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaLocalShellToolCallOutput {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the local shell tool call output. Always `local_shell_call_output`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

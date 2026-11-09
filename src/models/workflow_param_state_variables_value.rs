@@ -56,3 +56,15 @@ impl std::fmt::Display for WorkflowParamStateVariablesValue {
         }
     }
 }
+
+impl crate::models::validation::Validate for WorkflowParamStateVariablesValue {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Text(value) = self {
+            crate::models::validation::length(value, None, Some(10485760), path, errors);
+        }
+    }
+}

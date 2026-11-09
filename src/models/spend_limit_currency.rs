@@ -46,3 +46,12 @@ impl std::fmt::Display for SpendLimitCurrency {
         }
     }
 }
+
+impl crate::models::validation::Validate for SpendLimitCurrency {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

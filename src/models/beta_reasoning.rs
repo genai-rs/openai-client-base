@@ -61,6 +61,16 @@ impl BetaReasoning {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaReasoning {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. One of `auto`, `concise`, or `detailed`.  `concise` is supported for `computer-use-preview` models and all reasoning models after `gpt-5`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Summary {

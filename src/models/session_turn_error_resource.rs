@@ -17,6 +17,8 @@ pub struct SessionTurnErrorResource {
     #[serde(rename = "code")]
     pub code: models::SessionTurnErrorCodeResource,
     /// A customer-safe explanation of the failure.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "message")]
     pub message: String,
 }
@@ -28,5 +30,21 @@ impl SessionTurnErrorResource {
         message: String,
     ) -> SessionTurnErrorResource {
         SessionTurnErrorResource { code, message }
+    }
+}
+
+impl crate::models::validation::Validate for SessionTurnErrorResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.message,
+            Some(0),
+            None,
+            &path.field("message"),
+            errors,
+        );
     }
 }

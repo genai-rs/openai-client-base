@@ -17,9 +17,13 @@ pub struct HostedEnvironmentFileParamInline {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The standard-base64-encoded file contents.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 6990508`.
     #[serde(rename = "data")]
     pub data: String,
     /// The absolute destination path inside `/workspace`.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 4096`.
     #[serde(rename = "path")]
     pub path: String,
 }
@@ -30,6 +34,30 @@ impl HostedEnvironmentFileParamInline {
         HostedEnvironmentFileParamInline { r#type, data, path }
     }
 }
+
+impl crate::models::validation::Validate for HostedEnvironmentFileParamInline {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.data,
+            Some(0),
+            Some(6990508),
+            &path.field("data"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.path,
+            Some(1),
+            Some(4096),
+            &path.field("path"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

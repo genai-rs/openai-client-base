@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveCustomVoiceParam {
+    /// Validation: `minLength: 1`, `maxLength: 128`.
     #[serde(rename = "id")]
     pub id: String,
 }
@@ -19,5 +20,15 @@ pub struct LiveCustomVoiceParam {
 impl LiveCustomVoiceParam {
     pub fn new(id: String) -> LiveCustomVoiceParam {
         LiveCustomVoiceParam { id }
+    }
+}
+
+impl crate::models::validation::Validate for LiveCustomVoiceParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(1), Some(128), &path.field("id"), errors);
     }
 }

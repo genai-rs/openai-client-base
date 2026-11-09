@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateAgentParams {
     /// The model to use for the agent. The requested model name is preserved.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Configuration for model reasoning. Omit to keep the current settings; pass `null` to reset to the model's default effort.
@@ -42,6 +44,8 @@ pub struct UpdateAgentParams {
     )]
     pub service_tier: Option<Option<models::ServiceTierParam>>,
     /// Additional instructions appended to the agent's default base instructions. Omit to leave unchanged.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "instructions",
         default,
@@ -58,6 +62,8 @@ pub struct UpdateAgentParams {
     )]
     pub multi_agent: Option<Option<models::MultiAgentConfigCurrentParam>>,
     /// Replaces all metadata. Omit to leave unchanged, or pass null or {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
     #[serde(
         rename = "metadata",
         default,
@@ -66,6 +72,8 @@ pub struct UpdateAgentParams {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     /// A replacement name. Omit to leave unchanged, or pass null to clear it.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 128`.
     #[serde(
         rename = "name",
         default,
@@ -74,6 +82,8 @@ pub struct UpdateAgentParams {
     )]
     pub name: Option<Option<String>>,
     /// Replaces the tool list. Omit to leave it unchanged, or pass null to clear it. The replacement must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(
         rename = "tools",
         default,
@@ -96,6 +106,82 @@ impl UpdateAgentParams {
             metadata: None,
             name: None,
             tools: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for UpdateAgentParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.model {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("model"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(&self.text, &path.field("text"), errors);
+        if let Some(Some(value0)) = &self.instructions {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("instructions"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.multi_agent,
+            &path.field("multi_agent"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.metadata {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(16),
+                &path.field("metadata"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(512),
+                    &path.field("metadata").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("metadata"));
+        }
+        if let Some(Some(value0)) = &self.name {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(128),
+                &path.field("name"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.tools {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(2000),
+                &path.field("tools"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("tools"),
+                errors,
+            );
         }
     }
 }

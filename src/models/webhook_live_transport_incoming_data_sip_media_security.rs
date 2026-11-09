@@ -47,3 +47,12 @@ impl std::fmt::Display for WebhookLiveTransportIncomingDataSipMediaSecurity {
         }
     }
 }
+
+impl crate::models::validation::Validate for WebhookLiveTransportIncomingDataSipMediaSecurity {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

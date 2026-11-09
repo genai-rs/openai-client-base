@@ -27,6 +27,16 @@ impl ProjectModelPermissionsDeleteResponse {
         ProjectModelPermissionsDeleteResponse { object, deleted }
     }
 }
+
+impl crate::models::validation::Validate for ProjectModelPermissionsDeleteResponse {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which is always `project.model_permissions.deleted`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

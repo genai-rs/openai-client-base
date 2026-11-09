@@ -29,3 +29,22 @@ impl RealtimeCreateClientSecretRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeCreateClientSecretRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.expires_after,
+            &path.field("expires_after"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.session,
+            &path.field("session"),
+            errors,
+        );
+    }
+}

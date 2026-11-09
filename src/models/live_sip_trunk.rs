@@ -20,6 +20,8 @@ pub struct LiveSipTrunk {
     #[serde(rename = "auth")]
     pub auth: models::LiveSipTrunkAuth,
     /// Caller phone number in E.164 format to use in the SIP From header.
+    ///
+    /// Validation: `pattern: ^\+[1-9][0-9]{1,14}$`.
     #[serde(rename = "caller_number")]
     pub caller_number: String,
 }
@@ -38,3 +40,23 @@ impl LiveSipTrunk {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveSipTrunk {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(&self.auth, &path.field("auth"), errors);
+        crate::models::validation::pattern(
+            &self.caller_number,
+            &PATTERN_0,
+            r"^\+[1-9][0-9]{1,14}$",
+            &path.field("caller_number"),
+            errors,
+        );
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^\+[1-9][0-9]{1,14}$").ok());

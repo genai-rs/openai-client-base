@@ -51,6 +51,8 @@ pub struct CreateRunRequest {
     )]
     pub additional_messages: Option<Option<Vec<models::CreateMessageRequest>>>,
     /// Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis.
+    ///
+    /// Validation: `maxItems: 20`.
     #[serde(
         rename = "tools",
         default,
@@ -67,6 +69,8 @@ pub struct CreateRunRequest {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 2`.
     #[serde(
         rename = "temperature",
         default,
@@ -75,6 +79,8 @@ pub struct CreateRunRequest {
     )]
     pub temperature: Option<Option<f64>>,
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or temperature but not both.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(
         rename = "top_p",
         default,
@@ -91,6 +97,8 @@ pub struct CreateRunRequest {
     )]
     pub stream: Option<Option<bool>>,
     /// The maximum number of prompt tokens that may be used over the course of the run. The run will make a best effort to use only the number of prompt tokens specified, across multiple turns of the run. If the run exceeds the number of prompt tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
+    ///
+    /// Validation: `minimum: 256`.
     #[serde(
         rename = "max_prompt_tokens",
         default,
@@ -99,6 +107,8 @@ pub struct CreateRunRequest {
     )]
     pub max_prompt_tokens: Option<Option<i64>>,
     /// The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
+    ///
+    /// Validation: `minimum: 256`.
     #[serde(
         rename = "max_completion_tokens",
         default,
@@ -144,5 +154,62 @@ impl CreateRunRequest {
             parallel_tool_calls: None,
             response_format: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for CreateRunRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.additional_messages,
+            &path.field("additional_messages"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.tools {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(20),
+                &path.field("tools"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("tools"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.temperature {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("temperature"), errors);
+            crate::models::validation::maximum(*value0, 2.0, &path.field("temperature"), errors);
+        }
+        if let Some(Some(value0)) = &self.top_p {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("top_p"), errors);
+            crate::models::validation::maximum(*value0, 1.0, &path.field("top_p"), errors);
+        }
+        if let Some(Some(value0)) = &self.max_prompt_tokens {
+            crate::models::validation::minimum(
+                *value0,
+                256,
+                &path.field("max_prompt_tokens"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.max_completion_tokens {
+            crate::models::validation::minimum(
+                *value0,
+                256,
+                &path.field("max_completion_tokens"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.truncation_strategy,
+            &path.field("truncation_strategy"),
+            errors,
+        );
     }
 }

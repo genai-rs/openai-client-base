@@ -40,6 +40,16 @@ impl CreateChatCompletionResponseChoicesInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateChatCompletionResponseChoicesInner {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The reason the model stopped generating tokens. This will be `stop` if the model hit a natural stop point or a provided stop sequence, `length` if the maximum number of tokens specified in the request was reached, `content_filter` if content was omitted due to a flag from our content filters, `tool_calls` if the model called a tool, or `function_call` (deprecated) if the model called a function. Read the [Model Spec](https://model-spec.openai.com/2025-12-18.html) for more.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum FinishReason {

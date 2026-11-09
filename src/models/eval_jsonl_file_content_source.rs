@@ -29,6 +29,16 @@ impl EvalJsonlFileContentSource {
         EvalJsonlFileContentSource { r#type, content }
     }
 }
+
+impl crate::models::validation::Validate for EvalJsonlFileContentSource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of jsonl source. Always `file_content`.  Defaults to `\"file_content\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

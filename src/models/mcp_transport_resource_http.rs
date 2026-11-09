@@ -17,6 +17,8 @@ pub struct McpTransportResourceHttp {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the MCP server.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "server_url")]
     pub server_url: String,
 }
@@ -27,6 +29,23 @@ impl McpTransportResourceHttp {
         McpTransportResourceHttp { r#type, server_url }
     }
 }
+
+impl crate::models::validation::Validate for McpTransportResourceHttp {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.server_url,
+            Some(0),
+            None,
+            &path.field("server_url"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `http`.  Defaults to `\"http\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

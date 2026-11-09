@@ -81,3 +81,15 @@ impl std::fmt::Display for RunStepDetailsToolCallsObjectToolCallsInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for RunStepDetailsToolCallsObjectToolCallsInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::RunStepDetailsToolCallsFileSearchObject(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

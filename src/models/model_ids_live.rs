@@ -47,3 +47,15 @@ impl std::fmt::Display for ModelIdsLive {
         }
     }
 }
+
+impl crate::models::validation::Validate for ModelIdsLive {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Text(value) = self {
+            crate::models::validation::length(value, Some(1), None, path, errors);
+        }
+    }
+}

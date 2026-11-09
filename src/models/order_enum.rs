@@ -27,6 +27,15 @@ impl std::fmt::Display for OrderEnum {
     }
 }
 
+impl crate::models::validation::Validate for OrderEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for OrderEnum {
     type Err = crate::models::ParseEnumError;
 

@@ -20,6 +20,8 @@ pub struct CreateProjectServiceAccountApiKeyBody {
     #[serde(rename = "scopes", skip_serializing_if = "Option::is_none")]
     pub scopes: Option<Vec<String>>,
     /// Number of seconds until the API key expires.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 31536000`.
     #[serde(
         rename = "expires_in_seconds",
         default,
@@ -36,6 +38,29 @@ impl CreateProjectServiceAccountApiKeyBody {
             name: None,
             scopes: None,
             expires_in_seconds: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CreateProjectServiceAccountApiKeyBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.expires_in_seconds {
+            crate::models::validation::minimum(
+                *value0,
+                1,
+                &path.field("expires_in_seconds"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                31536000,
+                &path.field("expires_in_seconds"),
+                errors,
+            );
         }
     }
 }

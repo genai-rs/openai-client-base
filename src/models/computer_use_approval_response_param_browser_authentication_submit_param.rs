@@ -20,9 +20,13 @@ pub struct ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam {
     #[serde(rename = "action")]
     pub action: Action,
     /// Values for up to six active fields in the required action. The submitted field-value mapping and selected option must fit within 120 KiB of JSON.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 6`.
     #[serde(rename = "fields")]
     pub fields: Vec<models::BrowserAuthenticationFieldValueParam>,
     /// The chosen method. Required when the required action contains options.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "selected_option",
         default,
@@ -46,6 +50,39 @@ impl ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam {
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for ComputerUseApprovalResponseParamBrowserAuthenticationSubmitParam
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.fields.len(),
+            Some(0),
+            Some(6),
+            &path.field("fields"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.fields,
+            &path.field("fields"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.selected_option {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("selected_option"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Defaults to `\"browser_authentication\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

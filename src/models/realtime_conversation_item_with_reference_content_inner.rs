@@ -40,6 +40,16 @@ impl RealtimeConversationItemWithReferenceContentInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeConversationItemWithReferenceContentInner {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The content type (`input_text`, `input_audio`, `item_reference`, `text`).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

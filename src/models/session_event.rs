@@ -365,3 +365,114 @@ impl std::fmt::Display for SessionEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Error(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionEnvironmentReady(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionEnvironmentSuspended(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionEnvironmentExpired(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionEnvironmentReset(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentOutputCommandExecutionOutputDelta(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionCreated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnCreated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnInProgress(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnCompleted(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnFailed(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnCancelled(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnItemAdded(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionIdle(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionInProgress(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionRequiresAction(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionFailed(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionEnvironmentPending(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionEnvironmentConnected(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionEnvironmentDisconnected(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionEnvironmentFailed(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionSubagentCreated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionSubagentActive(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionSubagentClosed(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnItemDone(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnContentPartAdded(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnContentPartDone(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnOutputTextDelta(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnOutputTextDone(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnReasoningSummaryPartAdded(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnReasoningSummaryPartDone(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnReasoningSummaryTextDelta(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionTurnReasoningSummaryTextDone(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

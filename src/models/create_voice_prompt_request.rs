@@ -17,12 +17,18 @@ pub struct CreateVoicePromptRequest {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the new voice.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "name")]
     pub name: String,
     /// A description of the desired voice. Must not contain only whitespace.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 2000`.
     #[serde(rename = "prompt")]
     pub prompt: String,
     /// Optional text for the voice to speak during creation. If omitted, a script is generated from the prompt. Must not be blank after trimming whitespace; scripts that are too short are rejected.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 2000`.
     #[serde(rename = "script_hint", skip_serializing_if = "Option::is_none")]
     pub script_hint: Option<String>,
     /// The voice creation model to use. Defaults to `auto`.  Defaults to `\"auto\"`.
@@ -42,6 +48,39 @@ impl CreateVoicePromptRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateVoicePromptRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.name,
+            Some(1),
+            Some(256),
+            &path.field("name"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.prompt,
+            Some(1),
+            Some(2000),
+            &path.field("prompt"),
+            errors,
+        );
+        if let Some(value0) = &self.script_hint {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(2000),
+                &path.field("script_hint"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Set to `prompt` to create a voice from a text description.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

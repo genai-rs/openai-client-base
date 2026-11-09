@@ -14,15 +14,21 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VaultResource {
     /// The ID of the vault.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type. Always `vault`.  Defaults to `\"vault\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The human-readable name of the vault, if set.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     /// Key-value pairs associated with the vault, such as an application or team identifier.
+    ///
+    /// Validation: `minProperties: 0`; each value: `minLength: 0`.
     #[serde(rename = "metadata")]
     pub metadata: std::collections::HashMap<String, String>,
     /// The Unix timestamp, in seconds, when the vault was created.
@@ -48,6 +54,38 @@ impl VaultResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for VaultResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(value0, Some(0), None, &path.field("name"), errors);
+        }
+        crate::models::validation::properties(
+            self.metadata.len(),
+            Some(0),
+            None,
+            &path.field("metadata"),
+            errors,
+        );
+        let start0 = errors.len();
+        for (key0, entry0) in &self.metadata {
+            crate::models::validation::length(
+                entry0,
+                Some(0),
+                None,
+                &path.field("metadata").key(key0),
+                errors,
+            );
+        }
+        crate::models::validation::sort_by_key(errors, start0, &path.field("metadata"));
+    }
+}
+
 /// The object type. Always `vault`.  Defaults to `\"vault\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

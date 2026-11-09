@@ -50,3 +50,17 @@ impl RealtimeTranscriptionSessionCreateResponse {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeTranscriptionSessionCreateResponse {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.input_audio_transcription,
+            &path.field("input_audio_transcription"),
+            errors,
+        );
+    }
+}

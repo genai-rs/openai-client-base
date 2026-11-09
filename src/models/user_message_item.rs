@@ -63,6 +63,16 @@ impl UserMessageItem {
         }
     }
 }
+
+impl crate::models::validation::Validate for UserMessageItem {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Type discriminator that is always `chatkit.thread_item`.  Defaults to `\"chatkit.thread_item\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

@@ -17,9 +17,13 @@ pub struct McpTransportConfigParamStdio {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The command used to start the MCP server.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "command")]
     pub command: String,
     /// Arguments passed to the MCP server command.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "args",
         default,
@@ -28,9 +32,13 @@ pub struct McpTransportConfigParamStdio {
     )]
     pub args: Option<Option<Vec<String>>>,
     /// The working directory used to start the MCP server.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "cwd")]
     pub cwd: String,
     /// Environment variables set for the MCP server process.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 1024`; each value: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "env",
         default,
@@ -39,6 +47,8 @@ pub struct McpTransportConfigParamStdio {
     )]
     pub env: Option<Option<std::collections::HashMap<String, String>>>,
     /// Environment variable names to inherit from the selected execution environment.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "env_vars",
         default,
@@ -61,6 +71,86 @@ impl McpTransportConfigParamStdio {
         }
     }
 }
+
+impl crate::models::validation::Validate for McpTransportConfigParamStdio {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.command,
+            Some(0),
+            Some(1048576),
+            &path.field("command"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.args {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("args"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("args").index(index1),
+                    errors,
+                );
+            }
+        }
+        crate::models::validation::length(
+            &self.cwd,
+            Some(0),
+            Some(1048576),
+            &path.field("cwd"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.env {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(1024),
+                &path.field("env"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("env").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("env"));
+        }
+        if let Some(Some(value0)) = &self.env_vars {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("env_vars"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("env_vars").index(index1),
+                    errors,
+                );
+            }
+        }
+    }
+}
+
 /// The type of the object. Always `stdio`.  Defaults to `\"stdio\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -17,6 +17,8 @@ pub struct TextFormatResourceJsonSchema {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The JSON Schema that generated text must match.
+    ///
+    /// Validation: `minProperties: 0`.
     #[serde(rename = "schema")]
     pub schema: std::collections::HashMap<String, serde_json::Value>,
 }
@@ -30,6 +32,23 @@ impl TextFormatResourceJsonSchema {
         TextFormatResourceJsonSchema { r#type, schema }
     }
 }
+
+impl crate::models::validation::Validate for TextFormatResourceJsonSchema {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::properties(
+            self.schema.len(),
+            Some(0),
+            None,
+            &path.field("schema"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `json_schema`.  Defaults to `\"json_schema\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

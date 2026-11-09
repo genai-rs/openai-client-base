@@ -22,3 +22,17 @@ impl ValidateGraderRequest {
         ValidateGraderRequest { grader }
     }
 }
+
+impl crate::models::validation::Validate for ValidateGraderRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.grader,
+            &path.field("grader"),
+            errors,
+        );
+    }
+}

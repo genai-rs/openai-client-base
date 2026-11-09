@@ -17,9 +17,13 @@ pub struct McpTransportConfigParamHttp {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the MCP server.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "server_url")]
     pub server_url: String,
     /// The authorization value sent to the MCP server, if any.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "authorization",
         default,
@@ -28,6 +32,8 @@ pub struct McpTransportConfigParamHttp {
     )]
     pub authorization: Option<Option<String>>,
     /// Additional HTTP headers sent to the MCP server.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 1024`; each value: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "headers",
         default,
@@ -48,6 +54,52 @@ impl McpTransportConfigParamHttp {
         }
     }
 }
+
+impl crate::models::validation::Validate for McpTransportConfigParamHttp {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.server_url,
+            Some(0),
+            Some(1048576),
+            &path.field("server_url"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.authorization {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("authorization"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.headers {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(1024),
+                &path.field("headers"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("headers").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("headers"));
+        }
+    }
+}
+
 /// The type of the object. Always `http`.  Defaults to `\"http\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

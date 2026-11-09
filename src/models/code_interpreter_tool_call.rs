@@ -54,6 +54,16 @@ impl CodeInterpreterToolCall {
         }
     }
 }
+
+impl crate::models::validation::Validate for CodeInterpreterToolCall {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the code interpreter tool call. Always `code_interpreter_call`.  Defaults to `\"code_interpreter_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

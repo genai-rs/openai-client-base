@@ -87,3 +87,15 @@ impl std::fmt::Display for CreateEvalRequestTestingCriteriaInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateEvalRequestTestingCriteriaInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::EvalGraderScoreModel(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

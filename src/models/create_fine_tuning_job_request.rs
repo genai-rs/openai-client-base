@@ -22,6 +22,8 @@ pub struct CreateFineTuningJobRequest {
     #[serde(rename = "hyperparameters", skip_serializing_if = "Option::is_none")]
     pub hyperparameters: Option<models::CreateFineTuningJobRequestHyperparameters>,
     /// A string of up to 64 characters that will be added to your fine-tuned model name.  For example, a `suffix` of \"custom-model-name\" would produce a model name like `ft:gpt-4o-mini:openai:custom-model-name:7p4lURel`.  Defaults to `null`.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(
         rename = "suffix",
         default,
@@ -46,6 +48,8 @@ pub struct CreateFineTuningJobRequest {
     )]
     pub integrations: Option<Option<Vec<models::CreateFineTuningJobRequestIntegrationsInner>>>,
     /// The seed controls the reproducibility of the job. Passing in the same seed and job parameters should produce the same results, but may differ in rare cases. If a seed is not specified, one will be generated for you.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 2147483647`.
     #[serde(
         rename = "seed",
         default,
@@ -78,5 +82,37 @@ impl CreateFineTuningJobRequest {
             method: None,
             metadata: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for CreateFineTuningJobRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.hyperparameters,
+            &path.field("hyperparameters"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.suffix {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(64),
+                &path.field("suffix"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.seed {
+            crate::models::validation::minimum(*value0, 0, &path.field("seed"), errors);
+            crate::models::validation::maximum(*value0, 2147483647, &path.field("seed"), errors);
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.method,
+            &path.field("method"),
+            errors,
+        );
     }
 }

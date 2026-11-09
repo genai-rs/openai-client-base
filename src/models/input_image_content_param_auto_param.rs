@@ -18,6 +18,8 @@ pub struct InputImageContentParamAutoParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+    ///
+    /// Validation: `maxLength: 20971520`.
     #[serde(
         rename = "image_url",
         default,
@@ -61,6 +63,25 @@ impl InputImageContentParamAutoParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for InputImageContentParamAutoParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.image_url {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(20971520),
+                &path.field("image_url"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

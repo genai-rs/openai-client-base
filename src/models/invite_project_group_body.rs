@@ -27,3 +27,12 @@ impl InviteProjectGroupBody {
         InviteProjectGroupBody { group_id, role }
     }
 }
+
+impl crate::models::validation::Validate for InviteProjectGroupBody {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

@@ -52,3 +52,21 @@ impl std::fmt::Display for CreateSessionInputParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateSessionInputParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Text(value) => {
+                crate::models::validation::length(value, Some(1), Some(1048576), path, errors);
+            }
+            Self::ArrayOfInputMessageParams(value) => {
+                crate::models::validation::items(value.len(), Some(0), Some(16384), path, errors);
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

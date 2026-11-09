@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaMisalignmentErrorDetailsResource {
     /// An opaque target for explicitly continuing this review, or null when unavailable.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 96`, `pattern: ^[A-Za-z0-9._~:-]+$`.
     #[serde(
         rename = "review_target",
         default,
@@ -43,3 +45,31 @@ impl BetaMisalignmentErrorDetailsResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaMisalignmentErrorDetailsResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.review_target {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(96),
+                &path.field("review_target"),
+                errors,
+            );
+            crate::models::validation::pattern(
+                value0,
+                &PATTERN_0,
+                r"^[A-Za-z0-9._~:-]+$",
+                &path.field("review_target"),
+                errors,
+            );
+        }
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^[A-Za-z0-9._~:-]+$").ok());

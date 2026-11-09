@@ -17,6 +17,8 @@ pub struct RotateVaultCredentialAuthParamEnvironmentVariable {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The write-only replacement secret. Never returned in credential resources or supplied directly to sandbox code. Must be nonempty and must not contain carriage returns, newlines, or NUL bytes.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 1048576`.
     #[serde(rename = "secret_value")]
     pub secret_value: String,
 }
@@ -33,6 +35,23 @@ impl RotateVaultCredentialAuthParamEnvironmentVariable {
         }
     }
 }
+
+impl crate::models::validation::Validate for RotateVaultCredentialAuthParamEnvironmentVariable {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.secret_value,
+            Some(1),
+            Some(1048576),
+            &path.field("secret_value"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `environment_variable`.  Defaults to `\"environment_variable\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

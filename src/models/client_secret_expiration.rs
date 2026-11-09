@@ -17,6 +17,8 @@ pub struct ClientSecretExpiration {
     #[serde(rename = "anchor", skip_serializing_if = "Option::is_none")]
     pub anchor: Option<Anchor>,
     /// The number of seconds from the anchor point to the expiration. Select a value between `10` and `7200` (2 hours). This default to 600 seconds (10 minutes) if not specified.  Defaults to `600`.
+    ///
+    /// Validation: `minimum: 10`, `maximum: 7200`.
     #[serde(rename = "seconds", skip_serializing_if = "Option::is_none")]
     pub seconds: Option<i64>,
 }
@@ -30,6 +32,20 @@ impl ClientSecretExpiration {
         }
     }
 }
+
+impl crate::models::validation::Validate for ClientSecretExpiration {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.seconds {
+            crate::models::validation::minimum(*value0, 10, &path.field("seconds"), errors);
+            crate::models::validation::maximum(*value0, 7200, &path.field("seconds"), errors);
+        }
+    }
+}
+
 /// The anchor point for the client secret expiration, meaning that `seconds` will be added to the `created_at` time of the client secret to produce an expiration timestamp. Only `created_at` is currently supported.  Defaults to `\"created_at\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Anchor {

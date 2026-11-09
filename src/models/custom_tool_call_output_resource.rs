@@ -57,6 +57,21 @@ impl CustomToolCallOutputResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for CustomToolCallOutputResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.caller,
+            &path.field("caller"),
+            errors,
+        );
+    }
+}
+
 /// The type of the custom tool call output. Always `custom_tool_call_output`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

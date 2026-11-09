@@ -17,6 +17,8 @@ pub struct InputContentParamInputText {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text sent to the model.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "text")]
     pub text: String,
 }
@@ -27,6 +29,23 @@ impl InputContentParamInputText {
         InputContentParamInputText { r#type, text }
     }
 }
+
+impl crate::models::validation::Validate for InputContentParamInputText {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.text,
+            Some(0),
+            Some(1048576),
+            &path.field("text"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `input_text`.  Defaults to `\"input_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

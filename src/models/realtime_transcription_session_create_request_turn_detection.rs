@@ -41,6 +41,18 @@ impl RealtimeTranscriptionSessionCreateRequestTurnDetection {
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for RealtimeTranscriptionSessionCreateRequestTurnDetection
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Type of turn detection. Only `server_vad` is currently supported for transcription sessions.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

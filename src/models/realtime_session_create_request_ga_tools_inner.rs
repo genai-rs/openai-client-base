@@ -32,3 +32,15 @@ impl std::fmt::Display for RealtimeSessionCreateRequestGaToolsInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeSessionCreateRequestGaToolsInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::McpTool(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

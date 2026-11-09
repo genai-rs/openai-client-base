@@ -28,6 +28,16 @@ impl OrganizationProjectCertificateActivationResponse {
         OrganizationProjectCertificateActivationResponse { object, data }
     }
 }
+
+impl crate::models::validation::Validate for OrganizationProjectCertificateActivationResponse {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The project certificate activation result type.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

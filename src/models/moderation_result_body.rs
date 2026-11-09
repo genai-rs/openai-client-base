@@ -58,6 +58,16 @@ impl ModerationResultBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for ModerationResultBody {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which was always `moderation_result` for successful moderation results.  Defaults to `\"moderation_result\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

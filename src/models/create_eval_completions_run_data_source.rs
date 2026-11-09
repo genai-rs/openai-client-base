@@ -43,6 +43,16 @@ impl CreateEvalCompletionsRunDataSource {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateEvalCompletionsRunDataSource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of run data source. Always `completions`.  Defaults to `\"completions\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

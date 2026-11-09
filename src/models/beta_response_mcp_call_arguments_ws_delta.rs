@@ -62,6 +62,16 @@ impl BetaResponseMcpCallArgumentsWsDelta {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseMcpCallArgumentsWsDelta {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the event. Always 'response.mcp_call_arguments.delta'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

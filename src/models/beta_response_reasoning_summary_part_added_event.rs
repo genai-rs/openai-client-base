@@ -62,6 +62,16 @@ impl BetaResponseReasoningSummaryPartAddedEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseReasoningSummaryPartAddedEvent {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the event. Always `response.reasoning_summary_part.added`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

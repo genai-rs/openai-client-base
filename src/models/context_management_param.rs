@@ -16,6 +16,8 @@ pub struct ContextManagementParam {
     #[serde(rename = "type")]
     pub r#type: String,
     /// Token threshold at which compaction should be triggered for this entry.
+    ///
+    /// Validation: `minimum: 1000`.
     #[serde(
         rename = "compact_threshold",
         default,
@@ -30,6 +32,23 @@ impl ContextManagementParam {
         ContextManagementParam {
             r#type,
             compact_threshold: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for ContextManagementParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.compact_threshold {
+            crate::models::validation::minimum(
+                *value0,
+                1000,
+                &path.field("compact_threshold"),
+                errors,
+            );
         }
     }
 }

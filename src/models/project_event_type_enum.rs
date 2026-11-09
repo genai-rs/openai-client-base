@@ -102,6 +102,15 @@ impl std::fmt::Display for ProjectEventTypeEnum {
     }
 }
 
+impl crate::models::validation::Validate for ProjectEventTypeEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ProjectEventTypeEnum {
     type Err = crate::models::ParseEnumError;
 

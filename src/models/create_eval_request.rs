@@ -44,3 +44,17 @@ impl CreateEvalRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateEvalRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.testing_criteria,
+            &path.field("testing_criteria"),
+            errors,
+        );
+    }
+}

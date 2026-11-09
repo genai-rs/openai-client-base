@@ -18,14 +18,20 @@ pub struct MessageItemResource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of this item, or null for legacy user messages whose ID was not recorded.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id", deserialize_with = "Option::deserialize")]
     pub id: Option<String>,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     #[serde(rename = "role")]
     pub role: models::SessionMessageRoleResource,
     /// The content of the message. User messages contain input text or images; assistant messages contain output text.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "content")]
     pub content: Vec<models::MessageContentResource>,
     #[serde(rename = "status")]
@@ -57,6 +63,38 @@ impl MessageItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for MessageItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.id {
+            crate::models::validation::length(value0, Some(0), None, &path.field("id"), errors);
+        }
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.content.len(),
+            Some(0),
+            Some(2000),
+            &path.field("content"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.content,
+            &path.field("content"),
+            errors,
+        );
+    }
+}
+
 /// The item type. Always `message`.  Defaults to `\"message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

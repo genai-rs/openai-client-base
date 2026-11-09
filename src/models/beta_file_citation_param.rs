@@ -16,6 +16,8 @@ pub struct BetaFileCitationParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The index of the file in the list of files.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "index")]
     pub index: i64,
     /// The ID of the file.
@@ -41,6 +43,17 @@ impl BetaFileCitationParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaFileCitationParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.index, 0, &path.field("index"), errors);
+    }
+}
+
 /// The citation type. Always `file_citation`.  Defaults to `\"file_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

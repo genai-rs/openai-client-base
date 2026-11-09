@@ -20,6 +20,8 @@ pub struct CodeInterpreterTool {
     #[serde(rename = "container")]
     pub container: models::CodeInterpreterToolContainer,
     /// The tool invocation context(s).
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(
         rename = "allowed_callers",
         default,
@@ -42,6 +44,30 @@ impl CodeInterpreterTool {
         }
     }
 }
+
+impl crate::models::validation::Validate for CodeInterpreterTool {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.container,
+            &path.field("container"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.allowed_callers {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("allowed_callers"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the code interpreter tool. Always `code_interpreter`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

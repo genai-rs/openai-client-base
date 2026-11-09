@@ -17,12 +17,18 @@ pub struct HostedEnvironmentFileResourceInline {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The session-scoped ID of the file in the execution environment.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The file's absolute path inside the environment.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "path")]
     pub path: String,
     /// The decoded file size in bytes.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "size_bytes")]
     pub size_bytes: i64,
 }
@@ -43,6 +49,19 @@ impl HostedEnvironmentFileResourceInline {
         }
     }
 }
+
+impl crate::models::validation::Validate for HostedEnvironmentFileResourceInline {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(&self.path, Some(0), None, &path.field("path"), errors);
+        crate::models::validation::minimum(self.size_bytes, 0, &path.field("size_bytes"), errors);
+    }
+}
+
 /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

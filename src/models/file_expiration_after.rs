@@ -17,6 +17,8 @@ pub struct FileExpirationAfter {
     #[serde(rename = "anchor")]
     pub anchor: Anchor,
     /// The number of seconds after the anchor time that the file will expire. Must be between 3600 (1 hour) and 2592000 (30 days).
+    ///
+    /// Validation: `minimum: 3600`, `maximum: 2592000`.
     #[serde(rename = "seconds")]
     pub seconds: i64,
 }
@@ -27,6 +29,18 @@ impl FileExpirationAfter {
         FileExpirationAfter { anchor, seconds }
     }
 }
+
+impl crate::models::validation::Validate for FileExpirationAfter {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.seconds, 3600, &path.field("seconds"), errors);
+        crate::models::validation::maximum(self.seconds, 2592000, &path.field("seconds"), errors);
+    }
+}
+
 /// Anchor timestamp after which the expiration policy applies. Supported anchors: `created_at`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Anchor {

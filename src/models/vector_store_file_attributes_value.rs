@@ -51,3 +51,15 @@ impl std::fmt::Display for VectorStoreFileAttributesValue {
         }
     }
 }
+
+impl crate::models::validation::Validate for VectorStoreFileAttributesValue {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Text(value) = self {
+            crate::models::validation::length(value, None, Some(512), path, errors);
+        }
+    }
+}

@@ -31,6 +31,21 @@ impl RunStepDetailsToolCallsObject {
         RunStepDetailsToolCallsObject { r#type, tool_calls }
     }
 }
+
+impl crate::models::validation::Validate for RunStepDetailsToolCallsObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.tool_calls,
+            &path.field("tool_calls"),
+            errors,
+        );
+    }
+}
+
 /// Always `tool_calls`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -34,6 +34,15 @@ impl std::fmt::Display for NoiseReductionType {
     }
 }
 
+impl crate::models::validation::Validate for NoiseReductionType {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for NoiseReductionType {
     type Err = crate::models::ParseEnumError;
 

@@ -130,3 +130,12 @@ impl std::fmt::Display for BetaAgentMessageContentInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaAgentMessageContentInner {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

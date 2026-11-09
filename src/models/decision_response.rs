@@ -14,9 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionResponse {
     /// The model used.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "model")]
     pub model: String,
     /// Answers in question order. Any question can return a refusal instead of an answer; other questions can still receive answers. A refusal has `type: \"refusal\"` and the question's `name`, or `null` if it was unnamed.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "answers")]
     pub answers: Vec<models::AnswerResource>,
     #[serde(rename = "usage")]
@@ -34,5 +38,32 @@ impl DecisionResponse {
             answers,
             usage,
         }
+    }
+}
+
+impl crate::models::validation::Validate for DecisionResponse {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.model, Some(0), None, &path.field("model"), errors);
+        crate::models::validation::items(
+            self.answers.len(),
+            Some(0),
+            Some(2000),
+            &path.field("answers"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.answers,
+            &path.field("answers"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.usage,
+            &path.field("usage"),
+            errors,
+        );
     }
 }

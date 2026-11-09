@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateSpendAlertBody {
     /// The alert threshold amount, in cents.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "threshold_amount")]
     pub threshold_amount: i64,
     /// The currency for the threshold amount.
@@ -43,6 +45,22 @@ impl CreateSpendAlertBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateSpendAlertBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(
+            self.threshold_amount,
+            0,
+            &path.field("threshold_amount"),
+            errors,
+        );
+    }
+}
+
 /// The currency for the threshold amount.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Currency {

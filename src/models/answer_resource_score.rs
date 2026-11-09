@@ -16,10 +16,12 @@ pub struct AnswerResourceScore {
     /// The type of the object. Always `score`.  Defaults to `\"score\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     #[serde(rename = "score")]
     pub score: f64,
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "probabilities")]
     pub probabilities: Vec<models::ScoreProbabilityResource>,
     #[serde(rename = "confidence")]
@@ -43,6 +45,31 @@ impl AnswerResourceScore {
         }
     }
 }
+
+impl crate::models::validation::Validate for AnswerResourceScore {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(value0, Some(0), None, &path.field("name"), errors);
+        }
+        crate::models::validation::items(
+            self.probabilities.len(),
+            Some(0),
+            Some(2000),
+            &path.field("probabilities"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.probabilities,
+            &path.field("probabilities"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `score`.  Defaults to `\"score\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

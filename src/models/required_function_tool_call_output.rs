@@ -31,6 +31,16 @@ impl RequiredFunctionToolCallOutput {
         }
     }
 }
+
+impl crate::models::validation::Validate for RequiredFunctionToolCallOutput {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "function_call_output")]

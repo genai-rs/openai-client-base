@@ -34,3 +34,16 @@ impl std::fmt::Display for LiveDataChannelConfigParamAllowedServerEvents {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDataChannelConfigParamAllowedServerEvents {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::ArrayOfLiveAllowedServerEventParams(value) = self {
+            crate::models::validation::items(value.len(), None, Some(256), path, errors);
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

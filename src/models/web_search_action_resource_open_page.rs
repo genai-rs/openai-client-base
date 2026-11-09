@@ -17,6 +17,8 @@ pub struct WebSearchActionResourceOpenPage {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the page that was opened.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "url", deserialize_with = "Option::deserialize")]
     pub url: Option<String>,
 }
@@ -27,6 +29,19 @@ impl WebSearchActionResourceOpenPage {
         WebSearchActionResourceOpenPage { r#type, url }
     }
 }
+
+impl crate::models::validation::Validate for WebSearchActionResourceOpenPage {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.url {
+            crate::models::validation::length(value0, Some(0), None, &path.field("url"), errors);
+        }
+    }
+}
+
 /// The type of the object. Always `open_page`.  Defaults to `\"open_page\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

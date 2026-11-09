@@ -162,6 +162,22 @@ impl ResponsesWebSocketStreamEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponsesWebSocketStreamEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.response,
+            &path.field("response"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(&self.item, &path.field("item"), errors);
+    }
+}
+
 /// The event type identifier.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

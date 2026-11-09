@@ -17,6 +17,8 @@ pub struct NetworkPolicyResource {
     #[serde(rename = "access")]
     pub access: models::NetworkAccessResource,
     /// Domains the environment may access when network access is restricted.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "allowed_domains")]
     pub allowed_domains: Vec<String>,
 }
@@ -30,6 +32,31 @@ impl NetworkPolicyResource {
         NetworkPolicyResource {
             access,
             allowed_domains,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for NetworkPolicyResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.allowed_domains.len(),
+            Some(0),
+            Some(2000),
+            &path.field("allowed_domains"),
+            errors,
+        );
+        for (index0, item0) in self.allowed_domains.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                None,
+                &path.field("allowed_domains").index(index0),
+                errors,
+            );
         }
     }
 }

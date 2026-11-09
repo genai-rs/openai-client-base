@@ -112,3 +112,12 @@ impl std::fmt::Display for BetaResponseSteerRequiredInput {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseSteerRequiredInput {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

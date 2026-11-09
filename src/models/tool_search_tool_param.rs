@@ -47,6 +47,16 @@ impl ToolSearchToolParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ToolSearchToolParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the tool. Always `tool_search`.  Defaults to `\"tool_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

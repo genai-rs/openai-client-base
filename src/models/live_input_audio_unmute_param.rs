@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInputAudioUnmuteParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
+    ///
+    /// Validation: `maxLength: 512`.
     #[serde(
         rename = "event_id",
         default,
@@ -35,6 +37,25 @@ impl LiveInputAudioUnmuteParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveInputAudioUnmuteParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.event_id {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(512),
+                &path.field("event_id"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The Live client event type. Always `session.input_audio.unmute`.  Defaults to `\"session.input_audio.unmute\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -84,3 +84,15 @@ impl std::fmt::Display for MessageDeltaObjectDeltaContentInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for MessageDeltaObjectDeltaContentInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::MessageDeltaContentTextObject(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

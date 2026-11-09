@@ -27,6 +27,16 @@ impl BetaRefusalContent {
         BetaRefusalContent { r#type, refusal }
     }
 }
+
+impl crate::models::validation::Validate for BetaRefusalContent {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the refusal. Always `refusal`.  Defaults to `\"refusal\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

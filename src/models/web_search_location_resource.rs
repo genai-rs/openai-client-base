@@ -14,15 +14,23 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchLocationResource {
     /// The two-letter ISO country code, such as `US`.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "country", deserialize_with = "Option::deserialize")]
     pub country: Option<String>,
     /// The region or state name.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "region", deserialize_with = "Option::deserialize")]
     pub region: Option<String>,
     /// The city name.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "city", deserialize_with = "Option::deserialize")]
     pub city: Option<String>,
     /// The IANA timezone, such as `America/Los_Angeles`.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "timezone", deserialize_with = "Option::deserialize")]
     pub timezone: Option<String>,
 }
@@ -40,6 +48,39 @@ impl WebSearchLocationResource {
             region,
             city,
             timezone,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for WebSearchLocationResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.country {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("country"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.region {
+            crate::models::validation::length(value0, Some(0), None, &path.field("region"), errors);
+        }
+        if let Some(value0) = &self.city {
+            crate::models::validation::length(value0, Some(0), None, &path.field("city"), errors);
+        }
+        if let Some(value0) = &self.timezone {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("timezone"),
+                errors,
+            );
         }
     }
 }

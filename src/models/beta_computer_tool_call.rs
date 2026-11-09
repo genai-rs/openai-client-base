@@ -65,6 +65,16 @@ impl BetaComputerToolCall {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaComputerToolCall {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the computer call. Always `computer_call`.  Defaults to `\"computer_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

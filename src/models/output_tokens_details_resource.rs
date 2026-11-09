@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct OutputTokensDetailsResource {
+    /// Validation: `minimum: -2147483648`, `maximum: 2147483647`.
     #[serde(rename = "reasoning_tokens")]
     pub reasoning_tokens: i64,
 }
@@ -19,5 +20,26 @@ pub struct OutputTokensDetailsResource {
 impl OutputTokensDetailsResource {
     pub fn new(reasoning_tokens: i64) -> OutputTokensDetailsResource {
         OutputTokensDetailsResource { reasoning_tokens }
+    }
+}
+
+impl crate::models::validation::Validate for OutputTokensDetailsResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(
+            self.reasoning_tokens,
+            -2147483648,
+            &path.field("reasoning_tokens"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.reasoning_tokens,
+            2147483647,
+            &path.field("reasoning_tokens"),
+            errors,
+        );
     }
 }

@@ -18,9 +18,13 @@ pub struct SessionEventError {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "event_id")]
     pub event_id: String,
     /// The ID of the session associated with the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "session_id")]
     pub session_id: String,
     #[serde(rename = "error")]
@@ -43,6 +47,35 @@ impl SessionEventError {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionEventError {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.event_id,
+            Some(0),
+            None,
+            &path.field("event_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.session_id,
+            Some(0),
+            None,
+            &path.field("session_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.error,
+            &path.field("error"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `error`.  Defaults to `\"error\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

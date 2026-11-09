@@ -17,6 +17,8 @@ pub struct RotateMcpOauthTokenEndpointAuthParamClientSecretBasic {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The replacement OAuth client secret. Omit or pass `null` to keep the stored secret. This secret is never returned in resources.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "client_secret",
         default,
@@ -35,6 +37,25 @@ impl RotateMcpOauthTokenEndpointAuthParamClientSecretBasic {
         }
     }
 }
+
+impl crate::models::validation::Validate for RotateMcpOauthTokenEndpointAuthParamClientSecretBasic {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.client_secret {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("client_secret"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the object. Always `client_secret_basic`.  Defaults to `\"client_secret_basic\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

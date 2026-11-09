@@ -17,9 +17,13 @@ pub struct HostedSkillParamSkillReference {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the skill created through `/v1/skills`.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "skill_id")]
     pub skill_id: String,
     /// The skill version, a positive integer or `latest`; omission selects the default.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "version",
         default,
@@ -39,6 +43,32 @@ impl HostedSkillParamSkillReference {
         }
     }
 }
+
+impl crate::models::validation::Validate for HostedSkillParamSkillReference {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.skill_id,
+            Some(1),
+            Some(64),
+            &path.field("skill_id"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.version {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("version"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the object. Always `skill_reference`.  Defaults to `\"skill_reference\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -18,15 +18,23 @@ pub struct McpCallItemResource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the MCP call item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The label of the MCP server.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "server_label")]
     pub server_label: String,
     /// The name of the MCP tool.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name")]
     pub name: String,
     /// The arguments passed to the MCP tool.
@@ -68,6 +76,32 @@ impl McpCallItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for McpCallItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.server_label,
+            Some(0),
+            None,
+            &path.field("server_label"),
+            errors,
+        );
+        crate::models::validation::length(&self.name, Some(0), None, &path.field("name"), errors);
+    }
+}
+
 /// The item type. Always `mcp_call`.  Defaults to `\"mcp_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

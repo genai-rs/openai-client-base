@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentPackagesParam {
     /// Python packages to install. Defaults to an empty list.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "python",
         default,
@@ -22,6 +24,8 @@ pub struct EnvironmentPackagesParam {
     )]
     pub python: Option<Option<Vec<String>>>,
     /// System packages to install. Defaults to an empty list.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "system",
         default,
@@ -30,6 +34,8 @@ pub struct EnvironmentPackagesParam {
     )]
     pub system: Option<Option<Vec<String>>>,
     /// npm packages to install globally. Defaults to an empty list.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "npm",
         default,
@@ -46,6 +52,69 @@ impl EnvironmentPackagesParam {
             python: None,
             system: None,
             npm: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for EnvironmentPackagesParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.python {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("python"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("python").index(index1),
+                    errors,
+                );
+            }
+        }
+        if let Some(Some(value0)) = &self.system {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("system"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("system").index(index1),
+                    errors,
+                );
+            }
+        }
+        if let Some(Some(value0)) = &self.npm {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("npm"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("npm").index(index1),
+                    errors,
+                );
+            }
         }
     }
 }

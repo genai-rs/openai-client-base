@@ -28,3 +28,17 @@ impl MessageDeltaContentTextObjectText {
         }
     }
 }
+
+impl crate::models::validation::Validate for MessageDeltaContentTextObjectText {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.annotations,
+            &path.field("annotations"),
+            errors,
+        );
+    }
+}

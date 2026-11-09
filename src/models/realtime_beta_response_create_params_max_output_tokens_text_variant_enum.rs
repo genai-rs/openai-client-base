@@ -24,6 +24,17 @@ impl std::fmt::Display for RealtimeBetaResponseCreateParamsMaxOutputTokensTextVa
     }
 }
 
+impl crate::models::validation::Validate
+    for RealtimeBetaResponseCreateParamsMaxOutputTokensTextVariantEnum
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for RealtimeBetaResponseCreateParamsMaxOutputTokensTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

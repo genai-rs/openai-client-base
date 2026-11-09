@@ -17,6 +17,8 @@ pub struct SessionRequiredActionResourceEnvironmentConnection {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the environment to reconnect.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "environment_id")]
     pub environment_id: String,
 }
@@ -33,6 +35,23 @@ impl SessionRequiredActionResourceEnvironmentConnection {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionRequiredActionResourceEnvironmentConnection {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.environment_id,
+            Some(0),
+            None,
+            &path.field("environment_id"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `environment_connection`.  Defaults to `\"environment_connection\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

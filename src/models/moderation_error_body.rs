@@ -34,6 +34,16 @@ impl ModerationErrorBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for ModerationErrorBody {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which was always `error` for moderation failures.  Defaults to `\"error\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

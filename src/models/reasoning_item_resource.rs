@@ -18,12 +18,18 @@ pub struct ReasoningItemResource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the reasoning item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The reasoning summaries produced by the agent.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "summary")]
     pub summary: Vec<models::SummaryTextResource>,
     /// The status of the reasoning item.
@@ -49,6 +55,36 @@ impl ReasoningItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for ReasoningItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.summary.len(),
+            Some(0),
+            Some(2000),
+            &path.field("summary"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.summary,
+            &path.field("summary"),
+            errors,
+        );
+    }
+}
+
 /// The item type. Always `reasoning`.  Defaults to `\"reasoning\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

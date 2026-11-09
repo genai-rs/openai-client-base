@@ -35,6 +35,8 @@ pub struct ServerVad {
     #[serde(rename = "interrupt_response", skip_serializing_if = "Option::is_none")]
     pub interrupt_response: Option<bool>,
     /// Optional timeout after which a model response will be triggered automatically. This is useful for situations in which a long pause from the user is unexpected, such as a phone call. The model will effectively prompt the user to continue the conversation based on the current context.  The timeout value will be applied after the last model response's audio has finished playing, i.e. it's set to the `response.done` time plus audio playback duration.  An `input_audio_buffer.timeout_triggered` event (plus events associated with the Response) will be emitted when the timeout is reached. Idle timeout is currently only supported for `server_vad` mode.
+    ///
+    /// Validation: `minimum: 5000`, `maximum: 30000`.
     #[serde(
         rename = "idle_timeout_ms",
         default,
@@ -58,6 +60,30 @@ impl ServerVad {
         }
     }
 }
+
+impl crate::models::validation::Validate for ServerVad {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.idle_timeout_ms {
+            crate::models::validation::minimum(
+                *value0,
+                5000,
+                &path.field("idle_timeout_ms"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                30000,
+                &path.field("idle_timeout_ms"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Type of turn detection, `server_vad` to turn on simple Server VAD.  Defaults to `\"server_vad\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

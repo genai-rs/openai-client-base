@@ -19,6 +19,8 @@ pub struct LiveSessionAudioFormatPcmParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Audio sample rate in hertz. Live WebSocket PCM audio supports 16000 or 24000 Hz.
+    ///
+    /// Validation: `minimum: 16000`, `maximum: 24000`.
     #[serde(rename = "rate")]
     pub rate: Rate,
 }
@@ -29,6 +31,16 @@ impl LiveSessionAudioFormatPcmParam {
         LiveSessionAudioFormatPcmParam { r#type, rate }
     }
 }
+
+impl crate::models::validation::Validate for LiveSessionAudioFormatPcmParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The audio encoding. Always `audio/pcm`.  Defaults to `\"audio/pcm\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

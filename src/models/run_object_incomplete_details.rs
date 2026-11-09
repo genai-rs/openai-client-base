@@ -24,6 +24,16 @@ impl RunObjectIncompleteDetails {
         RunObjectIncompleteDetails { reason: None }
     }
 }
+
+impl crate::models::validation::Validate for RunObjectIncompleteDetails {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The reason why the run is incomplete. This will point to which specific token limit was reached over the course of the run.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Reason {

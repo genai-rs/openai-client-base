@@ -30,6 +30,16 @@ impl CustomToolPropertiesFormatGrammarFormat {
         CustomToolPropertiesFormatGrammarFormat { r#type, grammar }
     }
 }
+
+impl crate::models::validation::Validate for CustomToolPropertiesFormatGrammarFormat {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Grammar format. Always `grammar`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

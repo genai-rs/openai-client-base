@@ -13,6 +13,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AgentSessionConnectPayloadResource {
     /// The URL used to connect the self-hosted environment.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "remote_url")]
     pub remote_url: String,
 }
@@ -20,5 +22,21 @@ pub struct AgentSessionConnectPayloadResource {
 impl AgentSessionConnectPayloadResource {
     pub fn new(remote_url: String) -> AgentSessionConnectPayloadResource {
         AgentSessionConnectPayloadResource { remote_url }
+    }
+}
+
+impl crate::models::validation::Validate for AgentSessionConnectPayloadResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.remote_url,
+            Some(0),
+            None,
+            &path.field("remote_url"),
+            errors,
+        );
     }
 }

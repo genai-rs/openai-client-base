@@ -19,12 +19,18 @@ pub struct ProgramItemParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The stable call ID of the program item.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "call_id")]
     pub call_id: String,
     /// The JavaScript source executed by programmatic tool calling.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "code")]
     pub code: String,
     /// Opaque program replay fingerprint that must be round-tripped.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "fingerprint")]
     pub fingerprint: String,
 }
@@ -46,6 +52,37 @@ impl ProgramItemParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ProgramItemParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.call_id,
+            Some(1),
+            Some(64),
+            &path.field("call_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.code,
+            None,
+            Some(10485760),
+            &path.field("code"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.fingerprint,
+            None,
+            Some(10485760),
+            &path.field("fingerprint"),
+            errors,
+        );
+    }
+}
+
 /// The item type. Always `program`.  Defaults to `\"program\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

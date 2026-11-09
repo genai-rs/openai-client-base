@@ -66,3 +66,12 @@ impl std::fmt::Display for UserMessageItemContentInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for UserMessageItemContentInner {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

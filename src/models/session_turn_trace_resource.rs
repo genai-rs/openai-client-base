@@ -13,18 +13,24 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionTurnTraceResource {
     /// The root turn ID. Use this ID as the pagination anchor.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type, which is always `agent.session.trace`.  Defaults to `\"agent.session.trace\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The session that owns this trace.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "session_id")]
     pub session_id: String,
     /// The Unix timestamp in seconds when the root turn was created.
     #[serde(rename = "created_at")]
     pub created_at: i64,
     /// An OTLP JSON ExportTraceServiceRequest containing resourceSpans. Only currently published data is returned; later trace updates are not awaited.
+    ///
+    /// Validation: `minProperties: 0`.
     #[serde(rename = "otlp")]
     pub otlp: std::collections::HashMap<String, serde_json::Value>,
 }
@@ -46,6 +52,31 @@ impl SessionTurnTraceResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionTurnTraceResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.session_id,
+            Some(0),
+            None,
+            &path.field("session_id"),
+            errors,
+        );
+        crate::models::validation::properties(
+            self.otlp.len(),
+            Some(0),
+            None,
+            &path.field("otlp"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always `agent.session.trace`.  Defaults to `\"agent.session.trace\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

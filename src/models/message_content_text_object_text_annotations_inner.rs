@@ -78,3 +78,21 @@ impl std::fmt::Display for MessageContentTextObjectTextAnnotationsInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for MessageContentTextObjectTextAnnotationsInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::MessageContentTextAnnotationsFileCitationObject(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::MessageContentTextAnnotationsFilePathObject(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

@@ -17,9 +17,13 @@ pub struct LiveSipTrunkAuth {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Provider username. Must contain a non-whitespace character, be at most 256 bytes, and contain no CR, LF, or NUL.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "username")]
     pub username: String,
     /// Provider password. Must be at most 4096 bytes and contain no CR, LF, or NUL.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "password")]
     pub password: String,
 }
@@ -34,6 +38,30 @@ impl LiveSipTrunkAuth {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveSipTrunkAuth {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.username,
+            Some(1),
+            None,
+            &path.field("username"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.password,
+            Some(1),
+            None,
+            &path.field("password"),
+            errors,
+        );
+    }
+}
+
 /// Use `digest` for SIP Digest authentication. Handles 401 and 407 challenges.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

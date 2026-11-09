@@ -15,9 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentTemplateResource {
     /// The ID of the reusable environment template.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// An optional human-readable display name for the template.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     /// The object type. Always `agent.environment.template`.  Defaults to `\"agent.environment.template\"`.
@@ -36,15 +40,23 @@ pub struct EnvironmentTemplateResource {
     #[serde(rename = "desktop")]
     pub desktop: models::DesktopResource,
     /// Directories that expose capabilities to the agent.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "capability_directories")]
     pub capability_directories: Vec<String>,
     /// Safe skill metadata, preserving unresolved version selectors.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 200`.
     #[serde(rename = "skills")]
     pub skills: Vec<models::HostedTemplateSkillResource>,
     /// Safe plugin metadata, excluding inline archive contents.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 32`.
     #[serde(rename = "plugins")]
     pub plugins: Vec<models::HostedPluginResource>,
     /// Safe file metadata, excluding contents and session-scoped file IDs.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 50`.
     #[serde(rename = "files")]
     pub files: Vec<models::HostedTemplateFileResource>,
 }
@@ -81,6 +93,82 @@ impl EnvironmentTemplateResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for EnvironmentTemplateResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(value0, Some(0), None, &path.field("name"), errors);
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.packages,
+            &path.field("packages"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.network,
+            &path.field("network"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.capability_directories.len(),
+            Some(0),
+            Some(2000),
+            &path.field("capability_directories"),
+            errors,
+        );
+        for (index0, item0) in self.capability_directories.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                None,
+                &path.field("capability_directories").index(index0),
+                errors,
+            );
+        }
+        crate::models::validation::items(
+            self.skills.len(),
+            Some(0),
+            Some(200),
+            &path.field("skills"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.skills,
+            &path.field("skills"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.plugins.len(),
+            Some(0),
+            Some(32),
+            &path.field("plugins"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.plugins,
+            &path.field("plugins"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.files.len(),
+            Some(0),
+            Some(50),
+            &path.field("files"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.files,
+            &path.field("files"),
+            errors,
+        );
+    }
+}
+
 /// The object type. Always `agent.environment.template`.  Defaults to `\"agent.environment.template\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

@@ -14,9 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAssistantRequestToolResourcesFileSearch {
     /// The [vector store](https://developers.openai.com/api/reference/resources/vector_stores) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
+    ///
+    /// Validation: `maxItems: 1`.
     #[serde(rename = "vector_store_ids", skip_serializing_if = "Option::is_none")]
     pub vector_store_ids: Option<Vec<String>>,
     /// A helper to create a [vector store](https://developers.openai.com/api/reference/resources/vector_stores) with file_ids and attach it to this assistant. There can be a maximum of 1 vector store attached to the assistant.
+    ///
+    /// Validation: `maxItems: 1`.
     #[serde(rename = "vector_stores", skip_serializing_if = "Option::is_none")]
     pub vector_stores:
         Option<Vec<models::CreateAssistantRequestToolResourcesFileSearchVectorStoresInner>>,
@@ -27,6 +31,38 @@ impl CreateAssistantRequestToolResourcesFileSearch {
         CreateAssistantRequestToolResourcesFileSearch {
             vector_store_ids: None,
             vector_stores: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CreateAssistantRequestToolResourcesFileSearch {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.vector_store_ids {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(1),
+                &path.field("vector_store_ids"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.vector_stores {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(1),
+                &path.field("vector_stores"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("vector_stores"),
+                errors,
+            );
         }
     }
 }

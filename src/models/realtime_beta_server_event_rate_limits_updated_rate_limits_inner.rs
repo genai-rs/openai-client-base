@@ -36,6 +36,18 @@ impl RealtimeBetaServerEventRateLimitsUpdatedRateLimitsInner {
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for RealtimeBetaServerEventRateLimitsUpdatedRateLimitsInner
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The name of the rate limit (`requests`, `tokens`).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Name {

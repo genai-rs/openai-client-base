@@ -17,6 +17,8 @@ pub struct CreateVideoJsonBody {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<models::VideoModel>,
     /// Text prompt that describes the video to generate.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 32000`.
     #[serde(rename = "prompt")]
     pub prompt: String,
     #[serde(rename = "input_reference", skip_serializing_if = "Option::is_none")]
@@ -37,5 +39,26 @@ impl CreateVideoJsonBody {
             seconds: None,
             size: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for CreateVideoJsonBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.prompt,
+            Some(1),
+            Some(32000),
+            &path.field("prompt"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.input_reference,
+            &path.field("input_reference"),
+            errors,
+        );
     }
 }

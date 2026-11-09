@@ -14,12 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PublicUpdateEndpointBody {
     /// A new human-readable name for the webhook endpoint.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// A new HTTPS URL that receives webhook deliveries.
+    ///
+    /// Validation: `maxLength: 2048`, `pattern: ^https://`.
     #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     /// The complete set of event types that should trigger deliveries.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "event_types", skip_serializing_if = "Option::is_none")]
     pub event_types: Option<Vec<models::ProjectEventTypeEnum>>,
 }
@@ -33,3 +39,43 @@ impl PublicUpdateEndpointBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for PublicUpdateEndpointBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(256),
+                &path.field("name"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.url {
+            crate::models::validation::length(value0, None, Some(2048), &path.field("url"), errors);
+            crate::models::validation::pattern(
+                value0,
+                &PATTERN_0,
+                r"^https://",
+                &path.field("url"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.event_types {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("event_types"),
+                errors,
+            );
+        }
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^https://").ok());

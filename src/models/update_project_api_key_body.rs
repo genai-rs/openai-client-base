@@ -13,6 +13,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateProjectApiKeyBody {
     /// Number of seconds from this request until the API key expires. Must comply with the organization and project expiry policies. Expired keys cannot be updated. Retrying resets the expiry relative to the new request. Omit to keep the current expiration.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 31536000`.
     #[serde(rename = "expires_in_seconds", skip_serializing_if = "Option::is_none")]
     pub expires_in_seconds: Option<i64>,
     /// Replace the API key scope restrictions. Omit to leave scopes unchanged. An empty array removes key restrictions (All permissions), subject to the owner's effective permissions. Use [\"api.all.read\"] for read-only access. Scopes do not change the owner's roles or grant administrative permissions.
@@ -25,6 +27,29 @@ impl UpdateProjectApiKeyBody {
         UpdateProjectApiKeyBody {
             expires_in_seconds: None,
             scopes: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for UpdateProjectApiKeyBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.expires_in_seconds {
+            crate::models::validation::minimum(
+                *value0,
+                1,
+                &path.field("expires_in_seconds"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                31536000,
+                &path.field("expires_in_seconds"),
+                errors,
+            );
         }
     }
 }

@@ -22,8 +22,10 @@ pub struct MessageContentTextAnnotationsFileCitationObject {
     pub text: String,
     #[serde(rename = "file_citation")]
     pub file_citation: models::MessageContentTextAnnotationsFileCitationObjectFileCitation,
+    /// Validation: `minimum: 0`.
     #[serde(rename = "start_index")]
     pub start_index: i64,
+    /// Validation: `minimum: 0`.
     #[serde(rename = "end_index")]
     pub end_index: i64,
 }
@@ -46,6 +48,18 @@ impl MessageContentTextAnnotationsFileCitationObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for MessageContentTextAnnotationsFileCitationObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.start_index, 0, &path.field("start_index"), errors);
+        crate::models::validation::minimum(self.end_index, 0, &path.field("end_index"), errors);
+    }
+}
+
 /// Always `file_citation`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

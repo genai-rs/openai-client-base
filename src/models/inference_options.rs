@@ -27,3 +27,12 @@ impl InferenceOptions {
         InferenceOptions { tool_choice, model }
     }
 }
+
+impl crate::models::validation::Validate for InferenceOptions {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

@@ -29,6 +29,15 @@ impl std::fmt::Display for McpConnectionOriginParam {
     }
 }
 
+impl crate::models::validation::Validate for McpConnectionOriginParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for McpConnectionOriginParam {
     type Err = crate::models::ParseEnumError;
 

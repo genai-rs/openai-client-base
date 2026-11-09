@@ -76,3 +76,15 @@ impl std::fmt::Display for CreateEvalResponsesRunDataSourceSource {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateEvalResponsesRunDataSourceSource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::EvalResponsesSource(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

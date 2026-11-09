@@ -22,6 +22,8 @@ pub struct LiveSessionUpdateParams {
     )]
     pub delegation: Option<Option<models::LiveSessionUpdateParamsDelegation>>,
     /// At most one Decisions trigger per transcript event type. Triggers run independently of delegation. On update, omit triggers to keep the current configuration, send a list to replace it, or send an empty list to disable triggers.
+    ///
+    /// Validation: `maxItems: 2`.
     #[serde(rename = "triggers", skip_serializing_if = "Option::is_none")]
     pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam2>>,
 }
@@ -32,6 +34,34 @@ impl LiveSessionUpdateParams {
         LiveSessionUpdateParams {
             delegation: None,
             triggers: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for LiveSessionUpdateParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.delegation,
+            &path.field("delegation"),
+            errors,
+        );
+        if let Some(value0) = &self.triggers {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(2),
+                &path.field("triggers"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("triggers"),
+                errors,
+            );
         }
     }
 }

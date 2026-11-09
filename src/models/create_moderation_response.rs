@@ -35,3 +35,12 @@ impl CreateModerationResponse {
         CreateModerationResponse { id, model, results }
     }
 }
+
+impl crate::models::validation::Validate for CreateModerationResponse {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

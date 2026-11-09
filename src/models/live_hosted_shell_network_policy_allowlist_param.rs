@@ -16,6 +16,8 @@ pub struct LiveHostedShellNetworkPolicyAllowlistParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// A list of allowed domains when type is `allowlist`.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "allowed_domains")]
     pub allowed_domains: Vec<String>,
 }
@@ -31,6 +33,23 @@ impl LiveHostedShellNetworkPolicyAllowlistParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveHostedShellNetworkPolicyAllowlistParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.allowed_domains.len(),
+            Some(1),
+            None,
+            &path.field("allowed_domains"),
+            errors,
+        );
+    }
+}
+
 /// Allow outbound network access only to specified domains. Always `allowlist`.  Defaults to `\"allowlist\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -41,6 +41,15 @@ impl std::fmt::Display for AudioResponseFormat {
     }
 }
 
+impl crate::models::validation::Validate for AudioResponseFormat {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for AudioResponseFormat {
     type Err = crate::models::ParseEnumError;
 

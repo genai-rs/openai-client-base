@@ -44,3 +44,22 @@ impl CreateThreadRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateThreadRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.messages,
+            &path.field("messages"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.tool_resources,
+            &path.field("tool_resources"),
+            errors,
+        );
+    }
+}

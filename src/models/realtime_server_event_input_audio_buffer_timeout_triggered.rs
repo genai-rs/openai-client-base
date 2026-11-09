@@ -48,6 +48,16 @@ impl RealtimeServerEventInputAudioBufferTimeoutTriggered {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeServerEventInputAudioBufferTimeoutTriggered {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, must be `input_audio_buffer.timeout_triggered`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

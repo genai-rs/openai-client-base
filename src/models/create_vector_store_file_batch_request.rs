@@ -14,14 +14,20 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVectorStoreFileBatchRequest {
     /// A list of [File](https://developers.openai.com/api/reference/resources/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files. If `attributes` or `chunking_strategy` are provided, they will be applied to all files in the batch. The maximum batch size is 2000 files. This endpoint is recommended for multi-file ingestion and helps reduce per-vector-store write request pressure. Mutually exclusive with `files`.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 2000`.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
     /// A list of objects that each include a `file_id` plus optional `attributes` or `chunking_strategy`. Use this when you need to override metadata for specific files. The global `attributes` or `chunking_strategy` will be ignored and must be specified for each file. The maximum batch size is 2000 files. This endpoint is recommended for multi-file ingestion and helps reduce per-vector-store write request pressure. Mutually exclusive with `file_ids`.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 2000`.
     #[serde(rename = "files", skip_serializing_if = "Option::is_none")]
     pub files: Option<Vec<models::CreateVectorStoreFileRequest>>,
     #[serde(rename = "chunking_strategy", skip_serializing_if = "Option::is_none")]
     pub chunking_strategy: Option<models::ChunkingStrategyRequestParam>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard. Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters, booleans, or numbers.
+    ///
+    /// Validation: `maxProperties: 16`.
     #[serde(
         rename = "attributes",
         default,
@@ -39,6 +45,57 @@ impl CreateVectorStoreFileBatchRequest {
             files: None,
             chunking_strategy: None,
             attributes: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CreateVectorStoreFileBatchRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.file_ids {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                Some(2000),
+                &path.field("file_ids"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.files {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                Some(2000),
+                &path.field("files"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("files"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.chunking_strategy,
+            &path.field("chunking_strategy"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.attributes {
+            crate::models::validation::properties(
+                value0.len(),
+                None,
+                Some(16),
+                &path.field("attributes"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("attributes"),
+                errors,
+            );
         }
     }
 }

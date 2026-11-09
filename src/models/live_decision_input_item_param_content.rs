@@ -53,3 +53,20 @@ impl std::fmt::Display for LiveDecisionInputItemParamContent {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionInputItemParamContent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Text(value) => {
+                crate::models::validation::length(value, None, Some(10485760), path, errors);
+            }
+            Self::ArrayOfItems(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

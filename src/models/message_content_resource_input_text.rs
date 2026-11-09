@@ -17,6 +17,8 @@ pub struct MessageContentResourceInputText {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text supplied by the user.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "text")]
     pub text: String,
 }
@@ -27,6 +29,17 @@ impl MessageContentResourceInputText {
         MessageContentResourceInputText { r#type, text }
     }
 }
+
+impl crate::models::validation::Validate for MessageContentResourceInputText {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.text, Some(0), None, &path.field("text"), errors);
+    }
+}
+
 /// The type of the object. Always `input_text`.  Defaults to `\"input_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

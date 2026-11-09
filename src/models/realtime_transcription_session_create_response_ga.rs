@@ -55,6 +55,21 @@ impl RealtimeTranscriptionSessionCreateResponseGa {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeTranscriptionSessionCreateResponseGa {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.audio,
+            &path.field("audio"),
+            errors,
+        );
+    }
+}
+
 /// The type of session. Always `transcription` for transcription sessions.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

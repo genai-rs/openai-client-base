@@ -15,6 +15,8 @@ pub struct AdminApiKeysCreateRequest {
     #[serde(rename = "name")]
     pub name: String,
     /// The number of seconds until the API key expires. Omit this field for a key that does not expire.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 31536000`.
     #[serde(rename = "expires_in_seconds", skip_serializing_if = "Option::is_none")]
     pub expires_in_seconds: Option<i64>,
 }
@@ -24,6 +26,29 @@ impl AdminApiKeysCreateRequest {
         AdminApiKeysCreateRequest {
             name,
             expires_in_seconds: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for AdminApiKeysCreateRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.expires_in_seconds {
+            crate::models::validation::minimum(
+                *value0,
+                1,
+                &path.field("expires_in_seconds"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                31536000,
+                &path.field("expires_in_seconds"),
+                errors,
+            );
         }
     }
 }

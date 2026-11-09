@@ -71,3 +71,20 @@ impl std::fmt::Display for RealtimeServerEventSessionUpdatedSession {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeServerEventSessionUpdatedSession {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::RealtimeSessionCreateResponseGa(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeTranscriptionSessionCreateResponseGa(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

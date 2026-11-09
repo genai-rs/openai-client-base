@@ -57,6 +57,21 @@ impl LiveDecisionEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.event,
+            &path.field("event"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"decision.event\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

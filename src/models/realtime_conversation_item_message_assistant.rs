@@ -51,6 +51,16 @@ impl RealtimeConversationItemMessageAssistant {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeConversationItemMessageAssistant {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Identifier for the API object being returned - always `realtime.item`. Optional when creating a new item.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

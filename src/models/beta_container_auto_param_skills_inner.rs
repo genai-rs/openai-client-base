@@ -66,3 +66,21 @@ impl std::fmt::Display for BetaContainerAutoParamSkillsInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaContainerAutoParamSkillsInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::BetaSkillReferenceParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaInlineSkillParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

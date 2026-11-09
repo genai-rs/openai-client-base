@@ -71,3 +71,33 @@ impl std::fmt::Display for CreateEmbeddingRequestInput {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateEmbeddingRequestInput {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::ArrayOfStrings(value) => {
+                crate::models::validation::items(value.len(), Some(1), Some(2048), path, errors);
+            }
+            Self::ArrayOfIntegers(value) => {
+                crate::models::validation::items(value.len(), Some(1), Some(2048), path, errors);
+            }
+            Self::ArrayOfIntegerArrays(value) => {
+                crate::models::validation::items(value.len(), Some(1), Some(2048), path, errors);
+                for (index0, item0) in value.iter().enumerate() {
+                    crate::models::validation::items(
+                        item0.len(),
+                        Some(1),
+                        None,
+                        &path.index(index0),
+                        errors,
+                    );
+                }
+            }
+            _ => {}
+        }
+    }
+}

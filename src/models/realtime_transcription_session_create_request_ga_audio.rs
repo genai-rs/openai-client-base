@@ -24,3 +24,17 @@ impl RealtimeTranscriptionSessionCreateRequestGaAudio {
         RealtimeTranscriptionSessionCreateRequestGaAudio { input: None }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeTranscriptionSessionCreateRequestGaAudio {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
+    }
+}

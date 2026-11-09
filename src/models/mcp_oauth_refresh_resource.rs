@@ -15,15 +15,23 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct McpOauthRefreshResource {
     /// The HTTPS OAuth token endpoint used for refresh.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "token_endpoint")]
     pub token_endpoint: String,
     /// The OAuth client ID used when requesting a new access token.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "client_id")]
     pub client_id: String,
     /// The resource URI sent to the OAuth token endpoint during refresh, if configured.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "resource", deserialize_with = "Option::deserialize")]
     pub resource: Option<String>,
     /// Space-separated OAuth scopes requested during refresh, if configured.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "scope", deserialize_with = "Option::deserialize")]
     pub scope: Option<String>,
     #[serde(rename = "token_endpoint_auth")]
@@ -45,6 +53,41 @@ impl McpOauthRefreshResource {
             resource,
             scope,
             token_endpoint_auth,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for McpOauthRefreshResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.token_endpoint,
+            Some(0),
+            None,
+            &path.field("token_endpoint"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.client_id,
+            Some(0),
+            None,
+            &path.field("client_id"),
+            errors,
+        );
+        if let Some(value0) = &self.resource {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("resource"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.scope {
+            crate::models::validation::length(value0, Some(0), None, &path.field("scope"), errors);
         }
     }
 }

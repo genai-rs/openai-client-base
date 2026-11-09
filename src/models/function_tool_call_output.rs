@@ -61,6 +61,21 @@ impl FunctionToolCallOutput {
         }
     }
 }
+
+impl crate::models::validation::Validate for FunctionToolCallOutput {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.caller,
+            &path.field("caller"),
+            errors,
+        );
+    }
+}
+
 /// The type of the function tool call output. Always `function_call_output`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

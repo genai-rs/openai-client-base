@@ -22,3 +22,17 @@ impl ErrorResponse {
         ErrorResponse { error }
     }
 }
+
+impl crate::models::validation::Validate for ErrorResponse {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.error,
+            &path.field("error"),
+            errors,
+        );
+    }
+}

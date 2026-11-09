@@ -27,6 +27,16 @@ impl RunObjectLastError {
         RunObjectLastError { code, message }
     }
 }
+
+impl crate::models::validation::Validate for RunObjectLastError {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// One of `server_error`, `rate_limit_exceeded`, or `invalid_prompt`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Code {

@@ -34,3 +34,17 @@ impl std::fmt::Display for CreateFineTuningJobRequestHyperparametersLearningRate
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for CreateFineTuningJobRequestHyperparametersLearningRateMultiplier
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Number(value) = self {
+            crate::models::validation::exclusive_minimum(*value, 0.0, path, errors);
+        }
+    }
+}

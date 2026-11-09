@@ -29,6 +29,15 @@ impl std::fmt::Display for FineTuneDpoHyperparametersNEpochsTextVariantEnum {
     }
 }
 
+impl crate::models::validation::Validate for FineTuneDpoHyperparametersNEpochsTextVariantEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for FineTuneDpoHyperparametersNEpochsTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

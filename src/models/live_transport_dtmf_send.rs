@@ -18,6 +18,7 @@ pub struct LiveTransportDtmfSend {
     pub r#type: Type,
     #[serde(rename = "event_id")]
     pub event_id: String,
+    /// Validation: `minLength: 1`, `maxLength: 1`, `pattern: ^[0-9A-D*#]$`.
     #[serde(rename = "event")]
     pub event: String,
     /// The event_id of the client command, when supplied.
@@ -36,6 +37,33 @@ impl LiveTransportDtmfSend {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveTransportDtmfSend {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.event,
+            Some(1),
+            Some(1),
+            &path.field("event"),
+            errors,
+        );
+        crate::models::validation::pattern(
+            &self.event,
+            &PATTERN_0,
+            r"^[0-9A-D*#]$",
+            &path.field("event"),
+            errors,
+        );
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^[0-9A-D*#]$").ok());
+
 /// Defaults to `\"transport.dtmf.send\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

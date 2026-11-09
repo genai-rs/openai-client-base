@@ -88,6 +88,21 @@ impl VideoResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for VideoResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.error,
+            &path.field("error"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always `video`.  Defaults to `\"video\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

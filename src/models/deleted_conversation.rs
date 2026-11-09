@@ -30,6 +30,16 @@ impl DeletedConversation {
         }
     }
 }
+
+impl crate::models::validation::Validate for DeletedConversation {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Defaults to `\"conversation.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

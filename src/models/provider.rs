@@ -87,3 +87,12 @@ impl std::fmt::Display for Provider {
         }
     }
 }
+
+impl crate::models::validation::Validate for Provider {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

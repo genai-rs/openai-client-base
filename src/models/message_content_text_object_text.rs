@@ -28,3 +28,17 @@ impl MessageContentTextObjectText {
         MessageContentTextObjectText { value, annotations }
     }
 }
+
+impl crate::models::validation::Validate for MessageContentTextObjectText {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.annotations,
+            &path.field("annotations"),
+            errors,
+        );
+    }
+}

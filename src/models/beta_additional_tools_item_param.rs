@@ -54,6 +54,21 @@ impl BetaAdditionalToolsItemParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaAdditionalToolsItemParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+    }
+}
+
 /// The item type. Always `additional_tools`.  Defaults to `\"additional_tools\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

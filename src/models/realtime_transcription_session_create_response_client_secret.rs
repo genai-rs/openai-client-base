@@ -30,3 +30,14 @@ impl RealtimeTranscriptionSessionCreateResponseClientSecret {
         RealtimeTranscriptionSessionCreateResponseClientSecret { value, expires_at }
     }
 }
+
+impl crate::models::validation::Validate
+    for RealtimeTranscriptionSessionCreateResponseClientSecret
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

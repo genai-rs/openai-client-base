@@ -24,3 +24,17 @@ impl LiveForkAudioParam {
         LiveForkAudioParam { format: None }
     }
 }
+
+impl crate::models::validation::Validate for LiveForkAudioParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.format,
+            &path.field("format"),
+            errors,
+        );
+    }
+}

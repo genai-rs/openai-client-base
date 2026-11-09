@@ -93,3 +93,24 @@ impl std::fmt::Display for SessionInputParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionInputParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::AgentSessionInputComputerUseApprovalRequestResult(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionInputMessage(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AgentSessionInputToolResult(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

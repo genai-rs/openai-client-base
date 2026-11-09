@@ -30,6 +30,16 @@ impl RealtimeBetaClientEventInputAudioBufferClear {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeBetaClientEventInputAudioBufferClear {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, must be `input_audio_buffer.clear`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

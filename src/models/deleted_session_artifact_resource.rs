@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DeletedSessionArtifactResource {
     /// The ID of the deleted session artifact.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type. Always `agent.session.artifact.deleted`.  Defaults to `\"agent.session.artifact.deleted\"`.
@@ -34,6 +36,17 @@ impl DeletedSessionArtifactResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for DeletedSessionArtifactResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+    }
+}
+
 /// The object type. Always `agent.session.artifact.deleted`.  Defaults to `\"agent.session.artifact.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

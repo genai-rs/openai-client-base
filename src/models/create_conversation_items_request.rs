@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateConversationItemsRequest {
     /// The items to add to the conversation. You may add up to 20 items at a time.
+    ///
+    /// Validation: `maxItems: 20`.
     #[serde(rename = "items")]
     pub items: Vec<models::InputItem>,
 }
@@ -21,5 +23,26 @@ pub struct CreateConversationItemsRequest {
 impl CreateConversationItemsRequest {
     pub fn new(items: Vec<models::InputItem>) -> CreateConversationItemsRequest {
         CreateConversationItemsRequest { items }
+    }
+}
+
+impl crate::models::validation::Validate for CreateConversationItemsRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.items.len(),
+            None,
+            Some(20),
+            &path.field("items"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.items,
+            &path.field("items"),
+            errors,
+        );
     }
 }

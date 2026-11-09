@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 /// LiveDecisionCreateParam : Evaluate the configured questions using the current conversation and Decision inputs. Reusing an event_id is rejected for the lifetime of the session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionCreateParam {
+    /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "event_id")]
     pub event_id: String,
     /// Defaults to `\"decision.create\"`.
@@ -26,6 +27,23 @@ impl LiveDecisionCreateParam {
         LiveDecisionCreateParam { event_id, r#type }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionCreateParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.event_id,
+            Some(1),
+            Some(256),
+            &path.field("event_id"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"decision.create\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

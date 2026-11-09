@@ -20,6 +20,7 @@ pub struct GraderMulti {
     /// The name of the grader.
     #[serde(rename = "name")]
     pub name: String,
+    /// Validation: `minProperties: 1`.
     #[serde(rename = "graders")]
     pub graders: std::collections::HashMap<String, models::GraderMultiGradersValue>,
     /// A formula to calculate the output based on grader results.
@@ -43,6 +44,28 @@ impl GraderMulti {
         }
     }
 }
+
+impl crate::models::validation::Validate for GraderMulti {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::properties(
+            self.graders.len(),
+            Some(1),
+            None,
+            &path.field("graders"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.graders,
+            &path.field("graders"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always `multi`.  Defaults to `\"multi\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

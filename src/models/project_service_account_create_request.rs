@@ -24,6 +24,8 @@ pub struct ProjectServiceAccountCreateRequest {
     )]
     pub create_service_account_only: Option<Option<bool>>,
     /// Number of seconds until the initial API key expires. If omitted or null, the key does not expire unless the effective organization or project policy requires an expiration. When a policy sets a maximum lifetime, this value must be provided and must not exceed that limit. A non-null value cannot be used when `create_service_account_only` is true.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 31536000`.
     #[serde(
         rename = "expires_in_seconds",
         default,
@@ -39,6 +41,29 @@ impl ProjectServiceAccountCreateRequest {
             name,
             create_service_account_only: None,
             expires_in_seconds: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for ProjectServiceAccountCreateRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.expires_in_seconds {
+            crate::models::validation::minimum(
+                *value0,
+                1,
+                &path.field("expires_in_seconds"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                31536000,
+                &path.field("expires_in_seconds"),
+                errors,
+            );
         }
     }
 }

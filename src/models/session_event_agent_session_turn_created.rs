@@ -18,12 +18,18 @@ pub struct SessionEventAgentSessionTurnCreated {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "event_id")]
     pub event_id: String,
     /// The ID of the session associated with the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "session_id")]
     pub session_id: String,
     /// The ID of the turn associated with the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     #[serde(rename = "turn")]
@@ -48,6 +54,38 @@ impl SessionEventAgentSessionTurnCreated {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionEventAgentSessionTurnCreated {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.event_id,
+            Some(0),
+            None,
+            &path.field("event_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.session_id,
+            Some(0),
+            None,
+            &path.field("session_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(&self.turn, &path.field("turn"), errors);
+    }
+}
+
 /// The type of the object. Always `agent.session.turn.created`.  Defaults to `\"agent.session.turn.created\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

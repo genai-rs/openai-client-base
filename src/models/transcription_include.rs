@@ -24,6 +24,15 @@ impl std::fmt::Display for TranscriptionInclude {
     }
 }
 
+impl crate::models::validation::Validate for TranscriptionInclude {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for TranscriptionInclude {
     type Err = crate::models::ParseEnumError;
 

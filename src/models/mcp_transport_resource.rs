@@ -64,3 +64,21 @@ impl std::fmt::Display for McpTransportResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for McpTransportResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Http(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Stdio(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

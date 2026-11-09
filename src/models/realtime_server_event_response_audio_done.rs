@@ -53,6 +53,16 @@ impl RealtimeServerEventResponseAudioDone {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeServerEventResponseAudioDone {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, must be `response.output_audio.done`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

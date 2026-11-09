@@ -27,6 +27,15 @@ impl std::fmt::Display for ProgramOutputItemStatus {
     }
 }
 
+impl crate::models::validation::Validate for ProgramOutputItemStatus {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ProgramOutputItemStatus {
     type Err = crate::models::ParseEnumError;
 
