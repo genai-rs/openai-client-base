@@ -53,6 +53,21 @@ impl FileSearchToolCall {
         }
     }
 }
+
+impl crate::models::validation::Validate for FileSearchToolCall {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.results,
+            &path.field("results"),
+            errors,
+        );
+    }
+}
+
 /// The type of the file search tool call. Always `file_search_call`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

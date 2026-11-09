@@ -28,6 +28,16 @@ impl CompoundFilter {
         CompoundFilter { r#type, filters }
     }
 }
+
+impl crate::models::validation::Validate for CompoundFilter {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Type of operation: `and` or `or`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

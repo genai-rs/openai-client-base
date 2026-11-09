@@ -51,6 +51,21 @@ impl GraderScoreModel {
         }
     }
 }
+
+impl crate::models::validation::Validate for GraderScoreModel {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.sampling_params,
+            &path.field("sampling_params"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always `score_model`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

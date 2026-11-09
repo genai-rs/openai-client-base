@@ -70,3 +70,17 @@ impl ResponseProperties {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponseProperties {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+    }
+}

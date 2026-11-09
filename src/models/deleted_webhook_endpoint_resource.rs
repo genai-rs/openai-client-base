@@ -32,6 +32,16 @@ impl DeletedWebhookEndpointResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for DeletedWebhookEndpointResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which is always webhook_endpoint.deleted.  Defaults to `\"webhook_endpoint.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

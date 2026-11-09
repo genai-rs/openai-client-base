@@ -27,6 +27,16 @@ impl ProjectGroupDeletedResource {
         ProjectGroupDeletedResource { object, deleted }
     }
 }
+
+impl crate::models::validation::Validate for ProjectGroupDeletedResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Always `project.group.deleted`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

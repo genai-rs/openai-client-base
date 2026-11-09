@@ -22,3 +22,12 @@ impl PublicTestEndpointBody {
         PublicTestEndpointBody { event_type }
     }
 }
+
+impl crate::models::validation::Validate for PublicTestEndpointBody {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

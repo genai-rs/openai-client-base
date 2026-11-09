@@ -12,8 +12,10 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ScoreLevelParam {
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "label")]
     pub label: String,
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
@@ -23,6 +25,31 @@ impl ScoreLevelParam {
         ScoreLevelParam {
             label,
             description: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for ScoreLevelParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.label,
+            Some(0),
+            Some(1048576),
+            &path.field("label"),
+            errors,
+        );
+        if let Some(value0) = &self.description {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("description"),
+                errors,
+            );
         }
     }
 }

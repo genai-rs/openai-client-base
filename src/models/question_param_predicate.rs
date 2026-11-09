@@ -16,8 +16,10 @@ pub struct QuestionParamPredicate {
     /// The type of the object. Always `predicate`.  Defaults to `\"predicate\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "instructions")]
     pub instructions: String,
 }
@@ -32,6 +34,32 @@ impl QuestionParamPredicate {
         }
     }
 }
+
+impl crate::models::validation::Validate for QuestionParamPredicate {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("name"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.instructions,
+            Some(0),
+            Some(1048576),
+            &path.field("instructions"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `predicate`.  Defaults to `\"predicate\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

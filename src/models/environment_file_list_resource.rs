@@ -17,9 +17,13 @@ pub struct EnvironmentFileListResource {
     #[serde(rename = "object")]
     pub object: models::EnvironmentFilePageObjectResource,
     /// Files available on the current page.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "data")]
     pub data: Vec<models::EnvironmentFileResource>,
     /// The opaque cursor to use when requesting the next page, if any.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "next", deserialize_with = "Option::deserialize")]
     pub next: Option<String>,
     /// Whether more files follow this page.
@@ -40,6 +44,26 @@ impl EnvironmentFileListResource {
             data,
             next,
             has_more,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for EnvironmentFileListResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.data.len(),
+            Some(0),
+            Some(2000),
+            &path.field("data"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(&self.data, &path.field("data"), errors);
+        if let Some(value0) = &self.next {
+            crate::models::validation::length(value0, Some(0), None, &path.field("next"), errors);
         }
     }
 }

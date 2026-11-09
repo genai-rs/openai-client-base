@@ -24,3 +24,17 @@ impl ChoiceProbabilityResource {
         ChoiceProbabilityResource { value, probability }
     }
 }
+
+impl crate::models::validation::Validate for ChoiceProbabilityResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.value,
+            &path.field("value"),
+            errors,
+        );
+    }
+}

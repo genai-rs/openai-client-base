@@ -39,6 +39,8 @@ pub struct GraderScoreModelSamplingParams {
     )]
     pub temperature: Option<Option<f64>>,
     /// The maximum number of tokens the grader model may generate in its response.
+    ///
+    /// Validation: `minimum: 1`.
     #[serde(
         rename = "max_completions_tokens",
         default,
@@ -64,6 +66,23 @@ impl GraderScoreModelSamplingParams {
             temperature: None,
             max_completions_tokens: None,
             reasoning_effort: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for GraderScoreModelSamplingParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.max_completions_tokens {
+            crate::models::validation::minimum(
+                *value0,
+                1,
+                &path.field("max_completions_tokens"),
+                errors,
+            );
         }
     }
 }

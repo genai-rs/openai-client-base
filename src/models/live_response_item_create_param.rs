@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveResponseItemCreateParam {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
+    ///
+    /// Validation: `maxLength: 512`.
     #[serde(
         rename = "event_id",
         default,
@@ -39,6 +41,26 @@ impl LiveResponseItemCreateParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveResponseItemCreateParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.event_id {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(512),
+                &path.field("event_id"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(&self.item, &path.field("item"), errors);
+    }
+}
+
 /// The Live client event type. Always `response.item.create`.  Defaults to `\"response.item.create\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

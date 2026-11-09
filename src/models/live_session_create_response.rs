@@ -29,3 +29,17 @@ impl LiveSessionCreateResponse {
         LiveSessionCreateResponse { session, transport }
     }
 }
+
+impl crate::models::validation::Validate for LiveSessionCreateResponse {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.transport,
+            &path.field("transport"),
+            errors,
+        );
+    }
+}

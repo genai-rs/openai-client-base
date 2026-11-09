@@ -33,6 +33,8 @@ pub struct BetaCompactionSummaryItemParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The encrypted content of the compaction summary.
+    ///
+    /// Validation: `maxLength: 104857600`.
     #[serde(rename = "encrypted_content")]
     pub encrypted_content: String,
 }
@@ -48,6 +50,23 @@ impl BetaCompactionSummaryItemParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaCompactionSummaryItemParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.encrypted_content,
+            None,
+            Some(104857600),
+            &path.field("encrypted_content"),
+            errors,
+        );
+    }
+}
+
 /// The type of the item. Always `compaction`.  Defaults to `\"compaction\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

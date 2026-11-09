@@ -35,6 +35,21 @@ impl LiveHostedShellToolInputParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveHostedShellToolInputParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.environment,
+            &path.field("environment"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"shell\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

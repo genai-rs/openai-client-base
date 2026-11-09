@@ -18,12 +18,18 @@ pub struct CreateVaultCredentialAuthParamMcpOauth {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The HTTPS MCP server URL authorized by this credential.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "mcp_server_url")]
     pub mcp_server_url: String,
     /// A write-only OAuth access token; never returned by credential resources.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "access_token")]
     pub access_token: String,
     /// When the OAuth access token expires, as an RFC 3339 timestamp, if known.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "expires_at",
         default,
@@ -57,6 +63,44 @@ impl CreateVaultCredentialAuthParamMcpOauth {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateVaultCredentialAuthParamMcpOauth {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.mcp_server_url,
+            Some(0),
+            Some(1048576),
+            &path.field("mcp_server_url"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.access_token,
+            Some(0),
+            Some(1048576),
+            &path.field("access_token"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.expires_at {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("expires_at"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.refresh,
+            &path.field("refresh"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

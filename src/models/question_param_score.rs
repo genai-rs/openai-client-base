@@ -17,10 +17,13 @@ pub struct QuestionParamScore {
     /// The type of the object. Always `score`.  Defaults to `\"score\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "instructions")]
     pub instructions: String,
+    /// Validation: `minItems: 2`, `maxItems: 10`.
     #[serde(rename = "levels")]
     pub levels: Vec<models::ScoreLevelParam>,
 }
@@ -40,6 +43,44 @@ impl QuestionParamScore {
         }
     }
 }
+
+impl crate::models::validation::Validate for QuestionParamScore {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("name"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.instructions,
+            Some(0),
+            Some(1048576),
+            &path.field("instructions"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.levels.len(),
+            Some(2),
+            Some(10),
+            &path.field("levels"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.levels,
+            &path.field("levels"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `score`.  Defaults to `\"score\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

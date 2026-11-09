@@ -16,9 +16,13 @@ pub struct CreateSpeechRequest {
     #[serde(rename = "model")]
     pub model: String,
     /// The text to generate audio for. The maximum length is 4096 characters.
+    ///
+    /// Validation: `maxLength: 4096`.
     #[serde(rename = "input")]
     pub input: String,
     /// Control the voice of your generated audio with additional instructions. Does not work with `tts-1` or `tts-1-hd`.
+    ///
+    /// Validation: `maxLength: 4096`.
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]
     pub instructions: Option<String>,
     /// The voice to use when generating the audio. Supported built-in voices are `alloy`, `ash`, `ballad`, `coral`, `echo`, `fable`, `onyx`, `nova`, `sage`, `shimmer`, `verse`, `marin`, and `cedar`. You may also provide a custom voice object with an `id`, for example `{ \"id\": \"voice_1234\" }`. Previews of the voices are available in the [Text to speech guide](https://developers.openai.com/api/docs/guides/text-to-speech#voice-options). Custom voices must be created from audio samples. Voices created from text prompts are supported only in Live.
@@ -28,6 +32,8 @@ pub struct CreateSpeechRequest {
     #[serde(rename = "response_format", skip_serializing_if = "Option::is_none")]
     pub response_format: Option<ResponseFormat>,
     /// The speed of the generated audio. Select a value from `0.25` to `4.0`. `1.0` is the default.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 0.25`, `maximum: 4`.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
     /// The format to stream the audio in. Supported formats are `sse` and `audio`. `sse` is not supported for `tts-1` or `tts-1-hd`.  Defaults to `\"audio\"`.
@@ -48,6 +54,36 @@ impl CreateSpeechRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateSpeechRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.input,
+            None,
+            Some(4096),
+            &path.field("input"),
+            errors,
+        );
+        if let Some(value0) = &self.instructions {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(4096),
+                &path.field("instructions"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.speed {
+            crate::models::validation::minimum(*value0, 0.25, &path.field("speed"), errors);
+            crate::models::validation::maximum(*value0, 4.0, &path.field("speed"), errors);
+        }
+    }
+}
+
 /// The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`.  Defaults to `\"mp3\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ResponseFormat {

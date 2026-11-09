@@ -29,3 +29,22 @@ impl FineTuneReinforcementMethod {
         }
     }
 }
+
+impl crate::models::validation::Validate for FineTuneReinforcementMethod {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.grader,
+            &path.field("grader"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.hyperparameters,
+            &path.field("hyperparameters"),
+            errors,
+        );
+    }
+}

@@ -40,6 +40,16 @@ impl DragParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for DragParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Specifies the event type. For a drag action, this property is always set to `drag`.  Defaults to `\"drag\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

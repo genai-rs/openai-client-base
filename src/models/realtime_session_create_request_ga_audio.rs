@@ -29,3 +29,22 @@ impl RealtimeSessionCreateRequestGaAudio {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeSessionCreateRequestGaAudio {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.output,
+            &path.field("output"),
+            errors,
+        );
+    }
+}

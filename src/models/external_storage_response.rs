@@ -51,6 +51,16 @@ impl ExternalStorageResponse {
         }
     }
 }
+
+impl crate::models::validation::Validate for ExternalStorageResponse {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Defaults to `\"organization.external_storage\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

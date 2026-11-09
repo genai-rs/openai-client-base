@@ -17,6 +17,8 @@ pub struct MessageContentResourceInputImage {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the image supplied by the user, which may be a base64-encoded data URL.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "image_url")]
     pub image_url: String,
 }
@@ -27,6 +29,23 @@ impl MessageContentResourceInputImage {
         MessageContentResourceInputImage { r#type, image_url }
     }
 }
+
+impl crate::models::validation::Validate for MessageContentResourceInputImage {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.image_url,
+            Some(0),
+            None,
+            &path.field("image_url"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `input_image`.  Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

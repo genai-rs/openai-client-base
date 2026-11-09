@@ -63,6 +63,8 @@ pub struct RunObject {
     #[serde(rename = "instructions")]
     pub instructions: String,
     /// The list of tools that the [assistant](https://developers.openai.com/api/docs/assistants/migration) used for this run.  Defaults to `[]`.
+    ///
+    /// Validation: `maxItems: 20`.
     #[serde(rename = "tools")]
     pub tools: Vec<models::RunObjectToolsInner>,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.  Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
@@ -87,9 +89,13 @@ pub struct RunObject {
     )]
     pub top_p: Option<Option<f64>>,
     /// The maximum number of prompt tokens specified to have been used over the course of the run.
+    ///
+    /// Validation: `minimum: 256`.
     #[serde(rename = "max_prompt_tokens", deserialize_with = "Option::deserialize")]
     pub max_prompt_tokens: Option<i64>,
     /// The maximum number of completion tokens specified to have been used over the course of the run.
+    ///
+    /// Validation: `minimum: 256`.
     #[serde(
         rename = "max_completion_tokens",
         deserialize_with = "Option::deserialize"
@@ -169,6 +175,49 @@ impl RunObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for RunObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.tools.len(),
+            None,
+            Some(20),
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+        if let Some(value0) = &self.max_prompt_tokens {
+            crate::models::validation::minimum(
+                *value0,
+                256,
+                &path.field("max_prompt_tokens"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.max_completion_tokens {
+            crate::models::validation::minimum(
+                *value0,
+                256,
+                &path.field("max_completion_tokens"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.truncation_strategy,
+            &path.field("truncation_strategy"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always `thread.run`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

@@ -36,3 +36,27 @@ impl CreateFineTuningJobRequestHyperparameters {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateFineTuningJobRequestHyperparameters {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.batch_size,
+            &path.field("batch_size"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.learning_rate_multiplier,
+            &path.field("learning_rate_multiplier"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.n_epochs,
+            &path.field("n_epochs"),
+            errors,
+        );
+    }
+}

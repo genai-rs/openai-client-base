@@ -47,6 +47,16 @@ impl LiveCommentaryAppended {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveCommentaryAppended {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, always `session.commentary.appended`.  Defaults to `\"session.commentary.appended\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

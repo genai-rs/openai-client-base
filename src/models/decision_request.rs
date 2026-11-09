@@ -14,14 +14,20 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionRequest {
     /// The model to use. Only `gpt-6-luna` is supported.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "input")]
     pub input: models::DecisionInput,
     /// Ask 1–200 questions about the input. Each question can be a predicate, choice, or score. Answers come back in the same order.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 200`.
     #[serde(rename = "questions")]
     pub questions: Vec<models::QuestionParam>,
     /// Opaque caller-provided end-user identifier, scoped by the verified org. Match Responses' limit; this is never the authenticated user identity.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 128`.
     #[serde(
         rename = "safety_identifier",
         default,
@@ -30,6 +36,8 @@ pub struct DecisionRequest {
     )]
     pub safety_identifier: Option<Option<String>>,
     /// Partition prompt cache reuse by caller-provided key.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 64`.
     #[serde(
         rename = "prompt_cache_key",
         default,
@@ -59,6 +67,57 @@ impl DecisionRequest {
             safety_identifier: None,
             prompt_cache_key: None,
             prompt_cache_options: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for DecisionRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.model,
+            Some(0),
+            Some(1048576),
+            &path.field("model"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.questions.len(),
+            Some(1),
+            Some(200),
+            &path.field("questions"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.questions,
+            &path.field("questions"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.safety_identifier {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(128),
+                &path.field("safety_identifier"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.prompt_cache_key {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(64),
+                &path.field("prompt_cache_key"),
+                errors,
+            );
         }
     }
 }

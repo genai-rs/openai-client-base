@@ -78,6 +78,21 @@ impl RealtimeResponseCreateParams {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeResponseCreateParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+    }
+}
+
 /// The set of modalities the model used to respond, currently the only possible values are `[\\\"audio\\\"]`, `[\\\"text\\\"]`. Audio output always include a text transcript. Setting the output to mode `text` will disable audio output from the model.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputModalities {

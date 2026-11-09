@@ -17,6 +17,8 @@ pub struct BetaEncryptedContentParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Opaque encrypted content.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "encrypted_content")]
     pub encrypted_content: String,
 }
@@ -30,6 +32,23 @@ impl BetaEncryptedContentParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaEncryptedContentParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.encrypted_content,
+            None,
+            Some(10485760),
+            &path.field("encrypted_content"),
+            errors,
+        );
+    }
+}
+
 /// The type of the input item. Always `encrypted_content`.  Defaults to `\"encrypted_content\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

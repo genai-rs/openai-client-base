@@ -22,6 +22,8 @@ pub struct CreateChatCompletionRequest {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     /// An integer between 0 and 20 specifying the maximum number of most likely tokens to return at each token position, each with an associated log probability. In some cases, the number of returned tokens may be fewer than requested. `logprobs` must be set to `true` if this parameter is used.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 20`.
     #[serde(
         rename = "top_logprobs",
         default,
@@ -30,6 +32,8 @@ pub struct CreateChatCompletionRequest {
     )]
     pub top_logprobs: Option<Option<i64>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 2`.
     #[serde(
         rename = "temperature",
         default,
@@ -38,6 +42,8 @@ pub struct CreateChatCompletionRequest {
     )]
     pub temperature: Option<Option<f64>>,
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or `temperature` but not both.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(
         rename = "top_p",
         default,
@@ -54,6 +60,8 @@ pub struct CreateChatCompletionRequest {
     )]
     pub user: Option<Option<String>>,
     /// A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies. The IDs should be a string that uniquely identifies each user, with a maximum length of 128 characters. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
+    ///
+    /// Validation: `maxLength: 128`.
     #[serde(
         rename = "safety_identifier",
         default,
@@ -83,6 +91,8 @@ pub struct CreateChatCompletionRequest {
     )]
     pub prompt_cache_options: Option<models::PromptCacheOptionsParam>,
     /// A list of messages comprising the conversation so far. Depending on the [model](https://developers.openai.com/api/docs/models) you use, different message types (modalities) are supported, like [text](https://developers.openai.com/api/docs/guides/text), [images](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio).
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "messages")]
     pub messages: Vec<models::ChatCompletionRequestMessage>,
     /// Model identifier as string
@@ -126,6 +136,8 @@ pub struct CreateChatCompletionRequest {
     )]
     pub max_completion_tokens: Option<Option<i64>>,
     /// Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.  Defaults to `0`.
+    ///
+    /// Validation: `minimum: -2`, `maximum: 2`.
     #[serde(
         rename = "frequency_penalty",
         default,
@@ -134,6 +146,8 @@ pub struct CreateChatCompletionRequest {
     )]
     pub frequency_penalty: Option<Option<f64>>,
     /// Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.  Defaults to `0`.
+    ///
+    /// Validation: `minimum: -2`, `maximum: 2`.
     #[serde(
         rename = "presence_penalty",
         default,
@@ -207,6 +221,8 @@ pub struct CreateChatCompletionRequest {
     )]
     pub max_tokens: Option<Option<i64>>,
     /// How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep `n` as `1` to minimize costs.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 128`.
     #[serde(
         rename = "n",
         default,
@@ -223,6 +239,8 @@ pub struct CreateChatCompletionRequest {
     )]
     pub prediction: Option<Option<models::PredictionContent>>,
     /// This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result. Determinism is not guaranteed, and you should refer to the `system_fingerprint` response parameter to monitor changes in the backend.
+    ///
+    /// Validation: `minimum: -9223372036854775808`, `maximum: 9223372036854775807`.
     #[serde(
         rename = "seed",
         default,
@@ -251,6 +269,8 @@ pub struct CreateChatCompletionRequest {
     #[serde(rename = "function_call", skip_serializing_if = "Option::is_none")]
     pub function_call: Option<models::CreateChatCompletionRequestAllOfFunctionCall>,
     /// Deprecated in favor of `tools`.  A list of functions the model may generate JSON inputs for.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 128`.
     #[serde(rename = "functions", skip_serializing_if = "Option::is_none")]
     pub functions: Option<Vec<models::ChatCompletionFunctions>>,
 }
@@ -301,6 +321,96 @@ impl CreateChatCompletionRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateChatCompletionRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.top_logprobs {
+            crate::models::validation::minimum(*value0, 0, &path.field("top_logprobs"), errors);
+            crate::models::validation::maximum(*value0, 20, &path.field("top_logprobs"), errors);
+        }
+        if let Some(Some(value0)) = &self.temperature {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("temperature"), errors);
+            crate::models::validation::maximum(*value0, 2.0, &path.field("temperature"), errors);
+        }
+        if let Some(Some(value0)) = &self.top_p {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("top_p"), errors);
+            crate::models::validation::maximum(*value0, 1.0, &path.field("top_p"), errors);
+        }
+        if let Some(Some(value0)) = &self.safety_identifier {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(128),
+                &path.field("safety_identifier"),
+                errors,
+            );
+        }
+        crate::models::validation::items(
+            self.messages.len(),
+            Some(1),
+            None,
+            &path.field("messages"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.messages,
+            &path.field("messages"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.frequency_penalty {
+            crate::models::validation::minimum(
+                *value0,
+                -2.0,
+                &path.field("frequency_penalty"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                2.0,
+                &path.field("frequency_penalty"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.presence_penalty {
+            crate::models::validation::minimum(
+                *value0,
+                -2.0,
+                &path.field("presence_penalty"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                2.0,
+                &path.field("presence_penalty"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(&self.stop, &path.field("stop"), errors);
+        if let Some(Some(value0)) = &self.n {
+            crate::models::validation::minimum(*value0, 1, &path.field("n"), errors);
+            crate::models::validation::maximum(*value0, 128, &path.field("n"), errors);
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.prediction,
+            &path.field("prediction"),
+            errors,
+        );
+        if let Some(value0) = &self.functions {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                Some(128),
+                &path.field("functions"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Deprecated. Use `prompt_cache_options.ttl` instead.  The retention policy for the prompt cache. Set to `24h` to enable extended prompt caching, which keeps cached prefixes active for longer, up to a maximum of 24 hours. [Learn more](https://developers.openai.com/api/docs/guides/prompt-caching#prompt-cache-retention). This field expresses a maximum retention policy, while `prompt_cache_options.ttl` expresses a minimum cache lifetime. The two fields are independent and do not interact. For `gpt-5.5`, `gpt-5.5-pro`, and future models, only `24h` is supported.  For older models that support both `in_memory` and `24h`, the default depends on your organization's data retention policy:   - Organizations without ZDR enabled default to `24h`.   - Organizations with ZDR enabled default to `in_memory` when `prompt_cache_retention` is not specified.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum PromptCacheRetention {

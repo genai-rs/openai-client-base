@@ -52,6 +52,16 @@ impl LiveInputTranscriptDelta {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveInputTranscriptDelta {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, always `session.input_transcript.delta`.  Defaults to `\"session.input_transcript.delta\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

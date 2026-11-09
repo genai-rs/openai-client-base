@@ -17,6 +17,8 @@ pub struct TruncationObject {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The number of most recent messages from the thread when constructing the context for the run.
+    ///
+    /// Validation: `minimum: 1`.
     #[serde(
         rename = "last_messages",
         default,
@@ -35,6 +37,19 @@ impl TruncationObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for TruncationObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.last_messages {
+            crate::models::validation::minimum(*value0, 1, &path.field("last_messages"), errors);
+        }
+    }
+}
+
 /// The truncation strategy to use for the thread. The default is `auto`. If set to `last_messages`, the thread will be truncated to the n most recent messages in the thread. When set to `auto`, messages in the middle of the thread will be dropped to fit the context length of the model, `max_prompt_tokens`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

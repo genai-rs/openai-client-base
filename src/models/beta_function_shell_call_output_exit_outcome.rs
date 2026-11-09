@@ -27,6 +27,16 @@ impl BetaFunctionShellCallOutputExitOutcome {
         BetaFunctionShellCallOutputExitOutcome { r#type, exit_code }
     }
 }
+
+impl crate::models::validation::Validate for BetaFunctionShellCallOutputExitOutcome {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The outcome type. Always `exit`.  Defaults to `\"exit\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

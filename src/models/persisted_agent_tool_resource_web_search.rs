@@ -22,6 +22,8 @@ pub struct PersistedAgentToolResourceWebSearch {
     #[serde(rename = "context_size")]
     pub context_size: models::WebSearchContextSizeResource,
     /// Allowed search domains, or `null` when the search is unrestricted.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "allowed_domains", deserialize_with = "Option::deserialize")]
     pub allowed_domains: Option<Vec<String>>,
     /// Approximate location used to localize search results, if provided.
@@ -47,6 +49,39 @@ impl PersistedAgentToolResourceWebSearch {
         }
     }
 }
+
+impl crate::models::validation::Validate for PersistedAgentToolResourceWebSearch {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.allowed_domains {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(2000),
+                &path.field("allowed_domains"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    None,
+                    &path.field("allowed_domains").index(index1),
+                    errors,
+                );
+            }
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.location,
+            &path.field("location"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `web_search`.  Defaults to `\"web_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

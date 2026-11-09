@@ -40,6 +40,8 @@ pub struct RealtimeSessionCreateRequest {
     pub input_audio_transcription:
         Option<models::RealtimeSessionCreateRequestInputAudioTranscription>,
     /// The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 0.25`, `maximum: 1.5`.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
     #[serde(rename = "tracing", skip_serializing_if = "Option::is_none")]
@@ -97,6 +99,25 @@ impl RealtimeSessionCreateRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeSessionCreateRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.speed {
+            crate::models::validation::minimum(*value0, 0.25, &path.field("speed"), errors);
+            crate::models::validation::maximum(*value0, 1.5, &path.field("speed"), errors);
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.truncation,
+            &path.field("truncation"),
+            errors,
+        );
+    }
+}
+
 /// The set of modalities the model can respond with. To disable audio, set this to [\"text\"].
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Modalities {

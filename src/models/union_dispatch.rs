@@ -58,13 +58,13 @@ pub(crate) fn first_of<U>(
         _ => kind(&value).to_owned(),
     };
     let mut errors = Vec::with_capacity(attempts.len());
-    for (index, (variant, decode)) in attempts.iter().enumerate() {
+    for (index, (variant, attempt)) in attempts.iter().enumerate() {
         let input = if index + 1 == attempts.len() {
             std::mem::take(&mut value)
         } else {
             value.clone()
         };
-        match decode(input) {
+        match attempt(input) {
             Ok(decoded) => return Ok(decoded),
             Err(e) => errors.push(format!("{variant}: {e}")),
         }

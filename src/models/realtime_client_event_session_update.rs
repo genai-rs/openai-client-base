@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeClientEventSessionUpdate {
     /// Optional client-generated ID used to identify this event. This is an arbitrary string that a client may assign. It will be passed back if there is an error with the event, but the corresponding `session.updated` event will not include it.
+    ///
+    /// Validation: `maxLength: 512`.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
     pub event_id: Option<String>,
     /// The event type, must be `session.update`.
@@ -37,6 +39,30 @@ impl RealtimeClientEventSessionUpdate {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeClientEventSessionUpdate {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.event_id {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(512),
+                &path.field("event_id"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.session,
+            &path.field("session"),
+            errors,
+        );
+    }
+}
+
 /// The event type, must be `session.update`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

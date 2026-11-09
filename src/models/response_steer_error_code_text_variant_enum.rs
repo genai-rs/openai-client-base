@@ -42,6 +42,15 @@ impl std::fmt::Display for ResponseSteerErrorCodeTextVariantEnum {
     }
 }
 
+impl crate::models::validation::Validate for ResponseSteerErrorCodeTextVariantEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ResponseSteerErrorCodeTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

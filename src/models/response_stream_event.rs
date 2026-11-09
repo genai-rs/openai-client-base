@@ -650,3 +650,39 @@ impl std::fmt::Display for ResponseStreamEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponseStreamEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::ResponseCompletedEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseCreatedEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseInProgressEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseFailedEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseIncompleteEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseOutputItemAddedEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseOutputItemDoneEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseQueuedEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

@@ -35,6 +35,15 @@ impl std::fmt::Display for FileInputDetail {
     }
 }
 
+impl crate::models::validation::Validate for FileInputDetail {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for FileInputDetail {
     type Err = crate::models::ParseEnumError;
 

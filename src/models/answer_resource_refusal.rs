@@ -16,6 +16,7 @@ pub struct AnswerResourceRefusal {
     /// The type of the object. Always `refusal`.  Defaults to `\"refusal\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
 }
@@ -26,6 +27,19 @@ impl AnswerResourceRefusal {
         AnswerResourceRefusal { r#type, name }
     }
 }
+
+impl crate::models::validation::Validate for AnswerResourceRefusal {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(value0, Some(0), None, &path.field("name"), errors);
+        }
+    }
+}
+
 /// The type of the object. Always `refusal`.  Defaults to `\"refusal\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -18,14 +18,20 @@ pub struct EditImageBodyJsonParam {
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Input image references to edit. For GPT image models, you can provide up to 16 images.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 16`.
     #[serde(rename = "images")]
     pub images: Vec<models::ImageRefParam>,
     #[serde(rename = "mask", skip_serializing_if = "Option::is_none")]
     pub mask: Option<models::ImageRefParam>,
     /// A text description of the desired image edit.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 32000`.
     #[serde(rename = "prompt")]
     pub prompt: String,
     /// The number of edited images to generate.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 10`.
     #[serde(
         rename = "n",
         default,
@@ -57,6 +63,8 @@ pub struct EditImageBodyJsonParam {
     )]
     pub size: Option<Option<models::EditImageBodyJsonParamSize>>,
     /// A stable identifier for an end user in your organization, used for safety monitoring and abuse detection. Hash a username or email address to avoid sending identifying information. A non-empty value takes precedence over the deprecated `user` parameter. If omitted, null, or empty, the API uses `user` when available. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
+    ///
+    /// Validation: `maxLength: 128`.
     #[serde(
         rename = "safety_identifier",
         default,
@@ -76,6 +84,8 @@ pub struct EditImageBodyJsonParam {
     )]
     pub output_format: Option<Option<OutputFormat>>,
     /// Compression level for `jpeg` or `webp` output.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 100`.
     #[serde(
         rename = "output_compression",
         default,
@@ -108,6 +118,8 @@ pub struct EditImageBodyJsonParam {
     )]
     pub stream: Option<Option<bool>>,
     /// The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 3`.
     #[serde(
         rename = "partial_images",
         default,
@@ -140,6 +152,67 @@ impl EditImageBodyJsonParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for EditImageBodyJsonParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.images.len(),
+            Some(1),
+            Some(16),
+            &path.field("images"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.images,
+            &path.field("images"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(&self.mask, &path.field("mask"), errors);
+        crate::models::validation::length(
+            &self.prompt,
+            Some(1),
+            Some(32000),
+            &path.field("prompt"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.n {
+            crate::models::validation::minimum(*value0, 1, &path.field("n"), errors);
+            crate::models::validation::maximum(*value0, 10, &path.field("n"), errors);
+        }
+        if let Some(Some(value0)) = &self.safety_identifier {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(128),
+                &path.field("safety_identifier"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.output_compression {
+            crate::models::validation::minimum(
+                *value0,
+                0,
+                &path.field("output_compression"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                100,
+                &path.field("output_compression"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.partial_images {
+            crate::models::validation::minimum(*value0, 0, &path.field("partial_images"), errors);
+            crate::models::validation::maximum(*value0, 3, &path.field("partial_images"), errors);
+        }
+    }
+}
+
 /// Output quality for GPT image models. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Defaults to `auto`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {

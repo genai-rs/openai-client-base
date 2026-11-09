@@ -27,6 +27,8 @@ pub struct McpTool {
     #[serde(rename = "connector_id", skip_serializing_if = "Option::is_none")]
     pub connector_id: Option<ConnectorId>,
     /// The Secure MCP Tunnel ID to use instead of a direct server URL. One of `server_url`, `connector_id`, or `tunnel_id` must be provided.
+    ///
+    /// Validation: `pattern: ^tunnel_[a-z0-9]{32}$`.
     #[serde(rename = "tunnel_id", skip_serializing_if = "Option::is_none")]
     pub tunnel_id: Option<String>,
     /// An OAuth access token that can be used with a remote MCP server, either with a custom MCP server URL or a service connector. Your application must handle the OAuth authorization flow and provide the token here.
@@ -51,6 +53,8 @@ pub struct McpTool {
     )]
     pub allowed_tools: Option<Option<models::McpToolAllowedTools>>,
     /// The tool invocation context(s).
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(
         rename = "allowed_callers",
         default,
@@ -89,6 +93,37 @@ impl McpTool {
         }
     }
 }
+
+impl crate::models::validation::Validate for McpTool {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.tunnel_id {
+            crate::models::validation::pattern(
+                value0,
+                &PATTERN_0,
+                r"^tunnel_[a-z0-9]{32}$",
+                &path.field("tunnel_id"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.allowed_callers {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("allowed_callers"),
+                errors,
+            );
+        }
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^tunnel_[a-z0-9]{32}$").ok());
+
 /// The type of the MCP tool. Always `mcp`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

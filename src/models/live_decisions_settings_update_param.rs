@@ -13,9 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionsSettingsUpdateParam {
+    /// Validation: `minLength: 1`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Native Decision API questions evaluated together, in order.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 64`.
     #[serde(rename = "questions", skip_serializing_if = "Option::is_none")]
     pub questions: Option<Vec<models::QuestionParam>>,
 }
@@ -25,6 +28,32 @@ impl LiveDecisionsSettingsUpdateParam {
         LiveDecisionsSettingsUpdateParam {
             model: None,
             questions: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for LiveDecisionsSettingsUpdateParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.model {
+            crate::models::validation::length(value0, Some(1), None, &path.field("model"), errors);
+        }
+        if let Some(value0) = &self.questions {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                Some(64),
+                &path.field("questions"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("questions"),
+                errors,
+            );
         }
     }
 }

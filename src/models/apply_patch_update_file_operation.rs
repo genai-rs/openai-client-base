@@ -30,6 +30,16 @@ impl ApplyPatchUpdateFileOperation {
         ApplyPatchUpdateFileOperation { r#type, path, diff }
     }
 }
+
+impl crate::models::validation::Validate for ApplyPatchUpdateFileOperation {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Update an existing file with the provided diff.  Defaults to `\"update_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

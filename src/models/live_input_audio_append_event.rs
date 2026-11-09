@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveInputAudioAppendEvent {
     /// Optional client identifier for correlating this command with a server event's client_event_id or error.client_event_id.
+    ///
+    /// Validation: `maxLength: 512`.
     #[serde(
         rename = "event_id",
         default,
@@ -25,6 +27,8 @@ pub struct LiveInputAudioAppendEvent {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Base64-encoded raw audio in the startup-selected format, without a WAV or other container header. Primary WebSocket only; media transports use their audio track. Audio appends have no acknowledgment. Reflected sideband server events reuse this event type and audio key, with no timestamps or event_id; their audio is always mono PCM16LE at 24 kHz.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "audio")]
     pub audio: String,
 }
@@ -39,6 +43,26 @@ impl LiveInputAudioAppendEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveInputAudioAppendEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.event_id {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(512),
+                &path.field("event_id"),
+                errors,
+            );
+        }
+        crate::models::validation::length(&self.audio, Some(1), None, &path.field("audio"), errors);
+    }
+}
+
 /// The Live client event type. Always `session.input_audio.append`.  Defaults to `\"session.input_audio.append\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

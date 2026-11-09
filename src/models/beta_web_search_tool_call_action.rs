@@ -75,3 +75,12 @@ impl std::fmt::Display for BetaWebSearchToolCallAction {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaWebSearchToolCallAction {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

@@ -26,6 +26,8 @@ pub struct CreateEnvironmentParam {
     )]
     pub packages: Option<Option<models::EnvironmentPackagesParam>>,
     /// Ordered, confidential setup commands. Command bodies are never returned.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16`.
     #[serde(
         rename = "setup_commands",
         default,
@@ -50,6 +52,8 @@ pub struct CreateEnvironmentParam {
     )]
     pub desktop: Option<Option<models::DesktopParam>>,
     /// Environment variables made available to the agent.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 1024`; each value: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "env",
         default,
@@ -58,6 +62,8 @@ pub struct CreateEnvironmentParam {
     )]
     pub env: Option<Option<std::collections::HashMap<String, String>>>,
     /// Directories that contain capabilities exposed to the agent. Defaults to an empty list.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "capability_directories",
         default,
@@ -66,6 +72,8 @@ pub struct CreateEnvironmentParam {
     )]
     pub capability_directories: Option<Option<Vec<String>>>,
     /// Skills referenced by ID or provided as inline ZIP archives. Defaults to an empty list.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 200`.
     #[serde(
         rename = "skills",
         default,
@@ -74,6 +82,8 @@ pub struct CreateEnvironmentParam {
     )]
     pub skills: Option<Option<Vec<models::HostedSkillParam>>>,
     /// Plugins provided as inline ZIP archives. Defaults to an empty list.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 32`.
     #[serde(
         rename = "plugins",
         default,
@@ -82,6 +92,8 @@ pub struct CreateEnvironmentParam {
     )]
     pub plugins: Option<Option<Vec<models::HostedPluginParam>>>,
     /// Files available before the agent starts. Defaults to an empty list.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 50`.
     #[serde(
         rename = "files",
         default,
@@ -90,6 +102,8 @@ pub struct CreateEnvironmentParam {
     )]
     pub files: Option<Option<Vec<models::HostedEnvironmentFileParam>>>,
     /// A reusable hosted template applied before inline configuration. Omitted fields inherit the template; network overrides cannot broaden its policy.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 64`.
     #[serde(
         rename = "environment_template_id",
         skip_serializing_if = "Option::is_none"
@@ -115,6 +129,129 @@ impl CreateEnvironmentParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateEnvironmentParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.packages,
+            &path.field("packages"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.setup_commands {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16),
+                &path.field("setup_commands"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("setup_commands"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.network,
+            &path.field("network"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.env {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(1024),
+                &path.field("env"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("env").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("env"));
+        }
+        if let Some(Some(value0)) = &self.capability_directories {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("capability_directories"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("capability_directories").index(index1),
+                    errors,
+                );
+            }
+        }
+        if let Some(Some(value0)) = &self.skills {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(200),
+                &path.field("skills"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("skills"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.plugins {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(32),
+                &path.field("plugins"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("plugins"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.files {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(50),
+                &path.field("files"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("files"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.environment_template_id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(64),
+                &path.field("environment_template_id"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the object. Always `openai_hosted`.  Defaults to `\"openai_hosted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

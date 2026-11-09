@@ -35,6 +35,15 @@ impl std::fmt::Display for FunctionShellCallStatus {
     }
 }
 
+impl crate::models::validation::Validate for FunctionShellCallStatus {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for FunctionShellCallStatus {
     type Err = crate::models::ParseEnumError;
 

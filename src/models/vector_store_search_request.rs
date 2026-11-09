@@ -19,6 +19,8 @@ pub struct VectorStoreSearchRequest {
     #[serde(rename = "rewrite_query", skip_serializing_if = "Option::is_none")]
     pub rewrite_query: Option<bool>,
     /// The maximum number of results to return. This number should be between 1 and 50 inclusive.  Defaults to `10`.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 50`.
     #[serde(rename = "max_num_results", skip_serializing_if = "Option::is_none")]
     pub max_num_results: Option<i64>,
     #[serde(rename = "filters", skip_serializing_if = "Option::is_none")]
@@ -36,5 +38,23 @@ impl VectorStoreSearchRequest {
             filters: None,
             ranking_options: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for VectorStoreSearchRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.max_num_results {
+            crate::models::validation::minimum(*value0, 1, &path.field("max_num_results"), errors);
+            crate::models::validation::maximum(*value0, 50, &path.field("max_num_results"), errors);
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.ranking_options,
+            &path.field("ranking_options"),
+            errors,
+        );
     }
 }

@@ -32,6 +32,15 @@ impl std::fmt::Display for ReasoningSummaryParam {
     }
 }
 
+impl crate::models::validation::Validate for ReasoningSummaryParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ReasoningSummaryParam {
     type Err = crate::models::ParseEnumError;
 

@@ -53,6 +53,16 @@ impl BetaContainerFileCitationBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaContainerFileCitationBody {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the container file citation. Always `container_file_citation`.  Defaults to `\"container_file_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

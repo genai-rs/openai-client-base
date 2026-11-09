@@ -36,6 +36,21 @@ impl RunStepDetailsToolCallsFileSearchObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for RunStepDetailsToolCallsFileSearchObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.file_search,
+            &path.field("file_search"),
+            errors,
+        );
+    }
+}
+
 /// The type of tool call. This is always going to be `file_search` for this type of tool call.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

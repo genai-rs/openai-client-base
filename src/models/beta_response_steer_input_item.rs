@@ -63,3 +63,20 @@ impl std::fmt::Display for BetaResponseSteerInputItem {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseSteerInputItem {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::BetaUserMessageItemParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaFunctionCallOutputItemParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

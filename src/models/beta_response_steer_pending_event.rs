@@ -25,6 +25,8 @@ pub struct BetaResponseSteerPendingEvent {
     #[serde(rename = "reason")]
     pub reason: models::BetaResponseSteerPendingReason,
     /// Input stubs identifying outstanding client-owned tool results or approval decisions. Each stub contains identifying fields only; the client supplies the result before including it in `response.create`.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "required_input")]
     pub required_input: Vec<models::BetaResponseSteerRequiredInput>,
     /// The WebSocket lane that emitted this event. This field is present when the target response's `response.create` event supplied a `stream_id`.
@@ -51,6 +53,23 @@ impl BetaResponseSteerPendingEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseSteerPendingEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.required_input.len(),
+            Some(1),
+            None,
+            &path.field("required_input"),
+            errors,
+        );
+    }
+}
+
 /// The event discriminator. Always `response.steer.pending`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

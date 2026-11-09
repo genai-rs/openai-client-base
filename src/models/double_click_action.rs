@@ -33,6 +33,16 @@ impl DoubleClickAction {
         DoubleClickAction { r#type, x, y, keys }
     }
 }
+
+impl crate::models::validation::Validate for DoubleClickAction {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Specifies the event type. For a double click action, this property is always set to `double_click`.  Defaults to `\"double_click\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

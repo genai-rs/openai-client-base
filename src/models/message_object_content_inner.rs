@@ -82,3 +82,15 @@ impl std::fmt::Display for MessageObjectContentInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for MessageObjectContentInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::MessageContentTextObject(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

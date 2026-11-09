@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ToolSearchOutputFunctionToolParam {
     /// The name of the loaded function tool.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 128`, `pattern: ^(?![\s\S]*[\r\n])[a-zA-Z0-9_.-]+$`.
     #[serde(rename = "name")]
     pub name: String,
     #[serde(
@@ -56,6 +58,8 @@ pub struct ToolSearchOutputFunctionToolParam {
     #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
     pub defer_loading: Option<bool>,
     /// The tool invocation context(s).
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(
         rename = "allowed_callers",
         default,
@@ -80,6 +84,32 @@ impl ToolSearchOutputFunctionToolParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ToolSearchOutputFunctionToolParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.name,
+            Some(1),
+            Some(128),
+            &path.field("name"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.allowed_callers {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("allowed_callers"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Defaults to `\"function\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

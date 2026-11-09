@@ -38,6 +38,16 @@ impl RealtimeServerEventInputAudioBufferDtmfEventReceived {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeServerEventInputAudioBufferDtmfEventReceived {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, must be `input_audio_buffer.dtmf_event_received`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

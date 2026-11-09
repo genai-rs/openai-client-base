@@ -17,9 +17,13 @@ pub struct HostedEnvironmentFileParamFileId {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the uploaded file.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "file_id")]
     pub file_id: String,
     /// The absolute destination path inside `/workspace`.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 4096`.
     #[serde(rename = "path")]
     pub path: String,
 }
@@ -34,6 +38,30 @@ impl HostedEnvironmentFileParamFileId {
         }
     }
 }
+
+impl crate::models::validation::Validate for HostedEnvironmentFileParamFileId {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.file_id,
+            Some(1),
+            Some(256),
+            &path.field("file_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.path,
+            Some(1),
+            Some(4096),
+            &path.field("path"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `file_id`.  Defaults to `\"file_id\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

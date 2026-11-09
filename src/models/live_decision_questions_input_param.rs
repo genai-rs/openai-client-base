@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionQuestionsInputParam {
     /// Native Decision API questions evaluated together, in order.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 64`.
     #[serde(rename = "questions")]
     pub questions: Vec<models::LiveDecisionQuestion>,
 }
@@ -23,5 +25,26 @@ impl LiveDecisionQuestionsInputParam {
     /// Questions evaluated using the current transcript and the session's shared Decision items.
     pub fn new(questions: Vec<models::LiveDecisionQuestion>) -> LiveDecisionQuestionsInputParam {
         LiveDecisionQuestionsInputParam { questions }
+    }
+}
+
+impl crate::models::validation::Validate for LiveDecisionQuestionsInputParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.questions.len(),
+            Some(1),
+            Some(64),
+            &path.field("questions"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.questions,
+            &path.field("questions"),
+            errors,
+        );
     }
 }

@@ -18,23 +18,35 @@ pub struct CreateSubagentCallItemResource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the tool call item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     #[serde(rename = "status")]
     pub status: models::FunctionCallStatusResource,
     /// The ID of the agent that requested the subagent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "agent_id")]
     pub agent_id: String,
     /// The task given to the spawned agent.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "content")]
     pub content: Vec<models::AgentContentResource>,
     /// The model requested for the spawned agent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "model", deserialize_with = "Option::deserialize")]
     pub model: Option<String>,
     /// The reasoning effort requested for the spawned agent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "reasoning_effort", deserialize_with = "Option::deserialize")]
     pub reasoning_effort: Option<String>,
 }
@@ -63,6 +75,55 @@ impl CreateSubagentCallItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateSubagentCallItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.agent_id,
+            Some(0),
+            None,
+            &path.field("agent_id"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.content.len(),
+            Some(0),
+            Some(2000),
+            &path.field("content"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.content,
+            &path.field("content"),
+            errors,
+        );
+        if let Some(value0) = &self.model {
+            crate::models::validation::length(value0, Some(0), None, &path.field("model"), errors);
+        }
+        if let Some(value0) = &self.reasoning_effort {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("reasoning_effort"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The item type. Always `create_subagent_call`.  Defaults to `\"create_subagent_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

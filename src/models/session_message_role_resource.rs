@@ -34,6 +34,15 @@ impl std::fmt::Display for SessionMessageRoleResource {
     }
 }
 
+impl crate::models::validation::Validate for SessionMessageRoleResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for SessionMessageRoleResource {
     type Err = crate::models::ParseEnumError;
 

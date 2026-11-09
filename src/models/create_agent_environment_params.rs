@@ -17,6 +17,8 @@ pub struct CreateAgentEnvironmentParams {
     #[serde(rename = "environment")]
     pub environment: models::CreateEnvironmentParam,
     /// The IDs of up to 10 vaults made available to an OpenAI-hosted environment.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 10`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "vault_ids",
         default,
@@ -32,6 +34,38 @@ impl CreateAgentEnvironmentParams {
         CreateAgentEnvironmentParams {
             environment,
             vault_ids: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CreateAgentEnvironmentParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.environment,
+            &path.field("environment"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.vault_ids {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(10),
+                &path.field("vault_ids"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("vault_ids").index(index1),
+                    errors,
+                );
+            }
         }
     }
 }

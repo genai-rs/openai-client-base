@@ -32,6 +32,8 @@ pub struct BetaCustomToolParam {
     #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
     pub defer_loading: Option<bool>,
     /// The tool invocation context(s).
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(
         rename = "allowed_callers",
         default,
@@ -55,6 +57,25 @@ impl BetaCustomToolParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaCustomToolParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.allowed_callers {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("allowed_callers"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the custom tool. Always `custom`.  Defaults to `\"custom\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

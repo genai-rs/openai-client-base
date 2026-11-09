@@ -39,6 +39,16 @@ impl BetaWebSearchActionSearch {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaWebSearchActionSearch {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The action type.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

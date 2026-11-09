@@ -17,12 +17,18 @@ pub struct SessionRequiredActionResourceFunctionCall {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the turn that requested the function call.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The ID to include when submitting the function result.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "call_id")]
     pub call_id: String,
     /// The function name.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name")]
     pub name: String,
     /// The arguments supplied by the model.
@@ -48,6 +54,31 @@ impl SessionRequiredActionResourceFunctionCall {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionRequiredActionResourceFunctionCall {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.call_id,
+            Some(0),
+            None,
+            &path.field("call_id"),
+            errors,
+        );
+        crate::models::validation::length(&self.name, Some(0), None, &path.field("name"), errors);
+    }
+}
+
 /// The type of the object. Always `function_call`.  Defaults to `\"function_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -15,11 +15,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVaultCredentialParams {
     /// The name is trimmed before storage. It must contain 1 to 256 UTF-8 bytes after trimming.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 1048576`.
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "auth")]
     pub auth: models::CreateVaultCredentialAuthParam,
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Defaults to an empty map.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
 }
@@ -34,6 +38,43 @@ impl CreateVaultCredentialParams {
             name,
             auth,
             metadata: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CreateVaultCredentialParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.name,
+            Some(1),
+            Some(1048576),
+            &path.field("name"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(&self.auth, &path.field("auth"), errors);
+        if let Some(value0) = &self.metadata {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(16),
+                &path.field("metadata"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(512),
+                    &path.field("metadata").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("metadata"));
         }
     }
 }

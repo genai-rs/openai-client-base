@@ -21,6 +21,8 @@ pub struct RunStepDetailsToolCallsFileSearchResultObject {
     #[serde(rename = "file_name")]
     pub file_name: String,
     /// The score of the result. All values must be a floating point number between 0 and 1.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(rename = "score")]
     pub score: f64,
     /// The content of the result that was found. The content is only included if requested via the include query parameter.
@@ -41,5 +43,16 @@ impl RunStepDetailsToolCallsFileSearchResultObject {
             score,
             content: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for RunStepDetailsToolCallsFileSearchResultObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.score, 0.0, &path.field("score"), errors);
+        crate::models::validation::maximum(self.score, 1.0, &path.field("score"), errors);
     }
 }

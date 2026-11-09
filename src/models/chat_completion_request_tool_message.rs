@@ -36,6 +36,21 @@ impl ChatCompletionRequestToolMessage {
         }
     }
 }
+
+impl crate::models::validation::Validate for ChatCompletionRequestToolMessage {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.content,
+            &path.field("content"),
+            errors,
+        );
+    }
+}
+
 /// The role of the messages author, in this case `tool`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {

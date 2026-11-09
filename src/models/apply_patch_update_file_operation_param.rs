@@ -17,9 +17,13 @@ pub struct ApplyPatchUpdateFileOperationParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Path of the file to update relative to the workspace root.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "path")]
     pub path: String,
     /// Unified diff content to apply to the existing file.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "diff")]
     pub diff: String,
 }
@@ -30,6 +34,24 @@ impl ApplyPatchUpdateFileOperationParam {
         ApplyPatchUpdateFileOperationParam { r#type, path, diff }
     }
 }
+
+impl crate::models::validation::Validate for ApplyPatchUpdateFileOperationParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.path, Some(1), None, &path.field("path"), errors);
+        crate::models::validation::length(
+            &self.diff,
+            None,
+            Some(10485760),
+            &path.field("diff"),
+            errors,
+        );
+    }
+}
+
 /// The operation type. Always `update_file`.  Defaults to `\"update_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

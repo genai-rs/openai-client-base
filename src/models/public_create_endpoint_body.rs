@@ -14,12 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PublicCreateEndpointBody {
     /// A human-readable name for the webhook endpoint.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 256`.
     #[serde(rename = "name")]
     pub name: String,
     /// The HTTPS URL that receives webhook deliveries.
+    ///
+    /// Validation: `maxLength: 2048`, `pattern: ^https://`.
     #[serde(rename = "url")]
     pub url: String,
     /// The event types that trigger deliveries to this endpoint.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "event_types")]
     pub event_types: Vec<models::ProjectEventTypeEnum>,
 }
@@ -37,3 +43,37 @@ impl PublicCreateEndpointBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for PublicCreateEndpointBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.name,
+            Some(1),
+            Some(256),
+            &path.field("name"),
+            errors,
+        );
+        crate::models::validation::length(&self.url, None, Some(2048), &path.field("url"), errors);
+        crate::models::validation::pattern(
+            &self.url,
+            &PATTERN_0,
+            r"^https://",
+            &path.field("url"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.event_types.len(),
+            Some(1),
+            None,
+            &path.field("event_types"),
+            errors,
+        );
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^https://").ok());

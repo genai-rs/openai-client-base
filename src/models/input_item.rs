@@ -140,3 +140,24 @@ impl std::fmt::Display for InputItem {
         }
     }
 }
+
+impl crate::models::validation::Validate for InputItem {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Item(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ProgramItemParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ProgramOutputItemParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

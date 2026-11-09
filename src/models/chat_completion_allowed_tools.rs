@@ -30,6 +30,16 @@ impl ChatCompletionAllowedTools {
         ChatCompletionAllowedTools { mode, tools }
     }
 }
+
+impl crate::models::validation::Validate for ChatCompletionAllowedTools {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Constrains the tools available to the model to a pre-defined set.  `auto` allows the model to pick from among the allowed tools and generate a message.  `required` requires the model to call one or more of the allowed tools.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Mode {

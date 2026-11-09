@@ -179,3 +179,36 @@ impl std::fmt::Display for BetaTool {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaTool {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::BetaMcpTool(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaCodeInterpreterTool(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaImageGenTool(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaFunctionShellToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaCustomToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaNamespaceToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaApplyPatchToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

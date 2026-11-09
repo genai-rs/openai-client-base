@@ -15,17 +15,25 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TurnResource {
     /// The ID of the turn.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "object")]
     pub object: models::TurnObjectResource,
     /// The ID of the session that owns the turn.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "session_id")]
     pub session_id: String,
     /// The ID of the agent that ran the turn.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "agent_id")]
     pub agent_id: String,
     /// The ID of the subagent that ran the turn, if applicable.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "subagent_id", deserialize_with = "Option::deserialize")]
     pub subagent_id: Option<String>,
     #[serde(rename = "status")]
@@ -75,5 +83,43 @@ impl TurnResource {
             error,
             usage,
         }
+    }
+}
+
+impl crate::models::validation::Validate for TurnResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.session_id,
+            Some(0),
+            None,
+            &path.field("session_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.agent_id,
+            Some(0),
+            None,
+            &path.field("agent_id"),
+            errors,
+        );
+        if let Some(value0) = &self.subagent_id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("subagent_id"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.error,
+            &path.field("error"),
+            errors,
+        );
     }
 }

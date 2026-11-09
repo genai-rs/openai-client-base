@@ -178,3 +178,36 @@ impl std::fmt::Display for ToolSearchOutputTool {
         }
     }
 }
+
+impl crate::models::validation::Validate for ToolSearchOutputTool {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::McpTool(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::CodeInterpreterTool(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ImageGenTool(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::FunctionShellToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::CustomToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ToolSearchOutputNamespaceToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ApplyPatchToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

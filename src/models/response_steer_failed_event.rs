@@ -46,6 +46,21 @@ impl ResponseSteerFailedEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponseSteerFailedEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.steer,
+            &path.field("steer"),
+            errors,
+        );
+    }
+}
+
 /// The event discriminator. Always `response.steer.failed`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

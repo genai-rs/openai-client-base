@@ -36,6 +36,15 @@ impl std::fmt::Display for BetaServiceTierEnum {
     }
 }
 
+impl crate::models::validation::Validate for BetaServiceTierEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for BetaServiceTierEnum {
     type Err = crate::models::ParseEnumError;
 

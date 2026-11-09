@@ -33,6 +33,15 @@ impl std::fmt::Display for ImageEditCompletedEventSizeTextVariantEnum {
     }
 }
 
+impl crate::models::validation::Validate for ImageEditCompletedEventSizeTextVariantEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ImageEditCompletedEventSizeTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

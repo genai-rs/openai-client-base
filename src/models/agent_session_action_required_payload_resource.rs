@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AgentSessionActionRequiredPayloadResource {
     /// The ID of the session.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     #[serde(rename = "required_action")]
@@ -29,5 +31,15 @@ impl AgentSessionActionRequiredPayloadResource {
             id,
             required_action,
         }
+    }
+}
+
+impl crate::models::validation::Validate for AgentSessionActionRequiredPayloadResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
     }
 }

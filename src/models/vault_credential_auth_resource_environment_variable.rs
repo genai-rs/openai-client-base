@@ -18,6 +18,8 @@ pub struct VaultCredentialAuthResourceEnvironmentVariable {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The environment variable name that receives the placeholder in the sandbox.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "secret_name")]
     pub secret_name: String,
     #[serde(rename = "networking")]
@@ -38,6 +40,28 @@ impl VaultCredentialAuthResourceEnvironmentVariable {
         }
     }
 }
+
+impl crate::models::validation::Validate for VaultCredentialAuthResourceEnvironmentVariable {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.secret_name,
+            Some(0),
+            None,
+            &path.field("secret_name"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.networking,
+            &path.field("networking"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `environment_variable`.  Defaults to `\"environment_variable\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

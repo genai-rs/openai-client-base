@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebSearchLocationParam {
     /// The two-letter ISO country code, such as `US`.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "country",
         default,
@@ -22,6 +24,8 @@ pub struct WebSearchLocationParam {
     )]
     pub country: Option<Option<String>>,
     /// The region or state name.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "region",
         default,
@@ -30,6 +34,8 @@ pub struct WebSearchLocationParam {
     )]
     pub region: Option<Option<String>>,
     /// The city name.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "city",
         default,
@@ -38,6 +44,8 @@ pub struct WebSearchLocationParam {
     )]
     pub city: Option<Option<String>>,
     /// The IANA timezone, such as `America/Los_Angeles`.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "timezone",
         default,
@@ -55,6 +63,51 @@ impl WebSearchLocationParam {
             region: None,
             city: None,
             timezone: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for WebSearchLocationParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.country {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("country"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.region {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("region"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.city {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("city"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.timezone {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("timezone"),
+                errors,
+            );
         }
     }
 }

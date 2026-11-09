@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionAgentConfigParam {
     /// The model to use for the agent. The requested model name is preserved.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Configuration for model reasoning. Omit to keep the current settings; pass `null` to reset to the model's default effort.
@@ -42,6 +44,8 @@ pub struct SessionAgentConfigParam {
     )]
     pub service_tier: Option<Option<models::ServiceTierParam>>,
     /// Additional instructions appended to the agent's default base instructions. Omit to leave unchanged.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "instructions",
         default,
@@ -58,6 +62,8 @@ pub struct SessionAgentConfigParam {
     )]
     pub multi_agent: Option<Option<models::MultiAgentConfigCurrentParam>>,
     /// Tools available to the agent. Omit to inherit, or pass null to clear them. The resolved tool list must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`.
     #[serde(
         rename = "tools",
         default,
@@ -78,6 +84,53 @@ impl SessionAgentConfigParam {
             instructions: None,
             multi_agent: None,
             tools: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for SessionAgentConfigParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.model {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("model"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(&self.text, &path.field("text"), errors);
+        if let Some(Some(value0)) = &self.instructions {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("instructions"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.multi_agent,
+            &path.field("multi_agent"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.tools {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("tools"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("tools"),
+                errors,
+            );
         }
     }
 }

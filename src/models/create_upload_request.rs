@@ -45,6 +45,21 @@ impl CreateUploadRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateUploadRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.expires_after,
+            &path.field("expires_after"),
+            errors,
+        );
+    }
+}
+
 /// The intended purpose of the uploaded file.  See the [documentation on File purposes](https://developers.openai.com/api/reference/resources/files/methods/create#%28resource%29%20files%20%3E%20%28method%29%20create%20%3E%20%28params%29%200%20%3E%20%28param%29%20purpose%20%3E%20%28schema%29).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Purpose {

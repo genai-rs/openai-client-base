@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DeletedEnvironmentTemplateResource {
     /// The ID of the deleted environment template.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type. Always `agent.environment.template.deleted`.  Defaults to `\"agent.environment.template.deleted\"`.
@@ -34,6 +36,17 @@ impl DeletedEnvironmentTemplateResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for DeletedEnvironmentTemplateResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+    }
+}
+
 /// The object type. Always `agent.environment.template.deleted`.  Defaults to `\"agent.environment.template.deleted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

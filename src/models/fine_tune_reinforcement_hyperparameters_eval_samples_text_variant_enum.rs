@@ -29,6 +29,17 @@ impl std::fmt::Display for FineTuneReinforcementHyperparametersEvalSamplesTextVa
     }
 }
 
+impl crate::models::validation::Validate
+    for FineTuneReinforcementHyperparametersEvalSamplesTextVariantEnum
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for FineTuneReinforcementHyperparametersEvalSamplesTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

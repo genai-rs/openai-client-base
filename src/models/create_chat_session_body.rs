@@ -17,6 +17,8 @@ pub struct CreateChatSessionBody {
     #[serde(rename = "workflow")]
     pub workflow: models::WorkflowParam,
     /// A free-form string that identifies your end user; ensures this Session can access other objects that have the same `user` scope.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "user")]
     pub user: String,
     #[serde(rename = "expires_after", skip_serializing_if = "Option::is_none")]
@@ -40,5 +42,35 @@ impl CreateChatSessionBody {
             rate_limits: None,
             chatkit_configuration: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for CreateChatSessionBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.workflow,
+            &path.field("workflow"),
+            errors,
+        );
+        crate::models::validation::length(&self.user, Some(1), None, &path.field("user"), errors);
+        crate::models::validation::Validate::validate_into(
+            &self.expires_after,
+            &path.field("expires_after"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.rate_limits,
+            &path.field("rate_limits"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.chatkit_configuration,
+            &path.field("chatkit_configuration"),
+            errors,
+        );
     }
 }

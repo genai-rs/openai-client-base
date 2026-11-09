@@ -64,3 +64,21 @@ impl std::fmt::Display for HostedEnvironmentFileResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for HostedEnvironmentFileResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::FileId(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Inline(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

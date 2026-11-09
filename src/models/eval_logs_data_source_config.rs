@@ -42,6 +42,16 @@ impl EvalLogsDataSourceConfig {
         }
     }
 }
+
+impl crate::models::validation::Validate for EvalLogsDataSourceConfig {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of data source. Always `logs`.  Defaults to `\"logs\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

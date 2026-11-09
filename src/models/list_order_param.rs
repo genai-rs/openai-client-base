@@ -29,6 +29,15 @@ impl std::fmt::Display for ListOrderParam {
     }
 }
 
+impl crate::models::validation::Validate for ListOrderParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ListOrderParam {
     type Err = crate::models::ParseEnumError;
 

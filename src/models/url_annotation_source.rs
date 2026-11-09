@@ -27,6 +27,16 @@ impl UrlAnnotationSource {
         UrlAnnotationSource { r#type, url }
     }
 }
+
+impl crate::models::validation::Validate for UrlAnnotationSource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Type discriminator that is always `url`.  Defaults to `\"url\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

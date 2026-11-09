@@ -68,6 +68,16 @@ impl RealtimeResponse {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeResponse {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, must be `realtime.response`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

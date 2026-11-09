@@ -18,20 +18,30 @@ pub struct SendSubagentInputCallItemResource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the tool call item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     #[serde(rename = "status")]
     pub status: models::FunctionCallStatusResource,
     /// The ID of the agent sending the input.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "sender_agent_id")]
     pub sender_agent_id: String,
     /// The ID of the agent receiving the input.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "recipient_agent_id")]
     pub recipient_agent_id: String,
     /// The input sent to the receiving agent.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "content")]
     pub content: Vec<models::AgentContentResource>,
 }
@@ -58,6 +68,50 @@ impl SendSubagentInputCallItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for SendSubagentInputCallItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.sender_agent_id,
+            Some(0),
+            None,
+            &path.field("sender_agent_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.recipient_agent_id,
+            Some(0),
+            None,
+            &path.field("recipient_agent_id"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.content.len(),
+            Some(0),
+            Some(2000),
+            &path.field("content"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.content,
+            &path.field("content"),
+            errors,
+        );
+    }
+}
+
 /// The item type. Always `send_subagent_input_call`.  Defaults to `\"send_subagent_input_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

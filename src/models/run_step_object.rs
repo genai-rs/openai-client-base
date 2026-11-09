@@ -101,6 +101,21 @@ impl RunStepObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for RunStepObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.step_details,
+            &path.field("step_details"),
+            errors,
+        );
+    }
+}
+
 /// The object type, which is always `thread.run.step`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

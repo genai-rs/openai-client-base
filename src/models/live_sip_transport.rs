@@ -18,6 +18,8 @@ pub struct LiveSipTransport {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Phone number to call in E.164 format. SIP URI destinations are not supported.
+    ///
+    /// Validation: `pattern: ^\+[1-9][0-9]{1,14}$`.
     #[serde(rename = "destination")]
     pub destination: String,
     #[serde(rename = "trunk")]
@@ -34,6 +36,31 @@ impl LiveSipTransport {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveSipTransport {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::pattern(
+            &self.destination,
+            &PATTERN_0,
+            r"^\+[1-9][0-9]{1,14}$",
+            &path.field("destination"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.trunk,
+            &path.field("trunk"),
+            errors,
+        );
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^\+[1-9][0-9]{1,14}$").ok());
+
 /// The transport used for the Live session. Always `sip`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

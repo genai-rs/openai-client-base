@@ -18,9 +18,13 @@ pub struct VaultCredentialAuthResourceMcpOauth {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The HTTPS MCP server URL authorized by this credential.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "mcp_server_url")]
     pub mcp_server_url: String,
     /// When the OAuth access token expires, as an RFC 3339 timestamp, if known.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
     pub expires_at: Option<String>,
     /// Public refresh metadata without refresh tokens or OAuth client secrets.
@@ -44,6 +48,37 @@ impl VaultCredentialAuthResourceMcpOauth {
         }
     }
 }
+
+impl crate::models::validation::Validate for VaultCredentialAuthResourceMcpOauth {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.mcp_server_url,
+            Some(0),
+            None,
+            &path.field("mcp_server_url"),
+            errors,
+        );
+        if let Some(value0) = &self.expires_at {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("expires_at"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.refresh,
+            &path.field("refresh"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `mcp_oauth`.  Defaults to `\"mcp_oauth\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

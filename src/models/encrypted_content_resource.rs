@@ -17,6 +17,8 @@ pub struct EncryptedContentResource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The encrypted content payload.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "encrypted_content")]
     pub encrypted_content: String,
 }
@@ -30,6 +32,23 @@ impl EncryptedContentResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for EncryptedContentResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.encrypted_content,
+            Some(0),
+            None,
+            &path.field("encrypted_content"),
+            errors,
+        );
+    }
+}
+
 /// The content type. Always `encrypted_content`.  Defaults to `\"encrypted_content\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

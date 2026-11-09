@@ -17,6 +17,8 @@ pub struct HistoryParam {
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
     /// Number of recent ChatKit threads users have access to. Defaults to unlimited when unset.
+    ///
+    /// Validation: `minimum: 1`.
     #[serde(rename = "recent_threads", skip_serializing_if = "Option::is_none")]
     pub recent_threads: Option<i64>,
 }
@@ -27,6 +29,18 @@ impl HistoryParam {
         HistoryParam {
             enabled: None,
             recent_threads: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for HistoryParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.recent_threads {
+            crate::models::validation::minimum(*value0, 1, &path.field("recent_threads"), errors);
         }
     }
 }

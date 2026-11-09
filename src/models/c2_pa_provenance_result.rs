@@ -50,6 +50,16 @@ impl C2PaProvenanceResult {
         }
     }
 }
+
+impl crate::models::validation::Validate for C2PaProvenanceResult {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The provenance signal type. Always `c2pa`.  Defaults to `\"c2pa\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

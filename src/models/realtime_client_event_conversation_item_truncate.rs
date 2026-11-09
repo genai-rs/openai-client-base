@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RealtimeClientEventConversationItemTruncate {
     /// Optional client-generated ID used to identify this event.
+    ///
+    /// Validation: `maxLength: 512`.
     #[serde(rename = "event_id", skip_serializing_if = "Option::is_none")]
     pub event_id: Option<String>,
     /// The event type, must be `conversation.item.truncate`.
@@ -47,6 +49,25 @@ impl RealtimeClientEventConversationItemTruncate {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeClientEventConversationItemTruncate {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.event_id {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(512),
+                &path.field("event_id"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The event type, must be `conversation.item.truncate`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

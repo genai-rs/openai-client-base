@@ -17,6 +17,8 @@ pub struct PublicEnvironmentResource {
     #[serde(rename = "type")]
     pub r#type: models::EnvironmentTypeResource,
     /// The ID of the environment.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type. Always `agent.environment`.  Defaults to `\"agent.environment\"`.
@@ -25,12 +27,18 @@ pub struct PublicEnvironmentResource {
     #[serde(rename = "status")]
     pub status: models::EnvironmentStatusResource,
     /// Files installed in the environment, without their contents.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "files")]
     pub files: Vec<models::HostedEnvironmentFileResource>,
     /// Skills installed in the environment, without their archive contents.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "skills")]
     pub skills: Vec<models::HostedSkillResource>,
     /// Plugins installed in the environment, without their archive contents.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "plugins")]
     pub plugins: Vec<models::HostedPluginResource>,
 }
@@ -57,6 +65,53 @@ impl PublicEnvironmentResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for PublicEnvironmentResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::items(
+            self.files.len(),
+            Some(0),
+            Some(2000),
+            &path.field("files"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.files,
+            &path.field("files"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.skills.len(),
+            Some(0),
+            Some(2000),
+            &path.field("skills"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.skills,
+            &path.field("skills"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.plugins.len(),
+            Some(0),
+            Some(2000),
+            &path.field("plugins"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.plugins,
+            &path.field("plugins"),
+            errors,
+        );
+    }
+}
+
 /// The object type. Always `agent.environment`.  Defaults to `\"agent.environment\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

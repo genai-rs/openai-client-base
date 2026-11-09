@@ -280,3 +280,30 @@ impl std::fmt::Display for OutputItem {
         }
     }
 }
+
+impl crate::models::validation::Validate for OutputItem {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::FileSearchToolCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::FunctionToolCallOutputResource(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ToolSearchOutput(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::AdditionalTools(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::CustomToolCallOutputResource(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

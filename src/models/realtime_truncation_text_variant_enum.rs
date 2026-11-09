@@ -34,6 +34,15 @@ impl std::fmt::Display for RealtimeTruncationTextVariantEnum {
     }
 }
 
+impl crate::models::validation::Validate for RealtimeTruncationTextVariantEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for RealtimeTruncationTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

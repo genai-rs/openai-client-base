@@ -14,15 +14,23 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ErrorBodyResource {
     /// The error type.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "type")]
     pub r#type: String,
     /// A machine-readable error code.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "code")]
     pub code: String,
     /// A human-readable error message.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "message")]
     pub message: String,
     /// The request parameter that caused the error, or null for a request-wide error.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "param", deserialize_with = "Option::deserialize")]
     pub param: Option<String>,
 }
@@ -40,6 +48,27 @@ impl ErrorBodyResource {
             code,
             message,
             param,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for ErrorBodyResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.r#type, Some(0), None, &path.field("type"), errors);
+        crate::models::validation::length(&self.code, Some(0), None, &path.field("code"), errors);
+        crate::models::validation::length(
+            &self.message,
+            Some(0),
+            None,
+            &path.field("message"),
+            errors,
+        );
+        if let Some(value0) = &self.param {
+            crate::models::validation::length(value0, Some(0), None, &path.field("param"), errors);
         }
     }
 }

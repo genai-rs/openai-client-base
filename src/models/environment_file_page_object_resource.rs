@@ -31,6 +31,15 @@ impl std::fmt::Display for EnvironmentFilePageObjectResource {
     }
 }
 
+impl crate::models::validation::Validate for EnvironmentFilePageObjectResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for EnvironmentFilePageObjectResource {
     type Err = crate::models::ParseEnumError;
 

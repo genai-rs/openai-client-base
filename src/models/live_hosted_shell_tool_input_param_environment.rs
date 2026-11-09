@@ -72,3 +72,21 @@ impl std::fmt::Display for LiveHostedShellToolInputParamEnvironment {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveHostedShellToolInputParamEnvironment {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::LiveHostedShellContainerAutoParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveLocalEnvironmentParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

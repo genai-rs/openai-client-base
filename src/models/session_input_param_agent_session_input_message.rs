@@ -18,6 +18,8 @@ pub struct SessionInputParamAgentSessionInputMessage {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The user messages to add to the session.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`.
     #[serde(rename = "input")]
     pub input: Vec<models::InputMessageParam>,
 }
@@ -31,6 +33,28 @@ impl SessionInputParamAgentSessionInputMessage {
         SessionInputParamAgentSessionInputMessage { r#type, input }
     }
 }
+
+impl crate::models::validation::Validate for SessionInputParamAgentSessionInputMessage {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.input.len(),
+            Some(0),
+            Some(16384),
+            &path.field("input"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `agent.session.input.message`.  Defaults to `\"agent.session.input.message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

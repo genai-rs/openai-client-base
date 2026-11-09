@@ -25,8 +25,10 @@ pub struct MessageDeltaContentTextAnnotationsFilePathObject {
     pub text: Option<String>,
     #[serde(rename = "file_path", skip_serializing_if = "Option::is_none")]
     pub file_path: Option<models::MessageDeltaContentTextAnnotationsFilePathObjectFilePath>,
+    /// Validation: `minimum: 0`.
     #[serde(rename = "start_index", skip_serializing_if = "Option::is_none")]
     pub start_index: Option<i64>,
+    /// Validation: `minimum: 0`.
     #[serde(rename = "end_index", skip_serializing_if = "Option::is_none")]
     pub end_index: Option<i64>,
 }
@@ -44,6 +46,22 @@ impl MessageDeltaContentTextAnnotationsFilePathObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for MessageDeltaContentTextAnnotationsFilePathObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.start_index {
+            crate::models::validation::minimum(*value0, 0, &path.field("start_index"), errors);
+        }
+        if let Some(value0) = &self.end_index {
+            crate::models::validation::minimum(*value0, 0, &path.field("end_index"), errors);
+        }
+    }
+}
+
 /// Always `file_path`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

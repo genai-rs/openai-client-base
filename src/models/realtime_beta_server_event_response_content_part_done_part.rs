@@ -38,6 +38,16 @@ impl RealtimeBetaServerEventResponseContentPartDonePart {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeBetaServerEventResponseContentPartDonePart {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The content type (\"text\", \"audio\").
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -18,17 +18,25 @@ pub struct PersistedAgentToolResourceMcp {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// A label used to identify the MCP server in tool calls.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "server_label")]
     pub server_label: String,
     /// The vault credential selected for this MCP server, if any.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "credential_id", deserialize_with = "Option::deserialize")]
     pub credential_id: Option<String>,
     #[serde(rename = "transport")]
     pub transport: models::PersistedMcpTransportResource,
     /// Metadata included with requests to this MCP server.
+    ///
+    /// Validation: `minProperties: 0`.
     #[serde(rename = "request_metadata")]
     pub request_metadata: std::collections::HashMap<String, serde_json::Value>,
     /// The MCP tools the agent may call, or null when all server tools are allowed.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "allowed_tools", deserialize_with = "Option::deserialize")]
     pub allowed_tools: Option<Vec<String>>,
     /// Whether this MCP server must initialize before the first turn.
@@ -62,6 +70,62 @@ impl PersistedAgentToolResourceMcp {
         }
     }
 }
+
+impl crate::models::validation::Validate for PersistedAgentToolResourceMcp {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.server_label,
+            Some(0),
+            None,
+            &path.field("server_label"),
+            errors,
+        );
+        if let Some(value0) = &self.credential_id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("credential_id"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.transport,
+            &path.field("transport"),
+            errors,
+        );
+        crate::models::validation::properties(
+            self.request_metadata.len(),
+            Some(0),
+            None,
+            &path.field("request_metadata"),
+            errors,
+        );
+        if let Some(value0) = &self.allowed_tools {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(2000),
+                &path.field("allowed_tools"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    None,
+                    &path.field("allowed_tools").index(index1),
+                    errors,
+                );
+            }
+        }
+    }
+}
+
 /// The type of the object. Always `mcp`.  Defaults to `\"mcp\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

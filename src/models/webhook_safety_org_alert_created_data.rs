@@ -13,6 +13,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct WebhookSafetyOrgAlertCreatedData {
     /// The safety alert ID to pass to `GET /v1/safety/alerts/{id}`.
+    ///
+    /// Validation: `pattern: ^alert_[0-9a-f]{32}$`.
     #[serde(rename = "id")]
     pub id: String,
 }
@@ -22,3 +24,22 @@ impl WebhookSafetyOrgAlertCreatedData {
         WebhookSafetyOrgAlertCreatedData { id }
     }
 }
+
+impl crate::models::validation::Validate for WebhookSafetyOrgAlertCreatedData {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::pattern(
+            &self.id,
+            &PATTERN_0,
+            r"^alert_[0-9a-f]{32}$",
+            &path.field("id"),
+            errors,
+        );
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^alert_[0-9a-f]{32}$").ok());

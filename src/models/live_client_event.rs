@@ -180,3 +180,59 @@ impl std::fmt::Display for LiveClientEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveClientEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::LiveSessionStartEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveSessionUpdateParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveInputAudioAppendEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveInputAudioMuteParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveInputAudioUnmuteParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveOutputAudioFixturePlayParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveInstructionsAppendParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveThinkingAppendParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveCommentaryAppendParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionCreateParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionItemCreateParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionItemDeleteParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveResponseItemCreateParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveResponseCreateParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveSessionCloseParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

@@ -24,3 +24,12 @@ impl AuditLogGroupDeleted {
         AuditLogGroupDeleted { id: None }
     }
 }
+
+impl crate::models::validation::Validate for AuditLogGroupDeleted {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

@@ -18,9 +18,13 @@ pub struct CreateVaultCredentialAuthParamEnvironmentVariable {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The environment variable name that receives the placeholder, such as `SERVICE_API_KEY`. Use ASCII letters, digits, and underscores, starting with a letter or underscore. Names starting with `CODEX_` and managed proxy or certificate variable names are reserved.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 1048576`.
     #[serde(rename = "secret_name")]
     pub secret_name: String,
     /// The write-only secret to store. Never returned in credential resources or supplied directly to sandbox code. Must be nonempty and must not contain carriage returns, newlines, or NUL bytes.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 1048576`.
     #[serde(rename = "secret_value")]
     pub secret_value: String,
     #[serde(rename = "networking")]
@@ -43,6 +47,35 @@ impl CreateVaultCredentialAuthParamEnvironmentVariable {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateVaultCredentialAuthParamEnvironmentVariable {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.secret_name,
+            Some(1),
+            Some(1048576),
+            &path.field("secret_name"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.secret_value,
+            Some(1),
+            Some(1048576),
+            &path.field("secret_value"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.networking,
+            &path.field("networking"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `environment_variable`.  Defaults to `\"environment_variable\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

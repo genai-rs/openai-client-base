@@ -14,9 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SetupCommandParam {
     /// The shell command to execute.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 65536`.
     #[serde(rename = "command")]
     pub command: String,
     /// The absolute working directory. Defaults to `/workspace`.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 4096`.
     #[serde(
         rename = "cwd",
         default,
@@ -30,5 +34,30 @@ impl SetupCommandParam {
     /// A confidential setup command executed before the hosted agent starts.
     pub fn new(command: String) -> SetupCommandParam {
         SetupCommandParam { command, cwd: None }
+    }
+}
+
+impl crate::models::validation::Validate for SetupCommandParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.command,
+            Some(0),
+            Some(65536),
+            &path.field("command"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.cwd {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(4096),
+                &path.field("cwd"),
+                errors,
+            );
+        }
     }
 }

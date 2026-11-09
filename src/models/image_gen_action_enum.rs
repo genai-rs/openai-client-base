@@ -35,6 +35,15 @@ impl std::fmt::Display for ImageGenActionEnum {
     }
 }
 
+impl crate::models::validation::Validate for ImageGenActionEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ImageGenActionEnum {
     type Err = crate::models::ParseEnumError;
 

@@ -49,6 +49,17 @@ impl EvalList {
         }
     }
 }
+
+impl crate::models::validation::Validate for EvalList {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(&self.data, &path.field("data"), errors);
+    }
+}
+
 /// The type of this object. It is always set to \"list\".  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

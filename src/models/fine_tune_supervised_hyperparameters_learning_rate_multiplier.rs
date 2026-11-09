@@ -32,3 +32,17 @@ impl std::fmt::Display for FineTuneSupervisedHyperparametersLearningRateMultipli
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for FineTuneSupervisedHyperparametersLearningRateMultiplier
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Number(value) = self {
+            crate::models::validation::exclusive_minimum(*value, 0.0, path, errors);
+        }
+    }
+}

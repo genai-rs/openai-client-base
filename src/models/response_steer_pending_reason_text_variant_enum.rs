@@ -24,6 +24,15 @@ impl std::fmt::Display for ResponseSteerPendingReasonTextVariantEnum {
     }
 }
 
+impl crate::models::validation::Validate for ResponseSteerPendingReasonTextVariantEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ResponseSteerPendingReasonTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

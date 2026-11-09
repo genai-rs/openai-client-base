@@ -24,6 +24,16 @@ impl BetaScreenshotParam {
         BetaScreenshotParam { r#type }
     }
 }
+
+impl crate::models::validation::Validate for BetaScreenshotParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Specifies the event type. For a screenshot action, this property is always set to `screenshot`.  Defaults to `\"screenshot\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

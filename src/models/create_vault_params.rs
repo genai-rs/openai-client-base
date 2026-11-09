@@ -14,9 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVaultParams {
     /// The name is trimmed before storage. It must contain 1 to 256 UTF-8 bytes after trimming.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 1048576`.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// Key-value pairs to associate with the vault, such as an application or team identifier.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 1024`; each value: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "metadata",
         default,
@@ -32,6 +36,44 @@ impl CreateVaultParams {
         CreateVaultParams {
             name: None,
             metadata: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CreateVaultParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(1048576),
+                &path.field("name"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.metadata {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(1024),
+                &path.field("metadata"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("metadata").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("metadata"));
         }
     }
 }

@@ -46,6 +46,16 @@ impl ProjectSpendLimitResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for ProjectSpendLimitResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which is always `project.spend_limit`.  Defaults to `\"project.spend_limit\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

@@ -74,3 +74,21 @@ impl std::fmt::Display for EnvironmentResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for EnvironmentResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::OpenaiHosted(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::SelfHosted(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

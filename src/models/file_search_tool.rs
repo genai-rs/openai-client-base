@@ -46,6 +46,16 @@ impl FileSearchTool {
         }
     }
 }
+
+impl crate::models::validation::Validate for FileSearchTool {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the file search tool. Always `file_search`.  Defaults to `\"file_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

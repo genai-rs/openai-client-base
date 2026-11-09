@@ -17,12 +17,18 @@ pub struct PersistedAgentToolResourceFunction {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the function.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name")]
     pub name: String,
     /// A description of what the function does.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "description")]
     pub description: String,
     /// A JSON Schema object describing the function's arguments.
+    ///
+    /// Validation: `minProperties: 0`.
     #[serde(rename = "parameters")]
     pub parameters: std::collections::HashMap<String, serde_json::Value>,
     /// Whether the function is deferred and discovered through tool search.
@@ -48,6 +54,31 @@ impl PersistedAgentToolResourceFunction {
         }
     }
 }
+
+impl crate::models::validation::Validate for PersistedAgentToolResourceFunction {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.name, Some(0), None, &path.field("name"), errors);
+        crate::models::validation::length(
+            &self.description,
+            Some(0),
+            None,
+            &path.field("description"),
+            errors,
+        );
+        crate::models::validation::properties(
+            self.parameters.len(),
+            Some(0),
+            None,
+            &path.field("parameters"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `function`.  Defaults to `\"function\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

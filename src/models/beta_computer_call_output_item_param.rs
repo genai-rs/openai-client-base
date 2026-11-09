@@ -30,6 +30,8 @@ pub struct BetaComputerCallOutputItemParam {
     )]
     pub id: Option<Option<String>>,
     /// The ID of the computer tool call that produced the output.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "call_id")]
     pub call_id: String,
     /// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
@@ -72,6 +74,23 @@ impl BetaComputerCallOutputItemParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaComputerCallOutputItemParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.call_id,
+            Some(1),
+            Some(64),
+            &path.field("call_id"),
+            errors,
+        );
+    }
+}
+
 /// The type of the computer tool call output. Always `computer_call_output`.  Defaults to `\"computer_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

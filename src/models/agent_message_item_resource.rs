@@ -15,21 +15,31 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AgentMessageItemResource {
     /// The ID of the message.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The item type. Always `agent_message`.  Defaults to `\"agent_message\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID or name of the sending agent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "sender_agent_id")]
     pub sender_agent_id: String,
     /// The ID or name of the receiving agent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "recipient_agent_id")]
     pub recipient_agent_id: String,
     /// The content exchanged between the agents.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "content")]
     pub content: Vec<models::AgentContentResource>,
 }
@@ -54,6 +64,50 @@ impl AgentMessageItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for AgentMessageItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.sender_agent_id,
+            Some(0),
+            None,
+            &path.field("sender_agent_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.recipient_agent_id,
+            Some(0),
+            None,
+            &path.field("recipient_agent_id"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.content.len(),
+            Some(0),
+            Some(2000),
+            &path.field("content"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.content,
+            &path.field("content"),
+            errors,
+        );
+    }
+}
+
 /// The item type. Always `agent_message`.  Defaults to `\"agent_message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

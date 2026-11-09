@@ -45,6 +45,15 @@ impl std::fmt::Display for CreateImageRequestSizeTextVariantEnum {
     }
 }
 
+impl crate::models::validation::Validate for CreateImageRequestSizeTextVariantEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for CreateImageRequestSizeTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

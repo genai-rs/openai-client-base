@@ -150,3 +150,24 @@ impl std::fmt::Display for BetaInputItem {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaInputItem {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::BetaItem(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaProgramItemParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaProgramOutputItemParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

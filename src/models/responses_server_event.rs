@@ -621,3 +621,48 @@ impl std::fmt::Display for ResponsesServerEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponsesServerEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::ResponseWsCompleted(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseWsCreated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseInWsProgress(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseWsFailed(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseWsIncomplete(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseOutputItemWsAdded(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseOutputItemWsDone(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseWsQueued(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseWsError(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseSteerPendingEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::ResponseSteerFailedEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

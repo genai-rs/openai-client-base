@@ -29,6 +29,8 @@ pub struct ImageGenTool {
     #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
     pub output_format: Option<OutputFormat>,
     /// Compression level for the output image. Default: 100.  Defaults to `100`.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 100`.
     #[serde(rename = "output_compression", skip_serializing_if = "Option::is_none")]
     pub output_compression: Option<i64>,
     /// Moderation level for the generated image. Default: `auto`.  Defaults to `\"auto\"`.
@@ -47,6 +49,8 @@ pub struct ImageGenTool {
     #[serde(rename = "input_image_mask", skip_serializing_if = "Option::is_none")]
     pub input_image_mask: Option<models::ImageGenToolInputImageMask>,
     /// Number of partial images to generate in streaming mode, from 0 (default value) to 3.  Defaults to `0`.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 3`.
     #[serde(rename = "partial_images", skip_serializing_if = "Option::is_none")]
     pub partial_images: Option<i64>,
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
@@ -72,6 +76,34 @@ impl ImageGenTool {
         }
     }
 }
+
+impl crate::models::validation::Validate for ImageGenTool {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.output_compression {
+            crate::models::validation::minimum(
+                *value0,
+                0,
+                &path.field("output_compression"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                100,
+                &path.field("output_compression"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.partial_images {
+            crate::models::validation::minimum(*value0, 0, &path.field("partial_images"), errors);
+            crate::models::validation::maximum(*value0, 3, &path.field("partial_images"), errors);
+        }
+    }
+}
+
 /// The type of the image generation tool. Always `image_generation`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

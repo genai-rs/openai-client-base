@@ -17,6 +17,8 @@ pub struct LiveDecisionInputImageParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// An inline image encoded as a data URL.
+    ///
+    /// Validation: `maxLength: 20971520`, `pattern: ^data:`.
     #[serde(rename = "image_url")]
     pub image_url: String,
     #[serde(
@@ -37,6 +39,33 @@ impl LiveDecisionInputImageParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionInputImageParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.image_url,
+            None,
+            Some(20971520),
+            &path.field("image_url"),
+            errors,
+        );
+        crate::models::validation::pattern(
+            &self.image_url,
+            &PATTERN_0,
+            r"^data:",
+            &path.field("image_url"),
+            errors,
+        );
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^data:").ok());
+
 /// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

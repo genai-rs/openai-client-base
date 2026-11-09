@@ -14,9 +14,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateVaultParams {
     /// Replaces all metadata. Omit to leave unchanged, or pass {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
     /// A replacement name. Omit to leave unchanged, or pass null to clear it. The name is trimmed before storage. It must contain 1 to 256 UTF-8 bytes after trimming.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 1048576`.
     #[serde(
         rename = "name",
         default,
@@ -32,6 +36,44 @@ impl UpdateVaultParams {
         UpdateVaultParams {
             metadata: None,
             name: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for UpdateVaultParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.metadata {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(16),
+                &path.field("metadata"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(512),
+                    &path.field("metadata").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("metadata"));
+        }
+        if let Some(Some(value0)) = &self.name {
+            crate::models::validation::length(
+                value0,
+                Some(1),
+                Some(1048576),
+                &path.field("name"),
+                errors,
+            );
         }
     }
 }

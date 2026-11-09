@@ -20,9 +20,13 @@ pub struct VectorStoreSearchResultItem {
     #[serde(rename = "filename")]
     pub filename: String,
     /// The similarity score for the result.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(rename = "score")]
     pub score: f64,
     /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard. Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters, booleans, or numbers.
+    ///
+    /// Validation: `maxProperties: 16`.
     #[serde(rename = "attributes", deserialize_with = "Option::deserialize")]
     pub attributes:
         Option<std::collections::HashMap<String, models::VectorStoreFileAttributesValue>>,
@@ -47,6 +51,31 @@ impl VectorStoreSearchResultItem {
             score,
             attributes,
             content,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for VectorStoreSearchResultItem {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.score, 0.0, &path.field("score"), errors);
+        crate::models::validation::maximum(self.score, 1.0, &path.field("score"), errors);
+        if let Some(value0) = &self.attributes {
+            crate::models::validation::properties(
+                value0.len(),
+                None,
+                Some(16),
+                &path.field("attributes"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("attributes"),
+                errors,
+            );
         }
     }
 }

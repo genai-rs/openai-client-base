@@ -41,3 +41,17 @@ impl BetaError {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaError {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.misalignment,
+            &path.field("misalignment"),
+            errors,
+        );
+    }
+}

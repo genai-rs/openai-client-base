@@ -6,6 +6,8 @@ pub struct ResponseContent<T> {
     pub status: reqwest::StatusCode,
     pub content: String,
     pub entity: Option<T>,
+    /// The response's headers (`retry-after`, `x-request-id`, rate limits, ...).
+    pub headers: reqwest::header::HeaderMap,
 }
 
 #[derive(Debug)]
@@ -66,8 +68,11 @@ impl<T> From<std::io::Error> for Error<T> {
     }
 }
 
+/// Percent-encodes a path segment: a space is `%20` (form encoding's `+` would be a literal plus in a path).
 pub fn urlencode<T: AsRef<str>>(s: T) -> String {
-    ::url::form_urlencoded::byte_serialize(s.as_ref().as_bytes()).collect()
+    ::url::form_urlencoded::byte_serialize(s.as_ref().as_bytes())
+        .collect::<String>()
+        .replace('+', "%20")
 }
 
 pub fn parse_deep_object(prefix: &str, value: &serde_json::Value) -> Vec<(String, String)> {
@@ -118,11 +123,11 @@ enum ContentType {
 impl From<&str> for ContentType {
     fn from(content_type: &str) -> Self {
         if content_type.starts_with("application") && content_type.contains("json") {
-            return Self::Json;
+            Self::Json
         } else if content_type.starts_with("text/plain") {
-            return Self::Text;
+            Self::Text
         } else {
-            return Self::Unsupported(content_type.to_string());
+            Self::Unsupported(content_type.to_string())
         }
     }
 }

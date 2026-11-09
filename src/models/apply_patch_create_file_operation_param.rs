@@ -17,9 +17,13 @@ pub struct ApplyPatchCreateFileOperationParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Path of the file to create relative to the workspace root.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "path")]
     pub path: String,
     /// Unified diff content to apply when creating the file.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "diff")]
     pub diff: String,
 }
@@ -30,6 +34,24 @@ impl ApplyPatchCreateFileOperationParam {
         ApplyPatchCreateFileOperationParam { r#type, path, diff }
     }
 }
+
+impl crate::models::validation::Validate for ApplyPatchCreateFileOperationParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.path, Some(1), None, &path.field("path"), errors);
+        crate::models::validation::length(
+            &self.diff,
+            None,
+            Some(10485760),
+            &path.field("diff"),
+            errors,
+        );
+    }
+}
+
 /// The operation type. Always `create_file`.  Defaults to `\"create_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

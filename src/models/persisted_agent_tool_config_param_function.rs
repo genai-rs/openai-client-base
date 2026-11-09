@@ -17,12 +17,18 @@ pub struct PersistedAgentToolConfigParamFunction {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The name of the function.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "name")]
     pub name: String,
     /// A description of what the function does.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "description")]
     pub description: String,
     /// A JSON Schema object describing the function's arguments.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 1024`.
     #[serde(rename = "parameters")]
     pub parameters: std::collections::HashMap<String, serde_json::Value>,
     /// Whether this function is deferred and discovered through tool search. Defaults to `false`.
@@ -47,6 +53,37 @@ impl PersistedAgentToolConfigParamFunction {
         }
     }
 }
+
+impl crate::models::validation::Validate for PersistedAgentToolConfigParamFunction {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.name,
+            Some(0),
+            Some(1048576),
+            &path.field("name"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.description,
+            Some(0),
+            Some(1048576),
+            &path.field("description"),
+            errors,
+        );
+        crate::models::validation::properties(
+            self.parameters.len(),
+            Some(0),
+            Some(1024),
+            &path.field("parameters"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `function`.  Defaults to `\"function\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

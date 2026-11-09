@@ -47,6 +47,21 @@ impl RealtimeTranscriptionSessionCreateRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeTranscriptionSessionCreateRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.input_audio_transcription,
+            &path.field("input_audio_transcription"),
+            errors,
+        );
+    }
+}
+
 /// The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`. For `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate, single channel (mono), and little-endian byte order.  Defaults to `\"pcm16\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum InputAudioFormat {

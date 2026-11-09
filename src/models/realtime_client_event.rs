@@ -168,3 +168,45 @@ impl std::fmt::Display for RealtimeClientEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeClientEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::RealtimeClientEventConversationItemCreate(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeClientEventConversationItemDelete(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeClientEventConversationItemRetrieve(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeClientEventConversationItemTruncate(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeClientEventInputAudioBufferAppend(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeClientEventInputAudioBufferClear(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeClientEventInputAudioBufferCommit(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeClientEventResponseCancel(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeClientEventResponseCreate(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeClientEventSessionUpdate(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

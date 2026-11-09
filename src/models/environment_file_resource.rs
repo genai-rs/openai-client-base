@@ -17,12 +17,18 @@ pub struct EnvironmentFileResource {
     #[serde(rename = "object")]
     pub object: Object,
     /// The ID of the environment containing this file.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "environment_id")]
     pub environment_id: String,
     /// The absolute file path inside the environment's workspace.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "path")]
     pub path: String,
     /// The file size in bytes.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "size_bytes")]
     pub size_bytes: i64,
 }
@@ -43,6 +49,25 @@ impl EnvironmentFileResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for EnvironmentFileResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.environment_id,
+            Some(0),
+            None,
+            &path.field("environment_id"),
+            errors,
+        );
+        crate::models::validation::length(&self.path, Some(0), None, &path.field("path"), errors);
+        crate::models::validation::minimum(self.size_bytes, 0, &path.field("size_bytes"), errors);
+    }
+}
+
 /// The object type. Always `agent.environment.file`.  Defaults to `\"agent.environment.file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

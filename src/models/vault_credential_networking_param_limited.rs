@@ -17,6 +17,8 @@ pub struct VaultCredentialNetworkingParamLimited {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The 1 to 16 distinct allowed hostnames or IPv4 addresses, normalized to lowercase. Entries contain no scheme, path, port, or wildcard. IPv6 addresses are not supported.
+    ///
+    /// Validation: `minItems: 1`, `maxItems: 16`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "allowed_hosts")]
     pub allowed_hosts: Vec<String>,
 }
@@ -30,6 +32,32 @@ impl VaultCredentialNetworkingParamLimited {
         }
     }
 }
+
+impl crate::models::validation::Validate for VaultCredentialNetworkingParamLimited {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.allowed_hosts.len(),
+            Some(1),
+            Some(16),
+            &path.field("allowed_hosts"),
+            errors,
+        );
+        for (index0, item0) in self.allowed_hosts.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                Some(1048576),
+                &path.field("allowed_hosts").index(index0),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the object. Always `limited`.  Defaults to `\"limited\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

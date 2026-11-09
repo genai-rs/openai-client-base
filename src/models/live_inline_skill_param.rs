@@ -41,6 +41,21 @@ impl LiveInlineSkillParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveInlineSkillParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.source,
+            &path.field("source"),
+            errors,
+        );
+    }
+}
+
 /// Defines an inline skill for this request.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

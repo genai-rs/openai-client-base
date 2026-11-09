@@ -24,6 +24,17 @@ impl std::fmt::Display for RealtimeSessionCreateRequestGaMaxOutputTokensTextVari
     }
 }
 
+impl crate::models::validation::Validate
+    for RealtimeSessionCreateRequestGaMaxOutputTokensTextVariantEnum
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for RealtimeSessionCreateRequestGaMaxOutputTokensTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

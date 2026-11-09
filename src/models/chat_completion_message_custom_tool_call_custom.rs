@@ -27,3 +27,12 @@ impl ChatCompletionMessageCustomToolCallCustom {
         ChatCompletionMessageCustomToolCallCustom { name, input }
     }
 }
+
+impl crate::models::validation::Validate for ChatCompletionMessageCustomToolCallCustom {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

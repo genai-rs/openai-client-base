@@ -26,6 +26,16 @@ impl RunStepStreamEventObject2 {
         RunStepStreamEventObject2 { event, data }
     }
 }
+
+impl crate::models::validation::Validate for RunStepStreamEventObject2 {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
     #[serde(rename = "thread.run.step.delta")]

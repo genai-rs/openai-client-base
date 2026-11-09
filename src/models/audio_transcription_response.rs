@@ -24,6 +24,8 @@ pub struct AudioTranscriptionResponse {
     )]
     pub language: Option<Option<String>>,
     /// The possible input audio languages configured for transcription, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
     pub languages: Option<Vec<String>>,
     /// The prompt configured for input audio transcription, when present.
@@ -38,6 +40,24 @@ impl AudioTranscriptionResponse {
             language: None,
             languages: None,
             prompt: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for AudioTranscriptionResponse {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.languages {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("languages"),
+                errors,
+            );
         }
     }
 }

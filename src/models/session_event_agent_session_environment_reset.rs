@@ -17,18 +17,28 @@ pub struct SessionEventAgentSessionEnvironmentReset {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "event_id")]
     pub event_id: String,
     /// The ID of the session associated with the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "session_id")]
     pub session_id: String,
     /// The associated turn, when applicable.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id", deserialize_with = "Option::deserialize")]
     pub turn_id: Option<String>,
     /// The stable environment ID, retained across sandbox replacements.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "environment_id")]
     pub environment_id: String,
     /// Monotonically increasing reset number. Repeated notifications share this number.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "reset_count")]
     pub reset_count: i64,
 }
@@ -53,6 +63,47 @@ impl SessionEventAgentSessionEnvironmentReset {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionEventAgentSessionEnvironmentReset {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.event_id,
+            Some(0),
+            None,
+            &path.field("event_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.session_id,
+            Some(0),
+            None,
+            &path.field("session_id"),
+            errors,
+        );
+        if let Some(value0) = &self.turn_id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("turn_id"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.environment_id,
+            Some(0),
+            None,
+            &path.field("environment_id"),
+            errors,
+        );
+        crate::models::validation::minimum(self.reset_count, 0, &path.field("reset_count"), errors);
+    }
+}
+
 /// The type of the object. Always `agent.session.environment.reset`.  Defaults to `\"agent.session.environment.reset\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

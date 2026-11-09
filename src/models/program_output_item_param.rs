@@ -20,9 +20,13 @@ pub struct ProgramOutputItemParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The call ID of the program item.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "call_id")]
     pub call_id: String,
     /// The result produced by the program item.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "result")]
     pub result: String,
     #[serde(rename = "status")]
@@ -46,6 +50,30 @@ impl ProgramOutputItemParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ProgramOutputItemParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.call_id,
+            Some(1),
+            Some(64),
+            &path.field("call_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.result,
+            None,
+            Some(10485760),
+            &path.field("result"),
+            errors,
+        );
+    }
+}
+
 /// The item type. Always `program_output`.  Defaults to `\"program_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

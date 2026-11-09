@@ -17,6 +17,8 @@ pub struct ApplyPatchDeleteFileOperationParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Path of the file to delete relative to the workspace root.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "path")]
     pub path: String,
 }
@@ -27,6 +29,17 @@ impl ApplyPatchDeleteFileOperationParam {
         ApplyPatchDeleteFileOperationParam { r#type, path }
     }
 }
+
+impl crate::models::validation::Validate for ApplyPatchDeleteFileOperationParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.path, Some(1), None, &path.field("path"), errors);
+    }
+}
+
 /// The operation type. Always `delete_file`.  Defaults to `\"delete_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

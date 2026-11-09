@@ -72,3 +72,15 @@ impl std::fmt::Display for VectorStoreFileObjectChunkingStrategy {
         }
     }
 }
+
+impl crate::models::validation::Validate for VectorStoreFileObjectChunkingStrategy {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::StaticChunkingStrategyResponseParam(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

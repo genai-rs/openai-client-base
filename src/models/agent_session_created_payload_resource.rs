@@ -14,12 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AgentSessionCreatedPayloadResource {
     /// The ID of the session.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The ID of the environment, when one exists.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "environment_id", skip_serializing_if = "Option::is_none")]
     pub environment_id: Option<String>,
     /// The environment type: `none`, `openai_hosted`, or `self_hosted`.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "environment_type")]
     pub environment_type: String,
     #[serde(rename = "connect", skip_serializing_if = "Option::is_none")]
@@ -34,5 +40,36 @@ impl AgentSessionCreatedPayloadResource {
             environment_type,
             connect: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for AgentSessionCreatedPayloadResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        if let Some(value0) = &self.environment_id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("environment_id"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.environment_type,
+            Some(0),
+            None,
+            &path.field("environment_type"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.connect,
+            &path.field("connect"),
+            errors,
+        );
     }
 }

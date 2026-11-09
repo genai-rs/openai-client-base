@@ -68,3 +68,15 @@ impl std::fmt::Display for RealtimeTurnDetection {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeTurnDetection {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::ServerVad(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

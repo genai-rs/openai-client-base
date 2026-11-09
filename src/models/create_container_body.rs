@@ -43,6 +43,26 @@ impl CreateContainerBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateContainerBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.skills,
+            &path.field("skills"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.network_policy,
+            &path.field("network_policy"),
+            errors,
+        );
+    }
+}
+
 /// Optional memory limit for the container. Defaults to \"1g\".
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MemoryLimit {

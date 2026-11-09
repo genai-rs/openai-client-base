@@ -283,3 +283,36 @@ impl std::fmt::Display for LiveServerEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveServerEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::LiveSessionStarted(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveSessionUpdated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionEvent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionItemCreated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveSessionClosed(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveTransportDtmfReceived(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveTransportDtmfSend(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

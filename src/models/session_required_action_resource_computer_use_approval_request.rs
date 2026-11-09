@@ -18,9 +18,13 @@ pub struct SessionRequiredActionResourceComputerUseApprovalRequest {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The turn that requested approval.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The registered request ID to echo when responding.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "request")]
@@ -43,6 +47,37 @@ impl SessionRequiredActionResourceComputerUseApprovalRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for SessionRequiredActionResourceComputerUseApprovalRequest
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.request_id,
+            Some(0),
+            None,
+            &path.field("request_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.request,
+            &path.field("request"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `computer_use_approval_request`.  Defaults to `\"computer_use_approval_request\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

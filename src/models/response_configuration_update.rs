@@ -34,6 +34,16 @@ impl ResponseConfigurationUpdate {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponseConfigurationUpdate {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The item type. Always `configuration_update`.  Defaults to `\"configuration_update\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

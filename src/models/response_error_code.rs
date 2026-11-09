@@ -91,6 +91,15 @@ impl std::fmt::Display for ResponseErrorCode {
     }
 }
 
+impl crate::models::validation::Validate for ResponseErrorCode {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for ResponseErrorCode {
     type Err = crate::models::ParseEnumError;
 

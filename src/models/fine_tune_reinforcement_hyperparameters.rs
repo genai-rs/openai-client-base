@@ -49,6 +49,46 @@ impl FineTuneReinforcementHyperparameters {
         }
     }
 }
+
+impl crate::models::validation::Validate for FineTuneReinforcementHyperparameters {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.batch_size,
+            &path.field("batch_size"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.learning_rate_multiplier,
+            &path.field("learning_rate_multiplier"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.n_epochs,
+            &path.field("n_epochs"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.compute_multiplier,
+            &path.field("compute_multiplier"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.eval_interval,
+            &path.field("eval_interval"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.eval_samples,
+            &path.field("eval_samples"),
+            errors,
+        );
+    }
+}
+
 /// Level of reasoning effort.  Defaults to `\"default\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ReasoningEffort {

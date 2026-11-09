@@ -18,6 +18,8 @@ pub struct BetaApplyPatchToolParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The tool invocation context(s).
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(
         rename = "allowed_callers",
         default,
@@ -36,6 +38,25 @@ impl BetaApplyPatchToolParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaApplyPatchToolParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.allowed_callers {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("allowed_callers"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the tool. Always `apply_patch`.  Defaults to `\"apply_patch\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

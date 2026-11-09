@@ -32,6 +32,16 @@ impl PcmAudioFormat {
         }
     }
 }
+
+impl crate::models::validation::Validate for PcmAudioFormat {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The audio format. Always `audio/pcm`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

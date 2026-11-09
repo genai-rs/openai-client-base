@@ -24,3 +24,17 @@ impl LiveClientConfigParam {
         LiveClientConfigParam { data_channel }
     }
 }
+
+impl crate::models::validation::Validate for LiveClientConfigParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.data_channel,
+            &path.field("data_channel"),
+            errors,
+        );
+    }
+}

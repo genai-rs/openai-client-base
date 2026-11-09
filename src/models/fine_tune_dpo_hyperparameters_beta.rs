@@ -32,3 +32,16 @@ impl std::fmt::Display for FineTuneDpoHyperparametersBeta {
         }
     }
 }
+
+impl crate::models::validation::Validate for FineTuneDpoHyperparametersBeta {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Number(value) = self {
+            crate::models::validation::exclusive_minimum(*value, 0.0, path, errors);
+            crate::models::validation::maximum(*value, 2.0, path, errors);
+        }
+    }
+}

@@ -15,9 +15,13 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaFunctionShellCallOutputContentParam {
     /// Captured stdout output for the shell call.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "stdout")]
     pub stdout: String,
     /// Captured stderr output for the shell call.
+    ///
+    /// Validation: `maxLength: 10485760`.
     #[serde(rename = "stderr")]
     pub stderr: String,
     #[serde(rename = "outcome")]
@@ -36,5 +40,28 @@ impl BetaFunctionShellCallOutputContentParam {
             stderr,
             outcome,
         }
+    }
+}
+
+impl crate::models::validation::Validate for BetaFunctionShellCallOutputContentParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.stdout,
+            None,
+            Some(10485760),
+            &path.field("stdout"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.stderr,
+            None,
+            Some(10485760),
+            &path.field("stderr"),
+            errors,
+        );
     }
 }

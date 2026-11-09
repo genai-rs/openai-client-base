@@ -17,9 +17,13 @@ pub struct ContainerNetworkPolicyAllowlistParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// A list of allowed domains when type is `allowlist`.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "allowed_domains")]
     pub allowed_domains: Vec<String>,
     /// Optional domain-scoped secrets for allowlisted domains.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "domain_secrets", skip_serializing_if = "Option::is_none")]
     pub domain_secrets: Option<Vec<models::ContainerNetworkPolicyDomainSecretParam>>,
 }
@@ -33,6 +37,37 @@ impl ContainerNetworkPolicyAllowlistParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ContainerNetworkPolicyAllowlistParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.allowed_domains.len(),
+            Some(1),
+            None,
+            &path.field("allowed_domains"),
+            errors,
+        );
+        if let Some(value0) = &self.domain_secrets {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("domain_secrets"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("domain_secrets"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Allow outbound network access only to specified domains. Always `allowlist`.  Defaults to `\"allowlist\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

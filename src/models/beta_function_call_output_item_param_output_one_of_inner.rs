@@ -77,3 +77,24 @@ impl std::fmt::Display for BetaFunctionCallOutputItemParamOutputOneOfInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaFunctionCallOutputItemParamOutputOneOfInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::BetaInputTextContentParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaInputImageContentParamAutoParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaInputFileContentParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

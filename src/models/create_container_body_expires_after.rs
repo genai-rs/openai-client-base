@@ -26,6 +26,16 @@ impl CreateContainerBodyExpiresAfter {
         CreateContainerBodyExpiresAfter { anchor, minutes }
     }
 }
+
+impl crate::models::validation::Validate for CreateContainerBodyExpiresAfter {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Time anchor for the expiration time. Currently only 'last_active_at' is supported.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Anchor {

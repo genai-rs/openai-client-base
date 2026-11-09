@@ -14,12 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BrowserAuthenticationOptionResource {
     /// The option ID to submit as selected_option.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The method label to display.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "label")]
     pub label: String,
     /// IDs from the registered fields that this method accepts.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "field_ids")]
     pub field_ids: Vec<String>,
 }
@@ -35,6 +41,33 @@ impl BrowserAuthenticationOptionResource {
             id,
             label,
             field_ids,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for BrowserAuthenticationOptionResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(&self.label, Some(0), None, &path.field("label"), errors);
+        crate::models::validation::items(
+            self.field_ids.len(),
+            Some(0),
+            Some(2000),
+            &path.field("field_ids"),
+            errors,
+        );
+        for (index0, item0) in self.field_ids.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                None,
+                &path.field("field_ids").index(index0),
+                errors,
+            );
         }
     }
 }

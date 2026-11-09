@@ -32,3 +32,17 @@ impl RunGraderRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for RunGraderRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.grader,
+            &path.field("grader"),
+            errors,
+        );
+    }
+}

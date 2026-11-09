@@ -17,9 +17,13 @@ pub struct WebSearchActionResourceSearch {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The search query, when a single query was used.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "query", deserialize_with = "Option::deserialize")]
     pub query: Option<String>,
     /// The search queries, when multiple queries were used.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "queries", deserialize_with = "Option::deserialize")]
     pub queries: Option<Vec<String>>,
 }
@@ -38,6 +42,37 @@ impl WebSearchActionResourceSearch {
         }
     }
 }
+
+impl crate::models::validation::Validate for WebSearchActionResourceSearch {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.query {
+            crate::models::validation::length(value0, Some(0), None, &path.field("query"), errors);
+        }
+        if let Some(value0) = &self.queries {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(2000),
+                &path.field("queries"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    None,
+                    &path.field("queries").index(index1),
+                    errors,
+                );
+            }
+        }
+    }
+}
+
 /// The type of the object. Always `search`.  Defaults to `\"search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

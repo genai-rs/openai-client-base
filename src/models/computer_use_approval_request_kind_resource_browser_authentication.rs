@@ -18,15 +18,23 @@ pub struct ComputerUseApprovalRequestKindResourceBrowserAuthentication {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Why the agent needs the user to sign in.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
     pub reason: Option<String>,
     /// The registered form or frame origin where values will be entered.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "credential_origin", deserialize_with = "Option::deserialize")]
     pub credential_origin: Option<String>,
     /// Controls to render. All submitted values are sensitive.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "fields")]
     pub fields: Vec<models::BrowserAuthenticationFieldResource>,
     /// Sign-in methods. Empty for a plain form.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "options")]
     pub options: Vec<models::BrowserAuthenticationOptionResource>,
 }
@@ -49,6 +57,54 @@ impl ComputerUseApprovalRequestKindResourceBrowserAuthentication {
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for ComputerUseApprovalRequestKindResourceBrowserAuthentication
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.reason {
+            crate::models::validation::length(value0, Some(0), None, &path.field("reason"), errors);
+        }
+        if let Some(value0) = &self.credential_origin {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("credential_origin"),
+                errors,
+            );
+        }
+        crate::models::validation::items(
+            self.fields.len(),
+            Some(0),
+            Some(2000),
+            &path.field("fields"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.fields,
+            &path.field("fields"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.options.len(),
+            Some(0),
+            Some(2000),
+            &path.field("options"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.options,
+            &path.field("options"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `browser_authentication`.  Defaults to `\"browser_authentication\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

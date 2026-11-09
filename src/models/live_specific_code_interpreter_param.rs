@@ -22,6 +22,16 @@ impl LiveSpecificCodeInterpreterParam {
         LiveSpecificCodeInterpreterParam { r#type }
     }
 }
+
+impl crate::models::validation::Validate for LiveSpecificCodeInterpreterParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The tool to call. Always `code_interpreter`.  Defaults to `\"code_interpreter\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

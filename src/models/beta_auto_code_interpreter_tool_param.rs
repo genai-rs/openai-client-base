@@ -18,6 +18,8 @@ pub struct BetaAutoCodeInterpreterToolParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// An optional list of uploaded files to make available to your code.
+    ///
+    /// Validation: `maxItems: 50`.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
     #[serde(
@@ -42,6 +44,30 @@ impl BetaAutoCodeInterpreterToolParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaAutoCodeInterpreterToolParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.file_ids {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(50),
+                &path.field("file_ids"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.network_policy,
+            &path.field("network_policy"),
+            errors,
+        );
+    }
+}
+
 /// Always `auto`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

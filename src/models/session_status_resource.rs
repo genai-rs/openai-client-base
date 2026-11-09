@@ -40,6 +40,15 @@ impl std::fmt::Display for SessionStatusResource {
     }
 }
 
+impl crate::models::validation::Validate for SessionStatusResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for SessionStatusResource {
     type Err = crate::models::ParseEnumError;
 

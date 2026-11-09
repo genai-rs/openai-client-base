@@ -17,9 +17,13 @@ pub struct ComputerUseApprovalRequestKindResourceBrowserOriginAccess {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The browser's explanation for this request, or null when unavailable.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "reason", deserialize_with = "Option::deserialize")]
     pub reason: Option<String>,
     /// The origin the browser needs permission to access.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "origin")]
     pub origin: String,
 }
@@ -38,6 +42,28 @@ impl ComputerUseApprovalRequestKindResourceBrowserOriginAccess {
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for ComputerUseApprovalRequestKindResourceBrowserOriginAccess
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.reason {
+            crate::models::validation::length(value0, Some(0), None, &path.field("reason"), errors);
+        }
+        crate::models::validation::length(
+            &self.origin,
+            Some(0),
+            None,
+            &path.field("origin"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `browser_origin_access`.  Defaults to `\"browser_origin_access\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

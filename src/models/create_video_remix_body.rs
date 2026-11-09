@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVideoRemixBody {
     /// Updated text prompt that directs the remix generation.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 32000`.
     #[serde(rename = "prompt")]
     pub prompt: String,
 }
@@ -22,5 +24,21 @@ impl CreateVideoRemixBody {
     /// Parameters for remixing an existing generated video.
     pub fn new(prompt: String) -> CreateVideoRemixBody {
         CreateVideoRemixBody { prompt }
+    }
+}
+
+impl crate::models::validation::Validate for CreateVideoRemixBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.prompt,
+            Some(1),
+            Some(32000),
+            &path.field("prompt"),
+            errors,
+        );
     }
 }

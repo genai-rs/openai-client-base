@@ -42,6 +42,21 @@ impl LiveSessionUpdated {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveSessionUpdated {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.session,
+            &path.field("session"),
+            errors,
+        );
+    }
+}
+
 /// The event type, always `session.updated`.  Defaults to `\"session.updated\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

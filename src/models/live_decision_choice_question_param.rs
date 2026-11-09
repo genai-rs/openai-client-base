@@ -20,6 +20,7 @@ pub struct LiveDecisionChoiceQuestionParam {
     pub name: Option<String>,
     #[serde(rename = "instructions")]
     pub instructions: String,
+    /// Validation: `minItems: 2`, `maxItems: 255`.
     #[serde(rename = "choices")]
     pub choices: Vec<models::LiveDecisionChoiceParam>,
 }
@@ -38,6 +39,23 @@ impl LiveDecisionChoiceQuestionParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionChoiceQuestionParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.choices.len(),
+            Some(2),
+            Some(255),
+            &path.field("choices"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"choice\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -48,6 +48,16 @@ impl UrlCitationBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for UrlCitationBody {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the URL citation. Always `url_citation`.  Defaults to `\"url_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

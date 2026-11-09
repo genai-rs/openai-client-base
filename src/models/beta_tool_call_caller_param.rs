@@ -68,3 +68,15 @@ impl std::fmt::Display for BetaToolCallCallerParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaToolCallCallerParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::BetaProgramToolCallCallerParam(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

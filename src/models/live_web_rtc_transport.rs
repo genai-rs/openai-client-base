@@ -17,6 +17,8 @@ pub struct LiveWebRtcTransport {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Session Description Protocol message for the WebRTC connection.
+    ///
+    /// Validation: `minLength: 1`.
     #[serde(rename = "sdp")]
     pub sdp: String,
 }
@@ -27,6 +29,17 @@ impl LiveWebRtcTransport {
         LiveWebRtcTransport { r#type, sdp }
     }
 }
+
+impl crate::models::validation::Validate for LiveWebRtcTransport {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.sdp, Some(1), None, &path.field("sdp"), errors);
+    }
+}
+
 /// The transport used for the Live session. Always `webrtc`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

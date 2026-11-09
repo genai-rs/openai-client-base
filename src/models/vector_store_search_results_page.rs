@@ -46,6 +46,17 @@ impl VectorStoreSearchResultsPage {
         }
     }
 }
+
+impl crate::models::validation::Validate for VectorStoreSearchResultsPage {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(&self.data, &path.field("data"), errors);
+    }
+}
+
 /// The object type, which is always `vector_store.search_results.page`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

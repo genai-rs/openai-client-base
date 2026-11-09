@@ -53,6 +53,16 @@ impl ThreadResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for ThreadResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Type discriminator that is always `chatkit.thread`.  Defaults to `\"chatkit.thread\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

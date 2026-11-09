@@ -17,6 +17,8 @@ pub struct CreateMcpOauthTokenEndpointAuthParamClientSecretBasic {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The OAuth client secret to store. Never returned in credential resources.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "client_secret")]
     pub client_secret: String,
 }
@@ -33,6 +35,23 @@ impl CreateMcpOauthTokenEndpointAuthParamClientSecretBasic {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateMcpOauthTokenEndpointAuthParamClientSecretBasic {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.client_secret,
+            Some(0),
+            Some(1048576),
+            &path.field("client_secret"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `client_secret_basic`.  Defaults to `\"client_secret_basic\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

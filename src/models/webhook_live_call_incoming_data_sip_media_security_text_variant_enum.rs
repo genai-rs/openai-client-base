@@ -27,6 +27,17 @@ impl std::fmt::Display for WebhookLiveCallIncomingDataSipMediaSecurityTextVarian
     }
 }
 
+impl crate::models::validation::Validate
+    for WebhookLiveCallIncomingDataSipMediaSecurityTextVariantEnum
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for WebhookLiveCallIncomingDataSipMediaSecurityTextVariantEnum {
     type Err = crate::models::ParseEnumError;
 

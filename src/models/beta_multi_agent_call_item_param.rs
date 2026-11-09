@@ -29,6 +29,8 @@ pub struct BetaMultiAgentCallItemParam {
     )]
     pub id: Option<Option<String>>,
     /// The unique ID linking this call to its output.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "call_id")]
     pub call_id: String,
     /// The item type. Always `multi_agent_call`.  Defaults to `\"multi_agent_call\"`.
@@ -58,6 +60,23 @@ impl BetaMultiAgentCallItemParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaMultiAgentCallItemParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.call_id,
+            Some(1),
+            Some(64),
+            &path.field("call_id"),
+            errors,
+        );
+    }
+}
+
 /// The item type. Always `multi_agent_call`.  Defaults to `\"multi_agent_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

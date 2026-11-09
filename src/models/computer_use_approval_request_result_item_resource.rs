@@ -15,15 +15,21 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ComputerUseApprovalRequestResultItemResource {
     /// The stable history item ID.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// Defaults to `\"computer_use_approval_request_result\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     /// The registered request answered by this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "response")]
@@ -48,6 +54,36 @@ impl ComputerUseApprovalRequestResultItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for ComputerUseApprovalRequestResultItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.request_id,
+            Some(0),
+            None,
+            &path.field("request_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.response,
+            &path.field("response"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"computer_use_approval_request_result\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

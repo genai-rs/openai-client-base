@@ -68,3 +68,21 @@ impl std::fmt::Display for AgentContentResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for AgentContentResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::OutputText(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::EncryptedContent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

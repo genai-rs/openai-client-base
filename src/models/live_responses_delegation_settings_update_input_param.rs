@@ -26,6 +26,8 @@ pub struct LiveResponsesDelegationSettingsUpdateInputParam {
     )]
     pub instructions: Option<Option<String>>,
     /// Maximum number of output tokens for each delegated response.
+    ///
+    /// Validation: `minimum: 16`.
     #[serde(
         rename = "max_output_tokens",
         default,
@@ -83,5 +85,32 @@ impl LiveResponsesDelegationSettingsUpdateInputParam {
             tool_choice: None,
             parallel_tool_calls: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for LiveResponsesDelegationSettingsUpdateInputParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.max_output_tokens {
+            crate::models::validation::minimum(
+                *value0,
+                16,
+                &path.field("max_output_tokens"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.tool_choice,
+            &path.field("tool_choice"),
+            errors,
+        );
     }
 }

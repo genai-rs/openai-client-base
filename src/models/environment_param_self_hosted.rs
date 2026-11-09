@@ -17,6 +17,8 @@ pub struct EnvironmentParamSelfHosted {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Directories that contain capabilities exposed to the agent. Defaults to an empty list.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "capability_directories",
         default,
@@ -25,6 +27,8 @@ pub struct EnvironmentParamSelfHosted {
     )]
     pub capability_directories: Option<Option<Vec<String>>>,
     /// Absolute project directory inside the self-hosted environment.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "workspace_directory")]
     pub workspace_directory: String,
 }
@@ -39,6 +43,41 @@ impl EnvironmentParamSelfHosted {
         }
     }
 }
+
+impl crate::models::validation::Validate for EnvironmentParamSelfHosted {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.capability_directories {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("capability_directories"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("capability_directories").index(index1),
+                    errors,
+                );
+            }
+        }
+        crate::models::validation::length(
+            &self.workspace_directory,
+            Some(0),
+            Some(1048576),
+            &path.field("workspace_directory"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `self_hosted`.  Defaults to `\"self_hosted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

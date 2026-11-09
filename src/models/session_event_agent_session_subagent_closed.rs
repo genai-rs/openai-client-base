@@ -18,6 +18,8 @@ pub struct SessionEventAgentSessionSubagentClosed {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The unique ID of the event.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "event_id")]
     pub event_id: String,
     #[serde(rename = "subagent")]
@@ -38,6 +40,28 @@ impl SessionEventAgentSessionSubagentClosed {
         }
     }
 }
+
+impl crate::models::validation::Validate for SessionEventAgentSessionSubagentClosed {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.event_id,
+            Some(0),
+            None,
+            &path.field("event_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.subagent,
+            &path.field("subagent"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `agent.session.subagent.closed`.  Defaults to `\"agent.session.subagent.closed\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

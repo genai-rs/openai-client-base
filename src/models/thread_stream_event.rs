@@ -33,6 +33,17 @@ impl ThreadStreamEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for ThreadStreamEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(&self.data, &path.field("data"), errors);
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Event {
     #[serde(rename = "thread.created")]

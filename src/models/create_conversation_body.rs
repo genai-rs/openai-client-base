@@ -22,6 +22,8 @@ pub struct CreateConversationBody {
     )]
     pub metadata: Option<Option<std::collections::HashMap<String, String>>>,
     /// Initial items to include in the conversation context. You may add up to 20 items at a time.
+    ///
+    /// Validation: `maxItems: 20`.
     #[serde(
         rename = "items",
         default,
@@ -36,6 +38,29 @@ impl CreateConversationBody {
         CreateConversationBody {
             metadata: None,
             items: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CreateConversationBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.items {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(20),
+                &path.field("items"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("items"),
+                errors,
+            );
         }
     }
 }

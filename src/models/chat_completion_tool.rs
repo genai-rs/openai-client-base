@@ -27,6 +27,16 @@ impl ChatCompletionTool {
         ChatCompletionTool { r#type, function }
     }
 }
+
+impl crate::models::validation::Validate for ChatCompletionTool {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the tool. Currently, only `function` is supported.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

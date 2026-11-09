@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct RateLimitsParam {
     /// Maximum number of requests allowed per minute for the session. Defaults to 10.
+    ///
+    /// Validation: `minimum: 1`.
     #[serde(
         rename = "max_requests_per_1_minute",
         skip_serializing_if = "Option::is_none"
@@ -26,6 +28,23 @@ impl RateLimitsParam {
     pub fn new() -> RateLimitsParam {
         RateLimitsParam {
             max_requests_per_1_minute: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for RateLimitsParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.max_requests_per_1_minute {
+            crate::models::validation::minimum(
+                *value0,
+                1,
+                &path.field("max_requests_per_1_minute"),
+                errors,
+            );
         }
     }
 }

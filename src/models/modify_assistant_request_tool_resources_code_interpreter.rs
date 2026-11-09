@@ -13,6 +13,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ModifyAssistantRequestToolResourcesCodeInterpreter {
     /// Overrides the list of [file](https://developers.openai.com/api/reference/resources/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.  Defaults to `[]`.
+    ///
+    /// Validation: `maxItems: 20`.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
 }
@@ -20,5 +22,23 @@ pub struct ModifyAssistantRequestToolResourcesCodeInterpreter {
 impl ModifyAssistantRequestToolResourcesCodeInterpreter {
     pub fn new() -> ModifyAssistantRequestToolResourcesCodeInterpreter {
         ModifyAssistantRequestToolResourcesCodeInterpreter { file_ids: None }
+    }
+}
+
+impl crate::models::validation::Validate for ModifyAssistantRequestToolResourcesCodeInterpreter {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.file_ids {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(20),
+                &path.field("file_ids"),
+                errors,
+            );
+        }
     }
 }

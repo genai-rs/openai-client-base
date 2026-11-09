@@ -68,3 +68,17 @@ impl std::fmt::Display
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for CreateAssistantRequestToolResourcesFileSearchVectorStoresInnerChunkingStrategy
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::StaticChunkingStrategy(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

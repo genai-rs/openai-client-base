@@ -15,6 +15,7 @@ pub struct DecisionInputOutputText {
     /// Defaults to `\"output_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Validation: `minLength: 0`, `maxLength: 10485760`.
     #[serde(rename = "text")]
     pub text: String,
 }
@@ -24,6 +25,23 @@ impl DecisionInputOutputText {
         DecisionInputOutputText { r#type, text }
     }
 }
+
+impl crate::models::validation::Validate for DecisionInputOutputText {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.text,
+            Some(0),
+            Some(10485760),
+            &path.field("text"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

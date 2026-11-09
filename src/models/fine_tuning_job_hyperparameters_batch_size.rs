@@ -32,3 +32,16 @@ impl std::fmt::Display for FineTuningJobHyperparametersBatchSize {
         }
     }
 }
+
+impl crate::models::validation::Validate for FineTuningJobHyperparametersBatchSize {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Integer(value) = self {
+            crate::models::validation::minimum(*value, 1, path, errors);
+            crate::models::validation::maximum(*value, 256, path, errors);
+        }
+    }
+}

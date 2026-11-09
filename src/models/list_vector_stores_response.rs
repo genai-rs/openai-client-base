@@ -42,3 +42,13 @@ impl ListVectorStoresResponse {
         }
     }
 }
+
+impl crate::models::validation::Validate for ListVectorStoresResponse {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(&self.data, &path.field("data"), errors);
+    }
+}

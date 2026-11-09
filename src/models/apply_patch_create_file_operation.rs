@@ -30,6 +30,16 @@ impl ApplyPatchCreateFileOperation {
         ApplyPatchCreateFileOperation { r#type, path, diff }
     }
 }
+
+impl crate::models::validation::Validate for ApplyPatchCreateFileOperation {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Create a new file with the provided diff.  Defaults to `\"create_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

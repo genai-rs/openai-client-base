@@ -68,3 +68,15 @@ impl std::fmt::Display for BetaFunctionShellCallItemParamEnvironment {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaFunctionShellCallItemParamEnvironment {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::BetaLocalEnvironmentParam(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

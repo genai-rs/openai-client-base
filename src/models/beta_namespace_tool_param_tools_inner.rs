@@ -67,3 +67,21 @@ impl std::fmt::Display for BetaNamespaceToolParamToolsInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaNamespaceToolParamToolsInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::BetaFunctionToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaCustomToolParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

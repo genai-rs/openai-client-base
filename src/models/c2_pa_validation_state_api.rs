@@ -38,6 +38,15 @@ impl std::fmt::Display for C2PaValidationStateApi {
     }
 }
 
+impl crate::models::validation::Validate for C2PaValidationStateApi {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for C2PaValidationStateApi {
     type Err = crate::models::ParseEnumError;
 

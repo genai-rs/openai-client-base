@@ -18,6 +18,8 @@ pub struct RetentionRatioTruncation {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Fraction of post-instruction conversation tokens to retain (`0.0` - `1.0`) when the conversation exceeds the input token limit. Setting this to `0.8` means that messages will be dropped until 80% of the maximum allowed tokens are used. This helps reduce the frequency of truncations and improve cache rates.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(rename = "retention_ratio")]
     pub retention_ratio: f64,
     #[serde(rename = "token_limits", skip_serializing_if = "Option::is_none")]
@@ -34,6 +36,33 @@ impl RetentionRatioTruncation {
         }
     }
 }
+
+impl crate::models::validation::Validate for RetentionRatioTruncation {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(
+            self.retention_ratio,
+            0.0,
+            &path.field("retention_ratio"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.retention_ratio,
+            1.0,
+            &path.field("retention_ratio"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.token_limits,
+            &path.field("token_limits"),
+            errors,
+        );
+    }
+}
+
 /// Use retention ratio truncation.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

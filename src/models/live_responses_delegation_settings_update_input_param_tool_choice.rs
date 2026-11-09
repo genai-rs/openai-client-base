@@ -25,14 +25,25 @@ impl std::fmt::Display for LiveResponsesDelegationSettingsUpdateInputParamToolCh
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::LiveToolChoiceEnum(value) => write!(f, "{}", value),
-            Self::OneOf(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
+            Self::OneOf(value) => write!(f, "{}", value),
             Self::LiveAllowedToolsChoiceParam(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+        }
+    }
+}
+
+impl crate::models::validation::Validate
+    for LiveResponsesDelegationSettingsUpdateInputParamToolChoice
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::LiveAllowedToolsChoiceParam(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
         }
     }
 }

@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAgentSessionParams {
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Omission or null defaults to an empty map.
+    ///
+    /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
     #[serde(
         rename = "metadata",
         default,
@@ -25,11 +27,15 @@ pub struct CreateAgentSessionParams {
     #[serde(rename = "agent", skip_serializing_if = "Option::is_none")]
     pub agent: Option<models::SessionAgentConfigParam>,
     /// The ID of a saved reusable agent. Omit `agent` to use its configuration unchanged.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 64`.
     #[serde(rename = "agent_id", skip_serializing_if = "Option::is_none")]
     pub agent_id: Option<String>,
     #[serde(rename = "environment")]
     pub environment: models::EnvironmentParam,
     /// The IDs of vaults made available to the session.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "vault_ids",
         default,
@@ -62,5 +68,76 @@ impl CreateAgentSessionParams {
             input: None,
             stream: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for CreateAgentSessionParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.metadata {
+            crate::models::validation::properties(
+                value0.len(),
+                Some(0),
+                Some(16),
+                &path.field("metadata"),
+                errors,
+            );
+            let start1 = errors.len();
+            for (key1, entry1) in value0 {
+                crate::models::validation::length(
+                    entry1,
+                    Some(0),
+                    Some(512),
+                    &path.field("metadata").key(key1),
+                    errors,
+                );
+            }
+            crate::models::validation::sort_by_key(errors, start1, &path.field("metadata"));
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.agent,
+            &path.field("agent"),
+            errors,
+        );
+        if let Some(value0) = &self.agent_id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(64),
+                &path.field("agent_id"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.environment,
+            &path.field("environment"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.vault_ids {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("vault_ids"),
+                errors,
+            );
+            for (index1, item1) in value0.iter().enumerate() {
+                crate::models::validation::length(
+                    item1,
+                    Some(0),
+                    Some(1048576),
+                    &path.field("vault_ids").index(index1),
+                    errors,
+                );
+            }
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
     }
 }

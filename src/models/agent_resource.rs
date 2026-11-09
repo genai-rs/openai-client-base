@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AgentResource {
     /// The ID of the reusable agent.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type. Always `agent`.  Defaults to `\"agent\"`.
@@ -27,12 +29,18 @@ pub struct AgentResource {
     #[serde(rename = "updated_at")]
     pub updated_at: i64,
     /// A human-readable name for the agent, or null if it is unnamed.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     /// Custom string key-value pairs attached to the agent.
+    ///
+    /// Validation: `minProperties: 0`; each value: `minLength: 0`.
     #[serde(rename = "metadata")]
     pub metadata: std::collections::HashMap<String, String>,
     /// The requested model name used for inference.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "reasoning")]
@@ -42,9 +50,13 @@ pub struct AgentResource {
     #[serde(rename = "service_tier")]
     pub service_tier: models::ServiceTierResource,
     /// Custom instructions appended to the agent's default base instructions.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
     pub instructions: Option<String>,
     /// Tools available to the agent.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "tools")]
     pub tools: Vec<models::PersistedAgentToolResource>,
     #[serde(rename = "multi_agent")]
@@ -85,6 +97,66 @@ impl AgentResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for AgentResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(value0, Some(0), None, &path.field("name"), errors);
+        }
+        crate::models::validation::properties(
+            self.metadata.len(),
+            Some(0),
+            None,
+            &path.field("metadata"),
+            errors,
+        );
+        let start0 = errors.len();
+        for (key0, entry0) in &self.metadata {
+            crate::models::validation::length(
+                entry0,
+                Some(0),
+                None,
+                &path.field("metadata").key(key0),
+                errors,
+            );
+        }
+        crate::models::validation::sort_by_key(errors, start0, &path.field("metadata"));
+        crate::models::validation::length(&self.model, Some(0), None, &path.field("model"), errors);
+        crate::models::validation::Validate::validate_into(&self.text, &path.field("text"), errors);
+        if let Some(value0) = &self.instructions {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("instructions"),
+                errors,
+            );
+        }
+        crate::models::validation::items(
+            self.tools.len(),
+            Some(0),
+            Some(2000),
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.multi_agent,
+            &path.field("multi_agent"),
+            errors,
+        );
+    }
+}
+
 /// The object type. Always `agent`.  Defaults to `\"agent\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

@@ -13,14 +13,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseUsageResource {
+    /// Validation: `minimum: -2147483648`, `maximum: 2147483647`.
     #[serde(rename = "input_tokens")]
     pub input_tokens: i64,
     #[serde(rename = "input_tokens_details")]
     pub input_tokens_details: models::InputTokensDetailsResource,
+    /// Validation: `minimum: -2147483648`, `maximum: 2147483647`.
     #[serde(rename = "output_tokens")]
     pub output_tokens: i64,
     #[serde(rename = "output_tokens_details")]
     pub output_tokens_details: models::OutputTokensDetailsResource,
+    /// Validation: `minimum: -2147483648`, `maximum: 2147483647`.
     #[serde(rename = "total_tokens")]
     pub total_tokens: i64,
 }
@@ -40,5 +43,60 @@ impl ResponseUsageResource {
             output_tokens_details,
             total_tokens,
         }
+    }
+}
+
+impl crate::models::validation::Validate for ResponseUsageResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(
+            self.input_tokens,
+            -2147483648,
+            &path.field("input_tokens"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.input_tokens,
+            2147483647,
+            &path.field("input_tokens"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.input_tokens_details,
+            &path.field("input_tokens_details"),
+            errors,
+        );
+        crate::models::validation::minimum(
+            self.output_tokens,
+            -2147483648,
+            &path.field("output_tokens"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.output_tokens,
+            2147483647,
+            &path.field("output_tokens"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.output_tokens_details,
+            &path.field("output_tokens_details"),
+            errors,
+        );
+        crate::models::validation::minimum(
+            self.total_tokens,
+            -2147483648,
+            &path.field("total_tokens"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.total_tokens,
+            2147483647,
+            &path.field("total_tokens"),
+            errors,
+        );
     }
 }

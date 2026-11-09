@@ -48,3 +48,15 @@ impl std::fmt::Display for ChoiceValueResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for ChoiceValueResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Text(value) = self {
+            crate::models::validation::length(value, Some(0), None, path, errors);
+        }
+    }
+}

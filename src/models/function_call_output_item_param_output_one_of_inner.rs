@@ -72,3 +72,23 @@ impl std::fmt::Display for FunctionCallOutputItemParamOutputOneOfInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for FunctionCallOutputItemParamOutputOneOfInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::InputTextContentParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::InputImageContentParamAutoParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::InputFileContentParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

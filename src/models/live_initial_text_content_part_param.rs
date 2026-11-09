@@ -27,6 +27,16 @@ impl LiveInitialTextContentPartParam {
         LiveInitialTextContentPartParam { r#type: None, text }
     }
 }
+
+impl crate::models::validation::Validate for LiveInitialTextContentPartParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The text content type. Always `text`.  Defaults to `\"text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -39,6 +39,16 @@ impl ResponseOutputText {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponseOutputText {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Type discriminator that is always `output_text`.  Defaults to `\"output_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

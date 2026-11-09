@@ -34,12 +34,16 @@ pub struct LiveMediaSessionCreateParams {
     )]
     pub delegation: Option<Option<models::Delegation>>,
     /// At most one Decisions trigger per transcript event type. Triggers run independently of delegation. On update, omit triggers to keep the current configuration, send a list to replace it, or send an empty list to disable triggers.
+    ///
+    /// Validation: `maxItems: 2`.
     #[serde(rename = "triggers", skip_serializing_if = "Option::is_none")]
     pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam>>,
     /// Whether to store the session for later forking and recording download. Defaults to false for new sessions.
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
     pub store: Option<bool>,
     /// Ordered text-only history supplied before startup. Supports developer, user, and assistant messages with one text part each; at most 128 messages and a configured rendered-token limit (8,192 by default).
+    ///
+    /// Validation: `maxItems: 128`.
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
     pub input: Option<Vec<models::LiveInitialItem>>,
     #[serde(rename = "client", skip_serializing_if = "Option::is_none")]
@@ -59,5 +63,57 @@ impl LiveMediaSessionCreateParams {
             input: None,
             client: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for LiveMediaSessionCreateParams {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.model,
+            &path.field("model"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.delegation,
+            &path.field("delegation"),
+            errors,
+        );
+        if let Some(value0) = &self.triggers {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(2),
+                &path.field("triggers"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("triggers"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.input {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(128),
+                &path.field("input"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("input"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.client,
+            &path.field("client"),
+            errors,
+        );
     }
 }

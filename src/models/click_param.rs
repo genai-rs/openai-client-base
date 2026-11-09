@@ -47,6 +47,16 @@ impl ClickParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ClickParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Specifies the event type. For a click action, this property is always `click`.  Defaults to `\"click\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

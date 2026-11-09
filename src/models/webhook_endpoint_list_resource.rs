@@ -47,6 +47,16 @@ impl WebhookEndpointListResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for WebhookEndpointListResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which is always list.  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

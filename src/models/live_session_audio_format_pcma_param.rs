@@ -17,6 +17,8 @@ pub struct LiveSessionAudioFormatPcmaParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Audio sample rate in hertz. G.711 audio uses 8000 Hz.
+    ///
+    /// Validation: `minimum: 8000`, `maximum: 8000`.
     #[serde(rename = "rate")]
     pub rate: i64,
 }
@@ -27,6 +29,18 @@ impl LiveSessionAudioFormatPcmaParam {
         LiveSessionAudioFormatPcmaParam { r#type, rate }
     }
 }
+
+impl crate::models::validation::Validate for LiveSessionAudioFormatPcmaParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(self.rate, 8000, &path.field("rate"), errors);
+        crate::models::validation::maximum(self.rate, 8000, &path.field("rate"), errors);
+    }
+}
+
 /// The audio encoding. Always `audio/pcma`.  Defaults to `\"audio/pcma\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -34,6 +34,16 @@ impl LiveInputAudioMuted {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveInputAudioMuted {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, always `session.input_audio.muted`.  Defaults to `\"session.input_audio.muted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

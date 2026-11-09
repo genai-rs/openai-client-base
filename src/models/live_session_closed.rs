@@ -50,6 +50,21 @@ impl LiveSessionClosed {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveSessionClosed {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.session,
+            &path.field("session"),
+            errors,
+        );
+    }
+}
+
 /// The event type, always `session.closed`.  Defaults to `\"session.closed\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

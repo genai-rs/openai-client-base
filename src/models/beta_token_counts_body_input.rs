@@ -54,3 +54,21 @@ impl std::fmt::Display for BetaTokenCountsBodyInput {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaTokenCountsBodyInput {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Text(value) => {
+                crate::models::validation::length(value, None, Some(10485760), path, errors);
+            }
+            Self::ArrayOfBetaInputItems(value) => {
+                crate::models::validation::items(value.len(), None, Some(131072), path, errors);
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

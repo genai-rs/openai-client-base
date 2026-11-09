@@ -25,6 +25,16 @@ impl InputAudioInputAudio {
         InputAudioInputAudio { data, format }
     }
 }
+
+impl crate::models::validation::Validate for InputAudioInputAudio {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The format of the audio data. Currently supported formats are `mp3` and `wav`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Format {

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionInputCustomToolCallOutput {
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(
         rename = "id",
         default,
@@ -20,6 +21,7 @@ pub struct DecisionInputCustomToolCallOutput {
         skip_serializing_if = "Option::is_none"
     )]
     pub id: Option<Option<String>>,
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "call_id")]
     pub call_id: String,
     #[serde(rename = "output")]
@@ -51,6 +53,37 @@ impl DecisionInputCustomToolCallOutput {
         }
     }
 }
+
+impl crate::models::validation::Validate for DecisionInputCustomToolCallOutput {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("id"),
+                errors,
+            );
+        }
+        crate::models::validation::length(
+            &self.call_id,
+            Some(1),
+            Some(64),
+            &path.field("call_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.output,
+            &path.field("output"),
+            errors,
+        );
+    }
+}
+
 /// Defaults to `\"custom_tool_call_output\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

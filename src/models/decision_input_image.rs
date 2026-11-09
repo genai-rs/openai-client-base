@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct DecisionInputImage {
     /// A base64-encoded image in a data URL or a publicly accessible HTTP(S) image URL.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1073741824`, `pattern: ^(data:|https?://)`.
     #[serde(rename = "image_url")]
     pub image_url: String,
     /// The image detail level, using the selected model's image profile. Defaults to auto.  Defaults to `\"auto\"`.
@@ -48,6 +50,33 @@ impl DecisionInputImage {
         }
     }
 }
+
+impl crate::models::validation::Validate for DecisionInputImage {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.image_url,
+            Some(0),
+            Some(1073741824),
+            &path.field("image_url"),
+            errors,
+        );
+        crate::models::validation::pattern(
+            &self.image_url,
+            &PATTERN_0,
+            r"^(data:|https?://)",
+            &path.field("image_url"),
+            errors,
+        );
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^(data:|https?://)").ok());
+
 /// Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -19,6 +19,8 @@ pub struct CreateImageRequest {
     #[serde(rename = "model")]
     pub model: String,
     /// The number of images to generate. Must be between 1 and 10.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 10`.
     #[serde(
         rename = "n",
         default,
@@ -67,6 +69,8 @@ pub struct CreateImageRequest {
     )]
     pub stream: Option<Option<bool>>,
     /// The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 3`.
     #[serde(
         rename = "partial_images",
         default,
@@ -106,6 +110,8 @@ pub struct CreateImageRequest {
     )]
     pub style: Option<Option<Style>>,
     /// A stable identifier for an end user in your organization, used for safety monitoring and abuse detection. Hash a username or email address to avoid sending identifying information. A non-empty value takes precedence over the deprecated `user` parameter. If omitted, null, or empty, the API uses `user` when available. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
+    ///
+    /// Validation: `maxLength: 128`.
     #[serde(
         rename = "safety_identifier",
         default,
@@ -139,6 +145,33 @@ impl CreateImageRequest {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateImageRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.n {
+            crate::models::validation::minimum(*value0, 1, &path.field("n"), errors);
+            crate::models::validation::maximum(*value0, 10, &path.field("n"), errors);
+        }
+        if let Some(Some(value0)) = &self.partial_images {
+            crate::models::validation::minimum(*value0, 0, &path.field("partial_images"), errors);
+            crate::models::validation::maximum(*value0, 3, &path.field("partial_images"), errors);
+        }
+        if let Some(Some(value0)) = &self.safety_identifier {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(128),
+                &path.field("safety_identifier"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The quality of the image that will be generated.  - `auto` (default value) will automatically select the best quality for the given   model. - `high`, `medium` and `low` are supported for the GPT image models. - `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08`   snapshots, also support `xhigh` and `max`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {

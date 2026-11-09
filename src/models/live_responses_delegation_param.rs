@@ -30,6 +30,21 @@ impl LiveResponsesDelegationParam {
         LiveResponsesDelegationParam { r#type, responses }
     }
 }
+
+impl crate::models::validation::Validate for LiveResponsesDelegationParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.responses,
+            &path.field("responses"),
+            errors,
+        );
+    }
+}
+
 /// The delegation owner. Always `responses` for tasks handled by the Responses API.  Defaults to `\"responses\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

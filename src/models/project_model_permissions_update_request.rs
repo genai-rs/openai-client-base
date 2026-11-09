@@ -25,6 +25,16 @@ impl ProjectModelPermissionsUpdateRequest {
         ProjectModelPermissionsUpdateRequest { mode, model_ids }
     }
 }
+
+impl crate::models::validation::Validate for ProjectModelPermissionsUpdateRequest {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The model permissions mode to apply.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Mode {

@@ -16,6 +16,8 @@ pub struct LiveSkillReferenceParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the referenced skill.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "skill_id")]
     pub skill_id: String,
     /// Optional skill version. Use a positive integer or 'latest'. Omit for default.
@@ -37,6 +39,23 @@ impl LiveSkillReferenceParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveSkillReferenceParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.skill_id,
+            Some(1),
+            Some(64),
+            &path.field("skill_id"),
+            errors,
+        );
+    }
+}
+
 /// References a skill created with the /v1/skills endpoint.  Defaults to `\"skill_reference\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

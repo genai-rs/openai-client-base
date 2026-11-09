@@ -58,6 +58,16 @@ impl RealtimeServerEventResponseContentPartAdded {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeServerEventResponseContentPartAdded {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, must be `response.content_part.added`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

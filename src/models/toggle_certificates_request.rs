@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ToggleCertificatesRequest {
+    /// Validation: `minItems: 1`, `maxItems: 10`.
     #[serde(rename = "certificate_ids")]
     pub certificate_ids: Vec<String>,
 }
@@ -19,5 +20,21 @@ pub struct ToggleCertificatesRequest {
 impl ToggleCertificatesRequest {
     pub fn new(certificate_ids: Vec<String>) -> ToggleCertificatesRequest {
         ToggleCertificatesRequest { certificate_ids }
+    }
+}
+
+impl crate::models::validation::Validate for ToggleCertificatesRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.certificate_ids.len(),
+            Some(1),
+            Some(10),
+            &path.field("certificate_ids"),
+            errors,
+        );
     }
 }

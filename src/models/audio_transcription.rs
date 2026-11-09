@@ -19,6 +19,8 @@ pub struct AudioTranscription {
     #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
     /// Possible languages of the input audio, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Supported by `gpt-transcribe` and `gpt-live-transcribe`.
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
     pub languages: Option<Vec<String>>,
     /// Words or phrases to guide transcription of the input audio. Supported by `gpt-transcribe` and `gpt-live-transcribe`.
@@ -44,6 +46,25 @@ impl AudioTranscription {
         }
     }
 }
+
+impl crate::models::validation::Validate for AudioTranscription {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.languages {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("languages"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Controls how long the model waits before emitting transcription text. Higher values can improve transcription accuracy at the cost of latency. Only supported with `gpt-realtime-whisper` in GA Realtime sessions.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Delay {

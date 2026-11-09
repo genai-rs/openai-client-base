@@ -38,6 +38,16 @@ impl FileCitationBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for FileCitationBody {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the file citation. Always `file_citation`.  Defaults to `\"file_citation\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

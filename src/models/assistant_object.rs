@@ -24,18 +24,26 @@ pub struct AssistantObject {
     #[serde(rename = "created_at")]
     pub created_at: i64,
     /// The name of the assistant. The maximum length is 256 characters.
+    ///
+    /// Validation: `maxLength: 256`.
     #[serde(rename = "name", deserialize_with = "Option::deserialize")]
     pub name: Option<String>,
     /// The description of the assistant. The maximum length is 512 characters.
+    ///
+    /// Validation: `maxLength: 512`.
     #[serde(rename = "description", deserialize_with = "Option::deserialize")]
     pub description: Option<String>,
     /// ID of the model to use. You can use the [List models](https://developers.openai.com/api/reference/resources/models/methods/list) API to see all of your available models, or see our [Model overview](https://developers.openai.com/api/docs/models) for descriptions of them.
     #[serde(rename = "model")]
     pub model: String,
     /// The system instructions that the assistant uses. The maximum length is 256,000 characters.
+    ///
+    /// Validation: `maxLength: 256000`.
     #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
     pub instructions: Option<String>,
     /// A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.  Defaults to `[]`.
+    ///
+    /// Validation: `maxItems: 128`.
     #[serde(rename = "tools")]
     pub tools: Vec<models::AssistantObjectToolsInner>,
     #[serde(
@@ -49,6 +57,8 @@ pub struct AssistantObject {
     #[serde(rename = "metadata", deserialize_with = "Option::deserialize")]
     pub metadata: Option<std::collections::HashMap<String, String>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 2`.
     #[serde(
         rename = "temperature",
         default,
@@ -57,6 +67,8 @@ pub struct AssistantObject {
     )]
     pub temperature: Option<Option<f64>>,
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or temperature but not both.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(
         rename = "top_p",
         default,
@@ -103,6 +115,62 @@ impl AssistantObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for AssistantObject {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.name {
+            crate::models::validation::length(value0, None, Some(256), &path.field("name"), errors);
+        }
+        if let Some(value0) = &self.description {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(512),
+                &path.field("description"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.instructions {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(256000),
+                &path.field("instructions"),
+                errors,
+            );
+        }
+        crate::models::validation::items(
+            self.tools.len(),
+            None,
+            Some(128),
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.tools,
+            &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.tool_resources,
+            &path.field("tool_resources"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.temperature {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("temperature"), errors);
+            crate::models::validation::maximum(*value0, 2.0, &path.field("temperature"), errors);
+        }
+        if let Some(Some(value0)) = &self.top_p {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("top_p"), errors);
+            crate::models::validation::maximum(*value0, 1.0, &path.field("top_p"), errors);
+        }
+    }
+}
+
 /// The object type, which is always `assistant`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

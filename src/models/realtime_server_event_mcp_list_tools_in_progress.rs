@@ -38,6 +38,16 @@ impl RealtimeServerEventMcpListToolsInProgress {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeServerEventMcpListToolsInProgress {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The event type, must be `mcp_list_tools.in_progress`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

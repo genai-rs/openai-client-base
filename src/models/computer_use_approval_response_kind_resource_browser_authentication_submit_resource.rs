@@ -19,6 +19,8 @@ pub struct ComputerUseApprovalResponseKindResourceBrowserAuthenticationSubmitRes
     #[serde(rename = "action")]
     pub action: Action,
     /// The chosen sign-in method, or null when no options were offered.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "selected_option", deserialize_with = "Option::deserialize")]
     pub selected_option: Option<String>,
 }
@@ -36,6 +38,27 @@ impl ComputerUseApprovalResponseKindResourceBrowserAuthenticationSubmitResource 
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for ComputerUseApprovalResponseKindResourceBrowserAuthenticationSubmitResource
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.selected_option {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("selected_option"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Defaults to `\"browser_authentication\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

@@ -46,6 +46,16 @@ impl WebhookEndpointTestResultResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for WebhookEndpointTestResultResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which is always webhook_endpoint.test.  Defaults to `\"webhook_endpoint.test\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

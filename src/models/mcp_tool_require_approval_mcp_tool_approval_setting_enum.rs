@@ -34,6 +34,15 @@ impl std::fmt::Display for McpToolRequireApprovalMcpToolApprovalSettingEnum {
     }
 }
 
+impl crate::models::validation::Validate for McpToolRequireApprovalMcpToolApprovalSettingEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for McpToolRequireApprovalMcpToolApprovalSettingEnum {
     type Err = crate::models::ParseEnumError;
 

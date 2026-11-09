@@ -17,6 +17,8 @@ pub struct VectorStoreSearchRequestRankingOptions {
     #[serde(rename = "ranker", skip_serializing_if = "Option::is_none")]
     pub ranker: Option<Ranker>,
     /// Defaults to `0`.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(rename = "score_threshold", skip_serializing_if = "Option::is_none")]
     pub score_threshold: Option<f64>,
 }
@@ -30,6 +32,30 @@ impl VectorStoreSearchRequestRankingOptions {
         }
     }
 }
+
+impl crate::models::validation::Validate for VectorStoreSearchRequestRankingOptions {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.score_threshold {
+            crate::models::validation::minimum(
+                *value0,
+                0.0,
+                &path.field("score_threshold"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                1.0,
+                &path.field("score_threshold"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Enable re-ranking; set to `none` to disable, which can help reduce latency.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Ranker {

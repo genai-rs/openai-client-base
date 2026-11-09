@@ -17,9 +17,13 @@ pub struct CreateVaultCredentialAuthParamStaticBearer {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The HTTPS MCP server URL authorized by this credential.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "mcp_server_url")]
     pub mcp_server_url: String,
     /// The bearer token to store. This secret is never returned in credential resources.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "token")]
     pub token: String,
 }
@@ -38,6 +42,30 @@ impl CreateVaultCredentialAuthParamStaticBearer {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateVaultCredentialAuthParamStaticBearer {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.mcp_server_url,
+            Some(0),
+            Some(1048576),
+            &path.field("mcp_server_url"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.token,
+            Some(0),
+            Some(1048576),
+            &path.field("token"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `static_bearer`.  Defaults to `\"static_bearer\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

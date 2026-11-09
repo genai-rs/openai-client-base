@@ -53,6 +53,15 @@ impl std::fmt::Display for BetaCacheMissReasonTypeEnum {
     }
 }
 
+impl crate::models::validation::Validate for BetaCacheMissReasonTypeEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for BetaCacheMissReasonTypeEnum {
     type Err = crate::models::ParseEnumError;
 

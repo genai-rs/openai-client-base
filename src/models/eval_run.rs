@@ -94,6 +94,21 @@ impl EvalRun {
         }
     }
 }
+
+impl crate::models::validation::Validate for EvalRun {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.data_source,
+            &path.field("data_source"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always \"eval.run\".  Defaults to `\"eval.run\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

@@ -17,9 +17,13 @@ pub struct HostedTemplateFileResourceInline {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The file's absolute path inside the environment.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "path")]
     pub path: String,
     /// The decoded size of the inline file in bytes.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(rename = "size_bytes")]
     pub size_bytes: i64,
 }
@@ -34,6 +38,18 @@ impl HostedTemplateFileResourceInline {
         }
     }
 }
+
+impl crate::models::validation::Validate for HostedTemplateFileResourceInline {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.path, Some(0), None, &path.field("path"), errors);
+        crate::models::validation::minimum(self.size_bytes, 0, &path.field("size_bytes"), errors);
+    }
+}
+
 /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

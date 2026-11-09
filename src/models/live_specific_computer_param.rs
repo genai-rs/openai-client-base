@@ -22,6 +22,16 @@ impl LiveSpecificComputerParam {
         LiveSpecificComputerParam { r#type }
     }
 }
+
+impl crate::models::validation::Validate for LiveSpecificComputerParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The tool to call. Always `computer`.  Defaults to `\"computer\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

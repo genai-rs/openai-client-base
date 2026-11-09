@@ -17,9 +17,13 @@ pub struct PersistedMcpTransportResourceHttp {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the MCP server.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "server_url")]
     pub server_url: String,
     /// Non-secret HTTP headers sent to the MCP server.
+    ///
+    /// Validation: `minProperties: 0`; each value: `minLength: 0`.
     #[serde(rename = "headers")]
     pub headers: std::collections::HashMap<String, String>,
 }
@@ -38,6 +42,41 @@ impl PersistedMcpTransportResourceHttp {
         }
     }
 }
+
+impl crate::models::validation::Validate for PersistedMcpTransportResourceHttp {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.server_url,
+            Some(0),
+            None,
+            &path.field("server_url"),
+            errors,
+        );
+        crate::models::validation::properties(
+            self.headers.len(),
+            Some(0),
+            None,
+            &path.field("headers"),
+            errors,
+        );
+        let start0 = errors.len();
+        for (key0, entry0) in &self.headers {
+            crate::models::validation::length(
+                entry0,
+                Some(0),
+                None,
+                &path.field("headers").key(key0),
+                errors,
+            );
+        }
+        crate::models::validation::sort_by_key(errors, start0, &path.field("headers"));
+    }
+}
+
 /// The type of the object. Always `http`.  Defaults to `\"http\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

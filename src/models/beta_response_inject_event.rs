@@ -21,6 +21,8 @@ pub struct BetaResponseInjectEvent {
     #[serde(rename = "response_id")]
     pub response_id: String,
     /// Input items to inject into the active response.
+    ///
+    /// Validation: `maxItems: 16384`.
     #[serde(rename = "input")]
     pub input: Vec<models::BetaInputItem>,
 }
@@ -39,6 +41,28 @@ impl BetaResponseInjectEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseInjectEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.input.len(),
+            None,
+            Some(16384),
+            &path.field("input"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
+            errors,
+        );
+    }
+}
+
 /// The event discriminator. Always `response.inject`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

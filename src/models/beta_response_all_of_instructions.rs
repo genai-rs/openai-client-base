@@ -54,3 +54,15 @@ impl std::fmt::Display for BetaResponseAllOfInstructions {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaResponseAllOfInstructions {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::InputItemList(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

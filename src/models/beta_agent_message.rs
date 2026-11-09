@@ -50,6 +50,16 @@ impl BetaAgentMessage {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaAgentMessage {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the item. Always `agent_message`.  Defaults to `\"agent_message\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

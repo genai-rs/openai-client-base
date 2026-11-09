@@ -24,6 +24,16 @@ impl BetaToolChoiceTypes {
         BetaToolChoiceTypes { r#type }
     }
 }
+
+impl crate::models::validation::Validate for BetaToolChoiceTypes {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of hosted tool the model should to use. Learn more about [built-in tools](https://developers.openai.com/api/docs/guides/tools).  Allowed values are: - `file_search` - `web_search_preview` - `computer` - `computer_use_preview` - `computer_use` - `code_interpreter` - `image_generation`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

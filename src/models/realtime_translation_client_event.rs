@@ -88,3 +88,23 @@ impl std::fmt::Display for RealtimeTranslationClientEvent {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeTranslationClientEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::RealtimeTranslationClientEventSessionUpdate(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeTranslationClientEventInputAudioBufferAppend(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeTranslationClientEventSessionClose(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

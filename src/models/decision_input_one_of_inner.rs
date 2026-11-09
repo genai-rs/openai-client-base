@@ -86,3 +86,29 @@ impl std::fmt::Display for DecisionInputOneOfInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for DecisionInputOneOfInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Message(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::FunctionCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::FunctionCallOutput(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::CustomToolCall(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::CustomToolCallOutput(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

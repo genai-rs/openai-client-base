@@ -17,15 +17,23 @@ pub struct EnvironmentResourceSelfHosted {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Pass this URL unchanged to `codex exec-server --remote` when connecting this environment.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "remote_url")]
     pub remote_url: String,
     /// The public ID of the environment.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The absolute project directory inside the environment. Defaults to `/workspace`.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "workspace_directory")]
     pub workspace_directory: String,
     /// Directories that contain capabilities exposed to the agent.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "capability_directories")]
     pub capability_directories: Vec<String>,
 }
@@ -48,6 +56,47 @@ impl EnvironmentResourceSelfHosted {
         }
     }
 }
+
+impl crate::models::validation::Validate for EnvironmentResourceSelfHosted {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.remote_url,
+            Some(0),
+            None,
+            &path.field("remote_url"),
+            errors,
+        );
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.workspace_directory,
+            Some(0),
+            None,
+            &path.field("workspace_directory"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.capability_directories.len(),
+            Some(0),
+            Some(2000),
+            &path.field("capability_directories"),
+            errors,
+        );
+        for (index0, item0) in self.capability_directories.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                None,
+                &path.field("capability_directories").index(index0),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the object. Always `self_hosted`.  Defaults to `\"self_hosted\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

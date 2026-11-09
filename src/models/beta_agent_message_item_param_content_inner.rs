@@ -79,3 +79,24 @@ impl std::fmt::Display for BetaAgentMessageItemParamContentInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaAgentMessageItemParamContentInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::BetaInputTextContentParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaInputImageContentParamAutoParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::BetaEncryptedContentParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

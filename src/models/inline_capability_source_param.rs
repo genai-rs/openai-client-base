@@ -20,6 +20,8 @@ pub struct InlineCapabilitySourceParam {
     #[serde(rename = "media_type")]
     pub media_type: MediaType,
     /// Standard-base64 encoded ZIP archive bytes.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 70254592`.
     #[serde(rename = "data")]
     pub data: String,
 }
@@ -34,6 +36,23 @@ impl InlineCapabilitySourceParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for InlineCapabilitySourceParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.data,
+            Some(1),
+            Some(70254592),
+            &path.field("data"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `base64`.  Defaults to `\"base64\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

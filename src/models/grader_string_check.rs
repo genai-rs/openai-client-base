@@ -48,6 +48,16 @@ impl GraderStringCheck {
         }
     }
 }
+
+impl crate::models::validation::Validate for GraderStringCheck {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which is always `string_check`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

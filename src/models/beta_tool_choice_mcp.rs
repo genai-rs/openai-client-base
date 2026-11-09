@@ -39,6 +39,16 @@ impl BetaToolChoiceMcp {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaToolChoiceMcp {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// For MCP tools, the type is always `mcp`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

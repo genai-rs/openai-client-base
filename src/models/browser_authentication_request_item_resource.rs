@@ -14,13 +14,17 @@ use serde::{Deserialize, Serialize};
 /// BrowserAuthenticationRequestItemResource : A credential-free history record of the emitted login request.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BrowserAuthenticationRequestItemResource {
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
+    /// Validation: `minLength: 0`.
     #[serde(rename = "request_id")]
     pub request_id: String,
     #[serde(rename = "request")]
     pub request: models::BrowserAuthenticationHistoryRequestKindResourceBrowserAuthentication,
     /// The stable history item ID.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The item type. Always computer_use_approval_request.  Defaults to `\"computer_use_approval_request\"`.
@@ -46,6 +50,36 @@ impl BrowserAuthenticationRequestItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for BrowserAuthenticationRequestItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.request_id,
+            Some(0),
+            None,
+            &path.field("request_id"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.request,
+            &path.field("request"),
+            errors,
+        );
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+    }
+}
+
 /// The item type. Always computer_use_approval_request.  Defaults to `\"computer_use_approval_request\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

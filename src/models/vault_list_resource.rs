@@ -18,12 +18,18 @@ pub struct VaultListResource {
     #[serde(rename = "object")]
     pub object: Object,
     /// The resources returned in this page, in the requested sort order.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`.
     #[serde(rename = "data")]
     pub data: Vec<models::VaultResource>,
     /// The ID of the first resource in `data`, or `null` if the page is empty.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "first_id", deserialize_with = "Option::deserialize")]
     pub first_id: Option<String>,
     /// The ID of the last resource in `data`, or `null` if the page is empty. Pass this as `after` with the same order and filters.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "last_id", deserialize_with = "Option::deserialize")]
     pub last_id: Option<String>,
     /// Whether there are more resources to retrieve after this page.
@@ -49,6 +55,42 @@ impl VaultListResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for VaultListResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.data.len(),
+            Some(0),
+            Some(2000),
+            &path.field("data"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(&self.data, &path.field("data"), errors);
+        if let Some(value0) = &self.first_id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("first_id"),
+                errors,
+            );
+        }
+        if let Some(value0) = &self.last_id {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("last_id"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The object type, which is always `list`.  Defaults to `\"list\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

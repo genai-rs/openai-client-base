@@ -14,12 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BrowserAuthenticationFieldResource {
     /// The field ID to submit as field_id in a fields entry.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The label to display beside the control.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "label")]
     pub label: String,
     /// The rendering type, such as email, password, or text.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "type")]
     pub r#type: String,
     /// Whether this control requires a nonempty value.
@@ -41,5 +47,17 @@ impl BrowserAuthenticationFieldResource {
             r#type,
             required,
         }
+    }
+}
+
+impl crate::models::validation::Validate for BrowserAuthenticationFieldResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(&self.label, Some(0), None, &path.field("label"), errors);
+        crate::models::validation::length(&self.r#type, Some(0), None, &path.field("type"), errors);
     }
 }

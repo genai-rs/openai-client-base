@@ -35,6 +35,15 @@ impl std::fmt::Display for BetaFunctionCallOutputStatusEnum {
     }
 }
 
+impl crate::models::validation::Validate for BetaFunctionCallOutputStatusEnum {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for BetaFunctionCallOutputStatusEnum {
     type Err = crate::models::ParseEnumError;
 

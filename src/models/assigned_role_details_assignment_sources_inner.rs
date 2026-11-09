@@ -29,3 +29,12 @@ impl AssignedRoleDetailsAssignmentSourcesInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for AssignedRoleDetailsAssignmentSourcesInner {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

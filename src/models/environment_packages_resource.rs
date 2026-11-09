@@ -14,12 +14,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EnvironmentPackagesResource {
     /// Python packages installed in the environment.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "python")]
     pub python: Vec<String>,
     /// System packages installed in the environment.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "system")]
     pub system: Vec<String>,
     /// npm packages installed globally in the environment.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "npm")]
     pub npm: Vec<String>,
 }
@@ -35,6 +41,63 @@ impl EnvironmentPackagesResource {
             python,
             system,
             npm,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for EnvironmentPackagesResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::items(
+            self.python.len(),
+            Some(0),
+            Some(16384),
+            &path.field("python"),
+            errors,
+        );
+        for (index0, item0) in self.python.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                Some(1048576),
+                &path.field("python").index(index0),
+                errors,
+            );
+        }
+        crate::models::validation::items(
+            self.system.len(),
+            Some(0),
+            Some(16384),
+            &path.field("system"),
+            errors,
+        );
+        for (index0, item0) in self.system.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                Some(1048576),
+                &path.field("system").index(index0),
+                errors,
+            );
+        }
+        crate::models::validation::items(
+            self.npm.len(),
+            Some(0),
+            Some(16384),
+            &path.field("npm"),
+            errors,
+        );
+        for (index0, item0) in self.npm.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                Some(1048576),
+                &path.field("npm").index(index0),
+                errors,
+            );
         }
     }
 }

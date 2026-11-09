@@ -91,3 +91,24 @@ impl std::fmt::Display for AgentToolResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for AgentToolResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::Function(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Mcp(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::WebSearch(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
+    }
+}

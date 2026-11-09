@@ -30,3 +30,17 @@ impl CreateSkillVersionBody {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateSkillVersionBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.files,
+            &path.field("files"),
+            errors,
+        );
+    }
+}

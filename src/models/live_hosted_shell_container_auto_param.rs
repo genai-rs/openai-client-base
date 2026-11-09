@@ -17,6 +17,8 @@ pub struct LiveHostedShellContainerAutoParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// An optional list of uploaded files to make available to your code.
+    ///
+    /// Validation: `maxItems: 50`.
     #[serde(
         rename = "file_ids",
         default,
@@ -39,6 +41,8 @@ pub struct LiveHostedShellContainerAutoParam {
     )]
     pub network_policy: Option<Option<models::LiveHostedShellContainerAutoParamNetworkPolicy>>,
     /// An optional list of skills referenced by id or inline data.
+    ///
+    /// Validation: `maxItems: 200`.
     #[serde(
         rename = "skills",
         default,
@@ -59,6 +63,44 @@ impl LiveHostedShellContainerAutoParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveHostedShellContainerAutoParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.file_ids {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(50),
+                &path.field("file_ids"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.network_policy,
+            &path.field("network_policy"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.skills {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(200),
+                &path.field("skills"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("skills"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Automatically creates a container for this request  Defaults to `\"container_auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

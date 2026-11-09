@@ -34,6 +34,8 @@ pub struct BetaInputFileContentParam {
     )]
     pub filename: Option<Option<String>>,
     /// The base64-encoded data of the file to be sent to the model.
+    ///
+    /// Validation: `maxLength: 73400320`.
     #[serde(
         rename = "file_data",
         default,
@@ -74,6 +76,25 @@ impl BetaInputFileContentParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaInputFileContentParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.file_data {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(73400320),
+                &path.field("file_data"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the input item. Always `input_file`.  Defaults to `\"input_file\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

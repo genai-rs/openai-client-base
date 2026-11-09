@@ -50,3 +50,15 @@ impl std::fmt::Display for BetaCodeInterpreterToolContainer {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaCodeInterpreterToolContainer {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::BetaAutoCodeInterpreterToolParam(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

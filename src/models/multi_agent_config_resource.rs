@@ -17,6 +17,8 @@ pub struct MultiAgentConfigResource {
     #[serde(rename = "enabled")]
     pub enabled: bool,
     /// Maximum number of subagents that may run concurrently, or null when disabled. Defaults to 6 when enabled.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 4294967295`.
     #[serde(
         rename = "max_concurrent_subagents",
         deserialize_with = "Option::deserialize"
@@ -30,6 +32,29 @@ impl MultiAgentConfigResource {
         MultiAgentConfigResource {
             enabled,
             max_concurrent_subagents,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for MultiAgentConfigResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.max_concurrent_subagents {
+            crate::models::validation::minimum(
+                *value0,
+                1,
+                &path.field("max_concurrent_subagents"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                4294967295,
+                &path.field("max_concurrent_subagents"),
+                errors,
+            );
         }
     }
 }

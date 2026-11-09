@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateVectorStoreRequest {
     /// A list of [File](https://developers.openai.com/api/reference/resources/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files.
+    ///
+    /// Validation: `maxItems: 500`.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
     /// The name of the vector store.
@@ -46,5 +48,33 @@ impl CreateVectorStoreRequest {
             chunking_strategy: None,
             metadata: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate for CreateVectorStoreRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.file_ids {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(500),
+                &path.field("file_ids"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.expires_after,
+            &path.field("expires_after"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.chunking_strategy,
+            &path.field("chunking_strategy"),
+            errors,
+        );
     }
 }

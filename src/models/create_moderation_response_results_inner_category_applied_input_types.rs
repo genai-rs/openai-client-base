@@ -88,6 +88,18 @@ impl CreateModerationResponseResultsInnerCategoryAppliedInputTypes {
         }
     }
 }
+
+impl crate::models::validation::Validate
+    for CreateModerationResponseResultsInnerCategoryAppliedInputTypes
+{
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The applied input type(s) for the category 'hate'.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Hate {

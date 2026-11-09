@@ -34,3 +34,12 @@ impl CustomToolProperties {
         }
     }
 }
+
+impl crate::models::validation::Validate for CustomToolProperties {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}

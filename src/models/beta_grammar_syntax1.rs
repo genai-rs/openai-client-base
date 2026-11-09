@@ -32,6 +32,15 @@ impl std::fmt::Display for BetaGrammarSyntax1 {
     }
 }
 
+impl crate::models::validation::Validate for BetaGrammarSyntax1 {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for BetaGrammarSyntax1 {
     type Err = crate::models::ParseEnumError;
 

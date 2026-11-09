@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveCallRejectRequest {
     /// SIP rejection status sent to the caller. This field is required.
+    ///
+    /// Validation: `minimum: 300`, `maximum: 699`.
     #[serde(rename = "status_code")]
     pub status_code: i64,
 }
@@ -22,5 +24,26 @@ impl LiveCallRejectRequest {
     /// Parameters used to reject an incoming Live SIP call.
     pub fn new(status_code: i64) -> LiveCallRejectRequest {
         LiveCallRejectRequest { status_code }
+    }
+}
+
+impl crate::models::validation::Validate for LiveCallRejectRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::minimum(
+            self.status_code,
+            300,
+            &path.field("status_code"),
+            errors,
+        );
+        crate::models::validation::maximum(
+            self.status_code,
+            699,
+            &path.field("status_code"),
+            errors,
+        );
     }
 }

@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct FunctionToolParam {
+    /// Validation: `minLength: 1`, `maxLength: 128`, `pattern: ^[a-zA-Z0-9_-]+$`.
     #[serde(rename = "name")]
     pub name: String,
     #[serde(
@@ -55,6 +56,8 @@ pub struct FunctionToolParam {
     #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
     pub defer_loading: Option<bool>,
     /// The tool invocation context(s).
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(
         rename = "allowed_callers",
         default,
@@ -79,6 +82,42 @@ impl FunctionToolParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for FunctionToolParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.name,
+            Some(1),
+            Some(128),
+            &path.field("name"),
+            errors,
+        );
+        crate::models::validation::pattern(
+            &self.name,
+            &PATTERN_0,
+            r"^[a-zA-Z0-9_-]+$",
+            &path.field("name"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.allowed_callers {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("allowed_callers"),
+                errors,
+            );
+        }
+    }
+}
+
+static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^[a-zA-Z0-9_-]+$").ok());
+
 /// Defaults to `\"function\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

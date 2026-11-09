@@ -80,6 +80,16 @@ impl BetaFunctionToolCallResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for BetaFunctionToolCallResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the function tool call. Always `function_call`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

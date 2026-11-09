@@ -38,6 +38,16 @@ impl SemanticVad {
         }
     }
 }
+
+impl crate::models::validation::Validate for SemanticVad {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Type of turn detection, `semantic_vad` to turn on Semantic VAD.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

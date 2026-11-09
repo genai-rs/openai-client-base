@@ -16,6 +16,8 @@ pub struct ProgramToolCallCallerParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The call ID of the program item that produced this tool call.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "caller_id")]
     pub caller_id: String,
 }
@@ -25,6 +27,23 @@ impl ProgramToolCallCallerParam {
         ProgramToolCallCallerParam { r#type, caller_id }
     }
 }
+
+impl crate::models::validation::Validate for ProgramToolCallCallerParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.caller_id,
+            Some(1),
+            Some(64),
+            &path.field("caller_id"),
+            errors,
+        );
+    }
+}
+
 /// The caller type. Always `program`.  Defaults to `\"program\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

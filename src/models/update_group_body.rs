@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateGroupBody {
     /// New display name for the group.
+    ///
+    /// Validation: `minLength: 1`, `maxLength: 255`.
     #[serde(rename = "name")]
     pub name: String,
 }
@@ -22,5 +24,21 @@ impl UpdateGroupBody {
     /// Request payload for updating the details of an existing group.
     pub fn new(name: String) -> UpdateGroupBody {
         UpdateGroupBody { name }
+    }
+}
+
+impl crate::models::validation::Validate for UpdateGroupBody {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(
+            &self.name,
+            Some(1),
+            Some(255),
+            &path.field("name"),
+            errors,
+        );
     }
 }

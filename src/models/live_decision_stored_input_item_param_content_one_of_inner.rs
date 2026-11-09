@@ -65,3 +65,20 @@ impl std::fmt::Display for LiveDecisionStoredInputItemParamContentOneOfInner {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveDecisionStoredInputItemParamContentOneOfInner {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::LiveDecisionInputTextParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionInputImageParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

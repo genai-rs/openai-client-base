@@ -47,6 +47,16 @@ impl WebhookBatchExpired {
         }
     }
 }
+
+impl crate::models::validation::Validate for WebhookBatchExpired {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object of the event. Always `event`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

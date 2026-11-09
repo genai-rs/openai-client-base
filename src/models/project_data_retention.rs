@@ -27,6 +27,16 @@ impl ProjectDataRetention {
         ProjectDataRetention { object, r#type }
     }
 }
+
+impl crate::models::validation::Validate for ProjectDataRetention {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The object type, which is always `project.data_retention`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

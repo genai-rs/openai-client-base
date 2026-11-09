@@ -73,3 +73,15 @@ impl std::fmt::Display for ContainerAutoParamNetworkPolicy {
         }
     }
 }
+
+impl crate::models::validation::Validate for ContainerAutoParamNetworkPolicy {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::ContainerNetworkPolicyAllowlistParam(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

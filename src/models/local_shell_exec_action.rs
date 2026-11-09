@@ -65,6 +65,16 @@ impl LocalShellExecAction {
         }
     }
 }
+
+impl crate::models::validation::Validate for LocalShellExecAction {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of the local shell action. Always `exec`.  Defaults to `\"exec\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

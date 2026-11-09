@@ -30,6 +30,16 @@ impl CreateChatCompletionRequestAllOfAudio {
         CreateChatCompletionRequestAllOfAudio { voice, format }
     }
 }
+
+impl crate::models::validation::Validate for CreateChatCompletionRequestAllOfAudio {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Specifies the output audio format. Must be one of `wav`, `mp3`, `flac`, `opus`, or `pcm16`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Format {

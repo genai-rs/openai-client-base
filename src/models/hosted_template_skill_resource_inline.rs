@@ -17,9 +17,13 @@ pub struct HostedTemplateSkillResourceInline {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The skill name declared in `SKILL.md`.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name")]
     pub name: String,
     /// The skill description declared in `SKILL.md`.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "description")]
     pub description: String,
 }
@@ -38,6 +42,24 @@ impl HostedTemplateSkillResourceInline {
         }
     }
 }
+
+impl crate::models::validation::Validate for HostedTemplateSkillResourceInline {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.name, Some(0), None, &path.field("name"), errors);
+        crate::models::validation::length(
+            &self.description,
+            Some(0),
+            None,
+            &path.field("description"),
+            errors,
+        );
+    }
+}
+
 /// The type of the object. Always `inline`.  Defaults to `\"inline\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

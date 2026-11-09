@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateThreadRequestToolResourcesFileSearchVectorStoresInner {
     /// A list of [file](https://developers.openai.com/api/reference/resources/files) IDs to add to the vector store. For vector stores created before Nov 2025, there can be a maximum of 10,000 files in a vector store. For vector stores created starting in Nov 2025, the limit is 100,000,000 files.
+    ///
+    /// Validation: `maxItems: 100000000`.
     #[serde(rename = "file_ids", skip_serializing_if = "Option::is_none")]
     pub file_ids: Option<Vec<String>>,
     #[serde(rename = "chunking_strategy", skip_serializing_if = "Option::is_none")]
@@ -36,5 +38,30 @@ impl CreateThreadRequestToolResourcesFileSearchVectorStoresInner {
             chunking_strategy: None,
             metadata: None,
         }
+    }
+}
+
+impl crate::models::validation::Validate
+    for CreateThreadRequestToolResourcesFileSearchVectorStoresInner
+{
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.file_ids {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(100000000),
+                &path.field("file_ids"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(
+            &self.chunking_strategy,
+            &path.field("chunking_strategy"),
+            errors,
+        );
     }
 }

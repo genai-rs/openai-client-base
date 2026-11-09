@@ -19,6 +19,8 @@ pub struct CreateCompletionRequest {
     #[serde(rename = "prompt")]
     pub prompt: String,
     /// Generates `best_of` completions server-side and returns the \"best\" (the one with the highest log probability per token). Results cannot be streamed.  When used with `n`, `best_of` controls the number of candidate completions and `n` specifies how many to return – `best_of` must be greater than `n`.  **Note:** Because this parameter generates many completions, it can quickly consume your token quota. Use carefully and ensure that you have reasonable settings for `max_tokens` and `stop`.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 20`.
     #[serde(
         rename = "best_of",
         default,
@@ -35,6 +37,8 @@ pub struct CreateCompletionRequest {
     )]
     pub echo: Option<Option<bool>>,
     /// Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.  [See more information about frequency and presence penalties.](https://developers.openai.com/api/docs/guides/text)  Defaults to `0`.
+    ///
+    /// Validation: `minimum: -2`, `maximum: 2`.
     #[serde(
         rename = "frequency_penalty",
         default,
@@ -51,6 +55,8 @@ pub struct CreateCompletionRequest {
     )]
     pub logit_bias: Option<Option<std::collections::HashMap<String, i64>>>,
     /// Include the log probabilities on the `logprobs` most likely output tokens, as well the chosen tokens. For example, if `logprobs` is 5, the API will return a list of the 5 most likely tokens. The API will always return the `logprob` of the sampled token, so there may be up to `logprobs+1` elements in the response.  The maximum value for `logprobs` is 5.  Defaults to `null`.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 5`.
     #[serde(
         rename = "logprobs",
         default,
@@ -59,6 +65,8 @@ pub struct CreateCompletionRequest {
     )]
     pub logprobs: Option<Option<i64>>,
     /// The maximum number of [tokens](https://platform.openai.com/tokenizer) that can be generated in the completion.  The token count of your prompt plus `max_tokens` cannot exceed the model's context length. [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken) for counting tokens.  Defaults to `16`.
+    ///
+    /// Validation: `minimum: 0`.
     #[serde(
         rename = "max_tokens",
         default,
@@ -67,6 +75,8 @@ pub struct CreateCompletionRequest {
     )]
     pub max_tokens: Option<Option<i64>>,
     /// How many completions to generate for each prompt.  **Note:** Because this parameter generates many completions, it can quickly consume your token quota. Use carefully and ensure that you have reasonable settings for `max_tokens` and `stop`.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 1`, `maximum: 128`.
     #[serde(
         rename = "n",
         default,
@@ -75,6 +85,8 @@ pub struct CreateCompletionRequest {
     )]
     pub n: Option<Option<i64>>,
     /// Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.  [See more information about frequency and presence penalties.](https://developers.openai.com/api/docs/guides/text)  Defaults to `0`.
+    ///
+    /// Validation: `minimum: -2`, `maximum: 2`.
     #[serde(
         rename = "presence_penalty",
         default,
@@ -121,6 +133,8 @@ pub struct CreateCompletionRequest {
     )]
     pub suffix: Option<Option<String>>,
     /// What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.  We generally recommend altering this or `top_p` but not both.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 2`.
     #[serde(
         rename = "temperature",
         default,
@@ -129,6 +143,8 @@ pub struct CreateCompletionRequest {
     )]
     pub temperature: Option<Option<f64>>,
     /// An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.  We generally recommend altering this or `temperature` but not both.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
     #[serde(
         rename = "top_p",
         default,
@@ -162,6 +178,67 @@ impl CreateCompletionRequest {
             temperature: None,
             top_p: None,
             user: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for CreateCompletionRequest {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.best_of {
+            crate::models::validation::minimum(*value0, 0, &path.field("best_of"), errors);
+            crate::models::validation::maximum(*value0, 20, &path.field("best_of"), errors);
+        }
+        if let Some(Some(value0)) = &self.frequency_penalty {
+            crate::models::validation::minimum(
+                *value0,
+                -2.0,
+                &path.field("frequency_penalty"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                2.0,
+                &path.field("frequency_penalty"),
+                errors,
+            );
+        }
+        if let Some(Some(value0)) = &self.logprobs {
+            crate::models::validation::minimum(*value0, 0, &path.field("logprobs"), errors);
+            crate::models::validation::maximum(*value0, 5, &path.field("logprobs"), errors);
+        }
+        if let Some(Some(value0)) = &self.max_tokens {
+            crate::models::validation::minimum(*value0, 0, &path.field("max_tokens"), errors);
+        }
+        if let Some(Some(value0)) = &self.n {
+            crate::models::validation::minimum(*value0, 1, &path.field("n"), errors);
+            crate::models::validation::maximum(*value0, 128, &path.field("n"), errors);
+        }
+        if let Some(Some(value0)) = &self.presence_penalty {
+            crate::models::validation::minimum(
+                *value0,
+                -2.0,
+                &path.field("presence_penalty"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                2.0,
+                &path.field("presence_penalty"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(&self.stop, &path.field("stop"), errors);
+        if let Some(Some(value0)) = &self.temperature {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("temperature"), errors);
+            crate::models::validation::maximum(*value0, 2.0, &path.field("temperature"), errors);
+        }
+        if let Some(Some(value0)) = &self.top_p {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("top_p"), errors);
+            crate::models::validation::maximum(*value0, 1.0, &path.field("top_p"), errors);
         }
     }
 }

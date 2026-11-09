@@ -36,6 +36,27 @@ impl FineTuneMethod {
         }
     }
 }
+
+impl crate::models::validation::Validate for FineTuneMethod {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.supervised,
+            &path.field("supervised"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(&self.dpo, &path.field("dpo"), errors);
+        crate::models::validation::Validate::validate_into(
+            &self.reinforcement,
+            &path.field("reinforcement"),
+            errors,
+        );
+    }
+}
+
 /// The type of method. Is either `supervised`, `dpo`, or `reinforcement`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

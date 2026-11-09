@@ -63,3 +63,20 @@ impl std::fmt::Display for ResponseSteerInputItem {
         }
     }
 }
+
+impl crate::models::validation::Validate for ResponseSteerInputItem {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        match self {
+            Self::UserMessageItemParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::FunctionCallOutputItemParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+        }
+    }
+}

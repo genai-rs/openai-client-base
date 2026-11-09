@@ -18,17 +18,25 @@ pub struct WaitForSubagentsCallItemResource {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The ID of the tool call item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The ID of the turn that contains this item.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "turn_id")]
     pub turn_id: String,
     #[serde(rename = "status")]
     pub status: models::FunctionCallStatusResource,
     /// The ID of the agent waiting for results.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "sender_agent_id")]
     pub sender_agent_id: String,
     /// The IDs of the agents to wait for.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 2000`; each item: `minLength: 0`.
     #[serde(rename = "recipient_agent_ids")]
     pub recipient_agent_ids: Vec<String>,
 }
@@ -53,6 +61,47 @@ impl WaitForSubagentsCallItemResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for WaitForSubagentsCallItemResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.turn_id,
+            Some(0),
+            None,
+            &path.field("turn_id"),
+            errors,
+        );
+        crate::models::validation::length(
+            &self.sender_agent_id,
+            Some(0),
+            None,
+            &path.field("sender_agent_id"),
+            errors,
+        );
+        crate::models::validation::items(
+            self.recipient_agent_ids.len(),
+            Some(0),
+            Some(2000),
+            &path.field("recipient_agent_ids"),
+            errors,
+        );
+        for (index0, item0) in self.recipient_agent_ids.iter().enumerate() {
+            crate::models::validation::length(
+                item0,
+                Some(0),
+                None,
+                &path.field("recipient_agent_ids").index(index0),
+                errors,
+            );
+        }
+    }
+}
+
 /// The item type. Always `wait_for_subagents_call`.  Defaults to `\"wait_for_subagents_call\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

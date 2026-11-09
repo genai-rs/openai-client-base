@@ -35,3 +35,22 @@ impl ChatkitConfigurationParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for ChatkitConfigurationParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.file_upload,
+            &path.field("file_upload"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.history,
+            &path.field("history"),
+            errors,
+        );
+    }
+}

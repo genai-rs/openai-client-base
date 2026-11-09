@@ -34,6 +34,16 @@ impl OrganizationSpendAlertDeletedResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for OrganizationSpendAlertDeletedResource {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// Always `organization.spend_alert.deleted`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

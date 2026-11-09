@@ -25,6 +25,8 @@ pub struct FunctionShellToolParam {
     )]
     pub environment: Option<Option<models::FunctionShellToolParamEnvironment>>,
     /// The tool invocation context(s).
+    ///
+    /// Validation: `minItems: 1`.
     #[serde(
         rename = "allowed_callers",
         default,
@@ -44,6 +46,30 @@ impl FunctionShellToolParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for FunctionShellToolParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.environment,
+            &path.field("environment"),
+            errors,
+        );
+        if let Some(Some(value0)) = &self.allowed_callers {
+            crate::models::validation::items(
+                value0.len(),
+                Some(1),
+                None,
+                &path.field("allowed_callers"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the shell tool. Always `shell`.  Defaults to `\"shell\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

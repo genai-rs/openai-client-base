@@ -24,6 +24,16 @@ impl LiveWebSearchToolInputParam {
         LiveWebSearchToolInputParam { r#type }
     }
 }
+
+impl crate::models::validation::Validate for LiveWebSearchToolInputParam {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The tool type. Always `web_search`.  Defaults to `\"web_search\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

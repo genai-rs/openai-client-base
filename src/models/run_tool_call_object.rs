@@ -38,6 +38,16 @@ impl RunToolCallObject {
         }
     }
 }
+
+impl crate::models::validation::Validate for RunToolCallObject {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The type of tool call the output is required for. For now, this is always `function`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

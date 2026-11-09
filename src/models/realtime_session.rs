@@ -62,6 +62,8 @@ pub struct RealtimeSession {
     )]
     pub input_audio_noise_reduction: Option<models::RealtimeSessionInputAudioNoiseReduction>,
     /// The speed of the model's spoken response. 1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.  Defaults to `1`.
+    ///
+    /// Validation: `minimum: 0.25`, `maximum: 1.5`.
     #[serde(rename = "speed", skip_serializing_if = "Option::is_none")]
     pub speed: Option<f64>,
     #[serde(
@@ -132,6 +134,30 @@ impl RealtimeSession {
         }
     }
 }
+
+impl crate::models::validation::Validate for RealtimeSession {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.input_audio_transcription,
+            &path.field("input_audio_transcription"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.turn_detection,
+            &path.field("turn_detection"),
+            errors,
+        );
+        if let Some(value0) = &self.speed {
+            crate::models::validation::minimum(*value0, 0.25, &path.field("speed"), errors);
+            crate::models::validation::maximum(*value0, 1.5, &path.field("speed"), errors);
+        }
+    }
+}
+
 /// The object type. Always `realtime.session`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

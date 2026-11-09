@@ -15,6 +15,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateSessionAgentParam {
     /// The model for subsequent turns. Omit to keep the current model.
+    ///
+    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
@@ -36,6 +38,24 @@ impl UpdateSessionAgentParam {
             model: None,
             reasoning: None,
             service_tier: None,
+        }
+    }
+}
+
+impl crate::models::validation::Validate for UpdateSessionAgentParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.model {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                Some(1048576),
+                &path.field("model"),
+                errors,
+            );
         }
     }
 }

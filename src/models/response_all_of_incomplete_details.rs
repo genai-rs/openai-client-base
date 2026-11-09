@@ -24,6 +24,16 @@ impl ResponseAllOfIncompleteDetails {
         ResponseAllOfIncompleteDetails { reason: None }
     }
 }
+
+impl crate::models::validation::Validate for ResponseAllOfIncompleteDetails {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 /// The reason why the response is incomplete. `steered` means the response stopped at a safe output boundary after a WebSocket `response.steer` event. The server can then create a successor response automatically with the queued input.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Reason {

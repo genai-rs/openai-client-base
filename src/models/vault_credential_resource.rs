@@ -15,20 +15,28 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct VaultCredentialResource {
     /// The ID of the credential.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
     /// The object type. Always `vault.credential`.  Defaults to `\"vault.credential\"`.
     #[serde(rename = "object")]
     pub object: Object,
     /// The ID of the vault containing this credential.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "vault_id")]
     pub vault_id: String,
     /// The human-readable name of the credential.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "auth")]
     pub auth: models::VaultCredentialAuthResource,
     /// Application-defined key-value pairs associated with this credential.
+    ///
+    /// Validation: `minProperties: 0`; each value: `minLength: 0`.
     #[serde(rename = "metadata")]
     pub metadata: std::collections::HashMap<String, String>,
     /// The Unix timestamp, in seconds, when the credential was created.
@@ -63,6 +71,44 @@ impl VaultCredentialResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for VaultCredentialResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
+        crate::models::validation::length(
+            &self.vault_id,
+            Some(0),
+            None,
+            &path.field("vault_id"),
+            errors,
+        );
+        crate::models::validation::length(&self.name, Some(0), None, &path.field("name"), errors);
+        crate::models::validation::Validate::validate_into(&self.auth, &path.field("auth"), errors);
+        crate::models::validation::properties(
+            self.metadata.len(),
+            Some(0),
+            None,
+            &path.field("metadata"),
+            errors,
+        );
+        let start0 = errors.len();
+        for (key0, entry0) in &self.metadata {
+            crate::models::validation::length(
+                entry0,
+                Some(0),
+                None,
+                &path.field("metadata").key(key0),
+                errors,
+            );
+        }
+        crate::models::validation::sort_by_key(errors, start0, &path.field("metadata"));
+    }
+}
+
 /// The object type. Always `vault.credential`.  Defaults to `\"vault.credential\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Object {

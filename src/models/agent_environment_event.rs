@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct AgentEnvironmentEvent {
     /// The ID of the environment.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "id")]
     pub id: String,
 }
@@ -22,5 +24,15 @@ impl AgentEnvironmentEvent {
     /// Identifies the environment whose lifecycle changed.
     pub fn new(id: String) -> AgentEnvironmentEvent {
         AgentEnvironmentEvent { id }
+    }
+}
+
+impl crate::models::validation::Validate for AgentEnvironmentEvent {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::length(&self.id, Some(0), None, &path.field("id"), errors);
     }
 }

@@ -62,3 +62,15 @@ impl std::fmt::Display for ComputerUseApprovalResponseKindResource {
         }
     }
 }
+
+impl crate::models::validation::Validate for ComputerUseApprovalResponseKindResource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Self::Submit(value) = self {
+            crate::models::validation::Validate::validate_into(value, path, errors);
+        }
+    }
+}

@@ -17,6 +17,8 @@ pub struct LiveLocalEnvironmentParam {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// An optional list of skills.
+    ///
+    /// Validation: `maxItems: 200`.
     #[serde(
         rename = "skills",
         default,
@@ -34,6 +36,25 @@ impl LiveLocalEnvironmentParam {
         }
     }
 }
+
+impl crate::models::validation::Validate for LiveLocalEnvironmentParam {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(Some(value0)) = &self.skills {
+            crate::models::validation::items(
+                value0.len(),
+                None,
+                Some(200),
+                &path.field("skills"),
+                errors,
+            );
+        }
+    }
+}
+
 /// Use a local computer environment.  Defaults to `\"local\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

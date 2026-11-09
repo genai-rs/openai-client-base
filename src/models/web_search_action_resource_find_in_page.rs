@@ -17,9 +17,13 @@ pub struct WebSearchActionResourceFindInPage {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The URL of the page that was searched.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "url", deserialize_with = "Option::deserialize")]
     pub url: Option<String>,
     /// The text pattern that was searched for.
+    ///
+    /// Validation: `minLength: 0`.
     #[serde(rename = "pattern", deserialize_with = "Option::deserialize")]
     pub pattern: Option<String>,
 }
@@ -38,6 +42,28 @@ impl WebSearchActionResourceFindInPage {
         }
     }
 }
+
+impl crate::models::validation::Validate for WebSearchActionResourceFindInPage {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        if let Some(value0) = &self.url {
+            crate::models::validation::length(value0, Some(0), None, &path.field("url"), errors);
+        }
+        if let Some(value0) = &self.pattern {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("pattern"),
+                errors,
+            );
+        }
+    }
+}
+
 /// The type of the object. Always `find_in_page`.  Defaults to `\"find_in_page\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

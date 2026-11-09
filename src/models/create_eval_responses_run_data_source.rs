@@ -43,6 +43,26 @@ impl CreateEvalResponsesRunDataSource {
         }
     }
 }
+
+impl crate::models::validation::Validate for CreateEvalResponsesRunDataSource {
+    fn validate_into(
+        &self,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+        crate::models::validation::Validate::validate_into(
+            &self.sampling_params,
+            &path.field("sampling_params"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.source,
+            &path.field("source"),
+            errors,
+        );
+    }
+}
+
 /// The type of run data source. Always `responses`.  Defaults to `\"responses\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {

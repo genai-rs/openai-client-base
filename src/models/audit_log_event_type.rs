@@ -563,6 +563,15 @@ impl std::fmt::Display for AuditLogEventType {
     }
 }
 
+impl crate::models::validation::Validate for AuditLogEventType {
+    fn validate_into(
+        &self,
+        _path: &crate::models::validation::Path<'_>,
+        _errors: &mut Vec<crate::models::validation::ValidationError>,
+    ) {
+    }
+}
+
 impl ::std::str::FromStr for AuditLogEventType {
     type Err = crate::models::ParseEnumError;
 
