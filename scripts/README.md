@@ -15,9 +15,9 @@ regeneration. Run `cargo test --all-features` and
 
 ## Response-error storage
 
-The shared `Error<T>::ResponseError` payload is boxed by the generator
-(`boxResponseError` in `generator-config.json`), in the enum and in every
-generated constructor expression. It leaves response schemas, JSON decoding,
+The shared `Error<T>::ResponseError` payload is boxed by the generator (always,
+since timvw-rust 0.21.0; it was the `boxResponseError` option before), in the
+enum and in every generated constructor expression. It leaves response schemas, JSON decoding,
 status codes, raw bodies, and other error variants unchanged.
 
 This fixes `clippy::result_large_err` when an endpoint's typed error response
@@ -40,19 +40,18 @@ Publishing is restricted to `main`, either on schedule or with `publish: true`.
 ## Model rewrites
 
 None. Unions, `Default`, `Display` and imports are decided by the generator's
-model-level rules (the options in `generator-config.json`). The transitional
-`legacyModelRewrites` (Java ports of the scripts that used to run here) was
-turned off in 0.26.0 and removed from timvw-rust 0.17.0.
+model-level rules. The transitional `legacyModelRewrites` (Java ports of the
+scripts that used to run here) was turned off in 0.26.0 and removed from
+timvw-rust 0.17.0.
 
-Of the options timvw-rust 0.18.0 added, two are set:
+Since timvw-rust 0.21.0 the baseline renderings this crate used to switch on
+(`boxOnlyCycles`, `defaultOnlyWhereValid`, `enumFromStr`, `noStructDisplay`,
+`integersAsI64`, `qualifiedInlineNames`, `modelUnions`, `unionDispatch`,
+`openEnums`, `schemaDefaultDocs`, `nullableUnionFields`, and
+`boxResponseError`) are always applied and no longer options: setting one fails
+generation, so `generator-config.json` does not list them.
 
-- `schemaDefaultDocs`: a property's or parameter's `default` is noted in its
-  documentation (``Defaults to `false`.``). Documentation only.
-- `nullableUnionFields`: a nullable union field is `Option<Option<U>>`, so a
-  request can send `null`. The current spec has no such field, so it changes
-  nothing yet; it decides how one renders when the spec adds it.
-
-Three are not:
+Three options are not set:
 
 - `pruneAllHelpers`: `tests/oa06_postprocess_wire.rs` includes
   `src/apis/multipart_helper.rs` and calls one helper; without the helpers kept

@@ -191,7 +191,7 @@ async fn create_embedding_posts_json_and_parses_response() {
     );
     let response = embeddings_api::create_embedding()
         .configuration(&config(&server))
-        .create_embedding_request(request)
+        .create_embedding_request(&request)
         .call()
         .await
         .expect("200 response should deserialise");

@@ -103,9 +103,8 @@ docker run --rm \
     --skip-validate-spec
 
 # Step 4: Self-test the remaining generation scripts. The generator renders
-# unions (modelUnions, unionDispatch) and decides Default (defaultOnlyWhereValid)
-# and Display (noStructDisplay) itself, and writes only the imports a file
-# uses. Nothing rewrites the generated code afterwards any more.
+# unions and decides Default and Display itself, and writes only the imports a
+# file uses. Nothing rewrites the generated code afterwards any more.
 echo ""
 echo "🧪 Testing generation scripts..."
 uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"

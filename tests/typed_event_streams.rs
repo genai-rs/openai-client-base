@@ -80,7 +80,7 @@ async fn create_response_stream_yields_typed_events() {
 
     let events: Vec<models::ResponseStreamEvent> = responses_api::create_response_stream()
         .configuration(&config(&server))
-        .create_response(streaming_request())
+        .create_response(&streaming_request())
         .call()
         .await
         .expect("an event stream")
@@ -165,7 +165,7 @@ async fn chat_completion_stream_stops_at_done() {
     let chunks: Vec<models::CreateChatCompletionStreamResponse> =
         chat_api::create_chat_completion_stream()
             .configuration(&config(&server))
-            .create_chat_completion_request(request)
+            .create_chat_completion_request(&request)
             .call()
             .await
             .unwrap()
@@ -193,7 +193,7 @@ async fn an_error_status_is_the_operations_typed_error() {
 
     let error = responses_api::create_response_stream()
         .configuration(&config(&server))
-        .create_response(streaming_request())
+        .create_response(&streaming_request())
         .call()
         .await
         .unwrap_err();
@@ -220,7 +220,7 @@ async fn a_json_answer_to_a_stream_request_is_an_error() {
 
     let error = responses_api::create_response_stream()
         .configuration(&config(&server))
-        .create_response(streaming_request())
+        .create_response(&streaming_request())
         .call()
         .await
         .unwrap_err();
@@ -244,7 +244,7 @@ async fn a_payload_that_does_not_decode_is_an_error_and_the_stream_goes_on() {
 
     let events: Vec<_> = responses_api::create_response_stream()
         .configuration(&config(&server))
-        .create_response(streaming_request())
+        .create_response(&streaming_request())
         .call()
         .await
         .unwrap()

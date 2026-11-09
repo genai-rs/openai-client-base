@@ -75,7 +75,7 @@ async fn stream(configuration: &Configuration) -> Result<(), Box<dyn std::error:
     request.stream = Some(Some(true));
     let mut events = responses_api::create_response_stream()
         .configuration(configuration)
-        .create_response(request)
+        .create_response(&request)
         .call()
         .await?;
     while let Some(event) = events.next().await {
