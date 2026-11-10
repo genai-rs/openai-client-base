@@ -22,8 +22,9 @@ pub struct ChatkitWorkflow {
     pub version: Option<String>,
     /// State variable key-value pairs applied when invoking the workflow. Defaults to null when no overrides were provided.
     #[serde(rename = "state_variables", deserialize_with = "Option::deserialize")]
-    pub state_variables:
-        Option<std::collections::HashMap<String, models::ChatkitWorkflowStateVariablesValue>>,
+    pub state_variables: Option<
+        std::collections::HashMap<String, Option<models::ChatkitWorkflowStateVariablesValue>>,
+    >,
     #[serde(rename = "tracing")]
     pub tracing: models::ChatkitWorkflowTracing,
 }
@@ -34,7 +35,7 @@ impl ChatkitWorkflow {
         id: String,
         version: Option<String>,
         state_variables: Option<
-            std::collections::HashMap<String, models::ChatkitWorkflowStateVariablesValue>,
+            std::collections::HashMap<String, Option<models::ChatkitWorkflowStateVariablesValue>>,
         >,
         tracing: models::ChatkitWorkflowTracing,
     ) -> ChatkitWorkflow {
