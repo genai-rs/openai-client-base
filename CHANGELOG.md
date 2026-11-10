@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.27.0](https://github.com/genai-rs/openai-client-base/compare/v0.26.0...v0.27.0) - 2026-11-10
+
+### Added
+
+- [**breaking**] generate with timvw-rust 0.21.0
+- schemaDefaultDocs and nullableUnionFields
+
+### Other
+
+- regenerate with timvw-rust 0.21.0
+- *(deps)* Update rust patch updates
+- generate with timvw-rust 0.18.0
+
 ## [0.26.0](https://github.com/genai-rs/openai-client-base/compare/v0.25.0...v0.26.0) - 2026-11-07
 
 ### Added
