@@ -2847,7 +2847,7 @@ pub async fn organization_decisionsusage(
     configuration: &configuration::Configuration,
     start_time: i64,
     end_time: Option<i64>,
-    bucket_width: Option<&str>,
+    bucket_width: Option<models::DecisionsUsageBucketWidth>,
     limit: Option<i64>,
     page: Option<&str>,
     project_ids: Option<Vec<String>>,

@@ -1072,7 +1072,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
-**bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |
+**bucket_width** | Option<[**DecisionsUsageBucketWidth**](DecisionsUsageBucketWidth.md)> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440 |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 **project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
