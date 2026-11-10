@@ -21,7 +21,7 @@ no script edits the generated code afterwards.
    ids, deep-object query parameters, multipart handling,
    lint allows, typed event streams (`typedEventStreams`) and one method per
    media type (`contentTypeMethods`). Error boxing, boxing only on cycles,
-   unions and the other baseline renderings are always on in timvw-rust 0.21.0. The generator writes the spec after its
+   unions and the other baseline renderings are always on since timvw-rust 0.21.0. The generator writes the spec after its
    spec rules to `target/specs/l2_rust_compatible.json`. Hand-maintained files
    (`Cargo.toml`, `README.md`, `src/lib.rs`, ...) are listed in
    `.openapi-generator-ignore` and left alone.

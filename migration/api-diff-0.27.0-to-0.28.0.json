@@ -1,0 +1,65 @@
+{
+  "source_heads": {
+    "reference": "openai-client-base 0.27.0",
+    "candidate": "chore/timvw-rust-0.22.0 (timvw-rust 0.22.0, unchanged stainless.yaml)"
+  },
+  "method": "Source declaration census of public model exports, struct fields, enum variant names, and function signatures, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derive or macro-generated builders, enumerate trait implementations, or resolve every visibility/re-export interaction.",
+  "registry_source_rs_files": 2942,
+  "current_source_rs_files": 2942,
+  "source_files_added": [],
+  "source_files_removed": [],
+  "source_files_modified": [
+    "apis/default_api.rs",
+    "models/chatkit_workflow.rs"
+  ],
+  "model_exports_added": [],
+  "model_exports_removed": [],
+  "public_functions_added_or_signature_changed": [
+    {
+      "file": "apis/default_api.rs",
+      "name": "organization_decisionsusage",
+      "signature": "pub async fn organization_decisionsusage( configuration: &configuration::Configuration, start_time: i64, end_time: Option<i64>, bucket_width: Option<models::DecisionsUsageBucketWidth>, limit: Option<i64>, page: Option<&str>, project_ids: Option<Vec<String>>, group_by: Option<Vec<models::DecisionsUsageGroupBy>>, user_ids: Option<Vec<String>>, api_key_ids: Option<Vec<String>>, models: Option<Vec<String>>, batch: Option<bool>, ) -> Result<models::PublicDecisionsUsageResponseResource, Error<OrganizationDecisionsusageError>>"
+    },
+    {
+      "file": "models/chatkit_workflow.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, version: Option<String>, state_variables: Option< std::collections::HashMap<String, Option<models::ChatkitWorkflowStateVariablesValue>>, >, tracing: models::ChatkitWorkflowTracing, ) -> ChatkitWorkflow"
+    }
+  ],
+  "public_functions_removed_or_signature_changed": [
+    {
+      "file": "apis/default_api.rs",
+      "name": "organization_decisionsusage",
+      "signature": "pub async fn organization_decisionsusage( configuration: &configuration::Configuration, start_time: i64, end_time: Option<i64>, bucket_width: Option<&str>, limit: Option<i64>, page: Option<&str>, project_ids: Option<Vec<String>>, group_by: Option<Vec<models::DecisionsUsageGroupBy>>, user_ids: Option<Vec<String>>, api_key_ids: Option<Vec<String>>, models: Option<Vec<String>>, batch: Option<bool>, ) -> Result<models::PublicDecisionsUsageResponseResource, Error<OrganizationDecisionsusageError>>"
+    },
+    {
+      "file": "models/chatkit_workflow.rs",
+      "name": "new",
+      "signature": "pub fn new( id: String, version: Option<String>, state_variables: Option< std::collections::HashMap<String, models::ChatkitWorkflowStateVariablesValue>, >, tracing: models::ChatkitWorkflowTracing, ) -> ChatkitWorkflow"
+    }
+  ],
+  "public_model_field_changes": [
+    {
+      "file": "models/chatkit_workflow.rs",
+      "model": "ChatkitWorkflow",
+      "field": "state_variables",
+      "registry": "Option<std::collections::HashMap<String, models::ChatkitWorkflowStateVariablesValue>>",
+      "current": "Option< std::collections::HashMap<String, Option<models::ChatkitWorkflowStateVariablesValue>>, >"
+    }
+  ],
+  "public_enum_variant_changes": [],
+  "public_derive_changes": [],
+  "serde_field_attribute_changes": [],
+  "counts": {
+    "model_exports_added": 0,
+    "model_exports_removed": 0,
+    "public_functions_added_or_signature_changed": 2,
+    "public_functions_removed_or_signature_changed": 2,
+    "public_model_field_changes": 1,
+    "public_enum_types_with_variant_changes": 0,
+    "public_enum_variants_added": 0,
+    "public_enum_variants_removed": 0,
+    "public_derive_changes": 0,
+    "serde_field_attribute_changes": 0
+  }
+}
