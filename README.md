@@ -111,6 +111,16 @@ The generation script automatically:
 
 For detailed pipeline documentation, see [PIPELINE.md](PIPELINE.md)
 
+## Upgrading
+
+Releases that change the generated public API are breaking (a minor-version bump before 1.0). Each one has a
+migration note in [`migration/`](https://github.com/genai-rs/openai-client-base/tree/main/migration):
+
+- **0.28** (timvw-rust 0.22.0): `organization_decisionsusage` takes `bucket_width` as
+  `models::DecisionsUsageBucketWidth` instead of `&str`, and the values of `ChatkitWorkflow.state_variables` are
+  `Option<ChatkitWorkflowStateVariablesValue>` (a `null` value now decodes). See
+  [`api-diff-0.27.0-to-0.28.0.md`](https://github.com/genai-rs/openai-client-base/blob/main/migration/api-diff-0.27.0-to-0.28.0.md).
+
 ## Requirements
 
 - Rust 1.88+ (stable toolchain recommended for consistent formatting)
