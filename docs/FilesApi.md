@@ -30,7 +30,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::OpenAiFile**](OpenAIFile.md)
+[**models::OpenAiFile**](OpenAiFile.md)
 
 ### Authorization
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**std::path::PathBuf**](std::path::PathBuf.md)
+**std::path::PathBuf**
 
 ### Authorization
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::OpenAiFile**](OpenAIFile.md)
+[**models::OpenAiFile**](OpenAiFile.md)
 
 ### Authorization
 

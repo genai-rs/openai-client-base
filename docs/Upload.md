@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **status** | **Status** | The status of the Upload. (enum: pending, completed, cancelled, expired) | 
 **expires_at** | **i64** | The Unix timestamp (in seconds) for when the Upload will expire. | 
 **object** | Option<**Object**> | The object type, which is always \"upload\". (enum: upload) | [optional]
-**file** | Option<[**models::OpenAiFile**](OpenAIFile.md)> | The ready File object after the Upload is completed. | [optional]
+**file** | Option<[**models::OpenAiFile**](OpenAiFile.md)> | The ready File object after the Upload is completed. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

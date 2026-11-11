@@ -698,7 +698,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::ListAgentSessionSubagents200Response**](listAgentSessionSubagents_200_response.md)
+[**models::ListAgentSessionSubagents200Response**](ListAgentSessionSubagents200Response.md)
 
 ### Authorization
 
@@ -1045,7 +1045,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**std::path::PathBuf**](std::path::PathBuf.md)
+**std::path::PathBuf**
 
 ### Authorization
 

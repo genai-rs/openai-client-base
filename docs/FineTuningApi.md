@@ -254,7 +254,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **after** | Option<**String**> | Identifier for the last job from the previous pagination request. |  |
 **limit** | Option<**i64**> | Number of fine-tuning jobs to retrieve.  Defaults to `20`. |  |[default to 20]
-**metadata** | Option<[**std::collections::HashMap<String, String>**](String.md)> | Optional metadata filter. To filter, use the syntax `metadata[k]=v`. Omitting the parameter or passing an empty object applies no metadata filter. An empty value, such as `metadata[k]=`, filters for that key with an empty string value. To select jobs with null metadata, send the literal query string `metadata=null`. Nullable caller types do not specify how a client serializes null for a deep-object parameter. Use a raw query parameter if the client omits null. Do not combine the two query forms.  |  |
+**metadata** | Option<**std::collections::HashMap<String, String>**> | Optional metadata filter. To filter, use the syntax `metadata[k]=v`. Omitting the parameter or passing an empty object applies no metadata filter. An empty value, such as `metadata[k]=`, filters for that key with an empty string value. To select jobs with null metadata, send the literal query string `metadata=null`. Nullable caller types do not specify how a client serializes null for a deep-object parameter. Use a raw query parameter if the client omits null. Do not combine the two query forms.  |  |
 
 ### Return type
 

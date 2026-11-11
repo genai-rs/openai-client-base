@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** | The provenance signal type. Always `c2pa`.  Defaults to `\"c2pa\"`. (enum: c2pa) | 
 **outcome** | [**models::ProvenanceDetectionResultApi**](ProvenanceDetectionResultApi.md) |  | 
-**validation_state** | [**models::C2PaValidationStateApi**](C2PAValidationStateApi.md) |  | 
+**validation_state** | [**models::C2PaValidationStateApi**](C2PaValidationStateApi.md) |  | 
 **issuer** | Option<**String**> | The C2PA manifest issuer, when available. | 
 **model** | **String** | ID of the model to use | 
 **generated_at** | Option<**String**> | The UTC RFC 3339 timestamp recorded by the provenance signal for when the asset was generated, when available. | 
