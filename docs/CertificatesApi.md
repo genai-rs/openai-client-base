@@ -182,7 +182,7 @@ Get a certificate that has been uploaded to the organization.  You can get a cer
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **certificate_id** | **String** | Unique ID of the certificate to retrieve. | [required] |
-**include** | Option<[**Vec<String>**](String.md)> | A list of additional fields to include in the response. Currently the only supported value is `content` to fetch the PEM content of the certificate. |  |
+**include** | Option<**Vec<String>**> | A list of additional fields to include in the response. Currently the only supported value is `content` to fetch the PEM content of the certificate. |  |
 
 ### Return type
 

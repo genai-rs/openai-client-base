@@ -12,9 +12,9 @@ Name | Type | Description | Notes
 **authorization** | Option<**String**> | An OAuth access token that can be used with a remote MCP server, either with a custom MCP server URL or a service connector. Your application must handle the OAuth authorization flow and provide the token here.  | [optional]
 **server_description** | Option<**String**> | Optional description of the MCP server, used to provide more context.  | [optional]
 **headers** | Option<**std::collections::HashMap<String, String>**> | Optional HTTP headers to send to the MCP server. Use for authentication or other purposes.  | [optional]
-**allowed_tools** | Option<[**models::McpToolAllowedTools**](MCPToolAllowedTools.md)> |  | [optional]
+**allowed_tools** | Option<[**models::McpToolAllowedTools**](McpToolAllowedTools.md)> |  | [optional]
 **allowed_callers** | Option<[**Vec<models::CallableToolAllowedCaller>**](CallableToolAllowedCaller.md)> | The tool invocation context(s). | [optional]
-**require_approval** | Option<[**models::McpToolRequireApproval**](MCPToolRequireApproval.md)> |  | [optional]
+**require_approval** | Option<[**models::McpToolRequireApproval**](McpToolRequireApproval.md)> |  | [optional]
 **defer_loading** | Option<**bool**> | Whether this MCP tool is deferred and discovered via tool search.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

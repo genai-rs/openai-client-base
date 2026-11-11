@@ -38,7 +38,7 @@ Cancels a model response with the given ID. Only responses created with the `bac
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to cancel. | [required] |
-**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+**openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 
 ### Return type
 
@@ -68,7 +68,7 @@ Compact a conversation. Returns a compacted response object.  Learn when and how
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+**openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 **beta_compact_response_method_public_body** | Option<[**BetaCompactResponseMethodPublicBody**](BetaCompactResponseMethodPublicBody.md)> |  |  |
 
 ### Return type
@@ -100,7 +100,7 @@ Creates a model response. Provide [text](https://developers.openai.com/api/docs/
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **beta_create_response** | [**BetaCreateResponse**](BetaCreateResponse.md) |  | [required] |
-**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+**openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 
 ### Return type
 
@@ -131,7 +131,7 @@ Creates a model response. Provide [text](https://developers.openai.com/api/docs/
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **beta_create_response** | [**BetaCreateResponse**](BetaCreateResponse.md) |  | [required] |
-**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+**openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 
 ### Return type
 
@@ -162,11 +162,11 @@ Deletes a model response with the given ID.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to delete. | [required] |
-**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+**openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 
 ### Return type
 
-[**models::BetaDeleteResponse200Response**](beta_deleteResponse_200_response.md)
+[**models::BetaDeleteResponse200Response**](BetaDeleteResponse200Response.md)
 
 ### Authorization
 
@@ -193,11 +193,11 @@ Retrieves a model response with the given ID.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to retrieve. | [required] |
-**include** | Option<[**Vec<models::BetaIncludeEnum>**](Models__BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**include** | Option<[**Vec<models::BetaIncludeEnum>**](BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
 **stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.  |  |
 **starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
 **include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
-**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+**openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 
 ### Return type
 
@@ -228,11 +228,11 @@ Retrieves a model response with the given ID.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to retrieve. | [required] |
-**include** | Option<[**Vec<models::BetaIncludeEnum>**](Models__BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**include** | Option<[**Vec<models::BetaIncludeEnum>**](BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
 **stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.  |  |
 **starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
 **include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
-**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+**openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 
 ### Return type
 
@@ -262,7 +262,7 @@ Returns input token counts of the request.  Returns an object with `object` set 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+**openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 **beta_token_counts_body** | Option<[**BetaTokenCountsBody**](BetaTokenCountsBody.md)> |  |  |
 
 ### Return type
@@ -297,8 +297,8 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **order** | Option<**String**> | The order to return the input items in. Default is `desc`. - `asc`: Return the input items in ascending order. - `desc`: Return the input items in descending order.  |  |
 **after** | Option<**String**> | An item ID to list items after, used in pagination.  |  |
-**include** | Option<[**Vec<models::BetaIncludeEnum>**](Models__BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
-**openai_beta** | Option<[**Vec<String>**](String.md)> | Optional beta features to enable for this request. |  |
+**include** | Option<[**Vec<models::BetaIncludeEnum>**](BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 
 ### Return type
 
@@ -452,7 +452,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteResponse200Response**](deleteResponse_200_response.md)
+[**models::DeleteResponse200Response**](DeleteResponse200Response.md)
 
 ### Authorization
 
@@ -479,7 +479,7 @@ Retrieves a model response with the given ID.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to retrieve. | [required] |
-**include** | Option<[**Vec<models::IncludeEnum>**](Models__IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**include** | Option<[**Vec<models::IncludeEnum>**](IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
 **stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.  |  |
 **starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
 **include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
@@ -513,7 +513,7 @@ Retrieves a model response with the given ID.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to retrieve. | [required] |
-**include** | Option<[**Vec<models::IncludeEnum>**](Models__IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**include** | Option<[**Vec<models::IncludeEnum>**](IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
 **stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.  |  |
 **starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
 **include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
@@ -580,7 +580,7 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **order** | Option<**String**> | The order to return the input items in. Default is `desc`. - `asc`: Return the input items in ascending order. - `desc`: Return the input items in descending order.  |  |
 **after** | Option<**String**> | An item ID to list items after, used in pagination.  |  |
-**include** | Option<[**Vec<models::IncludeEnum>**](Models__IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**include** | Option<[**Vec<models::IncludeEnum>**](IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
 
 ### Return type
 

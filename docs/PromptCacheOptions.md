@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ttl** | [**models::PromptCacheTtlEnum**](PromptCacheTTLEnum.md) |  | 
+**ttl** | [**models::PromptCacheTtlEnum**](PromptCacheTtlEnum.md) |  | 
 **mode** | [**models::PromptCacheModeEnum**](PromptCacheModeEnum.md) |  | 
 **comparison_response_id** | Option<**String**> | The response ID supplied as the prompt cache diagnostics comparison. | [optional]
 

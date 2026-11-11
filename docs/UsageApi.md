@@ -33,11 +33,11 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
-**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**user_ids** | Option<**Vec<String>**> | Return only usage for these users. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
+**models** | Option<**Vec<String>**> | Return only usage for these models. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -72,11 +72,11 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
-**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**user_ids** | Option<**Vec<String>**> | Return only usage for these users. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
+**models** | Option<**Vec<String>**> | Return only usage for these models. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -111,8 +111,8 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -147,12 +147,12 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
-**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**user_ids** | Option<**Vec<String>**> | Return only usage for these users. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
+**models** | Option<**Vec<String>**> | Return only usage for these models. |  |
 **batch** | Option<**bool**> | If `true`, return batch jobs only. If `false`, return non-batch jobs only. By default, return both.  |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -187,10 +187,10 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently only `1d` is supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only costs for these projects. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only costs for these API keys. |  |
-**line_items** | Option<[**Vec<String>**](String.md)> | Return only costs for these exact line item names. Each value must match the complete `line_item` value, for example `gpt-6-astra, input_tokens`. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the costs by the specified fields. Supported fields include `project_id`, `user_id`, `line_item`, `api_key_id`, and `api_source`. Support for combining `user_id` with `project_id` grouping or the `project_ids` filter depends on the organization and requested time range. Unsupported combinations return HTTP 400. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
+**project_ids** | Option<**Vec<String>**> | Return only costs for these projects. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only costs for these API keys. |  |
+**line_items** | Option<**Vec<String>**> | Return only costs for these exact line item names. Each value must match the complete `line_item` value, for example `gpt-6-astra, input_tokens`. |  |
+**group_by** | Option<**Vec<String>**> | Group the costs by the specified fields. Supported fields include `project_id`, `user_id`, `line_item`, `api_key_id`, and `api_source`. Support for combining `user_id` with `project_id` grouping or the `project_ids` filter depends on the organization and requested time range. Unsupported combinations return HTTP 400. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
 **limit** | Option<**i64**> | A limit on the number of buckets to be returned. Limit can range between 1 and 180, and the default is 7.  Defaults to `7`. |  |[default to 7]
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -225,11 +225,11 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
-**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**user_ids** | Option<**Vec<String>**> | Return only usage for these users. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
+**models** | Option<**Vec<String>**> | Return only usage for these models. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -264,11 +264,11 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
-**vector_store_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these vector stores. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `vector_store_id` or any combination of them. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**user_ids** | Option<**Vec<String>**> | Return only usage for these users. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
+**vector_store_ids** | Option<**Vec<String>**> | Return only usage for these vector stores. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `vector_store_id` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -303,13 +303,13 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**sources** | Option<[**Vec<String>**](String.md)> | Return only usages for these sources. Possible values are `image.generation`, `image.edit`, `image.variation` or any combination of them. |  |
-**sizes** | Option<[**Vec<String>**](String.md)> | Return only usages for these image sizes. Possible values are `256x256`, `512x512`, `1024x1024`, `1792x1792`, `1024x1792` or any combination of them. |  |
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
-**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `size`, `source` or any combination of them. |  |
+**sources** | Option<**Vec<String>**> | Return only usages for these sources. Possible values are `image.generation`, `image.edit`, `image.variation` or any combination of them. |  |
+**sizes** | Option<**Vec<String>**> | Return only usages for these image sizes. Possible values are `256x256`, `512x512`, `1024x1024`, `1792x1792`, `1024x1792` or any combination of them. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**user_ids** | Option<**Vec<String>**> | Return only usage for these users. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
+**models** | Option<**Vec<String>**> | Return only usage for these models. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `size`, `source` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -344,11 +344,11 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
-**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**user_ids** | Option<**Vec<String>**> | Return only usage for these users. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
+**models** | Option<**Vec<String>**> | Return only usage for these models. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -383,8 +383,8 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 
@@ -419,12 +419,12 @@ Name | Type | Description  | Required | Notes
 **start_time** | **i64** | Start time (Unix seconds) of the query time range, inclusive. | [required] |
 **end_time** | Option<**i64**> | End time (Unix seconds) of the query time range, exclusive. |  |
 **bucket_width** | Option<**String**> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.  Defaults to `\"1d\"`. |  |[default to 1d]
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
-**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
-**context_levels** | Option<[**Vec<String>**](String.md)> | Return only web search usage for these context levels. |  |
-**group_by** | Option<[**Vec<String>**](String.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `context_level`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**user_ids** | Option<**Vec<String>**> | Return only usage for these users. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
+**models** | Option<**Vec<String>**> | Return only usage for these models. |  |
+**context_levels** | Option<**Vec<String>**> | Return only web search usage for these context levels. |  |
+**group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `context_level`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
 

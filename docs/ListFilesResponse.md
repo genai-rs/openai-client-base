@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **object** | **String** |  | 
-**data** | [**Vec<models::OpenAiFile>**](OpenAIFile.md) |  | 
+**data** | [**Vec<models::OpenAiFile>**](OpenAiFile.md) |  | 
 **first_id** | **String** |  | 
 **last_id** | **String** |  | 
 **has_more** | **bool** |  | 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ttl** | Option<[**models::BetaPromptCacheTtlEnum**](BetaPromptCacheTTLEnum.md)> |  | [optional]
+**ttl** | Option<[**models::BetaPromptCacheTtlEnum**](BetaPromptCacheTtlEnum.md)> |  | [optional]
 **mode** | Option<[**models::BetaPromptCacheModeEnum**](BetaPromptCacheModeEnum.md)> |  | [optional]
 **prewarm** | Option<**bool**> | Prepares the prompt cache without generating output. Defaults to `false`. When set to `true`, overrides the `generate` field to `false`. | [optional]
 **comparison_response_id** | Option<**String**> | The ID of a response to compare when diagnosing prompt cache reuse. Supplying this field requests prompt cache diagnostics when the feature is enabled. | [optional]

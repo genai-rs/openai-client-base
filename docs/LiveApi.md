@@ -91,7 +91,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**std::path::PathBuf**](std::path::PathBuf.md)
+**std::path::PathBuf**
 
 ### Authorization
 

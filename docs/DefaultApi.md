@@ -97,7 +97,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::AdminApiKeysDelete200Response**](admin_api_keys_delete_200_response.md)
+[**models::AdminApiKeysDelete200Response**](AdminApiKeysDelete200Response.md)
 
 ### Authorization
 
@@ -464,7 +464,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteContainer200Response**](DeleteContainer_200_response.md)
+[**models::DeleteContainer200Response**](DeleteContainer200Response.md)
 
 ### Authorization
 
@@ -495,7 +495,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteContainerFile200Response**](DeleteContainerFile_200_response.md)
+[**models::DeleteContainerFile200Response**](DeleteContainerFile200Response.md)
 
 ### Authorization
 
@@ -1075,11 +1075,11 @@ Name | Type | Description  | Required | Notes
 **bucket_width** | Option<[**DecisionsUsageBucketWidth**](DecisionsUsageBucketWidth.md)> | Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440 |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
-**project_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these projects. |  |
-**group_by** | Option<[**Vec<models::DecisionsUsageGroupBy>**](Models__DecisionsUsageGroupBy.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
-**user_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these users. |  |
-**api_key_ids** | Option<[**Vec<String>**](String.md)> | Return only usage for these API keys. |  |
-**models** | Option<[**Vec<String>**](String.md)> | Return only usage for these models. |  |
+**project_ids** | Option<**Vec<String>**> | Return only usage for these projects. |  |
+**group_by** | Option<[**Vec<models::DecisionsUsageGroupBy>**](DecisionsUsageGroupBy.md)> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
+**user_ids** | Option<**Vec<String>**> | Return only usage for these users. |  |
+**api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
+**models** | Option<**Vec<String>**> | Return only usage for these models. |  |
 **batch** | Option<**bool**> | If `true`, return batch jobs only. If `false`, return non-batch jobs only. By default, return both. |  |
 
 ### Return type
@@ -1176,7 +1176,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**std::path::PathBuf**](std::path::PathBuf.md)
+**std::path::PathBuf**
 
 ### Authorization
 

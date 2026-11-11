@@ -136,7 +136,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the thread to run. | [required] |
 **create_run_request** | [**CreateRunRequest**](CreateRunRequest.md) |  | [required] |
-**include_left_square_bracket_right_square_bracket** | Option<[**Vec<String>**](String.md)> | A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.  |  |
+**include_left_square_bracket_right_square_bracket** | Option<**Vec<String>**> | A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.  |  |
 
 ### Return type
 
@@ -412,7 +412,7 @@ Name | Type | Description  | Required | Notes
 **thread_id** | **String** | The ID of the thread to which the run and run step belongs. | [required] |
 **run_id** | **String** | The ID of the run to which the run step belongs. | [required] |
 **step_id** | **String** | The ID of the run step to retrieve. | [required] |
-**include_left_square_bracket_right_square_bracket** | Option<[**Vec<String>**](String.md)> | A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.  |  |
+**include_left_square_bracket_right_square_bracket** | Option<**Vec<String>**> | A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.  |  |
 
 ### Return type
 
@@ -546,7 +546,7 @@ Name | Type | Description  | Required | Notes
 **order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  Defaults to `\"desc\"`. |  |[default to desc]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
-**include_left_square_bracket_right_square_bracket** | Option<[**Vec<String>**](String.md)> | A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.  |  |
+**include_left_square_bracket_right_square_bracket** | Option<**Vec<String>**> | A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.  |  |
 
 ### Return type
 

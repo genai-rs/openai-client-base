@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **name** | **String** | The name of the MCP tool. | 
 **arguments** | Option<**serde_json::Value**> | The arguments passed to the MCP tool. | 
 **status** | [**models::FunctionCallStatusResource**](FunctionCallStatusResource.md) |  | 
-**output** | Option<[**models::AnyOfLessThanGreaterThan**](AnyOf.md)> | The output returned by the MCP tool, if any. | 
-**error** | Option<[**models::AnyOfLessThanGreaterThan**](AnyOf.md)> | The error returned by the MCP tool, if any. | 
+**output** | Option<**serde_json::Value**> | The output returned by the MCP tool, if any. | 
+**error** | Option<**serde_json::Value**> | The error returned by the MCP tool, if any. | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

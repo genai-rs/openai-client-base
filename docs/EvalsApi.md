@@ -127,7 +127,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteEval200Response**](deleteEval_200_response.md)
+[**models::DeleteEval200Response**](DeleteEval200Response.md)
 
 ### Authorization
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::DeleteEvalRun200Response**](deleteEvalRun_200_response.md)
+[**models::DeleteEvalRun200Response**](DeleteEvalRun200Response.md)
 
 ### Authorization
 
