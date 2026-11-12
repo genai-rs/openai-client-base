@@ -8,11 +8,11 @@ no script edits the generated code afterwards.
 ## Steps
 
 1. **Fetch** (`fetch_spec.sh`): downloads the current spec from
-   [OpenAI's published repository](https://github.com/openai/openai-openapi/blob/main/openapi.yaml)
-   into `stainless.yaml`. HTTP errors, malformed documents and unresolved local
+   [OpenAI's published repository](https://github.com/openai/openai-openapi/blob/main/openapi.json)
+   into `openapi.json`. HTTP errors, malformed documents and unresolved local
    references are rejected before the checked-in copy is replaced. Set
    `SKIP_SPEC_FETCH=1` to regenerate from the checked-in copy.
-2. **Validate** (`validate_spec.py`) and convert the spec to JSON. Missing
+2. **Validate** (`validate_spec.py`). Missing
    upstream schemas stop the run; they are fixed upstream, never added here.
 3. **Generate** with the `timvw-rust` image
    (`ghcr.io/timvw/openapi-generator-timvw-rust:<TIMVW_RUST_VERSION>-og<OPENAPI_GENERATOR_VERSION>`).
@@ -46,7 +46,7 @@ request carries the `api-change` label; breaking changes get a note under
 # Full generation, fetching the current spec
 ./scripts/generate.sh
 
-# Regenerate from the checked-in stainless.yaml
+# Regenerate from the checked-in openapi.json
 SKIP_SPEC_FETCH=1 ./scripts/generate.sh
 
 # Use a locally built generator image
