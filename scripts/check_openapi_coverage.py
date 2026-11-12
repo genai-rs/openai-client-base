@@ -108,7 +108,7 @@ def extract_functions(apis_dir: Path) -> tuple[list[dict[str, str]], list[dict[s
     unparsed: list[dict[str, str]] = []
     declaration = re.compile(r"(?m)^\s*pub\s+async\s+fn\s+(\w+)\s*\(")
     uri_pattern = re.compile(r"let\s+uri_str\s*=\s*format!\(\s*\"((?:\\.|[^\"\\])*)\"", re.S)
-    method_pattern = re.compile(r"\.request\(\s*reqwest::Method::(\w+)")
+    method_pattern = re.compile(r"\.request\(\s*(?:reqwest|timvw_rust_runtime)::Method::(\w+)")
 
     for file in sorted(apis_dir.glob("*_api.rs")):
         source = file.read_text(encoding="utf-8")
@@ -120,7 +120,7 @@ def extract_functions(apis_dir: Path) -> tuple[list[dict[str, str]], list[dict[s
             method = method_pattern.search(body)
             if not uri or not method:
                 unparsed.append({"file": file.name, "function": match.group(1),
-                                 "reason": "could not read reqwest method and format! URI"})
+                                 "reason": "could not read the HTTP method and format! URI"})
                 continue
             template = bytes(uri.group(1), "utf-8").decode("unicode_escape")
             # Generated Rust operations form URIs from a base URL followed by a

@@ -12,8 +12,8 @@
 
 use super::{configuration, multipart_helper, ContentType, Error};
 use crate::{apis::ResponseContent, models};
-use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
+use timvw_rust_runtime;
 
 /// struct for typed errors of method [`create_speech`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -127,17 +127,18 @@ pub enum UpdateVoiceConsentError {
 pub async fn create_speech(
     configuration: &configuration::Configuration,
     create_speech_request: &models::CreateSpeechRequest,
-) -> Result<reqwest::Response, Error<CreateSpeechError>> {
+) -> Result<timvw_rust_runtime::Response, Error<CreateSpeechError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_speech_request = create_speech_request;
 
     let uri_str = format!("{}/audio/speech", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -204,17 +205,18 @@ pub async fn create_speech_stream(
     let uri_str = format!("{}/audio/speech", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     req_builder = req_builder.json(p_body_create_speech_request);
 
-    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -302,15 +304,16 @@ pub async fn create_transcription(
     let uri_str = format!("{}/audio/transcriptions", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
@@ -505,15 +508,16 @@ pub async fn create_transcription_stream(
     let uri_str = format!("{}/audio/transcriptions", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
@@ -602,7 +606,7 @@ pub async fn create_transcription_stream(
     }
     req_builder = req_builder.multipart(multipart_form);
 
-    req_builder = req_builder.header(reqwest::header::ACCEPT, "text/event-stream");
+    req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -698,15 +702,16 @@ pub async fn create_transcription_text(
     let uri_str = format!("{}/audio/transcriptions", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
@@ -876,15 +881,16 @@ pub async fn create_translation(
     let uri_str = format!("{}/audio/translations", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
@@ -982,15 +988,16 @@ pub async fn create_translation_text(
     let uri_str = format!("{}/audio/translations", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
@@ -1077,10 +1084,11 @@ pub async fn create_voice(
     let uri_str = format!("{}/audio/voices", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1150,15 +1158,16 @@ pub async fn create_voice_consent(
     let uri_str = format!("{}/audio/voice_consents", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     multipart_form = multipart_form.text("name", p_form_name.to_string());
     // Add file to multipart form
     multipart_form =
@@ -1236,15 +1245,16 @@ pub async fn create_voice_multipart(
     let uri_str = format!("{}/audio/voices", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     if let Some(param_value) = p_form_type {
         multipart_form = multipart_form.text("type", param_value.to_string());
     }
@@ -1333,10 +1343,11 @@ pub async fn delete_voice(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::DELETE, &uri_str);
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1402,10 +1413,11 @@ pub async fn delete_voice_consent(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::DELETE, &uri_str);
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1469,10 +1481,13 @@ pub async fn get_voice_consent(
         configuration.base_path,
         consent_id = crate::apis::urlencode(p_path_consent_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1534,7 +1549,9 @@ pub async fn list_voice_consents(
     let p_query_limit = limit;
 
     let uri_str = format!("{}/audio/voice_consents", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_after {
         req_builder = req_builder.query(&[("after", &param_value.to_string())]);
@@ -1543,7 +1560,8 @@ pub async fn list_voice_consents(
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1611,10 +1629,11 @@ pub async fn update_voice_consent(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

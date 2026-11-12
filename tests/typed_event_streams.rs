@@ -260,7 +260,7 @@ async fn a_payload_that_does_not_decode_is_an_error_and_the_stream_goes_on() {
 #[tokio::test]
 async fn the_raw_events_keep_names_and_payloads() {
     let body = "event: response.created\nid: 1\ndata: {\"type\":\"x\"}\n\ndata: [DONE]\n\n";
-    let chunks = vec![Ok::<_, reqwest::Error>(body.as_bytes())];
+    let chunks = vec![Ok::<_, timvw_rust_runtime::Error>(body.as_bytes())];
     let events: Vec<sse::Event> = sse::Events::from_bytes(futures_util::stream::iter(chunks))
         .map(Result::unwrap)
         .collect()

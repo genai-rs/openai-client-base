@@ -12,8 +12,8 @@
 
 use super::{configuration, multipart_helper, ContentType, Error};
 use crate::{apis::ResponseContent, models};
-use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
+use timvw_rust_runtime;
 
 /// struct for typed errors of method [`create_skill`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -134,15 +134,16 @@ pub async fn create_skill(
     let uri_str = format!("{}/skills", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     match &p_form_files {
         models::CreateSkillBodyFiles::ArrayOfStrings(value) => {
             for path in value {
@@ -217,10 +218,11 @@ pub async fn create_skill_json(
     let uri_str = format!("{}/skills", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -294,15 +296,16 @@ pub async fn create_skill_version(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    let mut multipart_form = reqwest::multipart::Form::new();
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     match &p_form_files {
         models::CreateSkillVersionBodyFiles::ArrayOfStrings(value) => {
             for path in value {
@@ -388,10 +391,11 @@ pub async fn create_skill_version_json(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -464,10 +468,11 @@ pub async fn delete_skill(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::DELETE, &uri_str);
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -536,10 +541,11 @@ pub async fn delete_skill_version(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::DELETE, &uri_str);
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -606,10 +612,13 @@ pub async fn get_skill(
         configuration.base_path,
         skill_id = crate::apis::urlencode(p_path_skill_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -664,7 +673,7 @@ pub async fn get_skill(
 pub async fn get_skill_content(
     configuration: &configuration::Configuration,
     skill_id: &str,
-) -> Result<reqwest::Response, Error<GetSkillContentError>> {
+) -> Result<timvw_rust_runtime::Response, Error<GetSkillContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
 
@@ -673,10 +682,13 @@ pub async fn get_skill_content(
         configuration.base_path,
         skill_id = crate::apis::urlencode(p_path_skill_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -731,10 +743,13 @@ pub async fn get_skill_content_json(
         configuration.base_path,
         skill_id = crate::apis::urlencode(p_path_skill_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -801,10 +816,13 @@ pub async fn get_skill_version(
         skill_id = crate::apis::urlencode(p_path_skill_id),
         version = crate::apis::urlencode(p_path_version)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -863,7 +881,7 @@ pub async fn get_skill_version_content(
     configuration: &configuration::Configuration,
     skill_id: &str,
     version: &str,
-) -> Result<reqwest::Response, Error<GetSkillVersionContentError>> {
+) -> Result<timvw_rust_runtime::Response, Error<GetSkillVersionContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
     let p_path_version = version;
@@ -874,10 +892,13 @@ pub async fn get_skill_version_content(
         skill_id = crate::apis::urlencode(p_path_skill_id),
         version = crate::apis::urlencode(p_path_version)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -938,10 +959,13 @@ pub async fn get_skill_version_content_json(
         skill_id = crate::apis::urlencode(p_path_skill_id),
         version = crate::apis::urlencode(p_path_version)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1014,7 +1038,9 @@ pub async fn list_skill_versions(
         configuration.base_path,
         skill_id = crate::apis::urlencode(p_path_skill_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
@@ -1026,7 +1052,8 @@ pub async fn list_skill_versions(
         req_builder = req_builder.query(&[("after", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1093,7 +1120,9 @@ pub async fn list_skills(
     let p_query_after = after;
 
     let uri_str = format!("{}/skills", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
@@ -1105,7 +1134,8 @@ pub async fn list_skills(
         req_builder = req_builder.query(&[("after", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1173,10 +1203,11 @@ pub async fn update_skill_default_version(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

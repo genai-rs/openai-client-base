@@ -12,8 +12,8 @@
 
 use super::{configuration, ContentType, Error};
 use crate::{apis::ResponseContent, models};
-use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
+use timvw_rust_runtime;
 
 /// struct for typed errors of method [`cancel_fine_tuning_job`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -155,10 +155,11 @@ pub async fn cancel_fine_tuning_job(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -233,10 +234,11 @@ pub async fn create_fine_tuning_checkpoint_permission(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -302,10 +304,11 @@ pub async fn create_fine_tuning_job(
     let uri_str = format!("{}/fine_tuning/jobs", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -378,10 +381,11 @@ pub async fn delete_fine_tuning_checkpoint_permission(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::DELETE, &uri_str);
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -459,7 +463,9 @@ pub async fn list_fine_tuning_checkpoint_permissions(
         configuration.base_path,
         fine_tuned_model_checkpoint = crate::apis::urlencode(p_path_fine_tuned_model_checkpoint)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_project_id {
         req_builder = req_builder.query(&[("project_id", &param_value.to_string())]);
@@ -474,7 +480,8 @@ pub async fn list_fine_tuning_checkpoint_permissions(
         req_builder = req_builder.query(&[("order", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -542,7 +549,9 @@ pub async fn list_fine_tuning_events(
         configuration.base_path,
         fine_tuning_job_id = crate::apis::urlencode(p_path_fine_tuning_job_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_after {
         req_builder = req_builder.query(&[("after", &param_value.to_string())]);
@@ -551,7 +560,8 @@ pub async fn list_fine_tuning_events(
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -623,7 +633,9 @@ pub async fn list_fine_tuning_job_checkpoints(
         configuration.base_path,
         fine_tuning_job_id = crate::apis::urlencode(p_path_fine_tuning_job_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_after {
         req_builder = req_builder.query(&[("after", &param_value.to_string())]);
@@ -632,7 +644,8 @@ pub async fn list_fine_tuning_job_checkpoints(
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -699,7 +712,9 @@ pub async fn list_paginated_fine_tuning_jobs(
     let p_query_metadata = metadata;
 
     let uri_str = format!("{}/fine_tuning/jobs", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_after {
         req_builder = req_builder.query(&[("after", &param_value.to_string())]);
@@ -714,7 +729,8 @@ pub async fn list_paginated_fine_tuning_jobs(
         ));
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -780,10 +796,11 @@ pub async fn pause_fine_tuning_job(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -852,10 +869,11 @@ pub async fn resume_fine_tuning_job(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -922,10 +940,13 @@ pub async fn retrieve_fine_tuning_job(
         configuration.base_path,
         fine_tuning_job_id = crate::apis::urlencode(p_path_fine_tuning_job_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -987,10 +1008,11 @@ pub async fn run_grader(
     let uri_str = format!("{}/fine_tuning/alpha/graders/run", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1056,10 +1078,11 @@ pub async fn validate_grader(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

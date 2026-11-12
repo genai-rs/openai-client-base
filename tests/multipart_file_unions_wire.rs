@@ -183,7 +183,8 @@ fn config(address: &str) -> Configuration {
         .timeout(Duration::from_secs(6))
         .build()
         .expect("build timed loopback HTTP client");
-    configuration.client = reqwest_middleware::ClientBuilder::new(client).build();
+    configuration.client =
+        timvw_rust_runtime::Client::from_service(timvw_rust_runtime::ReqwestService::new(client));
     configuration
 }
 

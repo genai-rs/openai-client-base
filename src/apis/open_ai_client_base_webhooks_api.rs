@@ -12,8 +12,8 @@
 
 use super::{configuration, Error};
 use crate::{apis::ResponseContent, models};
-use reqwest;
 use serde::{Deserialize, Serialize};
+use timvw_rust_runtime;
 
 /// struct for typed errors of method [`agent_environment_expired_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -244,10 +244,11 @@ pub async fn agent_environment_expired_post(
     let uri_str = format!("{}/agent_environment_expired", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -288,10 +289,11 @@ pub async fn agent_environment_failed_post(
     let uri_str = format!("{}/agent_environment_failed", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -332,10 +334,11 @@ pub async fn agent_environment_ready_post(
     let uri_str = format!("{}/agent_environment_ready", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -376,10 +379,11 @@ pub async fn agent_environment_suspended_post(
     let uri_str = format!("{}/agent_environment_suspended", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -420,10 +424,11 @@ pub async fn agent_session_action_required_post(
     let uri_str = format!("{}/agent_session_action_required", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -464,10 +469,11 @@ pub async fn agent_session_created_post(
     let uri_str = format!("{}/agent_session_created", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -508,10 +514,11 @@ pub async fn agent_session_failed_post(
     let uri_str = format!("{}/agent_session_failed", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -552,10 +559,11 @@ pub async fn agent_session_idle_post(
     let uri_str = format!("{}/agent_session_idle", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -596,10 +604,11 @@ pub async fn agent_session_in_progress_post(
     let uri_str = format!("{}/agent_session_in_progress", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -640,10 +649,11 @@ pub async fn batch_cancelled_post(
     let uri_str = format!("{}/batch_cancelled", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -684,10 +694,11 @@ pub async fn batch_completed_post(
     let uri_str = format!("{}/batch_completed", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -728,10 +739,11 @@ pub async fn batch_expired_post(
     let uri_str = format!("{}/batch_expired", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -772,10 +784,11 @@ pub async fn batch_failed_post(
     let uri_str = format!("{}/batch_failed", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -816,10 +829,11 @@ pub async fn eval_run_canceled_post(
     let uri_str = format!("{}/eval_run_canceled", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -860,10 +874,11 @@ pub async fn eval_run_failed_post(
     let uri_str = format!("{}/eval_run_failed", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -904,10 +919,11 @@ pub async fn eval_run_succeeded_post(
     let uri_str = format!("{}/eval_run_succeeded", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -948,10 +964,11 @@ pub async fn fine_tuning_job_cancelled_post(
     let uri_str = format!("{}/fine_tuning_job_cancelled", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -992,10 +1009,11 @@ pub async fn fine_tuning_job_failed_post(
     let uri_str = format!("{}/fine_tuning_job_failed", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1036,10 +1054,11 @@ pub async fn fine_tuning_job_succeeded_post(
     let uri_str = format!("{}/fine_tuning_job_succeeded", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1081,10 +1100,11 @@ pub async fn live_call_incoming_post(
     let uri_str = format!("{}/live_call_incoming", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1125,10 +1145,11 @@ pub async fn live_transport_connected_post(
     let uri_str = format!("{}/live_transport_connected", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1169,10 +1190,11 @@ pub async fn live_transport_incoming_post(
     let uri_str = format!("{}/live_transport_incoming", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1213,10 +1235,11 @@ pub async fn realtime_call_incoming_post(
     let uri_str = format!("{}/realtime_call_incoming", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1257,10 +1280,11 @@ pub async fn response_cancelled_post(
     let uri_str = format!("{}/response_cancelled", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1301,10 +1325,11 @@ pub async fn response_completed_post(
     let uri_str = format!("{}/response_completed", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1345,10 +1370,11 @@ pub async fn response_failed_post(
     let uri_str = format!("{}/response_failed", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1389,10 +1415,11 @@ pub async fn response_incomplete_post(
     let uri_str = format!("{}/response_incomplete", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1433,10 +1460,11 @@ pub async fn safety_alert_created_post(
     let uri_str = format!("{}/safety_alert_created", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1477,10 +1505,11 @@ pub async fn safety_deactivation_issued_post(
     let uri_str = format!("{}/safety_deactivation_issued", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1521,10 +1550,11 @@ pub async fn safety_org_alert_created_post(
     let uri_str = format!("{}/safety_org_alert_created", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1565,10 +1595,11 @@ pub async fn safety_warning_issued_post(
     let uri_str = format!("{}/safety_warning_issued", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

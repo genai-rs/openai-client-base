@@ -10,13 +10,15 @@
 
 #![allow(clippy::into_iter_on_ref)]
 
-pub use reqwest_middleware::ClientWithMiddleware;
+pub use timvw_rust_runtime::Client;
 
 #[derive(Clone)]
 pub struct Configuration {
     pub base_path: String,
     pub user_agent: Option<String>,
-    pub client: reqwest_middleware::ClientWithMiddleware,
+    /// Sends the requests: reqwest by default. Wrap it in tower layers with `Client::layer`, or replace it with
+    /// `Client::from_service`.
+    pub client: timvw_rust_runtime::Client,
     pub basic_auth: Option<BasicAuth>,
     pub oauth_access_token: Option<String>,
     pub bearer_access_token: Option<String>,
@@ -78,7 +80,7 @@ impl Default for Configuration {
         Configuration {
             base_path: "https://api.openai.com/v1".to_owned(),
             user_agent: Some(concat!("openai-client-base/", env!("CARGO_PKG_VERSION")).to_owned()),
-            client: reqwest_middleware::ClientBuilder::new(reqwest::Client::new()).build(),
+            client: timvw_rust_runtime::Client::default(),
             basic_auth: None,
             oauth_access_token: None,
             bearer_access_token: None,

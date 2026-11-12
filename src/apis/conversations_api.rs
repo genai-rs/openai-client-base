@@ -12,8 +12,8 @@
 
 use super::{configuration, ContentType, Error};
 use crate::{apis::ResponseContent, models};
-use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
+use timvw_rust_runtime;
 
 /// struct for typed errors of method [`create_conversation`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -107,10 +107,11 @@ pub async fn create_conversation(
     let uri_str = format!("{}/conversations", configuration.base_path);
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -184,7 +185,7 @@ pub async fn create_conversation_items(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref param_value) = p_query_include {
         let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
@@ -193,7 +194,8 @@ pub async fn create_conversation_items(
         }
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -266,10 +268,11 @@ pub async fn delete_conversation(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::DELETE, &uri_str);
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -338,10 +341,11 @@ pub async fn delete_conversation_item(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::DELETE, &uri_str);
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -411,10 +415,13 @@ pub async fn get_conversation(
         configuration.base_path,
         conversation_id = crate::apis::urlencode(p_path_conversation_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -483,7 +490,9 @@ pub async fn get_conversation_item(
         conversation_id = crate::apis::urlencode(p_path_conversation_id),
         item_id = crate::apis::urlencode(p_path_item_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_include {
         let items: Vec<String> = param_value.iter().map(|p| p.to_string()).collect();
@@ -492,7 +501,8 @@ pub async fn get_conversation_item(
         }
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -564,7 +574,9 @@ pub async fn list_conversation_items(
         configuration.base_path,
         conversation_id = crate::apis::urlencode(p_path_conversation_id)
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     if let Some(ref param_value) = p_query_limit {
         req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
@@ -582,7 +594,8 @@ pub async fn list_conversation_items(
         }
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -653,10 +666,11 @@ pub async fn update_conversation(
     );
     let mut req_builder = configuration
         .client
-        .request(reqwest::Method::POST, &uri_str);
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

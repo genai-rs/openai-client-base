@@ -34,7 +34,7 @@ This crate provides the foundational types and API client implementation for Ope
 - **Complete API coverage**: all OpenAI endpoints from the official spec
 - **Auto-generated**: always up-to-date with the latest API changes
 - **Pure Rust**: type-safe bindings with serde serialization
-- **Async/await**: full async support with tokio and reqwest
+- **Async/await**: full async support with tokio; requests go through [`timvw-rust-runtime`](https://docs.rs/timvw-rust-runtime), a tower service (reqwest by default) with retries
 - **Typed streaming**: a `text/event-stream` response is a method returning `apis::sse::EventStream` of the spec's event type (`create_response_stream` yields `ResponseStreamEvent`s, `create_chat_completion_stream` `CreateChatCompletionStreamResponse`s)
 - **One method per media type**: an operation that takes or returns more than one media type has a method per media type (`create_image_edit` sends multipart, `create_image_edit_json` JSON)
 - **Customisable**: use as a foundation for your own client
@@ -116,6 +116,10 @@ For detailed pipeline documentation, see [PIPELINE.md](PIPELINE.md)
 Releases that change the generated public API are breaking (a minor-version bump before 1.0). Each one has a
 migration note in [`migration/`](https://github.com/genai-rs/openai-client-base/tree/main/migration):
 
+- **0.30** (timvw-rust 0.25.0): requests go through `timvw-rust-runtime` (a tower service, reqwest by default, with
+  retries) instead of `reqwest-middleware`; `Configuration.client` is a `timvw_rust_runtime::Client`, and
+  `Error::Reqwest`/`Error::ReqwestMiddleware` become `Error::Http`. Models and operations are unchanged. See
+  [`api-diff-0.29.0-to-0.30.0.md`](https://github.com/genai-rs/openai-client-base/blob/main/migration/api-diff-0.29.0-to-0.30.0.md).
 - **0.29** (OpenAI spec of 2026-11-12): image `output_format` is `models::ImagesApiOutputFormat` (replacing
   `create_image_request::OutputFormat` and the other inline `OutputFormat` enums, and the `&str` parameter of
   `images_api::create_image_edit`/`create_image_edit_stream`); `LiveTransportDtmfSend` and the `LiveDecision*Param2`
@@ -135,7 +139,7 @@ migration note in [`migration/`](https://github.com/genai-rs/openai-client-base/
 
 ## TLS
 
-`reqwest` is built with `default-features = false`, so a TLS backend must be selected through this crate's features; without one, HTTPS requests fail at runtime. By default the crate uses `rustls`:
+The default HTTP client is reqwest (through `timvw-rust-runtime`), built with `default-features = false`, so a TLS backend must be selected through this crate's features; without one, HTTPS requests fail at runtime unless you set a client of your own. By default the crate uses `rustls`:
 
 ```toml
 [dependencies]
@@ -148,6 +152,27 @@ To use the platform's native TLS (OpenSSL on Linux, Schannel on Windows, Securit
 [dependencies]
 openai-client-base = { version = "0.16", default-features = false, features = ["native-tls"] }
 ```
+
+## HTTP client, retries and middleware
+
+`Configuration.client` is a [`timvw_rust_runtime::Client`](https://docs.rs/timvw-rust-runtime): a tower service.
+`Configuration::new()` sends with reqwest and retries `429`, `408`, `5xx` and failed connections (feature `retry`, on
+by default), honouring `Retry-After`. Timeouts, logging (feature `tracing`), extra headers, rate limits and your own
+middleware are tower layers:
+
+```rust,ignore
+use std::time::Duration;
+
+let mut configuration = openai_client_base::apis::configuration::Configuration::new();
+configuration.client = configuration
+    .client
+    .clone()
+    .layer(timvw_rust_runtime::trace::TraceLayer::new())
+    .layer(tower::timeout::TimeoutLayer::new(Duration::from_secs(120)));
+```
+
+The [runtime's guide](https://docs.rs/timvw-rust-runtime) covers retries, timeouts, logging, middleware, rate limits,
+tests without a network, and sending or streaming into types of your own (`response.events().json::<T>()`).
 
 ## License
 

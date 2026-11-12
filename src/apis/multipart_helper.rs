@@ -1,7 +1,7 @@
-use reqwest::multipart;
 /// Internal multipart helper functions for file uploads
 /// This module provides utilities to handle file uploads in multipart forms
 use std::path::{Path, PathBuf};
+use timvw_rust_runtime::multipart;
 
 /// Create a multipart Part from a file path
 /// Reads the file and creates a Part with the filename preserved
@@ -59,7 +59,7 @@ pub fn add_schema_value_to_form(
     field_name: &str,
     value: serde_json::Value,
     content_type: Option<&str>,
-) -> Result<multipart::Form, reqwest::Error> {
+) -> Result<multipart::Form, timvw_rust_runtime::Error> {
     let default_json = matches!(
         &value,
         serde_json::Value::Object(_) | serde_json::Value::Array(_)
