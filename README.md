@@ -116,6 +116,11 @@ For detailed pipeline documentation, see [PIPELINE.md](PIPELINE.md)
 Releases that change the generated public API are breaking (a minor-version bump before 1.0). Each one has a
 migration note in [`migration/`](https://github.com/genai-rs/openai-client-base/tree/main/migration):
 
+- **0.29** (OpenAI spec of 2026-11-12): image `output_format` is `models::ImagesApiOutputFormat` (replacing
+  `create_image_request::OutputFormat` and the other inline `OutputFormat` enums, and the `&str` parameter of
+  `images_api::create_image_edit`/`create_image_edit_stream`); `LiveTransportDtmfSend` and the `LiveDecision*Param2`
+  models are removed; several decision and realtime types change shape. See
+  [`api-diff-0.28.0-to-0.29.0.md`](https://github.com/genai-rs/openai-client-base/blob/main/migration/api-diff-0.28.0-to-0.29.0.md).
 - **0.28** (timvw-rust 0.22.0): `organization_decisionsusage` takes `bucket_width` as
   `models::DecisionsUsageBucketWidth` instead of `&str`, and the values of `ChatkitWorkflow.state_variables` are
   `Option<ChatkitWorkflowStateVariablesValue>` (a `null` value now decodes). See
