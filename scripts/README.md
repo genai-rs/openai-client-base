@@ -57,10 +57,8 @@ Three options are not set:
   `src/apis/multipart_helper.rs` and calls one helper; without the helpers kept
   on purpose, the others are unused there and clippy `-D warnings` fails.
 - `typedEnumParameters` (66 functions take enums instead of `&str`) and
-  `deprecatedAttributes` (45 `#[deprecated]` marks) change what
-  openai-ergonomic compiles against: 34 type errors and 19 deprecation
-  warnings, which its clippy `-D warnings` rejects. They come with a breaking
-  release and the matching openai-ergonomic changes.
+  `deprecatedAttributes` (45 `#[deprecated]` marks) change the public API of
+  this crate, so they come with a breaking release.
 
 The generator's README shows what each option renders ("Renderings from the
 generator comparison").

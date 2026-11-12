@@ -22,7 +22,7 @@ DISCLAIMER = (
     "This is not complete Rust semver analysis. It compares declared OpenAPI "
     "operations, models, required fields and enum wire values, and generated "
     "Rust file hashes. It does not resolve schema composition or prove Rust "
-    "signature, trait, feature, serialization or downstream compatibility. "
+    "signature, trait, feature or serialization compatibility. "
     "An empty report is not proof of compatibility. No rustdoc is invoked."
 )
 
