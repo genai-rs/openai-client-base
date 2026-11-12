@@ -16,6 +16,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum SessionRequiredActionResource {
+    McpApprovalRequest(models::SessionRequiredActionResourceMcpApprovalRequest),
     ComputerUseApprovalRequest(models::SessionRequiredActionResourceComputerUseApprovalRequest),
     FunctionCall(models::SessionRequiredActionResourceFunctionCall),
     EnvironmentConnection(models::SessionRequiredActionResourceEnvironmentConnection),
@@ -41,6 +42,9 @@ impl SessionRequiredActionResource {
         const UNION: &str = "SessionRequiredActionResource";
         const TAG: &str = "type";
         match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("mcp_approval_request") => {
+                dispatch::decode(value, UNION, "McpApprovalRequest").map(Self::McpApprovalRequest)
+            }
             Tag::Value("computer_use_approval_request") => {
                 dispatch::decode(value, UNION, "ComputerUseApprovalRequest")
                     .map(Self::ComputerUseApprovalRequest)
@@ -62,6 +66,10 @@ impl SessionRequiredActionResource {
 impl std::fmt::Display for SessionRequiredActionResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            Self::McpApprovalRequest(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
             Self::ComputerUseApprovalRequest(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
@@ -86,6 +94,9 @@ impl crate::models::validation::Validate for SessionRequiredActionResource {
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
         match self {
+            Self::McpApprovalRequest(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
             Self::ComputerUseApprovalRequest(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }

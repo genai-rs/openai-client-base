@@ -81,11 +81,6 @@ pub struct BetaResponsesClientEventResponseCreate {
         skip_serializing_if = "Option::is_none"
     )]
     pub prompt_cache_retention: Option<Option<PromptCacheRetention>>,
-    #[serde(
-        rename = "prompt_cache_options",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub prompt_cache_options: Option<models::BetaResponsePromptCacheOptionsParam>,
     /// The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://developers.openai.com/api/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.
     #[serde(
         rename = "previous_response_id",
@@ -129,6 +124,13 @@ pub struct BetaResponsesClientEventResponseCreate {
     pub prompt: Option<Option<models::BetaPrompt>>,
     #[serde(rename = "access_programs", skip_serializing_if = "Option::is_none")]
     pub access_programs: Option<models::BetaAccessProgramsParam>,
+    #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
+    pub image: Option<models::BetaImageOptionsParam>,
+    #[serde(
+        rename = "prompt_cache_options",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_options: Option<models::BetaResponsePromptCacheOptionsParam>,
     #[serde(
         rename = "service_tier",
         default,
@@ -136,7 +138,7 @@ pub struct BetaResponsesClientEventResponseCreate {
         skip_serializing_if = "Option::is_none"
     )]
     pub service_tier: Option<Option<models::BetaServiceTierResponses>>,
-    /// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
+    /// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation.   On some models, trimming can begin earlier because the API subtracts the model's   maximum output allowance from its input limit, even if you set a lower `max_output_tokens`. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
     #[serde(
         rename = "truncation",
         default,
@@ -244,6 +246,9 @@ pub struct BetaResponsesClientEventResponseCreate {
     /// The type of the client event. Always `response.create`.
     #[serde(rename = "type")]
     pub r#type: Type,
+    /// Whether to generate output for this response. Defaults to true when omitted. Set to false to prepare request state without model output; the response ID can be used as previous_response_id on a later turn.
+    #[serde(rename = "generate", skip_serializing_if = "Option::is_none")]
+    pub generate: Option<bool>,
     /// The WebSocket lane for this response. Requests with the same `stream_id` are processed FIFO, and events for the response echo the same `stream_id`.  `stream_id` controls routing; `previous_response_id` controls conversation lineage, so a new lane can fork from a response created on another lane.
     ///
     /// Validation: `minLength: 1`, `maxLength: 256`, `pattern: ^[A-Za-z0-9_.-]+$`.
@@ -263,7 +268,6 @@ impl BetaResponsesClientEventResponseCreate {
             safety_identifier: None,
             prompt_cache_key: None,
             prompt_cache_retention: None,
-            prompt_cache_options: None,
             previous_response_id: None,
             model: None,
             background: None,
@@ -273,6 +277,8 @@ impl BetaResponsesClientEventResponseCreate {
             tool_choice: None,
             prompt: None,
             access_programs: None,
+            image: None,
+            prompt_cache_options: None,
             service_tier: None,
             truncation: None,
             reasoning: None,
@@ -289,6 +295,7 @@ impl BetaResponsesClientEventResponseCreate {
             max_output_tokens: None,
             multi_agent: None,
             r#type,
+            generate: None,
             stream_id: None,
         }
     }
@@ -389,7 +396,7 @@ pub enum PromptCacheRetention {
     Variant24h,
 }
 
-/// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
+/// The truncation strategy to use for the model response. - `auto`: If the input to this Response exceeds   the model's context window size, the model will truncate the   response to fit the context window by dropping items from the beginning of the conversation.   On some models, trimming can begin earlier because the API subtracts the model's   maximum output allowance from its input limit, even if you set a lower `max_output_tokens`. - `disabled` (default): If the input size will exceed the context window   size for a model, the request will fail with a 400 error.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Truncation {
     #[serde(rename = "auto")]

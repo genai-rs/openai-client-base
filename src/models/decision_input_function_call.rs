@@ -24,7 +24,7 @@ pub struct DecisionInputFunctionCall {
     /// Validation: `minLength: 1`, `maxLength: 64`.
     #[serde(rename = "call_id")]
     pub call_id: String,
-    /// Validation: `minLength: 1`, `maxLength: 64`, `pattern: ^[a-zA-Z0-9_-]+$`.
+    /// Validation: `minLength: 1`, `maxLength: 128`, `pattern: ^[a-zA-Z0-9_-]+$`.
     #[serde(
         rename = "namespace",
         default,
@@ -95,7 +95,7 @@ impl crate::models::validation::Validate for DecisionInputFunctionCall {
             crate::models::validation::length(
                 value0,
                 Some(1),
-                Some(64),
+                Some(128),
                 &path.field("namespace"),
                 errors,
             );

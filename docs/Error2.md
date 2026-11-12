@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **r#type** | Option<**String**> | The original error type, or null if it was not recorded. | [optional]
 **param** | Option<**String**> | The request parameter associated with the error, or null if none was recorded. | [optional]
 **message** | **String** | A human-readable description of the error that was returned. | 
-**headers** | Option<**std::collections::HashMap<String, String>**> | The Retry-After and Retry-After-Ms headers returned with the original error, if any. | [optional]
+**headers** | Option<**std::collections::HashMap<String, String>**> | Headers returned with the original error. These can include Retry-After, Retry-After-Ms, and, on opted-in deployments, x-openai-inference-capacity-reason. | [optional]
 **misalignment** | Option<[**models::MisalignmentErrorDetailsResource**](MisalignmentErrorDetailsResource.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

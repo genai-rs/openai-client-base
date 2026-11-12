@@ -10,18 +10,21 @@
 
 use serde::{Deserialize, Serialize};
 
-/// BetaPromptCacheBreakpointParam : Marks the exact end of a reusable prompt prefix. The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+/// BetaPromptCacheBreakpointParam : Marks the exact end of a reusable prompt prefix. When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaPromptCacheBreakpointParam {
     /// The breakpoint mode. Always `explicit`.  Defaults to `\"explicit\"`.
     #[serde(rename = "mode")]
     pub mode: Mode,
+    /// The minimum lifetime of this cache breakpoint. Defaults to the request TTL.
+    #[serde(rename = "ttl", skip_serializing_if = "Option::is_none")]
+    pub ttl: Option<Ttl>,
 }
 
 impl BetaPromptCacheBreakpointParam {
-    /// Marks the exact end of a reusable prompt prefix. The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+    /// Marks the exact end of a reusable prompt prefix. When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
     pub fn new(mode: Mode) -> BetaPromptCacheBreakpointParam {
-        BetaPromptCacheBreakpointParam { mode }
+        BetaPromptCacheBreakpointParam { mode, ttl: None }
     }
 }
 
@@ -39,6 +42,18 @@ impl crate::models::validation::Validate for BetaPromptCacheBreakpointParam {
 pub enum Mode {
     #[serde(rename = "explicit")]
     Explicit,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
+}
+
+/// The minimum lifetime of this cache breakpoint. Defaults to the request TTL.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Ttl {
+    #[serde(rename = "30m")]
+    Variant30m,
+    #[serde(rename = "12h")]
+    Variant12h,
     /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
     #[serde(rename = "unknown", other)]
     Unknown,
@@ -83,6 +98,56 @@ impl ::std::convert::TryFrom<&::std::string::String> for Mode {
 }
 
 impl ::std::convert::TryFrom<::std::string::String> for Mode {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::fmt::Display for Ttl {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Variant30m => "30m",
+            Self::Variant12h => "12h",
+            Self::Unknown => "unknown",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Ttl {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "30m" => Ok(Self::Variant30m),
+            "12h" => Ok(Self::Variant12h),
+            _ => Err(crate::models::ParseEnumError::new("Ttl", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Ttl {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Ttl {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Ttl {
     type Error = crate::models::ParseEnumError;
 
     fn try_from(

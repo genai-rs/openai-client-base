@@ -29,6 +29,11 @@ pub struct SessionEventError {
     pub session_id: String,
     #[serde(rename = "error")]
     pub error: models::SessionErrorResource,
+    /// Random alphanumeric padding. Present when stream obfuscation is enabled.
+    ///
+    /// Validation: `minLength: 0`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
 }
 
 impl SessionEventError {
@@ -44,6 +49,7 @@ impl SessionEventError {
             event_id,
             session_id,
             error,
+            obfuscation: None,
         }
     }
 }
@@ -73,6 +79,15 @@ impl crate::models::validation::Validate for SessionEventError {
             &path.field("error"),
             errors,
         );
+        if let Some(value0) = &self.obfuscation {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("obfuscation"),
+                errors,
+            );
+        }
     }
 }
 

@@ -13,6 +13,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompactResource {
+    #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
+    pub image: Option<models::ResolvedImageOptions>,
     /// The unique identifier for the compacted response.
     #[serde(rename = "id")]
     pub id: String,
@@ -38,6 +40,7 @@ impl CompactResource {
         usage: models::ResponseUsage,
     ) -> CompactResource {
         CompactResource {
+            image: None,
             id,
             object,
             output,

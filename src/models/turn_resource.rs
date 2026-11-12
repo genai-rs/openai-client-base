@@ -14,6 +14,14 @@ use serde::{Deserialize, Serialize};
 /// TurnResource : The canonical public representation of a session turn.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct TurnResource {
+    /// Prompt cache lifetime selected when this turn started, including an inherited session TTL. Null when the turn used the model default or no TTL was recorded.
+    #[serde(
+        rename = "prompt_cache_options",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_options: Option<Option<models::PromptCacheOptionsResource>>,
     /// The ID of the turn.
     ///
     /// Validation: `minLength: 0`.
@@ -71,6 +79,7 @@ impl TurnResource {
         usage: Option<models::TokenUsageResource>,
     ) -> TurnResource {
         TurnResource {
+            prompt_cache_options: None,
             id,
             object,
             session_id,

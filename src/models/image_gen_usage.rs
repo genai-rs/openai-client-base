@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ImageGenUsage : For `gpt-image-1` only, the token usage information for the image generation.
+/// ImageGenUsage : Token usage information for image generation with GPT Image models.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ImageGenUsage {
     /// The number of tokens (images and text) in the input prompt.
@@ -33,7 +33,7 @@ pub struct ImageGenUsage {
 }
 
 impl ImageGenUsage {
-    /// For `gpt-image-1` only, the token usage information for the image generation.
+    /// Token usage information for image generation with GPT Image models.
     pub fn new(
         input_tokens: i64,
         total_tokens: i64,

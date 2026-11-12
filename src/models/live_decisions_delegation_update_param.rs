@@ -13,6 +13,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionsDelegationUpdateParam {
+    /// Milliseconds to wait before requesting an automatic spoken acknowledgement for a delegation. The model may still speak before this delay. Any commentary or thinking appended to the session cancels all pending acknowledgements, including those for other delegations. Defaults to 400 for Decisions sessions and 0 (request immediately) for other sessions. Omission in a session update preserves the current value. Updates apply to subsequent delegations.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 800`.
+    #[serde(
+        rename = "acknowledgement_delay_ms",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub acknowledgement_delay_ms: Option<i64>,
     /// Defaults to `\"decisions\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
@@ -23,6 +31,7 @@ pub struct LiveDecisionsDelegationUpdateParam {
 impl LiveDecisionsDelegationUpdateParam {
     pub fn new(r#type: Type) -> LiveDecisionsDelegationUpdateParam {
         LiveDecisionsDelegationUpdateParam {
+            acknowledgement_delay_ms: None,
             r#type,
             decisions: None,
         }
@@ -35,6 +44,20 @@ impl crate::models::validation::Validate for LiveDecisionsDelegationUpdateParam 
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        if let Some(value0) = &self.acknowledgement_delay_ms {
+            crate::models::validation::minimum(
+                *value0,
+                0,
+                &path.field("acknowledgement_delay_ms"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                800,
+                &path.field("acknowledgement_delay_ms"),
+                errors,
+            );
+        }
         crate::models::validation::Validate::validate_into(
             &self.decisions,
             &path.field("decisions"),

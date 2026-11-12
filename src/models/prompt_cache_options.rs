@@ -14,8 +14,9 @@ use serde::{Deserialize, Serialize};
 /// PromptCacheOptions : The prompt-caching options that were applied to the response. Supported for `gpt-5.6` and later models.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct PromptCacheOptions {
+    /// The minimum lifetime applied to each cache breakpoint.
     #[serde(rename = "ttl")]
-    pub ttl: models::PromptCacheTtlEnum,
+    pub ttl: Ttl,
     #[serde(rename = "mode")]
     pub mode: models::PromptCacheModeEnum,
     /// The response ID supplied as the prompt cache diagnostics comparison.
@@ -30,10 +31,7 @@ pub struct PromptCacheOptions {
 
 impl PromptCacheOptions {
     /// The prompt-caching options that were applied to the response. Supported for `gpt-5.6` and later models.
-    pub fn new(
-        ttl: models::PromptCacheTtlEnum,
-        mode: models::PromptCacheModeEnum,
-    ) -> PromptCacheOptions {
+    pub fn new(ttl: Ttl, mode: models::PromptCacheModeEnum) -> PromptCacheOptions {
         PromptCacheOptions {
             ttl,
             mode,
@@ -48,5 +46,67 @@ impl crate::models::validation::Validate for PromptCacheOptions {
         _path: &crate::models::validation::Path<'_>,
         _errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+    }
+}
+
+/// The minimum lifetime applied to each cache breakpoint.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Ttl {
+    #[serde(rename = "30m")]
+    Variant30m,
+    #[serde(rename = "12h")]
+    Variant12h,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
+}
+
+impl ::std::fmt::Display for Ttl {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Variant30m => "30m",
+            Self::Variant12h => "12h",
+            Self::Unknown => "unknown",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Ttl {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "30m" => Ok(Self::Variant30m),
+            "12h" => Ok(Self::Variant12h),
+            _ => Err(crate::models::ParseEnumError::new("Ttl", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Ttl {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Ttl {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Ttl {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

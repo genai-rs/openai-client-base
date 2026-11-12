@@ -24,6 +24,11 @@ pub struct SessionEventAgentSessionSubagentClosed {
     pub event_id: String,
     #[serde(rename = "subagent")]
     pub subagent: models::SubagentResource,
+    /// Random alphanumeric padding. Present when stream obfuscation is enabled.
+    ///
+    /// Validation: `minLength: 0`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
 }
 
 impl SessionEventAgentSessionSubagentClosed {
@@ -37,6 +42,7 @@ impl SessionEventAgentSessionSubagentClosed {
             r#type,
             event_id,
             subagent,
+            obfuscation: None,
         }
     }
 }
@@ -59,6 +65,15 @@ impl crate::models::validation::Validate for SessionEventAgentSessionSubagentClo
             &path.field("subagent"),
             errors,
         );
+        if let Some(value0) = &self.obfuscation {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("obfuscation"),
+                errors,
+            );
+        }
     }
 }
 

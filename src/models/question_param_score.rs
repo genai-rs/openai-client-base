@@ -20,9 +20,8 @@ pub struct QuestionParamScore {
     /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "instructions")]
-    pub instructions: String,
+    pub instructions: models::QuestionParamScoreInstructions,
     /// Validation: `minItems: 2`, `maxItems: 10`.
     #[serde(rename = "levels")]
     pub levels: Vec<models::ScoreLevelParam>,
@@ -32,7 +31,7 @@ impl QuestionParamScore {
     /// Rate the input against the supplied ordered levels.
     pub fn new(
         r#type: Type,
-        instructions: String,
+        instructions: models::QuestionParamScoreInstructions,
         levels: Vec<models::ScoreLevelParam>,
     ) -> QuestionParamScore {
         QuestionParamScore {
@@ -59,10 +58,8 @@ impl crate::models::validation::Validate for QuestionParamScore {
                 errors,
             );
         }
-        crate::models::validation::length(
+        crate::models::validation::Validate::validate_into(
             &self.instructions,
-            Some(0),
-            Some(1048576),
             &path.field("instructions"),
             errors,
         );

@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**create_voice**](AudioApi.md#create_voice) | **POST** /audio/voices | Create voice
 [**create_voice_consent**](AudioApi.md#create_voice_consent) | **POST** /audio/voice_consents | Create voice consent
 [**create_voice_multipart**](AudioApi.md#create_voice_multipart) | **POST** /audio/voices | Create voice
+[**delete_voice**](AudioApi.md#delete_voice) | **DELETE** /audio/voices/{voice_id} | Delete voice
 [**delete_voice_consent**](AudioApi.md#delete_voice_consent) | **DELETE** /audio/voice_consents/{consent_id} | Delete voice consent
 [**get_voice_consent**](AudioApi.md#get_voice_consent) | **GET** /audio/voice_consents/{consent_id} | Retrieve voice consent
 [**list_voice_consents**](AudioApi.md#list_voice_consents) | **GET** /audio/voice_consents | List voice consents
@@ -26,7 +27,7 @@ Method | HTTP request | Description
 > std::path::PathBuf create_speech(create_speech_request)
 Create speech
 
-Generates audio from the input text.  Returns the audio file content, or a stream of audio events. 
+Generates audio from the input text.  Returns the audio file content, or a stream of audio events.  The `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, `gpt-4o-mini-tts-2025-03-20`, and `gpt-4o-mini-tts-2025-12-15` models are deprecated and scheduled to shut down on January 6, 2027. These examples use the existing Speech API; for new integrations, migrate to `gpt-realtime-2.1-mini` through the [Realtime API](https://developers.openai.com/api/docs/guides/realtime). See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for migration details. 
 
 ### Parameters
 
@@ -56,7 +57,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateSpeechResponseStreamEvent create_speech_stream(create_speech_request)
 Create speech
 
-Generates audio from the input text.  Returns the audio file content, or a stream of audio events. 
+Generates audio from the input text.  Returns the audio file content, or a stream of audio events.  The `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, `gpt-4o-mini-tts-2025-03-20`, and `gpt-4o-mini-tts-2025-12-15` models are deprecated and scheduled to shut down on January 6, 2027. These examples use the existing Speech API; for new integrations, migrate to `gpt-realtime-2.1-mini` through the [Realtime API](https://developers.openai.com/api/docs/guides/realtime). See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for migration details. 
 
 ### Parameters
 
@@ -215,7 +216,7 @@ Name | Type | Description  | Required | Notes
 > models::CreateTranslation200Response create_translation(file, model, prompt, response_format, temperature)
 Create translation
 
-Translates audio into English.
+Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details. 
 
 ### Parameters
 
@@ -249,7 +250,7 @@ Name | Type | Description  | Required | Notes
 > String create_translation_text(file, model, prompt, response_format, temperature)
 Create translation
 
-Translates audio into English.
+Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details. 
 
 ### Parameters
 
@@ -371,6 +372,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_voice
+
+> models::VoiceDeletedResource delete_voice(voice_id)
+Delete voice
+
+Deletes a voice created from a text prompt or an audio sample.  Requires voice write permission and access to the voice's project. Access to voices created from recordings is limited to eligible customers. See the [custom voices guide](https://developers.openai.com/api/docs/guides/custom-voices).  Deleting a voice does not delete its consent recording. Deleting an already deleted voice returns a 404 error. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**voice_id** | **String** | The ID of the voice to delete. | [required] |
+
+### Return type
+
+[**models::VoiceDeletedResource**](VoiceDeletedResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

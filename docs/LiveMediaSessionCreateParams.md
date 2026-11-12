@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **model** | [**models::ModelIdsLive**](ModelIdsLive.md) |  | 
+**safety_identifier** | Option<**String**> | A stable identifier for your end user, used for safety monitoring and abuse detection. | [optional]
 **instructions** | Option<**String**> | Frontend instructions for voice, conversation, interruptions, and when to delegate. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting); put business rules and tool workflows in a separate [backend prompt](https://developers.openai.com/api/docs/guides/live-delegation#start-with-your-existing-backend-prompt). Limited to 16,384 client-supplied tokens. Omitted or blank instructions use server defaults. Immutable after startup. | [optional]
 **audio** | Option<[**models::LiveMediaSessionAudioParam**](LiveMediaSessionAudioParam.md)> |  | [optional]
 **delegation** | Option<[**models::Delegation**](Delegation.md)> |  | [optional]

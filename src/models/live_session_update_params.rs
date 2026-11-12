@@ -25,7 +25,7 @@ pub struct LiveSessionUpdateParams {
     ///
     /// Validation: `maxItems: 2`.
     #[serde(rename = "triggers", skip_serializing_if = "Option::is_none")]
-    pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam2>>,
+    pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam>>,
 }
 
 impl LiveSessionUpdateParams {

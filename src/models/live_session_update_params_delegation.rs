@@ -82,13 +82,15 @@ impl crate::models::validation::Validate for LiveSessionUpdateParamsDelegation {
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
         match self {
+            Self::LiveClientDelegationParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
             Self::LiveResponsesDelegationUpdateParam(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
             Self::LiveDecisionsDelegationUpdateParam(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
-            _ => {}
         }
     }
 }

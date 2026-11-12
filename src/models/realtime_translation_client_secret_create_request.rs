@@ -43,5 +43,10 @@ impl crate::models::validation::Validate for RealtimeTranslationClientSecretCrea
             &path.field("expires_after"),
             errors,
         );
+        crate::models::validation::Validate::validate_into(
+            &self.session,
+            &path.field("session"),
+            errors,
+        );
     }
 }

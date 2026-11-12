@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ttl** | [**models::BetaPromptCacheTtlEnum**](BetaPromptCacheTtlEnum.md) |  | 
+**ttl** | **Ttl** | The minimum lifetime applied to each cache breakpoint. (enum: 30m, 12h) | 
 **mode** | [**models::BetaPromptCacheModeEnum**](BetaPromptCacheModeEnum.md) |  | 
 **comparison_response_id** | Option<**String**> | The response ID supplied as the prompt cache diagnostics comparison. | [optional]
 

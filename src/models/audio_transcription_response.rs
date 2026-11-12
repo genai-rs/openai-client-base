@@ -28,6 +28,9 @@ pub struct AudioTranscriptionResponse {
     /// Validation: `minItems: 1`.
     #[serde(rename = "languages", skip_serializing_if = "Option::is_none")]
     pub languages: Option<Vec<String>>,
+    /// Words or phrases configured to guide transcription of the input audio.
+    #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
+    pub keywords: Option<Vec<String>>,
     /// The prompt configured for input audio transcription, when present.
     #[serde(rename = "prompt", skip_serializing_if = "Option::is_none")]
     pub prompt: Option<String>,
@@ -39,6 +42,7 @@ impl AudioTranscriptionResponse {
             model: None,
             language: None,
             languages: None,
+            keywords: None,
             prompt: None,
         }
     }

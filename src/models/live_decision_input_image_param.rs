@@ -13,12 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionInputImageParam {
-    /// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
+    /// Defaults to `\"input_image\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
-    /// An inline image encoded as a data URL.
+    /// A base64-encoded image data URL or a publicly accessible HTTP(S) image URL.
     ///
-    /// Validation: `maxLength: 20971520`, `pattern: ^data:`.
+    /// Validation: `maxLength: 20971520`, `pattern: ^(data:|https?://)`.
     #[serde(rename = "image_url")]
     pub image_url: String,
     #[serde(
@@ -56,7 +56,7 @@ impl crate::models::validation::Validate for LiveDecisionInputImageParam {
         crate::models::validation::pattern(
             &self.image_url,
             &PATTERN_0,
-            r"^data:",
+            r"^(data:|https?://)",
             &path.field("image_url"),
             errors,
         );
@@ -64,9 +64,9 @@ impl crate::models::validation::Validate for LiveDecisionInputImageParam {
 }
 
 static PATTERN_0: std::sync::LazyLock<Option<regex::Regex>> =
-    std::sync::LazyLock::new(|| regex::Regex::new(r"^data:").ok());
+    std::sync::LazyLock::new(|| regex::Regex::new(r"^(data:|https?://)").ok());
 
-/// The type of the input item. Always `input_image`.  Defaults to `\"input_image\"`.
+/// Defaults to `\"input_image\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_image")]

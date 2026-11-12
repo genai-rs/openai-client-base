@@ -11,34 +11,67 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// DecisionInputMessage : A user message containing input text or images, a developer or system message containing input text, or an assistant message containing output text or refusals. System messages are rendered as developer messages.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct DecisionInputMessage {
-    #[serde(rename = "role")]
-    pub role: Role,
-    #[serde(rename = "content")]
-    pub content: models::DecisionInputContent,
-    /// The phase of an assistant message.
-    #[serde(
-        rename = "phase",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub phase: Option<Option<models::MessagePhaseParam>>,
-    /// Defaults to `\"message\"`.
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Type>,
+#[derive(Clone, Debug, PartialEq, Serialize)]
+#[serde(untagged)]
+pub enum DecisionInputMessage {
+    User(models::DecisionInputUserMessage),
+    Developer(models::DecisionInputDeveloperMessage),
+    System(models::DecisionInputSystemMessage),
+    Assistant(models::DecisionInputAssistantMessage),
+}
+
+impl<'de> Deserialize<'de> for DecisionInputMessage {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
 }
 
 impl DecisionInputMessage {
-    /// A user message containing input text or images, a developer or system message containing input text, or an assistant message containing output text or refusals. System messages are rendered as developer messages.
-    pub fn new(role: Role, content: models::DecisionInputContent) -> DecisionInputMessage {
-        DecisionInputMessage {
-            role,
-            content,
-            phase: None,
-            r#type: None,
+    /// Decodes the variant that `role` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "DecisionInputMessage";
+        const TAG: &str = "role";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("user") => dispatch::decode(value, UNION, "User").map(Self::User),
+            Tag::Value("developer") => {
+                dispatch::decode(value, UNION, "Developer").map(Self::Developer)
+            }
+            Tag::Value("system") => dispatch::decode(value, UNION, "System").map(Self::System),
+            Tag::Value("assistant") => {
+                dispatch::decode(value, UNION, "Assistant").map(Self::Assistant)
+            }
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for DecisionInputMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::User(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Developer(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::System(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Assistant(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
         }
     }
 }
@@ -49,129 +82,19 @@ impl crate::models::validation::Validate for DecisionInputMessage {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
-        crate::models::validation::Validate::validate_into(
-            &self.content,
-            &path.field("content"),
-            errors,
-        );
-    }
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    #[serde(rename = "user")]
-    User,
-    #[serde(rename = "developer")]
-    Developer,
-    #[serde(rename = "system")]
-    System,
-    #[serde(rename = "assistant")]
-    Assistant,
-}
-
-/// Defaults to `\"message\"`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "message")]
-    Message,
-}
-
-impl ::std::fmt::Display for Role {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::User => "user",
-            Self::Developer => "developer",
-            Self::System => "system",
-            Self::Assistant => "assistant",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Role {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "user" => Ok(Self::User),
-            "developer" => Ok(Self::Developer),
-            "system" => Ok(Self::System),
-            "assistant" => Ok(Self::Assistant),
-            _ => Err(crate::models::ParseEnumError::new("Role", value)),
+        match self {
+            Self::User(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Developer(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::System(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::Assistant(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
         }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Type {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Message => "message",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Type {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "message" => Ok(Self::Message),
-            _ => Err(crate::models::ParseEnumError::new("Type", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
     }
 }

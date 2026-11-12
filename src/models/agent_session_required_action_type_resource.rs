@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 pub enum AgentSessionRequiredActionTypeResource {
     #[serde(rename = "computer_use_approval_request")]
     ComputerUseApprovalRequest,
+    #[serde(rename = "mcp_approval_request")]
+    McpApprovalRequest,
     #[serde(rename = "function_call")]
     FunctionCall,
     #[serde(rename = "environment_connection")]
@@ -28,6 +30,7 @@ impl std::fmt::Display for AgentSessionRequiredActionTypeResource {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::ComputerUseApprovalRequest => write!(f, "computer_use_approval_request"),
+            Self::McpApprovalRequest => write!(f, "mcp_approval_request"),
             Self::FunctionCall => write!(f, "function_call"),
             Self::EnvironmentConnection => write!(f, "environment_connection"),
             Self::Unknown => write!(f, "unknown"),
@@ -50,6 +53,7 @@ impl ::std::str::FromStr for AgentSessionRequiredActionTypeResource {
     fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
         match value {
             "computer_use_approval_request" => Ok(Self::ComputerUseApprovalRequest),
+            "mcp_approval_request" => Ok(Self::McpApprovalRequest),
             "function_call" => Ok(Self::FunctionCall),
             "environment_connection" => Ok(Self::EnvironmentConnection),
             _ => Err(crate::models::ParseEnumError::new(

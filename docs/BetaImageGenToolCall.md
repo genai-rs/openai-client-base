@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **action** | Option<[**models::BetaImageGenActionEnum**](BetaImageGenActionEnum.md)> |  | [optional]
 **background** | Option<[**models::BetaImageBackground**](BetaImageBackground.md)> |  | [optional]
 **output_format** | Option<[**models::BetaImageOutputFormat**](BetaImageOutputFormat.md)> |  | [optional]
+**svg_usage** | Option<[**models::BetaSvgUsage**](BetaSvgUsage.md)> |  | [optional]
 **revised_prompt** | Option<**String**> | The prompt that was used after any model prompt rewriting. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

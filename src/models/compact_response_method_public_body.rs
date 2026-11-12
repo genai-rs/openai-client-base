@@ -38,6 +38,8 @@ pub struct CompactResponseMethodPublicBody {
         skip_serializing_if = "Option::is_none"
     )]
     pub instructions: Option<Option<String>>,
+    #[serde(rename = "image", skip_serializing_if = "Option::is_none")]
+    pub image: Option<models::ImageOptionsParam>,
     /// A key to use when reading from or writing to the prompt cache.
     ///
     /// Validation: `maxLength: 64`.
@@ -78,6 +80,7 @@ impl CompactResponseMethodPublicBody {
             input: None,
             previous_response_id: None,
             instructions: None,
+            image: None,
             prompt_cache_key: None,
             prompt_cache_retention: None,
             prompt_cache_options: None,

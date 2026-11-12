@@ -31,9 +31,8 @@ pub struct ImagesResponse {
     /// The background parameter used for the image generation. Either `transparent` or `opaque`.
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<Background>,
-    /// The output format of the image generation. Either `png`, `webp`, or `jpeg`.
     #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
-    pub output_format: Option<OutputFormat>,
+    pub output_format: Option<models::ImagesApiOutputFormat>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<models::ImagesResponseSize>,
     /// The quality of the image generated. One of `low`, `medium`, `high`, `xhigh`, or `max`.
@@ -41,6 +40,8 @@ pub struct ImagesResponse {
     pub quality: Option<Quality>,
     #[serde(rename = "usage", skip_serializing_if = "Option::is_none")]
     pub usage: Option<models::ImageGenUsage>,
+    #[serde(rename = "svg_usage", skip_serializing_if = "Option::is_none")]
+    pub svg_usage: Option<models::SvgUsage>,
 }
 
 impl ImagesResponse {
@@ -55,6 +56,7 @@ impl ImagesResponse {
             size: None,
             quality: None,
             usage: None,
+            svg_usage: None,
         }
     }
 }
@@ -75,20 +77,6 @@ pub enum Background {
     Transparent,
     #[serde(rename = "opaque")]
     Opaque,
-    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
-    #[serde(rename = "unknown", other)]
-    Unknown,
-}
-
-/// The output format of the image generation. Either `png`, `webp`, or `jpeg`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum OutputFormat {
-    #[serde(rename = "png")]
-    Png,
-    #[serde(rename = "webp")]
-    Webp,
-    #[serde(rename = "jpeg")]
-    Jpeg,
     /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
     #[serde(rename = "unknown", other)]
     Unknown,
@@ -153,58 +141,6 @@ impl ::std::convert::TryFrom<&::std::string::String> for Background {
 }
 
 impl ::std::convert::TryFrom<::std::string::String> for Background {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for OutputFormat {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Png => "png",
-            Self::Webp => "webp",
-            Self::Jpeg => "jpeg",
-            Self::Unknown => "unknown",
-        })
-    }
-}
-
-impl ::std::str::FromStr for OutputFormat {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "png" => Ok(Self::Png),
-            "webp" => Ok(Self::Webp),
-            "jpeg" => Ok(Self::Jpeg),
-            _ => Err(crate::models::ParseEnumError::new("OutputFormat", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for OutputFormat {
     type Error = crate::models::ParseEnumError;
 
     fn try_from(

@@ -5,6 +5,8 @@ All URIs are relative to *https://api.openai.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_agent**](AgentsApi.md#create_agent) | **POST** /agents | Create an agent
+[**create_agent_automation**](AgentsApi.md#create_agent_automation) | **POST** /agents/automations | Create an automation
+[**create_agent_automation_invocation**](AgentsApi.md#create_agent_automation_invocation) | **POST** /agents/automations/{automation_id}/invocations | Invoke an automation
 [**create_agent_environment**](AgentsApi.md#create_agent_environment) | **POST** /agents/environments | Create an agent environment
 [**create_agent_environment_file**](AgentsApi.md#create_agent_environment_file) | **POST** /agents/environments/{environment_id}/files | Write an agent environment file
 [**create_agent_environment_template**](AgentsApi.md#create_agent_environment_template) | **POST** /agents/environments/templates | Create an agent environment template
@@ -12,9 +14,14 @@ Method | HTTP request | Description
 [**create_agent_session_events**](AgentsApi.md#create_agent_session_events) | **POST** /agents/sessions/{session_id}/events | Create agent session input events
 [**create_agent_session_stream**](AgentsApi.md#create_agent_session_stream) | **POST** /agents/sessions | Create an agent session
 [**delete_agent**](AgentsApi.md#delete_agent) | **DELETE** /agents/{agent_id} | Delete an agent
+[**delete_agent_automation**](AgentsApi.md#delete_agent_automation) | **DELETE** /agents/automations/{automation_id} | Delete an automation
 [**delete_agent_environment_template**](AgentsApi.md#delete_agent_environment_template) | **DELETE** /agents/environments/templates/{environment_template_id} | Delete an agent environment template
 [**delete_agent_session**](AgentsApi.md#delete_agent_session) | **DELETE** /agents/sessions/{session_id} | Delete an agent session
 [**delete_agent_session_artifact**](AgentsApi.md#delete_agent_session_artifact) | **DELETE** /agents/sessions/{session_id}/artifacts/{artifact_id} | Delete an agent session artifact
+[**get_agent_automation**](AgentsApi.md#get_agent_automation) | **GET** /agents/automations/{automation_id} | Get an automation
+[**get_agent_automation_invocation**](AgentsApi.md#get_agent_automation_invocation) | **GET** /agents/automations/{automation_id}/invocations/{invocation_id} | Get an automation invocation
+[**list_agent_automation_invocations**](AgentsApi.md#list_agent_automation_invocations) | **GET** /agents/automations/{automation_id}/invocations | List automation invocations
+[**list_agent_automations**](AgentsApi.md#list_agent_automations) | **GET** /agents/automations | List automations
 [**list_agent_environment_files**](AgentsApi.md#list_agent_environment_files) | **GET** /agents/environments/{environment_id}/files | List agent environment files
 [**list_agent_environment_templates**](AgentsApi.md#list_agent_environment_templates) | **GET** /agents/environments/templates | List agent environment templates
 [**list_agent_environments**](AgentsApi.md#list_agent_environments) | **GET** /agents/environments | List agent environments
@@ -30,6 +37,8 @@ Method | HTTP request | Description
 [**list_agent_session_turns**](AgentsApi.md#list_agent_session_turns) | **GET** /agents/sessions/{session_id}/turns | List agent session turns
 [**list_agent_sessions**](AgentsApi.md#list_agent_sessions) | **GET** /agents/sessions | List agent sessions
 [**list_agents**](AgentsApi.md#list_agents) | **GET** /agents | List agents
+[**pause_agent_automation**](AgentsApi.md#pause_agent_automation) | **POST** /agents/automations/{automation_id}/pause | Pause an automation
+[**resume_agent_automation**](AgentsApi.md#resume_agent_automation) | **POST** /agents/automations/{automation_id}/resume | Resume an automation
 [**retrieve_agent**](AgentsApi.md#retrieve_agent) | **GET** /agents/{agent_id} | Retrieve an agent
 [**retrieve_agent_environment**](AgentsApi.md#retrieve_agent_environment) | **GET** /agents/environments/{environment_id} | Retrieve an agent environment
 [**retrieve_agent_environment_template**](AgentsApi.md#retrieve_agent_environment_template) | **GET** /agents/environments/templates/{environment_template_id} | Retrieve an agent environment template
@@ -40,6 +49,7 @@ Method | HTTP request | Description
 [**retrieve_agent_session_subagent_turn**](AgentsApi.md#retrieve_agent_session_subagent_turn) | **GET** /agents/sessions/{session_id}/subagents/{subagent_id}/turns/{turn_id} | Retrieve a subagent turn
 [**retrieve_agent_session_turn**](AgentsApi.md#retrieve_agent_session_turn) | **GET** /agents/sessions/{session_id}/turns/{turn_id} | Retrieve an agent session turn
 [**update_agent**](AgentsApi.md#update_agent) | **POST** /agents/{agent_id} | Update an agent
+[**update_agent_automation**](AgentsApi.md#update_agent_automation) | **POST** /agents/automations/{automation_id} | Update an automation
 [**update_agent_environment_template**](AgentsApi.md#update_agent_environment_template) | **POST** /agents/environments/templates/{environment_template_id} | Update an agent environment template
 [**update_agent_session**](AgentsApi.md#update_agent_session) | **POST** /agents/sessions/{session_id} | Update an agent session
 
@@ -70,6 +80,66 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_agent_automation
+
+> models::AutomationResource create_agent_automation(create_automation_params)
+Create an automation
+
+Saves an active automation without invoking it immediately.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_automation_params** | [**CreateAutomationParams**](CreateAutomationParams.md) |  | [required] |
+
+### Return type
+
+[**models::AutomationResource**](AutomationResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_agent_automation_invocation
+
+> models::AutomationInvocationResource create_agent_automation_invocation(automation_id)
+Invoke an automation
+
+Queues a manual delivery without changing the saved schedule.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**automation_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::AutomationInvocationResource**](AutomationInvocationResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -289,6 +359,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_agent_automation
+
+> models::DeletedAutomationResource delete_agent_automation(automation_id)
+Delete an automation
+
+Deletes the automation and prevents future invocations without deleting its target session.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**automation_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::DeletedAutomationResource**](DeletedAutomationResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## delete_agent_environment_template
 
 > models::DeletedEnvironmentTemplateResource delete_agent_environment_template(environment_template_id)
@@ -367,6 +467,133 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::DeletedSessionArtifactResource**](DeletedSessionArtifactResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_agent_automation
+
+> models::AutomationResource get_agent_automation(automation_id)
+Get an automation
+
+Retrieves a project-owned automation.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**automation_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::AutomationResource**](AutomationResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_agent_automation_invocation
+
+> models::AutomationInvocationResource get_agent_automation_invocation(automation_id, invocation_id)
+Get an automation invocation
+
+Retrieves a delivery record for a project-owned automation.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**automation_id** | **String** |  | [required] |
+**invocation_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::AutomationInvocationResource**](AutomationInvocationResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_agent_automation_invocations
+
+> models::ListAgentAutomationInvocations200Response list_agent_automation_invocations(automation_id, limit, order, after)
+List automation invocations
+
+Lists delivery records for a project-owned automation.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**automation_id** | **String** |  | [required] |
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
+**after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
+
+### Return type
+
+[**models::ListAgentAutomationInvocations200Response**](ListAgentAutomationInvocations200Response.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_agent_automations
+
+> models::ListAgentAutomations200Response list_agent_automations(limit, order, after, session_id)
+List automations
+
+Lists project-owned automations, optionally filtered by target session.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**limit** | Option<**i64**> | The maximum number of resources to return, between 1 and 100. Defaults to 20.  Defaults to `20`. |  |[default to 20]
+**order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
+**after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
+**session_id** | Option<**String**> | Matches existing-session targets, including agent-created automations. |  |
+
+### Return type
+
+[**models::ListAgentAutomations200Response**](ListAgentAutomations200Response.md)
 
 ### Authorization
 
@@ -515,7 +742,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_agent_session_events
 
-> models::SessionEvent list_agent_session_events(session_id)
+> models::SessionEvent list_agent_session_events(session_id, include_obfuscation)
 Stream agent session events
 
 Streams live events for an agent session. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
@@ -526,6 +753,7 @@ Streams live events for an agent session. See [session events](https://developer
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the session. | [required] |
+**include_obfuscation** | Option<**bool**> | Whether to include obfuscation padding in events on this connection. Defaults to `true`. |  |[default to true]
 
 ### Return type
 
@@ -814,7 +1042,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_agent_sessions
 
-> models::SessionListResource list_agent_sessions(limit, order, after, agent_id)
+> models::SessionListResource list_agent_sessions(limit, order, after, agent_id, metadata)
 List agent sessions
 
 Lists managed agent sessions using ID-based pagination and the requested sort order. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
@@ -828,6 +1056,7 @@ Name | Type | Description  | Required | Notes
 **order** | Option<[**ListOrderParam**](ListOrderParam.md)> | The order in which resources are returned. Defaults to `desc`.  Defaults to `\"desc\"`. |  |
 **after** | Option<**String**> | Return resources after this resource ID in the selected order. |  |
 **agent_id** | Option<**String**> | Only return sessions whose root agent has this ID. Omit to return sessions for all agents. |  |
+**metadata** | Option<**std::collections::HashMap<String, String>**> | Exact string matches supplied as `metadata[key]=value`. All supplied pairs must match. Up to 16 pairs, with keys from 1 to 64 characters and values up to 512 characters. New sessions and metadata updates may take time to appear in filtered results. |  |
 
 ### Return type
 
@@ -864,6 +1093,66 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::AgentListResource**](AgentListResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## pause_agent_automation
+
+> models::AutomationResource pause_agent_automation(automation_id)
+Pause an automation
+
+Pauses future scheduled delivery without stopping an active session.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**automation_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::AutomationResource**](AutomationResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## resume_agent_automation
+
+> models::AutomationResource resume_agent_automation(automation_id)
+Resume an automation
+
+Resumes scheduled delivery; one-time automations without a pending invocation require a future run_at.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**automation_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::AutomationResource**](AutomationResource.md)
 
 ### Authorization
 
@@ -1184,6 +1473,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## update_agent_automation
+
+> models::AutomationResource update_agent_automation(automation_id, update_automation_params)
+Update an automation
+
+Updates supplied fields; target and metadata replace the whole field.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**automation_id** | **String** |  | [required] |
+**update_automation_params** | [**UpdateAutomationParams**](UpdateAutomationParams.md) |  | [required] |
+
+### Return type
+
+[**models::AutomationResource**](AutomationResource.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_agent_environment_template
 
 > models::EnvironmentTemplateResource update_agent_environment_template(environment_template_id, update_environment_template_params)
@@ -1220,7 +1540,7 @@ Name | Type | Description  | Required | Notes
 > models::SessionResource update_agent_session(session_id, update_agent_session_params)
 Update an agent session
 
-Updates session metadata, model, reasoning effort, or service tier. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
+Updates session tools, metadata, model, reasoning effort, service tier, or the default prompt cache lifetime. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 
 ### Parameters
 

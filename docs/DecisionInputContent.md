@@ -4,8 +4,8 @@
 
 | Name | Description |
 |---- | -----|
-| String | Text evidence or an ordered list of text and image parts. |
-| Vec<models::DecisionInputContentPartsInner> | Text evidence or an ordered list of text and image parts. |
+| String | A text string or an ordered list of text, image, and JSON parts. |
+| Vec<models::DecisionInputContentPartsInner> | A text string or an ordered list of text, image, and JSON parts. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

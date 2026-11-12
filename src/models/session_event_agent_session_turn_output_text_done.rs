@@ -51,6 +51,11 @@ pub struct SessionEventAgentSessionTurnOutputTextDone {
     /// Validation: `minLength: 0`.
     #[serde(rename = "text")]
     pub text: String,
+    /// Random alphanumeric padding. Present when stream obfuscation is enabled.
+    ///
+    /// Validation: `minLength: 0`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
 }
 
 impl SessionEventAgentSessionTurnOutputTextDone {
@@ -74,6 +79,7 @@ impl SessionEventAgentSessionTurnOutputTextDone {
             output_index,
             content_index,
             text,
+            obfuscation: None,
         }
     }
 }
@@ -139,6 +145,15 @@ impl crate::models::validation::Validate for SessionEventAgentSessionTurnOutputT
             errors,
         );
         crate::models::validation::length(&self.text, Some(0), None, &path.field("text"), errors);
+        if let Some(value0) = &self.obfuscation {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("obfuscation"),
+                errors,
+            );
+        }
     }
 }
 

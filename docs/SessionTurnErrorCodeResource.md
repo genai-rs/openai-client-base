@@ -5,6 +5,7 @@
 | Name | Value |
 |---- | -----|
 | ContextLengthExceeded | context_length_exceeded |
+| MaxOutputTokens | max_output_tokens |
 | SessionBudgetExceeded | session_budget_exceeded |
 | UsageLimitExceeded | usage_limit_exceeded |
 | ProjectSpendLimitExceeded | project_spend_limit_exceeded |
