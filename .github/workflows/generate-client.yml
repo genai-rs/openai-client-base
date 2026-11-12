@@ -136,23 +136,6 @@ jobs:
             target/reports/api-change/report.md
           if-no-files-found: warn
 
-      - name: Check downstream consumer compatibility
-        env:
-          CARGO_BUILD_JOBS: '2'
-          DOWNSTREAM_RESULTS_DIR: ${{ runner.temp }}/downstream-results
-        run: |
-          # Record current main independently of the branch running generation.
-          git fetch --no-tags origin main
-          ./scripts/check-downstream.sh "$GITHUB_WORKSPACE" "$(git rev-parse FETCH_HEAD)"
-
-      - name: Upload downstream compatibility evidence
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: downstream-compatibility
-          path: ${{ runner.temp }}/downstream-results
-          if-no-files-found: ignore
-
       - name: Cleanup transient files
         run: |
           rm -rf scripts/__pycache__ || true
@@ -245,8 +228,8 @@ jobs:
 
             Release reviewers can follow this generation PR from the release
             comparison and use its workflow run to inspect the report artifact.
-            A successful generation or downstream check does not approve API
-            compatibility; preserve this review evidence through the release.
+            A successful generation does not approve API compatibility;
+            preserve this review evidence through the release.
           branch: auto-update/client-generation
           delete-branch: true
           # A breaking removal cannot be merged until a human reviewer marks

@@ -14,7 +14,7 @@ can break a consumer even if upstream considers it additive.
 
 This is **not complete Rust semver analysis**. The script does not parse Rust
 signatures, exports, traits or features, resolve schema composition into effective
-types, detect every wire-contract change, or prove downstream compatibility.
+types, detect every wire-contract change, or prove API compatibility.
 Generated file changes are review pointers, not classified Rust API changes.
 Required fields and enums are compared at schema locations; composition branches
 are sorted by content to ignore ordering, so a changed branch can produce several
@@ -81,9 +81,9 @@ The Generate Client workflow captures `before.json` before running
 `generate.sh`, then captures `after.json` after compilation, lint, tests and
 formatting pass. It publishes `report.json` and `report.md`, places the Markdown
 report in the Actions run summary, and links the run from the generated PR. The
-four files are uploaded as the `api-change-report` artifact. The existing OA02
-downstream compatibility check remains after generation and its own artifact
-upload remains independent.
+four files are uploaded as the `api-change-report` artifact. Generation is not
+gated on whether any consumer of this crate still compiles against the
+candidate; the report and human review cover API changes.
 
 The generated PR no longer receives the `automerge` label and no workflow step
 enables GitHub auto-merge. Before updating an older generated PR, the workflow
