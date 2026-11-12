@@ -49,8 +49,8 @@ Client workflow run. The report is limited evidence, not complete Rust semver
 analysis. Require explicit maintainer or designated senior reviewer approval for
 flagged removals before merging this release PR; record the accepted head,
 affected surface, migration and version decision. Keep the linked generation PR
-and workflow artifact available as release evidence; a successful generation or
-downstream check does not approve API compatibility.
+and workflow artifact available as release evidence; a successful generation
+does not approve API compatibility.
 
 {%- if release.changelog %}
 
