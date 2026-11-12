@@ -58,6 +58,19 @@ class APIChangeWorkflowTests(unittest.TestCase):
         self.assertIn("has_automerge_label=", cleanup["run"])
         self.assertIn("Could not read generated PR labels", cleanup["run"])
 
+    def test_report_reads_the_fetched_json_spec(self):
+        fetch = (ROOT / "scripts/fetch_spec.sh").read_text()
+        self.assertIn('SPEC_URL="https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.json"', fetch)
+        self.assertIn('SPEC_PATH="$PROJECT_ROOT/openapi.json"', fetch)
+        for name in ("Capture API change baseline", "Compare generated API with baseline"):
+            _, step = self.named(name)
+            self.assertIn("--spec openapi.json", step["run"])
+            self.assertIn("--source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.json",
+                          step["run"])
+        _, pr = self.named("Create Pull Request")
+        self.assertIn("openapi.json", pr["with"]["add-paths"].split())
+        self.assertIn("openapi.json", self.named("Check for changes")[1]["run"])
+
     def test_label_api_failure_blocks_update_and_success_removes_before_update(self):
         _, cleanup = self.named("Disable existing generated PR auto-merge")
         with tempfile.TemporaryDirectory() as directory:

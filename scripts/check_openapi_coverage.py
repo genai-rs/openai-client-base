@@ -15,8 +15,6 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-import yaml
-
 HTTP_METHODS = {"get": "GET", "put": "PUT", "post": "POST", "delete": "DELETE",
                 "options": "OPTIONS", "head": "HEAD", "patch": "PATCH", "trace": "TRACE"}
 
@@ -271,7 +269,7 @@ def main() -> None:
     parser.add_argument("--webhook-module", default="open_ai_client_base_webhooks_api")
     parser.add_argument("--report", type=Path)
     args = parser.parse_args()
-    spec = yaml.safe_load(args.input_spec.read_text(encoding="utf-8"))
+    spec = json.loads(args.input_spec.read_text(encoding="utf-8"))
     if not isinstance(spec, dict):
         raise SystemExit("OpenAPI input is not an object")
     result = audit(spec, args.apis_dir, args.webhook_module)

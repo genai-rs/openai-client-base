@@ -61,9 +61,9 @@ jobs:
           # shellcheck disable=SC2016 # Keep the sed pattern literal for parameter expansion extraction.
           generator_version="${OPENAPI_GENERATOR_VERSION:-$(sed -n 's/^OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-\([^}]*\)}"$/\1/p' scripts/generate.sh)}"
           test -n "$generator_version"
-          uv run --with pyyaml python scripts/api_change_report.py snapshot \
-            --spec stainless.yaml --generated-root . \
-            --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml \
+          uv run python scripts/api_change_report.py snapshot \
+            --spec openapi.json --generated-root . \
+            --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.json \
             --generator-version "$generator_version" --revision "$(git rev-parse HEAD)" \
             --output target/reports/api-change/before.json
 
@@ -104,13 +104,13 @@ jobs:
           # shellcheck disable=SC2016 # Keep the sed pattern literal for parameter expansion extraction.
           generator_version="${OPENAPI_GENERATOR_VERSION:-$(sed -n 's/^OPENAPI_GENERATOR_VERSION="${OPENAPI_GENERATOR_VERSION:-\([^}]*\)}"$/\1/p' scripts/generate.sh)}"
           test -n "$generator_version"
-          uv run --with pyyaml python scripts/api_change_report.py snapshot \
-            --spec stainless.yaml --generated-root . \
-            --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml \
+          uv run python scripts/api_change_report.py snapshot \
+            --spec openapi.json --generated-root . \
+            --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.json \
             --generator-version "$generator_version" \
             --revision "$(git rev-parse HEAD)+run-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
             --output target/reports/api-change/after.json
-          uv run --with pyyaml python scripts/api_change_report.py compare \
+          uv run python scripts/api_change_report.py compare \
             --before target/reports/api-change/before.json \
             --after target/reports/api-change/after.json \
             --json-output target/reports/api-change/report.json \
@@ -150,7 +150,7 @@ jobs:
             README.md
             Cargo.toml
             Cargo.lock
-            stainless.yaml
+            openapi.json
             .openapi-generator
             .openapi-generator-ignore
           )
@@ -204,7 +204,7 @@ jobs:
             This PR updates the generated client based on the latest published OpenAI OpenAPI specification.
             
             ### Changes
-            - Downloaded and validated the latest spec from [OpenAI's specification repository](https://github.com/openai/openai-openapi/blob/main/openapi.yaml)
+            - Downloaded and validated the latest spec from [OpenAI's specification repository](https://github.com/openai/openai-openapi/blob/main/openapi.json)
             - Applied Layer 1 patches (model field fixes)
             - Applied Layer 2 patches (Rust compatibility)
             - Generated new client code
@@ -244,7 +244,7 @@ jobs:
             README.md
             Cargo.toml
             Cargo.lock
-            stainless.yaml
+            openapi.json
             .openapi-generator-ignore
 
       # No PAT fallback; fail early if token is missing

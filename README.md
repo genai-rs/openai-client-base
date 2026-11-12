@@ -44,7 +44,7 @@ This crate provides the foundational types and API client implementation for Ope
 The client is generated from OpenAI's current published OpenAPI specification:
 
 1. **Fetch Specification** (`fetch_spec.sh`): Download and validate the latest OpenAPI spec
-   - Source: `https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml`
+   - Source: `https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.json`
    - Missing schema references stop generation so upstream issues remain visible
 
 2. **Generate Rust Code**: Run the [timvw-rust](https://github.com/timvw/openapi-generator-timvw-rust) generator (a Docker image bundling OpenAPI Generator) on the raw spec. The spec decisions this crate takes (webhook module, model and voice ids as `String`, typed event streams and per-media-type methods, deepObject query parameters) are generator options in `scripts/generator-config.json`; the generator writes the spec as it saw it to `target/specs/l2_rust_compatible.json`.

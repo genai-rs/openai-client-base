@@ -127,9 +127,10 @@ class APIChangeReportTests(unittest.TestCase):
             "removed": ["src/models/widget.rs"], "added": ["src/models/new.rs"], "changed": ["src/apis/mod.rs"]})
         self.assertTrue(report["removals_flagged"])
 
-    def test_yaml_keeps_enum_strings_and_booleans_distinct(self):
-        path = self.root / "spec.yaml"
-        path.write_text('openapi: 3.1.0\npaths: {}\ncomponents:\n  schemas:\n    Mode:\n      enum: [on, off, 2026-10-17, true, false, "false"]\n')
+    def test_json_keeps_enum_strings_and_booleans_distinct(self):
+        path = self.root / "spec.json"
+        path.write_text('{"openapi": "3.1.0", "paths": {}, "components": {"schemas": {"Mode": '
+                        '{"enum": ["on", "off", "2026-10-17", true, false, "false"]}}}}')
         snap = snapshot(path, self.root, "https://example.test/spec", "7.15.0", "a" * 40)
         self.assertEqual(set(snap["surface"]["enums"]["#/components/schemas/Mode"]),
                          {'"on"', '"off"', '"2026-10-17"', 'true', 'false', '"false"'})
@@ -168,9 +169,9 @@ class APIChangeReportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "format version"):
             compare({"format_version": 999}, {})
 
-    def test_duplicate_yaml_keys_and_empty_provenance_are_rejected(self):
-        path = self.root / "duplicate.yaml"
-        path.write_text("openapi: 3.1.0\npaths: {}\npaths: {}\n")
+    def test_duplicate_json_keys_and_empty_provenance_are_rejected(self):
+        path = self.root / "duplicate.json"
+        path.write_text('{"openapi": "3.1.0", "paths": {}, "paths": {}}')
         with self.assertRaisesRegex(ValueError, "duplicate OpenAPI key"):
             snapshot(path, self.root, "https://example.test/spec", "7.15.0", "a" * 40)
         with self.assertRaisesRegex(ValueError, "required"):

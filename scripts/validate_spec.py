@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """Reject malformed OpenAPI input and unresolved local references."""
 
+import json
 import sys
 from pathlib import Path
 from typing import Any
-
-import yaml
 
 
 def validate(spec: Any) -> list[str]:
@@ -51,8 +50,8 @@ def main() -> int:
     path = Path(sys.argv[1])
     try:
         with path.open(encoding="utf-8") as source:
-            spec = yaml.safe_load(source)
-    except (OSError, yaml.YAMLError) as exc:
+            spec = json.load(source)
+    except (OSError, ValueError) as exc:
         print(f"Cannot parse OpenAPI document {path}: {exc}", file=sys.stderr)
         return 1
 

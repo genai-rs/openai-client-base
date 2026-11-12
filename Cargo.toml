@@ -12,7 +12,7 @@ readme = "README.md"
 keywords = ["openai", "api", "client", "generated"]
 categories = ["api-bindings"]
 rust-version = "1.88"
-exclude = ["docs/", "stainless.yaml", "migration/", "scripts/", ".github/", "*.backup", "PIPELINE.md", "MIGRATION-*.md"]
+exclude = ["docs/", "openapi.json", "migration/", "scripts/", ".github/", "*.backup", "PIPELINE.md", "MIGRATION-*.md"]
 
 [package.metadata.docs.rs]
 all-features = true
