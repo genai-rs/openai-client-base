@@ -1,8 +1,8 @@
 # Generated API review evidence
 
 `api_change_report.py` captures read-only snapshots of an OpenAPI 3 input and
-`src/apis/**/*.rs` / `src/models/**/*.rs`, then compares two snapshots. It needs
-Python 3.10+ and PyYAML, the same dependency used by the generation scripts.
+`src/apis/**/*.rs` / `src/models/**/*.rs`, then compares two snapshots. It reads
+the JSON spec and needs only Python 3.10+ and its standard library.
 It never runs the generator, rustdoc, Cargo, Git, or a network command.
 
 The report flags removed method/path operations and component schemas, renamed
@@ -34,21 +34,21 @@ For example, run from the repository root (substitute the real SHAs and versions
 
 ```sh
 mkdir -p target/reports/api-change
-uv run --with pyyaml python scripts/api_change_report.py snapshot \
-  --spec stainless.yaml --generated-root . \
-  --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml \
+uv run python scripts/api_change_report.py snapshot \
+  --spec openapi.json --generated-root . \
+  --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.json \
   --generator-version 7.15.0 --revision BASELINE_COMMIT_SHA \
   --output target/reports/api-change/before.json
 
 # Run the existing generation pipeline here, without changing its upstream input.
 # Snapshot the resulting files, using the version selected for this run.
-uv run --with pyyaml python scripts/api_change_report.py snapshot \
-  --spec stainless.yaml --generated-root . \
-  --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.yaml \
+uv run python scripts/api_change_report.py snapshot \
+  --spec openapi.json --generated-root . \
+  --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.json \
   --generator-version 7.15.0 --revision CANDIDATE_COMMIT_OR_RUN_ID \
   --output target/reports/api-change/after.json
 
-uv run --with pyyaml python scripts/api_change_report.py compare \
+uv run python scripts/api_change_report.py compare \
   --before target/reports/api-change/before.json \
   --after target/reports/api-change/after.json \
   --json-output target/reports/api-change/report.json \
@@ -69,7 +69,7 @@ include the baseline revision and canonical-JSON snapshot hashes. No timestamps
 or absolute local paths are embedded. Equivalent object, required/enum array,
 and composition branch reorderings produce no covered changes, though raw byte
 hashes correctly differ. Missing generated directories, unresolved references,
-external references, duplicate YAML keys and unsupported path-reference shapes
+external references, duplicate JSON keys and unsupported path-reference shapes
 fail with exit code 2. No absent schema is fabricated or backfilled.
 
 The checked-in fixture specifications are synthetic test inputs only. Snapshots
@@ -124,7 +124,7 @@ The workflow integration:
 python3 -m unittest discover -s scripts/tests
 ```
 
-With PyYAML installed, the suite exercises unchanged/reordered, additive and
+With PyYAML installed (only the workflow test reads YAML), the suite exercises unchanged/reordered, additive and
 breaking fixtures; nested/inline schemas; operation IDs; generated output
 changes; unresolved references; input hashes; and deterministic, read-only CLI
 execution with Cargo/rustdoc/Git absent from `PATH`.

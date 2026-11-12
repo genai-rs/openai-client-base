@@ -23,12 +23,7 @@ export PYTHONDONTWRITEBYTECODE=1
 
 # Paths
 GEN_SPEC_DIR="$PROJECT_ROOT/target/specs"
-SPEC_IN="$PROJECT_ROOT/stainless.yaml"
-# JSON form of the spec fed to the generator: the OpenAPI 3.1 $ref dereferencer
-# parses YAML through snakeyaml, which aborts once the document exceeds 3145728
-# code points ("The incoming YAML document exceeds the limit"). The Stainless
-# spec has grown past that; JSON parsing has no such limit.
-SPEC_IN_JSON="$GEN_SPEC_DIR/stainless.json"
+SPEC_IN="$PROJECT_ROOT/openapi.json"
 # The spec as the generator sees it after its spec rules (webhook routing, string
 # ids, union titles, ...; see scripts/generator-config.json). Written by the
 # generator (preprocessedSpecFile) for debugging; no script reads it any more.
@@ -50,20 +45,20 @@ if ! command -v uv &> /dev/null; then
 fi
 
 # Step 1: Fetch and validate the current upstream specification.
-# SKIP_SPEC_FETCH=1 regenerates from the checked-in stainless.yaml instead, so a
+# SKIP_SPEC_FETCH=1 regenerates from the checked-in openapi.json instead, so a
 # generator change can be compared without upstream spec changes mixed in.
 if [ "${SKIP_SPEC_FETCH:-0}" = "1" ]; then
-    echo "📥 SKIP_SPEC_FETCH=1 → using the checked-in stainless.yaml"
+    echo "📥 SKIP_SPEC_FETCH=1 → using the checked-in openapi.json"
 else
     echo "📥 Fetching latest OpenAPI spec..."
     bash "$SCRIPT_DIR/fetch_spec.sh"
 fi
 
-# Step 2: Validate the spec and hand it to the generator as JSON. The spec
-# decisions (webhook module, string ids, deepObject query
-# parameters) are options of the generator, in scripts/generator-config.json.
+# Step 2: Validate the spec. The spec decisions (webhook module, string ids,
+# deepObject query parameters) are options of the generator, in
+# scripts/generator-config.json.
 echo ""
-echo "🔧 Preparing spec..."
+echo "🔧 Validating spec..."
 
 # Check if Docker is available for generator
 if ! command -v docker &> /dev/null; then
@@ -72,14 +67,8 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-echo "Using uv for Python dependencies"
-
 # Missing upstream schemas must be fixed upstream, never fabricated here.
-echo "  Validating OpenAPI spec..."
-uv run --with pyyaml python "$SCRIPT_DIR/validate_spec.py" "$SPEC_IN"
-
-echo "  Converting spec to JSON..."
-uv run --with pyyaml python -c "import sys, json, yaml; json.dump(yaml.safe_load(open(sys.argv[1])), open(sys.argv[2], 'w'), default=str)" "$SPEC_IN" "$SPEC_IN_JSON"
+uv run python "$SCRIPT_DIR/validate_spec.py" "$SPEC_IN"
 
 # Step 3: Generate Rust client
 echo ""
@@ -96,7 +85,7 @@ docker run --rm \
     -u "$(id -u):$(id -g)" \
     -e JAVA_OPTS="-Dlog.level=${OPENAPI_GENERATOR_LOG_LEVEL}" \
     "$GENERATOR_IMAGE" generate \
-    -i "/local/target/specs/stainless.json" \
+    -i "/local/openapi.json" \
     -g "$GENERATOR_NAME" \
     -o "/local" \
     -c "/local/scripts/generator-config.json" \
@@ -104,14 +93,15 @@ docker run --rm \
 
 # Step 4: Self-test the remaining generation scripts. The generator renders
 # unions and decides Default and Display itself, and writes only the imports a
-# file uses. Nothing rewrites the generated code afterwards any more.
+# file uses. Nothing rewrites the generated code afterwards any more. PyYAML is
+# only needed by the test that reads the GitHub workflow.
 echo ""
 echo "🧪 Testing generation scripts..."
 uv run --with pyyaml python -m unittest discover -s "$SCRIPT_DIR/tests"
 
 # Fail closed if the generated APIs do not cover every raw upstream path
 # operation and webhook. This audit uses the fetched source before patches.
-uv run --with pyyaml python "$SCRIPT_DIR/check_openapi_coverage.py" \
+uv run python "$SCRIPT_DIR/check_openapi_coverage.py" \
     "$SPEC_IN" "$PROJECT_ROOT/src/apis" \
     --webhook-module open_ai_client_base_webhooks_api \
     --report "$PROJECT_ROOT/target/reports/openapi-coverage.json"

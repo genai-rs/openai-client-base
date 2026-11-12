@@ -8,11 +8,8 @@ are review artifacts, never substitute inputs to the generation pipeline.
 import argparse
 import hashlib
 import json
-import re
 import sys
 from pathlib import Path
-
-import yaml
 
 FORMAT_VERSION = 1
 METHODS = {"get", "put", "post", "delete", "options", "head", "patch", "trace"}
@@ -27,29 +24,18 @@ DISCLAIMER = (
 )
 
 
-class OpenAPILoader(yaml.SafeLoader):
-    """Keep JSON/OpenAPI strings such as on/off and dates as strings."""
-
-    def construct_mapping(self, node, deep=False):
-        self.flatten_mapping(node)
-        mapping = {}
-        for key_node, value_node in node.value:
-            key = self.construct_object(key_node, deep=deep)
-            if not isinstance(key, str):
-                raise ValueError("OpenAPI object keys must be strings")
-            if key in mapping:
-                raise ValueError(f"duplicate OpenAPI key: {key}")
-            mapping[key] = self.construct_object(value_node, deep=deep)
-        return mapping
+def unique_keys(pairs):
+    """Reject duplicate object keys, which json.loads would silently collapse."""
+    mapping = {}
+    for key, value in pairs:
+        if key in mapping:
+            raise ValueError(f"duplicate OpenAPI key: {key}")
+        mapping[key] = value
+    return mapping
 
 
-OpenAPILoader.yaml_implicit_resolvers = {
-    key: [(tag, pattern) for tag, pattern in resolvers
-          if tag not in {"tag:yaml.org,2002:bool", "tag:yaml.org,2002:timestamp"}]
-    for key, resolvers in yaml.SafeLoader.yaml_implicit_resolvers.items()
-}
-OpenAPILoader.add_implicit_resolver(
-    "tag:yaml.org,2002:bool", re.compile(r"^(?:true|false)$"), list("tf"))
+def load_spec(raw):
+    return json.loads(raw, object_pairs_hook=unique_keys)
 
 
 def canonical(value):
@@ -171,7 +157,7 @@ def snapshot(spec_path, generated_root, source_url, generator_version, revision)
     if not all(value.strip() for value in (source_url, generator_version, revision)):
         raise ValueError("source URL, generator version and revision are required")
     raw = spec_path.read_bytes()
-    spec = yaml.load(raw, Loader=OpenAPILoader)
+    spec = load_spec(raw)
     surface = inventory(spec)
     files = {}
     for folder in ("src/apis", "src/models"):
@@ -305,7 +291,7 @@ def main():
             report = compare(json.loads(args.before.read_text()), json.loads(args.after.read_text()))
             write_json(args.json_output, report)
             args.markdown_output.write_text(markdown(report), encoding="utf-8")
-    except (OSError, ValueError, KeyError, TypeError, yaml.YAMLError) as exc:
+    except (OSError, ValueError, KeyError, TypeError) as exc:
         parser.exit(2, f"Cannot produce API change report: {exc}\n")
     return 0
 
