@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.29.0](https://github.com/genai-rs/openai-client-base/compare/v0.28.0...v0.29.0) - 2026-11-12
+
+### Added
+
+- [**breaking**] document the 0.29 upgrade in the README
+- [**breaking**] regenerate from the OpenAI spec of 2026-11-12
+
+### Other
+
+- stop gating generation on downstream consumers
+
 ## [0.28.0](https://github.com/genai-rs/openai-client-base/compare/v0.27.0...v0.28.0) - 2026-11-10
 
 ### Added
