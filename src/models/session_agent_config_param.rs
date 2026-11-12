@@ -11,9 +11,11 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SessionAgentConfigParam : Agent configuration for a session. Omitted fields inherit from `agent_id` when supplied. Supplied objects and arrays replace the whole field; null resets nullable fields.
+/// SessionAgentConfigParam : Agent configuration for a session. Omitted fields inherit from `agent_id` when supplied. Supplied objects and arrays replace the whole field, except experimental settings, which merge by key. Null resets nullable fields.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionAgentConfigParam {
+    #[serde(rename = "experimental", skip_serializing_if = "Option::is_none")]
+    pub experimental: Option<models::ExperimentalConfigOverridesParam>,
     /// The model to use for the agent. The requested model name is preserved.
     ///
     /// Validation: `minLength: 0`, `maxLength: 1048576`.
@@ -61,6 +63,14 @@ pub struct SessionAgentConfigParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub multi_agent: Option<Option<models::MultiAgentConfigCurrentParam>>,
+    /// Context compaction settings. Omit to keep the current settings. A supplied object replaces the settings; null or an empty object enables background compaction.
+    #[serde(
+        rename = "compaction",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub compaction: Option<Option<models::CompactionParam>>,
     /// Tools available to the agent. Omit to inherit, or pass null to clear them. The resolved tool list must fit within 3 MiB (3,145,728 bytes) of compact UTF-8 JSON.
     ///
     /// Validation: `minItems: 0`, `maxItems: 16384`.
@@ -74,15 +84,17 @@ pub struct SessionAgentConfigParam {
 }
 
 impl SessionAgentConfigParam {
-    /// Agent configuration for a session. Omitted fields inherit from `agent_id` when supplied. Supplied objects and arrays replace the whole field; null resets nullable fields.
+    /// Agent configuration for a session. Omitted fields inherit from `agent_id` when supplied. Supplied objects and arrays replace the whole field, except experimental settings, which merge by key. Null resets nullable fields.
     pub fn new() -> SessionAgentConfigParam {
         SessionAgentConfigParam {
+            experimental: None,
             model: None,
             reasoning: None,
             text: None,
             service_tier: None,
             instructions: None,
             multi_agent: None,
+            compaction: None,
             tools: None,
         }
     }

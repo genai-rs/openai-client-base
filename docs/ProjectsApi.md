@@ -158,7 +158,7 @@ Name | Type | Description  | Required | Notes
 > models::ProjectApiKeyDeleteResponse delete_project_api_key(project_id, api_key_id)
 Delete project API key
 
-Deletes an API key from the project.  Returns confirmation of the key deletion, or an error if the key belonged to a service account. 
+Deletes an API key from the project, including keys owned by service accounts.  Requires permission to write project API keys. Deleting a service-account key does not delete the service account or its other keys.  Returns confirmation of the key deletion. 
 
 ### Parameters
 

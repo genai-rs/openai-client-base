@@ -11,11 +11,12 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaResponsePromptCacheOptionsParam : Options for prompt caching. Supported for `gpt-5.6` and later models. By default, OpenAI automatically chooses one implicit cache breakpoint. You can add explicit breakpoints to content blocks with `prompt_cache_breakpoint`. Each request can write up to four breakpoints. For cache matching, OpenAI considers up to the latest 80 breakpoints in the conversation, without a content-block lookback limit. Set `mode` to `explicit` to disable the implicit breakpoint. The `ttl` defaults to `30m`, which is currently the only supported value. See the [prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) for current details.
+/// BetaResponsePromptCacheOptionsParam : Options for prompt caching. Supported for `gpt-5.6` and later models. By default, OpenAI automatically chooses one implicit cache breakpoint. You can add explicit breakpoints to content blocks with `prompt_cache_breakpoint`. Each request can write up to four breakpoints. For cache matching, OpenAI considers up to the latest 80 breakpoints in the conversation, without a content-block lookback limit. Set `mode` to `explicit` to disable the implicit breakpoint. The `ttl` defaults to `30m`. Supported lifetimes depend on the API. See the [prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) for current details.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponsePromptCacheOptionsParam {
+    /// The minimum lifetime applied to every implicit and explicit cache breakpoint written by the request. Supported values are `30m` (the default) and `12h`. The backend may retain cache entries for longer.
     #[serde(rename = "ttl", skip_serializing_if = "Option::is_none")]
-    pub ttl: Option<models::BetaPromptCacheTtlEnum>,
+    pub ttl: Option<Ttl>,
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
     pub mode: Option<models::BetaPromptCacheModeEnum>,
     /// Prepares the prompt cache without generating output. Defaults to `false`. When set to `true`, overrides the `generate` field to `false`.
@@ -32,7 +33,7 @@ pub struct BetaResponsePromptCacheOptionsParam {
 }
 
 impl BetaResponsePromptCacheOptionsParam {
-    /// Options for prompt caching. Supported for `gpt-5.6` and later models. By default, OpenAI automatically chooses one implicit cache breakpoint. You can add explicit breakpoints to content blocks with `prompt_cache_breakpoint`. Each request can write up to four breakpoints. For cache matching, OpenAI considers up to the latest 80 breakpoints in the conversation, without a content-block lookback limit. Set `mode` to `explicit` to disable the implicit breakpoint. The `ttl` defaults to `30m`, which is currently the only supported value. See the [prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) for current details.
+    /// Options for prompt caching. Supported for `gpt-5.6` and later models. By default, OpenAI automatically chooses one implicit cache breakpoint. You can add explicit breakpoints to content blocks with `prompt_cache_breakpoint`. Each request can write up to four breakpoints. For cache matching, OpenAI considers up to the latest 80 breakpoints in the conversation, without a content-block lookback limit. Set `mode` to `explicit` to disable the implicit breakpoint. The `ttl` defaults to `30m`. Supported lifetimes depend on the API. See the [prompt caching guide](https://developers.openai.com/api/docs/guides/prompt-caching) for current details.
     pub fn new() -> BetaResponsePromptCacheOptionsParam {
         BetaResponsePromptCacheOptionsParam {
             ttl: None,
@@ -49,5 +50,63 @@ impl crate::models::validation::Validate for BetaResponsePromptCacheOptionsParam
         _path: &crate::models::validation::Path<'_>,
         _errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+    }
+}
+
+/// The minimum lifetime applied to every implicit and explicit cache breakpoint written by the request. Supported values are `30m` (the default) and `12h`. The backend may retain cache entries for longer.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Ttl {
+    #[serde(rename = "30m")]
+    Variant30m,
+    #[serde(rename = "12h")]
+    Variant12h,
+}
+
+impl ::std::fmt::Display for Ttl {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Variant30m => "30m",
+            Self::Variant12h => "12h",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Ttl {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "30m" => Ok(Self::Variant30m),
+            "12h" => Ok(Self::Variant12h),
+            _ => Err(crate::models::ParseEnumError::new("Ttl", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Ttl {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Ttl {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Ttl {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
     }
 }

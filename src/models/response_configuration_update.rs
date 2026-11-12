@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// ResponseConfigurationUpdate : A configuration update that applies to subsequent responses until it is replaced by another configuration update.
+/// ResponseConfigurationUpdate : A configuration update for subsequent responses. Each setting stays in effect until a later update replaces that setting.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct ResponseConfigurationUpdate {
     /// The unique ID of the configuration update item.
@@ -22,15 +22,18 @@ pub struct ResponseConfigurationUpdate {
     pub r#type: Type,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
     pub reasoning: Option<models::ResponseConfigurationUpdateReasoning>,
+    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
+    pub text: Option<models::ResponseConfigurationUpdateText>,
 }
 
 impl ResponseConfigurationUpdate {
-    /// A configuration update that applies to subsequent responses until it is replaced by another configuration update.
+    /// A configuration update for subsequent responses. Each setting stays in effect until a later update replaces that setting.
     pub fn new(id: String, r#type: Type) -> ResponseConfigurationUpdate {
         ResponseConfigurationUpdate {
             id,
             r#type,
             reasoning: None,
+            text: None,
         }
     }
 }

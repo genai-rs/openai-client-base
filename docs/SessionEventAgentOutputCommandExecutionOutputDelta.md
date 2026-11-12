@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **item_id** | **String** | The ID of the command execution item. | 
 **output_index** | **i64** | The index of the item in the turn output. | 
 **delta** | **String** | The output text that was appended. | 
+**obfuscation** | Option<**String**> | Random alphanumeric padding. Present when stream obfuscation is enabled. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

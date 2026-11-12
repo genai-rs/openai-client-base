@@ -24,6 +24,11 @@ pub struct SessionEventAgentSessionCreated {
     pub event_id: String,
     #[serde(rename = "session")]
     pub session: models::SessionResource,
+    /// Random alphanumeric padding. Present when stream obfuscation is enabled.
+    ///
+    /// Validation: `minLength: 0`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
 }
 
 impl SessionEventAgentSessionCreated {
@@ -37,6 +42,7 @@ impl SessionEventAgentSessionCreated {
             r#type,
             event_id,
             session,
+            obfuscation: None,
         }
     }
 }
@@ -59,6 +65,15 @@ impl crate::models::validation::Validate for SessionEventAgentSessionCreated {
             &path.field("session"),
             errors,
         );
+        if let Some(value0) = &self.obfuscation {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("obfuscation"),
+                errors,
+            );
+        }
     }
 }
 

@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 /// UpdateAgentParams : Fields to replace on an existing reusable agent.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateAgentParams {
+    #[serde(rename = "experimental", skip_serializing_if = "Option::is_none")]
+    pub experimental: Option<models::ExperimentalConfigOverridesParam>,
     /// The model to use for the agent. The requested model name is preserved.
     ///
     /// Validation: `minLength: 0`, `maxLength: 1048576`.
@@ -61,6 +63,14 @@ pub struct UpdateAgentParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub multi_agent: Option<Option<models::MultiAgentConfigCurrentParam>>,
+    /// Context compaction settings. Omit to keep the current settings. A supplied object replaces the settings; null or an empty object enables background compaction.
+    #[serde(
+        rename = "compaction",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub compaction: Option<Option<models::CompactionParam>>,
     /// Replaces all metadata. Omit to leave unchanged, or pass null or {} to clear it. Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters.
     ///
     /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
@@ -97,12 +107,14 @@ impl UpdateAgentParams {
     /// Fields to replace on an existing reusable agent.
     pub fn new() -> UpdateAgentParams {
         UpdateAgentParams {
+            experimental: None,
             model: None,
             reasoning: None,
             text: None,
             service_tier: None,
             instructions: None,
             multi_agent: None,
+            compaction: None,
             metadata: None,
             name: None,
             tools: None,

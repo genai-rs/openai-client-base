@@ -20,9 +20,9 @@ pub struct DecisionRequest {
     pub model: String,
     #[serde(rename = "input")]
     pub input: models::DecisionInput,
-    /// Ask 1–200 questions about the input. Each question can be a predicate, choice, or score. Answers come back in the same order.
+    /// Ask 1–400 questions about the input. Each question can be a predicate, choice, or score. Answers come back in the same order.
     ///
-    /// Validation: `minItems: 1`, `maxItems: 200`.
+    /// Validation: `minItems: 1`, `maxItems: 400`.
     #[serde(rename = "questions")]
     pub questions: Vec<models::QuestionParam>,
     /// Opaque caller-provided end-user identifier, scoped by the verified org. Match Responses' limit; this is never the authenticated user identity.
@@ -92,7 +92,7 @@ impl crate::models::validation::Validate for DecisionRequest {
         crate::models::validation::items(
             self.questions.len(),
             Some(1),
-            Some(200),
+            Some(400),
             &path.field("questions"),
             errors,
         );

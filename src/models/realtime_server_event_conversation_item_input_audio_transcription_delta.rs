@@ -29,7 +29,7 @@ pub struct RealtimeServerEventConversationItemInputAudioTranscriptionDelta {
     /// The text delta.
     #[serde(rename = "delta", skip_serializing_if = "Option::is_none")]
     pub delta: Option<String>,
-    /// The log probabilities of the transcription. These can be enabled by configurating the session with `\"include\": [\"item.input_audio_transcription.logprobs\"]`. Each entry in the array corresponds a log probability of which token would be selected for this chunk of transcription. This can help to identify if it was possible there were multiple valid options for a given chunk of transcription.
+    /// The log probabilities of the transcription. These can be enabled by configuring the session with `\"include\": [\"item.input_audio_transcription.logprobs\"]`. Each entry in the array corresponds a log probability of which token would be selected for this chunk of transcription. This can help to identify if it was possible there were multiple valid options for a given chunk of transcription.
     #[serde(
         rename = "logprobs",
         default,

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **summary_index** | **i64** | The index of the summary part. | 
 **part** | [**models::SummaryTextResource**](SummaryTextResource.md) |  | 
 **status** | Option<**Status**> | Present as `incomplete` when summary generation was interrupted. (enum: incomplete, ) | 
+**obfuscation** | Option<**String**> | Random alphanumeric padding. Present when stream obfuscation is enabled. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

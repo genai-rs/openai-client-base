@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**image** | Option<[**models::BetaResolvedImageOptions**](BetaResolvedImageOptions.md)> |  | [optional]
 **id** | **String** | The unique identifier for the compacted response. | 
 **object** | **Object** | The object type. Always `response.compaction`.  Defaults to `\"response.compaction\"`. (enum: response.compaction) | 
 **output** | [**Vec<models::BetaItemField>**](BetaItemField.md) | The compacted list of output items. | 

@@ -19,7 +19,7 @@ pub struct LiveDecisionChoiceQuestionParam {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "instructions")]
-    pub instructions: String,
+    pub instructions: models::LiveDecisionChoiceQuestionParamInstructions,
     /// Validation: `minItems: 2`, `maxItems: 255`.
     #[serde(rename = "choices")]
     pub choices: Vec<models::LiveDecisionChoiceParam>,
@@ -28,7 +28,7 @@ pub struct LiveDecisionChoiceQuestionParam {
 impl LiveDecisionChoiceQuestionParam {
     pub fn new(
         r#type: Type,
-        instructions: String,
+        instructions: models::LiveDecisionChoiceQuestionParamInstructions,
         choices: Vec<models::LiveDecisionChoiceParam>,
     ) -> LiveDecisionChoiceQuestionParam {
         LiveDecisionChoiceQuestionParam {
@@ -46,6 +46,11 @@ impl crate::models::validation::Validate for LiveDecisionChoiceQuestionParam {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        crate::models::validation::Validate::validate_into(
+            &self.instructions,
+            &path.field("instructions"),
+            errors,
+        );
         crate::models::validation::items(
             self.choices.len(),
             Some(2),

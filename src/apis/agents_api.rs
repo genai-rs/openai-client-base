@@ -29,6 +29,34 @@ pub enum CreateAgentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_agent_automation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAgentAutomationError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_agent_automation_invocation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAgentAutomationInvocationError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_agent_environment`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -115,6 +143,20 @@ pub enum DeleteAgentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_agent_automation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteAgentAutomationError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_agent_environment_template`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -153,6 +195,64 @@ pub enum DeleteAgentSessionArtifactError {
     Status404(models::ErrorResponse2),
     Status409(models::ErrorResponse2),
     Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_agent_automation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAgentAutomationError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_agent_automation_invocation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAgentAutomationInvocationError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_agent_automation_invocations`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAgentAutomationInvocationsError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status501(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_agent_automations`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAgentAutomationsError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status501(models::ErrorResponse2),
     Status503(models::ErrorResponse2),
     UnknownValue(serde_json::Value),
 }
@@ -366,6 +466,34 @@ pub enum ListAgentsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`pause_agent_automation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PauseAgentAutomationError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`resume_agent_automation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ResumeAgentAutomationError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`retrieve_agent`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -505,6 +633,20 @@ pub enum UpdateAgentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_agent_automation`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAgentAutomationError {
+    Status400(models::ErrorResponse2),
+    Status401(models::ErrorResponse2),
+    Status403(models::ErrorResponse2),
+    Status404(models::ErrorResponse2),
+    Status409(models::ErrorResponse2),
+    Status500(models::ErrorResponse2),
+    Status503(models::ErrorResponse2),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_agent_environment_template`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -604,6 +746,171 @@ pub async fn create_agent(
             serde_json::from_str(&content)
                 .ok()
                 .map(CreateAgentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Saves an active automation without invoking it immediately.
+#[bon::builder]
+pub async fn create_agent_automation(
+    configuration: &configuration::Configuration,
+    create_automation_params: &models::CreateAutomationParams,
+) -> Result<models::AutomationResource, Error<CreateAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_automation_params = create_automation_params;
+
+    let uri_str = format!("{}/agents/automations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(p_body_create_automation_params);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Queues a manual delivery without changing the saved schedule.
+#[bon::builder]
+pub async fn create_agent_automation_invocation(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+) -> Result<models::AutomationInvocationResource, Error<CreateAgentAutomationInvocationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/invocations",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationInvocationResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationInvocationResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentAutomationInvocationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::UnknownValue)
         });
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
@@ -1205,6 +1512,90 @@ pub async fn delete_agent(
     }
 }
 
+/// Deletes the automation and prevents future invocations without deleting its target session.
+#[bon::builder]
+pub async fn delete_agent_automation(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+) -> Result<models::DeletedAutomationResource, Error<DeleteAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeletedAutomationResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeletedAutomationResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Deletes reusable environment configuration and all confidential template inputs. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 #[bon::builder]
 pub async fn delete_agent_environment_template(
@@ -1451,6 +1842,375 @@ pub async fn delete_agent_session_artifact(
             serde_json::from_str(&content)
                 .ok()
                 .map(DeleteAgentSessionArtifactError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a project-owned automation.
+#[bon::builder]
+pub async fn get_agent_automation(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+) -> Result<models::AutomationResource, Error<GetAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a delivery record for a project-owned automation.
+#[bon::builder]
+pub async fn get_agent_automation_invocation(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    invocation_id: &str,
+) -> Result<models::AutomationInvocationResource, Error<GetAgentAutomationInvocationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+    let p_path_invocation_id = invocation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/invocations/{invocation_id}",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id),
+        invocation_id = crate::apis::urlencode(p_path_invocation_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationInvocationResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationInvocationResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetAgentAutomationInvocationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists delivery records for a project-owned automation.
+#[bon::builder]
+pub async fn list_agent_automation_invocations(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+) -> Result<
+    models::ListAgentAutomationInvocations200Response,
+    Error<ListAgentAutomationInvocationsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/invocations",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAgentAutomationInvocations200Response`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAgentAutomationInvocations200Response`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentAutomationInvocationsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status500),
+            501 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status501),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists project-owned automations, optionally filtered by target session.
+#[bon::builder]
+pub async fn list_agent_automations(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    session_id: Option<&str>,
+) -> Result<models::ListAgentAutomations200Response, Error<ListAgentAutomationsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_session_id = session_id;
+
+    let uri_str = format!("{}/agents/automations", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_session_id {
+        req_builder = req_builder.query(&[("session_id", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAgentAutomations200Response`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAgentAutomations200Response`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentAutomationsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status500),
+            501 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status501),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::UnknownValue)
         });
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
@@ -1856,12 +2616,14 @@ pub async fn list_agent_session_artifacts(
 pub async fn list_agent_session_events(
     configuration: &configuration::Configuration,
     session_id: &str,
+    include_obfuscation: Option<bool>,
 ) -> Result<
     super::sse::EventStream<models::SessionEvent, ListAgentSessionEventsError>,
     Error<ListAgentSessionEventsError>,
 > {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
+    let p_query_include_obfuscation = include_obfuscation;
 
     let uri_str = format!(
         "{}/agents/sessions/{session_id}/events",
@@ -1870,6 +2632,9 @@ pub async fn list_agent_session_events(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_include_obfuscation {
+        req_builder = req_builder.query(&[("include_obfuscation", &param_value.to_string())]);
+    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2731,12 +3496,14 @@ pub async fn list_agent_sessions(
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
     agent_id: Option<&str>,
+    metadata: Option<std::collections::HashMap<String, String>>,
 ) -> Result<models::SessionListResource, Error<ListAgentSessionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
     let p_query_order = order;
     let p_query_after = after;
     let p_query_agent_id = agent_id;
+    let p_query_metadata = metadata;
 
     let uri_str = format!("{}/agents/sessions", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -2752,6 +3519,12 @@ pub async fn list_agent_sessions(
     }
     if let Some(ref param_value) = p_query_agent_id {
         req_builder = req_builder.query(&[("agent_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metadata {
+        req_builder = req_builder.query(&crate::apis::parse_deep_object(
+            "metadata",
+            &serde_json::to_value(param_value)?,
+        ));
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -2900,6 +3673,174 @@ pub async fn list_agents(
             serde_json::from_str(&content)
                 .ok()
                 .map(ListAgentsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Pauses future scheduled delivery without stopping an active session.
+#[bon::builder]
+pub async fn pause_agent_automation(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+) -> Result<models::AutomationResource, Error<PauseAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/pause",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<PauseAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Resumes scheduled delivery; one-time automations without a pending invocation require a future run_at.
+#[bon::builder]
+pub async fn resume_agent_automation(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+) -> Result<models::AutomationResource, Error<ResumeAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/resume",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ResumeAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::UnknownValue)
         });
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
@@ -3739,6 +4680,93 @@ pub async fn update_agent(
     }
 }
 
+/// Updates supplied fields; target and metadata replace the whole field.
+#[bon::builder]
+pub async fn update_agent_automation(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    update_automation_params: &models::UpdateAutomationParams,
+) -> Result<models::AutomationResource, Error<UpdateAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+    let p_body_update_automation_params = update_automation_params;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(p_body_update_automation_params);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Updates reusable environment configuration without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 #[bon::builder]
 pub async fn update_agent_environment_template(
@@ -3826,7 +4854,7 @@ pub async fn update_agent_environment_template(
     }
 }
 
-/// Updates session metadata, model, reasoning effort, or service tier. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
+/// Updates session tools, metadata, model, reasoning effort, service tier, or the default prompt cache lifetime. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 #[bon::builder]
 pub async fn update_agent_session(
     configuration: &configuration::Configuration,

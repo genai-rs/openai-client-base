@@ -11,9 +11,19 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// UpdateSessionAgentParam : Model settings that can change after session creation.
+/// UpdateSessionAgentParam : Agent settings that can change after session creation.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct UpdateSessionAgentParam {
+    /// Replaces the session tools. Functions and MCP servers change on the next model call. Built-in tools change by the next turn. Omit to keep the current tools, or pass null or an empty array to clear them.
+    ///
+    /// Validation: `minItems: 0`, `maxItems: 16384`.
+    #[serde(
+        rename = "tools",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tools: Option<Option<Vec<models::AgentToolConfigParam>>>,
     /// The model for subsequent turns. Omit to keep the current model.
     ///
     /// Validation: `minLength: 0`, `maxLength: 1048576`.
@@ -32,9 +42,10 @@ pub struct UpdateSessionAgentParam {
 }
 
 impl UpdateSessionAgentParam {
-    /// Model settings that can change after session creation.
+    /// Agent settings that can change after session creation.
     pub fn new() -> UpdateSessionAgentParam {
         UpdateSessionAgentParam {
+            tools: None,
             model: None,
             reasoning: None,
             service_tier: None,
@@ -48,6 +59,20 @@ impl crate::models::validation::Validate for UpdateSessionAgentParam {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        if let Some(Some(value0)) = &self.tools {
+            crate::models::validation::items(
+                value0.len(),
+                Some(0),
+                Some(16384),
+                &path.field("tools"),
+                errors,
+            );
+            crate::models::validation::Validate::validate_into(
+                value0,
+                &path.field("tools"),
+                errors,
+            );
+        }
         if let Some(value0) = &self.model {
             crate::models::validation::length(
                 value0,

@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **instructions** | Option<**String**> | Custom instructions appended to the agent's default base instructions. | 
 **tools** | [**Vec<models::AgentToolResource>**](AgentToolResource.md) | Tools available to the agent. | 
 **multi_agent** | [**models::MultiAgentConfigResource**](MultiAgentConfigResource.md) |  | 
+**compaction** | Option<[**models::CompactionResource**](CompactionResource.md)> |  | [optional]
+**experimental** | Option<[**models::ExperimentalConfigResource**](ExperimentalConfigResource.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

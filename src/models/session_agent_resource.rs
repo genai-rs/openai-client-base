@@ -47,6 +47,10 @@ pub struct SessionAgentResource {
     pub tools: Vec<models::AgentToolResource>,
     #[serde(rename = "multi_agent")]
     pub multi_agent: models::MultiAgentConfigResource,
+    #[serde(rename = "compaction", skip_serializing_if = "Option::is_none")]
+    pub compaction: Option<models::CompactionResource>,
+    #[serde(rename = "experimental", skip_serializing_if = "Option::is_none")]
+    pub experimental: Option<models::ExperimentalConfigResource>,
 }
 
 impl SessionAgentResource {
@@ -72,6 +76,8 @@ impl SessionAgentResource {
             instructions,
             tools,
             multi_agent,
+            compaction: None,
+            experimental: None,
         }
     }
 }

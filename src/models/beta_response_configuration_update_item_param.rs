@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// BetaResponseConfigurationUpdateItemParam : An update to the conversation's response configuration. The configuration remains in effect for subsequent responses until it is replaced by another configuration update.
+/// BetaResponseConfigurationUpdateItemParam : An update to the conversation's response configuration. Supply reasoning, text, or both. Each setting stays in effect until a later update replaces it.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct BetaResponseConfigurationUpdateItemParam {
     #[serde(
@@ -34,16 +34,19 @@ pub struct BetaResponseConfigurationUpdateItemParam {
     pub r#type: Type,
     #[serde(rename = "reasoning", skip_serializing_if = "Option::is_none")]
     pub reasoning: Option<models::BetaResponseConfigurationUpdateItemParamReasoning>,
+    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
+    pub text: Option<models::BetaResponseConfigurationUpdateItemParamText>,
 }
 
 impl BetaResponseConfigurationUpdateItemParam {
-    /// An update to the conversation's response configuration. The configuration remains in effect for subsequent responses until it is replaced by another configuration update.
+    /// An update to the conversation's response configuration. Supply reasoning, text, or both. Each setting stays in effect until a later update replaces it.
     pub fn new(r#type: Type) -> BetaResponseConfigurationUpdateItemParam {
         BetaResponseConfigurationUpdateItemParam {
             agent: None,
             id: None,
             r#type,
             reasoning: None,
+            text: None,
         }
     }
 }

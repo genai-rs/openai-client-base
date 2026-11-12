@@ -20,7 +20,7 @@ pub struct LiveDecisionsSettingsUpdateParam {
     ///
     /// Validation: `minItems: 1`, `maxItems: 64`.
     #[serde(rename = "questions", skip_serializing_if = "Option::is_none")]
-    pub questions: Option<Vec<models::QuestionParam>>,
+    pub questions: Option<Vec<models::LiveDecisionQuestion>>,
 }
 
 impl LiveDecisionsSettingsUpdateParam {

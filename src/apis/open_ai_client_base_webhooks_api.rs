@@ -155,6 +155,13 @@ pub enum LiveCallIncomingPostError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`live_transport_connected_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum LiveTransportConnectedPostError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`live_transport_incoming_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1097,6 +1104,50 @@ pub async fn live_call_incoming_post(
         let entity: Option<LiveCallIncomingPostError> = serde_json::from_str(&content)
             .ok()
             .map(LiveCallIncomingPostError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Sent when a direct Live WebRTC session is created or an Instant Connect session activates.
+#[bon::builder]
+pub async fn live_transport_connected_post(
+    configuration: &configuration::Configuration,
+    webhook_live_transport_connected: &models::WebhookLiveTransportConnected,
+) -> Result<(), Error<LiveTransportConnectedPostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_webhook_live_transport_connected = webhook_live_transport_connected;
+
+    let uri_str = format!("{}/live_transport_connected", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(p_body_webhook_live_transport_connected);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<LiveTransportConnectedPostError> = serde_json::from_str(&content)
+            .ok()
+            .map(LiveTransportConnectedPostError::UnknownValue);
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,

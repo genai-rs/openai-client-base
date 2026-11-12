@@ -20,9 +20,8 @@ pub struct QuestionParamChoice {
     /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Validation: `minLength: 0`, `maxLength: 1048576`.
     #[serde(rename = "instructions")]
-    pub instructions: String,
+    pub instructions: models::QuestionParamChoiceInstructions,
     /// Provide between 2 and 255 choices. Each choice must be unique.
     ///
     /// Validation: `minItems: 2`, `maxItems: 255`.
@@ -34,7 +33,7 @@ impl QuestionParamChoice {
     /// Choose from the supplied options based on the input.
     pub fn new(
         r#type: Type,
-        instructions: String,
+        instructions: models::QuestionParamChoiceInstructions,
         choices: Vec<models::ChoiceOptionParam>,
     ) -> QuestionParamChoice {
         QuestionParamChoice {
@@ -61,10 +60,8 @@ impl crate::models::validation::Validate for QuestionParamChoice {
                 errors,
             );
         }
-        crate::models::validation::length(
+        crate::models::validation::Validate::validate_into(
             &self.instructions,
-            Some(0),
-            Some(1048576),
             &path.field("instructions"),
             errors,
         );

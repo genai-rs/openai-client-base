@@ -19,6 +19,8 @@ pub enum LiveSidebandServerEvent {
     LiveTransportRinging(models::LiveTransportRinging),
     LiveTransportAnswered(models::LiveTransportAnswered),
     LiveTransportFailed(models::LiveTransportFailed),
+    LiveTransportDtmfReceived(models::LiveTransportDtmfReceived),
+    LiveTransportDtmfSent(models::LiveTransportDtmfSent),
     LiveSessionStarted(models::LiveSessionStarted),
     LiveSessionUpdated(models::LiveSessionUpdated),
     LiveInputAudioMuted(models::LiveInputAudioMuted),
@@ -69,6 +71,14 @@ impl LiveSidebandServerEvent {
             }
             Tag::Value("transport.failed") => {
                 dispatch::decode(value, UNION, "LiveTransportFailed").map(Self::LiveTransportFailed)
+            }
+            Tag::Value("transport.dtmf.received") => {
+                dispatch::decode(value, UNION, "LiveTransportDtmfReceived")
+                    .map(Self::LiveTransportDtmfReceived)
+            }
+            Tag::Value("transport.dtmf.sent") => {
+                dispatch::decode(value, UNION, "LiveTransportDtmfSent")
+                    .map(Self::LiveTransportDtmfSent)
             }
             Tag::Value("session.started") => {
                 dispatch::decode(value, UNION, "LiveSessionStarted").map(Self::LiveSessionStarted)
@@ -164,6 +174,14 @@ impl std::fmt::Display for LiveSidebandServerEvent {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::LiveTransportDtmfReceived(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::LiveTransportDtmfSent(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
             Self::LiveSessionStarted(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
@@ -255,6 +273,12 @@ impl crate::models::validation::Validate for LiveSidebandServerEvent {
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
         match self {
+            Self::LiveTransportDtmfReceived(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveTransportDtmfSent(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
             Self::LiveSessionStarted(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }

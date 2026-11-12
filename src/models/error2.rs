@@ -36,7 +36,7 @@ pub struct Error2 {
     /// A human-readable description of the error that was returned.
     #[serde(rename = "message")]
     pub message: String,
-    /// The Retry-After and Retry-After-Ms headers returned with the original error, if any.
+    /// Headers returned with the original error. These can include Retry-After, Retry-After-Ms, and, on opted-in deployments, x-openai-inference-capacity-reason.
     #[serde(rename = "headers", skip_serializing_if = "Option::is_none")]
     pub headers: Option<std::collections::HashMap<String, String>>,
     #[serde(rename = "misalignment", skip_serializing_if = "Option::is_none")]

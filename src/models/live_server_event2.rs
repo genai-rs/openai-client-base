@@ -39,7 +39,7 @@ pub enum LiveServerEvent2 {
     LiveErrorEvent(models::LiveErrorEvent),
     LiveInfoEvent(models::LiveInfoEvent),
     LiveTransportDtmfReceived(models::LiveTransportDtmfReceived),
-    LiveTransportDtmfSend(models::LiveTransportDtmfSend),
+    LiveTransportDtmfSent(models::LiveTransportDtmfSent),
     LiveTransportRinging(models::LiveTransportRinging),
     LiveTransportAnswered(models::LiveTransportAnswered),
     LiveTransportFailed(models::LiveTransportFailed),
@@ -147,9 +147,9 @@ impl LiveServerEvent2 {
                 dispatch::decode(value, UNION, "LiveTransportDtmfReceived")
                     .map(Self::LiveTransportDtmfReceived)
             }
-            Tag::Value("transport.dtmf.send") => {
-                dispatch::decode(value, UNION, "LiveTransportDtmfSend")
-                    .map(Self::LiveTransportDtmfSend)
+            Tag::Value("transport.dtmf.sent") => {
+                dispatch::decode(value, UNION, "LiveTransportDtmfSent")
+                    .map(Self::LiveTransportDtmfSent)
             }
             Tag::Value("transport.ringing") => {
                 dispatch::decode(value, UNION, "LiveTransportRinging")
@@ -264,7 +264,7 @@ impl std::fmt::Display for LiveServerEvent2 {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
-            Self::LiveTransportDtmfSend(value) => match serde_json::to_string(value) {
+            Self::LiveTransportDtmfSent(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
@@ -309,7 +309,7 @@ impl crate::models::validation::Validate for LiveServerEvent2 {
             Self::LiveTransportDtmfReceived(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
-            Self::LiveTransportDtmfSend(value) => {
+            Self::LiveTransportDtmfSent(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
             _ => {}

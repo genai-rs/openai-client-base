@@ -63,6 +63,11 @@ impl crate::models::validation::Validate for RealtimeSessionCreateResponseGaAudi
             errors,
         );
         crate::models::validation::Validate::validate_into(
+            &self.noise_reduction,
+            &path.field("noise_reduction"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
             &self.turn_detection,
             &path.field("turn_detection"),
             errors,

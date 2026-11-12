@@ -20,14 +20,29 @@ pub struct ImageGenTool {
     /// ID of the model to use
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
+    /// Computation spent planning the image, independently of rendering quality. Overrides the outer response's `reasoning.effort` for image generation. When omitted, inherits a supported outer reasoning effort or uses the image model's configured default. For SVG output, controls the reference image, not the SVG author's reasoning.
+    #[serde(rename = "complexity", skip_serializing_if = "Option::is_none")]
+    pub complexity: Option<Complexity>,
     /// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.  Defaults to `\"auto\"`.
     #[serde(rename = "quality", skip_serializing_if = "Option::is_none")]
     pub quality: Option<Quality>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<models::ImageGenToolSize>,
-    /// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.  Defaults to `\"png\"`.
+    /// The output format of the generated image. One of `png`, `webp`, `jpeg`, `gif`, or `svg`. Default: `png`. GIF and SVG output require a model that supports the selected format. GIF output does not support partial image streaming (`partial_images` greater than `0`), `input_image_mask`, or custom `output_compression`. Responses lifecycle events can still be streamed for GIF output.  Defaults to `\"png\"`.
     #[serde(rename = "output_format", skip_serializing_if = "Option::is_none")]
     pub output_format: Option<OutputFormat>,
+    /// Number of GIF frames. Requires `output_format` to be `gif`. Default: 9.  Defaults to `9`.
+    ///
+    /// Validation: `minimum: 2`, `maximum: 16`.
+    #[serde(rename = "frame_count", skip_serializing_if = "Option::is_none")]
+    pub frame_count: Option<i64>,
+    /// Duration of each GIF frame in milliseconds, rounded to 10 ms. Requires `output_format` to be `gif`. Default: 200.  Defaults to `200`.
+    ///
+    /// Validation: `minimum: 20`, `maximum: 2000`.
+    #[serde(rename = "frame_duration_ms", skip_serializing_if = "Option::is_none")]
+    pub frame_duration_ms: Option<i64>,
+    #[serde(rename = "svg", skip_serializing_if = "Option::is_none")]
+    pub svg: Option<models::SvgParam>,
     /// Compression level for the output image. Default: 100.  Defaults to `100`.
     ///
     /// Validation: `minimum: 0`, `maximum: 100`.
@@ -63,9 +78,13 @@ impl ImageGenTool {
         ImageGenTool {
             r#type,
             model: None,
+            complexity: None,
             quality: None,
             size: None,
             output_format: None,
+            frame_count: None,
+            frame_duration_ms: None,
+            svg: None,
             output_compression: None,
             moderation: None,
             background: None,
@@ -83,6 +102,25 @@ impl crate::models::validation::Validate for ImageGenTool {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        if let Some(value0) = &self.frame_count {
+            crate::models::validation::minimum(*value0, 2, &path.field("frame_count"), errors);
+            crate::models::validation::maximum(*value0, 16, &path.field("frame_count"), errors);
+        }
+        if let Some(value0) = &self.frame_duration_ms {
+            crate::models::validation::minimum(
+                *value0,
+                20,
+                &path.field("frame_duration_ms"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                2000,
+                &path.field("frame_duration_ms"),
+                errors,
+            );
+        }
+        crate::models::validation::Validate::validate_into(&self.svg, &path.field("svg"), errors);
         if let Some(value0) = &self.output_compression {
             crate::models::validation::minimum(
                 *value0,
@@ -114,6 +152,20 @@ pub enum Type {
     Unknown,
 }
 
+/// Computation spent planning the image, independently of rendering quality. Overrides the outer response's `reasoning.effort` for image generation. When omitted, inherits a supported outer reasoning effort or uses the image model's configured default. For SVG output, controls the reference image, not the SVG author's reasoning.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Complexity {
+    #[serde(rename = "low")]
+    Low,
+    #[serde(rename = "medium")]
+    Medium,
+    #[serde(rename = "high")]
+    High,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
+}
+
 /// The quality of the generated image. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Default: `auto`.  Defaults to `\"auto\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Quality {
@@ -134,7 +186,7 @@ pub enum Quality {
     Unknown,
 }
 
-/// The output format of the generated image. One of `png`, `webp`, or `jpeg`. Default: `png`.  Defaults to `\"png\"`.
+/// The output format of the generated image. One of `png`, `webp`, `jpeg`, `gif`, or `svg`. Default: `png`. GIF and SVG output require a model that supports the selected format. GIF output does not support partial image streaming (`partial_images` greater than `0`), `input_image_mask`, or custom `output_compression`. Responses lifecycle events can still be streamed for GIF output.  Defaults to `\"png\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum OutputFormat {
     #[serde(rename = "png")]
@@ -143,6 +195,10 @@ pub enum OutputFormat {
     Webp,
     #[serde(rename = "jpeg")]
     Jpeg,
+    #[serde(rename = "gif")]
+    Gif,
+    #[serde(rename = "svg")]
+    Svg,
     /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
     #[serde(rename = "unknown", other)]
     Unknown,
@@ -222,6 +278,58 @@ impl ::std::convert::TryFrom<::std::string::String> for Type {
     }
 }
 
+impl ::std::fmt::Display for Complexity {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str(match self {
+            Self::Low => "low",
+            Self::Medium => "medium",
+            Self::High => "high",
+            Self::Unknown => "unknown",
+        })
+    }
+}
+
+impl ::std::str::FromStr for Complexity {
+    type Err = crate::models::ParseEnumError;
+
+    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        match value {
+            "low" => Ok(Self::Low),
+            "medium" => Ok(Self::Medium),
+            "high" => Ok(Self::High),
+            _ => Err(crate::models::ParseEnumError::new("Complexity", value)),
+        }
+    }
+}
+
+impl ::std::convert::TryFrom<&str> for Complexity {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<&::std::string::String> for Complexity {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
+impl ::std::convert::TryFrom<::std::string::String> for Complexity {
+    type Error = crate::models::ParseEnumError;
+
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
+        value.parse()
+    }
+}
+
 impl ::std::fmt::Display for Quality {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
@@ -286,6 +394,8 @@ impl ::std::fmt::Display for OutputFormat {
             Self::Png => "png",
             Self::Webp => "webp",
             Self::Jpeg => "jpeg",
+            Self::Gif => "gif",
+            Self::Svg => "svg",
             Self::Unknown => "unknown",
         })
     }
@@ -299,6 +409,8 @@ impl ::std::str::FromStr for OutputFormat {
             "png" => Ok(Self::Png),
             "webp" => Ok(Self::Webp),
             "jpeg" => Ok(Self::Jpeg),
+            "gif" => Ok(Self::Gif),
+            "svg" => Ok(Self::Svg),
             _ => Err(crate::models::ParseEnumError::new("OutputFormat", value)),
         }
     }

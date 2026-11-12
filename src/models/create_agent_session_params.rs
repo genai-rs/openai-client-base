@@ -14,6 +14,10 @@ use serde::{Deserialize, Serialize};
 /// CreateAgentSessionParams : Parameters for creating a Managed Agents session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAgentSessionParams {
+    #[serde(rename = "environment")]
+    pub environment: models::EnvironmentParam,
+    #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
+    pub review: Option<models::SessionReviewParam>,
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Omission or null defaults to an empty map.
     ///
     /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
@@ -31,8 +35,6 @@ pub struct CreateAgentSessionParams {
     /// Validation: `minLength: 0`, `maxLength: 64`.
     #[serde(rename = "agent_id", skip_serializing_if = "Option::is_none")]
     pub agent_id: Option<String>,
-    #[serde(rename = "environment")]
-    pub environment: models::EnvironmentParam,
     /// The IDs of vaults made available to the session.
     ///
     /// Validation: `minItems: 0`, `maxItems: 16384`; each item: `minLength: 0`, `maxLength: 1048576`.
@@ -51,22 +53,35 @@ pub struct CreateAgentSessionParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub input: Option<Option<models::CreateSessionInputParam>>,
+    /// Default prompt cache lifetime for turns in this session. Omit to use the model default.
+    #[serde(
+        rename = "prompt_cache_options",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_options: Option<Option<models::PromptCacheOptionsParam2>>,
     /// Whether to stream session events as server-sent events. Defaults to `false`.
     #[serde(rename = "stream", skip_serializing_if = "Option::is_none")]
     pub stream: Option<bool>,
+    #[serde(rename = "stream_options", skip_serializing_if = "Option::is_none")]
+    pub stream_options: Option<models::SessionStreamOptionsParam>,
 }
 
 impl CreateAgentSessionParams {
     /// Parameters for creating a Managed Agents session.
     pub fn new(environment: models::EnvironmentParam) -> CreateAgentSessionParams {
         CreateAgentSessionParams {
+            environment,
+            review: None,
             metadata: None,
             agent: None,
             agent_id: None,
-            environment,
             vault_ids: None,
             input: None,
+            prompt_cache_options: None,
             stream: None,
+            stream_options: None,
         }
     }
 }
@@ -77,6 +92,11 @@ impl crate::models::validation::Validate for CreateAgentSessionParams {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        crate::models::validation::Validate::validate_into(
+            &self.environment,
+            &path.field("environment"),
+            errors,
+        );
         if let Some(Some(value0)) = &self.metadata {
             crate::models::validation::properties(
                 value0.len(),
@@ -111,11 +131,6 @@ impl crate::models::validation::Validate for CreateAgentSessionParams {
                 errors,
             );
         }
-        crate::models::validation::Validate::validate_into(
-            &self.environment,
-            &path.field("environment"),
-            errors,
-        );
         if let Some(Some(value0)) = &self.vault_ids {
             crate::models::validation::items(
                 value0.len(),

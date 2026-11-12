@@ -34,6 +34,9 @@ pub struct AgentToolResourceFunction {
     /// Whether the function is deferred and discovered through tool search.
     #[serde(rename = "defer_loading")]
     pub defer_loading: bool,
+    /// Whether the agent continues without waiting for the function result.
+    #[serde(rename = "async", skip_serializing_if = "Option::is_none")]
+    pub r#async: Option<bool>,
 }
 
 impl AgentToolResourceFunction {
@@ -51,6 +54,7 @@ impl AgentToolResourceFunction {
             description,
             parameters,
             defer_loading,
+            r#async: None,
         }
     }
 }

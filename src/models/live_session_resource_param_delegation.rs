@@ -18,7 +18,7 @@ use serde::{Deserialize, Serialize};
 pub enum LiveSessionResourceParamDelegation {
     LiveClientDelegationParam(models::LiveClientDelegationParam),
     LiveResponsesDelegationParam(models::LiveResponsesDelegationParam),
-    LiveDecisionsDelegationParam2(models::LiveDecisionsDelegationParam2),
+    LiveDecisionsDelegationParam(models::LiveDecisionsDelegationParam),
 }
 
 impl<'de> Deserialize<'de> for LiveSessionResourceParamDelegation {
@@ -46,8 +46,8 @@ impl LiveSessionResourceParamDelegation {
                     .map(Self::LiveResponsesDelegationParam)
             }
             Tag::Value("decisions") => {
-                dispatch::decode(value, UNION, "LiveDecisionsDelegationParam2")
-                    .map(Self::LiveDecisionsDelegationParam2)
+                dispatch::decode(value, UNION, "LiveDecisionsDelegationParam")
+                    .map(Self::LiveDecisionsDelegationParam)
             }
             Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
@@ -67,7 +67,7 @@ impl std::fmt::Display for LiveSessionResourceParamDelegation {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
-            Self::LiveDecisionsDelegationParam2(value) => match serde_json::to_string(value) {
+            Self::LiveDecisionsDelegationParam(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
@@ -82,13 +82,15 @@ impl crate::models::validation::Validate for LiveSessionResourceParamDelegation 
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
         match self {
+            Self::LiveClientDelegationParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
             Self::LiveResponsesDelegationParam(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
-            Self::LiveDecisionsDelegationParam2(value) => {
+            Self::LiveDecisionsDelegationParam(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
-            _ => {}
         }
     }
 }

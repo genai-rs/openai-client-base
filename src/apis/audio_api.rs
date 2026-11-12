@@ -77,6 +77,15 @@ pub enum CreateVoiceConsentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_voice`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteVoiceError {
+    Status400(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_voice_consent`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -113,7 +122,7 @@ pub enum UpdateVoiceConsentError {
     UnknownValue(serde_json::Value),
 }
 
-/// Generates audio from the input text.  Returns the audio file content, or a stream of audio events.
+/// Generates audio from the input text.  Returns the audio file content, or a stream of audio events.  The `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, `gpt-4o-mini-tts-2025-03-20`, and `gpt-4o-mini-tts-2025-12-15` models are deprecated and scheduled to shut down on January 6, 2027. These examples use the existing Speech API; for new integrations, migrate to `gpt-realtime-2.1-mini` through the [Realtime API](https://developers.openai.com/api/docs/guides/realtime). See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for migration details.
 #[bon::builder]
 pub async fn create_speech(
     configuration: &configuration::Configuration,
@@ -178,7 +187,7 @@ pub async fn create_speech(
     }
 }
 
-/// Generates audio from the input text.  Returns the audio file content, or a stream of audio events.
+/// Generates audio from the input text.  Returns the audio file content, or a stream of audio events.  The `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, `gpt-4o-mini-tts-2025-03-20`, and `gpt-4o-mini-tts-2025-12-15` models are deprecated and scheduled to shut down on January 6, 2027. These examples use the existing Speech API; for new integrations, migrate to `gpt-realtime-2.1-mini` through the [Realtime API](https://developers.openai.com/api/docs/guides/realtime). See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for migration details.
 ///
 /// Streams the `text/event-stream` response: the `data:` payload of every event decodes to `models::CreateSpeechResponseStreamEvent`, whatever the event's SSE `event:` name, and `data: [DONE]` or the end of the body ends the stream. The request has to ask for a stream.
 #[bon::builder]
@@ -846,7 +855,8 @@ pub async fn create_transcription_text(
     }
 }
 
-/// Translates audio into English.
+/// Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details.
+#[deprecated]
 #[bon::builder]
 pub async fn create_translation(
     configuration: &configuration::Configuration,
@@ -949,9 +959,10 @@ pub async fn create_translation(
     }
 }
 
-/// Translates audio into English.
+/// Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details.
 ///
 /// Decodes the `text/plain` form of the response; `create_translation` decodes `application/json`.
+#[deprecated]
 #[bon::builder]
 pub async fn create_translation_text(
     configuration: &configuration::Configuration,
@@ -1296,6 +1307,75 @@ pub async fn create_voice_multipart(
             serde_json::from_str(&content)
                 .ok()
                 .map(CreateVoiceError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Deletes a voice created from a text prompt or an audio sample.  Requires voice write permission and access to the voice's project. Access to voices created from recordings is limited to eligible customers. See the [custom voices guide](https://developers.openai.com/api/docs/guides/custom-voices).  Deleting a voice does not delete its consent recording. Deleting an already deleted voice returns a 404 error.
+#[bon::builder]
+pub async fn delete_voice(
+    configuration: &configuration::Configuration,
+    voice_id: &str,
+) -> Result<models::VoiceDeletedResource, Error<DeleteVoiceError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_voice_id = voice_id;
+
+    let uri_str = format!(
+        "{}/audio/voices/{voice_id}",
+        configuration.base_path,
+        voice_id = crate::apis::urlencode(p_path_voice_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceDeletedResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceDeletedResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteVoiceError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVoiceError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVoiceError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVoiceError::UnknownValue)
         });
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,

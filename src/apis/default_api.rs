@@ -15,6 +15,13 @@ use crate::{apis::ResponseContent, models};
 use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
 
+/// struct for typed errors of method [`addanexternalkeyconfigforanorganization`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddanexternalkeyconfigforanorganizationError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`admin_api_keys_create`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -91,6 +98,20 @@ pub enum CreateContainerFileError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_platformworkloadidentityfederationrule`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreatePlatformworkloadidentityfederationruleError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_platformworkloadidentityprovider`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreatePlatformworkloadidentityproviderError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -106,7 +127,6 @@ pub enum CreateanApIkeyforaserviceaccountError {
     Status400(models::ErrorResponse),
     Status403(models::PermissionErrorResponse),
     Status404(models::ErrorResponse),
-    Status409(models::ErrorResponse),
     Status429(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -152,6 +172,20 @@ pub enum DeleteContainerFileError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_platformworkloadidentityfederationrule`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeletePlatformworkloadidentityfederationruleError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_platformworkloadidentityprovider`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeletePlatformworkloadidentityproviderError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_thread_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -168,6 +202,13 @@ pub enum DeleteThreadMethodError {
 pub enum DeleteWebhookEndpointError {
     Status400(models::ErrorResponse),
     Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`deleteanexternalkeyconfigfortheuser_quote_sorganization`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteanexternalkeyconfigfortheuserQuoteSorganizationError {
     UnknownValue(serde_json::Value),
 }
 
@@ -280,6 +321,20 @@ pub enum ListContainersError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_platformworkloadidentityfederationrules`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListPlatformworkloadidentityfederationrulesError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_platformworkloadidentityproviders`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListPlatformworkloadidentityprovidersError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_thread_items_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -327,6 +382,13 @@ pub enum ListexternalstorageconfigurationsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`listtheexternalkeyconfigsregisteredontheuser_quote_sorganization`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`organization_decisionsusage`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -364,12 +426,40 @@ pub enum RetrieveContainerFileContentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`retrieve_platformworkloadidentityfederationrule`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrievePlatformworkloadidentityfederationruleError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`retrieve_platformworkloadidentityprovider`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrievePlatformworkloadidentityproviderError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`retrieve_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveWebhookEndpointError {
     Status400(models::ErrorResponse),
     Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`retrieveanexternalkeyregistration`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrieveanexternalkeyregistrationError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`retrieveprojectservicetiersettings`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RetrieveprojectservicetiersettingsError {
     UnknownValue(serde_json::Value),
 }
 
@@ -392,6 +482,20 @@ pub enum TestWebhookEndpointError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_platformworkloadidentityfederationrule`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdatePlatformworkloadidentityfederationruleError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_platformworkloadidentityprovider`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdatePlatformworkloadidentityproviderError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -410,6 +514,13 @@ pub enum UpdateorganizationspendlimitError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`updateprojectservicetiersettings`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateprojectservicetiersettingsError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`updateprojectspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -417,6 +528,13 @@ pub enum UpdateprojectspendlimitError {
     Status400(models::ErrorResponse),
     Status403(models::PermissionErrorResponse),
     Status404(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`validateanexternalkeyconfigfortheuser_quote_sorganization`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidateanexternalkeyconfigfortheuserQuoteSorganizationError {
     UnknownValue(serde_json::Value),
 }
 
@@ -429,6 +547,63 @@ pub enum ValidateanexternalstorageconfigurationError {
     Status404(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// Add an external key config for an organization
+#[bon::builder]
+pub async fn addanexternalkeyconfigforanorganization(
+    configuration: &configuration::Configuration,
+    v1_organization_external_keys_post_request: &models::V1OrganizationExternalKeysPostRequest,
+) -> Result<models::ExternalKeyResource, Error<AddanexternalkeyconfigforanorganizationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_v1_organization_external_keys_post_request =
+        v1_organization_external_keys_post_request;
+
+    let uri_str = format!("{}/organization/external_keys", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(p_body_v1_organization_external_keys_post_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalKeyResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalKeyResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AddanexternalkeyconfigforanorganizationError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(AddanexternalkeyconfigforanorganizationError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
 }
 
 /// Create an organization admin API key
@@ -1081,6 +1256,130 @@ pub async fn create_container_file_multipart(
     }
 }
 
+/// Bind verified token attributes to an existing project service account.
+#[bon::builder]
+pub async fn create_platformworkloadidentityfederationrule(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    create_platform_workload_identity_federation_rule_body: Option<
+        &models::CreatePlatformWorkloadIdentityFederationRuleBody,
+    >,
+) -> Result<models::PlatformFederationRule, Error<CreatePlatformworkloadidentityfederationruleError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_body_create_platform_workload_identity_federation_rule_body =
+        create_platform_workload_identity_federation_rule_body;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id));
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_platform_workload_identity_federation_rule_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformFederationRule`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformFederationRule`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreatePlatformworkloadidentityfederationruleError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreatePlatformworkloadidentityfederationruleError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Register an OIDC provider for keyless project service-account authentication.
+#[bon::builder]
+pub async fn create_platformworkloadidentityprovider(
+    configuration: &configuration::Configuration,
+    create_platform_workload_identity_provider_body: Option<
+        &models::CreatePlatformWorkloadIdentityProviderBody,
+    >,
+) -> Result<models::PlatformProvider, Error<CreatePlatformworkloadidentityproviderError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_platform_workload_identity_provider_body =
+        create_platform_workload_identity_provider_body;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers",
+        configuration.base_path
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_platform_workload_identity_provider_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformProvider`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformProvider`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreatePlatformworkloadidentityproviderError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreatePlatformworkloadidentityproviderError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Creates a webhook endpoint for the authenticated project.
 #[bon::builder]
 pub async fn create_webhook_endpoint(
@@ -1209,9 +1508,6 @@ pub async fn createan_ap_ikeyforaserviceaccount(
             404 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateanApIkeyforaserviceaccountError::Status404),
-            409 => serde_json::from_str(&content)
-                .ok()
-                .map(CreateanApIkeyforaserviceaccountError::Status409),
             429 => serde_json::from_str(&content)
                 .ok()
                 .map(CreateanApIkeyforaserviceaccountError::Status429),
@@ -1522,6 +1818,129 @@ pub async fn delete_container_file(
     }
 }
 
+/// Delete a federation rule to a project service account.
+#[bon::builder]
+pub async fn delete_platformworkloadidentityfederationrule(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    workload_identity_federation_rule_id: &str,
+) -> Result<
+    models::PlatformFederationRuleDeletedResource,
+    Error<DeletePlatformworkloadidentityfederationruleError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_path_workload_identity_federation_rule_id = workload_identity_federation_rule_id;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules/{workload_identity_federation_rule_id}", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id), workload_identity_federation_rule_id=crate::apis::urlencode(p_path_workload_identity_federation_rule_id));
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformFederationRuleDeletedResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformFederationRuleDeletedResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeletePlatformworkloadidentityfederationruleError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeletePlatformworkloadidentityfederationruleError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Delete a provider after deleting all its federation rules.
+#[bon::builder]
+pub async fn delete_platformworkloadidentityprovider(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+) -> Result<
+    models::PlatformProviderDeletedResource,
+    Error<DeletePlatformworkloadidentityproviderError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers/{workload_identity_provider_id}",
+        configuration.base_path,
+        workload_identity_provider_id =
+            crate::apis::urlencode(p_path_workload_identity_provider_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformProviderDeletedResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformProviderDeletedResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeletePlatformworkloadidentityproviderError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeletePlatformworkloadidentityproviderError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Delete a ChatKit thread along with its items and stored attachments.
 #[bon::builder]
 pub async fn delete_thread_method(
@@ -1654,6 +2073,68 @@ pub async fn delete_webhook_endpoint(
                 .ok()
                 .map(DeleteWebhookEndpointError::UnknownValue)
         });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Delete an external key config for the user's organization
+#[bon::builder]
+pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization(
+    configuration: &configuration::Configuration,
+    external_key_id: &str,
+) -> Result<
+    models::ExternalKeyResource,
+    Error<DeleteanexternalkeyconfigfortheuserQuoteSorganizationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_key_id = external_key_id;
+
+    let uri_str = format!(
+        "{}/organization/external_keys/{external_key_id}",
+        configuration.base_path,
+        external_key_id = crate::apis::urlencode(p_path_external_key_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalKeyResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalKeyResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteanexternalkeyconfigfortheuserQuoteSorganizationError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteanexternalkeyconfigfortheuserQuoteSorganizationError::UnknownValue);
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -2451,6 +2932,154 @@ pub async fn list_containers(
     }
 }
 
+/// List the provider's federation rules to project service accounts.
+#[bon::builder]
+pub async fn list_platformworkloadidentityfederationrules(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListPlatformworkloadidentityfederationrulesOrderParameter>,
+    after: Option<&str>,
+    service_account_id: Option<&str>,
+) -> Result<
+    models::PlatformFederationRuleListResource,
+    Error<ListPlatformworkloadidentityfederationrulesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_service_account_id = service_account_id;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        // a union's Display: a scalar variant as its plain text, any other as its JSON
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_service_account_id {
+        req_builder = req_builder.query(&[("service_account_id", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformFederationRuleListResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformFederationRuleListResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListPlatformworkloadidentityfederationrulesError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListPlatformworkloadidentityfederationrulesError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// List OIDC providers in the authenticated Admin API key's organization.
+#[bon::builder]
+pub async fn list_platformworkloadidentityproviders(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListPlatformworkloadidentityprovidersOrderParameter>,
+    after: Option<&str>,
+) -> Result<models::PlatformProviderListResource, Error<ListPlatformworkloadidentityprovidersError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        // a union's Display: a scalar variant as its plain text, any other as its JSON
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformProviderListResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformProviderListResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListPlatformworkloadidentityprovidersError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListPlatformworkloadidentityprovidersError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// List items that belong to a ChatKit thread.
 #[bon::builder]
 pub async fn list_thread_items_method(
@@ -2841,6 +3470,80 @@ pub async fn listexternalstorageconfigurations(
     }
 }
 
+/// List the external key configs registered on the user's organization
+#[bon::builder]
+pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::OrderEnum>,
+    after: Option<&str>,
+    purpose: Option<models::ExternalKeyPurpose>,
+) -> Result<
+    models::ListExternalKeysResource,
+    Error<ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_purpose = purpose;
+
+    let uri_str = format!("{}/organization/external_keys", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_purpose {
+        req_builder = req_builder.query(&[("purpose", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListExternalKeysResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListExternalKeysResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError> =
+            serde_json::from_str(&content).ok().map(
+                ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError::UnknownValue,
+            );
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Get Decisions API usage details for the organization.
 #[bon::builder]
 pub async fn organization_decisionsusage(
@@ -3169,6 +3872,122 @@ pub async fn retrieve_container_file_content(
     }
 }
 
+/// Retrieve a federation rule owned by the authenticated organization and provider.
+#[bon::builder]
+pub async fn retrieve_platformworkloadidentityfederationrule(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    workload_identity_federation_rule_id: &str,
+) -> Result<
+    models::PlatformFederationRule,
+    Error<RetrievePlatformworkloadidentityfederationruleError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_path_workload_identity_federation_rule_id = workload_identity_federation_rule_id;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules/{workload_identity_federation_rule_id}", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id), workload_identity_federation_rule_id=crate::apis::urlencode(p_path_workload_identity_federation_rule_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformFederationRule`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformFederationRule`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrievePlatformworkloadidentityfederationruleError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrievePlatformworkloadidentityfederationruleError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieve an OIDC provider in the authenticated organization.
+#[bon::builder]
+pub async fn retrieve_platformworkloadidentityprovider(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+) -> Result<models::PlatformProvider, Error<RetrievePlatformworkloadidentityproviderError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers/{workload_identity_provider_id}",
+        configuration.base_path,
+        workload_identity_provider_id =
+            crate::apis::urlencode(p_path_workload_identity_provider_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformProvider`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformProvider`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrievePlatformworkloadidentityproviderError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrievePlatformworkloadidentityproviderError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a webhook endpoint for the authenticated project.
 #[bon::builder]
 pub async fn retrieve_webhook_endpoint(
@@ -3227,6 +4046,122 @@ pub async fn retrieve_webhook_endpoint(
                 .ok()
                 .map(RetrieveWebhookEndpointError::UnknownValue)
         });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieve a stored external key registration for the user's organization.
+#[bon::builder]
+pub async fn retrieveanexternalkeyregistration(
+    configuration: &configuration::Configuration,
+    external_key_id: &str,
+) -> Result<models::ExternalKeyResource, Error<RetrieveanexternalkeyregistrationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_key_id = external_key_id;
+
+    let uri_str = format!(
+        "{}/organization/external_keys/{external_key_id}",
+        configuration.base_path,
+        external_key_id = crate::apis::urlencode(p_path_external_key_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExternalKeyResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExternalKeyResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveanexternalkeyregistrationError> = serde_json::from_str(&content)
+            .ok()
+            .map(RetrieveanexternalkeyregistrationError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieve the configured default and enabled service tiers for a project.
+#[bon::builder]
+pub async fn retrieveprojectservicetiersettings(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+) -> Result<
+    models::ProjectServiceTierSettingsResource,
+    Error<RetrieveprojectservicetiersettingsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/service_tier_settings",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectServiceTierSettingsResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectServiceTierSettingsResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveprojectservicetiersettingsError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveprojectservicetiersettingsError::UnknownValue);
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,
@@ -3384,6 +4319,136 @@ pub async fn test_webhook_endpoint(
     }
 }
 
+/// Update supplied matcher, permission, metadata, or enabled fields.
+#[bon::builder]
+pub async fn update_platformworkloadidentityfederationrule(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    workload_identity_federation_rule_id: &str,
+    update_platform_workload_identity_federation_rule_body: Option<
+        &models::UpdatePlatformWorkloadIdentityFederationRuleBody,
+    >,
+) -> Result<models::PlatformFederationRule, Error<UpdatePlatformworkloadidentityfederationruleError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_path_workload_identity_federation_rule_id = workload_identity_federation_rule_id;
+    let p_body_update_platform_workload_identity_federation_rule_body =
+        update_platform_workload_identity_federation_rule_body;
+
+    let uri_str = format!("{}/organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules/{workload_identity_federation_rule_id}", configuration.base_path, workload_identity_provider_id=crate::apis::urlencode(p_path_workload_identity_provider_id), workload_identity_federation_rule_id=crate::apis::urlencode(p_path_workload_identity_federation_rule_id));
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_platform_workload_identity_federation_rule_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformFederationRule`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformFederationRule`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdatePlatformworkloadidentityfederationruleError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdatePlatformworkloadidentityfederationruleError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Update supplied provider fields, preserving omitted fields.
+#[bon::builder]
+pub async fn update_platformworkloadidentityprovider(
+    configuration: &configuration::Configuration,
+    workload_identity_provider_id: &str,
+    update_platform_workload_identity_provider_body: Option<
+        &models::UpdatePlatformWorkloadIdentityProviderBody,
+    >,
+) -> Result<models::PlatformProvider, Error<UpdatePlatformworkloadidentityproviderError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workload_identity_provider_id = workload_identity_provider_id;
+    let p_body_update_platform_workload_identity_provider_body =
+        update_platform_workload_identity_provider_body;
+
+    let uri_str = format!(
+        "{}/organization/workload_identity_providers/{workload_identity_provider_id}",
+        configuration.base_path,
+        workload_identity_provider_id =
+            crate::apis::urlencode(p_path_workload_identity_provider_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_platform_workload_identity_provider_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PlatformProvider`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PlatformProvider`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdatePlatformworkloadidentityproviderError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdatePlatformworkloadidentityproviderError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Updates a webhook endpoint for the authenticated project.
 #[bon::builder]
 pub async fn update_webhook_endpoint(
@@ -3522,6 +4587,69 @@ pub async fn updateorganizationspendlimit(
     }
 }
 
+/// Update the default or enabled service tiers atomically. Supply at least one field. Omitted fields keep their current values.
+#[bon::builder]
+pub async fn updateprojectservicetiersettings(
+    configuration: &configuration::Configuration,
+    project_id: &str,
+    update_project_service_tier_settings_body: &models::UpdateProjectServiceTierSettingsBody,
+) -> Result<models::ProjectServiceTierSettingsResource, Error<UpdateprojectservicetiersettingsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_project_id = project_id;
+    let p_body_update_project_service_tier_settings_body =
+        update_project_service_tier_settings_body;
+
+    let uri_str = format!(
+        "{}/organization/projects/{project_id}/service_tier_settings",
+        configuration.base_path,
+        project_id = crate::apis::urlencode(p_path_project_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(p_body_update_project_service_tier_settings_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProjectServiceTierSettingsResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProjectServiceTierSettingsResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateprojectservicetiersettingsError> = serde_json::from_str(&content)
+            .ok()
+            .map(UpdateprojectservicetiersettingsError::UnknownValue);
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Create or replace a project's hard spend limit.
 #[bon::builder]
 pub async fn updateprojectspendlimit(
@@ -3588,6 +4716,68 @@ pub async fn updateprojectspendlimit(
                 .ok()
                 .map(UpdateprojectspendlimitError::UnknownValue)
         });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Validate an external key config for the user's organization
+#[bon::builder]
+pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization(
+    configuration: &configuration::Configuration,
+    external_key_id: &str,
+) -> Result<
+    models::ValidateExternalKeyResource,
+    Error<ValidateanexternalkeyconfigfortheuserQuoteSorganizationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_external_key_id = external_key_id;
+
+    let uri_str = format!(
+        "{}/organization/external_keys/{external_key_id}/validate",
+        configuration.base_path,
+        external_key_id = crate::apis::urlencode(p_path_external_key_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ValidateExternalKeyResource`"))),
+            ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ValidateExternalKeyResource`")))),
+        }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ValidateanexternalkeyconfigfortheuserQuoteSorganizationError> =
+            serde_json::from_str(&content)
+                .ok()
+                .map(ValidateanexternalkeyconfigfortheuserQuoteSorganizationError::UnknownValue);
         Err(Error::ResponseError(Box::new(ResponseContent {
             status,
             content,

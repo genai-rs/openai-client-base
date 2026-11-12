@@ -11,7 +11,7 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// LiveSipTransport : Place an outbound SIP call using your provider's trunk. Outbound SIP calling must be enabled for your organization. The trunk must support TLS signaling, Opus audio, and SDES-SRTP media. See [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call).
+/// LiveSipTransport : Place an outbound SIP call using your provider's trunk. The trunk must support TLS signaling, Opus audio, and SDES-SRTP media. See [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveSipTransport {
     /// The transport used for the Live session. Always `sip`.
@@ -27,7 +27,7 @@ pub struct LiveSipTransport {
 }
 
 impl LiveSipTransport {
-    /// Place an outbound SIP call using your provider's trunk. Outbound SIP calling must be enabled for your organization. The trunk must support TLS signaling, Opus audio, and SDES-SRTP media. See [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call).
+    /// Place an outbound SIP call using your provider's trunk. The trunk must support TLS signaling, Opus audio, and SDES-SRTP media. See [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call).
     pub fn new(r#type: Type, destination: String, trunk: models::LiveSipTrunk) -> LiveSipTransport {
         LiveSipTransport {
             r#type,

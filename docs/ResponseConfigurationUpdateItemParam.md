@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> | The unique ID of the configuration update item. | [optional]
 **r#type** | **Type** | The item type. Always `configuration_update`.  Defaults to `\"configuration_update\"`. (enum: configuration_update) | 
 **reasoning** | Option<[**models::ResponseConfigurationUpdateItemParamReasoning**](ResponseConfigurationUpdateItemParamReasoning.md)> |  | [optional]
+**text** | Option<[**models::ResponseConfigurationUpdateItemParamText**](ResponseConfigurationUpdateItemParamText.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

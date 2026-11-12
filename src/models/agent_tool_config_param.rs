@@ -22,6 +22,7 @@ pub enum AgentToolConfigParam {
     Mcp(models::AgentToolConfigParamMcp),
     WebSearch(models::AgentToolConfigParamWebSearch),
     ComputerUse(models::AgentToolConfigParamComputerUse),
+    Automations(models::AgentToolConfigParamAutomations),
 }
 
 impl<'de> Deserialize<'de> for AgentToolConfigParam {
@@ -59,6 +60,9 @@ impl AgentToolConfigParam {
             Tag::Value("computer_use") => {
                 dispatch::decode(value, UNION, "ComputerUse").map(Self::ComputerUse)
             }
+            Tag::Value("automations") => {
+                dispatch::decode(value, UNION, "Automations").map(Self::Automations)
+            }
             Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
@@ -90,6 +94,10 @@ impl std::fmt::Display for AgentToolConfigParam {
                 Err(_) => Err(std::fmt::Error),
             },
             Self::ComputerUse(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
+            Self::Automations(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },

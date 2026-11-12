@@ -55,6 +55,11 @@ impl crate::models::validation::Validate for RealtimeTranslationClientEventSessi
                 errors,
             );
         }
+        crate::models::validation::Validate::validate_into(
+            &self.session,
+            &path.field("session"),
+            errors,
+        );
     }
 }
 

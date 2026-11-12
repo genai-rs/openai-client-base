@@ -49,7 +49,7 @@ pub struct FunctionCallOutputItemParam {
     pub name: Option<Option<String>>,
     /// The namespace of the tool that produced the output.
     ///
-    /// Validation: `minLength: 1`, `maxLength: 64`, `pattern: ^[a-zA-Z0-9_-]+$`.
+    /// Validation: `minLength: 1`, `maxLength: 128`, `pattern: ^[a-zA-Z0-9_-]+$`.
     #[serde(
         rename = "namespace",
         default,
@@ -125,7 +125,7 @@ impl crate::models::validation::Validate for FunctionCallOutputItemParam {
             crate::models::validation::length(
                 value0,
                 Some(1),
-                Some(64),
+                Some(128),
                 &path.field("namespace"),
                 errors,
             );

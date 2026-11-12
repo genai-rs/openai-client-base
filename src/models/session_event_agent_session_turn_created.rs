@@ -34,6 +34,11 @@ pub struct SessionEventAgentSessionTurnCreated {
     pub turn_id: String,
     #[serde(rename = "turn")]
     pub turn: models::TurnResource,
+    /// Random alphanumeric padding. Present when stream obfuscation is enabled.
+    ///
+    /// Validation: `minLength: 0`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
 }
 
 impl SessionEventAgentSessionTurnCreated {
@@ -51,6 +56,7 @@ impl SessionEventAgentSessionTurnCreated {
             session_id,
             turn_id,
             turn,
+            obfuscation: None,
         }
     }
 }
@@ -83,6 +89,15 @@ impl crate::models::validation::Validate for SessionEventAgentSessionTurnCreated
             errors,
         );
         crate::models::validation::Validate::validate_into(&self.turn, &path.field("turn"), errors);
+        if let Some(value0) = &self.obfuscation {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("obfuscation"),
+                errors,
+            );
+        }
     }
 }
 

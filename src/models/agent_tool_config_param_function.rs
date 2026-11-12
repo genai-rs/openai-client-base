@@ -34,6 +34,9 @@ pub struct AgentToolConfigParamFunction {
     /// Whether this function is deferred and discovered through tool search. Defaults to `false`.
     #[serde(rename = "defer_loading", skip_serializing_if = "Option::is_none")]
     pub defer_loading: Option<bool>,
+    /// Whether the agent continues without waiting for the function result. Defaults to `false`.
+    #[serde(rename = "async", skip_serializing_if = "Option::is_none")]
+    pub r#async: Option<bool>,
 }
 
 impl AgentToolConfigParamFunction {
@@ -50,6 +53,7 @@ impl AgentToolConfigParamFunction {
             description,
             parameters,
             defer_loading: None,
+            r#async: None,
         }
     }
 }

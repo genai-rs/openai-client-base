@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **session_id** | **String** | The ID of the session associated with the event. | 
 **turn_id** | Option<**String**> | The ID of the turn associated with the event, when applicable. | 
 **environment** | [**models::SessionEnvironmentStateResource**](SessionEnvironmentStateResource.md) |  | 
+**obfuscation** | Option<**String**> | Random alphanumeric padding. Present when stream obfuscation is enabled. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
