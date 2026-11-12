@@ -138,12 +138,17 @@ pub async fn create_image_edit(
     image: std::path::PathBuf,
     prompt: &str,
     model: &str,
+    frame_count: Option<i64>,
+    frame_duration_ms: Option<i64>,
+    complexity: Option<models::Complexity>,
     mask: Option<std::path::PathBuf>,
+    markup: Option<std::path::PathBuf>,
     background: Option<&str>,
     n: Option<i64>,
     size: Option<models::CreateImageEditRequestSize>,
     response_format: Option<&str>,
-    output_format: Option<&str>,
+    output_format: Option<models::ImagesApiOutputFormat>,
+    svg: Option<models::SvgParam>,
     output_compression: Option<i64>,
     safety_identifier: Option<&str>,
     user: Option<&str>,
@@ -156,12 +161,17 @@ pub async fn create_image_edit(
     let p_form_image = image;
     let p_form_prompt = prompt;
     let p_form_model = model;
+    let p_form_frame_count = frame_count;
+    let p_form_frame_duration_ms = frame_duration_ms;
+    let p_form_complexity = complexity;
     let p_form_mask = mask;
+    let p_form_markup = markup;
     let p_form_background = background;
     let p_form_n = n;
     let p_form_size = size;
     let p_form_response_format = response_format;
     let p_form_output_format = output_format;
+    let p_form_svg = svg;
     let p_form_output_compression = output_compression;
     let p_form_safety_identifier = safety_identifier;
     let p_form_user = user;
@@ -182,12 +192,25 @@ pub async fn create_image_edit(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
+    if let Some(param_value) = p_form_frame_count {
+        multipart_form = multipart_form.text("frame_count", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_frame_duration_ms {
+        multipart_form = multipart_form.text("frame_duration_ms", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_complexity {
+        multipart_form = multipart_form.text("complexity", param_value.to_string());
+    }
     // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image")?;
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     if let Some(ref param_value) = p_form_mask {
         // Add file to multipart form
         multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "mask")?;
+    }
+    if let Some(ref param_value) = p_form_markup {
+        // Add file to multipart form
+        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "markup")?;
     }
     if let Some(param_value) = p_form_background {
         multipart_form = multipart_form.text("background", param_value.to_string());
@@ -204,6 +227,14 @@ pub async fn create_image_edit(
     }
     if let Some(param_value) = p_form_output_format {
         multipart_form = multipart_form.text("output_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_svg {
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "svg",
+            serde_json::to_value(param_value)?,
+            None,
+        )?;
     }
     if let Some(param_value) = p_form_output_compression {
         multipart_form = multipart_form.text("output_compression", param_value.to_string());
@@ -454,12 +485,17 @@ pub async fn create_image_edit_stream(
     image: std::path::PathBuf,
     prompt: &str,
     model: &str,
+    frame_count: Option<i64>,
+    frame_duration_ms: Option<i64>,
+    complexity: Option<models::Complexity>,
     mask: Option<std::path::PathBuf>,
+    markup: Option<std::path::PathBuf>,
     background: Option<&str>,
     n: Option<i64>,
     size: Option<models::CreateImageEditRequestSize>,
     response_format: Option<&str>,
-    output_format: Option<&str>,
+    output_format: Option<models::ImagesApiOutputFormat>,
+    svg: Option<models::SvgParam>,
     output_compression: Option<i64>,
     safety_identifier: Option<&str>,
     user: Option<&str>,
@@ -475,12 +511,17 @@ pub async fn create_image_edit_stream(
     let p_form_image = image;
     let p_form_prompt = prompt;
     let p_form_model = model;
+    let p_form_frame_count = frame_count;
+    let p_form_frame_duration_ms = frame_duration_ms;
+    let p_form_complexity = complexity;
     let p_form_mask = mask;
+    let p_form_markup = markup;
     let p_form_background = background;
     let p_form_n = n;
     let p_form_size = size;
     let p_form_response_format = response_format;
     let p_form_output_format = output_format;
+    let p_form_svg = svg;
     let p_form_output_compression = output_compression;
     let p_form_safety_identifier = safety_identifier;
     let p_form_user = user;
@@ -501,12 +542,25 @@ pub async fn create_image_edit_stream(
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
     let mut multipart_form = reqwest::multipart::Form::new();
+    if let Some(param_value) = p_form_frame_count {
+        multipart_form = multipart_form.text("frame_count", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_frame_duration_ms {
+        multipart_form = multipart_form.text("frame_duration_ms", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_complexity {
+        multipart_form = multipart_form.text("complexity", param_value.to_string());
+    }
     // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image")?;
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     if let Some(ref param_value) = p_form_mask {
         // Add file to multipart form
         multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "mask")?;
+    }
+    if let Some(ref param_value) = p_form_markup {
+        // Add file to multipart form
+        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "markup")?;
     }
     if let Some(param_value) = p_form_background {
         multipart_form = multipart_form.text("background", param_value.to_string());
@@ -523,6 +577,14 @@ pub async fn create_image_edit_stream(
     }
     if let Some(param_value) = p_form_output_format {
         multipart_form = multipart_form.text("output_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_svg {
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "svg",
+            serde_json::to_value(param_value)?,
+            None,
+        )?;
     }
     if let Some(param_value) = p_form_output_compression {
         multipart_form = multipart_form.text("output_compression", param_value.to_string());

@@ -41,6 +41,11 @@ pub struct SessionEventAgentSessionEnvironmentReset {
     /// Validation: `minimum: 0`.
     #[serde(rename = "reset_count")]
     pub reset_count: i64,
+    /// Random alphanumeric padding. Present when stream obfuscation is enabled.
+    ///
+    /// Validation: `minLength: 0`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
 }
 
 impl SessionEventAgentSessionEnvironmentReset {
@@ -60,6 +65,7 @@ impl SessionEventAgentSessionEnvironmentReset {
             turn_id,
             environment_id,
             reset_count,
+            obfuscation: None,
         }
     }
 }
@@ -101,6 +107,15 @@ impl crate::models::validation::Validate for SessionEventAgentSessionEnvironment
             errors,
         );
         crate::models::validation::minimum(self.reset_count, 0, &path.field("reset_count"), errors);
+        if let Some(value0) = &self.obfuscation {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("obfuscation"),
+                errors,
+            );
+        }
     }
 }
 

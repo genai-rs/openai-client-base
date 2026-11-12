@@ -37,6 +37,11 @@ pub struct SessionEventAgentSessionTurnFailed {
     /// Token usage by the root agent during the turn, when available.
     #[serde(rename = "usage", deserialize_with = "Option::deserialize")]
     pub usage: Option<models::TokenUsageResource>,
+    /// Random alphanumeric padding. Present when stream obfuscation is enabled.
+    ///
+    /// Validation: `minLength: 0`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
 }
 
 impl SessionEventAgentSessionTurnFailed {
@@ -56,6 +61,7 @@ impl SessionEventAgentSessionTurnFailed {
             turn_id,
             turn,
             usage,
+            obfuscation: None,
         }
     }
 }
@@ -88,6 +94,15 @@ impl crate::models::validation::Validate for SessionEventAgentSessionTurnFailed 
             errors,
         );
         crate::models::validation::Validate::validate_into(&self.turn, &path.field("turn"), errors);
+        if let Some(value0) = &self.obfuscation {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("obfuscation"),
+                errors,
+            );
+        }
     }
 }
 

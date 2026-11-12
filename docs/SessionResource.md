@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**prompt_cache_options** | Option<[**models::PromptCacheOptionsResource**](PromptCacheOptionsResource.md)> | Default prompt cache lifetime for turns in this session, when configured. | [optional]
+**review** | Option<[**models::SessionReviewResource**](SessionReviewResource.md)> |  | [optional]
 **metadata** | **std::collections::HashMap<String, String>** | Custom string key-value pairs attached to the session. | 
 **id** | **String** | The ID of the session. | 
 **object** | **Object** | The object type. Always `agent.session`.  Defaults to `\"agent.session\"`. (enum: agent.session) | 

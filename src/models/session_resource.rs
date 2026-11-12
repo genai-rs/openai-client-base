@@ -14,6 +14,16 @@ use serde::{Deserialize, Serialize};
 /// SessionResource : A Managed Agents session.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct SessionResource {
+    /// Default prompt cache lifetime for turns in this session, when configured.
+    #[serde(
+        rename = "prompt_cache_options",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prompt_cache_options: Option<Option<models::PromptCacheOptionsResource>>,
+    #[serde(rename = "review", skip_serializing_if = "Option::is_none")]
+    pub review: Option<models::SessionReviewResource>,
     /// Custom string key-value pairs attached to the session.
     ///
     /// Validation: `minProperties: 0`; each value: `minLength: 0`.
@@ -76,6 +86,8 @@ impl SessionResource {
         usage: Option<models::TokenUsageResource>,
     ) -> SessionResource {
         SessionResource {
+            prompt_cache_options: None,
+            review: None,
             metadata,
             id,
             object,

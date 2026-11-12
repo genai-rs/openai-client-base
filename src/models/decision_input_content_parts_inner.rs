@@ -16,8 +16,7 @@ use serde::{Deserialize, Serialize};
 pub enum DecisionInputContentPartsInner {
     InputText(models::DecisionInputText),
     InputImage(models::DecisionInputImage),
-    OutputText(models::DecisionInputOutputText),
-    Refusal(models::DecisionInputRefusal),
+    InputJson(models::DecisionInputJson),
 }
 
 impl<'de> Deserialize<'de> for DecisionInputContentPartsInner {
@@ -44,10 +43,9 @@ impl DecisionInputContentPartsInner {
             Tag::Value("input_image") => {
                 dispatch::decode(value, UNION, "InputImage").map(Self::InputImage)
             }
-            Tag::Value("output_text") => {
-                dispatch::decode(value, UNION, "OutputText").map(Self::OutputText)
+            Tag::Value("input_json") => {
+                dispatch::decode(value, UNION, "InputJson").map(Self::InputJson)
             }
-            Tag::Value("refusal") => dispatch::decode(value, UNION, "Refusal").map(Self::Refusal),
             Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
             Tag::Missing => Err(dispatch::missing_tag(UNION, TAG)),
             Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
@@ -66,11 +64,7 @@ impl std::fmt::Display for DecisionInputContentPartsInner {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
-            Self::OutputText(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
-            Self::Refusal(value) => match serde_json::to_string(value) {
+            Self::InputJson(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
@@ -91,10 +85,7 @@ impl crate::models::validation::Validate for DecisionInputContentPartsInner {
             Self::InputImage(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
-            Self::OutputText(value) => {
-                crate::models::validation::Validate::validate_into(value, path, errors);
-            }
-            Self::Refusal(value) => {
+            Self::InputJson(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
         }

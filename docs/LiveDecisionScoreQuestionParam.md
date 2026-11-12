@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **Type** | Defaults to `\"score\"`. (enum: score) | 
 **name** | Option<**String**> |  | [optional]
-**instructions** | **String** |  | 
+**instructions** | [**models::LiveDecisionScoreQuestionParamInstructions**](LiveDecisionScoreQuestionParamInstructions.md) |  | 
 **levels** | [**Vec<models::LiveDecisionScoreLevelParam>**](LiveDecisionScoreLevelParam.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

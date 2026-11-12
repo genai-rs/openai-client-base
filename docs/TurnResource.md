@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**prompt_cache_options** | Option<[**models::PromptCacheOptionsResource**](PromptCacheOptionsResource.md)> | Prompt cache lifetime selected when this turn started, including an inherited session TTL. Null when the turn used the model default or no TTL was recorded. | [optional]
 **id** | **String** | The ID of the turn. | 
 **object** | [**models::TurnObjectResource**](TurnObjectResource.md) |  | 
 **session_id** | **String** | The ID of the session that owns the turn. | 

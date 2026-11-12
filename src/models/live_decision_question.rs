@@ -83,10 +83,12 @@ impl crate::models::validation::Validate for LiveDecisionQuestion {
             Self::LiveDecisionChoiceQuestionParam(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
+            Self::LiveDecisionPredicateQuestionParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
             Self::LiveDecisionScoreQuestionParam(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
-            _ => {}
         }
     }
 }

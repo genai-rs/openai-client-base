@@ -144,8 +144,17 @@ impl std::fmt::Display for RealtimeTranslationServerEvent {
 impl crate::models::validation::Validate for RealtimeTranslationServerEvent {
     fn validate_into(
         &self,
-        _path: &crate::models::validation::Path<'_>,
-        _errors: &mut Vec<crate::models::validation::ValidationError>,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        match self {
+            Self::RealtimeTranslationServerEventSessionCreated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::RealtimeTranslationServerEventSessionUpdated(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            _ => {}
+        }
     }
 }

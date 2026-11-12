@@ -20,6 +20,7 @@ pub enum LiveSidebandClientEvent {
     LiveInputAudioMuteParam(models::LiveInputAudioMuteParam),
     LiveInputAudioUnmuteParam(models::LiveInputAudioUnmuteParam),
     LiveOutputAudioFixturePlayParam(models::LiveOutputAudioFixturePlayParam),
+    LiveTransportDtmfSendParam(models::LiveTransportDtmfSendParam),
     LiveInstructionsAppendParam(models::LiveInstructionsAppendParam),
     LiveThinkingAppendParam(models::LiveThinkingAppendParam),
     LiveCommentaryAppendParam(models::LiveCommentaryAppendParam),
@@ -64,6 +65,10 @@ impl LiveSidebandClientEvent {
             Tag::Value("session.output_audio.fixture.play") => {
                 dispatch::decode(value, UNION, "LiveOutputAudioFixturePlayParam")
                     .map(Self::LiveOutputAudioFixturePlayParam)
+            }
+            Tag::Value("transport.dtmf.send") => {
+                dispatch::decode(value, UNION, "LiveTransportDtmfSendParam")
+                    .map(Self::LiveTransportDtmfSendParam)
             }
             Tag::Value("session.instructions.append") => {
                 dispatch::decode(value, UNION, "LiveInstructionsAppendParam")
@@ -125,6 +130,10 @@ impl std::fmt::Display for LiveSidebandClientEvent {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
+            Self::LiveTransportDtmfSendParam(value) => match serde_json::to_string(value) {
+                Ok(s) => write!(f, "{}", s),
+                Err(_) => Err(std::fmt::Error),
+            },
             Self::LiveInstructionsAppendParam(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
@@ -182,6 +191,9 @@ impl crate::models::validation::Validate for LiveSidebandClientEvent {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
             Self::LiveOutputAudioFixturePlayParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveTransportDtmfSendParam(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }
             Self::LiveInstructionsAppendParam(value) => {

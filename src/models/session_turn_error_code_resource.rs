@@ -16,6 +16,8 @@ use serde::{Deserialize, Serialize};
 pub enum SessionTurnErrorCodeResource {
     #[serde(rename = "context_length_exceeded")]
     ContextLengthExceeded,
+    #[serde(rename = "max_output_tokens")]
+    MaxOutputTokens,
     #[serde(rename = "session_budget_exceeded")]
     SessionBudgetExceeded,
     #[serde(rename = "usage_limit_exceeded")]
@@ -70,6 +72,7 @@ impl std::fmt::Display for SessionTurnErrorCodeResource {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
             Self::ContextLengthExceeded => write!(f, "context_length_exceeded"),
+            Self::MaxOutputTokens => write!(f, "max_output_tokens"),
             Self::SessionBudgetExceeded => write!(f, "session_budget_exceeded"),
             Self::UsageLimitExceeded => write!(f, "usage_limit_exceeded"),
             Self::ProjectSpendLimitExceeded => write!(f, "project_spend_limit_exceeded"),
@@ -112,6 +115,7 @@ impl ::std::str::FromStr for SessionTurnErrorCodeResource {
     fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
         match value {
             "context_length_exceeded" => Ok(Self::ContextLengthExceeded),
+            "max_output_tokens" => Ok(Self::MaxOutputTokens),
             "session_budget_exceeded" => Ok(Self::SessionBudgetExceeded),
             "usage_limit_exceeded" => Ok(Self::UsageLimitExceeded),
             "project_spend_limit_exceeded" => Ok(Self::ProjectSpendLimitExceeded),

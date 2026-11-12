@@ -14,6 +14,8 @@ use serde::{Deserialize, Serialize};
 /// CreateAgentParams : Parameters for creating a reusable agent.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CreateAgentParams {
+    #[serde(rename = "experimental", skip_serializing_if = "Option::is_none")]
+    pub experimental: Option<models::ExperimentalConfigParam>,
     /// Up to 16 string key-value pairs, with keys up to 64 and values up to 512 characters. Omission or null defaults to an empty map.
     ///
     /// Validation: `minProperties: 0`, `maxProperties: 16`; each value: `minLength: 0`, `maxLength: 512`.
@@ -91,12 +93,21 @@ pub struct CreateAgentParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub multi_agent: Option<Option<models::MultiAgentConfigCurrentParam>>,
+    /// Context compaction settings. Omission or null enables background compaction.
+    #[serde(
+        rename = "compaction",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub compaction: Option<Option<models::CompactionParam>>,
 }
 
 impl CreateAgentParams {
     /// Parameters for creating a reusable agent.
     pub fn new(model: String) -> CreateAgentParams {
         CreateAgentParams {
+            experimental: None,
             metadata: None,
             name: None,
             model,
@@ -106,6 +117,7 @@ impl CreateAgentParams {
             instructions: None,
             tools: None,
             multi_agent: None,
+            compaction: None,
         }
     }
 }

@@ -16,12 +16,20 @@ use serde::{Deserialize, Serialize};
 pub struct RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReduction {
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<models::NoiseReductionType>,
+    /// Input noise suppression strength. Higher values apply more suppression. Defaults to 1 when noise reduction is first enabled. Omitting strength from a session update preserves the current strength.
+    ///
+    /// Validation: `minimum: 0`, `maximum: 1`.
+    #[serde(rename = "strength", skip_serializing_if = "Option::is_none")]
+    pub strength: Option<f64>,
 }
 
 impl RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReduction {
     /// Configuration for input audio noise reduction.
     pub fn new() -> RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReduction {
-        RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReduction { r#type: None }
+        RealtimeTranscriptionSessionCreateResponseGaAudioInputNoiseReduction {
+            r#type: None,
+            strength: None,
+        }
     }
 }
 
@@ -30,8 +38,12 @@ impl crate::models::validation::Validate
 {
     fn validate_into(
         &self,
-        _path: &crate::models::validation::Path<'_>,
-        _errors: &mut Vec<crate::models::validation::ValidationError>,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        if let Some(value0) = &self.strength {
+            crate::models::validation::minimum(*value0, 0.0, &path.field("strength"), errors);
+            crate::models::validation::maximum(*value0, 1.0, &path.field("strength"), errors);
+        }
     }
 }

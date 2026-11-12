@@ -64,6 +64,8 @@ pub struct ImageGenToolCall {
         skip_serializing_if = "Option::is_none"
     )]
     pub output_format: Option<Option<models::ImageOutputFormat>>,
+    #[serde(rename = "svg_usage", skip_serializing_if = "Option::is_none")]
+    pub svg_usage: Option<models::SvgUsage>,
     /// The prompt that was used after any model prompt rewriting.
     #[serde(
         rename = "revised_prompt",
@@ -93,6 +95,7 @@ impl ImageGenToolCall {
             action: None,
             background: None,
             output_format: None,
+            svg_usage: None,
             revised_prompt: None,
         }
     }

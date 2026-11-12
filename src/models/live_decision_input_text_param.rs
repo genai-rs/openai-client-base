@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct LiveDecisionInputTextParam {
-    /// The type of the input item. Always `input_text`.  Defaults to `\"input_text\"`.
+    /// Defaults to `\"input_text\"`.
     #[serde(rename = "type")]
     pub r#type: Type,
     /// The text input to the model.
@@ -44,7 +44,7 @@ impl crate::models::validation::Validate for LiveDecisionInputTextParam {
     }
 }
 
-/// The type of the input item. Always `input_text`.  Defaults to `\"input_text\"`.
+/// Defaults to `\"input_text\"`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "input_text")]

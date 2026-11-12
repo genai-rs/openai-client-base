@@ -11,32 +11,88 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
-pub struct LiveDecisionStoredInputItemParam {
-    /// The ID of the stored Decision input item.
-    #[serde(rename = "id")]
-    pub id: String,
-    /// Defaults to `\"message\"`.
-    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Type>,
-    /// The message role. Always `user`.  Defaults to `\"user\"`.
-    #[serde(rename = "role")]
-    pub role: Role,
-    #[serde(rename = "content")]
-    pub content: models::LiveDecisionStoredInputItemParamContent,
+#[derive(Clone, Debug, PartialEq, Serialize)]
+#[serde(untagged)]
+pub enum LiveDecisionStoredInputItemParam {
+    OneOf(models::LiveDecisionStoredInputItemParamOneOf),
+    LiveDecisionStoredFunctionCallParam(models::LiveDecisionStoredFunctionCallParam),
+    LiveDecisionStoredFunctionCallOutputParam(models::LiveDecisionStoredFunctionCallOutputParam),
+    LiveDecisionStoredCustomToolCallParam(models::LiveDecisionStoredCustomToolCallParam),
+    LiveDecisionStoredCustomToolCallOutputParam(
+        models::LiveDecisionStoredCustomToolCallOutputParam,
+    ),
+}
+
+impl<'de> Deserialize<'de> for LiveDecisionStoredInputItemParam {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let value = serde_json::Value::deserialize(deserializer)?;
+        Self::dispatch(value).map_err(serde::de::Error::custom)
+    }
 }
 
 impl LiveDecisionStoredInputItemParam {
-    pub fn new(
-        id: String,
-        role: Role,
-        content: models::LiveDecisionStoredInputItemParamContent,
-    ) -> LiveDecisionStoredInputItemParam {
-        LiveDecisionStoredInputItemParam {
-            id,
-            r#type: None,
-            role,
-            content,
+    /// Decodes the variant that `type` selects, so an error is that variant's.
+    #[inline]
+    fn dispatch(value: serde_json::Value) -> Result<Self, String> {
+        use models::union_dispatch::{self as dispatch, Tag};
+        const UNION: &str = "LiveDecisionStoredInputItemParam";
+        const TAG: &str = "type";
+        match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("message") => dispatch::decode(value, UNION, "OneOf").map(Self::OneOf),
+            Tag::Value("function_call") => {
+                dispatch::decode(value, UNION, "LiveDecisionStoredFunctionCallParam")
+                    .map(Self::LiveDecisionStoredFunctionCallParam)
+            }
+            Tag::Value("function_call_output") => {
+                dispatch::decode(value, UNION, "LiveDecisionStoredFunctionCallOutputParam")
+                    .map(Self::LiveDecisionStoredFunctionCallOutputParam)
+            }
+            Tag::Value("custom_tool_call") => {
+                dispatch::decode(value, UNION, "LiveDecisionStoredCustomToolCallParam")
+                    .map(Self::LiveDecisionStoredCustomToolCallParam)
+            }
+            Tag::Value("custom_tool_call_output") => {
+                dispatch::decode(value, UNION, "LiveDecisionStoredCustomToolCallOutputParam")
+                    .map(Self::LiveDecisionStoredCustomToolCallOutputParam)
+            }
+            Tag::Missing => dispatch::decode(value, UNION, "OneOf").map(Self::OneOf),
+            Tag::Value(other) => Err(dispatch::unknown_tag(UNION, TAG, other)),
+            Tag::NotObject => Err(dispatch::not_an_object(&value, UNION, TAG)),
+        }
+    }
+}
+
+impl std::fmt::Display for LiveDecisionStoredInputItemParam {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::OneOf(value) => write!(f, "{}", value),
+            Self::LiveDecisionStoredFunctionCallParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::LiveDecisionStoredFunctionCallOutputParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::LiveDecisionStoredCustomToolCallParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
+            Self::LiveDecisionStoredCustomToolCallOutputParam(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
         }
     }
 }
@@ -47,118 +103,22 @@ impl crate::models::validation::Validate for LiveDecisionStoredInputItemParam {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
-        crate::models::validation::Validate::validate_into(
-            &self.content,
-            &path.field("content"),
-            errors,
-        );
-    }
-}
-
-/// Defaults to `\"message\"`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "message")]
-    Message,
-}
-
-/// The message role. Always `user`.  Defaults to `\"user\"`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Role {
-    #[serde(rename = "user")]
-    User,
-}
-
-impl ::std::fmt::Display for Type {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Message => "message",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Type {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "message" => Ok(Self::Message),
-            _ => Err(crate::models::ParseEnumError::new("Type", value)),
+        match self {
+            Self::OneOf(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionStoredFunctionCallParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionStoredFunctionCallOutputParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionStoredCustomToolCallParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
+            Self::LiveDecisionStoredCustomToolCallOutputParam(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
         }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Type {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for Role {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::User => "user",
-        })
-    }
-}
-
-impl ::std::str::FromStr for Role {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "user" => Ok(Self::User),
-            _ => Err(crate::models::ParseEnumError::new("Role", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for Role {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
     }
 }

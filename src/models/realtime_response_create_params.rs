@@ -56,7 +56,7 @@ pub struct RealtimeResponseCreateParams {
     pub prompt: Option<Option<models::Prompt>>,
     /// Input items to include in the prompt for the model. Using this field creates a new context for this Response instead of using the default conversation. An empty array `[]` will clear the context for this Response. Note that this can include references to items that previously appeared in the session using their id.
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
-    pub input: Option<Vec<models::RealtimeConversationItem>>,
+    pub input: Option<Vec<models::RealtimeResponseInputItem>>,
 }
 
 impl RealtimeResponseCreateParams {
@@ -88,6 +88,11 @@ impl crate::models::validation::Validate for RealtimeResponseCreateParams {
         crate::models::validation::Validate::validate_into(
             &self.tools,
             &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
             errors,
         );
     }

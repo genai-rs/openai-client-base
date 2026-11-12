@@ -34,6 +34,11 @@ pub struct SessionEventAgentSessionEnvironmentPending {
     pub turn_id: Option<String>,
     #[serde(rename = "environment")]
     pub environment: models::SessionEnvironmentStateResource,
+    /// Random alphanumeric padding. Present when stream obfuscation is enabled.
+    ///
+    /// Validation: `minLength: 0`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
 }
 
 impl SessionEventAgentSessionEnvironmentPending {
@@ -51,6 +56,7 @@ impl SessionEventAgentSessionEnvironmentPending {
             session_id,
             turn_id,
             environment,
+            obfuscation: None,
         }
     }
 }
@@ -89,6 +95,15 @@ impl crate::models::validation::Validate for SessionEventAgentSessionEnvironment
             &path.field("environment"),
             errors,
         );
+        if let Some(value0) = &self.obfuscation {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("obfuscation"),
+                errors,
+            );
+        }
     }
 }
 

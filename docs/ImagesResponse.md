@@ -8,10 +8,11 @@ Name | Type | Description | Notes
 **created** | **i64** | The Unix timestamp (in seconds) of when the image was created. | 
 **data** | Option<[**Vec<models::Image>**](Image.md)> | The list of generated images. | [optional]
 **background** | Option<**Background**> | The background parameter used for the image generation. Either `transparent` or `opaque`. (enum: transparent, opaque) | [optional]
-**output_format** | Option<**OutputFormat**> | The output format of the image generation. Either `png`, `webp`, or `jpeg`. (enum: png, webp, jpeg) | [optional]
+**output_format** | Option<[**models::ImagesApiOutputFormat**](ImagesApiOutputFormat.md)> |  | [optional]
 **size** | Option<[**models::ImagesResponseSize**](ImagesResponseSize.md)> |  | [optional]
 **quality** | Option<**Quality**> | The quality of the image generated. One of `low`, `medium`, `high`, `xhigh`, or `max`. (enum: low, medium, high, xhigh, max) | [optional]
 **usage** | Option<[**models::ImageGenUsage**](ImageGenUsage.md)> |  | [optional]
+**svg_usage** | Option<[**models::SvgUsage**](SvgUsage.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

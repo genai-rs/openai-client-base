@@ -4,6 +4,7 @@ All URIs are relative to *https://api.openai.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**addanexternalkeyconfigforanorganization**](DefaultApi.md#addanexternalkeyconfigforanorganization) | **POST** /organization/external_keys | Add an external key config for an organization
 [**admin_api_keys_create**](DefaultApi.md#admin_api_keys_create) | **POST** /organization/admin_api_keys | Create admin API key
 [**admin_api_keys_delete**](DefaultApi.md#admin_api_keys_delete) | **DELETE** /organization/admin_api_keys/{key_id} | Delete admin API key
 [**admin_api_keys_get**](DefaultApi.md#admin_api_keys_get) | **GET** /organization/admin_api_keys/{key_id} | Retrieve admin API key
@@ -13,14 +14,19 @@ Method | HTTP request | Description
 [**create_container**](DefaultApi.md#create_container) | **POST** /containers | Create container
 [**create_container_file**](DefaultApi.md#create_container_file) | **POST** /containers/{container_id}/files | Create container file
 [**create_container_file_multipart**](DefaultApi.md#create_container_file_multipart) | **POST** /containers/{container_id}/files | Create container file
+[**create_platformworkloadidentityfederationrule**](DefaultApi.md#create_platformworkloadidentityfederationrule) | **POST** /organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules | Create Platform workload identity federation rule
+[**create_platformworkloadidentityprovider**](DefaultApi.md#create_platformworkloadidentityprovider) | **POST** /organization/workload_identity_providers | Create Platform workload identity provider
 [**create_webhook_endpoint**](DefaultApi.md#create_webhook_endpoint) | **POST** /webhook_endpoints | Create Webhook Endpoint
 [**createan_ap_ikeyforaserviceaccount**](DefaultApi.md#createan_ap_ikeyforaserviceaccount) | **POST** /organization/projects/{project_id}/service_accounts/{service_account_id}/api_keys | Create an API key for a service account
 [**createanexternalstorageconfiguration**](DefaultApi.md#createanexternalstorageconfiguration) | **POST** /organization/external_storage | Create an external storage configuration
 [**createcontentprovenancecheck**](DefaultApi.md#createcontentprovenancecheck) | **POST** /content_provenance_checks | Create content provenance check
 [**delete_container**](DefaultApi.md#delete_container) | **DELETE** /containers/{container_id} | Delete a container
 [**delete_container_file**](DefaultApi.md#delete_container_file) | **DELETE** /containers/{container_id}/files/{file_id} | Delete a container file
+[**delete_platformworkloadidentityfederationrule**](DefaultApi.md#delete_platformworkloadidentityfederationrule) | **DELETE** /organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules/{workload_identity_federation_rule_id} | Delete Platform workload identity federation rule
+[**delete_platformworkloadidentityprovider**](DefaultApi.md#delete_platformworkloadidentityprovider) | **DELETE** /organization/workload_identity_providers/{workload_identity_provider_id} | Delete Platform workload identity provider
 [**delete_thread_method**](DefaultApi.md#delete_thread_method) | **DELETE** /chatkit/threads/{thread_id} | Delete a ChatKit thread
 [**delete_webhook_endpoint**](DefaultApi.md#delete_webhook_endpoint) | **DELETE** /webhook_endpoints/{webhook_endpoint_id} | Delete Webhook Endpoint
+[**deleteanexternalkeyconfigfortheuser_quote_sorganization**](DefaultApi.md#deleteanexternalkeyconfigfortheuser_quote_sorganization) | **DELETE** /organization/external_keys/{external_key_id} | Delete an external key config for the user's organization
 [**deleteanexternalstorageconfiguration**](DefaultApi.md#deleteanexternalstorageconfiguration) | **DELETE** /organization/external_storage/{external_storage_id} | Delete an external storage configuration
 [**deleteorganizationspendlimit**](DefaultApi.md#deleteorganizationspendlimit) | **DELETE** /organization/spend_limit | Delete organization spend limit
 [**deleteprojectspendlimit**](DefaultApi.md#deleteprojectspendlimit) | **DELETE** /organization/projects/{project_id}/spend_limit | Delete project spend limit
@@ -32,23 +38,64 @@ Method | HTTP request | Description
 [**getsafetycase**](DefaultApi.md#getsafetycase) | **GET** /safety/cases/{id} | Get safety case
 [**list_container_files**](DefaultApi.md#list_container_files) | **GET** /containers/{container_id}/files | List container files
 [**list_containers**](DefaultApi.md#list_containers) | **GET** /containers | List containers
+[**list_platformworkloadidentityfederationrules**](DefaultApi.md#list_platformworkloadidentityfederationrules) | **GET** /organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules | List Platform workload identity federation rules
+[**list_platformworkloadidentityproviders**](DefaultApi.md#list_platformworkloadidentityproviders) | **GET** /organization/workload_identity_providers | List Platform workload identity providers
 [**list_thread_items_method**](DefaultApi.md#list_thread_items_method) | **GET** /chatkit/threads/{thread_id}/items | List ChatKit thread items
 [**list_threads_method**](DefaultApi.md#list_threads_method) | **GET** /chatkit/threads | List ChatKit threads
 [**list_webhook_endpoints**](DefaultApi.md#list_webhook_endpoints) | **GET** /webhook_endpoints | List Webhook Endpoints
 [**list_webhook_event_types**](DefaultApi.md#list_webhook_event_types) | **GET** /webhook_event_types | List Webhook Event Types
 [**listexternalstorageconfigurations**](DefaultApi.md#listexternalstorageconfigurations) | **GET** /organization/external_storage | List external storage configurations
+[**listtheexternalkeyconfigsregisteredontheuser_quote_sorganization**](DefaultApi.md#listtheexternalkeyconfigsregisteredontheuser_quote_sorganization) | **GET** /organization/external_keys | List the external key configs registered on the user's organization
 [**organization_decisionsusage**](DefaultApi.md#organization_decisionsusage) | **GET** /organization/usage/decisions | Decisions
 [**retrieve_container**](DefaultApi.md#retrieve_container) | **GET** /containers/{container_id} | Retrieve container
 [**retrieve_container_file**](DefaultApi.md#retrieve_container_file) | **GET** /containers/{container_id}/files/{file_id} | Retrieve container file
 [**retrieve_container_file_content**](DefaultApi.md#retrieve_container_file_content) | **GET** /containers/{container_id}/files/{file_id}/content | Retrieve container file content
+[**retrieve_platformworkloadidentityfederationrule**](DefaultApi.md#retrieve_platformworkloadidentityfederationrule) | **GET** /organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules/{workload_identity_federation_rule_id} | Retrieve Platform workload identity federation rule
+[**retrieve_platformworkloadidentityprovider**](DefaultApi.md#retrieve_platformworkloadidentityprovider) | **GET** /organization/workload_identity_providers/{workload_identity_provider_id} | Retrieve Platform workload identity provider
 [**retrieve_webhook_endpoint**](DefaultApi.md#retrieve_webhook_endpoint) | **GET** /webhook_endpoints/{webhook_endpoint_id} | Retrieve Webhook Endpoint
+[**retrieveanexternalkeyregistration**](DefaultApi.md#retrieveanexternalkeyregistration) | **GET** /organization/external_keys/{external_key_id} | Retrieve an external key registration
+[**retrieveprojectservicetiersettings**](DefaultApi.md#retrieveprojectservicetiersettings) | **GET** /organization/projects/{project_id}/service_tier_settings | Retrieve project service tier settings
 [**rotate_webhook_endpoint_signing_secret**](DefaultApi.md#rotate_webhook_endpoint_signing_secret) | **POST** /webhook_endpoints/{webhook_endpoint_id}/rotate_secret | Rotate Webhook Endpoint Signing Secret
 [**test_webhook_endpoint**](DefaultApi.md#test_webhook_endpoint) | **POST** /webhook_endpoints/{webhook_endpoint_id}/test | Test Webhook Endpoint
+[**update_platformworkloadidentityfederationrule**](DefaultApi.md#update_platformworkloadidentityfederationrule) | **POST** /organization/workload_identity_providers/{workload_identity_provider_id}/federation_rules/{workload_identity_federation_rule_id} | Update Platform workload identity federation rule
+[**update_platformworkloadidentityprovider**](DefaultApi.md#update_platformworkloadidentityprovider) | **POST** /organization/workload_identity_providers/{workload_identity_provider_id} | Update Platform workload identity provider
 [**update_webhook_endpoint**](DefaultApi.md#update_webhook_endpoint) | **POST** /webhook_endpoints/{webhook_endpoint_id} | Update Webhook Endpoint
 [**updateorganizationspendlimit**](DefaultApi.md#updateorganizationspendlimit) | **POST** /organization/spend_limit | Update organization spend limit
+[**updateprojectservicetiersettings**](DefaultApi.md#updateprojectservicetiersettings) | **POST** /organization/projects/{project_id}/service_tier_settings | Update project service tier settings
 [**updateprojectspendlimit**](DefaultApi.md#updateprojectspendlimit) | **POST** /organization/projects/{project_id}/spend_limit | Update project spend limit
+[**validateanexternalkeyconfigfortheuser_quote_sorganization**](DefaultApi.md#validateanexternalkeyconfigfortheuser_quote_sorganization) | **POST** /organization/external_keys/{external_key_id}/validate | Validate an external key config for the user's organization
 [**validateanexternalstorageconfiguration**](DefaultApi.md#validateanexternalstorageconfiguration) | **POST** /organization/external_storage/{external_storage_id}/validate | Validate an external storage configuration
 
+
+
+## addanexternalkeyconfigforanorganization
+
+> models::ExternalKeyResource addanexternalkeyconfigforanorganization(v1_organization_external_keys_post_request)
+Add an external key config for an organization
+
+Add an external key config for an organization
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**v1_organization_external_keys_post_request** | [**V1OrganizationExternalKeysPostRequest**](V1OrganizationExternalKeysPostRequest.md) |  | [required] |
+
+### Return type
+
+[**models::ExternalKeyResource**](ExternalKeyResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## admin_api_keys_create
@@ -326,6 +373,67 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_platformworkloadidentityfederationrule
+
+> models::PlatformFederationRule create_platformworkloadidentityfederationrule(workload_identity_provider_id, create_platform_workload_identity_federation_rule_body)
+Create Platform workload identity federation rule
+
+Bind verified token attributes to an existing project service account.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workload_identity_provider_id** | **String** |  | [required] |
+**create_platform_workload_identity_federation_rule_body** | Option<[**CreatePlatformWorkloadIdentityFederationRuleBody**](CreatePlatformWorkloadIdentityFederationRuleBody.md)> |  |  |
+
+### Return type
+
+[**models::PlatformFederationRule**](PlatformFederationRule.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_platformworkloadidentityprovider
+
+> models::PlatformProvider create_platformworkloadidentityprovider(create_platform_workload_identity_provider_body)
+Create Platform workload identity provider
+
+Register an OIDC provider for keyless project service-account authentication.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_platform_workload_identity_provider_body** | Option<[**CreatePlatformWorkloadIdentityProviderBody**](CreatePlatformWorkloadIdentityProviderBody.md)> |  |  |
+
+### Return type
+
+[**models::PlatformProvider**](PlatformProvider.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_webhook_endpoint
 
 > models::WebhookEndpointWithSecretResource create_webhook_endpoint(public_create_endpoint_body)
@@ -430,7 +538,7 @@ Check whether an image or audio file contains known OpenAI provenance signals. [
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**file** | **std::path::PathBuf** | The image or audio file to check for supported OpenAI provenance signals. | [required] |
+**file** | **std::path::PathBuf** | The image or audio file to check for supported OpenAI provenance signals. Supported image formats are PNG, JPEG, WebP, and GIF (including animated GIFs). | [required] |
 
 ### Return type
 
@@ -509,6 +617,67 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_platformworkloadidentityfederationrule
+
+> models::PlatformFederationRuleDeletedResource delete_platformworkloadidentityfederationrule(workload_identity_provider_id, workload_identity_federation_rule_id)
+Delete Platform workload identity federation rule
+
+Delete a federation rule to a project service account.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workload_identity_provider_id** | **String** |  | [required] |
+**workload_identity_federation_rule_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::PlatformFederationRuleDeletedResource**](PlatformFederationRuleDeletedResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_platformworkloadidentityprovider
+
+> models::PlatformProviderDeletedResource delete_platformworkloadidentityprovider(workload_identity_provider_id)
+Delete Platform workload identity provider
+
+Delete a provider after deleting all its federation rules.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workload_identity_provider_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::PlatformProviderDeletedResource**](PlatformProviderDeletedResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## delete_thread_method
 
 > models::DeletedThreadResource delete_thread_method(thread_id)
@@ -560,6 +729,36 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## deleteanexternalkeyconfigfortheuser_quote_sorganization
+
+> models::ExternalKeyResource deleteanexternalkeyconfigfortheuser_quote_sorganization(external_key_id)
+Delete an external key config for the user's organization
+
+Delete an external key config for the user's organization
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**external_key_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ExternalKeyResource**](ExternalKeyResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
@@ -899,6 +1098,72 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_platformworkloadidentityfederationrules
+
+> models::PlatformFederationRuleListResource list_platformworkloadidentityfederationrules(workload_identity_provider_id, limit, order, after, service_account_id)
+List Platform workload identity federation rules
+
+List the provider's federation rules to project service accounts.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workload_identity_provider_id** | **String** |  | [required] |
+**limit** | Option<**i64**> |  |  |
+**order** | Option<[**ListPlatformworkloadidentityfederationrulesOrderParameter**](ListPlatformworkloadidentityfederationrulesOrderParameter.md)> |  |  |
+**after** | Option<**String**> |  |  |
+**service_account_id** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::PlatformFederationRuleListResource**](PlatformFederationRuleListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_platformworkloadidentityproviders
+
+> models::PlatformProviderListResource list_platformworkloadidentityproviders(limit, order, after)
+List Platform workload identity providers
+
+List OIDC providers in the authenticated Admin API key's organization.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**limit** | Option<**i64**> |  |  |
+**order** | Option<[**ListPlatformworkloadidentityprovidersOrderParameter**](ListPlatformworkloadidentityprovidersOrderParameter.md)> |  |  |
+**after** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::PlatformProviderListResource**](PlatformProviderListResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_thread_items_method
 
 > models::ThreadItemListResource list_thread_items_method(thread_id, limit, order, after, before)
@@ -1058,6 +1323,39 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## listtheexternalkeyconfigsregisteredontheuser_quote_sorganization
+
+> models::ListExternalKeysResource listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(limit, order, after, purpose)
+List the external key configs registered on the user's organization
+
+List the external key configs registered on the user's organization
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**limit** | Option<**i64**> |  |  |
+**order** | Option<[**OrderEnum**](OrderEnum.md)> |  |  |
+**after** | Option<**String**> |  |  |
+**purpose** | Option<[**ExternalKeyPurpose**](ExternalKeyPurpose.md)> | Filter by key purpose. When omitted, returns keys of all purposes. |  |
+
+### Return type
+
+[**models::ListExternalKeysResource**](ListExternalKeysResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## organization_decisionsusage
 
 > models::PublicDecisionsUsageResponseResource organization_decisionsusage(start_time, end_time, bucket_width, limit, page, project_ids, group_by, user_ids, api_key_ids, models, batch)
@@ -1190,6 +1488,67 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## retrieve_platformworkloadidentityfederationrule
+
+> models::PlatformFederationRule retrieve_platformworkloadidentityfederationrule(workload_identity_provider_id, workload_identity_federation_rule_id)
+Retrieve Platform workload identity federation rule
+
+Retrieve a federation rule owned by the authenticated organization and provider.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workload_identity_provider_id** | **String** |  | [required] |
+**workload_identity_federation_rule_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::PlatformFederationRule**](PlatformFederationRule.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieve_platformworkloadidentityprovider
+
+> models::PlatformProvider retrieve_platformworkloadidentityprovider(workload_identity_provider_id)
+Retrieve Platform workload identity provider
+
+Retrieve an OIDC provider in the authenticated organization.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workload_identity_provider_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::PlatformProvider**](PlatformProvider.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## retrieve_webhook_endpoint
 
 > models::WebhookEndpointBody retrieve_webhook_endpoint(webhook_endpoint_id)
@@ -1211,6 +1570,66 @@ Name | Type | Description  | Required | Notes
 ### Authorization
 
 [ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieveanexternalkeyregistration
+
+> models::ExternalKeyResource retrieveanexternalkeyregistration(external_key_id)
+Retrieve an external key registration
+
+Retrieve a stored external key registration for the user's organization.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**external_key_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ExternalKeyResource**](ExternalKeyResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## retrieveprojectservicetiersettings
+
+> models::ProjectServiceTierSettingsResource retrieveprojectservicetiersettings(project_id)
+Retrieve project service tier settings
+
+Retrieve the configured default and enabled service tiers for a project.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project | [required] |
+
+### Return type
+
+[**models::ProjectServiceTierSettingsResource**](ProjectServiceTierSettingsResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
 
 ### HTTP request headers
 
@@ -1282,6 +1701,69 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## update_platformworkloadidentityfederationrule
+
+> models::PlatformFederationRule update_platformworkloadidentityfederationrule(workload_identity_provider_id, workload_identity_federation_rule_id, update_platform_workload_identity_federation_rule_body)
+Update Platform workload identity federation rule
+
+Update supplied matcher, permission, metadata, or enabled fields.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workload_identity_provider_id** | **String** |  | [required] |
+**workload_identity_federation_rule_id** | **String** |  | [required] |
+**update_platform_workload_identity_federation_rule_body** | Option<[**UpdatePlatformWorkloadIdentityFederationRuleBody**](UpdatePlatformWorkloadIdentityFederationRuleBody.md)> |  |  |
+
+### Return type
+
+[**models::PlatformFederationRule**](PlatformFederationRule.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_platformworkloadidentityprovider
+
+> models::PlatformProvider update_platformworkloadidentityprovider(workload_identity_provider_id, update_platform_workload_identity_provider_body)
+Update Platform workload identity provider
+
+Update supplied provider fields, preserving omitted fields.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workload_identity_provider_id** | **String** |  | [required] |
+**update_platform_workload_identity_provider_body** | Option<[**UpdatePlatformWorkloadIdentityProviderBody**](UpdatePlatformWorkloadIdentityProviderBody.md)> |  |  |
+
+### Return type
+
+[**models::PlatformProvider**](PlatformProvider.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_webhook_endpoint
 
 > models::WebhookEndpointBody update_webhook_endpoint(webhook_endpoint_id, public_update_endpoint_body)
@@ -1343,6 +1825,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## updateprojectservicetiersettings
+
+> models::ProjectServiceTierSettingsResource updateprojectservicetiersettings(project_id, update_project_service_tier_settings_body)
+Update project service tier settings
+
+Update the default or enabled service tiers atomically. Supply at least one field. Omitted fields keep their current values.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**project_id** | **String** | The ID of the project | [required] |
+**update_project_service_tier_settings_body** | [**UpdateProjectServiceTierSettingsBody**](UpdateProjectServiceTierSettingsBody.md) |  | [required] |
+
+### Return type
+
+[**models::ProjectServiceTierSettingsResource**](ProjectServiceTierSettingsResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## updateprojectspendlimit
 
 > models::ProjectSpendLimitResource updateprojectspendlimit(project_id, update_project_spend_limit_body)
@@ -1369,6 +1882,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## validateanexternalkeyconfigfortheuser_quote_sorganization
+
+> models::ValidateExternalKeyResource validateanexternalkeyconfigfortheuser_quote_sorganization(external_key_id)
+Validate an external key config for the user's organization
+
+Validate an external key config for the user's organization
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**external_key_id** | **String** |  | [required] |
+
+### Return type
+
+[**models::ValidateExternalKeyResource**](ValidateExternalKeyResource.md)
+
+### Authorization
+
+[AdminApiKeyAuth](../README.md#AdminApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

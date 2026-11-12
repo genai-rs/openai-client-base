@@ -18,6 +18,10 @@ pub enum ImageOutputFormat {
     Webp,
     #[serde(rename = "jpeg")]
     Jpeg,
+    #[serde(rename = "gif")]
+    Gif,
+    #[serde(rename = "svg")]
+    Svg,
 
     /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
     #[serde(rename = "unknown", other)]
@@ -30,6 +34,8 @@ impl std::fmt::Display for ImageOutputFormat {
             Self::Png => write!(f, "png"),
             Self::Webp => write!(f, "webp"),
             Self::Jpeg => write!(f, "jpeg"),
+            Self::Gif => write!(f, "gif"),
+            Self::Svg => write!(f, "svg"),
             Self::Unknown => write!(f, "unknown"),
         }
     }
@@ -52,6 +58,8 @@ impl ::std::str::FromStr for ImageOutputFormat {
             "png" => Ok(Self::Png),
             "webp" => Ok(Self::Webp),
             "jpeg" => Ok(Self::Jpeg),
+            "gif" => Ok(Self::Gif),
+            "svg" => Ok(Self::Svg),
             _ => Err(crate::models::ParseEnumError::new(
                 "ImageOutputFormat",
                 value,

@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**fine_tuning_job_failed_post**](OpenAiClientBaseWebhooksApi.md#fine_tuning_job_failed_post) | **POST** /fine_tuning_job_failed | 
 [**fine_tuning_job_succeeded_post**](OpenAiClientBaseWebhooksApi.md#fine_tuning_job_succeeded_post) | **POST** /fine_tuning_job_succeeded | 
 [**live_call_incoming_post**](OpenAiClientBaseWebhooksApi.md#live_call_incoming_post) | **POST** /live_call_incoming | 
+[**live_transport_connected_post**](OpenAiClientBaseWebhooksApi.md#live_transport_connected_post) | **POST** /live_transport_connected | 
 [**live_transport_incoming_post**](OpenAiClientBaseWebhooksApi.md#live_transport_incoming_post) | **POST** /live_transport_incoming | 
 [**realtime_call_incoming_post**](OpenAiClientBaseWebhooksApi.md#realtime_call_incoming_post) | **POST** /realtime_call_incoming | 
 [**response_cancelled_post**](OpenAiClientBaseWebhooksApi.md#response_cancelled_post) | **POST** /response_cancelled | 
@@ -620,6 +621,36 @@ Deprecated: use `live.transport.incoming`. Retained only for existing subscripti
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_live_call_incoming** | Option<[**WebhookLiveCallIncoming**](WebhookLiveCallIncoming.md)> | The event payload sent by the API. |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## live_transport_connected_post
+
+> live_transport_connected_post(webhook_live_transport_connected)
+
+
+Sent when a direct Live WebRTC session is created or an Instant Connect session activates.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**webhook_live_transport_connected** | [**WebhookLiveTransportConnected**](WebhookLiveTransportConnected.md) |  | [required] |
 
 ### Return type
 

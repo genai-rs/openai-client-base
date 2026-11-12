@@ -18,12 +18,12 @@ pub struct BetaResponseUsage {
     #[serde(rename = "input_tokens")]
     pub input_tokens: i64,
     #[serde(rename = "input_tokens_details")]
-    pub input_tokens_details: models::ResponseUsageInputTokensDetails,
+    pub input_tokens_details: models::BetaResponseUsageInputTokensDetails,
     /// The number of output tokens.
     #[serde(rename = "output_tokens")]
     pub output_tokens: i64,
     #[serde(rename = "output_tokens_details")]
-    pub output_tokens_details: models::ResponseUsageOutputTokensDetails,
+    pub output_tokens_details: models::BetaResponseUsageOutputTokensDetails,
     /// The total number of tokens used.
     #[serde(rename = "total_tokens")]
     pub total_tokens: i64,
@@ -33,9 +33,9 @@ impl BetaResponseUsage {
     /// Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
     pub fn new(
         input_tokens: i64,
-        input_tokens_details: models::ResponseUsageInputTokensDetails,
+        input_tokens_details: models::BetaResponseUsageInputTokensDetails,
         output_tokens: i64,
-        output_tokens_details: models::ResponseUsageOutputTokensDetails,
+        output_tokens_details: models::BetaResponseUsageOutputTokensDetails,
         total_tokens: i64,
     ) -> BetaResponseUsage {
         BetaResponseUsage {

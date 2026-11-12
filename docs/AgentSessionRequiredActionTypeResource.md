@@ -5,6 +5,7 @@
 | Name | Value |
 |---- | -----|
 | ComputerUseApprovalRequest | computer_use_approval_request |
+| McpApprovalRequest | mcp_approval_request |
 | FunctionCall | function_call |
 | EnvironmentConnection | environment_connection |
 

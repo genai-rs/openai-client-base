@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **turn_id** | Option<**String**> | The ID of the turn associated with the event, when applicable. | 
 **output_index** | Option<**i64**> | The index of the item in the turn output, when the item is agent output. | 
 **item** | [**models::SessionTurnItemResource**](SessionTurnItemResource.md) |  | 
+**obfuscation** | Option<**String**> | Random alphanumeric padding. Present when stream obfuscation is enabled. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

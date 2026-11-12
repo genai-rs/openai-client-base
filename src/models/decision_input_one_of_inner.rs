@@ -63,10 +63,7 @@ impl DecisionInputOneOfInner {
 impl std::fmt::Display for DecisionInputOneOfInner {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Message(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
+            Self::Message(value) => write!(f, "{}", value),
             Self::FunctionCall(value) => match serde_json::to_string(value) {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),

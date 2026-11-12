@@ -16,12 +16,18 @@ pub struct AuditLogApiKeyUpdatedChangesRequested {
     /// A list of scopes allowed for the API key, e.g. `[\"api.model.request\"]`
     #[serde(rename = "scopes", skip_serializing_if = "Option::is_none")]
     pub scopes: Option<Vec<String>>,
+    /// Number of seconds from the update request until the API key expires.
+    #[serde(rename = "expires_in_seconds", skip_serializing_if = "Option::is_none")]
+    pub expires_in_seconds: Option<i64>,
 }
 
 impl AuditLogApiKeyUpdatedChangesRequested {
     /// The payload used to update the API key.
     pub fn new() -> AuditLogApiKeyUpdatedChangesRequested {
-        AuditLogApiKeyUpdatedChangesRequested { scopes: None }
+        AuditLogApiKeyUpdatedChangesRequested {
+            scopes: None,
+            expires_in_seconds: None,
+        }
     }
 }
 

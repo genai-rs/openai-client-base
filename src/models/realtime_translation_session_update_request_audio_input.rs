@@ -43,8 +43,13 @@ impl RealtimeTranslationSessionUpdateRequestAudioInput {
 impl crate::models::validation::Validate for RealtimeTranslationSessionUpdateRequestAudioInput {
     fn validate_into(
         &self,
-        _path: &crate::models::validation::Path<'_>,
-        _errors: &mut Vec<crate::models::validation::ValidationError>,
+        path: &crate::models::validation::Path<'_>,
+        errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        crate::models::validation::Validate::validate_into(
+            &self.noise_reduction,
+            &path.field("noise_reduction"),
+            errors,
+        );
     }
 }

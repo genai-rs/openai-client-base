@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **output_index** | **i64** | The index of the item in the turn output. | 
 **content_index** | **i64** | The index of the content part in the message. | 
 **text** | **String** | The complete output text. | 
+**obfuscation** | Option<**String**> | Random alphanumeric padding. Present when stream obfuscation is enabled. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

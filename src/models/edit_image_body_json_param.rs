@@ -14,7 +14,34 @@ use serde::{Deserialize, Serialize};
 /// EditImageBodyJsonParam : JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct EditImageBodyJsonParam {
-    /// The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, and `gpt-image-2.5-flare-2026-09-08`. Defaults to `gpt-image-2.5-sunburst`.  Defaults to `\"gpt-image-2.5-sunburst\"`.
+    /// Number of frames for GIF output. Accepts integers from 2 through 16. Defaults to 9 when omitted. Only supported with output_format=gif. The requested size must satisfy the selected model's GIF size limits. GIF output does not support streaming, partial images, masks, or custom output compression. Requires access to the GIF preview for the selected model.
+    ///
+    /// Validation: `minimum: 2`, `maximum: 16`.
+    #[serde(
+        rename = "frame_count",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub frame_count: Option<Option<i64>>,
+    /// Requested delay per GIF frame, in milliseconds. Defaults to 200 when omitted. GIF output rounds to the nearest 10 ms and caps the encoded delay at 655,350 ms per frame. Only supported with output_format=gif.
+    ///
+    /// Validation: `minimum: 20`.
+    #[serde(
+        rename = "frame_duration_ms",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub frame_duration_ms: Option<Option<i64>>,
+    #[serde(
+        rename = "complexity",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub complexity: Option<Option<models::Complexity>>,
+    /// The GPT image model to use for image editing, including `gpt-image-2`, its dated snapshot `gpt-image-2-2026-04-21`, `gpt-image-2.5-sunburst`, `gpt-image-2.5-sunburst-2026-09-08`, `gpt-image-2.5-flare`, `gpt-image-2.5-flare-2026-09-08`, `gpt-image-2.6-sunburst`, and `gpt-image-2.6-flare`. Defaults to `gpt-image-2.5-sunburst`.  `gpt-image-1` was shut down on October 23, 2026. Use `gpt-image-2.5-sunburst` or `gpt-image-2.5-flare` instead.  Defaults to `\"gpt-image-2.5-sunburst\"`.
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Input image references to edit. For GPT image models, you can provide up to 16 images.
@@ -24,6 +51,8 @@ pub struct EditImageBodyJsonParam {
     pub images: Vec<models::ImageRefParam>,
     #[serde(rename = "mask", skip_serializing_if = "Option::is_none")]
     pub mask: Option<models::ImageRefParam>,
+    #[serde(rename = "markup", skip_serializing_if = "Option::is_none")]
+    pub markup: Option<models::ImageRefParam>,
     /// A text description of the desired image edit.
     ///
     /// Validation: `minLength: 1`, `maxLength: 32000`.
@@ -47,7 +76,7 @@ pub struct EditImageBodyJsonParam {
         skip_serializing_if = "Option::is_none"
     )]
     pub quality: Option<Option<Quality>>,
-    /// Control how much effort the model will exert to match the style and features, especially facial features, of input images. Supports `high` and `low` on `gpt-image-1` and `gpt-image-1.5`; `gpt-image-1-mini` supports only `low`. For `gpt-image-2`, omit this parameter. Defaults to `low` on supported models.
+    /// Control how much effort the model will exert to match the style and features, especially facial features, of input images. Supports `high` and `low` on `gpt-image-1.5`; `gpt-image-1-mini` supports only `low`. For `gpt-image-2`, omit this parameter. Defaults to `low` on supported models.
     #[serde(
         rename = "input_fidelity",
         default,
@@ -75,14 +104,22 @@ pub struct EditImageBodyJsonParam {
     /// Deprecated: use `safety_identifier` instead. This parameter remains accepted for backward compatibility and is used when `safety_identifier` is omitted, null, or empty. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
-    /// Output image format. Supported for GPT image models.  Defaults to `\"png\"`.
+    /// Output image format. Supported for GPT image models. SVG output requires a supported image model and project access.  Defaults to `\"png\"`.
     #[serde(
         rename = "output_format",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub output_format: Option<Option<OutputFormat>>,
+    pub output_format: Option<Option<models::ImagesApiOutputFormat>>,
+    /// Selects the author model and reasoning effort for `output_format=svg`. Supply `svg.model` when SVG model selection is enabled. Otherwise, omit this object. SVG output requires `n=1` and cannot use streaming, partial images, or output compression.
+    #[serde(
+        rename = "svg",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub svg: Option<Option<models::SvgParam>>,
     /// Compression level for `jpeg` or `webp` output.
     ///
     /// Validation: `minimum: 0`, `maximum: 100`.
@@ -133,9 +170,13 @@ impl EditImageBodyJsonParam {
     /// JSON request body for image edits.  Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads. You can reference images via external URLs, data URLs, or uploaded file IDs. JSON edits support GPT image models.
     pub fn new(images: Vec<models::ImageRefParam>, prompt: String) -> EditImageBodyJsonParam {
         EditImageBodyJsonParam {
+            frame_count: None,
+            frame_duration_ms: None,
+            complexity: None,
             model: None,
             images,
             mask: None,
+            markup: None,
             prompt,
             n: None,
             quality: None,
@@ -144,6 +185,7 @@ impl EditImageBodyJsonParam {
             safety_identifier: None,
             user: None,
             output_format: None,
+            svg: None,
             output_compression: None,
             moderation: None,
             background: None,
@@ -159,6 +201,18 @@ impl crate::models::validation::Validate for EditImageBodyJsonParam {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        if let Some(Some(value0)) = &self.frame_count {
+            crate::models::validation::minimum(*value0, 2, &path.field("frame_count"), errors);
+            crate::models::validation::maximum(*value0, 16, &path.field("frame_count"), errors);
+        }
+        if let Some(Some(value0)) = &self.frame_duration_ms {
+            crate::models::validation::minimum(
+                *value0,
+                20,
+                &path.field("frame_duration_ms"),
+                errors,
+            );
+        }
         crate::models::validation::items(
             self.images.len(),
             Some(1),
@@ -172,6 +226,11 @@ impl crate::models::validation::Validate for EditImageBodyJsonParam {
             errors,
         );
         crate::models::validation::Validate::validate_into(&self.mask, &path.field("mask"), errors);
+        crate::models::validation::Validate::validate_into(
+            &self.markup,
+            &path.field("markup"),
+            errors,
+        );
         crate::models::validation::length(
             &self.prompt,
             Some(1),
@@ -192,6 +251,7 @@ impl crate::models::validation::Validate for EditImageBodyJsonParam {
                 errors,
             );
         }
+        crate::models::validation::Validate::validate_into(&self.svg, &path.field("svg"), errors);
         if let Some(Some(value0)) = &self.output_compression {
             crate::models::validation::minimum(
                 *value0,
@@ -230,24 +290,13 @@ pub enum Quality {
     Auto,
 }
 
-/// Control how much effort the model will exert to match the style and features, especially facial features, of input images. Supports `high` and `low` on `gpt-image-1` and `gpt-image-1.5`; `gpt-image-1-mini` supports only `low`. For `gpt-image-2`, omit this parameter. Defaults to `low` on supported models.
+/// Control how much effort the model will exert to match the style and features, especially facial features, of input images. Supports `high` and `low` on `gpt-image-1.5`; `gpt-image-1-mini` supports only `low`. For `gpt-image-2`, omit this parameter. Defaults to `low` on supported models.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum InputFidelity {
     #[serde(rename = "high")]
     High,
     #[serde(rename = "low")]
     Low,
-}
-
-/// Output image format. Supported for GPT image models.  Defaults to `\"png\"`.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum OutputFormat {
-    #[serde(rename = "png")]
-    Png,
-    #[serde(rename = "jpeg")]
-    Jpeg,
-    #[serde(rename = "webp")]
-    Webp,
 }
 
 /// Moderation level for GPT image models.  Defaults to `\"auto\"`.
@@ -367,57 +416,6 @@ impl ::std::convert::TryFrom<&::std::string::String> for InputFidelity {
 }
 
 impl ::std::convert::TryFrom<::std::string::String> for InputFidelity {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::fmt::Display for OutputFormat {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str(match self {
-            Self::Png => "png",
-            Self::Jpeg => "jpeg",
-            Self::Webp => "webp",
-        })
-    }
-}
-
-impl ::std::str::FromStr for OutputFormat {
-    type Err = crate::models::ParseEnumError;
-
-    fn from_str(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        match value {
-            "png" => Ok(Self::Png),
-            "jpeg" => Ok(Self::Jpeg),
-            "webp" => Ok(Self::Webp),
-            _ => Err(crate::models::ParseEnumError::new("OutputFormat", value)),
-        }
-    }
-}
-
-impl ::std::convert::TryFrom<&str> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(value: &str) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<&::std::string::String> for OutputFormat {
-    type Error = crate::models::ParseEnumError;
-
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, crate::models::ParseEnumError> {
-        value.parse()
-    }
-}
-
-impl ::std::convert::TryFrom<::std::string::String> for OutputFormat {
     type Error = crate::models::ParseEnumError;
 
     fn try_from(

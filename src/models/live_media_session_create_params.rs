@@ -16,6 +16,16 @@ use serde::{Deserialize, Serialize};
 pub struct LiveMediaSessionCreateParams {
     #[serde(rename = "model")]
     pub model: models::ModelIdsLive,
+    /// A stable identifier for your end user, used for safety monitoring and abuse detection.
+    ///
+    /// Validation: `maxLength: 128`.
+    #[serde(
+        rename = "safety_identifier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub safety_identifier: Option<Option<String>>,
     /// Frontend instructions for voice, conversation, interruptions, and when to delegate. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting); put business rules and tool workflows in a separate [backend prompt](https://developers.openai.com/api/docs/guides/live-delegation#start-with-your-existing-backend-prompt). Limited to 16,384 client-supplied tokens. Omitted or blank instructions use server defaults. Immutable after startup.
     #[serde(
         rename = "instructions",
@@ -55,6 +65,7 @@ impl LiveMediaSessionCreateParams {
     pub fn new(model: models::ModelIdsLive) -> LiveMediaSessionCreateParams {
         LiveMediaSessionCreateParams {
             model,
+            safety_identifier: None,
             instructions: None,
             audio: None,
             delegation: None,
@@ -77,6 +88,15 @@ impl crate::models::validation::Validate for LiveMediaSessionCreateParams {
             &path.field("model"),
             errors,
         );
+        if let Some(Some(value0)) = &self.safety_identifier {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(128),
+                &path.field("safety_identifier"),
+                errors,
+            );
+        }
         crate::models::validation::Validate::validate_into(
             &self.delegation,
             &path.field("delegation"),

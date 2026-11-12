@@ -16,6 +16,16 @@ use serde::{Deserialize, Serialize};
 pub struct LiveSessionCreateParams {
     #[serde(rename = "model")]
     pub model: models::ModelIdsLive,
+    /// A stable identifier for your end user, used for safety monitoring and abuse detection.
+    ///
+    /// Validation: `maxLength: 128`.
+    #[serde(
+        rename = "safety_identifier",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub safety_identifier: Option<Option<String>>,
     /// Frontend instructions for voice, conversation, interruptions, and when to delegate. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting); put business rules and tool workflows in a separate [backend prompt](https://developers.openai.com/api/docs/guides/live-delegation#start-with-your-existing-backend-prompt). Limited to 16,384 client-supplied tokens. Omitted or blank instructions use server defaults. Immutable after startup.
     #[serde(
         rename = "instructions",
@@ -42,7 +52,7 @@ pub struct LiveSessionCreateParams {
     ///
     /// Validation: `maxItems: 2`.
     #[serde(rename = "triggers", skip_serializing_if = "Option::is_none")]
-    pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam2>>,
+    pub triggers: Option<Vec<models::LiveDecisionTriggerInputParam>>,
     /// Whether to store the session for later forking and recording download. Defaults to false for new sessions.
     #[serde(rename = "store", skip_serializing_if = "Option::is_none")]
     pub store: Option<bool>,
@@ -55,6 +65,7 @@ impl LiveSessionCreateParams {
     pub fn new(model: models::ModelIdsLive) -> LiveSessionCreateParams {
         LiveSessionCreateParams {
             model,
+            safety_identifier: None,
             instructions: None,
             input: None,
             audio: None,
@@ -77,6 +88,15 @@ impl crate::models::validation::Validate for LiveSessionCreateParams {
             &path.field("model"),
             errors,
         );
+        if let Some(Some(value0)) = &self.safety_identifier {
+            crate::models::validation::length(
+                value0,
+                None,
+                Some(128),
+                &path.field("safety_identifier"),
+                errors,
+            );
+        }
         if let Some(value0) = &self.input {
             crate::models::validation::items(
                 value0.len(),

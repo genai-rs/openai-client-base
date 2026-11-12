@@ -4,12 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**frame_count** | Option<**i64**> | Number of frames for GIF output. Accepts integers from 2 through 16. Defaults to 9 when omitted. Only supported with output_format=gif. The requested size must satisfy the selected model's GIF size limits. GIF output does not support streaming, partial images, masks, or custom output compression. Requires access to the GIF preview for the selected model. | [optional]
+**frame_duration_ms** | Option<**i64**> | Requested delay per GIF frame, in milliseconds. Defaults to 200 when omitted. GIF output rounds to the nearest 10 ms and caps the encoded delay at 655,350 ms per frame. Only supported with output_format=gif. | [optional]
+**complexity** | Option<[**models::Complexity**](Complexity.md)> |  | [optional]
+**svg** | Option<[**models::Svg**](Svg.md)> |  | [optional]
 **prompt** | **String** | A text description of the desired image(s). The maximum length is 32000 characters. | 
 **model** | **String** |  | 
 **n** | Option<**i64**> | The number of images to generate. Must be between 1 and 10.  Defaults to `1`. | [optional]
 **quality** | Option<**Quality**> | The quality of the image that will be generated.  - `auto` (default value) will automatically select the best quality for the given   model. - `high`, `medium` and `low` are supported for the GPT image models. - `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08`   snapshots, also support `xhigh` and `max`.  Defaults to `\"auto\"`. (enum: low, medium, high, xhigh, max, auto, standard, hd) | [optional]
 **response_format** | Option<**ResponseFormat**> | Legacy response format parameter for retired image models. Unsupported for GPT image models, which always return base64-encoded images. (enum: url, b64_json, ) | [optional]
-**output_format** | Option<**OutputFormat**> | The format in which the generated images are returned. This parameter is only supported for the GPT image models. Must be one of `png`, `jpeg`, or `webp`.  Defaults to `\"png\"`. (enum: png, jpeg, webp) | [optional]
+**output_format** | Option<[**models::ImagesApiOutputFormat**](ImagesApiOutputFormat.md)> | The format in which the generated images are returned. This parameter is only supported for the GPT image models.  Defaults to `\"png\"`. | [optional]
 **output_compression** | Option<**i64**> | The compression level (0-100%) for the generated images. This parameter is only supported for the GPT image models with the `webp` or `jpeg` output formats, and defaults to 100.  Defaults to `100`. | [optional]
 **stream** | Option<**bool**> | Generate the image in streaming mode. Defaults to `false`. See the [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation) for more information. This parameter is only supported for the GPT image models.  | [optional]
 **partial_images** | Option<**i64**> | The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.  | [optional]

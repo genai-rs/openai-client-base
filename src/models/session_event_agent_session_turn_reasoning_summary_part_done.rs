@@ -52,6 +52,11 @@ pub struct SessionEventAgentSessionTurnReasoningSummaryPartDone {
     /// Present as `incomplete` when summary generation was interrupted.
     #[serde(rename = "status", deserialize_with = "Option::deserialize")]
     pub status: Option<Status>,
+    /// Random alphanumeric padding. Present when stream obfuscation is enabled.
+    ///
+    /// Validation: `minLength: 0`.
+    #[serde(rename = "obfuscation", skip_serializing_if = "Option::is_none")]
+    pub obfuscation: Option<String>,
 }
 
 impl SessionEventAgentSessionTurnReasoningSummaryPartDone {
@@ -77,6 +82,7 @@ impl SessionEventAgentSessionTurnReasoningSummaryPartDone {
             summary_index,
             part,
             status,
+            obfuscation: None,
         }
     }
 }
@@ -142,6 +148,15 @@ impl crate::models::validation::Validate for SessionEventAgentSessionTurnReasoni
             errors,
         );
         crate::models::validation::Validate::validate_into(&self.part, &path.field("part"), errors);
+        if let Some(value0) = &self.obfuscation {
+            crate::models::validation::length(
+                value0,
+                Some(0),
+                None,
+                &path.field("obfuscation"),
+                errors,
+            );
+        }
     }
 }
 

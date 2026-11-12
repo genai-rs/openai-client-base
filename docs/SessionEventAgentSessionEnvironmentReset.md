@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **turn_id** | Option<**String**> | The associated turn, when applicable. | 
 **environment_id** | **String** | The stable environment ID, retained across sandbox replacements. | 
 **reset_count** | **i64** | Monotonically increasing reset number. Repeated notifications share this number. | 
+**obfuscation** | Option<**String**> | Random alphanumeric padding. Present when stream obfuscation is enabled. | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

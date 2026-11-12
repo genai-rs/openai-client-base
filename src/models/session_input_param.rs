@@ -16,6 +16,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum SessionInputParam {
+    AgentSessionInputMcpApprovalRequestResult(
+        models::SessionInputParamAgentSessionInputMcpApprovalRequestResult,
+    ),
     AgentSessionInputComputerUseApprovalRequestResult(
         models::SessionInputParamAgentSessionInputComputerUseApprovalRequestResult,
     ),
@@ -42,6 +45,10 @@ impl SessionInputParam {
         const UNION: &str = "SessionInputParam";
         const TAG: &str = "type";
         match dispatch::tag(&value, UNION, TAG)? {
+            Tag::Value("agent.session.input.mcp_approval_request_result") => {
+                dispatch::decode(value, UNION, "AgentSessionInputMcpApprovalRequestResult")
+                    .map(Self::AgentSessionInputMcpApprovalRequestResult)
+            }
             Tag::Value("agent.session.input.computer_use_approval_request_result") => {
                 dispatch::decode(
                     value,
@@ -72,6 +79,12 @@ impl SessionInputParam {
 impl std::fmt::Display for SessionInputParam {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            Self::AgentSessionInputMcpApprovalRequestResult(value) => {
+                match serde_json::to_string(value) {
+                    Ok(s) => write!(f, "{}", s),
+                    Err(_) => Err(std::fmt::Error),
+                }
+            }
             Self::AgentSessionInputComputerUseApprovalRequestResult(value) => {
                 match serde_json::to_string(value) {
                     Ok(s) => write!(f, "{}", s),
@@ -101,6 +114,9 @@ impl crate::models::validation::Validate for SessionInputParam {
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
         match self {
+            Self::AgentSessionInputMcpApprovalRequestResult(value) => {
+                crate::models::validation::Validate::validate_into(value, path, errors);
+            }
             Self::AgentSessionInputComputerUseApprovalRequestResult(value) => {
                 crate::models::validation::Validate::validate_into(value, path, errors);
             }

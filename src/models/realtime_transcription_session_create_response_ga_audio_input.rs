@@ -66,5 +66,10 @@ impl crate::models::validation::Validate
             &path.field("transcription"),
             errors,
         );
+        crate::models::validation::Validate::validate_into(
+            &self.noise_reduction,
+            &path.field("noise_reduction"),
+            errors,
+        );
     }
 }
