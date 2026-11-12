@@ -41,7 +41,6 @@ tokio-util = { version = "^0.7.19", features = ["codec"] }
 timvw-rust-runtime = { version = "^0.1.0", default-features = false }
 
 [dev-dependencies]
-anyhow = "^1.0.104"
 tokio = { version = "^1.54.1", features = ["rt-multi-thread", "macros"] }
 wiremock = "0.6"
 # Tests send through a reqwest::Client with short timeouts and no retries (one-shot loopback servers).
