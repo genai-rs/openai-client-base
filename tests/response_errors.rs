@@ -11,10 +11,10 @@ fn error_size_is_independent_of_response_schema() {
 #[test]
 fn response_error_preserves_payload_and_display() {
     let response = ResponseContent {
-        status: reqwest::StatusCode::BAD_REQUEST,
+        status: timvw_rust_runtime::StatusCode::BAD_REQUEST,
         content: String::from("original body"),
         entity: Some([7_u8; 4096]),
-        headers: reqwest::header::HeaderMap::new(),
+        headers: timvw_rust_runtime::HeaderMap::new(),
     };
     // The generator always boxes the response error.
     let error = Error::ResponseError(Box::new(response));
@@ -25,7 +25,7 @@ fn response_error_preserves_payload_and_display() {
     assert!(std::error::Error::source(&error).is_none());
     match error {
         Error::ResponseError(response) => {
-            assert_eq!(response.status, reqwest::StatusCode::BAD_REQUEST);
+            assert_eq!(response.status, timvw_rust_runtime::StatusCode::BAD_REQUEST);
             assert_eq!(response.content, "original body");
             assert_eq!(response.entity, Some([7_u8; 4096]));
         }
@@ -95,7 +95,9 @@ async fn generated_endpoint_preserves_typed_and_unparseable_http_errors() {
             .unwrap();
         let configuration = Configuration {
             base_path: format!("http://{address}"),
-            client: reqwest_middleware::ClientBuilder::new(client).build(),
+            client: timvw_rust_runtime::Client::from_service(
+                timvw_rust_runtime::ReqwestService::new(client),
+            ),
             ..Configuration::default()
         };
         let result = evals_api::list_evals()
@@ -105,7 +107,10 @@ async fn generated_endpoint_preserves_typed_and_unparseable_http_errors() {
         server.join().unwrap();
         match result.unwrap_err() {
             Error::ResponseError(response) => {
-                assert_eq!(response.status, reqwest::StatusCode::TOO_MANY_REQUESTS);
+                assert_eq!(
+                    response.status,
+                    timvw_rust_runtime::StatusCode::TOO_MANY_REQUESTS
+                );
                 assert_eq!(response.content, body);
                 if body.starts_with('{') {
                     match response.entity.unwrap() {

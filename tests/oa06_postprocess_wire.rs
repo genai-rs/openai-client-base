@@ -173,7 +173,8 @@ fn config(address: &str) -> Configuration {
         .timeout(Duration::from_secs(6))
         .build()
         .expect("build timed loopback HTTP client");
-    configuration.client = reqwest_middleware::ClientBuilder::new(client).build();
+    configuration.client =
+        timvw_rust_runtime::Client::from_service(timvw_rust_runtime::ReqwestService::new(client));
     configuration
 }
 
@@ -618,7 +619,7 @@ async fn realtime_call_applies_sdp_and_session_multipart_media_types() {
 async fn explicit_form_style_keeps_joined_array_text_and_ignores_content_type() {
     let (address, captured, server) = request_once(200, "application/json", "{}");
     let form = multipart_helper_contract::add_schema_value_to_form(
-        reqwest::multipart::Form::new(),
+        timvw_rust_runtime::multipart::Form::new(),
         "values",
         serde_json::Value::String("word,segment".to_string()),
         None,
@@ -628,8 +629,13 @@ async fn explicit_form_style_keeps_joined_array_text_and_ignores_content_type() 
         .timeout(Duration::from_secs(6))
         .build()
         .expect("build direct multipart client");
+    let client =
+        timvw_rust_runtime::Client::from_service(timvw_rust_runtime::ReqwestService::new(client));
     let response = client
-        .post(format!("http://{address}/fixture"))
+        .request(
+            timvw_rust_runtime::Method::POST,
+            &format!("http://{address}/fixture"),
+        )
         .multipart(form)
         .send()
         .await

@@ -40,7 +40,6 @@
     clippy::derivable_impls  // Rust 1.91.0 new lint - generated code has manual Default impls
 )]
 
-extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_repr;

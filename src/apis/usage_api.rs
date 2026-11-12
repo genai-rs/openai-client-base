@@ -12,8 +12,8 @@
 
 use super::{configuration, ContentType, Error};
 use crate::{apis::ResponseContent, models};
-use reqwest;
 use serde::{de::Error as _, Deserialize, Serialize};
+use timvw_rust_runtime;
 
 /// struct for typed errors of method [`usage_audio_speeches`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -156,7 +156,9 @@ pub async fn usage_audio_speeches(
         "{}/organization/usage/audio_speeches",
         configuration.base_path
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -202,7 +204,8 @@ pub async fn usage_audio_speeches(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -286,7 +289,9 @@ pub async fn usage_audio_transcriptions(
         "{}/organization/usage/audio_transcriptions",
         configuration.base_path
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -332,7 +337,8 @@ pub async fn usage_audio_transcriptions(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -410,7 +416,9 @@ pub async fn usage_code_interpreter_sessions(
         "{}/organization/usage/code_interpreter_sessions",
         configuration.base_path
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -438,7 +446,8 @@ pub async fn usage_code_interpreter_sessions(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -521,7 +530,9 @@ pub async fn usage_completions(
     let p_query_page = page;
 
     let uri_str = format!("{}/organization/usage/completions", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -570,7 +581,8 @@ pub async fn usage_completions(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -649,7 +661,9 @@ pub async fn usage_costs(
     let p_query_page = page;
 
     let uri_str = format!("{}/organization/costs", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -689,7 +703,8 @@ pub async fn usage_costs(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -770,7 +785,9 @@ pub async fn usage_embeddings(
     let p_query_page = page;
 
     let uri_str = format!("{}/organization/usage/embeddings", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -816,7 +833,8 @@ pub async fn usage_embeddings(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -900,7 +918,9 @@ pub async fn usage_file_search_calls(
         "{}/organization/usage/file_search_calls",
         configuration.base_path
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -946,7 +966,8 @@ pub async fn usage_file_search_calls(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1031,7 +1052,9 @@ pub async fn usage_images(
     let p_query_page = page;
 
     let uri_str = format!("{}/organization/usage/images", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -1089,7 +1112,8 @@ pub async fn usage_images(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1170,7 +1194,9 @@ pub async fn usage_moderations(
     let p_query_page = page;
 
     let uri_str = format!("{}/organization/usage/moderations", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -1216,7 +1242,8 @@ pub async fn usage_moderations(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1294,7 +1321,9 @@ pub async fn usage_vector_stores(
         "{}/organization/usage/vector_stores",
         configuration.base_path
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -1322,7 +1351,8 @@ pub async fn usage_vector_stores(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1408,7 +1438,9 @@ pub async fn usage_web_search_calls(
         "{}/organization/usage/web_search_calls",
         configuration.base_path
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
 
     req_builder = req_builder.query(&[("start_time", &p_query_start_time.to_string())]);
     if let Some(ref param_value) = p_query_end_time {
@@ -1460,7 +1492,8 @@ pub async fn usage_web_search_calls(
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
