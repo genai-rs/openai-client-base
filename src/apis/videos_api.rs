@@ -131,6 +131,7 @@ pub async fn create_video(
     input_reference: Option<models::CreateVideoMultipartBodyInputReference>,
     seconds: Option<models::VideoSeconds>,
     size: Option<models::VideoSize>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<CreateVideoError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_prompt = prompt;
@@ -149,7 +150,8 @@ pub async fn create_video(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     if let Some(param_value) = p_form_model {
@@ -180,6 +182,10 @@ pub async fn create_video(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -240,6 +246,7 @@ pub async fn create_video_character(
     configuration: &configuration::Configuration,
     video: std::path::PathBuf,
     name: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoCharacterResource, Error<CreateVideoCharacterError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_video = video;
@@ -255,7 +262,8 @@ pub async fn create_video_character(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
@@ -263,6 +271,10 @@ pub async fn create_video_character(
     multipart_form = multipart_form.text("name", p_form_name.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -320,6 +332,7 @@ pub async fn create_video_edit(
     configuration: &configuration::Configuration,
     video: models::CreateVideoEditMultipartBodyVideo,
     prompt: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<CreateVideoEditError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_video = video;
@@ -335,7 +348,8 @@ pub async fn create_video_edit(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     match &p_form_video {
@@ -354,6 +368,10 @@ pub async fn create_video_edit(
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -415,6 +433,7 @@ pub async fn create_video_edit(
 pub async fn create_video_edit_json(
     configuration: &configuration::Configuration,
     create_video_edit_json_body: Option<&models::CreateVideoEditJsonBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<CreateVideoEditError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_video_edit_json_body = create_video_edit_json_body;
@@ -429,10 +448,15 @@ pub async fn create_video_edit_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_video_edit_json_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -494,6 +518,7 @@ pub async fn create_video_extend(
     video: models::CreateVideoExtendMultipartBodyVideo,
     prompt: &str,
     seconds: models::VideoSeconds,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<CreateVideoExtendError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_video = video;
@@ -510,7 +535,8 @@ pub async fn create_video_extend(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     match &p_form_video {
@@ -530,6 +556,10 @@ pub async fn create_video_extend(
     multipart_form = multipart_form.text("seconds", p_form_seconds.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -591,6 +621,7 @@ pub async fn create_video_extend(
 pub async fn create_video_extend_json(
     configuration: &configuration::Configuration,
     create_video_extend_json_body: Option<&models::CreateVideoExtendJsonBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<CreateVideoExtendError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_video_extend_json_body = create_video_extend_json_body;
@@ -605,10 +636,15 @@ pub async fn create_video_extend_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_video_extend_json_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -670,6 +706,7 @@ pub async fn create_video_extend_json(
 pub async fn create_video_json(
     configuration: &configuration::Configuration,
     create_video_json_body: Option<&models::CreateVideoJsonBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<CreateVideoError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_video_json_body = create_video_json_body;
@@ -684,10 +721,15 @@ pub async fn create_video_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_video_json_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -748,6 +790,7 @@ pub async fn create_video_remix(
     configuration: &configuration::Configuration,
     video_id: &str,
     prompt: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<CreateVideoRemixError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_video_id = video_id;
@@ -767,12 +810,17 @@ pub async fn create_video_remix(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -835,6 +883,7 @@ pub async fn create_video_remix_json(
     configuration: &configuration::Configuration,
     video_id: &str,
     create_video_remix_body: Option<&models::CreateVideoRemixBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<CreateVideoRemixError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_video_id = video_id;
@@ -854,10 +903,15 @@ pub async fn create_video_remix_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_video_remix_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -917,6 +971,7 @@ pub async fn create_video_remix_json(
 pub async fn delete_video(
     configuration: &configuration::Configuration,
     video_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedVideoResource, Error<DeleteVideoError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_video_id = video_id;
@@ -935,9 +990,14 @@ pub async fn delete_video(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -991,6 +1051,7 @@ pub async fn delete_video(
 pub async fn get_video(
     configuration: &configuration::Configuration,
     video_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<GetVideoError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_video_id = video_id;
@@ -1009,9 +1070,14 @@ pub async fn get_video(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1062,6 +1128,7 @@ pub async fn get_video(
 pub async fn get_video_character(
     configuration: &configuration::Configuration,
     character_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoCharacterResource, Error<GetVideoCharacterError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_character_id = character_id;
@@ -1080,9 +1147,14 @@ pub async fn get_video_character(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1135,6 +1207,7 @@ pub async fn list_videos(
     limit: Option<i64>,
     order: Option<models::OrderEnum>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoListResource, Error<ListVideosError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -1160,9 +1233,14 @@ pub async fn list_videos(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1214,6 +1292,7 @@ pub async fn retrieve_video_content(
     configuration: &configuration::Configuration,
     video_id: &str,
     variant: Option<models::VideoContentVariant>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<timvw_rust_runtime::Response, Error<RetrieveVideoContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_video_id = video_id;
@@ -1236,9 +1315,14 @@ pub async fn retrieve_video_content(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1284,6 +1368,7 @@ pub async fn retrieve_video_content_json(
     configuration: &configuration::Configuration,
     video_id: &str,
     variant: Option<models::VideoContentVariant>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<String, Error<RetrieveVideoContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_video_id = video_id;
@@ -1306,9 +1391,14 @@ pub async fn retrieve_video_content_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

@@ -144,6 +144,7 @@ pub enum ValidateGraderError {
 pub async fn cancel_fine_tuning_job(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::FineTuningJob, Error<CancelFineTuningJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_fine_tuning_job_id = fine_tuning_job_id;
@@ -162,9 +163,14 @@ pub async fn cancel_fine_tuning_job(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -218,6 +224,7 @@ pub async fn create_fine_tuning_checkpoint_permission(
     configuration: &configuration::Configuration,
     fine_tuned_model_checkpoint: &str,
     create_fine_tuning_checkpoint_permission_request: &models::CreateFineTuningCheckpointPermissionRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::ListFineTuningCheckpointPermissionResponse,
     Error<CreateFineTuningCheckpointPermissionError>,
@@ -241,10 +248,15 @@ pub async fn create_fine_tuning_checkpoint_permission(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_fine_tuning_checkpoint_permission_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -297,6 +309,7 @@ pub async fn create_fine_tuning_checkpoint_permission(
 pub async fn create_fine_tuning_job(
     configuration: &configuration::Configuration,
     create_fine_tuning_job_request: &models::CreateFineTuningJobRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::FineTuningJob, Error<CreateFineTuningJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_fine_tuning_job_request = create_fine_tuning_job_request;
@@ -311,10 +324,15 @@ pub async fn create_fine_tuning_job(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_fine_tuning_job_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -365,6 +383,7 @@ pub async fn delete_fine_tuning_checkpoint_permission(
     configuration: &configuration::Configuration,
     fine_tuned_model_checkpoint: &str,
     permission_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::DeleteFineTuningCheckpointPermissionResponse,
     Error<DeleteFineTuningCheckpointPermissionError>,
@@ -388,9 +407,14 @@ pub async fn delete_fine_tuning_checkpoint_permission(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -447,6 +471,7 @@ pub async fn list_fine_tuning_checkpoint_permissions(
     after: Option<&str>,
     limit: Option<i64>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::ListFineTuningCheckpointPermissionResponse,
     Error<ListFineTuningCheckpointPermissionsError>,
@@ -484,9 +509,14 @@ pub async fn list_fine_tuning_checkpoint_permissions(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -538,6 +568,7 @@ pub async fn list_fine_tuning_events(
     fine_tuning_job_id: &str,
     after: Option<&str>,
     limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListFineTuningJobEventsResponse, Error<ListFineTuningEventsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_fine_tuning_job_id = fine_tuning_job_id;
@@ -564,9 +595,14 @@ pub async fn list_fine_tuning_events(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -621,6 +657,7 @@ pub async fn list_fine_tuning_job_checkpoints(
     fine_tuning_job_id: &str,
     after: Option<&str>,
     limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListFineTuningJobCheckpointsResponse, Error<ListFineTuningJobCheckpointsError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -648,9 +685,14 @@ pub async fn list_fine_tuning_job_checkpoints(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -705,6 +747,7 @@ pub async fn list_paginated_fine_tuning_jobs(
     after: Option<&str>,
     limit: Option<i64>,
     metadata: Option<std::collections::HashMap<String, String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListPaginatedFineTuningJobsResponse, Error<ListPaginatedFineTuningJobsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_after = after;
@@ -733,9 +776,14 @@ pub async fn list_paginated_fine_tuning_jobs(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -785,6 +833,7 @@ pub async fn list_paginated_fine_tuning_jobs(
 pub async fn pause_fine_tuning_job(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::FineTuningJob, Error<PauseFineTuningJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_fine_tuning_job_id = fine_tuning_job_id;
@@ -803,9 +852,14 @@ pub async fn pause_fine_tuning_job(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -858,6 +912,7 @@ pub async fn pause_fine_tuning_job(
 pub async fn resume_fine_tuning_job(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::FineTuningJob, Error<ResumeFineTuningJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_fine_tuning_job_id = fine_tuning_job_id;
@@ -876,9 +931,14 @@ pub async fn resume_fine_tuning_job(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -931,6 +991,7 @@ pub async fn resume_fine_tuning_job(
 pub async fn retrieve_fine_tuning_job(
     configuration: &configuration::Configuration,
     fine_tuning_job_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::FineTuningJob, Error<RetrieveFineTuningJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_fine_tuning_job_id = fine_tuning_job_id;
@@ -949,9 +1010,14 @@ pub async fn retrieve_fine_tuning_job(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1001,6 +1067,7 @@ pub async fn retrieve_fine_tuning_job(
 pub async fn run_grader(
     configuration: &configuration::Configuration,
     run_grader_request: &models::RunGraderRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RunGraderResponse, Error<RunGraderError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_run_grader_request = run_grader_request;
@@ -1015,10 +1082,15 @@ pub async fn run_grader(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_run_grader_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1068,6 +1140,7 @@ pub async fn run_grader(
 pub async fn validate_grader(
     configuration: &configuration::Configuration,
     validate_grader_request: &models::ValidateGraderRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ValidateGraderResponse, Error<ValidateGraderError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_validate_grader_request = validate_grader_request;
@@ -1085,10 +1158,15 @@ pub async fn validate_grader(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_validate_grader_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

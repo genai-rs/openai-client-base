@@ -1,0 +1,36 @@
+# Cargo feature groups (timvw-rust `apiFeaturesFile`), named after async-openai 0.43's features. Each group selects
+# operations by OpenAPI tag and/or path prefix (60 OpenAI operations have no tag). See
+# https://github.com/timvw/openapi-generator-timvw-rust/blob/main/docs/guides/api-features.md
+administration:
+  tags: [Audit Logs, Certificates, Data retention, Groups, Group users,
+         Group organization role assignments, Invites, Projects, Project groups,
+         Project group role assignments, Project user role assignments, Roles,
+         Spend alerts, Usage, Users, User organization role assignments, Hosted tools]
+  paths: [/organization]
+audio:              { tags: [Audio] }
+batch:              { tags: [Batch] }
+chat-completion:    { tags: [Chat] }
+chatkit:            { paths: [/chatkit] }
+completions:        { tags: [Completions] }
+container:          { paths: [/containers] }
+content-provenance-checks: { paths: [/content_provenance_checks] }
+decisions:          { tags: [Decisions] }
+embedding:          { tags: [Embeddings] }
+evals:              { tags: [Evals] }
+file:               { tags: [Files] }
+finetuning:         { tags: [Fine-tuning] }
+image:              { tags: [Images] }
+model:              { tags: [Models] }
+moderation:         { tags: [Moderations] }
+realtime:           { tags: [Realtime] }
+responses:          { tags: [Responses, Conversations] }
+safety:             { paths: [/safety] }
+skill:              { tags: [Skills] }
+upload:             { tags: [Uploads] }
+vectorstore:        { tags: [Vector stores] }
+video:              { tags: [Videos] }
+webhook:            { paths: [/webhook_endpoints, /webhook_event_types] }
+assistants:         { tags: [Assistants] }
+agents:             { tags: [Agents] }
+live:               { tags: [Live] }
+vaults:             { tags: [Vaults] }

@@ -127,6 +127,7 @@ pub enum UpdateVoiceConsentError {
 pub async fn create_speech(
     configuration: &configuration::Configuration,
     create_speech_request: &models::CreateSpeechRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<timvw_rust_runtime::Response, Error<CreateSpeechError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_speech_request = create_speech_request;
@@ -141,10 +142,15 @@ pub async fn create_speech(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_speech_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -195,6 +201,7 @@ pub async fn create_speech(
 pub async fn create_speech_stream(
     configuration: &configuration::Configuration,
     create_speech_request: &models::CreateSpeechRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::CreateSpeechResponseStreamEvent, CreateSpeechError>,
     Error<CreateSpeechError>,
@@ -212,11 +219,16 @@ pub async fn create_speech_stream(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_speech_request);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -284,6 +296,7 @@ pub async fn create_transcription(
     chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>,
     known_speaker_names: Option<Vec<String>>,
     known_speaker_references: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::CreateTranscription200Response, Error<CreateTranscriptionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_file = file;
@@ -311,7 +324,8 @@ pub async fn create_transcription(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
@@ -402,6 +416,10 @@ pub async fn create_transcription(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -482,6 +500,7 @@ pub async fn create_transcription_stream(
     chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>,
     known_speaker_names: Option<Vec<String>>,
     known_speaker_references: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<
         models::CreateTranscriptionResponseStreamEvent,
@@ -515,7 +534,8 @@ pub async fn create_transcription_stream(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
@@ -607,6 +627,10 @@ pub async fn create_transcription_stream(
     req_builder = req_builder.multipart(multipart_form);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -682,6 +706,7 @@ pub async fn create_transcription_text(
     chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>,
     known_speaker_names: Option<Vec<String>>,
     known_speaker_references: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<String, Error<CreateTranscriptionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_file = file;
@@ -709,7 +734,8 @@ pub async fn create_transcription_text(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
@@ -800,6 +826,10 @@ pub async fn create_transcription_text(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -870,6 +900,7 @@ pub async fn create_translation(
     prompt: Option<&str>,
     response_format: Option<&str>,
     temperature: Option<f64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::CreateTranslation200Response, Error<CreateTranslationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_file = file;
@@ -888,7 +919,8 @@ pub async fn create_translation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
@@ -905,6 +937,10 @@ pub async fn create_translation(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -977,6 +1013,7 @@ pub async fn create_translation_text(
     prompt: Option<&str>,
     response_format: Option<&str>,
     temperature: Option<f64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<String, Error<CreateTranslationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_file = file;
@@ -995,7 +1032,8 @@ pub async fn create_translation_text(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
@@ -1012,6 +1050,10 @@ pub async fn create_translation_text(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1077,6 +1119,7 @@ pub async fn create_translation_text(
 pub async fn create_voice(
     configuration: &configuration::Configuration,
     create_voice_prompt_request: &models::CreateVoicePromptRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VoiceResource, Error<CreateVoiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_voice_prompt_request = create_voice_prompt_request;
@@ -1091,10 +1134,15 @@ pub async fn create_voice(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_voice_prompt_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1149,6 +1197,7 @@ pub async fn create_voice_consent(
     name: &str,
     recording: std::path::PathBuf,
     language: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VoiceConsentResource, Error<CreateVoiceConsentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_name = name;
@@ -1165,7 +1214,8 @@ pub async fn create_voice_consent(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     multipart_form = multipart_form.text("name", p_form_name.to_string());
@@ -1175,6 +1225,10 @@ pub async fn create_voice_consent(
     multipart_form = multipart_form.text("language", p_form_language.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1232,6 +1286,7 @@ pub async fn create_voice_multipart(
     prompt: Option<&str>,
     script_hint: Option<&str>,
     model: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VoiceResource, Error<CreateVoiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_type = r#type;
@@ -1252,7 +1307,8 @@ pub async fn create_voice_multipart(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     if let Some(param_value) = p_form_type {
@@ -1280,6 +1336,10 @@ pub async fn create_voice_multipart(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1332,6 +1392,7 @@ pub async fn create_voice_multipart(
 pub async fn delete_voice(
     configuration: &configuration::Configuration,
     voice_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VoiceDeletedResource, Error<DeleteVoiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_voice_id = voice_id;
@@ -1350,9 +1411,14 @@ pub async fn delete_voice(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1402,6 +1468,7 @@ pub async fn delete_voice(
 pub async fn delete_voice_consent(
     configuration: &configuration::Configuration,
     consent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VoiceConsentDeletedResource, Error<DeleteVoiceConsentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_consent_id = consent_id;
@@ -1420,9 +1487,14 @@ pub async fn delete_voice_consent(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1472,6 +1544,7 @@ pub async fn delete_voice_consent(
 pub async fn get_voice_consent(
     configuration: &configuration::Configuration,
     consent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VoiceConsentResource, Error<GetVoiceConsentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_consent_id = consent_id;
@@ -1490,9 +1563,14 @@ pub async fn get_voice_consent(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1543,6 +1621,7 @@ pub async fn list_voice_consents(
     configuration: &configuration::Configuration,
     after: Option<&str>,
     limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VoiceConsentListResource, Error<ListVoiceConsentsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_after = after;
@@ -1564,9 +1643,14 @@ pub async fn list_voice_consents(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1617,6 +1701,7 @@ pub async fn update_voice_consent(
     configuration: &configuration::Configuration,
     consent_id: &str,
     update_voice_consent_request: &models::UpdateVoiceConsentRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VoiceConsentResource, Error<UpdateVoiceConsentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_consent_id = consent_id;
@@ -1636,10 +1721,15 @@ pub async fn update_voice_consent(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_voice_consent_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

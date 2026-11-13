@@ -100,6 +100,7 @@ pub enum UpdateConversationError {
 pub async fn create_conversation(
     configuration: &configuration::Configuration,
     create_conversation_body: Option<&models::CreateConversationBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ConversationResource, Error<CreateConversationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_conversation_body = create_conversation_body;
@@ -114,10 +115,15 @@ pub async fn create_conversation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_conversation_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -172,6 +178,7 @@ pub async fn create_conversation_items(
     conversation_id: &str,
     create_conversation_items_request: &models::CreateConversationItemsRequest,
     include: Option<Vec<models::IncludeEnum>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ConversationItemList, Error<CreateConversationItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
@@ -198,10 +205,15 @@ pub async fn create_conversation_items(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_conversation_items_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -257,6 +269,7 @@ pub async fn create_conversation_items(
 pub async fn delete_conversation(
     configuration: &configuration::Configuration,
     conversation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedConversationResource, Error<DeleteConversationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
@@ -275,9 +288,14 @@ pub async fn delete_conversation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -328,6 +346,7 @@ pub async fn delete_conversation_item(
     configuration: &configuration::Configuration,
     conversation_id: &str,
     item_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ConversationResource, Error<DeleteConversationItemError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
@@ -348,9 +367,14 @@ pub async fn delete_conversation_item(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -406,6 +430,7 @@ pub async fn delete_conversation_item(
 pub async fn get_conversation(
     configuration: &configuration::Configuration,
     conversation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ConversationResource, Error<GetConversationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
@@ -424,9 +449,14 @@ pub async fn get_conversation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -478,6 +508,7 @@ pub async fn get_conversation_item(
     conversation_id: &str,
     item_id: &str,
     include: Option<Vec<models::IncludeEnum>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ConversationItem, Error<GetConversationItemError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
@@ -505,9 +536,14 @@ pub async fn get_conversation_item(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -561,6 +597,7 @@ pub async fn list_conversation_items(
     order: Option<&str>,
     after: Option<&str>,
     include: Option<Vec<models::IncludeEnum>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ConversationItemList, Error<ListConversationItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
@@ -598,9 +635,14 @@ pub async fn list_conversation_items(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -654,6 +696,7 @@ pub async fn update_conversation(
     configuration: &configuration::Configuration,
     conversation_id: &str,
     update_conversation_body: Option<&models::UpdateConversationBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ConversationResource, Error<UpdateConversationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_conversation_id = conversation_id;
@@ -673,10 +716,15 @@ pub async fn update_conversation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_update_conversation_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

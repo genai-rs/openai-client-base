@@ -59,5 +59,6 @@
   "deepObjectQueryParameters": [
     "/fine_tuning/jobs?metadata",
     "/organization/audit_logs?effective_at"
-  ]
+  ],
+  "apiFeaturesFile": "scripts/api-features.yaml"
 }

@@ -66,6 +66,7 @@ pub async fn add_project_group(
     configuration: &configuration::Configuration,
     project_id: &str,
     invite_project_group_body: &models::InviteProjectGroupBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectGroup, Error<AddProjectGroupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -85,10 +86,15 @@ pub async fn add_project_group(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_invite_project_group_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -150,6 +156,7 @@ pub async fn list_project_groups(
     limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectGroupListResource, Error<ListProjectGroupsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -180,9 +187,14 @@ pub async fn list_project_groups(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -239,6 +251,7 @@ pub async fn remove_project_group(
     configuration: &configuration::Configuration,
     project_id: &str,
     group_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectGroupDeletedResource, Error<RemoveProjectGroupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -259,9 +272,14 @@ pub async fn remove_project_group(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -319,6 +337,7 @@ pub async fn retrieve_project_group(
     project_id: &str,
     group_id: &str,
     group_type: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectGroup, Error<RetrieveProjectGroupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -343,9 +362,14 @@ pub async fn retrieve_project_group(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

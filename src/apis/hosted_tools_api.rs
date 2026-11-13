@@ -43,6 +43,7 @@ pub enum UpdateProjectHostedToolPermissionsError {
 pub async fn retrieve_project_hosted_tool_permissions(
     configuration: &configuration::Configuration,
     project_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectHostedToolPermissions, Error<RetrieveProjectHostedToolPermissionsError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -62,9 +63,14 @@ pub async fn retrieve_project_hosted_tool_permissions(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -121,6 +127,7 @@ pub async fn update_project_hosted_tool_permissions(
     configuration: &configuration::Configuration,
     project_id: &str,
     project_hosted_tool_permissions_update_request: &models::ProjectHostedToolPermissionsUpdateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectHostedToolPermissions, Error<UpdateProjectHostedToolPermissionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -141,10 +148,15 @@ pub async fn update_project_hosted_tool_permissions(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_project_hosted_tool_permissions_update_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

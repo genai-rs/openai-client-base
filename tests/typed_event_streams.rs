@@ -12,7 +12,7 @@ use wiremock::{Mock, MockServer, ResponseTemplate};
 fn config(server: &MockServer) -> Configuration {
     Configuration {
         base_path: server.uri(),
-        bearer_access_token: Some("sk-test".to_owned()),
+        bearer_access_token: Some("sk-test".into()),
         ..Configuration::default()
     }
 }

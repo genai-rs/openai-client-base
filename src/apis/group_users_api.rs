@@ -68,6 +68,7 @@ pub async fn add_group_user(
     configuration: &configuration::Configuration,
     group_id: &str,
     create_group_user_body: &models::CreateGroupUserBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::GroupUserAssignment, Error<AddGroupUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_group_id = group_id;
@@ -87,10 +88,15 @@ pub async fn add_group_user(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_group_user_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -152,6 +158,7 @@ pub async fn list_group_users(
     limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::UserListResource, Error<ListGroupUsersError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_group_id = group_id;
@@ -182,9 +189,14 @@ pub async fn list_group_users(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -244,6 +256,7 @@ pub async fn remove_group_user(
     configuration: &configuration::Configuration,
     group_id: &str,
     user_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::GroupUserDeletedResource, Error<RemoveGroupUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_group_id = group_id;
@@ -264,9 +277,14 @@ pub async fn remove_group_user(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -326,6 +344,7 @@ pub async fn retrieve_group_user(
     configuration: &configuration::Configuration,
     group_id: &str,
     user_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::GroupMemberUser, Error<RetrieveGroupUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_group_id = group_id;
@@ -346,9 +365,14 @@ pub async fn retrieve_group_user(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

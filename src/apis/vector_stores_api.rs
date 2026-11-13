@@ -190,6 +190,7 @@ pub async fn cancel_vector_store_file_batch(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     batch_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreFileBatchObject, Error<CancelVectorStoreFileBatchError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -210,9 +211,14 @@ pub async fn cancel_vector_store_file_batch(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -268,6 +274,7 @@ pub async fn cancel_vector_store_file_batch(
 pub async fn create_vector_store(
     configuration: &configuration::Configuration,
     create_vector_store_request: &models::CreateVectorStoreRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreObject, Error<CreateVectorStoreError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_vector_store_request = create_vector_store_request;
@@ -282,10 +289,15 @@ pub async fn create_vector_store(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_vector_store_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -339,6 +351,7 @@ pub async fn create_vector_store_file(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     create_vector_store_file_request: &models::CreateVectorStoreFileRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreFileObject, Error<CreateVectorStoreFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -358,10 +371,15 @@ pub async fn create_vector_store_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_vector_store_file_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -421,6 +439,7 @@ pub async fn create_vector_store_file_batch(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     create_vector_store_file_batch_request: &models::CreateVectorStoreFileBatchRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreFileBatchObject, Error<CreateVectorStoreFileBatchError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -440,10 +459,15 @@ pub async fn create_vector_store_file_batch(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_vector_store_file_batch_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -502,6 +526,7 @@ pub async fn create_vector_store_file_batch(
 pub async fn delete_vector_store(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteVectorStoreResponse, Error<DeleteVectorStoreError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -520,9 +545,14 @@ pub async fn delete_vector_store(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -576,6 +606,7 @@ pub async fn delete_vector_store_file(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteVectorStoreFileResponse, Error<DeleteVectorStoreFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -596,9 +627,14 @@ pub async fn delete_vector_store_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -657,6 +693,7 @@ pub async fn delete_vector_store_file(
 pub async fn get_vector_store(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreObject, Error<GetVectorStoreError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -675,9 +712,14 @@ pub async fn get_vector_store(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -728,6 +770,7 @@ pub async fn get_vector_store_file(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreFileObject, Error<GetVectorStoreFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -748,9 +791,14 @@ pub async fn get_vector_store_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -804,6 +852,7 @@ pub async fn get_vector_store_file_batch(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     batch_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreFileBatchObject, Error<GetVectorStoreFileBatchError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -824,9 +873,14 @@ pub async fn get_vector_store_file_batch(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -885,6 +939,7 @@ pub async fn list_files_in_vector_store_batch(
     after: Option<&str>,
     before: Option<&str>,
     filter: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListVectorStoreFilesResponse, Error<ListFilesInVectorStoreBatchError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -925,9 +980,14 @@ pub async fn list_files_in_vector_store_batch(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -985,6 +1045,7 @@ pub async fn list_vector_store_files(
     after: Option<&str>,
     before: Option<&str>,
     filter: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListVectorStoreFilesResponse, Error<ListVectorStoreFilesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -1023,9 +1084,14 @@ pub async fn list_vector_store_files(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1081,6 +1147,7 @@ pub async fn list_vector_stores(
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListVectorStoresResponse, Error<ListVectorStoresError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -1110,9 +1177,14 @@ pub async fn list_vector_stores(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1163,6 +1235,7 @@ pub async fn modify_vector_store(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     update_vector_store_request: &models::UpdateVectorStoreRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreObject, Error<ModifyVectorStoreError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -1182,10 +1255,15 @@ pub async fn modify_vector_store(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_vector_store_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1242,6 +1320,7 @@ pub async fn retrieve_vector_store_file_content(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreFileContentResponse, Error<RetrieveVectorStoreFileContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -1262,9 +1341,14 @@ pub async fn retrieve_vector_store_file_content(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1321,6 +1405,7 @@ pub async fn search_vector_store(
     configuration: &configuration::Configuration,
     vector_store_id: &str,
     vector_store_search_request: &models::VectorStoreSearchRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreSearchResultsPage, Error<SearchVectorStoreError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -1340,10 +1425,15 @@ pub async fn search_vector_store(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_vector_store_search_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1398,6 +1488,7 @@ pub async fn update_vector_store_file_attributes(
     vector_store_id: &str,
     file_id: &str,
     update_vector_store_file_attributes_request: &models::UpdateVectorStoreFileAttributesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VectorStoreFileObject, Error<UpdateVectorStoreFileAttributesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vector_store_id = vector_store_id;
@@ -1420,10 +1511,15 @@ pub async fn update_vector_store_file_attributes(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_vector_store_file_attributes_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

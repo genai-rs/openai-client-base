@@ -102,6 +102,7 @@ pub async fn accept_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
     live_call_accept_request: &models::LiveCallAcceptRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AcceptLiveSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -121,10 +122,15 @@ pub async fn accept_live_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_live_call_accept_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -173,6 +179,7 @@ pub async fn accept_live_session(
 pub async fn create_live(
     configuration: &configuration::Configuration,
     live_session_create_request: &models::LiveSessionCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::LiveSessionCreateResponse, Error<CreateLiveError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_live_session_create_request = live_session_create_request;
@@ -187,10 +194,15 @@ pub async fn create_live(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_live_session_create_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -251,6 +263,7 @@ pub async fn create_live(
 pub async fn download_live_recording(
     configuration: &configuration::Configuration,
     session_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<timvw_rust_runtime::Response, Error<DownloadLiveRecordingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -269,9 +282,14 @@ pub async fn download_live_recording(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -320,6 +338,7 @@ pub async fn fork_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
     live_fork_request: &models::LiveForkRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::LiveCreateResponse, Error<ForkLiveSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -339,10 +358,15 @@ pub async fn fork_live_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_live_fork_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -400,6 +424,7 @@ pub async fn fork_live_session(
 pub async fn hangup_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<HangupLiveSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -418,9 +443,14 @@ pub async fn hangup_live_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -457,6 +487,7 @@ pub async fn refer_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
     live_call_refer_request: &models::LiveCallReferRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<ReferLiveSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -476,10 +507,15 @@ pub async fn refer_live_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_live_call_refer_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -520,6 +556,7 @@ pub async fn reject_live_session(
     configuration: &configuration::Configuration,
     session_id: &str,
     live_call_reject_request: &models::LiveCallRejectRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<RejectLiveSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -539,10 +576,15 @@ pub async fn reject_live_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_live_call_reject_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

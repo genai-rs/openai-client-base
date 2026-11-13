@@ -132,6 +132,7 @@ pub enum UploadCertificateError {
 pub async fn activate_organization_certificates(
     configuration: &configuration::Configuration,
     toggle_certificates_request: &models::ToggleCertificatesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::OrganizationCertificateActivationResponse,
     Error<ActivateOrganizationCertificatesError>,
@@ -152,10 +153,15 @@ pub async fn activate_organization_certificates(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_toggle_certificates_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -215,6 +221,7 @@ pub async fn activate_project_certificates(
     configuration: &configuration::Configuration,
     project_id: &str,
     toggle_certificates_request: &models::ToggleCertificatesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::OrganizationProjectCertificateActivationResponse,
     Error<ActivateProjectCertificatesError>,
@@ -237,10 +244,15 @@ pub async fn activate_project_certificates(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_toggle_certificates_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -299,6 +311,7 @@ pub async fn activate_project_certificates(
 pub async fn deactivate_organization_certificates(
     configuration: &configuration::Configuration,
     toggle_certificates_request: &models::ToggleCertificatesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::OrganizationCertificateDeactivationResponse,
     Error<DeactivateOrganizationCertificatesError>,
@@ -319,10 +332,15 @@ pub async fn deactivate_organization_certificates(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_toggle_certificates_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -382,6 +400,7 @@ pub async fn deactivate_project_certificates(
     configuration: &configuration::Configuration,
     project_id: &str,
     toggle_certificates_request: &models::ToggleCertificatesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::OrganizationProjectCertificateDeactivationResponse,
     Error<DeactivateProjectCertificatesError>,
@@ -404,10 +423,15 @@ pub async fn deactivate_project_certificates(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_toggle_certificates_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -466,6 +490,7 @@ pub async fn deactivate_project_certificates(
 pub async fn delete_certificate(
     configuration: &configuration::Configuration,
     certificate_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteCertificateResponse, Error<DeleteCertificateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_certificate_id = certificate_id;
@@ -484,9 +509,14 @@ pub async fn delete_certificate(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -543,6 +573,7 @@ pub async fn get_certificate(
     configuration: &configuration::Configuration,
     certificate_id: &str,
     include: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Certificate, Error<GetCertificateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_certificate_id = certificate_id;
@@ -568,9 +599,14 @@ pub async fn get_certificate(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -628,6 +664,7 @@ pub async fn list_organization_certificates(
     limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListCertificatesResponse, Error<ListOrganizationCertificatesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -653,9 +690,14 @@ pub async fn list_organization_certificates(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -711,6 +753,7 @@ pub async fn list_project_certificates(
     limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListProjectCertificatesResponse, Error<ListProjectCertificatesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -741,9 +784,14 @@ pub async fn list_project_certificates(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -797,6 +845,7 @@ pub async fn modify_certificate(
     configuration: &configuration::Configuration,
     certificate_id: &str,
     modify_certificate_request: &models::ModifyCertificateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Certificate, Error<ModifyCertificateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_certificate_id = certificate_id;
@@ -816,10 +865,15 @@ pub async fn modify_certificate(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_modify_certificate_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -878,6 +932,7 @@ pub async fn modify_certificate(
 pub async fn upload_certificate(
     configuration: &configuration::Configuration,
     upload_certificate_request: &models::UploadCertificateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Certificate, Error<UploadCertificateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_upload_certificate_request = upload_certificate_request;
@@ -892,10 +947,15 @@ pub async fn upload_certificate(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_upload_certificate_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

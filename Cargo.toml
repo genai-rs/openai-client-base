@@ -19,13 +19,168 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
-default = ["rustls", "retry"]
-rustls = ["timvw-rust-runtime/rustls"]
-native-tls = ["timvw-rust-runtime/native-tls"]
+default = ["rustls", "retry", "full"]
+rustls = ["timvw-rust-runtime?/rustls"]
+native-tls = ["timvw-rust-runtime?/native-tls"]
 # Retries of 429, 408, 5xx and failed connections in the default client (Configuration::new()).
-retry = ["timvw-rust-runtime/retry"]
+retry = ["timvw-rust-runtime?/retry"]
 # timvw_rust_runtime::trace::TraceLayer: logs each request and retry with `tracing`.
-tracing = ["timvw-rust-runtime/tracing"]
+tracing = ["timvw-rust-runtime?/tracing"]
+# Generated from scripts/api-features.yaml (timvw-rust apiFeaturesFile); copy the generator's [features] section
+# when the groups or the spec's tags change.
+# API features (apiFeatures): `<group>` compiles the group's API functions with its models and the HTTP client,
+# `<group>-types` only its models. `types` is every model, `full` everything.
+full = [
+    "administration",
+    "agents",
+    "assistants",
+    "audio",
+    "batch",
+    "chat-completion",
+    "chatkit",
+    "completions",
+    "container",
+    "content-provenance-checks",
+    "decisions",
+    "embedding",
+    "evals",
+    "file",
+    "finetuning",
+    "image",
+    "live",
+    "model",
+    "moderation",
+    "open-ai-client-base-webhooks",
+    "realtime",
+    "responses",
+    "safety",
+    "skill",
+    "upload",
+    "vaults",
+    "vectorstore",
+    "video",
+    "webhook",
+    "types",
+]
+types = [
+    "administration-types",
+    "agents-types",
+    "assistants-types",
+    "audio-types",
+    "batch-types",
+    "chat-completion-types",
+    "chatkit-types",
+    "completions-types",
+    "container-types",
+    "content-provenance-checks-types",
+    "decisions-types",
+    "embedding-types",
+    "evals-types",
+    "file-types",
+    "finetuning-types",
+    "image-types",
+    "live-types",
+    "model-types",
+    "moderation-types",
+    "open-ai-client-base-webhooks-types",
+    "realtime-types",
+    "responses-types",
+    "safety-types",
+    "skill-types",
+    "upload-types",
+    "vaults-types",
+    "vectorstore-types",
+    "video-types",
+    "webhook-types",
+]
+_api = ["dep:timvw-rust-runtime", "dep:tokio", "dep:tokio-util"]
+# tags Audit Logs, Certificates, Data retention, Groups, Group users, Group organization role assignments, Invites, Projects, Project groups, Project group role assignments, Project user role assignments, Roles, Spend alerts, Usage, Users, User organization role assignments, Hosted tools; paths under `/organization`
+administration = ["administration-types", "_api"]
+administration-types = []
+# tag Agents
+agents = ["agents-types", "_api"]
+agents-types = []
+# tag Assistants
+assistants = ["assistants-types", "_api"]
+assistants-types = []
+# tag Audio
+audio = ["audio-types", "_api"]
+audio-types = []
+# tag Batch
+batch = ["batch-types", "_api"]
+batch-types = []
+# tag Chat
+chat-completion = ["chat-completion-types", "_api"]
+chat-completion-types = []
+# paths under `/chatkit`
+chatkit = ["chatkit-types", "_api"]
+chatkit-types = []
+# tag Completions
+completions = ["completions-types", "_api"]
+completions-types = []
+# paths under `/containers`
+container = ["container-types", "_api"]
+container-types = []
+# paths under `/content_provenance_checks`
+content-provenance-checks = ["content-provenance-checks-types", "_api"]
+content-provenance-checks-types = []
+# tag Decisions
+decisions = ["decisions-types", "_api"]
+decisions-types = []
+# tag Embeddings
+embedding = ["embedding-types", "_api"]
+embedding-types = []
+# tag Evals
+evals = ["evals-types", "_api"]
+evals-types = []
+# tag Files
+file = ["file-types", "_api"]
+file-types = []
+# tag Fine-tuning
+finetuning = ["finetuning-types", "_api"]
+finetuning-types = []
+# tag Images
+image = ["image-types", "_api"]
+image-types = []
+# tag Live
+live = ["live-types", "_api"]
+live-types = []
+# tag Models
+model = ["model-types", "_api"]
+model-types = []
+# tag Moderations
+moderation = ["moderation-types", "_api"]
+moderation-types = []
+# tag OpenAiClientBaseWebhooks
+open-ai-client-base-webhooks = ["open-ai-client-base-webhooks-types", "_api"]
+open-ai-client-base-webhooks-types = []
+# tag Realtime
+realtime = ["realtime-types", "_api"]
+realtime-types = []
+# tags Responses, Conversations
+responses = ["responses-types", "_api"]
+responses-types = []
+# paths under `/safety`
+safety = ["safety-types", "_api"]
+safety-types = []
+# tag Skills
+skill = ["skill-types", "_api"]
+skill-types = []
+# tag Uploads
+upload = ["upload-types", "_api"]
+upload-types = []
+# tag Vaults
+vaults = ["vaults-types", "_api"]
+vaults-types = []
+# tag Vector stores
+vectorstore = ["vectorstore-types", "_api"]
+vectorstore-types = []
+# tag Videos
+video = ["video-types", "_api"]
+video-types = []
+# paths under `/webhook_endpoints`, `/webhook_event_types`
+webhook = ["webhook-types", "_api"]
+webhook-types = []
 
 [dependencies]
 bon = "^3.10.3"
@@ -36,9 +191,9 @@ futures-core = "^0.3.34"
 serde_repr = "^0.1.21"
 regex = "1"
 url = "^2.5.8"
-tokio = { version = "^1.54.1", features = ["fs"] }
-tokio-util = { version = "^0.7.19", features = ["codec"] }
-timvw-rust-runtime = { version = "^0.1.0", default-features = false }
+tokio = { version = "^1.54.1", features = ["fs"], optional = true }
+tokio-util = { version = "^0.7.19", features = ["codec"], optional = true }
+timvw-rust-runtime = { version = "^0.2.0", default-features = false, optional = true }
 
 [dev-dependencies]
 tokio = { version = "^1.54.1", features = ["rt-multi-thread", "macros"] }

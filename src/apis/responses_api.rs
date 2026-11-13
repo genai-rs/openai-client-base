@@ -153,6 +153,7 @@ pub async fn beta_cancel_response(
     configuration: &configuration::Configuration,
     response_id: &str,
     openai_beta: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::BetaResponse, Error<BetaCancelResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
@@ -175,9 +176,14 @@ pub async fn beta_cancel_response(
         req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -228,6 +234,7 @@ pub async fn beta_compactconversation(
     configuration: &configuration::Configuration,
     openai_beta: Option<Vec<String>>,
     beta_compact_response_method_public_body: Option<&models::BetaCompactResponseMethodPublicBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::BetaCompactResource, Error<BetaCompactconversationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_header_openai_beta = openai_beta;
@@ -246,10 +253,15 @@ pub async fn beta_compactconversation(
         req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_beta_compact_response_method_public_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -303,6 +315,7 @@ pub async fn beta_create_response(
     configuration: &configuration::Configuration,
     beta_create_response: &models::BetaCreateResponse,
     openai_beta: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::BetaResponse, Error<BetaCreateResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_beta_create_response = beta_create_response;
@@ -321,10 +334,15 @@ pub async fn beta_create_response(
         req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_beta_create_response);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -383,6 +401,7 @@ pub async fn beta_create_response_stream(
     configuration: &configuration::Configuration,
     beta_create_response: &models::BetaCreateResponse,
     openai_beta: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::BetaResponseStreamEvent, BetaCreateResponseError>,
     Error<BetaCreateResponseError>,
@@ -404,11 +423,16 @@ pub async fn beta_create_response_stream(
         req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_beta_create_response);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -460,6 +484,7 @@ pub async fn beta_delete_response(
     configuration: &configuration::Configuration,
     response_id: &str,
     openai_beta: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::BetaDeleteResponse200Response, Error<BetaDeleteResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
@@ -482,9 +507,14 @@ pub async fn beta_delete_response(
         req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -539,6 +569,7 @@ pub async fn beta_get_response(
     starting_after: Option<i64>,
     include_obfuscation: Option<bool>,
     openai_beta: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::BetaResponse, Error<BetaGetResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
@@ -580,9 +611,14 @@ pub async fn beta_get_response(
         req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -639,6 +675,7 @@ pub async fn beta_get_response_stream(
     starting_after: Option<i64>,
     include_obfuscation: Option<bool>,
     openai_beta: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::BetaResponseStreamEvent, BetaGetResponseError>,
     Error<BetaGetResponseError>,
@@ -683,10 +720,15 @@ pub async fn beta_get_response_stream(
         req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -732,6 +774,7 @@ pub async fn beta_getinputtokencounts(
     configuration: &configuration::Configuration,
     openai_beta: Option<Vec<String>>,
     beta_token_counts_body: Option<&models::BetaTokenCountsBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::BetaTokenCountsResource, Error<BetaGetinputtokencountsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_header_openai_beta = openai_beta;
@@ -753,10 +796,15 @@ pub async fn beta_getinputtokencounts(
         req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_beta_token_counts_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -811,6 +859,7 @@ pub async fn beta_list_input_items(
     after: Option<&str>,
     include: Option<Vec<models::BetaIncludeEnum>>,
     openai_beta: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::BetaResponseItemList, Error<BetaListInputItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
@@ -852,9 +901,14 @@ pub async fn beta_list_input_items(
         req_builder = req_builder.header("openai-beta", param_value.join(",").to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -904,6 +958,7 @@ pub async fn beta_list_input_items(
 pub async fn cancel_response(
     configuration: &configuration::Configuration,
     response_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Response, Error<CancelResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
@@ -922,9 +977,14 @@ pub async fn cancel_response(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -974,6 +1034,7 @@ pub async fn cancel_response(
 pub async fn compactconversation(
     configuration: &configuration::Configuration,
     compact_response_method_public_body: Option<&models::CompactResponseMethodPublicBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::CompactResource, Error<CompactconversationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_compact_response_method_public_body = compact_response_method_public_body;
@@ -988,10 +1049,15 @@ pub async fn compactconversation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_compact_response_method_public_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1044,6 +1110,7 @@ pub async fn compactconversation(
 pub async fn create_response(
     configuration: &configuration::Configuration,
     create_response: &models::CreateResponse,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Response, Error<CreateResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_response = create_response;
@@ -1058,10 +1125,15 @@ pub async fn create_response(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_response);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1119,6 +1191,7 @@ pub async fn create_response(
 pub async fn create_response_stream(
     configuration: &configuration::Configuration,
     create_response: &models::CreateResponse,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::ResponseStreamEvent, CreateResponseError>,
     Error<CreateResponseError>,
@@ -1136,11 +1209,16 @@ pub async fn create_response_stream(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_response);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1191,6 +1269,7 @@ pub async fn create_response_stream(
 pub async fn delete_response(
     configuration: &configuration::Configuration,
     response_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteResponse200Response, Error<DeleteResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
@@ -1209,9 +1288,14 @@ pub async fn delete_response(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1265,6 +1349,7 @@ pub async fn get_response(
     stream: Option<bool>,
     starting_after: Option<i64>,
     include_obfuscation: Option<bool>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Response, Error<GetResponseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
@@ -1302,9 +1387,14 @@ pub async fn get_response(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1360,6 +1450,7 @@ pub async fn get_response_stream(
     stream: Option<bool>,
     starting_after: Option<i64>,
     include_obfuscation: Option<bool>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::ResponseStreamEvent, GetResponseError>,
     Error<GetResponseError>,
@@ -1400,10 +1491,15 @@ pub async fn get_response_stream(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1448,6 +1544,7 @@ pub async fn get_response_stream(
 pub async fn getinputtokencounts(
     configuration: &configuration::Configuration,
     token_counts_body: Option<&models::TokenCountsBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::TokenCountsResource, Error<GetinputtokencountsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_token_counts_body = token_counts_body;
@@ -1462,10 +1559,15 @@ pub async fn getinputtokencounts(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_token_counts_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1519,6 +1621,7 @@ pub async fn list_input_items(
     order: Option<&str>,
     after: Option<&str>,
     include: Option<Vec<models::IncludeEnum>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ResponseItemList, Error<ListInputItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_response_id = response_id;
@@ -1556,9 +1659,14 @@ pub async fn list_input_items(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

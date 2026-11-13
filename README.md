@@ -116,6 +116,10 @@ For detailed pipeline documentation, see [PIPELINE.md](PIPELINE.md)
 Releases that change the generated public API are breaking (a minor-version bump before 1.0). Each one has a
 migration note in [`migration/`](https://github.com/genai-rs/openai-client-base/tree/main/migration):
 
+- **0.31** (timvw-rust 0.26.0, runtime 0.2): credentials are `SecretString`s (`Some(key.into())`); every operation
+  takes optional per-call `.options(&RequestOptions)`; Cargo features per API group (`responses`, `audio`, …, with
+  `-types` twins; `full` is the default); jittered retries that honour `Retry-After`. See
+  [`api-diff-0.30.0-to-0.31.0.md`](https://github.com/genai-rs/openai-client-base/blob/main/migration/api-diff-0.30.0-to-0.31.0.md).
 - **0.30** (timvw-rust 0.25.0): requests go through `timvw-rust-runtime` (a tower service, reqwest by default, with
   retries) instead of `reqwest-middleware`; `Configuration.client` is a `timvw_rust_runtime::Client`, and
   `Error::Reqwest`/`Error::ReqwestMiddleware` become `Error::Http`. Models and operations are unchanged. See
@@ -151,6 +155,21 @@ To use the platform's native TLS (OpenSSL on Linux, Schannel on Windows, Securit
 ```toml
 [dependencies]
 openai-client-base = { version = "0.16", default-features = false, features = ["native-tls"] }
+```
+
+## Cargo features
+
+Every API group is a Cargo feature, named after async-openai's (`responses`, `chat-completion`, `audio`, `image`,
+`embedding`, `file`, `vectorstore`, `administration`, `evals`, `realtime`, …; the full list is in
+[`scripts/api-features.yaml`](scripts/api-features.yaml)). `<group>-types` compiles only that group's models, without the
+HTTP client; `types` is every model and `full` (the default) everything:
+
+```toml
+[dependencies]
+# only the Responses API (and its models)
+openai-client-base = { version = "0.31", default-features = false, features = ["rustls", "retry", "responses"] }
+# only the Responses models, no HTTP client
+openai-client-base = { version = "0.31", default-features = false, features = ["responses-types"] }
 ```
 
 ## HTTP client, retries and middleware

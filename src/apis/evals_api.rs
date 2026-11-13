@@ -136,6 +136,7 @@ pub async fn cancel_eval_run(
     configuration: &configuration::Configuration,
     eval_id: &str,
     run_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EvalRun, Error<CancelEvalRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -156,9 +157,14 @@ pub async fn cancel_eval_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -205,6 +211,7 @@ pub async fn cancel_eval_run(
 pub async fn create_eval(
     configuration: &configuration::Configuration,
     create_eval_request: &models::CreateEvalRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Eval, Error<CreateEvalError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_eval_request = create_eval_request;
@@ -219,10 +226,15 @@ pub async fn create_eval(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_eval_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -273,6 +285,7 @@ pub async fn create_eval_run(
     configuration: &configuration::Configuration,
     eval_id: &str,
     create_eval_run_request: &models::CreateEvalRunRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EvalRun, Error<CreateEvalRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -292,10 +305,15 @@ pub async fn create_eval_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_eval_run_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -351,6 +369,7 @@ pub async fn create_eval_run(
 pub async fn delete_eval(
     configuration: &configuration::Configuration,
     eval_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteEval200Response, Error<DeleteEvalError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -369,9 +388,14 @@ pub async fn delete_eval(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -425,6 +449,7 @@ pub async fn delete_eval_run(
     configuration: &configuration::Configuration,
     eval_id: &str,
     run_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteEvalRun200Response, Error<DeleteEvalRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -445,9 +470,14 @@ pub async fn delete_eval_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -500,6 +530,7 @@ pub async fn delete_eval_run(
 pub async fn get_eval(
     configuration: &configuration::Configuration,
     eval_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Eval, Error<GetEvalError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -518,9 +549,14 @@ pub async fn get_eval(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -571,6 +607,7 @@ pub async fn get_eval_run(
     configuration: &configuration::Configuration,
     eval_id: &str,
     run_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EvalRun, Error<GetEvalRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -591,9 +628,14 @@ pub async fn get_eval_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -648,6 +690,7 @@ pub async fn get_eval_run_output_item(
     eval_id: &str,
     run_id: &str,
     output_item_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EvalRunOutputItem, Error<GetEvalRunOutputItemError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -670,9 +713,14 @@ pub async fn get_eval_run_output_item(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -730,6 +778,7 @@ pub async fn get_eval_run_output_items(
     limit: Option<i64>,
     status: Option<&str>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EvalRunOutputItemList, Error<GetEvalRunOutputItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -766,9 +815,14 @@ pub async fn get_eval_run_output_items(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -825,6 +879,7 @@ pub async fn get_eval_runs(
     limit: Option<i64>,
     order: Option<&str>,
     status: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EvalRunList, Error<GetEvalRunsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -859,9 +914,14 @@ pub async fn get_eval_runs(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -917,6 +977,7 @@ pub async fn list_evals(
     limit: Option<i64>,
     order: Option<&str>,
     order_by: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EvalList, Error<ListEvalsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_after = after;
@@ -946,9 +1007,14 @@ pub async fn list_evals(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -996,6 +1062,7 @@ pub async fn update_eval(
     configuration: &configuration::Configuration,
     eval_id: &str,
     update_eval_request: &models::UpdateEvalRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Eval, Error<UpdateEvalError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_eval_id = eval_id;
@@ -1015,10 +1082,15 @@ pub async fn update_eval(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_eval_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
