@@ -13,6 +13,8 @@ use std::task::{Context, Poll};
 use futures_core::Stream;
 use serde::de::DeserializeOwned;
 
+use timvw_rust_runtime::MaybeSend;
+
 use super::Error;
 
 pub use timvw_rust_runtime::sse::{Decoder, Event, Events, DONE};
@@ -34,11 +36,12 @@ impl<T, E> EventStream<T, E> {
         Self::from_events(Events::from_response(response))
     }
 
-    /// The events of a body read as a stream of chunks.
+    /// The events of a body read as a stream of chunks. The stream and its chunks must be `Send`, except on
+    /// WebAssembly ([`MaybeSend`]).
     pub fn from_bytes<S, B>(bytes: S) -> Self
     where
-        S: Stream<Item = Result<B, timvw_rust_runtime::Error>> + Send + 'static,
-        B: AsRef<[u8]> + Send + 'static,
+        S: Stream<Item = Result<B, timvw_rust_runtime::Error>> + MaybeSend + 'static,
+        B: AsRef<[u8]> + MaybeSend + 'static,
     {
         Self::from_events(Events::from_bytes(bytes))
     }
@@ -54,6 +57,14 @@ impl<T, E> EventStream<T, E> {
     /// The events not yet read, undecoded: their `event:` names, ids and raw `data:`.
     pub fn into_events(self) -> Events {
         self.events
+    }
+
+    /// Ends the stream with an error when no bytes arrive for `limit`: a server or a proxy that keeps the connection
+    /// open but stopped sending. The error (`Error::Http`, whose [`is_timeout`](timvw_rust_runtime::Error::is_timeout) is
+    /// `true`) is the last item. Every chunk restarts the clock, comments (`: keep-alive`) too; there is no limit on
+    /// the whole stream, and none by default. See [`Events::idle_timeout`].
+    pub fn idle_timeout(self, limit: std::time::Duration) -> Self {
+        Self::from_events(self.events.idle_timeout(limit))
     }
 }
 

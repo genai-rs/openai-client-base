@@ -94,7 +94,7 @@ Transcribes audio into the input language.  Returns a transcription object in `j
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**file** | **std::path::PathBuf** | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
+**file** | **timvw_rust_runtime::Upload** | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
 **model** | **String** |  | [required] |
 **language** | Option<**String**> | The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.  |  |
 **languages** | Option<**Vec<String>**> | Possible languages of the input audio, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Supported by `gpt-transcribe`.  |  |
@@ -137,7 +137,7 @@ Transcribes audio into the input language.  Returns a transcription object in `j
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**file** | **std::path::PathBuf** | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
+**file** | **timvw_rust_runtime::Upload** | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
 **model** | **String** |  | [required] |
 **language** | Option<**String**> | The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.  |  |
 **languages** | Option<**Vec<String>**> | Possible languages of the input audio, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Supported by `gpt-transcribe`.  |  |
@@ -180,7 +180,7 @@ Transcribes audio into the input language.  Returns a transcription object in `j
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**file** | **std::path::PathBuf** | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
+**file** | **timvw_rust_runtime::Upload** | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
 **model** | **String** |  | [required] |
 **language** | Option<**String**> | The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.  |  |
 **languages** | Option<**Vec<String>**> | Possible languages of the input audio, in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) format. Supported by `gpt-transcribe`.  |  |
@@ -223,7 +223,7 @@ Translates audio into English.  This endpoint supports only `whisper-1`. The end
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**file** | **std::path::PathBuf** | The audio file object (not file name) translate, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
+**file** | **timvw_rust_runtime::Upload** | The audio file object (not file name) translate, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
 **model** | **String** |  | [required] |
 **prompt** | Option<**String**> | An optional text to guide the model's style or continue a previous audio segment. The [prompt](https://developers.openai.com/api/docs/guides/speech-to-text#prompting) should be in English.  |  |
 **response_format** | Option<**String**> | The format of the output, in one of these options: `json`, `text`, `srt`, `verbose_json`, or `vtt`.  Defaults to `\\\"json\\\"`. |  |
@@ -257,7 +257,7 @@ Translates audio into English.  This endpoint supports only `whisper-1`. The end
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**file** | **std::path::PathBuf** | The audio file object (not file name) translate, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
+**file** | **timvw_rust_runtime::Upload** | The audio file object (not file name) translate, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm. The request must include enough format metadata for the file to be identified. We recommend an extension-bearing filename and an appropriate content type.  | [required] |
 **model** | **String** |  | [required] |
 **prompt** | Option<**String**> | An optional text to guide the model's style or continue a previous audio segment. The [prompt](https://developers.openai.com/api/docs/guides/speech-to-text#prompting) should be in English.  |  |
 **response_format** | Option<**String**> | The format of the output, in one of these options: `json`, `text`, `srt`, `verbose_json`, or `vtt`.  Defaults to `\\\"json\\\"`. |  |
@@ -322,7 +322,7 @@ Upload a voice consent recording.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **name** | **String** | The label to use for this consent recording. | [required] |
-**recording** | **std::path::PathBuf** | The consent audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  | [required] |
+**recording** | **timvw_rust_runtime::Upload** | The consent audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  | [required] |
 **language** | **String** | The BCP 47 language tag for the consent phrase (for example, `en-US`). | [required] |
 
 ### Return type
@@ -355,7 +355,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **r#type** | Option<**String**> | Set to `prompt` to create a voice from a text description. |  |
 **name** | Option<**String**> | The name of the new voice. |  |
-**audio_sample** | Option<**std::path::PathBuf**> | The sample audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  |  |
+**audio_sample** | Option<**timvw_rust_runtime::Upload**> | The sample audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  |  |
 **consent** | Option<**String**> | The consent recording ID (for example, `cons_1234`). |  |
 **prompt** | Option<**String**> | A description of the desired voice. Must not contain only whitespace. |  |
 **script_hint** | Option<**String**> | Optional text for the voice to speak during creation. If omitted, a script is generated from the prompt. Must not be blank after trimming whitespace; scripts that are too short are rejected. |  |

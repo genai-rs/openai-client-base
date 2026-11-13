@@ -68,7 +68,7 @@ Create a character from an uploaded video.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**video** | **std::path::PathBuf** | Video file used to create a character. | [required] |
+**video** | **timvw_rust_runtime::Upload** | Video file used to create a character. | [required] |
 **name** | **String** | Display name for this API character. | [required] |
 
 ### Return type

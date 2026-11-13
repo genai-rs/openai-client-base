@@ -142,14 +142,14 @@ pub async fn create_image(
 #[bon::builder]
 pub async fn create_image_edit(
     configuration: &configuration::Configuration,
-    image: std::path::PathBuf,
+    #[builder(into)] image: timvw_rust_runtime::Upload,
     prompt: &str,
     model: &str,
     frame_count: Option<i64>,
     frame_duration_ms: Option<i64>,
     complexity: Option<models::Complexity>,
-    mask: Option<std::path::PathBuf>,
-    markup: Option<std::path::PathBuf>,
+    #[builder(into)] mask: Option<timvw_rust_runtime::Upload>,
+    #[builder(into)] markup: Option<timvw_rust_runtime::Upload>,
     background: Option<&str>,
     n: Option<i64>,
     size: Option<models::CreateImageEditRequestSize>,
@@ -212,15 +212,18 @@ pub async fn create_image_edit(
         multipart_form = multipart_form.text("complexity", param_value.to_string());
     }
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image").await?;
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     if let Some(ref param_value) = p_form_mask {
         // Add file to multipart form
-        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "mask")?;
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "mask").await?;
     }
     if let Some(ref param_value) = p_form_markup {
         // Add file to multipart form
-        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "markup")?;
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "markup").await?;
     }
     if let Some(param_value) = p_form_background {
         multipart_form = multipart_form.text("background", param_value.to_string());
@@ -510,14 +513,14 @@ pub async fn create_image_edit_json_stream(
 #[bon::builder]
 pub async fn create_image_edit_stream(
     configuration: &configuration::Configuration,
-    image: std::path::PathBuf,
+    #[builder(into)] image: timvw_rust_runtime::Upload,
     prompt: &str,
     model: &str,
     frame_count: Option<i64>,
     frame_duration_ms: Option<i64>,
     complexity: Option<models::Complexity>,
-    mask: Option<std::path::PathBuf>,
-    markup: Option<std::path::PathBuf>,
+    #[builder(into)] mask: Option<timvw_rust_runtime::Upload>,
+    #[builder(into)] markup: Option<timvw_rust_runtime::Upload>,
     background: Option<&str>,
     n: Option<i64>,
     size: Option<models::CreateImageEditRequestSize>,
@@ -583,15 +586,18 @@ pub async fn create_image_edit_stream(
         multipart_form = multipart_form.text("complexity", param_value.to_string());
     }
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image").await?;
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     if let Some(ref param_value) = p_form_mask {
         // Add file to multipart form
-        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "mask")?;
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "mask").await?;
     }
     if let Some(ref param_value) = p_form_markup {
         // Add file to multipart form
-        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "markup")?;
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "markup").await?;
     }
     if let Some(param_value) = p_form_background {
         multipart_form = multipart_form.text("background", param_value.to_string());
@@ -787,7 +793,7 @@ pub async fn create_image_stream(
 #[bon::builder]
 pub async fn create_image_variation(
     configuration: &configuration::Configuration,
-    image: std::path::PathBuf,
+    #[builder(into)] image: timvw_rust_runtime::Upload,
     model: Option<&str>,
     n: Option<i64>,
     response_format: Option<&str>,
@@ -818,7 +824,8 @@ pub async fn create_image_variation(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_image, "image").await?;
     if let Some(param_value) = p_form_model {
         multipart_form = multipart_form.text("model", param_value.to_string());
     }

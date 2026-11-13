@@ -9,6 +9,8 @@
  */
 
 #![allow(clippy::into_iter_on_ref)]
+// Functions are gated one by one (apiFeatures): a feature set may use none of an import.
+#![allow(unused_imports)]
 
 use super::{configuration, multipart_helper, ContentType, Error};
 use crate::{apis::ResponseContent, models};
@@ -1314,7 +1316,7 @@ pub async fn create_container_file_multipart(
     configuration: &configuration::Configuration,
     container_id: &str,
     file_id: Option<&str>,
-    file: Option<std::path::PathBuf>,
+    #[builder(into)] file: Option<timvw_rust_runtime::Upload>,
     options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ContainerFileResource, Error<CreateContainerFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1345,7 +1347,8 @@ pub async fn create_container_file_multipart(
     }
     if let Some(ref param_value) = p_form_file {
         // Add file to multipart form
-        multipart_form = multipart_helper::add_file_to_form(multipart_form, param_value, "file")?;
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "file").await?;
     }
     req_builder = req_builder.multipart(multipart_form);
 
@@ -1788,7 +1791,7 @@ pub async fn createanexternalstorageconfiguration(
 #[bon::builder]
 pub async fn createcontentprovenancecheck(
     configuration: &configuration::Configuration,
-    file: std::path::PathBuf,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
     options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProvenanceResource, Error<CreatecontentprovenancecheckError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1809,7 +1812,8 @@ pub async fn createcontentprovenancecheck(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
     req_builder = req_builder.multipart(multipart_form);
 
     // last, so its headers replace the generated ones

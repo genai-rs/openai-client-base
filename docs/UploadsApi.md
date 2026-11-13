@@ -24,7 +24,7 @@ Adds a [Part](https://developers.openai.com/api/reference/resources/uploads/subr
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **upload_id** | **String** | The ID of the Upload.  | [required] |
-**data** | **std::path::PathBuf** | The chunk of bytes for this Part.  | [required] |
+**data** | **timvw_rust_runtime::Upload** | The chunk of bytes for this Part.  | [required] |
 
 ### Return type
 

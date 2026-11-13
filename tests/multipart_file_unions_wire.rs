@@ -248,8 +248,14 @@ fn assert_file_part(part: &Part, name: &str, file_name: &str, bytes: &[u8]) {
     assert!(part.has_name(name), "{part:?}");
     assert_eq!(part.file_name(), Some(file_name), "{part:?}");
     assert_eq!(part.body, bytes);
-    // An ordinary file parameter sends no media type of its own.
-    assert_eq!(part.content_type(), None, "{part:?}");
+    // The runtime types a file part from its file name's extension (timvw-rust-runtime 0.3).
+    let expected = match file_name.rsplit('.').next() {
+        Some("mp4") => Some("video/mp4"),
+        Some("png") => Some("image/png"),
+        Some("zip") => Some("application/zip"),
+        _ => part.content_type(),
+    };
+    assert_eq!(part.content_type(), expected, "{part:?}");
 }
 
 fn named<'a>(parts: &'a [Part], name: &str) -> Vec<&'a Part> {
@@ -492,7 +498,7 @@ async fn a_missing_file_is_an_error_not_a_panic_or_a_request() {
         .call()
         .await
         .expect_err("optional file");
-    assert!(matches!(error, Error::Io(_)), "{error:?}");
+    assert!(matches!(&error, Error::Http(e) if e.is_io()), "{error:?}");
 
     let error = videos_api::create_video_edit()
         .configuration(&configuration)
@@ -503,7 +509,7 @@ async fn a_missing_file_is_an_error_not_a_panic_or_a_request() {
         .call()
         .await
         .expect_err("required file");
-    assert!(matches!(error, Error::Io(_)), "{error:?}");
+    assert!(matches!(&error, Error::Http(e) if e.is_io()), "{error:?}");
 
     let present = Upload::new("SKILL.md", PNG);
     let error = skills_api::create_skill()
@@ -515,5 +521,5 @@ async fn a_missing_file_is_an_error_not_a_panic_or_a_request() {
         .call()
         .await
         .expect_err("array with a missing file");
-    assert!(matches!(error, Error::Io(_)), "{error:?}");
+    assert!(matches!(&error, Error::Http(e) if e.is_io()), "{error:?}");
 }

@@ -150,11 +150,12 @@ pub async fn create_skill(
         models::CreateSkillBodyFiles::ArrayOfStrings(value) => {
             for path in value {
                 multipart_form =
-                    multipart_helper::add_file_to_form(multipart_form, path, "files[]")?;
+                    multipart_helper::add_file_to_form(multipart_form, path, "files[]").await?;
             }
         }
         models::CreateSkillBodyFiles::Text(value) => {
-            multipart_form = multipart_helper::add_file_to_form(multipart_form, value, "files")?;
+            multipart_form =
+                multipart_helper::add_file_to_form(multipart_form, value, "files").await?;
         }
     }
     req_builder = req_builder.multipart(multipart_form);
@@ -323,11 +324,13 @@ pub async fn create_skill_version(
     match &p_form_files {
         models::CreateSkillVersionBodyFiles::ArrayOfStrings(value) => {
             for path in value {
-                multipart_form = multipart_helper::add_file_to_form(multipart_form, path, "files")?;
+                multipart_form =
+                    multipart_helper::add_file_to_form(multipart_form, path, "files").await?;
             }
         }
         models::CreateSkillVersionBodyFiles::Text(value) => {
-            multipart_form = multipart_helper::add_file_to_form(multipart_form, value, "files")?;
+            multipart_form =
+                multipart_helper::add_file_to_form(multipart_form, value, "files").await?;
         }
     }
     if let Some(param_value) = p_form_default {

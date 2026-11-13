@@ -39,10 +39,6 @@
     clippy::module_name_repetitions,
     clippy::derivable_impls  // Rust 1.91.0 new lint - generated code has manual Default impls
 )]
-// With only some API features, a module whose functions are gated one by one (default_api) can leave an import
-// unused.
-#![cfg_attr(not(feature = "full"), allow(unused_imports))]
-
 extern crate serde;
 extern crate serde_json;
 extern crate serde_repr;

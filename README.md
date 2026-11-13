@@ -116,6 +116,10 @@ For detailed pipeline documentation, see [PIPELINE.md](PIPELINE.md)
 Releases that change the generated public API are breaking (a minor-version bump before 1.0). Each one has a
 migration note in [`migration/`](https://github.com/genai-rs/openai-client-base/tree/main/migration):
 
+- **0.32** (timvw-rust 0.27.0, runtime 0.3): file parameters are `timvw_rust_runtime::Upload` (a `PathBuf` still works;
+  bytes and streams too, streamed with a known length); WebAssembly; a missing file is `Error::Http(e)` with
+  `e.is_io()`. See
+  [`api-diff-0.31.0-to-0.32.0.md`](https://github.com/genai-rs/openai-client-base/blob/main/migration/api-diff-0.31.0-to-0.32.0.md).
 - **0.31** (timvw-rust 0.26.0, runtime 0.2): credentials are `SecretString`s (`Some(key.into())`); every operation
   takes optional per-call `.options(&RequestOptions)`; Cargo features per API group (`responses`, `audio`, …, with
   `-types` twins; `full` is the default); jittered retries that honour `Retry-After`. See
@@ -167,9 +171,9 @@ HTTP client; `types` is every model and `full` (the default) everything:
 ```toml
 [dependencies]
 # only the Responses API (and its models)
-openai-client-base = { version = "0.31", default-features = false, features = ["rustls", "retry", "responses"] }
+openai-client-base = { version = "0.32", default-features = false, features = ["rustls", "retry", "responses"] }
 # only the Responses models, no HTTP client
-openai-client-base = { version = "0.31", default-features = false, features = ["responses-types"] }
+openai-client-base = { version = "0.32", default-features = false, features = ["responses-types"] }
 ```
 
 ## HTTP client, retries and middleware

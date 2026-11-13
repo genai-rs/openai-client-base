@@ -282,7 +282,7 @@ pub async fn create_speech_stream(
 #[bon::builder]
 pub async fn create_transcription(
     configuration: &configuration::Configuration,
-    file: std::path::PathBuf,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
     model: &str,
     language: Option<&str>,
     languages: Option<Vec<String>>,
@@ -329,7 +329,8 @@ pub async fn create_transcription(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
     if let Some(param_value) = p_form_language {
         multipart_form = multipart_form.text("language", param_value.to_string());
@@ -486,7 +487,7 @@ pub async fn create_transcription(
 #[bon::builder]
 pub async fn create_transcription_stream(
     configuration: &configuration::Configuration,
-    file: std::path::PathBuf,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
     model: &str,
     language: Option<&str>,
     languages: Option<Vec<String>>,
@@ -539,7 +540,8 @@ pub async fn create_transcription_stream(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
     if let Some(param_value) = p_form_language {
         multipart_form = multipart_form.text("language", param_value.to_string());
@@ -692,7 +694,7 @@ pub async fn create_transcription_stream(
 #[bon::builder]
 pub async fn create_transcription_text(
     configuration: &configuration::Configuration,
-    file: std::path::PathBuf,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
     model: &str,
     language: Option<&str>,
     languages: Option<Vec<String>>,
@@ -739,7 +741,8 @@ pub async fn create_transcription_text(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
     if let Some(param_value) = p_form_language {
         multipart_form = multipart_form.text("language", param_value.to_string());
@@ -895,7 +898,7 @@ pub async fn create_transcription_text(
 #[bon::builder]
 pub async fn create_translation(
     configuration: &configuration::Configuration,
-    file: std::path::PathBuf,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
     model: &str,
     prompt: Option<&str>,
     response_format: Option<&str>,
@@ -924,7 +927,8 @@ pub async fn create_translation(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
     if let Some(param_value) = p_form_prompt {
         multipart_form = multipart_form.text("prompt", param_value.to_string());
@@ -1008,7 +1012,7 @@ pub async fn create_translation(
 #[bon::builder]
 pub async fn create_translation_text(
     configuration: &configuration::Configuration,
-    file: std::path::PathBuf,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
     model: &str,
     prompt: Option<&str>,
     response_format: Option<&str>,
@@ -1037,7 +1041,8 @@ pub async fn create_translation_text(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
     multipart_form = multipart_form.text("model", p_form_model.to_string());
     if let Some(param_value) = p_form_prompt {
         multipart_form = multipart_form.text("prompt", param_value.to_string());
@@ -1195,7 +1200,7 @@ pub async fn create_voice(
 pub async fn create_voice_consent(
     configuration: &configuration::Configuration,
     name: &str,
-    recording: std::path::PathBuf,
+    #[builder(into)] recording: timvw_rust_runtime::Upload,
     language: &str,
     options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VoiceConsentResource, Error<CreateVoiceConsentError>> {
@@ -1221,7 +1226,7 @@ pub async fn create_voice_consent(
     multipart_form = multipart_form.text("name", p_form_name.to_string());
     // Add file to multipart form
     multipart_form =
-        multipart_helper::add_file_to_form(multipart_form, &p_form_recording, "recording")?;
+        multipart_helper::add_file_to_form(multipart_form, &p_form_recording, "recording").await?;
     multipart_form = multipart_form.text("language", p_form_language.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
@@ -1281,7 +1286,7 @@ pub async fn create_voice_multipart(
     configuration: &configuration::Configuration,
     r#type: Option<&str>,
     name: Option<&str>,
-    audio_sample: Option<std::path::PathBuf>,
+    #[builder(into)] audio_sample: Option<timvw_rust_runtime::Upload>,
     consent: Option<&str>,
     prompt: Option<&str>,
     script_hint: Option<&str>,
@@ -1320,7 +1325,7 @@ pub async fn create_voice_multipart(
     if let Some(ref param_value) = p_form_audio_sample {
         // Add file to multipart form
         multipart_form =
-            multipart_helper::add_file_to_form(multipart_form, param_value, "audio_sample")?;
+            multipart_helper::add_file_to_form(multipart_form, param_value, "audio_sample").await?;
     }
     if let Some(param_value) = p_form_consent {
         multipart_form = multipart_form.text("consent", param_value.to_string());
