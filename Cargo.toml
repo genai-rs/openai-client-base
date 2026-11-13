@@ -93,7 +93,7 @@ types = [
     "video-types",
     "webhook-types",
 ]
-_api = ["dep:timvw-rust-runtime", "dep:tokio", "dep:tokio-util"]
+_api = ["dep:timvw-rust-runtime"]
 # tags Audit Logs, Certificates, Data retention, Groups, Group users, Group organization role assignments, Invites, Projects, Project groups, Project group role assignments, Project user role assignments, Roles, Spend alerts, Usage, Users, User organization role assignments, Hosted tools; paths under `/organization`
 administration = ["administration-types", "_api"]
 administration-types = []
@@ -191,9 +191,7 @@ futures-core = "^0.3.34"
 serde_repr = "^0.1.21"
 regex = "1"
 url = "^2.5.8"
-tokio = { version = "^1.54.1", features = ["fs"], optional = true }
-tokio-util = { version = "^0.7.19", features = ["codec"], optional = true }
-timvw-rust-runtime = { version = "^0.2.0", default-features = false, optional = true }
+timvw-rust-runtime = { version = "^0.3.0", default-features = false, features = ["fs", "time"], optional = true }
 
 [dev-dependencies]
 tokio = { version = "^1.54.1", features = ["rt-multi-thread", "macros"] }

@@ -24,7 +24,7 @@ Upload a file that can be used across various endpoints. Individual files can be
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**file** | **std::path::PathBuf** | The File object (not file name) to be uploaded.  | [required] |
+**file** | **timvw_rust_runtime::Upload** | The File object (not file name) to be uploaded.  | [required] |
 **purpose** | **String** | The intended purpose of the uploaded file. One of: - `assistants`: Used in the Assistants API - `batch`: Used in the Batch API - `fine-tune`: Used for fine-tuning - `vision`: Images used for vision fine-tuning - `user_data`: Flexible file type for any purpose - `evals`: Used for eval data sets  | [required] |
 **expires_after** | Option<[**models::FileExpirationAfter**](FileExpirationAfter.md)> |  |  |
 

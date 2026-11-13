@@ -1,0 +1,230 @@
+{
+  "source_heads": {
+    "reference": "git:v0.31.0",
+    "candidate": "working-tree"
+  },
+  "method": "Source declaration census of public model exports, struct fields, enum variant names, and function signatures, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derive or macro-generated builders, enumerate trait implementations, or resolve every visibility/re-export interaction.",
+  "registry_source_rs_files": 3182,
+  "current_source_rs_files": 3182,
+  "source_files_added": [],
+  "source_files_removed": [],
+  "source_files_modified": [
+    "apis/audio_api.rs",
+    "apis/default_api.rs",
+    "apis/files_api.rs",
+    "apis/images_api.rs",
+    "apis/multipart_helper.rs",
+    "apis/skills_api.rs",
+    "apis/sse.rs",
+    "apis/uploads_api.rs",
+    "apis/videos_api.rs",
+    "lib.rs"
+  ],
+  "model_exports_added": [],
+  "model_exports_removed": [],
+  "public_functions_added_or_signature_changed": [
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_transcription",
+      "signature": "pub async fn create_transcription( configuration: &configuration::Configuration, #[builder(into)] file: timvw_rust_runtime::Upload, model: &str, language: Option<&str>, languages: Option<Vec<String>>, keywords: Option<Vec<String>>, prompt: Option<&str>, response_format: Option<models::AudioResponseFormat>, temperature: Option<f64>, include: Option<Vec<models::TranscriptionInclude>>, timestamp_granularities: Option<Vec<String>>, stream: Option<bool>, chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>, known_speaker_names: Option<Vec<String>>, known_speaker_references: Option<Vec<String>>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::CreateTranscription200Response, Error<CreateTranscriptionError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_transcription_stream",
+      "signature": "pub async fn create_transcription_stream( configuration: &configuration::Configuration, #[builder(into)] file: timvw_rust_runtime::Upload, model: &str, language: Option<&str>, languages: Option<Vec<String>>, keywords: Option<Vec<String>>, prompt: Option<&str>, response_format: Option<models::AudioResponseFormat>, temperature: Option<f64>, include: Option<Vec<models::TranscriptionInclude>>, timestamp_granularities: Option<Vec<String>>, stream: Option<bool>, chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>, known_speaker_names: Option<Vec<String>>, known_speaker_references: Option<Vec<String>>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result< super::sse::EventStream< models::CreateTranscriptionResponseStreamEvent, CreateTranscriptionError, >, Error<CreateTranscriptionError>, >"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_transcription_text",
+      "signature": "pub async fn create_transcription_text( configuration: &configuration::Configuration, #[builder(into)] file: timvw_rust_runtime::Upload, model: &str, language: Option<&str>, languages: Option<Vec<String>>, keywords: Option<Vec<String>>, prompt: Option<&str>, response_format: Option<models::AudioResponseFormat>, temperature: Option<f64>, include: Option<Vec<models::TranscriptionInclude>>, timestamp_granularities: Option<Vec<String>>, stream: Option<bool>, chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>, known_speaker_names: Option<Vec<String>>, known_speaker_references: Option<Vec<String>>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<String, Error<CreateTranscriptionError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_translation",
+      "signature": "pub async fn create_translation( configuration: &configuration::Configuration, #[builder(into)] file: timvw_rust_runtime::Upload, model: &str, prompt: Option<&str>, response_format: Option<&str>, temperature: Option<f64>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::CreateTranslation200Response, Error<CreateTranslationError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_translation_text",
+      "signature": "pub async fn create_translation_text( configuration: &configuration::Configuration, #[builder(into)] file: timvw_rust_runtime::Upload, model: &str, prompt: Option<&str>, response_format: Option<&str>, temperature: Option<f64>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<String, Error<CreateTranslationError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_voice_consent",
+      "signature": "pub async fn create_voice_consent( configuration: &configuration::Configuration, name: &str, #[builder(into)] recording: timvw_rust_runtime::Upload, language: &str, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VoiceConsentResource, Error<CreateVoiceConsentError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_voice_multipart",
+      "signature": "pub async fn create_voice_multipart( configuration: &configuration::Configuration, r#type: Option<&str>, name: Option<&str>, #[builder(into)] audio_sample: Option<timvw_rust_runtime::Upload>, consent: Option<&str>, prompt: Option<&str>, script_hint: Option<&str>, model: Option<&str>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VoiceResource, Error<CreateVoiceError>>"
+    },
+    {
+      "file": "apis/default_api.rs",
+      "name": "create_container_file_multipart",
+      "signature": "pub async fn create_container_file_multipart( configuration: &configuration::Configuration, container_id: &str, file_id: Option<&str>, #[builder(into)] file: Option<timvw_rust_runtime::Upload>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::ContainerFileResource, Error<CreateContainerFileError>>"
+    },
+    {
+      "file": "apis/default_api.rs",
+      "name": "createcontentprovenancecheck",
+      "signature": "pub async fn createcontentprovenancecheck( configuration: &configuration::Configuration, #[builder(into)] file: timvw_rust_runtime::Upload, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::ProvenanceResource, Error<CreatecontentprovenancecheckError>>"
+    },
+    {
+      "file": "apis/files_api.rs",
+      "name": "create_file",
+      "signature": "pub async fn create_file( configuration: &configuration::Configuration, #[builder(into)] file: timvw_rust_runtime::Upload, purpose: &str, expires_after: Option<models::FileExpirationAfter>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::OpenAiFile, Error<CreateFileError>>"
+    },
+    {
+      "file": "apis/images_api.rs",
+      "name": "create_image_edit",
+      "signature": "pub async fn create_image_edit( configuration: &configuration::Configuration, #[builder(into)] image: timvw_rust_runtime::Upload, prompt: &str, model: &str, frame_count: Option<i64>, frame_duration_ms: Option<i64>, complexity: Option<models::Complexity>, #[builder(into)] mask: Option<timvw_rust_runtime::Upload>, #[builder(into)] markup: Option<timvw_rust_runtime::Upload>, background: Option<&str>, n: Option<i64>, size: Option<models::CreateImageEditRequestSize>, response_format: Option<&str>, output_format: Option<models::ImagesApiOutputFormat>, svg: Option<models::SvgParam>, output_compression: Option<i64>, safety_identifier: Option<&str>, user: Option<&str>, input_fidelity: Option<models::InputFidelity>, stream: Option<bool>, partial_images: Option<i64>, quality: Option<&str>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::ImagesResponse, Error<CreateImageEditError>>"
+    },
+    {
+      "file": "apis/images_api.rs",
+      "name": "create_image_edit_stream",
+      "signature": "pub async fn create_image_edit_stream( configuration: &configuration::Configuration, #[builder(into)] image: timvw_rust_runtime::Upload, prompt: &str, model: &str, frame_count: Option<i64>, frame_duration_ms: Option<i64>, complexity: Option<models::Complexity>, #[builder(into)] mask: Option<timvw_rust_runtime::Upload>, #[builder(into)] markup: Option<timvw_rust_runtime::Upload>, background: Option<&str>, n: Option<i64>, size: Option<models::CreateImageEditRequestSize>, response_format: Option<&str>, output_format: Option<models::ImagesApiOutputFormat>, svg: Option<models::SvgParam>, output_compression: Option<i64>, safety_identifier: Option<&str>, user: Option<&str>, input_fidelity: Option<models::InputFidelity>, stream: Option<bool>, partial_images: Option<i64>, quality: Option<&str>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result< super::sse::EventStream<models::ImageEditStreamEvent, CreateImageEditError>, Error<CreateImageEditError>, >"
+    },
+    {
+      "file": "apis/images_api.rs",
+      "name": "create_image_variation",
+      "signature": "pub async fn create_image_variation( configuration: &configuration::Configuration, #[builder(into)] image: timvw_rust_runtime::Upload, model: Option<&str>, n: Option<i64>, response_format: Option<&str>, size: Option<&str>, user: Option<&str>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::ImagesResponse, Error<CreateImageVariationError>>"
+    },
+    {
+      "file": "apis/multipart_helper.rs",
+      "name": "add_file_to_form",
+      "signature": "pub async fn add_file_to_form( form: multipart::Form, file: impl Into<Upload>, field_name: &str, ) -> Result<multipart::Form, timvw_rust_runtime::Error>"
+    },
+    {
+      "file": "apis/sse.rs",
+      "name": "idle_timeout",
+      "signature": "pub fn idle_timeout(self, limit: std::time::Duration) -> Self"
+    },
+    {
+      "file": "apis/uploads_api.rs",
+      "name": "add_upload_part",
+      "signature": "pub async fn add_upload_part( configuration: &configuration::Configuration, upload_id: &str, #[builder(into)] data: timvw_rust_runtime::Upload, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::UploadPart, Error<AddUploadPartError>>"
+    },
+    {
+      "file": "apis/videos_api.rs",
+      "name": "create_video_character",
+      "signature": "pub async fn create_video_character( configuration: &configuration::Configuration, #[builder(into)] video: timvw_rust_runtime::Upload, name: &str, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VideoCharacterResource, Error<CreateVideoCharacterError>>"
+    }
+  ],
+  "public_functions_removed_or_signature_changed": [
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_transcription",
+      "signature": "pub async fn create_transcription( configuration: &configuration::Configuration, file: std::path::PathBuf, model: &str, language: Option<&str>, languages: Option<Vec<String>>, keywords: Option<Vec<String>>, prompt: Option<&str>, response_format: Option<models::AudioResponseFormat>, temperature: Option<f64>, include: Option<Vec<models::TranscriptionInclude>>, timestamp_granularities: Option<Vec<String>>, stream: Option<bool>, chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>, known_speaker_names: Option<Vec<String>>, known_speaker_references: Option<Vec<String>>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::CreateTranscription200Response, Error<CreateTranscriptionError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_transcription_stream",
+      "signature": "pub async fn create_transcription_stream( configuration: &configuration::Configuration, file: std::path::PathBuf, model: &str, language: Option<&str>, languages: Option<Vec<String>>, keywords: Option<Vec<String>>, prompt: Option<&str>, response_format: Option<models::AudioResponseFormat>, temperature: Option<f64>, include: Option<Vec<models::TranscriptionInclude>>, timestamp_granularities: Option<Vec<String>>, stream: Option<bool>, chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>, known_speaker_names: Option<Vec<String>>, known_speaker_references: Option<Vec<String>>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result< super::sse::EventStream< models::CreateTranscriptionResponseStreamEvent, CreateTranscriptionError, >, Error<CreateTranscriptionError>, >"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_transcription_text",
+      "signature": "pub async fn create_transcription_text( configuration: &configuration::Configuration, file: std::path::PathBuf, model: &str, language: Option<&str>, languages: Option<Vec<String>>, keywords: Option<Vec<String>>, prompt: Option<&str>, response_format: Option<models::AudioResponseFormat>, temperature: Option<f64>, include: Option<Vec<models::TranscriptionInclude>>, timestamp_granularities: Option<Vec<String>>, stream: Option<bool>, chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>, known_speaker_names: Option<Vec<String>>, known_speaker_references: Option<Vec<String>>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<String, Error<CreateTranscriptionError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_translation",
+      "signature": "pub async fn create_translation( configuration: &configuration::Configuration, file: std::path::PathBuf, model: &str, prompt: Option<&str>, response_format: Option<&str>, temperature: Option<f64>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::CreateTranslation200Response, Error<CreateTranslationError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_translation_text",
+      "signature": "pub async fn create_translation_text( configuration: &configuration::Configuration, file: std::path::PathBuf, model: &str, prompt: Option<&str>, response_format: Option<&str>, temperature: Option<f64>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<String, Error<CreateTranslationError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_voice_consent",
+      "signature": "pub async fn create_voice_consent( configuration: &configuration::Configuration, name: &str, recording: std::path::PathBuf, language: &str, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VoiceConsentResource, Error<CreateVoiceConsentError>>"
+    },
+    {
+      "file": "apis/audio_api.rs",
+      "name": "create_voice_multipart",
+      "signature": "pub async fn create_voice_multipart( configuration: &configuration::Configuration, r#type: Option<&str>, name: Option<&str>, audio_sample: Option<std::path::PathBuf>, consent: Option<&str>, prompt: Option<&str>, script_hint: Option<&str>, model: Option<&str>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VoiceResource, Error<CreateVoiceError>>"
+    },
+    {
+      "file": "apis/default_api.rs",
+      "name": "create_container_file_multipart",
+      "signature": "pub async fn create_container_file_multipart( configuration: &configuration::Configuration, container_id: &str, file_id: Option<&str>, file: Option<std::path::PathBuf>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::ContainerFileResource, Error<CreateContainerFileError>>"
+    },
+    {
+      "file": "apis/default_api.rs",
+      "name": "createcontentprovenancecheck",
+      "signature": "pub async fn createcontentprovenancecheck( configuration: &configuration::Configuration, file: std::path::PathBuf, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::ProvenanceResource, Error<CreatecontentprovenancecheckError>>"
+    },
+    {
+      "file": "apis/files_api.rs",
+      "name": "create_file",
+      "signature": "pub async fn create_file( configuration: &configuration::Configuration, file: std::path::PathBuf, purpose: &str, expires_after: Option<models::FileExpirationAfter>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::OpenAiFile, Error<CreateFileError>>"
+    },
+    {
+      "file": "apis/images_api.rs",
+      "name": "create_image_edit",
+      "signature": "pub async fn create_image_edit( configuration: &configuration::Configuration, image: std::path::PathBuf, prompt: &str, model: &str, frame_count: Option<i64>, frame_duration_ms: Option<i64>, complexity: Option<models::Complexity>, mask: Option<std::path::PathBuf>, markup: Option<std::path::PathBuf>, background: Option<&str>, n: Option<i64>, size: Option<models::CreateImageEditRequestSize>, response_format: Option<&str>, output_format: Option<models::ImagesApiOutputFormat>, svg: Option<models::SvgParam>, output_compression: Option<i64>, safety_identifier: Option<&str>, user: Option<&str>, input_fidelity: Option<models::InputFidelity>, stream: Option<bool>, partial_images: Option<i64>, quality: Option<&str>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::ImagesResponse, Error<CreateImageEditError>>"
+    },
+    {
+      "file": "apis/images_api.rs",
+      "name": "create_image_edit_stream",
+      "signature": "pub async fn create_image_edit_stream( configuration: &configuration::Configuration, image: std::path::PathBuf, prompt: &str, model: &str, frame_count: Option<i64>, frame_duration_ms: Option<i64>, complexity: Option<models::Complexity>, mask: Option<std::path::PathBuf>, markup: Option<std::path::PathBuf>, background: Option<&str>, n: Option<i64>, size: Option<models::CreateImageEditRequestSize>, response_format: Option<&str>, output_format: Option<models::ImagesApiOutputFormat>, svg: Option<models::SvgParam>, output_compression: Option<i64>, safety_identifier: Option<&str>, user: Option<&str>, input_fidelity: Option<models::InputFidelity>, stream: Option<bool>, partial_images: Option<i64>, quality: Option<&str>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result< super::sse::EventStream<models::ImageEditStreamEvent, CreateImageEditError>, Error<CreateImageEditError>, >"
+    },
+    {
+      "file": "apis/images_api.rs",
+      "name": "create_image_variation",
+      "signature": "pub async fn create_image_variation( configuration: &configuration::Configuration, image: std::path::PathBuf, model: Option<&str>, n: Option<i64>, response_format: Option<&str>, size: Option<&str>, user: Option<&str>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::ImagesResponse, Error<CreateImageVariationError>>"
+    },
+    {
+      "file": "apis/multipart_helper.rs",
+      "name": "add_file_to_form",
+      "signature": "pub fn add_file_to_form( form: multipart::Form, path: &Path, field_name: &str, ) -> Result<multipart::Form, std::io::Error>"
+    },
+    {
+      "file": "apis/multipart_helper.rs",
+      "name": "add_pathbuf_to_form",
+      "signature": "pub fn add_pathbuf_to_form( form: multipart::Form, path: PathBuf, field_name: &str, ) -> Result<multipart::Form, std::io::Error>"
+    },
+    {
+      "file": "apis/multipart_helper.rs",
+      "name": "file_part_from_bytes",
+      "signature": "pub fn file_part_from_bytes(bytes: Vec<u8>, filename: String) -> multipart::Part"
+    },
+    {
+      "file": "apis/multipart_helper.rs",
+      "name": "file_part_from_path",
+      "signature": "pub fn file_part_from_path(path: &Path) -> Result<multipart::Part, std::io::Error>"
+    },
+    {
+      "file": "apis/multipart_helper.rs",
+      "name": "file_part_from_pathbuf",
+      "signature": "pub fn file_part_from_pathbuf(path: PathBuf) -> Result<multipart::Part, std::io::Error>"
+    },
+    {
+      "file": "apis/uploads_api.rs",
+      "name": "add_upload_part",
+      "signature": "pub async fn add_upload_part( configuration: &configuration::Configuration, upload_id: &str, data: std::path::PathBuf, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::UploadPart, Error<AddUploadPartError>>"
+    },
+    {
+      "file": "apis/videos_api.rs",
+      "name": "create_video_character",
+      "signature": "pub async fn create_video_character( configuration: &configuration::Configuration, video: std::path::PathBuf, name: &str, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VideoCharacterResource, Error<CreateVideoCharacterError>>"
+    }
+  ],
+  "public_model_field_changes": [],
+  "public_enum_variant_changes": [],
+  "public_derive_changes": [],
+  "serde_field_attribute_changes": [],
+  "counts": {
+    "model_exports_added": 0,
+    "model_exports_removed": 0,
+    "public_functions_added_or_signature_changed": 17,
+    "public_functions_removed_or_signature_changed": 20,
+    "public_model_field_changes": 0,
+    "public_enum_types_with_variant_changes": 0,
+    "public_enum_variants_added": 0,
+    "public_enum_variants_removed": 0,
+    "public_derive_changes": 0,
+    "serde_field_attribute_changes": 0
+  }
+}

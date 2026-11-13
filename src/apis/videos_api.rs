@@ -162,7 +162,8 @@ pub async fn create_video(
         match param_value {
             models::CreateVideoMultipartBodyInputReference::Text(value) => {
                 multipart_form =
-                    multipart_helper::add_file_to_form(multipart_form, value, "input_reference")?;
+                    multipart_helper::add_file_to_form(multipart_form, value, "input_reference")
+                        .await?;
             }
             models::CreateVideoMultipartBodyInputReference::ImageRefParam2(value) => {
                 multipart_form = multipart_helper::add_schema_value_to_form(
@@ -244,7 +245,7 @@ pub async fn create_video(
 #[bon::builder]
 pub async fn create_video_character(
     configuration: &configuration::Configuration,
-    video: std::path::PathBuf,
+    #[builder(into)] video: timvw_rust_runtime::Upload,
     name: &str,
     options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoCharacterResource, Error<CreateVideoCharacterError>> {
@@ -267,7 +268,8 @@ pub async fn create_video_character(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_video, "video")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_video, "video").await?;
     multipart_form = multipart_form.text("name", p_form_name.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
@@ -354,7 +356,8 @@ pub async fn create_video_edit(
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     match &p_form_video {
         models::CreateVideoEditMultipartBodyVideo::Text(value) => {
-            multipart_form = multipart_helper::add_file_to_form(multipart_form, value, "video")?;
+            multipart_form =
+                multipart_helper::add_file_to_form(multipart_form, value, "video").await?;
         }
         models::CreateVideoEditMultipartBodyVideo::VideoReferenceInputParam(value) => {
             multipart_form = multipart_helper::add_schema_value_to_form(
@@ -549,7 +552,8 @@ pub async fn create_video_extend(
             )?;
         }
         models::CreateVideoExtendMultipartBodyVideo::Text(value) => {
-            multipart_form = multipart_helper::add_file_to_form(multipart_form, value, "video")?;
+            multipart_form =
+                multipart_helper::add_file_to_form(multipart_form, value, "video").await?;
         }
     }
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());

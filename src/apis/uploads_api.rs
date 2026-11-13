@@ -64,7 +64,7 @@ pub enum CreateUploadError {
 pub async fn add_upload_part(
     configuration: &configuration::Configuration,
     upload_id: &str,
-    data: std::path::PathBuf,
+    #[builder(into)] data: timvw_rust_runtime::Upload,
     options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::UploadPart, Error<AddUploadPartError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -90,7 +90,8 @@ pub async fn add_upload_part(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_data, "data")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_data, "data").await?;
     req_builder = req_builder.multipart(multipart_form);
 
     // last, so its headers replace the generated ones

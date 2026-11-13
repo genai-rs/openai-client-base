@@ -68,7 +68,7 @@ pub enum RetrieveFileError {
 #[bon::builder]
 pub async fn create_file(
     configuration: &configuration::Configuration,
-    file: std::path::PathBuf,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
     purpose: &str,
     expires_after: Option<models::FileExpirationAfter>,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -93,7 +93,8 @@ pub async fn create_file(
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
-    multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
     multipart_form = multipart_form.text("purpose", p_form_purpose.to_string());
     if let Some(param_value) = p_form_expires_after {
         multipart_form = multipart_helper::add_schema_value_to_form(

@@ -355,7 +355,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **container_id** | **String** |  | [required] |
 **file_id** | Option<**String**> | Name of the file to create. |  |
-**file** | Option<**std::path::PathBuf**> | The File object (not file name) to be uploaded.  |  |
+**file** | Option<**timvw_rust_runtime::Upload**> | The File object (not file name) to be uploaded.  |  |
 
 ### Return type
 
@@ -538,7 +538,7 @@ Check whether an image or audio file contains known OpenAI provenance signals. [
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**file** | **std::path::PathBuf** | The image or audio file to check for supported OpenAI provenance signals. Supported image formats are PNG, JPEG, WebP, and GIF (including animated GIFs). | [required] |
+**file** | **timvw_rust_runtime::Upload** | The image or audio file to check for supported OpenAI provenance signals. Supported image formats are PNG, JPEG, WebP, and GIF (including animated GIFs). | [required] |
 
 ### Return type
 

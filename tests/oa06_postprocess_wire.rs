@@ -14,6 +14,8 @@ use openai_client_base::apis::{
 use openai_client_base::models::{self, FileExpirationAfter};
 use url::Url;
 
+// The test uses only some of the helper's functions.
+#[allow(dead_code)]
 #[path = "../src/apis/multipart_helper.rs"]
 mod multipart_helper_contract;
 
