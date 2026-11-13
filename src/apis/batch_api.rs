@@ -62,6 +62,7 @@ pub enum RetrieveBatchError {
 pub async fn cancel_batch(
     configuration: &configuration::Configuration,
     batch_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Batch, Error<CancelBatchError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_batch_id = batch_id;
@@ -80,9 +81,14 @@ pub async fn cancel_batch(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -138,6 +144,7 @@ pub async fn cancel_batch(
 pub async fn create_batch(
     configuration: &configuration::Configuration,
     create_batch_request: &models::CreateBatchRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Batch, Error<CreateBatchError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_batch_request = create_batch_request;
@@ -152,10 +159,15 @@ pub async fn create_batch(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_batch_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -212,6 +224,7 @@ pub async fn list_batches(
     configuration: &configuration::Configuration,
     after: Option<&str>,
     limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListBatchesResponse, Error<ListBatchesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_after = after;
@@ -233,9 +246,14 @@ pub async fn list_batches(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -288,6 +306,7 @@ pub async fn list_batches(
 pub async fn retrieve_batch(
     configuration: &configuration::Configuration,
     batch_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Batch, Error<RetrieveBatchError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_batch_id = batch_id;
@@ -306,9 +325,14 @@ pub async fn retrieve_batch(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

@@ -11,7 +11,7 @@
 //! # async fn run() -> Result<(), Box<dyn std::error::Error>> {
 //! let configuration = Configuration {
 //!     base_path: "https://api.openai.com/v1".to_owned(),
-//!     bearer_access_token: Some(std::env::var("OPENAI_API_KEY")?),
+//!     bearer_access_token: Some(std::env::var("OPENAI_API_KEY")?.into()),
 //!     ..Configuration::default()
 //! };
 //!
@@ -39,11 +39,16 @@
     clippy::module_name_repetitions,
     clippy::derivable_impls  // Rust 1.91.0 new lint - generated code has manual Default impls
 )]
+// With only some API features, a module whose functions are gated one by one (default_api) can leave an import
+// unused.
+#![cfg_attr(not(feature = "full"), allow(unused_imports))]
 
 extern crate serde;
 extern crate serde_json;
 extern crate serde_repr;
 extern crate url;
 
+// Generated with apiFeatures: the API modules need the HTTP client (any API feature, or `full`).
+#[cfg(feature = "_api")]
 pub mod apis;
 pub mod models;

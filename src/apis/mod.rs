@@ -1,6 +1,9 @@
 use std::error;
 use std::fmt;
 
+/// Extra headers and query parameters for one call: `.options(&options)` on an operation's builder.
+pub use timvw_rust_runtime::RequestOptions;
+
 #[derive(Debug, Clone)]
 pub struct ResponseContent<T> {
     pub status: timvw_rust_runtime::StatusCode,
@@ -124,53 +127,103 @@ impl From<&str> for ContentType {
     }
 }
 
+#[cfg(feature = "agents")]
 pub mod agents_api;
+#[cfg(feature = "assistants")]
 pub mod assistants_api;
+#[cfg(feature = "audio")]
 pub mod audio_api;
+#[cfg(feature = "administration")]
 pub mod audit_logs_api;
+#[cfg(feature = "batch")]
 pub mod batch_api;
+#[cfg(feature = "administration")]
 pub mod certificates_api;
+#[cfg(feature = "chat-completion")]
 pub mod chat_api;
+#[cfg(feature = "completions")]
 pub mod completions_api;
+#[cfg(feature = "responses")]
 pub mod conversations_api;
+#[cfg(feature = "administration")]
 pub mod data_retention_api;
+#[cfg(feature = "decisions")]
 pub mod decisions_api;
+#[cfg(any(
+    feature = "administration",
+    feature = "chatkit",
+    feature = "container",
+    feature = "content-provenance-checks",
+    feature = "safety",
+    feature = "webhook"
+))]
 pub mod default_api;
+#[cfg(feature = "embedding")]
 pub mod embeddings_api;
+#[cfg(feature = "evals")]
 pub mod evals_api;
+#[cfg(feature = "file")]
 pub mod files_api;
+#[cfg(feature = "finetuning")]
 pub mod fine_tuning_api;
+#[cfg(feature = "administration")]
 pub mod group_organization_role_assignments_api;
+#[cfg(feature = "administration")]
 pub mod group_users_api;
+#[cfg(feature = "administration")]
 pub mod groups_api;
+#[cfg(feature = "administration")]
 pub mod hosted_tools_api;
+#[cfg(feature = "image")]
 pub mod images_api;
+#[cfg(feature = "administration")]
 pub mod invites_api;
+#[cfg(feature = "live")]
 pub mod live_api;
+#[cfg(feature = "model")]
 pub mod models_api;
+#[cfg(feature = "moderation")]
 pub mod moderations_api;
+#[cfg(feature = "administration")]
 pub mod project_group_role_assignments_api;
+#[cfg(feature = "administration")]
 pub mod project_groups_api;
+#[cfg(feature = "administration")]
 pub mod project_user_role_assignments_api;
+#[cfg(feature = "administration")]
 pub mod projects_api;
+#[cfg(feature = "realtime")]
 pub mod realtime_api;
+#[cfg(feature = "responses")]
 pub mod responses_api;
+#[cfg(feature = "administration")]
 pub mod roles_api;
+#[cfg(feature = "skill")]
 pub mod skills_api;
+#[cfg(feature = "administration")]
 pub mod spend_alerts_api;
+#[cfg(feature = "upload")]
 pub mod uploads_api;
+#[cfg(feature = "administration")]
 pub mod usage_api;
+#[cfg(feature = "administration")]
 pub mod user_organization_role_assignments_api;
+#[cfg(feature = "administration")]
 pub mod users_api;
+#[cfg(feature = "vaults")]
 pub mod vaults_api;
+#[cfg(feature = "vectorstore")]
 pub mod vector_stores_api;
+#[cfg(feature = "video")]
 pub mod videos_api;
 
 pub mod configuration;
 
 // Internal helper module for multipart file handling
+#[allow(dead_code)] // the API features enabled may not use every helper
 pub(crate) mod multipart_helper;
 
 pub mod sse;
 
+#[cfg(feature = "open-ai-client-base-webhooks")]
 pub mod open_ai_client_base_webhooks_api;

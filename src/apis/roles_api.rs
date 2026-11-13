@@ -129,6 +129,7 @@ pub async fn create_project_role(
     configuration: &configuration::Configuration,
     project_id: &str,
     public_create_organization_role_body: &models::PublicCreateOrganizationRoleBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Role, Error<CreateProjectRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -148,10 +149,15 @@ pub async fn create_project_role(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_public_create_organization_role_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -207,6 +213,7 @@ pub async fn create_project_role(
 pub async fn create_role(
     configuration: &configuration::Configuration,
     public_create_organization_role_body: &models::PublicCreateOrganizationRoleBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Role, Error<CreateRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_public_create_organization_role_body = public_create_organization_role_body;
@@ -221,10 +228,15 @@ pub async fn create_role(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_public_create_organization_role_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -281,6 +293,7 @@ pub async fn delete_project_role(
     configuration: &configuration::Configuration,
     project_id: &str,
     role_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RoleDeletedResource, Error<DeleteProjectRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -301,9 +314,14 @@ pub async fn delete_project_role(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -359,6 +377,7 @@ pub async fn delete_project_role(
 pub async fn delete_role(
     configuration: &configuration::Configuration,
     role_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RoleDeletedResource, Error<DeleteRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_role_id = role_id;
@@ -377,9 +396,14 @@ pub async fn delete_role(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -438,6 +462,7 @@ pub async fn list_project_roles(
     limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PublicRoleListResource, Error<ListProjectRolesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -468,9 +493,14 @@ pub async fn list_project_roles(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -528,6 +558,7 @@ pub async fn list_roles(
     limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PublicRoleListResource, Error<ListRolesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -553,9 +584,14 @@ pub async fn list_roles(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -612,6 +648,7 @@ pub async fn retrieve_project_role(
     configuration: &configuration::Configuration,
     project_id: &str,
     role_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Role, Error<RetrieveProjectRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -632,9 +669,14 @@ pub async fn retrieve_project_role(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -687,6 +729,7 @@ pub async fn retrieve_project_role(
 pub async fn retrieve_role(
     configuration: &configuration::Configuration,
     role_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Role, Error<RetrieveRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_role_id = role_id;
@@ -705,9 +748,14 @@ pub async fn retrieve_role(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -762,6 +810,7 @@ pub async fn update_project_role(
     project_id: &str,
     role_id: &str,
     public_update_organization_role_body: &models::PublicUpdateOrganizationRoleBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Role, Error<UpdateProjectRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -783,10 +832,15 @@ pub async fn update_project_role(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_public_update_organization_role_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -843,6 +897,7 @@ pub async fn update_role(
     configuration: &configuration::Configuration,
     role_id: &str,
     public_update_organization_role_body: &models::PublicUpdateOrganizationRoleBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Role, Error<UpdateRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_role_id = role_id;
@@ -862,10 +917,15 @@ pub async fn update_role(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_public_update_organization_role_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

@@ -167,7 +167,7 @@ fn config(address: &str) -> Configuration {
     let mut configuration = Configuration::new();
     configuration.base_path = format!("http://{address}");
     configuration.user_agent = None;
-    configuration.bearer_access_token = Some("oa06-synthetic-token".to_string());
+    configuration.bearer_access_token = Some("oa06-synthetic-token".into());
     let client = reqwest::Client::builder()
         .connect_timeout(Duration::from_secs(2))
         .timeout(Duration::from_secs(6))

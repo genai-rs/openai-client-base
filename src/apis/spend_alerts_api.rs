@@ -117,6 +117,7 @@ pub enum UpdateProjectSpendAlertError {
 pub async fn create_organization_spend_alert(
     configuration: &configuration::Configuration,
     create_spend_alert_body: &models::CreateSpendAlertBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OrganizationSpendAlert, Error<CreateOrganizationSpendAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_spend_alert_body = create_spend_alert_body;
@@ -131,10 +132,15 @@ pub async fn create_organization_spend_alert(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_spend_alert_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -185,6 +191,7 @@ pub async fn create_project_spend_alert(
     configuration: &configuration::Configuration,
     project_id: &str,
     create_spend_alert_body: &models::CreateSpendAlertBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectSpendAlert, Error<CreateProjectSpendAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -204,10 +211,15 @@ pub async fn create_project_spend_alert(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_spend_alert_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -260,6 +272,7 @@ pub async fn create_project_spend_alert(
 pub async fn delete_organization_spend_alert(
     configuration: &configuration::Configuration,
     alert_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OrganizationSpendAlertDeletedResource, Error<DeleteOrganizationSpendAlertError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -279,9 +292,14 @@ pub async fn delete_organization_spend_alert(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -332,6 +350,7 @@ pub async fn delete_project_spend_alert(
     configuration: &configuration::Configuration,
     project_id: &str,
     alert_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectSpendAlertDeletedResource, Error<DeleteProjectSpendAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -352,9 +371,14 @@ pub async fn delete_project_spend_alert(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -410,6 +434,7 @@ pub async fn list_organization_spend_alerts(
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OrganizationSpendAlertListResource, Error<ListOrganizationSpendAlertsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -439,9 +464,14 @@ pub async fn list_organization_spend_alerts(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -498,6 +528,7 @@ pub async fn list_project_spend_alerts(
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectSpendAlertListResource, Error<ListProjectSpendAlertsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -532,9 +563,14 @@ pub async fn list_project_spend_alerts(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -587,6 +623,7 @@ pub async fn list_project_spend_alerts(
 pub async fn retrieve_organization_spend_alert(
     configuration: &configuration::Configuration,
     alert_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OrganizationSpendAlert, Error<RetrieveOrganizationSpendAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_alert_id = alert_id;
@@ -605,9 +642,14 @@ pub async fn retrieve_organization_spend_alert(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -658,6 +700,7 @@ pub async fn retrieve_project_spend_alert(
     configuration: &configuration::Configuration,
     project_id: &str,
     alert_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectSpendAlert, Error<RetrieveProjectSpendAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -678,9 +721,14 @@ pub async fn retrieve_project_spend_alert(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -734,6 +782,7 @@ pub async fn update_organization_spend_alert(
     configuration: &configuration::Configuration,
     alert_id: &str,
     create_spend_alert_body: &models::CreateSpendAlertBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OrganizationSpendAlert, Error<UpdateOrganizationSpendAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_alert_id = alert_id;
@@ -753,10 +802,15 @@ pub async fn update_organization_spend_alert(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_spend_alert_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -811,6 +865,7 @@ pub async fn update_project_spend_alert(
     project_id: &str,
     alert_id: &str,
     create_spend_alert_body: &models::CreateSpendAlertBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectSpendAlert, Error<UpdateProjectSpendAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -832,10 +887,15 @@ pub async fn update_project_spend_alert(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_spend_alert_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

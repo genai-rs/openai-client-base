@@ -15,6 +15,7 @@ use crate::{apis::ResponseContent, models};
 use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`addanexternalkeyconfigforanorganization`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -22,6 +23,7 @@ pub enum AddanexternalkeyconfigforanorganizationError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`admin_api_keys_create`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -32,6 +34,7 @@ pub enum AdminApiKeysCreateError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`admin_api_keys_delete`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -41,6 +44,7 @@ pub enum AdminApiKeysDeleteError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`admin_api_keys_get`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -50,6 +54,7 @@ pub enum AdminApiKeysGetError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`admin_api_keys_list`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -59,6 +64,7 @@ pub enum AdminApiKeysListError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "chatkit")]
 /// struct for typed errors of method [`cancel_chat_session_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -69,6 +75,7 @@ pub enum CancelChatSessionMethodError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "chatkit")]
 /// struct for typed errors of method [`create_chat_session_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -79,6 +86,7 @@ pub enum CreateChatSessionMethodError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`create_container`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -88,6 +96,7 @@ pub enum CreateContainerError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`create_container_file`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -98,6 +107,7 @@ pub enum CreateContainerFileError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`create_platformworkloadidentityfederationrule`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -105,6 +115,7 @@ pub enum CreatePlatformworkloadidentityfederationruleError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`create_platformworkloadidentityprovider`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -112,6 +123,7 @@ pub enum CreatePlatformworkloadidentityproviderError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "webhook")]
 /// struct for typed errors of method [`create_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -120,6 +132,7 @@ pub enum CreateWebhookEndpointError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`createan_ap_ikeyforaserviceaccount`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -131,6 +144,7 @@ pub enum CreateanApIkeyforaserviceaccountError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`createanexternalstorageconfiguration`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -142,6 +156,7 @@ pub enum CreateanexternalstorageconfigurationError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "content-provenance-checks")]
 /// struct for typed errors of method [`createcontentprovenancecheck`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -154,6 +169,7 @@ pub enum CreatecontentprovenancecheckError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`delete_container`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -163,6 +179,7 @@ pub enum DeleteContainerError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`delete_container_file`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -172,6 +189,7 @@ pub enum DeleteContainerFileError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`delete_platformworkloadidentityfederationrule`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -179,6 +197,7 @@ pub enum DeletePlatformworkloadidentityfederationruleError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`delete_platformworkloadidentityprovider`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -186,6 +205,7 @@ pub enum DeletePlatformworkloadidentityproviderError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "chatkit")]
 /// struct for typed errors of method [`delete_thread_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -196,6 +216,7 @@ pub enum DeleteThreadMethodError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "webhook")]
 /// struct for typed errors of method [`delete_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -205,6 +226,7 @@ pub enum DeleteWebhookEndpointError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`deleteanexternalkeyconfigfortheuser_quote_sorganization`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -212,6 +234,7 @@ pub enum DeleteanexternalkeyconfigfortheuserQuoteSorganizationError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`deleteanexternalstorageconfiguration`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -222,6 +245,7 @@ pub enum DeleteanexternalstorageconfigurationError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`deleteorganizationspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -231,6 +255,7 @@ pub enum DeleteorganizationspendlimitError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`deleteprojectspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -241,6 +266,7 @@ pub enum DeleteprojectspendlimitError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "chatkit")]
 /// struct for typed errors of method [`get_thread_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -251,6 +277,7 @@ pub enum GetThreadMethodError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`getanexternalstorageconfiguration`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -261,6 +288,7 @@ pub enum GetanexternalstorageconfigurationError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`getorganizationspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -270,6 +298,7 @@ pub enum GetorganizationspendlimitError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "safety")]
 /// struct for typed errors of method [`getprojectsafetyalert`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -281,6 +310,7 @@ pub enum GetprojectsafetyalertError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`getprojectspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -291,6 +321,7 @@ pub enum GetprojectspendlimitError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "safety")]
 /// struct for typed errors of method [`getsafetycase`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -303,6 +334,7 @@ pub enum GetsafetycaseError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`list_container_files`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -312,6 +344,7 @@ pub enum ListContainerFilesError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`list_containers`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -321,6 +354,7 @@ pub enum ListContainersError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`list_platformworkloadidentityfederationrules`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -328,6 +362,7 @@ pub enum ListPlatformworkloadidentityfederationrulesError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`list_platformworkloadidentityproviders`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -335,6 +370,7 @@ pub enum ListPlatformworkloadidentityprovidersError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "chatkit")]
 /// struct for typed errors of method [`list_thread_items_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -345,6 +381,7 @@ pub enum ListThreadItemsMethodError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "chatkit")]
 /// struct for typed errors of method [`list_threads_method`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -355,6 +392,7 @@ pub enum ListThreadsMethodError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "webhook")]
 /// struct for typed errors of method [`list_webhook_endpoints`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -364,6 +402,7 @@ pub enum ListWebhookEndpointsError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "webhook")]
 /// struct for typed errors of method [`list_webhook_event_types`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -372,6 +411,7 @@ pub enum ListWebhookEventTypesError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`listexternalstorageconfigurations`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -382,6 +422,7 @@ pub enum ListexternalstorageconfigurationsError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`listtheexternalkeyconfigsregisteredontheuser_quote_sorganization`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -389,6 +430,7 @@ pub enum ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`organization_decisionsusage`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -399,6 +441,7 @@ pub enum OrganizationDecisionsusageError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`retrieve_container`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -408,6 +451,7 @@ pub enum RetrieveContainerError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`retrieve_container_file`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -417,6 +461,7 @@ pub enum RetrieveContainerFileError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "container")]
 /// struct for typed errors of method [`retrieve_container_file_content`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -426,6 +471,7 @@ pub enum RetrieveContainerFileContentError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`retrieve_platformworkloadidentityfederationrule`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -433,6 +479,7 @@ pub enum RetrievePlatformworkloadidentityfederationruleError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`retrieve_platformworkloadidentityprovider`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -440,6 +487,7 @@ pub enum RetrievePlatformworkloadidentityproviderError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "webhook")]
 /// struct for typed errors of method [`retrieve_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -449,6 +497,7 @@ pub enum RetrieveWebhookEndpointError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`retrieveanexternalkeyregistration`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -456,6 +505,7 @@ pub enum RetrieveanexternalkeyregistrationError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`retrieveprojectservicetiersettings`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -463,6 +513,7 @@ pub enum RetrieveprojectservicetiersettingsError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "webhook")]
 /// struct for typed errors of method [`rotate_webhook_endpoint_signing_secret`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -472,6 +523,7 @@ pub enum RotateWebhookEndpointSigningSecretError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "webhook")]
 /// struct for typed errors of method [`test_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -482,6 +534,7 @@ pub enum TestWebhookEndpointError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`update_platformworkloadidentityfederationrule`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -489,6 +542,7 @@ pub enum UpdatePlatformworkloadidentityfederationruleError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`update_platformworkloadidentityprovider`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -496,6 +550,7 @@ pub enum UpdatePlatformworkloadidentityproviderError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "webhook")]
 /// struct for typed errors of method [`update_webhook_endpoint`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -505,6 +560,7 @@ pub enum UpdateWebhookEndpointError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`updateorganizationspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -514,6 +570,7 @@ pub enum UpdateorganizationspendlimitError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`updateprojectservicetiersettings`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -521,6 +578,7 @@ pub enum UpdateprojectservicetiersettingsError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`updateprojectspendlimit`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -531,6 +589,7 @@ pub enum UpdateprojectspendlimitError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`validateanexternalkeyconfigfortheuser_quote_sorganization`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -538,6 +597,7 @@ pub enum ValidateanexternalkeyconfigfortheuserQuoteSorganizationError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// struct for typed errors of method [`validateanexternalstorageconfiguration`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -549,11 +609,13 @@ pub enum ValidateanexternalstorageconfigurationError {
     UnknownValue(serde_json::Value),
 }
 
+#[cfg(feature = "administration")]
 /// Add an external key config for an organization
 #[bon::builder]
 pub async fn addanexternalkeyconfigforanorganization(
     configuration: &configuration::Configuration,
     v1_organization_external_keys_post_request: &models::V1OrganizationExternalKeysPostRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ExternalKeyResource, Error<AddanexternalkeyconfigforanorganizationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_v1_organization_external_keys_post_request =
@@ -569,10 +631,15 @@ pub async fn addanexternalkeyconfigforanorganization(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_v1_organization_external_keys_post_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -607,11 +674,13 @@ pub async fn addanexternalkeyconfigforanorganization(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Create an organization admin API key
 #[bon::builder]
 pub async fn admin_api_keys_create(
     configuration: &configuration::Configuration,
     admin_api_keys_create_request: &models::AdminApiKeysCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AdminApiKeyCreateResponse, Error<AdminApiKeysCreateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_admin_api_keys_create_request = admin_api_keys_create_request;
@@ -626,10 +695,15 @@ pub async fn admin_api_keys_create(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_admin_api_keys_create_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -677,11 +751,13 @@ pub async fn admin_api_keys_create(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Delete an organization admin API key
 #[bon::builder]
 pub async fn admin_api_keys_delete(
     configuration: &configuration::Configuration,
     key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AdminApiKeysDelete200Response, Error<AdminApiKeysDeleteError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_key_id = key_id;
@@ -700,9 +776,14 @@ pub async fn admin_api_keys_delete(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -747,11 +828,13 @@ pub async fn admin_api_keys_delete(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Retrieve a single organization API key
 #[bon::builder]
 pub async fn admin_api_keys_get(
     configuration: &configuration::Configuration,
     key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AdminApiKey, Error<AdminApiKeysGetError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_key_id = key_id;
@@ -770,9 +853,14 @@ pub async fn admin_api_keys_get(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -817,6 +905,7 @@ pub async fn admin_api_keys_get(
     }
 }
 
+#[cfg(feature = "administration")]
 /// List organization API keys
 #[bon::builder]
 pub async fn admin_api_keys_list(
@@ -824,6 +913,7 @@ pub async fn admin_api_keys_list(
     after: Option<&str>,
     order: Option<&str>,
     limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ApiKeyList, Error<AdminApiKeysListError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_after = after;
@@ -849,9 +939,14 @@ pub async fn admin_api_keys_list(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -896,11 +991,13 @@ pub async fn admin_api_keys_list(
     }
 }
 
+#[cfg(feature = "chatkit")]
 /// Cancel an active ChatKit session and return its most recent metadata.  Cancelling prevents new requests from using the issued client secret.
 #[bon::builder]
 pub async fn cancel_chat_session_method(
     configuration: &configuration::Configuration,
     session_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ChatSessionResource, Error<CancelChatSessionMethodError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -919,9 +1016,14 @@ pub async fn cancel_chat_session_method(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -969,11 +1071,13 @@ pub async fn cancel_chat_session_method(
     }
 }
 
+#[cfg(feature = "chatkit")]
 /// Create a ChatKit session.
 #[bon::builder]
 pub async fn create_chat_session_method(
     configuration: &configuration::Configuration,
     create_chat_session_body: Option<&models::CreateChatSessionBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ChatSessionResource, Error<CreateChatSessionMethodError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_chat_session_body = create_chat_session_body;
@@ -988,10 +1092,15 @@ pub async fn create_chat_session_method(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_chat_session_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1039,11 +1148,13 @@ pub async fn create_chat_session_method(
     }
 }
 
+#[cfg(feature = "container")]
 /// Create Container
 #[bon::builder]
 pub async fn create_container(
     configuration: &configuration::Configuration,
     create_container_body: Option<&models::CreateContainerBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ContainerResource, Error<CreateContainerError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_container_body = create_container_body;
@@ -1058,10 +1169,15 @@ pub async fn create_container(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_container_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1106,12 +1222,14 @@ pub async fn create_container(
     }
 }
 
+#[cfg(feature = "container")]
 /// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
 #[bon::builder]
 pub async fn create_container_file(
     configuration: &configuration::Configuration,
     container_id: &str,
     create_container_file_body: &models::CreateContainerFileBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ContainerFileResource, Error<CreateContainerFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_container_id = container_id;
@@ -1131,10 +1249,15 @@ pub async fn create_container_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_container_file_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1182,6 +1305,7 @@ pub async fn create_container_file(
     }
 }
 
+#[cfg(feature = "container")]
 /// Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID.
 ///
 /// Sends the request body as `multipart/form-data`; `create_container_file` sends it as `application/json`.
@@ -1191,6 +1315,7 @@ pub async fn create_container_file_multipart(
     container_id: &str,
     file_id: Option<&str>,
     file: Option<std::path::PathBuf>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ContainerFileResource, Error<CreateContainerFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_container_id = container_id;
@@ -1211,7 +1336,8 @@ pub async fn create_container_file_multipart(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     if let Some(param_value) = p_form_file_id {
@@ -1223,6 +1349,10 @@ pub async fn create_container_file_multipart(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1270,6 +1400,7 @@ pub async fn create_container_file_multipart(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Bind verified token attributes to an existing project service account.
 #[bon::builder]
 pub async fn create_platformworkloadidentityfederationrule(
@@ -1278,6 +1409,7 @@ pub async fn create_platformworkloadidentityfederationrule(
     create_platform_workload_identity_federation_rule_body: Option<
         &models::CreatePlatformWorkloadIdentityFederationRuleBody,
     >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PlatformFederationRule, Error<CreatePlatformworkloadidentityfederationruleError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1295,10 +1427,15 @@ pub async fn create_platformworkloadidentityfederationrule(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_platform_workload_identity_federation_rule_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1333,6 +1470,7 @@ pub async fn create_platformworkloadidentityfederationrule(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Register an OIDC provider for keyless project service-account authentication.
 #[bon::builder]
 pub async fn create_platformworkloadidentityprovider(
@@ -1340,6 +1478,7 @@ pub async fn create_platformworkloadidentityprovider(
     create_platform_workload_identity_provider_body: Option<
         &models::CreatePlatformWorkloadIdentityProviderBody,
     >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PlatformProvider, Error<CreatePlatformworkloadidentityproviderError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_platform_workload_identity_provider_body =
@@ -1358,10 +1497,15 @@ pub async fn create_platformworkloadidentityprovider(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_platform_workload_identity_provider_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1396,11 +1540,13 @@ pub async fn create_platformworkloadidentityprovider(
     }
 }
 
+#[cfg(feature = "webhook")]
 /// Creates a webhook endpoint for the authenticated project.
 #[bon::builder]
 pub async fn create_webhook_endpoint(
     configuration: &configuration::Configuration,
     public_create_endpoint_body: Option<&models::PublicCreateEndpointBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::WebhookEndpointWithSecretResource, Error<CreateWebhookEndpointError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_public_create_endpoint_body = public_create_endpoint_body;
@@ -1415,10 +1561,15 @@ pub async fn create_webhook_endpoint(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_public_create_endpoint_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1460,6 +1611,7 @@ pub async fn create_webhook_endpoint(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Creates an API key for a service account in the project.
 #[bon::builder]
 pub async fn createan_ap_ikeyforaserviceaccount(
@@ -1469,6 +1621,7 @@ pub async fn createan_ap_ikeyforaserviceaccount(
     create_project_service_account_api_key_body: Option<
         &models::CreateProjectServiceAccountApiKeyBody,
     >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ServiceAccountApiKeyBody, Error<CreateanApIkeyforaserviceaccountError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -1491,10 +1644,15 @@ pub async fn createan_ap_ikeyforaserviceaccount(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_project_service_account_api_key_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1545,11 +1703,13 @@ pub async fn createan_ap_ikeyforaserviceaccount(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Register one customer-managed external storage configuration.
 #[bon::builder]
 pub async fn createanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
     create_external_storage_body: &models::CreateExternalStorageBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ExternalStorageResponse, Error<CreateanexternalstorageconfigurationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_external_storage_body = create_external_storage_body;
@@ -1564,10 +1724,15 @@ pub async fn createanexternalstorageconfiguration(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_external_storage_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1618,11 +1783,13 @@ pub async fn createanexternalstorageconfiguration(
     }
 }
 
+#[cfg(feature = "content-provenance-checks")]
 /// Check whether an image or audio file contains known OpenAI provenance signals. [Learn more about content provenance](https://developers.openai.com/api/docs/guides/content-provenance).  If `not_detected`, it means the tool did not find supported signals in the uploaded file. The content could still have been generated by OpenAI if the metadata was stripped or has evidence of tampering, the watermark was degraded, it comes from a legacy generation model, or it was created before provenance signals were available. Content could also still be AI-generated by another company's model, which the tool currently does not detect.
 #[bon::builder]
 pub async fn createcontentprovenancecheck(
     configuration: &configuration::Configuration,
     file: std::path::PathBuf,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProvenanceResource, Error<CreatecontentprovenancecheckError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_file = file;
@@ -1637,13 +1804,18 @@ pub async fn createcontentprovenancecheck(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file")?;
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1697,11 +1869,13 @@ pub async fn createcontentprovenancecheck(
     }
 }
 
+#[cfg(feature = "container")]
 /// Delete Container
 #[bon::builder]
 pub async fn delete_container(
     configuration: &configuration::Configuration,
     container_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteContainer200Response, Error<DeleteContainerError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_container_id = container_id;
@@ -1720,9 +1894,14 @@ pub async fn delete_container(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1767,12 +1946,14 @@ pub async fn delete_container(
     }
 }
 
+#[cfg(feature = "container")]
 /// Delete Container File
 #[bon::builder]
 pub async fn delete_container_file(
     configuration: &configuration::Configuration,
     container_id: &str,
     file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteContainerFile200Response, Error<DeleteContainerFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_container_id = container_id;
@@ -1793,9 +1974,14 @@ pub async fn delete_container_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1840,12 +2026,14 @@ pub async fn delete_container_file(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Delete a federation rule to a project service account.
 #[bon::builder]
 pub async fn delete_platformworkloadidentityfederationrule(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
     workload_identity_federation_rule_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::PlatformFederationRuleDeletedResource,
     Error<DeletePlatformworkloadidentityfederationruleError>,
@@ -1864,9 +2052,14 @@ pub async fn delete_platformworkloadidentityfederationrule(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1901,11 +2094,13 @@ pub async fn delete_platformworkloadidentityfederationrule(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Delete a provider after deleting all its federation rules.
 #[bon::builder]
 pub async fn delete_platformworkloadidentityprovider(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::PlatformProviderDeletedResource,
     Error<DeletePlatformworkloadidentityproviderError>,
@@ -1928,9 +2123,14 @@ pub async fn delete_platformworkloadidentityprovider(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1965,11 +2165,13 @@ pub async fn delete_platformworkloadidentityprovider(
     }
 }
 
+#[cfg(feature = "chatkit")]
 /// Delete a ChatKit thread along with its items and stored attachments.
 #[bon::builder]
 pub async fn delete_thread_method(
     configuration: &configuration::Configuration,
     thread_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedThreadResource, Error<DeleteThreadMethodError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1988,9 +2190,14 @@ pub async fn delete_thread_method(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2038,11 +2245,13 @@ pub async fn delete_thread_method(
     }
 }
 
+#[cfg(feature = "webhook")]
 /// Deletes a webhook endpoint for the authenticated project.
 #[bon::builder]
 pub async fn delete_webhook_endpoint(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedWebhookEndpointResource, Error<DeleteWebhookEndpointError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_webhook_endpoint_id = webhook_endpoint_id;
@@ -2061,9 +2270,14 @@ pub async fn delete_webhook_endpoint(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2108,11 +2322,13 @@ pub async fn delete_webhook_endpoint(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Delete an external key config for the user's organization
 #[bon::builder]
 pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization(
     configuration: &configuration::Configuration,
     external_key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::ExternalKeyResource,
     Error<DeleteanexternalkeyconfigfortheuserQuoteSorganizationError>,
@@ -2134,9 +2350,14 @@ pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2171,11 +2392,13 @@ pub async fn deleteanexternalkeyconfigfortheuser_quote_sorganization(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Disconnect a customer-managed external storage configuration. Removing the project's last configuration restores organization-default retention if customer-managed retention was active. Repeating a deletion also completes any interrupted retention update. Cloud storage is unchanged.
 #[bon::builder]
 pub async fn deleteanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
     external_storage_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ExternalStorageDeletedResource, Error<DeleteanexternalstorageconfigurationError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -2195,9 +2418,14 @@ pub async fn deleteanexternalstorageconfiguration(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2245,10 +2473,12 @@ pub async fn deleteanexternalstorageconfiguration(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Delete the organization's hard spend limit.
 #[bon::builder]
 pub async fn deleteorganizationspendlimit(
     configuration: &configuration::Configuration,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OrganizationSpendLimitDeletedResource, Error<DeleteorganizationspendlimitError>>
 {
     let uri_str = format!("{}/organization/spend_limit", configuration.base_path);
@@ -2261,9 +2491,14 @@ pub async fn deleteorganizationspendlimit(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2308,11 +2543,13 @@ pub async fn deleteorganizationspendlimit(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Delete a project's hard spend limit.
 #[bon::builder]
 pub async fn deleteprojectspendlimit(
     configuration: &configuration::Configuration,
     project_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectSpendLimitDeletedResource, Error<DeleteprojectspendlimitError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -2331,9 +2568,14 @@ pub async fn deleteprojectspendlimit(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2381,11 +2623,13 @@ pub async fn deleteprojectspendlimit(
     }
 }
 
+#[cfg(feature = "chatkit")]
 /// Retrieve a ChatKit thread by its identifier.
 #[bon::builder]
 pub async fn get_thread_method(
     configuration: &configuration::Configuration,
     thread_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ThreadResource, Error<GetThreadMethodError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -2404,9 +2648,14 @@ pub async fn get_thread_method(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2454,11 +2703,13 @@ pub async fn get_thread_method(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Get one customer-managed external storage configuration.
 #[bon::builder]
 pub async fn getanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
     external_storage_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ExternalStorageResponse, Error<GetanexternalstorageconfigurationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_external_storage_id = external_storage_id;
@@ -2477,9 +2728,14 @@ pub async fn getanexternalstorageconfiguration(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2527,10 +2783,12 @@ pub async fn getanexternalstorageconfiguration(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Get the organization's hard spend limit.
 #[bon::builder]
 pub async fn getorganizationspendlimit(
     configuration: &configuration::Configuration,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OrganizationSpendLimitResource, Error<GetorganizationspendlimitError>> {
     let uri_str = format!("{}/organization/spend_limit", configuration.base_path);
     let mut req_builder = configuration
@@ -2542,9 +2800,14 @@ pub async fn getorganizationspendlimit(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2589,11 +2852,13 @@ pub async fn getorganizationspendlimit(
     }
 }
 
+#[cfg(feature = "safety")]
 /// Get a safety alert belonging to the authenticated API project.
 #[bon::builder]
 pub async fn getprojectsafetyalert(
     configuration: &configuration::Configuration,
     id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SafetyAlertResource, Error<GetprojectsafetyalertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
@@ -2612,9 +2877,14 @@ pub async fn getprojectsafetyalert(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2665,11 +2935,13 @@ pub async fn getprojectsafetyalert(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Get a project's hard spend limit.
 #[bon::builder]
 pub async fn getprojectspendlimit(
     configuration: &configuration::Configuration,
     project_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectSpendLimitResource, Error<GetprojectspendlimitError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -2688,9 +2960,14 @@ pub async fn getprojectspendlimit(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2738,11 +3015,13 @@ pub async fn getprojectspendlimit(
     }
 }
 
+#[cfg(feature = "safety")]
 /// Get a safety case by ID.
 #[bon::builder]
 pub async fn getsafetycase(
     configuration: &configuration::Configuration,
     id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SafetyCaseResource, Error<GetsafetycaseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
@@ -2761,9 +3040,14 @@ pub async fn getsafetycase(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2817,6 +3101,7 @@ pub async fn getsafetycase(
     }
 }
 
+#[cfg(feature = "container")]
 /// List Container files
 #[bon::builder]
 pub async fn list_container_files(
@@ -2825,6 +3110,7 @@ pub async fn list_container_files(
     limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ContainerFileListResource, Error<ListContainerFilesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_container_id = container_id;
@@ -2855,9 +3141,14 @@ pub async fn list_container_files(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2902,6 +3193,7 @@ pub async fn list_container_files(
     }
 }
 
+#[cfg(feature = "container")]
 /// List Containers
 #[bon::builder]
 pub async fn list_containers(
@@ -2910,6 +3202,7 @@ pub async fn list_containers(
     order: Option<&str>,
     after: Option<&str>,
     name: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ContainerListResource, Error<ListContainersError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -2939,9 +3232,14 @@ pub async fn list_containers(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2986,6 +3284,7 @@ pub async fn list_containers(
     }
 }
 
+#[cfg(feature = "administration")]
 /// List the provider's federation rules to project service accounts.
 #[bon::builder]
 pub async fn list_platformworkloadidentityfederationrules(
@@ -2995,6 +3294,7 @@ pub async fn list_platformworkloadidentityfederationrules(
     order: Option<models::ListPlatformworkloadidentityfederationrulesOrderParameter>,
     after: Option<&str>,
     service_account_id: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::PlatformFederationRuleListResource,
     Error<ListPlatformworkloadidentityfederationrulesError>,
@@ -3029,9 +3329,14 @@ pub async fn list_platformworkloadidentityfederationrules(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3066,6 +3371,7 @@ pub async fn list_platformworkloadidentityfederationrules(
     }
 }
 
+#[cfg(feature = "administration")]
 /// List OIDC providers in the authenticated Admin API key's organization.
 #[bon::builder]
 pub async fn list_platformworkloadidentityproviders(
@@ -3073,6 +3379,7 @@ pub async fn list_platformworkloadidentityproviders(
     limit: Option<i64>,
     order: Option<models::ListPlatformworkloadidentityprovidersOrderParameter>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PlatformProviderListResource, Error<ListPlatformworkloadidentityprovidersError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -3103,9 +3410,14 @@ pub async fn list_platformworkloadidentityproviders(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3140,6 +3452,7 @@ pub async fn list_platformworkloadidentityproviders(
     }
 }
 
+#[cfg(feature = "chatkit")]
 /// List items that belong to a ChatKit thread.
 #[bon::builder]
 pub async fn list_thread_items_method(
@@ -3149,6 +3462,7 @@ pub async fn list_thread_items_method(
     order: Option<models::OrderEnum>,
     after: Option<&str>,
     before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ThreadItemListResource, Error<ListThreadItemsMethodError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -3183,9 +3497,14 @@ pub async fn list_thread_items_method(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3233,6 +3552,7 @@ pub async fn list_thread_items_method(
     }
 }
 
+#[cfg(feature = "chatkit")]
 /// List ChatKit threads with optional pagination and user filters.
 #[bon::builder]
 pub async fn list_threads_method(
@@ -3242,6 +3562,7 @@ pub async fn list_threads_method(
     after: Option<&str>,
     before: Option<&str>,
     user: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ThreadListResource, Error<ListThreadsMethodError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -3275,9 +3596,14 @@ pub async fn list_threads_method(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3325,12 +3651,14 @@ pub async fn list_threads_method(
     }
 }
 
+#[cfg(feature = "webhook")]
 /// Returns webhook endpoints for the authenticated project in newest-first order.
 #[bon::builder]
 pub async fn list_webhook_endpoints(
     configuration: &configuration::Configuration,
     limit: Option<i64>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::WebhookEndpointListResource, Error<ListWebhookEndpointsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -3352,9 +3680,14 @@ pub async fn list_webhook_endpoints(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3399,10 +3732,12 @@ pub async fn list_webhook_endpoints(
     }
 }
 
+#[cfg(feature = "webhook")]
 /// Returns webhook event types visible to the authenticated project.
 #[bon::builder]
 pub async fn list_webhook_event_types(
     configuration: &configuration::Configuration,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::WebhookEventTypeListResource, Error<ListWebhookEventTypesError>> {
     let uri_str = format!("{}/webhook_event_types", configuration.base_path);
     let mut req_builder = configuration
@@ -3414,9 +3749,14 @@ pub async fn list_webhook_event_types(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3458,6 +3798,7 @@ pub async fn list_webhook_event_types(
     }
 }
 
+#[cfg(feature = "administration")]
 /// List the organization's customer-managed external storage configurations.
 #[bon::builder]
 pub async fn listexternalstorageconfigurations(
@@ -3466,6 +3807,7 @@ pub async fn listexternalstorageconfigurations(
     after: Option<&str>,
     order: Option<models::ExternalStorageOrder>,
     limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ExternalStorageListResource, Error<ListexternalstorageconfigurationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_project_id = project_id;
@@ -3495,9 +3837,14 @@ pub async fn listexternalstorageconfigurations(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3545,6 +3892,7 @@ pub async fn listexternalstorageconfigurations(
     }
 }
 
+#[cfg(feature = "administration")]
 /// List the external key configs registered on the user's organization
 #[bon::builder]
 pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(
@@ -3553,6 +3901,7 @@ pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(
     order: Option<models::OrderEnum>,
     after: Option<&str>,
     purpose: Option<models::ExternalKeyPurpose>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::ListExternalKeysResource,
     Error<ListtheexternalkeyconfigsregisteredontheuserQuoteSorganizationError>,
@@ -3585,9 +3934,14 @@ pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3622,6 +3976,7 @@ pub async fn listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Get Decisions API usage details for the organization.
 #[bon::builder]
 pub async fn organization_decisionsusage(
@@ -3637,6 +3992,7 @@ pub async fn organization_decisionsusage(
     api_key_ids: Option<Vec<String>>,
     models: Option<Vec<String>>,
     batch: Option<bool>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PublicDecisionsUsageResponseResource, Error<OrganizationDecisionsusageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_start_time = start_time;
@@ -3707,9 +4063,14 @@ pub async fn organization_decisionsusage(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3757,11 +4118,13 @@ pub async fn organization_decisionsusage(
     }
 }
 
+#[cfg(feature = "container")]
 /// Retrieve Container
 #[bon::builder]
 pub async fn retrieve_container(
     configuration: &configuration::Configuration,
     container_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ContainerResource, Error<RetrieveContainerError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_container_id = container_id;
@@ -3780,9 +4143,14 @@ pub async fn retrieve_container(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3827,12 +4195,14 @@ pub async fn retrieve_container(
     }
 }
 
+#[cfg(feature = "container")]
 /// Retrieve Container File
 #[bon::builder]
 pub async fn retrieve_container_file(
     configuration: &configuration::Configuration,
     container_id: &str,
     file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ContainerFileResource, Error<RetrieveContainerFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_container_id = container_id;
@@ -3853,9 +4223,14 @@ pub async fn retrieve_container_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3900,12 +4275,14 @@ pub async fn retrieve_container_file(
     }
 }
 
+#[cfg(feature = "container")]
 /// Retrieve Container File Content
 #[bon::builder]
 pub async fn retrieve_container_file_content(
     configuration: &configuration::Configuration,
     container_id: &str,
     file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<timvw_rust_runtime::Response, Error<RetrieveContainerFileContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_container_id = container_id;
@@ -3926,9 +4303,14 @@ pub async fn retrieve_container_file_content(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3962,12 +4344,14 @@ pub async fn retrieve_container_file_content(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Retrieve a federation rule owned by the authenticated organization and provider.
 #[bon::builder]
 pub async fn retrieve_platformworkloadidentityfederationrule(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
     workload_identity_federation_rule_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::PlatformFederationRule,
     Error<RetrievePlatformworkloadidentityfederationruleError>,
@@ -3986,9 +4370,14 @@ pub async fn retrieve_platformworkloadidentityfederationrule(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4023,11 +4412,13 @@ pub async fn retrieve_platformworkloadidentityfederationrule(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Retrieve an OIDC provider in the authenticated organization.
 #[bon::builder]
 pub async fn retrieve_platformworkloadidentityprovider(
     configuration: &configuration::Configuration,
     workload_identity_provider_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PlatformProvider, Error<RetrievePlatformworkloadidentityproviderError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_workload_identity_provider_id = workload_identity_provider_id;
@@ -4047,9 +4438,14 @@ pub async fn retrieve_platformworkloadidentityprovider(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4084,11 +4480,13 @@ pub async fn retrieve_platformworkloadidentityprovider(
     }
 }
 
+#[cfg(feature = "webhook")]
 /// Retrieves a webhook endpoint for the authenticated project.
 #[bon::builder]
 pub async fn retrieve_webhook_endpoint(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::WebhookEndpointBody, Error<RetrieveWebhookEndpointError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_webhook_endpoint_id = webhook_endpoint_id;
@@ -4107,9 +4505,14 @@ pub async fn retrieve_webhook_endpoint(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4154,11 +4557,13 @@ pub async fn retrieve_webhook_endpoint(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Retrieve a stored external key registration for the user's organization.
 #[bon::builder]
 pub async fn retrieveanexternalkeyregistration(
     configuration: &configuration::Configuration,
     external_key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ExternalKeyResource, Error<RetrieveanexternalkeyregistrationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_external_key_id = external_key_id;
@@ -4177,9 +4582,14 @@ pub async fn retrieveanexternalkeyregistration(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4213,11 +4623,13 @@ pub async fn retrieveanexternalkeyregistration(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Retrieve the configured default and enabled service tiers for a project.
 #[bon::builder]
 pub async fn retrieveprojectservicetiersettings(
     configuration: &configuration::Configuration,
     project_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::ProjectServiceTierSettingsResource,
     Error<RetrieveprojectservicetiersettingsError>,
@@ -4239,9 +4651,14 @@ pub async fn retrieveprojectservicetiersettings(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4276,12 +4693,14 @@ pub async fn retrieveprojectservicetiersettings(
     }
 }
 
+#[cfg(feature = "webhook")]
 /// Rotates the signing secret for a webhook endpoint in the authenticated project.
 #[bon::builder]
 pub async fn rotate_webhook_endpoint_signing_secret(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
     public_rotate_secret_body: Option<&models::PublicRotateSecretBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::WebhookEndpointWithSecretResource, Error<RotateWebhookEndpointSigningSecretError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -4302,10 +4721,15 @@ pub async fn rotate_webhook_endpoint_signing_secret(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_public_rotate_secret_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4350,12 +4774,14 @@ pub async fn rotate_webhook_endpoint_signing_secret(
     }
 }
 
+#[cfg(feature = "webhook")]
 /// Sends a sample event to a webhook endpoint for the authenticated project.
 #[bon::builder]
 pub async fn test_webhook_endpoint(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
     public_test_endpoint_body: Option<&models::PublicTestEndpointBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::WebhookEndpointTestResultResource, Error<TestWebhookEndpointError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_webhook_endpoint_id = webhook_endpoint_id;
@@ -4375,10 +4801,15 @@ pub async fn test_webhook_endpoint(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_public_test_endpoint_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4426,6 +4857,7 @@ pub async fn test_webhook_endpoint(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Update supplied matcher, permission, metadata, or enabled fields.
 #[bon::builder]
 pub async fn update_platformworkloadidentityfederationrule(
@@ -4435,6 +4867,7 @@ pub async fn update_platformworkloadidentityfederationrule(
     update_platform_workload_identity_federation_rule_body: Option<
         &models::UpdatePlatformWorkloadIdentityFederationRuleBody,
     >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PlatformFederationRule, Error<UpdatePlatformworkloadidentityfederationruleError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -4453,10 +4886,15 @@ pub async fn update_platformworkloadidentityfederationrule(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_update_platform_workload_identity_federation_rule_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4491,6 +4929,7 @@ pub async fn update_platformworkloadidentityfederationrule(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Update supplied provider fields, preserving omitted fields.
 #[bon::builder]
 pub async fn update_platformworkloadidentityprovider(
@@ -4499,6 +4938,7 @@ pub async fn update_platformworkloadidentityprovider(
     update_platform_workload_identity_provider_body: Option<
         &models::UpdatePlatformWorkloadIdentityProviderBody,
     >,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PlatformProvider, Error<UpdatePlatformworkloadidentityproviderError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_workload_identity_provider_id = workload_identity_provider_id;
@@ -4520,10 +4960,15 @@ pub async fn update_platformworkloadidentityprovider(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_update_platform_workload_identity_provider_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4558,12 +5003,14 @@ pub async fn update_platformworkloadidentityprovider(
     }
 }
 
+#[cfg(feature = "webhook")]
 /// Updates a webhook endpoint for the authenticated project.
 #[bon::builder]
 pub async fn update_webhook_endpoint(
     configuration: &configuration::Configuration,
     webhook_endpoint_id: &str,
     public_update_endpoint_body: Option<&models::PublicUpdateEndpointBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::WebhookEndpointBody, Error<UpdateWebhookEndpointError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_webhook_endpoint_id = webhook_endpoint_id;
@@ -4583,10 +5030,15 @@ pub async fn update_webhook_endpoint(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_public_update_endpoint_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4631,11 +5083,13 @@ pub async fn update_webhook_endpoint(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Create or replace the organization's hard spend limit.
 #[bon::builder]
 pub async fn updateorganizationspendlimit(
     configuration: &configuration::Configuration,
     update_organization_spend_limit_body: &models::UpdateOrganizationSpendLimitBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OrganizationSpendLimitResource, Error<UpdateorganizationspendlimitError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_update_organization_spend_limit_body = update_organization_spend_limit_body;
@@ -4650,10 +5104,15 @@ pub async fn updateorganizationspendlimit(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_organization_spend_limit_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4698,12 +5157,14 @@ pub async fn updateorganizationspendlimit(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Update the default or enabled service tiers atomically. Supply at least one field. Omitted fields keep their current values.
 #[bon::builder]
 pub async fn updateprojectservicetiersettings(
     configuration: &configuration::Configuration,
     project_id: &str,
     update_project_service_tier_settings_body: &models::UpdateProjectServiceTierSettingsBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectServiceTierSettingsResource, Error<UpdateprojectservicetiersettingsError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -4725,10 +5186,15 @@ pub async fn updateprojectservicetiersettings(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_project_service_tier_settings_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4762,12 +5228,14 @@ pub async fn updateprojectservicetiersettings(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Create or replace a project's hard spend limit.
 #[bon::builder]
 pub async fn updateprojectspendlimit(
     configuration: &configuration::Configuration,
     project_id: &str,
     update_project_spend_limit_body: &models::UpdateProjectSpendLimitBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ProjectSpendLimitResource, Error<UpdateprojectspendlimitError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_project_id = project_id;
@@ -4787,10 +5255,15 @@ pub async fn updateprojectspendlimit(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_project_spend_limit_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4838,11 +5311,13 @@ pub async fn updateprojectspendlimit(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Validate an external key config for the user's organization
 #[bon::builder]
 pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization(
     configuration: &configuration::Configuration,
     external_key_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::ValidateExternalKeyResource,
     Error<ValidateanexternalkeyconfigfortheuserQuoteSorganizationError>,
@@ -4864,9 +5339,14 @@ pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4901,11 +5381,13 @@ pub async fn validateanexternalkeyconfigfortheuser_quote_sorganization(
     }
 }
 
+#[cfg(feature = "administration")]
 /// Validate one customer-managed external storage configuration.
 #[bon::builder]
 pub async fn validateanexternalstorageconfiguration(
     configuration: &configuration::Configuration,
     external_storage_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ExternalStorageResponse, Error<ValidateanexternalstorageconfigurationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_external_storage_id = external_storage_id;
@@ -4924,9 +5406,14 @@ pub async fn validateanexternalstorageconfiguration(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4977,4 +5464,5 @@ pub async fn validateanexternalstorageconfiguration(
     }
 }
 
+#[cfg(feature = "open-ai-client-base-webhooks")]
 pub use super::open_ai_client_base_webhooks_api::*;

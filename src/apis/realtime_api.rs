@@ -99,6 +99,7 @@ pub async fn accept_realtime_call(
     configuration: &configuration::Configuration,
     call_id: &str,
     realtime_session_create_request_ga: &models::RealtimeSessionCreateRequestGa,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AcceptRealtimeCallError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_call_id = call_id;
@@ -118,10 +119,15 @@ pub async fn accept_realtime_call(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_realtime_session_create_request_ga);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -162,6 +168,7 @@ pub async fn create_realtime_call(
     configuration: &configuration::Configuration,
     sdp: &str,
     session: Option<models::RealtimeSessionCreateRequestGa>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<String, Error<CreateRealtimeCallError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_sdp = sdp;
@@ -177,7 +184,8 @@ pub async fn create_realtime_call(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     multipart_form = multipart_helper::add_schema_value_to_form(
@@ -196,6 +204,10 @@ pub async fn create_realtime_call(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -236,6 +248,7 @@ pub async fn create_realtime_call(
 pub async fn create_realtime_call_sdp(
     configuration: &configuration::Configuration,
     body: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<String, Error<CreateRealtimeCallError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_body = body;
@@ -250,12 +263,17 @@ pub async fn create_realtime_call_sdp(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder
         .header(timvw_rust_runtime::header::CONTENT_TYPE, "application/sdp")
         .body(p_body_body.to_owned());
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -294,6 +312,7 @@ pub async fn create_realtime_call_sdp(
 pub async fn create_realtime_client_secret(
     configuration: &configuration::Configuration,
     realtime_create_client_secret_request: &models::RealtimeCreateClientSecretRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RealtimeCreateClientSecretResponse, Error<CreateRealtimeClientSecretError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_realtime_create_client_secret_request = realtime_create_client_secret_request;
@@ -308,10 +327,15 @@ pub async fn create_realtime_client_secret(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_realtime_create_client_secret_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -364,6 +388,7 @@ pub async fn create_realtime_client_secret(
 pub async fn create_realtime_session(
     configuration: &configuration::Configuration,
     realtime_session_create_request: &models::RealtimeSessionCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RealtimeSessionCreateResponse, Error<CreateRealtimeSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_realtime_session_create_request = realtime_session_create_request;
@@ -378,10 +403,15 @@ pub async fn create_realtime_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_realtime_session_create_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -420,6 +450,7 @@ pub async fn create_realtime_session(
 pub async fn create_realtime_transcription_session(
     configuration: &configuration::Configuration,
     realtime_transcription_session_create_request: &models::RealtimeTranscriptionSessionCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::RealtimeTranscriptionSessionCreateResponse,
     Error<CreateRealtimeTranscriptionSessionError>,
@@ -441,10 +472,15 @@ pub async fn create_realtime_transcription_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_realtime_transcription_session_create_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -484,6 +520,7 @@ pub async fn create_realtime_transcription_session(
 pub async fn create_realtime_translation_client_secret(
     configuration: &configuration::Configuration,
     realtime_translation_client_secret_create_request: &models::RealtimeTranslationClientSecretCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::RealtimeTranslationClientSecretCreateResponse,
     Error<CreateRealtimeTranslationClientSecretError>,
@@ -505,10 +542,15 @@ pub async fn create_realtime_translation_client_secret(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_realtime_translation_client_secret_create_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -561,6 +603,7 @@ pub async fn create_realtime_translation_client_secret(
 pub async fn hangup_realtime_call(
     configuration: &configuration::Configuration,
     call_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<HangupRealtimeCallError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_call_id = call_id;
@@ -579,9 +622,14 @@ pub async fn hangup_realtime_call(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -618,6 +666,7 @@ pub async fn refer_realtime_call(
     configuration: &configuration::Configuration,
     call_id: &str,
     realtime_call_refer_request: &models::RealtimeCallReferRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<ReferRealtimeCallError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_call_id = call_id;
@@ -637,10 +686,15 @@ pub async fn refer_realtime_call(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_realtime_call_refer_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -678,6 +732,7 @@ pub async fn reject_realtime_call(
     configuration: &configuration::Configuration,
     call_id: &str,
     realtime_call_reject_request: Option<&models::RealtimeCallRejectRequest>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<RejectRealtimeCallError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_call_id = call_id;
@@ -697,10 +752,15 @@ pub async fn reject_realtime_call(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_realtime_call_reject_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

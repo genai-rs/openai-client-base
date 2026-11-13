@@ -237,6 +237,7 @@ pub enum SafetyWarningIssuedPostError {
 pub async fn agent_environment_expired_post(
     configuration: &configuration::Configuration,
     webhook_agent_environment_expired: Option<&models::WebhookAgentEnvironmentExpired>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AgentEnvironmentExpiredPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_environment_expired = webhook_agent_environment_expired;
@@ -251,10 +252,15 @@ pub async fn agent_environment_expired_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_agent_environment_expired);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -282,6 +288,7 @@ pub async fn agent_environment_expired_post(
 pub async fn agent_environment_failed_post(
     configuration: &configuration::Configuration,
     webhook_agent_environment_failed: Option<&models::WebhookAgentEnvironmentFailed>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AgentEnvironmentFailedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_environment_failed = webhook_agent_environment_failed;
@@ -296,10 +303,15 @@ pub async fn agent_environment_failed_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_agent_environment_failed);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -327,6 +339,7 @@ pub async fn agent_environment_failed_post(
 pub async fn agent_environment_ready_post(
     configuration: &configuration::Configuration,
     webhook_agent_environment_ready: Option<&models::WebhookAgentEnvironmentReady>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AgentEnvironmentReadyPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_environment_ready = webhook_agent_environment_ready;
@@ -341,10 +354,15 @@ pub async fn agent_environment_ready_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_agent_environment_ready);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -372,6 +390,7 @@ pub async fn agent_environment_ready_post(
 pub async fn agent_environment_suspended_post(
     configuration: &configuration::Configuration,
     webhook_agent_environment_suspended: Option<&models::WebhookAgentEnvironmentSuspended>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AgentEnvironmentSuspendedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_environment_suspended = webhook_agent_environment_suspended;
@@ -386,10 +405,15 @@ pub async fn agent_environment_suspended_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_agent_environment_suspended);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -417,6 +441,7 @@ pub async fn agent_environment_suspended_post(
 pub async fn agent_session_action_required_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_action_required: Option<&models::WebhookAgentSessionActionRequired>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AgentSessionActionRequiredPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_action_required = webhook_agent_session_action_required;
@@ -431,10 +456,15 @@ pub async fn agent_session_action_required_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_agent_session_action_required);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -462,6 +492,7 @@ pub async fn agent_session_action_required_post(
 pub async fn agent_session_created_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_created: Option<&models::WebhookAgentSessionCreated>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AgentSessionCreatedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_created = webhook_agent_session_created;
@@ -476,10 +507,15 @@ pub async fn agent_session_created_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_agent_session_created);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -507,6 +543,7 @@ pub async fn agent_session_created_post(
 pub async fn agent_session_failed_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_failed: Option<&models::WebhookAgentSessionFailed>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AgentSessionFailedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_failed = webhook_agent_session_failed;
@@ -521,10 +558,15 @@ pub async fn agent_session_failed_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_agent_session_failed);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -552,6 +594,7 @@ pub async fn agent_session_failed_post(
 pub async fn agent_session_idle_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_idle: Option<&models::WebhookAgentSessionIdle>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AgentSessionIdlePostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_idle = webhook_agent_session_idle;
@@ -566,10 +609,15 @@ pub async fn agent_session_idle_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_agent_session_idle);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -597,6 +645,7 @@ pub async fn agent_session_idle_post(
 pub async fn agent_session_in_progress_post(
     configuration: &configuration::Configuration,
     webhook_agent_session_in_progress: Option<&models::WebhookAgentSessionInProgress>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<AgentSessionInProgressPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_agent_session_in_progress = webhook_agent_session_in_progress;
@@ -611,10 +660,15 @@ pub async fn agent_session_in_progress_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_agent_session_in_progress);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -642,6 +696,7 @@ pub async fn agent_session_in_progress_post(
 pub async fn batch_cancelled_post(
     configuration: &configuration::Configuration,
     webhook_batch_cancelled: Option<&models::WebhookBatchCancelled>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<BatchCancelledPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_batch_cancelled = webhook_batch_cancelled;
@@ -656,10 +711,15 @@ pub async fn batch_cancelled_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_batch_cancelled);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -687,6 +747,7 @@ pub async fn batch_cancelled_post(
 pub async fn batch_completed_post(
     configuration: &configuration::Configuration,
     webhook_batch_completed: Option<&models::WebhookBatchCompleted>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<BatchCompletedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_batch_completed = webhook_batch_completed;
@@ -701,10 +762,15 @@ pub async fn batch_completed_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_batch_completed);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -732,6 +798,7 @@ pub async fn batch_completed_post(
 pub async fn batch_expired_post(
     configuration: &configuration::Configuration,
     webhook_batch_expired: Option<&models::WebhookBatchExpired>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<BatchExpiredPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_batch_expired = webhook_batch_expired;
@@ -746,10 +813,15 @@ pub async fn batch_expired_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_batch_expired);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -777,6 +849,7 @@ pub async fn batch_expired_post(
 pub async fn batch_failed_post(
     configuration: &configuration::Configuration,
     webhook_batch_failed: Option<&models::WebhookBatchFailed>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<BatchFailedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_batch_failed = webhook_batch_failed;
@@ -791,10 +864,15 @@ pub async fn batch_failed_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_batch_failed);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -822,6 +900,7 @@ pub async fn batch_failed_post(
 pub async fn eval_run_canceled_post(
     configuration: &configuration::Configuration,
     webhook_eval_run_canceled: Option<&models::WebhookEvalRunCanceled>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<EvalRunCanceledPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_eval_run_canceled = webhook_eval_run_canceled;
@@ -836,10 +915,15 @@ pub async fn eval_run_canceled_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_eval_run_canceled);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -867,6 +951,7 @@ pub async fn eval_run_canceled_post(
 pub async fn eval_run_failed_post(
     configuration: &configuration::Configuration,
     webhook_eval_run_failed: Option<&models::WebhookEvalRunFailed>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<EvalRunFailedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_eval_run_failed = webhook_eval_run_failed;
@@ -881,10 +966,15 @@ pub async fn eval_run_failed_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_eval_run_failed);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -912,6 +1002,7 @@ pub async fn eval_run_failed_post(
 pub async fn eval_run_succeeded_post(
     configuration: &configuration::Configuration,
     webhook_eval_run_succeeded: Option<&models::WebhookEvalRunSucceeded>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<EvalRunSucceededPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_eval_run_succeeded = webhook_eval_run_succeeded;
@@ -926,10 +1017,15 @@ pub async fn eval_run_succeeded_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_eval_run_succeeded);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -957,6 +1053,7 @@ pub async fn eval_run_succeeded_post(
 pub async fn fine_tuning_job_cancelled_post(
     configuration: &configuration::Configuration,
     webhook_fine_tuning_job_cancelled: Option<&models::WebhookFineTuningJobCancelled>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<FineTuningJobCancelledPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_fine_tuning_job_cancelled = webhook_fine_tuning_job_cancelled;
@@ -971,10 +1068,15 @@ pub async fn fine_tuning_job_cancelled_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_fine_tuning_job_cancelled);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1002,6 +1104,7 @@ pub async fn fine_tuning_job_cancelled_post(
 pub async fn fine_tuning_job_failed_post(
     configuration: &configuration::Configuration,
     webhook_fine_tuning_job_failed: Option<&models::WebhookFineTuningJobFailed>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<FineTuningJobFailedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_fine_tuning_job_failed = webhook_fine_tuning_job_failed;
@@ -1016,10 +1119,15 @@ pub async fn fine_tuning_job_failed_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_fine_tuning_job_failed);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1047,6 +1155,7 @@ pub async fn fine_tuning_job_failed_post(
 pub async fn fine_tuning_job_succeeded_post(
     configuration: &configuration::Configuration,
     webhook_fine_tuning_job_succeeded: Option<&models::WebhookFineTuningJobSucceeded>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<FineTuningJobSucceededPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_fine_tuning_job_succeeded = webhook_fine_tuning_job_succeeded;
@@ -1061,10 +1170,15 @@ pub async fn fine_tuning_job_succeeded_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_fine_tuning_job_succeeded);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1093,6 +1207,7 @@ pub async fn fine_tuning_job_succeeded_post(
 pub async fn live_call_incoming_post(
     configuration: &configuration::Configuration,
     webhook_live_call_incoming: Option<&models::WebhookLiveCallIncoming>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<LiveCallIncomingPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_live_call_incoming = webhook_live_call_incoming;
@@ -1107,10 +1222,15 @@ pub async fn live_call_incoming_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_live_call_incoming);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1138,6 +1258,7 @@ pub async fn live_call_incoming_post(
 pub async fn live_transport_connected_post(
     configuration: &configuration::Configuration,
     webhook_live_transport_connected: &models::WebhookLiveTransportConnected,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<LiveTransportConnectedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_live_transport_connected = webhook_live_transport_connected;
@@ -1152,10 +1273,15 @@ pub async fn live_transport_connected_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_webhook_live_transport_connected);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1183,6 +1309,7 @@ pub async fn live_transport_connected_post(
 pub async fn live_transport_incoming_post(
     configuration: &configuration::Configuration,
     webhook_live_transport_incoming: Option<&models::WebhookLiveTransportIncoming>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<LiveTransportIncomingPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_live_transport_incoming = webhook_live_transport_incoming;
@@ -1197,10 +1324,15 @@ pub async fn live_transport_incoming_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_live_transport_incoming);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1228,6 +1360,7 @@ pub async fn live_transport_incoming_post(
 pub async fn realtime_call_incoming_post(
     configuration: &configuration::Configuration,
     webhook_realtime_call_incoming: Option<&models::WebhookRealtimeCallIncoming>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<RealtimeCallIncomingPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_realtime_call_incoming = webhook_realtime_call_incoming;
@@ -1242,10 +1375,15 @@ pub async fn realtime_call_incoming_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_realtime_call_incoming);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1273,6 +1411,7 @@ pub async fn realtime_call_incoming_post(
 pub async fn response_cancelled_post(
     configuration: &configuration::Configuration,
     webhook_response_cancelled: Option<&models::WebhookResponseCancelled>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<ResponseCancelledPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_response_cancelled = webhook_response_cancelled;
@@ -1287,10 +1426,15 @@ pub async fn response_cancelled_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_response_cancelled);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1318,6 +1462,7 @@ pub async fn response_cancelled_post(
 pub async fn response_completed_post(
     configuration: &configuration::Configuration,
     webhook_response_completed: Option<&models::WebhookResponseCompleted>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<ResponseCompletedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_response_completed = webhook_response_completed;
@@ -1332,10 +1477,15 @@ pub async fn response_completed_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_response_completed);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1363,6 +1513,7 @@ pub async fn response_completed_post(
 pub async fn response_failed_post(
     configuration: &configuration::Configuration,
     webhook_response_failed: Option<&models::WebhookResponseFailed>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<ResponseFailedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_response_failed = webhook_response_failed;
@@ -1377,10 +1528,15 @@ pub async fn response_failed_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_response_failed);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1408,6 +1564,7 @@ pub async fn response_failed_post(
 pub async fn response_incomplete_post(
     configuration: &configuration::Configuration,
     webhook_response_incomplete: Option<&models::WebhookResponseIncomplete>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<ResponseIncompletePostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_response_incomplete = webhook_response_incomplete;
@@ -1422,10 +1579,15 @@ pub async fn response_incomplete_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_response_incomplete);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1453,6 +1615,7 @@ pub async fn response_incomplete_post(
 pub async fn safety_alert_created_post(
     configuration: &configuration::Configuration,
     webhook_safety_alert_created: Option<&models::WebhookSafetyAlertCreated>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<SafetyAlertCreatedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_safety_alert_created = webhook_safety_alert_created;
@@ -1467,10 +1630,15 @@ pub async fn safety_alert_created_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_safety_alert_created);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1498,6 +1666,7 @@ pub async fn safety_alert_created_post(
 pub async fn safety_deactivation_issued_post(
     configuration: &configuration::Configuration,
     webhook_safety_deactivation_issued: Option<&models::WebhookSafetyDeactivationIssued>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<SafetyDeactivationIssuedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_safety_deactivation_issued = webhook_safety_deactivation_issued;
@@ -1512,10 +1681,15 @@ pub async fn safety_deactivation_issued_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_safety_deactivation_issued);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1543,6 +1717,7 @@ pub async fn safety_deactivation_issued_post(
 pub async fn safety_org_alert_created_post(
     configuration: &configuration::Configuration,
     webhook_safety_org_alert_created: Option<&models::WebhookSafetyOrgAlertCreated>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<SafetyOrgAlertCreatedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_safety_org_alert_created = webhook_safety_org_alert_created;
@@ -1557,10 +1732,15 @@ pub async fn safety_org_alert_created_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_safety_org_alert_created);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1588,6 +1768,7 @@ pub async fn safety_org_alert_created_post(
 pub async fn safety_warning_issued_post(
     configuration: &configuration::Configuration,
     webhook_safety_warning_issued: Option<&models::WebhookSafetyWarningIssued>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<SafetyWarningIssuedPostError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_webhook_safety_warning_issued = webhook_safety_warning_issued;
@@ -1602,10 +1783,15 @@ pub async fn safety_warning_issued_post(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_webhook_safety_warning_issued);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

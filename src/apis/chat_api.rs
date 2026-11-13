@@ -86,6 +86,7 @@ pub enum UpdateChatCompletionError {
 pub async fn create_chat_completion(
     configuration: &configuration::Configuration,
     create_chat_completion_request: &models::CreateChatCompletionRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::CreateChatCompletionResponse, Error<CreateChatCompletionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_chat_completion_request = create_chat_completion_request;
@@ -100,10 +101,15 @@ pub async fn create_chat_completion(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_chat_completion_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -168,6 +174,7 @@ pub async fn create_chat_completion(
 pub async fn create_chat_completion_stream(
     configuration: &configuration::Configuration,
     create_chat_completion_request: &models::CreateChatCompletionRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::CreateChatCompletionStreamResponse, CreateChatCompletionError>,
     Error<CreateChatCompletionError>,
@@ -185,11 +192,16 @@ pub async fn create_chat_completion_stream(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_chat_completion_request);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -247,6 +259,7 @@ pub async fn create_chat_completion_stream(
 pub async fn delete_chat_completion(
     configuration: &configuration::Configuration,
     completion_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ChatCompletionDeleted, Error<DeleteChatCompletionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_completion_id = completion_id;
@@ -265,9 +278,14 @@ pub async fn delete_chat_completion(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -320,6 +338,7 @@ pub async fn delete_chat_completion(
 pub async fn get_chat_completion(
     configuration: &configuration::Configuration,
     completion_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::CreateChatCompletionResponse, Error<GetChatCompletionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_completion_id = completion_id;
@@ -338,9 +357,14 @@ pub async fn get_chat_completion(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -396,6 +420,7 @@ pub async fn get_chat_completion_messages(
     after: Option<&str>,
     limit: Option<i64>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ChatCompletionMessageList, Error<GetChatCompletionMessagesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_completion_id = completion_id;
@@ -426,9 +451,14 @@ pub async fn get_chat_completion_messages(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -488,6 +518,7 @@ pub async fn list_chat_completions(
     after: Option<&str>,
     limit: Option<i64>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ChatCompletionList, Error<ListChatCompletionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_model = model;
@@ -521,9 +552,14 @@ pub async fn list_chat_completions(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -577,6 +613,7 @@ pub async fn update_chat_completion(
     configuration: &configuration::Configuration,
     completion_id: &str,
     update_chat_completion_request: &models::UpdateChatCompletionRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::CreateChatCompletionResponse, Error<UpdateChatCompletionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_completion_id = completion_id;
@@ -596,10 +633,15 @@ pub async fn update_chat_completion(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_chat_completion_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

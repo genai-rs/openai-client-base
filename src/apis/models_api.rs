@@ -46,6 +46,7 @@ pub enum RetrieveModelError {
 pub async fn delete_model(
     configuration: &configuration::Configuration,
     model: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteModelResponse, Error<DeleteModelError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_model = model;
@@ -64,9 +65,14 @@ pub async fn delete_model(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -115,6 +121,7 @@ pub async fn delete_model(
 #[bon::builder]
 pub async fn list_models(
     configuration: &configuration::Configuration,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListModelsResponse, Error<ListModelsError>> {
     let uri_str = format!("{}/models", configuration.base_path);
     let mut req_builder = configuration
@@ -126,9 +133,14 @@ pub async fn list_models(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -175,6 +187,7 @@ pub async fn list_models(
 pub async fn retrieve_model(
     configuration: &configuration::Configuration,
     model: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Model, Error<RetrieveModelError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_model = model;
@@ -193,9 +206,14 @@ pub async fn retrieve_model(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

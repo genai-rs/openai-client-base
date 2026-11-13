@@ -62,6 +62,7 @@ pub enum RetrieveUserError {
 pub async fn delete_user(
     configuration: &configuration::Configuration,
     user_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::UserDeleteResponse, Error<DeleteUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_user_id = user_id;
@@ -80,9 +81,14 @@ pub async fn delete_user(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -140,6 +146,7 @@ pub async fn list_users(
     limit: Option<i64>,
     after: Option<&str>,
     emails: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::UserListResponse, Error<ListUsersError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -168,9 +175,14 @@ pub async fn list_users(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -224,6 +236,7 @@ pub async fn modify_user(
     configuration: &configuration::Configuration,
     user_id: &str,
     user_role_update_request: &models::UserRoleUpdateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::User, Error<ModifyUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_user_id = user_id;
@@ -243,10 +256,15 @@ pub async fn modify_user(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_user_role_update_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -302,6 +320,7 @@ pub async fn modify_user(
 pub async fn retrieve_user(
     configuration: &configuration::Configuration,
     user_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::User, Error<RetrieveUserError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_user_id = user_id;
@@ -320,9 +339,14 @@ pub async fn retrieve_user(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

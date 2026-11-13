@@ -39,6 +39,7 @@ pub async fn list_audit_logs(
     limit: Option<i64>,
     after: Option<&str>,
     before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListAuditLogsResponse, Error<ListAuditLogsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_effective_at = effective_at;
@@ -115,9 +116,14 @@ pub async fn list_audit_logs(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

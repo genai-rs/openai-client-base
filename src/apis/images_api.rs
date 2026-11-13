@@ -58,6 +58,7 @@ pub enum CreateImageVariationError {
 pub async fn create_image(
     configuration: &configuration::Configuration,
     create_image_request: &models::CreateImageRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ImagesResponse, Error<CreateImageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_image_request = create_image_request;
@@ -72,10 +73,15 @@ pub async fn create_image(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_image_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -157,6 +163,7 @@ pub async fn create_image_edit(
     stream: Option<bool>,
     partial_images: Option<i64>,
     quality: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ImagesResponse, Error<CreateImageEditError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_image = image;
@@ -191,7 +198,8 @@ pub async fn create_image_edit(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     if let Some(param_value) = p_form_frame_count {
@@ -261,6 +269,10 @@ pub async fn create_image_edit(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -324,6 +336,7 @@ pub async fn create_image_edit(
 pub async fn create_image_edit_json(
     configuration: &configuration::Configuration,
     edit_image_body_json_param: &models::EditImageBodyJsonParam,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ImagesResponse, Error<CreateImageEditError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_edit_image_body_json_param = edit_image_body_json_param;
@@ -338,10 +351,15 @@ pub async fn create_image_edit_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_edit_image_body_json_param);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -407,6 +425,7 @@ pub async fn create_image_edit_json(
 pub async fn create_image_edit_json_stream(
     configuration: &configuration::Configuration,
     edit_image_body_json_param: &models::EditImageBodyJsonParam,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::ImageEditStreamEvent, CreateImageEditError>,
     Error<CreateImageEditError>,
@@ -424,11 +443,16 @@ pub async fn create_image_edit_json_stream(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_edit_image_body_json_param);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -507,6 +531,7 @@ pub async fn create_image_edit_stream(
     stream: Option<bool>,
     partial_images: Option<i64>,
     quality: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::ImageEditStreamEvent, CreateImageEditError>,
     Error<CreateImageEditError>,
@@ -544,7 +569,8 @@ pub async fn create_image_edit_stream(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     if let Some(param_value) = p_form_frame_count {
@@ -615,6 +641,10 @@ pub async fn create_image_edit_stream(
     req_builder = req_builder.multipart(multipart_form);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -673,6 +703,7 @@ pub async fn create_image_edit_stream(
 pub async fn create_image_stream(
     configuration: &configuration::Configuration,
     create_image_request: &models::CreateImageRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::ImageGenStreamEvent, CreateImageError>,
     Error<CreateImageError>,
@@ -690,11 +721,16 @@ pub async fn create_image_stream(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_image_request);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -757,6 +793,7 @@ pub async fn create_image_variation(
     response_format: Option<&str>,
     size: Option<&str>,
     user: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ImagesResponse, Error<CreateImageVariationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_image = image;
@@ -776,7 +813,8 @@ pub async fn create_image_variation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
@@ -798,6 +836,10 @@ pub async fn create_image_variation(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

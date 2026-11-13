@@ -680,6 +680,7 @@ pub enum UpdateAgentSessionError {
 pub async fn create_agent(
     configuration: &configuration::Configuration,
     create_agent_params: Option<&models::CreateAgentParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AgentResource, Error<CreateAgentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_agent_params = create_agent_params;
@@ -694,10 +695,15 @@ pub async fn create_agent(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_agent_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -762,6 +768,7 @@ pub async fn create_agent(
 pub async fn create_agent_automation(
     configuration: &configuration::Configuration,
     create_automation_params: &models::CreateAutomationParams,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AutomationResource, Error<CreateAgentAutomationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_automation_params = create_automation_params;
@@ -776,10 +783,15 @@ pub async fn create_agent_automation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_automation_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -844,6 +856,7 @@ pub async fn create_agent_automation(
 pub async fn create_agent_automation_invocation(
     configuration: &configuration::Configuration,
     automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AutomationInvocationResource, Error<CreateAgentAutomationInvocationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
@@ -862,9 +875,14 @@ pub async fn create_agent_automation_invocation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -930,6 +948,7 @@ pub async fn create_agent_environment(
     configuration: &configuration::Configuration,
     create_agent_environment_params: &models::CreateAgentEnvironmentParams,
     idempotency_key: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PublicEnvironmentResource, Error<CreateAgentEnvironmentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_agent_environment_params = create_agent_environment_params;
@@ -948,10 +967,15 @@ pub async fn create_agent_environment(
         req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_agent_environment_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1020,6 +1044,7 @@ pub async fn create_agent_environment_file(
     configuration: &configuration::Configuration,
     environment_id: &str,
     hosted_environment_file_param: Option<&models::HostedEnvironmentFileParam>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EnvironmentFileResource, Error<CreateAgentEnvironmentFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_environment_id = environment_id;
@@ -1039,10 +1064,15 @@ pub async fn create_agent_environment_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_hosted_environment_file_param);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1110,6 +1140,7 @@ pub async fn create_agent_environment_file(
 pub async fn create_agent_environment_template(
     configuration: &configuration::Configuration,
     create_environment_template_params: Option<&models::CreateEnvironmentTemplateParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EnvironmentTemplateResource, Error<CreateAgentEnvironmentTemplateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_environment_template_params = create_environment_template_params;
@@ -1124,10 +1155,15 @@ pub async fn create_agent_environment_template(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_environment_template_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1189,6 +1225,7 @@ pub async fn create_agent_environment_template(
 pub async fn create_agent_session(
     configuration: &configuration::Configuration,
     create_agent_session_params: Option<&models::CreateAgentSessionParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionResource, Error<CreateAgentSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_agent_session_params = create_agent_session_params;
@@ -1203,10 +1240,15 @@ pub async fn create_agent_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_agent_session_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1276,6 +1318,7 @@ pub async fn create_agent_session_events(
     session_id: &str,
     idempotency_key: Option<&str>,
     create_session_events_params: Option<&models::CreateSessionEventsParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<(), Error<CreateAgentSessionEventsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -1299,10 +1342,15 @@ pub async fn create_agent_session_events(
         req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_session_events_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1358,6 +1406,7 @@ pub async fn create_agent_session_events(
 pub async fn create_agent_session_stream(
     configuration: &configuration::Configuration,
     create_agent_session_params: Option<&models::CreateAgentSessionParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::SessionEvent, CreateAgentSessionError>,
     Error<CreateAgentSessionError>,
@@ -1375,11 +1424,16 @@ pub async fn create_agent_session_stream(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_agent_session_params);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1442,6 +1496,7 @@ pub async fn create_agent_session_stream(
 pub async fn delete_agent(
     configuration: &configuration::Configuration,
     agent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedAgentResource, Error<DeleteAgentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_agent_id = agent_id;
@@ -1460,9 +1515,14 @@ pub async fn delete_agent(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1527,6 +1587,7 @@ pub async fn delete_agent(
 pub async fn delete_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedAutomationResource, Error<DeleteAgentAutomationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
@@ -1545,9 +1606,14 @@ pub async fn delete_agent_automation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1612,6 +1678,7 @@ pub async fn delete_agent_automation(
 pub async fn delete_agent_environment_template(
     configuration: &configuration::Configuration,
     environment_template_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedEnvironmentTemplateResource, Error<DeleteAgentEnvironmentTemplateError>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1631,9 +1698,14 @@ pub async fn delete_agent_environment_template(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1698,6 +1770,7 @@ pub async fn delete_agent_environment_template(
 pub async fn delete_agent_session(
     configuration: &configuration::Configuration,
     session_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedSessionResource, Error<DeleteAgentSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -1716,9 +1789,14 @@ pub async fn delete_agent_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1784,6 +1862,7 @@ pub async fn delete_agent_session_artifact(
     configuration: &configuration::Configuration,
     session_id: &str,
     artifact_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedSessionArtifactResource, Error<DeleteAgentSessionArtifactError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -1804,9 +1883,14 @@ pub async fn delete_agent_session_artifact(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1871,6 +1955,7 @@ pub async fn delete_agent_session_artifact(
 pub async fn get_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AutomationResource, Error<GetAgentAutomationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
@@ -1889,9 +1974,14 @@ pub async fn get_agent_automation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1957,6 +2047,7 @@ pub async fn get_agent_automation_invocation(
     configuration: &configuration::Configuration,
     automation_id: &str,
     invocation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AutomationInvocationResource, Error<GetAgentAutomationInvocationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
@@ -1977,9 +2068,14 @@ pub async fn get_agent_automation_invocation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2047,6 +2143,7 @@ pub async fn list_agent_automation_invocations(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     models::ListAgentAutomationInvocations200Response,
     Error<ListAgentAutomationInvocationsError>,
@@ -2080,9 +2177,14 @@ pub async fn list_agent_automation_invocations(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2153,6 +2255,7 @@ pub async fn list_agent_automations(
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
     session_id: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListAgentAutomations200Response, Error<ListAgentAutomationsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -2182,9 +2285,14 @@ pub async fn list_agent_automations(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2256,6 +2364,7 @@ pub async fn list_agent_environment_files(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EnvironmentFileListResource, Error<ListAgentEnvironmentFilesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_environment_id = environment_id;
@@ -2290,9 +2399,14 @@ pub async fn list_agent_environment_files(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2359,6 +2473,7 @@ pub async fn list_agent_environment_templates(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EnvironmentTemplateListResource, Error<ListAgentEnvironmentTemplatesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -2384,9 +2499,14 @@ pub async fn list_agent_environment_templates(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2451,6 +2571,7 @@ pub async fn list_agent_environments(
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
     r#type: Option<models::EnvironmentTypeParam>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AgentEnvironmentListResource, Error<ListAgentEnvironmentsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -2480,9 +2601,14 @@ pub async fn list_agent_environments(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2551,6 +2677,7 @@ pub async fn list_agent_session_artifacts(
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
     environment_id: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionArtifactListResource, Error<ListAgentSessionArtifactsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -2585,9 +2712,14 @@ pub async fn list_agent_session_artifacts(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2655,6 +2787,7 @@ pub async fn list_agent_session_events(
     configuration: &configuration::Configuration,
     session_id: &str,
     include_obfuscation: Option<bool>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<
     super::sse::EventStream<models::SessionEvent, ListAgentSessionEventsError>,
     Error<ListAgentSessionEventsError>,
@@ -2680,10 +2813,15 @@ pub async fn list_agent_session_events(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2746,6 +2884,7 @@ pub async fn list_agent_session_items(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionItemListResource, Error<ListAgentSessionItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -2776,9 +2915,14 @@ pub async fn list_agent_session_items(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2847,6 +2991,7 @@ pub async fn list_agent_session_subagent_items(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionItemListResource, Error<ListAgentSessionSubagentItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -2879,9 +3024,14 @@ pub async fn list_agent_session_subagent_items(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -2951,6 +3101,7 @@ pub async fn list_agent_session_subagent_turn_items(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionItemListResource, Error<ListAgentSessionSubagentTurnItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -2985,9 +3136,14 @@ pub async fn list_agent_session_subagent_turn_items(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3056,6 +3212,7 @@ pub async fn list_agent_session_subagent_turns(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionTurnListResource, Error<ListAgentSessionSubagentTurnsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -3088,9 +3245,14 @@ pub async fn list_agent_session_subagent_turns(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3158,6 +3320,7 @@ pub async fn list_agent_session_subagents(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListAgentSessionSubagents200Response, Error<ListAgentSessionSubagentsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -3188,9 +3351,14 @@ pub async fn list_agent_session_subagents(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3258,6 +3426,7 @@ pub async fn list_agent_session_traces(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionTraceListResource, Error<ListAgentSessionTracesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -3288,9 +3457,14 @@ pub async fn list_agent_session_traces(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3359,6 +3533,7 @@ pub async fn list_agent_session_turn_items(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionItemListResource, Error<ListAgentSessionTurnItemsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -3391,9 +3566,14 @@ pub async fn list_agent_session_turn_items(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3461,6 +3641,7 @@ pub async fn list_agent_session_turns(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionTurnListResource, Error<ListAgentSessionTurnsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -3491,9 +3672,14 @@ pub async fn list_agent_session_turns(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3562,6 +3748,7 @@ pub async fn list_agent_sessions(
     after: Option<&str>,
     agent_id: Option<&str>,
     metadata: Option<std::collections::HashMap<String, String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionListResource, Error<ListAgentSessionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -3598,9 +3785,14 @@ pub async fn list_agent_sessions(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3667,6 +3859,7 @@ pub async fn list_agents(
     limit: Option<i64>,
     order: Option<models::ListOrderParam>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AgentListResource, Error<ListAgentsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -3692,9 +3885,14 @@ pub async fn list_agents(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3759,6 +3957,7 @@ pub async fn list_agents(
 pub async fn pause_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AutomationResource, Error<PauseAgentAutomationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
@@ -3777,9 +3976,14 @@ pub async fn pause_agent_automation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3844,6 +4048,7 @@ pub async fn pause_agent_automation(
 pub async fn resume_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AutomationResource, Error<ResumeAgentAutomationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
@@ -3862,9 +4067,14 @@ pub async fn resume_agent_automation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -3929,6 +4139,7 @@ pub async fn resume_agent_automation(
 pub async fn retrieve_agent(
     configuration: &configuration::Configuration,
     agent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AgentResource, Error<RetrieveAgentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_agent_id = agent_id;
@@ -3947,9 +4158,14 @@ pub async fn retrieve_agent(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4014,6 +4230,7 @@ pub async fn retrieve_agent(
 pub async fn retrieve_agent_environment(
     configuration: &configuration::Configuration,
     environment_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::PublicEnvironmentResource, Error<RetrieveAgentEnvironmentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_environment_id = environment_id;
@@ -4032,9 +4249,14 @@ pub async fn retrieve_agent_environment(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4099,6 +4321,7 @@ pub async fn retrieve_agent_environment(
 pub async fn retrieve_agent_environment_template(
     configuration: &configuration::Configuration,
     environment_template_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EnvironmentTemplateResource, Error<RetrieveAgentEnvironmentTemplateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_environment_template_id = environment_template_id;
@@ -4117,9 +4340,14 @@ pub async fn retrieve_agent_environment_template(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4181,6 +4409,7 @@ pub async fn retrieve_agent_environment_template(
 pub async fn retrieve_agent_session(
     configuration: &configuration::Configuration,
     session_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionResource, Error<RetrieveAgentSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -4199,9 +4428,14 @@ pub async fn retrieve_agent_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4267,6 +4501,7 @@ pub async fn retrieve_agent_session_artifact(
     configuration: &configuration::Configuration,
     session_id: &str,
     artifact_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionArtifactResource, Error<RetrieveAgentSessionArtifactError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -4287,9 +4522,14 @@ pub async fn retrieve_agent_session_artifact(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4355,6 +4595,7 @@ pub async fn retrieve_agent_session_artifact_content(
     configuration: &configuration::Configuration,
     session_id: &str,
     artifact_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<timvw_rust_runtime::Response, Error<RetrieveAgentSessionArtifactContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -4375,9 +4616,14 @@ pub async fn retrieve_agent_session_artifact_content(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4432,6 +4678,7 @@ pub async fn retrieve_agent_session_subagent(
     configuration: &configuration::Configuration,
     session_id: &str,
     subagent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SubagentResource, Error<RetrieveAgentSessionSubagentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -4452,9 +4699,14 @@ pub async fn retrieve_agent_session_subagent(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4521,6 +4773,7 @@ pub async fn retrieve_agent_session_subagent_turn(
     session_id: &str,
     subagent_id: &str,
     turn_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::TurnResource, Error<RetrieveAgentSessionSubagentTurnError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -4543,9 +4796,14 @@ pub async fn retrieve_agent_session_subagent_turn(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4611,6 +4869,7 @@ pub async fn retrieve_agent_session_turn(
     configuration: &configuration::Configuration,
     session_id: &str,
     turn_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::TurnResource, Error<RetrieveAgentSessionTurnError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -4631,9 +4890,14 @@ pub async fn retrieve_agent_session_turn(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4699,6 +4963,7 @@ pub async fn update_agent(
     configuration: &configuration::Configuration,
     agent_id: &str,
     update_agent_params: Option<&models::UpdateAgentParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AgentResource, Error<UpdateAgentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_agent_id = agent_id;
@@ -4718,10 +4983,15 @@ pub async fn update_agent(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_update_agent_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4787,6 +5057,7 @@ pub async fn update_agent_automation(
     configuration: &configuration::Configuration,
     automation_id: &str,
     update_automation_params: &models::UpdateAutomationParams,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AutomationResource, Error<UpdateAgentAutomationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_automation_id = automation_id;
@@ -4806,10 +5077,15 @@ pub async fn update_agent_automation(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_automation_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4875,6 +5151,7 @@ pub async fn update_agent_environment_template(
     configuration: &configuration::Configuration,
     environment_template_id: &str,
     update_environment_template_params: Option<&models::UpdateEnvironmentTemplateParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::EnvironmentTemplateResource, Error<UpdateAgentEnvironmentTemplateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_environment_template_id = environment_template_id;
@@ -4894,10 +5171,15 @@ pub async fn update_agent_environment_template(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_update_environment_template_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -4963,6 +5245,7 @@ pub async fn update_agent_session(
     configuration: &configuration::Configuration,
     session_id: &str,
     update_agent_session_params: Option<&models::UpdateAgentSessionParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SessionResource, Error<UpdateAgentSessionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_session_id = session_id;
@@ -4982,10 +5265,15 @@ pub async fn update_agent_session(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_update_agent_session_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

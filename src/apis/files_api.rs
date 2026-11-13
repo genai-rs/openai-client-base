@@ -71,6 +71,7 @@ pub async fn create_file(
     file: std::path::PathBuf,
     purpose: &str,
     expires_after: Option<models::FileExpirationAfter>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OpenAiFile, Error<CreateFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_file = file;
@@ -87,7 +88,8 @@ pub async fn create_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
@@ -103,6 +105,10 @@ pub async fn create_file(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -155,6 +161,7 @@ pub async fn create_file(
 pub async fn delete_file(
     configuration: &configuration::Configuration,
     file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteFileResponse, Error<DeleteFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_file_id = file_id;
@@ -173,9 +180,14 @@ pub async fn delete_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -225,6 +237,7 @@ pub async fn delete_file(
 pub async fn download_file(
     configuration: &configuration::Configuration,
     file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<timvw_rust_runtime::Response, Error<DownloadFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_file_id = file_id;
@@ -243,9 +256,14 @@ pub async fn download_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -293,6 +311,7 @@ pub async fn list_files(
     limit: Option<i64>,
     order: Option<&str>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListFilesResponse, Error<ListFilesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_purpose = purpose;
@@ -322,9 +341,14 @@ pub async fn list_files(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -377,6 +401,7 @@ pub async fn list_files(
 pub async fn retrieve_file(
     configuration: &configuration::Configuration,
     file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::OpenAiFile, Error<RetrieveFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_file_id = file_id;
@@ -395,9 +420,14 @@ pub async fn retrieve_file(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

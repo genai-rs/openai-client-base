@@ -79,6 +79,7 @@ pub enum UpdateGroupError {
 pub async fn create_group(
     configuration: &configuration::Configuration,
     create_group_body: &models::CreateGroupBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::GroupResponse, Error<CreateGroupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_group_body = create_group_body;
@@ -93,10 +94,15 @@ pub async fn create_group(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_group_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -158,6 +164,7 @@ pub async fn create_group(
 pub async fn delete_group(
     configuration: &configuration::Configuration,
     group_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::GroupDeletedResource, Error<DeleteGroupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_group_id = group_id;
@@ -176,9 +183,14 @@ pub async fn delete_group(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -236,6 +248,7 @@ pub async fn list_groups(
     limit: Option<i64>,
     after: Option<&str>,
     order: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::GroupListResource, Error<ListGroupsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -261,9 +274,14 @@ pub async fn list_groups(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -319,6 +337,7 @@ pub async fn list_groups(
 pub async fn retrieve_group(
     configuration: &configuration::Configuration,
     group_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::GroupResponse, Error<RetrieveGroupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_group_id = group_id;
@@ -337,9 +356,14 @@ pub async fn retrieve_group(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -399,6 +423,7 @@ pub async fn update_group(
     configuration: &configuration::Configuration,
     group_id: &str,
     update_group_body: &models::UpdateGroupBody,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::GroupResourceWithSuccess, Error<UpdateGroupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_group_id = group_id;
@@ -418,10 +443,15 @@ pub async fn update_group(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_group_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

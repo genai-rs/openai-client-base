@@ -65,6 +65,7 @@ pub async fn add_upload_part(
     configuration: &configuration::Configuration,
     upload_id: &str,
     data: std::path::PathBuf,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::UploadPart, Error<AddUploadPartError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_upload_id = upload_id;
@@ -84,13 +85,18 @@ pub async fn add_upload_part(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     // Add file to multipart form
     multipart_form = multipart_helper::add_file_to_form(multipart_form, &p_form_data, "data")?;
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -149,6 +155,7 @@ pub async fn add_upload_part(
 pub async fn cancel_upload(
     configuration: &configuration::Configuration,
     upload_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Upload, Error<CancelUploadError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_upload_id = upload_id;
@@ -167,9 +174,14 @@ pub async fn cancel_upload(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -226,6 +238,7 @@ pub async fn complete_upload(
     configuration: &configuration::Configuration,
     upload_id: &str,
     complete_upload_request: &models::CompleteUploadRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Upload, Error<CompleteUploadError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_upload_id = upload_id;
@@ -245,10 +258,15 @@ pub async fn complete_upload(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_complete_upload_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -307,6 +325,7 @@ pub async fn complete_upload(
 pub async fn create_upload(
     configuration: &configuration::Configuration,
     create_upload_request: &models::CreateUploadRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::Upload, Error<CreateUploadError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_upload_request = create_upload_request;
@@ -321,10 +340,15 @@ pub async fn create_upload(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_upload_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

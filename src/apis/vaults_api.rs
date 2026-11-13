@@ -160,6 +160,7 @@ pub enum UpdateVaultError {
 pub async fn create_vault(
     configuration: &configuration::Configuration,
     create_vault_params: Option<&models::CreateVaultParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VaultResource, Error<CreateVaultError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_vault_params = create_vault_params;
@@ -174,10 +175,15 @@ pub async fn create_vault(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_vault_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -243,6 +249,7 @@ pub async fn create_vault_credential(
     configuration: &configuration::Configuration,
     vault_id: &str,
     create_vault_credential_params: Option<&models::CreateVaultCredentialParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VaultCredentialResource, Error<CreateVaultCredentialError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;
@@ -262,10 +269,15 @@ pub async fn create_vault_credential(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_vault_credential_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -330,6 +342,7 @@ pub async fn create_vault_credential(
 pub async fn delete_vault(
     configuration: &configuration::Configuration,
     vault_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedVaultResource, Error<DeleteVaultError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;
@@ -348,9 +361,14 @@ pub async fn delete_vault(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -416,6 +434,7 @@ pub async fn delete_vault_credential(
     configuration: &configuration::Configuration,
     vault_id: &str,
     credential_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedVaultCredentialResource, Error<DeleteVaultCredentialError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;
@@ -436,9 +455,14 @@ pub async fn delete_vault_credential(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -508,6 +532,7 @@ pub async fn list_vault_credentials(
     after: Option<&str>,
     metadata: Option<std::collections::HashMap<String, String>>,
     status: Option<models::VaultStatusFilterParam>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VaultCredentialListResource, Error<ListVaultCredentialsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;
@@ -550,9 +575,14 @@ pub async fn list_vault_credentials(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -621,6 +651,7 @@ pub async fn list_vaults(
     after: Option<&str>,
     metadata: Option<std::collections::HashMap<String, String>>,
     status: Option<models::VaultStatusFilterParam>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VaultListResource, Error<ListVaultsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -658,9 +689,14 @@ pub async fn list_vaults(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -725,6 +761,7 @@ pub async fn list_vaults(
 pub async fn retrieve_vault(
     configuration: &configuration::Configuration,
     vault_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VaultResource, Error<RetrieveVaultError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;
@@ -743,9 +780,14 @@ pub async fn retrieve_vault(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -811,6 +853,7 @@ pub async fn retrieve_vault_credential(
     configuration: &configuration::Configuration,
     vault_id: &str,
     credential_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VaultCredentialResource, Error<RetrieveVaultCredentialError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;
@@ -831,9 +874,14 @@ pub async fn retrieve_vault_credential(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -900,6 +948,7 @@ pub async fn rotate_vault_credential(
     vault_id: &str,
     credential_id: &str,
     rotate_vault_credential_params: &models::RotateVaultCredentialParams,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VaultCredentialResource, Error<RotateVaultCredentialError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;
@@ -921,10 +970,15 @@ pub async fn rotate_vault_credential(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_rotate_vault_credential_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -990,6 +1044,7 @@ pub async fn update_vault(
     configuration: &configuration::Configuration,
     vault_id: &str,
     update_vault_params: &models::UpdateVaultParams,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VaultResource, Error<UpdateVaultError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_vault_id = vault_id;
@@ -1009,10 +1064,15 @@ pub async fn update_vault(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_update_vault_params);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

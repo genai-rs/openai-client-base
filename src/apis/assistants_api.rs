@@ -205,6 +205,7 @@ pub async fn cancel_run(
     configuration: &configuration::Configuration,
     thread_id: &str,
     run_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RunObject, Error<CancelRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -225,9 +226,14 @@ pub async fn cancel_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -275,6 +281,7 @@ pub async fn cancel_run(
 pub async fn create_assistant(
     configuration: &configuration::Configuration,
     create_assistant_request: &models::CreateAssistantRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AssistantObject, Error<CreateAssistantError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_assistant_request = create_assistant_request;
@@ -289,10 +296,15 @@ pub async fn create_assistant(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_assistant_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -340,6 +352,7 @@ pub async fn create_message(
     configuration: &configuration::Configuration,
     thread_id: &str,
     create_message_request: &models::CreateMessageRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::MessageObject, Error<CreateMessageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -359,10 +372,15 @@ pub async fn create_message(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_message_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -411,6 +429,7 @@ pub async fn create_run(
     thread_id: &str,
     create_run_request: &models::CreateRunRequest,
     include_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RunObject, Error<CreateRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -438,10 +457,15 @@ pub async fn create_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_run_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -488,6 +512,7 @@ pub async fn create_run(
 pub async fn create_thread(
     configuration: &configuration::Configuration,
     create_thread_request: Option<&models::CreateThreadRequest>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ThreadObject, Error<CreateThreadError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_thread_request = create_thread_request;
@@ -502,10 +527,15 @@ pub async fn create_thread(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_thread_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -552,6 +582,7 @@ pub async fn create_thread(
 pub async fn create_thread_and_run(
     configuration: &configuration::Configuration,
     create_thread_and_run_request: &models::CreateThreadAndRunRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RunObject, Error<CreateThreadAndRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_thread_and_run_request = create_thread_and_run_request;
@@ -566,10 +597,15 @@ pub async fn create_thread_and_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_thread_and_run_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -617,6 +653,7 @@ pub async fn create_thread_and_run(
 pub async fn delete_assistant(
     configuration: &configuration::Configuration,
     assistant_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteAssistantResponse, Error<DeleteAssistantError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_assistant_id = assistant_id;
@@ -635,9 +672,14 @@ pub async fn delete_assistant(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -685,6 +727,7 @@ pub async fn delete_message(
     configuration: &configuration::Configuration,
     thread_id: &str,
     message_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteMessageResponse, Error<DeleteMessageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -705,9 +748,14 @@ pub async fn delete_message(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -754,6 +802,7 @@ pub async fn delete_message(
 pub async fn delete_thread(
     configuration: &configuration::Configuration,
     thread_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeleteThreadResponse, Error<DeleteThreadError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -772,9 +821,14 @@ pub async fn delete_thread(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -822,6 +876,7 @@ pub async fn delete_thread(
 pub async fn get_assistant(
     configuration: &configuration::Configuration,
     assistant_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AssistantObject, Error<GetAssistantError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_assistant_id = assistant_id;
@@ -840,9 +895,14 @@ pub async fn get_assistant(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -890,6 +950,7 @@ pub async fn get_message(
     configuration: &configuration::Configuration,
     thread_id: &str,
     message_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::MessageObject, Error<GetMessageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -910,9 +971,14 @@ pub async fn get_message(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -960,6 +1026,7 @@ pub async fn get_run(
     configuration: &configuration::Configuration,
     thread_id: &str,
     run_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RunObject, Error<GetRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -980,9 +1047,14 @@ pub async fn get_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1032,6 +1104,7 @@ pub async fn get_run_step(
     run_id: &str,
     step_id: &str,
     include_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RunStepObject, Error<GetRunStepError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1062,9 +1135,14 @@ pub async fn get_run_step(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1111,6 +1189,7 @@ pub async fn get_run_step(
 pub async fn get_thread(
     configuration: &configuration::Configuration,
     thread_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ThreadObject, Error<GetThreadError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1129,9 +1208,14 @@ pub async fn get_thread(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1182,6 +1266,7 @@ pub async fn list_assistants(
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListAssistantsResponse, Error<ListAssistantsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -1211,9 +1296,14 @@ pub async fn list_assistants(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1265,6 +1355,7 @@ pub async fn list_messages(
     after: Option<&str>,
     before: Option<&str>,
     run_id: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListMessagesResponse, Error<ListMessagesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1303,9 +1394,14 @@ pub async fn list_messages(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1358,6 +1454,7 @@ pub async fn list_run_steps(
     after: Option<&str>,
     before: Option<&str>,
     include_left_square_bracket_right_square_bracket: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListRunStepsResponse, Error<ListRunStepsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1402,9 +1499,14 @@ pub async fn list_run_steps(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1455,6 +1557,7 @@ pub async fn list_runs(
     order: Option<&str>,
     after: Option<&str>,
     before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ListRunsResponse, Error<ListRunsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1489,9 +1592,14 @@ pub async fn list_runs(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1540,6 +1648,7 @@ pub async fn modify_assistant(
     configuration: &configuration::Configuration,
     assistant_id: &str,
     modify_assistant_request: &models::ModifyAssistantRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::AssistantObject, Error<ModifyAssistantError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_assistant_id = assistant_id;
@@ -1559,10 +1668,15 @@ pub async fn modify_assistant(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_modify_assistant_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1611,6 +1725,7 @@ pub async fn modify_message(
     thread_id: &str,
     message_id: &str,
     modify_message_request: &models::ModifyMessageRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::MessageObject, Error<ModifyMessageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1632,10 +1747,15 @@ pub async fn modify_message(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_modify_message_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1684,6 +1804,7 @@ pub async fn modify_run(
     thread_id: &str,
     run_id: &str,
     modify_run_request: &models::ModifyRunRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RunObject, Error<ModifyRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1705,10 +1826,15 @@ pub async fn modify_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_modify_run_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1756,6 +1882,7 @@ pub async fn modify_thread(
     configuration: &configuration::Configuration,
     thread_id: &str,
     modify_thread_request: &models::ModifyThreadRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::ThreadObject, Error<ModifyThreadError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1775,10 +1902,15 @@ pub async fn modify_thread(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_modify_thread_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1827,6 +1959,7 @@ pub async fn submit_tool_ouputs_to_run(
     thread_id: &str,
     run_id: &str,
     submit_tool_outputs_run_request: &models::SubmitToolOutputsRunRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::RunObject, Error<SubmitToolOuputsToRunError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_thread_id = thread_id;
@@ -1848,10 +1981,15 @@ pub async fn submit_tool_ouputs_to_run(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_submit_tool_outputs_run_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

@@ -127,6 +127,7 @@ pub enum UpdateSkillDefaultVersionError {
 pub async fn create_skill(
     configuration: &configuration::Configuration,
     files: models::CreateSkillBodyFiles,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SkillResource, Error<CreateSkillError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_form_files = files;
@@ -141,7 +142,8 @@ pub async fn create_skill(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     match &p_form_files {
@@ -157,6 +159,10 @@ pub async fn create_skill(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -211,6 +217,7 @@ pub async fn create_skill(
 pub async fn create_skill_json(
     configuration: &configuration::Configuration,
     create_skill_body: Option<&models::CreateSkillBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SkillResource, Error<CreateSkillError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_skill_body = create_skill_body;
@@ -225,10 +232,15 @@ pub async fn create_skill_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_skill_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -283,6 +295,7 @@ pub async fn create_skill_version(
     skill_id: &str,
     files: models::CreateSkillVersionBodyFiles,
     default: Option<bool>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SkillVersionResource, Error<CreateSkillVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -303,7 +316,8 @@ pub async fn create_skill_version(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
     match &p_form_files {
@@ -321,6 +335,10 @@ pub async fn create_skill_version(
     }
     req_builder = req_builder.multipart(multipart_form);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -379,6 +397,7 @@ pub async fn create_skill_version_json(
     configuration: &configuration::Configuration,
     skill_id: &str,
     create_skill_version_body: Option<&models::CreateSkillVersionBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SkillVersionResource, Error<CreateSkillVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -398,10 +417,15 @@ pub async fn create_skill_version_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_create_skill_version_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -457,6 +481,7 @@ pub async fn create_skill_version_json(
 pub async fn delete_skill(
     configuration: &configuration::Configuration,
     skill_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedSkillResource, Error<DeleteSkillError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -475,9 +500,14 @@ pub async fn delete_skill(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -528,6 +558,7 @@ pub async fn delete_skill_version(
     configuration: &configuration::Configuration,
     skill_id: &str,
     version: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::DeletedSkillVersionResource, Error<DeleteSkillVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -548,9 +579,14 @@ pub async fn delete_skill_version(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -603,6 +639,7 @@ pub async fn delete_skill_version(
 pub async fn get_skill(
     configuration: &configuration::Configuration,
     skill_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SkillResource, Error<GetSkillError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -621,9 +658,14 @@ pub async fn get_skill(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -673,6 +715,7 @@ pub async fn get_skill(
 pub async fn get_skill_content(
     configuration: &configuration::Configuration,
     skill_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<timvw_rust_runtime::Response, Error<GetSkillContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -691,9 +734,14 @@ pub async fn get_skill_content(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -734,6 +782,7 @@ pub async fn get_skill_content(
 pub async fn get_skill_content_json(
     configuration: &configuration::Configuration,
     skill_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<String, Error<GetSkillContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -752,9 +801,14 @@ pub async fn get_skill_content_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -805,6 +859,7 @@ pub async fn get_skill_version(
     configuration: &configuration::Configuration,
     skill_id: &str,
     version: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SkillVersionResource, Error<GetSkillVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -825,9 +880,14 @@ pub async fn get_skill_version(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -881,6 +941,7 @@ pub async fn get_skill_version_content(
     configuration: &configuration::Configuration,
     skill_id: &str,
     version: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<timvw_rust_runtime::Response, Error<GetSkillVersionContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -901,9 +962,14 @@ pub async fn get_skill_version_content(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -948,6 +1014,7 @@ pub async fn get_skill_version_content_json(
     configuration: &configuration::Configuration,
     skill_id: &str,
     version: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<String, Error<GetSkillVersionContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -968,9 +1035,14 @@ pub async fn get_skill_version_content_json(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1026,6 +1098,7 @@ pub async fn list_skill_versions(
     limit: Option<i64>,
     order: Option<models::OrderEnum>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SkillVersionListResource, Error<ListSkillVersionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -1056,9 +1129,14 @@ pub async fn list_skill_versions(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1113,6 +1191,7 @@ pub async fn list_skills(
     limit: Option<i64>,
     order: Option<models::OrderEnum>,
     after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SkillListResource, Error<ListSkillsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
@@ -1138,9 +1217,14 @@ pub async fn list_skills(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
@@ -1191,6 +1275,7 @@ pub async fn update_skill_default_version(
     configuration: &configuration::Configuration,
     skill_id: &str,
     set_default_skill_version_body: Option<&models::SetDefaultSkillVersionBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::SkillResource, Error<UpdateSkillDefaultVersionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_skill_id = skill_id;
@@ -1210,10 +1295,15 @@ pub async fn update_skill_default_version(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(&p_body_set_default_skill_version_body);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 

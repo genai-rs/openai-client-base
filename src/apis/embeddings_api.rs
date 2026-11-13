@@ -33,6 +33,7 @@ pub enum CreateEmbeddingError {
 pub async fn create_embedding(
     configuration: &configuration::Configuration,
     create_embedding_request: &models::CreateEmbeddingRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::CreateEmbeddingResponse, Error<CreateEmbeddingError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_embedding_request = create_embedding_request;
@@ -47,10 +48,15 @@ pub async fn create_embedding(
             req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
     req_builder = req_builder.json(p_body_create_embedding_request);
 
+    // last, so its headers replace the generated ones
+    if let Some(options) = options {
+        req_builder = req_builder.options(options);
+    }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
