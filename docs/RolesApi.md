@@ -19,18 +19,22 @@ Method | HTTP request | Description
 
 ## create_project_role
 
-> models::Role create_project_role(project_id, public_create_organization_role_body)
+> models::Role create_project_role(project_id, public_create_organization_role_body, options)
 Create project role
 
 Creates a custom role for a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **public_create_organization_role_body** | [**PublicCreateOrganizationRoleBody**](PublicCreateOrganizationRoleBody.md) | Parameters for the project role you want to create. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_project_role().configuration(&configuration).project_id(..).public_create_organization_role_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -50,17 +54,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_role
 
-> models::Role create_role(public_create_organization_role_body)
+> models::Role create_role(public_create_organization_role_body, options)
 Create organization role
 
 Creates a custom role for the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **public_create_organization_role_body** | [**PublicCreateOrganizationRoleBody**](PublicCreateOrganizationRoleBody.md) | Parameters for the role you want to create. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_role().configuration(&configuration).public_create_organization_role_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -80,18 +88,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_project_role
 
-> models::RoleDeletedResource delete_project_role(project_id, role_id)
+> models::RoleDeletedResource delete_project_role(project_id, role_id, options)
 Delete project role
 
 Deletes a custom role from a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **role_id** | **String** | The ID of the role to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_project_role().configuration(&configuration).project_id(..).role_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -111,17 +123,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_role
 
-> models::RoleDeletedResource delete_role(role_id)
+> models::RoleDeletedResource delete_role(role_id, options)
 Delete organization role
 
 Deletes a custom role from the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **role_id** | **String** | The ID of the role to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_role().configuration(&configuration).role_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -141,13 +157,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_roles
 
-> models::PublicRoleListResource list_project_roles(project_id, limit, after, order)
+> models::PublicRoleListResource list_project_roles(project_id, limit, after, order, options)
 List project roles
 
 Lists the roles configured for a project.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -155,6 +170,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of roles to return. Defaults to 1000.  Defaults to `1000`. |  |[default to 1000]
 **after** | Option<**String**> | Cursor for pagination. Provide the value from the previous response's `next` field to continue listing roles. |  |
 **order** | Option<**String**> | Sort order for the returned roles.  Defaults to `\"asc\"`. |  |[default to asc]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_project_roles().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -174,19 +194,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_roles
 
-> models::PublicRoleListResource list_roles(limit, after, order)
+> models::PublicRoleListResource list_roles(limit, after, order, options)
 List organization roles
 
 Lists the roles configured for the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i64**> | A limit on the number of roles to return. Defaults to 1000.  Defaults to `1000`. |  |[default to 1000]
 **after** | Option<**String**> | Cursor for pagination. Provide the value from the previous response's `next` field to continue listing roles. |  |
 **order** | Option<**String**> | Sort order for the returned roles.  Defaults to `\"asc\"`. |  |[default to asc]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_roles().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -206,18 +230,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project_role
 
-> models::Role retrieve_project_role(project_id, role_id)
+> models::Role retrieve_project_role(project_id, role_id, options)
 Retrieve project role
 
 Retrieves a project role.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **role_id** | **String** | The ID of the role to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_role().configuration(&configuration).project_id(..).role_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -237,17 +265,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_role
 
-> models::Role retrieve_role(role_id)
+> models::Role retrieve_role(role_id, options)
 Retrieve organization role
 
 Retrieves an organization role.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **role_id** | **String** | The ID of the role to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_role().configuration(&configuration).role_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -267,19 +299,23 @@ Name | Type | Description  | Required | Notes
 
 ## update_project_role
 
-> models::Role update_project_role(project_id, role_id, public_update_organization_role_body)
+> models::Role update_project_role(project_id, role_id, public_update_organization_role_body, options)
 Update project role
 
 Updates an existing project role.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **role_id** | **String** | The ID of the role to update. | [required] |
 **public_update_organization_role_body** | [**PublicUpdateOrganizationRoleBody**](PublicUpdateOrganizationRoleBody.md) | Fields to update on the project role. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_project_role().configuration(&configuration).project_id(..).role_id(..).public_update_organization_role_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -299,18 +335,22 @@ Name | Type | Description  | Required | Notes
 
 ## update_role
 
-> models::Role update_role(role_id, public_update_organization_role_body)
+> models::Role update_role(role_id, public_update_organization_role_body, options)
 Update organization role
 
 Updates an existing organization role.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **role_id** | **String** | The ID of the role to update. | [required] |
 **public_update_organization_role_body** | [**PublicUpdateOrganizationRoleBody**](PublicUpdateOrganizationRoleBody.md) | Fields to update on the role. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_role().configuration(&configuration).role_id(..).public_update_organization_role_body(..).options(&options).call().await
+```
 
 ### Return type
 

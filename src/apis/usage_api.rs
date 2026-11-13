@@ -213,9 +213,9 @@ pub async fn usage_audio_speeches(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -352,9 +352,9 @@ pub async fn usage_audio_transcriptions(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -467,9 +467,9 @@ pub async fn usage_code_interpreter_sessions(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -608,9 +608,9 @@ pub async fn usage_completions(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -736,9 +736,9 @@ pub async fn usage_costs(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -872,9 +872,9 @@ pub async fn usage_embeddings(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1011,9 +1011,9 @@ pub async fn usage_file_search_calls(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1163,9 +1163,9 @@ pub async fn usage_images(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1299,9 +1299,9 @@ pub async fn usage_moderations(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1414,9 +1414,9 @@ pub async fn usage_vector_stores(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1561,9 +1561,9 @@ pub async fn usage_web_search_calls(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

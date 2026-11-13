@@ -14,22 +14,65 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum CreateSkillVersionBodyFiles {
     /// Skill files to upload (directory upload) or a single zip file.
-    ArrayOfStrings(Vec<std::path::PathBuf>),
+    ///
+    /// Files to upload: paths, bytes or streams. An upload has no JSON form: serializing this variant is an error,
+    /// and JSON never decodes to it.
+    #[serde(skip)]
+    ArrayOfStrings(Vec<timvw_rust_runtime::Upload>),
     /// Skill zip file to upload.
-    Text(std::path::PathBuf),
+    ///
+    /// A file to upload: a path, bytes or a stream. An upload has no JSON form: serializing this variant is an error,
+    /// and JSON never decodes to it.
+    #[serde(skip)]
+    Text(timvw_rust_runtime::Upload),
+}
+
+impl CreateSkillVersionBodyFiles {
+    /// A file to upload: a path (`PathBuf`, `&Path`), bytes (`Vec<u8>`, `Bytes`) or any `timvw_rust_runtime::Upload`.
+    pub fn file(upload: impl Into<timvw_rust_runtime::Upload>) -> Self {
+        Self::Text(upload.into())
+    }
+    /// Files to upload, one part each: paths, bytes or any `timvw_rust_runtime::Upload`s.
+    pub fn files(uploads: impl IntoIterator<Item = impl Into<timvw_rust_runtime::Upload>>) -> Self {
+        Self::ArrayOfStrings(uploads.into_iter().map(Into::into).collect())
+    }
+}
+
+impl From<timvw_rust_runtime::Upload> for CreateSkillVersionBodyFiles {
+    fn from(upload: timvw_rust_runtime::Upload) -> Self {
+        Self::Text(upload)
+    }
+}
+
+impl From<std::path::PathBuf> for CreateSkillVersionBodyFiles {
+    fn from(path: std::path::PathBuf) -> Self {
+        Self::Text(path.into())
+    }
+}
+
+impl From<Vec<timvw_rust_runtime::Upload>> for CreateSkillVersionBodyFiles {
+    fn from(uploads: Vec<timvw_rust_runtime::Upload>) -> Self {
+        Self::ArrayOfStrings(uploads)
+    }
+}
+
+impl From<Vec<std::path::PathBuf>> for CreateSkillVersionBodyFiles {
+    fn from(paths: Vec<std::path::PathBuf>) -> Self {
+        Self::files(paths)
+    }
 }
 
 impl std::fmt::Display for CreateSkillVersionBodyFiles {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::ArrayOfStrings(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
-            Self::Text(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
+            Self::ArrayOfStrings(value) => {
+                let names: Vec<&str> = value
+                    .iter()
+                    .map(|upload| upload.name().unwrap_or("file"))
+                    .collect();
+                f.write_str(&names.join(","))
+            }
+            Self::Text(value) => f.write_str(value.name().unwrap_or("file")),
         }
     }
 }

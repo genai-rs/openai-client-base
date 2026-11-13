@@ -13,17 +13,21 @@ Method | HTTP request | Description
 
 ## delete_invite
 
-> models::InviteDeleteResponse delete_invite(invite_id)
+> models::InviteDeleteResponse delete_invite(invite_id, options)
 Delete invite
 
 Delete an invite. If the invite has already been accepted, it cannot be deleted.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **invite_id** | **String** | The ID of the invite to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_invite().configuration(&configuration).invite_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -43,17 +47,21 @@ Name | Type | Description  | Required | Notes
 
 ## invite_user
 
-> models::Invite invite_user(invite_request)
+> models::Invite invite_user(invite_request, options)
 Create invite
 
 Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **invite_request** | [**InviteRequest**](InviteRequest.md) | The invite request payload. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+invite_user().configuration(&configuration).invite_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -73,18 +81,22 @@ Name | Type | Description  | Required | Notes
 
 ## list_invites
 
-> models::InviteListResponse list_invites(limit, after)
+> models::InviteListResponse list_invites(limit, after, options)
 List invites
 
 Returns a list of invites in the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_invites().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -104,17 +116,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_invite
 
-> models::Invite retrieve_invite(invite_id)
+> models::Invite retrieve_invite(invite_id, options)
 Retrieve invite
 
 Retrieves an invite.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **invite_id** | **String** | The ID of the invite to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_invite().configuration(&configuration).invite_id(..).options(&options).call().await
+```
 
 ### Return type
 

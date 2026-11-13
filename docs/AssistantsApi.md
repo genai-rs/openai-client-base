@@ -32,18 +32,22 @@ Method | HTTP request | Description
 
 ## cancel_run
 
-> models::RunObject cancel_run(thread_id, run_id)
+> models::RunObject cancel_run(thread_id, run_id, options)
 Cancel a run
 
 Cancels a run that is `in_progress`.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the thread to which this run belongs. | [required] |
 **run_id** | **String** | The ID of the run to cancel. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+cancel_run().configuration(&configuration).thread_id(..).run_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -63,17 +67,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_assistant
 
-> models::AssistantObject create_assistant(create_assistant_request)
+> models::AssistantObject create_assistant(create_assistant_request, options)
 Create assistant
 
 Create an assistant with a model and instructions.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_assistant_request** | [**CreateAssistantRequest**](CreateAssistantRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_assistant().configuration(&configuration).create_assistant_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -93,18 +101,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_message
 
-> models::MessageObject create_message(thread_id, create_message_request)
+> models::MessageObject create_message(thread_id, create_message_request, options)
 Create message
 
 Create a message.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) to create a message for. | [required] |
 **create_message_request** | [**CreateMessageRequest**](CreateMessageRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_message().configuration(&configuration).thread_id(..).create_message_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -124,19 +136,23 @@ Name | Type | Description  | Required | Notes
 
 ## create_run
 
-> models::RunObject create_run(thread_id, create_run_request, include_left_square_bracket_right_square_bracket)
+> models::RunObject create_run(thread_id, create_run_request, include_left_square_bracket_right_square_bracket, options)
 Create run
 
 Create a run.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the thread to run. | [required] |
 **create_run_request** | [**CreateRunRequest**](CreateRunRequest.md) |  | [required] |
 **include_left_square_bracket_right_square_bracket** | Option<**Vec<String>**> | A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_run().configuration(&configuration).thread_id(..).create_run_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -156,17 +172,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_thread
 
-> models::ThreadObject create_thread(create_thread_request)
+> models::ThreadObject create_thread(create_thread_request, options)
 Create thread
 
 Create a thread.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_thread_request** | Option<[**CreateThreadRequest**](CreateThreadRequest.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_thread().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -186,17 +206,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_thread_and_run
 
-> models::RunObject create_thread_and_run(create_thread_and_run_request)
+> models::RunObject create_thread_and_run(create_thread_and_run_request, options)
 Create thread and run
 
 Create a thread and run it in one request.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_thread_and_run_request** | [**CreateThreadAndRunRequest**](CreateThreadAndRunRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_thread_and_run().configuration(&configuration).create_thread_and_run_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -216,17 +240,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_assistant
 
-> models::DeleteAssistantResponse delete_assistant(assistant_id)
+> models::DeleteAssistantResponse delete_assistant(assistant_id, options)
 Delete assistant
 
 Delete an assistant.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **assistant_id** | **String** | The ID of the assistant to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_assistant().configuration(&configuration).assistant_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -246,18 +274,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_message
 
-> models::DeleteMessageResponse delete_message(thread_id, message_id)
+> models::DeleteMessageResponse delete_message(thread_id, message_id, options)
 Delete message
 
 Deletes a message.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the thread to which this message belongs. | [required] |
 **message_id** | **String** | The ID of the message to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_message().configuration(&configuration).thread_id(..).message_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -277,17 +309,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_thread
 
-> models::DeleteThreadResponse delete_thread(thread_id)
+> models::DeleteThreadResponse delete_thread(thread_id, options)
 Delete thread
 
 Delete a thread.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the thread to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_thread().configuration(&configuration).thread_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -307,17 +343,21 @@ Name | Type | Description  | Required | Notes
 
 ## get_assistant
 
-> models::AssistantObject get_assistant(assistant_id)
+> models::AssistantObject get_assistant(assistant_id, options)
 Retrieve assistant
 
 Retrieves an assistant.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **assistant_id** | **String** | The ID of the assistant to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_assistant().configuration(&configuration).assistant_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -337,18 +377,22 @@ Name | Type | Description  | Required | Notes
 
 ## get_message
 
-> models::MessageObject get_message(thread_id, message_id)
+> models::MessageObject get_message(thread_id, message_id, options)
 Retrieve message
 
 Retrieve a message.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) to which this message belongs. | [required] |
 **message_id** | **String** | The ID of the message to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_message().configuration(&configuration).thread_id(..).message_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -368,18 +412,22 @@ Name | Type | Description  | Required | Notes
 
 ## get_run
 
-> models::RunObject get_run(thread_id, run_id)
+> models::RunObject get_run(thread_id, run_id, options)
 Retrieve run
 
 Retrieves a run.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) that was run. | [required] |
 **run_id** | **String** | The ID of the run to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_run().configuration(&configuration).thread_id(..).run_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -399,13 +447,12 @@ Name | Type | Description  | Required | Notes
 
 ## get_run_step
 
-> models::RunStepObject get_run_step(thread_id, run_id, step_id, include_left_square_bracket_right_square_bracket)
+> models::RunStepObject get_run_step(thread_id, run_id, step_id, include_left_square_bracket_right_square_bracket, options)
 Retrieve run step
 
 Retrieves a run step.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -413,6 +460,11 @@ Name | Type | Description  | Required | Notes
 **run_id** | **String** | The ID of the run to which the run step belongs. | [required] |
 **step_id** | **String** | The ID of the run step to retrieve. | [required] |
 **include_left_square_bracket_right_square_bracket** | Option<**Vec<String>**> | A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_run_step().configuration(&configuration).thread_id(..).run_id(..).step_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -432,17 +484,21 @@ Name | Type | Description  | Required | Notes
 
 ## get_thread
 
-> models::ThreadObject get_thread(thread_id)
+> models::ThreadObject get_thread(thread_id, options)
 Retrieve thread
 
 Retrieves a thread.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the thread to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_thread().configuration(&configuration).thread_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -462,13 +518,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_assistants
 
-> models::ListAssistantsResponse list_assistants(limit, order, after, before)
+> models::ListAssistantsResponse list_assistants(limit, order, after, before, options)
 List assistants
 
 Returns a list of assistants.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -476,6 +531,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  Defaults to `\"desc\"`. |  |[default to desc]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_assistants().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -495,13 +555,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_messages
 
-> models::ListMessagesResponse list_messages(thread_id, limit, order, after, before, run_id)
+> models::ListMessagesResponse list_messages(thread_id, limit, order, after, before, run_id, options)
 List messages
 
 Returns a list of messages for a given thread.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -511,6 +570,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
 **run_id** | Option<**String**> | Filter messages by the run ID that generated them.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_messages().configuration(&configuration).thread_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -530,13 +594,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_run_steps
 
-> models::ListRunStepsResponse list_run_steps(thread_id, run_id, limit, order, after, before, include_left_square_bracket_right_square_bracket)
+> models::ListRunStepsResponse list_run_steps(thread_id, run_id, limit, order, after, before, include_left_square_bracket_right_square_bracket, options)
 List run steps
 
 Returns a list of run steps belonging to a run.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -547,6 +610,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
 **include_left_square_bracket_right_square_bracket** | Option<**Vec<String>**> | A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.  See the [file search tool documentation](https://developers.openai.com/api/docs/guides/tools-file-search#retrieval-customization) for more information.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_run_steps().configuration(&configuration).thread_id(..).run_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -566,13 +634,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_runs
 
-> models::ListRunsResponse list_runs(thread_id, limit, order, after, before)
+> models::ListRunsResponse list_runs(thread_id, limit, order, after, before, options)
 List runs
 
 Returns a list of runs belonging to a thread.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -581,6 +648,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  Defaults to `\"desc\"`. |  |[default to desc]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_runs().configuration(&configuration).thread_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -600,18 +672,22 @@ Name | Type | Description  | Required | Notes
 
 ## modify_assistant
 
-> models::AssistantObject modify_assistant(assistant_id, modify_assistant_request)
+> models::AssistantObject modify_assistant(assistant_id, modify_assistant_request, options)
 Modify assistant
 
 Modifies an assistant.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **assistant_id** | **String** | The ID of the assistant to modify. | [required] |
 **modify_assistant_request** | [**ModifyAssistantRequest**](ModifyAssistantRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+modify_assistant().configuration(&configuration).assistant_id(..).modify_assistant_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -631,19 +707,23 @@ Name | Type | Description  | Required | Notes
 
 ## modify_message
 
-> models::MessageObject modify_message(thread_id, message_id, modify_message_request)
+> models::MessageObject modify_message(thread_id, message_id, modify_message_request, options)
 Modify message
 
 Modifies a message.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the thread to which this message belongs. | [required] |
 **message_id** | **String** | The ID of the message to modify. | [required] |
 **modify_message_request** | [**ModifyMessageRequest**](ModifyMessageRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+modify_message().configuration(&configuration).thread_id(..).message_id(..).modify_message_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -663,19 +743,23 @@ Name | Type | Description  | Required | Notes
 
 ## modify_run
 
-> models::RunObject modify_run(thread_id, run_id, modify_run_request)
+> models::RunObject modify_run(thread_id, run_id, modify_run_request, options)
 Modify run
 
 Modifies a run.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) that was run. | [required] |
 **run_id** | **String** | The ID of the run to modify. | [required] |
 **modify_run_request** | [**ModifyRunRequest**](ModifyRunRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+modify_run().configuration(&configuration).thread_id(..).run_id(..).modify_run_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -695,18 +779,22 @@ Name | Type | Description  | Required | Notes
 
 ## modify_thread
 
-> models::ThreadObject modify_thread(thread_id, modify_thread_request)
+> models::ThreadObject modify_thread(thread_id, modify_thread_request, options)
 Modify thread
 
 Modifies a thread.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the thread to modify. Only the `metadata` can be modified. | [required] |
 **modify_thread_request** | [**ModifyThreadRequest**](ModifyThreadRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+modify_thread().configuration(&configuration).thread_id(..).modify_thread_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -726,19 +814,23 @@ Name | Type | Description  | Required | Notes
 
 ## submit_tool_ouputs_to_run
 
-> models::RunObject submit_tool_ouputs_to_run(thread_id, run_id, submit_tool_outputs_run_request)
+> models::RunObject submit_tool_ouputs_to_run(thread_id, run_id, submit_tool_outputs_run_request, options)
 Submit tool outputs to run
 
 When a run has the `status: \"requires_action\"` and `required_action.type` is `submit_tool_outputs`, this endpoint can be used to submit the outputs from the tool calls once they're all completed. All outputs must be submitted in a single request. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | The ID of the [thread](https://developers.openai.com/api/docs/assistants/migration) to which this run belongs. | [required] |
 **run_id** | **String** | The ID of the run that requires the tool output submission. | [required] |
 **submit_tool_outputs_run_request** | [**SubmitToolOutputsRunRequest**](SubmitToolOutputsRunRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+submit_tool_ouputs_to_run().configuration(&configuration).thread_id(..).run_id(..).submit_tool_outputs_run_request(..).options(&options).call().await
+```
 
 ### Return type
 

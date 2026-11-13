@@ -78,9 +78,9 @@ pub async fn create_image(
     };
     req_builder = req_builder.json(p_body_create_image_request);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -272,9 +272,9 @@ pub async fn create_image_edit(
     }
     req_builder = req_builder.multipart(multipart_form);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -359,9 +359,9 @@ pub async fn create_image_edit_json(
     };
     req_builder = req_builder.json(p_body_edit_image_body_json_param);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -452,9 +452,9 @@ pub async fn create_image_edit_json_stream(
     req_builder = req_builder.json(p_body_edit_image_body_json_param);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -647,9 +647,9 @@ pub async fn create_image_edit_stream(
     req_builder = req_builder.multipart(multipart_form);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -733,9 +733,9 @@ pub async fn create_image_stream(
     req_builder = req_builder.json(p_body_create_image_request);
 
     req_builder = req_builder.header(timvw_rust_runtime::header::ACCEPT, "text/event-stream");
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -843,9 +843,9 @@ pub async fn create_image_variation(
     }
     req_builder = req_builder.multipart(multipart_form);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

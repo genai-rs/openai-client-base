@@ -27,18 +27,22 @@ Method | HTTP request | Description
 
 ## beta_cancel_response
 
-> models::BetaResponse beta_cancel_response(response_id, openai_beta)
+> models::BetaResponse beta_cancel_response(response_id, openai_beta, options)
 Cancel a response
 
 Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled. [Learn more](https://developers.openai.com/api/docs/guides/background). 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to cancel. | [required] |
 **openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+beta_cancel_response().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -58,18 +62,22 @@ Name | Type | Description  | Required | Notes
 
 ## beta_compactconversation
 
-> models::BetaCompactResource beta_compactconversation(openai_beta, beta_compact_response_method_public_body)
+> models::BetaCompactResource beta_compactconversation(openai_beta, beta_compact_response_method_public_body, options)
 Compact conversation
 
 Compact a conversation. Returns a compacted response object.  Learn when and how to compact long-running conversations in the [conversation state guide](https://developers.openai.com/api/docs/guides/conversation-state#managing-the-context-window). For ZDR-compatible compaction details, see [Compaction (advanced)](https://developers.openai.com/api/docs/guides/conversation-state#compaction-advanced).
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 **beta_compact_response_method_public_body** | Option<[**BetaCompactResponseMethodPublicBody**](BetaCompactResponseMethodPublicBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+beta_compactconversation().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -89,18 +97,22 @@ Name | Type | Description  | Required | Notes
 
 ## beta_create_response
 
-> models::BetaResponse beta_create_response(beta_create_response, openai_beta)
+> models::BetaResponse beta_create_response(beta_create_response, openai_beta, options)
 Create a model response
 
 Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **beta_create_response** | [**BetaCreateResponse**](BetaCreateResponse.md) |  | [required] |
 **openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+beta_create_response().configuration(&configuration).beta_create_response(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -120,18 +132,22 @@ Name | Type | Description  | Required | Notes
 
 ## beta_create_response_stream
 
-> models::BetaResponseStreamEvent beta_create_response_stream(beta_create_response, openai_beta)
+> models::BetaResponseStreamEvent beta_create_response_stream(beta_create_response, openai_beta, options)
 Create a model response
 
 Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **beta_create_response** | [**BetaCreateResponse**](BetaCreateResponse.md) |  | [required] |
 **openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+beta_create_response_stream().configuration(&configuration).beta_create_response(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -151,18 +167,22 @@ Name | Type | Description  | Required | Notes
 
 ## beta_delete_response
 
-> models::BetaDeleteResponse200Response beta_delete_response(response_id, openai_beta)
+> models::BetaDeleteResponse200Response beta_delete_response(response_id, openai_beta, options)
 Delete a model response
 
 Deletes a model response with the given ID. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to delete. | [required] |
 **openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+beta_delete_response().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -182,13 +202,12 @@ Name | Type | Description  | Required | Notes
 
 ## beta_get_response
 
-> models::BetaResponse beta_get_response(response_id, include, stream, starting_after, include_obfuscation, openai_beta)
+> models::BetaResponse beta_get_response(response_id, include, stream, starting_after, include_obfuscation, openai_beta, options)
 Get a model response
 
 Retrieves a model response with the given ID. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -198,6 +217,11 @@ Name | Type | Description  | Required | Notes
 **starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
 **include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
 **openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+beta_get_response().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -217,13 +241,12 @@ Name | Type | Description  | Required | Notes
 
 ## beta_get_response_stream
 
-> models::BetaResponseStreamEvent beta_get_response_stream(response_id, include, stream, starting_after, include_obfuscation, openai_beta)
+> models::BetaResponseStreamEvent beta_get_response_stream(response_id, include, stream, starting_after, include_obfuscation, openai_beta, options)
 Get a model response
 
 Retrieves a model response with the given ID. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -233,6 +256,11 @@ Name | Type | Description  | Required | Notes
 **starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
 **include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
 **openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+beta_get_response_stream().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -252,18 +280,22 @@ Name | Type | Description  | Required | Notes
 
 ## beta_getinputtokencounts
 
-> models::BetaTokenCountsResource beta_getinputtokencounts(openai_beta, beta_token_counts_body)
+> models::BetaTokenCountsResource beta_getinputtokencounts(openai_beta, beta_token_counts_body, options)
 Get input token counts
 
 Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
 **beta_token_counts_body** | Option<[**BetaTokenCountsBody**](BetaTokenCountsBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+beta_getinputtokencounts().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -283,13 +315,12 @@ Name | Type | Description  | Required | Notes
 
 ## beta_list_input_items
 
-> models::BetaResponseItemList beta_list_input_items(response_id, limit, order, after, include, openai_beta)
+> models::BetaResponseItemList beta_list_input_items(response_id, limit, order, after, include, openai_beta, options)
 List input items
 
 Returns a list of input items for a given response.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -299,6 +330,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | An item ID to list items after, used in pagination.  |  |
 **include** | Option<[**Vec<models::BetaIncludeEnum>**](BetaIncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
 **openai_beta** | Option<**Vec<String>**> | Optional beta features to enable for this request. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+beta_list_input_items().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -318,17 +354,21 @@ Name | Type | Description  | Required | Notes
 
 ## cancel_response
 
-> models::Response cancel_response(response_id)
+> models::Response cancel_response(response_id, options)
 Cancel a response
 
 Cancels a model response with the given ID. Only responses created with the `background` parameter set to `true` can be cancelled. [Learn more](https://developers.openai.com/api/docs/guides/background). 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to cancel. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+cancel_response().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -348,17 +388,21 @@ Name | Type | Description  | Required | Notes
 
 ## compactconversation
 
-> models::CompactResource compactconversation(compact_response_method_public_body)
+> models::CompactResource compactconversation(compact_response_method_public_body, options)
 Compact conversation
 
 Compact a conversation. Returns a compacted response object.  Learn when and how to compact long-running conversations in the [conversation state guide](https://developers.openai.com/api/docs/guides/conversation-state#managing-the-context-window). For ZDR-compatible compaction details, see [Compaction (advanced)](https://developers.openai.com/api/docs/guides/conversation-state#compaction-advanced).
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **compact_response_method_public_body** | Option<[**CompactResponseMethodPublicBody**](CompactResponseMethodPublicBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+compactconversation().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -378,17 +422,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_response
 
-> models::Response create_response(create_response)
+> models::Response create_response(create_response, options)
 Create a model response
 
 Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_response** | [**CreateResponse**](CreateResponse.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_response().configuration(&configuration).create_response(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -408,17 +456,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_response_stream
 
-> models::ResponseStreamEvent create_response_stream(create_response)
+> models::ResponseStreamEvent create_response_stream(create_response, options)
 Create a model response
 
 Creates a model response. Provide [text](https://developers.openai.com/api/docs/guides/text) or [image](https://developers.openai.com/api/docs/guides/images-vision) inputs to generate [text](https://developers.openai.com/api/docs/guides/text) or [JSON](https://developers.openai.com/api/docs/guides/structured-outputs) outputs. Have the model call your own [custom code](https://developers.openai.com/api/docs/guides/function-calling) or use built-in [tools](https://developers.openai.com/api/docs/guides/tools) like [web search](https://developers.openai.com/api/docs/guides/tools-web-search) or [file search](https://developers.openai.com/api/docs/guides/tools-file-search) to use your own data as input for the model's response. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_response** | [**CreateResponse**](CreateResponse.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_response_stream().configuration(&configuration).create_response(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -438,17 +490,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_response
 
-> models::DeleteResponse200Response delete_response(response_id)
+> models::DeleteResponse200Response delete_response(response_id, options)
 Delete a model response
 
 Deletes a model response with the given ID. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **response_id** | **String** | The ID of the response to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_response().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -468,13 +524,12 @@ Name | Type | Description  | Required | Notes
 
 ## get_response
 
-> models::Response get_response(response_id, include, stream, starting_after, include_obfuscation)
+> models::Response get_response(response_id, include, stream, starting_after, include_obfuscation, options)
 Get a model response
 
 Retrieves a model response with the given ID. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -483,6 +538,11 @@ Name | Type | Description  | Required | Notes
 **stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.  |  |
 **starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
 **include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_response().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -502,13 +562,12 @@ Name | Type | Description  | Required | Notes
 
 ## get_response_stream
 
-> models::ResponseStreamEvent get_response_stream(response_id, include, stream, starting_after, include_obfuscation)
+> models::ResponseStreamEvent get_response_stream(response_id, include, stream, starting_after, include_obfuscation, options)
 Get a model response
 
 Retrieves a model response with the given ID. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -517,6 +576,11 @@ Name | Type | Description  | Required | Notes
 **stream** | Option<**bool**> | If set to true, the model response data will be streamed to the client as it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). See the [Streaming section below](https://developers.openai.com/api/reference/resources/responses/streaming-events) for more information.  |  |
 **starting_after** | Option<**i64**> | The sequence number of the event after which to start streaming.  |  |
 **include_obfuscation** | Option<**bool**> | When true, stream obfuscation will be enabled. Stream obfuscation adds random characters to an `obfuscation` field on streaming delta events to normalize payload sizes as a mitigation to certain side-channel attacks. These obfuscation fields are included by default, but add a small amount of overhead to the data stream. You can set `include_obfuscation` to false to optimize for bandwidth if you trust the network links between your application and the OpenAI API.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_response_stream().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -536,17 +600,21 @@ Name | Type | Description  | Required | Notes
 
 ## getinputtokencounts
 
-> models::TokenCountsResource getinputtokencounts(token_counts_body)
+> models::TokenCountsResource getinputtokencounts(token_counts_body, options)
 Get input token counts
 
 Returns input token counts of the request.  Returns an object with `object` set to `response.input_tokens` and an `input_tokens` count.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **token_counts_body** | Option<[**TokenCountsBody**](TokenCountsBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+getinputtokencounts().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -566,13 +634,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_input_items
 
-> models::ResponseItemList list_input_items(response_id, limit, order, after, include)
+> models::ResponseItemList list_input_items(response_id, limit, order, after, include, options)
 List input items
 
 Returns a list of input items for a given response.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -581,6 +648,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<**String**> | The order to return the input items in. Default is `desc`. - `asc`: Return the input items in ascending order. - `desc`: Return the input items in descending order.  |  |
 **after** | Option<**String**> | An item ID to list items after, used in pagination.  |  |
 **include** | Option<[**Vec<models::IncludeEnum>**](IncludeEnum.md)> | Additional fields to include in the response. See the `include` parameter for Response creation above for more information.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_input_items().configuration(&configuration).response_id(..).options(&options).call().await
+```
 
 ### Return type
 

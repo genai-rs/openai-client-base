@@ -13,17 +13,21 @@ Method | HTTP request | Description
 
 ## cancel_batch
 
-> models::Batch cancel_batch(batch_id)
+> models::Batch cancel_batch(batch_id, options)
 Cancel batch
 
 Cancels an in-progress batch. The batch will be in status `cancelling` for up to 10 minutes, before changing to `cancelled`, where it will have partial results (if any) available in the output file.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **batch_id** | **String** | The ID of the batch to cancel. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+cancel_batch().configuration(&configuration).batch_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -43,17 +47,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_batch
 
-> models::Batch create_batch(create_batch_request)
+> models::Batch create_batch(create_batch_request, options)
 Create batch
 
 Creates and executes a batch from an uploaded file of requests
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_batch_request** | [**CreateBatchRequest**](CreateBatchRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_batch().configuration(&configuration).create_batch_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -73,18 +81,22 @@ Name | Type | Description  | Required | Notes
 
 ## list_batches
 
-> models::ListBatchesResponse list_batches(after, limit)
+> models::ListBatchesResponse list_batches(after, limit, options)
 List batches
 
 List your organization's batches.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_batches().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -104,17 +116,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_batch
 
-> models::Batch retrieve_batch(batch_id)
+> models::Batch retrieve_batch(batch_id, options)
 Retrieve batch
 
 Retrieves a batch.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **batch_id** | **String** | The ID of the batch to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_batch().configuration(&configuration).batch_id(..).options(&options).call().await
+```
 
 ### Return type
 

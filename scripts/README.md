@@ -1,6 +1,6 @@
 # Generation regression checks
 
-Run the Python patch tests with:
+Run the generation script tests with:
 
 ```sh
 uv run --with pyyaml python -m unittest discover -s scripts/tests -v

@@ -167,9 +167,9 @@ pub async fn cancel_fine_tuning_job(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -253,9 +253,9 @@ pub async fn create_fine_tuning_checkpoint_permission(
     };
     req_builder = req_builder.json(p_body_create_fine_tuning_checkpoint_permission_request);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -329,9 +329,9 @@ pub async fn create_fine_tuning_job(
     };
     req_builder = req_builder.json(p_body_create_fine_tuning_job_request);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -411,9 +411,9 @@ pub async fn delete_fine_tuning_checkpoint_permission(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -513,9 +513,9 @@ pub async fn list_fine_tuning_checkpoint_permissions(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -599,9 +599,9 @@ pub async fn list_fine_tuning_events(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -689,9 +689,9 @@ pub async fn list_fine_tuning_job_checkpoints(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -780,9 +780,9 @@ pub async fn list_paginated_fine_tuning_jobs(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -856,9 +856,9 @@ pub async fn pause_fine_tuning_job(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -935,9 +935,9 @@ pub async fn resume_fine_tuning_job(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1014,9 +1014,9 @@ pub async fn retrieve_fine_tuning_job(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1087,9 +1087,9 @@ pub async fn run_grader(
     };
     req_builder = req_builder.json(p_body_run_grader_request);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1163,9 +1163,9 @@ pub async fn validate_grader(
     };
     req_builder = req_builder.json(p_body_validate_grader_request);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

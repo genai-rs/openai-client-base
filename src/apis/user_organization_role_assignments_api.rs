@@ -91,9 +91,9 @@ pub async fn assign_user_role(
     };
     req_builder = req_builder.json(p_body_public_assign_organization_group_role_body);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -188,9 +188,9 @@ pub async fn list_user_role_assignments(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -273,9 +273,9 @@ pub async fn retrieve_user_role(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -358,9 +358,9 @@ pub async fn unassign_user_role(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

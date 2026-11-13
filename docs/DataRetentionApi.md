@@ -13,14 +13,20 @@ Method | HTTP request | Description
 
 ## retrieve_organization_data_retention
 
-> models::OrganizationDataRetention retrieve_organization_data_retention()
+> models::OrganizationDataRetention retrieve_organization_data_retention(options)
 Retrieve organization data retention
 
 Retrieves organization data retention controls.
 
 ### Parameters
 
-This endpoint does not need any parameter.
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_organization_data_retention().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -40,17 +46,21 @@ This endpoint does not need any parameter.
 
 ## retrieve_project_data_retention
 
-> models::ProjectDataRetention retrieve_project_data_retention(project_id)
+> models::ProjectDataRetention retrieve_project_data_retention(project_id, options)
 Retrieve project data retention
 
 Retrieves project data retention controls.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to inspect. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_data_retention().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -70,17 +80,21 @@ Name | Type | Description  | Required | Notes
 
 ## update_organization_data_retention
 
-> models::OrganizationDataRetention update_organization_data_retention(update_organization_data_retention_body)
+> models::OrganizationDataRetention update_organization_data_retention(update_organization_data_retention_body, options)
 Update organization data retention
 
 Updates organization data retention controls.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **update_organization_data_retention_body** | [**UpdateOrganizationDataRetentionBody**](UpdateOrganizationDataRetentionBody.md) | The desired organization data retention setting. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_organization_data_retention().configuration(&configuration).update_organization_data_retention_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -100,18 +114,22 @@ Name | Type | Description  | Required | Notes
 
 ## update_project_data_retention
 
-> models::ProjectDataRetention update_project_data_retention(project_id, update_project_data_retention_body)
+> models::ProjectDataRetention update_project_data_retention(project_id, update_project_data_retention_body, options)
 Update project data retention
 
 Updates project data retention controls.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **update_project_data_retention_body** | [**UpdateProjectDataRetentionBody**](UpdateProjectDataRetentionBody.md) | The desired project data retention setting. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_project_data_retention().configuration(&configuration).project_id(..).update_project_data_retention_body(..).options(&options).call().await
+```
 
 ### Return type
 

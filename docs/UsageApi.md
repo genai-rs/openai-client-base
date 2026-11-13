@@ -20,13 +20,12 @@ Method | HTTP request | Description
 
 ## usage_audio_speeches
 
-> models::UsageResponse usage_audio_speeches(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+> models::UsageResponse usage_audio_speeches(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page, options)
 Audio speeches
 
 Get audio speeches usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -40,6 +39,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_audio_speeches().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -59,13 +63,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_audio_transcriptions
 
-> models::UsageResponse usage_audio_transcriptions(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+> models::UsageResponse usage_audio_transcriptions(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page, options)
 Audio transcriptions
 
 Get audio transcriptions usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -79,6 +82,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_audio_transcriptions().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -98,13 +106,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_code_interpreter_sessions
 
-> models::UsageResponse usage_code_interpreter_sessions(start_time, end_time, bucket_width, project_ids, group_by, limit, page)
+> models::UsageResponse usage_code_interpreter_sessions(start_time, end_time, bucket_width, project_ids, group_by, limit, page, options)
 Code interpreter sessions
 
 Get code interpreter sessions usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -115,6 +122,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_code_interpreter_sessions().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -134,13 +146,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_completions
 
-> models::UsageResponse usage_completions(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, batch, group_by, limit, page)
+> models::UsageResponse usage_completions(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, batch, group_by, limit, page, options)
 Completions
 
 Get completions usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -155,6 +166,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_completions().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -174,13 +190,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_costs
 
-> models::UsageResponse usage_costs(start_time, end_time, bucket_width, project_ids, api_key_ids, line_items, group_by, limit, page)
+> models::UsageResponse usage_costs(start_time, end_time, bucket_width, project_ids, api_key_ids, line_items, group_by, limit, page, options)
 Costs
 
 Get costs details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -193,6 +208,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the costs by the specified fields. Supported fields include `project_id`, `user_id`, `line_item`, `api_key_id`, and `api_source`. Support for combining `user_id` with `project_id` grouping or the `project_ids` filter depends on the organization and requested time range. Unsupported combinations return HTTP 400. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
 **limit** | Option<**i64**> | A limit on the number of buckets to be returned. Limit can range between 1 and 180, and the default is 7.  Defaults to `7`. |  |[default to 7]
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_costs().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -212,13 +232,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_embeddings
 
-> models::UsageResponse usage_embeddings(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+> models::UsageResponse usage_embeddings(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page, options)
 Embeddings
 
 Get embeddings usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -232,6 +251,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_embeddings().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -251,13 +275,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_file_search_calls
 
-> models::UsageResponse usage_file_search_calls(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, vector_store_ids, group_by, limit, page)
+> models::UsageResponse usage_file_search_calls(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, vector_store_ids, group_by, limit, page, options)
 File search calls
 
 Get file search calls usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -271,6 +294,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `vector_store_id` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_file_search_calls().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -290,13 +318,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_images
 
-> models::UsageResponse usage_images(start_time, end_time, bucket_width, sources, sizes, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+> models::UsageResponse usage_images(start_time, end_time, bucket_width, sources, sizes, project_ids, user_ids, api_key_ids, models, group_by, limit, page, options)
 Images
 
 Get images usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -312,6 +339,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `size`, `source` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_images().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -331,13 +363,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_moderations
 
-> models::UsageResponse usage_moderations(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page)
+> models::UsageResponse usage_moderations(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, group_by, limit, page, options)
 Moderations
 
 Get moderations usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -351,6 +382,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_moderations().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -370,13 +406,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_vector_stores
 
-> models::UsageResponse usage_vector_stores(start_time, end_time, bucket_width, project_ids, group_by, limit, page)
+> models::UsageResponse usage_vector_stores(start_time, end_time, bucket_width, project_ids, group_by, limit, page, options)
 Vector stores
 
 Get vector stores usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -387,6 +422,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_vector_stores().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -406,13 +446,12 @@ Name | Type | Description  | Required | Notes
 
 ## usage_web_search_calls
 
-> models::UsageResponse usage_web_search_calls(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, context_levels, group_by, limit, page)
+> models::UsageResponse usage_web_search_calls(start_time, end_time, bucket_width, project_ids, user_ids, api_key_ids, models, context_levels, group_by, limit, page, options)
 Web search calls
 
 Get web search calls usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -427,6 +466,11 @@ Name | Type | Description  | Required | Notes
 **group_by** | Option<**Vec<String>**> | Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `context_level`, `api_source` or any combination of them. When grouped by `api_source`, results use `agents_api` for attributed Agents API activity and `unlabeled` for all other activity. Without source grouping, `api_source` is null. |  |
 **limit** | Option<**i64**> | Specifies the number of buckets to return. - `bucket_width=1d`: default: 7, max: 31 - `bucket_width=1h`: default: 24, max: 168 - `bucket_width=1m`: default: 60, max: 1440  |  |
 **page** | Option<**String**> | A cursor for use in pagination. Corresponding to the `next_page` field from the previous response. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+usage_web_search_calls().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 

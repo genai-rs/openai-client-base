@@ -22,17 +22,21 @@ Method | HTTP request | Description
 
 ## cancel_fine_tuning_job
 
-> models::FineTuningJob cancel_fine_tuning_job(fine_tuning_job_id)
+> models::FineTuningJob cancel_fine_tuning_job(fine_tuning_job_id, options)
 Cancel fine-tuning
 
 Immediately cancel a fine-tune job. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuning_job_id** | **String** | The ID of the fine-tuning job to cancel.  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+cancel_fine_tuning_job().configuration(&configuration).fine_tuning_job_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -52,18 +56,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_fine_tuning_checkpoint_permission
 
-> models::ListFineTuningCheckpointPermissionResponse create_fine_tuning_checkpoint_permission(fine_tuned_model_checkpoint, create_fine_tuning_checkpoint_permission_request)
+> models::ListFineTuningCheckpointPermissionResponse create_fine_tuning_checkpoint_permission(fine_tuned_model_checkpoint, create_fine_tuning_checkpoint_permission_request, options)
 Create checkpoint permissions
 
 **NOTE:** Calling this endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  This enables organization owners to share fine-tuned models with other projects in their organization. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuned_model_checkpoint** | **String** | The ID of the fine-tuned model checkpoint to create a permission for.  | [required] |
 **create_fine_tuning_checkpoint_permission_request** | [**CreateFineTuningCheckpointPermissionRequest**](CreateFineTuningCheckpointPermissionRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_fine_tuning_checkpoint_permission().configuration(&configuration).fine_tuned_model_checkpoint(..).create_fine_tuning_checkpoint_permission_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -83,17 +91,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_fine_tuning_job
 
-> models::FineTuningJob create_fine_tuning_job(create_fine_tuning_job_request)
+> models::FineTuningJob create_fine_tuning_job(create_fine_tuning_job_request, options)
 Create fine-tuning job
 
 Creates a fine-tuning job which begins the process of creating a new model from a given dataset.  Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.  [Learn more about fine-tuning](https://developers.openai.com/api/docs/guides/model-optimization) 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_fine_tuning_job_request** | [**CreateFineTuningJobRequest**](CreateFineTuningJobRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_fine_tuning_job().configuration(&configuration).create_fine_tuning_job_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -113,18 +125,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_fine_tuning_checkpoint_permission
 
-> models::DeleteFineTuningCheckpointPermissionResponse delete_fine_tuning_checkpoint_permission(fine_tuned_model_checkpoint, permission_id)
+> models::DeleteFineTuningCheckpointPermissionResponse delete_fine_tuning_checkpoint_permission(fine_tuned_model_checkpoint, permission_id, options)
 Delete checkpoint permission
 
 **NOTE:** This endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuned_model_checkpoint** | **String** | The ID of the fine-tuned model checkpoint to delete a permission for.  | [required] |
 **permission_id** | **String** | The ID of the fine-tuned model checkpoint permission to delete.  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_fine_tuning_checkpoint_permission().configuration(&configuration).fine_tuned_model_checkpoint(..).permission_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -144,13 +160,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_fine_tuning_checkpoint_permissions
 
-> models::ListFineTuningCheckpointPermissionResponse list_fine_tuning_checkpoint_permissions(fine_tuned_model_checkpoint, project_id, after, limit, order)
+> models::ListFineTuningCheckpointPermissionResponse list_fine_tuning_checkpoint_permissions(fine_tuned_model_checkpoint, project_id, after, limit, order, options)
 List checkpoint permissions
 
 **NOTE:** This endpoint requires an [admin API key](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/admin_api_keys).  Organization owners can use this endpoint to view all permissions for a fine-tuned model checkpoint. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -159,6 +174,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | Identifier for the last permission ID from the previous pagination request. |  |
 **limit** | Option<**i64**> | Number of permissions to retrieve.  Defaults to `10`. |  |[default to 10]
 **order** | Option<**String**> | The order in which to retrieve permissions.  Defaults to `\"descending\"`. |  |[default to descending]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_fine_tuning_checkpoint_permissions().configuration(&configuration).fine_tuned_model_checkpoint(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -178,19 +198,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_fine_tuning_events
 
-> models::ListFineTuningJobEventsResponse list_fine_tuning_events(fine_tuning_job_id, after, limit)
+> models::ListFineTuningJobEventsResponse list_fine_tuning_events(fine_tuning_job_id, after, limit, options)
 List fine-tuning events
 
 Get status updates for a fine-tuning job. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuning_job_id** | **String** | The ID of the fine-tuning job to get events for.  | [required] |
 **after** | Option<**String**> | Identifier for the last event from the previous pagination request. |  |
 **limit** | Option<**i64**> | Number of events to retrieve.  Defaults to `20`. |  |[default to 20]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_fine_tuning_events().configuration(&configuration).fine_tuning_job_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -210,19 +234,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_fine_tuning_job_checkpoints
 
-> models::ListFineTuningJobCheckpointsResponse list_fine_tuning_job_checkpoints(fine_tuning_job_id, after, limit)
+> models::ListFineTuningJobCheckpointsResponse list_fine_tuning_job_checkpoints(fine_tuning_job_id, after, limit, options)
 List fine-tuning checkpoints
 
 List checkpoints for a fine-tuning job. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuning_job_id** | **String** | The ID of the fine-tuning job to get checkpoints for.  | [required] |
 **after** | Option<**String**> | Identifier for the last checkpoint ID from the previous pagination request. |  |
 **limit** | Option<**i64**> | Number of checkpoints to retrieve.  Defaults to `10`. |  |[default to 10]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_fine_tuning_job_checkpoints().configuration(&configuration).fine_tuning_job_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -242,19 +270,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_paginated_fine_tuning_jobs
 
-> models::ListPaginatedFineTuningJobsResponse list_paginated_fine_tuning_jobs(after, limit, metadata)
+> models::ListPaginatedFineTuningJobsResponse list_paginated_fine_tuning_jobs(after, limit, metadata, options)
 List fine-tuning jobs
 
 List your organization's fine-tuning jobs 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **after** | Option<**String**> | Identifier for the last job from the previous pagination request. |  |
 **limit** | Option<**i64**> | Number of fine-tuning jobs to retrieve.  Defaults to `20`. |  |[default to 20]
 **metadata** | Option<**std::collections::HashMap<String, String>**> | Optional metadata filter. To filter, use the syntax `metadata[k]=v`. Omitting the parameter or passing an empty object applies no metadata filter. An empty value, such as `metadata[k]=`, filters for that key with an empty string value. To select jobs with null metadata, send the literal query string `metadata=null`. Nullable caller types do not specify how a client serializes null for a deep-object parameter. Use a raw query parameter if the client omits null. Do not combine the two query forms.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_paginated_fine_tuning_jobs().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -274,17 +306,21 @@ Name | Type | Description  | Required | Notes
 
 ## pause_fine_tuning_job
 
-> models::FineTuningJob pause_fine_tuning_job(fine_tuning_job_id)
+> models::FineTuningJob pause_fine_tuning_job(fine_tuning_job_id, options)
 Pause fine-tuning
 
 Pause a fine-tune job. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuning_job_id** | **String** | The ID of the fine-tuning job to pause.  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+pause_fine_tuning_job().configuration(&configuration).fine_tuning_job_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -304,17 +340,21 @@ Name | Type | Description  | Required | Notes
 
 ## resume_fine_tuning_job
 
-> models::FineTuningJob resume_fine_tuning_job(fine_tuning_job_id)
+> models::FineTuningJob resume_fine_tuning_job(fine_tuning_job_id, options)
 Resume fine-tuning
 
 Resume a fine-tune job. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuning_job_id** | **String** | The ID of the fine-tuning job to resume.  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+resume_fine_tuning_job().configuration(&configuration).fine_tuning_job_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -334,17 +374,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_fine_tuning_job
 
-> models::FineTuningJob retrieve_fine_tuning_job(fine_tuning_job_id)
+> models::FineTuningJob retrieve_fine_tuning_job(fine_tuning_job_id, options)
 Retrieve fine-tuning job
 
 Get info about a fine-tuning job.  [Learn more about fine-tuning](https://developers.openai.com/api/docs/guides/model-optimization) 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **fine_tuning_job_id** | **String** | The ID of the fine-tuning job.  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_fine_tuning_job().configuration(&configuration).fine_tuning_job_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -364,17 +408,21 @@ Name | Type | Description  | Required | Notes
 
 ## run_grader
 
-> models::RunGraderResponse run_grader(run_grader_request)
+> models::RunGraderResponse run_grader(run_grader_request, options)
 Run grader
 
 Run a grader. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **run_grader_request** | [**RunGraderRequest**](RunGraderRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+run_grader().configuration(&configuration).run_grader_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -394,17 +442,21 @@ Name | Type | Description  | Required | Notes
 
 ## validate_grader
 
-> models::ValidateGraderResponse validate_grader(validate_grader_request)
+> models::ValidateGraderResponse validate_grader(validate_grader_request, options)
 Validate grader
 
 Validate a grader. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **validate_grader_request** | [**ValidateGraderRequest**](ValidateGraderRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+validate_grader().configuration(&configuration).validate_grader_request(..).options(&options).call().await
+```
 
 ### Return type
 

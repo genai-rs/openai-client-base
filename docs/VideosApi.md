@@ -24,13 +24,12 @@ Method | HTTP request | Description
 
 ## create_video
 
-> models::VideoResource create_video(prompt, model, input_reference, seconds, size)
+> models::VideoResource create_video(prompt, model, input_reference, seconds, size, options)
 Create a video
 
 Create a new video generation job from a prompt and optional reference assets.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -39,6 +38,11 @@ Name | Type | Description  | Required | Notes
 **input_reference** | Option<[**models::CreateVideoMultipartBodyInputReference**](CreateVideoMultipartBodyInputReference.md)> |  |  |
 **seconds** | Option<[**models::VideoSeconds**](VideoSeconds.md)> |  |  |
 **size** | Option<[**models::VideoSize**](VideoSize.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_video().configuration(&configuration).prompt(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -58,18 +62,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_video_character
 
-> models::VideoCharacterResource create_video_character(video, name)
+> models::VideoCharacterResource create_video_character(video, name, options)
 Create a character
 
 Create a character from an uploaded video.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video** | **timvw_rust_runtime::Upload** | Video file used to create a character. | [required] |
 **name** | **String** | Display name for this API character. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_video_character().configuration(&configuration).video(..).name(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -89,18 +97,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_video_edit
 
-> models::VideoResource create_video_edit(video, prompt)
+> models::VideoResource create_video_edit(video, prompt, options)
 Create a video edit
 
 Create a new video generation job by editing a source video or existing generated video.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video** | [**models::CreateVideoEditMultipartBodyVideo**](CreateVideoEditMultipartBodyVideo.md) |  | [required] |
 **prompt** | **String** | Text prompt that describes how to edit the source video. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_video_edit().configuration(&configuration).video(..).prompt(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -120,17 +132,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_video_edit_json
 
-> models::VideoResource create_video_edit_json(create_video_edit_json_body)
+> models::VideoResource create_video_edit_json(create_video_edit_json_body, options)
 Create a video edit
 
 Create a new video generation job by editing a source video or existing generated video.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_video_edit_json_body** | Option<[**CreateVideoEditJsonBody**](CreateVideoEditJsonBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_video_edit_json().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -150,19 +166,23 @@ Name | Type | Description  | Required | Notes
 
 ## create_video_extend
 
-> models::VideoResource create_video_extend(video, prompt, seconds)
+> models::VideoResource create_video_extend(video, prompt, seconds, options)
 Create a video extension
 
 Create an extension of a completed video.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video** | [**models::CreateVideoExtendMultipartBodyVideo**](CreateVideoExtendMultipartBodyVideo.md) |  | [required] |
 **prompt** | **String** | Updated text prompt that directs the extension generation. | [required] |
 **seconds** | [**models::VideoSeconds**](VideoSeconds.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_video_extend().configuration(&configuration).video(..).prompt(..).seconds(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -182,17 +202,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_video_extend_json
 
-> models::VideoResource create_video_extend_json(create_video_extend_json_body)
+> models::VideoResource create_video_extend_json(create_video_extend_json_body, options)
 Create a video extension
 
 Create an extension of a completed video.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_video_extend_json_body** | Option<[**CreateVideoExtendJsonBody**](CreateVideoExtendJsonBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_video_extend_json().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -212,17 +236,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_video_json
 
-> models::VideoResource create_video_json(create_video_json_body)
+> models::VideoResource create_video_json(create_video_json_body, options)
 Create a video
 
 Create a new video generation job from a prompt and optional reference assets.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_video_json_body** | Option<[**CreateVideoJsonBody**](CreateVideoJsonBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_video_json().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -242,18 +270,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_video_remix
 
-> models::VideoResource create_video_remix(video_id, prompt)
+> models::VideoResource create_video_remix(video_id, prompt, options)
 Create a video remix
 
 Create a remix of a completed video using a refreshed prompt.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The identifier of the completed video to remix. | [required] |
 **prompt** | **String** | Updated text prompt that directs the remix generation. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_video_remix().configuration(&configuration).video_id(..).prompt(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -273,18 +305,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_video_remix_json
 
-> models::VideoResource create_video_remix_json(video_id, create_video_remix_body)
+> models::VideoResource create_video_remix_json(video_id, create_video_remix_body, options)
 Create a video remix
 
 Create a remix of a completed video using a refreshed prompt.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The identifier of the completed video to remix. | [required] |
 **create_video_remix_body** | Option<[**CreateVideoRemixBody**](CreateVideoRemixBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_video_remix_json().configuration(&configuration).video_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -304,17 +340,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_video
 
-> models::DeletedVideoResource delete_video(video_id)
+> models::DeletedVideoResource delete_video(video_id, options)
 Delete a video
 
 Permanently delete a completed or failed video and its stored assets.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The identifier of the video to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_video().configuration(&configuration).video_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -334,17 +374,21 @@ Name | Type | Description  | Required | Notes
 
 ## get_video
 
-> models::VideoResource get_video(video_id)
+> models::VideoResource get_video(video_id, options)
 Retrieve a video
 
 Fetch the latest metadata for a generated video.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The identifier of the video to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_video().configuration(&configuration).video_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -364,17 +408,21 @@ Name | Type | Description  | Required | Notes
 
 ## get_video_character
 
-> models::VideoCharacterResource get_video_character(character_id)
+> models::VideoCharacterResource get_video_character(character_id, options)
 Retrieve a character
 
 Fetch a character.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **character_id** | **String** | The identifier of the character to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_video_character().configuration(&configuration).character_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -394,19 +442,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_videos
 
-> models::VideoListResource list_videos(limit, order, after)
+> models::VideoListResource list_videos(limit, order, after, options)
 List videos
 
 List recently generated videos for the current project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i64**> | Number of items to retrieve |  |
 **order** | Option<[**OrderEnum**](OrderEnum.md)> | Sort order of results by timestamp. Use `asc` for ascending order or `desc` for descending order. |  |
 **after** | Option<**String**> | Identifier for the last item from the previous pagination request |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_videos().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -426,18 +478,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_video_content
 
-> std::path::PathBuf retrieve_video_content(video_id, variant)
+> std::path::PathBuf retrieve_video_content(video_id, variant, options)
 Download video content
 
 Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The identifier of the video whose media to download. | [required] |
 **variant** | Option<[**VideoContentVariant**](VideoContentVariant.md)> | Which downloadable asset to return. Defaults to the MP4 video. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_video_content().configuration(&configuration).video_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -457,18 +513,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_video_content_json
 
-> String retrieve_video_content_json(video_id, variant)
+> String retrieve_video_content_json(video_id, variant, options)
 Download video content
 
 Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **video_id** | **String** | The identifier of the video whose media to download. | [required] |
 **variant** | Option<[**VideoContentVariant**](VideoContentVariant.md)> | Which downloadable asset to return. Defaults to the MP4 video. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_video_content_json().configuration(&configuration).video_id(..).options(&options).call().await
+```
 
 ### Return type
 

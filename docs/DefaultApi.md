@@ -70,17 +70,21 @@ Method | HTTP request | Description
 
 ## addanexternalkeyconfigforanorganization
 
-> models::ExternalKeyResource addanexternalkeyconfigforanorganization(v1_organization_external_keys_post_request)
+> models::ExternalKeyResource addanexternalkeyconfigforanorganization(v1_organization_external_keys_post_request, options)
 Add an external key config for an organization
 
 Add an external key config for an organization
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **v1_organization_external_keys_post_request** | [**V1OrganizationExternalKeysPostRequest**](V1OrganizationExternalKeysPostRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+addanexternalkeyconfigforanorganization().configuration(&configuration).v1_organization_external_keys_post_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -100,17 +104,21 @@ Name | Type | Description  | Required | Notes
 
 ## admin_api_keys_create
 
-> models::AdminApiKeyCreateResponse admin_api_keys_create(admin_api_keys_create_request)
+> models::AdminApiKeyCreateResponse admin_api_keys_create(admin_api_keys_create_request, options)
 Create admin API key
 
 Create an organization admin API key
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **admin_api_keys_create_request** | [**AdminApiKeysCreateRequest**](AdminApiKeysCreateRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+admin_api_keys_create().configuration(&configuration).admin_api_keys_create_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -130,17 +138,21 @@ Name | Type | Description  | Required | Notes
 
 ## admin_api_keys_delete
 
-> models::AdminApiKeysDelete200Response admin_api_keys_delete(key_id)
+> models::AdminApiKeysDelete200Response admin_api_keys_delete(key_id, options)
 Delete admin API key
 
 Delete an organization admin API key
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **key_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+admin_api_keys_delete().configuration(&configuration).key_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -160,17 +172,21 @@ Name | Type | Description  | Required | Notes
 
 ## admin_api_keys_get
 
-> models::AdminApiKey admin_api_keys_get(key_id)
+> models::AdminApiKey admin_api_keys_get(key_id, options)
 Retrieve admin API key
 
 Retrieve a single organization API key
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **key_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+admin_api_keys_get().configuration(&configuration).key_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -190,19 +206,23 @@ Name | Type | Description  | Required | Notes
 
 ## admin_api_keys_list
 
-> models::ApiKeyList admin_api_keys_list(after, order, limit)
+> models::ApiKeyList admin_api_keys_list(after, order, limit, options)
 List all organization and project API keys.
 
 List organization API keys
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **after** | Option<**String**> |  |  |
 **order** | Option<**String**> | Defaults to `\"asc\"`. |  |[default to asc]
 **limit** | Option<**i64**> | Defaults to `20`. |  |[default to 20]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+admin_api_keys_list().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -222,17 +242,21 @@ Name | Type | Description  | Required | Notes
 
 ## cancel_chat_session_method
 
-> models::ChatSessionResource cancel_chat_session_method(session_id)
+> models::ChatSessionResource cancel_chat_session_method(session_id, options)
 Cancel a ChatKit session
 
 Cancel an active ChatKit session and return its most recent metadata.  Cancelling prevents new requests from using the issued client secret.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | Unique identifier for the ChatKit session to cancel. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+cancel_chat_session_method().configuration(&configuration).session_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -252,17 +276,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_chat_session_method
 
-> models::ChatSessionResource create_chat_session_method(create_chat_session_body)
+> models::ChatSessionResource create_chat_session_method(create_chat_session_body, options)
 Create a ChatKit session
 
 Create a ChatKit session.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_chat_session_body** | Option<[**CreateChatSessionBody**](CreateChatSessionBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_chat_session_method().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -282,17 +310,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_container
 
-> models::ContainerResource create_container(create_container_body)
+> models::ContainerResource create_container(create_container_body, options)
 Create container
 
 Create Container
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_container_body** | Option<[**CreateContainerBody**](CreateContainerBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_container().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -312,18 +344,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_container_file
 
-> models::ContainerFileResource create_container_file(container_id, create_container_file_body)
+> models::ContainerFileResource create_container_file(container_id, create_container_file_body, options)
 Create container file
 
 Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **container_id** | **String** |  | [required] |
 **create_container_file_body** | [**CreateContainerFileBody**](CreateContainerFileBody.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_container_file().configuration(&configuration).container_id(..).create_container_file_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -343,19 +379,23 @@ Name | Type | Description  | Required | Notes
 
 ## create_container_file_multipart
 
-> models::ContainerFileResource create_container_file_multipart(container_id, file_id, file)
+> models::ContainerFileResource create_container_file_multipart(container_id, file_id, file, options)
 Create container file
 
 Create a Container File  You can send either a multipart/form-data request with the raw file content, or a JSON request with a file ID. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **container_id** | **String** |  | [required] |
 **file_id** | Option<**String**> | Name of the file to create. |  |
 **file** | Option<**timvw_rust_runtime::Upload**> | The File object (not file name) to be uploaded.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_container_file_multipart().configuration(&configuration).container_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -375,18 +415,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_platformworkloadidentityfederationrule
 
-> models::PlatformFederationRule create_platformworkloadidentityfederationrule(workload_identity_provider_id, create_platform_workload_identity_federation_rule_body)
+> models::PlatformFederationRule create_platformworkloadidentityfederationrule(workload_identity_provider_id, create_platform_workload_identity_federation_rule_body, options)
 Create Platform workload identity federation rule
 
 Bind verified token attributes to an existing project service account.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **workload_identity_provider_id** | **String** |  | [required] |
 **create_platform_workload_identity_federation_rule_body** | Option<[**CreatePlatformWorkloadIdentityFederationRuleBody**](CreatePlatformWorkloadIdentityFederationRuleBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_platformworkloadidentityfederationrule().configuration(&configuration).workload_identity_provider_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -406,17 +450,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_platformworkloadidentityprovider
 
-> models::PlatformProvider create_platformworkloadidentityprovider(create_platform_workload_identity_provider_body)
+> models::PlatformProvider create_platformworkloadidentityprovider(create_platform_workload_identity_provider_body, options)
 Create Platform workload identity provider
 
 Register an OIDC provider for keyless project service-account authentication.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_platform_workload_identity_provider_body** | Option<[**CreatePlatformWorkloadIdentityProviderBody**](CreatePlatformWorkloadIdentityProviderBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_platformworkloadidentityprovider().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -436,17 +484,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_webhook_endpoint
 
-> models::WebhookEndpointWithSecretResource create_webhook_endpoint(public_create_endpoint_body)
+> models::WebhookEndpointWithSecretResource create_webhook_endpoint(public_create_endpoint_body, options)
 Create Webhook Endpoint
 
 Creates a webhook endpoint for the authenticated project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **public_create_endpoint_body** | Option<[**PublicCreateEndpointBody**](PublicCreateEndpointBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_webhook_endpoint().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -466,19 +518,23 @@ Name | Type | Description  | Required | Notes
 
 ## createan_ap_ikeyforaserviceaccount
 
-> models::ServiceAccountApiKeyBody createan_ap_ikeyforaserviceaccount(project_id, service_account_id, create_project_service_account_api_key_body)
+> models::ServiceAccountApiKeyBody createan_ap_ikeyforaserviceaccount(project_id, service_account_id, create_project_service_account_api_key_body, options)
 Create an API key for a service account
 
 Creates an API key for a service account in the project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **service_account_id** | **String** | The ID of the service account. | [required] |
 **create_project_service_account_api_key_body** | Option<[**CreateProjectServiceAccountApiKeyBody**](CreateProjectServiceAccountApiKeyBody.md)> | The service account API key create request payload. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+createan_ap_ikeyforaserviceaccount().configuration(&configuration).project_id(..).service_account_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -498,17 +554,21 @@ Name | Type | Description  | Required | Notes
 
 ## createanexternalstorageconfiguration
 
-> models::ExternalStorageResponse createanexternalstorageconfiguration(create_external_storage_body)
+> models::ExternalStorageResponse createanexternalstorageconfiguration(create_external_storage_body, options)
 Create an external storage configuration
 
 Register one customer-managed external storage configuration.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_external_storage_body** | [**CreateExternalStorageBody**](CreateExternalStorageBody.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+createanexternalstorageconfiguration().configuration(&configuration).create_external_storage_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -528,17 +588,21 @@ Name | Type | Description  | Required | Notes
 
 ## createcontentprovenancecheck
 
-> models::ProvenanceResource createcontentprovenancecheck(file)
+> models::ProvenanceResource createcontentprovenancecheck(file, options)
 Create content provenance check
 
 Check whether an image or audio file contains known OpenAI provenance signals. [Learn more about content provenance](https://developers.openai.com/api/docs/guides/content-provenance).  If `not_detected`, it means the tool did not find supported signals in the uploaded file. The content could still have been generated by OpenAI if the metadata was stripped or has evidence of tampering, the watermark was degraded, it comes from a legacy generation model, or it was created before provenance signals were available. Content could also still be AI-generated by another company's model, which the tool currently does not detect.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file** | **timvw_rust_runtime::Upload** | The image or audio file to check for supported OpenAI provenance signals. Supported image formats are PNG, JPEG, WebP, and GIF (including animated GIFs). | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+createcontentprovenancecheck().configuration(&configuration).file(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -558,17 +622,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_container
 
-> models::DeleteContainer200Response delete_container(container_id)
+> models::DeleteContainer200Response delete_container(container_id, options)
 Delete a container
 
 Delete Container
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **container_id** | **String** | The ID of the container to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_container().configuration(&configuration).container_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -588,18 +656,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_container_file
 
-> models::DeleteContainerFile200Response delete_container_file(container_id, file_id)
+> models::DeleteContainerFile200Response delete_container_file(container_id, file_id, options)
 Delete a container file
 
 Delete Container File
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **container_id** | **String** |  | [required] |
 **file_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_container_file().configuration(&configuration).container_id(..).file_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -619,18 +691,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_platformworkloadidentityfederationrule
 
-> models::PlatformFederationRuleDeletedResource delete_platformworkloadidentityfederationrule(workload_identity_provider_id, workload_identity_federation_rule_id)
+> models::PlatformFederationRuleDeletedResource delete_platformworkloadidentityfederationrule(workload_identity_provider_id, workload_identity_federation_rule_id, options)
 Delete Platform workload identity federation rule
 
 Delete a federation rule to a project service account.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **workload_identity_provider_id** | **String** |  | [required] |
 **workload_identity_federation_rule_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_platformworkloadidentityfederationrule().configuration(&configuration).workload_identity_provider_id(..).workload_identity_federation_rule_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -650,17 +726,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_platformworkloadidentityprovider
 
-> models::PlatformProviderDeletedResource delete_platformworkloadidentityprovider(workload_identity_provider_id)
+> models::PlatformProviderDeletedResource delete_platformworkloadidentityprovider(workload_identity_provider_id, options)
 Delete Platform workload identity provider
 
 Delete a provider after deleting all its federation rules.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **workload_identity_provider_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_platformworkloadidentityprovider().configuration(&configuration).workload_identity_provider_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -680,17 +760,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_thread_method
 
-> models::DeletedThreadResource delete_thread_method(thread_id)
+> models::DeletedThreadResource delete_thread_method(thread_id, options)
 Delete a ChatKit thread
 
 Delete a ChatKit thread along with its items and stored attachments.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | Identifier of the ChatKit thread to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_thread_method().configuration(&configuration).thread_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -710,17 +794,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_webhook_endpoint
 
-> models::DeletedWebhookEndpointResource delete_webhook_endpoint(webhook_endpoint_id)
+> models::DeletedWebhookEndpointResource delete_webhook_endpoint(webhook_endpoint_id, options)
 Delete Webhook Endpoint
 
 Deletes a webhook endpoint for the authenticated project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_endpoint_id** | **String** | The ID of the webhook endpoint to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_webhook_endpoint().configuration(&configuration).webhook_endpoint_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -740,17 +828,21 @@ Name | Type | Description  | Required | Notes
 
 ## deleteanexternalkeyconfigfortheuser_quote_sorganization
 
-> models::ExternalKeyResource deleteanexternalkeyconfigfortheuser_quote_sorganization(external_key_id)
+> models::ExternalKeyResource deleteanexternalkeyconfigfortheuser_quote_sorganization(external_key_id, options)
 Delete an external key config for the user's organization
 
 Delete an external key config for the user's organization
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **external_key_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+deleteanexternalkeyconfigfortheuser_quote_sorganization().configuration(&configuration).external_key_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -770,17 +862,21 @@ Name | Type | Description  | Required | Notes
 
 ## deleteanexternalstorageconfiguration
 
-> models::ExternalStorageDeletedResource deleteanexternalstorageconfiguration(external_storage_id)
+> models::ExternalStorageDeletedResource deleteanexternalstorageconfiguration(external_storage_id, options)
 Delete an external storage configuration
 
 Disconnect a customer-managed external storage configuration. Removing the project's last configuration restores organization-default retention if customer-managed retention was active. Repeating a deletion also completes any interrupted retention update. Cloud storage is unchanged.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **external_storage_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+deleteanexternalstorageconfiguration().configuration(&configuration).external_storage_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -800,14 +896,20 @@ Name | Type | Description  | Required | Notes
 
 ## deleteorganizationspendlimit
 
-> models::OrganizationSpendLimitDeletedResource deleteorganizationspendlimit()
+> models::OrganizationSpendLimitDeletedResource deleteorganizationspendlimit(options)
 Delete organization spend limit
 
 Delete the organization's hard spend limit.
 
 ### Parameters
 
-This endpoint does not need any parameter.
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+deleteorganizationspendlimit().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -827,17 +929,21 @@ This endpoint does not need any parameter.
 
 ## deleteprojectspendlimit
 
-> models::ProjectSpendLimitDeletedResource deleteprojectspendlimit(project_id)
+> models::ProjectSpendLimitDeletedResource deleteprojectspendlimit(project_id, options)
 Delete project spend limit
 
 Delete a project's hard spend limit.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project whose hard spend limit is being managed. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+deleteprojectspendlimit().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -857,17 +963,21 @@ Name | Type | Description  | Required | Notes
 
 ## get_thread_method
 
-> models::ThreadResource get_thread_method(thread_id)
+> models::ThreadResource get_thread_method(thread_id, options)
 Retrieve a ChatKit thread
 
 Retrieve a ChatKit thread by its identifier.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **thread_id** | **String** | Identifier of the ChatKit thread to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_thread_method().configuration(&configuration).thread_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -887,17 +997,21 @@ Name | Type | Description  | Required | Notes
 
 ## getanexternalstorageconfiguration
 
-> models::ExternalStorageResponse getanexternalstorageconfiguration(external_storage_id)
+> models::ExternalStorageResponse getanexternalstorageconfiguration(external_storage_id, options)
 Get an external storage configuration
 
 Get one customer-managed external storage configuration.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **external_storage_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+getanexternalstorageconfiguration().configuration(&configuration).external_storage_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -917,14 +1031,20 @@ Name | Type | Description  | Required | Notes
 
 ## getorganizationspendlimit
 
-> models::OrganizationSpendLimitResource getorganizationspendlimit()
+> models::OrganizationSpendLimitResource getorganizationspendlimit(options)
 Get organization spend limit
 
 Get the organization's hard spend limit.
 
 ### Parameters
 
-This endpoint does not need any parameter.
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+getorganizationspendlimit().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -944,17 +1064,21 @@ This endpoint does not need any parameter.
 
 ## getprojectsafetyalert
 
-> models::SafetyAlertResource getprojectsafetyalert(id)
+> models::SafetyAlertResource getprojectsafetyalert(id, options)
 Get project safety alert
 
 Get a safety alert belonging to the authenticated API project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Project safety alert ID | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+getprojectsafetyalert().configuration(&configuration).id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -974,17 +1098,21 @@ Name | Type | Description  | Required | Notes
 
 ## getprojectspendlimit
 
-> models::ProjectSpendLimitResource getprojectspendlimit(project_id)
+> models::ProjectSpendLimitResource getprojectspendlimit(project_id, options)
 Get project spend limit
 
 Get a project's hard spend limit.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project whose hard spend limit is being managed. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+getprojectspendlimit().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1004,17 +1132,21 @@ Name | Type | Description  | Required | Notes
 
 ## getsafetycase
 
-> models::SafetyCaseResource getsafetycase(id)
+> models::SafetyCaseResource getsafetycase(id, options)
 Get safety case
 
 Get a safety case by ID.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Safety case ID | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+getsafetycase().configuration(&configuration).id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1034,13 +1166,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_container_files
 
-> models::ContainerFileListResource list_container_files(container_id, limit, order, after)
+> models::ContainerFileListResource list_container_files(container_id, limit, order, after, options)
 List container files
 
 List Container files
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -1048,6 +1179,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  Defaults to `\"desc\"`. |  |[default to desc]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_container_files().configuration(&configuration).container_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1067,13 +1203,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_containers
 
-> models::ContainerListResource list_containers(limit, order, after, name)
+> models::ContainerListResource list_containers(limit, order, after, name, options)
 List containers
 
 List Containers
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -1081,6 +1216,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  Defaults to `\"desc\"`. |  |[default to desc]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **name** | Option<**String**> | Filter results by container name. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_containers().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -1100,13 +1240,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_platformworkloadidentityfederationrules
 
-> models::PlatformFederationRuleListResource list_platformworkloadidentityfederationrules(workload_identity_provider_id, limit, order, after, service_account_id)
+> models::PlatformFederationRuleListResource list_platformworkloadidentityfederationrules(workload_identity_provider_id, limit, order, after, service_account_id, options)
 List Platform workload identity federation rules
 
 List the provider's federation rules to project service accounts.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -1115,6 +1254,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<[**ListPlatformworkloadidentityfederationrulesOrderParameter**](ListPlatformworkloadidentityfederationrulesOrderParameter.md)> |  |  |
 **after** | Option<**String**> |  |  |
 **service_account_id** | Option<**String**> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_platformworkloadidentityfederationrules().configuration(&configuration).workload_identity_provider_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1134,19 +1278,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_platformworkloadidentityproviders
 
-> models::PlatformProviderListResource list_platformworkloadidentityproviders(limit, order, after)
+> models::PlatformProviderListResource list_platformworkloadidentityproviders(limit, order, after, options)
 List Platform workload identity providers
 
 List OIDC providers in the authenticated Admin API key's organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i64**> |  |  |
 **order** | Option<[**ListPlatformworkloadidentityprovidersOrderParameter**](ListPlatformworkloadidentityprovidersOrderParameter.md)> |  |  |
 **after** | Option<**String**> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_platformworkloadidentityproviders().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -1166,13 +1314,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_thread_items_method
 
-> models::ThreadItemListResource list_thread_items_method(thread_id, limit, order, after, before)
+> models::ThreadItemListResource list_thread_items_method(thread_id, limit, order, after, before, options)
 List ChatKit thread items
 
 List items that belong to a ChatKit thread.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -1181,6 +1328,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<[**OrderEnum**](OrderEnum.md)> | Sort order for results by creation time. Defaults to `desc`. |  |
 **after** | Option<**String**> | List items created after this thread item ID. Defaults to null for the first page. |  |
 **before** | Option<**String**> | List items created before this thread item ID. Defaults to null for the newest results. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_thread_items_method().configuration(&configuration).thread_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1200,13 +1352,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_threads_method
 
-> models::ThreadListResource list_threads_method(limit, order, after, before, user)
+> models::ThreadListResource list_threads_method(limit, order, after, before, user, options)
 List ChatKit threads
 
 List ChatKit threads with optional pagination and user filters.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -1215,6 +1366,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | List items created after this thread item ID. Defaults to null for the first page. |  |
 **before** | Option<**String**> | List items created before this thread item ID. Defaults to null for the newest results. |  |
 **user** | Option<**String**> | Filter threads that belong to this user identifier. Defaults to null to return all users. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_threads_method().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -1234,18 +1390,22 @@ Name | Type | Description  | Required | Notes
 
 ## list_webhook_endpoints
 
-> models::WebhookEndpointListResource list_webhook_endpoints(limit, after)
+> models::WebhookEndpointListResource list_webhook_endpoints(limit, after, options)
 List Webhook Endpoints
 
 Returns webhook endpoints for the authenticated project in newest-first order.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i64**> | Maximum number of webhook endpoints to return. Defaults to 20. |  |
 **after** | Option<**String**> | ID of the last webhook endpoint from the previous page. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_webhook_endpoints().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -1265,14 +1425,20 @@ Name | Type | Description  | Required | Notes
 
 ## list_webhook_event_types
 
-> models::WebhookEventTypeListResource list_webhook_event_types()
+> models::WebhookEventTypeListResource list_webhook_event_types(options)
 List Webhook Event Types
 
 Returns webhook event types visible to the authenticated project.
 
 ### Parameters
 
-This endpoint does not need any parameter.
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_webhook_event_types().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -1292,13 +1458,12 @@ This endpoint does not need any parameter.
 
 ## listexternalstorageconfigurations
 
-> models::ExternalStorageListResource listexternalstorageconfigurations(project_id, after, order, limit)
+> models::ExternalStorageListResource listexternalstorageconfigurations(project_id, after, order, limit, options)
 List external storage configurations
 
 List the organization's customer-managed external storage configurations.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -1306,6 +1471,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | Return external storage configurations after this ID. |  |
 **order** | Option<[**ExternalStorageOrder**](ExternalStorageOrder.md)> |  |  |
 **limit** | Option<**i64**> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+listexternalstorageconfigurations().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -1325,13 +1495,12 @@ Name | Type | Description  | Required | Notes
 
 ## listtheexternalkeyconfigsregisteredontheuser_quote_sorganization
 
-> models::ListExternalKeysResource listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(limit, order, after, purpose)
+> models::ListExternalKeysResource listtheexternalkeyconfigsregisteredontheuser_quote_sorganization(limit, order, after, purpose, options)
 List the external key configs registered on the user's organization
 
 List the external key configs registered on the user's organization
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -1339,6 +1508,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<[**OrderEnum**](OrderEnum.md)> |  |  |
 **after** | Option<**String**> |  |  |
 **purpose** | Option<[**ExternalKeyPurpose**](ExternalKeyPurpose.md)> | Filter by key purpose. When omitted, returns keys of all purposes. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+listtheexternalkeyconfigsregisteredontheuser_quote_sorganization().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -1358,13 +1532,12 @@ Name | Type | Description  | Required | Notes
 
 ## organization_decisionsusage
 
-> models::PublicDecisionsUsageResponseResource organization_decisionsusage(start_time, end_time, bucket_width, limit, page, project_ids, group_by, user_ids, api_key_ids, models, batch)
+> models::PublicDecisionsUsageResponseResource organization_decisionsusage(start_time, end_time, bucket_width, limit, page, project_ids, group_by, user_ids, api_key_ids, models, batch, options)
 Decisions
 
 Get Decisions API usage details for the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -1379,6 +1552,11 @@ Name | Type | Description  | Required | Notes
 **api_key_ids** | Option<**Vec<String>**> | Return only usage for these API keys. |  |
 **models** | Option<**Vec<String>**> | Return only usage for these models. |  |
 **batch** | Option<**bool**> | If `true`, return batch jobs only. If `false`, return non-batch jobs only. By default, return both. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+organization_decisionsusage().configuration(&configuration).start_time(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1398,17 +1576,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_container
 
-> models::ContainerResource retrieve_container(container_id)
+> models::ContainerResource retrieve_container(container_id, options)
 Retrieve container
 
 Retrieve Container
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **container_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_container().configuration(&configuration).container_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1428,18 +1610,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_container_file
 
-> models::ContainerFileResource retrieve_container_file(container_id, file_id)
+> models::ContainerFileResource retrieve_container_file(container_id, file_id, options)
 Retrieve container file
 
 Retrieve Container File
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **container_id** | **String** |  | [required] |
 **file_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_container_file().configuration(&configuration).container_id(..).file_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1459,18 +1645,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_container_file_content
 
-> std::path::PathBuf retrieve_container_file_content(container_id, file_id)
+> std::path::PathBuf retrieve_container_file_content(container_id, file_id, options)
 Retrieve container file content
 
 Retrieve Container File Content
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **container_id** | **String** |  | [required] |
 **file_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_container_file_content().configuration(&configuration).container_id(..).file_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1490,18 +1680,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_platformworkloadidentityfederationrule
 
-> models::PlatformFederationRule retrieve_platformworkloadidentityfederationrule(workload_identity_provider_id, workload_identity_federation_rule_id)
+> models::PlatformFederationRule retrieve_platformworkloadidentityfederationrule(workload_identity_provider_id, workload_identity_federation_rule_id, options)
 Retrieve Platform workload identity federation rule
 
 Retrieve a federation rule owned by the authenticated organization and provider.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **workload_identity_provider_id** | **String** |  | [required] |
 **workload_identity_federation_rule_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_platformworkloadidentityfederationrule().configuration(&configuration).workload_identity_provider_id(..).workload_identity_federation_rule_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1521,17 +1715,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_platformworkloadidentityprovider
 
-> models::PlatformProvider retrieve_platformworkloadidentityprovider(workload_identity_provider_id)
+> models::PlatformProvider retrieve_platformworkloadidentityprovider(workload_identity_provider_id, options)
 Retrieve Platform workload identity provider
 
 Retrieve an OIDC provider in the authenticated organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **workload_identity_provider_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_platformworkloadidentityprovider().configuration(&configuration).workload_identity_provider_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1551,17 +1749,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_webhook_endpoint
 
-> models::WebhookEndpointBody retrieve_webhook_endpoint(webhook_endpoint_id)
+> models::WebhookEndpointBody retrieve_webhook_endpoint(webhook_endpoint_id, options)
 Retrieve Webhook Endpoint
 
 Retrieves a webhook endpoint for the authenticated project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_endpoint_id** | **String** | The ID of the webhook endpoint to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_webhook_endpoint().configuration(&configuration).webhook_endpoint_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1581,17 +1783,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieveanexternalkeyregistration
 
-> models::ExternalKeyResource retrieveanexternalkeyregistration(external_key_id)
+> models::ExternalKeyResource retrieveanexternalkeyregistration(external_key_id, options)
 Retrieve an external key registration
 
 Retrieve a stored external key registration for the user's organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **external_key_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieveanexternalkeyregistration().configuration(&configuration).external_key_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1611,17 +1817,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieveprojectservicetiersettings
 
-> models::ProjectServiceTierSettingsResource retrieveprojectservicetiersettings(project_id)
+> models::ProjectServiceTierSettingsResource retrieveprojectservicetiersettings(project_id, options)
 Retrieve project service tier settings
 
 Retrieve the configured default and enabled service tiers for a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieveprojectservicetiersettings().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1641,18 +1851,22 @@ Name | Type | Description  | Required | Notes
 
 ## rotate_webhook_endpoint_signing_secret
 
-> models::WebhookEndpointWithSecretResource rotate_webhook_endpoint_signing_secret(webhook_endpoint_id, public_rotate_secret_body)
+> models::WebhookEndpointWithSecretResource rotate_webhook_endpoint_signing_secret(webhook_endpoint_id, public_rotate_secret_body, options)
 Rotate Webhook Endpoint Signing Secret
 
 Rotates the signing secret for a webhook endpoint in the authenticated project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_endpoint_id** | **String** | The ID of the webhook endpoint whose signing secret will be rotated. | [required] |
 **public_rotate_secret_body** | Option<[**PublicRotateSecretBody**](PublicRotateSecretBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+rotate_webhook_endpoint_signing_secret().configuration(&configuration).webhook_endpoint_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1672,18 +1886,22 @@ Name | Type | Description  | Required | Notes
 
 ## test_webhook_endpoint
 
-> models::WebhookEndpointTestResultResource test_webhook_endpoint(webhook_endpoint_id, public_test_endpoint_body)
+> models::WebhookEndpointTestResultResource test_webhook_endpoint(webhook_endpoint_id, public_test_endpoint_body, options)
 Test Webhook Endpoint
 
 Sends a sample event to a webhook endpoint for the authenticated project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_endpoint_id** | **String** | The ID of the webhook endpoint to test. | [required] |
 **public_test_endpoint_body** | Option<[**PublicTestEndpointBody**](PublicTestEndpointBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+test_webhook_endpoint().configuration(&configuration).webhook_endpoint_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1703,19 +1921,23 @@ Name | Type | Description  | Required | Notes
 
 ## update_platformworkloadidentityfederationrule
 
-> models::PlatformFederationRule update_platformworkloadidentityfederationrule(workload_identity_provider_id, workload_identity_federation_rule_id, update_platform_workload_identity_federation_rule_body)
+> models::PlatformFederationRule update_platformworkloadidentityfederationrule(workload_identity_provider_id, workload_identity_federation_rule_id, update_platform_workload_identity_federation_rule_body, options)
 Update Platform workload identity federation rule
 
 Update supplied matcher, permission, metadata, or enabled fields.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **workload_identity_provider_id** | **String** |  | [required] |
 **workload_identity_federation_rule_id** | **String** |  | [required] |
 **update_platform_workload_identity_federation_rule_body** | Option<[**UpdatePlatformWorkloadIdentityFederationRuleBody**](UpdatePlatformWorkloadIdentityFederationRuleBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_platformworkloadidentityfederationrule().configuration(&configuration).workload_identity_provider_id(..).workload_identity_federation_rule_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1735,18 +1957,22 @@ Name | Type | Description  | Required | Notes
 
 ## update_platformworkloadidentityprovider
 
-> models::PlatformProvider update_platformworkloadidentityprovider(workload_identity_provider_id, update_platform_workload_identity_provider_body)
+> models::PlatformProvider update_platformworkloadidentityprovider(workload_identity_provider_id, update_platform_workload_identity_provider_body, options)
 Update Platform workload identity provider
 
 Update supplied provider fields, preserving omitted fields.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **workload_identity_provider_id** | **String** |  | [required] |
 **update_platform_workload_identity_provider_body** | Option<[**UpdatePlatformWorkloadIdentityProviderBody**](UpdatePlatformWorkloadIdentityProviderBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_platformworkloadidentityprovider().configuration(&configuration).workload_identity_provider_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1766,18 +1992,22 @@ Name | Type | Description  | Required | Notes
 
 ## update_webhook_endpoint
 
-> models::WebhookEndpointBody update_webhook_endpoint(webhook_endpoint_id, public_update_endpoint_body)
+> models::WebhookEndpointBody update_webhook_endpoint(webhook_endpoint_id, public_update_endpoint_body, options)
 Update Webhook Endpoint
 
 Updates a webhook endpoint for the authenticated project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_endpoint_id** | **String** | The ID of the webhook endpoint to update. | [required] |
 **public_update_endpoint_body** | Option<[**PublicUpdateEndpointBody**](PublicUpdateEndpointBody.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_webhook_endpoint().configuration(&configuration).webhook_endpoint_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1797,17 +2027,21 @@ Name | Type | Description  | Required | Notes
 
 ## updateorganizationspendlimit
 
-> models::OrganizationSpendLimitResource updateorganizationspendlimit(update_organization_spend_limit_body)
+> models::OrganizationSpendLimitResource updateorganizationspendlimit(update_organization_spend_limit_body, options)
 Update organization spend limit
 
 Create or replace the organization's hard spend limit.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **update_organization_spend_limit_body** | [**UpdateOrganizationSpendLimitBody**](UpdateOrganizationSpendLimitBody.md) | Parameters for the hard spend limit you want to create or replace. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+updateorganizationspendlimit().configuration(&configuration).update_organization_spend_limit_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1827,18 +2061,22 @@ Name | Type | Description  | Required | Notes
 
 ## updateprojectservicetiersettings
 
-> models::ProjectServiceTierSettingsResource updateprojectservicetiersettings(project_id, update_project_service_tier_settings_body)
+> models::ProjectServiceTierSettingsResource updateprojectservicetiersettings(project_id, update_project_service_tier_settings_body, options)
 Update project service tier settings
 
 Update the default or enabled service tiers atomically. Supply at least one field. Omitted fields keep their current values.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project | [required] |
 **update_project_service_tier_settings_body** | [**UpdateProjectServiceTierSettingsBody**](UpdateProjectServiceTierSettingsBody.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+updateprojectservicetiersettings().configuration(&configuration).project_id(..).update_project_service_tier_settings_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1858,18 +2096,22 @@ Name | Type | Description  | Required | Notes
 
 ## updateprojectspendlimit
 
-> models::ProjectSpendLimitResource updateprojectspendlimit(project_id, update_project_spend_limit_body)
+> models::ProjectSpendLimitResource updateprojectspendlimit(project_id, update_project_spend_limit_body, options)
 Update project spend limit
 
 Create or replace a project's hard spend limit.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project whose hard spend limit is being managed. | [required] |
 **update_project_spend_limit_body** | [**UpdateProjectSpendLimitBody**](UpdateProjectSpendLimitBody.md) | Parameters for the hard spend limit you want to create or replace. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+updateprojectspendlimit().configuration(&configuration).project_id(..).update_project_spend_limit_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1889,17 +2131,21 @@ Name | Type | Description  | Required | Notes
 
 ## validateanexternalkeyconfigfortheuser_quote_sorganization
 
-> models::ValidateExternalKeyResource validateanexternalkeyconfigfortheuser_quote_sorganization(external_key_id)
+> models::ValidateExternalKeyResource validateanexternalkeyconfigfortheuser_quote_sorganization(external_key_id, options)
 Validate an external key config for the user's organization
 
 Validate an external key config for the user's organization
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **external_key_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+validateanexternalkeyconfigfortheuser_quote_sorganization().configuration(&configuration).external_key_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -1919,17 +2165,21 @@ Name | Type | Description  | Required | Notes
 
 ## validateanexternalstorageconfiguration
 
-> models::ExternalStorageResponse validateanexternalstorageconfiguration(external_storage_id)
+> models::ExternalStorageResponse validateanexternalstorageconfiguration(external_storage_id, options)
 Validate an external storage configuration
 
 Validate one customer-managed external storage configuration.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **external_storage_id** | **String** |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+validateanexternalstorageconfiguration().configuration(&configuration).external_storage_id(..).options(&options).call().await
+```
 
 ### Return type
 

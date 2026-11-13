@@ -13,18 +13,22 @@ Method | HTTP request | Description
 
 ## add_group_user
 
-> models::GroupUserAssignment add_group_user(group_id, create_group_user_body)
+> models::GroupUserAssignment add_group_user(group_id, create_group_user_body, options)
 Add group user
 
 Adds a user to a group.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | The ID of the group to update. | [required] |
 **create_group_user_body** | [**CreateGroupUserBody**](CreateGroupUserBody.md) | Identifies the user that should be added to the group. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+add_group_user().configuration(&configuration).group_id(..).create_group_user_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -44,13 +48,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_group_users
 
-> models::UserListResource list_group_users(group_id, limit, after, order)
+> models::UserListResource list_group_users(group_id, limit, after, order, options)
 List group users
 
 Lists the users assigned to a group.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -58,6 +61,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of users to be returned. Limit can range between 0 and 1000, and the default is 100.  Defaults to `100`. |  |[default to 100]
 **after** | Option<**String**> | A cursor for use in pagination. Provide the ID of the last user from the previous list response to retrieve the next page.  |  |
 **order** | Option<**String**> | Specifies the sort order of users in the list.  Defaults to `\"desc\"`. |  |[default to desc]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_group_users().configuration(&configuration).group_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -77,18 +85,22 @@ Name | Type | Description  | Required | Notes
 
 ## remove_group_user
 
-> models::GroupUserDeletedResource remove_group_user(group_id, user_id)
+> models::GroupUserDeletedResource remove_group_user(group_id, user_id, options)
 Remove group user
 
 Removes a user from a group.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | The ID of the group to update. | [required] |
 **user_id** | **String** | The ID of the user to remove from the group. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+remove_group_user().configuration(&configuration).group_id(..).user_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -108,18 +120,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_group_user
 
-> models::GroupMemberUser retrieve_group_user(group_id, user_id)
+> models::GroupMemberUser retrieve_group_user(group_id, user_id, options)
 Retrieve group user
 
 Retrieves a user in a group.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** | The ID of the group to inspect. | [required] |
 **user_id** | **String** | The ID of the user to retrieve from the group. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_group_user().configuration(&configuration).group_id(..).user_id(..).options(&options).call().await
+```
 
 ### Return type
 

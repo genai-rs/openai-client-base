@@ -1,9 +1,23 @@
-# OpenAI Client Generation Pipeline
+# Generation
 
 `scripts/generate.sh` regenerates the crate from OpenAI's published OpenAPI
 specification. The Rust code comes from the
 [`timvw-rust`](https://github.com/timvw/openapi-generator-timvw-rust) generator;
-no script edits the generated code afterwards.
+no script edits the generated code afterwards, and the spec is passed to the
+generator as OpenAI publishes it.
+
+The pipeline in short: fetch the spec → validate it → generate with timvw-rust
+→ `cargo fmt` → check coverage (every operation and webhook has a function) and,
+in CI, the public API against the last release.
+
+## What is generated and what is not
+
+Generated, and replaced on every run: `src/apis/`, `src/models/` and `docs/`
+(the generated reference pages for every API and model). Hand-maintained, and
+listed in `.openapi-generator-ignore` or outside the generator's output:
+`Cargo.toml`, `src/lib.rs`, `README.md`, these guides (`guides/`), `tests/`,
+`scripts/` and `migration/`. The guides live in `guides/` rather than under
+`docs/` because the pipeline deletes `docs/` before generating.
 
 ## Steps
 
@@ -64,8 +78,8 @@ FULL_CARGO_CLEAN=1 ./scripts/generate.sh
 Change the generator, not the output: add or adjust a rule or option in
 `timvw-rust`, release it, and bump `TIMVW_RUST_VERSION` in `generate.sh`.
 
-## Dependencies
+## Requirements
 
 - Docker (runs the generator image)
-- uv (Python for the spec checks)
-- Rust toolchain
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) (Python for the spec checks and script tests)
+- A Rust toolchain (stable, for formatting)

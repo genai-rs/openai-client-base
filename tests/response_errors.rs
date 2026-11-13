@@ -34,12 +34,15 @@ fn response_error_preserves_payload_and_display() {
 }
 
 #[test]
-fn unrelated_io_errors_keep_their_source() {
-    let error: Error<()> = std::io::Error::other("disk failure").into();
-    assert_eq!(error.to_string(), "error in IO: disk failure");
+fn decode_errors_keep_their_source() {
+    // apis::Error::Io is gone (generator 0.29): a file that cannot be read is Error::Http with is_io().
+    let source = serde_json::from_str::<u8>("not json").unwrap_err();
+    let message = source.to_string();
+    let error: Error<()> = source.into();
+    assert_eq!(error.to_string(), format!("error in serde: {message}"));
     assert_eq!(
         std::error::Error::source(&error).unwrap().to_string(),
-        "disk failure"
+        message
     );
 }
 

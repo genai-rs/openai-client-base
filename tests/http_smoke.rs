@@ -206,3 +206,53 @@ async fn create_embedding_posts_json_and_parses_response() {
         other => panic!("unexpected embedding: {other:?}"),
     }
 }
+
+#[tokio::test]
+async fn per_call_base_url_replaces_the_configured_base_path() {
+    // RequestOptions::base_url (timvw-rust-runtime 0.4) sends one call elsewhere; the operation's path is kept.
+    let configured = MockServer::start().await;
+    let other = MockServer::start().await;
+    Mock::given(method("GET"))
+        .and(path("/v2/models"))
+        .and(header("authorization", "Bearer sk-test-token"))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(json!({"object": "list", "data": []})),
+        )
+        .expect(1)
+        .mount(&other)
+        .await;
+    Mock::given(method("GET"))
+        .respond_with(ResponseTemplate::new(500))
+        .expect(0)
+        .mount(&configured)
+        .await;
+
+    let options = timvw_rust_runtime::RequestOptions::new()
+        .base_url(&format!("{}/v2", other.uri()))
+        .unwrap();
+    let response = models_api::list_models()
+        .configuration(&config(&configured))
+        .options(&options)
+        .call()
+        .await
+        .expect("the call goes to the per-call base URL");
+    assert!(response.data.is_empty());
+}
+
+#[test]
+fn a_model_file_field_is_an_upload_left_out_of_json() {
+    // Generator 0.29: CreateContainerFileBody.file is a timvw_rust_runtime::Upload (a path, bytes or a stream).
+    let body = models::CreateContainerFileBody::builder()
+        .file(std::path::PathBuf::from("notes.txt"))
+        .build();
+    assert!(body.file.is_some());
+    assert_eq!(serde_json::to_value(&body).unwrap(), json!({}));
+    let body = models::CreateContainerFileBody::builder()
+        .file_id("file-1".to_owned())
+        .file(b"bytes".to_vec())
+        .build();
+    assert_eq!(
+        serde_json::to_value(&body).unwrap(),
+        json!({"file_id": "file-1"})
+    );
+}

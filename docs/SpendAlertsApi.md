@@ -19,17 +19,21 @@ Method | HTTP request | Description
 
 ## create_organization_spend_alert
 
-> models::OrganizationSpendAlert create_organization_spend_alert(create_spend_alert_body)
+> models::OrganizationSpendAlert create_organization_spend_alert(create_spend_alert_body, options)
 Create organization spend alert
 
 Creates an organization spend alert.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_spend_alert_body** | [**CreateSpendAlertBody**](CreateSpendAlertBody.md) | Parameters for the organization spend alert you want to create. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_organization_spend_alert().configuration(&configuration).create_spend_alert_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -49,18 +53,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_project_spend_alert
 
-> models::ProjectSpendAlert create_project_spend_alert(project_id, create_spend_alert_body)
+> models::ProjectSpendAlert create_project_spend_alert(project_id, create_spend_alert_body, options)
 Create project spend alert
 
 Creates a project spend alert.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **create_spend_alert_body** | [**CreateSpendAlertBody**](CreateSpendAlertBody.md) | Parameters for the project spend alert you want to create. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_project_spend_alert().configuration(&configuration).project_id(..).create_spend_alert_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -80,17 +88,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_organization_spend_alert
 
-> models::OrganizationSpendAlertDeletedResource delete_organization_spend_alert(alert_id)
+> models::OrganizationSpendAlertDeletedResource delete_organization_spend_alert(alert_id, options)
 Delete organization spend alert
 
 Deletes an organization spend alert.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **alert_id** | **String** | The ID of the spend alert to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_organization_spend_alert().configuration(&configuration).alert_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -110,18 +122,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_project_spend_alert
 
-> models::ProjectSpendAlertDeletedResource delete_project_spend_alert(project_id, alert_id)
+> models::ProjectSpendAlertDeletedResource delete_project_spend_alert(project_id, alert_id, options)
 Delete project spend alert
 
 Deletes a project spend alert.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **alert_id** | **String** | The ID of the spend alert to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_project_spend_alert().configuration(&configuration).project_id(..).alert_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -141,13 +157,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_organization_spend_alerts
 
-> models::OrganizationSpendAlertListResource list_organization_spend_alerts(limit, order, after, before)
+> models::OrganizationSpendAlertListResource list_organization_spend_alerts(limit, order, after, before, options)
 List organization spend alerts
 
 Lists organization spend alerts.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -155,6 +170,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<**String**> | Sort order for the returned spend alerts.  Defaults to `\"asc\"`. |  |[default to asc]
 **after** | Option<**String**> | Cursor for pagination. Provide the ID of the last spend alert from the previous response to fetch the next page. |  |
 **before** | Option<**String**> | Cursor for pagination. Provide the ID of the first spend alert from the previous response to fetch the previous page. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_organization_spend_alerts().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -174,13 +194,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_spend_alerts
 
-> models::ProjectSpendAlertListResource list_project_spend_alerts(project_id, limit, order, after, before)
+> models::ProjectSpendAlertListResource list_project_spend_alerts(project_id, limit, order, after, before, options)
 List project spend alerts
 
 Lists project spend alerts.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -189,6 +208,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<**String**> | Sort order for the returned spend alerts.  Defaults to `\"asc\"`. |  |[default to asc]
 **after** | Option<**String**> | Cursor for pagination. Provide the ID of the last spend alert from the previous response to fetch the next page. |  |
 **before** | Option<**String**> | Cursor for pagination. Provide the ID of the first spend alert from the previous response to fetch the previous page. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_project_spend_alerts().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -208,17 +232,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_organization_spend_alert
 
-> models::OrganizationSpendAlert retrieve_organization_spend_alert(alert_id)
+> models::OrganizationSpendAlert retrieve_organization_spend_alert(alert_id, options)
 Retrieve organization spend alert
 
 Retrieves an organization spend alert.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **alert_id** | **String** | The ID of the spend alert to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_organization_spend_alert().configuration(&configuration).alert_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -238,18 +266,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project_spend_alert
 
-> models::ProjectSpendAlert retrieve_project_spend_alert(project_id, alert_id)
+> models::ProjectSpendAlert retrieve_project_spend_alert(project_id, alert_id, options)
 Retrieve project spend alert
 
 Retrieves a project spend alert.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **alert_id** | **String** | The ID of the spend alert to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_spend_alert().configuration(&configuration).project_id(..).alert_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -269,18 +301,22 @@ Name | Type | Description  | Required | Notes
 
 ## update_organization_spend_alert
 
-> models::OrganizationSpendAlert update_organization_spend_alert(alert_id, create_spend_alert_body)
+> models::OrganizationSpendAlert update_organization_spend_alert(alert_id, create_spend_alert_body, options)
 Update organization spend alert
 
 Updates an organization spend alert.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **alert_id** | **String** | The ID of the spend alert to update. | [required] |
 **create_spend_alert_body** | [**CreateSpendAlertBody**](CreateSpendAlertBody.md) | Fields to update on the organization spend alert. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_organization_spend_alert().configuration(&configuration).alert_id(..).create_spend_alert_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -300,19 +336,23 @@ Name | Type | Description  | Required | Notes
 
 ## update_project_spend_alert
 
-> models::ProjectSpendAlert update_project_spend_alert(project_id, alert_id, create_spend_alert_body)
+> models::ProjectSpendAlert update_project_spend_alert(project_id, alert_id, create_spend_alert_body, options)
 Update project spend alert
 
 Updates a project spend alert.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **alert_id** | **String** | The ID of the spend alert to update. | [required] |
 **create_spend_alert_body** | [**CreateSpendAlertBody**](CreateSpendAlertBody.md) | Fields to update on the project spend alert. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_project_spend_alert().configuration(&configuration).project_id(..).alert_id(..).create_spend_alert_body(..).options(&options).call().await
+```
 
 ### Return type
 

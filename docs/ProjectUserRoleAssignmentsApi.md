@@ -13,19 +13,23 @@ Method | HTTP request | Description
 
 ## assign_project_user_role
 
-> models::UserRoleAssignment assign_project_user_role(project_id, user_id, public_assign_organization_group_role_body)
+> models::UserRoleAssignment assign_project_user_role(project_id, user_id, public_assign_organization_group_role_body, options)
 Assign project role to user
 
 Assigns a project role to a user within a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **user_id** | **String** | The ID of the user that should receive the project role. | [required] |
 **public_assign_organization_group_role_body** | [**PublicAssignOrganizationGroupRoleBody**](PublicAssignOrganizationGroupRoleBody.md) | Identifies the project role to assign to the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+assign_project_user_role().configuration(&configuration).project_id(..).user_id(..).public_assign_organization_group_role_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -45,13 +49,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_user_role_assignments
 
-> models::RoleListResource list_project_user_role_assignments(project_id, user_id, limit, after, order)
+> models::RoleListResource list_project_user_role_assignments(project_id, user_id, limit, after, order, options)
 List project user role assignments
 
 Lists the project roles assigned to a user within a project.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -60,6 +63,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of project role assignments to return. |  |
 **after** | Option<**String**> | Cursor for pagination. Provide the value from the previous response's `next` field to continue listing project roles. |  |
 **order** | Option<**String**> | Sort order for the returned project roles. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_project_user_role_assignments().configuration(&configuration).project_id(..).user_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -79,19 +87,23 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project_user_role
 
-> models::AssignedRoleDetails retrieve_project_user_role(project_id, user_id, role_id)
+> models::AssignedRoleDetails retrieve_project_user_role(project_id, user_id, role_id, options)
 Retrieve project user role
 
 Retrieves a project role assigned to a user.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to inspect. | [required] |
 **user_id** | **String** | The ID of the user to inspect. | [required] |
 **role_id** | **String** | The ID of the project role to retrieve for the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_user_role().configuration(&configuration).project_id(..).user_id(..).role_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -111,19 +123,23 @@ Name | Type | Description  | Required | Notes
 
 ## unassign_project_user_role
 
-> models::DeletedRoleAssignmentResource unassign_project_user_role(project_id, user_id, role_id)
+> models::DeletedRoleAssignmentResource unassign_project_user_role(project_id, user_id, role_id, options)
 Unassign project role from user
 
 Unassigns a project role from a user within a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to modify. | [required] |
 **user_id** | **String** | The ID of the user whose project role assignment should be removed. | [required] |
 **role_id** | **String** | The ID of the project role to remove from the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+unassign_project_user_role().configuration(&configuration).project_id(..).user_id(..).role_id(..).options(&options).call().await
+```
 
 ### Return type
 

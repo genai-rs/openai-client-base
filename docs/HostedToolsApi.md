@@ -11,17 +11,21 @@ Method | HTTP request | Description
 
 ## retrieve_project_hosted_tool_permissions
 
-> models::ProjectHostedToolPermissions retrieve_project_hosted_tool_permissions(project_id)
+> models::ProjectHostedToolPermissions retrieve_project_hosted_tool_permissions(project_id, options)
 Retrieve project hosted tool permissions
 
 Returns hosted tool permissions for a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_hosted_tool_permissions().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -41,18 +45,22 @@ Name | Type | Description  | Required | Notes
 
 ## update_project_hosted_tool_permissions
 
-> models::ProjectHostedToolPermissions update_project_hosted_tool_permissions(project_id, project_hosted_tool_permissions_update_request)
+> models::ProjectHostedToolPermissions update_project_hosted_tool_permissions(project_id, project_hosted_tool_permissions_update_request, options)
 Modify project hosted tool permissions
 
 Updates hosted tool permissions for a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **project_hosted_tool_permissions_update_request** | [**ProjectHostedToolPermissionsUpdateRequest**](ProjectHostedToolPermissionsUpdateRequest.md) | The project hosted tool permissions update request payload. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_project_hosted_tool_permissions().configuration(&configuration).project_id(..).project_hosted_tool_permissions_update_request(..).options(&options).call().await
+```
 
 ### Return type
 
