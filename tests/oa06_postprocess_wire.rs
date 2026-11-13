@@ -61,6 +61,11 @@ fn request_once(
                 Err(error) => panic!("accept request before deadline: {error}"),
             }
         };
+        // An accepted socket inherits the listener's non-blocking mode on macOS and the BSDs: read it blocking,
+        // with a timeout, or a read before the request arrives fails with WouldBlock.
+        stream
+            .set_nonblocking(false)
+            .expect("blocking accepted stream");
         stream
             .set_read_timeout(Some(Duration::from_secs(3)))
             .expect("set read timeout");
