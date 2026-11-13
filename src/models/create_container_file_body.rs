@@ -16,8 +16,11 @@ pub struct CreateContainerFileBody {
     #[serde(rename = "file_id", skip_serializing_if = "Option::is_none")]
     pub file_id: Option<String>,
     /// The File object (not file name) to be uploaded.
-    #[serde(rename = "file", skip_serializing_if = "Option::is_none")]
-    pub file: Option<std::path::PathBuf>,
+    ///
+    /// An upload has no JSON form: the model's JSON leaves it out, and JSON never sets it.
+    #[serde(rename = "file", skip)]
+    #[builder(into)]
+    pub file: Option<timvw_rust_runtime::Upload>,
 }
 
 impl CreateContainerFileBody {

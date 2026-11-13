@@ -12,7 +12,7 @@ readme = "README.md"
 keywords = ["openai", "api", "client", "generated"]
 categories = ["api-bindings"]
 rust-version = "1.88"
-exclude = ["docs/", "openapi.json", "migration/", "scripts/", ".github/", "*.backup", "PIPELINE.md", "MIGRATION-*.md"]
+exclude = ["docs/", "openapi.json", "migration/", "scripts/", ".github/", "*.backup", "guides/", "MIGRATION-*.md"]
 
 [package.metadata.docs.rs]
 all-features = true
@@ -120,7 +120,7 @@ completions = ["completions-types", "_api"]
 completions-types = []
 # paths under `/containers`
 container = ["container-types", "_api"]
-container-types = []
+container-types = ["dep:timvw-rust-runtime"]
 # paths under `/content_provenance_checks`
 content-provenance-checks = ["content-provenance-checks-types", "_api"]
 content-provenance-checks-types = []
@@ -165,7 +165,7 @@ safety = ["safety-types", "_api"]
 safety-types = []
 # tag Skills
 skill = ["skill-types", "_api"]
-skill-types = []
+skill-types = ["dep:timvw-rust-runtime"]
 # tag Uploads
 upload = ["upload-types", "_api"]
 upload-types = []
@@ -177,7 +177,7 @@ vectorstore = ["vectorstore-types", "_api"]
 vectorstore-types = []
 # tag Videos
 video = ["video-types", "_api"]
-video-types = []
+video-types = ["dep:timvw-rust-runtime"]
 # paths under `/webhook_endpoints`, `/webhook_event_types`
 webhook = ["webhook-types", "_api"]
 webhook-types = []
@@ -191,7 +191,7 @@ futures-core = "^0.3.34"
 serde_repr = "^0.1.21"
 regex = "1"
 url = "^2.5.8"
-timvw-rust-runtime = { version = "^0.3.0", default-features = false, features = ["fs", "time"], optional = true }
+timvw-rust-runtime = { version = "^0.4.0", default-features = false, features = ["fs", "time"], optional = true }
 
 [dev-dependencies]
 tokio = { version = "^1.54.1", features = ["rt-multi-thread", "macros"] }

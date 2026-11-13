@@ -13,17 +13,21 @@ Method | HTTP request | Description
 
 ## delete_user
 
-> models::UserDeleteResponse delete_user(user_id)
+> models::UserDeleteResponse delete_user(user_id, options)
 Delete user
 
 Deletes a user from the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_id** | **String** | The ID of the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_user().configuration(&configuration).user_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -43,19 +47,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_users
 
-> models::UserListResponse list_users(limit, after, emails)
+> models::UserListResponse list_users(limit, after, emails, options)
 List users
 
 Lists all of the users in the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **emails** | Option<**Vec<String>**> | Filter by the email address of users. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_users().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -75,18 +83,22 @@ Name | Type | Description  | Required | Notes
 
 ## modify_user
 
-> models::User modify_user(user_id, user_role_update_request)
+> models::User modify_user(user_id, user_role_update_request, options)
 Modify user
 
 Modifies a user's role in the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_id** | **String** | The ID of the user. | [required] |
 **user_role_update_request** | [**UserRoleUpdateRequest**](UserRoleUpdateRequest.md) | The new user role to modify. This must be one of `owner` or `member`. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+modify_user().configuration(&configuration).user_id(..).user_role_update_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -106,17 +118,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_user
 
-> models::User retrieve_user(user_id)
+> models::User retrieve_user(user_id, options)
 Retrieve user
 
 Retrieves a user by their identifier.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_id** | **String** | The ID of the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_user().configuration(&configuration).user_id(..).options(&options).call().await
+```
 
 ### Return type
 

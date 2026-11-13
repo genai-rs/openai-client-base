@@ -16,17 +16,21 @@ Method | HTTP request | Description
 
 ## create_chat_completion
 
-> models::CreateChatCompletionResponse create_chat_completion(create_chat_completion_request)
+> models::CreateChatCompletionResponse create_chat_completion(create_chat_completion_request, options)
 Create chat completion
 
 **Starting a new project?** We recommend trying [Responses](https://developers.openai.com/api/reference/resources/responses) to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://developers.openai.com/api/docs/guides/text), [vision](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).  Returns a chat completion object, or a streamed sequence of chat completion chunk objects if the request is streamed. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_chat_completion_request** | [**CreateChatCompletionRequest**](CreateChatCompletionRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_chat_completion().configuration(&configuration).create_chat_completion_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -46,17 +50,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_chat_completion_stream
 
-> models::CreateChatCompletionStreamResponse create_chat_completion_stream(create_chat_completion_request)
+> models::CreateChatCompletionStreamResponse create_chat_completion_stream(create_chat_completion_request, options)
 Create chat completion
 
 **Starting a new project?** We recommend trying [Responses](https://developers.openai.com/api/reference/resources/responses) to take advantage of the latest OpenAI platform features. Compare [Chat Completions with Responses](https://developers.openai.com/api/docs/guides/migrate-to-responses?api-mode=responses).  ---  Creates a model response for the given chat conversation. Learn more in the [text generation](https://developers.openai.com/api/docs/guides/text), [vision](https://developers.openai.com/api/docs/guides/images-vision), and [audio](https://developers.openai.com/api/docs/guides/audio) guides.  Parameter support can differ depending on the model used to generate the response, particularly for newer reasoning models. Parameters that are only supported for reasoning models are noted below. For the current state of unsupported parameters in reasoning models, [refer to the reasoning guide](https://developers.openai.com/api/docs/guides/reasoning).  Returns a chat completion object, or a streamed sequence of chat completion chunk objects if the request is streamed. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_chat_completion_request** | [**CreateChatCompletionRequest**](CreateChatCompletionRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_chat_completion_stream().configuration(&configuration).create_chat_completion_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -76,17 +84,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_chat_completion
 
-> models::ChatCompletionDeleted delete_chat_completion(completion_id)
+> models::ChatCompletionDeleted delete_chat_completion(completion_id, options)
 Delete chat completion
 
 Delete a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be deleted. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **completion_id** | **String** | The ID of the chat completion to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_chat_completion().configuration(&configuration).completion_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -106,17 +118,21 @@ Name | Type | Description  | Required | Notes
 
 ## get_chat_completion
 
-> models::CreateChatCompletionResponse get_chat_completion(completion_id)
+> models::CreateChatCompletionResponse get_chat_completion(completion_id, options)
 Get chat completion
 
 Get a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **completion_id** | **String** | The ID of the chat completion to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_chat_completion().configuration(&configuration).completion_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -136,13 +152,12 @@ Name | Type | Description  | Required | Notes
 
 ## get_chat_completion_messages
 
-> models::ChatCompletionMessageList get_chat_completion_messages(completion_id, after, limit, order)
+> models::ChatCompletionMessageList get_chat_completion_messages(completion_id, after, limit, order, options)
 Get chat messages
 
 Get the messages in a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` will be returned. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -150,6 +165,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | Identifier for the last message from the previous pagination request. |  |
 **limit** | Option<**i64**> | Number of messages to retrieve.  Defaults to `20`. |  |[default to 20]
 **order** | Option<**String**> | Sort order for messages by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`.  Defaults to `\"asc\"`. |  |[default to asc]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_chat_completion_messages().configuration(&configuration).completion_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -169,13 +189,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_chat_completions
 
-> models::ChatCompletionList list_chat_completions(model, metadata, after, limit, order)
+> models::ChatCompletionList list_chat_completions(model, metadata, after, limit, order, options)
 List Chat Completions
 
 List stored Chat Completions. Only Chat Completions that have been stored with the `store` parameter set to `true` will be returned. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -184,6 +203,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | Identifier for the last chat completion from the previous pagination request. |  |
 **limit** | Option<**i64**> | Number of Chat Completions to retrieve.  Defaults to `20`. |  |[default to 20]
 **order** | Option<**String**> | Sort order for Chat Completions by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`.  Defaults to `\"asc\"`. |  |[default to asc]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_chat_completions().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -203,18 +227,22 @@ Name | Type | Description  | Required | Notes
 
 ## update_chat_completion
 
-> models::CreateChatCompletionResponse update_chat_completion(completion_id, update_chat_completion_request)
+> models::CreateChatCompletionResponse update_chat_completion(completion_id, update_chat_completion_request, options)
 Update chat completion
 
 Modify a stored chat completion. Only Chat Completions that have been created with the `store` parameter set to `true` can be modified. Currently, the only supported modification is to update the `metadata` field. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **completion_id** | **String** | The ID of the chat completion to update. | [required] |
 **update_chat_completion_request** | [**UpdateChatCompletionRequest**](UpdateChatCompletionRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_chat_completion().configuration(&configuration).completion_id(..).update_chat_completion_request(..).options(&options).call().await
+```
 
 ### Return type
 

@@ -40,17 +40,21 @@ Method | HTTP request | Description
 
 ## agent_environment_expired_post
 
-> agent_environment_expired_post(webhook_agent_environment_expired)
+> agent_environment_expired_post(webhook_agent_environment_expired, options)
 
 
 Sent when an agent environment expires and can no longer resume from a snapshot. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_agent_environment_expired** | Option<[**WebhookAgentEnvironmentExpired**](WebhookAgentEnvironmentExpired.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+agent_environment_expired_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -70,17 +74,21 @@ Name | Type | Description  | Required | Notes
 
 ## agent_environment_failed_post
 
-> agent_environment_failed_post(webhook_agent_environment_failed)
+> agent_environment_failed_post(webhook_agent_environment_failed, options)
 
 
 Sent when setup fails for a prewarmed OpenAI-hosted environment before it is attached to a session. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_agent_environment_failed** | Option<[**WebhookAgentEnvironmentFailed**](WebhookAgentEnvironmentFailed.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+agent_environment_failed_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -100,17 +108,21 @@ Name | Type | Description  | Required | Notes
 
 ## agent_environment_ready_post
 
-> agent_environment_ready_post(webhook_agent_environment_ready)
+> agent_environment_ready_post(webhook_agent_environment_ready, options)
 
 
 Sent when a prewarmed OpenAI-hosted environment finishes setup before being attached to a session. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_agent_environment_ready** | Option<[**WebhookAgentEnvironmentReady**](WebhookAgentEnvironmentReady.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+agent_environment_ready_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -130,17 +142,21 @@ Name | Type | Description  | Required | Notes
 
 ## agent_environment_suspended_post
 
-> agent_environment_suspended_post(webhook_agent_environment_suspended)
+> agent_environment_suspended_post(webhook_agent_environment_suspended, options)
 
 
 Sent when an agent environment is suspended and can resume from a snapshot. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_agent_environment_suspended** | Option<[**WebhookAgentEnvironmentSuspended**](WebhookAgentEnvironmentSuspended.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+agent_environment_suspended_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -160,17 +176,21 @@ Name | Type | Description  | Required | Notes
 
 ## agent_session_action_required_post
 
-> agent_session_action_required_post(webhook_agent_session_action_required)
+> agent_session_action_required_post(webhook_agent_session_action_required, options)
 
 
 Sent when an agent session requires an action. Retrieve the session for action details. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_agent_session_action_required** | Option<[**WebhookAgentSessionActionRequired**](WebhookAgentSessionActionRequired.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+agent_session_action_required_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -190,17 +210,21 @@ Name | Type | Description  | Required | Notes
 
 ## agent_session_created_post
 
-> agent_session_created_post(webhook_agent_session_created)
+> agent_session_created_post(webhook_agent_session_created, options)
 
 
 Sent when an agent session is created. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_agent_session_created** | Option<[**WebhookAgentSessionCreated**](WebhookAgentSessionCreated.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+agent_session_created_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -220,17 +244,21 @@ Name | Type | Description  | Required | Notes
 
 ## agent_session_failed_post
 
-> agent_session_failed_post(webhook_agent_session_failed)
+> agent_session_failed_post(webhook_agent_session_failed, options)
 
 
 Sent when an agent session fails. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_agent_session_failed** | Option<[**WebhookAgentSessionFailed**](WebhookAgentSessionFailed.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+agent_session_failed_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -250,17 +278,21 @@ Name | Type | Description  | Required | Notes
 
 ## agent_session_idle_post
 
-> agent_session_idle_post(webhook_agent_session_idle)
+> agent_session_idle_post(webhook_agent_session_idle, options)
 
 
 Sent when an agent session becomes idle. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_agent_session_idle** | Option<[**WebhookAgentSessionIdle**](WebhookAgentSessionIdle.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+agent_session_idle_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -280,17 +312,21 @@ Name | Type | Description  | Required | Notes
 
 ## agent_session_in_progress_post
 
-> agent_session_in_progress_post(webhook_agent_session_in_progress)
+> agent_session_in_progress_post(webhook_agent_session_in_progress, options)
 
 
 Sent when an agent session enters the in-progress state. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_agent_session_in_progress** | Option<[**WebhookAgentSessionInProgress**](WebhookAgentSessionInProgress.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+agent_session_in_progress_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -310,17 +346,21 @@ Name | Type | Description  | Required | Notes
 
 ## batch_cancelled_post
 
-> batch_cancelled_post(webhook_batch_cancelled)
+> batch_cancelled_post(webhook_batch_cancelled, options)
 
 
 Sent when a batch has been cancelled. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_batch_cancelled** | Option<[**WebhookBatchCancelled**](WebhookBatchCancelled.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+batch_cancelled_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -340,17 +380,21 @@ Name | Type | Description  | Required | Notes
 
 ## batch_completed_post
 
-> batch_completed_post(webhook_batch_completed)
+> batch_completed_post(webhook_batch_completed, options)
 
 
 Sent when a batch has completed processing. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_batch_completed** | Option<[**WebhookBatchCompleted**](WebhookBatchCompleted.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+batch_completed_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -370,17 +414,21 @@ Name | Type | Description  | Required | Notes
 
 ## batch_expired_post
 
-> batch_expired_post(webhook_batch_expired)
+> batch_expired_post(webhook_batch_expired, options)
 
 
 Sent when a batch has expired before completion. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_batch_expired** | Option<[**WebhookBatchExpired**](WebhookBatchExpired.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+batch_expired_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -400,17 +448,21 @@ Name | Type | Description  | Required | Notes
 
 ## batch_failed_post
 
-> batch_failed_post(webhook_batch_failed)
+> batch_failed_post(webhook_batch_failed, options)
 
 
 Sent when a batch has failed. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_batch_failed** | Option<[**WebhookBatchFailed**](WebhookBatchFailed.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+batch_failed_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -430,17 +482,21 @@ Name | Type | Description  | Required | Notes
 
 ## eval_run_canceled_post
 
-> eval_run_canceled_post(webhook_eval_run_canceled)
+> eval_run_canceled_post(webhook_eval_run_canceled, options)
 
 
 Sent when an eval run has been canceled. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_eval_run_canceled** | Option<[**WebhookEvalRunCanceled**](WebhookEvalRunCanceled.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+eval_run_canceled_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -460,17 +516,21 @@ Name | Type | Description  | Required | Notes
 
 ## eval_run_failed_post
 
-> eval_run_failed_post(webhook_eval_run_failed)
+> eval_run_failed_post(webhook_eval_run_failed, options)
 
 
 Sent when an eval run has failed. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_eval_run_failed** | Option<[**WebhookEvalRunFailed**](WebhookEvalRunFailed.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+eval_run_failed_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -490,17 +550,21 @@ Name | Type | Description  | Required | Notes
 
 ## eval_run_succeeded_post
 
-> eval_run_succeeded_post(webhook_eval_run_succeeded)
+> eval_run_succeeded_post(webhook_eval_run_succeeded, options)
 
 
 Sent when an eval run has succeeded. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_eval_run_succeeded** | Option<[**WebhookEvalRunSucceeded**](WebhookEvalRunSucceeded.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+eval_run_succeeded_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -520,17 +584,21 @@ Name | Type | Description  | Required | Notes
 
 ## fine_tuning_job_cancelled_post
 
-> fine_tuning_job_cancelled_post(webhook_fine_tuning_job_cancelled)
+> fine_tuning_job_cancelled_post(webhook_fine_tuning_job_cancelled, options)
 
 
 Sent when a fine-tuning job has been cancelled. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_fine_tuning_job_cancelled** | Option<[**WebhookFineTuningJobCancelled**](WebhookFineTuningJobCancelled.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+fine_tuning_job_cancelled_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -550,17 +618,21 @@ Name | Type | Description  | Required | Notes
 
 ## fine_tuning_job_failed_post
 
-> fine_tuning_job_failed_post(webhook_fine_tuning_job_failed)
+> fine_tuning_job_failed_post(webhook_fine_tuning_job_failed, options)
 
 
 Sent when a fine-tuning job has failed. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_fine_tuning_job_failed** | Option<[**WebhookFineTuningJobFailed**](WebhookFineTuningJobFailed.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+fine_tuning_job_failed_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -580,17 +652,21 @@ Name | Type | Description  | Required | Notes
 
 ## fine_tuning_job_succeeded_post
 
-> fine_tuning_job_succeeded_post(webhook_fine_tuning_job_succeeded)
+> fine_tuning_job_succeeded_post(webhook_fine_tuning_job_succeeded, options)
 
 
 Sent when a fine-tuning job has succeeded. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_fine_tuning_job_succeeded** | Option<[**WebhookFineTuningJobSucceeded**](WebhookFineTuningJobSucceeded.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+fine_tuning_job_succeeded_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -610,17 +686,21 @@ Name | Type | Description  | Required | Notes
 
 ## live_call_incoming_post
 
-> live_call_incoming_post(webhook_live_call_incoming)
+> live_call_incoming_post(webhook_live_call_incoming, options)
 
 
 Deprecated: use `live.transport.incoming`. Retained only for existing subscriptions. Sent when an incoming API SIP session is available for Live acceptance. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_live_call_incoming** | Option<[**WebhookLiveCallIncoming**](WebhookLiveCallIncoming.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+live_call_incoming_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -640,17 +720,21 @@ Name | Type | Description  | Required | Notes
 
 ## live_transport_connected_post
 
-> live_transport_connected_post(webhook_live_transport_connected)
+> live_transport_connected_post(webhook_live_transport_connected, options)
 
 
 Sent when a direct Live WebRTC session is created or an Instant Connect session activates.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_live_transport_connected** | [**WebhookLiveTransportConnected**](WebhookLiveTransportConnected.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+live_transport_connected_post().configuration(&configuration).webhook_live_transport_connected(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -670,17 +754,21 @@ Name | Type | Description  | Required | Notes
 
 ## live_transport_incoming_post
 
-> live_transport_incoming_post(webhook_live_transport_incoming)
+> live_transport_incoming_post(webhook_live_transport_incoming, options)
 
 
 Sent when an incoming API SIP session is available for Live acceptance. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_live_transport_incoming** | Option<[**WebhookLiveTransportIncoming**](WebhookLiveTransportIncoming.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+live_transport_incoming_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -700,17 +788,21 @@ Name | Type | Description  | Required | Notes
 
 ## realtime_call_incoming_post
 
-> realtime_call_incoming_post(webhook_realtime_call_incoming)
+> realtime_call_incoming_post(webhook_realtime_call_incoming, options)
 
 
 Sent when an incoming API SIP session is available for Realtime acceptance. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_realtime_call_incoming** | Option<[**WebhookRealtimeCallIncoming**](WebhookRealtimeCallIncoming.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+realtime_call_incoming_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -730,17 +822,21 @@ Name | Type | Description  | Required | Notes
 
 ## response_cancelled_post
 
-> response_cancelled_post(webhook_response_cancelled)
+> response_cancelled_post(webhook_response_cancelled, options)
 
 
 Sent when a background response has been cancelled. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_response_cancelled** | Option<[**WebhookResponseCancelled**](WebhookResponseCancelled.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+response_cancelled_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -760,17 +856,21 @@ Name | Type | Description  | Required | Notes
 
 ## response_completed_post
 
-> response_completed_post(webhook_response_completed)
+> response_completed_post(webhook_response_completed, options)
 
 
 Sent when a background response has completed successfully. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_response_completed** | Option<[**WebhookResponseCompleted**](WebhookResponseCompleted.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+response_completed_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -790,17 +890,21 @@ Name | Type | Description  | Required | Notes
 
 ## response_failed_post
 
-> response_failed_post(webhook_response_failed)
+> response_failed_post(webhook_response_failed, options)
 
 
 Sent when a background response has failed. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_response_failed** | Option<[**WebhookResponseFailed**](WebhookResponseFailed.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+response_failed_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -820,17 +924,21 @@ Name | Type | Description  | Required | Notes
 
 ## response_incomplete_post
 
-> response_incomplete_post(webhook_response_incomplete)
+> response_incomplete_post(webhook_response_incomplete, options)
 
 
 Sent when a background response is incomplete. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_response_incomplete** | Option<[**WebhookResponseIncomplete**](WebhookResponseIncomplete.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+response_incomplete_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -850,17 +958,21 @@ Name | Type | Description  | Required | Notes
 
 ## safety_alert_created_post
 
-> safety_alert_created_post(webhook_safety_alert_created)
+> safety_alert_created_post(webhook_safety_alert_created, options)
 
 
 Sent when an approved safety alert is available for an API project. Retrieve the alert with a project API key granted `api.safety.alerts.read`. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_safety_alert_created** | Option<[**WebhookSafetyAlertCreated**](WebhookSafetyAlertCreated.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+safety_alert_created_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -880,17 +992,21 @@ Name | Type | Description  | Required | Notes
 
 ## safety_deactivation_issued_post
 
-> safety_deactivation_issued_post(webhook_safety_deactivation_issued)
+> safety_deactivation_issued_post(webhook_safety_deactivation_issued, options)
 
 
 Sent when a deactivation is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_safety_deactivation_issued** | Option<[**WebhookSafetyDeactivationIssued**](WebhookSafetyDeactivationIssued.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+safety_deactivation_issued_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -910,17 +1026,21 @@ Name | Type | Description  | Required | Notes
 
 ## safety_org_alert_created_post
 
-> safety_org_alert_created_post(webhook_safety_org_alert_created)
+> safety_org_alert_created_post(webhook_safety_org_alert_created, options)
 
 
 Sent when an approved safety alert is available for an enterprise workspace. Retrieve the alert from `https://api.chatgpt.com/v1/safety/alerts/{id}` with an administrator API key for the workspace's backing organization granted `chatgpt.enterprise.safety_alerts.read`. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_safety_org_alert_created** | Option<[**WebhookSafetyOrgAlertCreated**](WebhookSafetyOrgAlertCreated.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+safety_org_alert_created_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -940,17 +1060,21 @@ Name | Type | Description  | Required | Notes
 
 ## safety_warning_issued_post
 
-> safety_warning_issued_post(webhook_safety_warning_issued)
+> safety_warning_issued_post(webhook_safety_warning_issued, options)
 
 
 Sent when a warning is issued for a safety identifier in your organization. Retrieve the case details with `GET /v1/safety/cases/{id}` using `data.id`. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **webhook_safety_warning_issued** | Option<[**WebhookSafetyWarningIssued**](WebhookSafetyWarningIssued.md)> | The event payload sent by the API. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+safety_warning_issued_post().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 

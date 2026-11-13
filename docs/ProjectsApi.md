@@ -33,17 +33,21 @@ Method | HTTP request | Description
 
 ## archive_project
 
-> models::Project archive_project(project_id)
+> models::Project archive_project(project_id, options)
 Archive project
 
 Archives a project in the organization. Archived projects cannot be used or updated.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+archive_project().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -63,17 +67,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_project
 
-> models::Project create_project(project_create_request)
+> models::Project create_project(project_create_request, options)
 Create project
 
 Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_create_request** | [**ProjectCreateRequest**](ProjectCreateRequest.md) | The project create request payload. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_project().configuration(&configuration).project_create_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -93,18 +101,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_project_service_account
 
-> models::ProjectServiceAccountCreateResponse create_project_service_account(project_id, project_service_account_create_request)
+> models::ProjectServiceAccountCreateResponse create_project_service_account(project_id, project_service_account_create_request, options)
 Create project service account
 
 Creates a new service account in the project. By default, this also returns an unredacted API key for the service account.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **project_service_account_create_request** | [**ProjectServiceAccountCreateRequest**](ProjectServiceAccountCreateRequest.md) | The project service account create request payload. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_project_service_account().configuration(&configuration).project_id(..).project_service_account_create_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -124,18 +136,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_project_user
 
-> models::ProjectUser create_project_user(project_id, project_user_create_request)
+> models::ProjectUser create_project_user(project_id, project_user_create_request, options)
 Create project user
 
 Adds a user to the project. Users must already be members of the organization to be added to a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **project_user_create_request** | [**ProjectUserCreateRequest**](ProjectUserCreateRequest.md) | The project user create request payload. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_project_user().configuration(&configuration).project_id(..).project_user_create_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -155,18 +171,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_project_api_key
 
-> models::ProjectApiKeyDeleteResponse delete_project_api_key(project_id, api_key_id)
+> models::ProjectApiKeyDeleteResponse delete_project_api_key(project_id, api_key_id, options)
 Delete project API key
 
 Deletes an API key from the project, including keys owned by service accounts.  Requires permission to write project API keys. Deleting a service-account key does not delete the service account or its other keys.  Returns confirmation of the key deletion. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **api_key_id** | **String** | The ID of the API key. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_project_api_key().configuration(&configuration).project_id(..).api_key_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -186,17 +206,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_project_model_permissions
 
-> models::ProjectModelPermissionsDeleteResponse delete_project_model_permissions(project_id)
+> models::ProjectModelPermissionsDeleteResponse delete_project_model_permissions(project_id, options)
 Delete project model permissions
 
 Deletes model permissions for a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_project_model_permissions().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -216,18 +240,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_project_service_account
 
-> models::ProjectServiceAccountDeleteResponse delete_project_service_account(project_id, service_account_id)
+> models::ProjectServiceAccountDeleteResponse delete_project_service_account(project_id, service_account_id, options)
 Delete project service account
 
 Deletes a service account from the project.  Returns confirmation of service account deletion, or an error if the project is archived (archived projects have no service accounts). 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **service_account_id** | **String** | The ID of the service account. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_project_service_account().configuration(&configuration).project_id(..).service_account_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -247,18 +275,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_project_user
 
-> models::ProjectUserDeleteResponse delete_project_user(project_id, user_id)
+> models::ProjectUserDeleteResponse delete_project_user(project_id, user_id, options)
 Delete project user
 
 Deletes a user from the project.  Returns confirmation of project user deletion, or an error if the project is archived (archived projects have no users). 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **user_id** | **String** | The ID of the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_project_user().configuration(&configuration).project_id(..).user_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -278,13 +310,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_api_keys
 
-> models::ProjectApiKeyListResponse list_project_api_keys(project_id, limit, after, owner_project_access)
+> models::ProjectApiKeyListResponse list_project_api_keys(project_id, limit, after, owner_project_access, options)
 List project API keys
 
 Returns a list of API keys in the project.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -292,6 +323,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **owner_project_access** | Option<**String**> | Filter API keys by whether the owner currently has effective access to the project. Use `active` for owners with access, `inactive` for owners without access, or `any` for all enabled project API keys. If omitted, the endpoint applies its existing membership-based visibility rules, which may exclude some enabled keys.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_project_api_keys().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -311,13 +347,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_rate_limits
 
-> models::ProjectRateLimitListResponse list_project_rate_limits(project_id, limit, after, before)
+> models::ProjectRateLimitListResponse list_project_rate_limits(project_id, limit, after, before, options)
 List project rate limits
 
 Returns the rate limits per model for a project.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -325,6 +360,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. The default is 100.  Defaults to `100`. |  |[default to 100]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, beginning with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_project_rate_limits().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -344,19 +384,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_service_accounts
 
-> models::ProjectServiceAccountListResponse list_project_service_accounts(project_id, limit, after)
+> models::ProjectServiceAccountListResponse list_project_service_accounts(project_id, limit, after, options)
 List project service accounts
 
 Returns a list of service accounts in the project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_project_service_accounts().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -376,19 +420,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_users
 
-> models::ProjectUserListResponse list_project_users(project_id, limit, after)
+> models::ProjectUserListResponse list_project_users(project_id, limit, after, options)
 List project users
 
 Returns a list of users in the project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_project_users().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -408,19 +456,23 @@ Name | Type | Description  | Required | Notes
 
 ## list_projects
 
-> models::ProjectListResponse list_projects(limit, after, include_archived)
+> models::ProjectListResponse list_projects(limit, after, include_archived, options)
 List projects
 
 Returns a list of projects.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **include_archived** | Option<**bool**> | If `true` returns all projects including those that have been `archived`. Archived projects are not included by default.  Defaults to `false`. |  |[default to false]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_projects().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -440,18 +492,22 @@ Name | Type | Description  | Required | Notes
 
 ## modify_project
 
-> models::Project modify_project(project_id, project_update_request)
+> models::Project modify_project(project_id, project_update_request, options)
 Modify project
 
 Modifies a project in the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **project_update_request** | [**ProjectUpdateRequest**](ProjectUpdateRequest.md) | The project update request payload. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+modify_project().configuration(&configuration).project_id(..).project_update_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -471,19 +527,23 @@ Name | Type | Description  | Required | Notes
 
 ## modify_project_user
 
-> models::ProjectUser modify_project_user(project_id, user_id, project_user_update_request)
+> models::ProjectUser modify_project_user(project_id, user_id, project_user_update_request, options)
 Modify project user
 
 Modifies a user's role in the project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **user_id** | **String** | The ID of the user. | [required] |
 **project_user_update_request** | [**ProjectUserUpdateRequest**](ProjectUserUpdateRequest.md) | The project user update request payload. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+modify_project_user().configuration(&configuration).project_id(..).user_id(..).project_user_update_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -503,17 +563,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project
 
-> models::Project retrieve_project(project_id)
+> models::Project retrieve_project(project_id, options)
 Retrieve project
 
 Retrieves a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -533,18 +597,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project_api_key
 
-> models::ProjectApiKey retrieve_project_api_key(project_id, api_key_id)
+> models::ProjectApiKey retrieve_project_api_key(project_id, api_key_id, options)
 Retrieve project API key
 
 Retrieves an API key in the project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **api_key_id** | **String** | The ID of the API key. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_api_key().configuration(&configuration).project_id(..).api_key_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -564,17 +632,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project_model_permissions
 
-> models::ProjectModelPermissions retrieve_project_model_permissions(project_id)
+> models::ProjectModelPermissions retrieve_project_model_permissions(project_id, options)
 Retrieve project model permissions
 
 Returns model permissions for a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_model_permissions().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -594,18 +666,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project_service_account
 
-> models::ProjectServiceAccount retrieve_project_service_account(project_id, service_account_id)
+> models::ProjectServiceAccount retrieve_project_service_account(project_id, service_account_id, options)
 Retrieve project service account
 
 Retrieves a service account in the project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **service_account_id** | **String** | The ID of the service account. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_service_account().configuration(&configuration).project_id(..).service_account_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -625,18 +701,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project_user
 
-> models::ProjectUser retrieve_project_user(project_id, user_id)
+> models::ProjectUser retrieve_project_user(project_id, user_id, options)
 Retrieve project user
 
 Retrieves a user in the project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **user_id** | **String** | The ID of the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_user().configuration(&configuration).project_id(..).user_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -656,19 +736,23 @@ Name | Type | Description  | Required | Notes
 
 ## update_project_api_key
 
-> models::ProjectApiKey update_project_api_key(project_id, api_key_id, update_project_api_key_body)
+> models::ProjectApiKey update_project_api_key(project_id, api_key_id, update_project_api_key_body, options)
 Update project API key
 
 Updates the scopes and/or expiration of an existing API key in the project, including a service-account-owned key. Requires permission to write project API keys.  Provide at least one of `scopes` or `expires_in_seconds`. Omitted fields stay unchanged; neither field accepts `null`. Both changes are saved together.  `scopes` replaces the key's scope restrictions using the same scope identifiers as the dashboard. An empty array means All permissions, subject to the owner's effective access; it does not mean no access. Use `[\"api.all.read\"]` for read-only access or specific scopes such as `[\"api.files.read\"]` for restricted access. This does not change user or service-account roles or grant admin permissions. Scope changes follow the same authentication-cache propagation as dashboard edits.  Provide `expires_in_seconds` to set the expiration relative to this request. The value must satisfy the organization's and project's expiry policies. Expired keys cannot be updated. Retrying resets the expiration relative to the new request. The response contains only the redacted key, not its secret. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **api_key_id** | **String** | The ID of the API key. | [required] |
 **update_project_api_key_body** | [**UpdateProjectApiKeyBody**](UpdateProjectApiKeyBody.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_project_api_key().configuration(&configuration).project_id(..).api_key_id(..).update_project_api_key_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -688,18 +772,22 @@ Name | Type | Description  | Required | Notes
 
 ## update_project_model_permissions
 
-> models::ProjectModelPermissions update_project_model_permissions(project_id, project_model_permissions_update_request)
+> models::ProjectModelPermissions update_project_model_permissions(project_id, project_model_permissions_update_request, options)
 Modify project model permissions
 
 Updates model permissions for a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **project_model_permissions_update_request** | [**ProjectModelPermissionsUpdateRequest**](ProjectModelPermissionsUpdateRequest.md) | The project model permissions update request payload. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_project_model_permissions().configuration(&configuration).project_id(..).project_model_permissions_update_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -719,19 +807,23 @@ Name | Type | Description  | Required | Notes
 
 ## update_project_rate_limits
 
-> models::ProjectRateLimit update_project_rate_limits(project_id, rate_limit_id, project_rate_limit_update_request)
+> models::ProjectRateLimit update_project_rate_limits(project_id, rate_limit_id, project_rate_limit_update_request, options)
 Modify project rate limit
 
 Updates a project rate limit.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **rate_limit_id** | **String** | The ID of the rate limit. | [required] |
 **project_rate_limit_update_request** | [**ProjectRateLimitUpdateRequest**](ProjectRateLimitUpdateRequest.md) | The project rate limit update request payload. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_project_rate_limits().configuration(&configuration).project_id(..).rate_limit_id(..).project_rate_limit_update_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -751,19 +843,23 @@ Name | Type | Description  | Required | Notes
 
 ## update_project_service_account
 
-> models::ProjectServiceAccount update_project_service_account(project_id, service_account_id, update_project_service_account_body)
+> models::ProjectServiceAccount update_project_service_account(project_id, service_account_id, update_project_service_account_body, options)
 Update project service account
 
 Updates a service account in the project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project. | [required] |
 **service_account_id** | **String** | The ID of the service account. | [required] |
 **update_project_service_account_body** | [**UpdateProjectServiceAccountBody**](UpdateProjectServiceAccountBody.md) | Fields to update on the service account. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_project_service_account().configuration(&configuration).project_id(..).service_account_id(..).update_project_service_account_body(..).options(&options).call().await
+```
 
 ### Return type
 

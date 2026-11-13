@@ -24,17 +24,21 @@ Method | HTTP request | Description
 
 ## create_speech
 
-> std::path::PathBuf create_speech(create_speech_request)
+> std::path::PathBuf create_speech(create_speech_request, options)
 Create speech
 
 Generates audio from the input text.  Returns the audio file content, or a stream of audio events.  The `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, `gpt-4o-mini-tts-2025-03-20`, and `gpt-4o-mini-tts-2025-12-15` models are deprecated and scheduled to shut down on January 6, 2027. These examples use the existing Speech API; for new integrations, migrate to `gpt-realtime-2.1-mini` through the [Realtime API](https://developers.openai.com/api/docs/guides/realtime). See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for migration details. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_speech_request** | [**CreateSpeechRequest**](CreateSpeechRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_speech().configuration(&configuration).create_speech_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -54,17 +58,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_speech_stream
 
-> models::CreateSpeechResponseStreamEvent create_speech_stream(create_speech_request)
+> models::CreateSpeechResponseStreamEvent create_speech_stream(create_speech_request, options)
 Create speech
 
 Generates audio from the input text.  Returns the audio file content, or a stream of audio events.  The `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, `gpt-4o-mini-tts-2025-03-20`, and `gpt-4o-mini-tts-2025-12-15` models are deprecated and scheduled to shut down on January 6, 2027. These examples use the existing Speech API; for new integrations, migrate to `gpt-realtime-2.1-mini` through the [Realtime API](https://developers.openai.com/api/docs/guides/realtime). See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for migration details. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_speech_request** | [**CreateSpeechRequest**](CreateSpeechRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_speech_stream().configuration(&configuration).create_speech_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -84,13 +92,12 @@ Name | Type | Description  | Required | Notes
 
 ## create_transcription
 
-> models::CreateTranscription200Response create_transcription(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references)
+> models::CreateTranscription200Response create_transcription(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references, options)
 Create transcription
 
 Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -108,6 +115,11 @@ Name | Type | Description  | Required | Notes
 **chunking_strategy** | Option<[**models::CreateTranscriptionRequestChunkingStrategy**](CreateTranscriptionRequestChunkingStrategy.md)> |  |  |
 **known_speaker_names** | Option<**Vec<String>**> | Optional list of speaker names that correspond to the audio samples provided in `known_speaker_references[]`. Each entry should be a short identifier (for example `customer` or `agent`). Up to 4 speakers are supported.  |  |
 **known_speaker_references** | Option<**Vec<String>**> | Optional list of audio samples (as [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)) that contain known speaker references matching `known_speaker_names[]`. Each sample must be between 2 and 10 seconds, and can use any of the same input audio formats supported by `file`.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_transcription().configuration(&configuration).file(..).model(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -127,13 +139,12 @@ Name | Type | Description  | Required | Notes
 
 ## create_transcription_stream
 
-> models::CreateTranscriptionResponseStreamEvent create_transcription_stream(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references)
+> models::CreateTranscriptionResponseStreamEvent create_transcription_stream(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references, options)
 Create transcription
 
 Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -151,6 +162,11 @@ Name | Type | Description  | Required | Notes
 **chunking_strategy** | Option<[**models::CreateTranscriptionRequestChunkingStrategy**](CreateTranscriptionRequestChunkingStrategy.md)> |  |  |
 **known_speaker_names** | Option<**Vec<String>**> | Optional list of speaker names that correspond to the audio samples provided in `known_speaker_references[]`. Each entry should be a short identifier (for example `customer` or `agent`). Up to 4 speakers are supported.  |  |
 **known_speaker_references** | Option<**Vec<String>**> | Optional list of audio samples (as [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)) that contain known speaker references matching `known_speaker_names[]`. Each sample must be between 2 and 10 seconds, and can use any of the same input audio formats supported by `file`.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_transcription_stream().configuration(&configuration).file(..).model(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -170,13 +186,12 @@ Name | Type | Description  | Required | Notes
 
 ## create_transcription_text
 
-> String create_transcription_text(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references)
+> String create_transcription_text(file, model, language, languages, keywords, prompt, response_format, temperature, include, timestamp_granularities, stream, chunking_strategy, known_speaker_names, known_speaker_references, options)
 Create transcription
 
 Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -194,6 +209,11 @@ Name | Type | Description  | Required | Notes
 **chunking_strategy** | Option<[**models::CreateTranscriptionRequestChunkingStrategy**](CreateTranscriptionRequestChunkingStrategy.md)> |  |  |
 **known_speaker_names** | Option<**Vec<String>**> | Optional list of speaker names that correspond to the audio samples provided in `known_speaker_references[]`. Each entry should be a short identifier (for example `customer` or `agent`). Up to 4 speakers are supported.  |  |
 **known_speaker_references** | Option<**Vec<String>**> | Optional list of audio samples (as [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)) that contain known speaker references matching `known_speaker_names[]`. Each sample must be between 2 and 10 seconds, and can use any of the same input audio formats supported by `file`.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_transcription_text().configuration(&configuration).file(..).model(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -213,13 +233,12 @@ Name | Type | Description  | Required | Notes
 
 ## create_translation
 
-> models::CreateTranslation200Response create_translation(file, model, prompt, response_format, temperature)
+> models::CreateTranslation200Response create_translation(file, model, prompt, response_format, temperature, options)
 Create translation
 
 Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -228,6 +247,11 @@ Name | Type | Description  | Required | Notes
 **prompt** | Option<**String**> | An optional text to guide the model's style or continue a previous audio segment. The [prompt](https://developers.openai.com/api/docs/guides/speech-to-text#prompting) should be in English.  |  |
 **response_format** | Option<**String**> | The format of the output, in one of these options: `json`, `text`, `srt`, `verbose_json`, or `vtt`.  Defaults to `\\\"json\\\"`. |  |
 **temperature** | Option<**f64**> | The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use [log probability](https://en.wikipedia.org/wiki/Log_probability) to automatically increase the temperature until certain thresholds are hit.  Defaults to `0`. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_translation().configuration(&configuration).file(..).model(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -247,13 +271,12 @@ Name | Type | Description  | Required | Notes
 
 ## create_translation_text
 
-> String create_translation_text(file, model, prompt, response_format, temperature)
+> String create_translation_text(file, model, prompt, response_format, temperature, options)
 Create translation
 
 Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -262,6 +285,11 @@ Name | Type | Description  | Required | Notes
 **prompt** | Option<**String**> | An optional text to guide the model's style or continue a previous audio segment. The [prompt](https://developers.openai.com/api/docs/guides/speech-to-text#prompting) should be in English.  |  |
 **response_format** | Option<**String**> | The format of the output, in one of these options: `json`, `text`, `srt`, `verbose_json`, or `vtt`.  Defaults to `\\\"json\\\"`. |  |
 **temperature** | Option<**f64**> | The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use [log probability](https://en.wikipedia.org/wiki/Log_probability) to automatically increase the temperature until certain thresholds are hit.  Defaults to `0`. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_translation_text().configuration(&configuration).file(..).model(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -281,17 +309,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_voice
 
-> models::VoiceResource create_voice(create_voice_prompt_request)
+> models::VoiceResource create_voice(create_voice_prompt_request, options)
 Create voice
 
 Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_voice_prompt_request** | [**CreateVoicePromptRequest**](CreateVoicePromptRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_voice().configuration(&configuration).create_voice_prompt_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -311,19 +343,23 @@ Name | Type | Description  | Required | Notes
 
 ## create_voice_consent
 
-> models::VoiceConsentResource create_voice_consent(name, recording, language)
+> models::VoiceConsentResource create_voice_consent(name, recording, language, options)
 Create voice consent
 
 Upload a voice consent recording.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **name** | **String** | The label to use for this consent recording. | [required] |
 **recording** | **timvw_rust_runtime::Upload** | The consent audio recording file. Maximum size is 10 MiB.  Supported MIME types: `audio/mpeg`, `audio/wav`, `audio/x-wav`, `audio/ogg`, `audio/aac`, `audio/flac`, `audio/webm`, `audio/mp4`.  | [required] |
 **language** | **String** | The BCP 47 language tag for the consent phrase (for example, `en-US`). | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_voice_consent().configuration(&configuration).name(..).recording(..).language(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -343,13 +379,12 @@ Name | Type | Description  | Required | Notes
 
 ## create_voice_multipart
 
-> models::VoiceResource create_voice_multipart(r#type, name, audio_sample, consent, prompt, script_hint, model)
+> models::VoiceResource create_voice_multipart(r#type, name, audio_sample, consent, prompt, script_hint, model, options)
 Create voice
 
 Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio. 
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -360,6 +395,11 @@ Name | Type | Description  | Required | Notes
 **prompt** | Option<**String**> | A description of the desired voice. Must not contain only whitespace. |  |
 **script_hint** | Option<**String**> | Optional text for the voice to speak during creation. If omitted, a script is generated from the prompt. Must not be blank after trimming whitespace; scripts that are too short are rejected. |  |
 **model** | Option<**String**> | The voice creation model to use. Defaults to `auto`.  Defaults to `\\\"auto\\\"`. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_voice_multipart().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -379,17 +419,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_voice
 
-> models::VoiceDeletedResource delete_voice(voice_id)
+> models::VoiceDeletedResource delete_voice(voice_id, options)
 Delete voice
 
 Deletes a voice created from a text prompt or an audio sample.  Requires voice write permission and access to the voice's project. Access to voices created from recordings is limited to eligible customers. See the [custom voices guide](https://developers.openai.com/api/docs/guides/custom-voices).  Deleting a voice does not delete its consent recording. Deleting an already deleted voice returns a 404 error. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **voice_id** | **String** | The ID of the voice to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_voice().configuration(&configuration).voice_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -409,17 +453,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_voice_consent
 
-> models::VoiceConsentDeletedResource delete_voice_consent(consent_id)
+> models::VoiceConsentDeletedResource delete_voice_consent(consent_id, options)
 Delete voice consent
 
 Deletes a voice consent recording.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **consent_id** | **String** | The ID of the consent recording to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_voice_consent().configuration(&configuration).consent_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -439,17 +487,21 @@ Name | Type | Description  | Required | Notes
 
 ## get_voice_consent
 
-> models::VoiceConsentResource get_voice_consent(consent_id)
+> models::VoiceConsentResource get_voice_consent(consent_id, options)
 Retrieve voice consent
 
 Retrieves a voice consent recording.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **consent_id** | **String** | The ID of the consent recording to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_voice_consent().configuration(&configuration).consent_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -469,18 +521,22 @@ Name | Type | Description  | Required | Notes
 
 ## list_voice_consents
 
-> models::VoiceConsentListResource list_voice_consents(after, limit)
+> models::VoiceConsentListResource list_voice_consents(after, limit, options)
 List voice consents
 
 Returns a list of voice consent recordings.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_voice_consents().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -500,18 +556,22 @@ Name | Type | Description  | Required | Notes
 
 ## update_voice_consent
 
-> models::VoiceConsentResource update_voice_consent(consent_id, update_voice_consent_request)
+> models::VoiceConsentResource update_voice_consent(consent_id, update_voice_consent_request, options)
 Update voice consent
 
 Updates a voice consent recording (metadata only).
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **consent_id** | **String** | The ID of the consent recording to update. | [required] |
 **update_voice_consent_request** | [**UpdateVoiceConsentRequest**](UpdateVoiceConsentRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_voice_consent().configuration(&configuration).consent_id(..).update_voice_consent_request(..).options(&options).call().await
+```
 
 ### Return type
 

@@ -25,18 +25,22 @@ Method | HTTP request | Description
 
 ## cancel_vector_store_file_batch
 
-> models::VectorStoreFileBatchObject cancel_vector_store_file_batch(vector_store_id, batch_id)
+> models::VectorStoreFileBatchObject cancel_vector_store_file_batch(vector_store_id, batch_id, options)
 Cancel vector store file batch
 
 Cancel a vector store file batch. This attempts to cancel the processing of files in this batch as soon as possible.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store that the file batch belongs to. | [required] |
 **batch_id** | **String** | The ID of the file batch to cancel. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+cancel_vector_store_file_batch().configuration(&configuration).vector_store_id(..).batch_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -56,17 +60,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_vector_store
 
-> models::VectorStoreObject create_vector_store(create_vector_store_request)
+> models::VectorStoreObject create_vector_store(create_vector_store_request, options)
 Create vector store
 
 Create a vector store.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_vector_store_request** | [**CreateVectorStoreRequest**](CreateVectorStoreRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_vector_store().configuration(&configuration).create_vector_store_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -86,18 +94,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_vector_store_file
 
-> models::VectorStoreFileObject create_vector_store_file(vector_store_id, create_vector_store_file_request)
+> models::VectorStoreFileObject create_vector_store_file(vector_store_id, create_vector_store_file_request, options)
 Create vector store file
 
 Create a vector store file by attaching a [File](https://developers.openai.com/api/reference/resources/files) to a [vector store](https://developers.openai.com/api/reference/resources/vector_stores).
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store for which to create a File.  | [required] |
 **create_vector_store_file_request** | [**CreateVectorStoreFileRequest**](CreateVectorStoreFileRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_vector_store_file().configuration(&configuration).vector_store_id(..).create_vector_store_file_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -117,18 +129,22 @@ Name | Type | Description  | Required | Notes
 
 ## create_vector_store_file_batch
 
-> models::VectorStoreFileBatchObject create_vector_store_file_batch(vector_store_id, create_vector_store_file_batch_request)
+> models::VectorStoreFileBatchObject create_vector_store_file_batch(vector_store_id, create_vector_store_file_batch_request, options)
 Create vector store file batch
 
 Create a vector store file batch.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store for which to create a File Batch.  | [required] |
 **create_vector_store_file_batch_request** | [**CreateVectorStoreFileBatchRequest**](CreateVectorStoreFileBatchRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_vector_store_file_batch().configuration(&configuration).vector_store_id(..).create_vector_store_file_batch_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -148,17 +164,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_vector_store
 
-> models::DeleteVectorStoreResponse delete_vector_store(vector_store_id)
+> models::DeleteVectorStoreResponse delete_vector_store(vector_store_id, options)
 Delete vector store
 
 Delete a vector store.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_vector_store().configuration(&configuration).vector_store_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -178,18 +198,22 @@ Name | Type | Description  | Required | Notes
 
 ## delete_vector_store_file
 
-> models::DeleteVectorStoreFileResponse delete_vector_store_file(vector_store_id, file_id)
+> models::DeleteVectorStoreFileResponse delete_vector_store_file(vector_store_id, file_id, options)
 Delete vector store file
 
 Delete a vector store file. This will remove the file from the vector store but the file itself will not be deleted. To delete the file, use the [delete file](https://developers.openai.com/api/reference/resources/files/methods/delete) endpoint.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store that the file belongs to. | [required] |
 **file_id** | **String** | The ID of the file to delete. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_vector_store_file().configuration(&configuration).vector_store_id(..).file_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -209,17 +233,21 @@ Name | Type | Description  | Required | Notes
 
 ## get_vector_store
 
-> models::VectorStoreObject get_vector_store(vector_store_id)
+> models::VectorStoreObject get_vector_store(vector_store_id, options)
 Retrieve vector store
 
 Retrieves a vector store.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store to retrieve. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_vector_store().configuration(&configuration).vector_store_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -239,18 +267,22 @@ Name | Type | Description  | Required | Notes
 
 ## get_vector_store_file
 
-> models::VectorStoreFileObject get_vector_store_file(vector_store_id, file_id)
+> models::VectorStoreFileObject get_vector_store_file(vector_store_id, file_id, options)
 Retrieve vector store file
 
 Retrieves a vector store file.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store that the file belongs to. | [required] |
 **file_id** | **String** | The ID of the file being retrieved. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_vector_store_file().configuration(&configuration).vector_store_id(..).file_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -270,18 +302,22 @@ Name | Type | Description  | Required | Notes
 
 ## get_vector_store_file_batch
 
-> models::VectorStoreFileBatchObject get_vector_store_file_batch(vector_store_id, batch_id)
+> models::VectorStoreFileBatchObject get_vector_store_file_batch(vector_store_id, batch_id, options)
 Retrieve vector store file batch
 
 Retrieves a vector store file batch.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store that the file batch belongs to. | [required] |
 **batch_id** | **String** | The ID of the file batch being retrieved. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+get_vector_store_file_batch().configuration(&configuration).vector_store_id(..).batch_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -301,13 +337,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_files_in_vector_store_batch
 
-> models::ListVectorStoreFilesResponse list_files_in_vector_store_batch(vector_store_id, batch_id, limit, order, after, before, filter)
+> models::ListVectorStoreFilesResponse list_files_in_vector_store_batch(vector_store_id, batch_id, limit, order, after, before, filter, options)
 List vector store files in a batch
 
 Returns a list of vector store files in a batch.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -318,6 +353,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
 **filter** | Option<**String**> | Filter by file status. One of `in_progress`, `completed`, `failed`, `cancelled`. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_files_in_vector_store_batch().configuration(&configuration).vector_store_id(..).batch_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -337,13 +377,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_vector_store_files
 
-> models::ListVectorStoreFilesResponse list_vector_store_files(vector_store_id, limit, order, after, before, filter)
+> models::ListVectorStoreFilesResponse list_vector_store_files(vector_store_id, limit, order, after, before, filter, options)
 List vector store files
 
 Returns a list of vector store files.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -353,6 +392,11 @@ Name | Type | Description  | Required | Notes
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
 **filter** | Option<**String**> | Filter by file status. One of `in_progress`, `completed`, `failed`, `cancelled`. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_vector_store_files().configuration(&configuration).vector_store_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -372,13 +416,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_vector_stores
 
-> models::ListVectorStoresResponse list_vector_stores(limit, order, after, before)
+> models::ListVectorStoresResponse list_vector_stores(limit, order, after, before, options)
 List vector stores
 
 Returns a list of vector stores.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -386,6 +429,11 @@ Name | Type | Description  | Required | Notes
 **order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  Defaults to `\"desc\"`. |  |[default to desc]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_vector_stores().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -405,18 +453,22 @@ Name | Type | Description  | Required | Notes
 
 ## modify_vector_store
 
-> models::VectorStoreObject modify_vector_store(vector_store_id, update_vector_store_request)
+> models::VectorStoreObject modify_vector_store(vector_store_id, update_vector_store_request, options)
 Modify vector store
 
 Modifies a vector store.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store to modify. | [required] |
 **update_vector_store_request** | [**UpdateVectorStoreRequest**](UpdateVectorStoreRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+modify_vector_store().configuration(&configuration).vector_store_id(..).update_vector_store_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -436,18 +488,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_vector_store_file_content
 
-> models::VectorStoreFileContentResponse retrieve_vector_store_file_content(vector_store_id, file_id)
+> models::VectorStoreFileContentResponse retrieve_vector_store_file_content(vector_store_id, file_id, options)
 Retrieve vector store file content
 
 Retrieve the parsed contents of a vector store file.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store. | [required] |
 **file_id** | **String** | The ID of the file within the vector store. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_vector_store_file_content().configuration(&configuration).vector_store_id(..).file_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -467,18 +523,22 @@ Name | Type | Description  | Required | Notes
 
 ## search_vector_store
 
-> models::VectorStoreSearchResultsPage search_vector_store(vector_store_id, vector_store_search_request)
+> models::VectorStoreSearchResultsPage search_vector_store(vector_store_id, vector_store_search_request, options)
 Search vector store
 
 Search a vector store for relevant chunks based on a query and file attributes filter.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store to search. | [required] |
 **vector_store_search_request** | [**VectorStoreSearchRequest**](VectorStoreSearchRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+search_vector_store().configuration(&configuration).vector_store_id(..).vector_store_search_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -498,19 +558,23 @@ Name | Type | Description  | Required | Notes
 
 ## update_vector_store_file_attributes
 
-> models::VectorStoreFileObject update_vector_store_file_attributes(vector_store_id, file_id, update_vector_store_file_attributes_request)
+> models::VectorStoreFileObject update_vector_store_file_attributes(vector_store_id, file_id, update_vector_store_file_attributes_request, options)
 Update vector store file attributes
 
 Update attributes on a vector store file.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **vector_store_id** | **String** | The ID of the vector store the file belongs to. | [required] |
 **file_id** | **String** | The ID of the file to update attributes. | [required] |
 **update_vector_store_file_attributes_request** | [**UpdateVectorStoreFileAttributesRequest**](UpdateVectorStoreFileAttributesRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+update_vector_store_file_attributes().configuration(&configuration).vector_store_id(..).file_id(..).update_vector_store_file_attributes_request(..).options(&options).call().await
+```
 
 ### Return type
 

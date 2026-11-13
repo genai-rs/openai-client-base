@@ -128,7 +128,7 @@ pub async fn create_video(
     configuration: &configuration::Configuration,
     prompt: &str,
     model: Option<models::VideoModel>,
-    input_reference: Option<models::CreateVideoMultipartBodyInputReference>,
+    #[builder(into)] input_reference: Option<models::CreateVideoMultipartBodyInputReference>,
     seconds: Option<models::VideoSeconds>,
     size: Option<models::VideoSize>,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -183,9 +183,9 @@ pub async fn create_video(
     }
     req_builder = req_builder.multipart(multipart_form);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -273,9 +273,9 @@ pub async fn create_video_character(
     multipart_form = multipart_form.text("name", p_form_name.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -332,7 +332,7 @@ pub async fn create_video_character(
 #[bon::builder]
 pub async fn create_video_edit(
     configuration: &configuration::Configuration,
-    video: models::CreateVideoEditMultipartBodyVideo,
+    #[builder(into)] video: models::CreateVideoEditMultipartBodyVideo,
     prompt: &str,
     options: Option<&timvw_rust_runtime::RequestOptions>,
 ) -> Result<models::VideoResource, Error<CreateVideoEditError>> {
@@ -371,9 +371,9 @@ pub async fn create_video_edit(
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -456,9 +456,9 @@ pub async fn create_video_edit_json(
     };
     req_builder = req_builder.json(&p_body_create_video_edit_json_body);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -518,7 +518,7 @@ pub async fn create_video_edit_json(
 #[bon::builder]
 pub async fn create_video_extend(
     configuration: &configuration::Configuration,
-    video: models::CreateVideoExtendMultipartBodyVideo,
+    #[builder(into)] video: models::CreateVideoExtendMultipartBodyVideo,
     prompt: &str,
     seconds: models::VideoSeconds,
     options: Option<&timvw_rust_runtime::RequestOptions>,
@@ -560,9 +560,9 @@ pub async fn create_video_extend(
     multipart_form = multipart_form.text("seconds", p_form_seconds.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -645,9 +645,9 @@ pub async fn create_video_extend_json(
     };
     req_builder = req_builder.json(&p_body_create_video_extend_json_body);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -730,9 +730,9 @@ pub async fn create_video_json(
     };
     req_builder = req_builder.json(&p_body_create_video_json_body);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -821,9 +821,9 @@ pub async fn create_video_remix(
     multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
     req_builder = req_builder.multipart(multipart_form);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -912,9 +912,9 @@ pub async fn create_video_remix_json(
     };
     req_builder = req_builder.json(&p_body_create_video_remix_body);
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -998,9 +998,9 @@ pub async fn delete_video(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1078,9 +1078,9 @@ pub async fn get_video(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1155,9 +1155,9 @@ pub async fn get_video_character(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1241,9 +1241,9 @@ pub async fn list_videos(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1323,9 +1323,9 @@ pub async fn retrieve_video_content(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1399,9 +1399,9 @@ pub async fn retrieve_video_content_json(
             req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
     };
 
-    // last, so its headers replace the generated ones
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
     if let Some(options) = options {
-        req_builder = req_builder.options(options);
+        req_builder = req_builder.base(&configuration.base_path).options(options);
     }
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

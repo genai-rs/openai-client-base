@@ -13,18 +13,22 @@ Method | HTTP request | Description
 
 ## assign_user_role
 
-> models::UserRoleAssignment assign_user_role(user_id, public_assign_organization_group_role_body)
+> models::UserRoleAssignment assign_user_role(user_id, public_assign_organization_group_role_body, options)
 Assign organization role to user
 
 Assigns an organization role to a user within the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_id** | **String** | The ID of the user that should receive the organization role. | [required] |
 **public_assign_organization_group_role_body** | [**PublicAssignOrganizationGroupRoleBody**](PublicAssignOrganizationGroupRoleBody.md) | Identifies the organization role to assign to the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+assign_user_role().configuration(&configuration).user_id(..).public_assign_organization_group_role_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -44,13 +48,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_user_role_assignments
 
-> models::RoleListResource list_user_role_assignments(user_id, limit, after, order)
+> models::RoleListResource list_user_role_assignments(user_id, limit, after, order, options)
 List user organization role assignments
 
 Lists the organization roles assigned to a user within the organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -58,6 +61,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of organization role assignments to return. |  |
 **after** | Option<**String**> | Cursor for pagination. Provide the value from the previous response's `next` field to continue listing organization roles. |  |
 **order** | Option<**String**> | Sort order for the returned organization roles. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_user_role_assignments().configuration(&configuration).user_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -77,18 +85,22 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_user_role
 
-> models::AssignedRoleDetails retrieve_user_role(user_id, role_id)
+> models::AssignedRoleDetails retrieve_user_role(user_id, role_id, options)
 Retrieve user organization role
 
 Retrieves an organization role assigned to a user.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_id** | **String** | The ID of the user to inspect. | [required] |
 **role_id** | **String** | The ID of the organization role to retrieve for the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_user_role().configuration(&configuration).user_id(..).role_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -108,18 +120,22 @@ Name | Type | Description  | Required | Notes
 
 ## unassign_user_role
 
-> models::DeletedRoleAssignmentResource unassign_user_role(user_id, role_id)
+> models::DeletedRoleAssignmentResource unassign_user_role(user_id, role_id, options)
 Unassign organization role from user
 
 Unassigns an organization role from a user within the organization.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **user_id** | **String** | The ID of the user to modify. | [required] |
 **role_id** | **String** | The ID of the organization role to remove from the user. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+unassign_user_role().configuration(&configuration).user_id(..).role_id(..).options(&options).call().await
+```
 
 ### Return type
 

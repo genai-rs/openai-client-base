@@ -12,17 +12,21 @@ Method | HTTP request | Description
 
 ## delete_model
 
-> models::DeleteModelResponse delete_model(model)
+> models::DeleteModelResponse delete_model(model, options)
 Delete a fine-tuned model
 
 Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **model** | **String** | The model to delete | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_model().configuration(&configuration).model(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -42,14 +46,20 @@ Name | Type | Description  | Required | Notes
 
 ## list_models
 
-> models::ListModelsResponse list_models()
+> models::ListModelsResponse list_models(options)
 List models
 
 Lists the currently available models, and provides basic information about each one such as the owner and availability.
 
 ### Parameters
 
-This endpoint does not need any parameter.
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_models().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -69,17 +79,21 @@ This endpoint does not need any parameter.
 
 ## retrieve_model
 
-> models::Model retrieve_model(model)
+> models::Model retrieve_model(model, options)
 Retrieve model
 
 Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **model** | **String** | The ID of the model to use for this request | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_model().configuration(&configuration).model(..).options(&options).call().await
+```
 
 ### Return type
 

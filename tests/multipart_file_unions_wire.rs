@@ -270,7 +270,7 @@ async fn create_video_uploads_the_input_reference_path() {
     let _ = videos_api::create_video()
         .configuration(&configuration)
         .prompt("a prompt")
-        .input_reference(models::CreateVideoMultipartBodyInputReference::Text(
+        .input_reference(models::CreateVideoMultipartBodyInputReference::file(
             upload.path(),
         ))
         .call()
@@ -339,7 +339,7 @@ async fn create_video_edit_uploads_the_video_path() {
     let configuration = config(&address);
     let _ = videos_api::create_video_edit()
         .configuration(&configuration)
-        .video(models::CreateVideoEditMultipartBodyVideo::Text(
+        .video(models::CreateVideoEditMultipartBodyVideo::file(
             upload.path(),
         ))
         .prompt("a prompt")
@@ -386,7 +386,7 @@ async fn create_video_extend_uploads_the_video_path() {
     let configuration = config(&address);
     let _ = videos_api::create_video_extend()
         .configuration(&configuration)
-        .video(models::CreateVideoExtendMultipartBodyVideo::Text(
+        .video(models::CreateVideoExtendMultipartBodyVideo::file(
             upload.path(),
         ))
         .prompt("a prompt")
@@ -409,7 +409,7 @@ async fn create_skill_uploads_a_single_zip_as_files() {
     let configuration = config(&address);
     let _ = skills_api::create_skill()
         .configuration(&configuration)
-        .files(models::CreateSkillBodyFiles::Text(upload.path()))
+        .files(models::CreateSkillBodyFiles::file(upload.path()))
         .call()
         .await;
     let request = receive_one(captured, server);
@@ -428,7 +428,7 @@ async fn create_skill_sends_one_files_brackets_part_per_file_of_an_array() {
     let configuration = config(&address);
     let _ = skills_api::create_skill()
         .configuration(&configuration)
-        .files(models::CreateSkillBodyFiles::ArrayOfStrings(vec![
+        .files(models::CreateSkillBodyFiles::files([
             first.path(),
             second.path(),
         ]))
@@ -449,7 +449,7 @@ async fn create_skill_version_uploads_a_single_zip_as_files() {
     let _ = skills_api::create_skill_version()
         .configuration(&configuration)
         .skill_id("skill_123")
-        .files(models::CreateSkillVersionBodyFiles::Text(upload.path()))
+        .files(models::CreateSkillVersionBodyFiles::file(upload.path()))
         .default(true)
         .call()
         .await;
@@ -472,7 +472,7 @@ async fn create_skill_version_sends_one_files_part_per_file_of_an_array() {
     let _ = skills_api::create_skill_version()
         .configuration(&configuration)
         .skill_id("skill_123")
-        .files(models::CreateSkillVersionBodyFiles::ArrayOfStrings(vec![
+        .files(models::CreateSkillVersionBodyFiles::files([
             first.path(),
             second.path(),
         ]))
@@ -492,7 +492,7 @@ async fn a_missing_file_is_an_error_not_a_panic_or_a_request() {
     let error = videos_api::create_video()
         .configuration(&configuration)
         .prompt("a prompt")
-        .input_reference(models::CreateVideoMultipartBodyInputReference::Text(
+        .input_reference(models::CreateVideoMultipartBodyInputReference::file(
             a_missing_file(),
         ))
         .call()
@@ -502,7 +502,7 @@ async fn a_missing_file_is_an_error_not_a_panic_or_a_request() {
 
     let error = videos_api::create_video_edit()
         .configuration(&configuration)
-        .video(models::CreateVideoEditMultipartBodyVideo::Text(
+        .video(models::CreateVideoEditMultipartBodyVideo::file(
             a_missing_file(),
         ))
         .prompt("a prompt")
@@ -514,7 +514,7 @@ async fn a_missing_file_is_an_error_not_a_panic_or_a_request() {
     let present = Upload::new("SKILL.md", PNG);
     let error = skills_api::create_skill()
         .configuration(&configuration)
-        .files(models::CreateSkillBodyFiles::ArrayOfStrings(vec![
+        .files(models::CreateSkillBodyFiles::files([
             present.path(),
             a_missing_file(),
         ]))

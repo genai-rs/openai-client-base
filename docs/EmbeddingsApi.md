@@ -10,17 +10,21 @@ Method | HTTP request | Description
 
 ## create_embedding
 
-> models::CreateEmbeddingResponse create_embedding(create_embedding_request)
+> models::CreateEmbeddingResponse create_embedding(create_embedding_request, options)
 Create embeddings
 
 Creates an embedding vector representing the input text.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_embedding_request** | [**CreateEmbeddingRequest**](CreateEmbeddingRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_embedding().configuration(&configuration).create_embedding_request(..).options(&options).call().await
+```
 
 ### Return type
 

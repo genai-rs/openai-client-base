@@ -14,19 +14,23 @@ Method | HTTP request | Description
 
 ## create_file
 
-> models::OpenAiFile create_file(file, purpose, expires_after)
+> models::OpenAiFile create_file(file, purpose, expires_after, options)
 Upload file
 
 Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and each project can store up to 2.5 TB of files in total. There is no organization-wide storage limit. Uploads to this endpoint are rate-limited to 1,000 requests per minute per authenticated user.  - The Assistants API supports files up to 2 million tokens and of specific   file types. See the [Assistants Tools guide](https://developers.openai.com/api/docs/guides/tools) for   details. - The Fine-tuning API only supports `.jsonl` files. The input also has   certain required formats for fine-tuning   [chat](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#formatting-your-data) or   [completions](https://developers.openai.com/api/docs/guides/supervised-fine-tuning#formatting-your-data) models. - The Batch API only supports `.jsonl` files up to 200 MB in size. The input   also has a specific required   [format](https://developers.openai.com/api/docs/guides/batch#1-prepare-your-batch-file). - For Retrieval or `file_search` ingestion, upload files here first. If   you need to attach multiple uploaded files to the same vector store, use   [`/vector_stores/{vector_store_id}/file_batches`](https://developers.openai.com/api/reference/resources/vector_stores/subresources/file_batches/methods/create)   instead of attaching them one by one. Vector store attachment has separate   limits from file upload, including 2,000 attached files per minute per   organization.  Please [contact us](https://help.openai.com/) if you need to increase these storage limits. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file** | **timvw_rust_runtime::Upload** | The File object (not file name) to be uploaded.  | [required] |
 **purpose** | **String** | The intended purpose of the uploaded file. One of: - `assistants`: Used in the Assistants API - `batch`: Used in the Batch API - `fine-tune`: Used for fine-tuning - `vision`: Images used for vision fine-tuning - `user_data`: Flexible file type for any purpose - `evals`: Used for eval data sets  | [required] |
 **expires_after** | Option<[**models::FileExpirationAfter**](FileExpirationAfter.md)> |  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_file().configuration(&configuration).file(..).purpose(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -46,17 +50,21 @@ Name | Type | Description  | Required | Notes
 
 ## delete_file
 
-> models::DeleteFileResponse delete_file(file_id)
+> models::DeleteFileResponse delete_file(file_id, options)
 Delete file
 
 Delete a file and remove it from all vector stores.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file_id** | **String** | The ID of the file to use for this request. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+delete_file().configuration(&configuration).file_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -76,17 +84,21 @@ Name | Type | Description  | Required | Notes
 
 ## download_file
 
-> std::path::PathBuf download_file(file_id)
+> std::path::PathBuf download_file(file_id, options)
 Retrieve file content
 
 Returns a response containing the contents of the specified file.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file_id** | **String** | The ID of the file to use for this request. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+download_file().configuration(&configuration).file_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -106,13 +118,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_files
 
-> models::ListFilesResponse list_files(purpose, limit, order, after)
+> models::ListFilesResponse list_files(purpose, limit, order, after, options)
 List files
 
 Returns a list of files.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -120,6 +131,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 10,000, and the default is 10,000.  Defaults to `10000`. |  |[default to 10000]
 **order** | Option<**String**> | Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.  Defaults to `\"desc\"`. |  |[default to desc]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_files().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 
@@ -139,17 +155,21 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_file
 
-> models::OpenAiFile retrieve_file(file_id)
+> models::OpenAiFile retrieve_file(file_id, options)
 Retrieve file
 
 Returns information about a specific file.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **file_id** | **String** | The ID of the file to use for this request. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_file().configuration(&configuration).file_id(..).options(&options).call().await
+```
 
 ### Return type
 

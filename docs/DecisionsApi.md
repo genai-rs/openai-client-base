@@ -10,17 +10,21 @@ Method | HTTP request | Description
 
 ## create_decision
 
-> models::DecisionResponse create_decision(decision_request)
+> models::DecisionResponse create_decision(decision_request, options)
 Create a decision
 
 Use this endpoint to quickly answer classification or scoring questions about some input. You can ask multiple questions in one request.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **decision_request** | [**DecisionRequest**](DecisionRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_decision().configuration(&configuration).decision_request(..).options(&options).call().await
+```
 
 ### Return type
 

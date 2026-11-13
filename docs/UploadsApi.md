@@ -13,18 +13,22 @@ Method | HTTP request | Description
 
 ## add_upload_part
 
-> models::UploadPart add_upload_part(upload_id, data)
+> models::UploadPart add_upload_part(upload_id, data, options)
 Add upload part
 
 Adds a [Part](https://developers.openai.com/api/reference/resources/uploads/subresources/parts) to an [Upload](https://developers.openai.com/api/reference/resources/uploads) object. A Part represents a chunk of bytes from the file you are trying to upload.  Each Part can be at most 64 MB, and you can add Parts until you hit the Upload maximum of 8 GB.  It is possible to add multiple Parts in parallel. You can decide the intended order of the Parts when you [complete the Upload](https://developers.openai.com/api/reference/resources/uploads/methods/complete). 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **upload_id** | **String** | The ID of the Upload.  | [required] |
 **data** | **timvw_rust_runtime::Upload** | The chunk of bytes for this Part.  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+add_upload_part().configuration(&configuration).upload_id(..).data(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -44,17 +48,21 @@ Name | Type | Description  | Required | Notes
 
 ## cancel_upload
 
-> models::Upload cancel_upload(upload_id)
+> models::Upload cancel_upload(upload_id, options)
 Cancel upload
 
 Cancels the Upload. No Parts may be added after an Upload is cancelled.  Returns the Upload object with status `cancelled`. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **upload_id** | **String** | The ID of the Upload.  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+cancel_upload().configuration(&configuration).upload_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -74,18 +82,22 @@ Name | Type | Description  | Required | Notes
 
 ## complete_upload
 
-> models::Upload complete_upload(upload_id, complete_upload_request)
+> models::Upload complete_upload(upload_id, complete_upload_request, options)
 Complete upload
 
 Completes the [Upload](https://developers.openai.com/api/reference/resources/uploads).  Within the returned Upload object, there is a nested [File](https://developers.openai.com/api/reference/resources/files) object that is ready to use in the rest of the platform.  You can specify the order of the Parts by passing in an ordered list of the Part IDs.  The number of bytes uploaded upon completion must match the number of bytes initially specified when creating the Upload object. No Parts may be added after an Upload is completed. Returns the Upload object with status `completed`, including an additional `file` property containing the created usable File object. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **upload_id** | **String** | The ID of the Upload.  | [required] |
 **complete_upload_request** | [**CompleteUploadRequest**](CompleteUploadRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+complete_upload().configuration(&configuration).upload_id(..).complete_upload_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -105,17 +117,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_upload
 
-> models::Upload create_upload(create_upload_request)
+> models::Upload create_upload(create_upload_request, options)
 Create upload
 
 Creates an intermediate [Upload](https://developers.openai.com/api/reference/resources/uploads) object that you can add [Parts](https://developers.openai.com/api/reference/resources/uploads/subresources/parts) to. Currently, an Upload can accept at most 8 GB in total and expires after an hour after you create it.  Once you complete the Upload, we will create a [File](https://developers.openai.com/api/reference/resources/files) object that contains all the parts you uploaded. This File is usable in the rest of our platform as a regular File object.  For certain `purpose` values, the correct `mime_type` must be specified. Please refer to documentation for the [supported MIME types for your use case](https://developers.openai.com/api/docs/guides/tools-file-search#supported-files).  For guidance on the proper filename extensions for each purpose, please follow the documentation on [creating a File](https://developers.openai.com/api/reference/resources/files/methods/create).  Returns the Upload object with status `pending`. 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_upload_request** | [**CreateUploadRequest**](CreateUploadRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_upload().configuration(&configuration).create_upload_request(..).options(&options).call().await
+```
 
 ### Return type
 

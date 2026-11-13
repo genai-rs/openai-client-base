@@ -16,18 +16,22 @@ Method | HTTP request | Description
 
 ## accept_live_session
 
-> accept_live_session(session_id, live_call_accept_request)
+> accept_live_session(session_id, live_call_accept_request, options)
 Accept call
 
 Accept an incoming SIP call. Supply session with type live, the model, and startup configuration. Before accepting calls, follow the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) to write frontend conversation instructions and a separate backend prompt. SIP media format is negotiated; omit audio.format.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | Opaque Live session identifier from the creation response or incoming-call webhook. Preserve the returned value unchanged, including its prefix. | [required] |
 **live_call_accept_request** | [**LiveCallAcceptRequest**](LiveCallAcceptRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+accept_live_session().configuration(&configuration).session_id(..).live_call_accept_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -47,17 +51,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_live
 
-> models::LiveSessionCreateResponse create_live(live_session_create_request)
+> models::LiveSessionCreateResponse create_live(live_session_create_request, options)
 Create session
 
 Create a Live WebRTC session or place an outbound SIP call. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) for session configuration and [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call) for trunk setup and call monitoring.  Set transport.type to `webrtc` and supply an SDP offer, or set it to `sip` and supply an E.164 destination and trunk credentials. Ringing is limited to 3 minutes and connected calls to 2 hours; these limits are not configurable in the request.  Returns `201 Created` after session initialization. WebRTC responses include an SDP answer. SIP responses do not wait for the callee to answer. Attach a sideband connection using session.id to monitor SIP call progress.  Each SIP request creates a new call. If a request times out or the connection fails, retry with caution: the original request may have succeeded, and a retry can place another call.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **live_session_create_request** | [**LiveSessionCreateRequest**](LiveSessionCreateRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_live().configuration(&configuration).live_session_create_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -77,17 +85,21 @@ Name | Type | Description  | Required | Notes
 
 ## download_live_recording
 
-> std::path::PathBuf download_live_recording(session_id)
+> std::path::PathBuf download_live_recording(session_id, options)
 Download recording
 
 Get Live session content
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the stored Live session to download. Use the session ID returned when the session started with storage enabled. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+download_live_recording().configuration(&configuration).session_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -107,18 +119,22 @@ Name | Type | Description  | Required | Notes
 
 ## fork_live_session
 
-> models::LiveCreateResponse fork_live_session(session_id, live_fork_request)
+> models::LiveCreateResponse fork_live_session(session_id, live_fork_request, options)
 Fork session
 
 Fork a stored Live session onto a new WebRTC connection.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | The ID of the stored Live session to fork. | [required] |
 **live_fork_request** | [**LiveForkRequest**](LiveForkRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+fork_live_session().configuration(&configuration).session_id(..).live_fork_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -138,17 +154,21 @@ Name | Type | Description  | Required | Notes
 
 ## hangup_live_session
 
-> hangup_live_session(session_id)
+> hangup_live_session(session_id, options)
 Hang up session
 
 End a SIP call identified by session_id.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | Opaque Live session identifier from the creation response or incoming-call webhook. Preserve the returned value unchanged, including its prefix. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+hangup_live_session().configuration(&configuration).session_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -168,18 +188,22 @@ Name | Type | Description  | Required | Notes
 
 ## refer_live_session
 
-> refer_live_session(session_id, live_call_refer_request)
+> refer_live_session(session_id, live_call_refer_request, options)
 Transfer call
 
 Transfer a SIP call to another destination. Supply a nonblank target_uri for the SIP Refer-To header.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | Opaque Live session identifier from the creation response or incoming-call webhook. Preserve the returned value unchanged, including its prefix. | [required] |
 **live_call_refer_request** | [**LiveCallReferRequest**](LiveCallReferRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+refer_live_session().configuration(&configuration).session_id(..).live_call_refer_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -199,18 +223,22 @@ Name | Type | Description  | Required | Notes
 
 ## reject_live_session
 
-> reject_live_session(session_id, live_call_reject_request)
+> reject_live_session(session_id, live_call_reject_request, options)
 Reject call
 
 Reject an incoming SIP call. Send a required SIP rejection status_code between 300 and 699.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **session_id** | **String** | Opaque Live session identifier from the creation response or incoming-call webhook. Preserve the returned value unchanged, including its prefix. | [required] |
 **live_call_reject_request** | [**LiveCallRejectRequest**](LiveCallRejectRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+reject_live_session().configuration(&configuration).session_id(..).live_call_reject_request(..).options(&options).call().await
+```
 
 ### Return type
 

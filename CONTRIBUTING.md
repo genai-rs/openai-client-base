@@ -21,8 +21,8 @@ If you find issues with the generated code:
 
 Documentation improvements are welcome for:
 - `README.md`
-- `PIPELINE.md`
-- Comments in the patch scripts
+- the guides in `guides/`
+- Comments in the generation scripts
 
 ### Submitting Changes
 

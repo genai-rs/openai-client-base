@@ -10,13 +10,12 @@ Method | HTTP request | Description
 
 ## list_audit_logs
 
-> models::ListAuditLogsResponse list_audit_logs(effective_at, project_ids_left_square_bracket_right_square_bracket, event_types_left_square_bracket_right_square_bracket, actor_ids_left_square_bracket_right_square_bracket, actor_emails_left_square_bracket_right_square_bracket, resource_ids_left_square_bracket_right_square_bracket, tenant_only, limit, after, before)
+> models::ListAuditLogsResponse list_audit_logs(effective_at, project_ids_left_square_bracket_right_square_bracket, event_types_left_square_bracket_right_square_bracket, actor_ids_left_square_bracket_right_square_bracket, actor_emails_left_square_bracket_right_square_bracket, resource_ids_left_square_bracket_right_square_bracket, tenant_only, limit, after, before, options)
 List audit logs
 
 List user actions and configuration changes within this organization.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -30,6 +29,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.  Defaults to `20`. |  |[default to 20]
 **after** | Option<**String**> | A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.  |  |
 **before** | Option<**String**> | A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_audit_logs().configuration(&configuration).options(&options).call().await
+```
 
 ### Return type
 

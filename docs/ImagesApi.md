@@ -16,17 +16,21 @@ Method | HTTP request | Description
 
 ## create_image
 
-> models::ImagesResponse create_image(create_image_request)
+> models::ImagesResponse create_image(create_image_request, options)
 Create image
 
 Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision). 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_image_request** | [**CreateImageRequest**](CreateImageRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_image().configuration(&configuration).create_image_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -46,13 +50,12 @@ Name | Type | Description  | Required | Notes
 
 ## create_image_edit
 
-> models::ImagesResponse create_image_edit(image, prompt, model, frame_count, frame_duration_ms, complexity, mask, markup, background, n, size, response_format, output_format, svg, output_compression, safety_identifier, user, input_fidelity, stream, partial_images, quality)
+> models::ImagesResponse create_image_edit(image, prompt, model, frame_count, frame_duration_ms, complexity, mask, markup, background, n, size, response_format, output_format, svg, output_compression, safety_identifier, user, input_fidelity, stream, partial_images, quality, options)
 Create image edit
 
 Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -77,6 +80,11 @@ Name | Type | Description  | Required | Notes
 **stream** | Option<**bool**> | Edit the image in streaming mode. Defaults to `false`. See the [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation) for more information.  |  |
 **partial_images** | Option<**i64**> | The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.  |  |
 **quality** | Option<**String**> | The quality of the image that will be generated for GPT image models. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Defaults to `auto`.  Defaults to `\\\"auto\\\"`. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_image_edit().configuration(&configuration).image(..).prompt(..).model(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -96,17 +104,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_image_edit_json
 
-> models::ImagesResponse create_image_edit_json(edit_image_body_json_param)
+> models::ImagesResponse create_image_edit_json(edit_image_body_json_param, options)
 Create image edit
 
 Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **edit_image_body_json_param** | [**EditImageBodyJsonParam**](EditImageBodyJsonParam.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_image_edit_json().configuration(&configuration).edit_image_body_json_param(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -126,17 +138,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_image_edit_json_stream
 
-> models::ImageEditStreamEvent create_image_edit_json_stream(edit_image_body_json_param)
+> models::ImageEditStreamEvent create_image_edit_json_stream(edit_image_body_json_param, options)
 Create image edit
 
 Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **edit_image_body_json_param** | [**EditImageBodyJsonParam**](EditImageBodyJsonParam.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_image_edit_json_stream().configuration(&configuration).edit_image_body_json_param(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -156,13 +172,12 @@ Name | Type | Description  | Required | Notes
 
 ## create_image_edit_stream
 
-> models::ImageEditStreamEvent create_image_edit_stream(image, prompt, model, frame_count, frame_duration_ms, complexity, mask, markup, background, n, size, response_format, output_format, svg, output_compression, safety_identifier, user, input_fidelity, stream, partial_images, quality)
+> models::ImageEditStreamEvent create_image_edit_stream(image, prompt, model, frame_count, frame_duration_ms, complexity, mask, markup, background, n, size, response_format, output_format, svg, output_compression, safety_identifier, user, input_fidelity, stream, partial_images, quality, options)
 Create image edit
 
 Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -187,6 +202,11 @@ Name | Type | Description  | Required | Notes
 **stream** | Option<**bool**> | Edit the image in streaming mode. Defaults to `false`. See the [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation) for more information.  |  |
 **partial_images** | Option<**i64**> | The number of partial images to generate. This parameter is used for streaming responses that return partial images. Value must be between 0 and 3. When set to 0, the response will be a single image sent in one streaming event.  Note that the final image may be sent before the full number of partial images are generated if the full image is generated more quickly.  |  |
 **quality** | Option<**String**> | The quality of the image that will be generated for GPT image models. The GPT image models support `low`, `medium`, and `high`. `gpt-image-2.5-sunburst` and `gpt-image-2.5-flare`, including their `2026-09-08` snapshots, also support `xhigh` and `max`. Defaults to `auto`.  Defaults to `\\\"auto\\\"`. |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_image_edit_stream().configuration(&configuration).image(..).prompt(..).model(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -206,17 +226,21 @@ Name | Type | Description  | Required | Notes
 
 ## create_image_stream
 
-> models::ImageGenStreamEvent create_image_stream(create_image_request)
+> models::ImageGenStreamEvent create_image_stream(create_image_request, options)
 Create image
 
 Creates an image given a prompt using a GPT Image model. [Learn more](https://developers.openai.com/api/docs/guides/images-vision). 
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **create_image_request** | [**CreateImageRequest**](CreateImageRequest.md) |  | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_image_stream().configuration(&configuration).create_image_request(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -236,13 +260,12 @@ Name | Type | Description  | Required | Notes
 
 ## create_image_variation
 
-> models::ImagesResponse create_image_variation(image, model, n, response_format, size, user)
+> models::ImagesResponse create_image_variation(image, model, n, response_format, size, user, options)
 Create image variation
 
 This endpoint is retired and no longer available. Use the image edits endpoint with a GPT Image model and a prompt to create a variation of an image. The request and response schemas below describe the legacy contract.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -252,6 +275,11 @@ Name | Type | Description  | Required | Notes
 **response_format** | Option<**String**> | The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated.  Defaults to `\\\"url\\\"`. |  |
 **size** | Option<**String**> | The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.  Defaults to `\\\"1024x1024\\\"`. |  |
 **user** | Option<**String**> | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://developers.openai.com/api/docs/guides/safety-best-practices#implement-safety-identifiers).  |  |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+create_image_variation().configuration(&configuration).image(..).options(&options).call().await
+```
 
 ### Return type
 

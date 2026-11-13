@@ -16,7 +16,30 @@ use serde::{Deserialize, Serialize};
 pub enum CreateVideoExtendMultipartBodyVideo {
     VideoReferenceInputParam(models::VideoReferenceInputParam),
     /// Reference to the completed video to extend.
-    Text(std::path::PathBuf),
+    ///
+    /// A file to upload: a path, bytes or a stream. An upload has no JSON form: serializing this variant is an error,
+    /// and JSON never decodes to it.
+    #[serde(skip)]
+    Text(timvw_rust_runtime::Upload),
+}
+
+impl CreateVideoExtendMultipartBodyVideo {
+    /// A file to upload: a path (`PathBuf`, `&Path`), bytes (`Vec<u8>`, `Bytes`) or any `timvw_rust_runtime::Upload`.
+    pub fn file(upload: impl Into<timvw_rust_runtime::Upload>) -> Self {
+        Self::Text(upload.into())
+    }
+}
+
+impl From<timvw_rust_runtime::Upload> for CreateVideoExtendMultipartBodyVideo {
+    fn from(upload: timvw_rust_runtime::Upload) -> Self {
+        Self::Text(upload)
+    }
+}
+
+impl From<std::path::PathBuf> for CreateVideoExtendMultipartBodyVideo {
+    fn from(path: std::path::PathBuf) -> Self {
+        Self::Text(path.into())
+    }
 }
 
 impl std::fmt::Display for CreateVideoExtendMultipartBodyVideo {
@@ -26,10 +49,7 @@ impl std::fmt::Display for CreateVideoExtendMultipartBodyVideo {
                 Ok(s) => write!(f, "{}", s),
                 Err(_) => Err(std::fmt::Error),
             },
-            Self::Text(value) => match serde_json::to_string(value) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => Err(std::fmt::Error),
-            },
+            Self::Text(value) => f.write_str(value.name().unwrap_or("file")),
         }
     }
 }

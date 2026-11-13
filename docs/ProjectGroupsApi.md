@@ -13,18 +13,22 @@ Method | HTTP request | Description
 
 ## add_project_group
 
-> models::ProjectGroup add_project_group(project_id, invite_project_group_body)
+> models::ProjectGroup add_project_group(project_id, invite_project_group_body, options)
 Add project group
 
 Grants a group access to a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **invite_project_group_body** | [**InviteProjectGroupBody**](InviteProjectGroupBody.md) | Identifies the group and role to assign to the project. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+add_project_group().configuration(&configuration).project_id(..).invite_project_group_body(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -44,13 +48,12 @@ Name | Type | Description  | Required | Notes
 
 ## list_project_groups
 
-> models::ProjectGroupListResource list_project_groups(project_id, limit, after, order)
+> models::ProjectGroupListResource list_project_groups(project_id, limit, after, order, options)
 List project groups
 
 Lists the groups that have access to a project.
 
 ### Parameters
-
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
@@ -58,6 +61,11 @@ Name | Type | Description  | Required | Notes
 **limit** | Option<**i64**> | A limit on the number of project groups to return. Defaults to 20.  Defaults to `20`. |  |[default to 20]
 **after** | Option<**String**> | Cursor for pagination. Provide the ID of the last group from the previous response to fetch the next page. |  |
 **order** | Option<**String**> | Sort order for the returned groups.  Defaults to `\"asc\"`. |  |[default to asc]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+list_project_groups().configuration(&configuration).project_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -77,18 +85,22 @@ Name | Type | Description  | Required | Notes
 
 ## remove_project_group
 
-> models::ProjectGroupDeletedResource remove_project_group(project_id, group_id)
+> models::ProjectGroupDeletedResource remove_project_group(project_id, group_id, options)
 Remove project group
 
 Revokes a group's access to a project.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to update. | [required] |
 **group_id** | **String** | The ID of the group to remove from the project. | [required] |
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+remove_project_group().configuration(&configuration).project_id(..).group_id(..).options(&options).call().await
+```
 
 ### Return type
 
@@ -108,19 +120,23 @@ Name | Type | Description  | Required | Notes
 
 ## retrieve_project_group
 
-> models::ProjectGroup retrieve_project_group(project_id, group_id, group_type)
+> models::ProjectGroup retrieve_project_group(project_id, group_id, group_type, options)
 Retrieve project group
 
 Retrieves a project's group.
 
 ### Parameters
 
-
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **project_id** | **String** | The ID of the project to inspect. | [required] |
 **group_id** | **String** | The ID of the group to retrieve. | [required] |
 **group_type** | Option<**String**> | The type of group to retrieve.  Defaults to `\"group\"`. |  |[default to group]
+**options** | Option<&timvw_rust_runtime::RequestOptions> | Per-call extra headers, query parameters and base URL, applied after everything else ([`RequestOptions`](https://docs.rs/timvw-rust-runtime/latest/timvw_rust_runtime/struct.RequestOptions.html)) |  |
+
+```rust,ignore
+retrieve_project_group().configuration(&configuration).project_id(..).group_id(..).options(&options).call().await
+```
 
 ### Return type
 

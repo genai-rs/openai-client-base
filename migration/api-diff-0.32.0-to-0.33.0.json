@@ -1,0 +1,185 @@
+{
+  "source_heads": {
+    "reference": "git:v0.32.0",
+    "candidate": "working-tree"
+  },
+  "method": "Source declaration census of public model exports, struct fields, enum variant names, and function signatures, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derive or macro-generated builders, enumerate trait implementations, or resolve every visibility/re-export interaction.",
+  "registry_source_rs_files": 3182,
+  "current_source_rs_files": 3182,
+  "source_files_added": [],
+  "source_files_removed": [],
+  "source_files_modified": [
+    "apis/agents_api.rs",
+    "apis/assistants_api.rs",
+    "apis/audio_api.rs",
+    "apis/audit_logs_api.rs",
+    "apis/batch_api.rs",
+    "apis/certificates_api.rs",
+    "apis/chat_api.rs",
+    "apis/completions_api.rs",
+    "apis/conversations_api.rs",
+    "apis/data_retention_api.rs",
+    "apis/decisions_api.rs",
+    "apis/default_api.rs",
+    "apis/embeddings_api.rs",
+    "apis/evals_api.rs",
+    "apis/files_api.rs",
+    "apis/fine_tuning_api.rs",
+    "apis/group_organization_role_assignments_api.rs",
+    "apis/group_users_api.rs",
+    "apis/groups_api.rs",
+    "apis/hosted_tools_api.rs",
+    "apis/images_api.rs",
+    "apis/invites_api.rs",
+    "apis/live_api.rs",
+    "apis/mod.rs",
+    "apis/models_api.rs",
+    "apis/moderations_api.rs",
+    "apis/open_ai_client_base_webhooks_api.rs",
+    "apis/project_group_role_assignments_api.rs",
+    "apis/project_groups_api.rs",
+    "apis/project_user_role_assignments_api.rs",
+    "apis/projects_api.rs",
+    "apis/realtime_api.rs",
+    "apis/responses_api.rs",
+    "apis/roles_api.rs",
+    "apis/skills_api.rs",
+    "apis/spend_alerts_api.rs",
+    "apis/uploads_api.rs",
+    "apis/usage_api.rs",
+    "apis/user_organization_role_assignments_api.rs",
+    "apis/users_api.rs",
+    "apis/vaults_api.rs",
+    "apis/vector_stores_api.rs",
+    "apis/videos_api.rs",
+    "models/create_container_file_body.rs",
+    "models/create_skill_body_files.rs",
+    "models/create_skill_version_body_files.rs",
+    "models/create_video_edit_multipart_body_video.rs",
+    "models/create_video_extend_multipart_body_video.rs",
+    "models/create_video_multipart_body_input_reference.rs"
+  ],
+  "model_exports_added": [],
+  "model_exports_removed": [],
+  "public_functions_added_or_signature_changed": [
+    {
+      "file": "apis/skills_api.rs",
+      "name": "create_skill",
+      "signature": "pub async fn create_skill( configuration: &configuration::Configuration, #[builder(into)] files: models::CreateSkillBodyFiles, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::SkillResource, Error<CreateSkillError>>"
+    },
+    {
+      "file": "apis/skills_api.rs",
+      "name": "create_skill_version",
+      "signature": "pub async fn create_skill_version( configuration: &configuration::Configuration, skill_id: &str, #[builder(into)] files: models::CreateSkillVersionBodyFiles, default: Option<bool>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::SkillVersionResource, Error<CreateSkillVersionError>>"
+    },
+    {
+      "file": "apis/videos_api.rs",
+      "name": "create_video",
+      "signature": "pub async fn create_video( configuration: &configuration::Configuration, prompt: &str, model: Option<models::VideoModel>, #[builder(into)] input_reference: Option<models::CreateVideoMultipartBodyInputReference>, seconds: Option<models::VideoSeconds>, size: Option<models::VideoSize>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VideoResource, Error<CreateVideoError>>"
+    },
+    {
+      "file": "apis/videos_api.rs",
+      "name": "create_video_edit",
+      "signature": "pub async fn create_video_edit( configuration: &configuration::Configuration, #[builder(into)] video: models::CreateVideoEditMultipartBodyVideo, prompt: &str, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VideoResource, Error<CreateVideoEditError>>"
+    },
+    {
+      "file": "apis/videos_api.rs",
+      "name": "create_video_extend",
+      "signature": "pub async fn create_video_extend( configuration: &configuration::Configuration, #[builder(into)] video: models::CreateVideoExtendMultipartBodyVideo, prompt: &str, seconds: models::VideoSeconds, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VideoResource, Error<CreateVideoExtendError>>"
+    },
+    {
+      "file": "models/create_skill_body_files.rs",
+      "name": "file",
+      "signature": "pub fn file(upload: impl Into<timvw_rust_runtime::Upload>) -> Self"
+    },
+    {
+      "file": "models/create_skill_body_files.rs",
+      "name": "files",
+      "signature": "pub fn files(uploads: impl IntoIterator<Item = impl Into<timvw_rust_runtime::Upload>>) -> Self"
+    },
+    {
+      "file": "models/create_skill_version_body_files.rs",
+      "name": "file",
+      "signature": "pub fn file(upload: impl Into<timvw_rust_runtime::Upload>) -> Self"
+    },
+    {
+      "file": "models/create_skill_version_body_files.rs",
+      "name": "files",
+      "signature": "pub fn files(uploads: impl IntoIterator<Item = impl Into<timvw_rust_runtime::Upload>>) -> Self"
+    },
+    {
+      "file": "models/create_video_edit_multipart_body_video.rs",
+      "name": "file",
+      "signature": "pub fn file(upload: impl Into<timvw_rust_runtime::Upload>) -> Self"
+    },
+    {
+      "file": "models/create_video_extend_multipart_body_video.rs",
+      "name": "file",
+      "signature": "pub fn file(upload: impl Into<timvw_rust_runtime::Upload>) -> Self"
+    },
+    {
+      "file": "models/create_video_multipart_body_input_reference.rs",
+      "name": "file",
+      "signature": "pub fn file(upload: impl Into<timvw_rust_runtime::Upload>) -> Self"
+    }
+  ],
+  "public_functions_removed_or_signature_changed": [
+    {
+      "file": "apis/skills_api.rs",
+      "name": "create_skill",
+      "signature": "pub async fn create_skill( configuration: &configuration::Configuration, files: models::CreateSkillBodyFiles, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::SkillResource, Error<CreateSkillError>>"
+    },
+    {
+      "file": "apis/skills_api.rs",
+      "name": "create_skill_version",
+      "signature": "pub async fn create_skill_version( configuration: &configuration::Configuration, skill_id: &str, files: models::CreateSkillVersionBodyFiles, default: Option<bool>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::SkillVersionResource, Error<CreateSkillVersionError>>"
+    },
+    {
+      "file": "apis/videos_api.rs",
+      "name": "create_video",
+      "signature": "pub async fn create_video( configuration: &configuration::Configuration, prompt: &str, model: Option<models::VideoModel>, input_reference: Option<models::CreateVideoMultipartBodyInputReference>, seconds: Option<models::VideoSeconds>, size: Option<models::VideoSize>, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VideoResource, Error<CreateVideoError>>"
+    },
+    {
+      "file": "apis/videos_api.rs",
+      "name": "create_video_edit",
+      "signature": "pub async fn create_video_edit( configuration: &configuration::Configuration, video: models::CreateVideoEditMultipartBodyVideo, prompt: &str, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VideoResource, Error<CreateVideoEditError>>"
+    },
+    {
+      "file": "apis/videos_api.rs",
+      "name": "create_video_extend",
+      "signature": "pub async fn create_video_extend( configuration: &configuration::Configuration, video: models::CreateVideoExtendMultipartBodyVideo, prompt: &str, seconds: models::VideoSeconds, options: Option<&timvw_rust_runtime::RequestOptions>, ) -> Result<models::VideoResource, Error<CreateVideoExtendError>>"
+    }
+  ],
+  "public_model_field_changes": [
+    {
+      "file": "models/create_container_file_body.rs",
+      "model": "CreateContainerFileBody",
+      "field": "file",
+      "registry": "Option<std::path::PathBuf>",
+      "current": "Option<timvw_rust_runtime::Upload>"
+    }
+  ],
+  "public_enum_variant_changes": [],
+  "public_derive_changes": [],
+  "serde_field_attribute_changes": [
+    {
+      "file": "models/create_container_file_body.rs",
+      "model": "CreateContainerFileBody",
+      "field": "file",
+      "registry": "#[serde(rename = \"file\", skip_serializing_if = \"Option::is_none\")]",
+      "current": "#[serde(rename = \"file\", skip)]"
+    }
+  ],
+  "counts": {
+    "model_exports_added": 0,
+    "model_exports_removed": 0,
+    "public_functions_added_or_signature_changed": 12,
+    "public_functions_removed_or_signature_changed": 5,
+    "public_model_field_changes": 1,
+    "public_enum_types_with_variant_changes": 0,
+    "public_enum_variants_added": 0,
+    "public_enum_variants_removed": 0,
+    "public_derive_changes": 0,
+    "serde_field_attribute_changes": 1
+  }
+}
