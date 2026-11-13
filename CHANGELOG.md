@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.31.0](https://github.com/genai-rs/openai-client-base/compare/v0.30.0...v0.31.0) - 2026-11-13
+
+### Added
+
+- [**breaking**] generate with timvw-rust 0.26.0 (runtime 0.2): SecretString credentials, per-call options, API feature groups
+
 ## [0.30.0](https://github.com/genai-rs/openai-client-base/compare/v0.29.0...v0.30.0) - 2026-11-13
 
 ### Added
