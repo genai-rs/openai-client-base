@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.33.0](https://github.com/genai-rs/openai-client-base/compare/v0.32.0...v0.33.0) - 2026-11-13
+
+### Added
+
+- [**breaking**] generate with timvw-rust 0.29.0 (runtime 0.4)
+
+### Other
+
+- read the mock server's accepted stream in blocking mode
+
 ## [0.32.0](https://github.com/genai-rs/openai-client-base/compare/v0.31.0...v0.32.0) - 2026-11-13
 
 ### Added
