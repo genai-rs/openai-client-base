@@ -34,6 +34,19 @@ jobs:
       - name: Test generation patches
         run: python3 -m unittest discover -s scripts/tests -v
 
+  features:
+    name: Feature sets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Cache
+        uses: Swatinem/rust-cache@v2
+      - name: Build each feature alone
+        run: scripts/check_features.sh
+
   public-api:
     name: Public API check
     runs-on: ubuntu-latest

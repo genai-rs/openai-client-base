@@ -1,8 +1,9 @@
-# openai-client-base 0.34 → 0.35.0: status and headers per call
+# openai-client-base 0.34.0 → 0.34.1: status and headers per call
 
-This release turns on the generator's `responseFunctions` option (`timvw-rust` 0.30.1, runtime 0.4, the same OpenAI
-spec as 0.34). The census is `api-diff-0.34.0-to-0.35.0.json`. Every change adds API; nothing is removed or changes
-type, so code written for 0.34 compiles unchanged.
+This release turns on the generator's `responseFunctions` option (`timvw-rust` 0.30.2, runtime 0.4, the same OpenAI
+spec as 0.34). The census is `api-diff-0.34.0-to-0.34.1.json`. Every change adds API; nothing is removed or changes
+type, so code written for 0.34.0 compiles unchanged. Each typed-header struct
+is gated by the Cargo feature of its operation, like the operation.
 
 ## What is added
 
