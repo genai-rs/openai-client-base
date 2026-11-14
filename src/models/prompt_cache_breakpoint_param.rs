@@ -42,6 +42,9 @@ impl crate::models::validation::Validate for PromptCacheBreakpointParam {
 pub enum Mode {
     #[serde(rename = "explicit")]
     Explicit,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 /// The minimum lifetime of this cache breakpoint. Defaults to the request TTL.
@@ -51,12 +54,16 @@ pub enum Ttl {
     Variant30m,
     #[serde(rename = "12h")]
     Variant12h,
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl ::std::fmt::Display for Mode {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         f.write_str(match self {
             Self::Explicit => "explicit",
+            Self::Unknown => "unknown",
         })
     }
 }
@@ -105,6 +112,7 @@ impl ::std::fmt::Display for Ttl {
         f.write_str(match self {
             Self::Variant30m => "30m",
             Self::Variant12h => "12h",
+            Self::Unknown => "unknown",
         })
     }
 }

@@ -33,8 +33,8 @@ pub struct ResponseTextWsDelta {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i64,
     /// The log probabilities of the tokens in the delta.
-    #[serde(rename = "logprobs")]
-    pub logprobs: Vec<models::ResponseLogProb>,
+    #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
+    pub logprobs: Option<Vec<models::ResponseLogProb>>,
     /// The WebSocket lane that emitted this event. This field is present when the originating `response.create` event supplied a `stream_id`.
     #[serde(rename = "stream_id", skip_serializing_if = "Option::is_none")]
     pub stream_id: Option<String>,
@@ -49,7 +49,6 @@ impl ResponseTextWsDelta {
         content_index: i64,
         delta: String,
         sequence_number: i64,
-        logprobs: Vec<models::ResponseLogProb>,
     ) -> ResponseTextWsDelta {
         ResponseTextWsDelta {
             r#type,
@@ -58,7 +57,7 @@ impl ResponseTextWsDelta {
             content_index,
             delta,
             sequence_number,
-            logprobs,
+            logprobs: None,
             stream_id: None,
         }
     }

@@ -18,8 +18,8 @@ pub struct ResponseUsageInputTokensDetails {
     #[serde(rename = "cached_tokens")]
     pub cached_tokens: i64,
     /// The number of input tokens that were written to the cache.
-    #[serde(rename = "cache_write_tokens")]
-    pub cache_write_tokens: i64,
+    #[serde(rename = "cache_write_tokens", skip_serializing_if = "Option::is_none")]
+    pub cache_write_tokens: Option<i64>,
     #[serde(
         rename = "cache_write_tokens_details",
         skip_serializing_if = "Option::is_none"
@@ -29,10 +29,10 @@ pub struct ResponseUsageInputTokensDetails {
 
 impl ResponseUsageInputTokensDetails {
     /// A detailed breakdown of the input tokens.
-    pub fn new(cached_tokens: i64, cache_write_tokens: i64) -> ResponseUsageInputTokensDetails {
+    pub fn new(cached_tokens: i64) -> ResponseUsageInputTokensDetails {
         ResponseUsageInputTokensDetails {
             cached_tokens,
-            cache_write_tokens,
+            cache_write_tokens: None,
             cache_write_tokens_details: None,
         }
     }

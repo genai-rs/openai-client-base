@@ -16,15 +16,15 @@ pub struct InputTokensDetailsResource {
     #[serde(rename = "cached_tokens")]
     pub cached_tokens: i64,
     /// Validation: `minimum: -2147483648`, `maximum: 2147483647`.
-    #[serde(rename = "cache_write_tokens")]
-    pub cache_write_tokens: i64,
+    #[serde(rename = "cache_write_tokens", skip_serializing_if = "Option::is_none")]
+    pub cache_write_tokens: Option<i64>,
 }
 
 impl InputTokensDetailsResource {
-    pub fn new(cached_tokens: i64, cache_write_tokens: i64) -> InputTokensDetailsResource {
+    pub fn new(cached_tokens: i64) -> InputTokensDetailsResource {
         InputTokensDetailsResource {
             cached_tokens,
-            cache_write_tokens,
+            cache_write_tokens: None,
         }
     }
 }
@@ -47,17 +47,19 @@ impl crate::models::validation::Validate for InputTokensDetailsResource {
             &path.field("cached_tokens"),
             errors,
         );
-        crate::models::validation::minimum(
-            self.cache_write_tokens,
-            -2147483648,
-            &path.field("cache_write_tokens"),
-            errors,
-        );
-        crate::models::validation::maximum(
-            self.cache_write_tokens,
-            2147483647,
-            &path.field("cache_write_tokens"),
-            errors,
-        );
+        if let Some(value0) = &self.cache_write_tokens {
+            crate::models::validation::minimum(
+                *value0,
+                -2147483648,
+                &path.field("cache_write_tokens"),
+                errors,
+            );
+            crate::models::validation::maximum(
+                *value0,
+                2147483647,
+                &path.field("cache_write_tokens"),
+                errors,
+            );
+        }
     }
 }

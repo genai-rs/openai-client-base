@@ -197,7 +197,10 @@ fn constructors_keep_their_required_arguments_and_usable_defaults() {
         ],
     );
     assert_omitted_fields(
-        CreateCompletionRequest::new("text-davinci-003".to_owned(), "".to_owned()),
+        CreateCompletionRequest::new(
+            "text-davinci-003".to_owned(),
+            Some(openai_client_base::models::CreateCompletionRequestPrompt::Text(String::new())),
+        ),
         &[
             "best_of",
             "echo",

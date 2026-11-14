@@ -171,7 +171,7 @@ pub struct BetaResponse {
         rename = "incomplete_details",
         deserialize_with = "Option::deserialize"
     )]
-    pub incomplete_details: Option<models::ResponseAllOfIncompleteDetails>,
+    pub incomplete_details: Option<models::BetaResponseAllOfIncompleteDetails>,
     /// Reasoning inputs withheld from the model, in input order.
     #[serde(
         rename = "input_transformations",
@@ -252,7 +252,7 @@ impl BetaResponse {
         access_programs: Option<models::BetaAccessProgramsBody>,
         created_at: f64,
         error: Option<models::BetaResponseError>,
-        incomplete_details: Option<models::ResponseAllOfIncompleteDetails>,
+        incomplete_details: Option<models::BetaResponseAllOfIncompleteDetails>,
         output: Vec<models::BetaOutputItem>,
         instructions: Option<models::BetaResponseAllOfInstructions>,
         parallel_tool_calls: bool,

@@ -18,6 +18,10 @@ pub enum FileDetailEnum {
     Low,
     #[serde(rename = "high")]
     High,
+
+    /// A value this client does not know. It is not kept: this serializes as `"unknown"`, which the API does not list.
+    #[serde(rename = "unknown", other)]
+    Unknown,
 }
 
 impl std::fmt::Display for FileDetailEnum {
@@ -26,6 +30,7 @@ impl std::fmt::Display for FileDetailEnum {
             Self::Auto => write!(f, "auto"),
             Self::Low => write!(f, "low"),
             Self::High => write!(f, "high"),
+            Self::Unknown => write!(f, "unknown"),
         }
     }
 }
