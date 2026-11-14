@@ -93,8 +93,7 @@ changes with `!` or a `BREAKING CHANGE:` footer, or adjust the release version
 manually. The release PR body includes this review requirement.
 
 On a machine with sufficient memory, install cargo-semver-checks and run
-`CARGO_BUILD_JOBS=1 cargo semver-checks check-release --baseline-version 0.14.0`
-(replace the baseline with the latest published version). Restore automated
+`CARGO_BUILD_JOBS=1 cargo semver-checks check-release --baseline-version <latest-published-version>`. Restore automated
 checks when rustdoc's memory usage improves or a suitable runner is available.
 To validate release preparation without publishing or updating a GitHub PR,
 run `release-plz update` in a disposable clone; it updates only that clone's

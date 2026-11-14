@@ -24,10 +24,10 @@ If you discover a security vulnerability in this project, please report it by:
 This project implements several security measures:
 
 - Regular dependency updates via Renovate
-- Security scanning with:
-  - cargo-audit for dependency vulnerabilities
-  - TruffleHog for secret detection
+- Security scanning (the shared genai-rs security workflow, on every pull request, push to `main` and weekly):
+  - cargo-audit and cargo-deny for dependency vulnerabilities and licenses
   - Gitleaks for committed secrets
+  - CodeQL
 - All CI/CD workflows use minimal required permissions
 
 ## Response Time

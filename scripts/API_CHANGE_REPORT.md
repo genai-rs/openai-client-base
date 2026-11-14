@@ -30,14 +30,14 @@ verified claims; use the version actually selected for generation, and record an
 uncertainty about historical generation separately. Prefer an immutable source URL
 when available. The raw input SHA-256 identifies the bytes even for a moving URL.
 
-For example, run from the repository root (substitute the real SHAs and versions):
+For example, run from the repository root (substitute the real SHAs, and the `OPENAPI_GENERATOR_VERSION` of `scripts/generate.sh`):
 
 ```sh
 mkdir -p target/reports/api-change
 uv run python scripts/api_change_report.py snapshot \
   --spec openapi.json --generated-root . \
   --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.json \
-  --generator-version 7.15.0 --revision BASELINE_COMMIT_SHA \
+  --generator-version OPENAPI_GENERATOR_VERSION --revision BASELINE_COMMIT_SHA \
   --output target/reports/api-change/before.json
 
 # Run the existing generation pipeline here, without changing its upstream input.
@@ -45,7 +45,7 @@ uv run python scripts/api_change_report.py snapshot \
 uv run python scripts/api_change_report.py snapshot \
   --spec openapi.json --generated-root . \
   --source-url https://raw.githubusercontent.com/openai/openai-openapi/main/openapi.json \
-  --generator-version 7.15.0 --revision CANDIDATE_COMMIT_OR_RUN_ID \
+  --generator-version OPENAPI_GENERATOR_VERSION --revision CANDIDATE_COMMIT_OR_RUN_ID \
   --output target/reports/api-change/after.json
 
 uv run python scripts/api_change_report.py compare \

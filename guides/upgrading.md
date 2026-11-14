@@ -1,6 +1,6 @@
 # Upgrading
 
-Releases that change the generated public API are breaking (a minor-version bump before 1.0). Each one has a
+Releases that change the generated public API are breaking (a minor-version bump). Each one has a
 migration note in [`migration/`](../migration), next to the census of what changed in the public API
 (`api-diff-<from>-to-<to>.json`, written by `scripts/check_public_api.sh`). The [CHANGELOG](../CHANGELOG.md) lists
 every release.
