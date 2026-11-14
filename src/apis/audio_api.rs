@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`create_speech`]
+///
+/// The headers its error responses declare are typed: [`CreateSpeechErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateSpeechErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateSpeechError {
@@ -28,7 +31,39 @@ pub enum CreateSpeechError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_speech`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateSpeechErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateSpeechErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateSpeechErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateSpeechErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateSpeechErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_transcription`]
+///
+/// The headers its error responses declare are typed: [`CreateTranscriptionErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateTranscriptionErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTranscriptionError {
@@ -43,7 +78,39 @@ pub enum CreateTranscriptionError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_transcription`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateTranscriptionErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateTranscriptionErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateTranscriptionErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateTranscriptionErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateTranscriptionErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_translation`]
+///
+/// The headers its error responses declare are typed: [`CreateTranslationErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateTranslationErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTranslationError {
@@ -56,6 +123,35 @@ pub enum CreateTranslationError {
     Status502(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`create_translation`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateTranslationErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateTranslationErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateTranslationErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateTranslationErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateTranslationErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// struct for typed errors of method [`create_voice`]
@@ -439,6 +535,208 @@ pub async fn create_transcription(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateTranscription200Response`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateTranscription200Response`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateTranscriptionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status401),
+            403 => Some(CreateTranscriptionError::Status403(content.clone())),
+            413 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status413),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status500),
+            502 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status502),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
+///
+/// Sends the same request as [`create_transcription`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::CreateTranscription200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_transcription_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
+    model: &str,
+    language: Option<&str>,
+    languages: Option<Vec<String>>,
+    keywords: Option<Vec<String>>,
+    prompt: Option<&str>,
+    response_format: Option<models::AudioResponseFormat>,
+    temperature: Option<f64>,
+    include: Option<Vec<models::TranscriptionInclude>>,
+    timestamp_granularities: Option<Vec<String>>,
+    stream: Option<bool>,
+    chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>,
+    known_speaker_names: Option<Vec<String>>,
+    known_speaker_references: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::CreateTranscription200Response>,
+    Error<CreateTranscriptionError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_file = file;
+    let p_form_model = model;
+    let p_form_language = language;
+    let p_form_languages = languages;
+    let p_form_keywords = keywords;
+    let p_form_prompt = prompt;
+    let p_form_response_format = response_format;
+    let p_form_temperature = temperature;
+    let p_form_include = include;
+    let p_form_timestamp_granularities = timestamp_granularities;
+    let p_form_stream = stream;
+    let p_form_chunking_strategy = chunking_strategy;
+    let p_form_known_speaker_names = known_speaker_names;
+    let p_form_known_speaker_references = known_speaker_references;
+
+    let uri_str = format!("{}/audio/transcriptions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
+    if let Some(param_value) = p_form_language {
+        multipart_form = multipart_form.text("language", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_languages {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "languages",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_keywords {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "keywords",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_prompt {
+        multipart_form = multipart_form.text("prompt", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_temperature {
+        multipart_form = multipart_form.text("temperature", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_include {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "include",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_timestamp_granularities {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "timestamp_granularities",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_stream {
+        multipart_form = multipart_form.text("stream", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_chunking_strategy {
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "chunking_strategy",
+            serde_json::to_value(param_value)?,
+            None,
+        )?;
+    }
+    if let Some(param_value) = p_form_known_speaker_names {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_names",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_known_speaker_references {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_references",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -893,6 +1191,207 @@ pub async fn create_transcription_text(
     }
 }
 
+/// Transcribes audio into the input language.  Returns a transcription object in `json`, `diarized_json`, or `verbose_json` format, plain text in `text`, `srt`, or `vtt` format, or a stream of transcript events. Supported formats depend on the model.
+///
+/// Decodes the `text/plain` form of the response; `create_transcription` decodes `application/json`.
+///
+/// Sends the same request as [`create_transcription_text`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_transcription_text_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
+    model: &str,
+    language: Option<&str>,
+    languages: Option<Vec<String>>,
+    keywords: Option<Vec<String>>,
+    prompt: Option<&str>,
+    response_format: Option<models::AudioResponseFormat>,
+    temperature: Option<f64>,
+    include: Option<Vec<models::TranscriptionInclude>>,
+    timestamp_granularities: Option<Vec<String>>,
+    stream: Option<bool>,
+    chunking_strategy: Option<models::CreateTranscriptionRequestChunkingStrategy>,
+    known_speaker_names: Option<Vec<String>>,
+    known_speaker_references: Option<Vec<String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<String>, Error<CreateTranscriptionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_file = file;
+    let p_form_model = model;
+    let p_form_language = language;
+    let p_form_languages = languages;
+    let p_form_keywords = keywords;
+    let p_form_prompt = prompt;
+    let p_form_response_format = response_format;
+    let p_form_temperature = temperature;
+    let p_form_include = include;
+    let p_form_timestamp_granularities = timestamp_granularities;
+    let p_form_stream = stream;
+    let p_form_chunking_strategy = chunking_strategy;
+    let p_form_known_speaker_names = known_speaker_names;
+    let p_form_known_speaker_references = known_speaker_references;
+
+    let uri_str = format!("{}/audio/transcriptions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
+    if let Some(param_value) = p_form_language {
+        multipart_form = multipart_form.text("language", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_languages {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "languages",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_keywords {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "keywords",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_prompt {
+        multipart_form = multipart_form.text("prompt", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_temperature {
+        multipart_form = multipart_form.text("temperature", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_include {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "include",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_timestamp_granularities {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "timestamp_granularities",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_stream {
+        multipart_form = multipart_form.text("stream", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_chunking_strategy {
+        multipart_form = multipart_helper::add_schema_value_to_form(
+            multipart_form,
+            "chunking_strategy",
+            serde_json::to_value(param_value)?,
+            None,
+        )?;
+    }
+    if let Some(param_value) = p_form_known_speaker_names {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_names",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    if let Some(param_value) = p_form_known_speaker_references {
+        for item in param_value {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "known_speaker_references",
+                serde_json::to_value(item)?,
+                None,
+            )?;
+        }
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateTranscriptionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status401),
+            403 => Some(CreateTranscriptionError::Status403(content.clone())),
+            413 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status413),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status500),
+            502 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status502),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranscriptionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details.
 #[deprecated]
 #[bon::builder]
@@ -963,6 +1462,115 @@ pub async fn create_translation(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateTranslation200Response`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateTranslation200Response`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateTranslationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status401),
+            403 => Some(CreateTranslationError::Status403(content.clone())),
+            413 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status413),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status500),
+            502 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status502),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details.
+///
+/// Sends the same request as [`create_translation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::CreateTranslation200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_translation_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
+    model: &str,
+    prompt: Option<&str>,
+    response_format: Option<&str>,
+    temperature: Option<f64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::CreateTranslation200Response>, Error<CreateTranslationError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_file = file;
+    let p_form_model = model;
+    let p_form_prompt = prompt;
+    let p_form_response_format = response_format;
+    let p_form_temperature = temperature;
+
+    let uri_str = format!("{}/audio/translations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
+    if let Some(param_value) = p_form_prompt {
+        multipart_form = multipart_form.text("prompt", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_temperature {
+        multipart_form = multipart_form.text("temperature", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1119,6 +1727,116 @@ pub async fn create_translation_text(
     }
 }
 
+/// Translates audio into English.  This endpoint supports only `whisper-1`. The endpoint and model are deprecated and scheduled to shut down on February 26, 2027. Migrate to `/v1/realtime/translations`, which requires a separate integration. See the [deprecation schedule](https://developers.openai.com/api/docs/deprecations) for details.
+///
+/// Decodes the `text/plain` form of the response; `create_translation` decodes `application/json`.
+///
+/// Sends the same request as [`create_translation_text`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_translation_text_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] file: timvw_rust_runtime::Upload,
+    model: &str,
+    prompt: Option<&str>,
+    response_format: Option<&str>,
+    temperature: Option<f64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<String>, Error<CreateTranslationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_file = file;
+    let p_form_model = model;
+    let p_form_prompt = prompt;
+    let p_form_response_format = response_format;
+    let p_form_temperature = temperature;
+
+    let uri_str = format!("{}/audio/translations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_file, "file").await?;
+    multipart_form = multipart_form.text("model", p_form_model.to_string());
+    if let Some(param_value) = p_form_prompt {
+        multipart_form = multipart_form.text("prompt", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_response_format {
+        multipart_form = multipart_form.text("response_format", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_temperature {
+        multipart_form = multipart_form.text("temperature", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateTranslationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status401),
+            403 => Some(CreateTranslationError::Status403(content.clone())),
+            413 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status413),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status500),
+            502 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status502),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateTranslationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
 #[bon::builder]
 pub async fn create_voice(
@@ -1166,6 +1884,78 @@ pub async fn create_voice(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVoiceError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
+///
+/// Sends the same request as [`create_voice`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VoiceResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_voice_response(
+    configuration: &configuration::Configuration,
+    create_voice_prompt_request: &models::CreateVoicePromptRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VoiceResource>, Error<CreateVoiceError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_voice_prompt_request = create_voice_prompt_request;
+
+    let uri_str = format!("{}/audio/voices", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_voice_prompt_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1252,6 +2042,85 @@ pub async fn create_voice_consent(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceConsentResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceConsentResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVoiceConsentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceConsentError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceConsentError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceConsentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Upload a voice consent recording.
+///
+/// Sends the same request as [`create_voice_consent`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VoiceConsentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_voice_consent_response(
+    configuration: &configuration::Configuration,
+    name: &str,
+    #[builder(into)] recording: timvw_rust_runtime::Upload,
+    language: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VoiceConsentResource>, Error<CreateVoiceConsentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_name = name;
+    let p_form_recording = recording;
+    let p_form_language = language;
+
+    let uri_str = format!("{}/audio/voice_consents", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    multipart_form = multipart_form.text("name", p_form_name.to_string());
+    // Add file to multipart form
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_recording, "recording").await?;
+    multipart_form = multipart_form.text("language", p_form_language.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1392,6 +2261,116 @@ pub async fn create_voice_multipart(
     }
 }
 
+/// Creates a voice from a text prompt or from a consent recording and an audio sample.  For prompt-based creation, send `type: \"prompt\"` with a `name` and `prompt` as JSON or multipart form data. For creation from an audio sample, send `type: \"audio_sample\"` with a `name`, `audio_sample`, and `consent` recording ID as multipart form data. The type defaults to `audio_sample` when omitted.  Returns the saved voice's metadata. Voices created from text prompts are supported only in Live, not in Realtime or the speech endpoint. The response does not include preview audio.
+///
+/// Sends the request body as `multipart/form-data`; `create_voice` sends it as `application/json`.
+///
+/// Sends the same request as [`create_voice_multipart`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VoiceResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_voice_multipart_response(
+    configuration: &configuration::Configuration,
+    r#type: Option<&str>,
+    name: Option<&str>,
+    #[builder(into)] audio_sample: Option<timvw_rust_runtime::Upload>,
+    consent: Option<&str>,
+    prompt: Option<&str>,
+    script_hint: Option<&str>,
+    model: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VoiceResource>, Error<CreateVoiceError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_type = r#type;
+    let p_form_name = name;
+    let p_form_audio_sample = audio_sample;
+    let p_form_consent = consent;
+    let p_form_prompt = prompt;
+    let p_form_script_hint = script_hint;
+    let p_form_model = model;
+
+    let uri_str = format!("{}/audio/voices", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    if let Some(param_value) = p_form_type {
+        multipart_form = multipart_form.text("type", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_name {
+        multipart_form = multipart_form.text("name", param_value.to_string());
+    }
+    if let Some(ref param_value) = p_form_audio_sample {
+        // Add file to multipart form
+        multipart_form =
+            multipart_helper::add_file_to_form(multipart_form, param_value, "audio_sample").await?;
+    }
+    if let Some(param_value) = p_form_consent {
+        multipart_form = multipart_form.text("consent", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_prompt {
+        multipart_form = multipart_form.text("prompt", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_script_hint {
+        multipart_form = multipart_form.text("script_hint", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_model {
+        multipart_form = multipart_form.text("model", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVoiceError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVoiceError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Deletes a voice created from a text prompt or an audio sample.  Requires voice write permission and access to the voice's project. Access to voices created from recordings is limited to eligible customers. See the [custom voices guide](https://developers.openai.com/api/docs/guides/custom-voices).  Deleting a voice does not delete its consent recording. Deleting an already deleted voice returns a 404 error.
 #[bon::builder]
 pub async fn delete_voice(
@@ -1442,6 +2421,78 @@ pub async fn delete_voice(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceDeletedResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceDeletedResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteVoiceError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVoiceError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVoiceError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVoiceError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Deletes a voice created from a text prompt or an audio sample.  Requires voice write permission and access to the voice's project. Access to voices created from recordings is limited to eligible customers. See the [custom voices guide](https://developers.openai.com/api/docs/guides/custom-voices).  Deleting a voice does not delete its consent recording. Deleting an already deleted voice returns a 404 error.
+///
+/// Sends the same request as [`delete_voice`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VoiceDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_voice_response(
+    configuration: &configuration::Configuration,
+    voice_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VoiceDeletedResource>, Error<DeleteVoiceError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_voice_id = voice_id;
+
+    let uri_str = format!(
+        "{}/audio/voices/{voice_id}",
+        configuration.base_path,
+        voice_id = crate::apis::urlencode(p_path_voice_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1544,6 +2595,79 @@ pub async fn delete_voice_consent(
     }
 }
 
+/// Deletes a voice consent recording.
+///
+/// Sends the same request as [`delete_voice_consent`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VoiceConsentDeletedResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_voice_consent_response(
+    configuration: &configuration::Configuration,
+    consent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VoiceConsentDeletedResource>, Error<DeleteVoiceConsentError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_consent_id = consent_id;
+
+    let uri_str = format!(
+        "{}/audio/voice_consents/{consent_id}",
+        configuration.base_path,
+        consent_id = crate::apis::urlencode(p_path_consent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteVoiceConsentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVoiceConsentError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVoiceConsentError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVoiceConsentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a voice consent recording.
 #[bon::builder]
 pub async fn get_voice_consent(
@@ -1594,6 +2718,78 @@ pub async fn get_voice_consent(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceConsentResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceConsentResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetVoiceConsentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVoiceConsentError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVoiceConsentError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetVoiceConsentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a voice consent recording.
+///
+/// Sends the same request as [`get_voice_consent`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VoiceConsentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_voice_consent_response(
+    configuration: &configuration::Configuration,
+    consent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VoiceConsentResource>, Error<GetVoiceConsentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_consent_id = consent_id;
+
+    let uri_str = format!(
+        "{}/audio/voice_consents/{consent_id}",
+        configuration.base_path,
+        consent_id = crate::apis::urlencode(p_path_consent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1700,6 +2896,82 @@ pub async fn list_voice_consents(
     }
 }
 
+/// Returns a list of voice consent recordings.
+///
+/// Sends the same request as [`list_voice_consents`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VoiceConsentListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_voice_consents_response(
+    configuration: &configuration::Configuration,
+    after: Option<&str>,
+    limit: Option<i64>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VoiceConsentListResource>, Error<ListVoiceConsentsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_after = after;
+    let p_query_limit = limit;
+
+    let uri_str = format!("{}/audio/voice_consents", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListVoiceConsentsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVoiceConsentsError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVoiceConsentsError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListVoiceConsentsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Updates a voice consent recording (metadata only).
 #[bon::builder]
 pub async fn update_voice_consent(
@@ -1753,6 +3025,81 @@ pub async fn update_voice_consent(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VoiceConsentResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VoiceConsentResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateVoiceConsentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVoiceConsentError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVoiceConsentError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVoiceConsentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Updates a voice consent recording (metadata only).
+///
+/// Sends the same request as [`update_voice_consent`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VoiceConsentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_voice_consent_response(
+    configuration: &configuration::Configuration,
+    consent_id: &str,
+    update_voice_consent_request: &models::UpdateVoiceConsentRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VoiceConsentResource>, Error<UpdateVoiceConsentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_consent_id = consent_id;
+    let p_body_update_voice_consent_request = update_voice_consent_request;
+
+    let uri_str = format!(
+        "{}/audio/voice_consents/{consent_id}",
+        configuration.base_path,
+        consent_id = crate::apis::urlencode(p_path_consent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_update_voice_consent_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

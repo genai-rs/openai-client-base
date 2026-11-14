@@ -115,6 +115,19 @@ skills_api::create_skill()
 Files are streamed with a known `Content-Length`; a part's `Content-Type` comes from the file name's extension unless
 you set one. An upload has no JSON form: the file variants and fields are left out of a model's JSON.
 
+## Status and headers
+
+Every operation with a response body also has a `<operation>_response` function. It returns an `ApiResponse<T>`
+with the `status`, the `headers` (for example OpenAI's `x-ratelimit-*` and `x-request-id`) and the body, which
+`json()` decodes as the generated type.
+
+<!-- not compiled: needs a configuration and a request -->
+```rust
+let response = responses_api::create_response_response(&configuration, &request, None).await?;
+let remaining = response.headers.get("x-ratelimit-remaining-requests");
+let body: models::Response = response.json()?;
+```
+
 ## Errors
 
 Every operation returns `Result<T, apis::Error<E>>`, where `E` is the operation's typed error (an enum of the error

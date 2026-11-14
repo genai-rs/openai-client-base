@@ -763,6 +763,90 @@ pub async fn create_agent(
     }
 }
 
+/// Creates a reusable agent without storing credentials. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
+///
+/// Sends the same request as [`create_agent`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AgentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_agent_response(
+    configuration: &configuration::Configuration,
+    create_agent_params: Option<&models::CreateAgentParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AgentResource>, Error<CreateAgentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_agent_params = create_agent_params;
+
+    let uri_str = format!("{}/agents", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_agent_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Saves an active automation without invoking it immediately.
 #[bon::builder]
 pub async fn create_agent_automation(
@@ -810,6 +894,90 @@ pub async fn create_agent_automation(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Saves an active automation without invoking it immediately.
+///
+/// Sends the same request as [`create_agent_automation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_agent_automation_response(
+    configuration: &configuration::Configuration,
+    create_automation_params: &models::CreateAutomationParams,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AutomationResource>, Error<CreateAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_automation_params = create_automation_params;
+
+    let uri_str = format!("{}/agents/automations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_automation_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -942,6 +1110,96 @@ pub async fn create_agent_automation_invocation(
     }
 }
 
+/// Queues a manual delivery without changing the saved schedule.
+///
+/// Sends the same request as [`create_agent_automation_invocation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AutomationInvocationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_agent_automation_invocation_response(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::AutomationInvocationResource>,
+    Error<CreateAgentAutomationInvocationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/invocations",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentAutomationInvocationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentAutomationInvocationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Creates an OpenAI-hosted environment before creating a session. Requires access to the prewarming beta.
 #[bon::builder]
 pub async fn create_agent_environment(
@@ -994,6 +1252,99 @@ pub async fn create_agent_environment(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PublicEnvironmentResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PublicEnvironmentResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentEnvironmentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Creates an OpenAI-hosted environment before creating a session. Requires access to the prewarming beta.
+///
+/// Sends the same request as [`create_agent_environment`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PublicEnvironmentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_agent_environment_response(
+    configuration: &configuration::Configuration,
+    create_agent_environment_params: &models::CreateAgentEnvironmentParams,
+    idempotency_key: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::PublicEnvironmentResource>, Error<CreateAgentEnvironmentError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_agent_environment_params = create_agent_environment_params;
+    let p_header_idempotency_key = idempotency_key;
+
+    let uri_str = format!("{}/agents/environments", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_agent_environment_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1135,6 +1486,102 @@ pub async fn create_agent_environment_file(
     }
 }
 
+/// Copies inline bytes or a Files API file into a connected execution environment, replacing an existing regular file at the same path. Upload between turns and wait for success before starting the next turn. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
+///
+/// Sends the same request as [`create_agent_environment_file`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::EnvironmentFileResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_agent_environment_file_response(
+    configuration: &configuration::Configuration,
+    environment_id: &str,
+    hosted_environment_file_param: Option<&models::HostedEnvironmentFileParam>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::EnvironmentFileResource>,
+    Error<CreateAgentEnvironmentFileError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_environment_id = environment_id;
+    let p_body_hosted_environment_file_param = hosted_environment_file_param;
+
+    let uri_str = format!(
+        "{}/agents/environments/{environment_id}/files",
+        configuration.base_path,
+        environment_id = crate::apis::urlencode(p_path_environment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_hosted_environment_file_param);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentEnvironmentFileError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentFileError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentFileError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentFileError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentFileError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentFileError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentFileError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentFileError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentFileError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentFileError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Creates reusable environment configuration without returning confidential setup commands or environment values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 #[bon::builder]
 pub async fn create_agent_environment_template(
@@ -1182,6 +1629,90 @@ pub async fn create_agent_environment_template(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EnvironmentTemplateResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EnvironmentTemplateResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentEnvironmentTemplateError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentTemplateError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentTemplateError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentTemplateError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentTemplateError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentTemplateError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentTemplateError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentEnvironmentTemplateError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Creates reusable environment configuration without returning confidential setup commands or environment values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
+///
+/// Sends the same request as [`create_agent_environment_template`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::EnvironmentTemplateResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_agent_environment_template_response(
+    configuration: &configuration::Configuration,
+    create_environment_template_params: Option<&models::CreateEnvironmentTemplateParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::EnvironmentTemplateResource>,
+    Error<CreateAgentEnvironmentTemplateError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_environment_template_params = create_environment_template_params;
+
+    let uri_str = format!("{}/agents/environments/templates", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_environment_template_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1311,6 +1842,93 @@ pub async fn create_agent_session(
     }
 }
 
+/// Creates a managed agent session, optionally submits initial input, and returns the session or streams its events when stream is true. See [running sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions).
+///
+/// Sends the same request as [`create_agent_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_agent_session_response(
+    configuration: &configuration::Configuration,
+    create_agent_session_params: Option<&models::CreateAgentSessionParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SessionResource>, Error<CreateAgentSessionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_agent_session_params = create_agent_session_params;
+
+    let uri_str = format!("{}/agents/sessions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_agent_session_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentSessionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Submits message, cancellation, tool-result, or computer-use approval-response events to a managed agent session. Cancellation can recover a still-open turn whose backend execution has ended by marking it cancelled and abandoning unpublished outputs. Saved results, published files, and existing terminal outcomes are preserved. HTTP 202 confirms acceptance, not durable completion. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
 #[bon::builder]
 pub async fn create_agent_session_events(
@@ -1358,6 +1976,101 @@ pub async fn create_agent_session_events(
 
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentSessionEventsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateAgentSessionEventsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Submits message, cancellation, tool-result, or computer-use approval-response events to a managed agent session. Cancellation can recover a still-open turn whose backend execution has ended by marking it cancelled and abandoning unpublished outputs. Saved results, published files, and existing terminal outcomes are preserved. HTTP 202 confirms acceptance, not durable completion. See [session events](https://developers.openai.com/api/docs/guides/agents-api/sessions/events).
+///
+/// Sends the same request as [`create_agent_session_events`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_agent_session_events_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    idempotency_key: Option<&str>,
+    create_session_events_params: Option<&models::CreateSessionEventsParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<()>, Error<CreateAgentSessionEventsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_header_idempotency_key = idempotency_key;
+    let p_body_create_session_events_params = create_session_events_params;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/events",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(param_value) = p_header_idempotency_key {
+        req_builder = req_builder.header("Idempotency-Key", param_value.to_string());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_session_events_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1582,6 +2295,93 @@ pub async fn delete_agent(
     }
 }
 
+/// Deletes a reusable agent. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
+///
+/// Sends the same request as [`delete_agent`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedAgentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_agent_response(
+    configuration: &configuration::Configuration,
+    agent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeletedAgentResource>, Error<DeleteAgentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_agent_id = agent_id;
+
+    let uri_str = format!(
+        "{}/agents/{agent_id}",
+        configuration.base_path,
+        agent_id = crate::apis::urlencode(p_path_agent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteAgentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Deletes the automation and prevents future invocations without deleting its target session.
 #[bon::builder]
 pub async fn delete_agent_automation(
@@ -1632,6 +2432,94 @@ pub async fn delete_agent_automation(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeletedAutomationResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeletedAutomationResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Deletes the automation and prevents future invocations without deleting its target session.
+///
+/// Sends the same request as [`delete_agent_automation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedAutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_agent_automation_response(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeletedAutomationResource>, Error<DeleteAgentAutomationError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1765,6 +2653,96 @@ pub async fn delete_agent_environment_template(
     }
 }
 
+/// Deletes reusable environment configuration and all confidential template inputs. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
+///
+/// Sends the same request as [`delete_agent_environment_template`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedEnvironmentTemplateResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_agent_environment_template_response(
+    configuration: &configuration::Configuration,
+    environment_template_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::DeletedEnvironmentTemplateResource>,
+    Error<DeleteAgentEnvironmentTemplateError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_environment_template_id = environment_template_id;
+
+    let uri_str = format!(
+        "{}/agents/environments/templates/{environment_template_id}",
+        configuration.base_path,
+        environment_template_id = crate::apis::urlencode(p_path_environment_template_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteAgentEnvironmentTemplateError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentEnvironmentTemplateError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Removes a managed agent session from the public API and returns a deletion confirmation. If backend execution has ended, deletion can cancel a still-open public turn and abandon unpublished outputs. Running execution must be cancelled first. Physical cleanup may continue asynchronously. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 #[bon::builder]
 pub async fn delete_agent_session(
@@ -1815,6 +2793,93 @@ pub async fn delete_agent_session(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeletedSessionResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeletedSessionResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteAgentSessionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Removes a managed agent session from the public API and returns a deletion confirmation. If backend execution has ended, deletion can cancel a still-open public turn and abandon unpublished outputs. Running execution must be cancelled first. Physical cleanup may continue asynchronously. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
+///
+/// Sends the same request as [`delete_agent_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedSessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_agent_session_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeletedSessionResource>, Error<DeleteAgentSessionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1950,6 +3015,99 @@ pub async fn delete_agent_session_artifact(
     }
 }
 
+/// Deletes an immutable session artifact without deleting its live environment file or original Files API object. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
+///
+/// Sends the same request as [`delete_agent_session_artifact`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedSessionArtifactResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_agent_session_artifact_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    artifact_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::DeletedSessionArtifactResource>,
+    Error<DeleteAgentSessionArtifactError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_artifact_id = artifact_id;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/artifacts/{artifact_id}",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        artifact_id = crate::apis::urlencode(p_path_artifact_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteAgentSessionArtifactError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteAgentSessionArtifactError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a project-owned automation.
 #[bon::builder]
 pub async fn get_agent_automation(
@@ -2000,6 +3158,93 @@ pub async fn get_agent_automation(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a project-owned automation.
+///
+/// Sends the same request as [`get_agent_automation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_agent_automation_response(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AutomationResource>, Error<GetAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2094,6 +3339,99 @@ pub async fn get_agent_automation_invocation(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationInvocationResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationInvocationResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetAgentAutomationInvocationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetAgentAutomationInvocationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a delivery record for a project-owned automation.
+///
+/// Sends the same request as [`get_agent_automation_invocation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AutomationInvocationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_agent_automation_invocation_response(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    invocation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::AutomationInvocationResource>,
+    Error<GetAgentAutomationInvocationError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+    let p_path_invocation_id = invocation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/invocations/{invocation_id}",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id),
+        invocation_id = crate::apis::urlencode(p_path_invocation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2247,6 +3585,114 @@ pub async fn list_agent_automation_invocations(
     }
 }
 
+/// Lists delivery records for a project-owned automation.
+///
+/// Sends the same request as [`list_agent_automation_invocations`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListAgentAutomationInvocations200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_automation_invocations_response(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListAgentAutomationInvocations200Response>,
+    Error<ListAgentAutomationInvocationsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/invocations",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentAutomationInvocationsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status500),
+            501 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status501),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationInvocationsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists project-owned automations, optionally filtered by target session.
 #[bon::builder]
 pub async fn list_agent_automations(
@@ -2311,6 +3757,113 @@ pub async fn list_agent_automations(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListAgentAutomations200Response`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListAgentAutomations200Response`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentAutomationsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status500),
+            501 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status501),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentAutomationsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists project-owned automations, optionally filtered by target session.
+///
+/// Sends the same request as [`list_agent_automations`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListAgentAutomations200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_automations_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    session_id: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListAgentAutomations200Response>,
+    Error<ListAgentAutomationsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_session_id = session_id;
+
+    let uri_str = format!("{}/agents/automations", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_session_id {
+        req_builder = req_builder.query(&[("session_id", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2466,6 +4019,116 @@ pub async fn list_agent_environment_files(
     }
 }
 
+/// Lists live files on a connected execution environment with optional directory filtering and opaque cursor pagination. See [environment files](https://developers.openai.com/api/docs/guides/agents-api/environments/files).
+///
+/// Sends the same request as [`list_agent_environment_files`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::EnvironmentFileListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_environment_files_response(
+    configuration: &configuration::Configuration,
+    environment_id: &str,
+    path: Option<&str>,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    page: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::EnvironmentFileListResource>,
+    Error<ListAgentEnvironmentFilesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_environment_id = environment_id;
+    let p_query_path = path;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_page = page;
+
+    let uri_str = format!(
+        "{}/agents/environments/{environment_id}/files",
+        configuration.base_path,
+        environment_id = crate::apis::urlencode(p_path_environment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_path {
+        req_builder = req_builder.query(&[("path", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_page {
+        req_builder = req_builder.query(&[("page", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentEnvironmentFilesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentFilesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists reusable environment templates without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 #[bon::builder]
 pub async fn list_agent_environment_templates(
@@ -2525,6 +4188,102 @@ pub async fn list_agent_environment_templates(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EnvironmentTemplateListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EnvironmentTemplateListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentEnvironmentTemplatesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentTemplatesError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentTemplatesError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentTemplatesError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentTemplatesError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentTemplatesError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentTemplatesError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentTemplatesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists reusable environment templates without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
+///
+/// Sends the same request as [`list_agent_environment_templates`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::EnvironmentTemplateListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_environment_templates_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::EnvironmentTemplateListResource>,
+    Error<ListAgentEnvironmentTemplatesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/agents/environments/templates", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2668,6 +4427,110 @@ pub async fn list_agent_environments(
     }
 }
 
+/// Lists OpenAI-hosted environments owned by the authenticated principal. Requires access to the prewarming beta.
+///
+/// Sends the same request as [`list_agent_environments`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AgentEnvironmentListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_environments_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    r#type: Option<models::EnvironmentTypeParam>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::AgentEnvironmentListResource>,
+    Error<ListAgentEnvironmentsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_type = r#type;
+
+    let uri_str = format!("{}/agents/environments", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_type {
+        req_builder = req_builder.query(&[("type", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentEnvironmentsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentEnvironmentsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists immutable artifacts published by completed hosted session turns. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
 #[bon::builder]
 pub async fn list_agent_session_artifacts(
@@ -2738,6 +4601,116 @@ pub async fn list_agent_session_artifacts(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionArtifactListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionArtifactListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionArtifactsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionArtifactsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists immutable artifacts published by completed hosted session turns. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
+///
+/// Sends the same request as [`list_agent_session_artifacts`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionArtifactListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_session_artifacts_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    environment_id: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::SessionArtifactListResource>,
+    Error<ListAgentSessionArtifactsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_environment_id = environment_id;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/artifacts",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_environment_id {
+        req_builder = req_builder.query(&[("environment_id", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -2982,6 +4955,109 @@ pub async fn list_agent_session_items(
     }
 }
 
+/// Lists items produced by the session's root agent, including its interactions with subagents. Each subagent has its own item history. See [inspecting agent output](https://developers.openai.com/api/docs/guides/agents-api/observability).
+///
+/// Sends the same request as [`list_agent_session_items`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_session_items_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SessionItemListResource>, Error<ListAgentSessionItemsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/items",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionItemsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionItemsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists this subagent's own items across all of its turns. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
 #[bon::builder]
 pub async fn list_agent_session_subagent_items(
@@ -3050,6 +5126,114 @@ pub async fn list_agent_session_subagent_items(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionItemListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionItemListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionSubagentItemsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentItemsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists this subagent's own items across all of its turns. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
+///
+/// Sends the same request as [`list_agent_session_subagent_items`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_session_subagent_items_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    subagent_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::SessionItemListResource>,
+    Error<ListAgentSessionSubagentItemsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_subagent_id = subagent_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/subagents/{subagent_id}/items",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        subagent_id = crate::apis::urlencode(p_path_subagent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3203,6 +5387,117 @@ pub async fn list_agent_session_subagent_turn_items(
     }
 }
 
+/// Lists items belonging to one turn of this subagent. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
+///
+/// Sends the same request as [`list_agent_session_subagent_turn_items`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_session_subagent_turn_items_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    subagent_id: &str,
+    turn_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::SessionItemListResource>,
+    Error<ListAgentSessionSubagentTurnItemsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_subagent_id = subagent_id;
+    let p_path_turn_id = turn_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/subagents/{subagent_id}/turns/{turn_id}/items",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        subagent_id = crate::apis::urlencode(p_path_subagent_id),
+        turn_id = crate::apis::urlencode(p_path_turn_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionSubagentTurnItemsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnItemsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists all turns of this subagent, including turns after a resume. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
 #[bon::builder]
 pub async fn list_agent_session_subagent_turns(
@@ -3271,6 +5566,114 @@ pub async fn list_agent_session_subagent_turns(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionTurnListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionTurnListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionSubagentTurnsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentTurnsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists all turns of this subagent, including turns after a resume. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
+///
+/// Sends the same request as [`list_agent_session_subagent_turns`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionTurnListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_session_subagent_turns_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    subagent_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::SessionTurnListResource>,
+    Error<ListAgentSessionSubagentTurnsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_subagent_id = subagent_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/subagents/{subagent_id}/turns",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        subagent_id = crate::apis::urlencode(p_path_subagent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3418,6 +5821,111 @@ pub async fn list_agent_session_subagents(
     }
 }
 
+/// Lists subagents in a session, including nested and closed subagents. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
+///
+/// Sends the same request as [`list_agent_session_subagents`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListAgentSessionSubagents200Response` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_session_subagents_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListAgentSessionSubagents200Response>,
+    Error<ListAgentSessionSubagentsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/subagents",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionSubagentsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionSubagentsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Trace reads and the JSON response are limited to 16 MiB per request. If the limit is exceeded, request fewer traces.
 #[bon::builder]
 pub async fn list_agent_session_traces(
@@ -3483,6 +5991,109 @@ pub async fn list_agent_session_traces(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionTraceListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionTraceListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionTracesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTracesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists published root-turn traces as OTLP JSON, ordered by turn creation time and ID. Unpublished traces are skipped. Each page returns data available when read; it does not wait for late traces. Trace reads and the JSON response are limited to 16 MiB per request. If the limit is exceeded, request fewer traces.
+///
+/// Sends the same request as [`list_agent_session_traces`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionTraceListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_session_traces_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SessionTraceListResource>, Error<ListAgentSessionTracesError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/traces",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3633,6 +6244,114 @@ pub async fn list_agent_session_turn_items(
     }
 }
 
+/// Lists items belonging to one root-agent turn, including its interactions with subagents. See [inspecting agent output](https://developers.openai.com/api/docs/guides/agents-api/observability).
+///
+/// Sends the same request as [`list_agent_session_turn_items`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionItemListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_session_turn_items_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    turn_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::SessionItemListResource>,
+    Error<ListAgentSessionTurnItemsError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_turn_id = turn_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/turns/{turn_id}/items",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        turn_id = crate::apis::urlencode(p_path_turn_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionTurnItemsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnItemsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists turns by creation time and turn ID. The after cursor is exclusive in the selected order. See [session turns](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage#inspect-session-turns).
 #[bon::builder]
 pub async fn list_agent_session_turns(
@@ -3698,6 +6417,109 @@ pub async fn list_agent_session_turns(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionTurnListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionTurnListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionTurnsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionTurnsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists turns by creation time and turn ID. The after cursor is exclusive in the selected order. See [session turns](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage#inspect-session-turns).
+///
+/// Sends the same request as [`list_agent_session_turns`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionTurnListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_session_turns_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SessionTurnListResource>, Error<ListAgentSessionTurnsError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/turns",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -3852,6 +6674,115 @@ pub async fn list_agent_sessions(
     }
 }
 
+/// Lists managed agent sessions using ID-based pagination and the requested sort order. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
+///
+/// Sends the same request as [`list_agent_sessions`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agent_sessions_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    agent_id: Option<&str>,
+    metadata: Option<std::collections::HashMap<String, String>>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SessionListResource>, Error<ListAgentSessionsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_agent_id = agent_id;
+    let p_query_metadata = metadata;
+
+    let uri_str = format!("{}/agents/sessions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_agent_id {
+        req_builder = req_builder.query(&[("agent_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_metadata {
+        req_builder = req_builder.query(&crate::apis::parse_deep_object(
+            "metadata",
+            &serde_json::to_value(param_value)?,
+        ));
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentSessionsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentSessionsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Lists reusable agents in the current project. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 #[bon::builder]
 pub async fn list_agents(
@@ -3911,6 +6842,102 @@ pub async fn list_agents(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AgentListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AgentListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListAgentsError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListAgentsError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Lists reusable agents in the current project. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
+///
+/// Sends the same request as [`list_agents`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AgentListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_agents_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::ListOrderParam>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AgentListResource>, Error<ListAgentsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/agents", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4043,6 +7070,93 @@ pub async fn pause_agent_automation(
     }
 }
 
+/// Pauses future scheduled delivery without stopping an active session.
+///
+/// Sends the same request as [`pause_agent_automation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn pause_agent_automation_response(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AutomationResource>, Error<PauseAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/pause",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<PauseAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(PauseAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Resumes scheduled delivery; one-time automations without a pending invocation require a future run_at.
 #[bon::builder]
 pub async fn resume_agent_automation(
@@ -4093,6 +7207,93 @@ pub async fn resume_agent_automation(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AutomationResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AutomationResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ResumeAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ResumeAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Resumes scheduled delivery; one-time automations without a pending invocation require a future run_at.
+///
+/// Sends the same request as [`resume_agent_automation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn resume_agent_automation_response(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AutomationResource>, Error<ResumeAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}/resume",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4225,6 +7426,93 @@ pub async fn retrieve_agent(
     }
 }
 
+/// Retrieves a reusable agent by ID. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
+///
+/// Sends the same request as [`retrieve_agent`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AgentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_agent_response(
+    configuration: &configuration::Configuration,
+    agent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AgentResource>, Error<RetrieveAgentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_agent_id = agent_id;
+
+    let uri_str = format!(
+        "{}/agents/{agent_id}",
+        configuration.base_path,
+        agent_id = crate::apis::urlencode(p_path_agent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveAgentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves an execution environment's connection status and safe installed metadata. See [environment lifecycle](https://developers.openai.com/api/docs/guides/agents-api/environments/lifecycle).
 #[bon::builder]
 pub async fn retrieve_agent_environment(
@@ -4275,6 +7563,96 @@ pub async fn retrieve_agent_environment(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PublicEnvironmentResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PublicEnvironmentResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveAgentEnvironmentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves an execution environment's connection status and safe installed metadata. See [environment lifecycle](https://developers.openai.com/api/docs/guides/agents-api/environments/lifecycle).
+///
+/// Sends the same request as [`retrieve_agent_environment`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::PublicEnvironmentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_agent_environment_response(
+    configuration: &configuration::Configuration,
+    environment_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::PublicEnvironmentResource>,
+    Error<RetrieveAgentEnvironmentError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_environment_id = environment_id;
+
+    let uri_str = format!(
+        "{}/agents/environments/{environment_id}",
+        configuration.base_path,
+        environment_id = crate::apis::urlencode(p_path_environment_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4404,6 +7782,93 @@ pub async fn retrieve_agent_environment_template(
     }
 }
 
+/// Retrieves reusable environment configuration without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
+///
+/// Sends the same request as [`retrieve_agent_environment_template`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::EnvironmentTemplateResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_agent_environment_template_response(
+    configuration: &configuration::Configuration,
+    environment_template_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::EnvironmentTemplateResource>,
+    Error<RetrieveAgentEnvironmentTemplateError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_environment_template_id = environment_template_id;
+
+    let uri_str = format!(
+        "{}/agents/environments/templates/{environment_template_id}",
+        configuration.base_path,
+        environment_template_id = crate::apis::urlencode(p_path_environment_template_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveAgentEnvironmentTemplateError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentTemplateError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentTemplateError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentTemplateError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentTemplateError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentTemplateError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentTemplateError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentEnvironmentTemplateError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves the current state of a managed agent session. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 #[bon::builder]
 pub async fn retrieve_agent_session(
@@ -4454,6 +7919,93 @@ pub async fn retrieve_agent_session(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveAgentSessionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves the current state of a managed agent session. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
+///
+/// Sends the same request as [`retrieve_agent_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_agent_session_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SessionResource>, Error<RetrieveAgentSessionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4548,6 +8100,99 @@ pub async fn retrieve_agent_session_artifact(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionArtifactResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionArtifactResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveAgentSessionArtifactError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionArtifactError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves immutable metadata for one durable session artifact. See [session artifacts](https://developers.openai.com/api/docs/guides/agents-api/environments/files#openai-hosted-artifacts).
+///
+/// Sends the same request as [`retrieve_agent_session_artifact`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionArtifactResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_agent_session_artifact_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    artifact_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::SessionArtifactResource>,
+    Error<RetrieveAgentSessionArtifactError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_artifact_id = artifact_id;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/artifacts/{artifact_id}",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        artifact_id = crate::apis::urlencode(p_path_artifact_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4766,6 +8411,97 @@ pub async fn retrieve_agent_session_subagent(
     }
 }
 
+/// Retrieves a subagent belonging to this session. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
+///
+/// Sends the same request as [`retrieve_agent_session_subagent`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SubagentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_agent_session_subagent_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    subagent_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SubagentResource>, Error<RetrieveAgentSessionSubagentError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_subagent_id = subagent_id;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/subagents/{subagent_id}",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        subagent_id = crate::apis::urlencode(p_path_subagent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveAgentSessionSubagentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a turn belonging to this subagent. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
 #[bon::builder]
 pub async fn retrieve_agent_session_subagent_turn(
@@ -4822,6 +8558,100 @@ pub async fn retrieve_agent_session_subagent_turn(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TurnResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TurnResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveAgentSessionSubagentTurnError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionSubagentTurnError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a turn belonging to this subagent. See [subagent workflows](https://developers.openai.com/api/docs/guides/agents-api/multi-agent).
+///
+/// Sends the same request as [`retrieve_agent_session_subagent_turn`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::TurnResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_agent_session_subagent_turn_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    subagent_id: &str,
+    turn_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::TurnResource>, Error<RetrieveAgentSessionSubagentTurnError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_subagent_id = subagent_id;
+    let p_path_turn_id = turn_id;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/subagents/{subagent_id}/turns/{turn_id}",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        subagent_id = crate::apis::urlencode(p_path_subagent_id),
+        turn_id = crate::apis::urlencode(p_path_turn_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -4957,6 +8787,96 @@ pub async fn retrieve_agent_session_turn(
     }
 }
 
+/// Retrieves a turn's current status, timestamps, usage, and error. Returns 404 if the turn does not belong to the session. See [session turns](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage#inspect-session-turns).
+///
+/// Sends the same request as [`retrieve_agent_session_turn`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::TurnResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_agent_session_turn_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    turn_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::TurnResource>, Error<RetrieveAgentSessionTurnError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_path_turn_id = turn_id;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}/turns/{turn_id}",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id),
+        turn_id = crate::apis::urlencode(p_path_turn_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveAgentSessionTurnError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveAgentSessionTurnError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Updates a reusable agent. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
 #[bon::builder]
 pub async fn update_agent(
@@ -5010,6 +8930,96 @@ pub async fn update_agent(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AgentResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AgentResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateAgentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Updates a reusable agent. See [agent configuration](https://developers.openai.com/api/docs/guides/agents-api/configuration).
+///
+/// Sends the same request as [`update_agent`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AgentResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_agent_response(
+    configuration: &configuration::Configuration,
+    agent_id: &str,
+    update_agent_params: Option<&models::UpdateAgentParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AgentResource>, Error<UpdateAgentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_agent_id = agent_id;
+    let p_body_update_agent_params = update_agent_params;
+
+    let uri_str = format!(
+        "{}/agents/{agent_id}",
+        configuration.base_path,
+        agent_id = crate::apis::urlencode(p_path_agent_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_update_agent_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -5145,6 +9155,96 @@ pub async fn update_agent_automation(
     }
 }
 
+/// Updates supplied fields; target and metadata replace the whole field.
+///
+/// Sends the same request as [`update_agent_automation`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::AutomationResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_agent_automation_response(
+    configuration: &configuration::Configuration,
+    automation_id: &str,
+    update_automation_params: &models::UpdateAutomationParams,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::AutomationResource>, Error<UpdateAgentAutomationError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_automation_id = automation_id;
+    let p_body_update_automation_params = update_automation_params;
+
+    let uri_str = format!(
+        "{}/agents/automations/{automation_id}",
+        configuration.base_path,
+        automation_id = crate::apis::urlencode(p_path_automation_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_update_automation_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateAgentAutomationError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentAutomationError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Updates reusable environment configuration without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
 #[bon::builder]
 pub async fn update_agent_environment_template(
@@ -5239,6 +9339,99 @@ pub async fn update_agent_environment_template(
     }
 }
 
+/// Updates reusable environment configuration without returning confidential values. See [reusing a hosted setup](https://developers.openai.com/api/docs/guides/agents-api/tools#reuse-a-hosted-plugin-setup).
+///
+/// Sends the same request as [`update_agent_environment_template`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::EnvironmentTemplateResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_agent_environment_template_response(
+    configuration: &configuration::Configuration,
+    environment_template_id: &str,
+    update_environment_template_params: Option<&models::UpdateEnvironmentTemplateParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::EnvironmentTemplateResource>,
+    Error<UpdateAgentEnvironmentTemplateError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_environment_template_id = environment_template_id;
+    let p_body_update_environment_template_params = update_environment_template_params;
+
+    let uri_str = format!(
+        "{}/agents/environments/templates/{environment_template_id}",
+        configuration.base_path,
+        environment_template_id = crate::apis::urlencode(p_path_environment_template_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_update_environment_template_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateAgentEnvironmentTemplateError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentEnvironmentTemplateError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Updates session tools, metadata, model, reasoning effort, service tier, or the default prompt cache lifetime. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
 #[bon::builder]
 pub async fn update_agent_session(
@@ -5292,6 +9485,96 @@ pub async fn update_agent_session(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SessionResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SessionResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateAgentSessionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::Status400),
+            401 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::Status401),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::Status409),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateAgentSessionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Updates session tools, metadata, model, reasoning effort, service tier, or the default prompt cache lifetime. Model settings apply to subsequent turns. Omitted fields are unchanged. See [managing sessions](https://developers.openai.com/api/docs/guides/agents-api/sessions/manage).
+///
+/// Sends the same request as [`update_agent_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::SessionResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_agent_session_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    update_agent_session_params: Option<&models::UpdateAgentSessionParams>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::SessionResource>, Error<UpdateAgentSessionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_body_update_agent_session_params = update_agent_session_params;
+
+    let uri_str = format!(
+        "{}/agents/sessions/{session_id}",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_update_agent_session_params);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

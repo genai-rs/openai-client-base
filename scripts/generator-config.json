@@ -11,6 +11,7 @@
   "resetQueryParameterStyle": true,
   "typedEventStreams": true,
   "contentTypeMethods": true,
+  "responseFunctions": true,
   "preprocessedSpecFile": "target/specs/l2_rust_compatible.json",
   "stringIdSchemas": [
     "ModelIds=Model identifier as string",

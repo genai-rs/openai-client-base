@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`cancel_vector_store_file_batch`]
+///
+/// The headers its error responses declare are typed: [`CancelVectorStoreFileBatchErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CancelVectorStoreFileBatchErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CancelVectorStoreFileBatchError {
@@ -26,7 +29,39 @@ pub enum CancelVectorStoreFileBatchError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`cancel_vector_store_file_batch`] declare (`409`, `429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CancelVectorStoreFileBatchErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CancelVectorStoreFileBatchErrorHeaders {
+    /// `Retry-After`: When this change is blocked by a vector store migration, the number of seconds to wait before retrying. Other conflicts may omit this header.
+    pub retry_after: Option<i64>,
+}
+
+impl CancelVectorStoreFileBatchErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CancelVectorStoreFileBatchErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CancelVectorStoreFileBatchErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_vector_store`]
+///
+/// The headers its error responses declare are typed: [`CreateVectorStoreErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateVectorStoreErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVectorStoreError {
@@ -36,7 +71,39 @@ pub enum CreateVectorStoreError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_vector_store`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateVectorStoreErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateVectorStoreErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateVectorStoreErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateVectorStoreErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateVectorStoreErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_vector_store_file`]
+///
+/// The headers its error responses declare are typed: [`CreateVectorStoreFileErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateVectorStoreFileErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVectorStoreFileError {
@@ -48,7 +115,39 @@ pub enum CreateVectorStoreFileError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_vector_store_file`] declare (`409`, `429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateVectorStoreFileErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateVectorStoreFileErrorHeaders {
+    /// `Retry-After`: When this change is blocked by a vector store migration, the number of seconds to wait before retrying. Other conflicts may omit this header.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateVectorStoreFileErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateVectorStoreFileErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateVectorStoreFileErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_vector_store_file_batch`]
+///
+/// The headers its error responses declare are typed: [`CreateVectorStoreFileBatchErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateVectorStoreFileBatchErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVectorStoreFileBatchError {
@@ -60,7 +159,39 @@ pub enum CreateVectorStoreFileBatchError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_vector_store_file_batch`] declare (`409`, `429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateVectorStoreFileBatchErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateVectorStoreFileBatchErrorHeaders {
+    /// `Retry-After`: When this change is blocked by a vector store migration, the number of seconds to wait before retrying. Other conflicts may omit this header.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateVectorStoreFileBatchErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateVectorStoreFileBatchErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateVectorStoreFileBatchErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`delete_vector_store`]
+///
+/// The headers its error responses declare are typed: [`DeleteVectorStoreErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteVectorStoreErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteVectorStoreError {
@@ -70,7 +201,39 @@ pub enum DeleteVectorStoreError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`delete_vector_store`] declare (`409`, `429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteVectorStoreErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteVectorStoreErrorHeaders {
+    /// `Retry-After`: When this change is blocked by a vector store migration, the number of seconds to wait before retrying. Other conflicts may omit this header.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteVectorStoreErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteVectorStoreErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteVectorStoreErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`delete_vector_store_file`]
+///
+/// The headers its error responses declare are typed: [`DeleteVectorStoreFileErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DeleteVectorStoreFileErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteVectorStoreFileError {
@@ -82,7 +245,39 @@ pub enum DeleteVectorStoreFileError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`delete_vector_store_file`] declare (`409`, `429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DeleteVectorStoreFileErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DeleteVectorStoreFileErrorHeaders {
+    /// `Retry-After`: When this change is blocked by a vector store migration, the number of seconds to wait before retrying. Other conflicts may omit this header.
+    pub retry_after: Option<i64>,
+}
+
+impl DeleteVectorStoreFileErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DeleteVectorStoreFileErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DeleteVectorStoreFileErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_vector_store`]
+///
+/// The headers its error responses declare are typed: [`GetVectorStoreErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetVectorStoreErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVectorStoreError {
@@ -91,7 +286,39 @@ pub enum GetVectorStoreError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_vector_store`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetVectorStoreErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetVectorStoreErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetVectorStoreErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetVectorStoreErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetVectorStoreErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_vector_store_file`]
+///
+/// The headers its error responses declare are typed: [`GetVectorStoreFileErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetVectorStoreFileErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVectorStoreFileError {
@@ -101,7 +328,39 @@ pub enum GetVectorStoreFileError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_vector_store_file`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetVectorStoreFileErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetVectorStoreFileErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetVectorStoreFileErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetVectorStoreFileErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetVectorStoreFileErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`get_vector_store_file_batch`]
+///
+/// The headers its error responses declare are typed: [`GetVectorStoreFileBatchErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<GetVectorStoreFileBatchErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetVectorStoreFileBatchError {
@@ -111,7 +370,39 @@ pub enum GetVectorStoreFileBatchError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`get_vector_store_file_batch`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<GetVectorStoreFileBatchErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct GetVectorStoreFileBatchErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl GetVectorStoreFileBatchErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        GetVectorStoreFileBatchErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for GetVectorStoreFileBatchErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_files_in_vector_store_batch`]
+///
+/// The headers its error responses declare are typed: [`ListFilesInVectorStoreBatchErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListFilesInVectorStoreBatchErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListFilesInVectorStoreBatchError {
@@ -121,7 +412,39 @@ pub enum ListFilesInVectorStoreBatchError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_files_in_vector_store_batch`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListFilesInVectorStoreBatchErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListFilesInVectorStoreBatchErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListFilesInVectorStoreBatchErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListFilesInVectorStoreBatchErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListFilesInVectorStoreBatchErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_vector_store_files`]
+///
+/// The headers its error responses declare are typed: [`ListVectorStoreFilesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListVectorStoreFilesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListVectorStoreFilesError {
@@ -131,7 +454,39 @@ pub enum ListVectorStoreFilesError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_vector_store_files`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListVectorStoreFilesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListVectorStoreFilesErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListVectorStoreFilesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListVectorStoreFilesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListVectorStoreFilesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`list_vector_stores`]
+///
+/// The headers its error responses declare are typed: [`ListVectorStoresErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ListVectorStoresErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListVectorStoresError {
@@ -140,7 +495,39 @@ pub enum ListVectorStoresError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`list_vector_stores`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ListVectorStoresErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ListVectorStoresErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ListVectorStoresErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ListVectorStoresErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ListVectorStoresErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`modify_vector_store`]
+///
+/// The headers its error responses declare are typed: [`ModifyVectorStoreErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<ModifyVectorStoreErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ModifyVectorStoreError {
@@ -151,7 +538,39 @@ pub enum ModifyVectorStoreError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`modify_vector_store`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<ModifyVectorStoreErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ModifyVectorStoreErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl ModifyVectorStoreErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        ModifyVectorStoreErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for ModifyVectorStoreErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`retrieve_vector_store_file_content`]
+///
+/// The headers its error responses declare are typed: [`RetrieveVectorStoreFileContentErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<RetrieveVectorStoreFileContentErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum RetrieveVectorStoreFileContentError {
@@ -162,7 +581,39 @@ pub enum RetrieveVectorStoreFileContentError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`retrieve_vector_store_file_content`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<RetrieveVectorStoreFileContentErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct RetrieveVectorStoreFileContentErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl RetrieveVectorStoreFileContentErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        RetrieveVectorStoreFileContentErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for RetrieveVectorStoreFileContentErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`search_vector_store`]
+///
+/// The headers its error responses declare are typed: [`SearchVectorStoreErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<SearchVectorStoreErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SearchVectorStoreError {
@@ -172,7 +623,39 @@ pub enum SearchVectorStoreError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`search_vector_store`] declare (`429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<SearchVectorStoreErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct SearchVectorStoreErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl SearchVectorStoreErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        SearchVectorStoreErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for SearchVectorStoreErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`update_vector_store_file_attributes`]
+///
+/// The headers its error responses declare are typed: [`UpdateVectorStoreFileAttributesErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<UpdateVectorStoreFileAttributesErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateVectorStoreFileAttributesError {
@@ -182,6 +665,35 @@ pub enum UpdateVectorStoreFileAttributesError {
     Status429(models::ErrorResponse),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`update_vector_store_file_attributes`] declare (`409`, `429`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<UpdateVectorStoreFileAttributesErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct UpdateVectorStoreFileAttributesErrorHeaders {
+    /// `Retry-After`: When this change is blocked by a vector store migration, the number of seconds to wait before retrying. Other conflicts may omit this header.
+    pub retry_after: Option<i64>,
+}
+
+impl UpdateVectorStoreFileAttributesErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        UpdateVectorStoreFileAttributesErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for UpdateVectorStoreFileAttributesErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// Cancel a vector store file batch. This attempts to cancel the processing of files in this batch as soon as possible.
@@ -237,6 +749,90 @@ pub async fn cancel_vector_store_file_batch(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VectorStoreFileBatchObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VectorStoreFileBatchObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CancelVectorStoreFileBatchError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelVectorStoreFileBatchError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelVectorStoreFileBatchError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelVectorStoreFileBatchError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CancelVectorStoreFileBatchError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CancelVectorStoreFileBatchError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Cancel a vector store file batch. This attempts to cancel the processing of files in this batch as soon as possible.
+///
+/// Sends the same request as [`cancel_vector_store_file_batch`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreFileBatchObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn cancel_vector_store_file_batch_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    batch_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::VectorStoreFileBatchObject>,
+    Error<CancelVectorStoreFileBatchError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_path_batch_id = batch_id;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/file_batches/{batch_id}/cancel",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id),
+        batch_id = crate::apis::urlencode(p_path_batch_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -345,6 +941,78 @@ pub async fn create_vector_store(
     }
 }
 
+/// Create a vector store.
+///
+/// Sends the same request as [`create_vector_store`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_vector_store_response(
+    configuration: &configuration::Configuration,
+    create_vector_store_request: &models::CreateVectorStoreRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VectorStoreObject>, Error<CreateVectorStoreError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_vector_store_request = create_vector_store_request;
+
+    let uri_str = format!("{}/vector_stores", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_vector_store_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVectorStoreError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Create a vector store file by attaching a [File](https://developers.openai.com/api/reference/resources/files) to a [vector store](https://developers.openai.com/api/reference/resources/vector_stores).
 #[bon::builder]
 pub async fn create_vector_store_file(
@@ -398,6 +1066,90 @@ pub async fn create_vector_store_file(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VectorStoreFileObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VectorStoreFileObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVectorStoreFileError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a vector store file by attaching a [File](https://developers.openai.com/api/reference/resources/files) to a [vector store](https://developers.openai.com/api/reference/resources/vector_stores).
+///
+/// Sends the same request as [`create_vector_store_file`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreFileObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_vector_store_file_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    create_vector_store_file_request: &models::CreateVectorStoreFileRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VectorStoreFileObject>, Error<CreateVectorStoreFileError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_body_create_vector_store_file_request = create_vector_store_file_request;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/files",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_vector_store_file_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -521,6 +1273,93 @@ pub async fn create_vector_store_file_batch(
     }
 }
 
+/// Create a vector store file batch.
+///
+/// Sends the same request as [`create_vector_store_file_batch`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreFileBatchObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_vector_store_file_batch_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    create_vector_store_file_batch_request: &models::CreateVectorStoreFileBatchRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::VectorStoreFileBatchObject>,
+    Error<CreateVectorStoreFileBatchError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_body_create_vector_store_file_batch_request = create_vector_store_file_batch_request;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/file_batches",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_create_vector_store_file_batch_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVectorStoreFileBatchError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileBatchError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileBatchError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileBatchError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileBatchError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileBatchError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVectorStoreFileBatchError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Delete a vector store.
 #[bon::builder]
 pub async fn delete_vector_store(
@@ -571,6 +1410,81 @@ pub async fn delete_vector_store(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::DeleteVectorStoreResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::DeleteVectorStoreResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteVectorStoreError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Delete a vector store.
+///
+/// Sends the same request as [`delete_vector_store`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeleteVectorStoreResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_vector_store_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeleteVectorStoreResponse>, Error<DeleteVectorStoreError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -688,6 +1602,93 @@ pub async fn delete_vector_store_file(
     }
 }
 
+/// Delete a vector store file. This will remove the file from the vector store but the file itself will not be deleted. To delete the file, use the [delete file](https://developers.openai.com/api/reference/resources/files/methods/delete) endpoint.
+///
+/// Sends the same request as [`delete_vector_store_file`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeleteVectorStoreFileResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn delete_vector_store_file_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::DeleteVectorStoreFileResponse>,
+    Error<DeleteVectorStoreFileError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_path_file_id = file_id;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/files/{file_id}",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id),
+        file_id = crate::apis::urlencode(p_path_file_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteVectorStoreFileError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreFileError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreFileError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreFileError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreFileError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreFileError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVectorStoreFileError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a vector store.
 #[bon::builder]
 pub async fn get_vector_store(
@@ -738,6 +1739,78 @@ pub async fn get_vector_store(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VectorStoreObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VectorStoreObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetVectorStoreError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a vector store.
+///
+/// Sends the same request as [`get_vector_store`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_vector_store_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VectorStoreObject>, Error<GetVectorStoreError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -846,6 +1919,84 @@ pub async fn get_vector_store_file(
     }
 }
 
+/// Retrieves a vector store file.
+///
+/// Sends the same request as [`get_vector_store_file`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreFileObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_vector_store_file_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VectorStoreFileObject>, Error<GetVectorStoreFileError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_path_file_id = file_id;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/files/{file_id}",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id),
+        file_id = crate::apis::urlencode(p_path_file_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetVectorStoreFileError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreFileError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreFileError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreFileError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreFileError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Retrieves a vector store file batch.
 #[bon::builder]
 pub async fn get_vector_store_file_batch(
@@ -899,6 +2050,87 @@ pub async fn get_vector_store_file_batch(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VectorStoreFileBatchObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VectorStoreFileBatchObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetVectorStoreFileBatchError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreFileBatchError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreFileBatchError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreFileBatchError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetVectorStoreFileBatchError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Retrieves a vector store file batch.
+///
+/// Sends the same request as [`get_vector_store_file_batch`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreFileBatchObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn get_vector_store_file_batch_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    batch_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::VectorStoreFileBatchObject>,
+    Error<GetVectorStoreFileBatchError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_path_batch_id = batch_id;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/file_batches/{batch_id}",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id),
+        batch_id = crate::apis::urlencode(p_path_batch_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1035,6 +2267,112 @@ pub async fn list_files_in_vector_store_batch(
     }
 }
 
+/// Returns a list of vector store files in a batch.
+///
+/// Sends the same request as [`list_files_in_vector_store_batch`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListVectorStoreFilesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_files_in_vector_store_batch_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    batch_id: &str,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    before: Option<&str>,
+    filter: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListVectorStoreFilesResponse>,
+    Error<ListFilesInVectorStoreBatchError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_path_batch_id = batch_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+    let p_query_filter = filter;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/file_batches/{batch_id}/files",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id),
+        batch_id = crate::apis::urlencode(p_path_batch_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_filter {
+        req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListFilesInVectorStoreBatchError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFilesInVectorStoreBatchError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFilesInVectorStoreBatchError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListFilesInVectorStoreBatchError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListFilesInVectorStoreBatchError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Returns a list of vector store files.
 #[bon::builder]
 pub async fn list_vector_store_files(
@@ -1110,6 +2448,109 @@ pub async fn list_vector_store_files(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ListVectorStoreFilesResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ListVectorStoreFilesResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListVectorStoreFilesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVectorStoreFilesError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVectorStoreFilesError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVectorStoreFilesError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListVectorStoreFilesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Returns a list of vector store files.
+///
+/// Sends the same request as [`list_vector_store_files`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListVectorStoreFilesResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_vector_store_files_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    before: Option<&str>,
+    filter: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::ListVectorStoreFilesResponse>,
+    Error<ListVectorStoreFilesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+    let p_query_filter = filter;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/files",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_filter {
+        req_builder = req_builder.query(&[("filter", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1229,6 +2670,92 @@ pub async fn list_vector_stores(
     }
 }
 
+/// Returns a list of vector stores.
+///
+/// Sends the same request as [`list_vector_stores`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::ListVectorStoresResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn list_vector_stores_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<&str>,
+    after: Option<&str>,
+    before: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::ListVectorStoresResponse>, Error<ListVectorStoresError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+    let p_query_before = before;
+
+    let uri_str = format!("{}/vector_stores", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_before {
+        req_builder = req_builder.query(&[("before", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListVectorStoresError> = match status.as_u16() {
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVectorStoresError::Status429),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVectorStoresError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListVectorStoresError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Modifies a vector store.
 #[bon::builder]
 pub async fn modify_vector_store(
@@ -1282,6 +2809,87 @@ pub async fn modify_vector_store(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VectorStoreObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VectorStoreObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ModifyVectorStoreError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyVectorStoreError::Status400),
+            403 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyVectorStoreError::Status403),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyVectorStoreError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ModifyVectorStoreError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ModifyVectorStoreError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Modifies a vector store.
+///
+/// Sends the same request as [`modify_vector_store`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn modify_vector_store_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    update_vector_store_request: &models::UpdateVectorStoreRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VectorStoreObject>, Error<ModifyVectorStoreError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_body_update_vector_store_request = update_vector_store_request;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_update_vector_store_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1399,6 +3007,90 @@ pub async fn retrieve_vector_store_file_content(
     }
 }
 
+/// Retrieve the parsed contents of a vector store file.
+///
+/// Sends the same request as [`retrieve_vector_store_file_content`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreFileContentResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn retrieve_vector_store_file_content_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    file_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::VectorStoreFileContentResponse>,
+    Error<RetrieveVectorStoreFileContentError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_path_file_id = file_id;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/files/{file_id}/content",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id),
+        file_id = crate::apis::urlencode(p_path_file_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveVectorStoreFileContentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVectorStoreFileContentError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVectorStoreFileContentError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVectorStoreFileContentError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVectorStoreFileContentError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVectorStoreFileContentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Search a vector store for relevant chunks based on a query and file attributes filter.
 #[bon::builder]
 pub async fn search_vector_store(
@@ -1452,6 +3144,85 @@ pub async fn search_vector_store(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VectorStoreSearchResultsPage`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VectorStoreSearchResultsPage`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<SearchVectorStoreError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(SearchVectorStoreError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(SearchVectorStoreError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(SearchVectorStoreError::Status429),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(SearchVectorStoreError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Search a vector store for relevant chunks based on a query and file attributes filter.
+///
+/// Sends the same request as [`search_vector_store`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreSearchResultsPage` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn search_vector_store_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    vector_store_search_request: &models::VectorStoreSearchRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VectorStoreSearchResultsPage>, Error<SearchVectorStoreError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_body_vector_store_search_request = vector_store_search_request;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/search",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_vector_store_search_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1538,6 +3309,97 @@ pub async fn update_vector_store_file_attributes(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VectorStoreFileObject`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VectorStoreFileObject`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<UpdateVectorStoreFileAttributesError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVectorStoreFileAttributesError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVectorStoreFileAttributesError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVectorStoreFileAttributesError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVectorStoreFileAttributesError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVectorStoreFileAttributesError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(UpdateVectorStoreFileAttributesError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Update attributes on a vector store file.
+///
+/// Sends the same request as [`update_vector_store_file_attributes`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VectorStoreFileObject` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn update_vector_store_file_attributes_response(
+    configuration: &configuration::Configuration,
+    vector_store_id: &str,
+    file_id: &str,
+    update_vector_store_file_attributes_request: &models::UpdateVectorStoreFileAttributesRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<
+    super::ApiResponse<models::VectorStoreFileObject>,
+    Error<UpdateVectorStoreFileAttributesError>,
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vector_store_id = vector_store_id;
+    let p_path_file_id = file_id;
+    let p_body_update_vector_store_file_attributes_request =
+        update_vector_store_file_attributes_request;
+
+    let uri_str = format!(
+        "{}/vector_stores/{vector_store_id}/files/{file_id}",
+        configuration.base_path,
+        vector_store_id = crate::apis::urlencode(p_path_vector_store_id),
+        file_id = crate::apis::urlencode(p_path_file_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_update_vector_store_file_attributes_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

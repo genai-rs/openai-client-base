@@ -43,6 +43,9 @@ pub enum CreateLiveError {
 }
 
 /// struct for typed errors of method [`download_live_recording`]
+///
+/// The headers its error responses declare are typed: [`DownloadLiveRecordingErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<DownloadLiveRecordingErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DownloadLiveRecordingError {
@@ -52,6 +55,35 @@ pub enum DownloadLiveRecordingError {
     Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`download_live_recording`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<DownloadLiveRecordingErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct DownloadLiveRecordingErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted for 429 responses that require user action.
+    pub retry_after: Option<i64>,
+}
+
+impl DownloadLiveRecordingErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        DownloadLiveRecordingErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for DownloadLiveRecordingErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// struct for typed errors of method [`fork_live_session`]
@@ -174,6 +206,91 @@ pub async fn accept_live_session(
     }
 }
 
+/// Accept an incoming SIP call. Supply session with type live, the model, and startup configuration. Before accepting calls, follow the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) to write frontend conversation instructions and a separate backend prompt. SIP media format is negotiated; omit audio.format.
+///
+/// Sends the same request as [`accept_live_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn accept_live_session_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    live_call_accept_request: &models::LiveCallAcceptRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<()>, Error<AcceptLiveSessionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_body_live_call_accept_request = live_call_accept_request;
+
+    let uri_str = format!(
+        "{}/live/sessions/{session_id}/accept",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_live_call_accept_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<AcceptLiveSessionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(AcceptLiveSessionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(AcceptLiveSessionError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(AcceptLiveSessionError::Status409),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(AcceptLiveSessionError::Status429),
+            500 => Some(AcceptLiveSessionError::Status500(content.clone())),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(AcceptLiveSessionError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(AcceptLiveSessionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Create a Live WebRTC session or place an outbound SIP call. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) for session configuration and [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call) for trunk setup and call monitoring.  Set transport.type to `webrtc` and supply an SDP offer, or set it to `sip` and supply an E.164 destination and trunk credentials. Ringing is limited to 3 minutes and connected calls to 2 hours; these limits are not configurable in the request.  Returns `201 Created` after session initialization. WebRTC responses include an SDP answer. SIP responses do not wait for the callee to answer. Attach a sideband connection using session.id to monitor SIP call progress.  Each SIP request creates a new call. If a request times out or the connection fails, retry with caution: the original request may have succeeded, and a retry can place another call.
 #[bon::builder]
 pub async fn create_live(
@@ -221,6 +338,86 @@ pub async fn create_live(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::LiveSessionCreateResponse`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::LiveSessionCreateResponse`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateLiveError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateLiveError::Status400),
+            413 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateLiveError::Status413),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateLiveError::Status429),
+            500 => Some(CreateLiveError::Status500(content.clone())),
+            502 => Some(CreateLiveError::Status502(content.clone())),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateLiveError::Status503),
+            504 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateLiveError::Status504),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateLiveError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a Live WebRTC session or place an outbound SIP call. Start with the [Live prompting guide](https://developers.openai.com/api/docs/guides/live-prompting) for session configuration and [Telephony and SIP](https://developers.openai.com/api/docs/guides/voice-sip?api=live#place-an-outbound-call) for trunk setup and call monitoring.  Set transport.type to `webrtc` and supply an SDP offer, or set it to `sip` and supply an E.164 destination and trunk credentials. Ringing is limited to 3 minutes and connected calls to 2 hours; these limits are not configurable in the request.  Returns `201 Created` after session initialization. WebRTC responses include an SDP answer. SIP responses do not wait for the callee to answer. Attach a sideband connection using session.id to monitor SIP call progress.  Each SIP request creates a new call. If a request times out or the connection fails, retry with caution: the original request may have succeeded, and a retry can place another call.
+///
+/// Sends the same request as [`create_live`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::LiveSessionCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn create_live_response(
+    configuration: &configuration::Configuration,
+    live_session_create_request: &models::LiveSessionCreateRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::LiveSessionCreateResponse>, Error<CreateLiveError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_live_session_create_request = live_session_create_request;
+
+    let uri_str = format!("{}/live/sessions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_live_session_create_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -419,6 +616,89 @@ pub async fn fork_live_session(
     }
 }
 
+/// Fork a stored Live session onto a new WebRTC connection.
+///
+/// Sends the same request as [`fork_live_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::LiveCreateResponse` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn fork_live_session_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    live_fork_request: &models::LiveForkRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::LiveCreateResponse>, Error<ForkLiveSessionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_body_live_fork_request = live_fork_request;
+
+    let uri_str = format!(
+        "{}/live/sessions/{session_id}/fork",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_live_fork_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ForkLiveSessionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ForkLiveSessionError::Status400),
+            404 => Some(ForkLiveSessionError::Status404(content.clone())),
+            413 => serde_json::from_str(&content)
+                .ok()
+                .map(ForkLiveSessionError::Status413),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(ForkLiveSessionError::Status429),
+            500 => Some(ForkLiveSessionError::Status500(content.clone())),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(ForkLiveSessionError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ForkLiveSessionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// End a SIP call identified by session_id.
 #[bon::builder]
 pub async fn hangup_live_session(
@@ -458,6 +738,75 @@ pub async fn hangup_live_session(
 
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<HangupLiveSessionError> = match status.as_u16() {
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(HangupLiveSessionError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(HangupLiveSessionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// End a SIP call identified by session_id.
+///
+/// Sends the same request as [`hangup_live_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn hangup_live_session_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<()>, Error<HangupLiveSessionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+
+    let uri_str = format!(
+        "{}/live/sessions/{session_id}/hangup",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -550,6 +899,82 @@ pub async fn refer_live_session(
     }
 }
 
+/// Transfer a SIP call to another destination. Supply a nonblank target_uri for the SIP Refer-To header.
+///
+/// Sends the same request as [`refer_live_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn refer_live_session_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    live_call_refer_request: &models::LiveCallReferRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<()>, Error<ReferLiveSessionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_body_live_call_refer_request = live_call_refer_request;
+
+    let uri_str = format!(
+        "{}/live/sessions/{session_id}/refer",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_live_call_refer_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ReferLiveSessionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ReferLiveSessionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ReferLiveSessionError::Status404),
+            500 => Some(ReferLiveSessionError::Status500(content.clone())),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ReferLiveSessionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Reject an incoming SIP call. Send a required SIP rejection status_code between 300 and 699.
 #[bon::builder]
 pub async fn reject_live_session(
@@ -592,6 +1017,85 @@ pub async fn reject_live_session(
 
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RejectLiveSessionError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RejectLiveSessionError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RejectLiveSessionError::Status404),
+            409 => serde_json::from_str(&content)
+                .ok()
+                .map(RejectLiveSessionError::Status409),
+            500 => Some(RejectLiveSessionError::Status500(content.clone())),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RejectLiveSessionError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Reject an incoming SIP call. Send a required SIP rejection status_code between 300 and 699.
+///
+/// Sends the same request as [`reject_live_session`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `()` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[bon::builder]
+pub async fn reject_live_session_response(
+    configuration: &configuration::Configuration,
+    session_id: &str,
+    live_call_reject_request: &models::LiveCallRejectRequest,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<()>, Error<RejectLiveSessionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_session_id = session_id;
+    let p_body_live_call_reject_request = live_call_reject_request;
+
+    let uri_str = format!(
+        "{}/live/sessions/{session_id}/reject",
+        configuration.base_path,
+        session_id = crate::apis::urlencode(p_path_session_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(p_body_live_call_reject_request);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;

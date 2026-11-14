@@ -16,6 +16,9 @@ use serde::{de::Error as _, Deserialize, Serialize};
 use timvw_rust_runtime;
 
 /// struct for typed errors of method [`create_video`]
+///
+/// The headers its error responses declare are typed: [`CreateVideoErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateVideoErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoError {
@@ -25,6 +28,35 @@ pub enum CreateVideoError {
     Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`create_video`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateVideoErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateVideoErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateVideoErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateVideoErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateVideoErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// struct for typed errors of method [`create_video_character`]
@@ -39,6 +71,9 @@ pub enum CreateVideoCharacterError {
 }
 
 /// struct for typed errors of method [`create_video_edit`]
+///
+/// The headers its error responses declare are typed: [`CreateVideoEditErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateVideoEditErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoEditError {
@@ -50,7 +85,39 @@ pub enum CreateVideoEditError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_video_edit`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateVideoEditErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateVideoEditErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateVideoEditErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateVideoEditErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateVideoEditErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_video_extend`]
+///
+/// The headers its error responses declare are typed: [`CreateVideoExtendErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateVideoExtendErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoExtendError {
@@ -62,7 +129,39 @@ pub enum CreateVideoExtendError {
     UnknownValue(serde_json::Value),
 }
 
+/// The headers the error responses of [`create_video_extend`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateVideoExtendErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateVideoExtendErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateVideoExtendErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateVideoExtendErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateVideoExtendErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
+}
+
 /// struct for typed errors of method [`create_video_remix`]
+///
+/// The headers its error responses declare are typed: [`CreateVideoRemixErrorHeaders`], read from the
+/// [`ResponseContent`] with `content.typed_headers::<CreateVideoRemixErrorHeaders>()`.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateVideoRemixError {
@@ -72,6 +171,35 @@ pub enum CreateVideoRemixError {
     Status500(models::ErrorResponse),
     Status503(models::ErrorResponse),
     UnknownValue(serde_json::Value),
+}
+
+/// The headers the error responses of [`create_video_remix`] declare (`429`, `503`), typed. Read them from the
+/// [`ResponseContent`] of an [`Error::ResponseError`] with `content.typed_headers::<CreateVideoRemixErrorHeaders>()`,
+/// or from any header map with [`from_headers`](Self::from_headers).
+///
+/// Every field is `None` when the response does not have the header or its value does not parse as the field's type.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct CreateVideoRemixErrorHeaders {
+    /// `Retry-After`: The minimum number of seconds to wait before retrying. This header is returned when the server has computed a retry delay and may be omitted.
+    pub retry_after: Option<i64>,
+}
+
+impl CreateVideoRemixErrorHeaders {
+    /// Reads the declared headers from `headers`. Header names are matched ignoring case; a header that is missing or
+    /// does not parse is `None`, never an error.
+    pub fn from_headers(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        CreateVideoRemixErrorHeaders {
+            retry_after: super::api_response::header_value(headers, "retry-after", |v| {
+                v.parse::<i64>().ok()
+            }),
+        }
+    }
+}
+
+impl From<&timvw_rust_runtime::header::HeaderMap> for CreateVideoRemixErrorHeaders {
+    fn from(headers: &timvw_rust_runtime::header::HeaderMap) -> Self {
+        Self::from_headers(headers)
+    }
 }
 
 /// struct for typed errors of method [`delete_video`]
@@ -240,6 +368,121 @@ pub async fn create_video(
     }
 }
 
+/// Create a new video generation job from a prompt and optional reference assets.
+///
+/// Sends the same request as [`create_video`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_response(
+    configuration: &configuration::Configuration,
+    prompt: &str,
+    model: Option<models::VideoModel>,
+    #[builder(into)] input_reference: Option<models::CreateVideoMultipartBodyInputReference>,
+    seconds: Option<models::VideoSeconds>,
+    size: Option<models::VideoSize>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_prompt = prompt;
+    let p_form_model = model;
+    let p_form_input_reference = input_reference;
+    let p_form_seconds = seconds;
+    let p_form_size = size;
+
+    let uri_str = format!("{}/videos", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    if let Some(param_value) = p_form_model {
+        multipart_form = multipart_form.text("model", param_value.to_string());
+    }
+    multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
+    if let Some(ref param_value) = p_form_input_reference {
+        match param_value {
+            models::CreateVideoMultipartBodyInputReference::Text(value) => {
+                multipart_form =
+                    multipart_helper::add_file_to_form(multipart_form, value, "input_reference")
+                        .await?;
+            }
+            models::CreateVideoMultipartBodyInputReference::ImageRefParam2(value) => {
+                multipart_form = multipart_helper::add_schema_value_to_form(
+                    multipart_form,
+                    "input_reference",
+                    serde_json::to_value(value)?,
+                    None,
+                )?;
+            }
+        }
+    }
+    if let Some(param_value) = p_form_seconds {
+        multipart_form = multipart_form.text("seconds", param_value.to_string());
+    }
+    if let Some(param_value) = p_form_size {
+        multipart_form = multipart_form.text("size", param_value.to_string());
+    }
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Create a character from an uploaded video.
 #[deprecated]
 #[bon::builder]
@@ -295,6 +538,89 @@ pub async fn create_video_character(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoCharacterResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoCharacterResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoCharacterError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoCharacterError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoCharacterError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoCharacterError::Status500),
+            504 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoCharacterError::Status504),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoCharacterError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a character from an uploaded video.
+///
+/// Sends the same request as [`create_video_character`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoCharacterResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_character_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] video: timvw_rust_runtime::Upload,
+    name: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoCharacterResource>, Error<CreateVideoCharacterError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_video = video;
+    let p_form_name = name;
+
+    let uri_str = format!("{}/videos/characters", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    // Add file to multipart form
+    multipart_form =
+        multipart_helper::add_file_to_form(multipart_form, &p_form_video, "video").await?;
+    multipart_form = multipart_form.text("name", p_form_name.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -430,6 +756,103 @@ pub async fn create_video_edit(
 
 /// Create a new video generation job by editing a source video or existing generated video.
 ///
+/// Sends the same request as [`create_video_edit`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_edit_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] video: models::CreateVideoEditMultipartBodyVideo,
+    prompt: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoEditError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_video = video;
+    let p_form_prompt = prompt;
+
+    let uri_str = format!("{}/videos/edits", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    match &p_form_video {
+        models::CreateVideoEditMultipartBodyVideo::Text(value) => {
+            multipart_form =
+                multipart_helper::add_file_to_form(multipart_form, value, "video").await?;
+        }
+        models::CreateVideoEditMultipartBodyVideo::VideoReferenceInputParam(value) => {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "video",
+                serde_json::to_value(value)?,
+                None,
+            )?;
+        }
+    }
+    multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoEditError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a new video generation job by editing a source video or existing generated video.
+///
 /// Sends the request body as `application/json`; `create_video_edit` sends it as `multipart/form-data`.
 #[deprecated]
 #[bon::builder]
@@ -478,6 +901,87 @@ pub async fn create_video_edit_json(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoEditError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoEditError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a new video generation job by editing a source video or existing generated video.
+///
+/// Sends the request body as `application/json`; `create_video_edit` sends it as `multipart/form-data`.
+///
+/// Sends the same request as [`create_video_edit_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_edit_json_response(
+    configuration: &configuration::Configuration,
+    create_video_edit_json_body: Option<&models::CreateVideoEditJsonBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoEditError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_video_edit_json_body = create_video_edit_json_body;
+
+    let uri_str = format!("{}/videos/edits", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_video_edit_json_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -619,6 +1123,106 @@ pub async fn create_video_extend(
 
 /// Create an extension of a completed video.
 ///
+/// Sends the same request as [`create_video_extend`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_extend_response(
+    configuration: &configuration::Configuration,
+    #[builder(into)] video: models::CreateVideoExtendMultipartBodyVideo,
+    prompt: &str,
+    seconds: models::VideoSeconds,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoExtendError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_form_video = video;
+    let p_form_prompt = prompt;
+    let p_form_seconds = seconds;
+
+    let uri_str = format!("{}/videos/extensions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    match &p_form_video {
+        models::CreateVideoExtendMultipartBodyVideo::VideoReferenceInputParam(value) => {
+            multipart_form = multipart_helper::add_schema_value_to_form(
+                multipart_form,
+                "video",
+                serde_json::to_value(value)?,
+                None,
+            )?;
+        }
+        models::CreateVideoExtendMultipartBodyVideo::Text(value) => {
+            multipart_form =
+                multipart_helper::add_file_to_form(multipart_form, value, "video").await?;
+        }
+    }
+    multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
+    multipart_form = multipart_form.text("seconds", p_form_seconds.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoExtendError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create an extension of a completed video.
+///
 /// Sends the request body as `application/json`; `create_video_extend` sends it as `multipart/form-data`.
 #[deprecated]
 #[bon::builder]
@@ -667,6 +1271,87 @@ pub async fn create_video_extend_json(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoExtendError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoExtendError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create an extension of a completed video.
+///
+/// Sends the request body as `application/json`; `create_video_extend` sends it as `multipart/form-data`.
+///
+/// Sends the same request as [`create_video_extend_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_extend_json_response(
+    configuration: &configuration::Configuration,
+    create_video_extend_json_body: Option<&models::CreateVideoExtendJsonBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoExtendError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_video_extend_json_body = create_video_extend_json_body;
+
+    let uri_str = format!("{}/videos/extensions", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_video_extend_json_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -752,6 +1437,87 @@ pub async fn create_video_json(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a new video generation job from a prompt and optional reference assets.
+///
+/// Sends the request body as `application/json`; `create_video` sends it as `multipart/form-data`.
+///
+/// Sends the same request as [`create_video_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_json_response(
+    configuration: &configuration::Configuration,
+    create_video_json_body: Option<&models::CreateVideoJsonBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_video_json_body = create_video_json_body;
+
+    let uri_str = format!("{}/videos", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_video_json_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -880,6 +1646,93 @@ pub async fn create_video_remix(
 
 /// Create a remix of a completed video using a refreshed prompt.
 ///
+/// Sends the same request as [`create_video_remix`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_remix_response(
+    configuration: &configuration::Configuration,
+    video_id: &str,
+    prompt: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoRemixError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_video_id = video_id;
+    let p_form_prompt = prompt;
+
+    let uri_str = format!(
+        "{}/videos/{video_id}/remix",
+        configuration.base_path,
+        video_id = crate::apis::urlencode(p_path_video_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    let mut multipart_form = timvw_rust_runtime::multipart::Form::new();
+    multipart_form = multipart_form.text("prompt", p_form_prompt.to_string());
+    req_builder = req_builder.multipart(multipart_form);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoRemixError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a remix of a completed video using a refreshed prompt.
+///
 /// Sends the request body as `application/json`; `create_video_remix` sends it as `multipart/form-data`.
 #[deprecated]
 #[bon::builder]
@@ -934,6 +1787,93 @@ pub async fn create_video_remix_json(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<CreateVideoRemixError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status404),
+            429 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status429),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status500),
+            503 => serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::Status503),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(CreateVideoRemixError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Create a remix of a completed video using a refreshed prompt.
+///
+/// Sends the request body as `application/json`; `create_video_remix` sends it as `multipart/form-data`.
+///
+/// Sends the same request as [`create_video_remix_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn create_video_remix_json_response(
+    configuration: &configuration::Configuration,
+    video_id: &str,
+    create_video_remix_body: Option<&models::CreateVideoRemixBody>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoResource>, Error<CreateVideoRemixError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_video_id = video_id;
+    let p_body_create_video_remix_body = create_video_remix_body;
+
+    let uri_str = format!(
+        "{}/videos/{video_id}/remix",
+        configuration.base_path,
+        video_id = crate::apis::urlencode(p_path_video_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+    req_builder = req_builder.json(&p_body_create_video_remix_body);
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1049,6 +1989,82 @@ pub async fn delete_video(
     }
 }
 
+/// Permanently delete a completed or failed video and its stored assets.
+///
+/// Sends the same request as [`delete_video`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::DeletedVideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn delete_video_response(
+    configuration: &configuration::Configuration,
+    video_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::DeletedVideoResource>, Error<DeleteVideoError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_video_id = video_id;
+
+    let uri_str = format!(
+        "{}/videos/{video_id}",
+        configuration.base_path,
+        video_id = crate::apis::urlencode(p_path_video_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<DeleteVideoError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVideoError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVideoError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVideoError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(DeleteVideoError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// Fetch the latest metadata for a generated video.
 #[deprecated]
 #[bon::builder]
@@ -1100,6 +2116,79 @@ pub async fn get_video(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetVideoError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVideoError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVideoError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetVideoError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Fetch the latest metadata for a generated video.
+///
+/// Sends the same request as [`get_video`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn get_video_response(
+    configuration: &configuration::Configuration,
+    video_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoResource>, Error<GetVideoError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_video_id = video_id;
+
+    let uri_str = format!(
+        "{}/videos/{video_id}",
+        configuration.base_path,
+        video_id = crate::apis::urlencode(p_path_video_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1203,6 +2292,79 @@ pub async fn get_video_character(
     }
 }
 
+/// Fetch a character.
+///
+/// Sends the same request as [`get_video_character`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoCharacterResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn get_video_character_response(
+    configuration: &configuration::Configuration,
+    character_id: &str,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoCharacterResource>, Error<GetVideoCharacterError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_character_id = character_id;
+
+    let uri_str = format!(
+        "{}/videos/characters/{character_id}",
+        configuration.base_path,
+        character_id = crate::apis::urlencode(p_path_character_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<GetVideoCharacterError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVideoCharacterError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(GetVideoCharacterError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(GetVideoCharacterError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
 /// List recently generated videos for the current project.
 #[deprecated]
 #[bon::builder]
@@ -1263,6 +2425,88 @@ pub async fn list_videos(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VideoListResource`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VideoListResource`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<ListVideosError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVideosError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(ListVideosError::Status404),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(ListVideosError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// List recently generated videos for the current project.
+///
+/// Sends the same request as [`list_videos`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `models::VideoListResource` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn list_videos_response(
+    configuration: &configuration::Configuration,
+    limit: Option<i64>,
+    order: Option<models::OrderEnum>,
+    after: Option<&str>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<models::VideoListResource>, Error<ListVideosError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_after = after;
+
+    let uri_str = format!("{}/videos", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_after {
+        req_builder = req_builder.query(&[("after", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
@@ -1421,6 +2665,89 @@ pub async fn retrieve_video_content_json(
             ContentType::Text => Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `String`"))),
             ContentType::Unsupported(unknown_type) => Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
         }
+    } else {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        let entity: Option<RetrieveVideoContentError> = match status.as_u16() {
+            400 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVideoContentError::Status400),
+            404 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVideoContentError::Status404),
+            500 => serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVideoContentError::Status500),
+            _ => None,
+        }
+        .or_else(|| {
+            serde_json::from_str(&content)
+                .ok()
+                .map(RetrieveVideoContentError::UnknownValue)
+        });
+        Err(Error::ResponseError(Box::new(ResponseContent {
+            status,
+            content,
+            entity,
+            headers,
+        })))
+    }
+}
+
+/// Download the generated video bytes or a derived preview asset.  Streams the rendered video content for the specified video job.
+///
+/// Decodes the `application/json` form of the response; `retrieve_video_content` decodes `video/mp4`.
+///
+/// Sends the same request as [`retrieve_video_content_json`] and fails the same way, error status included, but returns the
+/// success undecoded, with its status and headers: an [`ApiResponse`](super::ApiResponse) that decodes the body as
+/// `String` (`json()`), as a type of the caller's (`json_as()`, `json_borrowed()`), or hands it out
+/// as text (`text()`).
+#[deprecated]
+#[bon::builder]
+pub async fn retrieve_video_content_json_response(
+    configuration: &configuration::Configuration,
+    video_id: &str,
+    variant: Option<models::VideoContentVariant>,
+    options: Option<&timvw_rust_runtime::RequestOptions>,
+) -> Result<super::ApiResponse<String>, Error<RetrieveVideoContentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_video_id = video_id;
+    let p_query_variant = variant;
+
+    let uri_str = format!(
+        "{}/videos/{video_id}/content",
+        configuration.base_path,
+        video_id = crate::apis::urlencode(p_path_video_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(timvw_rust_runtime::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_variant {
+        req_builder = req_builder.query(&[("variant", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder =
+            req_builder.header(timvw_rust_runtime::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder =
+            req_builder.bearer_auth(timvw_rust_runtime::ExposeSecret::expose_secret(token));
+    };
+
+    // last, so its headers replace the generated ones; its base URL replaces configuration.base_path
+    if let Some(options) = options {
+        req_builder = req_builder.base(&configuration.base_path).options(options);
+    }
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let headers = resp.headers().clone();
+        let content = resp.text().await?;
+        Ok(super::ApiResponse::new(status, headers, content))
     } else {
         let headers = resp.headers().clone();
         let content = resp.text().await?;
