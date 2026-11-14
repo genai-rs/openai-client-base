@@ -1,10 +1,14 @@
 # Upgrading
 
-Releases that change the generated public API are breaking (a minor-version bump). Each one has a
+Releases that change the generated public API bump the minor version. Each one has a
 migration note in [`migration/`](../migration), next to the census of what changed in the public API
 (`api-diff-<from>-to-<to>.json`, written by `scripts/check_public_api.sh`). The [CHANGELOG](../CHANGELOG.md) lists
 every release.
 
+- **0.35** (timvw-rust 0.30.1, runtime 0.4): additive. Every operation with a response body gains an
+  `<operation>_response` function that returns an `ApiResponse<T>` with the status, the headers and the body, and the
+  spec's declared headers are typed (`<Operation>ErrorHeaders`). See
+  [`api-diff-0.34.0-to-0.35.0.md`](../migration/api-diff-0.34.0-to-0.35.0.md).
 - **0.34** (timvw-rust 0.30.1, runtime 0.4): `CreateResponse.input` is an `InputParam` (text or items),
   `Response.instructions` is an optional text-or-items union that decodes `null`, and `CreateCompletionRequest.prompt`
   and `CreateModerationRequest.input` are their union types. `logprobs`, `cache_write_tokens` and `access_programs`
