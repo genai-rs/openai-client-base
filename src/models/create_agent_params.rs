@@ -93,7 +93,7 @@ pub struct CreateAgentParams {
         skip_serializing_if = "Option::is_none"
     )]
     pub multi_agent: Option<Option<models::MultiAgentConfigCurrentParam>>,
-    /// Context compaction settings. Omission or null enables background compaction.
+    /// Context compaction settings. Omission or null uses blocking compaction.
     #[serde(
         rename = "compaction",
         default,

@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// CompactionResource : The effective settings for compacting the agent's context.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, bon::Builder)]
 pub struct CompactionResource {
-    /// Whether context is compacted in the background. Defaults to true.
+    /// Whether context is compacted in the background. Defaults to false.
     #[serde(rename = "async")]
     pub r#async: bool,
 }
