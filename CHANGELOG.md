@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.34.1](https://github.com/genai-rs/openai-client-base/compare/v0.34.0...v0.34.1) - 2026-11-14
+
+### Added
+
+- <operation>_response functions with status and headers
+
 ## [0.34.0](https://github.com/genai-rs/openai-client-base/compare/v0.33.0...v0.34.0) - 2026-11-14
 
 ### Added
