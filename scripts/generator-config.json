@@ -40,18 +40,21 @@
   ],
   "stringProperties": [
     "CreateEmbeddingRequest.model",
-    "CreateCompletionRequest.prompt",
-    "CreateModerationRequest.input",
     "RealtimeResponseCreateParams.conversation",
     "CreateImageEditRequest.model",
     "CreateImageVariationRequest.model",
     "CreateImageRequest.model",
     "CreateTranscriptionRequest.model",
     "CreateTranslationRequest.model",
-    "CreateModerationRequest.model",
-    "CreateResponse.model",
-    "CreateResponse.input",
-    "Response.instructions"
+    "CreateModerationRequest.model"
+  ],
+  "optionalProperties": [
+    "OutputTextContent.logprobs",
+    "ResponseTextDeltaEvent.logprobs",
+    "Response.access_programs",
+    "ResponseUsage.input_tokens_details.cache_write_tokens",
+    "BetaResponseUsage.input_tokens_details.cache_write_tokens",
+    "InputTokensDetailsResource.cache_write_tokens"
   ],
   "fileProperties": [
     "CreateImageEditRequest.image"

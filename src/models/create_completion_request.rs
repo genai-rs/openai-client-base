@@ -16,8 +16,8 @@ pub struct CreateCompletionRequest {
     /// ID of the model to use. You can use the [List models](https://developers.openai.com/api/reference/resources/models/methods/list) API to see all of your available models, or see our [Model overview](https://developers.openai.com/api/docs/models) for descriptions of them.
     #[serde(rename = "model")]
     pub model: String,
-    #[serde(rename = "prompt")]
-    pub prompt: String,
+    #[serde(rename = "prompt", deserialize_with = "Option::deserialize")]
+    pub prompt: Option<models::CreateCompletionRequestPrompt>,
     /// Generates `best_of` completions server-side and returns the \"best\" (the one with the highest log probability per token). Results cannot be streamed.  When used with `n`, `best_of` controls the number of candidate completions and `n` specifies how many to return – `best_of` must be greater than `n`.  **Note:** Because this parameter generates many completions, it can quickly consume your token quota. Use carefully and ensure that you have reasonable settings for `max_tokens` and `stop`.  Defaults to `1`.
     ///
     /// Validation: `minimum: 0`, `maximum: 20`.
@@ -158,7 +158,10 @@ pub struct CreateCompletionRequest {
 }
 
 impl CreateCompletionRequest {
-    pub fn new(model: String, prompt: String) -> CreateCompletionRequest {
+    pub fn new(
+        model: String,
+        prompt: Option<models::CreateCompletionRequestPrompt>,
+    ) -> CreateCompletionRequest {
         CreateCompletionRequest {
             model,
             prompt,
@@ -188,6 +191,11 @@ impl crate::models::validation::Validate for CreateCompletionRequest {
         path: &crate::models::validation::Path<'_>,
         errors: &mut Vec<crate::models::validation::ValidationError>,
     ) {
+        crate::models::validation::Validate::validate_into(
+            &self.prompt,
+            &path.field("prompt"),
+            errors,
+        );
         if let Some(Some(value0)) = &self.best_of {
             crate::models::validation::minimum(*value0, 0, &path.field("best_of"), errors);
             crate::models::validation::maximum(*value0, 20, &path.field("best_of"), errors);

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **model** | **String** | ID of the model to use. You can use the [List models](https://developers.openai.com/api/reference/resources/models/methods/list) API to see all of your available models, or see our [Model overview](https://developers.openai.com/api/docs/models) for descriptions of them.  | 
-**prompt** | **String** |  | 
+**prompt** | Option<[**models::CreateCompletionRequestPrompt**](CreateCompletionRequestPrompt.md)> |  | 
 **best_of** | Option<**i64**> | Generates `best_of` completions server-side and returns the \"best\" (the one with the highest log probability per token). Results cannot be streamed.  When used with `n`, `best_of` controls the number of candidate completions and `n` specifies how many to return – `best_of` must be greater than `n`.  **Note:** Because this parameter generates many completions, it can quickly consume your token quota. Use carefully and ensure that you have reasonable settings for `max_tokens` and `stop`.  Defaults to `1`. | [optional]
 **echo** | Option<**bool**> | Echo back the prompt in addition to the completion  Defaults to `false`. | [optional]
 **frequency_penalty** | Option<**f64**> | Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.  [See more information about frequency and presence penalties.](https://developers.openai.com/api/docs/guides/text)  Defaults to `0`. | [optional]

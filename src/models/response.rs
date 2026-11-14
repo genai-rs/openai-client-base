@@ -152,8 +152,13 @@ pub struct Response {
     /// The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
-    #[serde(rename = "access_programs", deserialize_with = "Option::deserialize")]
-    pub access_programs: Option<models::AccessProgramsBody>,
+    #[serde(
+        rename = "access_programs",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub access_programs: Option<Option<models::AccessProgramsBody>>,
     /// Unix timestamp (in seconds) of when this Response was created.
     #[serde(rename = "created_at")]
     pub created_at: f64,
@@ -188,8 +193,8 @@ pub struct Response {
         skip_serializing_if = "Option::is_none"
     )]
     pub reasoning: Option<Option<models::Reasoning>>,
-    #[serde(rename = "instructions")]
-    pub instructions: String,
+    #[serde(rename = "instructions", deserialize_with = "Option::deserialize")]
+    pub instructions: Option<models::ResponseAllOfInstructions>,
     /// SDK-only convenience property that contains the aggregated text output from all `output_text` items in the `output` array, if any are present. Supported in the Python and JavaScript SDKs.
     #[serde(
         rename = "output_text",
@@ -249,12 +254,11 @@ impl Response {
         model: String,
         id: String,
         object: Object,
-        access_programs: Option<models::AccessProgramsBody>,
         created_at: f64,
         error: Option<models::ResponseError>,
         incomplete_details: Option<models::ResponseAllOfIncompleteDetails>,
         output: Vec<models::OutputItem>,
-        instructions: String,
+        instructions: Option<models::ResponseAllOfInstructions>,
         parallel_tool_calls: bool,
     ) -> Response {
         Response {
@@ -280,7 +284,7 @@ impl Response {
             id,
             object,
             status: None,
-            access_programs,
+            access_programs: None,
             created_at,
             completed_at: None,
             error,
@@ -342,6 +346,11 @@ impl crate::models::validation::Validate for Response {
         crate::models::validation::Validate::validate_into(
             &self.output,
             &path.field("output"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.instructions,
+            &path.field("instructions"),
             errors,
         );
     }

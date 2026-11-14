@@ -88,6 +88,7 @@ pub struct CreateResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub previous_response_id: Option<Option<String>>,
+    /// ID of the model to use
     #[serde(rename = "model", skip_serializing_if = "Option::is_none")]
     pub model: Option<String>,
     /// Whether to run the model response in the background. [Learn more](https://developers.openai.com/api/docs/guides/background).
@@ -152,7 +153,7 @@ pub struct CreateResponse {
     )]
     pub reasoning: Option<Option<models::Reasoning>>,
     #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
-    pub input: Option<String>,
+    pub input: Option<models::InputParam>,
     /// Specify additional output data to include in the model response. Currently supported values are: - `web_search_call.action.sources`: Include the sources of the web search tool call. - `code_interpreter_call.outputs`: Includes the outputs of python code execution in code interpreter tool call items. - `computer_call_output.output.image_url`: Include image urls from the computer call output. - `file_search_call.results`: Include the search results of the file search tool call. - `message.input_image.image_url`: Include image urls from the input message. - `message.output_text.logprobs`: Include logprobs with assistant messages. - `reasoning.encrypted_content`: Includes an encrypted version of reasoning tokens in reasoning item outputs. This enables reasoning items to be used in multi-turn conversations when using the Responses API statelessly (like when the `store` parameter is set to `false`, or when an organization is enrolled in the zero data retention program).
     #[serde(
         rename = "include",
@@ -306,6 +307,11 @@ impl crate::models::validation::Validate for CreateResponse {
         crate::models::validation::Validate::validate_into(
             &self.tools,
             &path.field("tools"),
+            errors,
+        );
+        crate::models::validation::Validate::validate_into(
+            &self.input,
+            &path.field("input"),
             errors,
         );
         if let Some(Some(value0)) = &self.context_management {
