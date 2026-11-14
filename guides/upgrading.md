@@ -5,6 +5,11 @@ migration note in [`migration/`](../migration), next to the census of what chang
 (`api-diff-<from>-to-<to>.json`, written by `scripts/check_public_api.sh`). The [CHANGELOG](../CHANGELOG.md) lists
 every release.
 
+- **0.34** (timvw-rust 0.30.1, runtime 0.4): `CreateResponse.input` is an `InputParam` (text or items),
+  `Response.instructions` is an optional text-or-items union that decodes `null`, and `CreateCompletionRequest.prompt`
+  and `CreateModerationRequest.input` are their union types. `logprobs`, `cache_write_tokens` and `access_programs`
+  are optional, since the API leaves them out, and 46 input-item enums gain `Unknown`. See
+  [`api-diff-0.33.0-to-0.34.0.md`](../migration/api-diff-0.33.0-to-0.34.0.md).
 - **0.33** (timvw-rust 0.29.0, runtime 0.4): the multipart unions with a file variant hold `Upload`s (build them with
   `file(..)`/`files(..)`, or pass a `PathBuf` to the builder), `CreateContainerFileBody.file` is an `Upload`,
   `apis::Error::Io` is removed, and `RequestOptions::base_url` moves one call to another base URL. See

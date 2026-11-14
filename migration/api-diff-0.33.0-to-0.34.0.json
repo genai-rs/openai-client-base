@@ -1,0 +1,1104 @@
+{
+  "source_heads": {
+    "reference": "git:v0.33.0",
+    "candidate": "working-tree"
+  },
+  "method": "Source declaration census of public model exports, struct fields, enum variants (names and tuple/struct payloads, generic enums such as apis::Error<T> included), function signatures, and hand-written trait impls (e.g. From) on public types, plus derive and serde-field-attribute differences. This is not an exhaustive Rust public API or semver check: it does not expand derives or macros, resolve blanket impls, or resolve every visibility/re-export interaction.",
+  "registry_source_rs_files": 3182,
+  "current_source_rs_files": 3185,
+  "source_files_added": [
+    "models/beta_response_all_of_incomplete_details.rs",
+    "models/create_completion_request_prompt.rs",
+    "models/response_all_of_instructions.rs"
+  ],
+  "source_files_removed": [],
+  "source_files_modified": [
+    "models/additional_tools_item_param.rs",
+    "models/apply_patch_call_output_status_param.rs",
+    "models/apply_patch_call_status_param.rs",
+    "models/apply_patch_create_file_operation_param.rs",
+    "models/apply_patch_delete_file_operation_param.rs",
+    "models/apply_patch_operation_param.rs",
+    "models/apply_patch_tool_call_item_param.rs",
+    "models/apply_patch_tool_call_output_item_param.rs",
+    "models/apply_patch_update_file_operation_param.rs",
+    "models/beta_output_text_content.rs",
+    "models/beta_response.rs",
+    "models/beta_response_text_delta_event.rs",
+    "models/beta_response_text_done_event.rs",
+    "models/beta_response_text_ws_delta.rs",
+    "models/beta_response_text_ws_done.rs",
+    "models/beta_response_usage_input_tokens_details.rs",
+    "models/beta_responses_web_socket_stream_event.rs",
+    "models/compaction_param.rs",
+    "models/compaction_resource.rs",
+    "models/compaction_summary_item_param.rs",
+    "models/compaction_trigger_item_param.rs",
+    "models/computer_call_output_item_param.rs",
+    "models/create_agent_params.rs",
+    "models/create_completion_request.rs",
+    "models/create_moderation_request.rs",
+    "models/create_response.rs",
+    "models/detail_enum.rs",
+    "models/file_detail_enum.rs",
+    "models/function_call_item_status.rs",
+    "models/function_call_output_item_param.rs",
+    "models/function_call_output_item_param_output_one_of_inner.rs",
+    "models/function_shell_call_item_param.rs",
+    "models/function_shell_call_item_param_environment.rs",
+    "models/function_shell_call_item_status.rs",
+    "models/function_shell_call_output_exit_outcome_param.rs",
+    "models/function_shell_call_output_item_param.rs",
+    "models/function_shell_call_output_outcome_param.rs",
+    "models/function_shell_call_output_timeout_outcome_param.rs",
+    "models/input_file_content_param.rs",
+    "models/input_image_content_param_auto_param.rs",
+    "models/input_item.rs",
+    "models/input_text_content_param.rs",
+    "models/input_tokens_details_resource.rs",
+    "models/item_reference_param.rs",
+    "models/mcp_approval_response.rs",
+    "models/mod.rs",
+    "models/output_text_content.rs",
+    "models/program_item_param.rs",
+    "models/program_output_item_param.rs",
+    "models/program_output_item_status.rs",
+    "models/prompt_cache_breakpoint_param.rs",
+    "models/response.rs",
+    "models/response_configuration_update_item_param_text_format.rs",
+    "models/response_text_delta_event.rs",
+    "models/response_text_done_event.rs",
+    "models/response_text_ws_delta.rs",
+    "models/response_text_ws_done.rs",
+    "models/response_usage_input_tokens_details.rs",
+    "models/responses_client_event_response_create.rs",
+    "models/responses_web_socket_stream_event.rs",
+    "models/session_agent_config_param.rs",
+    "models/tool_search_call_item_param.rs",
+    "models/tool_search_output_function_tool_param.rs",
+    "models/tool_search_output_item_param.rs",
+    "models/tool_search_output_namespace_tool_param.rs",
+    "models/tool_search_output_namespace_tool_param_tools_inner.rs",
+    "models/tool_search_output_tool.rs",
+    "models/update_agent_params.rs"
+  ],
+  "model_exports_added": [
+    "BetaResponseAllOfIncompleteDetails",
+    "CreateCompletionRequestPrompt",
+    "ResponseAllOfInstructions"
+  ],
+  "model_exports_removed": [],
+  "public_functions_added_or_signature_changed": [
+    {
+      "file": "models/beta_output_text_content.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, text: String, annotations: Vec<models::BetaAnnotation>, ) -> BetaOutputTextContent"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "name": "new",
+      "signature": "pub fn new( model: String, id: String, object: Object, created_at: f64, error: Option<models::BetaResponseError>, incomplete_details: Option<models::BetaResponseAllOfIncompleteDetails>, output: Vec<models::BetaOutputItem>, instructions: Option<models::BetaResponseAllOfInstructions>, parallel_tool_calls: bool, ) -> BetaResponse"
+    },
+    {
+      "file": "models/beta_response_all_of_incomplete_details.rs",
+      "name": "new",
+      "signature": "pub fn new() -> BetaResponseAllOfIncompleteDetails"
+    },
+    {
+      "file": "models/beta_response_text_delta_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, delta: String, sequence_number: i64, ) -> BetaResponseTextDeltaEvent"
+    },
+    {
+      "file": "models/beta_response_text_done_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, text: String, sequence_number: i64, ) -> BetaResponseTextDoneEvent"
+    },
+    {
+      "file": "models/beta_response_text_ws_delta.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, delta: String, sequence_number: i64, ) -> BetaResponseTextWsDelta"
+    },
+    {
+      "file": "models/beta_response_text_ws_done.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, text: String, sequence_number: i64, ) -> BetaResponseTextWsDone"
+    },
+    {
+      "file": "models/beta_response_usage_input_tokens_details.rs",
+      "name": "new",
+      "signature": "pub fn new(cached_tokens: i64) -> BetaResponseUsageInputTokensDetails"
+    },
+    {
+      "file": "models/beta_responses_web_socket_stream_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, sequence_number: i64, delta: String, output_index: i64, item_id: String, code: String, response: models::BetaResponse, content_index: i64, part: models::BetaResponseReasoningSummaryPartDoneEventPart, arguments: String, command_index: i64, command: String, output: Vec<models::BetaFunctionShellCallOutputContent>, item: models::BetaOutputItem, summary_index: i64, text: String, refusal: String, partial_image_index: i64, partial_image_b64: String, annotation_index: i64, annotation: Option<models::BetaAnnotation>, input: String, ) -> BetaResponsesWebSocketStreamEvent"
+    },
+    {
+      "file": "models/create_completion_request.rs",
+      "name": "new",
+      "signature": "pub fn new( model: String, prompt: Option<models::CreateCompletionRequestPrompt>, ) -> CreateCompletionRequest"
+    },
+    {
+      "file": "models/create_completion_request_prompt.rs",
+      "name": "new_arrayofarrays",
+      "signature": "pub fn new_arrayofarrays(items: Vec<Vec<i64>>) -> Self"
+    },
+    {
+      "file": "models/create_completion_request_prompt.rs",
+      "name": "new_arrayofintegers",
+      "signature": "pub fn new_arrayofintegers(items: Vec<i64>) -> Self"
+    },
+    {
+      "file": "models/create_completion_request_prompt.rs",
+      "name": "new_arrayofstrings",
+      "signature": "pub fn new_arrayofstrings(items: Vec<String>) -> Self"
+    },
+    {
+      "file": "models/create_completion_request_prompt.rs",
+      "name": "new_text",
+      "signature": "pub fn new_text(text: String) -> Self"
+    },
+    {
+      "file": "models/create_moderation_request.rs",
+      "name": "new",
+      "signature": "pub fn new(input: models::CreateModerationRequestInput) -> CreateModerationRequest"
+    },
+    {
+      "file": "models/input_tokens_details_resource.rs",
+      "name": "new",
+      "signature": "pub fn new(cached_tokens: i64) -> InputTokensDetailsResource"
+    },
+    {
+      "file": "models/output_text_content.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, text: String, annotations: Vec<models::Annotation>, ) -> OutputTextContent"
+    },
+    {
+      "file": "models/response.rs",
+      "name": "new",
+      "signature": "pub fn new( model: String, id: String, object: Object, created_at: f64, error: Option<models::ResponseError>, incomplete_details: Option<models::ResponseAllOfIncompleteDetails>, output: Vec<models::OutputItem>, instructions: Option<models::ResponseAllOfInstructions>, parallel_tool_calls: bool, ) -> Response"
+    },
+    {
+      "file": "models/response_all_of_instructions.rs",
+      "name": "new_inputitemlist",
+      "signature": "pub fn new_inputitemlist(items: Vec<models::InputItem>) -> Self"
+    },
+    {
+      "file": "models/response_all_of_instructions.rs",
+      "name": "new_text",
+      "signature": "pub fn new_text(text: String) -> Self"
+    },
+    {
+      "file": "models/response_text_delta_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, delta: String, sequence_number: i64, ) -> ResponseTextDeltaEvent"
+    },
+    {
+      "file": "models/response_text_done_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, text: String, sequence_number: i64, ) -> ResponseTextDoneEvent"
+    },
+    {
+      "file": "models/response_text_ws_delta.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, delta: String, sequence_number: i64, ) -> ResponseTextWsDelta"
+    },
+    {
+      "file": "models/response_text_ws_done.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, text: String, sequence_number: i64, ) -> ResponseTextWsDone"
+    },
+    {
+      "file": "models/response_usage_input_tokens_details.rs",
+      "name": "new",
+      "signature": "pub fn new(cached_tokens: i64) -> ResponseUsageInputTokensDetails"
+    },
+    {
+      "file": "models/responses_web_socket_stream_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, sequence_number: i64, delta: String, output_index: i64, item_id: String, code: String, response: models::Response, content_index: i64, part: models::ResponseReasoningSummaryPartDoneEventPart, arguments: String, command_index: i64, command: String, output: Vec<models::FunctionShellCallOutputContent>, item: models::OutputItem, summary_index: i64, text: String, refusal: String, partial_image_index: i64, partial_image_b64: String, annotation_index: i64, annotation: Option<models::Annotation>, input: String, ) -> ResponsesWebSocketStreamEvent"
+    }
+  ],
+  "public_functions_removed_or_signature_changed": [
+    {
+      "file": "models/beta_output_text_content.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, text: String, annotations: Vec<models::BetaAnnotation>, logprobs: Vec<models::BetaLogProb>, ) -> BetaOutputTextContent"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "name": "new",
+      "signature": "pub fn new( model: String, id: String, object: Object, access_programs: Option<models::BetaAccessProgramsBody>, created_at: f64, error: Option<models::BetaResponseError>, incomplete_details: Option<models::ResponseAllOfIncompleteDetails>, output: Vec<models::BetaOutputItem>, instructions: Option<models::BetaResponseAllOfInstructions>, parallel_tool_calls: bool, ) -> BetaResponse"
+    },
+    {
+      "file": "models/beta_response_text_delta_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, delta: String, sequence_number: i64, logprobs: Vec<models::BetaResponseLogProb>, ) -> BetaResponseTextDeltaEvent"
+    },
+    {
+      "file": "models/beta_response_text_done_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, text: String, sequence_number: i64, logprobs: Vec<models::BetaResponseLogProb>, ) -> BetaResponseTextDoneEvent"
+    },
+    {
+      "file": "models/beta_response_text_ws_delta.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, delta: String, sequence_number: i64, logprobs: Vec<models::BetaResponseLogProb>, ) -> BetaResponseTextWsDelta"
+    },
+    {
+      "file": "models/beta_response_text_ws_done.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, text: String, sequence_number: i64, logprobs: Vec<models::BetaResponseLogProb>, ) -> BetaResponseTextWsDone"
+    },
+    {
+      "file": "models/beta_response_usage_input_tokens_details.rs",
+      "name": "new",
+      "signature": "pub fn new(cached_tokens: i64, cache_write_tokens: i64) -> BetaResponseUsageInputTokensDetails"
+    },
+    {
+      "file": "models/beta_responses_web_socket_stream_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, sequence_number: i64, delta: String, output_index: i64, item_id: String, code: String, response: models::BetaResponse, content_index: i64, part: models::BetaResponseReasoningSummaryPartDoneEventPart, arguments: String, command_index: i64, command: String, output: Vec<models::BetaFunctionShellCallOutputContent>, item: models::BetaOutputItem, summary_index: i64, text: String, refusal: String, logprobs: Vec<models::BetaResponseLogProb>, partial_image_index: i64, partial_image_b64: String, annotation_index: i64, annotation: Option<models::BetaAnnotation>, input: String, ) -> BetaResponsesWebSocketStreamEvent"
+    },
+    {
+      "file": "models/create_completion_request.rs",
+      "name": "new",
+      "signature": "pub fn new(model: String, prompt: String) -> CreateCompletionRequest"
+    },
+    {
+      "file": "models/create_moderation_request.rs",
+      "name": "new",
+      "signature": "pub fn new(input: String) -> CreateModerationRequest"
+    },
+    {
+      "file": "models/input_tokens_details_resource.rs",
+      "name": "new",
+      "signature": "pub fn new(cached_tokens: i64, cache_write_tokens: i64) -> InputTokensDetailsResource"
+    },
+    {
+      "file": "models/output_text_content.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, text: String, annotations: Vec<models::Annotation>, logprobs: Vec<models::LogProb>, ) -> OutputTextContent"
+    },
+    {
+      "file": "models/response.rs",
+      "name": "new",
+      "signature": "pub fn new( model: String, id: String, object: Object, access_programs: Option<models::AccessProgramsBody>, created_at: f64, error: Option<models::ResponseError>, incomplete_details: Option<models::ResponseAllOfIncompleteDetails>, output: Vec<models::OutputItem>, instructions: String, parallel_tool_calls: bool, ) -> Response"
+    },
+    {
+      "file": "models/response_text_delta_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, delta: String, sequence_number: i64, logprobs: Vec<models::ResponseLogProb>, ) -> ResponseTextDeltaEvent"
+    },
+    {
+      "file": "models/response_text_done_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, text: String, sequence_number: i64, logprobs: Vec<models::ResponseLogProb>, ) -> ResponseTextDoneEvent"
+    },
+    {
+      "file": "models/response_text_ws_delta.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, delta: String, sequence_number: i64, logprobs: Vec<models::ResponseLogProb>, ) -> ResponseTextWsDelta"
+    },
+    {
+      "file": "models/response_text_ws_done.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, item_id: String, output_index: i64, content_index: i64, text: String, sequence_number: i64, logprobs: Vec<models::ResponseLogProb>, ) -> ResponseTextWsDone"
+    },
+    {
+      "file": "models/response_usage_input_tokens_details.rs",
+      "name": "new",
+      "signature": "pub fn new(cached_tokens: i64, cache_write_tokens: i64) -> ResponseUsageInputTokensDetails"
+    },
+    {
+      "file": "models/responses_web_socket_stream_event.rs",
+      "name": "new",
+      "signature": "pub fn new( r#type: Type, sequence_number: i64, delta: String, output_index: i64, item_id: String, code: String, response: models::Response, content_index: i64, part: models::ResponseReasoningSummaryPartDoneEventPart, arguments: String, command_index: i64, command: String, output: Vec<models::FunctionShellCallOutputContent>, item: models::OutputItem, summary_index: i64, text: String, refusal: String, logprobs: Vec<models::ResponseLogProb>, partial_image_index: i64, partial_image_b64: String, annotation_index: i64, annotation: Option<models::Annotation>, input: String, ) -> ResponsesWebSocketStreamEvent"
+    }
+  ],
+  "public_model_field_changes": [
+    {
+      "file": "models/beta_output_text_content.rs",
+      "model": "BetaOutputTextContent",
+      "field": "logprobs",
+      "registry": "Vec<models::BetaLogProb>",
+      "current": "Option<Vec<models::BetaLogProb>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "access_programs",
+      "registry": "Option<models::BetaAccessProgramsBody>",
+      "current": "Option<Option<models::BetaAccessProgramsBody>>"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "incomplete_details",
+      "registry": "Option<models::ResponseAllOfIncompleteDetails>",
+      "current": "Option<models::BetaResponseAllOfIncompleteDetails>"
+    },
+    {
+      "file": "models/beta_response_all_of_incomplete_details.rs",
+      "model": "BetaResponseAllOfIncompleteDetails",
+      "field": "reason",
+      "registry": null,
+      "current": "Option<Reason>"
+    },
+    {
+      "file": "models/beta_response_text_delta_event.rs",
+      "model": "BetaResponseTextDeltaEvent",
+      "field": "logprobs",
+      "registry": "Vec<models::BetaResponseLogProb>",
+      "current": "Option<Vec<models::BetaResponseLogProb>>"
+    },
+    {
+      "file": "models/beta_response_text_done_event.rs",
+      "model": "BetaResponseTextDoneEvent",
+      "field": "logprobs",
+      "registry": "Vec<models::BetaResponseLogProb>",
+      "current": "Option<Vec<models::BetaResponseLogProb>>"
+    },
+    {
+      "file": "models/beta_response_text_ws_delta.rs",
+      "model": "BetaResponseTextWsDelta",
+      "field": "logprobs",
+      "registry": "Vec<models::BetaResponseLogProb>",
+      "current": "Option<Vec<models::BetaResponseLogProb>>"
+    },
+    {
+      "file": "models/beta_response_text_ws_done.rs",
+      "model": "BetaResponseTextWsDone",
+      "field": "logprobs",
+      "registry": "Vec<models::BetaResponseLogProb>",
+      "current": "Option<Vec<models::BetaResponseLogProb>>"
+    },
+    {
+      "file": "models/beta_response_usage_input_tokens_details.rs",
+      "model": "BetaResponseUsageInputTokensDetails",
+      "field": "cache_write_tokens",
+      "registry": "i64",
+      "current": "Option<i64>"
+    },
+    {
+      "file": "models/beta_responses_web_socket_stream_event.rs",
+      "model": "BetaResponsesWebSocketStreamEvent",
+      "field": "logprobs",
+      "registry": "Vec<models::BetaResponseLogProb>",
+      "current": "Option<Vec<models::BetaResponseLogProb>>"
+    },
+    {
+      "file": "models/create_completion_request.rs",
+      "model": "CreateCompletionRequest",
+      "field": "prompt",
+      "registry": "String",
+      "current": "Option<models::CreateCompletionRequestPrompt>"
+    },
+    {
+      "file": "models/create_moderation_request.rs",
+      "model": "CreateModerationRequest",
+      "field": "input",
+      "registry": "String",
+      "current": "models::CreateModerationRequestInput"
+    },
+    {
+      "file": "models/create_response.rs",
+      "model": "CreateResponse",
+      "field": "input",
+      "registry": "Option<String>",
+      "current": "Option<models::InputParam>"
+    },
+    {
+      "file": "models/input_tokens_details_resource.rs",
+      "model": "InputTokensDetailsResource",
+      "field": "cache_write_tokens",
+      "registry": "i64",
+      "current": "Option<i64>"
+    },
+    {
+      "file": "models/output_text_content.rs",
+      "model": "OutputTextContent",
+      "field": "logprobs",
+      "registry": "Vec<models::LogProb>",
+      "current": "Option<Vec<models::LogProb>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "access_programs",
+      "registry": "Option<models::AccessProgramsBody>",
+      "current": "Option<Option<models::AccessProgramsBody>>"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "instructions",
+      "registry": "String",
+      "current": "Option<models::ResponseAllOfInstructions>"
+    },
+    {
+      "file": "models/response_text_delta_event.rs",
+      "model": "ResponseTextDeltaEvent",
+      "field": "logprobs",
+      "registry": "Vec<models::ResponseLogProb>",
+      "current": "Option<Vec<models::ResponseLogProb>>"
+    },
+    {
+      "file": "models/response_text_done_event.rs",
+      "model": "ResponseTextDoneEvent",
+      "field": "logprobs",
+      "registry": "Vec<models::ResponseLogProb>",
+      "current": "Option<Vec<models::ResponseLogProb>>"
+    },
+    {
+      "file": "models/response_text_ws_delta.rs",
+      "model": "ResponseTextWsDelta",
+      "field": "logprobs",
+      "registry": "Vec<models::ResponseLogProb>",
+      "current": "Option<Vec<models::ResponseLogProb>>"
+    },
+    {
+      "file": "models/response_text_ws_done.rs",
+      "model": "ResponseTextWsDone",
+      "field": "logprobs",
+      "registry": "Vec<models::ResponseLogProb>",
+      "current": "Option<Vec<models::ResponseLogProb>>"
+    },
+    {
+      "file": "models/response_usage_input_tokens_details.rs",
+      "model": "ResponseUsageInputTokensDetails",
+      "field": "cache_write_tokens",
+      "registry": "i64",
+      "current": "Option<i64>"
+    },
+    {
+      "file": "models/responses_client_event_response_create.rs",
+      "model": "ResponsesClientEventResponseCreate",
+      "field": "input",
+      "registry": "Option<String>",
+      "current": "Option<models::InputParam>"
+    },
+    {
+      "file": "models/responses_web_socket_stream_event.rs",
+      "model": "ResponsesWebSocketStreamEvent",
+      "field": "logprobs",
+      "registry": "Vec<models::ResponseLogProb>",
+      "current": "Option<Vec<models::ResponseLogProb>>"
+    }
+  ],
+  "public_enum_variant_changes": [
+    {
+      "file": "models/additional_tools_item_param.rs",
+      "enum": "Role",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/additional_tools_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/apply_patch_call_output_status_param.rs",
+      "enum": "ApplyPatchCallOutputStatusParam",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/apply_patch_call_status_param.rs",
+      "enum": "ApplyPatchCallStatusParam",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/apply_patch_create_file_operation_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/apply_patch_delete_file_operation_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/apply_patch_operation_param.rs",
+      "enum": "ApplyPatchOperationParam",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/apply_patch_tool_call_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/apply_patch_tool_call_output_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/apply_patch_update_file_operation_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/beta_response_all_of_incomplete_details.rs",
+      "enum": "Reason",
+      "added": [
+        "ContentFilter",
+        "MaxMessages",
+        "MaxOutputTokens",
+        "Steered",
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/compaction_summary_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/compaction_trigger_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/computer_call_output_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/create_completion_request_prompt.rs",
+      "enum": "CreateCompletionRequestPrompt",
+      "added": [
+        "ArrayOfArrays",
+        "ArrayOfIntegers",
+        "ArrayOfStrings",
+        "Text"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/detail_enum.rs",
+      "enum": "DetailEnum",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/file_detail_enum.rs",
+      "enum": "FileDetailEnum",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_call_item_status.rs",
+      "enum": "FunctionCallItemStatus",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_call_output_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_call_output_item_param_output_one_of_inner.rs",
+      "enum": "FunctionCallOutputItemParamOutputOneOfInner",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_shell_call_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_shell_call_item_param_environment.rs",
+      "enum": "FunctionShellCallItemParamEnvironment",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_shell_call_item_status.rs",
+      "enum": "FunctionShellCallItemStatus",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_shell_call_output_exit_outcome_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_shell_call_output_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_shell_call_output_outcome_param.rs",
+      "enum": "FunctionShellCallOutputOutcomeParam",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/function_shell_call_output_timeout_outcome_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/input_file_content_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/input_image_content_param_auto_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/input_item.rs",
+      "enum": "InputItem",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/input_text_content_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/item_reference_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/mcp_approval_response.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/program_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/program_output_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/program_output_item_status.rs",
+      "enum": "ProgramOutputItemStatus",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/prompt_cache_breakpoint_param.rs",
+      "enum": "Mode",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/prompt_cache_breakpoint_param.rs",
+      "enum": "Ttl",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/response_all_of_instructions.rs",
+      "enum": "ResponseAllOfInstructions",
+      "added": [
+        "InputItemList",
+        "Text"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/response_configuration_update_item_param_text_format.rs",
+      "enum": "ResponseConfigurationUpdateItemParamTextFormat",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/tool_search_call_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/tool_search_output_function_tool_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/tool_search_output_item_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/tool_search_output_namespace_tool_param.rs",
+      "enum": "Type",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/tool_search_output_namespace_tool_param_tools_inner.rs",
+      "enum": "ToolSearchOutputNamespaceToolParamToolsInner",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/tool_search_output_tool.rs",
+      "enum": "ToolSearchOutputTool",
+      "added": [
+        "Unknown"
+      ],
+      "removed": []
+    }
+  ],
+  "public_derive_changes": [
+    {
+      "file": "models/beta_response_all_of_incomplete_details.rs",
+      "type": "BetaResponseAllOfIncompleteDetails",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Debug",
+        "Default",
+        "Deserialize",
+        "PartialEq",
+        "Serialize",
+        "bon::Builder"
+      ]
+    },
+    {
+      "file": "models/beta_response_all_of_incomplete_details.rs",
+      "type": "Reason",
+      "registry": null,
+      "current": [
+        "Clone",
+        "Copy",
+        "Debug",
+        "Deserialize",
+        "Eq",
+        "Hash",
+        "Ord",
+        "PartialEq",
+        "PartialOrd",
+        "Serialize"
+      ]
+    }
+  ],
+  "serde_field_attribute_changes": [
+    {
+      "file": "models/beta_output_text_content.rs",
+      "model": "BetaOutputTextContent",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_response.rs",
+      "model": "BetaResponse",
+      "field": "access_programs",
+      "registry": "#[serde(rename = \"access_programs\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde( rename = \"access_programs\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/beta_response_all_of_incomplete_details.rs",
+      "model": "BetaResponseAllOfIncompleteDetails",
+      "field": "reason",
+      "registry": null,
+      "current": "#[serde(rename = \"reason\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_response_text_delta_event.rs",
+      "model": "BetaResponseTextDeltaEvent",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_response_text_done_event.rs",
+      "model": "BetaResponseTextDoneEvent",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_response_text_ws_delta.rs",
+      "model": "BetaResponseTextWsDelta",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_response_text_ws_done.rs",
+      "model": "BetaResponseTextWsDone",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_response_usage_input_tokens_details.rs",
+      "model": "BetaResponseUsageInputTokensDetails",
+      "field": "cache_write_tokens",
+      "registry": "#[serde(rename = \"cache_write_tokens\")]",
+      "current": "#[serde(rename = \"cache_write_tokens\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/beta_responses_web_socket_stream_event.rs",
+      "model": "BetaResponsesWebSocketStreamEvent",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/create_completion_request.rs",
+      "model": "CreateCompletionRequest",
+      "field": "prompt",
+      "registry": "#[serde(rename = \"prompt\")]",
+      "current": "#[serde(rename = \"prompt\", deserialize_with = \"Option::deserialize\")]"
+    },
+    {
+      "file": "models/input_tokens_details_resource.rs",
+      "model": "InputTokensDetailsResource",
+      "field": "cache_write_tokens",
+      "registry": "#[serde(rename = \"cache_write_tokens\")]",
+      "current": "#[serde(rename = \"cache_write_tokens\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/output_text_content.rs",
+      "model": "OutputTextContent",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "access_programs",
+      "registry": "#[serde(rename = \"access_programs\", deserialize_with = \"Option::deserialize\")]",
+      "current": "#[serde( rename = \"access_programs\", default, with = \"::serde_with::rust::double_option\", skip_serializing_if = \"Option::is_none\" )]"
+    },
+    {
+      "file": "models/response.rs",
+      "model": "Response",
+      "field": "instructions",
+      "registry": "#[serde(rename = \"instructions\")]",
+      "current": "#[serde(rename = \"instructions\", deserialize_with = \"Option::deserialize\")]"
+    },
+    {
+      "file": "models/response_text_delta_event.rs",
+      "model": "ResponseTextDeltaEvent",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/response_text_done_event.rs",
+      "model": "ResponseTextDoneEvent",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/response_text_ws_delta.rs",
+      "model": "ResponseTextWsDelta",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/response_text_ws_done.rs",
+      "model": "ResponseTextWsDone",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/response_usage_input_tokens_details.rs",
+      "model": "ResponseUsageInputTokensDetails",
+      "field": "cache_write_tokens",
+      "registry": "#[serde(rename = \"cache_write_tokens\")]",
+      "current": "#[serde(rename = \"cache_write_tokens\", skip_serializing_if = \"Option::is_none\")]"
+    },
+    {
+      "file": "models/responses_web_socket_stream_event.rs",
+      "model": "ResponsesWebSocketStreamEvent",
+      "field": "logprobs",
+      "registry": "#[serde(rename = \"logprobs\")]",
+      "current": "#[serde(rename = \"logprobs\", skip_serializing_if = \"Option::is_none\")]"
+    }
+  ],
+  "public_enum_variant_payload_changes": [],
+  "public_trait_impl_changes": [
+    {
+      "file": "models/beta_response_all_of_incomplete_details.rs",
+      "type": "BetaResponseAllOfIncompleteDetails",
+      "added": [
+        "impl crate::models::validation::Validate for BetaResponseAllOfIncompleteDetails"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/beta_response_all_of_incomplete_details.rs",
+      "type": "Reason",
+      "added": [
+        "impl::std::convert::TryFrom<&::std::string::String> for Reason",
+        "impl::std::convert::TryFrom<&str> for Reason",
+        "impl::std::convert::TryFrom<::std::string::String> for Reason",
+        "impl::std::fmt::Display for Reason",
+        "impl::std::str::FromStr for Reason"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/create_completion_request_prompt.rs",
+      "type": "CreateCompletionRequestPrompt",
+      "added": [
+        "impl From<&str> for CreateCompletionRequestPrompt",
+        "impl From<String> for CreateCompletionRequestPrompt",
+        "impl crate::models::validation::Validate for CreateCompletionRequestPrompt",
+        "impl std::fmt::Display for CreateCompletionRequestPrompt"
+      ],
+      "removed": []
+    },
+    {
+      "file": "models/response_all_of_instructions.rs",
+      "type": "ResponseAllOfInstructions",
+      "added": [
+        "impl From<&str> for ResponseAllOfInstructions",
+        "impl From<String> for ResponseAllOfInstructions",
+        "impl crate::models::validation::Validate for ResponseAllOfInstructions",
+        "impl std::fmt::Display for ResponseAllOfInstructions"
+      ],
+      "removed": []
+    }
+  ],
+  "counts": {
+    "model_exports_added": 3,
+    "model_exports_removed": 0,
+    "public_functions_added_or_signature_changed": 26,
+    "public_functions_removed_or_signature_changed": 19,
+    "public_model_field_changes": 24,
+    "public_enum_types_with_variant_changes": 46,
+    "public_enum_variants_added": 54,
+    "public_enum_variants_removed": 0,
+    "public_derive_changes": 2,
+    "serde_field_attribute_changes": 20,
+    "public_enum_variant_payload_changes": 0,
+    "public_types_with_trait_impl_changes": 4,
+    "public_trait_impls_added": 14,
+    "public_trait_impls_removed": 0
+  }
+}

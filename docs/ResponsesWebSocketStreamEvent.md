@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **status** | Option<**Status**> | The completion status of the summary part. Omitted when the part completed normally and set to `incomplete` when generation was interrupted.  (enum: incomplete) | [optional]
 **text** | **String** | The text content that is finalized.  | 
 **refusal** | **String** | The refusal text that is finalized.  | 
-**logprobs** | [**Vec<models::ResponseLogProb>**](ResponseLogProb.md) | The log probabilities of the tokens in the delta.  | 
+**logprobs** | Option<[**Vec<models::ResponseLogProb>**](ResponseLogProb.md)> | The log probabilities of the tokens in the delta.  | [optional]
 **partial_image_index** | **i64** | 0-based index for the partial image (backend is 1-based, but this is 0-based for the user). | 
 **partial_image_b64** | **String** | Base64-encoded partial image data, suitable for rendering as an image. | 
 **size** | Option<**String**> | The image size that was used. | [optional]

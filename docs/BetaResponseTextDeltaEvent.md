@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **content_index** | **i64** | The index of the content part that the text delta was added to.  | 
 **delta** | **String** | The text delta that was added.  | 
 **sequence_number** | **i64** | The sequence number for this event. | 
-**logprobs** | [**Vec<models::BetaResponseLogProb>**](BetaResponseLogProb.md) | The log probabilities of the tokens in the delta.  | 
+**logprobs** | Option<[**Vec<models::BetaResponseLogProb>**](BetaResponseLogProb.md)> | The log probabilities of the tokens in the delta.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

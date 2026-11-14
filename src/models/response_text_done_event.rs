@@ -33,8 +33,8 @@ pub struct ResponseTextDoneEvent {
     #[serde(rename = "sequence_number")]
     pub sequence_number: i64,
     /// The log probabilities of the tokens in the delta.
-    #[serde(rename = "logprobs")]
-    pub logprobs: Vec<models::ResponseLogProb>,
+    #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
+    pub logprobs: Option<Vec<models::ResponseLogProb>>,
 }
 
 impl ResponseTextDoneEvent {
@@ -46,7 +46,6 @@ impl ResponseTextDoneEvent {
         content_index: i64,
         text: String,
         sequence_number: i64,
-        logprobs: Vec<models::ResponseLogProb>,
     ) -> ResponseTextDoneEvent {
         ResponseTextDoneEvent {
             r#type,
@@ -55,7 +54,7 @@ impl ResponseTextDoneEvent {
             content_index,
             text,
             sequence_number,
-            logprobs,
+            logprobs: None,
         }
     }
 }

@@ -76,8 +76,8 @@ pub struct BetaResponsesWebSocketStreamEvent {
     #[serde(rename = "refusal")]
     pub refusal: String,
     /// The log probabilities of the tokens in the delta.
-    #[serde(rename = "logprobs")]
-    pub logprobs: Vec<models::BetaResponseLogProb>,
+    #[serde(rename = "logprobs", skip_serializing_if = "Option::is_none")]
+    pub logprobs: Option<Vec<models::BetaResponseLogProb>>,
     /// 0-based index for the partial image (backend is 1-based, but this is 0-based for the user).
     #[serde(rename = "partial_image_index")]
     pub partial_image_index: i64,
@@ -129,7 +129,6 @@ impl BetaResponsesWebSocketStreamEvent {
         summary_index: i64,
         text: String,
         refusal: String,
-        logprobs: Vec<models::BetaResponseLogProb>,
         partial_image_index: i64,
         partial_image_b64: String,
         annotation_index: i64,
@@ -157,7 +156,7 @@ impl BetaResponsesWebSocketStreamEvent {
             status: None,
             text,
             refusal,
-            logprobs,
+            logprobs: None,
             partial_image_index,
             partial_image_b64,
             size: None,
